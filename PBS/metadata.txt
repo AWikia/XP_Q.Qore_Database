@@ -1,0 +1,2473 @@
+﻿[000]
+PlayerA=POKEMONTRAINER_Raptor,boy2_walk,boy2_bike,boy2_surf_offset,boy2_run,boy2_surf_offset,girl_fish_offset,girl_fishsurf_offset
+PlayerB=POKEMONTRAINER_Renko,boy_walk,boy_bike,boy_surf_offset,boy_run,boy_dive_offset,boy_fish_offset,boy_fishsurf_offset
+TrainerVictoryME=Victory - Trainer.mp3
+WildVictoryME=Victory - Wild Pokemon.mp3
+TrainerBattleBGM=sfxBattler_Alt.mp3
+SurfBGM=Ship.mp3
+BicycleBGM=Airship.mp3
+Home=3,7,5,8
+WildBattleBGM=sfxBattler.mp3
+[001]
+# Intro
+BattleBack=Intro
+[002]
+# Lappet Town
+MapPosition=0,13,12
+Outdoor=true
+ShowArea=true
+[003]
+# \PN's house
+BattleBack=IndoorB
+MapPosition=0,13,12
+HealingSpot=2,8,8
+[004]
+# Pokémon Lab
+MapPosition=0,13,12
+ShowArea=false
+[005]
+# Route 1
+MapPosition=0,13,11
+Outdoor=true
+ShowArea=true
+[006]
+# Kurt's house
+MapPosition=0,13,11
+[007]
+# Cedolan City
+MapSize=2,11
+MapPosition=0,13,10
+Outdoor=true
+ShowArea=true
+[008]
+# Daisy's house
+MapPosition=0,13,12
+[009]
+# Cedolan City Poké Center
+MapPosition=0,14,10
+HealingSpot=8,17,11
+[010]
+# Cedolan Gym
+BattleBack=IndoorB
+MapPosition=0,13,10
+[011]
+# Pokémon Institute
+MapPosition=0,14,10
+[012]
+# Cedolan City Condo
+MapPosition=0,14,10
+[013]
+# Game Corner
+MapPosition=0,14,10
+[014]
+# Cedolan Dept. 1F
+MapPosition=0,13,10
+[015]
+# Cedolan Dept. 2F
+MapPosition=0,13,10
+[016]
+# Cedolan Dept. 3F
+MapPosition=0,13,10
+[017]
+# Cedolan Dept. 4F
+MapPosition=0,13,10
+[018]
+# Cedolan Dept. 5F
+MapPosition=0,13,10
+[019]
+# Cedolan Dept. Rooftop
+MapPosition=0,13,10
+[020]
+# Cedolan Dept. Elevator
+MapPosition=0,13,10
+[021]
+# Route 2
+MapSize=1,11
+Weather=Rain,50
+MapPosition=0,14,8
+Outdoor=true
+ShowArea=true
+[022]
+# Quora Eins
+MapSize=2,1111
+BattleBack=Quora
+Bicycle=false
+MapPosition=2,2,2
+Outdoor=true
+ShowArea=true
+[023]
+# Lerucean Town
+MapPosition=0,15,8
+Outdoor=true
+ShowArea=true
+[024]
+# Lerucean Town Poké Center
+MapPosition=0,15,8
+HealingSpot=23,11,15
+[025]
+# Lerucean Town Mart
+MapPosition=0,15,8
+[026]
+# Pokémon Fan Club
+MapPosition=0,15,8
+[027]
+# Pokémon Day Care
+MapPosition=0,15,8
+[028]
+# Natural Park
+BattleBack=Forest
+MapPosition=0,16,8
+Outdoor=true
+ShowArea=true
+[029]
+# Natural Park Entrance
+Bicycle=true
+MapPosition=0,16,8
+[030]
+# Natural Park Pavillion
+MapPosition=0,16,8
+[031]
+# Route 3
+MapSize=2,1101
+MapPosition=0,14,6
+Outdoor=true
+ShowArea=true
+[032]
+# Quora Zwei
+MapSize=2,11
+BattleBack=Quora
+MapPosition=2,10,8
+Outdoor=true
+ShowArea=true
+[033]
+# Quora Drei
+MapSize=2,1111
+BattleBack=Quora
+Bicycle=false
+MapPosition=2,26,7
+Outdoor=true
+ShowArea=true
+[034]
+# Ice Cave
+BattleBack=IndoorC
+Bicycle=true
+MapPosition=0,15,6
+[035]
+# Ingido Plateau
+MapPosition=0,13,6
+Outdoor=true
+ShowArea=true
+[036]
+# Pokémon League
+MapPosition=0,13,6
+HealingSpot=35,17,7
+[037]
+# Pokémon League
+BattleBack=EliteA
+MapPosition=0,13,6
+[038]
+# Hall of Fame
+MapPosition=0,13,6
+[039]
+# Route 4
+MapSize=2,11
+MapPosition=0,11,6
+Outdoor=true
+ShowArea=true
+[040]
+# Route 4
+MapPosition=0,11,6
+Outdoor=true
+BicycleAlways=true
+ShowArea=true
+[041]
+# Route 5
+MapSize=1,111
+MapPosition=0,11,7
+Outdoor=true
+BicycleAlways=true
+ShowArea=true
+[042]
+# Swuora Eins
+MapSize=3,111111111
+BattleBack=Swuora
+Bicycle=false
+MapPosition=3,1,2
+Outdoor=true
+ShowArea=true
+[043]
+# Swuora Zwei
+MapSize=2,1111
+BattleBack=Swuora
+MapPosition=3,3,16
+Outdoor=true
+ShowArea=true
+[044]
+# Route 6
+MapSize=2,11
+MapPosition=0,11,10
+Outdoor=true
+ShowArea=true
+[045]
+# Route 6
+MapPosition=0,11,10
+Outdoor=true
+BicycleAlways=true
+ShowArea=true
+[046]
+# Cycling Road gate
+Bicycle=true
+MapPosition=0,12,6
+[047]
+# Route 7
+MapSize=2,11
+BattleBack=Mountain
+Weather=Rain,0
+MapPosition=0,15,10
+Outdoor=true
+ShowArea=true
+[048]
+# Glitch Cave
+DiveMap=135
+BattleBack=CaveDark
+Bicycle=true
+MapPosition=3,3,16
+ShowArea=true
+[049]
+# Rock Cave
+Bicycle=true
+MapPosition=0,16,10
+[050]
+# Rock Cave
+BattleBack=CaveDark
+Bicycle=true
+MapPosition=0,16,10
+DarkMap=true
+[051]
+# Dungeon
+Bicycle=true
+Dungeon=true
+MapPosition=0,16,10
+[052]
+# Blackthorn City
+TrainerBattleBGM=Raido - Battle.mp3
+MapPosition=10,22,7
+Outdoor=true
+ShowArea=true
+[053]
+# Rest Area
+MapPosition=10,22,7
+HealingSpot=52,17,14
+[054]
+# Telemarketing Area
+MapPosition=10,22,7
+[055]
+# Battle Tower
+MapPosition=10,22,7
+HealingSpot=52,30,10
+[056]
+# Battle Tower arena
+BattleBack=EliteA
+TrainerBattleBGM=Radio - Battle.mp3
+MapPosition=10,22,7
+[057]
+# Stadium Cup lobby
+MapPosition=10,22,7
+[058]
+# Battle Palace
+MapPosition=10,22,7
+[059]
+# Battle Palace arena
+BattleBack=EliteD
+TrainerBattleBGM=Radio - Battle.mp3
+MapPosition=10,22,7
+[060]
+# Battle Arena
+MapPosition=10,22,7
+[061]
+# Battle Arena arena
+BattleBack=EliteB
+TrainerBattleBGM=Radio - Battle.mp3
+MapPosition=10,22,7
+[062]
+# Battle Factory
+MapPosition=10,22,7
+[063]
+# Battle Factory intro corridor
+MapPosition=10,22,7
+[064]
+# Battle Factory arena
+BattleBack=EliteC
+TrainerBattleBGM=Radio - Battle.mp3
+MapPosition=10,22,7
+[065]
+# Battle Factory corridor
+MapPosition=10,22,7
+[066]
+# Safari Zone
+MapPosition=0,12,12
+Outdoor=true
+ShowArea=true
+[067]
+# Safari Zone gate
+MapPosition=0,12,12
+[068]
+# Safari Zone
+BattleBack=Forest
+MapPosition=0,12,12
+SafariMap=true
+Outdoor=true
+ShowArea=true
+[069]
+# Route 8
+DiveMap=70
+MapPosition=0,13,13
+Outdoor=true
+ShowArea=true
+[070]
+# Underwater
+MapPosition=0,13,13
+[071]
+# Harbour
+MapPosition=0,13,13
+[072]
+# Berth Island
+Weather=Storm,50
+MapPosition=0,18,17
+Outdoor=true
+ShowArea=true
+[073]
+# Faraday Island
+MapPosition=0,22,16
+Outdoor=true
+ShowArea=true
+[074]
+# Cycling Road gate
+Bicycle=true
+MapPosition=0,12,10
+[075]
+# Tiall Region
+MapPosition=1,13,16
+Outdoor=true
+[076]
+# Swuora Drei
+MapSize=3,111111111
+BattleBack=Swuora
+Weather=Sandstorm,50
+Bicycle=false
+MapPosition=3,21,4
+Outdoor=true
+ShowArea=true
+[077]
+# Semuora Eins
+MapSize=2,1111
+BattleBack=Semuora
+Bicycle=false
+MapPosition=4,4,9
+Outdoor=true
+ShowArea=true
+[078]
+# Semuora Zwei
+MapSize=2,1111
+BattleBack=Semuora
+MapPosition=4,10,10
+Outdoor=true
+ShowArea=true
+[079]
+# Marrine Cave
+MapSize=2,11
+BattleBack=CaveDark
+Bicycle=true
+MapPosition=4,10,10
+ShowArea=true
+[080]
+# Marrine Cave
+BattleBack=CaveDark
+Weather=Sandstorm,30
+Bicycle=true
+MapPosition=4,15,5
+ShowArea=true
+[081]
+# Semuora Drei
+MapSize=2,1111
+BattleBack=Semuora
+Weather=Sunny,35
+Bicycle=false
+MapPosition=4,15,5
+Outdoor=true
+ShowArea=true
+[082]
+# Semuora Vier
+MapSize=2,1111
+BattleBack=Semuora
+Weather=Sunny,10
+Bicycle=false
+MapPosition=4,22,17
+Outdoor=true
+ShowArea=true
+[083]
+# Kenuora Eins
+MapSize=2,1111
+BattleBack=Kenuora
+MapPosition=5,1,4
+Outdoor=true
+ShowArea=true
+[084]
+# Game Corner
+MapPosition=5,2,4
+[085]
+# Kenuora Zwei
+MapSize=3,111111
+BattleBack=Kenuora
+Weather=Sandstorm,100
+Bicycle=false
+MapPosition=5,9,7
+Outdoor=true
+ShowArea=true
+[086]
+# Kenuora Drei
+MapSize=2,1111
+BattleBack=Kenuora
+Weather=Sunny,40
+MapPosition=5,17,5
+Outdoor=true
+ShowArea=true
+[087]
+# Kenuora Vier
+MapSize=2,1111
+BattleBack=Kenuora
+Weather=Sandstorm,25
+Bicycle=false
+MapPosition=5,26,17
+Outdoor=true
+ShowArea=true
+[088]
+# Xenuora Eins
+MapSize=2,1111
+BattleBack=Xenuora
+MapPosition=6,1,4
+Outdoor=true
+ShowArea=true
+[089]
+# Rest Area
+MapPosition=6,1,4
+HealingSpot=88,15,7
+[090]
+# Xenuora Zwei
+MapSize=2,1111
+BattleBack=Xenuora
+MapPosition=6,11,2
+Outdoor=true
+ShowArea=true
+[091]
+# Jarol Cave
+Bicycle=true
+MapPosition=6,12,3
+DarkMap=true
+ShowArea=true
+[092]
+# Jarol Garden
+BattleBack=Jarol
+Bicycle=false
+MapPosition=6,12,12
+Outdoor=true
+ShowArea=true
+[093]
+# Jarol Cave
+BattleBack=CaveDark
+Bicycle=true
+MapPosition=6,12,12
+DarkMap=true
+ShowArea=true
+[094]
+# Xenuora Drei
+MapSize=2,1111
+BattleBack=Xenuora
+Bicycle=false
+MapPosition=6,12,12
+Outdoor=true
+ShowArea=true
+[095]
+# Xenuora Vier
+MapSize=2,1111
+BattleBack=Xenuora
+MapPosition=6,22,11
+Outdoor=true
+ShowArea=true
+[096]
+# Pokemon Day Care
+BattleBack=IndoorC
+MapPosition=6,23,11
+[097]
+# Xenuora Funf
+MapSize=2,1111
+BattleBack=Xenuora
+Bicycle=false
+MapPosition=6,28,18
+Outdoor=true
+ShowArea=true
+[098]
+# XenuLeauge
+BattleBack=IndoorC
+MapPosition=6,28,18
+[099]
+# Jelly Queen
+BattleBack=EliteA
+[100]
+# Cupcake Carl
+BattleBack=EliteB
+[101]
+# Tiffi
+BattleBack=EliteC
+[102]
+# Kimmy
+BattleBack=EliteD
+[103]
+# Liquorice Larry
+BattleBack=Champion
+[105]
+# Annuora Eins
+MapSize=2,1111
+BattleBack=Annuora
+MapPosition=7,1,2
+Outdoor=true
+ShowArea=true
+[106]
+# Annuora Zwei
+BattleBack=Annuora
+MapPosition=7,11,5
+Outdoor=true
+ShowArea=true
+[107]
+# Annuora Drei
+MapSize=2,1111
+BattleBack=Annuora
+MapPosition=7,17,0
+Outdoor=true
+ShowArea=true
+[108]
+# Annuora Vier
+MapSize=2,11
+BattleBack=Annuora
+Weather=Sandstorm,100
+Bicycle=false
+MapPosition=7,22,8
+Outdoor=true
+ShowArea=true
+[109]
+# Annuora Funf
+MapSize=2,1111
+BattleBack=Annuora
+Weather=Sandstorm,30
+Bicycle=false
+MapPosition=7,24,15
+Outdoor=true
+ShowArea=true
+[110]
+# Nebula Cave {east}
+MapSize=0,
+BattleBack=CaveDarker
+Bicycle=true
+MapPosition=7,11,5
+DarkMap=true
+WildBattleBGM=Battler_Nebula Cave.mp3
+ShowArea=true
+[111]
+# Nebula Cave {west}
+BattleBack=CaveDarker
+Bicycle=true
+MapPosition=7,17,0
+DarkMap=true
+WildBattleBGM=Battler_Nebula Cave.mp3
+ShowArea=true
+[112]
+# MYSTERY ZONE
+BattleBack=MYSTERY
+[113]
+# Keniora Eins
+MapSize=2,11
+BattleBack=Keniora
+MapPosition=8,1,3
+Outdoor=true
+ShowArea=true
+[114]
+# Keniora Zwei
+BattleBack=Keniora
+MapPosition=8,5,9
+Outdoor=true
+ShowArea=true
+[115]
+# Keniora Drei
+BattleBack=Keniora
+Weather=Sandstorm,100
+Bicycle=false
+MapPosition=8,9,3
+Outdoor=true
+ShowArea=true
+[117]
+# Keniora Vier
+MapSize=2,1111
+BattleBack=Keniora
+MapPosition=8,15,5
+Outdoor=true
+ShowArea=true
+[118]
+# Keniora Funf
+MapSize=1,111
+BattleBack=Keniora
+Weather=Sandstorm,100
+Bicycle=false
+MapPosition=8,19,3
+Outdoor=true
+ShowArea=true
+[119]
+# Rest Area
+MapPosition=8,19,3
+HealingSpot=118,27,5
+[120]
+# Keniora Sechs
+MapSize=2,1111
+BattleBack=Keniora
+Bicycle=false
+MapPosition=8,20,14
+Outdoor=true
+ShowArea=true
+[121]
+# Fusion Cave
+MapSize=2,0111
+BattleBack=Cave
+Bicycle=true
+MapPosition=5,17,5
+ShowArea=true
+[122]
+# Velvet Corridor Path
+Bicycle=true
+MapPosition=8,20,14
+DarkMap=true
+ShowArea=true
+[123]
+# Velvet Corridor Path
+MapPosition=9,2,3
+DarkMap=true
+ShowArea=true
+[124]
+# Xeniora Eins
+BattleBack=Xeniora
+Bicycle=false
+MapPosition=9,2,3
+Outdoor=true
+ShowArea=true
+[125]
+# Magnet Rail
+BattleBack=Cave
+Bicycle=true
+MapPosition=9,11,4
+[126]
+# Isolated Woods
+Bicycle=false
+MapPosition=9,2,3
+Outdoor=true
+ShowArea=true
+[127]
+# Magnet Rail
+BattleBack=Cave
+Bicycle=true
+MapPosition=9,2,8
+[128]
+# Xeniora Zwei
+BattleBack=Xeniora
+MapPosition=9,2,8
+Outdoor=true
+ShowArea=true
+[130]
+# Safari Zone gate
+MapPosition=6,12,2
+[131]
+# Safari Zone
+MapPosition=6,12,2
+SafariMap=true
+Outdoor=true
+ShowArea=true
+[132]
+# Safari Zone - Indoor A
+BattleBack=IndoorD
+MapPosition=6,12,2
+SafariMap=true
+ShowArea=true
+[133]
+# Safari Zone - Indoor B
+BattleBack=IndoorD
+MapPosition=6,12,2
+SafariMap=true
+ShowArea=true
+[134]
+# Xeniora Drei
+BattleBack=Xeniora
+Weather=Sunny,100
+MapPosition=9,6,5
+Outdoor=true
+ShowArea=true
+[135]
+# Understairs Glitch Cave
+BattleBack=Underwater
+MapPosition=3,3,16
+ShowArea=true
+[136]
+# Magnet Rail
+Bicycle=true
+MapPosition=9,2,8
+[137]
+# Pokémon Fusion Generation
+MapPosition=9,2,8
+[138]
+# Understairs Swuora Zwei
+Bicycle=true
+MapPosition=3,3,16
+ShowArea=true
+[141]
+# New Bark Town
+TrainerBattleBGM=113 - Vs. Johto Trainer
+MapPosition=10,23,15
+Outdoor=true
+WildBattleBGM=112 - Vs. Wild Johto
+ShowArea=true
+[142]
+# Route 29
+MapSize=3,111
+TrainerBattleBGM=113 - Vs. Johto Trainer.mp3
+MapPosition=10,20,15
+Outdoor=true
+WildBattleBGM=112 - Vs. Wild Johto.mp3
+ShowArea=true
+[143]
+# Cherrygrove City
+TrainerBattleBGM=113 - Vs. Johto Trainer.mp3
+MapPosition=10,18,15
+Outdoor=true
+WildBattleBGM=112 - Vs. Wild Johto.mp3
+ShowArea=true
+[144]
+# Rest Area
+MapPosition=10,18,15
+HealingSpot=143,14,10
+[145]
+# Understairs Cherrygrove City
+BattleBack=CaveDark
+Bicycle=true
+TrainerBattleBGM=113 - Vs. Johto Trainer.mp3
+MapPosition=10,18,15
+WildBattleBGM=112 - Vs. Wild Johto.mp3
+ShowArea=true
+[146]
+# Understairs Keniora Sechs
+BattleBack=CaveDark
+Bicycle=true
+TrainerBattleBGM=113 - Vs. Johto Trainer.mp3
+MapPosition=8,20,15
+WildBattleBGM=112 - Vs. Wild Johto.mp3
+ShowArea=true
+[147]
+# Magnet Train
+BattleBack=CaveDarker
+Bicycle=true
+TrainerBattleBGM=113 - Vs. Johto Trainer.mp3
+MapPosition=3,3,16
+DarkMap=true
+WildBattleBGM=112 - Vs. Wild Johto.mp3
+ShowArea=true
+[148]
+# Understairs Keniora Funf
+BattleBack=CaveDark
+Bicycle=true
+TrainerBattleBGM=113 - Vs. Johto Trainer.mp3
+MapPosition=8,19,4
+WildBattleBGM=112 - Vs. Wild Johto.mp3
+ShowArea=true
+[149]
+# Understairs Violet City
+BattleBack=CaveDarker
+Bicycle=true
+TrainerBattleBGM=113 - Vs. Johto Trainer.mp3
+MapPosition=10,16,10
+WildBattleBGM=112 - Vs. Wild Johto.mp3
+ShowArea=true
+[150]
+# Azalea Town
+TrainerBattleBGM=113 - Vs. Johto Trainer.mp3
+MapPosition=10,13,17
+Outdoor=true
+WildBattleBGM=112 - Vs. Wild Johto.mp3
+ShowArea=true
+[151]
+# Ethan's House
+TrainerBattleBGM=113 - Vs. Johto Trainer.mp3
+MapPosition=10,13,17
+WildBattleBGM=112 - Vs. Wild Johto.mp3
+[152]
+# Rest Area
+TrainerBattleBGM=113 - Vs. Johto Trainer.mp3
+MapPosition=10,13,17
+WildBattleBGM=112 - Vs. Wild Johto.mp3
+HealingSpot=150,28,14
+[153]
+# Telemarketing Area
+TrainerBattleBGM=113 - Vs. Johto Trainer.mp3
+MapPosition=10,13,17
+WildBattleBGM=112 - Vs. Wild Johto.mp3
+[154]
+# Understairs Azalea Town
+BattleBack=CaveDark
+Bicycle=true
+TrainerBattleBGM=113 - Vs. Johto Trainer.mp3
+MapPosition=10,12,17
+DarkMap=true
+WildBattleBGM=112 - Vs. Wild Johto.mp3
+ShowArea=true
+[155]
+# Ilex Forest
+BattleBack=Ilex
+Bicycle=false
+TrainerBattleBGM=113 - Vs. Johto Trainer.mp3
+MapPosition=10,11,17
+DarkMap=true
+Outdoor=true
+WildBattleBGM=112 - Vs. Wild Johto.mp3
+ShowArea=true
+[156]
+# Understairs Route 34
+MapSize=1,11
+BattleBack=CaveDark
+Bicycle=true
+TrainerBattleBGM=113 - Vs. Johto Trainer.mp3
+MapPosition=10,11,15
+DarkMap=true
+WildBattleBGM=112 - Vs. Wild Johto.mp3
+ShowArea=true
+[157]
+# Goldenrod City
+TrainerBattleBGM=113 - Vs. Johto Trainer.mp3
+MapPosition=10,11,13
+Outdoor=true
+WildBattleBGM=112 - Vs. Wild Johto.mp3
+ShowArea=true
+[158]
+# Rest Area
+TrainerBattleBGM=113 - Vs. Johto Trainer.mp3
+MapPosition=10,11,13
+WildBattleBGM=112 - Vs. Wild Johto.mp3
+HealingSpot=157,16,28
+[159]
+# Goldenrod City Game Corner
+TrainerBattleBGM=113 - Vs. Johto Trainer.mp3
+MapPosition=10,11,13
+WildBattleBGM=112 - Vs. Wild Johto.mp3
+[160]
+# Route 35
+TrainerBattleBGM=113 - Vs. Johto Trainer
+MapPosition=10,11,11
+Outdoor=true
+WildBattleBGM=112 - Vs. Wild Johto
+ShowArea=true
+[161]
+# Route 36
+TrainerBattleBGM=113 - Vs. Johto Trainer
+MapPosition=10,12,9
+Outdoor=true
+WildBattleBGM=112 - Vs. Wild Johto
+ShowArea=true
+[162]
+# Route 37
+TrainerBattleBGM=113 - Vs. Johto Trainer
+MapPosition=10,12,8
+Outdoor=true
+WildBattleBGM=112 - Vs. Wild Johto
+ShowArea=true
+[163]
+# Understairs Quora Eins
+Bicycle=true
+TrainerBattleBGM=113 - Vs. Johto Trainer.mp3
+MapPosition=2,2,3
+WildBattleBGM=112 - Vs. Wild Johto.mp3
+ShowArea=true
+[164]
+# Understairs Ecruteak City
+Bicycle=true
+TrainerBattleBGM=113 - Vs. Johto Trainer.mp3
+MapPosition=10,12,6
+WildBattleBGM=112 - Vs. Wild Johto.mp3
+ShowArea=true
+[165]
+# Understairs Route 38
+MapSize=2,11
+Bicycle=true
+TrainerBattleBGM=113 - Vs. Johto Trainer.mp3
+MapPosition=10,9,7
+WildBattleBGM=112 - Vs. Wild Johto.mp3
+ShowArea=true
+[166]
+# Route 39
+MapSize=1,11
+TrainerBattleBGM=113 - Vs. Johto Trainer.mp3
+MapPosition=10,8,7
+Outdoor=true
+WildBattleBGM=112 - Vs. Wild Johto.mp3
+ShowArea=true
+[167]
+# Olivine City
+TrainerBattleBGM=113 - Vs. Johto Trainer.mp3
+MapPosition=10,8,10
+Outdoor=true
+WildBattleBGM=112 - Vs. Wild Johto.mp3
+ShowArea=true
+[168]
+# Rest Area
+TrainerBattleBGM=113 - Vs. Johto Trainer.mp3
+MapPosition=10,8,10
+WildBattleBGM=112 - Vs. Wild Johto.mp3
+HealingSpot=167,14,22
+[169]
+# Telemarketing Area
+TrainerBattleBGM=113 - Vs. Johto Trainer.mp3
+MapPosition=10,8,10
+WildBattleBGM=112 - Vs. Wild Johto.mp3
+[170]
+# Understairs Olivine City
+Bicycle=true
+TrainerBattleBGM=113 - Vs. Johto Trainer.mp3
+MapPosition=10,8,10
+WildBattleBGM=112 - Vs. Wild Johto.mp3
+ShowArea=true
+[171]
+# Understairs Route 40
+Bicycle=true
+TrainerBattleBGM=113 - Vs. Johto Trainer.mp3
+MapPosition=10,7,10
+WildBattleBGM=112 - Vs. Wild Johto.mp3
+ShowArea=true
+[172]
+# Understairs Route 42
+Bicycle=true
+TrainerBattleBGM=113 - Vs. Johto Trainer.mp3
+MapPosition=10,16,7
+WildBattleBGM=112 - Vs. Wild Johto.mp3
+ShowArea=true
+[173]
+# Route 42
+TrainerBattleBGM=113 - Vs. Johto Trainer.mp3
+MapPosition=10,16,7
+Outdoor=true
+WildBattleBGM=112 - Vs. Wild Johto.mp3
+ShowArea=true
+[174]
+# Magohany Town
+TrainerBattleBGM=113 - Vs. Johto Trainer.mp3
+MapPosition=10,17,7
+Outdoor=true
+WildBattleBGM=112 - Vs. Wild Johto.mp3
+ShowArea=true
+[175]
+# Rest Area
+MapPosition=10,17,7
+HealingSpot=174,12,18
+[176]
+# Route 43 Entrance
+TrainerBattleBGM=113 - Vs. Johto Trainer.mp3
+MapPosition=10,17,6
+WildBattleBGM=112 - Vs. Wild Johto.mp3
+[177]
+# Route 43
+MapSize=1,11
+TrainerBattleBGM=113 - Vs. Johto Trainer.mp3
+MapPosition=10,17,5
+Outdoor=true
+WildBattleBGM=112 - Vs. Wild Johto.mp3
+ShowArea=true
+[178]
+# Route 43 indoor
+TrainerBattleBGM=113 - Vs. Johto Trainer.mp3
+MapPosition=10,17,6
+WildBattleBGM=112 - Vs. Wild Johto.mp3
+[179]
+# Route 44
+MapSize=2,11
+TrainerBattleBGM=113 - Vs. Johto Trainer.mp3
+MapPosition=10,19,7
+Outdoor=true
+WildBattleBGM=112 - Vs. Wild Johto.mp3
+ShowArea=true
+[180]
+# Ice Path
+SnapEdges=true
+BattleBack=IndoorC
+TrainerBattleBGM=113 - Vs. Johto Trainer.mp3
+MapPosition=10,20,7
+WildBattleBGM=112 - Vs. Wild Johto.mp3
+ShowArea=true
+[181]
+# Lake of Rage Entrance
+TrainerBattleBGM=113 - Vs. Johto Trainer.mp3
+MapPosition=10,17,3
+WildBattleBGM=112 - Vs. Wild Johto.mp3
+[182]
+# Lake of Rage
+TrainerBattleBGM=gymleader
+MapPosition=10,17,3
+Outdoor=true
+WildBattleBGM=112 - Vs. Wild Johto.mp3
+ShowArea=true
+[184]
+# Littleroot Town
+TrainerBattleBGM=113 - Vs. Hoenn Trainer.mp3
+MapPosition=11,5,13
+Outdoor=true
+WildBattleBGM=112 - Vs. Wild Hoenn.mp3
+ShowArea=true
+[186]
+# Route 101
+TrainerBattleBGM=113 - Vs. Hoenn Trainer.mp3
+MapPosition=11,5,12
+Outdoor=true
+WildBattleBGM=112 - Vs. Wild Hoenn.mp3
+ShowArea=true
+[187]
+# Oldale Town
+TrainerBattleBGM=113 - Vs. Hoenn Trainer.mp3
+MapPosition=11,5,11
+Outdoor=true
+WildBattleBGM=112 - Vs. Wild Hoenn.mp3
+ShowArea=true
+[188]
+# Rest Area
+MapPosition=11,5,11
+HealingSpot=187,6,17
+[189]
+# Route 102
+MapSize=2,11
+TrainerBattleBGM=113 - Vs. Hoenn Trainer.mp3
+MapPosition=11,3,11
+Outdoor=true
+WildBattleBGM=112 - Vs. Wild Hoenn.mp3
+ShowArea=true
+[191]
+# Petallburg City
+TrainerBattleBGM=113 - Vs. Hoenn Trainer.mp3
+MapPosition=11,2,11
+Outdoor=true
+WildBattleBGM=112 - Vs. Wild Hoenn.mp3
+ShowArea=true
+[192]
+# Rest Area
+MapPosition=11,2,11
+HealingSpot=191,20,17
+[194]
+# Route 104
+MapSize=1,111
+TrainerBattleBGM=113 - Vs. Hoenn Trainer.mp3
+MapPosition=11,1,9
+Outdoor=true
+WildBattleBGM=112 - Vs. Wild Hoenn.mp3
+ShowArea=true
+[195]
+# Understairs Route 104
+Bicycle=true
+TrainerBattleBGM=113 - Vs. Hoenn Trainer.mp3
+MapPosition=11,1,10
+WildBattleBGM=112 - Vs. Wild Hoenn.mp3
+ShowArea=true
+[196]
+# Rustboro City
+MapSize=1,11
+TrainerBattleBGM=113 - Vs. Hoenn Trainer.mp3
+MapPosition=11,1,7
+Outdoor=true
+WildBattleBGM=112 - Vs. Wild Hoenn.mp3
+ShowArea=true
+[198]
+# Telecommunities Center
+MapPosition=11,1,7
+HealingSpot=196,16,14
+[200]
+# Meteor Falls
+SnapEdges=true
+BattleBack=CaveDark
+Bicycle=true
+TrainerBattleBGM=113 - Vs. Hoenn Trainer.mp3
+MapPosition=11,1,7
+WildBattleBGM=112 - Vs. Wild Hoenn.mp3
+ShowArea=true
+[201]
+# Fallabor Town
+TrainerBattleBGM=113 - Vs. Hoenn Trainer.mp3
+MapPosition=11,4,2
+Outdoor=true
+WildBattleBGM=112 - Vs. Wild Hoenn.mp3
+ShowArea=true
+[202]
+# Rest Area
+MapPosition=11,4,2
+HealingSpot=201,14,8
+[206]
+# Route 113
+MapSize=4,1111
+Weather=Sandstorm,100
+TrainerBattleBGM=113 - Vs. Hoenn Trainer.mp3
+MapPosition=11,5,2
+Outdoor=true
+WildBattleBGM=112 - Vs. Wild Hoenn.mp3
+ShowArea=true
+BattleBack=Mountain
+[207]
+# Understaurs Route 111
+TrainerBattleBGM=113 - Vs. Hoenn Trainer.mp3
+MapPosition=11,9,2
+WildBattleBGM=112 - Vs. Wild Hoenn.mp3
+ShowArea=true
+[208]
+# Mauville City
+MapSize=2,11
+TrainerBattleBGM=113 - Vs. Hoenn Trainer.mp3
+MapPosition=11,9,8
+Outdoor=true
+WildBattleBGM=112 - Vs. Wild Hoenn.mp3
+ShowArea=true
+[209]
+# Rest Area
+MapPosition=11,9,8
+HealingSpot=208,22,6
+[211]
+# Understairs Route 119
+MapSize=1,111111
+TrainerBattleBGM=113 - Vs. Hoenn Trainer.mp3
+MapPosition=11,12,2
+DarkMap=true
+WildBattleBGM=112 - Vs. Wild Hoenn.mp3
+ShowArea=true
+BattleBack=CaveDarker
+[212]
+# Understairs Fortree City
+TrainerBattleBGM=113 - Vs. Hoenn Trainer.mp3
+MapPosition=11,13,2
+DarkMap=true
+WildBattleBGM=112 - Vs. Wild Hoenn.mp3
+ShowArea=true
+BattleBack=CaveDarker
+[213]
+# Understairs Route 120
+MapSize=1,1111
+TrainerBattleBGM=113 - Vs. Hoenn Trainer.mp3
+MapPosition=11,14,2
+DarkMap=true
+WildBattleBGM=112 - Vs. Wild Hoenn.mp3
+ShowArea=true
+BattleBack=CaveDarker
+[214]
+# Understairs Route 121
+MapSize=4,1111
+TrainerBattleBGM=113 - Vs. Hoenn Trainer.mp3
+MapPosition=11,15,5
+DarkMap=true
+WildBattleBGM=112 - Vs. Wild Hoenn.mp3
+ShowArea=true
+BattleBack=CaveDarker
+[215]
+# Route 121
+TrainerBattleBGM=113 - Vs. Hoenn Trainer.mp3
+MapPosition=11,18,5
+Outdoor=true
+WildBattleBGM=112 - Vs. Wild Hoenn.mp3
+ShowArea=true
+[216]
+# Lilycone City
+MapSize=2,11
+TrainerBattleBGM=113 - Vs. Hoenn Trainer.mp3
+MapPosition=11,19,5
+Outdoor=true
+WildBattleBGM=112 - Vs. Wild Hoenn.mp3
+ShowArea=true
+[217]
+# Route 124
+MapSize=2,11
+TrainerBattleBGM=113 - Vs. Hoenn Trainer.mp3
+MapPosition=11,21,5
+Outdoor=true
+WildBattleBGM=112 - Vs. Wild Hoenn.mp3
+ShowArea=true
+[218]
+# Rest Area
+MapPosition=11,20,5
+HealingSpot=216,22,14
+[220]
+# Cave of Origin
+Bicycle=true
+TrainerBattleBGM=113 - Vs. Hoenn Trainer.mp3
+MapPosition=11,22,5
+WildBattleBGM=112 - Vs. Wild Hoenn.mp3
+ShowArea=true
+[221]
+# Cave of Origin
+BattleBack=CaveDark
+Bicycle=true
+TrainerBattleBGM=113 - Vs. Hoenn Trainer.mp3
+MapPosition=11,22,5
+WildBattleBGM=112 - Vs. Wild Hoenn.mp3
+ShowArea=true
+[222]
+# Cave of Origin
+BattleBack=CaveDarker
+TrainerBattleBGM=113 - Vs. Hoenn Trainer.mp3
+MapPosition=11,22,5
+WildBattleBGM=112 - Vs. Wild Hoenn.mp3
+ShowArea=true
+[223]
+# Meteor Falls
+SnapEdges=true
+BattleBack=CaveDarker
+Bicycle=true
+TrainerBattleBGM=113 - Vs. Hoenn Trainer.mp3
+MapPosition=11,1,7
+WildBattleBGM=112 - Vs. Wild Hoenn.mp3
+ShowArea=true
+[224]
+# Meteor Falls
+BattleBack=CaveDarker
+Bicycle=true
+TrainerBattleBGM=113 - Vs. Hoenn Trainer.mp3
+MapPosition=11,1,7
+WildBattleBGM=112 - Vs. Wild Hoenn.mp3
+ShowArea=true
+[227]
+# PiXie Cave
+MapSize=2,11
+BattleBack=CaveDark
+Bicycle=true
+TrainerBattleBGM=113 - Vs. Hoenn Trainer.mp3
+MapPosition=4,10,10
+WildBattleBGM=112 - Vs. Wild Hoenn.mp3
+ShowArea=true
+[228]
+# Twinleaf Town
+TrainerBattleBGM=Shinnoh trainer.mp3
+Outdoor=true
+WildBattleBGM=Shinnoh Battle.mp3
+ShowArea=true
+[232]
+# Route 201
+TrainerBattleBGM=Shinnoh trainer.mp3
+Outdoor=true
+WildBattleBGM=Shinnoh Battle.mp3
+ShowArea=true
+[233]
+# PiXie Cave
+MapSize=2,11
+BattleBack=CaveDarker
+Bicycle=true
+TrainerBattleBGM=113 - Vs. Johto Trainer.mp3
+MapPosition=4,10,10
+WildBattleBGM=112 - Vs. Wild Johto.mp3
+[234]
+# PiXie Cave
+MapSize=2,11
+BattleBack=CaveDarker
+Bicycle=true
+TrainerBattleBGM=113 - Vs. Johto Trainer.mp3
+MapPosition=4,10,10
+WildBattleBGM=112 - Vs. Wild Johto.mp3
+[236]
+# Sandgem Town
+TrainerBattleBGM=Shinnoh trainer.mp3
+Outdoor=true
+WildBattleBGM=Shinnoh Battle.mp3
+ShowArea=true
+[239]
+# Understairs Sandgem Town
+Bicycle=true
+TrainerBattleBGM=Shinnoh trainer.mp3
+WildBattleBGM=Shinnoh Battle.mp3
+ShowArea=true
+[240]
+# Understairs Lilycone City
+Bicycle=true
+TrainerBattleBGM=Shinnoh trainer.mp3
+MapPosition=11,19,5
+WildBattleBGM=Shinnoh Battle.mp3
+ShowArea=true
+[241]
+# Lilycone Basement
+Bicycle=true
+TrainerBattleBGM=Shinnoh trainer.mp3
+MapPosition=11,19,5
+WildBattleBGM=Shinnoh Battle.mp3
+ShowArea=true
+[242]
+# Understairs Route 124
+Bicycle=true
+TrainerBattleBGM=Shinnoh trainer.mp3
+MapPosition=11,19,5
+WildBattleBGM=Shinnoh Battle.mp3
+ShowArea=true
+[243]
+# Sandgem Bridgeway
+Bicycle=true
+TrainerBattleBGM=Shinnoh trainer.mp3
+WildBattleBGM=Shinnoh Battle.mp3
+ShowArea=true
+[244]
+# Understairs Route 202
+Bicycle=true
+TrainerBattleBGM=Shinnoh trainer.mp3
+WildBattleBGM=Shinnoh Battle.mp3
+ShowArea=true
+[245]
+# Understairs Jumbilife City
+Bicycle=true
+TrainerBattleBGM=Shinnoh trainer.mp3
+WildBattleBGM=Shinnoh Battle.mp3
+ShowArea=true
+[246]
+# Jumbilife Basement
+Bicycle=true
+TrainerBattleBGM=Shinnoh trainer.mp3
+WildBattleBGM=Shinnoh Battle.mp3
+ShowArea=true
+[247]
+# Understairs Route 204
+Bicycle=true
+TrainerBattleBGM=Shinnoh trainer.mp3
+WildBattleBGM=Shinnoh Battle.mp3
+ShowArea=true
+[248]
+# Ravaged Path
+Bicycle=true
+TrainerBattleBGM=Shinnoh trainer.mp3
+WildBattleBGM=Shinnoh Battle.mp3
+ShowArea=true
+[249]
+# Understairs Floaroma Town
+Bicycle=true
+TrainerBattleBGM=Shinnoh trainer.mp3
+WildBattleBGM=Shinnoh Battle.mp3
+ShowArea=true
+[250]
+# Understairs Floaroma Meadow
+Bicycle=true
+TrainerBattleBGM=Shinnoh trainer.mp3
+WildBattleBGM=Shinnoh Battle.mp3
+ShowArea=true
+[251]
+# Route 205
+Bicycle=true
+TrainerBattleBGM=Shinnoh trainer.mp3
+Outdoor=true
+WildBattleBGM=Shinnoh Battle.mp3
+ShowArea=true
+[252]
+# Valley Windowrks
+Bicycle=true
+TrainerBattleBGM=Shinnoh trainer.mp3
+WildBattleBGM=Shinnoh Battle.mp3
+ShowArea=true
+[254]
+# Dexoys Carven
+Bicycle=true
+TrainerBattleBGM=113 - Vs. Johto Trainer.mp3
+WildBattleBGM=112 - Vs. Wild Johto.mp3
+[255]
+# Jirachi Carven
+Bicycle=true
+TrainerBattleBGM=113 - Vs. Johto Trainer.mp3
+WildBattleBGM=112 - Vs. Wild Johto.mp3
+[256]
+# Lineel Eins
+Bicycle=true
+TrainerBattleBGM=sfxBattler_TEAMROCKETS
+MapPosition=12,0,0
+Outdoor=true
+ShowArea=true
+[257]
+# Lineel Zwei
+BattleBack=CaveDark
+Bicycle=true
+TrainerBattleBGM=sfxBattler_TEAMROCKETS
+MapPosition=12,1,1
+ShowArea=true
+[258]
+# Lineel Drei
+Bicycle=true
+TrainerBattleBGM=sfxBattler_TEAMROCKETS
+MapPosition=12,2,2
+Outdoor=true
+ShowArea=true
+[259]
+# Lineel Vier
+BattleBack=CaveDark
+Bicycle=true
+TrainerBattleBGM=sfxBattler_TEAMROCKETS
+MapPosition=12,3,3
+ShowArea=true
+[260]
+# Lineel Funf
+BattleBack=Forest
+Bicycle=true
+TrainerBattleBGM=sfxBattler_TEAMROCKETS
+MapPosition=12,4,4
+Outdoor=true
+ShowArea=true
+[261]
+# Lineel Sechs
+BattleBack=CaveDark
+Bicycle=true
+TrainerBattleBGM=sfxBattler_TEAMROCKETS
+MapPosition=12,5,5
+ShowArea=true
+[262]
+# Lineel Sieben
+BattleBack=Forest
+Bicycle=true
+TrainerBattleBGM=sfxBattler_TEAMROCKETS
+MapPosition=12,6,6
+Outdoor=true
+ShowArea=true
+[263]
+# Lineel Acht
+BattleBack=CaveDark
+Bicycle=true
+TrainerBattleBGM=sfxBattler_TEAMROCKETS
+MapPosition=12,7,7
+ShowArea=true
+[264]
+# Lineel Neun
+Bicycle=true
+TrainerBattleBGM=sfxBattler_TEAMROCKETS
+MapPosition=12,8,8
+Outdoor=true
+ShowArea=true
+[265]
+# Lineel Zehn
+BattleBack=CaveDark
+Bicycle=true
+TrainerBattleBGM=sfxBattler_TEAMROCKETS
+MapPosition=12,9,9
+ShowArea=true
+[266]
+# Lineel Elf
+Bicycle=true
+TrainerBattleBGM=sfxBattler_TEAMROCKETS
+MapPosition=12,10,10
+Outdoor=true
+ShowArea=true
+[267]
+# Lineel Zwolf
+BattleBack=CaveDarker
+Bicycle=true
+TrainerBattleBGM=sfxBattler_TEAMROCKETS
+MapPosition=12,11,11
+ShowArea=true
+[268]
+# Lineel Dreizehn
+Bicycle=true
+TrainerBattleBGM=sfxBattler_TEAMROCKETS
+MapPosition=12,12,12
+Outdoor=true
+ShowArea=true
+[269]
+# Lineel Vierzehn
+BattleBack=CaveDarker
+Bicycle=true
+TrainerBattleBGM=sfxBattler_TEAMROCKETS
+MapPosition=12,13,13
+ShowArea=true
+[270]
+# Lineel Funfzehn
+Bicycle=true
+TrainerBattleBGM=sfxBattler_TEAMROCKETS
+MapPosition=12,14,14
+Outdoor=true
+ShowArea=true
+[271]
+# Lineel Sechszehn
+BattleBack=CaveDarker
+Bicycle=true
+TrainerBattleBGM=sfxBattler_TEAMROCKETS
+MapPosition=12,15,15
+ShowArea=true
+[272]
+# Lineel Siebenzehn
+Bicycle=true
+TrainerBattleBGM=sfxBattler_TEAMROCKETS
+MapPosition=12,16,16
+Outdoor=true
+ShowArea=true
+[273]
+# Lineel Achtzehn
+BattleBack=CaveDarker
+Bicycle=true
+TrainerBattleBGM=sfxBattler_TEAMROCKETS
+MapPosition=12,17,17
+WildBattleBGM=112 - Vs. Wild Johto.mp3
+ShowArea=true
+[274]
+# Lineel Neunzehn
+Bicycle=true
+TrainerBattleBGM=sfxBattler_TEAMROCKETS
+MapPosition=12,18,18
+Outdoor=true
+ShowArea=true
+[275]
+# Lineel Zwanzig
+BattleBack=IndoorG
+Bicycle=true
+TrainerBattleBGM=sfxBattler_TEAMROCKETS
+MapPosition=12,19,19
+ShowArea=true
+[276]
+# Understairs Kenuora Eins
+BattleBack=IndoorB
+Bicycle=true
+TrainerBattleBGM=sfxBattler_TEAMROCKETS
+MapPosition=5,1,4
+WildBattleBGM=112 - Vs. Wild Johto.mp3
+ShowArea=true
+[277]
+# Understairs Pallet Town
+BattleBack=Cave
+Bicycle=true
+TrainerBattleBGM=sfxBattler_TEAMROCKETS
+WildBattleBGM=112 - Vs. Wild Johto.mp3
+ShowArea=true
+[278]
+# Pallet Town
+BattleBack=IndoorB
+Bicycle=true
+TrainerBattleBGM=sfxBattler_TEAMROCKETS
+Outdoor=true
+WildBattleBGM=112 - Vs. Wild Johto.mp3
+ShowArea=true
+[279]
+# Understairs Vermilion City
+BattleBack=Cave
+Bicycle=true
+TrainerBattleBGM=sfxBattler_TEAMROCKETS
+WildBattleBGM=112 - Vs. Wild Johto.mp3
+ShowArea=true
+[280]
+# Understairs Virdian Forest
+BattleBack=Cave
+Bicycle=true
+TrainerBattleBGM=sfxBattler_TEAMROCKETS
+WildBattleBGM=112 - Vs. Wild Johto.mp3
+ShowArea=true
+[281]
+# Understairs Route 43
+BattleBack=Cave
+Bicycle=true
+TrainerBattleBGM=sfxBattler_TEAMROCKETS
+MapPosition=10,17,6
+WildBattleBGM=112 - Vs. Wild Johto.mp3
+ShowArea=true
+[282]
+# Understairs Magohany Town
+BattleBack=Cave
+Bicycle=true
+TrainerBattleBGM=sfxBattler_TEAMROCKETS
+MapPosition=10,17,7
+WildBattleBGM=112 - Vs. Wild Johto.mp3
+ShowArea=true
+[283]
+# Understairs Lake of Rage
+BattleBack=Cave
+Bicycle=true
+TrainerBattleBGM=sfxBattler_TEAMROCKETS
+MapPosition=10,17,3
+WildBattleBGM=112 - Vs. Wild Hoenn.mp3
+ShowArea=true
+[284]
+# Vermilion City
+BattleBack=IndoorB
+Bicycle=true
+TrainerBattleBGM=sfxBattler_TEAMROCKETS
+Outdoor=true
+WildBattleBGM=112 - Vs. Wild Johto.mp3
+ShowArea=true
+[285]
+# Steven's Cave
+SnapEdges=true
+BattleBack=CaveDarker
+Bicycle=true
+TrainerBattleBGM=113 - Vs. Hoenn Trainer.mp3
+MapPosition=11,1,7
+WildBattleBGM=112 - Vs. Wild Hoenn.mp3
+ShowArea=true
+[286]
+# Understairs Saffron City
+BattleBack=Cave
+Bicycle=true
+TrainerBattleBGM=sfxBattler_TEAMROCKETS
+WildBattleBGM=112 - Vs. Wild Johto.mp3
+ShowArea=true
+[287]
+# Understairs Swuora Eins
+BattleBack=Cave
+Bicycle=true
+TrainerBattleBGM=sfxBattler_TEAMROCKETS
+MapPosition=3,1,2
+WildBattleBGM=112 - Vs. Wild Johto.mp3
+ShowArea=true
+[288]
+# Saffron City
+BattleBack=IndoorB
+Bicycle=true
+TrainerBattleBGM=sfxBattler_TEAMROCKETS
+Outdoor=true
+WildBattleBGM=112 - Vs. Wild Johto.mp3
+ShowArea=true
+[289]
+# Understairs Cerulean City
+BattleBack=Cave
+Bicycle=true
+TrainerBattleBGM=sfxBattler_TEAMROCKETS
+WildBattleBGM=112 - Vs. Wild Johto.mp3
+ShowArea=true
+[290]
+# Understairs Keniora Zwei
+BattleBack=Cave
+Bicycle=true
+TrainerBattleBGM=sfxBattler_TEAMROCKETS
+MapPosition=8,5,9
+WildBattleBGM=112 - Vs. Wild Johto.mp3
+ShowArea=true
+[291]
+# Cerulean City
+BattleBack=IndoorB
+Bicycle=true
+TrainerBattleBGM=sfxBattler_TEAMROCKETS
+Outdoor=true
+WildBattleBGM=112 - Vs. Wild Johto.mp3
+ShowArea=true
+[292]
+# Cerulean Cave
+BattleBack=Cave
+Bicycle=true
+TrainerBattleBGM=sfxBattler_TEAMROCKETS
+WildBattleBGM=112 - Vs. Wild Johto.mp3
+ShowArea=true
+[293]
+# Union Cave
+BattleBack=CaveDarker
+Bicycle=true
+TrainerBattleBGM=113 - Vs. Johto Trainer.mp3
+MapPosition=10,13,17
+WildBattleBGM=112 - Vs. Wild Johto.mp3
+ShowArea=true
+[300]
+# Rubstoro Forest
+TrainerBattleBGM=113 - Vs. Hoenn Trainer.mp3
+MapPosition=11,1,10
+Outdoor=true
+WildBattleBGM=112 - Vs. Wild Hoenn.mp3
+ShowArea=true
+[302]
+# The Staffhouse
+BattleBack=IndoorF
+TrainerBattleBGM=113 - Vs. Johto Trainer.mp3
+MapPosition=10,17,7
+WildBattleBGM=112 - Vs. Wild Johto.mp3
+ShowArea=true
+[303]
+# Route 46
+TrainerBattleBGM=113 - Vs. Johto Trainer.mp3
+MapPosition=10,21,14
+Outdoor=true
+WildBattleBGM=112 - Vs. Wild Johto.mp3
+ShowArea=true
+[304]
+# Route 45
+MapSize=1,11111
+TrainerBattleBGM=113 - Vs. Johto Trainer.mp3
+MapPosition=10,22,9
+Outdoor=true
+WildBattleBGM=112 - Vs. Wild Johto.mp3
+ShowArea=true
+[305]
+# Dark Cave
+BattleBack=CaveDarker
+TrainerBattleBGM=113 - Vs. Johto Trainer.mp3
+MapPosition=10,21,13
+DarkMap=true
+WildBattleBGM=112 - Vs. Wild Johto.mp3
+ShowArea=true
+[307]
+# Lost Cave
+MapSize=2,11
+SnapEdges=true
+BattleBack=CaveDarker
+Bicycle=true
+Dungeon=true
+MapPosition=4,10,10
+DarkMap=true
+ShowArea=true
+[308]
+# Jumbo Cave
+SnapEdges=true
+BattleBack=CaveDarker
+Bicycle=true
+Dungeon=true
+MapPosition=8,15,5
+DarkMap=true
+ShowArea=true
+[314]
+# Meteor Falls
+SnapEdges=true
+BattleBack=CaveDarker
+Bicycle=true
+TrainerBattleBGM=113 - Vs. Hoenn Trainer.mp3
+MapPosition=11,1,7
+WildBattleBGM=112 - Vs. Wild Hoenn.mp3
+ShowArea=true
+[315]
+# Artisan Cave
+BattleBack=Cave
+Bicycle=true
+TrainerBattleBGM=113 - Vs. Hoenn Trainer.mp3
+MapPosition=11,1,7
+WildBattleBGM=112 - Vs. Wild Hoenn.mp3
+ShowArea=true
+[316]
+# Artisan Cave
+BattleBack=CaveDarker
+Bicycle=true
+TrainerBattleBGM=113 - Vs. Hoenn Trainer.mp3
+MapPosition=11,1,7
+DarkMap=true
+WildBattleBGM=112 - Vs. Wild Hoenn.mp3
+ShowArea=true
+[318]
+# Fusion Cave
+BattleBack=CaveDarker
+Bicycle=true
+MapPosition=6,12,12
+DarkMap=true
+ShowArea=true
+[319]
+# Victory 6
+BattleBack=CaveDark
+Bicycle=true
+TrainerBattleBGM=113 - Vs. Johto Trainer
+MapPosition=6,12,12
+WildBattleBGM=112 - Vs. Wild Johto
+ShowArea=true
+[320]
+# Victory 6
+BattleBack=CaveDark
+Bicycle=true
+TrainerBattleBGM=113 - Vs. Johto Trainer
+MapPosition=11,5,13
+WildBattleBGM=112 - Vs. Wild Johto
+ShowArea=true
+[323]
+# Bot Boyend Path
+BattleBack=CaveDarker
+Weather=Rain,40
+Bicycle=true
+MapPosition=4,15,5
+ShowArea=true
+[324]
+# Jelly Queen
+BattleBack=EliteA
+Weather=Rain,40
+MapPosition=4,15,5
+[325]
+# Cupcake Carl
+BattleBack=EliteB
+Weather=Rain,40
+MapPosition=4,15,5
+[326]
+# Tiffi
+BattleBack=EliteC
+Weather=Rain,40
+MapPosition=4,15,5
+[327]
+# Kimmy
+BattleBack=EliteD
+Weather=Rain,40
+MapPosition=4,15,5
+[328]
+# Liquorice Larry
+BattleBack=Champion
+Weather=Rain,40
+MapPosition=4,15,5
+[330]
+# Ice Path
+SnapEdges=true
+BattleBack=IndoorC
+Weather=Blizzard,100
+TrainerBattleBGM=113 - Vs. Johto Trainer.mp3
+MapPosition=10,20,7
+WildBattleBGM=112 - Vs. Wild Johto.mp3
+ShowArea=true
+[331]
+# Ice Path
+SnapEdges=true
+BattleBack=IndoorC
+TrainerBattleBGM=113 - Vs. Johto Trainer.mp3
+MapPosition=10,20,7
+WildBattleBGM=112 - Vs. Wild Johto.mp3
+ShowArea=true
+[332]
+# Ice River Run Path
+SnapEdges=true
+BattleBack=IndoorC
+Weather=Snow,50
+TrainerBattleBGM=113 - Vs. Johto Trainer.mp3
+MapPosition=10,20,7
+WildBattleBGM=112 - Vs. Wild Johto.mp3
+ShowArea=true
+[334]
+# Scuba Duba Minigame
+MapSize=2,1111
+SnapEdges=true
+BattleBack=Underwater
+MapPosition=4,10,10
+ShowArea=true
+[335]
+# Underwater Minigame
+MapSize=2,1111
+SnapEdges=true
+BattleBack=Underwater
+MapPosition=4,10,10
+ShowArea=true
+[336]
+# Skating Minigame
+MapSize=2,1111
+SnapEdges=true
+BattleBack=Snow
+Weather=Snow,100
+MapPosition=6,22,11
+ShowArea=true
+[337]
+# Fission Cave
+BattleBack=CaveDarker
+Bicycle=true
+MapPosition=5,1,4
+DarkMap=true
+ShowArea=true
+[338]
+# Volcano Minigame
+MapSize=2,1111
+SnapEdges=true
+BattleBack=IndoorF
+MapPosition=6,22,11
+ShowArea=true
+[339]
+# Rest Area
+MapPosition=3,4,16
+HealingSpot=43,22,5
+[340]
+# Rest Area
+MapPosition=4,11,11
+HealingSpot=78,0,0
+[341]
+# Rest Area
+MapPosition=9,2,8
+HealingSpot=128,22,5
+[342]
+# Xeniora Vier
+BattleBack=Xeniora
+Weather=Sunny,100
+MapPosition=9,5,8
+Outdoor=true
+ShowArea=true
+[343]
+# Xeniora Funf
+MapSize=2,11
+BattleBack=Xeniora
+Weather=Sandstorm,100
+Bicycle=false
+MapPosition=9,8,10
+Outdoor=true
+ShowArea=true
+[344]
+# Xeniora Sechs
+MapSize=2,11
+BattleBack=Xeniora
+Weather=Rain,25
+Bicycle=false
+MapPosition=9,18,16
+Outdoor=true
+ShowArea=true
+[345]
+# Cindyora Eins
+MapSize=3,110111011
+BattleBack=Cindyora
+Weather=Sunny,10
+Bicycle=false
+MapPosition=13,1,1
+Outdoor=true
+ShowArea=true
+[346]
+# Cindyora Zwei
+BattleBack=Cindyora
+Weather=Rain,100
+MapPosition=13,4,7
+Outdoor=true
+ShowArea=true
+[347]
+# Rest Area
+MapPosition=13,4,7
+HealingSpot=346,5,6
+[348]
+# Cindyora Drei
+MapSize=3,111
+BattleBack=Cindyora
+Weather=Rain,100
+MapPosition=13,7,5
+Outdoor=true
+ShowArea=true
+[349]
+# Cindyora Vier
+MapSize=1,111
+BattleBack=Cindyora
+Weather=Sunny,100
+MapPosition=13,14,2
+Outdoor=true
+ShowArea=true
+[350]
+# Cindyora Funf
+BattleBack=Cindyora
+Weather=Sunny,100
+MapPosition=13,16,8
+Outdoor=true
+ShowArea=true
+[351]
+# Cindyora Sechs
+MapSize=2,111011
+BattleBack=Cindyora
+Weather=Blizzard,100
+MapPosition=13,4,13
+Outdoor=true
+ShowArea=true
+[352]
+# Rest Area
+MapPosition=13,4,13
+HealingSpot=351,4,5
+[353]
+# Cindyora Sieben
+MapSize=2,11
+BattleBack=Cindyora
+Weather=Storm,30
+MapPosition=13,27,18
+Outdoor=true
+ShowArea=true
+[354]
+# Sanuora Eins
+MapSize=3,110111011
+BattleBack=Sanuora
+Weather=Sunny,30
+MapPosition=14,1,1
+Outdoor=true
+ShowArea=true
+[355]
+# Sanuora Zwei
+MapSize=3,111101111101
+BattleBack=Sanuora
+Weather=HeavyRain,100
+MapPosition=14,7,6
+Outdoor=true
+ShowArea=true
+[356]
+# Sanuora Drei
+MapSize=3,100100111001001
+BattleBack=Sanuora
+Weather=Sandstorm,75
+MapPosition=14,15,5
+Outdoor=true
+ShowArea=true
+[357]
+# Sanuora Vier
+MapSize=3,101101111
+BattleBack=Sanuora
+Weather=Sunny,100
+MapPosition=14,2,11
+Outdoor=true
+ShowArea=true
+[358]
+# Sanuora Funf
+MapSize=3,111111111
+BattleBack=CloneWars
+Weather=Sunny,100
+MapPosition=14,24,6
+Outdoor=true
+ShowArea=true
+[359]
+# Sanuora Sechs
+MapSize=3,111101111111101
+DiveMap=360
+BattleBack=CloneWars
+Weather=Storm,100
+MapPosition=14,1,15
+Outdoor=true
+ShowArea=true
+[360]
+# Understairs Sanuora Sechs
+MapSize=3,111101111111101
+BattleBack=Underwater
+MapPosition=14,1,15
+ShowArea=true
+[361]
+# Sanuora Sieben
+MapSize=3,111101111101
+BattleBack=CloneWars
+Weather=Storm,100
+MapPosition=14,25,13
+Outdoor=true
+ShowArea=true
+[362]
+# Saniora Eins
+BattleBack=Saniora
+Outdoor=true
+ShowArea=true
+[363]
+# Saniora Zwei
+BattleBack=Saniora
+Outdoor=true
+ShowArea=true
+[364]
+# Saniora Drei
+BattleBack=Saniora
+Outdoor=true
+ShowArea=true
+[365]
+# Saniora Vier
+BattleBack=Saniora
+Outdoor=true
+ShowArea=true
+[366]
+# Saniora Funf
+BattleBack=Saniora
+Outdoor=true
+ShowArea=true
+[367]
+# Saniora Sechs
+BattleBack=Saniora
+Outdoor=true
+ShowArea=true
+[369]
+# Corni Carven
+BattleBack=IndoorF
+Bicycle=true
+MapPosition=14,17,9
+ShowArea=true
+[370]
+# Lovecorn Minigame
+MapSize=2,1111
+SnapEdges=true
+BattleBack=Cave
+MapPosition=6,22,11
+ShowArea=true
+[371]
+# Abandoned Shire
+BattleBack=Cave
+Bicycle=true
+MapPosition=3,2,2
+ShowArea=true
+[372]
+# Marrine Cave
+MapSize=2,11
+BattleBack=CaveDark
+Bicycle=true
+MapPosition=4,10,10
+ShowArea=true
+[373]
+# Ancient Temple
+SnapEdges=true
+BattleBack=Cave
+Bicycle=true
+MapPosition=2,3,2
+ShowArea=true
+[374]
+# Safari Zone - Middle Cave
+BattleBack=Cave
+MapPosition=6,12,2
+SafariMap=true
+ShowArea=true
+[375]
+# Safari Zone - Left Cave
+BattleBack=Cave
+MapPosition=6,12,2
+SafariMap=true
+ShowArea=true
+[376]
+# Safari Zone - Right Cave
+BattleBack=Cave
+MapPosition=6,12,2
+SafariMap=true
+ShowArea=true
+[377]
+# Fission Cave
+BattleBack=CaveDarker
+Bicycle=true
+MapPosition=5,1,4
+DarkMap=true
+ShowArea=true
+[378]
+# Pikimon Institute
+BattleBack=IndoorA
+MapPosition=6,13,12
+ShowArea=true
+[379]
+# Cave of Origin
+Bicycle=true
+TrainerBattleBGM=113 - Vs. Hoenn Trainer.mp3
+MapPosition=11,22,5
+WildBattleBGM=112 - Vs. Wild Hoenn.mp3
+ShowArea=true
+[380]
+# Cave of Origin
+Bicycle=true
+TrainerBattleBGM=113 - Vs. Hoenn Trainer.mp3
+MapPosition=11,22,5
+WildBattleBGM=112 - Vs. Wild Hoenn.mp3
+ShowArea=true
+[381]
+# Cave of Origin
+Bicycle=true
+TrainerBattleBGM=113 - Vs. Hoenn Trainer.mp3
+MapPosition=11,22,5
+WildBattleBGM=112 - Vs. Wild Hoenn.mp3
+ShowArea=true
+[382]
+# Granite Cave
+Bicycle=true
+TrainerBattleBGM=113 - Vs. Hoenn Trainer.mp3
+MapPosition=11,1,11
+WildBattleBGM=112 - Vs. Wild Hoenn.mp3
+ShowArea=true
+[383]
+# Granite Cave
+Bicycle=true
+TrainerBattleBGM=113 - Vs. Hoenn Trainer.mp3
+MapPosition=11,1,10
+WildBattleBGM=112 - Vs. Wild Hoenn.mp3
+ShowArea=true
+[384]
+# Granite Cave
+Bicycle=true
+TrainerBattleBGM=113 - Vs. Hoenn Trainer.mp3
+MapPosition=11,1,11
+WildBattleBGM=112 - Vs. Wild Hoenn.mp3
+ShowArea=true
+[385]
+# Granite Cave
+Bicycle=true
+TrainerBattleBGM=113 - Vs. Hoenn Trainer.mp3
+MapPosition=11,1,10
+WildBattleBGM=112 - Vs. Wild Hoenn.mp3
+ShowArea=true
+[386]
+# Episodio XR
+BattleBack=Jarol
+MapPosition=6,11,3
+Outdoor=true
+ShowArea=true
+[387]
+# Jarol Garden
+BattleBack=Jarol
+Bicycle=false
+MapPosition=6,12,12
+Outdoor=true
+ShowArea=true
+[388]
+# Jarol Garden
+BattleBack=Jarol
+Bicycle=false
+MapPosition=6,12,12
+Outdoor=true
+ShowArea=true
+[389]
+# Frost Carven
+SnapEdges=true
+BattleBack=IndoorC
+MapPosition=3,21,5
+ShowArea=true
+[390]
+# Frost Carven
+SnapEdges=true
+BattleBack=IndoorC
+Weather=Snow,100
+MapPosition=3,21,5
+ShowArea=true
+[394]
+# Birthday Mystery Minigame
+MapSize=2,1111
+SnapEdges=true
+BattleBack=Cave
+MapPosition=8,15,5
+ShowArea=true
+[396]
+# Floaroma Meadow
+BattleBack=Forest
+Bicycle=false
+TrainerBattleBGM=Shinnoh trainer.mp3
+Outdoor=true
+WildBattleBGM=Shinnoh Battle.mp3
+ShowArea=true
+[397]
+# Zapdos Cave
+BattleBack=CaveDarker
+Bicycle=true
+TrainerBattleBGM=113 - Vs. Johto Trainer.mp3
+MapPosition=10,7,10
+DarkMap=true
+WildBattleBGM=112 - Vs. Wild Johto.mp3
+ShowArea=true
+[398]
+# Eternal Carven
+Bicycle=true
+TrainerBattleBGM=113 - Vs. Johto Trainer.mp3
+MapPosition=10,16,7
+WildBattleBGM=112 - Vs. Wild Johto.mp3
+ShowArea=true
+[400]
+# Quora Zwei
+MapSize=2,11
+BattleBack=Quora
+MapPosition=2,10,9
+Outdoor=true
+ShowArea=true
+[401]
+# Understairs Swuora Drei
+MapSize=3,111111111
+BattleBack=IndoorB
+Bicycle=false
+MapPosition=3,21,4
+ShowArea=true
+[402]
+# Understairs Semuora Eins
+MapSize=2,1111
+BattleBack=IndoorB
+Bicycle=false
+MapPosition=4,4,9
+ShowArea=true
+[403]
+# Understairs Semuora Zwei
+MapSize=2,1111
+BattleBack=IndoorB
+MapPosition=4,10,10
+ShowArea=true
+[404]
+# Understairs Marrine Cave
+MapSize=2,11
+BattleBack=IndoorB
+MapPosition=4,10,10
+ShowArea=true
+[405]
+# Understairs Semuora Drei
+MapSize=2,1111
+BattleBack=IndoorB
+Bicycle=false
+MapPosition=4,15,5
+ShowArea=true
+[406]
+# Frost Carven
+SnapEdges=true
+BattleBack=IndoorC
+MapPosition=3,21,5
+ShowArea=true
+[407]
+# Liberty Corridor Path
+SnapEdges=true
+BattleBack=CaveDark
+Weather=Sandstorm,100
+MapPosition=8,9,3
+ShowArea=true
+[408]
+# Liberty Corridor Path
+BattleBack=CaveDarker
+MapPosition=8,9,3
+DarkMap=true
+ShowArea=true
+[409]
+# XenuLeage
+BattleBack=IndoorB
+MapPosition=6,29,18
+[410]
+# Upstairs Keniora Sechs
+BattleBack=Keniora
+Bicycle=false
+MapPosition=8,20,14
+Outdoor=true
+ShowArea=true
+[411]
+# Ancient Temple
+SnapEdges=true
+BattleBack=Cave
+Bicycle=true
+MapPosition=2,3,2
+ShowArea=true
+[412]
+# Navel Rock
+BattleBack=Cave
+Bicycle=true
+MapPosition=2,7,6
+ShowArea=true
+[413]
+# Navel Rock
+BattleBack=Cave
+Bicycle=true
+MapPosition=2,7,6
+ShowArea=true
+[414]
+# Navel Rock
+BattleBack=Cave
+Bicycle=true
+MapPosition=2,7,6
+ShowArea=true
+[415]
+# Navel Rock
+BattleBack=Cave
+Bicycle=true
+MapPosition=2,7,6
+ShowArea=true
+[416]
+# Navel Rock
+BattleBack=Cave
+Bicycle=true
+MapPosition=2,7,6
+ShowArea=true
+[417]
+# Navel Rock
+BattleBack=Cave
+Bicycle=true
+MapPosition=2,7,6
+ShowArea=true
+[418]
+# Navel Rock
+BattleBack=CaveDark
+Bicycle=true
+MapPosition=2,7,6
+ShowArea=true
+[419]
+# Corni Carven
+BattleBack=IndoorF
+Bicycle=true
+MapPosition=14,4,13
+ShowArea=true
+[420]
+# Navel Rock
+Outdoor=true
+BattleBack=Navel
+Bicycle=true
+MapPosition=2,7,6
+ShowArea=true
+[421]
+# Pikimon Institute
+BattleBack=IndoorE
+MapPosition=6,13,12
+ShowArea=true
+[422]
+# Kenuora Zwei
+MapSize=3,111111
+BattleBack=CaveDark
+Bicycle=false
+MapPosition=5,9,7
+DarkMap=true
+ShowArea=true
+[423]
+# Cindyora Sechs
+MapSize=2,111011
+BattleBack=IndoorF
+MapPosition=13,4,13
+Outdoor=true
+ShowArea=true
+[425]
+# Netherworld Cave
+BattleBack=Cave
+MapPosition=8,5,9
+ShowArea=true
+Bicycle=true
+[426]
+# Netherworld Cave
+BattleBack=CaveDarker
+MapPosition=8,5,9
+DarkMap=true
+ShowArea=true
+Bicycle=true
+Weather=Sandstorm,99
+[427]
+# Quora Eins
+BattleBack=Quora
+Bicycle=false
+MapPosition=2,3,2
+[428]
+# Quora Eins
+BattleBack=Quora
+Bicycle=false
+MapPosition=2,3,2
+[429]
+# Quora Eins
+BattleBack=Quora
+Bicycle=false
+Outdoor=true
+ShowArea=true
+[430]
+# Quora Eins
+BattleBack=Swuora
+Bicycle=false
+Outdoor=true
+ShowArea=true
+[431]
+# Quora Eins
+BattleBack=Semuora
+Bicycle=false
+Outdoor=true
+ShowArea=true
+[432]
+# Kenuora Eins
+BattleBack=Cave
+ShowArea=true
+[433]
+# Kenuora Eins
+BattleBack=Kenuora
+Bicycle=false
+Outdoor=true
+ShowArea=true
+[434]
+# Kenuora Eins
+BattleBack=Xenuora
+Bicycle=false
+Outdoor=true
+ShowArea=true
+[435]
+# Kenuora Eins
+BattleBack=Annuora
+Bicycle=false
+Outdoor=true
+ShowArea=true
+[436]
+# Kenuora Eins
+BattleBack=Cave
+ShowArea=true
+[437]
+# Kenuora Eins
+BattleBack=Keniora
+Bicycle=false
+Outdoor=true
+ShowArea=true
+[438]
+# Kenuora Eins
+BattleBack=Xeniora
+Bicycle=false
+Outdoor=true
+ShowArea=true
+[439]
+# Kenuora Eins
+BattleBack=Cindyora
+Bicycle=false
+Outdoor=true
+ShowArea=true
+[441]
+# Kenuora Eins
+BattleBack=Cave
+ShowArea=true
+Bicycle=true
+MapPosition=14,8,9
+MapSize=2,01

@@ -1,0 +1,200 @@
+# Lappet Town (2) - Route 1 (5)
+2,North,0,5,South,4
+# Cedolan City (7) - Route 1 (5)
+7,South,0,5,North,2
+# Route 2 (21) - Cedolan City (7)
+21,South,0,7,North,21
+# Route 2 (21) - Lerucean Town (23)
+21,East,0,23,West,1
+# Route 3 (31) - Lerucean Town (23)
+31,South,32,23,North,0
+# Route 3 (31) - Ingido Plateau (35)
+31,West,0,35,East,10
+# Ingido Plateau (35) - Route 4 (39)
+35,West,11,39,East,0
+# Cedolan City (7) - Route 6 (44)
+7,West,5,44,East,0
+# Route 7 (47) - Cedolan City (7)
+47,West,0,7,East,0
+# Lappet Town (2) - Safari Zone (66)
+2,West,0,66,East,0
+# Safari Zone (66) - Route 1 (5)
+66,North,18,5,South,0
+# Route 8 (69) - Lappet Town (2)
+69,North,12,2,South,0
+# Route 5 (41) - Route 4 (40)
+41,North,0,40,South,0
+# Route 5 (41) - Route 6 (45)
+41,South,6,45,North,0
+# Velvet Corridor Path (123) - Velvet Corridor Path (122)
+123,East,0,122,West,0
+# Magnet Rail (136) - Understairs Swuora Zwei (138)
+136,North,0,138,South,15
+# Route 29 (142) - Cherrygrove City (143)
+142,West,0,143,East,0
+# Route 29 (142) - New Bark Town (141)
+142,East,4,141,West,0
+# Understairs Keniora Sechs (146) - Understairs Keniora Funf (148)
+146,East,0,148,West,0
+# Route 36 (161) - Route 35 (160)
+161,South,0,160,North,0
+# Goldenrod City (157) - Route 35 (160)
+157,North,10,160,South,0
+# Route 37 (162) - Route 36 (161)
+162,South,0,161,North,10
+# Understairs Ecruteak City (164) - Understairs Route 38 (165)
+164,West,0,165,East,0
+# Understairs Route 40 (171) - Understairs Olivine City (170)
+171,South,0,170,North,0
+# Understairs Route 42 (172) - Understairs Olivine City (170)
+172,West,38,170,East,0
+# Understairs Route 42 (172) - Understairs Route 40 (171)
+172,West,0,171,East,0
+# Magohany Town (174) - Route 42 (173)
+174,West,0,173,East,0
+# Magohany Town (174) - Route 44 (179)
+174,East,0,179,West,0
+# Olivine City (167) - Route 39 (166)
+167,North,5,166,South,0
+# Understairs Route 120 (213) - Understairs Route 121 (214)
+213,East,0,214,West,0
+# Understairs Fortree City (212) - Understairs Route 119 (211)
+212,South,0,211,North,0
+# Understairs Route 120 (213) - Understairs Route 119 (211)
+213,West,20,211,East,0
+# Understairs Route 120 (213) - Understairs Fortree City (212)
+213,West,0,212,East,0
+# Lilycone City (216) - Route 121 (215)
+216,West,0,215,East,0
+# Route 124 (217) - Lilycone City (216)
+217,West,0,216,East,0
+# Route 201 (232) - Sandgem Town (236)
+232,East,0,236,West,0
+# Twinleaf Town (228) - Route 201 (232)
+228,North,4,232,South,0
+# Understairs Route 124 (242) - Understairs Route 204 (247)
+242,North,20,247,South,0
+# Sandgem Bridgeway (243) - Understairs Route 204 (247)
+243,East,0,247,West,60
+# Understairs Floaroma Town (249) - Understairs Route 204 (247)
+249,South,0,247,North,0
+# Understairs Jumbilife City (245) - Understairs Route 204 (247)
+245,North,0,247,South,0
+# Understairs Lilycone City (240) - Understairs Route 204 (247)
+240,North,40,247,South,0
+# Jumbilife Basement (246) - Understairs Route 204 (247)
+246,West,0,247,East,30
+# Lilycone Basement (241) - Understairs Route 204 (247)
+241,North,60,247,South,0
+# Sandgem Bridgeway (243) - Understairs Route 124 (242)
+243,North,0,242,South,0
+# Understairs Floaroma Town (249) - Understairs Route 124 (242)
+249,West,60,242,East,0
+# Understairs Route 202 (244) - Understairs Route 124 (242)
+244,West,0,242,East,30
+# Understairs Floaroma Meadow (250) - Understairs Route 124 (242)
+250,West,90,242,East,0
+# Understairs Sandgem Town (239) - Understairs Route 124 (242)
+239,North,20,242,South,0
+# Understairs Jumbilife City (245) - Understairs Route 124 (242)
+245,West,0,242,East,0
+# Understairs Lilycone City (240) - Understairs Route 124 (242)
+240,East,0,242,West,0
+# Understairs Floaroma Town (249) - Sandgem Bridgeway (243)
+249,West,90,243,East,0
+# Understairs Route 202 (244) - Sandgem Bridgeway (243)
+244,West,0,243,East,0
+# Understairs Floaroma Meadow (250) - Sandgem Bridgeway (243)
+250,West,120,243,East,0
+# Understairs Sandgem Town (239) - Sandgem Bridgeway (243)
+239,East,0,243,West,0
+# Understairs Jumbilife City (245) - Sandgem Bridgeway (243)
+245,West,30,243,East,0
+# Understairs Lilycone City (240) - Sandgem Bridgeway (243)
+240,East,30,243,West,0
+# Jumbilife Basement (246) - Sandgem Bridgeway (243)
+246,South,0,243,North,40
+# Lilycone Basement (241) - Sandgem Bridgeway (243)
+241,South,40,243,North,0
+# Understairs Floaroma Meadow (250) - Understairs Floaroma Town (249)
+250,South,0,249,North,0
+# Jumbilife Basement (246) - Understairs Floaroma Town (249)
+246,West,0,249,East,60
+# Understairs Jumbilife City (245) - Understairs Route 202 (244)
+245,South,0,244,North,0
+# Understairs Lilycone City (240) - Understairs Route 202 (244)
+240,South,40,244,North,0
+# Jumbilife Basement (246) - Understairs Route 202 (244)
+246,West,30,244,East,0
+# Lilycone Basement (241) - Understairs Route 202 (244)
+241,South,60,244,North,0
+# Jumbilife Basement (246) - Understairs Floaroma Meadow (250)
+246,West,0,250,East,90
+# Understairs Jumbilife City (245) - Understairs Sandgem Town (239)
+245,South,0,239,North,40
+# Understairs Lilycone City (240) - Understairs Sandgem Town (239)
+240,South,0,239,North,0
+# Jumbilife Basement (246) - Understairs Sandgem Town (239)
+246,South,0,239,North,60
+# Lilycone Basement (241) - Understairs Sandgem Town (239)
+241,East,30,239,West,0
+# Jumbilife Basement (246) - Understairs Jumbilife City (245)
+246,West,0,245,East,0
+# Lilycone Basement (241) - Understairs Lilycone City (240)
+241,East,0,240,West,0
+# Understairs Magohany Town (282) - Understairs Route 43 (281)
+282,West,0,281,East,0
+# Understairs Lake of Rage (283) - Understairs Route 43 (281)
+283,East,0,281,West,0
+# Victory 6 (320) - Victory 6 (319)
+320,North,0,319,South,0
+# Xeniora Drei (134) - Xeniora Vier (342)
+134,East,0,342,West,0
+# Fallabor Town (201) - Route 113 (206)
+201,East,0,206,West,0
+# Cindyora Zwei (346) - Cindyora Drei (348)
+346,East,0,348,West,0
+# Cindyora Vier (349) - Cindyora Funf (350)
+349,East,0,350,West,0
+# Annuora Drei (107) - Annuora Zwei (106)
+107,East,0,106,West,0
+# Safari Zone - Left Cave (375) - Safari Zone - Middle Cave (374)
+375,East,0,374,West,0
+# Safari Zone - Right Cave (376) - Safari Zone - Middle Cave (374)
+376,West,0,374,East,0
+# Understairs Semuora Eins (402) - Understairs Swuora Drei (401)
+402,East,0,401,West,0
+# Understairs Semuora Drei (405) - Understairs Swuora Drei (401)
+405,South,84,401,North,0
+# Understairs Semuora Zwei (403) - Understairs Semuora Eins (402)
+403,East,0,402,West,0
+# Understairs Semuora Drei (405) - Understairs Semuora Eins (402)
+405,South,56,402,North,0
+# Understairs Marrine Cave (404) - Understairs Semuora Zwei (403)
+404,East,0,403,West,0
+# Understairs Semuora Drei (405) - Understairs Semuora Zwei (403)
+405,East,28,403,West,0
+# Understairs Semuora Drei (405) - Understairs Marrine Cave (404)
+405,South,0,404,North,0
+# Corni Carven (419) - Corni Carven (369)
+419,East,0,369,West,0
+# Route 102 (189) - Oldale Town (187)
+189,East,0,187,West,0
+# Route 101 (186) - Oldale Town (187)
+186,North,0,187,South,0
+# Rustboro City (196) - Route 104 (194)
+196,South,0,194,North,0
+# Petallburg City (191) - Route 104 (194)
+191,West,0,194,East,49
+# Littleroot Town (184) - Route 102 (189)
+184,West,0,189,East,40
+# Petallburg City (191) - Route 102 (189)
+191,East,10,189,West,0
+# Route 101 (186) - Route 102 (189)
+186,West,0,189,East,20
+# Route 101 (186) - Littleroot Town (184)
+186,South,0,184,North,0
+# Petallburg City (191) - Rustboro City (196)
+191,West,0,196,East,85
+# Route 101 (186) - Petallburg City (191)
+186,North,0,191,South,80

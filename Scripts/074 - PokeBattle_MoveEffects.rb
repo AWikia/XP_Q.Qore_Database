@@ -3271,7 +3271,7 @@ class PokeBattle_Move_069 < PokeBattle_Move
     end    
     if @battle.field.effects[PBEffects::Cinament]>0 && !attacker.hasWorkingItem(:RODOFSPARROW)
 			pbSEPlay("protection")
-    @battle.pbDisplay(_INTL("The Cinament prevented {1} from transforming into {2}!",attacker.pbThis,opponent.pbThis(true)))
+      @battle.pbDisplay(_INTL("The Cinament prevented {1} from transforming into {2}!",attacker.pbThis,opponent.pbThis(true)))
       return -1
     end
     if opponent.effects[PBEffects::TransformProtection] ||

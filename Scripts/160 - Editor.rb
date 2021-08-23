@@ -130,11 +130,7 @@ def pbSavePokemonData
   regionaldata=File.open("Data/regionals.dat","rb")
   numRegions=regionaldata.fgetw
   numDexDatas=regionaldata.fgetw
-  if IEMODE
-    pokedata=File.open("PBS/pokemon - Regular Typings.txt","wb") rescue nil
-  else
-    pokedata=File.open("PBS/pokemon.txt","wb") rescue nil
-  end
+  pokedata=File.open("PBS/pokemon.txt","wb") rescue nil
   pokedata.write(0xEF.chr)
   pokedata.write(0xBB.chr)
   pokedata.write(0xBF.chr)

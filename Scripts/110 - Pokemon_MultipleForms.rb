@@ -684,7 +684,7 @@ MultipleForms.register(:EKANS,{
 MultipleForms.register(:ARBOK,{
 "type1"=>proc{|pokemon|
    next if pokemon.form==0            # Kanto
-   if IEMODE
+   if true # Was  IEMODE
      case pokemon.form
      when 1; next getID(PBTypes,:POISON)  # Alola
      end
@@ -1792,7 +1792,7 @@ MultipleForms.register(:GRAVELER,{
 MultipleForms.register(:GOLEM,{
 "type1"=>proc{|pokemon|
    next if pokemon.form==0            # Kanto
-   if IEMODE
+   if true # Was  IEMODE
      case pokemon.form
      when 1; next getID(PBTypes,:ROCK)  # Alola
      end
@@ -1989,7 +1989,7 @@ MultipleForms.register(:PONYTA,{
 MultipleForms.register(:RAPIDASH,{
 "type1"=>proc{|pokemon|
    next if pokemon.form==0            # Kanto
-   if IEMODE
+   if true # Was  IEMODE
      case pokemon.form
      when 1; next getID(PBTypes,:WATER) # (Was Water) 
      when 2; next getID(PBTypes,:PSYCHIC)  # Alola (Was Psychic)
@@ -2155,7 +2155,7 @@ MultipleForms.register(:FARFETCHD,{
 },
 "type2"=>proc{|pokemon|
    next if pokemon.form==0             # Kanto
-   if IEMODE
+   if true # Was  IEMODE
      case pokemon.form
      when 2; next getID(PBTypes,:FIGHTING)  # Alola (Was Steel)
      else;   next 
@@ -2462,7 +2462,7 @@ MultipleForms.register(:EXEGGCUTE,{
 MultipleForms.register(:EXEGGUTOR,{
 "type1"=>proc{|pokemon|
    next if pokemon.form==0            # Kanto
-   if IEMODE
+   if true # Was  IEMODE
      case pokemon.form
      when 1; next getID(PBTypes,:GRASS)  # Alola
      end
@@ -2607,7 +2607,7 @@ MultipleForms.register(:CUBONE,{
 MultipleForms.register(:MAROWAK,{
 "type1"=>proc{|pokemon|
    next if pokemon.form==0            # Kanto
-   if IEMODE
+   if true # Was  IEMODE
      case pokemon.form
      when 1; next getID(PBTypes,:FIRE)  # Alola
      end
@@ -2765,7 +2765,7 @@ MultipleForms.register(:KOFFING,{
 MultipleForms.register(:WEEZING,{
 "type1"=>proc{|pokemon|
    next if pokemon.form==0            # Kanto
-   if IEMODE
+   if true # Was  IEMODE
      case pokemon.form
      when 2; next getID(PBTypes,:POISON)  # Alola (Was Poison)
      else;   next 
@@ -2869,7 +2869,7 @@ MultipleForms.register(:MRMIME,{
 },
 "type2"=>proc{|pokemon|
    next if pokemon.form==0              # Kanto
-   if IEMODE
+   if true # Was  IEMODE
      case pokemon.form
      when 2; next getID(PBTypes,:PSYCHIC)  # Alola (Was Psychic)
      else;   next 
@@ -2973,7 +2973,7 @@ MultipleForms.register(:MRMIME,{
 MultipleForms.register(:ARTICUNO,{
 "type1"=>proc{|pokemon|
    next if pokemon.form==0            # Kanto
-   if IEMODE
+   if true # Was  IEMODE
      case pokemon.form
      when 1; next getID(PBTypes,:FIRE)  # Alola
      when 2; next getID(PBTypes,:PSYCHIC)  # Alola
@@ -3088,7 +3088,7 @@ MultipleForms.register(:ARTICUNO,{
 MultipleForms.register(:ZAPDOS,{
 "type1"=>proc{|pokemon|
    next if pokemon.form==0            # Kanto
-   if IEMODE
+   if true # Was  IEMODE
      case pokemon.form
      when 1; next getID(PBTypes,:STEEL)  # Alola
      when 2; next getID(PBTypes,:FIGHTING)  # Alola
@@ -3196,7 +3196,7 @@ MultipleForms.register(:ZAPDOS,{
 MultipleForms.register(:MOLTRES,{
 "type1"=>proc{|pokemon|
    next if pokemon.form==0            # Kanto
-   if IEMODE
+   if true # Was  IEMODE
      case pokemon.form
      when 1; next getID(PBTypes,:GHOST)  # Alola
      when 2; next getID(PBTypes,:DARK)  # Alola
@@ -3731,7 +3731,7 @@ MultipleForms.register(:DARMANITAN,{
 
 "type1"=>proc{|pokemon|
    next if pokemon.form<2                          # Unova Formes
-   if IEMODE
+   if true # Was  IEMODE
      next getID(PBTypes,:ICE)                      # Galar Formes (Was Ice)
    else
      next getID(PBTypes,:BLIZZARD)                 # Galar Formes (Was Ice)
@@ -3739,7 +3739,7 @@ MultipleForms.register(:DARMANITAN,{
 },
 "type2"=>proc{|pokemon|
    next if pokemon.form==0                         # Standard Mode (Unovan)
-   if IEMODE
+   if true # Was  IEMODE
      next getID(PBTypes,:PSYCHIC) if pokemon.form==1 # Zen Mode (Unovan, Was Psychic)
    else
      next getID(PBTypes,:MIND)    if pokemon.form==1 # Zen Mode (Unovan, Was Psychic)
@@ -3878,7 +3878,7 @@ MultipleForms.register(:STUNFISK,{
 },
 "type2"=>proc{|pokemon|
    next if pokemon.form==0              # Kanto
-   if IEMODE
+   if true # Was  IEMODE
      case pokemon.form
      when 2; next getID(PBTypes,:STEEL)  # Alola (Was Steel)
      else;   next 
@@ -4021,7 +4021,7 @@ MultipleForms.register(:AROMATISSE,{
 },
 "type2"=>proc{|pokemon|
    next if pokemon.form==0           # Kanto
-   if IEMODE
+   if true # Was  IEMODE
      case pokemon.form
      when 1; next getID(PBTypes,:ICE)  # Alola
      else;   next
@@ -4158,7 +4158,7 @@ MultipleForms.register(:SLURPUFF,{
 },
 "type2"=>proc{|pokemon|
    next if pokemon.form==0             # Kanto
-   if IEMODE
+   if true # Was  IEMODE
      case pokemon.form
      when 1; next getID(PBTypes,:ICE)  # Alola
      when 2; next getID(PBTypes,:GHOST)
@@ -4288,7 +4288,7 @@ MultipleForms.register(:TREVENANT,{
 },
 "type2"=>proc{|pokemon|
    next if pokemon.form==0              # Kanto
-   if IEMODE
+   if true # Was  IEMODE
      case pokemon.form
      when 1; next getID(PBTypes,:FIRE)  # Alola
      end
@@ -4409,7 +4409,7 @@ MultipleForms.register(:LURANTIS,{
 },
 "type2"=>proc{|pokemon|
    next if pokemon.form==0              # Kanto
-   if IEMODE
+   if true # Was  IEMODE
      case pokemon.form
      when 1; next getID(PBTypes,:STEEL)  # Alola
      else;   next 
@@ -4526,7 +4526,7 @@ MultipleForms.register(:SHIINOTIC,{
 },
 "type2"=>proc{|pokemon|
    next if pokemon.form==0              # Kanto
-   if IEMODE
+   if true # Was  IEMODE
      case pokemon.form
      when 1; next getID(PBTypes,:FIRE)  # Alola
      else;   next 
@@ -4579,7 +4579,7 @@ MultipleForms.register(:SHIINOTIC,{
 MultipleForms.register(:BRUXISH,{
 "type1"=>proc{|pokemon|
    next if pokemon.form==0            # Kanto
-   if IEMODE
+   if true # Was  IEMODE
      case pokemon.form
      when 1; next getID(PBTypes,:FAIRY)  # Alola (Fairy)
      end
@@ -4759,7 +4759,7 @@ MultipleForms.register(:RILLABOOM,{
 },
 "type2"=>proc{|pokemon|
    next if pokemon.form==0              # Kanto
-   if IEMODE
+   if true # Was  IEMODE
      case pokemon.form
      when 1; next getID(PBTypes,:FIGHTING)  # Alola
      else;   next 
@@ -4933,7 +4933,7 @@ MultipleForms.register(:CINDERACE,{
 },
 "type2"=>proc{|pokemon|
    next if pokemon.form==0              # Kanto
-   if IEMODE
+   if true # Was  IEMODE
      case pokemon.form
      when 1; next getID(PBTypes,:POISON)  # Alola
      else;   next 
@@ -5106,7 +5106,7 @@ MultipleForms.register(:INTELEON,{
 },
 "type2"=>proc{|pokemon|
    next if pokemon.form==0              # Kanto
-   if IEMODE
+   if true # Was  IEMODE
      case pokemon.form
      when 1; next getID(PBTypes,:GROUND)  # Alola
      else;   next 
@@ -5226,7 +5226,7 @@ MultipleForms.register(:ELDEGOSS,{
 },
 "type2"=>proc{|pokemon|
    next if pokemon.form==0              # Kanto
-   if IEMODE
+   if true # Was  IEMODE
      case pokemon.form
      when 1; next getID(PBTypes,:ICE)  # Alola
      else;   next 
@@ -5348,7 +5348,7 @@ MultipleForms.register(:GRAPPLOCT,{
 },
 "type2"=>proc{|pokemon|
    next if pokemon.form==0              # Kanto
-   if IEMODE
+   if true # Was  IEMODE
      case pokemon.form
      when 1; next getID(PBTypes,:FIGHTING)  # Alola
      else;   next 
@@ -5525,7 +5525,7 @@ MultipleForms.register(:COPPERAJAH,{
 },
 "type2"=>proc{|pokemon|
    next if pokemon.form==0              # Kanto
-   if IEMODE
+   if true # Was  IEMODE
      case pokemon.form
      when 1; next getID(PBTypes,:ELECTRIC)  # Alola
      else;   next 
@@ -6468,7 +6468,7 @@ MultipleForms.register(:HOOPA,{
 },
 "type2"=>proc{|pokemon|
    next if pokemon.form==0        # Confined
-   if IEMODE
+   if true # Was  IEMODE
      next getID(PBTypes,:DARK)   # Unbound (Was Dark)
    else
      next getID(PBTypes,:LICK)   # Unbound (Was Dark)
@@ -6635,7 +6635,7 @@ MultipleForms.register(:LYCANROC,{
 
 MultipleForms.register(:WISHIWASHI,{
 "type2"=>proc{|pokemon|
-   next if IEMODE # No Altered typings for Internet Explorer Mode
+   next if true # Was  IEMODE # No Altered typings for Internet Explorer Mode
    types=[:WATER,:HERB] # It didn't originally stayed
    next getID(PBTypes,types[pokemon.form])
 },
@@ -6793,13 +6793,13 @@ MultipleForms.register(:MINIOR,{
 
 MultipleForms.register(:NECROZMA,{
 "type1"=>proc{|pokemon|
-   next if IEMODE # No Altered typings for Internet Explorer Mode
+   next if true # Was  IEMODE # No Altered typings for Internet Explorer Mode
    types=[:PSYCHIC,:SUN,:PSYCHIC,:PSYCHIC] # Wasn't originally
    next getID(PBTypes,types[pokemon.form])
 },
 "type2"=>proc{|pokemon|
    types=[:MIND,:STEEL,:MOON,:DRAGON]
-   types=[:PSYCHIC,:STEEL,:GHOST,:DRAGON] if IEMODE
+   types=[:PSYCHIC,:STEEL,:GHOST,:DRAGON] if true # Was  IEMODE
    next getID(PBTypes,types[pokemon.form])
 },
 "baseExp"=>proc{|pokemon|

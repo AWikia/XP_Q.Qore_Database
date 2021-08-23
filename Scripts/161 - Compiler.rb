@@ -1730,11 +1730,7 @@ def pbCompilePokemonData
   metrics=[SignedWordArray.new,SignedWordArray.new,SignedWordArray.new]
   constants=""
   maxValue=0
-  if IEMODE
-    filename1="PBS/pokemon - Regular Typings.txt"
-  else
-    filename1="PBS/pokemon.txt"
-  end
+  filename1="PBS/pokemon.txt"
   File.open(filename1,"rb"){|f|
      FileLineData.file=filename1
      pbEachFileSection(f){|lastsection,currentmap|
@@ -4169,41 +4165,22 @@ begin
                "trainertypes.dat",
                "types.dat",
                "Constants.rxdata"]
-    if IEMODE
-      textfiles=["abilities.txt",
-                 "berryplants.txt",
-                 "connections.txt",
-                 "encounters.txt",
-                 "items.txt",
-                 "metadata.txt",
-                 "moves.txt",
-                 "phone.txt",
-                 "pokemon - Regular Typings.txt",
-                 "shadowmoves.txt",
-                 "tm.txt",
-                 "townmap.txt",
-                 "trainerlists.txt",
-                 "trainers.txt",
-                 "trainertypes.txt",
-                 "types.txt"]
-    else
-      textfiles=["abilities.txt",
-                 "berryplants.txt",
-                 "connections.txt",
-                 "encounters.txt",
-                 "items.txt",
-                 "metadata.txt",
-                 "moves.txt",
-                 "phone.txt",
-                 "pokemon.txt",
-                 "shadowmoves.txt",
-                 "tm.txt",
-                 "townmap.txt",
-                 "trainerlists.txt",
-                 "trainers.txt",
-                 "trainertypes.txt",
-                 "types.txt"]
-    end
+    textfiles=["abilities.txt",
+               "berryplants.txt",
+               "connections.txt",
+               "encounters.txt",
+               "items.txt",
+               "metadata.txt",
+               "moves.txt",
+               "phone.txt",
+               "pokemon.txt",
+               "shadowmoves.txt",
+               "tm.txt",
+               "townmap.txt",
+               "trainerlists.txt",
+               "trainers.txt",
+               "trainertypes.txt",
+               "types.txt"]
     latestdatatime=0
     latesttexttime=0
     mustcompile=false

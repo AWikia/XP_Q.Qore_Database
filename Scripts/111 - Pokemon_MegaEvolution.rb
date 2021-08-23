@@ -108,7 +108,7 @@ MultipleForms.register(:CHARIZARD,{
    next
 },
 "type2"=>proc{|pokemon|
-   if IEMODE
+   if true # Was  IEMODE
      next getID(PBTypes,:DRAGON) if pokemon.form==1 # Was Dragon
    else
      next getID(PBTypes,:GLIMSE) if pokemon.form==1 # Was Dragon
@@ -233,7 +233,7 @@ MultipleForms.register(:PINSIR,{
    next
 },
 "type2"=>proc{|pokemon|
-   if IEMODE
+   if true # Was  IEMODE
      next getID(PBTypes,:FLYING) if pokemon.form==1 # Was Flyiong
    else
      next getID(PBTypes,:GUST) if pokemon.form==1 # Was Flyiong
@@ -268,7 +268,7 @@ MultipleForms.register(:GYARADOS,{
    next
 },
 "type2"=>proc{|pokemon|
-   if IEMODE
+   if true # Was  IEMODE
      next getID(PBTypes,:DARK) if pokemon.form==1 # Was Dark
    else
      next getID(PBTypes,:MOON) if pokemon.form==1 # Was Dark
@@ -333,7 +333,7 @@ MultipleForms.register(:MEWTWO,{
    next
 },
 "type2"=>proc{|pokemon|
-   if IEMODE
+   if true # Was  IEMODE
      next getID(PBTypes,:FIGHTING) if pokemon.form==1 # Was Fighting
    else
      next getID(PBTypes,:JELLY) if pokemon.form==1 # Was Fighting
@@ -372,7 +372,7 @@ MultipleForms.register(:AMPHAROS,{
    next
 },
 "type2"=>proc{|pokemon|
-   if IEMODE
+   if true # Was  IEMODE
      next getID(PBTypes,:DRAGON) if pokemon.form==1 # Dragon
    else
      next getID(PBTypes,:GLIMSE) if pokemon.form==1 # Dragon
@@ -564,7 +564,7 @@ MultipleForms.register(:AGGRON,{
    next
 },
 "type2"=>proc{|pokemon|
-   next if !IEMODE
+   next if !true # Was  IEMODE
    next getID(PBTypes,:STEEL) if pokemon.form==1
    next
 },
@@ -814,7 +814,7 @@ MultipleForms.register(:SLOWBRO,{
 },
 "type2"=>proc{|pokemon|
    next if pokemon.form==0              # Kanto
-   if IEMODE
+   if true # Was  IEMODE
      case pokemon.form
      when 2; next getID(PBTypes,:PSYCHIC)  # Alola
      else;   next 
@@ -909,7 +909,7 @@ MultipleForms.register(:SCEPTILE,{
    next
 },
 "type2"=>proc{|pokemon|
-   if IEMODE
+   if true # Was  IEMODE
      next getID(PBTypes,:DRAGON) if pokemon.form==1 # Was Dragon
    else
      next getID(PBTypes,:GLIMSE) if pokemon.form==1 # Was Dragon
@@ -1036,7 +1036,7 @@ MultipleForms.register(:ALTARIA,{
    next
 },
 "type2"=>proc{|pokemon|
-   if IEMODE
+   if true # Was  IEMODE
      next getID(PBTypes,:FAIRY) if pokemon.form==1 # Was Fairy
    else
      next getID(PBTypes,:HEART) if pokemon.form==1 # Was Fairy
@@ -1208,7 +1208,7 @@ MultipleForms.register(:LOPUNNY,{
    next
 },
 "type2"=>proc{|pokemon|
-   if IEMODE
+   if true # Was  IEMODE
      next getID(PBTypes,:FIGHTING) if pokemon.form==1 # Was Fighting
    else
      next getID(PBTypes,:MIND) if pokemon.form==1 # Was Fighting

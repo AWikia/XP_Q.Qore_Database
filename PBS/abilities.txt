@@ -265,7 +265,7 @@
 # Generation VII TCT Abilities
 322,DRAGONSMAW,Dragon's Maw,"Powers up Dragon-type moves."
 323,TRANSISTOR,Transistor,"Powers up Electric-type moves."
-329,CURIOUSMEDICHINE,Curious Medichine,"ΔΕΝ ΞΕΡΟΥΜΕ ΠΟΤΕ ΘΑ ΒΑΛΟΥΜΕ ΤΗΝ ΠΕΡΙΓΡΑΦΗ"
+329,CURIOUSMEDICHINE,Curious Medichine,"When the Pokémon enters a battle, it scatters medicine from its shell, which removes all stat changes from allies."
 331,CHILLINGNEIGH,Chilling Neigh,"When the Pokémon knocks out a target, it utters a chilling neigh, which boosts its Attack stat."
 332,GRIMNEIGH,Grim Neigh,"When the Pokémon knocks out a target, it utters a terrifying neigh, which boosts its Sp. Atk stat."
 # FLINT Abilities

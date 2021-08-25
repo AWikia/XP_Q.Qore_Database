@@ -28715,7 +28715,7 @@ BattlerEnemyY=23
 BattlerAltitude=0
 Evolutions=CINDERACE,Level,35
 [1055]
-Name=CINDERACE
+Name=Cinderace
 InternalName=CINDERACE
 Type1=FIRE
 BaseStats=80,116,75,119,65,75

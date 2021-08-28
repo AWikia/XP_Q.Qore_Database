@@ -811,6 +811,9 @@ class PokeBattle_Move
       if opponent.hasWorkingAbility(:HEATPROOF) && isConst?(type,PBTypes,:FIRE)
         damagemult=(damagemult*0.5).round
       end
+      if opponent.hasWorkingAbility(:BRIDINI) && isConst?(type,PBTypes,:FLYING)
+        damagemult=(damagemult*0.5).round
+      end
       if opponent.hasWorkingAbility(:THICKFAT) &&
          (isConst?(type,PBTypes,:ICE) || isConst?(type,PBTypes,:FIRE))
         damagemult=(damagemult*0.5).round

@@ -3818,6 +3818,13 @@ class PokeBattle_Battle
         basedamage=(basedamage*0.5).round
       end
     end
+    # Bridini
+    if skill>=PBTrainerAI.bestSkill
+      if opponent.hasWorkingAbility(:BRIDINI) &&
+         isConst?(type,PBTypes,:FLYING)
+        basedamage=(basedamage*0.5).round
+      end
+    end
     # Dry Skin
     if skill>=PBTrainerAI.bestSkill
       if opponent.hasWorkingAbility(:DRYSKIN) &&

@@ -2738,13 +2738,13 @@ class PokeBattle_Battler
       end
     end
     # Chilling Neigh
-    if user.hasWorkingAbility(:CHILLINGNEIGH) && target.isFainted?
+    if (user.hasWorkingAbility(:CHILLINGNEIGH) || user.hasWorkingAbility(:ASONE1)) && target.isFainted?
       if user.pbIncreaseStatWithCause(PBStats::ATTACK,1,user,PBAbilities.getName(user.ability))
         PBDebug.log("[Ability triggered] #{user.pbThis}'s Chilling Neigh")
       end
     end
     # Grim Neigh
-    if user.hasWorkingAbility(:GRIMNEIGH) && target.isFainted?
+    if (user.hasWorkingAbility(:GRIMNEIGH) || user.hasWorkingAbility(:ASONE2)) && target.isFainted?
       if user.pbIncreaseStatWithCause(PBStats::SPATK,1,user,PBAbilities.getName(user.ability))
         PBDebug.log("[Ability triggered] #{user.pbThis}'s Grim Neigh")
       end
@@ -3222,7 +3222,11 @@ class PokeBattle_Battler
   def pbBerryCureCheck(hpcure=false)
     return if self.isFainted?
     unnerver=(pbOpposing1.hasWorkingAbility(:UNNERVE) ||
-              pbOpposing2.hasWorkingAbility(:UNNERVE))
+              pbOpposing2.hasWorkingAbility(:UNNERVE) ||
+              pbOpposing1.hasWorkingAbility(:ASONE1) ||
+              pbOpposing2.hasWorkingAbility(:ASONE1) ||
+              pbOpposing1.hasWorkingAbility(:ASONE2) ||
+              pbOpposing2.hasWorkingAbility(:ASONE2))
     itemname=(self.item==0) ? "" : PBItems.getName(self.item)
     if hpcure
       if self.hasWorkingItem(:BERRYJUICE) && self.hp<=(self.totalhp/2).floor

@@ -7284,8 +7284,8 @@ MultipleForms.register(:CALYREX,{
 },
 "getAbilityList"=>proc{|pokemon|
    next if pokemon.form==0
-   next [[getID(PBAbilities,:CHEELINGNEIGH),0]] if pokemon.form==1 # Eternal
-   next [[getID(PBAbilities,:GRIMNEIGH),0]] if pokemon.form==2 # Eternal
+   next [[getID(PBAbilities,:ASONE1),0]] if pokemon.form==1 # Eternal (CHEELINGNEIGH)
+   next [[getID(PBAbilities,:ASONE2),0]] if pokemon.form==2 # Eternal (GRIMNEIGH)
 },
 "dexEntry"=>proc{|pokemon|
    next if pokemon.form==0
@@ -7981,8 +7981,8 @@ MultipleForms.register(:WIKIMEDIAB,{
 MultipleForms.register(:BOMBOMEDIA,{
 # Affects this Pokémon and its evolution (Uncyclomedia)
 "getFormOnCreation"=>proc{|pokemon|
-   formrations=[2,1,0,0,0]
-   next formrations[rand(6)]
+   formrations=[3,2,2,1,1,0,0,0,0]
+   next formrations[rand(9)]
 }
 })
 
@@ -8019,23 +8019,25 @@ MultipleForms.register(:WIKIMANIA,{
 
 MultipleForms.register(:UNCYCLOMEDIA,{
 "type1"=>proc{|pokemon|
-   types=[:NORMAL,:NORMAL,:WATER]
+   types=[:NORMAL,:NORMAL,:WATER,:DOOM]
    next getID(PBTypes,types[pokemon.form])
 },  
  "type2"=>proc{|pokemon|
-   types=[:NORMAL,:ELECTRIC,:WATER]
+   types=[:NORMAL,:ELECTRIC,:WATER,:GLIMSE]
    next getID(PBTypes,types[pokemon.form])  
 },
 "ability"=>proc{|pokemon|
    case pokemon.form
      when 1; next getID(PBAbilities,:TRACE) # Foundation (Normal/Electric)
      when 2; next getID(PBAbilities,:CLOUDNINE) # Commons (Water)
-     else;   next 
+     when 2; next getID(PBAbilities,:BRIDINI) # World Dimension/WD (Doom/Glimse)
+       else;   next 
    end
 },
 "color"=>proc{|pokemon|
-   next if pokemon.form!=2
-   next 1
+   next if pokemon.form-=0
+   next 4 if pokemon.form == 1  || pokemon.form == 3
+   next 1 if pokemon.form == 2
 },
 #"getFormOnCreation"=>proc{|pokemon|
 #   d=pokemon.personalID&3
@@ -8063,14 +8065,15 @@ MultipleForms.register(:UNCYCLOMEDIA,{
 #   next [rand(3),d].max
 #},
 "getFormOnCreation"=>proc{|pokemon|
-   formrations=[2,1,0,0,0]
-   next formrations[rand(6)]
+   formrations=[3,2,2,1,1,0,0,0,0]
+   next formrations[rand(9)]
 },
 "getBaseStats"=>proc{|pokemon|
    next if pokemon.form==0
    case pokemon.form
      when 1; next [95,100,58,15,38,15]
      when 2; next [95, 65,93,66,38,45]
+     when 3; next [95,55,100,0,45,77]
      else;   next
    end
 },
@@ -8083,9 +8086,14 @@ MultipleForms.register(:UNCYCLOMEDIA,{
      [40,:GLASSPUNCH],[42,:MAGICCROWN],[45,:DRAGONTAIL],[50,:FAKEOUT],
      [58,:SECRETSWORD],[64,:MINDRECOVERCY]]
     when 2; movelist=[[0,:TACKLE],[1,:TACKLE],[1,:MEGADRAIN],[5,:GROWL],[14,:WATERGUN],
-     [18,:COPYCAT],[21,:INGRAIN],[24,:COPYCAT],[24,:EDGE],[28,:SECRETPOWER],
+     [18,:COPYCAT],[21,:INGRAIN],[24,:SEASHELL],[24,:EDGE],[28,:SECRETPOWER],
      [30,:CHARM],[33,:SLASH],[35,:PINMISSILE],[40,:GLASSPUNCH],[42,:SOAK],
      [45,:AQUATAIL],[50,:FAKEOUT],[58,:SECRETSWORD],[64,:MINDRECOVERCY]]
+    when 3; movelist=[[0,:TACKLE],[1,:TACKLE],[1,:DREAMYRECOVERCY],[5,:GROWL],
+     [14,:MINDYGLOPS],[18,:COPYCAT],[22,:DOOMSURPLETE],[24,:EDGE],
+     [30,:SLASH],[33,:GLIMSETREAT],[35,:METRONOME],[40,:SWIFT],
+     [42,:GLIMMYGALAXY],[45,:GENIEDREAM],[50,:DOOMARIETA],[58,:MIMIC],
+     [64,:MINDRECOVERCY]]
    end
    for i in movelist
      i[1]=getConst(PBMoves,i[1])

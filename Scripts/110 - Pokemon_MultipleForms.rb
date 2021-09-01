@@ -8030,7 +8030,7 @@ MultipleForms.register(:UNCYCLOMEDIA,{
    case pokemon.form
      when 1; next getID(PBAbilities,:TRACE) # Foundation (Normal/Electric)
      when 2; next getID(PBAbilities,:CLOUDNINE) # Commons (Water)
-     when 2; next getID(PBAbilities,:BRIDINI) # World Dimension/WD (Doom/Glimse)
+     when 3; next getID(PBAbilities,:BRIDINI) # World Dimension/WD (Doom/Glimse)
        else;   next 
    end
 },
@@ -8092,7 +8092,7 @@ MultipleForms.register(:UNCYCLOMEDIA,{
     when 3; movelist=[[0,:TACKLE],[1,:TACKLE],[1,:DREAMYRECOVERCY],[5,:GROWL],
      [14,:MINDYGLOPS],[18,:COPYCAT],[22,:DOOMSURPLETE],[24,:EDGE],
      [30,:SLASH],[33,:GLIMSETREAT],[35,:METRONOME],[40,:SWIFT],
-     [42,:GLIMMYGALAXY],[45,:GENIEDREAM],[50,:DOOMARIETA],[58,:MIMIC],
+     [42,:GLIMMYGALAXY],[45,:GENIEDREAM],[50,:DOOMARIETTA],[58,:MIMIC],
      [64,:MINDRECOVERCY]]
    end
    for i in movelist

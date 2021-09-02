@@ -150,6 +150,10 @@ class PokeBattle_Move
     return @category==2
   end
 
+  def pbIsElderSpecial?
+    return @category==3
+  end
+  
   def isOHKO?
     return @function==0x70 || @function==0x202 || @function==0x252 || @function==0x278
   end
@@ -1136,7 +1140,7 @@ class PokeBattle_Move
       atk=attacker.defense
       atkstage=attacker.stages[PBStats::DEFENSE]+6
     end
-    if type>=0 && pbIsSpecial?(type)
+    if type>=0 && (pbIsSpecial?(type) || pbIsElderSpecial?(type))
       atk=attacker.spatk
       atkstage=attacker.stages[PBStats::SPATK]+6
       if @function==0x121 # Foul Play

@@ -7650,6 +7650,47 @@ MultipleForms.register(:WIKIMEDIA,{
    types=[:NORMAL,:GLIMSE,:DARK,:WATER,:NORMAL,:BLIZZARD,:MAGIC,:DRAGON,:NORMAL,:FIRE,:SUN,:BOLT,:FIGHTING]
    next getID(PBTypes,types[pokemon.form])  
 },
+
+"getAbilityList"=>proc{|pokemon|
+   next if pokemon.form==0                                       # Meta (Normal)
+   next [[getID(PBAbilities,:LEVITATE),0],
+         [getID(PBAbilities,:FLOERYGIST),1],
+         [getID(PBAbilities,:FIERYGIST),2]] if pokemon.form==1   # Foundation (Heart/Glimse)
+   next [[getID(PBAbilities,:INTIMIDOOM),0],
+         [getID(PBAbilities,:INTIMIDATE),1],
+         [getID(PBAbilities,:INTIMILOW),2]] if pokemon.form==2   # Ombudsen (Electric/Dark)
+   next [[getID(PBAbilities,:TRACE),0],
+         [getID(PBAbilities,:WATERABSORB),1],
+         [getID(PBAbilities,:WATERSPLASH),2]] if pokemon.form==3 # Commons (Water)
+   next [[getID(PBAbilities,:STARPUNNY),0],
+         [getID(PBAbilities,:SOLBEYU),1],
+         [getID(PBAbilities,:LONGREACH),2]] if pokemon.form==4   # Otrs (Ghost/Normal)
+   next [[getID(PBAbilities,:SOUNDTRACK),0],
+         [getID(PBAbilities,:MINIMALIST),1],
+         [getID(PBAbilities,:HERBLOBBY),2]] if pokemon.form==5   # Incubator (Bug/Blizzard)
+   next [[getID(PBAbilities,:PICKUP),0],
+         [getID(PBAbilities,:RIPEN),1],
+         [getID(PBAbilities,:MAGICIAN),2]] if pokemon.form==6    # FDC (Fairy/Magic)
+   next [[getID(PBAbilities,:RUNAWAY),0],
+         [getID(PBAbilities,:METRONOME),1],
+         [getID(PBAbilities,:ANTIFOGGER),2]] if pokemon.form==7  # Outreach (Dragon)
+   next [[getID(PBAbilities,:SOUNDPROOF),0],
+         [getID(PBAbilities,:PUNKROCK),1],
+         [getID(PBAbilities,:UPLOAD),2]] if pokemon.form==8      # Quality (Normal)
+   next [[getID(PBAbilities,:SLOWSTART),0],
+         [getID(PBAbilities,:SPPEDBOOST),1],
+         [getID(PBAbilities,:GOOEY),2]] if pokemon.form==9       # Strategic Planning (Grass/Fire)
+   next [[getID(PBAbilities,:SINISTRO),0],
+         [getID(PBAbilities,:LONGGRASS),1],
+         [getID(PBAbilities,:FLASHFIRE),2]] if pokemon.form==10  # Strategic Planning (Grass/Fire)
+   next [[getID(PBAbilities,:CURSEDBODY),0],
+         [getID(PBAbilities,:CINEMALINTER),1],
+         [getID(PBAbilities,:VERGINI),2]] if pokemon.form==11    # Movement Affiliates (Ghost/Bolt)
+   next [[getID(PBAbilities,:SUPERCLEARBODY),0],
+         [getID(PBAbilities,:SONIKO),1],
+         [getID(PBAbilities,:MORFAT),2]] if pokemon.form==12     # Community User Group Sri Lanka (Mind/Fighting)
+},
+=begin
 "ability"=>proc{|pokemon|
    case pokemon.form
      when 1; next getID(PBAbilities,:LEVITATE) # Foundation (Heart/Glimse)
@@ -7693,6 +7734,7 @@ MultipleForms.register(:WIKIMEDIA,{
 #   next [rand(13),d].max
 #
 #},
+=end
 
 "getFormOnCreation"=>proc{|pokemon|
    formrations=[12,11,10,10,9,9,8,8,8,7,7,7,6,6,6,6,5,5,5,5,4,4,4,4,4,3,3,3,3,3,2,2,2,2,2,2,1,1,1,1,1,1,0,0,0,0,0,0]
@@ -7751,7 +7793,7 @@ Incubator Learnest: movelist=[[0,:MEGADRAIN],[1,:MEGADRAIN],[1,:FLASH],[7,:BLIZZ
                        [33,:SOAK],[37,:POISONTAIL],[45,:PINMISSILE],[50,:SING],
                        [58,:SPIDERWEB],[64,:MINDRECOVERCY]]
 Commons Learnest: movelist=[[0,:MEGADRAIN],[1,:MEGADRAIN],[1,:TACKLE],[8,:GROWL],[13,:HIDDENPOWER],
-                       [15,:NATUREPOWER],[20,:HEALBLOCK],[23,:STEELWING],
+                       [15,:NATUREPOWER],[20,:HEALBLOCK],[20,:WATERGUN],[23,:STEELWING],
                        [30,:SOAK],[30,:FAIRYWIND],[37,:NIGHTSHADE],[40,:SNARL],
                        [45,:PINMISSILE],[47,:QUIVERDANCE],[56, :HEX],
                        [62,:MINDRECOVERCY]]
@@ -7777,7 +7819,7 @@ Commons Learnest:    Form 3/10
                        [37,:SOAK],[37,:DRAGONTAIL],[45,:PINMISSILE],[50,:TACKLE],
                        [58,:RELICSONG],[64,:MINDRECOVERCY]]                  
      when 3; movelist=[[0,:MEGADRAIN],[1,:MEGADRAIN],[1,:TACKLE],[8,:GROWL],[13,:HIDDENPOWER],
-                       [15,:NATUREPOWER],[20,:HEALBLOCK],[23,:STEELWING],
+                       [15,:NATUREPOWER],[20,:HEALBLOCK],[20,:WATERGUN],[23,:STEELWING],
                        [30,:SOAK],[30,:FAIRYWIND],[37,:NIGHTSHADE],[40,:SNARL],
                        [45,:PINMISSILE],[47,:QUIVERDANCE],[56, :HEX],
                        [62,:MINDRECOVERCY]]
@@ -7812,7 +7854,7 @@ Commons Learnest:    Form 3/10
                        [37,:SOAK],[37,:POISONTAIL],[45,:PINMISSILE],[50,:TACKLE],
                        [58,:SPIDERWEB],[64,:MINDRECOVERCY]]                                              
      when 10; movelist=[[0,:MEGADRAIN],[1,:MEGADRAIN],[1,:TACKLE],[8,:GROWL],[13,:HIDDENPOWER],
-                       [15,:NATUREPOWER],[20,:HEALBLOCK],[23,:STEELWING],
+                       [15,:NATUREPOWER],[20,:HEALBLOCK],[20,:WATERGUN],[23,:STEELWING],
                        [30,:SOAK],[30,:FAIRYWIND],[37,:NIGHTSHADE],[40,:SNARL],
                        [45,:PINMISSILE],[47,:QUIVERDANCE], [56, :HEX],
                        [62,:MINDRECOVERCY]]
@@ -8026,6 +8068,19 @@ MultipleForms.register(:UNCYCLOMEDIA,{
    types=[:NORMAL,:ELECTRIC,:WATER,:GLIMSE]
    next getID(PBTypes,types[pokemon.form])  
 },
+"getAbilityList"=>proc{|pokemon|
+   next if pokemon.form==0                                       # Unmeta (Normal)
+   next [[getID(PBAbilities,:TRACE),0],
+         [getID(PBAbilities,:VOLTABSORB),1],
+         [getID(PBAbilities,:GALVANIZE),2]] if pokemon.form==1   # Foundation (Normal/Electric)
+   next [[getID(PBAbilities,:CLOUDNINE),0],
+         [getID(PBAbilities,:WATERABSORB),1],
+         [getID(PBAbilities,:WATERBUBBLE),2]] if pokemon.form==2   # Commons (Water)
+   next [[getID(PBAbilities,:BRIDINI),0],
+         [getID(PBAbilities,:HIRALINA),1],
+         [getID(PBAbilities,:MASKEDHERB),2]] if pokemon.form==3 # World Dimension/WD (Doom/Glimse)
+},
+=begin
 "ability"=>proc{|pokemon|
    case pokemon.form
      when 1; next getID(PBAbilities,:TRACE) # Foundation (Normal/Electric)
@@ -8034,8 +8089,9 @@ MultipleForms.register(:UNCYCLOMEDIA,{
        else;   next 
    end
 },
+=end
 "color"=>proc{|pokemon|
-   next if pokemon.form-=0
+   next if pokemon.form==0
    next 4 if pokemon.form == 1  || pokemon.form == 3
    next 1 if pokemon.form == 2
 },

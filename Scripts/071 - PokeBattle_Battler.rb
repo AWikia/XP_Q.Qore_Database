@@ -3985,6 +3985,14 @@ class PokeBattle_Battler
           return false
         end
       end
+      if thismove.pbIsElderSpecial? # Mindy Glops
+        if target.hasWorkingAbility(:ELDERPROJECTOR)
+					pbSEPlay("protection")
+          @battle.pbDisplay(_INTL("{1} makes Elder Special moves miss with Elder Projector",target.pbThis))
+          PBDebug.log("[Ability triggered] #{target.pbThis}'s Elder Projector made the Elder Special move miss")
+          return false
+        end
+      end
       if !user.hasMoldBreaker && target.hasWorkingAbility(:WONDERGUARD) &&
 				type>=0 && typemod<=8
 				pbSEPlay("protection")

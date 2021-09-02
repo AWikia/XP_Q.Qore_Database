@@ -268,6 +268,8 @@
 329,CURIOUSMEDICHINE,Curious Medichine,"When the Pokémon enters a battle, it scatters medicine from its shell, which removes all stat changes from allies."
 331,CHILLINGNEIGH,Chilling Neigh,"When the Pokémon knocks out a target, it utters a chilling neigh, which boosts its Attack stat."
 332,GRIMNEIGH,Grim Neigh,"When the Pokémon knocks out a target, it utters a terrifying neigh, which boosts its Sp. Atk stat."
+335,ASONE1,As One,"This Ability combines the effects of both Calyrex's Unnerve Ability and Glastrier's Chilling Neigh Ability."
+336,ASONE1,As One,"This Ability combines the effects of both Calyrex's Unnerve Ability and Spectrier's Grim Neigh Ability."
 # FLINT Abilities
 192,DOOMER,Doomer,Increases power of Doom Attcaks when the Pokémon's HP is low.
 193,MARIAMARA,Mariamara,Doubles the power of Dark Attacks when the Pokémon's HP is half or less.
@@ -337,3 +339,8 @@
 328,CRATECRUSTER,Crate Cruster,"Doubles the power of every weaken crate-destructing moves in Psychic Terrain."
 330,PROTEINCROTELINE,Protein Croteline,"The Pokémon gains double points in the second and triple points in the third attempt during Protein Mag turns."
 333,ANGRYBIRD,Angry Bird,"The Pokémon is a very angry fighter and that boosts its evasiveness stat."
+334,BRIDINI,Bridini,The brandy body of the Pokémon halves the damage from Flying-type moves that hit it.
+337,WATERSPLASH,Water Splash,Doubles the power of Water-type attacks.
+338,NETPLAY,NetPlay,Compares an opposing Pokémon's Attack and Sp. Atk stats before raising its own Defense or Sp. Def stat—whichever will be more effective.
+339,HIRALINA,Hiralina,"The Hustle body of the Pokémon halves the damage from Heart-type moves that hit it."
+340,MASKEDHERB,Masked Herb,"Its powerful mask the Pokémon has halves the damage from Herb-type moves that hit it."

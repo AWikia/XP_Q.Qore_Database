@@ -13076,7 +13076,7 @@ end
 ################################################################################
 class PokeBattle_Move_277 < PokeBattle_Move
   def pbEffectAfterHit(attacker,opponent,turneffects)
-    if opponent.damagestate.calcdamage>0 &&
+    if opponent.damagestate.calcdamage>0
       attacker.effects[PBEffects::HyperBeam]=2
       attacker.currentMove=@id
       if !opponent.isFainted? && !opponent.damagestate.substitute && 
@@ -13237,7 +13237,7 @@ end
 ################################################################################
 class PokeBattle_Move_282 < PokeBattle_Move
   def pbEffectAfterHit(attacker,opponent,turneffects)
-    if opponent.damagestate.calcdamage>0 &&
+    if opponent.damagestate.calcdamage>0
       attacker.effects[PBEffects::HyperBeam]=2
       attacker.currentMove=@id
       if attacker.pbCanReduceStatStage?(PBStats::ACCURACY,attacker,false,self)
@@ -13908,6 +13908,27 @@ class PokeBattle_Move_324 < PokeBattle_Move
     return 0
   end
 end
+
+################################################################################
+# Used on all Elder Special Moves
+################################################################################
+class PokeBattle_Move_325 < PokeBattle_Move
+  def pbOnStartUse(attacker)
+    @battle.pbCommonAnimation("ElderSpecial",attacker,nil)
+    return true
+  end
+
+  def pbEffect(attacker,opponent,hitnum=0,alltargets=nil,showanimation=true)
+    ret=super(attacker,opponent,hitnum,alltargets,showanimation)
+    if opponent.damagestate.calcdamage>0
+      attacker.effects[PBEffects::HyperBeam]=2
+      attacker.currentMove=@id
+    end
+    return ret
+  end
+  
+end
+
 
 
 ################################################################################

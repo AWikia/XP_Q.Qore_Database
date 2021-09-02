@@ -730,6 +730,9 @@ class PokeBattle_Move
     if attacker.hasWorkingAbility(:STEELWORKER) && isConst?(type,PBTypes,:STEEL) # changed
       damagemult=(damagemult*1.5).round
     end
+    if attacker.hasWorkingAbility(:WATERSPLASH) && isConst?(type,PBTypes,:WATER) # changed
+      damagemult=(damagemult*2).round
+    end
     if attacker.hasWorkingAbility(:DRAGONSMAW) && isConst?(type,PBTypes,:DRAGON) # changed
       damagemult=(damagemult*1.5).round
     end
@@ -812,6 +815,12 @@ class PokeBattle_Move
         damagemult=(damagemult*0.5).round
       end
       if opponent.hasWorkingAbility(:BRIDINI) && isConst?(type,PBTypes,:FLYING)
+        damagemult=(damagemult*0.5).round
+      end
+      if opponent.hasWorkingAbility(:HIRALINA) && isConst?(type,PBTypes,:HEART)
+        damagemult=(damagemult*0.5).round
+      end
+      if opponent.hasWorkingAbility(:MASKEDHERB) && isConst?(type,PBTypes,:HERB)
         damagemult=(damagemult*0.5).round
       end
       if opponent.hasWorkingAbility(:THICKFAT) &&

@@ -1774,6 +1774,27 @@ class PokeBattle_Battler
         end
       end
     end
+    # Upload
+    if self.hasWorkingAbility(:UPLOAD) && onactive
+      oatk=ospatk=0
+      if pbOpposing1 && !pbOpposing1.isFainted?
+        oatk+=pbOpposing1.attack
+        ospatk+=pbOpposing1.spatk
+      end
+      if pbOpposing2 && !pbOpposing2.isFainted?
+        oatk+=pbOpposing2.attack
+        ospatk+=pbOpposing1.spatk
+      end
+      if ospatk>oatk
+        if pbIncreaseStatWithCause(PBStats::DEFENSE,1,self,PBAbilities.getName(ability))
+          PBDebug.log("[Ability triggered] #{pbThis}'s Upload (raising Defense)")
+        end
+      else
+        if pbIncreaseStatWithCause(PBStats::SPDEF,1,self,PBAbilities.getName(ability))
+          PBDebug.log("[Ability triggered] #{pbThis}'s Upload (raising Special Defense)")
+        end
+      end
+    end
     # Emergence Policy
     if self.hasWorkingItem(:EMERGENCEPOLICY) && onactive
       oatk=ospatk=0

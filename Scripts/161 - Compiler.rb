@@ -1453,7 +1453,7 @@ def pbCompileMoves
      flags=0
      begin
        record=pbGetCsvRecord(line,lineno,[0,"vnsxueeuuuxiss",
-          nil,nil,nil,nil,nil,PBTypes,["Physical","Special","Status"],
+          nil,nil,nil,nil,nil,PBTypes,["Physical","Special","Status","ElderSpecial"],
           nil,nil,nil,nil,nil,nil,nil
        ])
        pbCheckWord(record[3],_INTL("Function code"))

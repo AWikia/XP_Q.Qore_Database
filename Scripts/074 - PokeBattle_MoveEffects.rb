@@ -4232,8 +4232,12 @@ class PokeBattle_Move_096 < PokeBattle_Move
        @battle.field.effects[PBEffects::MagicRoom]>0 ||
        attacker.hasWorkingAbility(:KLUTZ) ||
        attacker.pbOpposing1.hasWorkingAbility(:UNNERVE) ||
-       attacker.pbOpposing2.hasWorkingAbility(:UNNERVE)
-        pbSEPlay("protection")
+       attacker.pbOpposing2.hasWorkingAbility(:UNNERVE) ||
+       attacker.pbOpposing1.hasWorkingAbility(:ASONE1) ||
+       attacker.pbOpposing2.hasWorkingAbility(:ASONE1) ||
+       attacker.pbOpposing1.hasWorkingAbility(:ASONE2) ||
+       attacker.pbOpposing2.hasWorkingAbility(:ASONE2)
+       pbSEPlay("protection")
        @battle.pbDisplay(_INTL("But it failed!"))
       return false
     end
@@ -5100,7 +5104,8 @@ class PokeBattle_Move_0AF < PokeBattle_Move
        0x187,   # Douze Crayon
        0x245,   # Doom Catapult
        0x246,   # Fiery Catapult
-       0x221    # Baneful Bunker
+       0x221,   # Baneful Bunker
+       0x295    # Grassy Catapult
     ]
     if $USENEWBATTLEMECHANICS
       blacklist+=[
@@ -5156,7 +5161,8 @@ class PokeBattle_Move_0B0 < PokeBattle_Move
        0x172,   # Κουλούνδιν
        0x817,   # Douze Crayon
        0x245,   # Doom Catapult
-       0x246    # Fiery Catapult
+       0x246,   # Fiery Catapult
+       0x295    # Grassy Catapult
     ]
     oppmove=@battle.choices[opponent.index][2]
     if @battle.choices[opponent.index][0]!=1 || # Didn't choose a move
@@ -5384,7 +5390,8 @@ class PokeBattle_Move_0B5 < PokeBattle_Move
        0x221,   # Baneful Bunker
        0x220,   # Beak Blast
        0x211,   # Shell Trap
-       0x229    # Spotlight
+       0x229,   # Spotlight
+       0x295    # Grassy Catapult
     ]
     if $USENEWBATTLEMECHANICS
       blacklist+=[
@@ -5476,7 +5483,8 @@ class PokeBattle_Move_0B6 < PokeBattle_Move
        0x221,   # Baneful Bunker
        0x220,   # Beak Blast
        0x212,   # Instruct
-       0x229    # Spotlight
+       0x229,   # Spotlight
+       0x295    # Grassy Catapult
     ]
     blacklistmoves=[
        :DIAMONDSTORM,
@@ -5502,13 +5510,17 @@ class PokeBattle_Move_0B6 < PokeBattle_Move
        :THOUSANDARROWS,
        :THOUSANDWAVES,
        :VCREATE,
-       :SIAXIS,
        :KLEOPOTRIA,
        :CHROMELICKS,
        :LOBBY,
        :SUPERMIND,
        :LICKSTART
     ]
+    if !attacker.hasWorkingAbility(:SIAXIS)
+      blacklistmoves+=[
+         :SIAXIS
+      ]
+    end
     i=0; loop do break unless i<1000
       move=@battle.pbRandom(PBMoves.maxValue)+1
       next if isConst?(PBMoveData.new(move).type,PBTypes,:SHADOW)
@@ -5727,7 +5739,7 @@ class PokeBattle_Move_0BC < PokeBattle_Move
        0x243,   # Intimilow
        0x245,   # Doom Catapult
        0x246,   # Fiery Catapult
-
+       0x295    # Grassy Catapult
     ]
     if opponent.effects[PBEffects::Encore]>0 || opponent.pbHasType?(:HERB) ||
       opponent.pbHasType?(:MIND) || opponent.hasWorkingAbility(:KOULUNDIN) ||
@@ -7758,7 +7770,11 @@ class PokeBattle_Move_0F7 < PokeBattle_Move
     return false if pbIsBox?(attacker.item)
     return false if pbIsBerry?(attacker.item) &&
                     !attacker.pbOpposing1.hasWorkingAbility(:UNNERVE) &&
-                    !attacker.pbOpposing2.hasWorkingAbility(:UNNERVE)
+                    !attacker.pbOpposing2.hasWorkingAbility(:UNNERVE) &&
+                    !attacker.pbOpposing1.hasWorkingAbility(:ASONE1) &&
+                    !attacker.pbOpposing2.hasWorkingAbility(:ASONE1) &&
+                    !attacker.pbOpposing1.hasWorkingAbility(:ASONE2) &&
+                    !attacker.pbOpposing2.hasWorkingAbility(:ASONE2)
     return true
   end
 
@@ -13718,10 +13734,10 @@ class PokeBattle_Move_302 < PokeBattle_Move
     ret=[1,2][rand(2)]
     ret=(ret*100.0).floor if rand(1000)<10
     if opponent.hasWorkingAbility(:CANAVISROBOT) || 
-      (user.hasWorkingItem(:ROBOTVAUCHER) && !$USENEWBATTLEMECHANICS)
+      (attacker.hasWorkingItem(:ROBOTVAUCHER) && !$USENEWBATTLEMECHANICS)
       ret=(ret*2.0).floor
     end
-    if user.hasWorkingItem(:ROBOTVAUCHER) && $USENEWBATTLEMECHANICS
+    if attacker.hasWorkingItem(:ROBOTVAUCHER) && $USENEWBATTLEMECHANICS
       ret=(ret*2.0).floor
     end
     return ret
@@ -14046,7 +14062,8 @@ class PokeBattle_Move_212 < PokeBattle_Move
       0xCE,    # Sky Drop
       0xC4,    # Solar Beam, Solar Blade
       0x245,   # Doom Catapult
-      0x246    # Fiery Catapult
+      0x246,   # Fiery Catapult
+      0x295    # Grassy Catapult
     ]
     for i in opponent.moves # if no pp left for move
       if i.id>0 && i.id==opponent.lastMoveUsed && i.pp==0

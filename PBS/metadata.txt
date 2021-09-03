@@ -2471,3 +2471,9 @@ ShowArea=true
 Bicycle=true
 MapPosition=14,8,9
 MapSize=2,01
+[443]
+# Sanuora Eins
+BattleBack=Sanuora
+Bicycle=false
+Outdoor=true
+ShowArea=true

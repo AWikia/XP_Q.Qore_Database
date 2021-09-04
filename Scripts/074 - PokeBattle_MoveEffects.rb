@@ -2464,7 +2464,8 @@ class PokeBattle_Move_05C < PokeBattle_Move
        0x5D,   # Sketch
        0xB6,   # Metronome
        0x172,  # Κουλούνδιν
-       0x187   # Douze Crayon
+       0x187,  # Douze Crayon
+       0x325   # Elder Special Moves
     ]
     if attacker.effects[PBEffects::Transform] ||
        opponent.lastMoveUsed<=0 ||
@@ -2508,7 +2509,8 @@ class PokeBattle_Move_05D < PokeBattle_Move
        0x02,   # Struggle
        0x14,   # Chatter
        0x5D,   # Sketch
-       0x172   # Κουλούνδιν
+       0x172,  # Κουλούνδιν
+       0x325   # Elder Special Moves
     ]
     if attacker.effects[PBEffects::Transform] ||
        opponent.lastMoveUsedSketch<=0 ||
@@ -5105,7 +5107,8 @@ class PokeBattle_Move_0AF < PokeBattle_Move
        0x245,   # Doom Catapult
        0x246,   # Fiery Catapult
        0x221,   # Baneful Bunker
-       0x295    # Grassy Catapult
+       0x295,   # Grassy Catapult
+       0x325    # Elder Special Moves
     ]
     if $USENEWBATTLEMECHANICS
       blacklist+=[
@@ -5162,7 +5165,8 @@ class PokeBattle_Move_0B0 < PokeBattle_Move
        0x817,   # Douze Crayon
        0x245,   # Doom Catapult
        0x246,   # Fiery Catapult
-       0x295    # Grassy Catapult
+       0x295,   # Grassy Catapult
+       0x325    # Elder Special Moves
     ]
     oppmove=@battle.choices[opponent.index][2]
     if @battle.choices[opponent.index][0]!=1 || # Didn't choose a move
@@ -5318,7 +5322,8 @@ class PokeBattle_Move_0B4 < PokeBattle_Move
        0x14D,   # Phantom Force
        0x14E,   # Geomancy
 # Dedicated Moves
-       0x172   # Κουλούνδιν
+       0x172,   # Κουλούνδιν
+       0x325    # Elder Special Moves
     ]
     choices=[]
     for i in 0...4
@@ -5391,7 +5396,8 @@ class PokeBattle_Move_0B5 < PokeBattle_Move
        0x220,   # Beak Blast
        0x211,   # Shell Trap
        0x229,   # Spotlight
-       0x295    # Grassy Catapult
+       0x295,   # Grassy Catapult
+       0x325    # Elder Special Moves
     ]
     if $USENEWBATTLEMECHANICS
       blacklist+=[
@@ -5484,7 +5490,8 @@ class PokeBattle_Move_0B6 < PokeBattle_Move
        0x220,   # Beak Blast
        0x212,   # Instruct
        0x229,   # Spotlight
-       0x295    # Grassy Catapult
+       0x295,   # Grassy Catapult
+       0x325    # Elder Special Moves
     ]
     blacklistmoves=[
        :DIAMONDSTORM,
@@ -5739,7 +5746,8 @@ class PokeBattle_Move_0BC < PokeBattle_Move
        0x243,   # Intimilow
        0x245,   # Doom Catapult
        0x246,   # Fiery Catapult
-       0x295    # Grassy Catapult
+       0x295,   # Grassy Catapult
+       0x325    # Elder Special Moves
     ]
     if opponent.effects[PBEffects::Encore]>0 || opponent.pbHasType?(:HERB) ||
       opponent.pbHasType?(:MIND) || opponent.hasWorkingAbility(:KOULUNDIN) ||
@@ -14084,7 +14092,8 @@ class PokeBattle_Move_212 < PokeBattle_Move
       0xC4,    # Solar Beam, Solar Blade
       0x245,   # Doom Catapult
       0x246,   # Fiery Catapult
-      0x295    # Grassy Catapult
+      0x295,   # Grassy Catapult
+      0x325    # Elder Special Moves
     ]
     for i in opponent.moves # if no pp left for move
       if i.id>0 && i.id==opponent.lastMoveUsed && i.pp==0

@@ -1140,7 +1140,7 @@ class PokeBattle_Move
       atk=attacker.defense
       atkstage=attacker.stages[PBStats::DEFENSE]+6
     end
-    if type>=0 && (pbIsSpecial?(type) || pbIsElderSpecial?(type))
+    if type>=0 && (pbIsSpecial?(type) || pbIsElderSpecial?)
       atk=attacker.spatk
       atkstage=attacker.stages[PBStats::SPATK]+6
       if @function==0x121 # Foul Play

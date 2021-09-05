@@ -10287,7 +10287,6 @@ class PokeBattle_Move_154 < PokeBattle_Move
     @battle.field.effects[PBEffects::PsychicTerrain]=0
     @battle.field.effects[PBEffects::VolcanicTerrain]=0
     @battle.field.effects[PBEffects::LovelyTerrain]=0
-    @battle.field.effects[PBEffects::GlimmyGalaxy]=0
     @battle.field.effects[PBEffects::Cinament]=0
     @battle.field.effects[PBEffects::ElectricTerrain]=5
     @battle.field.effects[PBEffects::ElectricTerrain]=8 if attacker.hasWorkingItem(:TERRAINEXTENDER)
@@ -10317,7 +10316,6 @@ class PokeBattle_Move_155 < PokeBattle_Move
     @battle.field.effects[PBEffects::PsychicTerrain]=0
     @battle.field.effects[PBEffects::VolcanicTerrain]=0
     @battle.field.effects[PBEffects::LovelyTerrain]=0
-    @battle.field.effects[PBEffects::GlimmyGalaxy]=0
     @battle.field.effects[PBEffects::GrassyTerrain]=5
     @battle.field.effects[PBEffects::GrassyTerrain]=8 if attacker.hasWorkingItem(:TERRAINEXTENDER)
     @battle.pbDisplay(_INTL("Grass grew to cover the battlefield!"))
@@ -10346,7 +10344,6 @@ class PokeBattle_Move_156 < PokeBattle_Move
     @battle.field.effects[PBEffects::PsychicTerrain]=0
     @battle.field.effects[PBEffects::VolcanicTerrain]=0
     @battle.field.effects[PBEffects::LovelyTerrain]=0
-    @battle.field.effects[PBEffects::GlimmyGalaxy]=0
     @battle.field.effects[PBEffects::MistyTerrain]=5
     @battle.field.effects[PBEffects::MistyTerrain]=8 if attacker.hasWorkingItem(:TERRAINEXTENDER)
     @battle.pbDisplay(_INTL("Mist swirled about the battlefield!"))
@@ -12830,7 +12827,6 @@ class PokeBattle_Move_250 < PokeBattle_Move
     @battle.field.effects[PBEffects::GrassyTerrain]=0
     @battle.field.effects[PBEffects::PsychicTerrain]=0
     @battle.field.effects[PBEffects::Cinament]=0
-    @battle.field.effects[PBEffects::GlimmyGalaxy]=0
     @battle.field.effects[PBEffects::LovelyTerrain]=0
     @battle.field.effects[PBEffects::VolcanicTerrain]=5
     @battle.field.effects[PBEffects::VolcanicTerrain]=8 if attacker.hasWorkingItem(:TERRAINEXTENDER)
@@ -13070,7 +13066,6 @@ class PokeBattle_Move_276 < PokeBattle_Move
     @battle.field.effects[PBEffects::PsychicTerrain]=0
     @battle.field.effects[PBEffects::Cinament]=0
     @battle.field.effects[PBEffects::VolcanicTerrain]=0
-    @battle.field.effects[PBEffects::GlimmyGalaxy]=0
     @battle.field.effects[PBEffects::LovelyTerrain]=5
     @battle.field.effects[PBEffects::LovelyTerrain]=8 if attacker.hasWorkingItem(:TERRAINEXTENDER)
     @battle.pbDisplay(_INTL("A loveness has been set up on the battlefield!"))
@@ -14004,7 +13999,6 @@ class PokeBattle_Move_209 < PokeBattle_Move
     @battle.field.effects[PBEffects::GrassyTerrain]=0
     @battle.field.effects[PBEffects::VolcanicTerrain]=0
     @battle.field.effects[PBEffects::LovelyTerrain]=0
-    @battle.field.effects[PBEffects::GlimmyGalaxy]=0
     @battle.field.effects[PBEffects::Cinament]=0
     @battle.field.effects[PBEffects::PsychicTerrain]=5
     @battle.field.effects[PBEffects::PsychicTerrain]=8 if attacker.hasWorkingItem(:TERRAINEXTENDER)
@@ -15332,8 +15326,7 @@ class PokeBattle_Move_306 < PokeBattle_Move
            @battle.field.effects[PBEffects::PsychicTerrain]==0 &&
            @battle.field.effects[PBEffects::VolcanicTerrain]==0 &&
            @battle.field.effects[PBEffects::LovelyTerrain]==0 &&
-           @battle.field.effects[PBEffects::Cinament]==0 &&
-           @battle.field.effects[PBEffects::GlimmyGalaxy]==0
+           @battle.field.effects[PBEffects::Cinament]==0
   end
 
   def pbEffect(attacker,opponent,hitnum=0,alltargets=nil,showanimation=true)
@@ -15343,7 +15336,6 @@ class PokeBattle_Move_306 < PokeBattle_Move
     @battle.field.effects[PBEffects::MistyTerrain]=0
     @battle.field.effects[PBEffects::PsychicTerrain]=0
     @battle.field.effects[PBEffects::VolcanicTerrain]=0
-    @battle.field.effects[PBEffects::GlimmyGalaxy]=0
     @battle.field.effects[PBEffects::LovelyTerrain]=0
     @battle.field.effects[PBEffects::Cinament]=0
     @battle.field.effects[PBEffects::ElectricTerrain]=0

@@ -1515,7 +1515,6 @@ class PokeBattle_Battler
         @battle.field.effects[PBEffects::ElectricTerrain]=5
         @battle.field.effects[PBEffects::ElectricTerrain]=8 if self.hasWorkingItem(:TERRAINEXTENDER)
         @battle.field.effects[PBEffects::Cinament]=0
-        @battle.field.effects[PBEffects::GlimmyGalaxy]=0
         @battle.field.effects[PBEffects::VolcanicTerrain]=0
         @battle.field.effects[PBEffects::LovelyTerrain]=0
         @battle.pbDisplay(_INTL("An electric current runs across the battlefield!"))
@@ -1529,7 +1528,6 @@ class PokeBattle_Battler
         @battle.field.effects[PBEffects::PsychicTerrain]=5
         @battle.field.effects[PBEffects::PsychicTerrain]=8 if self.hasWorkingItem(:TERRAINEXTENDER)
         @battle.field.effects[PBEffects::Cinament]=0
-        @battle.field.effects[PBEffects::GlimmyGalaxy]=0
         @battle.field.effects[PBEffects::VolcanicTerrain]=0
         @battle.field.effects[PBEffects::LovelyTerrain]=0
         @battle.pbDisplay(_INTL("The battlefield got weird!"))
@@ -1542,7 +1540,6 @@ class PokeBattle_Battler
         @battle.field.effects[PBEffects::GrassyTerrain]=5
         @battle.field.effects[PBEffects::GrassyTerrain]=8 if self.hasWorkingItem(:TERRAINEXTENDER)
         @battle.field.effects[PBEffects::Cinament]=0
-        @battle.field.effects[PBEffects::GlimmyGalaxy]=0
         @battle.field.effects[PBEffects::VolcanicTerrain]=0
         @battle.field.effects[PBEffects::LovelyTerrain]=0
         @battle.pbDisplay(_INTL("Grass grew to cover the battlefield!"))
@@ -1555,7 +1552,6 @@ class PokeBattle_Battler
         @battle.field.effects[PBEffects::MistyTerrain]=5
         @battle.field.effects[PBEffects::MistyTerrain]=8 if self.hasWorkingItem(:TERRAINEXTENDER)
         @battle.field.effects[PBEffects::Cinament]=0
-        @battle.field.effects[PBEffects::GlimmyGalaxy]=0
         @battle.field.effects[PBEffects::VolcanicTerrain]=0
         @battle.field.effects[PBEffects::LovelyTerrain]=0
         @battle.pbDisplay(_INTL("Mist swirls around the battlefield!"))

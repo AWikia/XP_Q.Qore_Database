@@ -1141,7 +1141,11 @@ class PokeBattle_Battle
         if !quickclaw[i] && !quickdraw[i] && 
             @battlers[i].hasWorkingItem(:CUSTAPBERRY) &&
            !@battlers[i].pbOpposing1.hasWorkingAbility(:UNNERVE) &&
-           !@battlers[i].pbOpposing2.hasWorkingAbility(:UNNERVE)
+           !@battlers[i].pbOpposing2.hasWorkingAbility(:UNNERVE) &&
+           !@battlers[i].pbOpposing1.hasWorkingAbility(:ASONE1) &&
+           !@battlers[i].pbOpposing2.hasWorkingAbility(:ASONE1) &&
+           !@battlers[i].pbOpposing1.hasWorkingAbility(:ASONE2) &&
+           !@battlers[i].pbOpposing2.hasWorkingAbility(:ASONE2)
           if (@battlers[i].hasWorkingAbility(:GLUTTONY) && @battlers[i].hp<=(@battlers[i].totalhp/2).floor) ||
              @battlers[i].hp<=(@battlers[i].totalhp/4).floor
             pbCommonAnimation("UseItem",@battlers[i],nil)
@@ -3619,8 +3623,12 @@ class PokeBattle_Battle
       end
       # Glimmy Galaxy (healing)
       if @field.effects[PBEffects::GlimmyGalaxy]>0 &&
-         (i.hasWorkingAbility(:HEALTHYTUNNEL) ||
-          i.hasWorkingItem(:BLACKPLUS))
+         (i.pbHasType?(:MOON) ||
+          i.pbHasType?(:GLIMSE) ||
+          i.hasWorkingItem(:BLACKPLUS) ||
+          i.hasWorkingAbility(:HEALTHYTUNNEL) ||
+          i.hasWorkingAbility(:PHOTONFORCE) ||
+          i.hasWorkingAbility(:PHANTOMSPIRIT))
         hpgain=i.pbRecoverHP((i.totalhp/16).floor,true)
         i.temperature2= -2 if rand(100) < 20
         pbDisplay(_INTL("{1} was healed by the Glimmy Galaxy.",i.pbThis)) if hpgain>0

@@ -1,4 +1,4 @@
-﻿1,MEGAHORN,Megahorn,000,120,BUG,Physical,85,10,0,00,0,abef,"Using its tough and impressive horn, the user rams into the target with no letup."
+1,MEGAHORN,Megahorn,000,120,BUG,Physical,85,10,0,00,0,abef,"Using its tough and impressive horn, the user rams into the target with no letup."
 2,ATTACKORDER,Attack Order,000,90,BUG,Physical,100,15,0,00,0,befh,The user calls out its underlings to pummel the target. Critical hits land more easily.
 3,BUGBUZZ,Bug Buzz,046,90,BUG,Special,100,10,10,00,0,befk,The user vibrates its wings to generate a damaging sound wave. It may also lower the target's Sp. Def stat.
 4,XSCISSOR,X-Scissor,000,80,BUG,Physical,100,15,0,00,0,abef,The user slashes at the foe by crossing its scythes or claws as if they were a pair of scissors.
@@ -834,6 +834,7 @@
 944,SHADOWSLASH,Shadow Slash,000,70,GHOST,Physical,100,15,0,00,0,abefh,The user slashes the target the instant an opportunity arises. Critical hits land more easily.
 945,GHOSTLYAEROBICS,Ghostly Aerobics,00A,85,GHOST,Physical,100,15,30,04,0,abef,The user drops onto the other side with aerobics. It may leave the target(s) with burn.
 946,DESTINYFIRE,Destiny Fire,00A,100,GHOST,Special,70,10,50,00,0,bi,"The user uses a ghostly fire attack to damage the target. This may leave the target burned."
+1072,ELDERNIGHTCRAWLING,Elder Night Crawling,325,200,GHOST,ElderSpecial,100,5,0,08,-2,,"The user casts its powerful Ghost elder spell with incredible power to all targets. This, also makes the user unable to move in the next turn."
 ## FLINT Moves = Steel
 647,WRAPPEDTACKLE,Wrapped Tackle,000,90,STEEL,Physical,100,10,0,04,2,abef,"The user thows a wrapped bounce, hitting the entire side with large tackles."
 666,SPEEDYKICK,Speedy Kick,044,60,STEEL,Physical,0,30,40,02,3,acdh,The user hurls a harden speedy kick that may reduce the foe's speed.
@@ -866,6 +867,7 @@
 962,AQUATICSWIM,Aquatic Swim,000,40,WATER,Physical,100,25,0,00,0,abef,The target is blasted with a forceful swim in the sea
 963,WATERPUNCH,Water Punch,000,70,WATER,Physical,100,15,0,00,0,abefj,"The target is hit with a punch made by water."
 1061,AQUAGUN,Aqua Gun,000,80,WATER,Special,95,20,0,00,1,abef,The user fires a large aquatic cannon at the opponent. This move always goes first.
+1071,ELDERFIREERUPTION,Elder Fire Eruption,325,200,FIRE,ElderSpecial,100,5,0,08,-2,,"The user casts its powerful Fire elder spell with incredible power to all targets. This, also makes the user unable to move in the next turn."
 ## FLINT Moves = Grass
 964,LEAFYWEAPON,Leafy Weapon,022,70,GRASS,Physical,90,40,45,04,0,beh,The user danks all the foes with an adition of grass. May raise the user's evasion
 965,QUICKLEAF,Quick Leaf,042,60,GRASS,Physical,95,15,50,400,1,abe,A lot of leafs are hurled quickly at the target. This may also lower the foe's attack.
@@ -893,7 +895,7 @@
 1040,SIXTOPIA,Sixtopia,301,0,PSYCHIC,Status,0,10,0,10,0,d,"The user faints. In return, the Pokémon taking its place will have its HP restored and status cured as well as increased priority."
 ## FLINT Moves = Ice
 753,COLDWATER,Cold Water,000,40,ICE,Special,100,30,0,00,1,bef,The user shoot a lot of cold water to the target. This move always goes first.
-974,FROZENYOGHURT,Frozen Youghurt,239,55,ICE,Physical,100,10,100,00,0,abef,"If the user moves before the target, this attack's power will be doubled and freeze the target as well."
+974,FROZENYOGHURT,Frozen Yoghurt,293,55,ICE,Physical,100,10,100,00,0,abef,"If the user moves before the target, this attack's power will be doubled and freeze the target as well."
 975,ICEPOND,Ice Pond,033,0,ICE,Status,0,20,0,10,0,d,The user creates itself a frozen pond that will increase Special Defense by 2 stages.
 976,ICESMASH,Ice Smash,043,40,ICE,Physical,100,15,50,00,0,abef,The user attacks with a punch that can shatter a frozen rock. This may also lower the foe's Defense stat.
 ## FLINT Moves = Dragon
@@ -936,6 +938,7 @@
 987,MAGICCRATE,Magic Crate,070,1,MAGIC,Physical,30,5,0,00,0,abe,"The user builds a crate inside the opponent to hit it down. If it hits, the target faints instantly."
 988,MAGICFLAIL,Magic Flail,098,1,MAGIC,Physical,100,15,0,00,0,abef,The user flails about aimlessly to attack. It becomes more powerful the less HP the user has.
 989,MAGICSTARFRUIT,Magic Starfruit,097,1,MAGIC,Physical,0,5,0,00,0,abef,"The fewer PP this move has, the greater its attack power."
+1073,ELDERMAGICWAND,Elder Magic Wand,325,200,MAGIC,ElderSpecial,100,5,0,08,-2,,"The user casts its powerful Magic elder spell with incredible power to all targets. This, also makes the user unable to move in the next turn."
 ## FLINT Moves = Doom
 639,DOOMTACKLE,Doom Tackle,000,65,DOOM,Physical,100,30,0,00,0,abef,A doomy attack in which the user charges and slams into the target with its whole body.
 640,DOOMCLAW,Doom Claw,000,90,DOOM,Physical,100,10,0,00,0,abefh,The user slashes with a loud claw made from dooms. Critical hits land more easily.
@@ -1027,6 +1030,7 @@
 1007,IVORYGLIPS,Ivory Glips,224,90,HERB,Physical,100,10,0,00,2,abef,"Although this move has great power, it only works the first turn the user is in battle."
 1008,IVORYGLOPS,Ivory Glops,224,90,HERB,Special,100,10,0,00,2,abef,"Although this move has great power, it only works the first turn the user is in battle."
 1067,HERBALLASSO,Herbal Lasso,0C2,150,HERB,Physical,90,5,0,00,0,bef,The foe is attacked with a huge botanic lasso. The user must rest on the next turn to regain its energy.
+1074,ELDERHERBALGOLD,Elder Herbal Gold,325,200,HERB,ElderSpecial,100,5,0,08,-2,,"The user casts its powerful Herb elder spell with incredible power to all targets. This, also makes the user unable to move in the next turn."
 ## FLINT Moves = Chlorophyll
 703,CHLORNOPIA,Chlornopia,176,0,CHLOROPHYLL,Status,100,10,0,04,0,b,A Chlorry belch that makes the other side into Chlorophyll-type Pokémon
 704,KLEOPOTRIA,Kleopotria,169,170,CHLOROPHYLL,Special,80,10,40,04,0,bk,Camille's ancient move. This move will hit all targets with high damage and may rasise user's speed by 3 stages
@@ -1103,6 +1107,7 @@
 1027,MOONGEIST,Moongeist,000,75,GLIMSE,Physical,100,15,0,00,0,abefj,"The target is hit by a glimmy moongeist shot."
 1028,BLACKMOON,Black Moon,291,0,GLIMSE,Status,100,10,0,100,5,,"The user send a blackness moon into its ally. This passes its stat changes to share their powers."
 1029,GLIMMYGALAXY,Glimmy Galaxy,292,0,GLIMSE,Status,100,10,0,40,0,,"The user creates a galaxian tunnel in the field in order to damage out some Pokémon. This fades out other terrains."
+1075,ELDERGLIMMYWAVE,Elder Glimmy Wave,325,200,GLIMSE,ElderSpecial,100,5,0,08,-2,,"The user casts its powerful Glimse elder spell with incredible power to all targets. This, also makes the user unable to move in the next turn."
 ## Robot Moves
 739,LOBBY,Lobby,001,0,ROBOT,Status,0,1,0,10,0,,The user just lobs around to no effect at all...
 745,ROBTRATA,Robtrata,302,1,ROBOT,Physical,0,1,0,04,0,b,Opposing Pokémon are hit with a robot noise

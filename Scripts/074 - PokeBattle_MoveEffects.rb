@@ -10697,7 +10697,7 @@ class PokeBattle_Move_170 < PokeBattle_Move
     return super(attacker,opponent,hitnum,alltargets,showanimation) if pbIsDamaging?
     return -1 if !opponent.pbCanReduceStatStage?(PBStats::DEFENSE,attacker,true,self)
     lowering=3
-    lowering=(attacker.hasWorkingAbility(:CRATECRUSTER)) ? 1 : 2  if !isConst?(@id,PBMoves,:PSYCHOTRACK) && @battle.field.effects[PBEffects::PsychicTerrain]>0
+    lowering=(attacker.hasWorkingAbility(:CRATECRUSTER)) ? 2 : 1  if !isConst?(@id,PBMoves,:PSYCHOTRACK) && @battle.field.effects[PBEffects::PsychicTerrain]>0
     pbShowAnimation(@id,attacker,opponent,hitnum,alltargets,showanimation)
     ret=opponent.pbReduceStat(PBStats::DEFENSE,lowering,attacker,false,self)
     return ret ? 0 : -1
@@ -10721,8 +10721,7 @@ class PokeBattle_Move_170 < PokeBattle_Move
   def pbAdditionalEffect(attacker,opponent)
     return if opponent.damagestate.substitute
     lowering=3
-    lowering=1  if !isConst?(@id,PBMoves,:PSYCHOTRACK) &&
-                    @battle.field.effects[PBEffects::PsychicTerrain]>0
+    lowering=(attacker.hasWorkingAbility(:CRATECRUSTER)) ? 2 : 1  if !isConst?(@id,PBMoves,:PSYCHOTRACK) && @battle.field.effects[PBEffects::PsychicTerrain]>0
     if opponent.pbCanReduceStatStage?(PBStats::DEFENSE,attacker,false,self)
       opponent.pbReduceStat(PBStats::DEFENSE,lowering,attacker,false,self)
     end
@@ -15564,6 +15563,7 @@ class PokeBattle_Move_316 < PokeBattle_Move
       @battle.pbDisplay(_INTL("But it failed!"))
       return -1
     else
+      opponent.pokemon.corrosiveGas=true
       @battle.pbDisplay(_INTL("{1} corroded {2}'s {3}!",attacker.pbThis,opponent.pbThis,
                                                        PBItems.getName(opponent.item)))
       return 0

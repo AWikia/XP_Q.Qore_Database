@@ -1,4 +1,4 @@
-1,MEGAHORN,Megahorn,000,120,BUG,Physical,85,10,0,00,0,abef,"Using its tough and impressive horn, the user rams into the target with no letup."
+﻿1,MEGAHORN,Megahorn,000,120,BUG,Physical,85,10,0,00,0,abef,"Using its tough and impressive horn, the user rams into the target with no letup."
 2,ATTACKORDER,Attack Order,000,90,BUG,Physical,100,15,0,00,0,befh,The user calls out its underlings to pummel the target. Critical hits land more easily.
 3,BUGBUZZ,Bug Buzz,046,90,BUG,Special,100,10,10,00,0,befk,The user vibrates its wings to generate a damaging sound wave. It may also lower the target's Sp. Def stat.
 4,XSCISSOR,X-Scissor,000,80,BUG,Physical,100,15,0,00,0,abef,The user slashes at the foe by crossing its scythes or claws as if they were a pair of scissors.
@@ -893,6 +893,7 @@
 972,PSYCHOSTORY,Psycho Story,055,0,PSYCHIC,Status,0,5,0,00,0,e,The user hypnotizes itself into copying any stat change made by the target.
 973,DREAMTOPIA,Dreamtopia,178,15,PSYCHIC,Physical,100,40,0,00,0,abef,A Dream is scattered at the target. The user's HP is restored by over half of the damage taken by the target. Move never fails.
 1040,SIXTOPIA,Sixtopia,301,0,PSYCHIC,Status,0,10,0,10,0,d,"The user faints. In return, the Pokémon taking its place will have its HP restored and status cured as well as increased priority."
+1076,COLORATURA,Coloratura,326,120,PSYCHIC,Special,100,10,0,08,0,bef,"Using an odd shock wave, the user damages any Pokémon of the same color as the user."
 ## FLINT Moves = Ice
 753,COLDWATER,Cold Water,000,40,ICE,Special,100,30,0,00,1,bef,The user shoot a lot of cold water to the target. This move always goes first.
 974,FROZENYOGHURT,Frozen Yoghurt,293,55,ICE,Physical,100,10,100,00,0,abef,"If the user moves before the target, this attack's power will be doubled and freeze the target as well."

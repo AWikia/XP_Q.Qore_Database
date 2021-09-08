@@ -13932,6 +13932,20 @@ class PokeBattle_Move_325 < PokeBattle_Move
 end
 
 
+################################################################################
+# Only damages Pokémon that share the color of the user. (Coloratura)
+################################################################################
+class PokeBattle_Move_326 < PokeBattle_Move
+  def pbEffect(attacker,opponent,hitnum=0,alltargets=nil,showanimation=true)
+    if opponent.color != attacker.color
+        pbSEPlay("protection")
+       @battle.pbDisplay(_INTL("{1} was unaffected!",opponent.pbThis))
+      return -1
+    end
+    return super(attacker,opponent,hitnum,alltargets,showanimation)
+  end
+end
+
 
 ################################################################################
 ################################################################################

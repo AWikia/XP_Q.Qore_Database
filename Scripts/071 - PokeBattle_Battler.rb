@@ -20,6 +20,7 @@ class PokeBattle_Battler
   attr_writer :spdef
   attr_accessor :speed
   attr_accessor :stages
+  attr_accessor :color
   attr_accessor :ev
   attr_accessor :iv
   attr_accessor :moves
@@ -309,6 +310,7 @@ class PokeBattle_Battler
        PokeBattle_Move.pbFromPBMove(@battle,pkmn.moves[2]),
        PokeBattle_Move.pbFromPBMove(@battle,pkmn.moves[3])
     ]
+    @color        = pkmn.color
     @iv           = []
     @iv[0]        = pkmn.iv[0]
     @iv[1]        = pkmn.iv[1]

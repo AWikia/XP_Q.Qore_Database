@@ -13942,9 +13942,15 @@ class PokeBattle_Move_326 < PokeBattle_Move
        @battle.pbDisplay(_INTL("{1} was unaffected!",opponent.pbThis))
       return -1
     end
-    return super(attacker,opponent,hitnum,alltargets,showanimation)
+    return super(attacker,opponent,attacker.color,alltargets,showanimation)
   end
 end
+
+  def pbShowAnimation(id,attacker,opponent,hitnum=0,alltargets=nil,showanimation=true)
+    anim=attacker.color
+    return super(id,attacker,opponent,anim,alltargets,showanimation) # Weather-specific anim
+  end
+
 
 
 ################################################################################

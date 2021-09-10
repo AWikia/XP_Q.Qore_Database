@@ -2470,6 +2470,7 @@ class PokeBattle_Move_05C < PokeBattle_Move
     if attacker.effects[PBEffects::Transform] ||
        opponent.lastMoveUsed<=0 ||
        isConst?(PBMoveData.new(opponent.lastMoveUsed).type,PBTypes,:SHADOW) ||
+       isConst?(PBMoveData.new(opponent.lastMoveUsed).type,PBTypes,:ROBOT) ||
        blacklist.include?(PBMoveData.new(opponent.lastMoveUsed).function)
 			pbSEPlay("protection")
        @battle.pbDisplay(_INTL("But it failed!"))
@@ -2515,6 +2516,7 @@ class PokeBattle_Move_05D < PokeBattle_Move
     if attacker.effects[PBEffects::Transform] ||
        opponent.lastMoveUsedSketch<=0 ||
        isConst?(PBMoveData.new(opponent.lastMoveUsedSketch).type,PBTypes,:SHADOW) ||
+       isConst?(PBMoveData.new(opponent.lastMoveUsedSketch).type,PBTypes,:ROBOT) ||
        blacklist.include?(PBMoveData.new(opponent.lastMoveUsedSketch).function)
 			pbSEPlay("protection")
        @battle.pbDisplay(_INTL("But it failed!"))
@@ -4080,7 +4082,7 @@ def pbHiddenPower(iv)
     types.push(i) if !PBTypes.isPseudoType?(i) &&
                      !isConst?(i,PBTypes,:NORMAL) && !isConst?(i,PBTypes,:SHADOW) &&
                      !isConst?(i,PBTypes,:FAIRY) && !isConst?(i,PBTypes,:MOON) &&
-                     !isConst?(i,PBTypes,:HEART)
+                     !isConst?(i,PBTypes,:HEART) && !isConst?(i,PBTypes,:ROBOT)
   end
   type|=(iv[PBStats::HP]&1)
   type|=(iv[PBStats::ATTACK]&1)<<1
@@ -5423,7 +5425,8 @@ class PokeBattle_Move_0B5 < PokeBattle_Move
     for i in 0...party.length
       if i!=attacker.pokemonIndex && party[i] && !($USENEWBATTLEMECHANICS && party[i].isEgg?)
         for j in party[i].moves
-          next if isConst?(j.type,PBTypes,:SHADOW)
+          next if isConst?(j.type,PBTypes,:SHADOW) || 
+                  isConst?(j.type,PBTypes,:ROBOT)
           next if j.id==0
           found=false
           moves.push(j.id) if !blacklist.include?(PBMoveData.new(j.id).function)
@@ -5530,7 +5533,8 @@ class PokeBattle_Move_0B6 < PokeBattle_Move
     end
     i=0; loop do break unless i<1000
       move=@battle.pbRandom(PBMoves.maxValue)+1
-      next if isConst?(PBMoveData.new(move).type,PBTypes,:SHADOW)
+      next if isConst?(PBMoveData.new(move).type,PBTypes,:SHADOW) ||
+              isConst?(PBMoveData.new(move).type,PBTypes,:ROBOT)
       found=false
       if blacklist.include?(PBMoveData.new(move).function)
         found=true

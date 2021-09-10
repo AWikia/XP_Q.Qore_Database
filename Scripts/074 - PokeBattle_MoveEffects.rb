@@ -14724,6 +14724,7 @@ class PokeBattle_Move_235 < PokeBattle_Move
       @battle.pbDisplay(_INTL("But it failed!"))
       return -1
     else
+    pbShowAnimation(@id,attacker,opponent,hitnum,alltargets,showanimation)
     attacker.effects[PBEffects::LaserFocus]=2
     @battle.pbDisplay(_INTL("{1} concentrated intensely!",attacker.pbThis))
     return 0

@@ -1922,6 +1922,25 @@ class PokeBattle_Battler
       self.pbPartner.pbCureStatus(false)
       pbDisplay(_INTL("{1}'s {2} cured its partner's poison problem!",self.pbThis,PBAbilities.getName(self.ability)))
     end
+    # Curious Medicine
+    if self.hasWorkingAbility(:CURIOUSMEDICINE) && onactive
+          self.stages[PBStats::ATTACK]=0
+          self.stages[PBStats::DEFENSE]=0
+          self.stages[PBStats::SPATK]=0
+          self.stages[PBStats::SPDEF]=0
+          self.stages[PBStats::SPEED]=0
+          self.stages[PBStats::ACCURACY]=0
+          self.stages[PBStats::EVASION]=0
+          if pbPartner
+            pbPartner.stages[PBStats::ATTACK]=0
+            pbPartner.stages[PBStats::DEFENSE]=0
+            pbPartner.stages[PBStats::SPATK]=0
+            pbPartner.stages[PBStats::SPDEF]=0
+            pbPartner.stages[PBStats::SPEED]=0
+            pbPartner.stages[PBStats::ACCURACY]=0
+            pbPartner.stages[PBStats::EVASION]=0
+          end
+    end
     # Imprisin
     if self.hasWorkingAbility(:IMPRISIN) && onactive
       @battle.pbDisplay(_INTL("{1}'s Imprisin sealed the opponent's move(s)!",pbThis))

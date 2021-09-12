@@ -5670,6 +5670,7 @@ RegionalNumbers=87,82
 Kind=Royal
 Pokedex=When its head was bitten, toxins entered Slowpoke's head and unlocked an extraordinary power.
 WildItemUncommon=KINGSROCK
+FormNames=Johtonian,,Galarian
 BattlerPlayerY=17
 BattlerEnemyY=18
 BattlerAltitude=0

@@ -1538,6 +1538,7 @@ def pbCheckPokemonBitmapFiles(params)
        tshadow ? "_shadow" : "")
     ret=pbResolveBitmap(bitmapFileName)
     return ret if ret
+  end
     bitmapFileName=sprintf("Graphics/Battlers/%s%s%s%s%s%s",
        '000',
        tgender ? "f" : "",
@@ -1547,138 +1548,9 @@ def pbCheckPokemonBitmapFiles(params)
        tshadow ? "_shadow" : "") rescue nil
     ret=pbResolveBitmap(bitmapFileName)
     return ret if ret
-  end
   return nil
 end
 
-
-# This Class is used by Pokedex only
-
-
-# Note: Returns an AnimatedBitmap, not a Bitmap
-def pbLoadSpeciesBitmapDex(species,female=false,form=0,shiny=false,shadow=false,back=false,egg=false)
-  ret=nil
-  if egg
-    bitmapFileName=sprintf("Graphics/Battlers/%segg",getConstantName(PBSpecies,species)) rescue nil
-    if !pbResolveBitmap(bitmapFileName)
-      bitmapFileName=sprintf("Graphics/Battlers/%03degg",species)
-      if !pbResolveBitmap(bitmapFileName)
-        bitmapFileName=sprintf("Graphics/Battlers/egg")
-      end
-    end
-    bitmapFileName=pbResolveBitmap(bitmapFileName)
-  else
-    bitmapFileName=pbCheckPokemonBitmapFilesDex([species,back,female,shiny,form,shadow])
-  end
-  if bitmapFileName
-    ret=AnimatedBitmap.new(bitmapFileName)
-  end
-  return ret
-end
-
-def pbCheckPokemonBitmapFilesDex(params)  # Used only by some parts of the Pokedex
-  species=params[0]
-  back=params[1]
-  factors=[]
-  factors.push([5,params[5],false]) if params[5] && params[5]!=false     # shadow
-  factors.push([2,params[2],false]) if params[2] && params[2]!=false     # gender
-  factors.push([3,params[3],false]) if params[3] && params[3]!=false     # shiny
-  factors.push([4,params[4].to_s,""]) if params[4] && params[4].to_s!="" &&
-                                                      params[4].to_s!="0" # form
-  tshadow=false
-  tgender=false
-  tshiny=false
-  tform=""
-  for i in 0...2**factors.length
-    for j in 0...factors.length
-      case factors[j][0]
-      when 2   # gender
-        tgender=((i/(2**j))%2==0) ? factors[j][1] : factors[j][2]
-      when 3   # shiny
-        tshiny=((i/(2**j))%2==0) ? factors[j][1] : factors[j][2]
-      when 4   # form
-        tform=((i/(2**j))%2==0) ? factors[j][1] : factors[j][2]
-      when 5   # shadow
-        tshadow=((i/(2**j))%2==0) ? factors[j][1] : factors[j][2]
-      end
-    end
-=begin
-    bitmapFileName=sprintf("Graphics/Battlers/Pokedex/%s%s%s%s%s%s",
-       getConstantName(PBSpecies,species),
-       tgender ? "f" : "",
-       tshiny ? "s" : "",
-       back ? "b" : "",
-       (tform!="" ? "_"+tform : ""),
-       tshadow ? "_shadow" : "") rescue nil
-    ret=pbResolveBitmap(bitmapFileName)
-    return ret if ret
-    bitmapFileName=sprintf("Graphics/Battlers/Pokedex/%03d%s%s%s%s%s",
-       species,
-       tgender ? "f" : "",
-       tshiny ? "s" : "",
-       back ? "b" : "",
-       (tform!="" ? "_"+tform : ""),
-       tshadow ? "_shadow" : "")
-    ret=pbResolveBitmap(bitmapFileName)
-    return ret if ret
-=end
-#TEMP
-   if ($PokemonSystem.newsix==1 rescue false) 
-      bitmapFileName=sprintf("Graphics/Battlers/New6/%s%s%s%s%s%s",
-         getConstantName(PBSpecies,species),
-         tgender ? "f" : "",
-         tshiny ? "s" : "",
-         back ? "b" : "",
-         (tform!="" ? "_"+tform : ""),
-         tshadow ? "_shadow" : "") rescue nil
-      ret=pbResolveBitmap(bitmapFileName)
-      return ret if ret
-      bitmapFileName=sprintf("Graphics/Battlers/New6/%03d%s%s%s%s%s",
-         species,
-         tgender ? "f" : "",
-         tshiny ? "s" : "",
-         back ? "b" : "",
-         (tform!="" ? "_"+tform : ""),
-         tshadow ? "_shadow" : "")
-      ret=pbResolveBitmap(bitmapFileName)
-      return ret if ret
-    end
-#TEMP
-    bitmapFileName=sprintf("Graphics/Battlers/%s%s%s%s%s%s",
-       getConstantName(PBSpecies,species),
-       tgender ? "f" : "",
-       tshiny ? "s" : "",
-       back ? "b" : "",
-       (tform!="" ? "_"+tform : ""),
-       tshadow ? "_shadow" : "") rescue nil
-    ret=pbResolveBitmap(bitmapFileName)
-    return ret if ret
-    bitmapFileName=sprintf("Graphics/Battlers/%03d%s%s%s%s%s",
-       species,
-       tgender ? "f" : "",
-       tshiny ? "s" : "",
-       back ? "b" : "",
-       (tform!="" ? "_"+tform : ""),
-       tshadow ? "_shadow" : "")
-    ret=pbResolveBitmap(bitmapFileName)
-    return ret if ret
-#TEMP
-      bitmapFileName=sprintf("Graphics/Battlers/%s%s%s%s%s%s",
-         '000',
-         tgender ? "f" : "",
-         tshiny ? "s" : "",
-         back ? "b" : "",
-         (tform!="" ? "_"+tform : ""),
-         tshadow ? "_shadow" : "") rescue nil
-      ret=pbResolveBitmap(bitmapFileName)
-      return ret if ret
-#TEMP
-  end
-  return nil
-end
-
-
-# END
 
 
 def pbLoadPokemonIcon(pokemon)

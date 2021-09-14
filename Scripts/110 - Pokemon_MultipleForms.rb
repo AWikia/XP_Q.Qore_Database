@@ -3344,9 +3344,58 @@ MultipleForms.register(:PICHU,{
 })
 
 
-# TODO
 
 MultipleForms.register(:SLOWKING,{
+"type1"=>proc{|pokemon|
+   next if pokemon.form==0            # Kanto
+   case pokemon.form
+   when 2; next getID(PBTypes,:POISON)  # Alola
+   else;   next 
+   end
+},
+"type2"=>proc{|pokemon|
+   next if pokemon.form==0              # Kanto
+   if true # Was  IEMODE
+     case pokemon.form
+     when 2; next getID(PBTypes,:PSYCHIC)  # Alola
+     else;   next 
+     end
+   else
+     case pokemon.form
+     when 2; next getID(PBTypes,:HEART)  # Alola
+     else;   next 
+     end
+   end
+},
+"getBaseStats"=>proc{|pokemon|
+   next [95,65,80,30,110,110] if pokemon.form==2
+   next
+},
+"getAbilityList"=>proc{|pokemon|
+   next [[getID(PBAbilities,:CURIOUSMEDICINE),0],
+         [getID(PBAbilities,:OWNTEMPO),1],
+         [getID(PBAbilities,:REGENERATOR),2]] if pokemon.form==2
+   next
+},
+"getMoveList"=>proc{|pokemon|
+   next if pokemon.form!=2
+   movelist=[]
+   case pokemon.form
+   when 2; movelist=[[0,:EERIESPELL],[1,:POWERGEM],[1,:NASTYPLOT],[1,:SWAGGER],
+                     [1,:TACKLE],[1,:CURSE],[1,:GROWL],[1,:ACID],[9,:YAWN],
+                     [12,:CONFUSION],[15,:DISABLE],[18,:WATERPULSE],[21,:HEADBUTT],
+                     [24,:ZENHEADBUTT],[27,:AMNESIA],[30,:SURF],[33,:SLACKOFF],
+                     [36,:PSYCHIC],[39,:PSYCHUP],[42,:RAINDANCE],[45,:HEALPULSE]]
+   end
+   for i in movelist
+     i[1]=getConst(PBMoves,i[1])
+   end
+   next movelist
+},
+"dexEntry"=>proc{|pokemon|
+   next if pokemon.form==0
+   next _INTL("A combination of toxins and the shock of evolving has increased Shellder's intelligence to the point that Shellder now controls Slowking.") if pokemon.form==2 
+},
 "getFormOnCreation"=>proc{|pokemon|
    env=pbGetEnvironment()
    next 2 if rand(65536)<$REGIONALCOMBO

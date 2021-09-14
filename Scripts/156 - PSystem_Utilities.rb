@@ -1538,6 +1538,15 @@ def pbCheckPokemonBitmapFiles(params)
        tshadow ? "_shadow" : "")
     ret=pbResolveBitmap(bitmapFileName)
     return ret if ret
+    bitmapFileName=sprintf("Graphics/Battlers/%s%s%s%s%s%s",
+       '000',
+       tgender ? "f" : "",
+       tshiny ? "s" : "",
+       back ? "b" : "",
+       (tform!="" ? "_"+tform : ""),
+       tshadow ? "_shadow" : "") rescue nil
+    ret=pbResolveBitmap(bitmapFileName)
+    return ret if ret
   end
   return nil
 end
@@ -1653,6 +1662,17 @@ def pbCheckPokemonBitmapFilesDex(params)  # Used only by some parts of the Poked
        tshadow ? "_shadow" : "")
     ret=pbResolveBitmap(bitmapFileName)
     return ret if ret
+#TEMP
+      bitmapFileName=sprintf("Graphics/Battlers/%s%s%s%s%s%s",
+         '000',
+         tgender ? "f" : "",
+         tshiny ? "s" : "",
+         back ? "b" : "",
+         (tform!="" ? "_"+tform : ""),
+         tshadow ? "_shadow" : "") rescue nil
+      ret=pbResolveBitmap(bitmapFileName)
+      return ret if ret
+#TEMP
   end
   return nil
 end

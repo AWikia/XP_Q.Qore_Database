@@ -415,7 +415,7 @@ class PokemonLoad
         return
       elsif cmdNewGame>=0 && command==cmdNewGame
       if showContinue
-        if Kernel.pbConfirmMessageSerious(_INTL("You have already made a save file in this slot. If you start a new game and you decide to save, you won't be able to recover the previous save file. Proceed?"))
+        if Kernel.pbConfirmMessageSerious(_INTL("You have already made a save file in this computer. If you start a new game and you decide to save, you won't be able to recover the previous one. Proceed?"))
           @scene.pbEndScene
           if $game_map && $game_map.events
             for event in $game_map.events.values

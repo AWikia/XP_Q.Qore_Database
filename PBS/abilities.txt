@@ -269,7 +269,7 @@
 331,CHILLINGNEIGH,Chilling Neigh,"When the Pokémon knocks out a target, it utters a chilling neigh, which boosts its Attack stat."
 332,GRIMNEIGH,Grim Neigh,"When the Pokémon knocks out a target, it utters a terrifying neigh, which boosts its Sp. Atk stat."
 335,ASONE1,As One,"This Ability combines the effects of both Calyrex's Unnerve Ability and Glastrier's Chilling Neigh Ability."
-336,ASONE1,As One,"This Ability combines the effects of both Calyrex's Unnerve Ability and Spectrier's Grim Neigh Ability."
+336,ASONE2,As One,"This Ability combines the effects of both Calyrex's Unnerve Ability and Spectrier's Grim Neigh Ability."
 # FLINT Abilities
 192,DOOMER,Doomer,Increases power of Doom Attcaks when the Pokémon's HP is low.
 193,MARIAMARA,Mariamara,Doubles the power of Dark Attacks when the Pokémon's HP is half or less.
@@ -341,6 +341,8 @@
 333,ANGRYBIRD,Angry Bird,"The Pokémon is a very angry fighter and that boosts its evasiveness stat."
 334,BRIDINI,Bridini,The brandy body of the Pokémon halves the damage from Flying-type moves that hit it.
 337,WATERSPLASH,Water Splash,Doubles the power of Water-type attacks.
-338,NETPLAY,NetPlay,Compares an opposing Pokémon's Attack and Sp. Atk stats before raising its own Defense or Sp. Def stat—whichever will be more effective.
+338,UPLOAD,Upload,Compares an opposing Pokémon's Attack and Sp. Atk stats before raising its own Defense or Sp. Def stat—whichever will be more effective.
 339,HIRALINA,Hiralina,"The Hustle body of the Pokémon halves the damage from Heart-type moves that hit it."
 340,MASKEDHERB,Masked Herb,"Its powerful mask the Pokémon has halves the damage from Herb-type moves that hit it."
+341,ELDERPROJECTOR,Elder Projector,"Gives to Pokémon full immunity to all Elder Special moves."
+342,ELDERMASTER,Elder Master,"Doubles the power of Elder Special moves."

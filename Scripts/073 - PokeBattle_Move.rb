@@ -737,7 +737,7 @@ class PokeBattle_Move
     if attacker.hasWorkingAbility(:WATERSPLASH) && isConst?(type,PBTypes,:WATER) # changed
       damagemult=(damagemult*2).round
     end
-    if attacker.hasWorkingAbility(:ELDERMASTER) && pbIsElderSpecial?(type)
+    if attacker.hasWorkingAbility(:ELDERMASTER) && pbIsElderSpecial? # changed
       damagemult=(damagemult*2).round
     end
     if attacker.hasWorkingAbility(:DRAGONSMAW) && isConst?(type,PBTypes,:DRAGON) # changed

@@ -857,6 +857,7 @@
 957,ROASTJUMP,Roast Jump,00A,120,FIRE,Special,50,5,100,00,0,befn,The user fires roasty jump in order to inflict damage and burn the target.
 958,MAGMASHOES,Magma Shoes,169,0,FIRE,Status,0,5,0,10,0,b,The user finds magma shoes under the lava rocks. This will drastactically raise the user's Speed
 959,TORCHWOOD,Torchwood,288,0,FIRE,Status,0,25,0,20,1,,"The user disperses a torchwood, which changes Normal-type moves to Fire-type moves."
+1071,ELDERFIREERUPTION,Elder Fire Eruption,325,200,FIRE,ElderSpecial,100,5,0,08,-2,,"The user casts its powerful Fire elder spell with incredible power to all targets. This, also makes the user unable to move in the next turn."
 ## FLINT Moves = Water
 624,SEASHELL,Sea Shell,012,10,WATER,Physical,100,40,100,00,0,,The user stinks up an aromatc Sea Shell. This move will always cause the target to flinch
 625,WATERLOGO,Water Logo,02E,75,WATER,Physical,80,10,38,400,0,begk,"A sound logo is watered at the target. This may sharply raise the user's Attack stat"
@@ -867,7 +868,6 @@
 962,AQUATICSWIM,Aquatic Swim,000,40,WATER,Physical,100,25,0,00,0,abef,The target is blasted with a forceful swim in the sea
 963,WATERPUNCH,Water Punch,000,70,WATER,Physical,100,15,0,00,0,abefj,"The target is hit with a punch made by water."
 1061,AQUAGUN,Aqua Gun,000,80,WATER,Special,95,20,0,00,1,abef,The user fires a large aquatic cannon at the opponent. This move always goes first.
-1071,ELDERFIREERUPTION,Elder Fire Eruption,325,200,FIRE,ElderSpecial,100,5,0,08,-2,,"The user casts its powerful Fire elder spell with incredible power to all targets. This, also makes the user unable to move in the next turn."
 ## FLINT Moves = Grass
 964,LEAFYWEAPON,Leafy Weapon,022,70,GRASS,Physical,90,40,45,04,0,beh,The user danks all the foes with an adition of grass. May raise the user's evasion
 965,QUICKLEAF,Quick Leaf,042,60,GRASS,Physical,95,15,50,400,1,abe,A lot of leafs are hurled quickly at the target. This may also lower the foe's attack.
@@ -985,6 +985,7 @@
 735,LAVAASSIST,Lava Assist,192,0,LAVA,Status,0,20,0,100,5,,The user assists an ally by boosting its Special Attack stat by two stages.
 827,VOLCANICTERRAIN,Volcanic Terrain,250,0,LAVA,Status,0,10,0,40,0,,"This hurts Pokémom a bit, powers up Lava-type moves and powers down Water and Fire-type moves for five turns."
 844,LAVACRAYON,Lava Crayon,254,40,LAVA,Physical,90,20,0,00,0,ab,"By using its crayon power of lava, if your and the opposing last move has failed, this move deals massive damage."
+1077,LAVEROCK,Laverock,000,100,LAVA,Physical,0,15,0,00,0,bef,The user unleases its power to hurl a big volcanic fire to the target.
 ## FLINT Moves = Wind
 623,DAMADON,Damadon,022,70,WIND,Special,90,40,45,04,0,beh,The user danks all the foes with an adition of grass. May raise the user's evasion
 683,WINDATTACK,Wind Attack,000,60,WIND,Physical,100,30,0,00,0,abef,"The target is struck with large, imposing wings spread wide to inflict damage."

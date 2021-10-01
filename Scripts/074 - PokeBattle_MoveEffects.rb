@@ -14435,7 +14435,7 @@ class PokeBattle_Move_223 < PokeBattle_Move
             isConst?(opponent.ability,PBAbilities,:GULPMISSILE) ||
             isConst?(opponent.ability,PBAbilities,:ICEFACE) ||
             isConst?(opponent.ability,PBAbilities,:NEUTRALIZINGGAS) ||
-            isConst?(opponent.ability,PBAbilities,:MORFA) ||
+            isConst?(opponent.ability,PBAbilities,:MORFAT) ||
             isConst?(opponent.ability,PBAbilities,:ABILITOPIA) ||
             isEternal?(opponent))
           oldabil=opponent.ability

@@ -13966,7 +13966,7 @@ end
 ################################################################################
 # Target's ability becomes Klutz. (Forbidden Spell).
 ################################################################################
-class PokeBattle_Move_184 < PokeBattle_Move
+class PokeBattle_Move_327 < PokeBattle_Move
   def pbEffect(attacker,opponent,hitnum=0,alltargets=nil,showanimation=true)
     if opponent.effects[PBEffects::Substitute]>0 && !ignoresSubstitute?(attacker)
 			pbSEPlay("protection")

@@ -11176,6 +11176,13 @@ class PokeBattle_Move_184 < PokeBattle_Move
       @battle.pbDisplay(_INTL("But it failed!"))
       return -1
     end
+    if isConst?(opponent.ability,PBAbilities,:ABILITOPIA) ||
+       isConst?(opponent.ability,PBAbilities,:FERMATINA) ||
+       isConst?(opponent.ability,PBAbilities,:MORFAT)
+       pbSEPlay("protection")
+       @battle.pbDisplay(_INTL("But it failed!"))
+      return -1
+    end
     if !attacker.hasAbilityPowers(opponent)
       if isConst?(opponent.ability,PBAbilities,:BATTLEBOND) || 
          isConst?(opponent.ability,PBAbilities,:COMATOSE) ||
@@ -13956,6 +13963,71 @@ end
   end
 
 
+################################################################################
+# Target's ability becomes Klutz. (Forbidden Spell).
+################################################################################
+class PokeBattle_Move_184 < PokeBattle_Move
+  def pbEffect(attacker,opponent,hitnum=0,alltargets=nil,showanimation=true)
+    if opponent.effects[PBEffects::Substitute]>0 && !ignoresSubstitute?(attacker)
+			pbSEPlay("protection")
+      @battle.pbDisplay(_INTL("But it failed!"))  
+      return -1
+    end
+    return -1 if pbTypeImmunityByAbility(pbType(@type,attacker,opponent),attacker,opponent)
+    if isConst?(opponent.ability,PBAbilities,:ABILITOPIA) ||
+       isConst?(opponent.ability,PBAbilities,:KLUTZ) ||
+       isConst?(opponent.ability,PBAbilities,:MORFAT)
+       pbSEPlay("protection")
+       @battle.pbDisplay(_INTL("But it failed!"))
+      return -1
+    end
+    if !attacker.hasAbilityPowers(opponent)
+      if isConst?(opponent.ability,PBAbilities,:BATTLEBOND) || 
+         isConst?(opponent.ability,PBAbilities,:COMATOSE) ||
+         isConst?(opponent.ability,PBAbilities,:DISGUISE) ||
+         isConst?(opponent.ability,PBAbilities,:GULPMISSILE) ||
+         isConst?(opponent.ability,PBAbilities,:ICEFACE) ||
+         isConst?(opponent.ability,PBAbilities,:MULTITYPE) ||
+         isConst?(opponent.ability,PBAbilities,:NEUTRALIZINGGAS) ||
+         isConst?(opponent.ability,PBAbilities,:POWERCONSTRUCT) ||
+         isConst?(opponent.ability,PBAbilities,:RKSSYSTEM) ||
+         isConst?(opponent.ability,PBAbilities,:SCHOOLING) ||
+         isConst?(opponent.ability,PBAbilities,:SHIELDSDOWN) ||
+         isConst?(opponent.ability,PBAbilities,:STANCECHANGE) ||
+         isConst?(opponent.ability,PBAbilities,:TRUANT) ||
+         isConst?(opponent.ability,PBAbilities,:KOULUNDIN) ||
+         isConst?(opponent.ability,PBAbilities,:MAXTHIN) ||
+         isConst?(opponent.ability,PBAbilities,:CHIKOLINI)
+        pbSEPlay("protection")
+         @battle.pbDisplay(_INTL("But it failed!"))
+        return -1
+      end
+    end
+    pbShowAnimation(@id,attacker,opponent,hitnum,alltargets,showanimation)
+    oldabil=opponent.ability
+    opponent.ability=getConst(PBAbilities,:KLUTZ) || 0
+    abilityname=PBAbilities.getName(getConst(PBAbilities,:KLUTZ))
+    @battle.pbDisplay(_INTL("{1} acquired {2}!",opponent.pbThis,abilityname))
+    if opponent.effects[PBEffects::Imprison] && isConst?(oldabil,PBAbilities,:IMPRISIN) && $USENEWBATTLEMECHANICS
+      PBDebug.log("[Ability triggered] #{opponent.pbThis}'s Imprisin ended")    
+      opponent.effects[PBEffects::Imprison]=false
+      @battle.pbDisplay(_INTL("{1}'s {2} finally bought back the sealed move(s) to the opposing Pokémon!",opponent.pbThis,PBAbilities.getName(oldabil)))
+    end
+    if isConst?(opponent.species,PBSpecies,:ETV) && opponent.form>1
+      opponent.form-=2
+      opponent.pbUpdate(true)
+      @battle.scene.pbChangePokemon(opponent,opponent.pokemon)
+      @battle.pbDisplay(_INTL("{1}'s parent child faded!",opponent.pbThis))
+    end
+    if opponent.effects[PBEffects::Illusion] && isConst?(oldabil,PBAbilities,:ILLUSION)
+      PBDebug.log("[Ability triggered] #{opponent.pbThis}'s Illusion ended")    
+      opponent.effects[PBEffects::Illusion]=nil
+      @battle.scene.pbChangePokemon(opponent,opponent.pokemon)
+      @battle.pbDisplay(_INTL("{1}'s {2} wore off!",opponent.pbThis,PBAbilities.getName(oldabil)))
+    end
+    return 0
+  end
+end
 
 ################################################################################
 ################################################################################

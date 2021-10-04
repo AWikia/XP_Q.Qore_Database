@@ -1457,22 +1457,52 @@ class PokeBattle_Battle
       if opponent.effects[PBEffects::Substitute]>0
         score-=90
       elsif skill>=PBTrainerAI.mediumSkill
-        if isConst?(opponent.ability,PBAbilities,:MULTITYPE) ||
-           isConst?(opponent.ability,PBAbilities,:RKSSYSTEM) ||
+        if isConst?(opponent.ability,PBAbilities,:ABILITOPIA) ||
+           isConst?(opponent.ability,PBAbilities,:MORFAT)
            isConst?(opponent.ability,PBAbilities,:SIMPLE) ||
-           isConst?(opponent.ability,PBAbilities,:TRUANT)
-          score-=90
+           isConst?(opponent.ability,PBAbilities,:BATTLEBOND) ||
+           isConst?(opponent.ability,PBAbilities,:COMATOSE) ||
+           isConst?(opponent.ability,PBAbilities,:DISGUISE) ||
+           isConst?(opponent.ability,PBAbilities,:GULPMISSILE) ||
+           isConst?(opponent.ability,PBAbilities,:ICEFACE) ||
+           isConst?(opponent.ability,PBAbilities,:MULTITYPE) ||
+           isConst?(opponent.ability,PBAbilities,:NEUTRALIZINGGAS) ||
+           isConst?(opponent.ability,PBAbilities,:POWERCONSTRUCT) ||
+           isConst?(opponent.ability,PBAbilities,:RKSSYSTEM) ||
+           isConst?(opponent.ability,PBAbilities,:SCHOOLING) ||
+           isConst?(opponent.ability,PBAbilities,:SHIELDSDOWN) ||
+           isConst?(opponent.ability,PBAbilities,:STANCECHANGE) ||
+           isConst?(opponent.ability,PBAbilities,:TRUANT) ||
+           isConst?(opponent.ability,PBAbilities,:KOULUNDIN) ||
+           isConst?(opponent.ability,PBAbilities,:CHIKOLINI) ||
+           isConst?(opponent.ability,PBAbilities,:MAXTHIN)
+           score-=90
         end
       end
     when 0x64
       if opponent.effects[PBEffects::Substitute]>0
         score-=90
       elsif skill>=PBTrainerAI.mediumSkill
-        if isConst?(opponent.ability,PBAbilities,:MULTITYPE) ||
-           isConst?(opponent.ability,PBAbilities,:RKSSYSTEM)
+        if isConst?(opponent.ability,PBAbilities,:ABILITOPIA) ||
+           isConst?(opponent.ability,PBAbilities,:MORFAT)
            isConst?(opponent.ability,PBAbilities,:INSOMNIA) ||
-           isConst?(opponent.ability,PBAbilities,:TRUANT)
-          score-=90
+           isConst?(opponent.ability,PBAbilities,:BATTLEBOND) ||
+           isConst?(opponent.ability,PBAbilities,:COMATOSE) ||
+           isConst?(opponent.ability,PBAbilities,:DISGUISE) ||
+           isConst?(opponent.ability,PBAbilities,:GULPMISSILE) ||
+           isConst?(opponent.ability,PBAbilities,:ICEFACE) ||
+           isConst?(opponent.ability,PBAbilities,:MULTITYPE) ||
+           isConst?(opponent.ability,PBAbilities,:NEUTRALIZINGGAS) ||
+           isConst?(opponent.ability,PBAbilities,:POWERCONSTRUCT) ||
+           isConst?(opponent.ability,PBAbilities,:RKSSYSTEM) ||
+           isConst?(opponent.ability,PBAbilities,:SCHOOLING) ||
+           isConst?(opponent.ability,PBAbilities,:SHIELDSDOWN) ||
+           isConst?(opponent.ability,PBAbilities,:STANCECHANGE) ||
+           isConst?(opponent.ability,PBAbilities,:TRUANT) ||
+           isConst?(opponent.ability,PBAbilities,:KOULUNDIN) ||
+           isConst?(opponent.ability,PBAbilities,:CHIKOLINI) ||
+           isConst?(opponent.ability,PBAbilities,:MAXTHIN)
+           score-=90
         end
       end
     when 0x65, 0x206
@@ -2828,11 +2858,26 @@ class PokeBattle_Battle
       if opponent.effects[PBEffects::Substitute]>0
         score-=90
       elsif skill>=PBTrainerAI.mediumSkill
-        if isConst?(opponent.ability,PBAbilities,:MULTITYPE) ||
-           isConst?(opponent.ability,PBAbilities,:RKSSYSTEM) ||
+        if isConst?(opponent.ability,PBAbilities,:ABILITOPIA) ||
+           isConst?(opponent.ability,PBAbilities,:MORFAT)
            isConst?(opponent.ability,PBAbilities,:FERFATINA) ||
-           isConst?(opponent.ability,PBAbilities,:TRUANT)
-          score-=90
+           isConst?(opponent.ability,PBAbilities,:BATTLEBOND) ||
+           isConst?(opponent.ability,PBAbilities,:COMATOSE) ||
+           isConst?(opponent.ability,PBAbilities,:DISGUISE) ||
+           isConst?(opponent.ability,PBAbilities,:GULPMISSILE) ||
+           isConst?(opponent.ability,PBAbilities,:ICEFACE) ||
+           isConst?(opponent.ability,PBAbilities,:MULTITYPE) ||
+           isConst?(opponent.ability,PBAbilities,:NEUTRALIZINGGAS) ||
+           isConst?(opponent.ability,PBAbilities,:POWERCONSTRUCT) ||
+           isConst?(opponent.ability,PBAbilities,:RKSSYSTEM) ||
+           isConst?(opponent.ability,PBAbilities,:SCHOOLING) ||
+           isConst?(opponent.ability,PBAbilities,:SHIELDSDOWN) ||
+           isConst?(opponent.ability,PBAbilities,:STANCECHANGE) ||
+           isConst?(opponent.ability,PBAbilities,:TRUANT) ||
+           isConst?(opponent.ability,PBAbilities,:KOULUNDIN) ||
+           isConst?(opponent.ability,PBAbilities,:CHIKOLINI) ||
+           isConst?(opponent.ability,PBAbilities,:MAXTHIN)
+           score-=90
         end
       end
     when 0x186
@@ -3231,6 +3276,32 @@ class PokeBattle_Battle
           if hasspecicalattack
             score+=20
           end
+        end
+      end
+    when 0x327
+      if opponent.effects[PBEffects::Substitute]>0
+        score-=90
+      elsif skill>=PBTrainerAI.mediumSkill
+        if isConst?(opponent.ability,PBAbilities,:ABILITOPIA) ||
+           isConst?(opponent.ability,PBAbilities,:MORFAT)
+           isConst?(opponent.ability,PBAbilities,:FERFATINA) ||
+           isConst?(opponent.ability,PBAbilities,:BATTLEBOND) ||
+           isConst?(opponent.ability,PBAbilities,:COMATOSE) ||
+           isConst?(opponent.ability,PBAbilities,:DISGUISE) ||
+           isConst?(opponent.ability,PBAbilities,:GULPMISSILE) ||
+           isConst?(opponent.ability,PBAbilities,:ICEFACE) ||
+           isConst?(opponent.ability,PBAbilities,:MULTITYPE) ||
+           isConst?(opponent.ability,PBAbilities,:NEUTRALIZINGGAS) ||
+           isConst?(opponent.ability,PBAbilities,:POWERCONSTRUCT) ||
+           isConst?(opponent.ability,PBAbilities,:RKSSYSTEM) ||
+           isConst?(opponent.ability,PBAbilities,:SCHOOLING) ||
+           isConst?(opponent.ability,PBAbilities,:SHIELDSDOWN) ||
+           isConst?(opponent.ability,PBAbilities,:STANCECHANGE) ||
+           isConst?(opponent.ability,PBAbilities,:TRUANT) ||
+           isConst?(opponent.ability,PBAbilities,:KOULUNDIN) ||
+           isConst?(opponent.ability,PBAbilities,:CHIKOLINI) ||
+           isConst?(opponent.ability,PBAbilities,:MAXTHIN)
+           score-=90
         end
       end
     end

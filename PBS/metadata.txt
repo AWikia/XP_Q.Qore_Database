@@ -2477,3 +2477,15 @@ BattleBack=Sanuora
 Bicycle=false
 Outdoor=true
 ShowArea=true
+[445]
+# Navel Rock
+BattleBack=CaveDark
+Bicycle=false
+MapPosition=2,7,6
+ShowArea=true
+[446]
+# Navel Rock
+BattleBack=CaveDarker
+Bicycle=false
+MapPosition=2,7,6
+ShowArea=true

@@ -28579,7 +28579,7 @@ Pokedex=A heavy ΚΟΥΛΟΥΝΔΙΝ was found again by Liquorice Larry. He used
 BattlerPlayerY=32
 BattlerEnemyY=36
 BattlerAltitude=20
-Evolutions=COULUNDIN,Trained,320
+Evolutions=COULUNDIN,Trained,320,COULUNDIN,Location,445,COULUNDIN,Location,446
 [1050]
 Name=Grookey
 InternalName=GROOKEY

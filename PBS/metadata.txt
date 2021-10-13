@@ -2485,7 +2485,7 @@ MapPosition=2,7,6
 ShowArea=true
 [446]
 # Navel Rock
-BattleBack=CaveDarker
+BattleBack=CaveDark
 Bicycle=false
 MapPosition=2,7,6
 ShowArea=true

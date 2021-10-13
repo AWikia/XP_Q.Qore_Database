@@ -13111,7 +13111,8 @@ end
 class PokeBattle_Move_278 < PokeBattle_Move
   def pbAccuracyCheck(attacker,opponent)
     if (!attacker.hasMoldBreaker && opponent.hasWorkingAbility(:STURDY) ||
-        opponent.hasWorkingAbility(:HERBALILITY))
+        opponent.hasWorkingAbility(:HERBALILITY) || 
+        opponent.hasWorkingAbility(:MASKEDHERB))
 			pbSEPlay("protection")
       @battle.pbDisplay(_INTL("{1} was protected by {2}!",opponent.pbThis,PBAbilities.getName(opponent.ability)))  
       return false

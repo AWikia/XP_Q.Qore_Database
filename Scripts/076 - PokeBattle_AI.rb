@@ -3192,6 +3192,7 @@ class PokeBattle_Battle
     when 0x278
       score-=90 if opponent.hasWorkingAbility(:STURDY) || 
                    opponent.hasWorkingAbility(:HERBALILITY) || 
+                   opponent.hasWorkingAbility(:MASKEDHERB) || 
                    opponent.pbHasType(:HERB) || opponent.pbHasType(:GLIMSE) ||
                    opponent.hasWorkingItem(:BOTANICSMOKE)
       score-=90 if opponent.level>attacker.level

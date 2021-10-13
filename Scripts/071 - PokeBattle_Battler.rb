@@ -2488,6 +2488,7 @@ class PokeBattle_Battler
            if (user.hasWorkingAbility(:MAGICGUARD) || 
               user.hasWorkingAbility(:SUPERCLEARBODY) ||
               user.hasWorkingAbility(:HERBALILITY) ||
+              user.hasWorkingAbility(:MASKEDHERB) ||
               user.hasWorkingItem(:BOTANICSMOKE) ||
               user.pbHasType?(:HERB) || user.pbHasType?(:GLIMSE))
             PBDebug.log("[Ability triggered] #{target.pbThis}'s Herbalility couldn't work")
@@ -2507,6 +2508,7 @@ class PokeBattle_Battler
            if (user.hasWorkingAbility(:MAGICGUARD) || 
               user.hasWorkingAbility(:SUPERCLEARBODY) ||
               user.hasWorkingAbility(:HERBALILITY) ||
+              user.hasWorkingAbility(:MASKEDHERB) ||
               user.hasWorkingItem(:BOTANICSMOKE) ||
               user.pbHasType?(:HERB) || user.pbHasType?(:GLIMSE))
             PBDebug.log("[Item triggered] #{target.pbThis}'s Botanic Smoke couldn't work")

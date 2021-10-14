@@ -1574,18 +1574,18 @@ class PokeBattle_Move
       damage=0
     else
       opponent.damagestate.substitute=false
-      # changed - Disguise
-      if opponent.effects[PBEffects::Disguise] && !attacker.hasMoldBreaker
-        damage=0
-        opponent.damagestate.typemod=8 if opponent.damagestate.typemod>=1 # turn hit neutral if not very or super effective
-      end
-      # changed end
       # changed - Photon Claw
       if opponent.hasWorkingItem(:PHOTONCLAW)
         damage=0
         opponent.damagestate.typemod=8 if opponent.damagestate.typemod>=1 # turn hit neutral if not very or super effective
       end
       # changed - end
+      # changed - Disguise
+      if opponent.effects[PBEffects::Disguise] && !attacker.hasMoldBreaker
+        damage=0
+        opponent.damagestate.typemod=8 if opponent.damagestate.typemod>=1 # turn hit neutral if not very or super effective
+      end
+      # changed end
       # changed - Ice Face
       if opponent.effects[PBEffects::IceFace] && pbIsPhysical?(type) && !attacker.hasMoldBreaker
         damage=0
@@ -1629,8 +1629,17 @@ class PokeBattle_Move
       if opponent.damagestate.typemod!=0
         @battle.scene.pbDamageAnimation(opponent,effectiveness)
       end
+      # changed - Photon Claw
+      photonclaw = false
+      if opponent.hasWorkingItem(:PHOTONCLAW)
+        @battle.pbDisplay(_INTL("Its Photon Claw served it as a decoy!"))
+        opponent.pbConsumeItem  # Item consumed
+        photonclaw = true
+      end
+      # changed end
       # changed - Disguise
-      if opponent.effects[PBEffects::Disguise] && !attacker.hasMoldBreaker
+      if opponent.effects[PBEffects::Disguise] && !attacker.hasMoldBreaker &&
+        !photonclaw
         @battle.pbDisplay(_INTL("Its disguise served it as a decoy!"))
         opponent.effects[PBEffects::Disguise]=false
         opponent.form=1
@@ -1638,15 +1647,10 @@ class PokeBattle_Move
         @battle.scene.pbChangePokemon(opponent,opponent.pokemon)
         @battle.pbDisplay(_INTL("{1}'s disguise was busted!",opponent.name))
       end
-      # changed end`
-      # changed - Photon Claw
-      if opponent.hasWorkingItem(:PHOTONCLAW)
-        @battle.pbDisplay(_INTL("Its Photon Claw served it as a decoy!"))
-        opponent.pbConsumeItem  # Item consumed
-      end
       # changed end
       # changed - Disguise
-      if opponent.effects[PBEffects::IceFace] && pbIsPhysical?(type) && !attacker.hasMoldBreaker
+      if opponent.effects[PBEffects::IceFace] && pbIsPhysical?(type) && 
+        !attacker.hasMoldBreaker && !photonclaw
         @battle.pbDisplay(_INTL("Its ice face served it as a decoy!"))
         opponent.effects[PBEffects::IceFace]=false
         opponent.form=1

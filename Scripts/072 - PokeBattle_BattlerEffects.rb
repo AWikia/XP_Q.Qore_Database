@@ -1124,8 +1124,9 @@ class PokeBattle_Battler
          (hasWorkingAbility(:INNERFOCUS) && $USENEWBATTLEMECHANICS) ||
          (hasWorkingAbility(:SCRAPPY) && $USENEWBATTLEMECHANICS) ||
          (hasWorkingAbility(:OBLIVIOUS) && $USENEWBATTLEMECHANICS) ||
-         (hasWorkingAbility(:OWNTEMPO) && $USENEWBATTLEMECHANICS)
-        abilityname=PBAbilities.getName(self.ability)
+         (hasWorkingAbility(:OWNTEMPO) && $USENEWBATTLEMECHANICS) ||
+          hasWorkingAbility(:PROTEINCROTELINE)
+         abilityname=PBAbilities.getName(self.ability)
         oppabilityname=PBAbilities.getName(opponent.ability)
         pbSEPlay("protection")
         @battle.pbDisplay(_INTL("{1}'s {2} prevented {3}'s {4} from working!",
@@ -1174,8 +1175,9 @@ class PokeBattle_Battler
          (hasWorkingAbility(:SCRAPPY) && $USENEWBATTLEMECHANICS) ||
          (hasWorkingAbility(:OBLIVIOUS) && $USENEWBATTLEMECHANICS) ||
          (hasWorkingAbility(:INNERFOCUS) && $USENEWBATTLEMECHANICS) ||
-         (hasWorkingAbility(:OWNTEMPO) && $USENEWBATTLEMECHANICS)
-        abilityname=PBAbilities.getName(self.ability)
+         (hasWorkingAbility(:OWNTEMPO) && $USENEWBATTLEMECHANICS) ||
+          hasWorkingAbility(:PROTEINCROTELINE)
+         abilityname=PBAbilities.getName(self.ability)
         oppabilityname=PBAbilities.getName(opponent.ability)
         pbSEPlay("protection")
         @battle.pbDisplay(_INTL("{1}'s {2} prevented {3}'s {4} from working!",
@@ -1223,8 +1225,9 @@ class PokeBattle_Battler
          (hasWorkingAbility(:INNERFOCUS) && $USENEWBATTLEMECHANICS) ||
          (hasWorkingAbility(:SCRAPPY) && $USENEWBATTLEMECHANICS) ||
          (hasWorkingAbility(:OBLIVIOUS) && $USENEWBATTLEMECHANICS) ||
-         (hasWorkingAbility(:OWNTEMPO) && $USENEWBATTLEMECHANICS)
-        abilityname=PBAbilities.getName(self.ability)
+         (hasWorkingAbility(:OWNTEMPO) && $USENEWBATTLEMECHANICS) ||
+          hasWorkingAbility(:PROTEINCROTELINE)
+         abilityname=PBAbilities.getName(self.ability)
         oppabilityname=PBAbilities.getName(opponent.ability)
         pbSEPlay("protection")
         @battle.pbDisplay(_INTL("{1}'s {2} prevented {3}'s {4} from working!",

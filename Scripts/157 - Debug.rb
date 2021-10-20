@@ -422,7 +422,7 @@ def pbDebugMenu
         pkmn=PokeBattle_Pokemon.new(i,50,$Trainer)
 # QQC Edit
 	# TODO: Increasal of Expected Number in Q.Qore Species (After the next batch of Regular Species added)
-    fdexno = getDexNumber2(i)
+    fdexno = getDexNumber3(i)
 # QQC End
         $PokemonStorage[(fdexno-1)/$PokemonStorage.maxPokemon(0),
                         (fdexno-1)%$PokemonStorage.maxPokemon(0)]=pkmn

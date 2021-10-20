@@ -7300,12 +7300,10 @@ MultipleForms.register(:CALYREX,{
      else;   next
    end
 },
-=begin
 "type2"=>proc{|pokemon|
-   types=[:CHLOROPHYLL,:BLIZZARD,:MOON]
+   types=[:GRASS,:ICE,:GHOST] # [:CHLOROPHYLL,:BLIZZARD,:MOON]
    next getID(PBTypes,types[pokemon.form])
 },
-=end
 "getMoveList"=>proc{|pokemon|
    next if pokemon.form==0
    movelist=[[1,:GLACIALLANCE],[1,:TACKLE],[1,:TAILWHIP],[1,:DOUBLEKICK],

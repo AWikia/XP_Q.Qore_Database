@@ -493,7 +493,7 @@ class FightMenuButtons < BitmapSprite
       end
       y+=UPPERGAP
       self.bitmap.blt(x,y,@buttonbitmap.bitmap,Rect.new(192,moves[i].type*46,192,46))
-      self.bitmap.blt(416+108,20+UPPERGAP,@catbitmap.bitmap,Rect.new(0,moves[i].category*28,64,28))
+      self.bitmap.blt(416+108,20+UPPERGAP,@catbitmap.bitmap,Rect.new(64*$PokemonSystem.colortige,moves[i].category*28,64,28))
       self.bitmap.blt(416,20+UPPERGAP,@typebitmap.bitmap,Rect.new(64*$PokemonSystem.colortige,moves[i].type*28,64,28))
       textpos.push([_INTL("{1}",moves[i].name),x+96,y+4,2,
          typeColors[moves[i].type][0],typeColors[moves[i].type][1],1])

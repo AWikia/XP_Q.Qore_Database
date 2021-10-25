@@ -188,7 +188,7 @@ class MoveRelearnerScene
     textpos.push([accuracy==0 ? "---" : sprintf("%d",accuracy),
           468+64,178,2,Color.new(64,64,64),Color.new(176,176,176)])
     pbDrawTextPositions(overlay,textpos)
-    imagepos.push(["Graphics/Pictures/category",436+64,116,0,category*28,64,28])
+    imagepos.push(["Graphics/Pictures/category",436+64,116,64*$PokemonSystem.colortige,category*28,64,28])
     if @sprites["commands"].index<@moves.length-1
       imagepos.push(["Graphics/Pictures/reminderButtons",48,350,0,0,76,32])
     end

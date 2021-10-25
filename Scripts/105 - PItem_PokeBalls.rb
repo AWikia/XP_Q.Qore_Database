@@ -82,7 +82,8 @@ $BallTypes={
    29=>:SHADOWBALL,
    30=>:DREAMBALL,
    31=>:GREATDUSKBALL,
-   32=>:PRALINEBALL
+   32=>:PRALINEBALL,
+   33=>:GREATNESTBALL
 }
 
 BallHandlers::ModifyCatchRate.add(:GREATBALL,proc{|ball,catchRate,battle,battler|
@@ -386,4 +387,12 @@ BallHandlers::ModifyCatchRate.add(:PRALINEBALL,proc{|ball,catchRate,battle,battl
    next catchRate
 })
 
+
+BallHandlers::ModifyCatchRate.add(:GREATNESTBALL,proc{|ball,catchRate,battle,battler|
+   catchRate=(catchRate*3/2).floor
+  if battler.level<=40
+     catchRate*=[(41-battler.level)/10,1].max
+   end
+   next catchRate
+})
 

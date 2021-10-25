@@ -792,59 +792,6 @@ def drawPageFive(pokemon)
                 Color.new(144,104,0),   # 1/2 of total PP or less
                 Color.new(144,72,24),   # 1/4 of total PP or less
                 Color.new(136,48,48)]   # Zero PP
-=begin
-       How to add more entries:
-        * You must define your new type
-        * You must make a new array in the typeColors array that must be below
-          * the last type it is defined. The first Color of the new sub-array
-          * is the base color, whereas the second one is the shadow color
-        * You may use a color set used by an existing type such as for the Glimse
-          * type re-using the color set used by the shadow color
-        * Have fun with the colors!!! --Qore Qore Telecommunities
-=end
-    typeColors=[
-          # Ordinal Types
-            [Color.new(168,168,120),Color.new(112,88,72)],     # Normal
-            [Color.new(192,48,40),Color.new(72,64,56)],        # Fighting
-            [Color.new(168,144,240),Color.new(112,88,152)],    # Flying
-            [Color.new(160,64,160),Color.new(72,56,80)],       # Poison
-            [Color.new(224,192,104),Color.new(136,104,48)],    # Ground
-            [Color.new(184,160,56),Color.new(136,104,48)],     # Rock
-            [Color.new(168,184,32),Color.new(120,144,16)],     # Bug
-            [Color.new(112,88,152),Color.new(72,56,80)],       # Ghost
-            [Color.new(184,184,208),Color.new(128,120,112)],   # Steel
-            [Color.new(104,160,144),Color.new(32,104,96)],     # ΡΩΤΙΜΑΤΙΚΑ
-            [Color.new(240,128,48),Color.new(192,48,40)],      # Fire
-            [Color.new(104,144,240),Color.new(128,120,112)],   # Water
-            [Color.new(120,200,80),Color.new(88,128,64)],      # Grass
-            [Color.new(248,208,48),Color.new(184,160,56)],     # Electric
-            [Color.new(248,88,136),Color.new(144,96,96)],      # Psychic
-            [Color.new(152,216,216),Color.new(144,144,160)],   # Ice
-            [Color.new(112,56,248),Color.new(72,56,144)],      # Dragon
-            [Color.new(112,88,72),Color.new(72,64,56)],        # Dark
-            [Color.new(255,101,213),Color.new(237,85,181)],    # Fairy
-          # Shadow and FLINT Types
-            [Color.new(255,170,0),Color.new(234,136,0)],       # Magic
-            [Color.new(73,73,73),Color.new(15,15,15)],         # Doom
-            [Color.new(242,26,147),Color.new(207,35,89)],      # Jelly
-            [Color.new(112,16,208),Color.new(80,16,144)],      # Shadow
-            [Color.new(202,202,220),Color.new(161,154,147)],   # Sharpener
-            [Color.new(230,0,0),Color.new(167,0,0)],           # Lava
-            [Color.new(117,184,32),Color.new(77,144,16)],      # Wind
-            [Color.new(108,72,112),Color.new(89,58,89)],       # Lick
-            [Color.new(128,60,160),Color.new(64,56,80)],       # Bolt
-            [Color.new(243,134,25),Color.new(208,126,11)],     # Herb
-            [Color.new(105,221,201),Color.new(77,179,157)],    # Chlorophyll
-            [Color.new(71,179,255),Color.new(54,129,179)],     # Gust
-            [Color.new(240,160,48),Color.new(192,73,40)],      # Sun
-            [Color.new(101,92,115),Color.new(74,69,78)],       # Moon
-            [Color.new(236,100,175),Color.new(140,100,110)],   # Mind
-            [Color.new(255,134,202),Color.new(255,121,163)],   # Heart
-            [Color.new(87,173,235),Color.new(59,111,163)],     # Blizzard
-            [Color.new(101,202,51),Color.new(94,108,65)],      # Gas
-            [Color.new(55,55,72),Color.new(28,28,36)],         # Glimse
-            [Color.new(184,56,59),Color.new(136,48,65)],       # Robot
-            ]
     @sprites["background"].setBitmap("Graphics/Pictures/summary4")
 #    @sprites["header-bg"].setBitmap("Graphics/Pictures/header-global")      
 #    @sprites["header"].setBitmap("Graphics/Pictures/header4")
@@ -967,59 +914,6 @@ def drawPageFive(pokemon)
                 Color.new(144,104,0),   # 1/2 of total PP or less
                 Color.new(144,72,24),   # 1/4 of total PP or less
                 Color.new(136,48,48)]   # Zero PP
-=begin
-       How to add more entries:
-        * You must define your new type
-        * You must make a new array in the typeColors array that must be below
-          * the last type it is defined. The first Color of the new sub-array
-          * is the base color, whereas the second one is the shadow color
-        * You may use a color set used by an existing type such as for the Glimse
-          * type re-using the color set used by the shadow color
-        * Have fun with the colors!!! --Qore Qore Telecommunities
-=end
-    typeColors=[
-          # Ordinal Types
-            [Color.new(168,168,120),Color.new(112,88,72)],     # Normal
-            [Color.new(192,48,40),Color.new(72,64,56)],        # Fighting
-            [Color.new(168,144,240),Color.new(112,88,152)],    # Flying
-            [Color.new(160,64,160),Color.new(72,56,80)],       # Poison
-            [Color.new(224,192,104),Color.new(136,104,48)],    # Ground
-            [Color.new(184,160,56),Color.new(136,104,48)],     # Rock
-            [Color.new(168,184,32),Color.new(120,144,16)],     # Bug
-            [Color.new(112,88,152),Color.new(72,56,80)],       # Ghost
-            [Color.new(184,184,208),Color.new(128,120,112)],   # Steel
-            [Color.new(104,160,144),Color.new(32,104,96)],     # ΡΩΤΙΜΑΤΙΚΑ
-            [Color.new(240,128,48),Color.new(192,48,40)],      # Fire
-            [Color.new(104,144,240),Color.new(128,120,112)],   # Water
-            [Color.new(120,200,80),Color.new(88,128,64)],      # Grass
-            [Color.new(248,208,48),Color.new(184,160,56)],     # Electric
-            [Color.new(248,88,136),Color.new(144,96,96)],      # Psychic
-            [Color.new(152,216,216),Color.new(144,144,160)],   # Ice
-            [Color.new(112,56,248),Color.new(72,56,144)],      # Dragon
-            [Color.new(112,88,72),Color.new(72,64,56)],        # Dark
-            [Color.new(255,101,213),Color.new(237,85,181)],    # Fairy
-          # Shadow and FLINT Types
-            [Color.new(255,170,0),Color.new(234,136,0)],       # Magic
-            [Color.new(73,73,73),Color.new(15,15,15)],         # Doom
-            [Color.new(242,26,147),Color.new(207,35,89)],      # Jelly
-            [Color.new(112,16,208),Color.new(80,16,144)],      # Shadow
-            [Color.new(202,202,220),Color.new(161,154,147)],   # Sharpener
-            [Color.new(230,0,0),Color.new(167,0,0)],           # Lava
-            [Color.new(117,184,32),Color.new(77,144,16)],      # Wind
-            [Color.new(108,72,112),Color.new(89,58,89)],       # Lick
-            [Color.new(128,60,160),Color.new(64,56,80)],       # Bolt
-            [Color.new(243,134,25),Color.new(208,126,11)],     # Herb
-            [Color.new(105,221,201),Color.new(77,179,157)],    # Chlorophyll
-            [Color.new(71,179,255),Color.new(54,129,179)],     # Gust
-            [Color.new(240,160,48),Color.new(192,73,40)],      # Sun
-            [Color.new(101,92,115),Color.new(74,69,78)],       # Moon
-            [Color.new(236,100,175),Color.new(140,100,110)],   # Mind
-            [Color.new(255,134,202),Color.new(255,121,163)],   # Heart
-            [Color.new(87,173,235),Color.new(59,111,163)],     # Blizzard
-            [Color.new(101,202,51),Color.new(94,108,65)],      # Gas
-            [Color.new(55,55,72),Color.new(28,28,36)],         # Glimse
-            [Color.new(184,56,59),Color.new(136,48,65)],       # Robot
-            ]
     if moveToLearn==0
       @sprites["background"].setBitmap("Graphics/Pictures/summary4details")
 #      @sprites["header-bg"].setBitmap("Graphics/Pictures/header-global")      

@@ -498,7 +498,6 @@ class PokemonSystem
   attr_accessor :bordergraphic
   attr_accessor :charset2
   attr_accessor :dsampling
-  attr_accessor :dexcolor
   attr_accessor :cryclassic
   attr_accessor :newsix
   attr_accessor :vrtrophynotif
@@ -531,7 +530,6 @@ class PokemonSystem
     @bordercrop       = 1   # Border Cropping in Full Screen Mode
     @bordergraphic    = 2   # Screen Border Graphic
     @charset2         = 0   # Charset (0 = Latin, 1 = Greek, 2 = Cyrrilic (Not added yet))
-    @dexcolor         = 0   # Dex Cartridge Color (0 = Use two colors for certain types, 1 = Force one color for all types)
     @dsampling        = 0   # Charset (0 = Latin, 1 = Greek, 2 = Cyrrilic (Not added yet))
     @cryclassic       = 1   # Cry Style (0 = Classic, 1 = Modern)
     @newsix           = 1   # Cry Style (0 = Classic, 1 = Modern)
@@ -617,10 +615,6 @@ end
 
   def dsampling # Unused
     return (!@dsampling) ? 0 : @dsampling
-  end
-
-  def dexcolor
-    return (!@dexcolor) ? 0 : @dexcolor
   end
 
   def cryclassic
@@ -873,10 +867,6 @@ There are different modes:
                MessageConfig.pbSetSpeechFrame("Graphics/Windowskins/"+$SpeechFrames[value])
                MessageConfig.pbSetSystemFrame($TextFrames[value])
             }
-          ),
-          EnumOption.new(_INTL("Dex Icon Type Style"),[_INTL("Standard"),_INTL("Force 1-Color")],
-            proc { $PokemonSystem.dexcolor },
-            proc {|value| $PokemonSystem.dexcolor = value }
           ),
           NumberOption.new(_INTL("Cartridge Style"),1,5,
             proc { $PokemonSystem.colortige },

@@ -872,15 +872,9 @@ class PokemonPokedexScene
       pbDrawImagePositions(@sprites["overlay"].bitmap,[["Graphics/Pictures/pokedexOwned",340,42,0,0,-1,-1]])
 #      pbDrawImagePositions(@sprites["overlay"].bitmap,[["Graphics/Pictures/pokedexOwnedREGION",340,42,0,0,-1,-1]])
     end
-    if ($PokemonSystem.dexcolor==0 rescue false) 
       typebitmap=AnimatedBitmap.new("Graphics/Global Pictures/pokedexTypes")
       compatbitmap=AnimatedBitmap.new("Graphics/Global Pictures/pokedexCompatibilities")
       colorbitmap=AnimatedBitmap.new("Graphics/Global Pictures/pokedexColors")
-    else
-      typebitmap=AnimatedBitmap.new("Graphics/Global Pictures/pokedexTypesForce")
-      compatbitmap=AnimatedBitmap.new("Graphics/Global Pictures/pokedexCompatibilitiesForce")
-      colorbitmap=AnimatedBitmap.new("Graphics/Global Pictures/pokedexColorsForce")
-    end
       comp1rect=Rect.new(96*$PokemonSystem.colortige,(compat1 - 1)*32,96,32)
       comp2rect=Rect.new(96*$PokemonSystem.colortige,(compat2 - 1)*32,96,32)
       type1rect=Rect.new(96*$PokemonSystem.colortige,type1*32,96,32)

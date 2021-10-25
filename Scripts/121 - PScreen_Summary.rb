@@ -947,7 +947,7 @@ def drawPageFive(pokemon)
           288,186,1,Color.new(64,64,64),Color.new(176,176,176)] # Was 280
     ]
     pbDrawTextPositions(overlay,textpos)
-    imagepos=[["Graphics/Pictures/category",238,124,0,category*28,64,28]] # Was 230
+    imagepos=[["Graphics/Pictures/category",238,124,64*$PokemonSystem.colortige,category*28,64,28]] # Was 230
     pbDrawImagePositions(overlay,imagepos)
     drawTextEx(overlay,4,218,302,5,
        pbGetMessage(MessageTypes::MoveDescriptions,moveid),

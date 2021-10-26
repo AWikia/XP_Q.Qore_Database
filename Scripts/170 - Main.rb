@@ -45,7 +45,9 @@ end
 
 def pbCallTitle #:nodoc:
   qoreInitials
-  if (Time.now.year >= 2021 && Time.now.mon >= 11 && Time.now.mday >= 19)
+  if ( (Time.now.year == 2021 && Time.now.mon == 11 && Time.now.mday >= 19) ||
+       (Time.now.year == 2021 && Time.now.mon == 12) ||
+        Time.now.year >= 2022 )
     title=['SplashMaster','SplashMaster_1','SplashMaster_2','SplashMaster_3'][QQORECHANNEL]
     title='SplashMaster' if !pbResolveBitmap(_INTL("Graphics/Titles/{1}", title))
   else

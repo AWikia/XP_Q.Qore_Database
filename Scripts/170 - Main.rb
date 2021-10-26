@@ -45,8 +45,13 @@ end
 
 def pbCallTitle #:nodoc:
   qoreInitials
-  title=['QoreTitle','QoreTitle_1','QoreTitle_2','QoreTitle_3'][QQORECHANNEL]
-  title='QoreTitle' if !pbResolveBitmap(_INTL("Graphics/Titles/{1}", title))
+  if (Time.now.year >= 2021 && Time.now.mon >= 11 && Time.now.mday >= 19)
+    title=['SplashMaster','SplashMaster_1','SplashMaster_2','SplashMaster_3'][QQORECHANNEL]
+    title='SplashMaster' if !pbResolveBitmap(_INTL("Graphics/Titles/{1}", title))
+  else
+    title=['QoreTitle','QoreTitle_1','QoreTitle_2','QoreTitle_3'][QQORECHANNEL]
+    title='QoreTitle' if !pbResolveBitmap(_INTL("Graphics/Titles/{1}", title))
+  end
 #  Win32API.SyncTitle
   if ($DEBUG || $TEST)
     return Scene_Intro.new(['intro1'], title) 

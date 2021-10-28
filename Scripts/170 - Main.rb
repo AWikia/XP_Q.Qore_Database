@@ -12,6 +12,13 @@ Arrows = Arrows
 Functions = F(1|2|3|4|5|6|7|8|9|10|11|12)
 =end
 
+def timebombed
+  return ( (Time.now.year == 2021 && Time.now.mon == 11 && Time.now.mday >= 19) ||
+           (Time.now.year == 2021 && Time.now.mon == 12) ||
+            Time.now.year >= 2022 )
+end
+
+
 class Scene_DebugIntro
   def main
     Graphics.transition(0)
@@ -43,11 +50,6 @@ def qoreInitials
     end
 end
 
-def timebombed
-  return ( (Time.now.year == 2021 && Time.now.mon == 11 && Time.now.mday >= 19) ||
-           (Time.now.year == 2021 && Time.now.mon == 12) ||
-            Time.now.year >= 2022 )
-end
             
 def pbCallTitle #:nodoc:
   qoreInitials

@@ -43,7 +43,7 @@ def qoreInitials
     end
 end
 
-def timembombed
+def timebombed
   return ( (Time.now.year == 2021 && Time.now.mon == 11 && Time.now.mday >= 19) ||
            (Time.now.year == 2021 && Time.now.mon == 12) ||
             Time.now.year >= 2022 )

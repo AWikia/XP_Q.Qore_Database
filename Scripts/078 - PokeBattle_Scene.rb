@@ -472,7 +472,11 @@ class SafariDataBox < SpriteWrapper
     super(viewport)
     @selected=0
     @battle=battle
-    @databox=AnimatedBitmap.new("Graphics/Global Pictures/databox_Siferi")
+    if timebombed
+      @databox=AnimatedBitmap.new("Graphics/Global Pictures/DataboxMaster_Siferi")
+    else
+      @databox=AnimatedBitmap.new("Graphics/Global Pictures/databox_Siferi")
+    end
     @spriteX=PokeBattle_SceneConstants::SAFARIBOX_X
     @spriteY=PokeBattle_SceneConstants::SAFARIBOX_Y
     @appearing=false
@@ -558,20 +562,24 @@ class PokemonDataBox < SpriteWrapper
       case @battler.index
       when 0
         @databox=AnimatedBitmap.new("Graphics/Global Pictures/databox_D")
+        @databox=AnimatedBitmap.new("Graphics/Global Pictures/DataboxMaster_D") if timebombed
         @spriteX=PokeBattle_SceneConstants::PLAYERBOXD1_X
         @spriteY=PokeBattle_SceneConstants::PLAYERBOXD1_Y
       when 1 
         @databox=AnimatedBitmap.new("Graphics/Global Pictures/databox_D1")
+        @databox=AnimatedBitmap.new("Graphics/Global Pictures/DataboxMaster_D1") if timebombed
         @spriteX=PokeBattle_SceneConstants::FOEBOXD1_X
         @spriteY=PokeBattle_SceneConstants::FOEBOXD1_Y
         @dark=true
       when 2 
         @databox=AnimatedBitmap.new("Graphics/Global Pictures/databox_D2")
+        @databox=AnimatedBitmap.new("Graphics/Global Pictures/DataboxMaster_D2") if timebombed
         @spriteX=PokeBattle_SceneConstants::PLAYERBOXD2_X
         @spriteY=PokeBattle_SceneConstants::PLAYERBOXD2_Y
         @dark=true
       when 3 
         @databox=AnimatedBitmap.new("Graphics/Global Pictures/databox_D3")
+        @databox=AnimatedBitmap.new("Graphics/Global Pictures/DataboxMaster_D3") if timebombed
         @spriteX=PokeBattle_SceneConstants::FOEBOXD2_X
         @spriteY=PokeBattle_SceneConstants::FOEBOXD2_Y
       end
@@ -580,12 +588,14 @@ class PokemonDataBox < SpriteWrapper
       case @battler.index
       when 0
         @databox=AnimatedBitmap.new("Graphics/Global Pictures/databox_S")
+        @databox=AnimatedBitmap.new("Graphics/Global Pictures/DataboxMaster_S") if timebombed
         @spriteX=PokeBattle_SceneConstants::PLAYERBOX_X
         @spriteY=PokeBattle_SceneConstants::PLAYERBOX_Y
         @showhp=true
         #@showexp=true Goodbye!!!
       when 1 
         @databox=AnimatedBitmap.new("Graphics/Global Pictures/databox_S1")
+        @databox=AnimatedBitmap.new("Graphics/Global Pictures/DataboxMaster_S1") if timebombed
         @spriteX=PokeBattle_SceneConstants::FOEBOX_X
         @spriteY=PokeBattle_SceneConstants::FOEBOX_Y
 				@showhp=true

@@ -554,7 +554,7 @@ class PokeBattle_Move
                    isConst?(pbType(@type,attacker,opponent),PBTypes,:WATER)
     return true if opponent.hasWorkingAbility(:LIGHTNINGROD) &&
                    isConst?(pbType(@type,attacker,opponent),PBTypes,:ELECTRIC)
-    return true if opponent.hasWorkingAbility(:DOOMYTEVOR) &&
+    return true if opponent.hasWorkingAbility(:DOOMYTREVOR) &&
                    isConst?(pbType(@type,attacker,opponent),PBTypes,:DOOM)
     return true if opponent.effects[PBEffects::Telekinesis]>0
     # One-hit KO accuracy handled elsewhere

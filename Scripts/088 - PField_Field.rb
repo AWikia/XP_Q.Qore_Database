@@ -2294,7 +2294,7 @@ def Kernel.pbTrophyScore
 end
 
 def completedTrophies
-  return pbTrophyScore == 100
+  return Kernel.pbTrophyScore == 100
 end
 
 

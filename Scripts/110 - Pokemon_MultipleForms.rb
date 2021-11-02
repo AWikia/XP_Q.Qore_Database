@@ -3367,6 +3367,10 @@ MultipleForms.register(:SLOWKING,{
      end
    end
 },
+"kind"=>proc{|pokemon|
+   next if pokemon.form!=2                         # Kanto Formes
+   next _INTL("Hexpert")                           # Galar Formes
+},
 "getBaseStats"=>proc{|pokemon|
    next [95,65,80,30,110,110] if pokemon.form==2
    next

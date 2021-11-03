@@ -526,12 +526,12 @@ class PokeBattle_Move
     typemod=pbTypeModifier(type,attacker,opponent)
     if typemod==0
       @battle.pbDisplay(_INTL("It doesn't affect {1}...",opponent.pbThis(true)))
+      if opponent.effects[PBEffects::SkyDrop]
+        @battle.pbDisplay(_INTL("{1} was freed from the Sky Drop!",opponent.pbThis))
+        opponent.effects[PBEffects::SkyDrop]=false
+      end      
     else
       return 0 if pbTypeImmunityByAbility(type,attacker,opponent)
-    end
-    if opponent.effects[PBEffects::SkyDrop]
-      @battle.pbDisplay(_INTL("{1} was freed from the Sky Drop!",opponent.pbThis))
-      opponent.effects[PBEffects::SkyDrop]=false
     end
     return typemod
   end
@@ -554,7 +554,7 @@ class PokeBattle_Move
                    isConst?(pbType(@type,attacker,opponent),PBTypes,:WATER)
     return true if opponent.hasWorkingAbility(:LIGHTNINGROD) &&
                    isConst?(pbType(@type,attacker,opponent),PBTypes,:ELECTRIC)
-    return true if opponent.hasWorkingAbility(:DOOMYTEVOR) &&
+    return true if opponent.hasWorkingAbility(:DOOMYTREVOR) &&
                    isConst?(pbType(@type,attacker,opponent),PBTypes,:DOOM)
     return true if opponent.effects[PBEffects::Telekinesis]>0
     # One-hit KO accuracy handled elsewhere

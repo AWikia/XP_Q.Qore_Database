@@ -62,14 +62,22 @@ def pbCallTitle #:nodoc:
   end
 #  Win32API.SyncTitle
   if ($DEBUG || $TEST)
-    return Scene_Intro.new(['intro1'], title) 
+    if QQORECHANNEL == 3
+      return Scene_Intro.new(['canary_disclaimer','intro1'], title) 
+    else
+      return Scene_Intro.new(['intro1'], title) 
+    end  
 #    return Scene_DebugIntro.new
   else
     # First parameter is an array of images in the Titles
     # directory without a file extension, to show before the
     # actual title screen.  Second parameter is the actual
     # title screen filename, also in Titles with no extension.
-    return Scene_Intro.new(['intro1'], title) 
+    if QQORECHANNEL == 3
+      return Scene_Intro.new(['canary_disclaimer','intro1'], title) 
+    else
+      return Scene_Intro.new(['intro1'], title) 
+    end  
   end
 end
 

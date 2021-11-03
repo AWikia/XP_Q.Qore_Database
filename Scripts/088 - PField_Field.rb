@@ -2293,6 +2293,10 @@ def Kernel.pbTrophyScore
   return (result / max).floor
 end
 
+def completedTrophies
+  return Kernel.pbTrophyScore == 100
+end
+
 
 def Kernel.pbReceiveTrophy(item)
   if item.is_a?(String) || item.is_a?(Symbol)

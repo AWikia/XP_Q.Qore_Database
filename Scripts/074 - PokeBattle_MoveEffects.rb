@@ -7251,7 +7251,8 @@ end
 ################################################################################
 class PokeBattle_Move_0EB < PokeBattle_Move
   def pbEffect(attacker,opponent,hitnum=0,alltargets=nil,showanimation=true)
-    if !attacker.hasMoldBreaker && opponent.hasWorkingAbility(:SUCTIONCUPS)
+    if !attacker.hasMoldBreaker && ( opponent.hasWorkingAbility(:SUCTIONCUPS) ||
+                                     opponent.hasWorkingAbility(:ENIGMATACTICS))
 			pbSEPlay("protection")
       @battle.pbDisplay(_INTL("{1} anchored itself with {2}!",opponent.pbThis,PBAbilities.getName(opponent.ability)))  
       return -1
@@ -7310,7 +7311,8 @@ class PokeBattle_Move_0EC < PokeBattle_Move
   def pbEffectAfterHit(attacker,opponent,turneffects)
     if !attacker.isFainted? && !opponent.isFainted? &&
        opponent.damagestate.calcdamage>0 && !opponent.damagestate.substitute && 
-       (attacker.hasMoldBreaker || !opponent.hasWorkingAbility(:SUCTIONCUPS)) &&
+       (attacker.hasMoldBreaker || !opponent.hasWorkingAbility(:SUCTIONCUPS) || 
+        !opponent.hasWorkingAbility(:ENIGMATACTICS)) &&
        !opponent.effects[PBEffects::Ingrain] &&
        !opponent.hasWorkingItem(:ASPEARVEST)
       if !@battle.opponent

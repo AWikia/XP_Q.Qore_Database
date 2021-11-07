@@ -7065,6 +7065,22 @@ MultipleForms.register(:TOXTRICITY,{
 }
 })
 
+
+MultipleForms.register(:POLTEAGEIST,{
+"getBaseStats"=>proc{|pokemon|
+   next if pokemon.form==0
+   case pokemon.form
+     when 1; next  [60,110,110,70,208,164]
+     else;   next
+   end
+},
+"dexEntry"=>proc{|pokemon|
+   next if pokemon.form==0
+   next _INTL("After being reunited with four Sinistea, Polteagesit seem to became even stronger than before.") if pokemon.form==1
+}
+})
+
+
 MultipleForms.register(:OBSTAGOON,{
 "getForm"=>proc{|pokemon|
    next 2 # Required in order for Galar Forms to work
@@ -7691,6 +7707,56 @@ MultipleForms.register(:OK,{
    end
 }
 })
+
+MultipleForms.register(:MEDIAWIKI,{
+# Affects this Pokémon and its evolution (Wikimedia)
+"getFormOnCreation"=>proc{|pokemon|
+   next 1 if rand(100) < 1
+   next 0
+},
+"type1"=>proc{|pokemon|
+   next if pokemon.form==0 
+   next getID(PBTypes,:FIRE) if pokemon.form==1 # Eternal
+},
+"type2"=>proc{|pokemon|
+   next if pokemon.form==0 
+   next getID(PBTypes,:WIND) if pokemon.form==1 # Eternal
+},
+"getBaseStats"=>proc{|pokemon|
+   next if pokemon.form==0
+   case pokemon.form
+     when 1; next  [170,160,6,30,35,40] # Eternal
+     else;   next
+   end
+},
+"getAbilityList"=>proc{|pokemon|
+   next if pokemon.form==0
+   next [[getID(PBAbilities,:ENIGMATACTICS),0],
+         [getID(PBAbilities,:HEATPROOF),1],
+         [getID(PBAbilities,:CONTRARY),2],
+         [getID(PBAbilities,:MASKEDHERB),3]] if pokemon.form==1 # Eternal
+},
+
+"wildHoldItems"=>proc{|pokemon|
+   next [getID(PBItems,:PHOTONCLAW),
+         getID(PBItems,:PHOTONCLAW),
+         getID(PBItems,:PHOTONCLAW)] if pokemon.form==1 # Eternal
+   next
+},
+
+"getMoveList"=>proc{|pokemon|
+   next if pokemon.form==0
+   movelist=[[1,:TORCHWOOD],[1,:TACKLE],[2,:CASTLEMANIA],[5,:CHLOROPHYLL],
+             [9,:AEROBICS],[14,:FLAMEWHEEL],[17,:MOONLIGHT],[20,:HOWL],[25,:SLAM],
+             [30,:FIERYMANIA],[35,:DEFENDORDER],[40,:SUPERDAMADON],
+             [45,:WINDYAEROBICS],[59,:DOOMSTAR],[66,:WINDSLASH]] if pokemon.form==1 # Eternal
+   for i in movelist
+     i[1]=getConst(PBMoves,i[1])
+   end
+   next movelist
+}
+})
+
 
 MultipleForms.register(:WIKIMEDIA,{
 "type1"=>proc{|pokemon|

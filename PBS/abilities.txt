@@ -346,3 +346,5 @@
 340,MASKEDHERB,Masked Herb,"Its powerful mask the Pokémon has halves the damage from Herb-type moves that hit it."
 341,ELDERPROJECTOR,Elder Projector,"Gives to Pokémon full immunity to all Elder Special moves."
 342,ELDERMASTER,Elder Master,"Doubles the power of Elder Special moves."
+343,ENIGMATACTICS,Enigma Tactics,"Boosts the Pokémon’s evasion but makes it incapable of switching out, fleeing and negates such moves that do it."
+344,PHONYPREDATOR,Phony Predator,Summons allies when HP is half or less to increase power and defense.

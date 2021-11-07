@@ -985,6 +985,7 @@ class PokeBattle_Battler
           isConst?(self.ability,PBAbilities,:TRACE) ||
           isConst?(self.ability,PBAbilities,:WONDERGUARD) ||
           isConst?(self.ability,PBAbilities,:ZENMODE) ||
+          isConst?(self.ability,PBAbilities,:PHONYPREDATOR) ||
           isConst?(self.ability,PBAbilities,:KOULUNDIN) ||
           isConst?(self.ability,PBAbilities,:CHIKOLINI) ||
           isConst?(self.ability,PBAbilities,:ALONELY) ||
@@ -1294,6 +1295,18 @@ class PokeBattle_Battler
             @battle.scene.pbChangePokemon(self,@pokemon)
             @battle.pbDisplay(_INTL("Shields Down deactivated!"))
           end
+        end
+      end
+    end
+    # Phony Predator (Polteageist)
+    if isConst?(self.species,PBSpecies,:POLTEAGEIST)
+      if self.hasWorkingAbility(:PHONYPREDATOR) && @hp<=((@totalhp/2).floor)
+        if self.form!=1
+          self.form=1; transformed=true
+        end
+      else
+        if self.form!=0
+          self.form=0; transformed=true
         end
       end
     end

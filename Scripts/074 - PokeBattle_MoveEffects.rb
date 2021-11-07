@@ -2967,6 +2967,7 @@ class PokeBattle_Move_065 < PokeBattle_Move
          isConst?(opponent.ability,PBAbilities,:TRACE) ||
          isConst?(opponent.ability,PBAbilities,:WONDERGUARD) ||
          isConst?(opponent.ability,PBAbilities,:ZENMODE) ||
+         isConst?(opponent.ability,PBAbilities,:PHONYPREDATOR) ||
          isConst?(opponent.ability,PBAbilities,:KOULUNDIN) ||
          isConst?(opponent.ability,PBAbilities,:HERALINA) ||
          isConst?(opponent.ability,PBAbilities,:CHIKOLINI) ||
@@ -3041,6 +3042,7 @@ class PokeBattle_Move_066 < PokeBattle_Move
        isConst?(opponent.ability,PBAbilities,:STANCECHANGE) ||
        isConst?(opponent.ability,PBAbilities,:TRUANT) ||
        isConst?(opponent.ability,PBAbilities,:ZENMODE) ||
+       isConst?(opponent.ability,PBAbilities,:PHONYPREDATOR) ||
        isConst?(opponent.ability,PBAbilities,:MAXTHIN) ||
        isConst?(opponent.ability,PBAbilities,:KOULUNDIN) ||
        isConst?(opponent.ability,PBAbilities,:CHIKOLINI) ||
@@ -3067,6 +3069,7 @@ class PokeBattle_Move_066 < PokeBattle_Move
        isConst?(attacker.ability,PBAbilities,:STANCECHANGE) ||
        isConst?(attacker.ability,PBAbilities,:TRACE) ||
        isConst?(attacker.ability,PBAbilities,:ZENMODE) ||
+       isConst?(attacker.ability,PBAbilities,:PHONYPREDATOR) ||
        isConst?(attacker.ability,PBAbilities,:KOULUNDIN) ||
        isConst?(attacker.ability,PBAbilities,:CHIKOLINI) ||
        isConst?(attacker.ability,PBAbilities,:HERALINA) ||
@@ -3202,6 +3205,7 @@ class PokeBattle_Move_068 < PokeBattle_Move
          isConst?(opponent.ability,PBAbilities,:SHIELDSDOWN) ||
          isConst?(opponent.ability,PBAbilities,:STANCECHANGE) ||
          isConst?(opponent.ability,PBAbilities,:ZENMODE) ||
+         isConst?(opponent.ability,PBAbilities,:PHONYPREDATOR) ||
          isConst?(opponent.ability,PBAbilities,:KOULUNDIN) ||
          isConst?(opponent.ability,PBAbilities,:CHIKOLINI) ||
          isConst?(opponent.ability,PBAbilities,:MAXTHIN)
@@ -7247,7 +7251,8 @@ end
 ################################################################################
 class PokeBattle_Move_0EB < PokeBattle_Move
   def pbEffect(attacker,opponent,hitnum=0,alltargets=nil,showanimation=true)
-    if !attacker.hasMoldBreaker && opponent.hasWorkingAbility(:SUCTIONCUPS)
+    if !attacker.hasMoldBreaker && ( opponent.hasWorkingAbility(:SUCTIONCUPS) ||
+                                     opponent.hasWorkingAbility(:ENIGMATACTICS))
 			pbSEPlay("protection")
       @battle.pbDisplay(_INTL("{1} anchored itself with {2}!",opponent.pbThis,PBAbilities.getName(opponent.ability)))  
       return -1
@@ -7306,7 +7311,8 @@ class PokeBattle_Move_0EC < PokeBattle_Move
   def pbEffectAfterHit(attacker,opponent,turneffects)
     if !attacker.isFainted? && !opponent.isFainted? &&
        opponent.damagestate.calcdamage>0 && !opponent.damagestate.substitute && 
-       (attacker.hasMoldBreaker || !opponent.hasWorkingAbility(:SUCTIONCUPS)) &&
+       (attacker.hasMoldBreaker || !opponent.hasWorkingAbility(:SUCTIONCUPS) || 
+        !opponent.hasWorkingAbility(:ENIGMATACTICS)) &&
        !opponent.effects[PBEffects::Ingrain] &&
        !opponent.hasWorkingItem(:ASPEARVEST)
       if !@battle.opponent
@@ -12194,6 +12200,7 @@ class PokeBattle_Move_206 < PokeBattle_Move
          isConst?(opponent.ability,PBAbilities,:TRACE) ||
          isConst?(opponent.ability,PBAbilities,:WONDERGUARD) ||
          isConst?(opponent.ability,PBAbilities,:ZENMODE) ||
+         isConst?(opponent.ability,PBAbilities,:PHONYPREDATOR) ||
          isConst?(opponent.ability,PBAbilities,:KOULUNDIN) ||
          isConst?(opponent.ability,PBAbilities,:CHIKOLINI) ||
          isConst?(opponent.ability,PBAbilities,:HERALINA) ||
@@ -12674,6 +12681,7 @@ class PokeBattle_Move_247 < PokeBattle_Move
        isConst?(opponent.ability,PBAbilities,:SHIELDSDOWN) ||
        isConst?(opponent.ability,PBAbilities,:STANCECHANGE) ||
        isConst?(opponent.ability,PBAbilities,:ZENMODE) ||
+       isConst?(opponent.ability,PBAbilities,:PHONYPREDATOR) ||
        isConst?(opponent.ability,PBAbilities,:KOULUNDIN) ||
        isConst?(opponent.ability,PBAbilities,:MAXTHIN) ||
        isConst?(opponent.ability,PBAbilities,:CHIKOLINI)

@@ -1520,7 +1520,8 @@ class PokeBattle_Battle
            isConst?(opponent.ability,PBAbilities,:RKSSYSTEM) ||
            isConst?(opponent.ability,PBAbilities,:TRACE) ||
            isConst?(opponent.ability,PBAbilities,:WONDERGUARD) ||
-           isConst?(opponent.ability,PBAbilities,:ZENMODE)
+           isConst?(opponent.ability,PBAbilities,:ZENMODE) ||
+           isConst?(opponent.ability,PBAbilities,:PHONYPREDATOR)
           score-=90
         end
       end
@@ -1550,7 +1551,8 @@ class PokeBattle_Battle
            isConst?(attacker.ability,PBAbilities,:MULTITYPE) ||
            isConst?(attacker.ability,PBAbilities,:RKSSYSTEM) ||
            isConst?(attacker.ability,PBAbilities,:TRACE) ||
-           isConst?(attacker.ability,PBAbilities,:ZENMODE)
+           isConst?(attacker.ability,PBAbilities,:ZENMODE) ||
+           isConst?(attacker.ability,PBAbilities,:PHONYPREDATOR)
           score-=90
         end
         if skill>=PBTrainerAI.highSkill

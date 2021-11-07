@@ -18185,6 +18185,7 @@ Color=Yellow
 Habitat=Grassland
 Kind=Flower
 Pokedex=Media Wiki can be found by breeding Jellery. Can be the Best flower in the world.
+FormNames=Regular Forme,Collectors Forme
 BattlerPlayerY=0
 BattlerEnemyY=4
 BattlerAltitude=0

@@ -635,6 +635,9 @@ class PokeBattle_Move
          @battle.field.effects[PBEffects::VolcanicTerrain]>0
         evasion*=1.2
       end
+      if opponent.hasWorkingAbility(:ENIGMATACTICS)
+        evasion*=1.25
+      end
     end
     if opponent.hasWorkingItem(:BRIGHTPOWDER)
       evasion*=1.1

@@ -1370,6 +1370,10 @@ class PokeBattle_Battle
       pbDisplayPaused(_INTL("{1} can't be switched out!",thispkmn.pbThis)) if showMessages
       return false
     end
+    if thispkmn.hasWorkingAbility(:ENIGMATACTICS)
+      pbDisplayPaused(_INTL("{1} can't be switched out!",thispkmn.pbThis)) if showMessages
+      return false
+    end
     if thispkmn.hasWorkingItem(:ASPEARVEST)
       pbDisplayPaused(_INTL("{1} can't be switched out!",thispkmn.pbThis)) if showMessages
       return false

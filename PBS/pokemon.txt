@@ -2376,7 +2376,7 @@ WildItemUncommon=STICK
 BattlerPlayerY=22
 BattlerEnemyY=26
 BattlerAltitude=0
-Evolutions=SIRFETCHD,Level,30
+Evolutions=SIRFETCHD,LevelG,30
 [84]
 Name=Doduo
 InternalName=DODUO
@@ -3496,7 +3496,7 @@ FormNames=Kantonian,,Galarian
 BattlerPlayerY=22
 BattlerEnemyY=26
 BattlerAltitude=0
-Evolutions=MRRIME,Level,42
+Evolutions=MRRIME,LevelG,42
 [123]
 Name=Scyther
 InternalName=SCYTHER
@@ -6332,7 +6332,7 @@ FormNames=Johtonian,,Galarian
 BattlerPlayerY=27
 BattlerEnemyY=31
 BattlerAltitude=0
-Evolutions=CURSOLA,Level,38
+Evolutions=CURSOLA,LevelG,38
 [223]
 Name=Remoraid
 InternalName=REMORAID

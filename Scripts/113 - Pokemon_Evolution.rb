@@ -34,20 +34,20 @@ module PBEvolution
   TypeInParty       = 32
   HappinessMale     = 33
   HappinessFemale   = 34
-  LevelK            = 35
-  LevelA            = 36
-  ItemK             = 37
-  ItemA             = 38
-  HappinessA        = 39
+  LevelK            = 35 # Level for base forms
+  LevelA            = 36 # Level for Alolan forms
+  ItemK             = 37 # Item for base forms
+  ItemA             = 38 # Item for Alolan forms
+  HappinessA        = 39 # Happiness for Alolan Forms
   ItemSilcoon       = 40
   ItemCascoon       = 41
-  LevelG            = 42
-  ItemG             = 43
-  TradeItemK        = 44
-  LevelDayK         = 45
-  LevelP            = 46
-  TradeItemM        = 47
-  HasMoveK          = 48
+  LevelG            = 42 # Level for Galarian Forms
+  ItemG             = 43 # Item for Galarian Forms
+  TradeItemK        = 44 # TradeItem for base forms
+  LevelDayK         = 45 # LevelDay for base forms
+  LevelP            = 46 # Level for Phonetic forms
+  TradeItemM        = 47 # TradeItem for Mysterican forms
+  HasMoveK          = 48 # HasMove for base forms
   HappinessItem     = 49
   
   EVONAMES=["Unknown",
@@ -1059,14 +1059,12 @@ def pbCheckEvolutionEx(pokemon)
   return -1 if isConst?(pokemon.species,PBSpecies,:ETV) && pokemon.form>1 # Parental Bond ETV
   return -1 if isConst?(pokemon.species,PBSpecies,:SUNNYCHANNEL) && pokemon.form==1 # Sunless Sunny Channel
   return -1 if isConst?(pokemon.species,PBSpecies,:FLOETTE) && pokemon.form==5 # Eternal Flower Floette
+  return -1 if isConst?(pokemon.species,PBSpecies,:MEDIAWIKI) && pokemon.form==1 # Collectors forme 
   return -1 if isConst?(pokemon.species,PBSpecies,:PIKACHU) && pokemon.form>1 # Cosplay Pikachu
   return -1 if isConst?(pokemon.item,PBItems,:EVERSTONE) &&
                !isConst?(pokemon.species,PBSpecies,:KADABRA)
   return -1 if $game_switches[172]
-  return -1 if (isConst?(pokemon.species,PBSpecies,:LINNONE) ||
-                isConst?(pokemon.species,PBSpecies,:CORSOLA) ||
-                isConst?(pokemon.species,PBSpecies,:FARFETCHD) ||
-                isConst?(pokemon.species,PBSpecies,:MRMIME)) && 
+  return -1 if (isConst?(pokemon.species,PBSpecies,:LINNONE)) && 
                 !isGalarian?(pokemon)
   ret=-1
   for form in pbGetEvolvedFormData(pokemon.species)

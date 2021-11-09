@@ -1437,6 +1437,7 @@ class PokeBattle_Battler
          isConst?(self.species,PBSpecies,:SOLGALEO) ||
          isConst?(self.species,PBSpecies,:LUNALA) ||
          isConst?(self.species,PBSpecies,:CRAMORANT) ||
+         isConst?(self.species,PBSpecies,:POLTEAGEIST) ||
          isConst?(self.species,PBSpecies,:MORPEKO) ||
          isConst?(self.species,PBSpecies,:EISCUE) ||
          isConst?(self.species,PBSpecies,:ZACIAN) ||

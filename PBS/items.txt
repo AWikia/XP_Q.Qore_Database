@@ -663,6 +663,8 @@
 757,THROATSPRAY,Throat Spray,Throat Sprays,1,4000,Raises Sp. Atk when the Pokémon uses a sound-based move.,0,0,0,
 758,TIMIDMINT,Timid Mint,Timid Mints,1,20,"When a Pokémon smells this mint, its Speed will grow more easily, but its Attack will grow more slowly.",1,0,0,
 759,UTILITYUMBRELLA,Utility Umbrela,Utility Umbrelas,1,4000,An item to be held by a Pokémon. This sturdy umbrella protects the holder from the effects of weather.,0,0,0,
+861,GALARICACUFF,Galarica Cuff,Galarica Cuffs,1,6000,"A cuff made from woven-together Galarica Twigs. Giving it to Galarian Slowpoke makes the Pokémon very happy.",1,0,0,
+862,GALARICAWREATH,Galarica Wreath,Galarica Wreaths,1,6000,"A wreath made from woven-together Galarica Twigs. Placing it on the head of a Galarian Slowpoke makes the Pokémon very happy.",1,0,0,
 ## Trophies (28 Total)
 # Platina
 827,TQOREMASTER,Qora Qore Master,Qora Qore Master,6,0,Awarded for completing all the pregame,2,0,6,
@@ -867,3 +869,5 @@
 857,VICIOUSCANDY,Vicious Candy,Vicious Candies,2,9600,A candy that is packed with dark energy. It raises the level of each Pokémon by one.,2,0,0,
 858,WHITEPLUS,White Plus,White Pluses,1,2000,This glamorous plus allows you to damage enemies one more time.,0,0,0,
 859,BLACKPLUS,Black Plus,Black Pluses,1,2000,This glamorous plus allows your partner to damage enemies one more time.,0,0,0,
+860,GREATNESTBALL,Great Nest Ball,Great Nest Balls,3,600,"A good, high-performance Ball that provides a higher Pokémon catch rate than a standard Nest Ball.",0,2,3,
+863,RELICFLOWER,Relic Flower,Relic Flowers,1,0,"A mysterious flower. One Pokémon will be able to produce specialized versions of Wikitech.",0,0,0,

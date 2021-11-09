@@ -2257,7 +2257,7 @@ WildItemUncommon=LAGGINGTAIL
 BattlerPlayerY=26
 BattlerEnemyY=29
 BattlerAltitude=0
-Evolutions=SLOWBRO,Level,37,SLOWKING,TradeItem,KINGSROCK
+Evolutions=SLOWBRO,LevelK,37,SLOWKING,TradeItemK,KINGSROCK,SLOWBRO,ItemG,GALARICACUFF,SLOWKING,ItemG,GALARICAWREATH
 [80]
 Name=Slowbro
 InternalName=SLOWBRO
@@ -31064,6 +31064,7 @@ Kind=Wikimedia
 Pokedex=A newely species that was found in the Wikimedia Cyclops.
 WildItemCommon=CELLBATTERY
 WildItemUncommon=ROOMSERVICE
+FormNames=Regular Forme,Collectors Forme
 BattlerPlayerY=8
 BattlerEnemyY=12
 BattlerAltitude=0

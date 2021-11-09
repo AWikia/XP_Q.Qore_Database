@@ -163,18 +163,27 @@ def pbDayCareGenerateEgg
   ditto1=pbIsDitto?(pokemon1)
   if (pokemon0.isFemale? || ditto0)
     babyspecies=(ditto0) ? pokemon1.species : pokemon0.species
+    babyform=(ditto0) ? pokemon1.form : pokemon0.form
     mother=pokemon0
     father=pokemon1
   else
     babyspecies=(ditto1) ? pokemon0.species : pokemon1.species
+    babyform=(ditto1) ? pokemon0.form : pokemon1.form
     mother=pokemon1
     father=pokemon0
   end
   babyspecies=pbGetBabySpecies(babyspecies,mother.item,father.item)
+  relicflower = false
   if isConst?(babyspecies,PBSpecies,:NORTONI) && !(isConst?(mother.item,PBItems,:NORTONOPIA) || isConst?(father.item,PBItems,:NORTONOPIA))
     babyspecies=getConst(PBSpecies,:NORTON)
   elsif (isConst?(babyspecies,PBSpecies,:NORTON) || isConst?(babyspecies,PBSpecies,:NORTONPLUS)) && (isConst?(mother.item,PBItems,:NORTONOPIA) || isConst?(father.item,PBItems,:NORTONOPIA))
     babyspecies=getConst(PBSpecies,:NORTONI)
+  elsif (isConst?(babyspecies,PBSpecies,:MEDIAWIKI)) && babyform == 1 && (isConst?(mother.item,PBItems,:RELICFLOWER) || isConst?(father.item,PBItems,:RELICFLOWER))
+    babyspecies=getConst(PBSpecies,:WIKITECH)
+    relicflower = true
+  elsif (isConst?(babyspecies,PBSpecies,:WIKITECH)) && babyform == 1 && (isConst?(mother.item,PBItems,:RELICFLOWER) || isConst?(father.item,PBItems,:RELICFLOWER))
+    babyspecies=getConst(PBSpecies,:MEDIAWIKI)
+    relicflower = true
   elsif (isConst?(babyspecies,PBSpecies,:PERILFIRE))
     babyspecies=getConst(PBSpecies,:FOXFIRE)
   elsif (isConst?(babyspecies,PBSpecies,:PERILGRASS))
@@ -206,6 +215,10 @@ def pbDayCareGenerateEgg
   pid=rand(65536)
   pid|=(rand(65536)<<16)
   egg.personalID=pid
+  # Relic Flower
+  if relicflower
+    egg.form=1
+  end
   # Inheriting form
   if isConst?(babyspecies,PBSpecies,:BURMY) ||
      isConst?(babyspecies,PBSpecies,:SHELLOS) ||

@@ -9394,6 +9394,46 @@ MultipleForms.register(:IGGLYBIRD,{
 }
 })
 
+MultipleForms.register(:WIKITECH,{
+# Affects this Pokémon and its evolution (Wikimedia)
+"type1"=>proc{|pokemon|
+   next if pokemon.form==0 
+   next getID(PBTypes,:WATER) if pokemon.form==1 # Eternal
+},
+"type2"=>proc{|pokemon|
+   next if pokemon.form==0 
+   next getID(PBTypes,:WIND) if pokemon.form==1 # Eternal
+},
+"getBaseStats"=>proc{|pokemon|
+   next if pokemon.form==0
+   case pokemon.form
+     when 1; next  [190,90,150,30,100,140] # Eternal
+     else;   next
+   end
+},
+"getAbilityList"=>proc{|pokemon|
+   next if pokemon.form==0
+   next [[getID(PBAbilities,:ENIGMATACTICS),0],
+         [getID(PBAbilities,:WATERSPLASH),1],
+         [getID(PBAbilities,:CONTRARY),2],
+         [getID(PBAbilities,:ELDERPROJECTOR),3]] if pokemon.form==1 # Eternal
+},
+
+"getMoveList"=>proc{|pokemon|
+   next if pokemon.form==0
+   movelist=[[1,:HARDEN],[1,:WATERGUN],[1,:GROWL],[10,:DAMADON],[10,:BUBBLEBEAM],
+             [10,:SPINJITZUAEROBICS],[20,:MINDRECOVERCY],[20,:WINDGLOW],
+             [20,:CAPTIVATE],[30,:SUPERDAMADON],[30,:WATERLOGO],[30,:LAVASHIFT],
+             [40,:CASTLEMANIA],[40,:CONFUSION],[40,:WATERSPOUT],[50,:DOOMARIETTA],
+             [50,:WINDSLASH],[50,:WINDYAEROBICS]] if pokemon.form==1 # Eternal
+   for i in movelist
+     i[1]=getConst(PBMoves,i[1])
+   end
+   next movelist
+}
+})
+
+
 MultipleForms.register(:SURPLETE,{
  "type2"=>proc{|pokemon|
    types=[:GLIMSE,:PSYCHIC,:GAS,:BLIZZARD,:DOOM]

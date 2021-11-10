@@ -116,6 +116,7 @@ class PokemonEggHatchScene
       @pokemon.name=nickname if nickname!=""
       @nicknamed=true
     end
+    Kernel.pbReceiveTrophy(:THATCHER)
   end
 
   def pbPositionHatchMask(hatchSheet,index)
@@ -212,8 +213,8 @@ def pbHatch(pokemon)
       nickname=pbEnterPokemonName(_INTL("{1}'s nickname?",speciesname),0,10,"",pokemon)
       pokemon.name=nickname if nickname!=""
     end
-    Kernel.pbReceiveTrophy(:THATCHER)
   end
+  Kernel.pbReceiveTrophy(:THATCHER)
 end
 
 Events.onStepTaken+=proc {|sender,e|

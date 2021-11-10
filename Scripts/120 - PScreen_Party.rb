@@ -495,11 +495,11 @@ class PokeSelectionSprite < SpriteWrapper
         elsif @pokemon.highTemp? && !@pokemon.isEgg?
           self.bitmap.blt(0,0,@deselbitmapO.bitmap,Rect.new(0,0,@deselbitmapO.width,@deselbitmapO.height))
         elsif @pokemon.somewhatlowTemp? && !@pokemon.isEgg?
-          self.bitmap.blt(0,0,@selbitmapN.bitmap,Rect.new(0,0,@deselbitmapN.width,@deselbitmapN.height))
+          self.bitmap.blt(0,0,@deselbitmapN.bitmap,Rect.new(0,0,@deselbitmapN.width,@deselbitmapN.height))
         elsif @pokemon.lowTemp? && !@pokemon.isEgg?
-          self.bitmap.blt(0,0,@selbitmapC.bitmap,Rect.new(0,0,@deselbitmapC.width,@deselbitmapC.height))
+          self.bitmap.blt(0,0,@deselbitmapC.bitmap,Rect.new(0,0,@deselbitmapC.width,@deselbitmapC.height))
         elsif @pokemon.tooLowTemp? && !@pokemon.isEgg?
-          self.bitmap.blt(0,0,@selbitmapC2.bitmap,Rect.new(0,0,@deselbitmapC2.width,@deselbitmapC2.height))
+          self.bitmap.blt(0,0,@deselbitmapC2.bitmap,Rect.new(0,0,@deselbitmapC2.width,@deselbitmapC2.height))
         elsif @pokemon.isEgg?
           self.bitmap.blt(0,0,@deselbitmapEgg.bitmap,Rect.new(0,0,@deselbitmapEgg.width,@deselbitmapEgg.height))
         else

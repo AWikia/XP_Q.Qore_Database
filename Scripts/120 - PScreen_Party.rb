@@ -12,7 +12,7 @@ class PokeSelectionPlaceholderSprite < SpriteWrapper
       @pbitmap=AnimatedBitmap.new("Graphics/Pictures/partyPanelBlankm")
     end
 =end
-    @pbitmap=AnimatedBitmap.new("Graphics/Pictures/partyPanelBlank2")
+    @pbitmap=AnimatedBitmap.new("Graphics/Pictures/partyPanelBlank3")
     self.bitmap=@pbitmap.bitmap
     self.x=xvalues[index]
     self.y=yvalues[index]
@@ -84,11 +84,11 @@ class PokeSelectionConfirmCancelSprite < SpriteWrapper
     end
 =end
     if narrowbox
-      @bgsprite.addBitmap("deselbitmap","Graphics/Pictures/partyCancelNarrow2")
-      @bgsprite.addBitmap("selbitmap","Graphics/Pictures/partyCancelSelNarrow2")
+      @bgsprite.addBitmap("deselbitmap","Graphics/Pictures/partyCancelNarrow3")
+      @bgsprite.addBitmap("selbitmap","Graphics/Pictures/partyCancelSelNarrow3")
     else
-      @bgsprite.addBitmap("deselbitmap","Graphics/Pictures/partyCancel2")
-      @bgsprite.addBitmap("selbitmap","Graphics/Pictures/partyCancelSel2")
+      @bgsprite.addBitmap("deselbitmap","Graphics/Pictures/partyCancel3")
+      @bgsprite.addBitmap("selbitmap","Graphics/Pictures/partyCancelSel3")
     end
     @bgsprite.changeBitmap("deselbitmap")
     @overlaysprite=BitmapSprite.new(@bgsprite.bitmap.width,@bgsprite.bitmap.height,viewport)
@@ -245,31 +245,47 @@ class PokeSelectionSprite < SpriteWrapper
     @numberbitmap=AnimatedBitmap.new(_INTL("Graphics/Pictures/icon_numbers"))
     @numberbitmap2=AnimatedBitmap.new(_INTL("Graphics/Pictures/icon_numbers_white"))
     if active # Rounded panel
-      @deselbitmapO=AnimatedBitmap.new("Graphics/Pictures/partyPanelRoundOv2")
-      @selbitmapO=AnimatedBitmap.new("Graphics/Pictures/partyPanelRoundSelOv2")
-      @deselbitmapO2=AnimatedBitmap.new("Graphics/Pictures/partyPanelRoundOvv2")
-      @selbitmapO2=AnimatedBitmap.new("Graphics/Pictures/partyPanelRoundSelOvv2")
-      
-      @deselbitmap=AnimatedBitmap.new("Graphics/Pictures/partyPanelRound2")
-      @selbitmap=AnimatedBitmap.new("Graphics/Pictures/partyPanelRoundSel2")
-      @deselfntbitmap=AnimatedBitmap.new("Graphics/Pictures/partyPanelRoundFnt2")
-      @selfntbitmap=AnimatedBitmap.new("Graphics/Pictures/partyPanelRoundSelFnt2")
-      @deselswapbitmap=AnimatedBitmap.new("Graphics/Pictures/partyPanelRoundSwap2")
-      @selswapbitmap=AnimatedBitmap.new("Graphics/Pictures/partyPanelRoundSelSwap2")
-      @selswapbitmap2=AnimatedBitmap.new("Graphics/Pictures/partyPanelRoundSel2Swap2")
+      @deselbitmapO=AnimatedBitmap.new("Graphics/Pictures/partyPanelRound3_Orange")
+      @selbitmapO=AnimatedBitmap.new("Graphics/Pictures/partyPanelRoundSel3_Orange")
+      @deselbitmapO2=AnimatedBitmap.new("Graphics/Pictures/partyPanelRound3_Red")
+      @selbitmapO2=AnimatedBitmap.new("Graphics/Pictures/partyPanelRoundSel3_Red")
+      @deselbitmapN=AnimatedBitmap.new("Graphics/Pictures/partyPanelRound3_Green")
+      @selbitmapN=AnimatedBitmap.new("Graphics/Pictures/partyPanelRoundSel3_Green")
+      @deselbitmapC=AnimatedBitmap.new("Graphics/Pictures/partyPanelRound3_Cyan")
+      @selbitmapC=AnimatedBitmap.new("Graphics/Pictures/partyPanelRoundSel3_Cyan")
+      @deselbitmapC2=AnimatedBitmap.new("Graphics/Pictures/partyPanelRound3_Blue")
+      @selbitmapC2=AnimatedBitmap.new("Graphics/Pictures/partyPanelRoundSel3_Blue")
+
+      @deselbitmapEgg=AnimatedBitmap.new("Graphics/Pictures/partyPanelRound3")
+      @selbitmapEgg=AnimatedBitmap.new("Graphics/Pictures/partyPanelRoundSel3")      
+      @deselbitmap=AnimatedBitmap.new("Graphics/Pictures/partyPanelRound3_Yellow")
+      @selbitmap=AnimatedBitmap.new("Graphics/Pictures/partyPanelRoundSel3_Yellow")
+      @deselfntbitmap=AnimatedBitmap.new("Graphics/Pictures/partyPanelRound3_Faint")
+      @selfntbitmap=AnimatedBitmap.new("Graphics/Pictures/partyPanelRoundSel3_Faint")
+      @deselswapbitmap=AnimatedBitmap.new("Graphics/Pictures/partyPanelRound3_Swap")
+      @selswapbitmap=AnimatedBitmap.new("Graphics/Pictures/partyPanelRoundSel3_Swap")
+      @selswapbitmap2=AnimatedBitmap.new("Graphics/Pictures/partyPanelRoundSel3_Swap2")
     else # Rectangular panel
-      @deselbitmapO=AnimatedBitmap.new("Graphics/Pictures/partyPanelRectOv2")
-      @selbitmapO=AnimatedBitmap.new("Graphics/Pictures/partyPanelRectSelOv2")
-      @deselbitmapO2=AnimatedBitmap.new("Graphics/Pictures/partyPanelRectOvv2")
-      @selbitmapO2=AnimatedBitmap.new("Graphics/Pictures/partyPanelRectSelOvv2")
+      @deselbitmapO=AnimatedBitmap.new("Graphics/Pictures/partyPanelRect3_Orange")
+      @selbitmapO=AnimatedBitmap.new("Graphics/Pictures/partyPanelRectSel3_Orange")
+      @deselbitmapO2=AnimatedBitmap.new("Graphics/Pictures/partyPanelRect3_Red")
+      @selbitmapO2=AnimatedBitmap.new("Graphics/Pictures/partyPanelRectSel3_Red")
+      @deselbitmapN=AnimatedBitmap.new("Graphics/Pictures/partyPanelRect3_Green")
+      @selbitmapN=AnimatedBitmap.new("Graphics/Pictures/partyPanelRectSel3_Green")
+      @deselbitmapC=AnimatedBitmap.new("Graphics/Pictures/partyPanelRect3_Cyan")
+      @selbitmapC=AnimatedBitmap.new("Graphics/Pictures/partyPanelRectSel3_Cyan")
+      @deselbitmapC2=AnimatedBitmap.new("Graphics/Pictures/partyPanelRect3_Blue")
+      @selbitmapC2=AnimatedBitmap.new("Graphics/Pictures/partyPanelRectSel3_Blue")
       
-      @deselbitmap=AnimatedBitmap.new("Graphics/Pictures/partyPanelRect2")
-      @selbitmap=AnimatedBitmap.new("Graphics/Pictures/partyPanelRectSel2")
-      @deselfntbitmap=AnimatedBitmap.new("Graphics/Pictures/partyPanelRectFnt2")
-      @selfntbitmap=AnimatedBitmap.new("Graphics/Pictures/partyPanelRectSelFnt2")
-      @deselswapbitmap=AnimatedBitmap.new("Graphics/Pictures/partyPanelRectSwap2")
-      @selswapbitmap=AnimatedBitmap.new("Graphics/Pictures/partyPanelRectSelSwap2")
-      @selswapbitmap2=AnimatedBitmap.new("Graphics/Pictures/partyPanelRectSel2Swap2")
+      @deselbitmapEgg=AnimatedBitmap.new("Graphics/Pictures/partyPanelRect3")
+      @selbitmapEgg=AnimatedBitmap.new("Graphics/Pictures/partyPanelRectSel3")   
+      @deselbitmap=AnimatedBitmap.new("Graphics/Pictures/partyPanelRect3_Yellow")
+      @selbitmap=AnimatedBitmap.new("Graphics/Pictures/partyPanelRectSel3_Yellow")
+      @deselfntbitmap=AnimatedBitmap.new("Graphics/Pictures/partyPanelRect3_Faint")
+      @selfntbitmap=AnimatedBitmap.new("Graphics/Pictures/partyPanelRectSel3_Faint")
+      @deselswapbitmap=AnimatedBitmap.new("Graphics/Pictures/partyPanelRect3_Swap")
+      @selswapbitmap=AnimatedBitmap.new("Graphics/Pictures/partyPanelRectSel3_Swap")
+      @selswapbitmap2=AnimatedBitmap.new("Graphics/Pictures/partyPanelRectSel3_Swap2")
     end
     @spriteXOffset=28
     @spriteYOffset=0
@@ -458,6 +474,14 @@ class PokeSelectionSprite < SpriteWrapper
           self.bitmap.blt(0,0,@selbitmapO2.bitmap,Rect.new(0,0,@selbitmapO2.width,@selbitmapO2.height))
         elsif @pokemon.highTemp? && !@pokemon.isEgg?
           self.bitmap.blt(0,0,@selbitmapO.bitmap,Rect.new(0,0,@selbitmapO.width,@selbitmapO.height))
+        elsif @pokemon.somewhatlowTemp? && !@pokemon.isEgg?
+          self.bitmap.blt(0,0,@selbitmapN.bitmap,Rect.new(0,0,@selbitmapN.width,@selbitmapN.height))
+        elsif @pokemon.lowTemp? && !@pokemon.isEgg?
+          self.bitmap.blt(0,0,@selbitmapC.bitmap,Rect.new(0,0,@selbitmapC.width,@selbitmapC.height))
+        elsif @pokemon.tooLowTemp? && !@pokemon.isEgg?
+          self.bitmap.blt(0,0,@selbitmapC2.bitmap,Rect.new(0,0,@selbitmapC2.width,@selbitmapC2.height))
+        elsif @pokemon.isEgg?
+          self.bitmap.blt(0,0,@selbitmapEgg.bitmap,Rect.new(0,0,@selbitmapEgg.width,@selbitmapEgg.height))
         else
           self.bitmap.blt(0,0,@selbitmap.bitmap,Rect.new(0,0,@selbitmap.width,@selbitmap.height))
         end
@@ -470,6 +494,14 @@ class PokeSelectionSprite < SpriteWrapper
           self.bitmap.blt(0,0,@deselbitmapO2.bitmap,Rect.new(0,0,@deselbitmapO2.width,@deselbitmapO2.height))
         elsif @pokemon.highTemp? && !@pokemon.isEgg?
           self.bitmap.blt(0,0,@deselbitmapO.bitmap,Rect.new(0,0,@deselbitmapO.width,@deselbitmapO.height))
+        elsif @pokemon.somewhatlowTemp? && !@pokemon.isEgg?
+          self.bitmap.blt(0,0,@selbitmapN.bitmap,Rect.new(0,0,@deselbitmapN.width,@deselbitmapN.height))
+        elsif @pokemon.lowTemp? && !@pokemon.isEgg?
+          self.bitmap.blt(0,0,@selbitmapC.bitmap,Rect.new(0,0,@deselbitmapC.width,@deselbitmapC.height))
+        elsif @pokemon.tooLowTemp? && !@pokemon.isEgg?
+          self.bitmap.blt(0,0,@selbitmapC2.bitmap,Rect.new(0,0,@deselbitmapC2.width,@deselbitmapC2.height))
+        elsif @pokemon.isEgg?
+          self.bitmap.blt(0,0,@deselbitmapEgg.bitmap,Rect.new(0,0,@deselbitmapEgg.width,@deselbitmapEgg.height))
         else
           self.bitmap.blt(0,0,@deselbitmap.bitmap,Rect.new(0,0,@deselbitmap.width,@deselbitmap.height))
         end
@@ -479,6 +511,9 @@ class PokeSelectionSprite < SpriteWrapper
       base=Color.new(248,248,248) if (@pokemon.hp<=0 && !@pokemon.isEgg?) || 
                                      (@pokemon.tooHighTemp? && !@pokemon.isEgg?) || 
                                      (@pokemon.highTemp? && !@pokemon.isEgg?) || 
+                                     (@pokemon.somewhatlowTemp? && !@pokemon.isEgg?) || 
+                                     (@pokemon.lowTemp? && !@pokemon.isEgg?) || 
+                                     (@pokemon.tooLowTemp? && !@pokemon.isEgg?) || 
                                      self.preselected ||
                                       (self.selected && (self.preselected || 
                                        @switching))
@@ -486,6 +521,9 @@ class PokeSelectionSprite < SpriteWrapper
                                       self.preselected ||
                                      (@pokemon.tooHighTemp? && !@pokemon.isEgg?) || 
                                      (@pokemon.highTemp? && !@pokemon.isEgg?) || 
+                                     (@pokemon.somewhatlowTemp? && !@pokemon.isEgg?) || 
+                                     (@pokemon.lowTemp? && !@pokemon.isEgg?) || 
+                                     (@pokemon.tooLowTemp? && !@pokemon.isEgg?) || 
                                       (self.selected && (self.preselected || 
                                        @switching))
                                       
@@ -543,6 +581,9 @@ class PokeSelectionSprite < SpriteWrapper
           self.preselected || 
           (@pokemon.tooHighTemp? && !@pokemon.isEgg?) || 
           (@pokemon.highTemp? && !@pokemon.isEgg?) || 
+          (@pokemon.somewhatlowTemp? && !@pokemon.isEgg?) || 
+          (@pokemon.lowTemp? && !@pokemon.isEgg?) || 
+          (@pokemon.tooLowTemp? && !@pokemon.isEgg?) || 
           (self.selected && (self.preselected || @switching))
           levelpic.push(["Graphics/Pictures/white_lv",20,70,0,0,22,14])
           pbDrawNumber2(@pokemon.level,self.bitmap,@levelX+2,@levelY+8)

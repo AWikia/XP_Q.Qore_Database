@@ -721,6 +721,15 @@ class PokeBattle_Pokemon
     @temperature=basetemp
   end
   
+=begin
+TooHighTemp/Red = 96+ for Hot Species or 91+
+HighTemp/Orange = 91-95 for Hot Species or 71-90
+RegularTemp/Yellow = 66-90 for Hot Species, 56-90 for Hybrid Species, 41-70 for Cold Species or 51-70
+SomewhatLowTemp = 31-65 for Hot Species, 26-55 for Hybrid Species, 26-40 for Cold Species ro 31-50
+LowTemp = 6-25 for Cold Species or 11-30
+TooLowTemp = 5- for Cold Species or 10-
+=end
+  
   def highTemp?
     return self.temperature > 90 if self.hasType?(:FIRE) || self.hasType?(:SUN)
     return self.temperature > 70
@@ -731,6 +740,27 @@ class PokeBattle_Pokemon
     return self.temperature > 90
   end
 
+
+  def somewhatlowTemp?
+    return self.temperature > 25 && self.temperature <= 55 if (self.hasType?(:FIRE) || self.hasType?(:SUN)) && (self.hasType?(:ICE) || self.hasType?(:BLIZZARD))
+    return self.temperature > 25 && self.temperature <= 40 if self.hasType?(:ICE) || self.hasType?(:BLIZZARD)
+    return self.temperature > 30 && self.temperature <= 65 if self.hasType?(:FIRE) || self.hasType?(:SUN)
+    return self.temperature > 30 && self.temperature <= 50
+  end
+
+  
+  def lowTemp?
+    return self.temperature > 5 && self.temperature <= 25 if self.hasType?(:ICE) || self.hasType?(:BLIZZARD)
+    return self.temperature > 10 && self.temperature <= 30
+  end
+
+  def tooLowTemp?
+    return self.temperature <= 5 if self.hasType?(:ICE) || self.hasType?(:BLIZZARD)
+    return self.temperature <= 10
+  end
+
+
+  
   
 # Returns whether this Pokémon has a hold item.
   def hasItem?(value=0)

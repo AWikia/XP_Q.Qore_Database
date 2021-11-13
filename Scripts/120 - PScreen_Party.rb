@@ -570,6 +570,10 @@ class PokeSelectionSprite < SpriteWrapper
         elsif @pokemon.isFemale?
           imagepos.push(["Graphics/Pictures/gender_female",224,24,0,0,-1,-1])
 #          textpos.push([_INTL("♀"),@genderX,@genderY,0,Color.new(232,32,16),Color.new(248,168,184)])
+        elsif @pokemon.isGenderless?
+          imagepos.push(["Graphics/Pictures/gender_transgender",224,24,0,0,-1,-1])
+#          textpos.push([_INTL("♀"),@genderX,@genderY,0,Color.new(232,32,16),Color.new(248,168,184)])
+
         end
       end
       pbDrawImagePositions(self.bitmap,imagepos)

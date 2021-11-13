@@ -2395,6 +2395,9 @@ class PokemonStorageScene
       elsif pokemon.isFemale?
 #        textstrings.push([_INTL("♀"),148,8,false,Color.new(248,56,32),Color.new(224,152,144)])
         imagepos.push(["Graphics/Pictures/gender_female",148,15,0,0,-1,-1])
+      elsif pokemon.isGenderless?
+#        textstrings.push([_INTL("♀"),148,8,false,Color.new(248,56,32),Color.new(224,152,144)])
+        imagepos.push(["Graphics/Pictures/gender_transgender",148,15,0,0,-1,-1])
       end
       imagepos.push(["Graphics/Pictures/storage_lv",6,246,0,0,-1,-1])
       textstrings.push([pokemon.level.to_s,28,234,false,base,shadow])

@@ -282,6 +282,9 @@ class PokemonSummaryScene
     elsif pokemon.isFemale?
 #      textpos.push([_INTL("♀"),178,62,0,Color.new(248,56,32),Color.new(224,152,144)])
       gendericon.push(["Graphics/Pictures/gender_female",178,68,0,0,-1,-1])
+    elsif pokemon.isGenderless?
+#      textpos.push([_INTL("♀"),178,62,0,Color.new(248,56,32),Color.new(224,152,144)])
+      gendericon.push(["Graphics/Pictures/gender_transgender",178,68,0,0,-1,-1])
     end
     pbDrawImagePositions(overlay,gendericon)
     pbDrawTextPositions(overlay,textpos)
@@ -407,6 +410,9 @@ class PokemonSummaryScene
     elsif pokemon.isFemale?
 #      textpos.push([_INTL("♀"),178,62,0,Color.new(248,56,32),Color.new(224,152,144)])
       gendericon.push(["Graphics/Pictures/gender_female",178,68,0,0,-1,-1])
+    elsif pokemon.isGenderless?
+#      textpos.push([_INTL("♀"),178,62,0,Color.new(248,56,32),Color.new(224,152,144)])
+      gendericon.push(["Graphics/Pictures/gender_transgender",178,68,0,0,-1,-1])
     end
     pbDrawImagePositions(overlay,gendericon)
     pbDrawTextPositions(overlay,textpos)
@@ -575,6 +581,9 @@ class PokemonSummaryScene
     elsif pokemon.isFemale?
 #      textpos.push([_INTL("♀"),178,62,0,Color.new(248,56,32),Color.new(224,152,144)])
       gendericon.push(["Graphics/Pictures/gender_female",178,68,0,0,-1,-1])
+    elsif pokemon.isGenderless?
+#      textpos.push([_INTL("♀"),178,62,0,Color.new(248,56,32),Color.new(224,152,144)])
+      gendericon.push(["Graphics/Pictures/gender_transgender",178,68,0,0,-1,-1])
     end
     pbDrawImagePositions(overlay,gendericon)
     pbDrawTextPositions(overlay,textpos)
@@ -666,6 +675,9 @@ def drawPageFour(pokemon)
     elsif pokemon.isFemale?
 #      textpos.push([_INTL("♀"),178,62,0,Color.new(248,56,32),Color.new(224,152,144)])
       gendericon.push(["Graphics/Pictures/gender_female",178,68,0,0,-1,-1])
+    elsif pokemon.isGenderless?
+#      textpos.push([_INTL("♀"),178,62,0,Color.new(248,56,32),Color.new(224,152,144)])
+      gendericon.push(["Graphics/Pictures/gender_transgender",178,68,0,0,-1,-1])
     end
     pbDrawImagePositions(overlay,gendericon)
     pbDrawTextPositions(overlay,textpos)
@@ -762,6 +774,9 @@ def drawPageFive(pokemon)
     elsif pokemon.isFemale?
 #      textpos.push([_INTL("♀"),178,62,0,Color.new(248,56,32),Color.new(224,152,144)])
       gendericon.push(["Graphics/Pictures/gender_female",178,68,0,0,-1,-1])
+    elsif pokemon.isGenderless?
+#      textpos.push([_INTL("♀"),178,62,0,Color.new(248,56,32),Color.new(224,152,144)])
+      gendericon.push(["Graphics/Pictures/gender_transgender",178,68,0,0,-1,-1])
     end
     pbDrawImagePositions(overlay,gendericon)
     pbDrawTextPositions(overlay,textpos)
@@ -837,6 +852,9 @@ def drawPageFive(pokemon)
     elsif pokemon.isFemale?
 #      textpos.push([_INTL("♀"),178,62,0,Color.new(248,56,32),Color.new(224,152,144)])
       gendericon.push(["Graphics/Pictures/gender_female",178,68,0,0,-1,-1])
+    elsif pokemon.isGenderless?
+#      textpos.push([_INTL("♀"),178,62,0,Color.new(248,56,32),Color.new(224,152,144)])
+      gendericon.push(["Graphics/Pictures/gender_transgender",178,68,0,0,-1,-1])
     end
     pbDrawImagePositions(overlay,gendericon)
     pbDrawTextPositions(overlay,textpos)
@@ -1023,6 +1041,9 @@ def drawPageFive(pokemon)
     elsif pokemon.isFemale?
 #      textpos.push([_INTL("♀"),178,62,0,Color.new(248,56,32),Color.new(224,152,144)])
       gendericon.push(["Graphics/Pictures/gender_female",178,68,0,0,-1,-1])
+    elsif pokemon.isGenderless?
+#      textpos.push([_INTL("♀"),178,62,0,Color.new(248,56,32),Color.new(224,152,144)])
+      gendericon.push(["Graphics/Pictures/gender_transgender",178,68,0,0,-1,-1])
     end
     pbDrawImagePositions(overlay,gendericon)
     pbDrawTextPositions(overlay,textpos)
@@ -1141,6 +1162,9 @@ def drawPageFive(pokemon)
     elsif pokemon.isFemale?
 #      textpos.push([_INTL("♀"),178,62,0,Color.new(248,56,32),Color.new(224,152,144)])
       gendericon.push(["Graphics/Pictures/gender_female",178,68,0,0,-1,-1])
+    elsif pokemon.isGenderless?
+#      textpos.push([_INTL("♀"),178,62,0,Color.new(248,56,32),Color.new(224,152,144)])
+      gendericon.push(["Graphics/Pictures/gender_transgender",178,68,0,0,-1,-1])
     end
     pbDrawImagePositions(overlay,gendericon)
     pbDrawTextPositions(overlay,textpos)

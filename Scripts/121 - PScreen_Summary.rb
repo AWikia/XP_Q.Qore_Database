@@ -1,5 +1,4 @@
 class MoveSelectionSprite < SpriteWrapper
-class MoveSelectionSprite < SpriteWrapper
   attr_reader :preselected
   attr_reader :index
 

@@ -716,6 +716,9 @@ class PokemonDataBox < SpriteWrapper
     when 1 # Female
  #     textpos.push([_INTL("♀"),genderX,6,false,outline,Color.new(248,88,40),1])
     imagepos.push(["Graphics/Pictures/gender_female",genderX,14,0,0,-1,-1])
+    when 2 # Genderless
+ #     textpos.push([_INTL("♀"),genderX,6,false,outline,Color.new(248,88,40),1])
+    imagepos.push(["Graphics/Pictures/gender_transgender",genderX,14,0,0,-1,-1])
     end
     pbDrawTextPositions(self.bitmap,textpos)
     pbSetSmallFont(self.bitmap)

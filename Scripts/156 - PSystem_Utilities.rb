@@ -237,7 +237,6 @@ end
 
 def getDexNumber2(i=0)
     fdexno = i
-    addspc=8 # Additional Species (Starting from Kubfu above)
     if i > 649 and i < 850 # Κορα Κορε Generation I (891 - 1090)
       fnum = (i + 241 + addspc)
       fdexno = fnum
@@ -1684,7 +1683,7 @@ def pbItemIconFile(item)
   bitmapFileName = nil
   if item==0
     bitmapFileName = sprintf("Graphics/Icons/itemBack")
-  elsif item==827 && QQORECHANNEL>0 && QQORECHANNEL<3 # Qora Qore Master
+  elsif item==827 && QQORECHANNEL>0 && QQORECHANNEL<4 # Qora Qore Master
     bitmapFileName = _INTL("Graphics/Icons/item827_{1}",QQORECHANNEL)
   else
     bitmapFileName = sprintf("Graphics/Icons/item%s",getConstantName(PBItems,item)) rescue nil

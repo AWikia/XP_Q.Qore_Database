@@ -840,7 +840,7 @@ class PokemonDataBox < SpriteWrapper
         if @currentexp==PokeBattle_SceneConstants::EXPGAUGESIZE
           if @expflash==0
             pbMEPlay("Levelup")
-            self.flash(Color.new(64,200,248),8)
+            self.flash(Color.new(222,222,222),8) # Was 64,200,248
             @expflash=8
           else
             @expflash-=1

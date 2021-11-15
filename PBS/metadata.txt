@@ -2489,3 +2489,11 @@ BattleBack=CaveDark
 Bicycle=false
 MapPosition=2,7,6
 ShowArea=true
+[447]
+# Desert Underpass
+BattleBack=CaveDark
+Bicycle=true
+TrainerBattleBGM=113 - Vs. Hoenn Trainer.mp3
+MapPosition=11,4,2
+WildBattleBGM=112 - Vs. Wild Hoenn.mp3
+ShowArea=true

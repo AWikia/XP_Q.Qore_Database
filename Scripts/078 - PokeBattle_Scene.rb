@@ -2256,12 +2256,12 @@ end
       if isGalarian?(@battle.battlers[1]) && @battle.battlescene
         pbCommonAnimation("Galarian",@battle.battlers[1],nil)
       end
-=end
       if @battle.party2.length==2
         if isGalarian?(@battle.battlers[2]) && @battle.battlescene
           pbCommonAnimation("Galarian",@battle.battlers[3],nil)
         end
       end
+=end
     end
   end
 
@@ -2353,9 +2353,11 @@ end
     if isUltraBeast?(@battle.battlers[battlerindex]) && @battle.battlescene
       pbCommonAnimation("UB",@battle.battlers[battlerindex],nil)
     end
+=begin
     if isAlolan?(@battle.battlers[battlerindex]) && @battle.battlescene
       pbCommonAnimation("Alolan",@battle.battlers[battlerindex],nil)
     end
+=end
     sendout.dispose
     if @showingenemy
       @showingenemy=false

@@ -994,6 +994,12 @@ def pbCopyBitmap(dstbm,srcbm,x,y,opacity=255)
   dstbm.blt(x,y,srcbm,rc,opacity)
 end
 
+def pbCopyBitmap2(dstbm,srcbm,x,y,opacity=255)
+  rc=Rect.new(0,0,64,64)
+  dstbm.blt(x,y,srcbm,rc,opacity)
+end
+
+
 def using(window)
   begin
     yield if block_given?

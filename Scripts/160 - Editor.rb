@@ -976,7 +976,7 @@ def pbChooseSpecies(default)
     cname=getConstantName(PBSpecies,j) rescue nil
     commands.push(_ISPRINTF("{1:s} {2:s}",fdexno,PBSpecies.getName(j))) if cname
   end
-  commands=commands[649..848] | commands[921..940] | commands[1029..1048] | commands[1130..1139] | commands[0..648] | commands[849..920] | commands[941..1028] | commands[1049..1129] | commands[1140..1999]
+  commands=commands[649..848] | commands[921..940] | commands[1029..1048] | commands[1130..1139] | commands[1148..1197] | commands[0..648] | commands[849..920] | commands[941..1028] | commands[1049..1129] | commands[1140..1147] | commands[1198..1999]
   ret=pbCommands2(cmdwin,commands,-1,getDexNumber3(default)-1,true)
   cmdwin.dispose
   value=getDexNumber4(ret)

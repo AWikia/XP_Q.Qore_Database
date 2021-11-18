@@ -201,6 +201,13 @@ def getDexNumber(indexNumber=0)
         fnum = "0" + fnum
       end
       fdexno = "Q" + fnum
+    elsif indexNumber > 1148 and indexNumber < 1199 # Κορα Κορε Generation V
+      fnum = (indexNumber - 898).to_s
+      while (fnum.length < 3)
+        fnum = "0" + fnum
+      end
+      fdexno = "Q" + fnum
+
     elsif indexNumber <= 649 # Generation I-V
       while (fdexno.length < 3)
         fdexno = "0" + fdexno
@@ -218,12 +225,19 @@ def getDexNumber(indexNumber=0)
         fdexno = "0" + fdexno
       end
       fdexno = fdexno + ""
-    elsif indexNumber > 1140 # Generation VIII B
+    elsif indexNumber > 1140 and indexNumber < 1149 # Generation VIII B
       fdexno = (indexNumber - 250).to_s
       while (fdexno.length < 3)
         fdexno = "0" + fdexno
       end
       fdexno = fdexno + ""
+    elsif indexNumber > 1198 # Generation VIII C
+      fdexno = (indexNumber - 300).to_s
+      while (fdexno.length < 3)
+        fdexno = "0" + fdexno
+      end
+      fdexno = fdexno + ""
+
       else # Generation VI
       fdexno = (indexNumber - 200).to_s
       while (fdexno.length < 3)
@@ -233,8 +247,8 @@ def getDexNumber(indexNumber=0)
     return fdexno
 end
 
-# Used on Storage System
-
+# Used on Storage System (Not for use)
+=begin
 def getDexNumber2(i=0)
     fdexno = i
     if i > 649 and i < 850 # Κορα Κορε Generation I (891 - 1090)
@@ -265,6 +279,7 @@ def getDexNumber2(i=0)
     end
     return fdexno
 end
+=end
 
 # Used on Pokemon Chosen (Non alphabet, for proper cursor position)
 
@@ -282,19 +297,25 @@ def getDexNumber3(i=0)
     elsif i > 1130 and i < 1141 # Κορα Κορε Generation IV
       fnum = (i - 890)
       fdexno = fnum
+    elsif i > 1148 and i < 1199 # Κορα Κορε Generation V
+      fnum = (i - 898)
+      fdexno = fnum
     elsif i <= 649 # Generation I-V
-      fdexno = (i + 250)
+      fdexno = (i + 300)
     elsif i > 941 and i < 1030 # Generation VII
-      fdexno = (i + 30)
+      fdexno = (i + 80)
       fdexno = fdexno
     elsif i > 1049 and i < 1131 # Generation VIII A
-      fdexno = (i + 10)
+      fdexno = (i + 60)
       fdexno = fdexno
-    elsif i > 1140 # Generation VIII B
-      fdexno = i
-      fdexno = i
-    else # Generation VI
+    elsif i > 1140 and i < 1149 # Generation VIII B
       fdexno = (i + 50)
+      fdexno = fdexno
+    elsif i > 1198 # Generation VIII C
+      fdexno = i
+      fdexno = fdexno
+    else # Generation VI
+      fdexno = (i + 100)
     end
     return fdexno
 end
@@ -315,19 +336,25 @@ def getDexNumber4(i=0)
     elsif i > 239 and i < 250 # Κορα Κορε Generation IV
       fnum = (i + 890)
       fdexno = fnum
-    elsif i <= 649+249 # Generation I-V (i <= 898)
-      fdexno = (i - 250)
-    elsif i > 941+29 and i < 1030+29 # Generation VII (i > 970 and i < 1059)
-      fdexno = (i - 30)
+    elsif i > 249 and i < 300 # Κορα Κορε Generation V
+      fnum = (i + 898)
+      fdexno = fnum
+    elsif i <= 649+299 # Generation I-V (i <= 898)
+      fdexno = (i - 300)
+    elsif i > 941+29 and i < 1030+79 # Generation VII (i > 970 and i < 1059)
+      fdexno = (i - 80)
       fdexno = fdexno
-    elsif i > 1049+9 and i < 1131+9 # Generation VIII A (1058 and i < 1140)
-      fdexno = (i - 10)
+    elsif i > 1049+9 and i < 1131+59 # Generation VIII A (1058 and i < 1140)
+      fdexno = (i - 60)
       fdexno = fdexno
-    elsif i > 1140-1 # Generation VIII B (i > 1139)
+    elsif i > 1140+49 and i < 1149+49 # Generation VIII B
+      fdexno = (i - 50)
+      fdexno = i
+    elsif i > 1198-1 # Generation VIII C
       fdexno = (i - 0)
       fdexno = i
-    elsif i > 849+49 and i < 922+49 # Generation VI
-      fdexno = (i - 50)
+    elsif i > 849+99 and i < 922+99 # Generation VI
+      fdexno = (i - 100)
     end
     return fdexno
 end

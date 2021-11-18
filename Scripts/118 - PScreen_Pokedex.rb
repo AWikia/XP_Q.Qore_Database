@@ -141,6 +141,7 @@ class Window_Pokedex < Window_DrawableCommand
     @pokeballOwned=AnimatedBitmap.new("Graphics/Pictures/pokedexOwned")
     @pokeballSeen=AnimatedBitmap.new("Graphics/Pictures/pokedexSeen")
     end
+
     @commands=[]
     super(x,y,width,height)
     self.windowskin=nil
@@ -173,6 +174,7 @@ class Window_Pokedex < Window_DrawableCommand
   def dispose
     @pokeballOwned.dispose
     @pokeballSeen.dispose
+#    @icon.dispose
     super
   end
 
@@ -189,10 +191,15 @@ class Window_Pokedex < Window_DrawableCommand
     rect=drawCursor(index,rect)
     indexNumber=@commands[index][4]
     species=@commands[index][0]
+#    @icon=PokemonSpeciesIconSprite.new(species)
+#    @icon.zoom_x=0.5
+#    @icon.zoom_y=0.5
     fdexno = getDexNumber(indexNumber)
-
+    rectange=Rect.new(0,0,64,64)
+    
     if $Trainer.seen[species]
       if $Trainer.owned[species]
+        #pbCopyBitmap2(self.contents,@icon.bitmap,rect.x-24,rect.y-16) # @pokeballOwned
         pbCopyBitmap(self.contents,@pokeballOwned.bitmap,rect.x-6,rect.y+8)
       else
         pbCopyBitmap(self.contents,@pokeballSeen.bitmap,rect.x-6,rect.y+8)
@@ -580,7 +587,11 @@ class PokemonPokedexScene
       dexlist.compact!
       # Sort species in ascending order by index number, not national species
       dexlist.sort!{|a,b| a[4]<=>b[4]}
-        if dexlist[1140..1999]   !=nil    # Generation VIII Pokemon B
+        if dexlist[1198..1999]      !=nil    # Q.Qore Pokemon E
+          dexlist=dexlist[649..848] | dexlist[921..940] | dexlist[1029..1048] | dexlist[1130..1139] | dexlist[1148..1197] | dexlist[0..648] | dexlist[849..920] | dexlist[941..1028] | dexlist[1049..1129] | dexlist[1140..1147] | dexlist[1198..1999]
+        elsif dexlist[1148..1197]   !=nil    # Q.Qore Pokemon E
+          dexlist=dexlist[649..848] | dexlist[921..940] | dexlist[1029..1048] | dexlist[1130..1139] | dexlist[1148..1197] | dexlist[0..648] | dexlist[849..920] | dexlist[941..1028] | dexlist[1049..1129] | dexlist[1140..1147]
+        elsif dexlist[1140..1999]   !=nil    # Generation VIII Pokemon B
           dexlist=dexlist[649..848] | dexlist[921..940] | dexlist[1029..1048] | dexlist[1130..1139] | dexlist[0..648] | dexlist[849..920] | dexlist[941..1028] | dexlist[1049..1129] | dexlist[1140..1999]
         elsif dexlist[1132..1139]   !=nil # Q.Qore Pokemon D
           dexlist=dexlist[649..848] | dexlist[921..940] | dexlist[1029..1048] | dexlist[1130..1139] | dexlist[0..648] | dexlist[849..920] | dexlist[941..1028] | dexlist[1049..1129]
@@ -596,6 +607,8 @@ class PokemonPokedexScene
           dexlist=dexlist[649..848] | dexlist[0..648] | dexlist[849..920]
         elsif dexlist[649..848] != nil # Q Qore Pokemon A
           dexlist=dexlist[649..840] | dexlist[0..648]
+        else
+          dexlist=dexlist[0..648]
         end
     when 1 # Alphabetical mode
       dexlist.sort!{|a,b| a[1]==b[1] ? a[4]<=>b[4] : a[1]<=>b[1]}

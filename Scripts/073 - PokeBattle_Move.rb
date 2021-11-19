@@ -1315,7 +1315,8 @@ class PokeBattle_Move
       end
       if @battle.pbOwnedByPlayer?(opponent.index) && pbIsSpecial?(type) &&
          @battle.pbPlayer.numbadges>=BADGESBOOSTSPDEF
-        defmult=(defmult*1.1).round
+
+         defmult=(defmult*1.1).round
       end
     end
 =begin
@@ -1335,6 +1336,10 @@ class PokeBattle_Move
       end
       # Fluffy # changed added
       if opponent.hasWorkingAbility(:FLUFFY) && isContactMove? && !attacker.hasWorkingAbility(:LONGREACH)
+        defmult=(defmult*2).round
+      end
+      if opponent.hasWorkingAbility(:PENATIVA) && opponent.turncount<=5 &&
+          $USENEWBATTLEMECHANICS
         defmult=(defmult*2).round
       end
       if (@battle.pbWeather==PBWeather::SUNNYDAY ||

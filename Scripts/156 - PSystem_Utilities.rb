@@ -1666,6 +1666,9 @@ def pbCheckPokemonIconFiles(params,egg=false)
       ret=pbResolveBitmap(bitmapFileName)
       return ret if ret
     end
+      bitmapFileName=sprintf("Graphics/Icons/icon000")
+      ret=pbResolveBitmap(bitmapFileName)
+      return ret if ret
   end
   return nil
 end

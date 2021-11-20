@@ -9356,6 +9356,9 @@ MultipleForms.register(:DIGIWORM,{
 }
 })
 
+MultipleForms.copy(:DIGIWORM,:DALIAWORM)
+
+
 MultipleForms.register(:SYLVIA,{
 "getFormOnCreation"=>proc{|pokemon|
    d=pokemon.personalID&3

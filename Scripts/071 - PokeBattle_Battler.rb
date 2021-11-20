@@ -2360,6 +2360,12 @@ class PokeBattle_Battler
           user.pbBurn(target,_INTL("{1}'s {2} burned {3}!",target.pbThis,
              PBAbilities.getName(target.ability),user.pbThis(true)))
         end
+        if target.hasWorkingAbility(:FROZENBODY,true) && @battle.pbRandom(10)<5 &&
+           user.pbCanFreeze?(nil,false)
+          PBDebug.log("[Ability triggered] #{target.pbThis}'s Flame Body")
+          user.pbFreeze(target,_INTL("{1}'s {2} froze {3}!",target.pbThis,
+             PBAbilities.getName(target.ability),user.pbThis(true)))
+        end
         if target.hasWorkingAbility(:MUMMY,true) && !user.isFainted?
           if !isConst?(user.ability,PBAbilities,:BATTLEBOND) &&
              !isConst?(user.ability,PBAbilities,:COMATOSE) &&

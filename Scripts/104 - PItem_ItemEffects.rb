@@ -344,7 +344,8 @@ ItemHandlers::UseOnPokemon.add(:FIRESTONE,proc{|item,pokemon,scene|
 ItemHandlers::UseOnPokemon.copy(:FIRESTONE,
    :THUNDERSTONE,:WATERSTONE,:LEAFSTONE,:MOONSTONE,
    :SUNSTONE,:DUSKSTONE,:DAWNSTONE,:SHINYSTONE,:ANGLESTONE, :WIKIMEDIA,
-          :DOOMSTONE, :META,:ICESTONE,:TARTAPPLE,:SWEETAPPLE,:CRACKEDPOT)
+          :DOOMSTONE, :META,:ICESTONE,:TARTAPPLE,:SWEETAPPLE,:CRACKEDPOT,
+          :GALARICACUFF,:GALARICAWREATH)
 
 ItemHandlers::UseOnPokemon.add(:PRISMSTONE,proc{|item,pokemon,scene|
    if (pokemon.isShadow? rescue false)
@@ -1065,6 +1066,50 @@ ItemHandlers::UseOnPokemon.add(:DNASPLICERS,proc{|item,pokemon,scene|
               isConst?(poke2.species,PBSpecies,:SPECTRIER)) && poke2.hp>0 && !poke2.isEgg?
              pokemon.form=1 if isConst?(poke2.species,PBSpecies,:GLASTRIER)
              pokemon.form=2 if isConst?(poke2.species,PBSpecies,:SPECTRIER)
+             pokemon.fused=poke2
+             pbRemovePokemonAt(chosen)
+             scene.pbHardRefresh
+             scene.pbDisplay(_INTL("{1} changed Forme!",pokemon.name))
+             next true
+           elsif poke2.isEgg?
+             scene.pbDisplay(_INTL("It cannot be fused with an Egg."))
+           elsif poke2.hp<=0
+             scene.pbDisplay(_INTL("It cannot be fused with that fainted Pokémon."))
+           elsif pokemon==poke2
+             scene.pbDisplay(_INTL("It cannot be fused with itself."))
+           else
+             scene.pbDisplay(_INTL("It cannot be fused with that Pokémon."))
+           end
+         else
+           next false
+         end
+       end
+     else
+       scene.pbDisplay(_INTL("This can't be used on the fainted Pokémon."))
+     end
+   # Microsoft
+   elsif isConst?(pokemon.species,PBSpecies,:MICROSOFT)
+     if pokemon.hp>0
+       if pokemon.fused!=nil
+         if $Trainer.party.length>=6
+           scene.pbDisplay(_INTL("You have no room to separate the Pokémon."))
+           next false
+         else
+           $Trainer.party[$Trainer.party.length]=pokemon.fused
+           pokemon.fused=nil
+           pokemon.form=0
+           scene.pbHardRefresh
+           scene.pbDisplay(_INTL("{1} changed Forme!",pokemon.name))
+           next true
+         end
+       else
+         chosen=scene.pbChoosePokemon(_INTL("Fuse with which Pokémon?"))
+         if chosen>=0
+           poke2=$Trainer.party[chosen]
+           if (isConst?(poke2.species,PBSpecies,:XBOX) ||
+              isConst?(poke2.species,PBSpecies,:BING)) && poke2.hp>0 && !poke2.isEgg?
+             pokemon.form=1 if isConst?(poke2.species,PBSpecies,:XBOX)
+             pokemon.form=2 if isConst?(poke2.species,PBSpecies,:BING)
              pokemon.fused=poke2
              pbRemovePokemonAt(chosen)
              scene.pbHardRefresh

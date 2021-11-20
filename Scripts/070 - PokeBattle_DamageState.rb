@@ -8,6 +8,7 @@ class PokeBattle_DamageState
   attr_accessor :focussash     # Focus Sash used
   attr_accessor :sturdy        # Sturdy ability used
   attr_accessor :endured       # Damage was endured
+  attr_accessor :penativa      # Damage was tranctuated
   attr_accessor :berryweakened # A type-resisting berry was used
 
   def reset
@@ -20,6 +21,7 @@ class PokeBattle_DamageState
     @focussash     = false
     @sturdy        = false
     @endured       = false
+    @penativa      = false
     @berryweakened = false
   end
 

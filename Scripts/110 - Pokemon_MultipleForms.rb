@@ -8821,7 +8821,7 @@ if !$inbattle # Avoid Glitches with trainer battles
    end
    if true # Intentionally wanted to keep this
      newmove1=moves1[form]
-     if newmove1!=nil && hasConst?(PBMoves,newmove1)
+     if newmove1!=nil && hasConst?(PBMoves,newmove1) && !pokemon.knowsMove?(newmove1)
        if hasoldmove1>=0
          # Automatically replace the old form's 1st special move with the new one's
          oldmovename1=PBMoves.getName(pokemon.moves[hasoldmove1].id)
@@ -8831,7 +8831,7 @@ if !$inbattle # Avoid Glitches with trainer battles
          Kernel.pbMessage(_INTL("{1} forgot how to\r\nuse {2}.\1",pokemon.name,oldmovename1))
          Kernel.pbMessage(_INTL("And...\1"))
          Kernel.pbMessage(_INTL("\\se[]{1} learned {2}!\\se[MoveLearnt]",pokemon.name,newmovename1))
-       else
+       elsif !pokemon.knowsMove?(newmove1)
          # Try to learn the new form's 1st special move
          pbLearnMove(pokemon,getID(PBMoves,newmove1),true)
        end
@@ -8859,7 +8859,7 @@ if !$inbattle # Avoid Glitches with trainer battles
    end
    if true # Intentionally wanted to keep this
      newmove2=moves2[form]
-     if newmove2!=nil && hasConst?(PBMoves,newmove2)
+     if newmove2!=nil && hasConst?(PBMoves,newmove2) && !pokemon.knowsMove?(newmove2)
        if hasoldmove2>=0
          # Automatically replace the old form's 2nd special move with the new one's
          oldmovename2=PBMoves.getName(pokemon.moves[hasoldmove2].id)
@@ -8869,7 +8869,7 @@ if !$inbattle # Avoid Glitches with trainer battles
          Kernel.pbMessage(_INTL("{1} forgot how to\r\nuse {2}.\1",pokemon.name,oldmovename2))
          Kernel.pbMessage(_INTL("And...\1"))
          Kernel.pbMessage(_INTL("\\se[]{1} learned {2}!\\se[MoveLearnt]",pokemon.name,newmovename2))
-       else
+       elsif !pokemon.knowsMove?(newmove2)
          # Try to learn the new form's 1st special move
          pbLearnMove(pokemon,getID(PBMoves,newmove2),true)
        end
@@ -9454,5 +9454,63 @@ MultipleForms.register(:SURPLETE,{
 MultipleForms.register(:GEOMETRYDASH,{
 "getFormOnCreation"=>proc{|pokemon|
    next rand(4)
+}
+})
+
+MultipleForms.register(:MICROSOFT,{
+"type2"=>proc{|pokemon|
+   types=[:NORMAL,:CHLOROPHYLL,:GUST]
+   next getID(PBTypes,types[pokemon.form])
+},
+"getBaseStats"=>proc{|pokemon|
+   next if pokemon.form==0
+   next  [90,75,100,50,75,100]
+},
+"getAbilityList"=>proc{|pokemon|
+   next if pokemon.form==0
+   next [[getID(PBAbilities,:EFFECTSPORE),0]] if pokemon.form==1
+   next [[getID(PBAbilities,:SIAXIS),0]] if pokemon.form==2
+},
+"onSetForm"=>proc{|pokemon,form|
+   moves=[
+      :KLEOPOTRIA, # Dusk Mane
+      :GUSTOPIA    # Dawn Wings
+   ]
+   hasoldmove=-1
+   for i in 0...4
+     for j in 0...moves.length
+       if isConst?(pokemon.moves[i].id,PBMoves,moves[j])
+         hasoldmove=i; break
+       end
+     end
+     break if hasoldmove>=0
+   end
+   if (form==1 || form==2) && !$inbattle
+     newmove = moves[form-1]
+     if newmove!=nil && hasConst?(PBMoves,newmove)
+       if hasoldmove>=0
+         # Automatically replace the old form's special move with the new one's
+         oldmovename = PBMoves.getName(pokemon.moves[hasoldmove].id)
+         newmovename = PBMoves.getName(getID(PBMoves,newmove))
+         pokemon.moves[hasoldmove] = PBMove.new(getID(PBMoves,newmove))
+         Kernel.pbMessage(_INTL("1,\\wt[16] 2, and\\wt[16]...\\wt[16] ...\\wt[16] ... Ta-da!\\se[Battle ball drop]\1"))
+         Kernel.pbMessage(_INTL("{1} forgot how to use {2}.\\nAnd...\1",pokemon.name,oldmovename))
+         Kernel.pbMessage(_INTL("\\se[]{1} learned {2}!\\se[Pkmn move learnt]",pokemon.name,newmovename))
+       else
+         # Try to learn the new form's special move
+         pbLearnMove(pokemon,getID(PBMoves,newmove),true)
+       end
+     end
+   elsif form==0
+     if hasoldmove>=0
+       # Forget the old form's special move
+       oldmovename=PBMoves.getName(pokemon.moves[hasoldmove].id)
+       pokemon.pbDeleteMoveAtIndex(hasoldmove)
+       Kernel.pbMessage(_INTL("{1} forgot {2}...",pokemon.name,oldmovename))
+       if pokemon.moves.find_all{|i| i.id!=0}.length==0
+         pbLearnMove(pokemon,getID(PBMoves,:MAGICHAND))
+       end
+     end
+   end
 }
 })

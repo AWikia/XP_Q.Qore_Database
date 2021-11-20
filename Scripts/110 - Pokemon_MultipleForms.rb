@@ -9450,3 +9450,9 @@ MultipleForms.register(:SURPLETE,{
    next 0
 }
 })
+
+MultipleForms.register(:GEOMETRYDASH,{
+"getFormOnCreation"=>proc{|pokemon|
+   next rand(4)
+}
+})

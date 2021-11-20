@@ -1614,7 +1614,7 @@ class PokeBattle_Move
             opponent.damagestate.sturdy=true
             damage=damage-1
             PBDebug.log("[Ability triggered] #{opponent.pbThis}'s Sturdy")
-          if opponent.hasWorkingAbility(:PENATIVA) && !attacker.hasMoldBreaker
+          elsif opponent.hasWorkingAbility(:PENATIVA) && !attacker.hasMoldBreaker
             opponent.damagestate.penativa=true
             damage=damage*0.6
             PBDebug.log("[Ability triggered] #{opponent.pbThis}'s Penativa")

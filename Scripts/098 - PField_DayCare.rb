@@ -208,6 +208,19 @@ def pbDayCareGenerateEgg
         (isConst?(babyspecies,PBSpecies,:MEGACHANNEL) && hasConst?(PBSpecies,:ALTERCHANNEL))
     babyspecies=[getConst(PBSpecies,:ALTERCHANNEL),
                  getConst(PBSpecies,:MEGACHANNEL)][rand(2)]
+  elsif (isConst?(babyspecies,PBSpecies,:GOOGOLOGY) && hasConst?(PBSpecies,:BLOOBLOLOGY)) ||
+        (isConst?(babyspecies,PBSpecies,:BLOOBLOLOGY) && hasConst?(PBSpecies,:GOOGOLOGY))
+    babyspecies=[getConst(PBSpecies,:GOOGOLOGY),
+                 getConst(PBSpecies,:BLOOBLOLOGY)][rand(2)]
+  elsif (isConst?(babyspecies,PBSpecies,:XBOX) && hasConst?(PBSpecies,:BING)) ||
+        (isConst?(babyspecies,PBSpecies,:BING) && hasConst?(PBSpecies,:XBOX))
+    babyspecies=[getConst(PBSpecies,:XBOX),
+                 getConst(PBSpecies,:BING)][rand(2)]
+  elsif (isConst?(babyspecies,PBSpecies,:VOLKSWAGEN) && hasConst?(PBSpecies,:DEUTSCHEWELLE)) ||
+        (isConst?(babyspecies,PBSpecies,:DEUTSCHEWELLE) && hasConst?(PBSpecies,:VOLKSWAGEN))
+    babyspecies=[getConst(PBSpecies,:VOLKSWAGEN),
+                 getConst(PBSpecies,:DEUTSCHEWELLE)][rand(2)]
+
   end
   # Generate egg
   egg=PokeBattle_Pokemon.new(babyspecies,EGGINITIALLEVEL,$Trainer)

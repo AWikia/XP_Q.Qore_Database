@@ -1574,6 +1574,32 @@ class PokeBattle_Battler
         PBDebug.log("[#{pbThis}: Misty Surge made Misty Terrain]")
       end
       # End surges
+      if self.hasWorkingAbility(:ASTROPLANET) && @battle.field.effects[PBEffects::Gravity]<=0
+        @battle.field.effects[PBEffects::Gravity]=5
+        for i in 0...4
+          poke=@battle.battlers[i]
+          next if !poke
+          if PBMoveData.new(poke.effects[PBEffects::TwoTurnAttack]).function==0xC9 || # Fly
+             PBMoveData.new(poke.effects[PBEffects::TwoTurnAttack]).function==0xCC || # Bounce
+             PBMoveData.new(poke.effects[PBEffects::TwoTurnAttack]).function==0xCE    # Sky Drop
+            poke.effects[PBEffects::TwoTurnAttack]=0
+          end
+          if poke.effects[PBEffects::SkyDrop]
+            poke.effects[PBEffects::SkyDrop]=false
+          end
+          if poke.effects[PBEffects::MagnetRise]>0
+            poke.effects[PBEffects::MagnetRise]=0
+          end
+          if poke.effects[PBEffects::Telekinesis]>0
+            poke.effects[PBEffects::Telekinesis]=0
+          end
+          if poke.effects[PBEffects::MagicDelta]
+            poke.effects[PBEffects::MagicDelta]=false
+          end
+        end
+        @battle.pbDisplay(_INTL("Gravity intensified!"));
+        PBDebug.log("[#{pbThis}: Astro Planet made Gravity intensified]")
+      end
       if @battle.weather!=PBWeather::HEAVYRAIN &&
          @battle.weather!=PBWeather::HARSHSUN &&
          @battle.weather!=PBWeather::STRONGWINDS

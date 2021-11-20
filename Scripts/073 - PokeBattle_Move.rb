@@ -1614,6 +1614,10 @@ class PokeBattle_Move
             opponent.damagestate.sturdy=true
             damage=damage-1
             PBDebug.log("[Ability triggered] #{opponent.pbThis}'s Sturdy")
+          if opponent.hasWorkingAbility(:PENATIVA) && !attacker.hasMoldBreaker
+            opponent.damagestate.penativa=true
+            damage=damage*0.6
+            PBDebug.log("[Ability triggered] #{opponent.pbThis}'s Penativa")
           elsif opponent.hasWorkingItem(:FOCUSSASH) && opponent.hp==opponent.totalhp
             opponent.damagestate.focussash=true
             damage=damage-1
@@ -1705,6 +1709,9 @@ class PokeBattle_Move
     if opponent.damagestate.endured
 			pbSEPlay("protection")
       @battle.pbDisplay(_INTL("{1} endured the hit!",opponent.pbThis))
+    elsif opponent.damagestate.penativa
+			pbSEPlay("protection")
+      @battle.pbDisplay(_INTL("{1}'s Penativa managed to survive most of the power",opponent.pbThis))
     elsif opponent.damagestate.sturdy
 			pbSEPlay("protection")
       @battle.pbDisplay(_INTL("{1} hung on with Sturdy!",opponent.pbThis))

@@ -3230,8 +3230,8 @@ class PokeBattle_Battle
     when 0x290
       score-=90 if attacker.pbOwnSide.effects[PBEffects::ToxicSwamp]>0
     when 0x294
-      score-=90 if !@battle.switching
-      score+=40 if  @battle.switching
+#      score-=90 if !@battle.switching
+#      score+=40 if  @battle.switching
     when 0x295
       score+=50 if opponent.effects[PBEffects::LongGrass]
     when 0x306

@@ -21,6 +21,7 @@ def migrate # Q-Qore => IE
   File.open(_INTL(migrated),"wb"){|f|
      f.write(string)
   }
+  Kernel.pbReceiveTrophy(:TMIGRATOR)
   if ($DEBUG || $TEST)
     pbRemovePokemonAt(pbGet(235))
   else
@@ -52,6 +53,7 @@ def migrate2 # IE => Q-Qore
   File.open(_INTL(migrated),"wb"){|f|
      f.write(string)
   }
+  Kernel.pbReceiveTrophy(:TMIGRATOR)
   if ($DEBUG || $TEST)
     pbRemovePokemonAt(pbGet(235))
     else

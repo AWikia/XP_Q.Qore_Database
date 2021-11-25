@@ -894,6 +894,7 @@
 973,DREAMTOPIA,Dreamtopia,178,15,PSYCHIC,Physical,100,40,0,00,0,abef,A Dream is scattered at the target. The user's HP is restored by over half of the damage taken by the target. Move never fails.
 1040,SIXTOPIA,Sixtopia,301,0,PSYCHIC,Status,0,10,0,10,0,d,"The user faints. In return, the Pokémon taking its place will have its HP restored and status cured as well as increased priority."
 1076,COLORATURA,Coloratura,326,120,PSYCHIC,Special,100,10,0,08,0,bef,"Using an odd shock wave, the user damages any Pokémon of the same color as the user."
+1078,FORBIDDENSPELL,Forbidden Spell,327,0,PSYCHIC,Status,100,10,0,00,0,bce,The user blocks the target from using items any longer to the target by making its Ability Klutz.
 ## FLINT Moves = Ice
 753,COLDWATER,Cold Water,000,40,ICE,Special,100,30,0,00,1,bef,The user shoot a lot of cold water to the target. This move always goes first.
 974,FROZENYOGHURT,Frozen Yoghurt,293,55,ICE,Physical,100,10,100,00,0,abef,"If the user moves before the target, this attack's power will be doubled and freeze the target as well."

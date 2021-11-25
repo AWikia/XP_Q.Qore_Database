@@ -13,9 +13,7 @@ Functions = F(1|2|3|4|5|6|7|8|9|10|11|12)
 =end
 
 def timebombed
-  return ( (Time.now.year == 2021 && Time.now.mon == 11 && Time.now.mday >= 19) ||
-           (Time.now.year == 2021 && Time.now.mon == 12) ||
-            Time.now.year >= 2022 )
+  return false
 end
 
 
@@ -53,13 +51,8 @@ end
             
 def pbCallTitle #:nodoc:
   qoreInitials
-  if timebombed
-    title=['SplashMaster','SplashMaster_1','SplashMaster_2','SplashMaster_3'][QQORECHANNEL]
-    title='SplashMaster' if !pbResolveBitmap(_INTL("Graphics/Titles/{1}", title))
-  else
-    title=['QoreTitle','QoreTitle_1','QoreTitle_2','QoreTitle_3'][QQORECHANNEL]
-    title='QoreTitle' if !pbResolveBitmap(_INTL("Graphics/Titles/{1}", title))
-  end
+  title=['QoreTitle','QoreTitle_1','QoreTitle_2','QoreTitle_3'][QQORECHANNEL]
+  title='QoreTitle' if !pbResolveBitmap(_INTL("Graphics/Titles/{1}", title))
 #  Win32API.SyncTitle
   if ($DEBUG || $TEST)
     if QQORECHANNEL == 3

@@ -9457,6 +9457,19 @@ MultipleForms.register(:GEOMETRYDASH,{
 }
 })
 
+MultipleForms.register(:META,{
+"getFormOnCreation"=>proc{|pokemon|
+   next rand(5)
+},
+"color"=>proc{|pokemon|
+   next if pokemon.form==0 || pokemon.form==1
+   next 6 if pokemon.form==2
+   next 0 if pokemon.form==3
+   next 3 if pokemon.form==4
+}
+})
+
+
 MultipleForms.register(:MICROSOFT,{
 "type2"=>proc{|pokemon|
    types=[:NORMAL,:CHLOROPHYLL,:GUST]

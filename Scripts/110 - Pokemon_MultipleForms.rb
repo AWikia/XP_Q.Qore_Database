@@ -9462,7 +9462,8 @@ MultipleForms.register(:META,{
    next rand(5)
 },
 "color"=>proc{|pokemon|
-   next if pokemon.form==0 || pokemon.form==1
+   next if pokemon.form==0
+   next 1 if pokemon.form==1
    next 6 if pokemon.form==2
    next 0 if pokemon.form==3
    next 3 if pokemon.form==4

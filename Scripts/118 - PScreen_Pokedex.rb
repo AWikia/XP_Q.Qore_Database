@@ -587,10 +587,10 @@ class PokemonPokedexScene
       dexlist.compact!
       # Sort species in ascending order by index number, not national species
       dexlist.sort!{|a,b| a[4]<=>b[4]}
-        if dexlist[1198..1999]      !=nil    # Q.Qore Pokemon E
-          dexlist=dexlist[649..848] | dexlist[921..940] | dexlist[1029..1048] | dexlist[1130..1139] | dexlist[1148..1197] | dexlist[0..648] | dexlist[849..920] | dexlist[941..1028] | dexlist[1049..1129] | dexlist[1140..1147] | dexlist[1198..1999]
-        elsif dexlist[1148..1197]   !=nil    # Q.Qore Pokemon E
-          dexlist=dexlist[649..848] | dexlist[921..940] | dexlist[1029..1048] | dexlist[1130..1139] | dexlist[1148..1197] | dexlist[0..648] | dexlist[849..920] | dexlist[941..1028] | dexlist[1049..1129] | dexlist[1140..1147]
+        if dexlist[1248..1999]      !=nil    # Q.Qore Pokemon E
+          dexlist=dexlist[649..848] | dexlist[921..940] | dexlist[1029..1048] | dexlist[1130..1139] | dexlist[1148..1247] | dexlist[0..648] | dexlist[849..920] | dexlist[941..1028] | dexlist[1049..1129] | dexlist[1140..1147] | dexlist[1248..1999]
+        elsif dexlist[1148..1247]   !=nil    # Q.Qore Pokemon E
+          dexlist=dexlist[649..848] | dexlist[921..940] | dexlist[1029..1048] | dexlist[1130..1139] | dexlist[1148..1247] | dexlist[0..648] | dexlist[849..920] | dexlist[941..1028] | dexlist[1049..1129] | dexlist[1140..1147]
         elsif dexlist[1140..1999]   !=nil    # Generation VIII Pokemon B
           dexlist=dexlist[649..848] | dexlist[921..940] | dexlist[1029..1048] | dexlist[1130..1139] | dexlist[0..648] | dexlist[849..920] | dexlist[941..1028] | dexlist[1049..1129] | dexlist[1140..1999]
         elsif dexlist[1132..1139]   !=nil # Q.Qore Pokemon D

@@ -201,7 +201,7 @@ def getDexNumber(indexNumber=0)
         fnum = "0" + fnum
       end
       fdexno = "Q" + fnum
-    elsif indexNumber > 1148 and indexNumber < 1199 # Κορα Κορε Generation V
+    elsif indexNumber > 1148 and indexNumber < 1249 # Κορα Κορε Generation V
       fnum = (indexNumber - 898).to_s
       while (fnum.length < 3)
         fnum = "0" + fnum
@@ -231,8 +231,8 @@ def getDexNumber(indexNumber=0)
         fdexno = "0" + fdexno
       end
       fdexno = fdexno + ""
-    elsif indexNumber > 1198 # Generation VIII C
-      fdexno = (indexNumber - 300).to_s
+    elsif indexNumber > 1248 # Generation VIII C
+      fdexno = (indexNumber - 350).to_s
       while (fdexno.length < 3)
         fdexno = "0" + fdexno
       end
@@ -297,25 +297,25 @@ def getDexNumber3(i=0)
     elsif i > 1130 and i < 1141 # Κορα Κορε Generation IV
       fnum = (i - 890)
       fdexno = fnum
-    elsif i > 1148 and i < 1199 # Κορα Κορε Generation V
+    elsif i > 1148 and i < 1249 # Κορα Κορε Generation V
       fnum = (i - 898)
       fdexno = fnum
     elsif i <= 649 # Generation I-V
-      fdexno = (i + 300)
+      fdexno = (i + 350)
     elsif i > 941 and i < 1030 # Generation VII
-      fdexno = (i + 80)
+      fdexno = (i + 130)
       fdexno = fdexno
     elsif i > 1049 and i < 1131 # Generation VIII A
-      fdexno = (i + 60)
+      fdexno = (i + 110)
       fdexno = fdexno
     elsif i > 1140 and i < 1149 # Generation VIII B
-      fdexno = (i + 50)
+      fdexno = (i + 100)
       fdexno = fdexno
-    elsif i > 1198 # Generation VIII C
+    elsif i > 1248 # Generation VIII C
       fdexno = i
       fdexno = fdexno
     else # Generation VI
-      fdexno = (i + 100)
+      fdexno = (i + 150)
     end
     return fdexno
 end
@@ -336,25 +336,25 @@ def getDexNumber4(i=0)
     elsif i > 239 and i < 250 # Κορα Κορε Generation IV
       fnum = (i + 890)
       fdexno = fnum
-    elsif i > 249 and i < 300 # Κορα Κορε Generation V
+    elsif i > 249 and i < 350 # Κορα Κορε Generation V
       fnum = (i + 898)
       fdexno = fnum
-    elsif i <= 649+299 # Generation I-V (i <= 898)
-      fdexno = (i - 300)
-    elsif i > 941+29 and i < 1030+79 # Generation VII (i > 970 and i < 1059)
-      fdexno = (i - 80)
+    elsif i <= 649+349 # Generation I-V (i <= 898)
+      fdexno = (i - 350)
+    elsif i > 941+129 and i < 1030+129 # Generation VII (i > 970 and i < 1059)
+      fdexno = (i - 130)
       fdexno = fdexno
-    elsif i > 1049+9 and i < 1131+59 # Generation VIII A (1058 and i < 1140)
-      fdexno = (i - 60)
+    elsif i > 1049+109 and i < 1131+109 # Generation VIII A (1058 and i < 1140)
+      fdexno = (i - 110)
       fdexno = fdexno
-    elsif i > 1140+49 and i < 1149+49 # Generation VIII B
-      fdexno = (i - 50)
+    elsif i > 1140+99 and i < 1149+99 # Generation VIII B
+      fdexno = (i - 100)
       fdexno = i
-    elsif i > 1198-1 # Generation VIII C
+    elsif i > 1248-1 # Generation VIII C
       fdexno = (i - 0)
       fdexno = i
-    elsif i > 849+99 and i < 922+99 # Generation VI
-      fdexno = (i - 100)
+    elsif i > 849+149 and i < 922+149 # Generation VI
+      fdexno = (i - 150)
     end
     return fdexno
 end

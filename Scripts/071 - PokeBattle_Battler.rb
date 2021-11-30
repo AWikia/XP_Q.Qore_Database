@@ -4295,6 +4295,24 @@ class PokeBattle_Battler
       PBDebug.log("[Move failed] #{pbThis} can't use #{thismove.name} because of Torment")
       return false
     end
+    # Trummet Spirit
+    if !hasMoldBreaker
+      if pbOpposing1.hasWorkingAbility(:TRUMMETSPIRIT) && !pbOpposing1.isFainted?
+        thismove.id==@lastMoveUsed && thismove.id!=@battle.struggle.id &&
+        @effects[PBEffects::TwoTurnAttack]==0
+        pbSEPlay("protection")
+        @battle.pbDisplayPaused(_INTL("{1} can't use the same move in a row due to {2}'s Trummet Spirit!",pbThis,pbOpposing1.pbThis))
+        PBDebug.log("[Move failed] #{pbThis} can't use #{thismove.name} because of Torment")
+        return false
+      elsif pbOpposing2.hasWorkingAbility(:TRUMMETSPIRIT) && !pbOpposing2.isFainted?
+        thismove.id==@lastMoveUsed && thismove.id!=@battle.struggle.id &&
+        @effects[PBEffects::TwoTurnAttack]==0
+        pbSEPlay("protection")
+        @battle.pbDisplayPaused(_INTL("{1} can't use the same move in a row due to {2}'s Trummet Spirit!",pbThis,pbOpposing2.pbThis))
+        PBDebug.log("[Move failed] #{pbThis} can't use #{thismove.name} because of Torment")
+        return false
+      end
+    end
     if pbOpposing1.effects[PBEffects::Imprison] && !pbOpposing1.isFainted?
       if thismove.id==pbOpposing1.moves[0].id ||
          thismove.id==pbOpposing1.moves[1].id ||

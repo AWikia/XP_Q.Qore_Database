@@ -4297,14 +4297,14 @@ class PokeBattle_Battler
     end
     # Trummet Spirit
     if !hasMoldBreaker
-      if pbOpposing1.hasWorkingAbility(:TRUMMETSPIRIT) && !pbOpposing1.isFainted?
+      if pbOpposing1.hasWorkingAbility(:TRUMMETSPIRIT) && !pbOpposing1.isFainted? &&
         thismove.id==@lastMoveUsed && thismove.id!=@battle.struggle.id &&
         @effects[PBEffects::TwoTurnAttack]==0
         pbSEPlay("protection")
         @battle.pbDisplayPaused(_INTL("{1} can't use the same move in a row due to {2}'s Trummet Spirit!",pbThis,pbOpposing1.pbThis))
         PBDebug.log("[Move failed] #{pbThis} can't use #{thismove.name} because of Torment")
         return false
-      elsif pbOpposing2.hasWorkingAbility(:TRUMMETSPIRIT) && !pbOpposing2.isFainted?
+      elsif pbOpposing2.hasWorkingAbility(:TRUMMETSPIRIT) && !pbOpposing2.isFainted? &&
         thismove.id==@lastMoveUsed && thismove.id!=@battle.struggle.id &&
         @effects[PBEffects::TwoTurnAttack]==0
         pbSEPlay("protection")

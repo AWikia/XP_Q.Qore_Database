@@ -228,7 +228,11 @@ def pbDayCareGenerateEgg
         (isConst?(babyspecies,PBSpecies,:DIA) && hasConst?(PBSpecies,:CARREFOUR))
     babyspecies=[getConst(PBSpecies,:CARREFOUR),
                  getConst(PBSpecies,:DIA)][rand(2)]
-  end
+  elsif (isConst?(babyspecies,PBSpecies,:NAMCO) && hasConst?(PBSpecies,:BANDAI)) ||
+        (isConst?(babyspecies,PBSpecies,:BANDAI) && hasConst?(PBSpecies,:NAMCO))
+    babyspecies=[getConst(PBSpecies,:NAMCO),
+                 getConst(PBSpecies,:BANDAI)][rand(2)]
+end
   # Generate egg
   egg=PokeBattle_Pokemon.new(babyspecies,EGGINITIALLEVEL,$Trainer)
   # Randomise personal ID

@@ -1026,6 +1026,24 @@ class PokeBattle_Battle
         return false
       end
     end
+    # Trummet Spirit
+    if !thispkmn.hasMoldBreaker
+      if opp1.hasWorkingAbility(:TRUMMETSPIRIT)
+        if thismove.id==thispkmn.lastMoveUsed
+          if showMessages
+            pbDisplayPaused(_INTL("{1} can't use the same move twice in a row due to {2}'s Trummet Spirit!",thispkmn.pbThis,opp1.pbThis))
+          end
+          return false
+        end
+      elsif opp2.hasWorkingAbility(:TRUMMETSPIRIT)
+        if thismove.id==thispkmn.lastMoveUsed
+          if showMessages
+            pbDisplayPaused(_INTL("{1} can't use the same move twice in a row due to {2}'s Trummet Spirit!",thispkmn.pbThis,opp2.pbThis))
+          end
+          return false
+        end
+      end
+    end
     if thismove.id==thispkmn.effects[PBEffects::DisableMove] && !sleeptalk
       if showMessages
         pbDisplayPaused(_INTL("{1}'s {2} is disabled!",thispkmn.pbThis,thismove.name))

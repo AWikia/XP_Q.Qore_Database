@@ -1107,9 +1107,13 @@ ItemHandlers::UseOnPokemon.add(:DNASPLICERS,proc{|item,pokemon,scene|
          if chosen>=0
            poke2=$Trainer.party[chosen]
            if (isConst?(poke2.species,PBSpecies,:XBOX) ||
-              isConst?(poke2.species,PBSpecies,:BING)) && poke2.hp>0 && !poke2.isEgg?
+              isConst?(poke2.species,PBSpecies,:BING) ||
+              isConst?(poke2.species,PBSpecies,:AZURE) ||
+              isConst?(poke2.species,PBSpecies,:VISUALSTUDIIO)) && poke2.hp>0 && !poke2.isEgg?
              pokemon.form=1 if isConst?(poke2.species,PBSpecies,:XBOX)
              pokemon.form=2 if isConst?(poke2.species,PBSpecies,:BING)
+             pokemon.form=3 if isConst?(poke2.species,PBSpecies,:AZURE)
+             pokemon.form=4 if isConst?(poke2.species,PBSpecies,:VISUALSTUDIO)
              pokemon.fused=poke2
              pbRemovePokemonAt(chosen)
              scene.pbHardRefresh

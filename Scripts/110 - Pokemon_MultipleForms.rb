@@ -9473,7 +9473,7 @@ MultipleForms.register(:META,{
 
 MultipleForms.register(:MICROSOFT,{
 "type2"=>proc{|pokemon|
-   types=[:NORMAL,:CHLOROPHYLL,:GUST]
+   types=[:NORMAL,:CHLOROPHYLL,:GUST,:WATER,:BOLT]
    next getID(PBTypes,types[pokemon.form])
 },
 "getBaseStats"=>proc{|pokemon|
@@ -9484,11 +9484,15 @@ MultipleForms.register(:MICROSOFT,{
    next if pokemon.form==0
    next [[getID(PBAbilities,:EFFECTSPORE),0]] if pokemon.form==1
    next [[getID(PBAbilities,:SIAXIS),0]] if pokemon.form==2
+   next [[getID(PBAbilities,:WATERBUBBLE),0]] if pokemon.form==3
+   next [[getID(PBAbilities,:VERGINI),0]] if pokemon.form==4
 },
 "onSetForm"=>proc{|pokemon,form|
    moves=[
-      :KLEOPOTRIA, # Dusk Mane
-      :GUSTOPIA    # Dawn Wings
+      :KLEOPOTRIA,
+      :GUSTOPIA,    
+      :WATERBUBBLE,
+      :BOLTYDREAM
    ]
    hasoldmove=-1
    for i in 0...4
@@ -9499,7 +9503,7 @@ MultipleForms.register(:MICROSOFT,{
      end
      break if hasoldmove>=0
    end
-   if (form==1 || form==2) && !$inbattle
+   if (form==1 || form==2 || form==3 || form==4) && !$inbattle
      newmove = moves[form-1]
      if newmove!=nil && hasConst?(PBMoves,newmove)
        if hasoldmove>=0

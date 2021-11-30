@@ -1323,6 +1323,30 @@ MultipleForms.register(:GIRAFARIG,{
 }
 })
 
+MultipleForms.register(:HEARTBRAND,{
+"getMegaForm"=>proc{|pokemon|
+   next 1 if isConst?(pokemon.item,PBItems,:HEARTBRANDITE)
+   next
+},
+"type2"=>proc{|pokemon|
+   next getID(PBTypes,:ELECTRIC) if pokemon.form==1
+   next
+},
+"getBaseStats"=>proc{|pokemon|
+   next [100,70,75,30,70,75] if pokemon.form==1
+   next
+},
+"getAbilityList"=>proc{|pokemon|
+   next [[getID(PBAbilities,:TRUMMETSPIRIT),0]] if pokemon.form==1
+   next
+},
+"dexEntry"=>proc{|pokemon|
+   next if pokemon.form==0
+   next _INTL("After having undergo Mega Evolution, a yellow glow started appearing inside Heartbrand's body.") if pokemon.form==1
+}
+})
+
+
 
 # Primal Reversion #############################################################
 

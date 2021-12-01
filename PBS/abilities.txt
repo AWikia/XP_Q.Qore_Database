@@ -351,3 +351,4 @@
 345,PENATIVA,Penativa,"The Pokémon tranctuates most one-hit KO moves and temporary doubles defense."
 346,ASTROPLANET,Astro Planet, "Makes gravity intensified when the Pokémon enters a battle."
 347,FROZENBODY,Frozen Body,Contact with the Pokémon may freeze the attacker.
+348,TRUMMETSPIRIT,Trummet Spirit,"Prevents opposing Pokémon from using their moves twice in a row."

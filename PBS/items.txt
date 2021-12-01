@@ -871,3 +871,4 @@
 859,BLACKPLUS,Black Plus,Black Pluses,1,2000,This glamorous plus allows your partner to damage enemies one more time.,0,0,0,
 860,GREATNESTBALL,Great Nest Ball,Great Nest Balls,3,600,"A good, high-performance Ball that provides a higher Pokémon catch rate than a standard Nest Ball.",0,2,3,
 863,RELICFLOWER,Relic Flower,Relic Flowers,1,0,"A mysterious flower. One Pokémon will be able to produce specialized versions of Wikitech.",0,0,0,
+864,HEARTBRANDITE,Heartbrandite,Heartbrandites,1,10000,"One of the mysterious Mega Stones. Have Heartbrand hold it, and this stone will enable it to Mega Evolve in battle.",0,0,12,

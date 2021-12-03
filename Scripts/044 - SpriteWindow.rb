@@ -960,7 +960,9 @@ def pbDrawShadowText(bitmap,x,y,width,height,string,baseColor,shadowColor=nil,al
     bitmap.font.color=shadowColor
        # bitmap.draw_text(x+2,y,width,height,string,align)
    # bitmap.draw_text(x,y+2,width,height,string,align)
-    bitmap.draw_text(x+2,y+2,width,height,string,align)
+    if !baseColor
+   #   bitmap.draw_text(x+2,y+2,width,height,string,align)
+    end
   end
   if baseColor
     bitmap.font.color=baseColor

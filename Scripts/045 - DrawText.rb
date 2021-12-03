@@ -79,7 +79,9 @@ def renderLineBrokenChunksWithShadow(bitmap,xDst,yDst,normtext,maxheight,baseCol
         bitmap.font.color=shadowColor
      #   bitmap.draw_text(textx+2,texty,width+2,height,text)
      #   bitmap.draw_text(textx,texty+2,width+2,height,text)
-        bitmap.draw_text(textx+2,texty+2,width+2,height,text)
+       if !baseColor
+      #    bitmap.draw_text(textx+2,texty+2,width+2,height,text)
+        end
       end
       bitmap.font.color=baseColor
       bitmap.draw_text(textx,texty,width+2,height,text)

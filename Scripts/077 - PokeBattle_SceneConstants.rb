@@ -3,8 +3,13 @@ module PokeBattle_SceneConstants
   USEFIGHTBOX   = true # If true, expects the file Graphics/Pictures/battleFight.png
 
   # Text colors
-#  MESSAGESHADOWCOLOR        = Color.new(80,80,88)
-#  MESSAGEBASECOLOR      = Color.new(160,160,168)
+  MESSAGESHADOWCOLORL      = Color.new(168,184,184)
+  MESSAGEBASECOLORL        = Color.new(88,88,80)
+  MENUBASECOLORL           = MESSAGEBASECOLORL
+  MENUSHADOWCOLORL         = MESSAGESHADOWCOLORL
+  PPTEXTBASECOLORL         = MESSAGEBASECOLORL        # More than 1/2 of total PP
+  PPTEXTSHADOWCOLORL       = MESSAGESHADOWCOLORL
+
   
   MESSAGESHADOWCOLOR        = Color.new(72,88,88)
   MESSAGEBASECOLOR      = Color.new(248,248,240)

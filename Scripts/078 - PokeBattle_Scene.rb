@@ -42,7 +42,7 @@ Return values:
 class CommandMenuDisplay
   attr_accessor :mode
 
-  def initialize(viewport=nil,bg="")
+  def initialize(viewport=nil,bg="",dark=true)
     @display=nil
     if PokeBattle_SceneConstants::USECOMMANDBOX
       @display=IconSprite.new(0,Graphics.height-96,viewport)
@@ -60,8 +60,13 @@ class CommandMenuDisplay
     @window.ignore_input=true
     @msgbox=Window_UnformattedTextPokemon.newWithSize(
        "",16,Graphics.height-96+2,220+64,96,viewport)
-    @msgbox.baseColor=PokeBattle_SceneConstants::MESSAGEBASECOLOR
-    @msgbox.shadowColor=PokeBattle_SceneConstants::MESSAGESHADOWCOLOR
+    if dark
+      @msgbox.baseColor=PokeBattle_SceneConstants::MESSAGEBASECOLOR
+      @msgbox.shadowColor=PokeBattle_SceneConstants::MESSAGESHADOWCOLOR
+    else
+      @msgbox.baseColor=PokeBattle_SceneConstants::MESSAGEBASECOLORL
+      @msgbox.shadowColor=PokeBattle_SceneConstants::MESSAGESHADOWCOLORL
+    end
     @msgbox.windowskin=nil
     @title=""
     @buttons=nil
@@ -224,7 +229,7 @@ class FightMenuDisplay
   attr_reader :index
   attr_accessor :megaButton
 
-  def initialize(battler,viewport=nil,bg="bg")
+  def initialize(battler,viewport=nil,bg="bg",dark=true)
     @display=nil
     if PokeBattle_SceneConstants::USEFIGHTBOX
       @display=IconSprite.new(0,Graphics.height-96,viewport)
@@ -243,8 +248,13 @@ class FightMenuDisplay
     @info=Window_AdvancedTextPokemon.newWithSize(
        "",320,Graphics.height-96,Graphics.width-320,96,viewport)
     pbSetNarrowFont(@info.contents)
-    @ctag=shadowctag(PokeBattle_SceneConstants::MENUBASECOLOR,
-                     PokeBattle_SceneConstants::MENUSHADOWCOLOR)
+    if dark
+      @ctag=shadowctag(PokeBattle_SceneConstants::MENUBASECOLOR,
+                       PokeBattle_SceneConstants::MENUSHADOWCOLOR)
+    else
+      @ctag=shadowctag(PokeBattle_SceneConstants::MENUBASECOLORL,
+                       PokeBattle_SceneConstants::MENUSHADOWCOLORL)
+    end
     @buttons=nil
     @battler=battler
     @index=0
@@ -416,13 +426,27 @@ class FightMenuButtons < BitmapSprite
       textpos.push([_INTL("{1}",moves[i].name),x+96,y+4,2,
          Color.new(248,248,248),Color.new(18,18,18),1])
     end
-    ppcolors=[
-       PokeBattle_SceneConstants::PPTEXTBASECOLOR,PokeBattle_SceneConstants::PPTEXTSHADOWCOLOR,
-       PokeBattle_SceneConstants::PPTEXTBASECOLOR,PokeBattle_SceneConstants::PPTEXTSHADOWCOLOR,
-       PokeBattle_SceneConstants::PPTEXTBASECOLORYELLOW,PokeBattle_SceneConstants::PPTEXTSHADOWCOLORYELLOW,
-       PokeBattle_SceneConstants::PPTEXTBASECOLORORANGE,PokeBattle_SceneConstants::PPTEXTSHADOWCOLORORANGE,
-       PokeBattle_SceneConstants::PPTEXTBASECOLORRED,PokeBattle_SceneConstants::PPTEXTSHADOWCOLORRED
-    ]
+    if $isDarkMessage
+      ppcolors=[
+         PokeBattle_SceneConstants::PPTEXTBASECOLOR,PokeBattle_SceneConstants::PPTEXTSHADOWCOLOR,
+         PokeBattle_SceneConstants::PPTEXTBASECOLOR,PokeBattle_SceneConstants::PPTEXTSHADOWCOLOR,
+         PokeBattle_SceneConstants::PPTEXTBASECOLORYELLOW,PokeBattle_SceneConstants::PPTEXTSHADOWCOLORYELLOW,
+         PokeBattle_SceneConstants::PPTEXTBASECOLORORANGE,PokeBattle_SceneConstants::PPTEXTSHADOWCOLORORANGE,
+         PokeBattle_SceneConstants::PPTEXTBASECOLORRED,PokeBattle_SceneConstants::PPTEXTSHADOWCOLORRED
+      ]
+      textbase = PokeBattle_SceneConstants::MENUBASECOLOR
+      textshadow = PokeBattle_SceneConstants::MENUSHADOWCOLOR
+    else
+      ppcolors=[
+         PokeBattle_SceneConstants::PPTEXTBASECOLORL,PokeBattle_SceneConstants::PPTEXTSHADOWCOLORL,
+         PokeBattle_SceneConstants::PPTEXTBASECOLORL,PokeBattle_SceneConstants::PPTEXTSHADOWCOLORL,
+         PokeBattle_SceneConstants::PPTEXTBASECOLORYELLOW,PokeBattle_SceneConstants::PPTEXTSHADOWCOLORYELLOW,
+         PokeBattle_SceneConstants::PPTEXTBASECOLORORANGE,PokeBattle_SceneConstants::PPTEXTSHADOWCOLORORANGE,
+         PokeBattle_SceneConstants::PPTEXTBASECOLORRED,PokeBattle_SceneConstants::PPTEXTSHADOWCOLORRED
+      ]
+      textbase = PokeBattle_SceneConstants::MENUBASECOLORL
+      textshadow = PokeBattle_SceneConstants::MENUSHADOWCOLORL
+    end
     for i in 0...4
       next if i!=index
       next if moves[i].id==0
@@ -449,7 +473,7 @@ class FightMenuButtons < BitmapSprite
         textpos.push([_INTL("PP: {1}/{2}",moves[i].pp,moves[i].totalpp),
            448,50+UPPERGAP,2,ppcolors[(4-ppfraction)*2],ppcolors[(4-ppfraction)*2+1]])
         textpos.push([_INTL("P: {1} A: {2}",mbasedmg,maccuracy),
-           448+108,50+UPPERGAP,2,PokeBattle_SceneConstants::MENUBASECOLOR,PokeBattle_SceneConstants::MENUSHADOWCOLOR])
+           448+108,50+UPPERGAP,2,textbase,textshadow])
       end
     end
     pbDrawTextPositions(self.bitmap,textpos)
@@ -1466,20 +1490,30 @@ class PokeBattle_Scene
     @sprites["fightwindow"].visible = (windowtype==FIGHTBOX)
   end
 
-  def pbSetMessageMode(mode)
+  def pbSetMessageMode(mode,dark=true)
     @messagemode=mode
     msgwindow=@sprites["messagewindow"]
     if mode # Within Pokémon command
-      msgwindow.baseColor=PokeBattle_SceneConstants::MENUBASECOLOR
-      msgwindow.shadowColor=PokeBattle_SceneConstants::MENUSHADOWCOLOR
+      if dark
+        msgwindow.baseColor=PokeBattle_SceneConstants::MENUBASECOLOR
+        msgwindow.shadowColor=PokeBattle_SceneConstants::MENUSHADOWCOLOR
+      else
+        msgwindow.baseColor=PokeBattle_SceneConstants::MENUBASECOLORL
+        msgwindow.shadowColor=PokeBattle_SceneConstants::MENUSHADOWCOLORL
+      end
       msgwindow.opacity=255
       msgwindow.x=16
       msgwindow.width=Graphics.width
       msgwindow.height=96
       msgwindow.y=Graphics.height-msgwindow.height+2
     else
-      msgwindow.baseColor=PokeBattle_SceneConstants::MESSAGEBASECOLOR
-      msgwindow.shadowColor=PokeBattle_SceneConstants::MESSAGESHADOWCOLOR
+      if dark
+        msgwindow.baseColor=PokeBattle_SceneConstants::MESSAGEBASECOLOR
+        msgwindow.shadowColor=PokeBattle_SceneConstants::MESSAGESHADOWCOLOR
+      else
+        msgwindow.baseColor=PokeBattle_SceneConstants::MESSAGEBASECOLORL
+        msgwindow.shadowColor=PokeBattle_SceneConstants::MESSAGESHADOWCOLORL
+      end
       msgwindow.opacity=0
       msgwindow.x=16
       msgwindow.width=Graphics.width-32
@@ -2046,6 +2080,7 @@ end
     else
       pbAddSprite("messagebox",0,Graphics.height-96,"Graphics/Battle Backs/Backgrounds/000/MessageC",@viewport)
     end
+     $isDarkMessage=isDarkBackground(@sprites["messagebox"].bitmap)
     @sprites["messagebox"].z=90
     @sprites["helpwindow"]=Window_UnformattedTextPokemon.newWithSize("",0,0,32,32,@viewport)
     @sprites["helpwindow"].visible=false
@@ -2054,12 +2089,12 @@ end
     @sprites["messagewindow"].letterbyletter=true
     @sprites["messagewindow"].viewport=@viewport
     @sprites["messagewindow"].z=100
-    @sprites["commandwindow"]=CommandMenuDisplay.new(@viewport,pbGetBackdrop)
+    @sprites["commandwindow"]=CommandMenuDisplay.new(@viewport,pbGetBackdrop,$isDarkMessage)
     @sprites["commandwindow"].z=100
-    @sprites["fightwindow"]=FightMenuDisplay.new(nil,@viewport,pbGetBackdrop)
+    @sprites["fightwindow"]=FightMenuDisplay.new(nil,@viewport,pbGetBackdrop,$isDarkMessage)
     @sprites["fightwindow"].z=100
     pbShowWindow(MESSAGEBOX)
-    pbSetMessageMode(false)
+    pbSetMessageMode(false,$isDarkMessage)
     trainersprite1=@sprites["trainer"]
     trainersprite2=@sprites["trainer2"]
     if !@battle.opponent
@@ -2814,7 +2849,7 @@ end
     # Fade out and hide all sprites
     visiblesprites=pbFadeOutAndHide(@sprites)
     pbShowWindow(BLANK)
-    pbSetMessageMode(true)
+    pbSetMessageMode(true,$isDarkMessage)
     modparty=[]
     for i in 0...6
       modparty.push(party[partypos[i]])
@@ -2854,7 +2889,7 @@ end
     @switchscreen.pbEndScene
     @switchscreen=nil
     pbShowWindow(BLANK)
-    pbSetMessageMode(false)
+    pbSetMessageMode(false,$isDarkMessage)
     # back to main battle screen
     pbFadeInAndShow(@sprites,visiblesprites)
     return ret

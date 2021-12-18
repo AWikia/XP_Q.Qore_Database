@@ -37,6 +37,7 @@ def pbIsImportantItem?(item)
   return $ItemData[item] && (pbIsKeyItem?(item) ||
                              pbIsTrophy?(item) ||
                              pbIsHiddenMachine?(item) ||
+                             pbIsTechnicalDisc?(item) ||
                              (INFINITETMS && pbIsTechnicalMachine?(item)))
 end
 
@@ -45,7 +46,7 @@ def pbIsTrophy?(item)
 end
 
 def pbIsMachine?(item)
-  return $ItemData[item] && (pbIsTechnicalMachine?(item) || pbIsHiddenMachine?(item))
+  return $ItemData[item] && (pbIsTechnicalMachine?(item) || pbIsHiddenMachine?(item) || pbIsTechnicalDisc?(item))
 end
 
 def pbIsTechnicalMachine?(item)
@@ -54,6 +55,10 @@ end
 
 def pbIsHiddenMachine?(item)
   return $ItemData[item] && ($ItemData[item][ITEMUSE]==4)
+end
+
+def pbIsTechnicalDisc?(item)
+  return $ItemData[item] && ($ItemData[item][ITEMUSE]==6)
 end
 
 def pbIsMail?(item)
@@ -632,7 +637,8 @@ end
 # Only called when in the party screen and having chosen an item to be used on
 # the selected Pokémon
 def pbUseItemOnPokemon(item,pokemon,scene)
-  if $ItemData[item][ITEMUSE]==3 || $ItemData[item][ITEMUSE]==4    # TM or HM
+  if $ItemData[item][ITEMUSE]==3 || $ItemData[item][ITEMUSE]==4  || 
+     $ItemData[item][ITEMUSE]==6    # TM or HM
     machine=$ItemData[item][ITEMMACHINE]
     return false if machine==nil
     movename=PBMoves.getName(machine)
@@ -644,6 +650,9 @@ def pbUseItemOnPokemon(item,pokemon,scene)
     else
       if pbIsHiddenMachine?(item)
         Kernel.pbMessage(_INTL("\\se[accesspc]Booted up an HM."))
+        Kernel.pbMessage(_INTL("It contained {1}.\1",movename))
+      elsif pbIsTechnicalDisc?(item)
+        Kernel.pbMessage(_INTL("\\se[accesspc]Booted up an TD."))
         Kernel.pbMessage(_INTL("It contained {1}.\1",movename))
       else
         Kernel.pbMessage(_INTL("\\se[accesspc]Booted up a TM."))
@@ -675,7 +684,8 @@ end
 
 def pbUseItem(bag,item,bagscene=nil)
   found=false
-  if $ItemData[item][ITEMUSE]==3 || $ItemData[item][ITEMUSE]==4    # TM or HM
+  if $ItemData[item][ITEMUSE]==3 || $ItemData[item][ITEMUSE]==4  || 
+     $ItemData[item][ITEMUSE]==6    # TM or HM
     machine=$ItemData[item][ITEMMACHINE]
     return 0 if machine==nil
     if $Trainer.pokemonCount==0
@@ -685,6 +695,9 @@ def pbUseItem(bag,item,bagscene=nil)
     movename=PBMoves.getName(machine)
     if pbIsHiddenMachine?(item)
       Kernel.pbMessage(_INTL("\\se[accesspc]Booted up an HM."))
+      Kernel.pbMessage(_INTL("It contained {1}.\1",movename))
+    elsif pbIsTechnicalDisc?(item)
+      Kernel.pbMessage(_INTL("\\se[accesspc]Booted up an TD."))
       Kernel.pbMessage(_INTL("It contained {1}.\1",movename))
     else
       Kernel.pbMessage(_INTL("\\se[accesspc]Booted up a TM."))

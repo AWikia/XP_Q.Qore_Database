@@ -161,7 +161,7 @@ def pbPocketNames; return ["",
    _INTL("Items"),
    _INTL("Medicine"),
    _INTL("Poké Balls"),
-   _INTL("TMs & HMs"),
+   _INTL("TMs, HMs & TDs"),
    _INTL("Berries"),
    _INTL("Trophies"), # Was Mail
    _INTL("Battle Items"),

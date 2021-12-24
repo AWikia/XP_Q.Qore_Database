@@ -2189,7 +2189,7 @@ def Kernel.pbItemBall(item,quantity=1)
   itemname=(quantity>1) ? PBItems.getNamePlural(item) : PBItems.getName(item)
   pocket=pbGetPocket(item)
   if $PokemonBag.pbStoreItem(item,quantity)   # If item can be picked up
-    if $ItemData[item][ITEMUSE]==3 || $ItemData[item][ITEMUSE]==4
+    if $ItemData[item][ITEMUSE]==3 || $ItemData[item][ITEMUSE]==4 || $ItemData[item][ITEMUSE]==6
       Kernel.pbMessage(_INTL("\\me[]\\me[ItemGet]{1} found \\c[1]{2}\\c[0]!\\nIt contained \\c[1]{3}\\c[0].\\wtnp[30]",
          $Trainer.name,itemname,PBMoves.getName($ItemData[item][ITEMMACHINE])))
     elsif isConst?(item,PBItems,:LEFTOVERS)
@@ -2203,7 +2203,7 @@ def Kernel.pbItemBall(item,quantity=1)
        $Trainer.name,itemname,PokemonBag.pocketNames()[pocket]))
     return true
   else   # Can't add the item
-    if $ItemData[item][ITEMUSE]==3 || $ItemData[item][ITEMUSE]==4
+    if $ItemData[item][ITEMUSE]==3 || $ItemData[item][ITEMUSE]==4 || $ItemData[item][ITEMUSE]==6
       Kernel.pbMessage(_INTL("{1} found \\c[1]{2}\\c[0]!\\wtnp[20]",$Trainer.name,itemname))
     elsif isConst?(item,PBItems,:LEFTOVERS)
       Kernel.pbMessage(_INTL("{1} found some \\c[1]{2}\\c[0]!\\wtnp[20]",$Trainer.name,itemname))
@@ -2222,16 +2222,16 @@ def Kernel.pbReceiveItem(item,quantity=1)
     item=getID(PBItems,item)
   end
   pocket=pbGetPocket(item)
-  return Kernel.pbReceiveTrophy(item) if pocket==6
+  return Kernel.pbReceiveTrophy(item) if pocket==6 # A Trophy
   return false if !item || item<=0 || quantity<1
   itemname=(quantity>1) ? PBItems.getNamePlural(item) : PBItems.getName(item)
-  if $ItemData[item][ITEMUSE]==3 || $ItemData[item][ITEMUSE]==4
+  if $ItemData[item][ITEMUSE]==3 || $ItemData[item][ITEMUSE]==4 || $ItemData[item][ITEMUSE]==6
     Kernel.pbMessage(_INTL("\\me[ItemGet]Obtained \\c[1]{1}\\c[0]!\\nIt contained \\c[1]{2}\\c[0].\\wtnp[30]",
        itemname,PBMoves.getName($ItemData[item][ITEMMACHINE])))
   elsif isConst?(item,PBItems,:LEFTOVERS)
     Kernel.pbMessage(_INTL("\\me[]\\me[ItemGet]Obtained some \\c[1]{1}\\c[0]!\\wtnp[30]",itemname))
   elsif quantity>1
-    Kernel.pbMessage(_INTL("\\me[]\\me[ItemGet]Obtained \\c[1]{1}\\c[0]!\\wtnp[30]",itemname))
+    Kernel.pbMessage(_INTL("\\me[]\\me[ItemGet]Obtained {1} \\c[1]{2}\\c[0]!\\wtnp[30]",quantity,itemname))
   else
     Kernel.pbMessage(_INTL("\\me[]\\me[ItemGet]Obtained \\c[1]{1}\\c[0]!\\wtnp[30]",itemname))
   end

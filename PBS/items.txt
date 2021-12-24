@@ -698,6 +698,47 @@
 852,TPREMIER,Extra Ball,Extra Ball,6,0,Awarded for getting your first free Premier Ball,2,0,6,
 853,TMIGRATOR,Pokémon Migrator,Pokémon Migrator,6,0,Awarded for getting your first Migrated Pokémon,2,0,6,
 854,TLINKER,Battle Linker,Battle Linker,6,0,Awarded for winning your first Link Battle,2,0,6,
+# Technical Discs (38/100)
+865,TD01,TD01,TD01s,4,0,"The user blocks the target from using items any longer to the target by making its Ability Klutz.",6,0,0,FORBIDDENSPELL
+866,TD02,TD02,TD02s,4,0,"The user faints when using this move. In return, it severely lowers the target's Attack and Sp. Atk.",6,0,0,SUPERMEMENTO
+867,TD03,TD03,TD03s,4,0,"The user licks and locks 3 times, drastically increasing Evasion but severely decreasing Defense. This attack never goes encored.",6,0,0,LICKLOCK
+868,TD04,TD04,TD04s,4,0,"Star-shaped rays are shot at the opposing team. This attack never misses.",6,0,0,SWIFT
+869,TD05,TD05,TD05s,4,0,"A herbal move for SIAXIS. Move never fails, starts on top of others, increases Attack stat and recovers some HP when it knocks out the target",6,0,0,SIAXIS
+870,TD06,TD06,TD06s,4,0,"The user sticks out its head and attacks by charging into the foe. It may also make the target flinch.",6,0,0,HEADBUTT
+871,TD07,TD07,TD07s,4,0,"The user spits up a glassy Mascu. This may also steal one stage from target's Attack stat.",6,0,0,MASCUGLASS
+872,TD08,TD08,TD08s,4,0,"The user spits up a glessy Mescu. This may also steal one stage from target's Sp. Attack stat.",6,0,0,MESCUGLESS
+873,TD09,TD09,TD09s,4,0,"The user spits up a glossy Moscu. This may also steal one stage from target's Speed stat.",6,0,0,MOSCUGLOSS
+874,TD10,TD10,TD10s,4,0,"For five turns, Heart-type moves are boosted and every stat change it receives are doubled.",6,0,0,LOVELYTERRAIN
+875,TD11,TD11,TD11s,4,0,"The user spils the target using an iron carb The user's HP is restored by half the damage taken by the target. This attack always goes first.",6,0,0,IRONCARB
+876,TD12,TD12,TD12s,4,0,"A electic energy is being done at the battle. This increases accuracy of Electric Pokémon and decreases accuracy for other types.",6,0,0,VOLTENERGY
+877,TD13,TD13,TD13s,4,0,"The user utilizes the power of the terrain to attack. This move's type and power changes depending on the terrain when it's used.",6,0,0,EXPANDINGFORCE
+878,TD14,TD14,TD14s,4,0,"The user attacks while destroying the terrain. This move fails when the ground hasn't turned into a terrain.",6,0,0,STEELROLLER
+879,TD15,TD15,TD15s,4,0,"The user attacks by shooting scales two to five times in a row. This move boosts the user's Speed stat but lowers its Defense stat.",6,0,0,SCALESHOT
+880,TD16,TD16,TD16s,4,0,"In this two-turn attack, the user gathers space power and boosts its Sp. Atk stat, then attacks the target on the next turn.",6,0,0,METEORBEAM
+881,TD17,TD17,TD17s,4,0,"The user attacks everything around it and faints upon using this move. This move's power is increased on Misty Terrain.",6,0,0,MISTYEXPLOSION
+882,TD18,TD18,TD18s,4,0,"Gliding on the ground, the user attacks the target. This move always goes first on Grassy Terrain.",6,0,0,GRASSYGLIDE
+883,TD19,TD19,TD19s,4,0,"The user attacks with electric voltage rising from the ground. This move's power doubles when the target is on Electric Terrain.",6,0,0,RISINGVOLTAGE
+884,TD20,TD20,TD20s,4,0,"The user utilizes the power of the terrain to attack. This move's type and power changes depending on the terrain when it's used.",6,0,0,TERRAINPULSE
+885,TD21,TD21,TD21s,4,0,"The user skitters behind the target to attack. This also lowers the target's Sp. Atk stat.",6,0,0,SKITTERSMACK
+886,TD22,TD22,TD22s,4,0,"The user attacks with energy from jealousy. This leaves all opposing Pokémon that have had their stats boosted during the turn with a burn.",6,0,0,BURNINGJEALOUSY
+887,TD23,TD23,TD23s,4,0,"The user lashes out to vent its frustration toward the target. If its stats were lowered during the turn, the power of this move is doubled.",6,0,0,LASHOUT
+888,TD24,TD24,TD24s,4,0,"The user attacks the target by controlling the target's item. The move fails if the target doesn't have an item.",6,0,0,POLTERGEIST
+889,TD25,TD25,TD25s,4,0,"The user surrounds everything around it with highly acidic gas and melts away items they hold.",6,0,0,CORROSIVEGAS
+890,TD26,TD26,TD26s,4,0,"The user properly coaches its ally Pokémon, boosting their Attack and Defense stats.",6,0,0,COACHING
+891,TD27,TD27,TD27s,4,0,"After making its attack, the user rushes back to switch places with a party Pokémon in waiting.",6,0,0,FLIPTURN
+892,TD28,TD28,TD28s,4,0,"A consecutive three-kick attack that becomes more powerful with each successful hit.",6,0,0,TRIPLEAXEL
+893,TD29,TD29,TD29s,4,0,"The user slams the target with its wings. The target is hit twice in a row.",6,0,0,DUALWINGBEAT
+894,TD30,TD30,TD30s,4,0,"The user throws scorching sand at the target to attack. This may also leave the target with a burn.",6,0,0,SCORCHINGSANDS
+895,TD31,TD31,TD31s,4,0,"The user disperses emagically charged particles, which changes Normal-type moves to Magic-type moves.",6,0,0,MAGICSTORM
+896,TD32,TD32,TD32s,4,0,"The user hurls a harden speedy kick that may reduce the foe's speed.",6,0,0,SPEEDYKICK
+897,TD33,TD33,TD33s,4,0,"The user steals the effects of any healing or stat-changing move the foe attempts to use.",6,0,0,SNATCH
+898,TD34,TD34,TD34s,4,0,"A move made for Salazar. When this move is used, it starts first and will also make the foe incapable of being withdrawn.",6,0,0,SALAZIRE
+899,TD35,TD35,TD35s,4,0,"The user fires a beam of steel that it collected from its entire body. This also damages the user.",6,0,0,STEELBEAM
+900,TD36,TD36,TD36s,4,0,"Using an odd shock wave, the user damages any Pokémon of the same color as the user.",6,0,0,COLORATURA
+901,TD37,TD37,TD37s,4,0,"The user attacks an opposing Pokémon with massive electricity. This move may also paralyze the target and power is doubled if a Pokémon has the corresponding ability.",6,0,0,TRANSISTOR
+902,TD38,TD38,TD38s,4,0,"Fumes of afro is sprayed in the face of opposing Pokémon. This may poison those hit.",6,0,0,DRAGONSMAW
+903,TD39,TD39,TD39s,4,0,"The user attacks an opposing Pokémon with greater fire. This move may also burn the target and power is doubled if a Pokémon has the corresponding ability.",6,0,0,AFROFUMES
+904,TD40,TD40,TD40s,4,0,"The user does Herbal exercise 3 times, drastically increasing Defense but severely decreasing Evasion. This attack never goes encored.",6,0,0,HERBOTOPIA
 # FLINT and Κορα Κορε Items
 526,ANGLESTONE,Angle Stone,Angle Stones,1,2100,"A stone used to evolve certain species of Pokémon, particulary Bobojido ones. It is shaped like a head.",1,0,0,
 527,FIERYSTONE,Fiery Stone,Fiery Stones,1,900,"An item to be held by a Pokémon. Slightly boosts the power of Grass-,Fire- and Water- type moves.",0,0,0,
@@ -712,8 +753,8 @@
 536,DOOMSTONE,Doom Stone,Doom Stones,1,6000,A stone that causes pokemon to earn Doom status. It behaves like a Plus symbol,1,0,0,
 537,TM96,TM96,TM96s,4,3000,"The user thows a wrapped bounce, hitting the entire side with large tackles.",3,0,0,WRAPPEDTACKLE
 538,LAYERBALL,Layer Ball,Layer Balls,3,6000,"A good, high-performance Ball that provides the ability of catching Fusion Pokémon which has the very same rate as a Great Ball.",0,2,3,
-539,TM97,TM97,TM97s,4,3000,"The users hints onto the opponet, lowering defence and special defence by 3 stages. User faints upon using this move.",3,0,0,SUPERMEMENTO
-540,TM98,TM98,TM98s,4,3000,"The user disperses magically charged particles, which changes Normal-type moves to Magic-type moves",3,0,0,MAGICSTORM
+539,TM97,TM97,TM97s,1,3000,"A TM that foremerly taught Super Memento.",1,0,0
+540,TM98,TM98,TM98s,1,3000,"A TM that formerly taught Magic Storm",1,0,0
 541,OPERALISER,OperaLiser,OperaLiserses,1,3000,An evolutionary stone to be used by Opera Pokemons to evolve to its beta stage,1,0,0,
 542,OPERALISERBETA,OperaLiser Beta,OperaLiserses Beta,1,3500,An evolutionary stone to be used by Opera Pokemons to evolve to its stable stage,1,0,0,
 543,TOUCHLISER,TouchLiser,TouchLiserses,1,5000,An evolutionary stone to be used by the stable Opera Pokemon to evolve to Opera Touch,1,0,0,

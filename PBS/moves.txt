@@ -1065,7 +1065,7 @@
 713,MOONABSORB,Moon Absorb,178,70,MOON,Special,0,10,0,00,0,abef,The user forecasts the moon. The user's HP is restored by over half of the damage taken by the target. Move never fails.
 716,MOONCROCKET,Moon Crocket,242,70,MOON,Physical,100,15,10,00,0,abefj,The target is rolled with dark crockets made by moon with no additional effect
 718,MOONBLOVER,Moon Blover,180,90,MOON,Special,90,20,50,04,0,abh,The user danks all the foes with the aid of Moon. May lower evasion and halves power if the user has a status problem
-814,NIGHTLY,Nightly,240,40,MOON,Special,90,15,0,00,-1,abef,The user makes the target fell nightmare. It deals more power on targets that are using Shadow or Phantom Force.
+814,NIGHTLY,Nightly,240,40,MOON,Special,90,15,0,00,-1,abef,The user makes the target fell nightmare. It deals more power on targets that are using Shadow or Phantom Force and cancels it.
 839,MOONSLASH,Moon Slash,009,80,MOON,Physical,100,10,0,00,0,abe,The users does a slash made by a moon. This may also make the target flinch.
 841,LORDOFMOON,Lord of Moon,165,150,MOON,Special,86,15,40,00,0,abef,"When the user knocks out a target with this move, the user's Evasion and Defense stats are risen by 3 stages and 1 stage respectively"
 886,GENIEDREAM,Genie Dream,274,0,MOON,Status,0,5,0,08,0,b,"The other Pokémon will become Moon-type. It also clears Illusion, Genie Ball and Ultra Blue from those."

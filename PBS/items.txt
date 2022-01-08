@@ -698,7 +698,7 @@
 852,TPREMIER,Extra Ball,Extra Ball,6,0,Awarded for getting your first free Premier Ball,2,0,6,
 853,TMIGRATOR,Pokémon Migrator,Pokémon Migrator,6,0,Awarded for getting your first Migrated Pokémon,2,0,6,
 854,TLINKER,Battle Linker,Battle Linker,6,0,Awarded for winning your first Link Battle,2,0,6,
-# Technical Discs (38/100)
+# Technical Discs (50/100)
 865,TD01,TD01,TD01s,4,0,"The user blocks the target from using items any longer to the target by making its Ability Klutz.",6,0,0,FORBIDDENSPELL
 866,TD02,TD02,TD02s,4,0,"The user faints when using this move. In return, it severely lowers the target's Attack and Sp. Atk.",6,0,0,SUPERMEMENTO
 867,TD03,TD03,TD03s,4,0,"The user licks and locks 3 times, drastically increasing Evasion but severely decreasing Defense. This attack never goes encored.",6,0,0,LICKLOCK
@@ -739,6 +739,26 @@
 902,TD38,TD38,TD38s,4,0,"Fumes of afro is sprayed in the face of opposing Pokémon. This may poison those hit.",6,0,0,DRAGONSMAW
 903,TD39,TD39,TD39s,4,0,"The user attacks an opposing Pokémon with greater fire. This move may also burn the target and power is doubled if a Pokémon has the corresponding ability.",6,0,0,AFROFUMES
 904,TD40,TD40,TD40s,4,0,"The user does Herbal exercise 3 times, drastically increasing Defense but severely decreasing Evasion. This attack never goes encored.",6,0,0,HERBOTOPIA
+905,TD41,TD41,TD41s,4,0,"The user waggles a finger and stimulates its brain into randomly using nearly any move.",6,0,0,METRONOME
+906,TD42,TD42,TD42s,4,0,"The user thows a wrapped bounce, hitting the entire side with large scratches.",6,0,0,WRAPPEDSCRATCH
+907,TD43,TD43,TD43s,4,0,"The user focuses its mind before launching a punch. It will fail if the user is hit before it is used.",6,0,0,FOCUSPUNCH
+908,TD44,TD44,TD44s,4,0,"The user thows a wrapped bounce, hitting the entire side with large pounds.",6,0,0,WRAPPEDPOUND
+909,TD45,TD45,TD45s,4,0,"A sweet scent that lowers the foe's evasiveness.",6,0,0,SHARPCOIL
+910,TD46,TD46,TD46s,4,0,"The user thows a wrapped bounce, hitting the entire side with large tackles.",6,0,0,SHARPTACKLE
+911,TD47,TD47,TD47s,4,0,"The user restores its own HP. The amount of HP regained varies with the weather.",6,0,0,NIGHTMOON
+912,TD48,TD48,TD48s,4,0,"The target is punched with an icy fist. It may also leave the target frozen.",6,0,0,ICEPUNCH
+913,TD49,TD49,TD49s,4,0,"The user faints when using this move. In return, it severely lowers the target's stats.",6,0,0,HARASHLICKMENTO
+914,TD50,TD50,TD50s,4,0,"In addition to protecting the user from attacks, this move also damages any attacker who makes direct contact.",6,0,0,ROCKYHELMET
+915,TD51,TD51,TD51s,4,0,"It enables the user to evade all attacks. Its chance of failing rises if it is used in succession.",6,0,0,ROCKYFLECTOR
+916,TD52,TD52,TD52s,4,0,"If the target has already taken some damage in the same turn, this attack's power is doubled.",6,0,0,STEELYSPIRIT
+917,TD53,TD53,TD53s,4,0,"The target is punched with an electrified fist. It may also leave the target with paralysis.",6,0,0,THUNDERPUNCH
+918,TD54,TD54,TD54s,4,0,"If Εν Χρυσώ uses this move, it will always lower target's accuracy. Works as Herb move in addition",6,0,0,MAGICGOLD
+919,TD55,TD55,TD55s,4,0,"The user scratches the target magically perchance. The target faints instantly if it hits",6,0,0,MAGICSCRATCH
+920,TD56,TD56,TD56s,4,0,"The user attacks with a ray of light that sparkles as if it were made of gemstones.",6,0,0,POWERGEM
+921,TD57,TD57,TD57s,4,0,"The user attacks with a prehistoric power. This may also raise all the user's stats at once.",6,0,0,ANCIENTPOWER
+922,TD58,TD58,TD58s,4,0,"A nutrient-draining attack. The user's HP is restored by half the damage taken by the target.",6,0,0,GIGADRAIN
+923,TD59,TD59,TD59s,4,0,"The user heals the ally's status condition. If the move succeeds, it also restores the users own HP.",6,0,0,ALOEVERA
+924,TD60,TD60,TD60s,4,0,"The user makes the target fell nightmare. It deals more power on targets that are using Shadow or Phantom Force and cancels it.",6,0,0,NIGHTLY
 # FLINT and Κορα Κορε Items
 526,ANGLESTONE,Angle Stone,Angle Stones,1,2100,"A stone used to evolve certain species of Pokémon, particulary Bobojido ones. It is shaped like a head.",1,0,0,
 527,FIERYSTONE,Fiery Stone,Fiery Stones,1,900,"An item to be held by a Pokémon. Slightly boosts the power of Grass-,Fire- and Water- type moves.",0,0,0,

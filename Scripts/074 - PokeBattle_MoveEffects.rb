@@ -13494,12 +13494,6 @@ class PokeBattle_Move_292 < PokeBattle_Move
       return -1
     end
     pbShowAnimation(@id,attacker,nil,hitnum,alltargets,showanimation)
-    @battle.field.effects[PBEffects::ElectricTerrain]=0
-    @battle.field.effects[PBEffects::MistyTerrain]=0
-    @battle.field.effects[PBEffects::GrassyTerrain]=0
-    @battle.field.effects[PBEffects::PsychicTerrain]=0
-    @battle.field.effects[PBEffects::VolcanicTerrain]=0
-    @battle.field.effects[PBEffects::LovelyTerrain]=0
     @battle.field.effects[PBEffects::GlimmyGalaxy]=3
     @battle.pbDisplay(_INTL("A Galaxian Tunnel has been emergenced on the battlefield!"))
     return 0

@@ -698,7 +698,7 @@
 852,TPREMIER,Extra Ball,Extra Ball,6,0,Awarded for getting your first free Premier Ball,2,0,6,
 853,TMIGRATOR,Pokémon Migrator,Pokémon Migrator,6,0,Awarded for getting your first Migrated Pokémon,2,0,6,
 854,TLINKER,Battle Linker,Battle Linker,6,0,Awarded for winning your first Link Battle,2,0,6,
-# Technical Discs (50/100)
+# Technical Discs (78/100)
 865,TD01,TD01,TD01s,4,0,"The user blocks the target from using items any longer to the target by making its Ability Klutz.",6,0,0,FORBIDDENSPELL
 866,TD02,TD02,TD02s,4,0,"The user faints when using this move. In return, it severely lowers the target's Attack and Sp. Atk.",6,0,0,SUPERMEMENTO
 867,TD03,TD03,TD03s,4,0,"The user licks and locks 3 times, drastically increasing Evasion but severely decreasing Defense. This attack never goes encored.",6,0,0,LICKLOCK
@@ -759,6 +759,24 @@
 922,TD58,TD58,TD58s,4,0,"A nutrient-draining attack. The user's HP is restored by half the damage taken by the target.",6,0,0,GIGADRAIN
 923,TD59,TD59,TD59s,4,0,"The user heals the ally's status condition. If the move succeeds, it also restores the users own HP.",6,0,0,ALOEVERA
 924,TD60,TD60,TD60s,4,0,"The user makes the target fell nightmare. It deals more power on targets that are using Shadow or Phantom Force and cancels it.",6,0,0,NIGHTLY
+925,TD61,TD61,TD61s,4,0,"The user flails about aimlessly to attack. It becomes more powerful the less HP the user has.",6,0,0,MAGICFLAIL
+926,TD62,TD62,TD62s,4,0,"The user attacks using its doomy power. The more the user's stats are raised, the greater the damage.",6,0,0,DOOMSMASH
+927,TD63,TD63,TD63s,4,0,"The user shoots a huge ploder bomb to the target. This harsly lowers user's accuracy and can't move in the next turn.",6,0,0,JELLYPLODER
+928,TD64,TD64,TD64s,4,0,"A long body or vines are used to wrap and squeeze the target for four to five turns.",6,0,0,SHERLOCK
+929,TD65,TD65,TD65s,4,0,"The target is attacked with small flames. It may also leave the target with a burn.",6,0,0,LAVACORN
+930,TD66,TD66,TD66s,4,0,"A consecutive three-kick attack that becomes more powerful with each successive hit.",6,0,0,THREEPEATER
+931,TD67,TD67,TD67s,4,0,"The user brings a plantern that removes every stat change the Pokémon received",6,0,0,PLANTERN
+932,TD68,TD68,TD68s,4,0,"If the user moves before the target, this attack's power will be doubled and may paralyze the target as well.",6,0,0,LOVELYBLISS
+933,TD69,TD69,TD69s,4,0,"By making a herb lobby, the user transfers its status problems to the target.",6,0,0,HERBLOBBY
+934,TD70,TD70,TD70s,4,0,"The user stinks some chlorophyll punches to the target. It may also leave the target with paralysis.",6,0,0,CHLOROPUNCH
+935,TD71,TD71,TD71s,4,0,"The user vigorously performs a mystic, powerful splash that boosts its Attack and Speed stats.",6,0,0,GUSTINGSPLASH
+936,TD72,TD72,TD72s,4,0,"The user adds its HP to the target's HP, then equally shares the combined HP with the target.",6,0,0,SUNNYCRACK
+937,TD73,TD73,TD73s,4,0,"When using this move into an opponent, it scatters its dream that restores user's HP.",6,0,0,DREAMYRECOVERCY
+938,TD74,TD74,TD74s,4,0,"This attack can be used only if the user is asleep. The harsh noise may also harsly lower the target's defense.",6,0,0,SNOOZE
+939,TD75,TD75,TD75s,4,0,"This attack can be used only if the user is asleep. The harsh noise may also confuse the target.",6,0,0,TREBLE
+940,TD76,TD76,TD76s,4,0,"The user is cloaked into a heavy blizzard. This will drastactically raise the user's Speed.",6,0,0,BLIZZARDOUSCLOAK
+941,TD77,TD77,TD77s,4,0,"The user hurls down some gas. Its power randomly varies and can bypass protections.",6,0,0,NEUTRALIZINGGAS
+942,TD78,TD78,TD78s,4,0,"The user creates a galaxian tunnel in the field in order to damage out some Pokémon.",6,0,0,GLIMMYGALAXY
 # FLINT and Κορα Κορε Items
 526,ANGLESTONE,Angle Stone,Angle Stones,1,2100,"A stone used to evolve certain species of Pokémon, particulary Bobojido ones. It is shaped like a head.",1,0,0,
 527,FIERYSTONE,Fiery Stone,Fiery Stones,1,900,"An item to be held by a Pokémon. Slightly boosts the power of Grass-,Fire- and Water- type moves.",0,0,0,

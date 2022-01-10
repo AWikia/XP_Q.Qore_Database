@@ -1091,7 +1091,7 @@
 889,LOVELYTERRAIN,Lovely Terrain,276,0,HEART,Status,0,10,0,40,0,,"For five turns, Heart-type moves are boosted and every stat change it receives are doubled."
 1021,ILLUSIVEHEARTS,Illusive Hearts,0C0,18,HEART,Physical,95,20,0,00,0,bef,"The user shoots some illusive hearts for two to five turns in a row."
 1022,LOVEGOODAEROBICS,Lovegood Aerobics,013,85,HEART,Physical,100,15,30,04,0,abef,The user drops onto the other side with aerobics. It may leave the target(s) with confusion.
-1034,TREBLE,Treble,304,50,HEART,Physical,100,15,30,00,0,bek,This attack can be used only if the user is asleep. The harsh noise may also harsly confuse the target.
+1034,TREBLE,Treble,304,50,HEART,Physical,100,15,30,00,0,bek,This attack can be used only if the user is asleep. The harsh noise may also confuse the target.
 ## FLINT Moves = Blizzard
 750,TITANUMBLIZZARD,Titanum Blizzard,205,110,BLIZZARD,Special,70,5,10,04,0,bef,A howling blizzard is summoned to strike the opposing team. It may also freeze them solid. Move also works as a Steel-type move stimulationaly
 754,BLIZZARDOUSOCEAN,Blizzardous Ocean,206,0,BLIZZARD,Status,0,10,0,00,0,,The user ponds the target into a blizzardous ocean. This not only the user gains target's ability but also suppresses it.
@@ -1109,7 +1109,7 @@
 831,GLIMSETREAT,Glimse Treat,174,150,GLIMSE,Special,100,15,70,00,-5,abj,The user takes some time to create a treat and then damages. It also increases Attack stat and recover some HP when it knocks out the target
 1027,MOONGEIST,Moongeist,000,75,GLIMSE,Physical,100,15,0,00,0,abefj,"The target is hit by a glimmy moongeist shot."
 1028,BLACKMOON,Black Moon,291,0,GLIMSE,Status,100,10,0,100,5,,"The user send a blackness moon into its ally. This passes its stat changes to share their powers."
-1029,GLIMMYGALAXY,Glimmy Galaxy,292,0,GLIMSE,Status,100,10,0,40,0,,"The user creates a galaxian tunnel in the field in order to damage out some Pokémon. This fades out other terrains."
+1029,GLIMMYGALAXY,Glimmy Galaxy,292,0,GLIMSE,Status,100,10,0,40,0,,"The user creates a galaxian tunnel in the field in order to damage out some Pokémon."
 1075,ELDERGLIMMYWAVE,Elder Glimmy Wave,325,200,GLIMSE,ElderSpecial,100,5,0,08,-2,,"The user casts its powerful Glimse elder spell with incredible power to all targets. This, also makes the user unable to move in the next turn."
 ## Robot Moves
 739,LOBBY,Lobby,001,0,ROBOT,Status,0,1,0,10,0,,The user just lobs around to no effect at all...

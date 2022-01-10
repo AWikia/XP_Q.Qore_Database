@@ -2497,3 +2497,87 @@ TrainerBattleBGM=113 - Vs. Hoenn Trainer.mp3
 MapPosition=11,4,2
 WildBattleBGM=112 - Vs. Wild Hoenn.mp3
 ShowArea=true
+[448]
+# Netherworld Cave
+BattleBack=Cave
+MapPosition=8,5,9
+ShowArea=true
+Bicycle=true
+[449]
+# Netherworld Cave
+BattleBack=Cave
+MapPosition=8,5,9
+ShowArea=true
+Bicycle=true
+[450]
+# Netherworld Cave
+BattleBack=Cave
+MapPosition=8,5,9
+ShowArea=true
+Bicycle=true
+[451]
+# Netherworld Cave
+BattleBack=Cave
+MapPosition=8,5,9
+ShowArea=true
+Bicycle=true
+[452]
+# Netherworld Cave
+BattleBack=Cave
+MapPosition=8,5,9
+ShowArea=true
+Bicycle=true
+[453]
+# Netherworld Cave
+BattleBack=Cave
+MapPosition=8,5,9
+ShowArea=true
+Bicycle=true
+[454]
+# Netherworld Cave
+BattleBack=Cave
+MapPosition=8,5,9
+ShowArea=true
+Bicycle=true
+[455]
+# Netherworld Cave
+BattleBack=Cave
+MapPosition=8,5,9
+ShowArea=true
+Bicycle=true
+[456]
+# Netherworld Cave
+BattleBack=Cave
+MapPosition=8,5,9
+ShowArea=true
+Bicycle=true
+[457]
+# Netherworld Cave
+BattleBack=Cave
+MapPosition=8,5,9
+ShowArea=true
+Bicycle=true
+[458]
+# Netherworld Cave
+BattleBack=Cave
+MapPosition=8,5,9
+ShowArea=true
+Bicycle=true
+[459]
+# Netherworld Cave
+BattleBack=Cave
+MapPosition=8,5,9
+ShowArea=true
+Bicycle=true
+[460]
+# Netherworld Cave
+BattleBack=Cave
+MapPosition=8,5,9
+ShowArea=true
+Bicycle=true
+[461]
+# Netherworld Cave
+BattleBack=Cave
+MapPosition=8,5,9
+ShowArea=true
+Bicycle=true

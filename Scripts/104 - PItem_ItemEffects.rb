@@ -1453,6 +1453,48 @@ ItemHandlers::UseOnPokemon.add(:COSTUMECATALOG,proc{|item,pokemon,scene|
   end
 })
 
+ItemHandlers::UseOnPokemon.add(:ROTOMCATALOG,proc{|item,pokemon,scene|
+  if (isConst?(pokemon.species,PBSpecies,:ROTOM))
+    if pokemon.hp>0
+      scene.pbDisplay(_INTL("The Catalogue contains a list of appliance for {1} to posses.",pokemon.name))
+      cmd =0
+      msg = _INTL("Which device would you like to posses?")
+      commands = [_INTL("Microwave"),
+                  _INTL("Washing Machine"),
+                  _INTL("Refrigerator"),
+                  _INTL("Electric Fan"),
+                  _INTL("Lawnmower"),
+                  _INTL("Remove Appliance"),
+                  _INTL("Cancel")]
+      cmd = scene.pbShowCommands(msg,commands,cmd)
+      forme=cmd
+      if cmd>=0 && cmd<=4 && pokemon.form!=forme
+        scene.pbDisplay(_INTL("{1} changed appliance!",pokemon.name)) 
+        pokemon.form=forme
+        scene.pbRefresh
+        next true
+      elsif cmd==5 && pokemon.form>0
+        scene.pbDisplay(_INTL("{1} removed appliance!",pokemon.name)) 
+        pokemon.form=0
+        scene.pbRefresh
+        next true
+      elsif cmd!=6
+        scene.pbDisplay(_INTL("It had no effect.")) if cmd!=-1
+        next false
+      else
+        scene.pbRefresh
+        next true
+      end
+    else
+      scene.pbDisplay(_INTL("This can't be used on the fainted Pokémon."))
+    end
+  else
+    scene.pbDisplay(_INTL("It had no effect."))
+    next false
+  end
+})
+
+
 ItemHandlers::UseOnPokemon.add(:ABILITYCAPSULE,proc{|item,pokemon,scene|
    abils=pokemon.getAbilityList
    abil1=0; abil2=0

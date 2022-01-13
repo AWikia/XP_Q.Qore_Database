@@ -2294,7 +2294,7 @@ def Kernel.pbTrophyScore
 end
 
 def Kernel.pbTechnicalDiscScore
-  # Score is returned in percentage
+  # Score is returned in number
   discs = [:TD01, :TD02, :TD03, :TD04, :TD05, :TD06, :TD07, :TD08, :TD09, :TD10,
            :TD11, :TD12, :TD13, :TD14, :TD15, :TD16, :TD17, :TD18, :TD19, :TD20,
            :TD21, :TD22, :TD23, :TD24, :TD25, :TD26, :TD27, :TD28, :TD29, :TD30,
@@ -2308,11 +2308,10 @@ def Kernel.pbTechnicalDiscScore
   result = 0
   max = 0
   for i in discs
-    max+=1
-    result+=100 if $PokemonBag.pbQuantity(i)>0
+    result+=1 if $PokemonBag.pbQuantity(i)>0
   end
   return 0 if result == 0
-  return (result / max).floor
+   return result
 end
 
 

@@ -2293,9 +2293,38 @@ def Kernel.pbTrophyScore
   return (result / max).floor
 end
 
+def Kernel.pbTechnicalDiscScore
+  # Score is returned in percentage
+  discs = [:TD01, :TD02, :TD03, :TD04, :TD05, :TD06, :TD07, :TD08, :TD09, :TD10,
+           :TD11, :TD12, :TD13, :TD14, :TD15, :TD16, :TD17, :TD18, :TD19, :TD20,
+           :TD21, :TD22, :TD23, :TD24, :TD25, :TD26, :TD27, :TD28, :TD29, :TD30,
+           :TD31, :TD32, :TD33, :TD34, :TD35, :TD36, :TD37, :TD38, :TD39, :TD40,
+           :TD41, :TD42, :TD43, :TD44, :TD45, :TD46, :TD47, :TD48, :TD49, :TD50,
+           :TD51, :TD52, :TD53, :TD54, :TD55, :TD56, :TD57, :TD58, :TD59, :TD60,
+           :TD61, :TD62, :TD63, :TD64, :TD65, :TD66, :TD67, :TD68, :TD69, :TD70,
+           :TD71, :TD72, :TD73, :TD74, :TD75, :TD76, :TD77, :TD78, :TD79, :TD80,
+           :TD81, :TD82, :TD83, :TD84, :TD85, :TD86, :TD87, :TD88, :TD89, :TD90,
+           :TD91, :TD92, :TD93, :TD94, :TD95, :TD96, :TD97, :TD98, :TD99, :TD100]
+  result = 0
+  max = 0
+  for i in discs
+    max+=1
+    result+=100 if $PokemonBag.pbQuantity(i)>0
+  end
+  return 0 if result == 0
+  return (result / max).floor
+end
+
+
+
 def completedTrophies
   return Kernel.pbTrophyScore == 100
 end
+
+def completedTechnicalDiscs
+  return Kernel.pbTechnicalDiscScore == 100
+end
+
 
 
 def Kernel.pbReceiveTrophy(item)

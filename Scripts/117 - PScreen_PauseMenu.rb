@@ -148,25 +148,26 @@ class PokemonMenu
     commands[cmdTrainer=commands.length]=$Trainer.name
     if pbInSafari?
       if SAFARISTEPS<=0
-        @scene.pbShowInfo(_INTL("Trophies: {1}/28 ({2}%)\nBalls: {3}",Kernel.pbTrophies,Kernel.pbTrophyScore,pbSafariState.ballcount))
+        @scene.pbShowInfo(_INTL("Trophies: {1}/28 ({2}%)\nTechnical Discs: {3}/100\nBalls: {4}",Kernel.pbTrophies,Kernel.pbTrophyScore,Kernel.pbTechnicalDiscScore,pbSafariState.ballcount))
       else
-        @scene.pbShowInfo(_INTL("Trophies: {1}/28 ({2}%)\nSteps: {3}/{4}\nBalls: {5}",Kernel.pbTrophies,Kernel.pbTrophyScore,pbSafariState.steps,SAFARISTEPS,pbSafariState.ballcount))
+        @scene.pbShowInfo(_INTL("Trophies: {1}/28 ({2}%)\nTechnical Discs: {3}/100\nSteps: {4}/{5}\nBalls: {6}",Kernel.pbTrophies,Kernel.pbTrophyScore,Kernel.pbTechnicalDiscScore,pbSafariState.steps,SAFARISTEPS,pbSafariState.ballcount))
       end
       commands[cmdQuit=commands.length]=_INTL("Quit")
     elsif pbInBugContest?
       if pbBugContestState.lastPokemon
-        @scene.pbShowInfo(_INTL("Trophies: {1}/28 ({2}%)\nCaught: {3}\nLevel: {4}\nBalls: {4}",
+        @scene.pbShowInfo(_INTL("Trophies: {1}/28 ({2}%)\nTechnical Discs: {3}/100\nCaught: {4}\nLevel: {5}\nBalls: {6}",
            Kernel.pbTrophies,
            Kernel.pbTrophyScore,
+           Kernel.pbTechnicalDiscScore,
            PBSpecies.getName(pbBugContestState.lastPokemon.species),
            pbBugContestState.lastPokemon.level,
            pbBugContestState.ballcount))
       else
-        @scene.pbShowInfo(_INTL("Trophies: {1}/28 ({2}%)\nCaught: None\nBalls: {3}",Kernel.pbTrophies,Kernel.pbTrophyScore,pbBugContestState.ballcount))
+        @scene.pbShowInfo(_INTL("Trophies: {1}/28 ({2}%)\nTechnical Discs: {3}/100\nCaught: None\nBalls: {4}",Kernel.pbTrophies,Kernel.pbTrophyScore,Kernel.pbTechnicalDiscScore,pbBugContestState.ballcount))
       end
       commands[cmdQuit=commands.length]=_INTL("Quit Contest")
     else
-      @scene.pbShowInfo(_INTL("Trophies: {1}/28 ({2}%)\n",Kernel.pbTrophies, Kernel.pbTrophyScore))
+      @scene.pbShowInfo(_INTL("Trophies: {1}/28 ({2}%)\nTechnical Discs: {3}/100\n",Kernel.pbTrophies, Kernel.pbTrophyScore, Kernel.pbTechnicalDiscScore))
       commands[cmdSave=commands.length]=_INTL("Save") if !$game_system || !$game_system.save_disabled
       commands[cmdLink=commands.length]=_INTL("Link...") if $game_switches[12]
     end

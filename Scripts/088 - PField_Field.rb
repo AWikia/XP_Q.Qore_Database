@@ -2320,6 +2320,10 @@ def completedTrophies
   return Kernel.pbTrophyScore == 100
 end
 
+def almostCompletedTechnicalDiscs
+  return Kernel.pbTechnicalDiscScore == 99
+end
+
 def completedTechnicalDiscs
   return Kernel.pbTechnicalDiscScore == 100
 end

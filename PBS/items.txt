@@ -777,6 +777,28 @@
 940,TD76,TD76,TD76s,4,0,"The user is cloaked into a heavy blizzard. This will drastactically raise the user's Speed.",6,0,0,BLIZZARDOUSCLOAK
 941,TD77,TD77,TD77s,4,0,"The user hurls down some gas. Its power randomly varies and can bypass protections.",6,0,0,NEUTRALIZINGGAS
 942,TD78,TD78,TD78s,4,0,"The user creates a galaxian tunnel in the field in order to damage out some Pokémon.",6,0,0,GLIMMYGALAXY
+943,TD79,TD79,TD79s,4,0,"The user attacks by slamming its body into the target. The higher the user's Defense, the more damage it can inflict on the target.",6,0,0,BODYPRESS
+944,TD80,TD80,TD80s,4,0,"If the target has already taken some damage in the same turn, this attack's power is doubled.",6,0,0,ROCKYTUNNEL
+945,TD81,TD81,TD81s,4,0,"The target is struck with large, imposing wings spread wide to inflict damage.",6,0,0,WINDFLY
+946,TD82,TD82,TD82s,4,0,"Diving on the first turn, the user rises and hits on the next turn. It can be used to dive in the ocean.",6,0,0,DIVE
+947,TD83,TD83,TD83s,4,0,"The user hits underwater at brunal levels in the first turn and hits the target with brunal water in the next turn.",6,0,0,BRUNALWATER
+948,TD84,TD84,TD84s,4,0,"The user assists an ally by boosting its Special Attack stat by two stages.",6,0,0,LAVAASSIST
+949,TD85,TD85,TD85s,4,0,"The user looses a ground-shaking quake affecting everyone around the user. Its power varies.",6,0,0,EERIEQUAKE
+950,TD86,TD86,TD86s,4,0,"The user attacks with a gust of chilled air. It also lowers the targets' Speed stat.",6,0,0,ICYWIND
+951,TD87,TD87,TD87s,4,0,"The user drops onto the other side with aerobics. It may leave the target(s) with paralysis.",6,0,0,AEROBICS
+952,TD88,TD88,TD88s,4,0,"If the target is also Glimse, this move will double the power",6,0,0,GLIMSEATTACK
+953,TD89,TD89,TD89s,4,0,"The user casts a doomy wind that will change targets to Doom-type Pokémon. Those can't use their abilities afterwards.",6,0,0,DOOMSURPLETE
+954,TD90,TD90,TD90s,4,0,"The user danks all the foes with an adition of grass. May raise the user's evasion",6,0,0,LEAFYWEAPON
+955,TD91,TD91,TD91s,4,0,"The user hurls a lighting ball to the target. Critical hits land more easily.",6,0,0,LIGHTBALL
+956,TD92,TD92,TD92s,4,0,"The target is rolled with dark crockets made by moon with no additional effect",6,0,0,MOONCROCKET
+957,TD93,TD93,TD93s,4,0,"The target is rolled with some tackles made by sun with no additional effect.",6,0,0,SUNNYTACKLE
+958,TD94,TD94,TD94s,4,0,"The foe is attacked with a powerful fiery bomb. The user must rest on the next turn to regain its energy.",6,0,0,PYROBOMB
+959,TD95,TD95,TD95s,4,0,"The user shoot a lot of cold water to the target. This move always goes first.",6,0,0,COLDWATER
+960,TD96,TD96,TD96s,4,0,"The user attacks with a punch that can shatter a frozen rock. This may also lower the foe's Defense stat.",6,0,0,ICESMASH
+961,TD97,TD97,TD97s,4,0,"The target is khlered into a rage that allows it to use only status moves for three turns.",6,0,0,KHLERI
+962,TD98,TD98,TD98s,4,0,"The user damages the foe with darks. Damage taken increases by how much trained is the user.",6,0,0,TOPSYDAMAGE
+963,TD99,TD99,TD99s,4,0,"The user damages the foe with a crayon. Damage taken increases by difference between levels of user and target.",6,0,0,DOUZECRAYON
+964,TD100,TD100,TD100s,4,0,"The user uses his mind to craft some damage to the foe in order to regain health. The more trained the user is, the greater will be the damage.",6,0,0,MINDRECOVERCY
 # FLINT and Κορα Κορε Items
 526,ANGLESTONE,Angle Stone,Angle Stones,1,2100,"A stone used to evolve certain species of Pokémon, particulary Bobojido ones. It is shaped like a head.",1,0,0,
 527,FIERYSTONE,Fiery Stone,Fiery Stones,1,900,"An item to be held by a Pokémon. Slightly boosts the power of Grass-,Fire- and Water- type moves.",0,0,0,
@@ -951,3 +973,4 @@
 860,GREATNESTBALL,Great Nest Ball,Great Nest Balls,3,600,"A good, high-performance Ball that provides a higher Pokémon catch rate than a standard Nest Ball.",0,2,3,
 863,RELICFLOWER,Relic Flower,Relic Flowers,1,0,"A mysterious flower. One Pokémon will be able to produce specialized versions of Wikitech.",0,0,0,
 864,HEARTBRANDITE,Heartbrandite,Heartbrandites,1,10000,"One of the mysterious Mega Stones. Have Heartbrand hold it, and this stone will enable it to Mega Evolve in battle.",0,0,12,
+965,ROTOMCATALOG,Rotom Catalog,Rotom Catalogs,8,0,"A catalog of devices that Rotom like. Use the catalog to have Rotom hop in and out of the various devices listed within.",5,0,6,

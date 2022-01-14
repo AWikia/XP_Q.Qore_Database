@@ -1058,7 +1058,7 @@
 717,SUNNYBLAST,Sunny Blast,179,90,SUN,Physical,90,20,50,04,0,abh,The user danks all the foes with the aid of Sun. May raise evasion and doubles power if the user has a status problem
 900,SUNNYTACKLE,Sunny Tackle,242,70,SUN,Physical,100,15,10,00,0,abefj,The target is rolled with some tackles made by sun with no additional effect.
 1013,PYROCLAW,Pyro Claw,00A,120,SUN,Special,90,5,10,00,0,befn,"The user attacks by igniting a firey claw at the target. This may also leave the target with a burn."
-1014,PYROBOMB,Pyro Bomb,0C2,150,SUN,Special,90,5,0,00,0,bef,The foe is attacked with a powerful fiery bomb. The user must rest on the next turn to regain its energy. 
+1014,PYROBOMB,Pyro Bomb,0C2,150,SUN,Special,90,5,0,00,0,bef,The foe is attacked with a powerful fiery bomb. The user must rest on the next turn to regain its energy.
 1015,SUNNYCRACK,Sunny Crack,05A,0,SUN,Status,0,20,0,00,0,be,"The user adds its HP to the target's HP, then equally shares the combined HP with the target."
 1016,LORDOFSUN,Lord of Sun,165,150,SUN,Special,86,15,40,00,0,abef,"When the user knocks out a target with this move, the user's Evasion and Defense stats are risen by 3 stages and 1 stage respectively"
 ## FLINT Moves = Moon

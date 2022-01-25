@@ -518,7 +518,7 @@ class MiningGameScene
         break if !foundall
       end
       if foundall
-        Kernel.pbReceiveTrophy(:tMINER)
+        Kernel.pbReceiveTrophy(:TMINER)
         @sprites["cursor"].visible=false
         pbWait(30)
         pbSEPlay("MiningAllFound")

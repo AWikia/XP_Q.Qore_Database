@@ -229,6 +229,41 @@ def isGalarian?(pokemon)
 
 end
 
+def isHisuian?(pokemon)
+  # NOTE: Also includes their evolutions exclusive to Hisuian forms
+  # (Sneasler and Overqwil) but does not include evolutions exclusive to
+  # specific forms (Basculegion) or Ursulana, Kleavor and Wyrdeer
+  return (isConst?(pokemon.species,PBSpecies,:GROWLITHE) && pokemon.form==1) ||
+         (isConst?(pokemon.species,PBSpecies,:ARCANINE) && pokemon.form==1) ||
+         (isConst?(pokemon.species,PBSpecies,:VOLTORB) && pokemon.form==1) ||
+         (isConst?(pokemon.species,PBSpecies,:ELECTRODE) && pokemon.form==1) ||
+         (isConst?(pokemon.species,PBSpecies,:CYNDAQUIL) && pokemon.form==1) ||
+         (isConst?(pokemon.species,PBSpecies,:QUILAVA) && pokemon.form==1) ||
+         (isConst?(pokemon.species,PBSpecies,:TYPHLOSION) && pokemon.form==1) ||
+         (isConst?(pokemon.species,PBSpecies,:QWILFISH) && pokemon.form==1) ||
+         (isConst?(pokemon.species,PBSpecies,:OVERQWIL) && pokemon.form==1) ||
+         (isConst?(pokemon.species,PBSpecies,:SNEASEL) && pokemon.form==1) ||
+         (isConst?(pokemon.species,PBSpecies,:SNEASLER) && pokemon.form==1) ||
+         (isConst?(pokemon.species,PBSpecies,:OSHAWOTT) && pokemon.form==1) ||
+         (isConst?(pokemon.species,PBSpecies,:DEWOTT) && pokemon.form==1) ||
+         (isConst?(pokemon.species,PBSpecies,:SAMUROTT) && pokemon.form==1) ||
+         (isConst?(pokemon.species,PBSpecies,:PETILIT) && pokemon.form==1) ||
+         (isConst?(pokemon.species,PBSpecies,:LILLIGANT) && pokemon.form==1) ||
+         (isConst?(pokemon.species,PBSpecies,:ZORUA) && pokemon.form==1) ||
+         (isConst?(pokemon.species,PBSpecies,:ZOROARK) && pokemon.form==1) ||
+         (isConst?(pokemon.species,PBSpecies,:RUFFLET) && pokemon.form==1) ||
+         (isConst?(pokemon.species,PBSpecies,:BRIVIARY) && pokemon.form==1) ||
+         (isConst?(pokemon.species,PBSpecies,:GOOMY) && pokemon.form==1) ||
+         (isConst?(pokemon.species,PBSpecies,:SLIGGOO) && pokemon.form==1) ||
+         (isConst?(pokemon.species,PBSpecies,:GOODRA) && pokemon.form==1) ||
+         (isConst?(pokemon.species,PBSpecies,:BERGMITE) && pokemon.form==1) ||
+         (isConst?(pokemon.species,PBSpecies,:AVALUGG) && pokemon.form==1) ||
+         (isConst?(pokemon.species,PBSpecies,:ROWLET) && pokemon.form==1) ||
+         (isConst?(pokemon.species,PBSpecies,:DARTRIX) && pokemon.form==1) ||
+         (isConst?(pokemon.species,PBSpecies,:DECIDUEYE) && pokemon.form==1)
+
+end
+
 
 # Type Colors
 =begin

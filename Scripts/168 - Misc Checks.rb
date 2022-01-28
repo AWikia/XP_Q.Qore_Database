@@ -231,8 +231,8 @@ end
 
 def isHisuian?(pokemon)
   # NOTE: Also includes their evolutions exclusive to Hisuian forms
-  # (Sneasler and Overqwil) but does not include evolutions exclusive to
-  # specific forms (Basculegion) or Ursulana, Kleavor and Wyrdeer
+  # (Sneasler and Overqwil) and white-striped Basculin family but does not include
+  # Ursulana, Kleavor and Wyrdeer
   return (isConst?(pokemon.species,PBSpecies,:GROWLITHE) && pokemon.form==1) ||
          (isConst?(pokemon.species,PBSpecies,:ARCANINE) && pokemon.form==1) ||
          (isConst?(pokemon.species,PBSpecies,:VOLTORB) && pokemon.form==1) ||
@@ -247,6 +247,8 @@ def isHisuian?(pokemon)
          (isConst?(pokemon.species,PBSpecies,:OSHAWOTT) && pokemon.form==1) ||
          (isConst?(pokemon.species,PBSpecies,:DEWOTT) && pokemon.form==1) ||
          (isConst?(pokemon.species,PBSpecies,:SAMUROTT) && pokemon.form==1) ||
+         (isConst?(pokemon.species,PBSpecies,:BASCULIN) && pokemon.form==2) ||
+         (isConst?(pokemon.species,PBSpecies,:BASCULEGION) && pokemon.form==2) ||
          (isConst?(pokemon.species,PBSpecies,:PETILIT) && pokemon.form==1) ||
          (isConst?(pokemon.species,PBSpecies,:LILLIGANT) && pokemon.form==1) ||
          (isConst?(pokemon.species,PBSpecies,:ZORUA) && pokemon.form==1) ||

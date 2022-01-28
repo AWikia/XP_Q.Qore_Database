@@ -20,6 +20,7 @@ begin
     Ring        = 17 # FLINT Environment
     Alola       = 18 # Alola Forms
     Galar       = 19 # Galarian Forms
+    Hisui       = 20 # Hisuian Forms
   end
 
 rescue Exception

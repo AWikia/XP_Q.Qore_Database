@@ -49,6 +49,10 @@ module PBEvolution
   TradeItemM        = 47 # TradeItem for Mysterican forms
   HasMoveK          = 48 # HasMove for base forms
   HappinessItem     = 49
+  ItemH             = 50 # Item for Hisuian Forms
+  TreinedH          = 51 # Trained for Hisuian Forms
+  DayHoldItemH      = 52 # DauHoldItem for Hisuian Forms
+  NightHoldItemK    = 53 # NightHoldItem for base forms
   
   EVONAMES=["Unknown",
      "Happiness","HappinessDay","HappinessNight","Level","Trade",
@@ -60,7 +64,7 @@ module PBEvolution
      "Trained","TypeInParty","HappinessMale","HappinessFemale","LevelK",
      "LevelA","ItemK","ItemA","HappinessA","ItemSilcoon","ItemCascoon","LevelG",
      "ItemG","TradeItemK","LevelDayK","LevelP","TradeItemM","HasMoveK",
-     "HappinessItem"
+     "HappinessItem","ItemH","TrainedH","DayHoldItemH","NightHoldItemK"
   ]
 
   # 0 = no parameter
@@ -79,7 +83,8 @@ module PBEvolution
      1,5,0,0,1,   # Custom 1-5
      1,2,2,0,2,
      2,1,2,2,1,
-     1,2,3,2
+     1,2,3,2,2,
+     1,2,2
   ]
 end
 
@@ -867,7 +872,9 @@ class PokemonEvolutionScene
            next poke if $PokemonBag.pbQuantity(getConst(PBItems,:POKEBALL))>0
          elsif evonib==PBEvolution::TradeItem ||
                evonib==PBEvolution::DayHoldItem ||
-               evonib==PBEvolution::NightHoldItem
+               evonib==PBEvolution::DayHoldItemH ||
+               evonib==PBEvolution::NightHoldItem ||
+               evonib==PBEvolution::NightHoldItemK
            removeItem=true if poke==@newspecies   # Item is now consumed
          end
          next -1
@@ -1020,6 +1027,16 @@ def pbMiniCheckEvolution(pokemon,evonib,level,poke)
     for i in 0...4
       return poke if pokemon.moves[i].id==level && !isRegionalForme?(pokemon)
     end
+  when PBEvolution::TrainedH
+    evtotal=0
+    for i in 0...6
+     evtotal+=pokemon.ev[i]
+    end
+    return poke if evtotal>=level && isHisuian?(pokemon)
+  when PBEvolution::DayHoldItemH
+    return poke if pokemon.item==level && PBDayNight.isDay? && isHisuian?(pokemon)
+  when PBEvolution::NightHoldItemK
+    return poke if pokemon.item==level && PBDayNight.isNight? && !isRegionalForme?(pokemon)
   end
   return -1
 end
@@ -1045,6 +1062,8 @@ def pbMiniCheckEvolutionItem(pokemon,evonib,level,poke,item)
     return poke if level==item && isGalarian?(pokemon)
   when PBEvolution::HappinessItem
     return poke if level==item && pokemon.happiness>=160
+  when PBEvolution::ItemH
+    return poke if level==item && isHisuian?(pokemon)
   end
   return -1
 end

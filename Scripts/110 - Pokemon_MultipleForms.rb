@@ -1273,6 +1273,150 @@ MultipleForms.register(:NINETALES,{
 }
 })
 
+MultipleForms.register(:GROWLITHE,{
+"type1"=>proc{|pokemon|
+   next if pokemon.form==0            # Kanto
+   case pokemon.form
+   when 1; next getID(PBTypes,:FIRE)  # Alola
+   end
+},
+"type2"=>proc{|pokemon|
+   next if pokemon.form==0              # Kanto
+   case pokemon.form
+   when 1; next getID(PBTypes,:ROCK)  # Alola
+   end
+},
+"height"=>proc{|pokemon|
+   next if pokemon.form==0              # Kanto
+   case pokemon.form
+   when 1; 8                            # Alola
+   end
+},
+"weight"=>proc{|pokemon|
+   next if pokemon.form==0              # Kanto
+   case pokemon.form
+   when 1; 227                          # Alola
+   end
+},
+"color"=>proc{|pokemon|
+   next if pokemon.form==0
+   next 0 if pokemon.form==1
+},
+"getAbilityList"=>proc{|pokemon|
+   next if pokemon.form==0                   
+   next [[getID(PBAbilities,:INTIMIDATE),0],
+         [getID(PBAbilities,:FLASHFIRE),1],
+         [getID(PBAbilities,:JUSTIFIED),2]] if pokemon.form==1 # Was SURGESURFER
+},
+"getBaseStats"=>proc{|pokemon|
+   next if pokemon.form==0            # Plant Cloak
+   case pokemon.form
+   when 1; next [60,75,45,55,65,50] # Sandy Cloak
+   end
+},
+"getMoveList"=>proc{|pokemon|
+   next if pokemon.form!=1
+   movelist=[]
+   case pokemon.form
+   when 1; movelist=[[1,:BITE],[1,:ROAR],[6,:EMBER],[8,:LEER],[10,:ODORSLEUTH],[12,:HELPINGHAND],
+                     [17,:FLAMEWHEEL],[19,:ROCKSLIDE],[21,:FIREFANG],
+                     [23,:TAKEDOWN],[28,:FLAMEBURST],[30,:AGILITY],
+                     [32,:RETALIATE],[34,:FLAMETHROWER],[39,:CRUNCH],
+                     [41,:HEATWAVE],[43,:OUTRAGE],[45,:FLAREBLITZ]]
+   end
+   for i in movelist
+     i[1]=getConst(PBMoves,i[1])
+   end
+   next movelist
+},
+"kind"=>proc{|pokemon|
+   next if pokemon.form!=1
+   next _INTL("Scout")
+},
+
+"dexEntry"=>proc{|pokemon|
+   next if pokemon.form==0
+   next _INTL("They patrol their territory in pairs. I believe the igneous rock components in the fur of this species are the result of volcanic activity in its habitat.") if pokemon.form==1 # Eternal
+},
+"getFormOnCreation"=>proc{|pokemon|
+   env=pbGetEnvironment()
+   next 1 if rand(65536)<$REGIONALCOMBO
+   next 0 unless env==PBEnvironment::Hisui
+   next 1
+}
+})
+
+MultipleForms.register(:ARCANINE,{
+"type1"=>proc{|pokemon|
+   next if pokemon.form==0            # Kanto
+   case pokemon.form
+   when 1; next getID(PBTypes,:FIRE)  # Alola
+   end
+},
+"type2"=>proc{|pokemon|
+   next if pokemon.form==0              # Kanto
+   case pokemon.form
+   when 1; next getID(PBTypes,:ROCK)  # Alola
+   end
+},
+"height"=>proc{|pokemon|
+   next if pokemon.form==0              # Kanto
+   case pokemon.form
+   when 1; 19                           # Alola
+   end
+},
+"weight"=>proc{|pokemon|
+   next if pokemon.form==0              # Kanto
+   case pokemon.form
+   when 1; 1550                         # Alola
+   end
+},
+"color"=>proc{|pokemon|
+   next if pokemon.form==0
+   next 4 if pokemon.form==1
+},
+"getAbilityList"=>proc{|pokemon|
+   next if pokemon.form==0                   
+   next [[getID(PBAbilities,:INTIMIDATE),0],
+         [getID(PBAbilities,:FLASHFIRE),1],
+         [getID(PBAbilities,:JUSTIFIED),2]] if pokemon.form==1 # Was SURGESURFER
+},
+"getBaseStats"=>proc{|pokemon|
+   next if pokemon.form==0            # Plant Cloak
+   case pokemon.form
+   when 1; next [95,115,80,90,95,80] # Sandy Cloak
+   end
+},
+"getMoveList"=>proc{|pokemon|
+   next if pokemon.form!=1
+   movelist=[]
+   case pokemon.form
+   when 1; movelist=[[1,:THUNDERFANG],[1,:BITE],[1,:ROAR],[1,:ODORSLEUTH],
+                     [1,:FIREFANG],[34,:ROCKSLIDE]]
+   end
+   for i in movelist
+     i[1]=getConst(PBMoves,i[1])
+   end
+   next movelist
+},
+"kind"=>proc{|pokemon|
+   next if pokemon.form!=1
+   next _INTL("Legendary")
+},
+
+"dexEntry"=>proc{|pokemon|
+   next if pokemon.form==0
+   next _INTL("Snaps at its foes with fangs cloaked in blazing flame. Despite its bulk, it deftly feints every which way, leading opponents on a deceptively merry chase as it all but dances around them.") if pokemon.form==1 # Eternal
+},
+"getFormOnCreation"=>proc{|pokemon|
+   env=pbGetEnvironment()
+   next 1 if rand(65536)<$REGIONALCOMBO
+   next 0 unless env==PBEnvironment::Hisui
+   next 1
+}
+})
+
+
 MultipleForms.register(:DIGLETT,{
 "type1"=>proc{|pokemon|
    next if pokemon.form==0            # Kanto
@@ -2398,6 +2542,154 @@ MultipleForms.register(:MUK,{
    next 1
 }
 })
+
+MultipleForms.register(:VOLTORB,{
+"type1"=>proc{|pokemon|
+   next if pokemon.form==0            # Kanto
+   case pokemon.form
+   when 1; next getID(PBTypes,:ELECTRIC)  # Alola
+   end
+},
+"type2"=>proc{|pokemon|
+   next if pokemon.form==0              # Kanto
+   case pokemon.form
+   when 1; next getID(PBTypes,:GRASS)  # Alola
+   end
+},
+"height"=>proc{|pokemon|
+   next if pokemon.form==0              # Kanto
+   case pokemon.form
+   when 1; 5                            # Alola
+   end
+},
+"weight"=>proc{|pokemon|
+   next if pokemon.form==0              # Kanto
+   case pokemon.form
+   when 1; 130                          # Alola
+   end
+},
+"color"=>proc{|pokemon|
+   next if pokemon.form==0
+   next 0 if pokemon.form==1
+},
+"getAbilityList"=>proc{|pokemon|
+   next if pokemon.form==0                   
+   next [[getID(PBAbilities,:SOUNDPROOF),0],
+         [getID(PBAbilities,:STATIC),1],
+         [getID(PBAbilities,:AFTERMATH),2]] if pokemon.form==1 # Was SURGESURFER
+},
+"getBaseStats"=>proc{|pokemon|
+   next if pokemon.form==0            # Plant Cloak
+   case pokemon.form
+   when 1; next [40,30,50,100,55,55] # Sandy Cloak
+   end
+},
+"getMoveList"=>proc{|pokemon|
+   next if pokemon.form!=1
+   movelist=[]
+   case pokemon.form
+   when 1; movelist=[[1,:CHARGE],[1,:TACKLE],[4,:SONICBOOM],[6,:EERIEIMPULSE],
+                     [9,:SPARK],[11,:ROLLOUT],[13,:SCREECH],[16,:CHARGEBEAM],
+                     [20,:SWIFT],[22,:ENERGYBALL],[26,:SELFDESTRUCT],
+                     [29,:LIGHTSCREEN],[34,:MAGNETRISE],[37,:DISCHARGE],
+                     [41,:EXPLOSION],[46,:GYROBALL],[48,:MIRRORCOAT}]
+   end
+   for i in movelist
+     i[1]=getConst(PBMoves,i[1])
+   end
+   next movelist
+},
+"kind"=>proc{|pokemon|
+   next if pokemon.form!=1
+   next _INTL("Sphere")
+},
+
+"dexEntry"=>proc{|pokemon|
+   next if pokemon.form==0
+   next _INTL("An enigmatic Pokémon that happens to bear a resemblance to a Poké Ball. When excited, it discharges the electric current it has stored in its belly, then lets out a great, uproarious laugh.") if pokemon.form==1 # Eternal
+},
+"getFormOnCreation"=>proc{|pokemon|
+   env=pbGetEnvironment()
+   next 1 if rand(65536)<$REGIONALCOMBO
+   next 0 unless env==PBEnvironment::Hisui
+   next 1
+}
+})
+
+MultipleForms.register(:ELECTRODE,{
+"type1"=>proc{|pokemon|
+   next if pokemon.form==0            # Kanto
+   case pokemon.form
+   when 1; next getID(PBTypes,:ELECTRIC)  # Alola
+   end
+},
+"type2"=>proc{|pokemon|
+   next if pokemon.form==0              # Kanto
+   case pokemon.form
+   when 1; next getID(PBTypes,:GRASS)  # Alola
+   end
+},
+"height"=>proc{|pokemon|
+   next if pokemon.form==0              # Kanto
+   case pokemon.form
+   when 1; 12                            # Alola
+   end
+},
+"weight"=>proc{|pokemon|
+   next if pokemon.form==0              # Kanto
+   case pokemon.form
+   when 1; 666                          # Alola
+   end
+},
+"color"=>proc{|pokemon|
+   next if pokemon.form==0
+   next 0 if pokemon.form==1
+},
+"getAbilityList"=>proc{|pokemon|
+   next if pokemon.form==0                   
+   next [[getID(PBAbilities,:SOUNDPROOF),0],
+         [getID(PBAbilities,:STATIC),1],
+         [getID(PBAbilities,:AFTERMATH),2]] if pokemon.form==1 # Was SURGESURFER
+},
+"getBaseStats"=>proc{|pokemon|
+   next if pokemon.form==0            # Plant Cloak
+   case pokemon.form
+   when 1; next [60,50,70,150,80,80] # Sandy Cloak
+   end
+},
+"getMoveList"=>proc{|pokemon|
+   next if pokemon.form!=1
+   movelist=[]
+   case pokemon.form
+   when 1; movelist=[[0,:CHLOROBLAST],[1,:MAGNETICFLUX],[1,:CHARGE],[1,:TACKLE],
+                     [1,:SONICBOOM],[4,:SONICBOOM],[6,:EERIEIMPULSE],
+                     [9,:SPARK],[11,:ROLLOUT],[13,:SCREECH],[16,:CHARGEBEAM],
+                     [20,:SWIFT],[22,:ENERGYBALL],[26,:SELFDESTRUCT],
+                     [29,:LIGHTSCREEN],[36,:MAGNETRISE],[41,:DISCHARGE],
+                     [47,:EXPLOSION],[54,:GYROBALL],[58,:MIRRORCOAT}]
+   end
+   for i in movelist
+     i[1]=getConst(PBMoves,i[1])
+   end
+   next movelist
+},
+"kind"=>proc{|pokemon|
+   next if pokemon.form!=1
+   next _INTL("Sphere")
+},
+
+"dexEntry"=>proc{|pokemon|
+   next if pokemon.form==0
+   next _INTL("An enigmatic Pokémon that happens to bear a resemblance to a Poké Ball. When excited, it discharges the electric current it has stored in its belly, then lets out a great, uproarious laugh.") if pokemon.form==1 # Eternal
+},
+"getFormOnCreation"=>proc{|pokemon|
+   env=pbGetEnvironment()
+   next 1 if rand(65536)<$REGIONALCOMBO
+   next 0 unless env==PBEnvironment::Hisui
+   next 1
+}
+})
+
 
 MultipleForms.register(:EXEGGCUTE,{
 "type1"=>proc{|pokemon|
@@ -6660,7 +6952,7 @@ MultipleForms.register(:LYCANROC,{
                      :STEALTHROCK,:STOMPINGTANTRUM,:STONEEDGE,:SUBSTITUTE,
                      :SUCKERPUNCH,:SWAGGER,:SWORDSDANCE,:TACKLE,:TAUNT,:THRASH,
                      :THROATCHOP,:THUNDERFANG,:THUNDERPUNCH,:TOXIC,:UPROAR,
-                     :ZENHEADBUTT,:LASHOUT]
+                     :ZENHEADBUTT,:LASHOUT,:FOCUSPUNCH]
    when 2; movelist=[:ACCELEROCK,:ATTRACT,:BITE,:BRICKBREAK,:BULKUP,:CONFIDE,
                      :COUNTER,:COVET,:CRUNCH,:CRUSHCLAW,:DOUBLETEAM,:DRILLRUN,
                      :EARTHPOWER,:ECHOEDVOICE,:ENDEAVOR,:FACADE,:FIREFANG,

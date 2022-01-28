@@ -2592,7 +2592,7 @@ MultipleForms.register(:VOLTORB,{
                      [9,:SPARK],[11,:ROLLOUT],[13,:SCREECH],[16,:CHARGEBEAM],
                      [20,:SWIFT],[22,:ENERGYBALL],[26,:SELFDESTRUCT],
                      [29,:LIGHTSCREEN],[34,:MAGNETRISE],[37,:DISCHARGE],
-                     [41,:EXPLOSION],[46,:GYROBALL],[48,:MIRRORCOAT}]
+                     [41,:EXPLOSION],[46,:GYROBALL],[48,:MIRRORCOAT]]
    end
    for i in movelist
      i[1]=getConst(PBMoves,i[1])
@@ -2666,7 +2666,7 @@ MultipleForms.register(:ELECTRODE,{
                      [9,:SPARK],[11,:ROLLOUT],[13,:SCREECH],[16,:CHARGEBEAM],
                      [20,:SWIFT],[22,:ENERGYBALL],[26,:SELFDESTRUCT],
                      [29,:LIGHTSCREEN],[36,:MAGNETRISE],[41,:DISCHARGE],
-                     [47,:EXPLOSION],[54,:GYROBALL],[58,:MIRRORCOAT}]
+                     [47,:EXPLOSION],[54,:GYROBALL],[58,:MIRRORCOAT]]
    end
    for i in movelist
      i[1]=getConst(PBMoves,i[1])

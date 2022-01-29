@@ -1391,8 +1391,8 @@ MultipleForms.register(:ARCANINE,{
    next if pokemon.form!=1
    movelist=[]
    case pokemon.form
-   when 1; movelist=[[1,:THUNDERFANG],[1,:BITE],[1,:ROAR],[1,:ODORSLEUTH],
-                     [1,:FIREFANG],[34,:ROCKSLIDE]]
+   when 1; movelist=[[0,:RAGINGFURY],[1,:THUNDERFANG],[1,:BITE],[1,:ROAR],
+                     [1,:ODORSLEUTH],[1,:FIREFANG],[34,:ROCKSLIDE]]
    end
    for i in movelist
      i[1]=getConst(PBMoves,i[1])

@@ -202,8 +202,17 @@ end
 
 ################################################################################
 # Poisons the target.
+# Barb Barrage: Power is doubled if the target has a status condition
 ################################################################################
 class PokeBattle_Move_005 < PokeBattle_Move
+  def pbBaseDamageMultiplier(damagemult,attacker,opponent)
+    if (isConst?(@id,PBMoves,:BARBBARRAGE) && 
+        opponent.status!=0)
+      return (damagemult*2.0).round
+    end
+    return damagemult
+  end
+
   def pbEffect(attacker,opponent,hitnum=0,alltargets=nil,showanimation=true)
     return super(attacker,opponent,hitnum,alltargets,showanimation) if pbIsDamaging?
     return -1 if !opponent.pbCanPoison?(attacker,true,self)
@@ -355,11 +364,14 @@ end
 # Burns the target.
 # Blue Flare: Powers up the next Fusion Bolt used this round.
 # Dragon's Maw: Power is doubled if a Pokemon has the corresponding ability
+# Infernal Parade: Power is doubled if the target has a status condition
 ################################################################################
 class PokeBattle_Move_00A < PokeBattle_Move
   def pbBaseDamageMultiplier(damagemult,attacker,opponent)
-    if isConst?(@id,PBMoves,:DRAGONSMAW) && 
-       @battle.pbCheckGlobalAbility(:DRAGONSMAW)
+    if (isConst?(@id,PBMoves,:DRAGONSMAW) && 
+       @battle.pbCheckGlobalAbility(:DRAGONSMAW)) ||
+       (isConst?(@id,PBMoves,:INFERNALPARADE) && 
+        opponent.status!=0)
       return (damagemult*2.0).round
     end
     return damagemult
@@ -1146,6 +1158,20 @@ class PokeBattle_Move_027 < PokeBattle_Move
     end
     return 0
   end
+
+  def pbAdditionalEffect(attacker,opponent)
+    return if opponent.damagestate.substitute
+    showanim=true
+    if attacker.pbCanIncreaseStatStage?(PBStats::ATTACK,attacker,false,self)
+      attacker.pbIncreaseStat(PBStats::ATTACK,1,attacker,false,self,showanim)
+      showanim=false
+    end
+    if attacker.pbCanIncreaseStatStage?(PBStats::SPATK,attacker,false,self)
+      attacker.pbIncreaseStat(PBStats::SPATK,1,attacker,false,self,showanim)
+      showanim=false
+    end
+  end
+
 end
 
 
@@ -1230,6 +1256,20 @@ class PokeBattle_Move_02A < PokeBattle_Move
     end
     return 0
   end
+
+  def pbAdditionalEffect(attacker,opponent)
+    return if opponent.damagestate.substitute
+    showanim=true
+    if attacker.pbCanIncreaseStatStage?(PBStats::DEFENSE,attacker,false,self)
+      attacker.pbIncreaseStat(PBStats::DEFENSE,1,attacker,false,self,showanim)
+      showanim=false
+    end
+    if attacker.pbCanIncreaseStatStage?(PBStats::SPDEF,attacker,false,self)
+      attacker.pbIncreaseStat(PBStats::SPDEF,1,attacker,false,self,showanim)
+      showanim=false
+    end
+  end
+
 end
 
 
@@ -1318,8 +1358,10 @@ class PokeBattle_Move_02D < PokeBattle_Move
       attacker.pbIncreaseStat(PBStats::SPEED,1,attacker,false,self,showanim)
       showanim=false
     end
+    return true
   end
 end
+
 
 
 
@@ -15792,6 +15834,105 @@ class PokeBattle_Move_321 < PokeBattle_Move
       end
     end
     return ret
+  end
+end
+
+################################################################################
+################################################################################
+# Generation VIII Legends: Arceus Move Effects
+################################################################################
+################################################################################
+
+################################################################################
+# May also paralyze or poison the tagret (Dire Claw)
+################################################################################
+class PokeBattle_Move_328 < PokeBattle_Move
+
+  def pbAdditionalEffect(attacker,opponent)
+    return if opponent.damagestate.substitute
+    case @battle.pbRandom(2)
+    when 0
+      if opponent.pbCanPoison?(attacker,false,self)
+        opponent.pbPoison(attacker)
+      elsif opponent.pbCanParalyze?(attacker,false,self)
+        opponent.pbParalyze(attacker)
+      end
+    when 1
+      if opponent.pbCanParalyze?(attacker,false,self)
+        opponent.pbParalyze(attacker)
+      elsif opponent.pbCanPoison?(attacker,false,self)
+        opponent.pbPoison(attacker)
+      end
+    end
+  end
+
+
+end
+
+################################################################################
+# Power is doubled if the target has a status condition
+################################################################################
+class PokeBattle_Move_329 < PokeBattle_Move
+  def pbBaseDamage(basedmg,attacker,opponent)
+    if opponent.status!=0
+      return basedmg*2
+    end
+    return basedmg
+  end
+end
+
+
+################################################################################
+# Heals user by 1/2 of its max HP and cures status conditions (Lunar Blessing)
+################################################################################
+class PokeBattle_Move_330 < PokeBattle_Move
+  def isHealingMove?
+    return true
+  end
+
+  def pbEffect(attacker,opponent,hitnum=0,alltargets=nil,showanimation=true)
+    if attacker.hp==attacker.totalhp &&
+       attacker.status!=PBStatuses::BURN &&
+       attacker.status!=PBStatuses::POISON &&
+       attacker.status!=PBStatuses::PARALYSIS
+			pbSEPlay("protection")
+      @battle.pbDisplay(_INTL("{1}'s HP is full!",attacker.pbThis))
+      return -1
+    end
+    pbShowAnimation(@id,attacker,nil,hitnum,alltargets,showanimation)
+    if attacker.hp!=attacker.totalhp
+      attacker.pbRecoverHP(((attacker.totalhp+1)/2).floor,true)
+      @battle.pbDisplay(_INTL("{1}'s HP was restored.",attacker.pbThis))
+    end
+    # Recovercy
+    if (attacker.status=PBStatuses::BURN ||
+       attacker.status=PBStatuses::POISON ||
+       attacker.status=PBStatuses::PARALYSIS)
+       t=attacker.status
+       attacker.pbCureStatus(false)
+       pbShowAnimation(@id,attacker,nil,hitnum,alltargets,showanimation)
+       if t==PBStatuses::BURN
+         @battle.pbDisplay(_INTL("{1} healed its burn!",attacker.pbThis))  
+       elsif t==PBStatuses::POISON
+         @battle.pbDisplay(_INTL("{1} cured its poisoning!",attacker.pbThis))  
+       elsif t==PBStatuses::PARALYSIS
+         @battle.pbDisplay(_INTL("{1} cured its paralysis!",attacker.pbThis))  
+       end
+    end
+    return 0
+  end
+end
+
+################################################################################
+# Swaps the user's Offensive and Defense stats. (Power Shift)
+################################################################################
+class PokeBattle_Move_331 < PokeBattle_Move
+  def pbEffect(attacker,opponent,hitnum=0,alltargets=nil,showanimation=true)
+    pbShowAnimation(@id,attacker,nil,hitnum,alltargets,showanimation)
+    attacker.attack,attacker.defense=attacker.defense,attacker.attack
+    attacker.spatk,attacker.spdef=attacker.spdef,attacker.spatk
+    @battle.pbDisplay(_INTL("{1} switched its Offsense and Defense!",attacker.pbThis))
+    return 0
   end
 end
 

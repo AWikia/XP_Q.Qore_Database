@@ -50,7 +50,7 @@ module PBEvolution
   HasMoveK          = 48 # HasMove for base forms
   HappinessItem     = 49
   ItemH             = 50 # Item for Hisuian Forms
-  TreinedH          = 51 # Trained for Hisuian Forms
+  TrainedH          = 51 # Trained for Hisuian Forms
   DayHoldItemH      = 52 # DauHoldItem for Hisuian Forms
   NightHoldItemK    = 53 # NightHoldItem for base forms
   
@@ -756,7 +756,9 @@ class PokemonEvolutionScene
     @msgviewport.z=99999
     @pokemon=pokemon
     @newspecies=newspecies
-    if isGalarian?(@pokemon) || isMysterical?(@pokemon)
+    if isHisuian?(@pokemon)
+      background="evolutionbg_hisui"
+    elsif isGalarian?(@pokemon) || isMysterical?(@pokemon)
       background="evolutionbg_galar"
     elsif isAlolan?(@pokemon) || isPhonetic?(@pokemon)
       background="evolutionbg_alola"

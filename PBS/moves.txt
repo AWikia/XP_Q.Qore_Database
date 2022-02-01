@@ -745,6 +745,31 @@
 934,GLACIALLANCE,Glacial Lance,000,130,ICE,Physical,100,5,0,00,0,abef,"The user attacks by hurling a blizzard-cloaked icicle lance at opposing Pokémon."
 935,ASTRALBARRAGE,Astral Barrage,000,120,GHOST,Special,100,5,0,00,0,bef,"The user attacks by sending a frightful amount of small ghosts at opposing Pokémon."
 936,EERIESPELL,Eerie Spell,320,80,PSYCHIC,Special,100,5,0,00,0,bef,"The user attacks with its tremendous psychic power. This also removes 3 PP from the target's last move."
+# Generation VIII Pokémon Legends: Arceus Moves
+1079,BARBBARRAGE,Barb Barrage,005,60,POISON,Physical,100,15,0,00,0,abef,"The user launches countless toxic barbs to inflict damage. This may also poison the target. This move’s power is doubled if the target has a status condition."
+1080,BITTERMALICE,Bitter Malice,329,60,GHOST,Special,100,15,0,00,0,bef,"The user attacks its target with spine-chilling resentment. This move’s power is doubled if the target has a status condition."
+1081,BLEAKWINDSTORM,Bleakwind Storm,000,95,FLYING,Special,80,5,0,00,0,bef,"The user attacks with savagely cold winds that cause both body and spirit to tremble."
+1082,CEASELESSEDGE,Ceaseless Edge,0CF,65,DARK,Physical,90,15,0,00,0,abef,"The user slashes its shell blade at the target, aiming to land a critical hit. Shell splinters left behind by this attack will continue to damage the target for several turns."
+1083,CHLOROBLAST,Chloroblast,0FB,120,CHLOROHYLL,Special,95,5,0,00,5,abef,"The user launches its amassed chlorophyll to inflict damage on the target. This also damages the user."
+1084,DIRECLAW,Dire Claw,328,60,POISON,Special,100,15,50,00,0,bef,"The user lashes out at the target with ruinous claws, aiming to land a critical hit. This may also leave the target poisoned or paralyzed."
+1085,ESPERWING,Esper Wing,000,75,ELECTRIC,Physical,90,10,0,00,-4,befh,"The user slashes the target with aura-enriched wings. Critical hits land more easily."
+1086,HEADLONGRUSH,Headlong Rush,03C,100,FIGHTING,Physical,100,5,0,00,0,abef,"The user smashes into the target in a full-body tackle. This also lowers the user's Defense and Sp. Def. stats."
+1087,INFERNALPARADE,Infernal Parade,00A,60,POISON,Physical,100,15,0,00,0,abef,"The user launches countless toxic barbs to inflict damage. This may also poison the target. This move’s power is doubled if the target has a status condition."
+1088,LUNARBLESSING,Recover,330,0,PSYCHIC,Status,0,10,0,10,0,d,"The user heals its own status conditions and restores its HP."
+1089,MOUNTAINGALE,Bleakwind Storm,000,100,ICE,Special,85,5,0,00,5,bef,"The user hurls giant chunks of ice at the target to inflict damage."
+1090,MYSTICALPOWER,Mystical Power,02D,70,PSYCHIC,Special,90,10,10,00,0,bef,The user strengthens itself with a mysterious power. This may also raise all the user's stats at once.
+1091,POWERSHIFT,Power Shift,331,0,NORMAL,Status,0,10,0,10,0,d,The user swaps its offensive and defensive stats.
+1092,PSYSHIELDBASH,Psyshield Bash,02A,70,PSYCHIC,Physical,90,10,30,00,0,bef,"Cloaking itself in psychic energy, the user slams into the target. This may also raise the user's Defense and Sp. Def. stats."
+1093,RAGINGFURY,Raging Fury,000,90,FIRE,Physical,85,10,0,00,0,befh,"The user slashes the target with aura-enriched wings. Critical hits land more easily."
+1094,SANDSEARSTORM,Sandsear Storm,00A,95,GROUND,Special,80,5,100,00,0,abef,"The user attacks by wrapping the target in fierce winds and searingly hot sand. This also leaves the target with a burn."
+1095,SHELTER,Shelter,02A,0,STEEL,Status,0,20,0,10,0,d,"The user makes its skin as hard as an iron shield, raising its Defense and Sp. Def stats."
+1096,SPRINGTIDESTORM,Springtide Storm,02D,95,FAIRY,Special,80,5,30,00,0,bef,The user attacks by wrapping the target in fierce winds brimming with love and hate. This may also raise all the user's stats at once.
+1097,STONEAXE,Stone Axe,0CF,65,ROCK,Physical,90,15,0,00,0,abef,"The user swings its stone axes at the target, aiming to land a critical hit. Stone splinters left behind by this attack continue to damage the target for several turns."
+1098,TAKEHEART,Take Heart,02D,0,HEART,Status,0,10,0,10,0,d,"The user makes its skin as hard as an iron shield, raising all the user's stats at once."
+1099,TRIPLEARROWS,Triple Arrows,000,50,FIGHTING,Physical,100,15,0,00,0,befh,"The user delivers an axe kick, then fires three arrows."
+1100,VICTORYDANCE,Victory Dance,02D,0,FIGHTING,Status,0,10,0,10,0,d,"The user performs a dance to usher in victory, raising all the user's stats at once."
+1101,WAVECRASH,Wave Crash,0FB,75,WATER,Physical,100,10,0,00,-4,abef,"The user shrouds itself in water and slams into the target with its whole body to inflict damage. This also damages the user."
+1102,WILDBOLTSTORM,Wildbolt Storm,007,95,BOLT,Special,80,5,100,00,0,abef,"The user summons a thunderous tempest and savagely attacks with lightning and wind. This may also leave the target with paralysis."
 # Shadow Moves
 648,SHADOWEND,Shadow End,130,120,SHADOW,Special,60,0,0,00,0,abf,A shadowy aura ram attack that also rebounds on the user.
 649,SHADOWSTORM,Shadow Storm,12D,95,SHADOW,Special,100,0,0,04,0,b,A shadowy aura is used to whip up a vicious tornado.
@@ -1040,7 +1065,7 @@
 709,CHLOROPIA,Chloropia,0E0,250,CHLOROPHYLL,Physical,80,5,0,08,0,bef,"The user tells the story of chlorophyll to all Pokémon to inflict damage. The user however, also faints upon using this move."
 710,CHLOROPHYLL,Chlorophyll,078,40,CHLOROPHYLL,Special,100,35,0,00,0,bef,A bunch of chlorophyll is whipped up by vines and launched at the target to inflict damage.
 723,PARKDAMAGE,Park Damage,174,150,CHLOROPHYLL,Special,100,15,70,00,-5,abj,The user takes some time to create a park and then damages. It may also increase Attack stat and recover some HP when it knocks out the target
-733,CHLOROBLAST,Chloro Blast,007,70,CHLOROPHYLL,Physical,50,20,20,00,0,bef,The user stinks some chloro-blasts to the target. It may also leave the target with paralysis.
+733,CHLOROSTRENGTH,Chloro Strength,007,70,CHLOROPHYLL,Physical,50,20,20,00,0,bef,The user stinks some chloro-blasts to the target. It may also leave the target with paralysis.
 1009,CHLOROPUNCH,Chloro Punch,007,70,CHLOROPHYLL,Special,50,20,20,00,0,befj,The user stinks some chlorophyll punches to the target. It may also leave the target with paralysis.
 1010,ALOEVERA,Aloe Vera,219,0,CHLOROPHYLL,Status,0,20,0,100,0,bc,"The user heals the ally's status condition. If the move succeeds, it also restores the users own HP."
 1069,SUPERCHLOROPHYLL,Super Chlorophyll,078,80,CHLOROPHYLL,Special,100,35,0,00,0,bef,A bunch of chlorophyll is whipped up by vines and launched at the target to inflict damage.

@@ -289,7 +289,20 @@ end
      isConst?(babyspecies,PBSpecies,:MIMEJR) ||
      isConst?(babyspecies,PBSpecies,:DARUMAKA) ||
      isConst?(babyspecies,PBSpecies,:YAMASK) ||
-     # Misc Forms
+     # Hisuian Forms
+     isConst?(babyspecies,PBSpecies,:GROWLITHE) ||
+     isConst?(babyspecies,PBSpecies,:VOLTORB) ||
+     isConst?(babyspecies,PBSpecies,:CYNDAQUIL) ||
+     isConst?(babyspecies,PBSpecies,:QWILFISH) ||
+     isConst?(babyspecies,PBSpecies,:SNEASEL) ||
+     isConst?(babyspecies,PBSpecies,:OSHAWOTT) ||
+     isConst?(babyspecies,PBSpecies,:PETILIL) ||
+     isConst?(babyspecies,PBSpecies,:ZORUA) ||
+     isConst?(babyspecies,PBSpecies,:RUFFLET) ||
+     isConst?(babyspecies,PBSpecies,:GOOMY) ||
+     isConst?(babyspecies,PBSpecies,:BERGMITE) ||
+     isConst?(babyspecies,PBSpecies,:ROWLET) ||
+     # Misc Forms (Phonetic, Yorkbook and Mysterican)
      isConst?(babyspecies,PBSpecies,:EKANS) ||
      isConst?(babyspecies,PBSpecies,:SPRITZEE) ||
      isConst?(babyspecies,PBSpecies,:SWIRLIX) ||

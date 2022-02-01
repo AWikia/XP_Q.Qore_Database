@@ -16,7 +16,9 @@ class PokemonEggHatchScene
     @nicknamed=false
     @viewport=Viewport.new(0,0,Graphics.width,Graphics.height)
     @viewport.z=99999
-    if isGalarian?(@pokemon) || isMysterical?(@pokemon)
+    if isHisuian?(@pokemon)
+      background="hatchbg_hisui"
+    elsif isGalarian?(@pokemon) || isMysterical?(@pokemon)
       background="hatchbg_galar"
     elsif isAlolan?(@pokemon) || isPhonetic?(@pokemon)
       background="hatchbg_alola"

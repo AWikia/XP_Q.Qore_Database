@@ -1,16 +1,10 @@
 module MessageConfig
 # in Graphics/Windowskins/ (specify empty string to use the default windowskin)
   WindowOpacity = 255
-  if IEMODE # Don't use Qore Speech frames and Didact Gpthic for IE Mode
-    TextSkinName    = "speech hgss 1"
-    ChoiceSkinName  = "choice 1"
-    FontName        = "Power Clear"
-  else
-    TextSkinName    = "QChoice1"
-    ChoiceSkinName  = "QChoice1c"
-#   FontName        = "Mpisto U2019 Condensed Medium"
-    FontName        = "Didact Gothic"
-  end
+  TextSkinName    = "QChoice1"
+  ChoiceSkinName  = "QChoice1c"
+# FontName        = "Mpisto U2019 Condensed Medium"
+  FontName        = "Didact Gothic"
   TextSpeed       = nil # can be positive to wait frames or negative to
                         # show multiple characters in a single frame
   LIGHTTEXTBASE   = Color.new(248,248,240) # Was 248,248,248
@@ -960,9 +954,7 @@ def pbDrawShadowText(bitmap,x,y,width,height,string,baseColor,shadowColor=nil,al
     bitmap.font.color=shadowColor
        # bitmap.draw_text(x+2,y,width,height,string,align)
    # bitmap.draw_text(x,y+2,width,height,string,align)
-    if !baseColor
-   #   bitmap.draw_text(x+2,y+2,width,height,string,align)
-    end
+    bitmap.draw_text(x+2,y+2,width,height,string,align)
   end
   if baseColor
     bitmap.font.color=baseColor
@@ -1553,8 +1545,7 @@ end
 
 def pbSetSmallFont2(bitmap) # Variant without any font editions (Uses 26px of font size)
   fontname=MessageConfig.pbGetSystemFontName()
-  bitmap.font.name="Didact Gothic" if IEMODE
-  if fontname=="Didact Gothic" || IEMODE
+  if fontname=="Didact Gothic"
     bitmap.font.size=28
   else
     bitmap.font.size=26

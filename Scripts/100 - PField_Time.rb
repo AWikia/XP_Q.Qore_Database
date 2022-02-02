@@ -312,10 +312,7 @@ HourlyTones2=[ # Linear
     realMinutes=pbGetDayNightMinutes
     hour=realMinutes/60
     minute=realMinutes%60
-    if IEMODE
-      tone=PBDayNight::HourlyTonesIE[hour] # Pre-Essentials 17 Classic
-      nexthourtone=PBDayNight::HourlyTonesIE[(hour+1)%24]
-    elsif ($PokemonSystem.night==3 rescue false)
+    if ($PokemonSystem.night==3 rescue false)
       tone=PBDayNight::HourlyTones4[hour] # Cubic
       nexthourtone=PBDayNight::HourlyTones4[(hour+1)%24]
     elsif ($PokemonSystem.night==2 rescue false)
@@ -357,7 +354,7 @@ def pbDayNightTint(object)
       tone=PBDayNight.getTone()
       object.tone.set(tone.red,tone.green,tone.blue,tone.gray)
     elsif $game_map && darkmaps.include?($game_map.map_id) # Pseudo-dark maps
-      object.tone.set(-110,-114,-118,60) if !IEMODE  # In order to avoid glitches
+      object.tone.set(-110,-114,-118,60)  # In order to avoid glitches
     else # Non outdoor maps or disabled ENABLESHADING
       object.tone.set(0,0,0,0)  
     end

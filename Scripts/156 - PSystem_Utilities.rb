@@ -1,2997 +1,2925 @@
-################################################################################
-# General purpose utilities
-################################################################################
-def _pbNextComb(comb,length)
-  i=comb.length-1
-  begin
-    valid=true
-    for j in i...comb.length
-      if j==i
-        comb[j]+=1
-      else
-        comb[j]=comb[i]+(j-i)
+#===============================================================================
+# Visibility circle in dark maps
+#===============================================================================
+class DarknessSprite < SpriteWrapper
+  attr_reader :radius
+
+  def initialize(viewport=nil)
+    super(viewport)
+    @darkness=BitmapWrapper.new(Graphics.width,Graphics.height)
+    @radius=64 # Was 64 before 200
+    self.bitmap=@darkness
+    self.z=99998
+    refresh
+  end
+
+  def dispose
+    @darkness.dispose
+    super
+  end
+
+  def radius=(value)
+    @radius=value
+    refresh
+  end
+
+  def refresh
+    @darkness.fill_rect(0,0,Graphics.width,Graphics.height,Color.new(0,0,0,255))
+    cx=Graphics.width/2
+    cy=Graphics.height/2
+    cradius=@radius
+    numfades=5
+    for i in 1..numfades
+      for j in cx-cradius..cx+cradius
+        diff2 = (cradius * cradius) - ((j - cx) * (j - cx))
+        diff = Math.sqrt(diff2)
+        @darkness.fill_rect(j,cy-diff,1,diff*2,
+           Color.new(0, 0, 0, 255.0*(numfades-i)/numfades ))
       end
-      if comb[j]>=length
-        valid=false
-        break
-      end
+     cradius=(cradius*0.9).floor
     end
-    return true if valid
-    i-=1
-  end while i>=0
+  end
+end
+
+
+
+#===============================================================================
+# Location signpost
+#===============================================================================
+class LocationWindow
+  def initialize(name)
+    @window=Window_AdvancedTextPokemon.new(name)
+    @window.resizeToFit(name,Graphics.width)
+    @window.x=0
+    @window.y=-@window.height
+    @window.z=99999
+    @window.viewport=Viewport.new(0,0,Graphics.width,Graphics.height)
+    @window.viewport.z=99999
+    @currentmap=$game_map.map_id
+    @frames=0
+  end
+
+  def disposed?
+    @window.disposed?
+  end
+
+  def dispose
+    @window.dispose
+  end
+
+  def update
+    return if @window.disposed?
+    @window.update
+    if $game_temp.message_window_showing ||
+       @currentmap!=$game_map.map_id
+      @window.dispose
+      return
+    end
+    if @frames>80
+      @window.y-=4
+      @window.dispose if @window.y+@window.height<0
+    else
+      @window.y+=4 if @window.y<0
+      @frames+=1
+    end
+  end
+end
+
+
+
+#===============================================================================
+# Lights
+#===============================================================================
+class LightEffect
+  def initialize(event,viewport=nil,map=nil,filename=nil)
+    @light = IconSprite.new(0,0,viewport)
+    if filename!=nil && filename!="" && pbResolveBitmap("Graphics/Pictures/"+filename)
+      @light.setBitmap("Graphics/Pictures/"+filename)
+    else
+      @light.setBitmap("Graphics/Pictures/LE")
+    end
+    @light.z = 1000
+    @event = event
+    @map=map ? map : $game_map
+    @disposed=false
+  end
+
+  def disposed?
+    return @disposed
+  end
+
+  def dispose
+    @light.dispose
+    @map=nil
+    @event=nil
+    @disposed=true
+  end
+
+  def update
+    @light.update
+  end
+end
+
+
+
+class LightEffect_Lamp < LightEffect
+  def initialize(event,viewport=nil,map=nil)
+    @light = Sprite.new(viewport)
+    lamp = AnimatedBitmap.new("Graphics/Pictures/LE")
+    @light.bitmap = Bitmap.new(128,64)
+    src_rect = Rect.new(0, 0, 64, 64) 
+    @light.bitmap.blt(0, 0, lamp.bitmap, src_rect) 
+    @light.bitmap.blt(20, 0, lamp.bitmap, src_rect) 
+    lamp.dispose
+    @light.visible = true
+    @light.z = 1000
+    @map=map ? map : $game_map
+    @event = event
+  end
+end
+
+
+
+class LightEffect_Basic < LightEffect
+  def initialize(event,viewport=nil,map=nil,filename=nil)
+    super
+  end
+
+  def update
+    return if !@light || !@event
+    super
+    @light.opacity = 100
+    @light.ox=32
+    @light.oy=48
+    if (Object.const_defined?(:ScreenPosHelper) rescue false)
+      @light.x = ScreenPosHelper.pbScreenX(@event)
+      @light.y = ScreenPosHelper.pbScreenY(@event)
+      @light.zoom_x = ScreenPosHelper.pbScreenZoomX(@event)
+    else
+      @light.x = @event.screen_x
+      @light.y = @event.screen_y
+      @light.zoom_x = 1.0
+    end
+    @light.zoom_y = @light.zoom_x
+    @light.tone=$game_screen.tone
+  end
+end
+
+
+
+class LightEffect_DayNight < LightEffect
+  def initialize(event,viewport=nil,map=nil,filename=nil)
+    super
+  end
+
+  def update
+    return if !@light || !@event
+    super
+    shade=PBDayNight.getShade
+    if shade>=144   # If light enough, call it fully day.
+      shade=255
+    elsif shade<=64   # If dark enough, call it fully night.
+      shade=0
+    else
+      shade=255-(255*(144-shade)/(144-64))
+    end
+    @light.opacity = 255-shade
+    if @light.opacity>0
+      @light.ox=32
+      @light.oy=48
+      if (Object.const_defined?(:ScreenPosHelper) rescue false)
+        @light.x = ScreenPosHelper.pbScreenX(@event)
+        @light.y = ScreenPosHelper.pbScreenY(@event)
+        @light.zoom_x = ScreenPosHelper.pbScreenZoomX(@event)
+        @light.zoom_y = ScreenPosHelper.pbScreenZoomY(@event)
+      else
+        @light.x = @event.screen_x
+        @light.y = @event.screen_y
+        @light.zoom_x = 1.0
+        @light.zoom_y = 1.0
+      end
+      @light.tone.set($game_screen.tone.red,
+                      $game_screen.tone.green,
+                      $game_screen.tone.blue,
+                      $game_screen.tone.gray)
+    end
+  end  
+end
+
+
+
+#===============================================================================
+# This module stores encounter-modifying events that can happen during the game.
+# A procedure can subscribe to an event by adding itself to the event.  It will
+# then be called whenever the event occurs.
+#===============================================================================
+module EncounterModifier
+  @@procs=[]
+  @@procsEnd=[]
+
+  def self.register(p)
+    @@procs.push(p)
+  end
+
+  def self.registerEncounterEnd(p)
+    @@procsEnd.push(p)
+  end
+
+  def self.trigger(encounter)
+    for prc in @@procs
+      encounter=prc.call(encounter)
+    end
+    return encounter
+  end
+
+  def self.triggerEncounterEnd()
+    for prc in @@procsEnd
+      prc.call()
+    end
+  end
+end
+
+
+
+#===============================================================================
+# This module stores events that can happen during the game.  A procedure can
+# subscribe to an event by adding itself to the event.  It will then be called
+# whenever the event occurs.
+#===============================================================================
+module Events
+  @@OnMapChange=Event.new
+  @@OnMapSceneChange=Event.new
+  @@OnMapUpdate=Event.new
+  @@OnMapChanging=Event.new
+  @@OnLeaveTile=Event.new
+  @@OnStepTaken=Event.new
+  @@OnStepTakenTransferPossible=Event.new
+  @@OnStepTakenFieldMovement=Event.new
+  @@OnWildBattleOverride=Event.new
+  @@OnWildBattleEnd=Event.new
+  @@OnWildPokemonCreate=Event.new
+  @@OnTrainerPartyLoad=Event.new
+  @@OnSpritesetCreate=Event.new
+  @@OnStartBattle=Event.new
+  @@OnEndBattle=Event.new
+  @@OnMapCreate=Event.new
+  @@OnAction=Event.new
+
+# Triggers when the player presses the Action button on the map.
+  def self.onAction=(v)
+    @@OnAction=v
+  end
+
+  def self.onAction
+    @@OnAction
+  end
+
+  def self.onStartBattle=(v)
+    @@OnStartBattle=v
+  end
+
+  def self.onStartBattle
+    @@OnStartBattle
+  end
+
+  def self.onEndBattle=(v)
+    @@OnEndBattle=v
+  end
+
+  def self.onEndBattle
+    @@OnEndBattle
+  end
+
+# Fires whenever a map is created. Event handler receives two parameters: the
+# map (RPG::Map) and the tileset (RPG::Tileset)
+  def self.onMapCreate=(v)
+    @@OnMapCreate=v
+  end
+
+  def self.onMapCreate
+    @@OnMapCreate
+  end
+
+# Fires whenever the player moves to a new map. Event handler receives the old
+# map ID or 0 if none.  Also fires when the first map of the game is loaded
+  def self.onMapChange=(v)
+    @@OnMapChange=v
+  end
+
+  def self.onMapChange
+    @@OnMapChange
+  end
+
+# Fires whenever one map is about to change to a different one. Event handler
+# receives the new map ID and the Game_Map object representing the new map.
+# When the event handler is called, $game_map still refers to the old map.
+  def self.onMapChanging=(v)
+    @@OnMapChanging=v
+  end
+
+  def self.onMapChanging
+    @@OnMapChanging
+  end
+
+# Fires whenever the player takes a step.
+  def self.onStepTaken=(v)
+    @@OnStepTaken=v
+  end
+
+  def self.onStepTaken
+    @@OnStepTaken
+  end
+
+# Fires whenever the player or another event leaves a tile.
+# Parameters:
+# e[0] - Event that just left the tile.
+# e[1] - Map ID where the tile is located (not necessarily
+#  the current map). Use "$MapFactory.getMap(e[1])" to
+#  get the Game_Map object corresponding to that map.
+# e[2] - X-coordinate of the tile
+# e[3] - Y-coordinate of the tile
+  def self.onLeaveTile=(v)
+    @@OnLeaveTile=v
+  end
+
+  def self.onLeaveTile
+    @@OnLeaveTile
+  end
+
+# Fires whenever the player or another event enters a tile.
+# Parameters:
+# e[0] - Event that just entered a tile.
+  def self.onStepTakenFieldMovement=(v)
+    @@OnStepTakenFieldMovement=v
+  end
+
+  def self.onStepTakenFieldMovement
+    @@OnStepTakenFieldMovement
+  end
+
+# Fires whenever the player takes a step. The event handler may possibly move
+# the player elsewhere.
+# Parameters:
+# e[0] = Array that contains a single boolean value.
+#  If an event handler moves the player to a new map, it should set this value
+# to true. Other event handlers should check this parameter's value.
+  def self.onStepTakenTransferPossible=(v)
+    @@OnStepTakenTransferPossible=v
+  end
+
+  def self.onStepTakenTransferPossible
+    @@OnStepTakenTransferPossible
+  end
+
+# Fires each frame during a map update.
+  def self.onMapUpdate=(v)
+    @@OnMapUpdate=v
+  end
+
+  def self.onMapUpdate
+    @@OnMapUpdate
+  end
+
+# Triggers at the start of a wild battle.  Event handlers can provide their own
+# wild battle routines to override the default behavior.
+  def self.onWildBattleOverride=(v)
+    @@OnWildBattleOverride=v
+  end
+
+  def self.onWildBattleOverride
+    @@OnWildBattleOverride
+  end
+
+# Triggers whenever a wild Pokémon battle ends
+# Parameters: 
+# e[0] - Pokémon species
+# e[1] - Pokémon level
+# e[2] - Battle result (1-win, 2-loss, 3-escaped, 4-caught, 5-draw)
+  def self.onWildBattleEnd=(v)
+    @@OnWildBattleEnd=v
+  end
+
+  def self.onWildBattleEnd
+    @@OnWildBattleEnd
+  end
+
+# Triggers whenever a wild Pokémon is created
+# Parameters: 
+# e[0] - Pokémon being created
+  def self.onWildPokemonCreate=(v)
+    @@OnWildPokemonCreate=v
+  end
+
+  def self.onWildPokemonCreate
+    @@OnWildPokemonCreate
+  end
+
+# Triggers whenever an NPC trainer's Pokémon party is loaded
+# Parameters: 
+# e[0] - Trainer
+# e[1] - Items possessed by the trainer
+# e[2] - Party
+  def self.onTrainerPartyLoad=(v)
+    @@OnTrainerPartyLoad=v
+  end
+
+  def self.onTrainerPartyLoad
+    @@OnTrainerPartyLoad
+  end
+
+# Fires whenever the map scene is regenerated and soon after the player moves
+# to a new map.
+# Parameters:
+# e[0] = Scene_Map object.
+# e[1] = Whether the player just moved to a new map (either true or false).  If
+#   false, some other code had called $scene.createSpritesets to regenerate the
+#   map scene without transferring the player elsewhere
+  def self.onMapSceneChange=(v)
+    @@OnMapSceneChange=v
+  end
+
+  def self.onMapSceneChange
+    @@OnMapSceneChange
+  end
+
+# Fires whenever a spriteset is created.
+# Parameters:
+# e[0] = Spriteset being created
+# e[1] = Viewport used for tilemap and characters
+# e[0].map = Map associated with the spriteset (not necessarily the current map).
+  def self.onSpritesetCreate=(v)
+    @@OnSpritesetCreate=v
+  end
+
+  def self.onSpritesetCreate
+    @@OnSpritesetCreate
+  end
+end
+
+
+
+#===============================================================================
+# Battles
+#===============================================================================
+class Game_Temp
+  attr_accessor :background_bitmap
+end
+
+
+
+def pbNewBattleScene
+  return PokeBattle_Scene.new
+end
+
+def pbSceneStandby
+  if $scene && $scene.is_a?(Scene_Map)
+    $scene.disposeSpritesets
+  end
+  GC.start
+  Graphics.frame_reset
+  yield
+  if $scene && $scene.is_a?(Scene_Map)
+    $scene.createSpritesets
+  end
+end
+
+def pbBattleAnimation(bgm=nil,trainerid=-1,trainername="")
+  handled=false
+  playingBGS=nil
+  playingBGM=nil
+  if $game_system && $game_system.is_a?(Game_System)
+    playingBGS=$game_system.getPlayingBGS
+    playingBGM=$game_system.getPlayingBGM
+    $game_system.bgm_pause
+    $game_system.bgs_pause
+  end
+  pbMEFade(0.25)
+  pbWait(10)
+  pbMEStop
+  if bgm
+    pbBGMPlay(bgm)
+  else
+    pbBGMPlay(pbGetWildBattleBGM(0))
+  end
+  viewport=Viewport.new(0,0,Graphics.width,Graphics.height)
+  viewport.z=99999
+# Fade to gray a few times.
+  viewport.color=Color.new(17*8,17*8,17*8)
+  3.times do
+    viewport.color.alpha=0
+    6.times do
+      viewport.color.alpha+=30
+      Graphics.update
+      Input.update
+      pbUpdateSceneMap
+    end
+    6.times do
+      viewport.color.alpha-=30
+      Graphics.update
+      Input.update
+      pbUpdateSceneMap
+    end
+  end
+  if $game_temp.background_bitmap
+    $game_temp.background_bitmap.dispose
+  end
+  $game_temp.background_bitmap=Graphics.snap_to_bitmap
+  # Check for custom battle intro animations
+  handled=pbBattleAnimationOverride(viewport,trainerid,trainername)
+  # Default battle intro animation
+  if !handled
+    if Sprite.method_defined?(:wave_amp) && rand(15)==0
+      viewport.color=Color.new(0,0,0,255)
+      sprite = Sprite.new
+      bitmap=Graphics.snap_to_bitmap
+      bm=bitmap.clone
+      sprite.z=99999
+      sprite.bitmap = bm
+      sprite.wave_speed=500
+      for i in 0..25
+        sprite.opacity-=10
+        sprite.wave_amp+=60
+        sprite.update
+        sprite.wave_speed+=30
+        2.times do
+          Graphics.update
+        end
+      end
+      bitmap.dispose
+      bm.dispose
+      sprite.dispose
+    elsif Bitmap.method_defined?(:radial_blur) && rand(15)==0
+      viewport.color=Color.new(0,0,0,255)
+      sprite = Sprite.new
+      bitmap=Graphics.snap_to_bitmap
+      bm=bitmap.clone
+      sprite.z=99999
+      sprite.bitmap = bm
+      for i in 0..15
+        bm.radial_blur(i,2)
+        sprite.opacity-=15
+        2.times do
+          Graphics.update
+        end
+      end
+      bitmap.dispose
+      bm.dispose
+      sprite.dispose
+    elsif rand(10)==0 # Custom transition method
+      scroll=["ScrollDown","ScrollLeft","ScrollRight","ScrollUp",
+              "ScrollDownRight","ScrollDownLeft","ScrollUpRight","ScrollUpLeft"]
+      Graphics.freeze
+      viewport.color=Color.new(0,0,0,255)
+      Graphics.transition(50,sprintf("Graphics/Transitions/%s",scroll[rand(scroll.length)]))
+    else
+      transitions=[
+         # Transitions with graphic files
+         "021-Normal01","022-Normal02",
+         "Battle","battle1","battle2","battle3","battle4",
+         "computertr","computertrclose",
+         "hexatr","hexatrc","hexatzr",
+         "Image1","Image2","Image3","Image4",
+         # Custom transition methods
+         "Splash","Random_stripe_v","Random_stripe_h",
+         "RotatingPieces","ShrinkingPieces",
+         "BreakingGlass","Mosaic","zoomin"
+      ]
+      rnd=rand(transitions.length)
+      Graphics.freeze
+      viewport.color=Color.new(0,0,0,255)
+      Graphics.transition(40,sprintf("Graphics/Transitions/%s",transitions[rnd]))
+    end
+    5.times do
+      Graphics.update
+      Input.update
+      pbUpdateSceneMap
+    end
+  end
+  pbPushFade
+  yield if block_given?
+  pbPopFade
+  if $game_system && $game_system.is_a?(Game_System)
+    $game_system.bgm_resume(playingBGM)
+    $game_system.bgs_resume(playingBGS)
+  end
+  $PokemonGlobal.nextBattleBGM=nil
+  $PokemonGlobal.nextBattleME=nil
+  $PokemonGlobal.nextBattleBack=nil
+  $PokemonEncounters.clearStepCount
+  for j in 0..17
+    viewport.color=Color.new(0,0,0,(17-j)*15)
+    Graphics.update
+    Input.update
+    pbUpdateSceneMap
+  end
+  viewport.dispose
+end
+
+# Alias and use this method if you want to add a custom battle intro animation
+# e.g. variants of the Vs. animation.
+# Note that $game_temp.background_bitmap contains an image of the current game
+# screen.
+# When the custom animation has finished, the screen should have faded to black
+# somehow.
+def pbBattleAnimationOverride(viewport,trainerid=-1,trainername="")
+  # The following example runs a common event that ought to do a custom
+  # animation if some condition is true:
+  #
+  # if $game_map && $game_map.map_id==20   # If on map 20
+  #   pbCommonEvent(20)
+  #   return true                          # Note that the battle animation is done
+  # end
+  #
+  ##### VS. animation, by Luka S.J. #####
+  ##### Tweaked by Maruno           #####
+  if trainerid>=0 && false
+    tbargraphic=sprintf("Graphics/Transitions/vsBar%s",getConstantName(PBTrainers,trainerid)) rescue nil
+    tbargraphic=sprintf("Graphics/Transitions/vsBar%d",trainerid) if !pbResolveBitmap(tbargraphic)
+    tgraphic=sprintf("Graphics/Transitions/vsTrainer%s",getConstantName(PBTrainers,trainerid)) rescue nil
+    tgraphic=sprintf("Graphics/Transitions/vsTrainer%d",trainerid) if !pbResolveBitmap(tgraphic)
+    if pbResolveBitmap(tbargraphic) && pbResolveBitmap(tgraphic)
+      outfit=$Trainer ? $Trainer.outfit : 0
+      # Set up
+      viewplayer=Viewport.new(0,Graphics.height/3,Graphics.width/2,128)
+      viewplayer.z=viewport.z
+      viewopp=Viewport.new(Graphics.width/2,Graphics.height/3,Graphics.width/2,128)
+      viewopp.z=viewport.z
+      viewvs=Viewport.new(0,0,Graphics.width,Graphics.height)
+      viewvs.z=viewport.z
+      xoffset=(Graphics.width/2)/10
+      xoffset=xoffset.round
+      xoffset=xoffset*10
+      fade=Sprite.new(viewport)
+      fade.bitmap=BitmapCache.load_bitmap("Graphics/Transitions/vsFlash")
+      fade.tone=Tone.new(-255,-255,-255)
+      fade.opacity=100
+      overlay=Sprite.new(viewport)
+      overlay.bitmap=Bitmap.new(Graphics.width,Graphics.height)
+      pbSetSystemFont(overlay.bitmap)
+      bar1=Sprite.new(viewplayer)
+      pbargraphic=sprintf("Graphics/Transitions/vsBar%s_%d",getConstantName(PBTrainers,$Trainer.trainertype),outfit) rescue nil
+      pbargraphic=sprintf("Graphics/Transitions/vsBar%d_%d",$Trainer.trainertype,outfit) if !pbResolveBitmap(pbargraphic)
+      if !pbResolveBitmap(pbargraphic)
+        pbargraphic=sprintf("Graphics/Transitions/vsBar%s",getConstantName(PBTrainers,$Trainer.trainertype)) rescue nil
+      end
+      pbargraphic=sprintf("Graphics/Transitions/vsBar%d",$Trainer.trainertype) if !pbResolveBitmap(pbargraphic)
+      bar1.bitmap=BitmapCache.load_bitmap(pbargraphic)
+      bar1.x=-xoffset
+      bar2=Sprite.new(viewopp)
+      bar2.bitmap=BitmapCache.load_bitmap(tbargraphic)
+      bar2.x=xoffset
+      vs=Sprite.new(viewvs)
+      vs.bitmap=BitmapCache.load_bitmap("Graphics/Transitions/vs")
+      vs.ox=vs.bitmap.width/2
+      vs.oy=vs.bitmap.height/2
+      vs.x=Graphics.width/2
+      vs.y=Graphics.height/1.5
+      vs.visible=false
+      flash=Sprite.new(viewvs)
+      flash.bitmap=BitmapCache.load_bitmap("Graphics/Transitions/vsFlash")
+      flash.opacity=0
+      # Animation
+      10.times do
+        bar1.x+=xoffset/10
+        bar2.x-=xoffset/10
+        pbWait(1)
+      end
+      pbSEPlay("Flash2")
+      pbSEPlay("Sword2")
+      flash.opacity=255
+      bar1.dispose
+      bar2.dispose
+      bar1=AnimatedPlane.new(viewplayer)
+      bar1.bitmap=BitmapCache.load_bitmap(pbargraphic)
+      player=Sprite.new(viewplayer)
+      pgraphic=sprintf("Graphics/Transitions/vsTrainer%s_%d",getConstantName(PBTrainers,$Trainer.trainertype),outfit) rescue nil
+      pgraphic=sprintf("Graphics/Transitions/vsTrainer%d_%d",$Trainer.trainertype,outfit) if !pbResolveBitmap(pgraphic)
+      if !pbResolveBitmap(pgraphic)
+        pgraphic=sprintf("Graphics/Transitions/vsTrainer%s",getConstantName(PBTrainers,$Trainer.trainertype)) rescue nil
+      end
+      pgraphic=sprintf("Graphics/Transitions/vsTrainer%d",$Trainer.trainertype) if !pbResolveBitmap(pgraphic)
+      player.bitmap=BitmapCache.load_bitmap(pgraphic)
+      player.x=-xoffset
+      bar2=AnimatedPlane.new(viewopp)
+      bar2.bitmap=BitmapCache.load_bitmap(tbargraphic)
+      trainer=Sprite.new(viewopp)
+      trainer.bitmap=BitmapCache.load_bitmap(tgraphic)
+      trainer.x=xoffset
+      trainer.tone=Tone.new(-255,-255,-255)
+      25.times do
+        flash.opacity-=51 if flash.opacity>0
+        bar1.ox-=16
+        bar2.ox+=16
+        pbWait(1)
+      end
+      11.times do
+        bar1.ox-=16
+        bar2.ox+=16
+        player.x+=xoffset/10
+        trainer.x-=xoffset/10
+        pbWait(1)
+      end
+      2.times do
+        bar1.ox-=16
+        bar2.ox+=16
+        player.x-=xoffset/20
+        trainer.x+=xoffset/20
+        pbWait(1)
+      end
+      10.times do
+        bar1.ox-=16
+        bar2.ox+=16
+        pbWait(1)
+      end
+      val=2
+      flash.opacity=255
+      vs.visible=true
+      trainer.tone=Tone.new(0,0,0)
+      textpos=[
+         [_INTL("{1}",$Trainer.name),Graphics.width/4,(Graphics.height/1.5)+10,2,
+            Color.new(248,248,248),Color.new(12*6,12*6,12*6)],
+         [_INTL("{1}",trainername),(Graphics.width/4)+(Graphics.width/2),(Graphics.height/1.5)+10,2,
+            Color.new(248,248,248),Color.new(12*6,12*6,12*6)]
+      ]
+      pbDrawTextPositions(overlay.bitmap,textpos)
+      pbSEPlay("Sword2")
+      70.times do
+        bar1.ox-=16
+        bar2.ox+=16
+        flash.opacity-=25.5 if flash.opacity>0
+        vs.x+=val
+        vs.y-=val
+        val=2 if vs.x<=(Graphics.width/2)-2
+        val=-2 if vs.x>=(Graphics.width/2)+2
+        pbWait(1)
+      end
+      30.times do
+        bar1.ox-=16
+        bar2.ox+=16
+        vs.zoom_x+=0.2
+        vs.zoom_y+=0.2
+        pbWait(1)
+      end
+      flash.tone=Tone.new(-255,-255,-255)
+      10.times do
+        bar1.ox-=16
+        bar2.ox+=16
+        flash.opacity+=25.5
+        pbWait(1)
+      end
+      # End
+      player.dispose
+      trainer.dispose
+      flash.dispose
+      vs.dispose
+      bar1.dispose
+      bar2.dispose
+      overlay.dispose
+      fade.dispose
+      viewvs.dispose
+      viewopp.dispose
+      viewplayer.dispose
+      viewport.color=Color.new(0,0,0,255)
+      return true
+    end
+  end
   return false
 end
 
-# Iterates through the array and yields each combination of _num_ elements in
-# the array.
-def pbEachCombination(array,num)
-  return if array.length<num || num<=0
-  if array.length==num
-    yield array
-    return
-  elsif num==1
-    for x in array
-      yield [x]
-    end
-    return
+def pbPrepareBattle(battle)
+  case $game_screen.weather_type
+  when PBFieldWeather::Rain, PBFieldWeather::HeavyRain, PBFieldWeather::Storm
+    battle.weather=PBWeather::RAINDANCE
+    battle.weatherduration=-1
+  when PBFieldWeather::Snow, PBFieldWeather::Blizzard
+    battle.weather=PBWeather::HAIL
+    battle.weatherduration=-1
+  when PBFieldWeather::Sandstorm
+    battle.weather=PBWeather::SANDSTORM
+    battle.weatherduration=-1
+  when PBFieldWeather::Sun
+    battle.weather=PBWeather::SUNNYDAY
+    battle.weatherduration=-1
   end
-  currentComb=[]
-  arr=[]
-  for i in 0...num
-    currentComb[i]=i
-  end
-  begin
-    for i in 0...num
-      arr[i]=array[currentComb[i]]
-    end
-    yield arr
-  end while _pbNextComb(currentComb,array.length)
+  battle.shiftStyle=($PokemonSystem.battlestyle==0)
+  battle.battlescene=($PokemonSystem.battlescene==0)
+  battle.environment=pbGetEnvironment
 end
 
-def pbGetCDID()
-  sendString=proc{|x|
-     mciSendString=Win32API.new('winmm','mciSendString','%w(p,p,l,l)','l') 
-     next "" if !mciSendString
-     buffer="\0"*2000
-     x=mciSendString.call(x,buffer,2000,0)
-     if x==0
-       next buffer.gsub(/\0/,"")
-     else
-       next ""
-     end
-  }
-  sendString.call("open cdaudio shareable")
-  ret=""
-  if sendString.call("status cdaudio media present")=="true"
-    ret=sendString.call("info cdaudio identity")
-    if ret==""
-      ret=sendString.call("info cdaudio info identity")
+def pbGetEnvironment
+# The following arrays can contain maps in where it will force an environment it
+# is currently impossible to set within the default Essentials settings
+# It also gives you access to two environments only possible with FLINT
+# You may edit from here if you want the X map have the X environment
+# For instance, place the X map in the skymaps array if the X map will use Sky as
+# the default environment. You should not place the X map in more than one array
+  forestmaps=[92,134,155,300,342,386]             # Jarol Garden, Xeniora Drei Ilex Forest, Rustboro Forest, Xeniora Vier, Episodio XR
+  snowmaps=[180,330,331,332,336,351,353]          # Ice Path, Ice River Run, Skating, Cindyora Sechs, Cindyora Sieben
+  volcanomaps=[338]                               # Volcano
+  graveyardmaps=[124,147,275,302]                 # Xeniora Eins, Magnet Train, Lineel Zwanzig, Staffhouse
+  skymaps=[126,358,410]                           # Isolated Woods, Sanuora Funf, Upstrairs Keniora Sechs
+  spacemaps=[307,308,313,319,320,354,355,356,357] # Lost Cave, Jumbo Cave, Isle of Termor, Victory 6, Sanuora Eins, Sanuora Zwei, Sanuora Drei, Sanuora Vier
+  galaxymaps=[112,359,361,370]                    # MYSTER ZONE, Sanuora Sechs, Sanuora Sieben, Lovecorn
+  boardwalkmaps=[118,323,343,394,423]             # Keniora Funf, Bot Boyend, Xeniora Funf, Birthday Mystery, Cindyora Sechs
+  alolamaps=[369]
+  galarmaps=[419]
+  # But you should stop from below on unless what are you doing
+  return PBEnvironment::None if !$game_map
+  return PBEnvironment::Forest if forestmaps.include?($game_map.map_id)
+  return PBEnvironment::Snow if snowmaps.include?($game_map.map_id)
+  return PBEnvironment::Volcano if volcanomaps.include?($game_map.map_id)
+  return PBEnvironment::Graveyard if graveyardmaps.include?($game_map.map_id)
+  return PBEnvironment::Space if spacemaps.include?($game_map.map_id)
+  return PBEnvironment::Galaxy if galaxymaps.include?($game_map.map_id) # FLINT Environment
+  return PBEnvironment::Boardwalk if boardwalkmaps.include?($game_map.map_id) # FLINT Environment
+  return PBEnvironment::Alola if alolamaps.include?($game_map.map_id) # Alola
+  return PBEnvironment::Galar if galarmaps.include?($game_map.map_id) # Galar
+  if $PokemonGlobal && $PokemonGlobal.diving
+    return PBEnvironment::Underwater
+  elsif $PokemonEncounters && $PokemonEncounters.isCave?
+    return PBEnvironment::Cave
+  elsif !pbGetMetadata($game_map.map_id,MetadataOutdoor)
+    return PBEnvironment::None
+  else
+    case $game_player.terrain_tag
+    when PBTerrain::Grass;      return PBEnvironment::Grass       # Normal grass
+    when PBTerrain::Sand;       return PBEnvironment::Sand
+    when PBTerrain::Rock;       return PBEnvironment::Rock
+    when PBTerrain::DeepWater;  return PBEnvironment::MovingWater
+    when PBTerrain::StillWater; return PBEnvironment::StillWater
+    when PBTerrain::Water;      return PBEnvironment::MovingWater
+    when PBTerrain::TallGrass;  return PBEnvironment::TallGrass   # Tall grass
+    when PBTerrain::SootGrass;  return PBEnvironment::Grass       # Sooty tall grass
+    when PBTerrain::Puddle;     return PBEnvironment::StillWater
     end
   end
-  sendString.call("close cdaudio")
+  return PBEnvironment::None
+end
+
+def pbGenerateWildPokemon(species,level,isroamer=false)
+  genwildpoke=PokeBattle_Pokemon.new(species,level,$Trainer)
+  items=genwildpoke.wildHoldItems
+  firstpoke=$Trainer.firstParty
+  chances=[50,5,1]
+  chances=[60,20,5] if firstpoke && !firstpoke.isEgg? &&
+                       (isConst?(firstpoke.ability,PBAbilities,:COMPOUNDEYES) ||
+                        isConst?(firstpoke.ability,PBAbilities,:KOURTINA) ||
+                        (isConst?(firstpoke.ability,PBAbilities,:SUPERLUCK) && $USENEWBATTLEMECHANICS))
+  itemrnd=rand(100)
+  if itemrnd<chances[0] || (items[0]==items[1] && items[1]==items[2])
+    genwildpoke.setItem(items[0])
+  elsif itemrnd<(chances[0]+chances[1])
+    genwildpoke.setItem(items[1])
+  elsif itemrnd<(chances[0]+chances[1]+chances[2])
+    genwildpoke.setItem(items[2])
+  end
+  if hasConst?(PBItems,:SHINYCHARM) && $PokemonBag.pbQuantity(:SHINYCHARM)>0 &&
+    !isConst?(firstpoke.ability,PBAbilities,:LIGHTER)
+    for i in 0...2   # 3 times as likely
+      break if genwildpoke.isShiny?
+      genwildpoke.personalID=rand(65536)|(rand(65536)<<16)
+    end
+  end
+  if firstpoke && !firstpoke.isEgg? && 
+     isConst?(firstpoke.ability,PBAbilities,:KOULUNDIN)
+    for i in 0...4   # 5 times as likely
+      break if genwildpoke.isShiny?
+      genwildpoke.personalID=rand(65536)|(rand(65536)<<16)
+    end
+  end
+  if firstpoke && !firstpoke.isEgg? && 
+     isConst?(firstpoke.ability,PBAbilities,:LIGHTER)
+     retiry=($USENEWBATTLEMECHANICS) ? 80 : 65
+    for i in 0...retiry   # 81 or 65 times as likely
+      break if genwildpoke.isShiny?
+      genwildpoke.personalID=rand(65536)|(rand(65536)<<16)
+    end
+  end
+  if firstpoke && !firstpoke.isEgg? && 
+     isConst?(firstpoke.ability,PBAbilities,:SHINYGATHER)
+     retiry=($USENEWBATTLEMECHANICS) ? 180 : 200
+    for i in 0...retiry   # 181 or 201 times as likely
+      break if genwildpoke.isShiny?
+      genwildpoke.personalID=rand(65536)|(rand(65536)<<16)
+    end
+  end
+  if rand(65536)<POKERUSCHANCE
+    genwildpoke.givePokerus
+  end
+  if firstpoke && !firstpoke.isEgg?
+    if isConst?(firstpoke.ability,PBAbilities,:CUTECHARM) &&
+       !genwildpoke.isSingleGendered?
+      if firstpoke.isMale?
+        (rand(3)<2) ? genwildpoke.makeFemale : genwildpoke.makeMale
+      elsif firstpoke.isFemale?
+        (rand(3)<2) ? genwildpoke.makeMale : genwildpoke.makeFemale
+      end
+    elsif isConst?(firstpoke.ability,PBAbilities,:SYNCHRONIZE)
+      genwildpoke.setNature(firstpoke.nature) if !isroamer && (rand(10)<5 || $USENEWBATTLEMECHANICS)
+    end
+  end
+  Events.onWildPokemonCreate.trigger(nil,genwildpoke)
+  return genwildpoke
+end
+
+def pbWildBattle(species,level,variable=nil,canescape=true,canlose=false)
+  if (Input.press?(Input::CTRL) && ($DEBUG || $TEST )) || $Trainer.pokemonCount==0
+    if $Trainer.pokemonCount>0
+      Kernel.pbMessage(_INTL("SKIPPING BATTLE..."))
+    end
+    pbSet(variable,1)
+    $PokemonGlobal.nextBattleBGM=nil
+    $PokemonGlobal.nextBattleME=nil
+    $PokemonGlobal.nextBattleBack=nil
+    return true
+  end
+  if species.is_a?(String) || species.is_a?(Symbol)
+    species=getID(PBSpecies,species)
+  end
+  handled=[nil]
+  Events.onWildBattleOverride.trigger(nil,species,level,handled)
+  if handled[0]!=nil
+    return handled[0]
+  end
+  currentlevels=[]
+  for i in $Trainer.party
+    currentlevels.push(i.level)
+  end
+  genwildpoke=pbGenerateWildPokemon(species,level)
+  Events.onStartBattle.trigger(nil,genwildpoke)
+  scene=pbNewBattleScene
+  battle=PokeBattle_Battle.new(scene,$Trainer.party,[genwildpoke],$Trainer,nil)
+  battle.internalbattle=true
+  battle.cantescape=!canescape
+  pbPrepareBattle(battle)
+  decision=0
+  pbBattleAnimation(pbGetWildBattleBGM(species)) { 
+     pbSceneStandby {
+        decision=battle.pbStartBattle(canlose)
+     }
+     for i in $Trainer.party; (i.makeUnmega rescue nil; i.makeUnprimal rescue nil); end
+     if $PokemonGlobal.partner
+       pbHealAll
+       for i in $PokemonGlobal.partner[3]
+         i.heal
+         i.makeUnmega rescue nil
+         i.makeUnprimal rescue nil # QQC Edit
+       end
+     end
+     if decision==2 || decision==5 # if loss or draw
+       if canlose
+         for i in $Trainer.party; i.heal; end
+         for i in 0...10
+           Graphics.update
+         end
+#       else
+#         $game_system.bgm_unpause
+#         $game_system.bgs_unpause
+#         Kernel.pbStartOver
+       end
+     end
+     Events.onEndBattle.trigger(nil,decision,canlose)
+  }
+  Input.update
+  pbSet(variable,decision)
+  Events.onWildBattleEnd.trigger(nil,species,level,decision)
+  return (decision!=2)
+end
+
+def pbDoubleWildBattle(species1,level1,species2,level2,variable=nil,canescape=true,canlose=false)
+  if (Input.press?(Input::CTRL) && ($DEBUG || $TEST)) || $Trainer.pokemonCount<2
+    if $Trainer.pokemonCount>0
+      Kernel.pbMessage(_INTL("SKIPPING BATTLE..."))
+    end
+    pbSet(variable,1)
+    $PokemonGlobal.nextBattleBGM=nil
+    $PokemonGlobal.nextBattleME=nil
+    $PokemonGlobal.nextBattleBack=nil
+    return true
+  end
+  if species1.is_a?(String) || species1.is_a?(Symbol)
+    species1=getID(PBSpecies,species1)
+  end
+  if species2.is_a?(String) || species2.is_a?(Symbol)
+    species2=getID(PBSpecies,species2)
+  end
+  currentlevels=[]
+  for i in $Trainer.party
+    currentlevels.push(i.level)
+  end
+  genwildpoke=pbGenerateWildPokemon(species1,level1)
+  genwildpoke2=pbGenerateWildPokemon(species2,level2)
+  Events.onStartBattle.trigger(nil,genwildpoke)
+  scene=pbNewBattleScene
+  if $PokemonGlobal.partner
+    othertrainer=PokeBattle_Trainer.new(
+       $PokemonGlobal.partner[1],$PokemonGlobal.partner[0])
+    othertrainer.id=$PokemonGlobal.partner[2]
+    othertrainer.party=$PokemonGlobal.partner[3]
+    combinedParty=[]
+    for i in 0...$Trainer.party.length
+      combinedParty[i]=$Trainer.party[i]
+    end
+    for i in 0...othertrainer.party.length
+      combinedParty[6+i]=othertrainer.party[i]
+    end
+    battle=PokeBattle_Battle.new(scene,combinedParty,[genwildpoke,genwildpoke2],
+       [$Trainer,othertrainer],nil)
+    battle.fullparty1=true
+  else
+    battle=PokeBattle_Battle.new(scene,$Trainer.party,[genwildpoke,genwildpoke2],
+       $Trainer,nil)
+    battle.fullparty1=false
+  end
+  battle.internalbattle=true
+  battle.doublebattle=battle.pbDoubleBattleAllowed?()
+  battle.cantescape=!canescape
+  pbPrepareBattle(battle)
+  decision=0
+  pbBattleAnimation(pbGetWildBattleBGM(species1)) { 
+     pbSceneStandby {
+        decision=battle.pbStartBattle(canlose)
+     }
+     for i in $Trainer.party; (i.makeUnmega rescue nil; i.makeUnprimal rescue nil); end
+     if $PokemonGlobal.partner
+       pbHealAll
+       for i in $PokemonGlobal.partner[3]
+         i.heal
+         i.makeUnmega rescue nil
+         i.makeUnprimal rescue nil # QQC Edit
+       end
+     end
+     if decision==2 || decision==5
+       if canlose
+         for i in $Trainer.party; i.heal; end
+         for i in 0...10
+           Graphics.update
+         end
+#       else
+#         $game_system.bgm_unpause
+#         $game_system.bgs_unpause
+#         Kernel.pbStartOver
+       end
+     end
+     Events.onEndBattle.trigger(nil,decision,canlose)
+  }
+  Input.update
+  pbSet(variable,decision)
+  return (decision!=2 && decision!=5)
+end
+
+def pbCheckAllFainted()
+  if pbAllFainted
+    Kernel.pbMessage(_INTL("{1} has no usable Pokémon!\1",$Trainer.name))
+    Kernel.pbMessage(_INTL("{1} blacked out!",$Trainer.name))
+    pbBGMFade(1.0)
+    pbBGSFade(1.0)
+    pbFadeOutIn(99999){
+       Kernel.pbStartOver
+    }
+  end
+end
+
+def pbEvolutionCheck(currentlevels)
+  # Check conditions for evolution
+  for i in 0...currentlevels.length
+    pokemon=$Trainer.party[i]
+    if pokemon && (!currentlevels[i] || pokemon.level!=currentlevels[i])
+      newspecies=Kernel.pbCheckEvolution(pokemon)
+      if newspecies>0
+        # Start evolution scene
+        evo=PokemonEvolutionScene.new
+        evo.pbStartScreen(pokemon,newspecies)
+        evo.pbEvolution
+        evo.pbEndScreen
+      end
+    end
+  end
+end
+
+def pbDynamicItemList(*args)
+  ret=[]
+  for i in 0...args.length
+    if hasConst?(PBItems,args[i])
+      ret.push(getConst(PBItems,args[i].to_sym))
+    end
+  end
   return ret
 end
 
-# Gets the path of the user's "My Documents" folder.
-def pbGetMyDocumentsFolder()
-  csidl_personal=0x0005
-  shGetSpecialFolderLocation=Win32API.new("shell32.dll","SHGetSpecialFolderLocation","llp","i")
-  shGetPathFromIDList=Win32API.new("shell32.dll","SHGetPathFromIDList","lp","i")
-  if !shGetSpecialFolderLocation || !shGetPathFromIDList
-    return "."
+# Runs the Pickup event after a battle if a Pokemon has the ability Pickup.
+def Kernel.pbPickup(pokemon)
+  return if !isConst?(pokemon.ability,PBAbilities,:PICKUP) || pokemon.isEgg?
+  return if pokemon.item!=0
+  return if rand(10)!=0
+  pickupList=pbDynamicItemList(
+     :POTION,
+     :ANTIDOTE,
+     :SUPERPOTION,
+     :GREATBALL,
+     :REPEL,
+     :ESCAPEROPE,
+     :FULLHEAL,
+     :HYPERPOTION,
+     :ULTRABALL,
+     :REVIVE,
+     :RARECANDY,
+     :SUNSTONE,
+     :MOONSTONE,
+     :HEARTSCALE,
+     :FULLRESTORE,
+     :MAXREVIVE,
+     :PPUP,
+     :MAXELIXIR
+  )
+  pickupListRare=pbDynamicItemList(
+     :HYPERPOTION,
+     :NUGGET,
+     :KINGSROCK,
+     :FULLRESTORE,
+     :ETHER,
+     :IRONBALL,
+     :DESTINYKNOT,
+     :ELIXIR,
+     :DESTINYKNOT,
+     :LEFTOVERS,
+     :DESTINYKNOT
+  )
+  return if pickupList.length!=18
+  return if pickupListRare.length!=11
+  randlist=[30,10,10,10,10,10,10,4,4,1,1]
+  items=[]
+  plevel=[100,pokemon.level].min
+  itemstart=(plevel-1)/10
+  itemstart=0 if itemstart<0
+  for i in 0...9
+    items.push(pickupList[itemstart+i])
   end
-  idl=[0].pack("V")
-  ret=shGetSpecialFolderLocation.call(0,csidl_personal,idl)
-  return "." if ret!=0
-  path="\0"*512
-  ret=shGetPathFromIDList.call(idl.unpack("V")[0],path)
-  return "." if ret==0
-  return path.gsub(/\0/,"")
-end
-
-# Returns a country ID
-# http://msdn.microsoft.com/en-us/library/dd374073%28VS.85%29.aspx?
-def pbGetCountry()
-  getUserGeoID=Win32API.new("kernel32","GetUserGeoID","l","i") rescue nil
-  if getUserGeoID
-    return getUserGeoID.call(16)
+  items.push(pickupListRare[itemstart])
+  items.push(pickupListRare[itemstart+1])
+  rnd=rand(100)
+  cumnumber=0
+  for i in 0...11
+    cumnumber+=randlist[i]
+    if rnd<cumnumber
+      pokemon.setItem(items[i])
+      break
+    end
   end
-  return 0
-end
-
-# Returns a language ID
-def pbGetLanguage()
-  getUserDefaultLangID=Win32API.new("kernel32","GetUserDefaultLangID","","i") rescue nil
-  ret=0
-  if getUserDefaultLangID
-    ret=getUserDefaultLangID.call()&0x3FF
-  end
-  if ret==0 # Unknown
-    ret=MiniRegistry.get(MiniRegistry::HKEY_CURRENT_USER,
-       "Control Panel\\Desktop\\ResourceLocale","",0)
-    ret=MiniRegistry.get(MiniRegistry::HKEY_CURRENT_USER,
-       "Control Panel\\International","Locale","0").to_i(16) if ret==0
-    ret=ret&0x3FF
-    return 0 if ret==0  # Unknown
-  end
-  return 1 if ret==0x11 # Japanese
-  return 2 if ret==0x09 # English
-  return 3 if ret==0x0C # French
-  return 4 if ret==0x10 # Italian
-  return 5 if ret==0x07 # German
-  return 7 if ret==0x0A # Spanish
-  return 8 if ret==0x12 # Korean
-  return 2 # Use 'English' by default
-end
-
-# Converts a Celsius temperature to Fahrenheit.
-def toFahrenheit(celsius)
-  return (celsius*9.0/5.0).round+32
 end
 
 
-# Converts a Fahrenheit temperature to Celsius.
-def toCelsius(fahrenheit)
-  return ((fahrenheit-32)*5.0/9.0).round
+
+class PokemonTemp
+  attr_accessor :encounterType 
+  attr_accessor :evolutionLevels
 end
 
 
-# Used only on some cases
-def worksOnCorendo(workable=true)
-  if workable
-    Kernel.pbMessage(_INTL("This feature is only available in VirtualReality Corendo Version."))
-    Kernel.pbMessage(_INTL("For Orbitron Medium members, please go to the Corendo Emulator or use the CorendoPlayer Console"))
-    Kernel.pbMessage(_INTL("For Standard members, this feature does nothing"))
+
+def pbEncounter(enctype)
+  if $PokemonGlobal.partner || ($PokemonSystem.doublebattles==1 rescue false)
+    encounter1=$PokemonEncounters.pbEncounteredPokemon(enctype)
+    return false if !encounter1
+    encounter2=$PokemonEncounters.pbEncounteredPokemon(enctype)
+    return false if !encounter2
+    $PokemonTemp.encounterType=enctype
+    pbDoubleWildBattle(encounter1[0],encounter1[1],encounter2[0],encounter2[1])
+    $PokemonTemp.encounterType=-1
+    return true
   else
-    Kernel.pbMessage(_INTL("This feature is only available in RPG Maker XP Version."))
-    Kernel.pbMessage(_INTL("For members who want to try out the feature, please run the RGSS RPG XP Version"))
-    Kernel.pbMessage(_INTL("For VirtualReality Corendo members, this feature does nothing"))
-  end
-end
-
-def worksOnCorendo2(workable=true)
-  if workable
-    Kernel.pbMessage(_INTL("\\c[8]\\w[TrophyWindow]This feature is only available in VirtualReality Corendo Version."))
-    Kernel.pbMessage(_INTL("\\c[8]\\w[TrophyWindow]For Orbitron Medium members, please go to the Corendo Emulator or use the CorendoPlayer Console"))
-    Kernel.pbMessage(_INTL("\\c[8]\\w[TrophyWindow]For Standard members, this feature does nothing"))
-  else
-    Kernel.pbMessage(_INTL("\\c[8]\\w[TrophyWindow]This feature is only available in RPG Maker XP Version."))
-    Kernel.pbMessage(_INTL("\\c[8]\\w[TrophyWindow]For members who want to try out the feature, please run the RGSS RPG XP Version"))
-    Kernel.pbMessage(_INTL("\\c[8]\\w[TrophyWindow]For VirtualReality Corendo members, this feature does nothing"))
-  end
-end
-
-# Memorize
-=begin
-  Use of "qorePartyMemorise" script will require new Pokemon to be added
-=end
-def qorePartyReset
-  $Trainer.party=$game_variables[172]
-end
-
-def qorePartyMemorize
-  pbSet(172,$Trainer.party)
-  $Trainer.party=[]
-end
-
-
-def getDexNumber(indexNumber=0)
-    fdexno = indexNumber.to_s
-    if indexNumber > 649 and indexNumber < 850 # Κορα Κορε Generation I
-      fnum = (indexNumber - 649).to_s
-      while (fnum.length < 3)
-        fnum = "0" + fnum
-      end
-      fdexno = "Q" + fnum
-    elsif indexNumber > 921 and indexNumber < 942 # Κορα Κορε Generation II
-      fnum = (indexNumber - 721).to_s
-      while (fnum.length < 3)
-        fnum = "0" + fnum
-      end
-      fdexno = "Q" + fnum
-    elsif indexNumber > 1029 and indexNumber < 1050  # Κορα Κορε Generation III
-      fnum = (indexNumber - 809).to_s
-      while (fnum.length < 3)
-        fnum = "0" + fnum
-      end
-      fdexno = "Q" + fnum
-    elsif indexNumber > 1130 and indexNumber < 1141 # Κορα Κορε Generation IV
-      fnum = (indexNumber - 890).to_s
-      while (fnum.length < 3)
-        fnum = "0" + fnum
-      end
-      fdexno = "Q" + fnum
-    elsif indexNumber > 1148 and indexNumber < 1249 # Κορα Κορε Generation V
-      fnum = (indexNumber - 898).to_s
-      while (fnum.length < 3)
-        fnum = "0" + fnum
-      end
-      fdexno = "Q" + fnum
-
-    elsif indexNumber <= 649 # Generation I-V
-      while (fdexno.length < 3)
-        fdexno = "0" + fdexno
-      end
-      fdexno = fdexno + ""
-    elsif indexNumber > 941 and indexNumber < 1030 # Generation VII
-      fdexno = (indexNumber - 220).to_s
-      while (fdexno.length < 3)
-        fdexno = "0" + fdexno
-      end
-      fdexno = fdexno + ""
-    elsif indexNumber > 1049 and indexNumber < 1131 # Generation VIII A
-      fdexno = (indexNumber - 240).to_s
-      while (fdexno.length < 3)
-        fdexno = "0" + fdexno
-      end
-      fdexno = fdexno + ""
-    elsif indexNumber > 1140 and indexNumber < 1149 # Generation VIII B
-      fdexno = (indexNumber - 250).to_s
-      while (fdexno.length < 3)
-        fdexno = "0" + fdexno
-      end
-      fdexno = fdexno + ""
-    elsif indexNumber > 1248 # Generation VIII C
-      fdexno = (indexNumber - 350).to_s
-      while (fdexno.length < 3)
-        fdexno = "0" + fdexno
-      end
-      fdexno = fdexno + ""
-
-      else # Generation VI
-      fdexno = (indexNumber - 200).to_s
-      while (fdexno.length < 3)
-        fdexno = "0" + fdexno
-      end      
-    end
-    return fdexno
-end
-
-# Used on Storage System (Not for use)
-=begin
-def getDexNumber2(i=0)
-    fdexno = i
-    if i > 649 and i < 850 # Κορα Κορε Generation I (891 - 1090)
-      fnum = (i + 241 + addspc)
-      fdexno = fnum
-    elsif i > 921 and i < 942 # Κορα Κορε Generation II (1091 - 1110)
-      fnum = (i + 169 + addspc)
-      fdexno = fnum
-    elsif i > 1029 and i < 1050  # Κορα Κορε Generation III (1111 - 1130)
-      fnum = (i + 81 + addspc)
-      fdexno = fnum
-    elsif i > 1130 and i < 1141 # Κορα Κορε Generation IV
-      fnum = (i + addspc)
-      fdexno = fnum
-    elsif i <= 649 # Generation I-V
-      fdexno = fdexno
-    elsif i > 941 and i < 1030 # Generation VII
-      fdexno = (i - 220)
-      fdexno = fdexno
-    elsif i > 1049 and i < 1131 # Generation VIII A
-      fdexno = (i - 240)
-      fdexno = fdexno
-    elsif i > 1140 # Generation VIII B
-      fdexno = (i - 250) # TODO: Should be 250
-      fdexno = fdexno
-    else # Generation VI
-      fdexno = (i - 200)
-    end
-    return fdexno
-end
-=end
-
-# Used on Pokemon Chosen (Non alphabet, for proper cursor position)
-
-def getDexNumber3(i=0)
-    fdexno = i
-    if i > 649 and i < 850 # Κορα Κορε Generation I (891 - 1090)
-      fnum = (i - 649)
-      fdexno = fnum
-    elsif i > 921 and i < 942 # Κορα Κορε Generation II (1091 - 1110)
-      fnum = (i - 721)
-      fdexno = fnum
-    elsif i > 1029 and i < 1050  # Κορα Κορε Generation III (1111 - 1130)
-      fnum = (i - 809)
-      fdexno = fnum
-    elsif i > 1130 and i < 1141 # Κορα Κορε Generation IV
-      fnum = (i - 890)
-      fdexno = fnum
-    elsif i > 1148 and i < 1249 # Κορα Κορε Generation V
-      fnum = (i - 898)
-      fdexno = fnum
-    elsif i <= 649 # Generation I-V
-      fdexno = (i + 350)
-    elsif i > 941 and i < 1030 # Generation VII
-      fdexno = (i + 130)
-      fdexno = fdexno
-    elsif i > 1049 and i < 1131 # Generation VIII A
-      fdexno = (i + 110)
-      fdexno = fdexno
-    elsif i > 1140 and i < 1149 # Generation VIII B
-      fdexno = (i + 100)
-      fdexno = fdexno
-    elsif i > 1248 # Generation VIII C
-      fdexno = i
-      fdexno = fdexno
-    else # Generation VI
-      fdexno = (i + 150)
-    end
-    return fdexno
-end
-
-# Also used on Pokemon Chosen (Non alphabet, for proper Pokemon result)
-
-def getDexNumber4(i=0)
-    fdexno = i
-    if i > -1 and i < 200 # Κορα Κορε Generation I (891 - 1090)
-      fnum = (i + 649)
-      fdexno = fnum
-    elsif i > 199 and i < 220 # Κορα Κορε Generation II (1091 - 1110)
-      fnum = (i + 721)
-      fdexno = fnum
-    elsif i > 219 and i < 240  # Κορα Κορε Generation III (1111 - 1130)
-      fnum = (i + 809)
-      fdexno = fnum
-    elsif i > 239 and i < 250 # Κορα Κορε Generation IV
-      fnum = (i + 890)
-      fdexno = fnum
-    elsif i > 249 and i < 350 # Κορα Κορε Generation V
-      fnum = (i + 898)
-      fdexno = fnum
-    elsif i <= 649+349 # Generation I-V (i <= 898)
-      fdexno = (i - 350)
-    elsif i > 941+129 and i < 1030+129 # Generation VII (i > 970 and i < 1059)
-      fdexno = (i - 130)
-      fdexno = fdexno
-    elsif i > 1049+109 and i < 1131+109 # Generation VIII A (1058 and i < 1140)
-      fdexno = (i - 110)
-      fdexno = fdexno
-    elsif i > 1140+99 and i < 1149+99 # Generation VIII B
-      fdexno = (i - 100)
-      fdexno = i
-    elsif i > 1248-1 # Generation VIII C
-      fdexno = (i - 0)
-      fdexno = i
-    elsif i > 849+149 and i < 922+149 # Generation VI
-      fdexno = (i - 150)
-    end
-    return fdexno
-end
-
-
-
-################################################################################
-# Linear congruential random number generator
-################################################################################
-class LinearCongRandom
-  def initialize(mul, add, seed=nil)
-    @s1=mul
-    @s2=add
-    @seed=seed
-    @seed=(Time.now.to_i&0xffffffff) if !@seed
-    @seed=(@seed+0xFFFFFFFF)+1 if @seed<0
-  end
-
-  def self.dsSeed
-    t=Time.now
-    seed = (((t.mon * t.mday + t.min + t.sec)&0xFF) << 24) | (t.hour << 16) | (t.year - 2000)
-    seed=(seed+0xFFFFFFFF)+1 if seed<0
-    return seed
-  end
-
-  def self.pokemonRNG
-    self.new(0x41c64e6d,0x6073,self.dsSeed)
-  end
-
-  def self.pokemonRNGInverse
-    self.new(0xeeb9eb65,0xa3561a1,self.dsSeed)
-  end
-
-  def self.pokemonARNG
-    self.new(0x6C078965,0x01,self.dsSeed)
-  end
-
-  def getNext16 # calculates @seed * @s1 + @s2
-    @seed=((((@seed & 0x0000ffff) * (@s1 & 0x0000ffff)) & 0x0000ffff) | 
-       (((((((@seed & 0x0000ffff) * (@s1 & 0x0000ffff)) & 0xffff0000) >> 16) + 
-       ((((@seed & 0xffff0000) >> 16) * (@s1 & 0x0000ffff)) & 0x0000ffff) + 
-       (((@seed & 0x0000ffff) * ((@s1 & 0xffff0000) >> 16)) & 0x0000ffff)) & 
-       0x0000ffff) << 16)) + @s2
-    r=(@seed>>16)
-    r=(r+0xFFFFFFFF)+1 if r<0
-    return r
-  end
-
-  def getNext
-    r=(getNext16()<<16)|(getNext16())
-    r=(r+0xFFFFFFFF)+1 if r<0
-    return r
-  end
-end
-
-
-
-################################################################################
-# JavaScript-related utilities
-################################################################################
-# Returns true if the given string represents a valid object in JavaScript
-# Object Notation, and false otherwise.
-def  pbIsJsonString(str)
-  return false if (!str || str[ /^[\s]*$/ ])
-  d=/(?:^|:|,)(?: ?\[)+/
-  charEscapes=/\\[\"\\\/nrtubf]/ #"
-  stringLiterals=/"[^"\\\n\r\x00-\x1f\x7f-\x9f]*"/ #"
-  whiteSpace=/[\s]+/
-  str=str.gsub(charEscapes,"@").gsub(stringLiterals,"true").gsub(whiteSpace," ")
-  # prevent cases like "truetrue" or "true true" or "true[true]" or "5-2" or "5true" 
-  otherLiterals=/(true|false|null|-?\d+(?:\.\d*)?(?:[eE][+\-]?\d+)?)(?! ?[0-9a-z\-\[\{\"])/ #"
-  str=str.gsub(otherLiterals,"]").gsub(d,"") #"
-  p str
-  return str[ /^[\],:{} ]*$/ ] ? true : false
-end
-
-# Returns a Ruby object that corresponds to the given string, which is encoded in
-# JavaScript Object Notation (JSON). Returns nil if the string is not valid JSON.
-def pbParseJson(str)
-  if !pbIsJsonString(str)
-    return nil
-  end
-  stringRE=/(\"(\\[\"\'\\rntbf]|\\u[0-9A-Fa-f]{4,4}|[^\\\"])*\")/ #"
-  strings=[]
-  str=str.gsub(stringRE){
-     sl=strings.length
-     ss=$1
-     if ss.include?("\\u")
-       ss.gsub!(/\\u([0-9A-Fa-f]{4,4})/){
-          codepoint=$1.to_i(16)
-          if codepoint<=0x7F
-            next sprintf("\\x%02X",codepoint)
-          elsif codepoint<=0x7FF
-            next sprintf("%s%s",
-               (0xC0|((codepoint>>6)&0x1F)).chr,
-               (0x80|(codepoint   &0x3F)).chr)
-          else
-            next sprintf("%s%s%s",
-               (0xE0|((codepoint>>12)&0x0F)).chr,
-               (0x80|((codepoint>>6)&0x3F)).chr,
-               (0x80|(codepoint   &0x3F)).chr)
-          end
-       }
-     end
-     strings.push(eval(ss))
-     next sprintf("strings[%d]",sl)
-  }
-  str=str.gsub(/\:/,"=>")
-  str=str.gsub(/null/,"nil")
-  return eval("("+str+")")
-end
-
-
-
-################################################################################
-# XML-related utilities
-################################################################################
-# Represents XML content.
-class MiniXmlContent
-  attr_reader :value
-
-  def initialize(value)
-    @value=value
-  end
-end
-
-
-
-# Represents an XML element.
-class MiniXmlElement
-  attr_accessor :name,:attributes,:children
-
-  def initialize(name)
-    @name=name
-    @attributes={}
-    @children=[]
-  end
-
-#  Gets the value of the attribute with the given name, or nil if it doesn't
-#  exist.
-  def a(name)
-    self.attributes[name]
-  end
-
-#  Gets the entire text of this element.
-  def value
-    ret=""
-    for c in @children
-      ret+=c.value
-    end
-    return ret
-  end
-
-#  Gets the first child of this element with the given name, or nil if it
-# doesn't exist.
-  def e(name)
-    for c in @children
-      return c if c.is_a?(MiniXmlElement) && c.name==name
-    end
-    return nil
-  end
-
-  def eachElementNamed(name)
-    for c in @children
-      yield c if c.is_a?(MiniXmlElement) && c.name==name
-    end
-  end
-end
-
-
-
-# A small class for reading simple XML documents. Such documents must
-# meet the following restrictions:
-#  They may contain comments and processing instructions, but they are
-#    ignored.
-#  They can't contain any entity references other than 'gt', 'lt',
-#    'amp', 'apos', or 'quot'.
-#  They can't contain a DOCTYPE declaration or DTDs.
-class MiniXmlReader
-  def initialize(data)
-    @root=nil
-    @elements=[]
-    @done=false
-    @data=data
-    @content=""
-  end
-
-  def createUtf8(codepoint) #:nodoc:
-    raise ArgumentError.new("Illegal character") if codepoint<9 ||
-       codepoint==11||codepoint==12||(codepoint>=14 && codepoint<32) ||
-       codepoint==0xFFFE||codepoint==0xFFFF||(codepoint>=0xD800 && codepoint<0xE000)
-    if codepoint<=0x7F
-      return codepoint.chr
-    elsif codepoint<=0x7FF
-      str=(0xC0|((codepoint>>6)&0x1F)).chr
-      str+=(0x80|(codepoint   &0x3F)).chr
-      return str
-    elsif codepoint<=0xFFFF
-      str=(0xE0|((codepoint>>12)&0x0F)).chr
-      str+=(0x80|((codepoint>>6)&0x3F)).chr
-      str+=(0x80|(codepoint   &0x3F)).chr
-      return str
-    elsif codepoint<=0x10FFFF
-      str=(0xF0|((codepoint>>18)&0x07)).chr
-      str+=(0x80|((codepoint>>12)&0x3F)).chr
-      str+=(0x80|((codepoint>>6)&0x3F)).chr
-      str+=(0x80|(codepoint   &0x3F)).chr
-      return str
-    else
-      raise ArgumentError.new("Illegal character")
-    end
-    return str
-  end
-
-  def unescape(attr) #:nodoc:
-    attr=attr.gsub(/\r(\n|$|(?=[^\n]))/,"\n")
-    raise ArgumentError.new("Attribute value contains '<'") if attr.include?("<")
-    attr=attr.gsub(/&(lt|gt|apos|quot|amp|\#([0-9]+)|\#x([0-9a-fA-F]+));|([\n\r\t])/){
-       next " " if $4=="\n"||$4=="\r"||$4=="\t"
-       next "<" if $1=="lt"
-       next ">" if $1=="gt"
-       next "'" if $1=="apos"
-       next "\"" if $1=="quot"
-       next "&" if $1=="amp"
-       next createUtf8($2.to_i) if $2
-       next createUtf8($3.to_i(16)) if $3
-    }
-    return attr
-  end
-
-  def readAttributes(attribs) #:nodoc:
-    ret={}
-    while attribs.length>0
-      if attribs[/(\s+([\w\-]+)\s*\=\s*\"([^\"]*)\")/]
-        attribs=attribs[$1.length,attribs.length]
-        name=$2; value=$3
-        if ret[name]!=nil
-          raise ArgumentError.new("Attribute already exists")
-        end
-        ret[name]=unescape(value)
-      elsif attribs[/(\s+([\w\-]+)\s*\=\s*\'([^\']*)\')/]
-        attribs=attribs[$1.length,attribs.length]
-        name=$2; value=$3
-        if ret[name]!=nil
-          raise ArgumentError.new("Attribute already exists")
-        end
-        ret[name]=unescape(value)
-      else
-        raise ArgumentError.new("Can't parse attributes")
-      end
-    end
-    return ret
-  end
-
-# Reads the entire contents of an XML document. Returns the root element of
-# the document or raises an ArgumentError if an error occurs.
-  def read
-    if @data[/\A((\xef\xbb\xbf)?<\?xml\s+version\s*=\s*(\"1\.[0-9]\"|\'1\.[0-9]\')(\s+encoding\s*=\s*(\"[^\"]*\"|\'[^\']*\'))?(\s+standalone\s*=\s*(\"(yes|no)\"|\'(yes|no)\'))?\s*\?>)/]
-      # Ignore XML declaration
-      @data=@data[$1.length,@data.length]
-    end
-    while readOneElement(); end
-    return @root
-  end
-
-  def readOneElement #:nodoc:
-    if @data[/\A\s*\z/]
-      @data=""
-      if !@root
-        raise ArgumentError.new("Not an XML document.")
-      elsif !@done
-        raise ArgumentError.new("Unexpected end of document.")
-      end
-      return false
-    end
-    if @data[/\A(\s*<([\w\-]+)((?:\s+[\w\-]+\s*\=\s*(?:\"[^\"]*\"|\'[^\']*\'))*)\s*(\/>|>))/]
-      @data=@data[$1.length,@data.length]
-      elementName=$2
-      attributes=$3
-      endtag=$4
-      if @done
-        raise ArgumentError.new("Element tag at end of document")
-      end
-      if @content.length>0 && @elements.length>0
-        @elements[@elements.length-1].children.push(MiniXmlContent.new(@content))
-        @content=""
-      end
-      element=MiniXmlElement.new(elementName)
-      element.attributes=readAttributes(attributes)
-      if !@root
-        @root=element
-      else
-        @elements[@elements.length-1].children.push(element)
-      end
-      if endtag==">"
-        @elements.push(element)
-      else
-        if @elements.length==0
-          @done=true
-        end
-      end
-    elsif @data[/\A(<!--([\s\S]*?)-->)/]
-      # ignore comments
-      if $2.include?("--")
-        raise ArgumentError.new("Incorrect comment")
-      end
-      @data=@data[$1.length,@data.length]
-    elsif @data[/\A(<\?([\w\-]+)\s+[\s\S]*?\?>)/]
-      # ignore processing instructions
-      @data=@data[$1.length,@data.length]
-      if $2.downcase=="xml"
-        raise ArgumentError.new("'xml' processing instruction not allowed")
-      end
-    elsif @data[/\A(<\?([\w\-]+)\?>)/]
-      # ignore processing instructions
-      @data=@data[$1.length,@data.length]
-      if $2.downcase=="xml"
-        raise ArgumentError.new("'xml' processing instruction not allowed")
-      end
-    elsif @data[/\A(\s*<\/([\w\-]+)>)/]
-      @data=@data[$1.length,@data.length]
-      elementName=$2
-      if @done
-        raise ArgumentError.new("End tag at end of document")
-      end
-      if @elements.length==0
-        raise ArgumentError.new("Unexpected end tag")
-      elsif @elements[@elements.length-1].name!=elementName
-        raise ArgumentError.new("Incorrect end tag")
-      else
-        if @content.length>0
-          @elements[@elements.length-1].children.push(MiniXmlContent.new(@content))
-          @content=""
-        end
-        @elements.pop()
-        if @elements.length==0
-          @done=true
-        end
-      end
-    else
-      if @elements.length>0
-        # Parse content
-        if @data[/\A([^<&]+)/]
-          content=$1
-          @data=@data[content.length,@data.length]
-          if content.include?("]]>")
-            raise ArgumentError.new("Incorrect content")
-          end
-          content.gsub!(/\r(\n|\z|(?=[^\n]))/,"\n")
-          @content+=content
-        elsif @data[/\A(<\!\[CDATA\[([\s\S]*?)\]\]>)/]
-          content=$2
-          @data=@data[$1.length,@data.length]
-          content.gsub!(/\r(\n|\z|(?=[^\n]))/,"\n")
-          @content+=content
-        elsif @data[/\A(&(lt|gt|apos|quot|amp|\#([0-9]+)|\#x([0-9a-fA-F]+));)/]
-          @data=@data[$1.length,@data.length]
-          content=""
-          if $2=="lt"; content="<"
-          elsif $2=="gt"; content=">"
-          elsif $2=="apos"; content="'"
-          elsif  $2=="quot"; content="\""
-          elsif $2=="amp"; content="&"
-          elsif $3; content=createUtf8($2.to_i)
-          elsif $4; content=createUtf8($3.to_i(16))
-          end
-          @content+=content
-        elsif !@data[/\A</]
-          raise ArgumentError.new("Can't read XML content")
-        end
-      else
-        raise ArgumentError.new("Can't parse XML")
-      end
-    end
+    encounter=$PokemonEncounters.pbEncounteredPokemon(enctype)
+    return false if !encounter
+    $PokemonTemp.encounterType=enctype
+    pbWildBattle(encounter[0],encounter[1])
+	  $PokemonTemp.encounterType=-1
     return true
   end
 end
 
+Events.onStartBattle+=proc {|sender,e|
+  $PokemonTemp.evolutionLevels=[]
+  for i in 0...$Trainer.party.length
+    $PokemonTemp.evolutionLevels[i]=$Trainer.party[i].level
+  end
+}
+
+Events.onEndBattle+=proc {|sender,e|
+  decision=e[0]
+  canlose=e[1]
+  if $USENEWBATTLEMECHANICS || (decision!=2 && decision!=5) # not a loss or a draw
+    if $PokemonTemp.evolutionLevels
+      pbEvolutionCheck($PokemonTemp.evolutionLevels)
+      $PokemonTemp.evolutionLevels=nil
+    end
+  end
+  if decision==1
+    for pkmn in $Trainer.party
+      Kernel.pbPickup(pkmn)
+      if isConst?(pkmn.ability,PBAbilities,:HONEYGATHER) && !pkmn.isEgg? && !pkmn.hasItem?
+        if hasConst?(PBItems,:HONEY)
+          chance = 5 + ((pkmn.level-1)/10).floor*5
+          pkmn.setItem(:HONEY) if rand(100)<chance
+        end
+      end
+      if isConst?(pkmn.ability,PBAbilities,:SHINYGATHER) && !pkmn.isEgg? && !pkmn.hasItem?
+        if hasConst?(PBItems,:PRALINEBALL)
+          chance = 5 + ((pkmn.level-1)/10).floor*5
+          pkmn.setItem(:PRALINEBALL) if rand(100)<chance
+        end
+      end
+      if isConst?(pkmn.species,PBSpecies,:JOICON) && !pkmn.isEgg? && !pkmn.hasItem?
+        item=[:EXPCANDYXL,
+              :EXPCANDYL,:EXPCANDYL,
+              :EXPCANDYM,:EXPCANDYM,:EXPCANDYM,
+              :EXPCANDYS,:EXPCANDYS,:EXPCANDYS,:EXPCANDYS,
+              :EXPCANDYXS,:EXPCANDYXS,:EXPCANDYXS,:EXPCANDYXS][rand(14)]
+        if hasConst?(PBItems,item)
+          chance = 5 + ((pkmn.level-1)/10).floor*5
+          pkmn.setItem(item) if rand(100)<chance
+        end
+      end
+      if isConst?(pkmn.ability,PBAbilities,:KOULUNDIN) && !pkmn.isEgg? && !pkmn.hasItem?
+        item=[:ADAMANTMINT,:BOLDMINT,:BRAVEMINT,:CALMMINT,:CAREFULMINT,:GENTLEMINT,:HASTYMINT,:IMPISHMINT,:JOLLYMINT,:LAXMINT,:LONELYMINT,:MILDMINT,:MODESTMINT,:NAIVEMINT,:NAUGHTYMINT,:QUIETMINT,:RASHMINT,:RELAXEDMINT,:SASSYMINT,:SERIOUSMINT,:TIMIDMINT][rand(21)]
+        if hasConst?(PBItems,item)
+          chance = 5 + ((pkmn.level-1)/10).floor*5
+          pkmn.setItem(item) if rand(100)<chance
+        end
+      end
+    end
+  end
+  if (decision==2 || decision==5) && !canlose
+    $game_system.bgm_unpause
+    $game_system.bgs_unpause
+    Kernel.pbStartOver
+  end
+}
 
 
-################################################################################
-# Player-related utilities, random name generator
-################################################################################
-def pbChangePlayer(id)
-  return false if id<0 || id>=8
-  meta=pbGetMetadata(0,MetadataPlayerA+id)
-  return false if !meta
-  $Trainer.trainertype=meta[0] if $Trainer
-  $game_player.character_name=meta[1]
-  $game_player.character_hue=0
-  $PokemonGlobal.playerID=id
-  $Trainer.metaID=id if $Trainer
+
+#===============================================================================
+# Scene_Map and Spriteset_Map
+#===============================================================================
+class Scene_Map
+  def createSingleSpriteset(map)
+    temp=$scene.spriteset.getAnimations
+    @spritesets[map]=Spriteset_Map.new($MapFactory.maps[map])
+    $scene.spriteset.restoreAnimations(temp)
+    $MapFactory.setSceneStarted(self)
+    updateSpritesets
+  end
 end
 
-def pbGetPlayerGraphic
-  id=$PokemonGlobal.playerID
-  return "" if id<0 || id>=8
-  meta=pbGetMetadata(0,MetadataPlayerA+id)
-  return "" if !meta
-  return pbPlayerSpriteFile(meta[0])
+
+
+class Spriteset_Map
+  def getAnimations
+    return @usersprites
+  end
+
+  def restoreAnimations(anims)
+    @usersprites=anims
+  end
 end
 
-def pbGetPlayerTrainerType
-  id=$PokemonGlobal.playerID
-  return 0 if id<0 || id>=8
-  meta=pbGetMetadata(0,MetadataPlayerA+id)
-  return 0 if !meta
-  return meta[0]
+
+
+Events.onSpritesetCreate+=proc{|sender,e|
+  spriteset=e[0] # Spriteset being created
+  viewport=e[1] # Viewport used for tilemap and characters
+  map=spriteset.map # Map associated with the spriteset (not necessarily the current map).
+  for i in map.events.keys
+    if map.events[i].name[/^OutdoorLight\((\w+)\)$/]
+      filename=$~[1].to_s
+      spriteset.addUserSprite(LightEffect_DayNight.new(map.events[i],viewport,map,filename))
+    elsif map.events[i].name=="OutdoorLight"
+      spriteset.addUserSprite(LightEffect_DayNight.new(map.events[i],viewport,map))
+    elsif map.events[i].name[/^Light\((\w+)\)$/]
+      filename=$~[1].to_s
+      spriteset.addUserSprite(LightEffect_Basic.new(map.events[i],viewport,map,filename))
+    elsif map.events[i].name=="Light"
+      spriteset.addUserSprite(LightEffect_Basic.new(map.events[i],viewport,map))
+    end
+  end
+  spriteset.addUserSprite(Particle_Engine.new(viewport,map))
+}
+
+def Kernel.pbOnSpritesetCreate(spriteset,viewport)
+  Events.onSpritesetCreate.trigger(nil,spriteset,viewport)
 end
 
-def pbGetTrainerTypeGender(trainertype)
-  ret=2 # 2 = gender unknown
-  pbRgssOpen("Data/trainertypes.dat","rb"){|f|
-     trainertypes=Marshal.load(f)
-     if !trainertypes[trainertype]
-       ret=2
-     else
-       ret=trainertypes[trainertype][7]
-       ret=2 if !ret
-     end
-  }
+
+
+#===============================================================================
+# Field movement
+#===============================================================================
+def pbLedge(xOffset,yOffset)
+  if PBTerrain.isLedge?(Kernel.pbFacingTerrainTag)
+    if Kernel.pbJumpToward(2,true)
+      $scene.spriteset.addUserAnimation(DUST_ANIMATION_ID,$game_player.x,$game_player.y,true)
+      $game_player.increase_steps
+      $game_player.check_event_trigger_here([1,2])
+    end
+    return true
+  end
+  return false
+end
+
+def Kernel.pbSlideOnIce(event=nil)
+  event=$game_player if !event
+  return if !event
+  return if !PBTerrain.isIce?(pbGetTerrainTag(event))
+  $PokemonGlobal.sliding=true
+  direction=event.direction
+  oldwalkanime=event.walk_anime
+  event.straighten
+  event.pattern=1
+  event.walk_anime=false
+  loop do
+    break if !event.passable?(event.x,event.y,direction)
+    break if !PBTerrain.isIce?(pbGetTerrainTag(event))
+    event.move_forward
+    while event.moving?
+      Graphics.update
+      Input.update
+      pbUpdateSceneMap
+    end
+  end
+  event.center(event.x,event.y)
+  event.straighten
+  event.walk_anime=oldwalkanime
+  $PokemonGlobal.sliding=false
+end
+
+# Poison event on each step taken
+Events.onStepTakenTransferPossible+=proc {|sender,e|
+  handled=e[0]
+  next if handled[0]
+  if $PokemonGlobal.stepcount % 4 == 0 && POISONINFIELD
+    flashed=false
+    for i in $Trainer.party
+      if i.status==PBStatuses::POISON && i.hp>0 && !i.isEgg? &&
+         !isConst?(i.ability,PBAbilities,:IMMUNITY)
+        if !flashed
+          $game_screen.start_flash(Color.new(255,0,0,128), 4)
+          flashed=true
+        end
+        if i.hp==1 && !POISONFAINTINFIELD
+          i.status=0
+          Kernel.pbMessage(_INTL("{1} survived the poisoning.\\nThe poison faded away!\\1",i.name))
+          next
+        end
+        i.hp-=1
+        if i.hp==1 && !POISONFAINTINFIELD
+          i.status=0
+          Kernel.pbMessage(_INTL("{1} survived the poisoning.\\nThe poison faded away!\\1",i.name))
+        end
+        if i.hp==0
+          i.changeHappiness("faint")
+          i.status=0
+          Kernel.pbMessage(_INTL("{1} fainted...\\1",i.name))
+        end
+        handled[0]=true if pbAllFainted
+        pbCheckAllFainted()
+      end
+    end
+  end
+}
+
+Events.onStepTaken+=proc{
+  $PokemonGlobal.happinessSteps=0 if !$PokemonGlobal.happinessSteps
+  $PokemonGlobal.happinessSteps+=1
+  if $PokemonGlobal.happinessSteps==128
+    for pkmn in $Trainer.party
+      if pkmn.hp>0 && !pkmn.isEgg?
+        pkmn.changeHappiness("walking") if rand(2)==0
+      end
+    end
+    $PokemonGlobal.happinessSteps=0
+  end
+}
+
+Events.onStepTaken+=proc{
+  for pkmn in $Trainer.party
+    if pkmn.hp>0 && !pkmn.isEgg?
+      pkmn.addTemp = 0
+      pkmn.addTemp = -20 if ($game_screen.weather_type==PBFieldWeather::Snow ||
+           $game_screen.weather_type==PBFieldWeather::Blizzard)
+      pkmn.addTemp = 25 if $game_screen.weather_type==PBFieldWeather::Sun
+      if rand(20)==0
+        pkmn.temperature2= [1,-1,-2][rand(3)] if pkmn.addTemp==-20 # Snowy
+        pkmn.temperature2= [1,[1,-1][rand(2)],-1][rand(3)] if pkmn.addTemp==0 # Otherwise
+        pkmn.temperature2= [2,-1][rand(2)] if pkmn.addTemp==25 # Sunny
+        pkmn.temperature2= [2,1,-1][rand(3)] if rand(10) == 0
+      end
+    end
+  end
+}
+
+
+Events.onStepTakenFieldMovement+=proc{|sender,e|
+  event=e[0] # Get the event affected by field movement
+  thistile=$MapFactory.getRealTilePos(event.map.map_id,event.x,event.y)
+  map=$MapFactory.getMap(thistile[0])
+  sootlevel=-1
+  for i in [2, 1, 0]
+    tile_id = map.data[thistile[1],thistile[2],i]
+    next if tile_id == nil
+    if map.terrain_tags[tile_id] &&
+       map.terrain_tags[tile_id]==PBTerrain::SootGrass
+      sootlevel=i
+      break
+    end
+  end
+  if sootlevel>=0 && hasConst?(PBItems,:SOOTSACK)
+    $PokemonGlobal.sootsack=0 if !$PokemonGlobal.sootsack
+#    map.data[thistile[1],thistile[2],sootlevel]=0
+    if event==$game_player && $PokemonBag.pbQuantity(:SOOTSACK)>0
+      $PokemonGlobal.sootsack+=1
+    end
+#    $scene.createSingleSpriteset(map.map_id)
+  end
+}
+
+Events.onStepTakenFieldMovement+=proc{|sender,e|
+  event=e[0] # Get the event affected by field movement
+  if $scene.is_a?(Scene_Map)
+    currentTag=pbGetTerrainTag(event)
+    if PBTerrain.isJustGrass?(pbGetTerrainTag(event,true))  # Won't show if under bridge
+      $scene.spriteset.addUserAnimation(GRASS_ANIMATION_ID,event.x,event.y,true)
+    elsif event==$game_player && currentTag==PBTerrain::WaterfallCrest
+      # Descend waterfall, but only if this event is the player
+      Kernel.pbDescendWaterfall(event)
+    elsif event==$game_player && PBTerrain.isIce?(currentTag) && !$PokemonGlobal.sliding
+      Kernel.pbSlideOnIce(event)
+    end
+  end
+}
+
+def pbBattleOnStepTaken
+  if $Trainer.party.length>0
+    encounterType=$PokemonEncounters.pbEncounterType
+    if encounterType>=0
+      if $PokemonEncounters.isEncounterPossibleHere?()
+        encounter=$PokemonEncounters.pbGenerateEncounter(encounterType)
+        encounter=EncounterModifier.trigger(encounter)
+        if $PokemonEncounters.pbCanEncounter?(encounter)
+          if $PokemonGlobal.partner || ($PokemonSystem.doublebattles==1 rescue false)
+            encounter2=$PokemonEncounters.pbEncounteredPokemon(encounterType)
+            pbDoubleWildBattle(encounter[0],encounter[1],encounter2[0],encounter2[1])
+          else
+            pbWildBattle(encounter[0],encounter[1])
+          end
+        end
+        EncounterModifier.triggerEncounterEnd()
+      end
+    end
+  end
+end
+
+def Kernel.pbOnStepTaken(eventTriggered)
+  if $game_player.move_route_forcing || pbMapInterpreterRunning? || !$Trainer
+    # if forced movement or if no trainer was created yet
+    Events.onStepTakenFieldMovement.trigger(nil,$game_player)
+    return
+  end
+  $PokemonGlobal.stepcount=0 if !$PokemonGlobal.stepcount
+  $PokemonGlobal.stepcount+=1
+  $PokemonGlobal.stepcount&=0x7FFFFFFF
+  Events.onStepTaken.trigger(nil)
+#  Events.onStepTakenFieldMovement.trigger(nil,$game_player)
+  handled=[nil]
+  Events.onStepTakenTransferPossible.trigger(nil,handled)
+  return if handled[0]
+  if !eventTriggered
+    pbBattleOnStepTaken()
+  end
+end
+
+# This method causes a lot of lag when the game is encrypted
+def pbGetPlayerCharset(meta,charset,trainer=nil)
+  trainer=$Trainer if !trainer
+  outfit=trainer ? trainer.outfit : 0
+  ret=meta[charset]
+  ret=meta[1] if !ret || ret==""
+#  if FileTest.image_exist?("Graphics/Characters/"+ret+"_"+outfit.to_s)
+  if pbResolveBitmap("Graphics/Characters/"+ret+"_"+outfit.to_s)
+    ret=ret+"_"+outfit.to_s
+  end
   return ret
 end
 
-def pbTrainerName(name=nil,outfit=0)
-  if $PokemonGlobal.playerID<0
-    pbChangePlayer(0)
-  end
-  trainertype=pbGetPlayerTrainerType
-  trname=name
-  $Trainer=PokeBattle_Trainer.new(trname,trainertype)
-  $Trainer.outfit=outfit
-  if trname==nil
-    trname=pbEnterPlayerName(_INTL("Your name?"),0,12)
-    if trname==""
-      gender=pbGetTrainerTypeGender(trainertype) 
-      trname=pbSuggestTrainerName(gender)
-    end
-  end
-  $Trainer.name=trname
-  $PokemonBag=PokemonBag.new
-  $PokemonTemp.begunNewGame=true
-end
-
-def pbSuggestTrainerName(gender)
-  userName=pbGetUserName()
-  userName=userName.gsub(/\s+.*$/,"")
-  if userName.length>0 && userName.length<7
-    userName[0,1]=userName[0,1].upcase
-    return userName
-  end
-  userName=userName.gsub(/\d+$/,"")
-  if userName.length>0 && userName.length<7
-    userName[0,1]=userName[0,1].upcase
-    return userName
-  end
-  owner=MiniRegistry.get(MiniRegistry::HKEY_LOCAL_MACHINE,
-     "SOFTWARE\\Microsoft\\Windows NT\\CurrentVersion",
-     "RegisteredOwner","")
-  owner=owner.gsub(/\s+.*$/,"")
-  if owner.length>0 && owner.length<7
-    owner[0,1]=owner[0,1].upcase
-    return owner
-  end
-  return getRandomNameEx(gender,nil,1,7)
-end
-
-def pbGetUserName()
-  buffersize=100
-  getUserName=Win32API.new('advapi32.dll','GetUserName','pp','i')
-  10.times do
-    size=[buffersize].pack("V")
-    buffer="\0"*buffersize
-    if getUserName.call(buffer,size)!=0
-      return buffer.gsub(/\0/,"")
-    end
-    buffersize+=200
-  end
-  return ""
-end
-
-def getRandomNameEx(type,variable,upper,maxLength=100)
-  return "" if maxLength<=0
-  name=""
-  50.times {
-    name=""
-    formats=[]
-    case type
-    when 0 # Names for males
-      formats=%w( F5 BvE FE FE5 FEvE )
-    when 1 # Names for females
-      formats=%w( vE6 vEvE6 BvE6 B4 v3 vEv3 Bv3 )
-    when 2 # Neutral gender names
-      formats=%w( WE WEU WEvE BvE BvEU BvEvE )
+def Kernel.pbUpdateVehicle
+  meta=pbGetMetadata(0,MetadataPlayerA+$PokemonGlobal.playerID)
+  if meta
+    if $PokemonGlobal.diving
+      $game_player.character_name=pbGetPlayerCharset(meta,5) # Diving graphic
+    elsif $PokemonGlobal.surfing
+      $game_player.character_name=pbGetPlayerCharset(meta,3) # Surfing graphic
+    elsif $PokemonGlobal.bicycle
+      $game_player.character_name=pbGetPlayerCharset(meta,2) # Bicycle graphic
     else
-      return ""
-    end
-    format=formats[rand(formats.length)]
-    format.scan(/./) {|c|
-       case c
-       when "c" # consonant
-         set=%w( b c d f g h j k l m n p r s t v w x z )
-         name+=set[rand(set.length)]
-       when "v" # vowel
-         set=%w( a a a e e e i i i o o o u u u )
-         name+=set[rand(set.length)]
-       when "W" # beginning vowel
-         set=%w( a a a e e e i i i o o o u u u au au ay ay 
-            ea ea ee ee oo oo ou ou )
-         name+=set[rand(set.length)]
-       when "U" # ending vowel
-         set=%w( a a a a a e e e i i i o o o o o u u ay ay ie ie ee ue oo )
-         name+=set[rand(set.length)]
-       when "B" # beginning consonant
-         set1=%w( b c d f g h j k l l m n n p r r s s t t v w y z )
-         set2=%w(
-            bl br ch cl cr dr fr fl gl gr kh kl kr ph pl pr sc sk sl
-            sm sn sp st sw th tr tw vl zh )
-         name+=rand(3)>0 ? set1[rand(set1.length)] : set2[rand(set2.length)]
-       when "E" # ending consonant
-         set1=%w( b c d f g h j k k l l m n n p r r s s t t v z )
-         set2=%w( bb bs ch cs ds fs ft gs gg ld ls
-            nd ng nk rn kt ks
-            ms ns ph pt ps sk sh sp ss st rd
-            rn rp rm rt rk ns th zh)
-         name+=rand(3)>0 ? set1[rand(set1.length)] : set2[rand(set2.length)]
-       when "f" # consonant and vowel
-         set=%w( iz us or )
-         name+=set[rand(set.length)]
-       when "F" # consonant and vowel
-         set=%w( bo ba be bu re ro si mi zho se nya gru gruu glee gra glo ra do zo ri
-            di ze go ga pree pro po pa ka ki ku de da ma mo le la li )
-         name+=set[rand(set.length)]
-       when "2"
-         set=%w( c f g k l p r s t )
-         name+=set[rand(set.length)]
-       when "3"
-         set=%w( nka nda la li ndra sta cha chie )
-         name+=set[rand(set.length)]
-       when "4"
-         set=%w( una ona ina ita ila ala ana ia iana )
-         name+=set[rand(set.length)]
-       when "5"
-         set=%w( e e o o ius io u u ito io ius us )
-         name+=set[rand(set.length)]
-       when "6"
-         set=%w( a a a elle ine ika ina ita ila ala ana )
-         name+=set[rand(set.length)]
-       end
-    }
-    break if name.length<=maxLength
-  }
-  name=name[0,maxLength]
-  case upper
-  when 0
-    name=name.upcase
-  when 1
-    name[0,1]=name[0,1].upcase
-  end
-  if $game_variables && variable
-    $game_variables[variable]=name
-    $game_map.need_refresh = true if $game_map
-  end
-  return name
-end
-
-def getRandomName(maxLength=100)
-  return getRandomNameEx(2,nil,nil,maxLength)
-end
-
-
-
-################################################################################
-# Event timing utilities
-################################################################################
-def pbTimeEvent(variableNumber,secs=86400)
-  if variableNumber && variableNumber>=0
-    if $game_variables
-      secs=0 if secs<0
-      timenow=pbGetTimeNow
-      $game_variables[variableNumber]=[timenow.to_f,secs]
-      $game_map.refresh if $game_map
+      $game_player.character_name=pbGetPlayerCharset(meta,1) # Regular graphic
     end
   end
 end
 
-def pbTimeEventDays(variableNumber,days=0)
-  if variableNumber && variableNumber>=0
-    if $game_variables
-      days=0 if days<0
-      timenow=pbGetTimeNow
-      time=timenow.to_f
-      expiry=(time%86400.0)+(days*86400.0)
-      $game_variables[variableNumber]=[time,expiry-time]
-      $game_map.refresh if $game_map
+def Kernel.pbCancelVehicles(destination=nil)
+  $PokemonGlobal.surfing=false
+  $PokemonGlobal.diving=false
+  if !destination || !pbCanUseBike?(destination)
+    $PokemonGlobal.bicycle=false
+  end
+  Kernel.pbUpdateVehicle
+end
+
+def pbCanUseBike?(mapid)
+  return true if pbGetMetadata(mapid,MetadataBicycleAlways)
+  val=pbGetMetadata(mapid,MetadataBicycle)
+  val=pbGetMetadata(mapid,MetadataOutdoor) if val==nil
+  return val ? true : false 
+end
+
+def Kernel.pbMountBike
+  return if $PokemonGlobal.bicycle
+  $PokemonGlobal.bicycle=true
+  Kernel.pbUpdateVehicle
+  bikebgm=pbGetMetadata(0,MetadataBicycleBGM)
+  if bikebgm
+    pbCueBGM(bikebgm,0.5)
+  end
+end
+
+def Kernel.pbDismountBike
+  return if !$PokemonGlobal.bicycle
+  $PokemonGlobal.bicycle=false
+  Kernel.pbUpdateVehicle
+  $game_map.autoplayAsCue
+end
+
+def Kernel.pbSetPokemonCenter
+  $PokemonGlobal.pokecenterMapId=$game_map.map_id
+  $PokemonGlobal.pokecenterX=$game_player.x
+  $PokemonGlobal.pokecenterY=$game_player.y
+  $PokemonGlobal.pokecenterDirection=$game_player.direction
+end
+
+
+
+#===============================================================================
+# Fishing
+#===============================================================================
+def pbFishingBegin
+  $PokemonGlobal.fishing=true
+  if !pbCommonEvent(FISHINGBEGINCOMMONEVENT)
+    patternb = 2*$game_player.direction - 1
+    playertrainer=pbGetPlayerTrainerType
+    meta=pbGetMetadata(0,MetadataPlayerA+$PokemonGlobal.playerID)
+    num=($PokemonGlobal.surfing) ? 7 : 6
+    if meta && meta[num] && meta[num]!=""
+      charset=pbGetPlayerCharset(meta,num)
+      4.times do |pattern|
+        $game_player.setDefaultCharName(charset,patternb-pattern)
+        2.times do
+          Graphics.update
+          Input.update
+          pbUpdateSceneMap
+        end
+      end
     end
   end
 end
 
-def pbTimeEventValid(variableNumber)
-  retval=false
-  if variableNumber && variableNumber>=0 && $game_variables
-    value=$game_variables[variableNumber]
-    if value.is_a?(Array)
-      timenow=pbGetTimeNow
-      retval=(timenow.to_f - value[0] > value[1]) # value[1] is age in seconds
-      retval=false if value[1]<=0 # zero age
-    end
-    if !retval
-      $game_variables[variableNumber]=0
-      $game_map.refresh if $game_map
+def pbFishingEnd
+  if !pbCommonEvent(FISHINGENDCOMMONEVENT)
+    patternb = 2*($game_player.direction - 2)
+    playertrainer=pbGetPlayerTrainerType
+    meta=pbGetMetadata(0,MetadataPlayerA+$PokemonGlobal.playerID)
+    num=($PokemonGlobal.surfing) ? 7 : 6
+    if meta && meta[num] && meta[num]!=""
+      charset=pbGetPlayerCharset(meta,num)
+      4.times do |pattern|
+        $game_player.setDefaultCharName(charset,patternb+pattern)
+        2.times do
+          Graphics.update
+          Input.update
+          pbUpdateSceneMap
+        end
+      end
     end
   end
-  return retval
+  $PokemonGlobal.fishing=false
+end
+
+def pbFishing(hasencounter,rodtype=1)
+  speedup=($Trainer.firstParty && !$Trainer.firstParty.isEgg? &&
+     (isConst?($Trainer.firstParty.ability,PBAbilities,:STICKYHOLD) ||
+     isConst?($Trainer.firstParty.ability,PBAbilities,:SUCTIONCUPS)))
+  bitechance=20+(25*rodtype)   # 45, 70, 95
+  bitechance*=1.5 if speedup
+  hookchance=100
+  oldpattern=$game_player.fullPattern
+  pbFishingBegin
+  msgwindow=Kernel.pbCreateMessageWindow
+  loop do
+    time=2+rand(10)
+    time=[time,2+rand(10)].min if speedup
+    message=""
+    time.times do 
+      message+=". "
+    end
+    if pbWaitMessage(msgwindow,time)
+      pbFishingEnd
+      $game_player.setDefaultCharName(nil,oldpattern)
+      Kernel.pbMessageDisplay(msgwindow,_INTL("Not even a nibble..."))
+      Kernel.pbDisposeMessageWindow(msgwindow)
+      return false
+    end
+    if rand(100)<bitechance && hasencounter
+      frames=rand(21)+20
+      if !pbWaitForInput(msgwindow,message+_INTL("\r\nOh! A bite!"),frames)
+        pbFishingEnd
+        $game_player.setDefaultCharName(nil,oldpattern)
+        Kernel.pbMessageDisplay(msgwindow,_INTL("The Pokémon got away..."))
+        Kernel.pbDisposeMessageWindow(msgwindow)
+        return false
+      end
+      if rand(100)<hookchance || FISHINGAUTOHOOK
+        Kernel.pbMessageDisplay(msgwindow,_INTL("Landed a Pokémon!"))
+        Kernel.pbDisposeMessageWindow(msgwindow)
+        pbFishingEnd
+        $game_player.setDefaultCharName(nil,oldpattern)
+        return true
+      end
+#      bitechance+=15
+#      hookchance+=15
+    else
+      pbFishingEnd
+      $game_player.setDefaultCharName(nil,oldpattern)
+      Kernel.pbMessageDisplay(msgwindow,_INTL("Not even a nibble..."))
+      Kernel.pbDisposeMessageWindow(msgwindow)
+      return false
+    end
+  end
+  Kernel.pbDisposeMessageWindow(msgwindow)
+  return false
+end
+
+def pbWaitForInput(msgwindow,message,frames)
+  return true if FISHINGAUTOHOOK
+  Kernel.pbMessageDisplay(msgwindow,message,false)
+  frames.times do
+    Graphics.update
+    Input.update
+    pbUpdateSceneMap
+    if Input.trigger?(Input::C) || Input.trigger?(Input::B)
+      return true
+    end
+  end
+  return false
+end
+
+def pbWaitMessage(msgwindow,time)
+  message=""
+  (time+1).times do |i|
+    message+=". " if i>0
+    Kernel.pbMessageDisplay(msgwindow,message,false)
+    20.times do
+      Graphics.update
+      Input.update
+      pbUpdateSceneMap
+      if Input.trigger?(Input::C) || Input.trigger?(Input::B)
+        return true
+      end
+    end
+  end
+  return false
 end
 
 
 
-################################################################################
-# Constants utilities
-################################################################################
-def isConst?(val,mod,constant)
+#===============================================================================
+# Moving between maps
+#===============================================================================
+Events.onMapChange+=proc {|sender,e|
+  oldid=e[0] # previous map ID, 0 if no map ID
+  healing=pbGetMetadata($game_map.map_id,MetadataHealingSpot)
+  $PokemonGlobal.healingSpot=healing if healing
+  $PokemonMap.clear if $PokemonMap
+  $PokemonEncounters.setup($game_map.map_id) if $PokemonEncounters
+  $PokemonGlobal.visitedMaps[$game_map.map_id]=true
+  if oldid!=0 && oldid!=$game_map.map_id
+    mapinfos=$RPGVX ? load_data("Data/MapInfos.rvdata") : load_data("Data/MapInfos.rxdata")
+    weather=pbGetMetadata($game_map.map_id,MetadataWeather)
+    if $game_map.name!=mapinfos[oldid].name
+      $game_screen.weather(weather[0],8,20) if weather && rand(100)<weather[1]
+    else
+      oldweather=pbGetMetadata(oldid,MetadataWeather)
+      $game_screen.weather(weather[0],8,20) if weather && !oldweather && rand(100)<weather[1]
+    end
+  end
+}
+
+Events.onMapChanging+=proc {|sender,e|
+  newmapID=e[0]
+  newmap=e[1]
+  # Undo the weather ($game_map still refers to the old map)
+  mapinfos=$RPGVX ? load_data("Data/MapInfos.rvdata") : load_data("Data/MapInfos.rxdata")
+  if newmapID>0
+    oldweather=pbGetMetadata($game_map.map_id,MetadataWeather)
+    if $game_map.name!=mapinfos[newmapID].name
+      $game_screen.weather(0,0,0) if oldweather
+    else
+      newweather=pbGetMetadata(newmapID,MetadataWeather)
+      $game_screen.weather(0,0,0) if oldweather && !newweather
+    end
+  end
+}
+
+Events.onMapSceneChange+=proc{|sender,e|
+  scene=e[0]
+  mapChanged=e[1]
+  return if !scene || !scene.spriteset
+  if $game_map
+    lastmapdetails=$PokemonGlobal.mapTrail[0] ?
+       pbGetMetadata($PokemonGlobal.mapTrail[0],MetadataMapPosition) : [-1,0,0]
+    lastmapdetails=[-1,0,0] if !lastmapdetails
+    newmapdetails=$game_map.map_id ?
+       pbGetMetadata($game_map.map_id,MetadataMapPosition) : [-1,0,0]
+    newmapdetails=[-1,0,0] if !newmapdetails
+    $PokemonGlobal.mapTrail=[] if !$PokemonGlobal.mapTrail
+    if $PokemonGlobal.mapTrail[0]!=$game_map.map_id
+      $PokemonGlobal.mapTrail[3]=$PokemonGlobal.mapTrail[2] if $PokemonGlobal.mapTrail[2]
+      $PokemonGlobal.mapTrail[2]=$PokemonGlobal.mapTrail[1] if $PokemonGlobal.mapTrail[1]
+      $PokemonGlobal.mapTrail[1]=$PokemonGlobal.mapTrail[0] if $PokemonGlobal.mapTrail[0]
+    end
+    $PokemonGlobal.mapTrail[0]=$game_map.map_id   # Update map trail
+  end
+  if mapChanged
+    if pbGetMetadata($game_map.map_id,MetadataShowArea)
+      nosignpost=false
+      if $PokemonGlobal.mapTrail[1]
+        for i in 0...NOSIGNPOSTS.length/2
+          nosignpost=true if NOSIGNPOSTS[2*i]==$PokemonGlobal.mapTrail[1] && NOSIGNPOSTS[2*i+1]==$game_map.map_id
+          nosignpost=true if NOSIGNPOSTS[2*i+1]==$PokemonGlobal.mapTrail[1] && NOSIGNPOSTS[2*i]==$game_map.map_id
+          break if nosignpost
+        end
+        mapinfos=$RPGVX ? load_data("Data/MapInfos.rvdata") : load_data("Data/MapInfos.rxdata")
+        oldmapname=mapinfos[$PokemonGlobal.mapTrail[1]].name
+        nosignpost=true if $game_map.name==oldmapname
+      end
+      scene.spriteset.addUserSprite(LocationWindow.new($game_map.name)) if !nosignpost
+    end
+  end
+  if pbGetMetadata($game_map.map_id,MetadataBicycleAlways)
+    Kernel.pbMountBike
+  else
+    if !pbCanUseBike?($game_map.map_id)
+      Kernel.pbDismountBike
+    end
+  end
+  darkmap=pbGetMetadata($game_map.map_id,MetadataDarkMap)
+  if darkmap
+    firstpoke=$Trainer.firstParty
+    if $PokemonGlobal.flashUsed || isConst?(firstpoke.ability,PBAbilities,:LIGHTER)
+      $PokemonGlobal.flashUsed=true # Needed for Lighter ability
+      $PokemonTemp.darknessSprite=DarknessSprite.new
+      scene.spriteset.addUserSprite($PokemonTemp.darknessSprite)
+      darkness=$PokemonTemp.darknessSprite
+      darkness.radius=176
+    else
+      $PokemonTemp.darknessSprite=DarknessSprite.new
+      scene.spriteset.addUserSprite($PokemonTemp.darknessSprite)
+    end
+  elsif !darkmap
+    $PokemonGlobal.flashUsed=false
+    if $PokemonTemp.darknessSprite
+      $PokemonTemp.darknessSprite.dispose
+      $PokemonTemp.darknessSprite=nil
+    end
+  end
+}
+
+def Kernel.pbStartOver(gameover=false)
+  if pbInBugContest?
+    Kernel.pbBugContestStartOver
+    return
+  end
+  pbHealAll()
+  if $PokemonGlobal.pokecenterMapId && $PokemonGlobal.pokecenterMapId>=0
+    if gameover
+      Kernel.pbMessage(_INTL("\\w[]\\wm\\c[8]\\l[3]After the unfortunate defeat, {1} scurried to a Pokémon Center.",$Trainer.name))
+    else
+      Kernel.pbMessage(_INTL("\\w[]\\wm\\c[8]\\l[3]{1} scurried to a Pokémon Center, protecting the exhausted and fainted Pokémon from further harm.",$Trainer.name))
+    end
+    Kernel.pbCancelVehicles
+    pbRemoveDependencies()
+    $game_switches[STARTING_OVER_SWITCH]=true
+    $game_temp.player_new_map_id=$PokemonGlobal.pokecenterMapId
+    $game_temp.player_new_x=$PokemonGlobal.pokecenterX
+    $game_temp.player_new_y=$PokemonGlobal.pokecenterY
+    $game_temp.player_new_direction=$PokemonGlobal.pokecenterDirection
+    $scene.transfer_player if $scene.is_a?(Scene_Map)
+    $game_map.refresh
+  else
+    homedata=pbGetMetadata(0,MetadataHome)
+    if (homedata && !pbRxdataExists?(sprintf("Data/Map%03d",homedata[0])) )
+      if ($DEBUG || $TEST)
+        Kernel.pbMessage(_ISPRINTF("Can't find the map 'Map{1:03d}' in the Data folder. The game will resume at the player's position.",homedata[0]))
+      end
+      pbHealAll()
+      return
+    end
+    if gameover
+      Kernel.pbMessage(_INTL("\\w[]\\wm\\c[8]\\l[3]After the unfortunate defeat, {1} scurried home.",$Trainer.name))
+    else
+      Kernel.pbMessage(_INTL("\\w[]\\wm\\c[8]\\l[3]{1} scurried home, protecting the exhausted and fainted Pokémon from further harm.",$Trainer.name))
+    end
+    if homedata
+      Kernel.pbCancelVehicles
+      pbRemoveDependencies()
+      $game_switches[STARTING_OVER_SWITCH]=true
+      $game_temp.player_new_map_id=homedata[0]
+      $game_temp.player_new_x=homedata[1]
+      $game_temp.player_new_y=homedata[2]
+      $game_temp.player_new_direction=homedata[3]
+      $scene.transfer_player if $scene.is_a?(Scene_Map)
+      $game_map.refresh
+    else
+      pbHealAll()
+    end
+  end
+  pbEraseEscapePoint
+end
+
+def pbCaveEntranceEx(exiting)
+  sprite=BitmapSprite.new(Graphics.width,Graphics.height)
+  sprite.z=100000
+  totalBands=15
+  totalFrames=15
+  bandheight=((Graphics.height/2)-10).to_f/totalBands
+  bandwidth=((Graphics.width/2)-12).to_f/totalBands
+  grays=[]
+  tbm1=totalBands-1
+  for i in 0...totalBands
+    grays.push(exiting ? 0 : 255)
+  end
+  totalFrames.times do |j|
+    x=0
+    y=0
+    rectwidth=Graphics.width
+    rectheight=Graphics.height
+    for k in 0...j
+      t=(255.0)/totalFrames
+      if exiting
+        t=1.0-t
+        t*=1.0+((k)/totalFrames.to_f)
+      else
+        t*=1.0+0.3*(((totalFrames-k)/totalFrames.to_f)**0.7)
+      end
+      grays[k]-=t
+      grays[k]=0 if grays[k]<0
+    end
+    for i in 0...totalBands
+      currentGray=grays[i]
+      sprite.bitmap.fill_rect(Rect.new(x,y,rectwidth,rectheight),
+         Color.new(currentGray,currentGray,currentGray))
+      x+=bandwidth
+      y+=bandheight
+      rectwidth-=bandwidth*2
+      rectheight-=bandheight*2
+    end
+    Graphics.update
+    Input.update
+  end
+  if exiting
+    pbToneChangeAll(Tone.new(255,255,255),0)
+  else
+    pbToneChangeAll(Tone.new(-255,-255,-255),0)
+  end
+  for j in 0..15
+    if exiting
+      sprite.color=Color.new(255,255,255,j*255/15)
+    else
+      sprite.color=Color.new(0,0,0,j*255/15) 
+    end
+    Graphics.update
+    Input.update
+  end
+  pbToneChangeAll(Tone.new(0,0,0),8)
+  for j in 0..5
+    Graphics.update
+    Input.update
+  end
+  sprite.dispose
+end
+
+def pbCaveEntrance
+  pbSetEscapePoint
+  pbCaveEntranceEx(false)
+end
+
+def pbCaveExit
+  pbEraseEscapePoint
+  pbCaveEntranceEx(true)
+end
+
+def pbCaveExut
+  pbEraseEscapePoint
+  pbCaveEntranceEx(true)
+end
+
+
+def pbSetEscapePoint
+  $PokemonGlobal.escapePoint=[] if !$PokemonGlobal.escapePoint
+  xco=$game_player.x
+  yco=$game_player.y
+  case $game_player.direction
+  when 2   # Down
+    yco-=1; dir=8
+  when 4   # Left
+    xco+=1; dir=6
+  when 6   # Right
+    xco-=1; dir=4
+  when 8   # Up
+    yco+=1; dir=2
+  end
+  $PokemonGlobal.escapePoint=[$game_map.map_id,xco,yco,dir]
+end
+
+def pbEraseEscapePoint
+  $PokemonGlobal.escapePoint=[]
+end
+
+
+
+#===============================================================================
+# Partner trainer
+#===============================================================================
+def pbRegisterPartner(trainerid,trainername,partyid=0)
+  Kernel.pbCancelVehicles
+  trainer=pbLoadTrainer(trainerid,trainername,partyid)
+  Events.onTrainerPartyLoad.trigger(nil,trainer)
+  trainerobject=PokeBattle_Trainer.new(_INTL(trainer[0].name),trainerid)
+  trainerobject.setForeignID($Trainer)
+  for i in trainer[2]
+    i.trainerID=trainerobject.id
+    i.ot=trainerobject.name
+    i.calcStats
+  end
+  $PokemonGlobal.partner=[trainerid,trainerobject.name,trainerobject.id,trainer[2]]
+end
+
+def pbDeregisterPartner
+  $PokemonGlobal.partner=nil
+end
+
+
+
+#===============================================================================
+# Constant checks
+#===============================================================================
+Events.onMapUpdate+=proc {|sender,e|   # Pokérus check
+  last=$PokemonGlobal.pokerusTime
+  now=pbGetTimeNow
+  if !last || last.year!=now.year || last.month!=now.month || last.day!=now.day
+    if $Trainer && $Trainer.party
+      for i in $Trainer.pokemonParty
+        i.lowerPokerusCount
+      end
+      $PokemonGlobal.pokerusTime=now
+    end
+  end
+}
+
+# Returns whether the Poké Center should explain Pokérus to the player, if a
+# healed Pokémon has it.
+def Kernel.pbPokerus?
+  return false if $game_switches[SEEN_POKERUS_SWITCH]
+  for i in $Trainer.party
+    return true if i.pokerusStage==1
+  end
+  return false
+end
+
+
+
+class PokemonTemp
+  attr_accessor :batterywarning
+  attr_accessor :cueBGM
+  attr_accessor :cueFrames
+end
+
+
+
+def pbBatteryLow?
+  power="\0"*12
   begin
-    isdef=mod.const_defined?(constant.to_sym)
-    return false if !isdef
+    sps=Win32API.new('kernel32.dll','GetSystemPowerStatus','p','l')
   rescue
     return false
   end
-  return (val==mod.const_get(constant.to_sym))
+  if sps.call(power)==1
+    status=power.unpack("CCCCVV")
+    # Battery Flag
+    if status[1]!=255 && (status[1]&6)!=0 # Low or Critical
+      return true
+    end
+    # Battery Life Percent
+    if status[2]<3 # Less than 3 percent
+      return true
+    end
+    # Battery Life Time
+    if status[4]<300 # Less than 5 minutes
+      return true
+    end
+  end
+  return false
 end
 
-def hasConst?(mod,constant)
-  return false if !mod || !constant || constant==""
-  return mod.const_defined?(constant.to_sym) rescue false
+Events.onMapUpdate+=proc {|sender,e|
+  time=pbGetTimeNow
+  if time.sec==0 && $Trainer && $PokemonGlobal && $game_player && $game_map &&
+     !$PokemonTemp.batterywarning && !$game_player.move_route_forcing &&
+     !pbMapInterpreterRunning? && !$game_temp.message_window_showing &&
+     pbBatteryLow?
+    $PokemonTemp.batterywarning=true
+    Kernel.pbMessage(_INTL("The game has detected that the battery is low. You should save soon to avoid losing your progress."))
+  end
+  if $PokemonTemp.cueFrames
+    $PokemonTemp.cueFrames-=1
+    if $PokemonTemp.cueFrames<=0
+      $PokemonTemp.cueFrames=nil
+      if $game_system.getPlayingBGM==nil
+        pbBGMPlay($PokemonTemp.cueBGM)
+      end
+    end
+  end
+}
+
+
+
+#===============================================================================
+# Audio playing
+#===============================================================================
+def pbCueBGM(bgm,seconds,volume=nil,pitch=nil)
+  return if !bgm
+  bgm=pbResolveAudioFile(bgm,volume,pitch)
+  playingBGM=$game_system.playing_bgm
+  if !playingBGM || playingBGM.name!=bgm.name || playingBGM.pitch!=bgm.pitch
+    pbBGMFade(seconds)
+    if !$PokemonTemp.cueFrames
+      $PokemonTemp.cueFrames=(seconds*Graphics.frame_rate)*3/5
+    end
+    $PokemonTemp.cueBGM=bgm
+  elsif playingBGM
+    pbBGMPlay(bgm)
+  end
 end
 
-def getConst(mod,constant)
-  return nil if !mod || !constant || constant==""
-  return mod.const_get(constant.to_sym) rescue nil
+def pbAutoplayOnTransition
+  surfbgm=pbGetMetadata(0,MetadataSurfBGM)
+  if $PokemonGlobal.surfing && surfbgm
+    pbBGMPlay(surfbgm)
+  else
+    $game_map.autoplayAsCue
+  end
 end
 
-def getID(mod,constant)
-  return nil if !mod || !constant || constant==""
-  if constant.is_a?(Symbol) || constant.is_a?(String)
-    if (mod.const_defined?(constant.to_sym) rescue false)
-      return mod.const_get(constant.to_sym) rescue 0
+def pbAutoplayOnSave
+  surfbgm=pbGetMetadata(0,MetadataSurfBGM)
+  if $PokemonGlobal.surfing && surfbgm
+    pbBGMPlay(surfbgm)
+  else
+    $game_map.autoplay
+  end
+end
+
+
+
+#===============================================================================
+# Voice recorder
+#===============================================================================
+def pbRecord(text,maxtime=30.0)
+  text="" if !text
+  textwindow=Window_UnformattedTextPokemon.newWithSize(text,
+     0,0,Graphics.width,Graphics.height-96)
+  textwindow.z=99999
+  if text==""
+    textwindow.visible=false
+  end
+  wave=nil
+  msgwindow=Kernel.pbCreateMessageWindow
+  oldvolume=Kernel.Audio_bgm_get_volume()
+  Kernel.Audio_bgm_set_volume(0)
+  delay=2
+  delay.times do |i|
+    Kernel.pbMessageDisplay(msgwindow,
+      _ISPRINTF("Recording in {1:d} second(s)...\nPress ESC to cancel.",delay-i),false)
+    Graphics.frame_rate.times do
+      Graphics.update
+      Input.update
+      textwindow.update
+      msgwindow.update
+      if Input.trigger?(Input::B) || Input.triggerex?(Input::RightMouseKey)
+        Kernel.Audio_bgm_set_volume(oldvolume)
+        Kernel.pbDisposeMessageWindow(msgwindow)
+        textwindow.dispose
+        return nil
+      end
+    end
+  end
+  Kernel.pbMessageDisplay(msgwindow,
+     _INTL("NOW RECORDING\nPress ESC to stop recording."),false)
+  if beginRecordUI
+    frames=(maxtime*Graphics.frame_rate).to_i
+    frames.times do
+      Graphics.update
+      Input.update
+      textwindow.update
+      msgwindow.update
+      if Input.trigger?(Input::B) || Input.triggerex?(Input::RightMouseKey)
+        break
+      end
+    end
+    tmpFile=ENV["TEMP"]+"\\record.wav"
+    endRecord(tmpFile)
+    wave=getWaveDataUI(tmpFile,true)
+    if wave
+      Kernel.pbMessageDisplay(msgwindow,_INTL("PLAYING BACK..."),false)
+      textwindow.update
+      msgwindow.update
+      Graphics.update
+      Input.update
+      wave.play
+      (Graphics.frame_rate*wave.time).to_i.times do
+        Graphics.update
+        Input.update
+        textwindow.update
+        msgwindow.update
+      end
+    end
+  end
+  Kernel.Audio_bgm_set_volume(oldvolume)
+  Kernel.pbDisposeMessageWindow(msgwindow)
+  textwindow.dispose
+  return wave
+end
+
+def Kernel.pbRxdataExists?(file)
+  if $RPGVX
+    return pbRgssExists?(file+".rvdata")
+  else
+    return pbRgssExists?(file+".rxdata") 
+  end
+end
+
+
+
+#===============================================================================
+# Gaining items
+#===============================================================================
+def Kernel.pbItemBall(item,quantity=1)
+  if item.is_a?(String) || item.is_a?(Symbol)
+    item=getID(PBItems,item)
+  end
+  return false if !item || item<=0 || quantity<1
+  itemname=(quantity>1) ? PBItems.getNamePlural(item) : PBItems.getName(item)
+  pocket=pbGetPocket(item)
+  if $PokemonBag.pbStoreItem(item,quantity)   # If item can be picked up
+    if $ItemData[item][ITEMUSE]==3 || $ItemData[item][ITEMUSE]==4 || $ItemData[item][ITEMUSE]==6
+      Kernel.pbMessage(_INTL("\\me[]\\me[ItemGet]{1} found \\c[1]{2}\\c[0]!\\nIt contained \\c[1]{3}\\c[0].\\wtnp[30]",
+         $Trainer.name,itemname,PBMoves.getName($ItemData[item][ITEMMACHINE])))
+    elsif isConst?(item,PBItems,:LEFTOVERS)
+      Kernel.pbMessage(_INTL("\\me[]\\me[ItemGet]{1} found some \\c[1]{2}\\c[0]!\\wtnp[30]",$Trainer.name,itemname))
+    elsif quantity>1
+      Kernel.pbMessage(_INTL("\\me[]\\me[ItemGet]{1} found {2} \\c[1]{3}\\c[0]!\\wtnp[30]",$Trainer.name,quantity,itemname))
     else
-      return 0
+      Kernel.pbMessage(_INTL("\\me[]\\me[ItemGet]{1} found one \\c[1]{2}\\c[0]!\\wtnp[30]",$Trainer.name,itemname))
     end
+    Kernel.pbMessage(_INTL("{1} put the \\c[1]{2}\\c[0]\r\nin the <icon=bagPocket#{pocket}>\\c[1]{3}\\c[0] Pocket.",
+       $Trainer.name,itemname,PokemonBag.pocketNames()[pocket]))
+    return true
+  else   # Can't add the item
+    if $ItemData[item][ITEMUSE]==3 || $ItemData[item][ITEMUSE]==4 || $ItemData[item][ITEMUSE]==6
+      Kernel.pbMessage(_INTL("{1} found \\c[1]{2}\\c[0]!\\wtnp[20]",$Trainer.name,itemname))
+    elsif isConst?(item,PBItems,:LEFTOVERS)
+      Kernel.pbMessage(_INTL("{1} found some \\c[1]{2}\\c[0]!\\wtnp[20]",$Trainer.name,itemname))
+    elsif quantity>1
+      Kernel.pbMessage(_INTL("{1} found {2} \\c[1]{3}\\c[0]!\\wtnp[20]",$Trainer.name,quantity,itemname))
+    else
+      Kernel.pbMessage(_INTL("{1} found one \\c[1]{2}\\c[0]!\\wtnp[20]",$Trainer.name,itemname))
+    end
+    Kernel.pbMessage(_INTL("Too bad... The Bag is full..."))
+    return false
+  end
+end
+
+def Kernel.pbReceiveItem(item,quantity=1)
+  if item.is_a?(String) || item.is_a?(Symbol)
+    item=getID(PBItems,item)
+  end
+  pocket=pbGetPocket(item)
+  return Kernel.pbReceiveTrophy(item) if pocket==6 # A Trophy
+  return false if !item || item<=0 || quantity<1
+  itemname=(quantity>1) ? PBItems.getNamePlural(item) : PBItems.getName(item)
+  if $ItemData[item][ITEMUSE]==3 || $ItemData[item][ITEMUSE]==4 || $ItemData[item][ITEMUSE]==6
+    Kernel.pbMessage(_INTL("\\me[ItemGet]Obtained \\c[1]{1}\\c[0]!\\nIt contained \\c[1]{2}\\c[0].\\wtnp[30]",
+       itemname,PBMoves.getName($ItemData[item][ITEMMACHINE])))
+  elsif isConst?(item,PBItems,:LEFTOVERS)
+    Kernel.pbMessage(_INTL("\\me[]\\me[ItemGet]Obtained some \\c[1]{1}\\c[0]!\\wtnp[30]",itemname))
+  elsif quantity>1
+    Kernel.pbMessage(_INTL("\\me[]\\me[ItemGet]Obtained {1} \\c[1]{2}\\c[0]!\\wtnp[30]",quantity,itemname))
   else
-    return constant
+    Kernel.pbMessage(_INTL("\\me[]\\me[ItemGet]Obtained \\c[1]{1}\\c[0]!\\wtnp[30]",itemname))
   end
+  if $PokemonBag.pbStoreItem(item,quantity)   # If item can be added
+    Kernel.pbMessage(_INTL("{1} put the \\c[1]{2}\\c[0]\r\nin the <icon=bagPocket#{pocket}>\\c[1]{3}\\c[0] Pocket.",
+       $Trainer.name,itemname,PokemonBag.pocketNames()[pocket]))
+    return true
+  end
+  return false   # Can't add the item
+end
+
+def Kernel.pbTrophies
+  # 28 Badges but only 27 can be earned legitimately
+  trophies=[:TQOREMASTER,:TQUORA,:TSWUORA,:TSEMUORA,:TKENUORA,
+            :TXENUORA,:TANNUORA,:TKENIORA,:TXENIORA,:TCINDYORA,
+            :TSANUORA,:TSANIORA,:TJOHTO,:THOENN,:TELITE4,:TELITE4B,
+            :TEVOLVER,:TMINER,:TLOTTER,:TTRADER,:THATCHER,:TCRAFTER,
+            :TBOXFILLER,:TWINNER,:TCATCHER,:TPREMIER,:TMIGRATOR,:TLINKER]
+  result = 0
+  for i in trophies
+    result+=1 if $PokemonBag.pbQuantity(i)>0
+  end
+  return result
+end
+
+def Kernel.pbTrophyScore
+  # 28 Badges but only 27 can be earned legitimately.
+  # Score is returned in percentage
+  trophies=[ # Platinum
+            [:TQOREMASTER],
+            # Gold
+            [:TQUORA,:TSWUORA,:TSEMUORA,:TKENUORA,:TXENUORA,:TANNUORA,
+            :TKENIORA,:TXENIORA,:TCINDYORA,:TSANUORA,:TSANIORA,:TJOHTO,
+            :THOENN,:TELITE4,:TELITE4B],
+            # Silver
+            [:TEVOLVER,:TMINER,:TLOTTER,:TTRADER,:THATCHER,:TCRAFTER],
+            # Bronze
+            [:TBOXFILLER,:TWINNER,:TCATCHER,:TPREMIER,:TMIGRATOR,:TLINKER]
+            ]
+  result = 0
+  max = 0
+  for i in trophies[0]
+    max+=250
+    result+=25000 if $PokemonBag.pbQuantity(i)>0
+  end
+  for i in trophies[1]
+    max+=100
+    result+=10000 if $PokemonBag.pbQuantity(i)>0
+  end
+  for i in trophies[2]
+    max+=50
+    result+=5000 if $PokemonBag.pbQuantity(i)>0
+  end
+  for i in trophies[3]
+    max+=10
+    result+=1000 if $PokemonBag.pbQuantity(i)>0
+  end
+  return 0 if result == 0
+  return (result / max).floor
+end
+
+def Kernel.pbTechnicalDiscScore
+  # Score is returned in number
+  discs = [:TD01, :TD02, :TD03, :TD04, :TD05, :TD06, :TD07, :TD08, :TD09, :TD10,
+           :TD11, :TD12, :TD13, :TD14, :TD15, :TD16, :TD17, :TD18, :TD19, :TD20,
+           :TD21, :TD22, :TD23, :TD24, :TD25, :TD26, :TD27, :TD28, :TD29, :TD30,
+           :TD31, :TD32, :TD33, :TD34, :TD35, :TD36, :TD37, :TD38, :TD39, :TD40,
+           :TD41, :TD42, :TD43, :TD44, :TD45, :TD46, :TD47, :TD48, :TD49, :TD50,
+           :TD51, :TD52, :TD53, :TD54, :TD55, :TD56, :TD57, :TD58, :TD59, :TD60,
+           :TD61, :TD62, :TD63, :TD64, :TD65, :TD66, :TD67, :TD68, :TD69, :TD70,
+           :TD71, :TD72, :TD73, :TD74, :TD75, :TD76, :TD77, :TD78, :TD79, :TD80,
+           :TD81, :TD82, :TD83, :TD84, :TD85, :TD86, :TD87, :TD88, :TD89, :TD90,
+           :TD91, :TD92, :TD93, :TD94, :TD95, :TD96, :TD97, :TD98, :TD99, :TD100]
+  result = 0
+  max = 0
+  for i in discs
+    result+=1 if $PokemonBag.pbQuantity(i)>0
+  end
+  return 0 if result == 0
+   return result
 end
 
 
 
-################################################################################
-# Implements methods that act on arrays of items.  Each element in an item
-# array is itself an array of [itemID, itemCount].
-# Used by the Bag, PC item storage, and Triple Triad.
-################################################################################
-module ItemStorageHelper
-  # Returns the quantity of the given item in the items array, maximum size per slot, and item ID
-  def self.pbQuantity(items,maxsize,item)
-    ret=0
-    for i in 0...maxsize
-      itemslot=items[i]
-      if itemslot && itemslot[0]==item
-        ret+=itemslot[1]
-      end
-    end
-    return ret
-  end
+def completedTrophies
+  return Kernel.pbTrophyScore == 100
+end
 
-  # Deletes an item from items array, maximum size per slot, item, and number of items to delete
-  def self.pbDeleteItem(items,maxsize,item,qty)
-    raise "Invalid value for qty: #{qty}" if qty<0
-    return true if qty==0
-    ret=false
-    for i in 0...maxsize
-      itemslot=items[i]
-      if itemslot && itemslot[0]==item
-        amount=[qty,itemslot[1]].min
-        itemslot[1]-=amount
-        qty-=amount
-        items[i]=nil if itemslot[1]==0
-        if qty==0
-          ret=true
-          break
-        end
-      end
-    end
-    items.compact!
-    return ret
-  end
+def almostCompletedTechnicalDiscs
+  return Kernel.pbTechnicalDiscScore == 99
+end
 
-  def self.pbCanStore?(items,maxsize,maxPerSlot,item,qty)
-    raise "Invalid value for qty: #{qty}" if qty<0
-    return true if qty==0
-    for i in 0...maxsize
-      itemslot=items[i]
-      if !itemslot
-        qty-=[qty,maxPerSlot].min
-        return true if qty==0
-      elsif itemslot[0]==item && itemslot[1]<maxPerSlot
-        newamt=itemslot[1]
-        newamt=[newamt+qty,maxPerSlot].min
-        qty-=(newamt-itemslot[1])
-        return true if qty==0
-      end
-    end
-    return false
-  end
-
-  def self.pbStoreItem(items,maxsize,maxPerSlot,item,qty,sorting=false)
-    raise "Invalid value for qty: #{qty}" if qty<0
-    return true if qty==0
-    for i in 0...maxsize
-      itemslot=items[i]
-      if !itemslot
-        items[i]=[item,[qty,maxPerSlot].min]
-        qty-=items[i][1]
-        if sorting
-          items.sort! if POCKETAUTOSORT[$ItemData[item][ITEMPOCKET]]
-        end
-        return true if qty==0
-      elsif itemslot[0]==item && itemslot[1]<maxPerSlot
-        newamt=itemslot[1]
-        newamt=[newamt+qty,maxPerSlot].min
-        qty-=(newamt-itemslot[1])
-        itemslot[1]=newamt
-        return true if qty==0
-      end
-    end
-    return false
-  end
+def completedTechnicalDiscs
+  return Kernel.pbTechnicalDiscScore == 100
 end
 
 
 
-################################################################################
-# General-purpose utilities with dependencies
-################################################################################
-# Similar to pbFadeOutIn, but pauses the music as it fades out.
-# Requires scripts "Audio" (for bgm_pause) and "SpriteWindow" (for pbFadeOutIn).
-def pbFadeOutInWithMusic(zViewport)
-  playingBGS=$game_system.getPlayingBGS
-  playingBGM=$game_system.getPlayingBGM
-  $game_system.bgm_pause(1.0)
-  $game_system.bgs_pause(1.0)
-  pos=$game_system.bgm_position
-  pbFadeOutIn(zViewport) {
-     yield
-     $game_system.bgm_position=pos
-     $game_system.bgm_resume(playingBGM)
-     $game_system.bgs_resume(playingBGS)
-  }
+def Kernel.pbReceiveTrophy(item)
+  if item.is_a?(String) || item.is_a?(Symbol)
+    item=getID(PBItems,item)
+  end
+  pocket=pbGetPocket(item)
+  return false if !item || item<=0 || pocket!=6 || $PokemonBag.pbQuantity(item)>0
+  itemname=PBItems.getName(item)
+
+  Kernel.pbMessage(_INTL("\\c[8]\\sign[TrophyWindow]\\se[TrophyGet]Trophy \\c[1]{1}\\c[8] was obtained!\\wtnp[30]",itemname)) if $PokemonSystem.vrtrophynotif==0 rescue false
+  if $PokemonBag.pbStoreItem(item,1)   # If item can be added
+    return true
+  end
+  return false   # Can't add the item
 end
 
-# Gets the wave data from a file and displays an message if an error occurs.
-# Can optionally delete the wave file (this is useful if the file was a
-# temporary file created by a recording).
-# Requires the script AudioUtilities
-# Requires the script "PokemonMessages"
-def getWaveDataUI(filename,deleteFile=false)
-  error=getWaveData(filename)
-  if deleteFile
-    begin
-      File.delete(filename)
-    rescue Errno::EINVAL, Errno::EACCES, Errno::ENOENT
-    end
-  end
-  case error
-  when 1
-    Kernel.pbMessage(_INTL("The recorded data could not be found or saved."))
-  when 2
-    Kernel.pbMessage(_INTL("The recorded data was in an invalid format."))
-  when 3
-    Kernel.pbMessage(_INTL("The recorded data's format is not supported."))
-  when 4
-    Kernel.pbMessage(_INTL("There was no sound in the recording. Please ensure that a microphone is attached to the computer and is ready."))
+
+def pbUseKeyItem
+  if $PokemonBag.registeredItem==0
+    Kernel.pbMessage(_INTL("A Key Item in the Bag can be registered to this key for instant use."))
   else
-    return error
-  end
-  return nil
-end
-
-# Starts recording, and displays a message if the recording failed to start.
-# Returns true if successful, false otherwise
-# Requires the script AudioUtilities
-# Requires the script "PokemonMessages"
-def beginRecordUI
-  code=beginRecord
-  case code
-  when 0; return true
-  when 256+66
-    Kernel.pbMessage(_INTL("All recording devices are in use. Recording is not possible now."))
-    return false
-  when 256+72
-    Kernel.pbMessage(_INTL("No supported recording device was found. Recording is not possible."))
-    return false
-  else
-    buffer="\0"*256
-    MciErrorString.call(code,buffer,256)
-    Kernel.pbMessage(_INTL("Recording failed: {1}",buffer.gsub(/\x00/,"")))
-    return false    
+    Kernel.pbUseKeyItemInField($PokemonBag.registeredItem)
   end
 end
 
-def pbHideVisibleObjects
-  visibleObjects=[]
-  ObjectSpace.each_object(Sprite){|o|
-     if !o.disposed? && o.visible
-       visibleObjects.push(o)
-       o.visible=false
-     end
-  }
-  ObjectSpace.each_object(Viewport){|o|
-     if !pbDisposed?(o) && o.visible
-       visibleObjects.push(o)
-       o.visible=false
-     end
-  }
-  ObjectSpace.each_object(Plane){|o|
-     if !o.disposed? && o.visible
-       visibleObjects.push(o)
-       o.visible=false
-     end
-  }
-  ObjectSpace.each_object(Tilemap){|o|
-     if !o.disposed? && o.visible
-       visibleObjects.push(o)
-       o.visible=false
-     end
-  }
-  ObjectSpace.each_object(Window){|o|
-     if !o.disposed? && o.visible
-       visibleObjects.push(o)
-       o.visible=false
-     end
-  }
-  return visibleObjects
+
+
+#===============================================================================
+# Bridges
+#===============================================================================
+def pbBridgeOn(height=2)
+  $PokemonGlobal.bridge=height
 end
 
-def pbShowObjects(visibleObjects)
-  for o in visibleObjects
-    if !pbDisposed?(o)
-      o.visible=true
+def pbBridgeOff
+  $PokemonGlobal.bridge=0
+end
+
+
+
+#===============================================================================
+# Event locations, terrain tags
+#===============================================================================
+def pbEventFacesPlayer?(event,player,distance)
+  return false if distance<=0
+  # Event can't reach player if no coordinates coincide
+  return false if event.x!=player.x && event.y!=player.y
+  deltaX = (event.direction == 6 ? 1 : event.direction == 4 ? -1 : 0)
+  deltaY = (event.direction == 2 ? 1 : event.direction == 8 ? -1 : 0)
+  # Check for existence of player
+  curx=event.x
+  cury=event.y
+  found=false
+  for i in 0...distance
+    curx+=deltaX
+    cury+=deltaY
+    if player.x==curx && player.y==cury
+      found=true
+      break
     end
   end
+  return found
 end
 
-def pbLoadRpgxpScene(scene)
-  return if !$scene.is_a?(Scene_Map)
-  oldscene=$scene
-  $scene=scene
-  Graphics.freeze
-  oldscene.disposeSpritesets
-  visibleObjects=pbHideVisibleObjects
-  Graphics.transition(15)
-  Graphics.freeze
-  while $scene && !$scene.is_a?(Scene_Map)
-    $scene.main
+def pbEventCanReachPlayer?(event,player,distance)
+  return false if distance<=0
+  # Event can't reach player if no coordinates coincide
+  return false if event.x!=player.x && event.y!=player.y
+  deltaX = (event.direction == 6 ? 1 : event.direction == 4 ? -1 : 0)
+  deltaY =  (event.direction == 2 ? 1 : event.direction == 8 ? -1 : 0)
+  # Check for existence of player
+  curx=event.x
+  cury=event.y
+  found=false
+  realdist=0
+  for i in 0...distance
+    curx+=deltaX
+    cury+=deltaY
+    if player.x==curx && player.y==cury
+      found=true
+      break
+    end
+    realdist+=1
   end
-  Graphics.transition(15)
-  Graphics.freeze
-  oldscene.createSpritesets
-  pbShowObjects(visibleObjects)
-  Graphics.transition(20)
-  $scene=oldscene
-end
-
-# Gets the value of a variable.
-def pbGet(id)
-  return 0 if !id || !$game_variables
-  return $game_variables[id]
-end
-
-# Sets the value of a variable.
-def pbSet(id,value)
-  if id && id>=0
-    $game_variables[id]=value if $game_variables
-    $game_map.need_refresh = true if $game_map
+  return false if !found
+  # Check passibility
+  curx=event.x
+  cury=event.y
+  for i in 0...realdist
+    if !event.passable?(curx,cury,event.direction)
+      return false
+    end
+    curx+=deltaX
+    cury+=deltaY
   end
-end
-
-# Runs a common event and waits until the common event is finished.
-# Requires the script "PokemonMessages"
-def pbCommonEvent(id)
-  return false if id<0
-  ce=$data_common_events[id]
-  return false if !ce
-  celist=ce.list
-  interp=Interpreter.new
-  interp.setup(celist,0)
-  begin
-    Graphics.update
-    Input.update
-    interp.update
-    pbUpdateSceneMap
-  end while interp.running?
   return true
 end
 
-def pbExclaim(event,id=EXCLAMATION_ANIMATION_ID,tinting=false)
-  if event.is_a?(Array)
-    sprite=nil
-    done=[]
-    for i in event
-      if !done.include?(i.id)
-        sprite=$scene.spriteset.addUserAnimation(id,i.x,i.y,tinting)
-        done.push(i.id)
-      end
-    end
+def pbFacingTileRegular(direction=nil,event=nil)
+  event=$game_player if !event
+  return [0,0,0] if !event
+  x=event.x
+  y=event.y
+  direction=event.direction if !direction
+  case direction
+  when 1; y+=1; x-=1
+  when 2; y+=1
+  when 3; y+=1; x+=1
+  when 4; x-=1
+  when 6; x+=1
+  when 7; y-=1; x-=1
+  when 8; y-=1
+  when 9; y-=1; x+=1
+  end
+  return [$game_map ? $game_map.map_id : 0,x,y]
+end
+
+def pbFacingTile(direction=nil,event=nil)
+  if $MapFactory
+    return $MapFactory.getFacingTile(direction,event)
   else
-    sprite=$scene.spriteset.addUserAnimation(id,event.x,event.y,tinting)
-  end
-  while !sprite.disposed?
-    Graphics.update
-    Input.update
-    pbUpdateSceneMap
+    return pbFacingTileRegular(direction,event)
   end
 end
 
-def pbNoticePlayer(event)
-  if !pbFacingEachOther(event,$game_player)
-    pbExclaim(event)
-  end
-  pbTurnTowardEvent($game_player,event)
-  Kernel.pbMoveTowardPlayer(event)
-end
-
-
-
-################################################################################
-# Loads Pokémon/item/trainer graphics
-################################################################################
-def pbPokemonBitmapFile(species, shiny, back=false)   # Unused
-  if shiny
-    # Load shiny bitmap
-    ret=sprintf("Graphics/Battlers/%ss%s",getConstantName(PBSpecies,species),back ? "b" : "") rescue nil
-    if !pbResolveBitmap(ret)
-      ret=sprintf("Graphics/Battlers/%03ds%s",species,back ? "b" : "")
-    end
-    return ret
-  else
-    # Load normal bitmap
-    ret=sprintf("Graphics/Battlers/%s%s",getConstantName(PBSpecies,species),back ? "b" : "") rescue nil
-    if !pbResolveBitmap(ret)
-      ret=sprintf("Graphics/Battlers/%03d%s",species,back ? "b" : "")
-    end
-    return ret
-  end
-end
-
-def pbLoadPokemonBitmap(pokemon, back=false)
-  return pbLoadPokemonBitmapSpecies(pokemon,pokemon.species,back)
-end
-
-# Note: Returns an AnimatedBitmap, not a Bitmap
-def pbLoadPokemonBitmapSpecies(pokemon,species,back=false)
-  ret = nil
-  if pokemon.isEgg?
-    bitmapFileName = sprintf("Graphics/Battlers/%segg_%d",getConstantName(PBSpecies,species),pokemon.form) rescue nil
-    if !pbResolveBitmap(bitmapFileName)
-      bitmapFileName = sprintf("Graphics/Battlers/%03degg_%d",species,pokemon.form)
-      if !pbResolveBitmap(bitmapFileName)
-        bitmapFileName = sprintf("Graphics/Battlers/%segg",getConstantName(PBSpecies,species)) rescue nil
-        if !pbResolveBitmap(bitmapFileName)
-          bitmapFileName = sprintf("Graphics/Battlers/%03degg",species)
-          if !pbResolveBitmap(bitmapFileName)
-            bitmapFileName = sprintf("Graphics/Battlers/egg")
-          end
-        end
-      end
-    end
-    bitmapFileName = pbResolveBitmap(bitmapFileName)
-  else
-    bitmapFileName = pbCheckPokemonBitmapFiles([species,back,(pokemon.isFemale?),
-       pokemon.isShiny?,(pokemon.form rescue 0),(pokemon.isShadow? rescue false)])
-    # Alter bitmap if supported
-    alterBitmap = (MultipleForms.getFunction(species,"alterBitmap") rescue nil)
-  end
-  if bitmapFileName && alterBitmap
-    animatedBitmap = AnimatedBitmap.new(bitmapFileName)
-    copiedBitmap = animatedBitmap.copy
-    animatedBitmap.dispose
-    copiedBitmap.each {|bitmap| alterBitmap.call(pokemon,bitmap) }
-    ret = copiedBitmap
-  elsif bitmapFileName
-    ret = AnimatedBitmap.new(bitmapFileName)
-  end
-  return ret
-end
-
-# Note: Returns an AnimatedBitmap, not a Bitmap
-def pbLoadSpeciesBitmap(species,female=false,form=0,shiny=false,shadow=false,back=false,egg=false)
-  ret = nil
-  if egg
-    bitmapFileName = sprintf("Graphics/Battlers/%segg_%d",getConstantName(PBSpecies,species),form) rescue nil
-    if !pbResolveBitmap(bitmapFileName)
-      bitmapFileName = sprintf("Graphics/Battlers/%03degg_%d",species,form)
-      if !pbResolveBitmap(bitmapFileName)
-        bitmapFileName = sprintf("Graphics/Battlers/%segg",getConstantName(PBSpecies,species)) rescue nil
-        if !pbResolveBitmap(bitmapFileName)
-          bitmapFileName = sprintf("Graphics/Battlers/%03degg",species)
-          if !pbResolveBitmap(bitmapFileName)
-            bitmapFileName = sprintf("Graphics/Battlers/egg")
-          end
-        end
-      end
-    end
-    bitmapFileName = pbResolveBitmap(bitmapFileName)
-  else
-    bitmapFileName = pbCheckPokemonBitmapFiles([species,back,female,shiny,form,shadow])
-  end
-  if bitmapFileName
-    ret = AnimatedBitmap.new(bitmapFileName)
-  end
-  return ret
-end
-
-
-=begin
-# Note: Returns an AnimatedBitmap, not a Bitmap
-def pbLoadPokemonBitmapSpecies(pokemon, species, back=false)
-  ret=nil
-  if pokemon.isEgg?
-    bitmapFileName=sprintf("Graphics/Battlers/%segg",getConstantName(PBSpecies,species)) rescue nil
-    if !pbResolveBitmap(bitmapFileName)
-      bitmapFileName=sprintf("Graphics/Battlers/%03degg",species)
-      if !pbResolveBitmap(bitmapFileName)
-        bitmapFileName=sprintf("Graphics/Battlers/egg")
-      end
-    end
-    bitmapFileName=pbResolveBitmap(bitmapFileName)
-  else
-    bitmapFileName=pbCheckPokemonBitmapFiles([species,back,
-                                              (pokemon.isFemale?),
-                                              pokemon.isShiny?,
-                                              (pokemon.form rescue 0),
-                                              (pokemon.isShadow? rescue false)])
-    # Alter bitmap if supported
-    alterBitmap=(MultipleForms.getFunction(species,"alterBitmap") rescue nil)
-  end
-  if bitmapFileName && alterBitmap
-    animatedBitmap=AnimatedBitmap.new(bitmapFileName)
-    copiedBitmap=animatedBitmap.copy
-    animatedBitmap.dispose
-    copiedBitmap.each {|bitmap|
-       alterBitmap.call(pokemon,bitmap)
-    }
-    ret=copiedBitmap
-  elsif bitmapFileName
-    ret=AnimatedBitmap.new(bitmapFileName)
-  end
-  return ret
-end
-
-# Note: Returns an AnimatedBitmap, not a Bitmap
-def pbLoadSpeciesBitmap(species,female=false,form=0,shiny=false,shadow=false,back=false,egg=false)
-  ret=nil
-  if egg
-    bitmapFileName=sprintf("Graphics/Battlers/%segg",getConstantName(PBSpecies,species)) rescue nil
-    if !pbResolveBitmap(bitmapFileName)
-      bitmapFileName=sprintf("Graphics/Battlers/%03degg",species)
-      if !pbResolveBitmap(bitmapFileName)
-        bitmapFileName=sprintf("Graphics/Battlers/egg")
-      end
-    end
-    bitmapFileName=pbResolveBitmap(bitmapFileName)
-  else
-    bitmapFileName=pbCheckPokemonBitmapFiles([species,back,female,shiny,form,shadow])
-  end
-  if bitmapFileName
-    ret=AnimatedBitmap.new(bitmapFileName)
-  end
-  return ret
-end
-=end
-# Note: Returns an AnimatedBitmap, not a Bitmap
-def pbLoadPokemonBitmapSpecies(pokemon,species,back=false)
-  ret = nil
-  if pokemon.isEgg?
-    bitmapFileName = sprintf("Graphics/Battlers/%segg_%d",getConstantName(PBSpecies,species),pokemon.form) rescue nil
-    if !pbResolveBitmap(bitmapFileName)
-      bitmapFileName = sprintf("Graphics/Battlers/%03degg_%d",species,pokemon.form)
-      if !pbResolveBitmap(bitmapFileName)
-        bitmapFileName = sprintf("Graphics/Battlers/%segg",getConstantName(PBSpecies,species)) rescue nil
-        if !pbResolveBitmap(bitmapFileName)
-          bitmapFileName = sprintf("Graphics/Battlers/%03degg",species)
-          if !pbResolveBitmap(bitmapFileName)
-            bitmapFileName = sprintf("Graphics/Battlers/egg")
-          end
-        end
-      end
-    end
-    bitmapFileName = pbResolveBitmap(bitmapFileName)
-  else
-    bitmapFileName = pbCheckPokemonBitmapFiles([species,back,(pokemon.isFemale?),
-       pokemon.isShiny?,(pokemon.form rescue 0),(pokemon.isShadow? rescue false)])
-    # Alter bitmap if supported
-    alterBitmap = (MultipleForms.getFunction(species,"alterBitmap") rescue nil)
-  end
-  if bitmapFileName && alterBitmap
-    animatedBitmap = AnimatedBitmap.new(bitmapFileName)
-    copiedBitmap = animatedBitmap.copy
-    animatedBitmap.dispose
-    copiedBitmap.each {|bitmap| alterBitmap.call(pokemon,bitmap) }
-    ret = copiedBitmap
-  elsif bitmapFileName
-    ret = AnimatedBitmap.new(bitmapFileName)
-  end
-  return ret
-end
-
-# Note: Returns an AnimatedBitmap, not a Bitmap
-def pbLoadSpeciesBitmap(species,female=false,form=0,shiny=false,shadow=false,back=false,egg=false)
-  ret = nil
-  if egg
-    bitmapFileName = sprintf("Graphics/Battlers/%segg_%d",getConstantName(PBSpecies,species),form) rescue nil
-    if !pbResolveBitmap(bitmapFileName)
-      bitmapFileName = sprintf("Graphics/Battlers/%03degg_%d",species,form)
-      if !pbResolveBitmap(bitmapFileName)
-        bitmapFileName = sprintf("Graphics/Battlers/%segg",getConstantName(PBSpecies,species)) rescue nil
-        if !pbResolveBitmap(bitmapFileName)
-          bitmapFileName = sprintf("Graphics/Battlers/%03degg",species)
-          if !pbResolveBitmap(bitmapFileName)
-            bitmapFileName = sprintf("Graphics/Battlers/egg")
-          end
-        end
-      end
-    end
-    bitmapFileName = pbResolveBitmap(bitmapFileName)
-  else
-    bitmapFileName = pbCheckPokemonBitmapFiles([species,back,female,shiny,form,shadow])
-  end
-  if bitmapFileName
-    ret = AnimatedBitmap.new(bitmapFileName)
-  end
-  return ret
-end
-
-def pbCheckPokemonBitmapFiles(params)
-  species=params[0]
-  back=params[1]
-  factors=[]
-  factors.push([5,params[5],false]) if params[5] && params[5]!=false     # shadow
-  factors.push([2,params[2],false]) if params[2] && params[2]!=false     # gender
-  factors.push([3,params[3],false]) if params[3] && params[3]!=false     # shiny
-  factors.push([4,params[4].to_s,""]) if params[4] && params[4].to_s!="" &&
-                                                      params[4].to_s!="0" # form
-  tshadow=false
-  tgender=false
-  tshiny=false
-  tform=""
-  for i in 0...2**factors.length
-    for j in 0...factors.length
-      case factors[j][0]
-      when 2   # gender
-        tgender=((i/(2**j))%2==0) ? factors[j][1] : factors[j][2]
-      when 3   # shiny
-        tshiny=((i/(2**j))%2==0) ? factors[j][1] : factors[j][2]
-      when 4   # form
-        tform=((i/(2**j))%2==0) ? factors[j][1] : factors[j][2]
-      when 5   # shadow
-        tshadow=((i/(2**j))%2==0) ? factors[j][1] : factors[j][2]
-      end
-    end
-#TEMP
-   if ($PokemonSystem.newsix==1 rescue false) 
-      bitmapFileName=sprintf("Graphics/Battlers/New6/%s%s%s%s%s%s",
-         getConstantName(PBSpecies,species),
-         tgender ? "f" : "",
-         tshiny ? "s" : "",
-         back ? "b" : "",
-         (tform!="" ? "_"+tform : ""),
-         tshadow ? "_shadow" : "") rescue nil
-      ret=pbResolveBitmap(bitmapFileName)
-      return ret if ret
-      bitmapFileName=sprintf("Graphics/Battlers/New6/%03d%s%s%s%s%s",
-         species,
-         tgender ? "f" : "",
-         tshiny ? "s" : "",
-         back ? "b" : "",
-         (tform!="" ? "_"+tform : ""),
-         tshadow ? "_shadow" : "")
-      ret=pbResolveBitmap(bitmapFileName)
-      return ret if ret
-    end
-#TEMP
-    bitmapFileName=sprintf("Graphics/Battlers/%s%s%s%s%s%s",
-       getConstantName(PBSpecies,species),
-       tgender ? "f" : "",
-       tshiny ? "s" : "",
-       back ? "b" : "",
-       (tform!="" ? "_"+tform : ""),
-       tshadow ? "_shadow" : "") rescue nil
-    ret=pbResolveBitmap(bitmapFileName)
-    return ret if ret
-    bitmapFileName=sprintf("Graphics/Battlers/%03d%s%s%s%s%s",
-       species,
-       tgender ? "f" : "",
-       tshiny ? "s" : "",
-       back ? "b" : "",
-       (tform!="" ? "_"+tform : ""),
-       tshadow ? "_shadow" : "")
-    ret=pbResolveBitmap(bitmapFileName)
-    return ret if ret
-  end
-    bitmapFileName=sprintf("Graphics/Battlers/%s%s%s%s%s%s",
-       '000',
-       tgender ? "f" : "",
-       tshiny ? "s" : "",
-       back ? "b" : "",
-       (tform!="" ? "_"+tform : ""),
-       tshadow ? "_shadow" : "") rescue nil
-    ret=pbResolveBitmap(bitmapFileName)
-    return ret if ret
-  return nil
-end
-
-
-
-def pbLoadPokemonIcon(pokemon)
-  return AnimatedBitmap.new(pbPokemonIconFile(pokemon)).deanimate
-end
-
-def pbPokemonIconFile(pokemon)
-  bitmapFileName=nil
-  bitmapFileName=pbCheckPokemonIconFiles([pokemon.species,
-                                          (pokemon.isFemale?),
-                                          pokemon.isShiny?,
-                                          (pokemon.form rescue 0),
-                                          (pokemon.isShadow? rescue false)],
-                                          pokemon.isEgg?)
-  return bitmapFileName
-end
-
-def pbCheckPokemonIconFiles(params,egg=false)
-  species=params[0]
-  if egg
-    bitmapFileName=sprintf("Graphics/Icons/icon%segg",getConstantName(PBSpecies,species)) rescue nil
-    if !pbResolveBitmap(bitmapFileName)
-      bitmapFileName=sprintf("Graphics/s/icon%03degg",species) 
-      if !pbResolveBitmap(bitmapFileName)
-        bitmapFileName=sprintf("Graphics/Icons/iconEgg")
-      end
-    end
-    return pbResolveBitmap(bitmapFileName)
-  else
-    factors=[]
-    factors.push([4,params[4],false]) if params[4] && params[4]!=false     # shadow
-    factors.push([1,params[1],false]) if params[1] && params[1]!=false     # gender
-    factors.push([2,params[2],false]) if params[2] && params[2]!=false     # shiny
-    factors.push([3,params[3].to_s,""]) if params[3] && params[3].to_s!="" &&
-                                                        params[3].to_s!="0" # form
-    tshadow=false
-    tgender=false
-    tshiny=false
-    tform=""
-    for i in 0...2**factors.length
-      for j in 0...factors.length
-        case factors[j][0]
-        when 1   # gender
-          tgender=((i/(2**j))%2==0) ? factors[j][1] : factors[j][2]
-        when 2   # shiny
-          tshiny=((i/(2**j))%2==0) ? factors[j][1] : factors[j][2]
-        when 3   # form
-          tform=((i/(2**j))%2==0) ? factors[j][1] : factors[j][2]
-        when 4   # shadow
-          tshadow=((i/(2**j))%2==0) ? factors[j][1] : factors[j][2]
-        end
-      end
-      if ($PokemonSystem.dsampling==0 rescue false)
-        # Nothing
-      else
-        bitmapFileName=sprintf("Graphics/Icons/dsampling/icon%s%s%s%s%s",
-           getConstantName(PBSpecies,species),
-           tgender ? "f" : "",
-           tshiny ? "s" : "",
-           (tform!="" ? "_"+tform : ""),
-           tshadow ? "_shadow" : "") rescue nil
-        ret=pbResolveBitmap(bitmapFileName)
-        return ret if ret
-        bitmapFileName=sprintf("Graphics/Icons/dsampling/icon%03d%s%s%s%s",
-           species,
-           tgender ? "f" : "",
-           tshiny ? "s" : "",
-           (tform!="" ? "_"+tform : ""),
-           tshadow ? "_shadow" : "")
-        ret=pbResolveBitmap(bitmapFileName)
-        return ret if ret        
-      end
-      bitmapFileName=sprintf("Graphics/Icons/icon%s%s%s%s%s",
-         getConstantName(PBSpecies,species),
-         tgender ? "f" : "",
-         tshiny ? "s" : "",
-         (tform!="" ? "_"+tform : ""),
-         tshadow ? "_shadow" : "") rescue nil
-      ret=pbResolveBitmap(bitmapFileName)
-      return ret if ret
-      bitmapFileName=sprintf("Graphics/Icons/icon%03d%s%s%s%s",
-         species,
-         tgender ? "f" : "",
-         tshiny ? "s" : "",
-         (tform!="" ? "_"+tform : ""),
-         tshadow ? "_shadow" : "")
-      ret=pbResolveBitmap(bitmapFileName)
-      return ret if ret
-    end
-      bitmapFileName=sprintf("Graphics/Icons/icon000")
-      ret=pbResolveBitmap(bitmapFileName)
-      return ret if ret
-  end
-  return nil
-end
-
-def pbPokemonFootprintFile(pokemon)   # Used by the Pokédex
-  return nil if !pokemon
-  if pokemon.is_a?(Numeric)
-    bitmapFileName=sprintf("Graphics/Icons/Footprints/footprint%s",getConstantName(PBSpecies,pokemon)) rescue nil
-    bitmapFileName=sprintf("Graphics/Icons/Footprints/footprint%03d",pokemon) if !pbResolveBitmap(bitmapFileName)
-  else
-    bitmapFileName=sprintf("Graphics/Icons/Footprints/footprint%s_%d",getConstantName(PBSpecies,pokemon.species),(pokemon.form rescue 0)) rescue nil
-    if !pbResolveBitmap(bitmapFileName)
-      bitmapFileName=sprintf("Graphics/Icons/Footprints/footprint%03d_%d",pokemon.species,(pokemon.form rescue 0)) rescue nil
-      if !pbResolveBitmap(bitmapFileName)
-        bitmapFileName=sprintf("Graphics/Icons/Footprints/footprint%s",getConstantName(PBSpecies,pokemon.species)) rescue nil
-        if !pbResolveBitmap(bitmapFileName)
-          bitmapFileName=sprintf("Graphics/Icons/Footprints/footprint%03d",pokemon.species)
-        end
-      end
-    end
-  end
-  return pbResolveBitmap(bitmapFileName)
-end
-
-=begin
-def pbItemIconFile(item)
-  return nil if !item
-  bitmapFileName=nil
-  if item==0
-    bitmapFileName=sprintf("Graphics/Icons/itemBack")
-  else
-    bitmapFileName=sprintf("Graphics/Icons/item%s",getConstantName(PBItems,item)) rescue nil
-    if !pbResolveBitmap(bitmapFileName)
-      bitmapFileName=sprintf("Graphics/Icons/item%03d",item)
-    end
-  end
-  return bitmapFileName
-end
-=end
-def pbItemIconFile(item)
-  return nil if !item
-  bitmapFileName = nil
-  if item==0
-    bitmapFileName = sprintf("Graphics/Icons/itemBack")
-  elsif item==827 && QQORECHANNEL>0 && QQORECHANNEL<4 # Qora Qore Master
-    bitmapFileName = _INTL("Graphics/Icons/item827_{1}",QQORECHANNEL)
-  else
-    bitmapFileName = sprintf("Graphics/Icons/item%s",getConstantName(PBItems,item)) rescue nil
-    if !pbResolveBitmap(bitmapFileName)
-      bitmapFileName = sprintf("Graphics/Icons/item%03d",item)
-      if !pbResolveBitmap(bitmapFileName) && pbIsMachine?(item)
-        move = pbGetMachine(item)
-        type = PBMoveData.new(move).type
-        bitmapFileName = sprintf("Graphics/Icons/itemMachine%s",getConstantName(PBTypes,type)) rescue nil
-        if !pbResolveBitmap(bitmapFileName)
-          bitmapFileName = sprintf("Graphics/Icons/itemMachine%03d",type)
-        end
-      end
-      bitmapFileName = "Graphics/Icons/item000" if !pbResolveBitmap(bitmapFileName)
-    end
-  end
-  return bitmapFileName
-end
-
-
-def pbMailBackFile(item)
-  return nil if !item
-  bitmapFileName=sprintf("Graphics/Pictures/mail%s",getConstantName(PBItems,item)) rescue nil
-  if !pbResolveBitmap(bitmapFileName)
-    bitmapFileName=sprintf("Graphics/Pictures/mail%03d",item)
-  end
-  return bitmapFileName
-end
-
-def pbTrainerCharFile(type)
-  return nil if !type
-  bitmapFileName=sprintf("Graphics/Characters/trchar%s",getConstantName(PBTrainers,type)) rescue nil
-  if !pbResolveBitmap(bitmapFileName)
-    bitmapFileName=sprintf("Graphics/Characters/trchar%03d",type)
-  end
-  return bitmapFileName
-end
-
-def pbTrainerCharNameFile(type)
-  return nil if !type
-  bitmapFileName=sprintf("trchar%s",getConstantName(PBTrainers,type)) rescue nil
-  if !pbResolveBitmap(sprintf("Graphics/Characters/"+bitmapFileName))
-    bitmapFileName=sprintf("trchar%03d",type)
-  end
-  return bitmapFileName
-end
-
-def pbTrainerHeadFile(type)
-  return nil if !type
-  bitmapFileName=sprintf("Graphics/Pictures/mapPlayer%s",getConstantName(PBTrainers,type)) rescue nil
-  if !pbResolveBitmap(bitmapFileName)
-    bitmapFileName=sprintf("Graphics/Pictures/mapPlayer%03d",type)
-  end
-  return bitmapFileName
-end
-
-def pbPlayerHeadFile(type)
-  return nil if !type
-  outfit=$Trainer ? $Trainer.outfit : 0
-  bitmapFileName=sprintf("Graphics/Pictures/mapPlayer%s_%d",
-     getConstantName(PBTrainers,type),outfit) rescue nil
-  if !pbResolveBitmap(bitmapFileName)
-    bitmapFileName=sprintf("Graphics/Pictures/mapPlayer%03d_%d",type,outfit)
-    if !pbResolveBitmap(bitmapFileName)
-      bitmapFileName=pbTrainerHeadFile(type)
-    end
-  end
-  return bitmapFileName
-end
-
-def pbTrainerSpriteFile(type)
-  return nil if !type
-  bitmapFileName=sprintf("Graphics/Characters/trainer%s",getConstantName(PBTrainers,type)) rescue nil
-  if !pbResolveBitmap(bitmapFileName)
-    bitmapFileName=sprintf("Graphics/Characters/trainer%03d",type)
-  end
-  return bitmapFileName
-end
-
-def pbTrainerSpriteBackFile(type)
-  return nil if !type
-  bitmapFileName=sprintf("Graphics/Characters/trback%s",getConstantName(PBTrainers,type)) rescue nil
-  if !pbResolveBitmap(bitmapFileName)
-    bitmapFileName=sprintf("Graphics/Characters/trback%03d",type)
-  end
-  return bitmapFileName
-end
-
-def pbPlayerSpriteFile(type)
-  return nil if !type
-  outfit=$Trainer ? $Trainer.outfit : 0
-  bitmapFileName=sprintf("Graphics/Characters/trainer%s_%d",
-     getConstantName(PBTrainers,type),outfit) rescue nil
-  if !pbResolveBitmap(bitmapFileName)
-    bitmapFileName=sprintf("Graphics/Characters/trainer%03d_%d",type,outfit)
-    if !pbResolveBitmap(bitmapFileName)
-      bitmapFileName=pbTrainerSpriteFile(type)
-    end
-  end
-  return bitmapFileName
-end
-
-def pbPlayerSpriteBackFile(type)
-  return nil if !type
-  outfit=$Trainer ? $Trainer.outfit : 0
-  bitmapFileName=sprintf("Graphics/Characters/trback%s_%d",
-     getConstantName(PBTrainers,type),outfit) rescue nil
-  if !pbResolveBitmap(bitmapFileName)
-    bitmapFileName=sprintf("Graphics/Characters/trback%03d_%d",type,outfit)
-    if !pbResolveBitmap(bitmapFileName)
-      bitmapFileName=pbTrainerSpriteBackFile(type)
-    end
-  end
-  return bitmapFileName
-end
-
-
-
-################################################################################
-# Loads music and sound effects
-################################################################################
-def pbResolveAudioSE(file)
-  return nil if !file
-  if RTP.exists?("Audio/SE/"+file,["",".wav",".mp3",".ogg"])
-    return RTP.getPath("Audio/SE/"+file,["",".wav",".mp3",".ogg"])
-  end
-  return nil
-end
-
-def pbCryFrameLength(pokemon,pitch=nil)
-  return 0 if !pokemon
-  pitch=100 if !pitch
-  pitch=pitch.to_f/100
-  return 0 if pitch<=0
-  playtime=0.0
-  if pokemon.is_a?(Numeric)
-    pkmnwav=pbResolveAudioSE(pbCryFile(pokemon))
-    playtime=getPlayTime(pkmnwav) if pkmnwav
-  elsif !pokemon.isEgg?
-    if pokemon.respond_to?("chatter") && pokemon.chatter
-      playtime=pokemon.chatter.time
-      pitch=1.0
+def pbFacingEachOther(event1,event2)
+  return false if !event1 || !event2
+  if $MapFactory
+    tile1=$MapFactory.getFacingTile(nil,event1)
+    tile2=$MapFactory.getFacingTile(nil,event2)
+    return false if !tile1 || !tile2
+    if tile1[0]==event2.map.map_id &&
+       tile1[1]==event2.x && tile1[2]==event2.y &&
+       tile2[0]==event1.map.map_id &&
+       tile2[1]==event1.x && tile2[2]==event1.y
+      return true
     else
-      pkmnwav=pbResolveAudioSE(pbCryFile(pokemon))
-      playtime=getPlayTime(pkmnwav) if pkmnwav
-    end 
-  end
-  playtime/=pitch # sound is lengthened the lower the pitch
-  # 4 is added to provide a buffer between sounds
-  return (playtime*Graphics.frame_rate).ceil+16
-end
-
-def pbPlayCry(pokemon,volume=85,pitch=nil)
-  return if !pokemon
-  if pokemon.is_a?(Numeric)
-    pkmnwav=pbCryFile(pokemon)
-    if pkmnwav
-      pbSEPlay(RPG::AudioFile.new(pkmnwav,volume,pitch ? pitch : 100)) rescue nil
+      return false
     end
-  elsif !pokemon.isEgg?
-    if pokemon.respond_to?("chatter") && pokemon.chatter
-      pokemon.chatter.play
+  else
+    tile1=Kernel.pbFacingTile(nil,event1)
+    tile2=Kernel.pbFacingTile(nil,event2)
+    return false if !tile1 || !tile2
+    if tile1[1]==event2.x && tile1[2]==event2.y &&
+       tile2[1]==event1.x && tile2[2]==event1.y
+      return true
     else
-      pkmnwav=pbCryFile(pokemon)
-      if pkmnwav
-        pbSEPlay(RPG::AudioFile.new(pkmnwav,volume,
-           pitch ? pitch : (pokemon.hp*50/pokemon.totalhp)+50)) rescue nil
-      end
+      return false
     end
   end
 end
 
-def pbCryFile(pokemon)
-  return nil if !pokemon
-  return pbCryFileClassic(pokemon) if ($PokemonSystem.cryclassic==0 rescue false) || IEMODE
-  if pokemon.is_a?(Numeric)
-    filename=sprintf("Cries/%sCry",getConstantName(PBSpecies,pokemon,(pokemon.form rescue 0))) rescue nil
-    filename=sprintf("Cries/%03dCry",pokemon, (pokemon.form rescue 0)) if !pbResolveAudioSE(filename)
-    return filename if pbResolveAudioSE(filename)
-  elsif !pokemon.isEgg?
-    filename=sprintf("Cries/%sCry_%d",getConstantName(PBSpecies,pokemon.species,(pokemon.form rescue 0))) rescue nil
-    filename=sprintf("Cries/%03dCry_%d",pokemon.species,(pokemon.form rescue 0)) if !pbResolveAudioSE(filename)
-    if !pbResolveAudioSE(filename)
-      filename=sprintf("Cries/%sCry",getConstantName(PBSpecies,pokemon.species,(pokemon.form rescue 0))) rescue nil
-    end
-    filename=sprintf("Cries/%03dCry",pokemon.species,(pokemon.form rescue 0)) if !pbResolveAudioSE(filename)
-    return filename if pbResolveAudioSE(filename)
+def pbGetTerrainTag(event=nil,countBridge=false)
+  event=$game_player if !event
+  return 0 if !event
+  if $MapFactory
+    return $MapFactory.getTerrainTag(event.map.map_id,event.x,event.y,countBridge)
+  else
+    $game_map.terrain_tag(event.x,event.y,countBridge)
   end
-  return nil
 end
 
-
-def pbCryFileClassic(pokemon)
-  return nil if !pokemon
-  if pokemon.is_a?(Numeric)
-    filename=sprintf("Classic Cries/%sCry",getConstantName(PBSpecies,pokemon,(pokemon.form rescue 0))) rescue nil
-    filename=sprintf("Classic Cries/%03dCry",pokemon, (pokemon.form rescue 0)) if !pbResolveAudioSE(filename)
-    return filename if pbResolveAudioSE(filename)
-  elsif !pokemon.isEgg?
-    filename=sprintf("Classic Cries/%sCry_%d",getConstantName(PBSpecies,pokemon.species,(pokemon.form rescue 0))) rescue nil
-    filename=sprintf("Classic Cries/%03dCry_%d",pokemon.species,(pokemon.form rescue 0)) if !pbResolveAudioSE(filename)
-    if !pbResolveAudioSE(filename)
-      filename=sprintf("Classic Cries/%sCry",getConstantName(PBSpecies,pokemon.species,(pokemon.form rescue 0))) rescue nil
-    end
-    filename=sprintf("Classic Cries/%03dCry",pokemon.species,(pokemon.form rescue 0)) if !pbResolveAudioSE(filename)
-    return filename if pbResolveAudioSE(filename)
+def Kernel.pbFacingTerrainTag(event=nil,dir=nil)
+  if $MapFactory
+    return $MapFactory.getFacingTerrainTag(dir,event)
+  else
+    event=$game_player if !event
+    return 0 if !event
+    facing=pbFacingTile(dir,event)
+   return $game_map.terrain_tag(facing[1],facing[2])
   end
-  return nil
 end
 
 
 
-def pbGetWildBattleBGM(species)
-  if $PokemonGlobal.nextBattleBGM
-    return $PokemonGlobal.nextBattleBGM.clone
+#===============================================================================
+# Event movement
+#===============================================================================
+def pbTurnTowardEvent(event,otherEvent)
+  sx=0
+  sy=0
+  if $MapFactory
+    relativePos=$MapFactory.getThisAndOtherEventRelativePos(otherEvent,event)
+    sx = relativePos[0]
+    sy = relativePos[1]
+  else
+    sx = event.x - otherEvent.x
+    sy = event.y - otherEvent.y
   end
-  ret=nil
-  if !ret && $game_map
-    # Check map-specific metadata
-    music=pbGetMetadata($game_map.map_id,MetadataMapWildBattleBGM)
-    if music && music!=""
-      ret=pbStringToAudioFile(music)
-    end
-  end
-  if !ret
-    # Check global metadata
-    music=pbGetMetadata(0,MetadataWildBattleBGM)
-    if music && music!=""
-      ret=pbStringToAudioFile(music)
-    end
-  end
-  ret=pbStringToAudioFile("002-Battle02") if !ret
-  return ret
-end
-
-def pbGetWildVictoryME
-  if $PokemonGlobal.nextBattleME
-    return $PokemonGlobal.nextBattleME.clone
-  end
-  ret=nil
-  if !ret && $game_map
-    # Check map-specific metadata
-    music=pbGetMetadata($game_map.map_id,MetadataMapWildVictoryME)
-    if music && music!=""
-      ret=pbStringToAudioFile(music)
-    end
-  end
-  if !ret
-    # Check global metadata
-    music=pbGetMetadata(0,MetadataWildVictoryME)
-    if music && music!=""
-      ret=pbStringToAudioFile(music)
-    end
-  end
-  ret=pbStringToAudioFile("001-Victory01") if !ret
-  ret.name="../../Audio/ME/"+ret.name
-  return ret
-end
-
-def pbPlayTrainerIntroME(trainertype)
-  pbRgssOpen("Data/trainertypes.dat","rb"){|f|
-     trainertypes=Marshal.load(f)
-     if trainertypes[trainertype]
-       bgm=trainertypes[trainertype][6]
-       if bgm && bgm!=""
-         bgm=pbStringToAudioFile(bgm)
-         pbMEPlay(bgm)
-         return
-       end
-     end
-  }
-end
-
-def pbGetTrainerBattleBGM(trainer) # can be a PokeBattle_Trainer or an array of PokeBattle_Trainer
-  if $PokemonGlobal.nextBattleBGM
-    return $PokemonGlobal.nextBattleBGM.clone
-  end
-  music=nil
-  pbRgssOpen("Data/trainertypes.dat","rb"){|f|
-     trainertypes=Marshal.load(f)
-     if !trainer.is_a?(Array)
-       trainerarray=[trainer]
-     else
-       trainerarray=trainer
-     end
-     for i in 0...trainerarray.length
-       trainertype=trainerarray[i].trainertype
-       if trainertypes[trainertype]
-         music=trainertypes[trainertype][4]
-       end
-     end
-  }
-  ret=nil
-  if music && music!=""
-    ret=pbStringToAudioFile(music)
-  end
-  if !ret && $game_map
-    # Check map-specific metadata
-    music=pbGetMetadata($game_map.map_id,MetadataMapTrainerBattleBGM)
-    if music && music!=""
-      ret=pbStringToAudioFile(music)
-    end
-  end
-  if !ret
-    # Check global metadata
-    music=pbGetMetadata(0,MetadataTrainerBattleBGM)
-    if music && music!=""
-      ret=pbStringToAudioFile(music)
-    end
-  end
-  ret=pbStringToAudioFile("005-Boss01") if !ret
-  return ret
-end
-
-def pbGetTrainerBattleBGMFromType(trainertype)
-  if $PokemonGlobal.nextBattleBGM
-    return $PokemonGlobal.nextBattleBGM.clone
-  end
-  music=nil
-  pbRgssOpen("Data/trainertypes.dat","rb"){|f|
-    trainertypes=Marshal.load(f)
-    if trainertypes[trainertype]
-      music=trainertypes[trainertype][4]
-    end
-  }
-  ret=nil
-  if music && music!=""
-    ret=pbStringToAudioFile(music)
-  end
-  if !ret && $game_map
-    # Check map-specific metadata
-    music=pbGetMetadata($game_map.map_id,MetadataMapTrainerBattleBGM)
-    if music && music!=""
-      ret=pbStringToAudioFile(music)
-    end
-  end
-  if !ret
-    # Check global metadata
-    music=pbGetMetadata(0,MetadataTrainerBattleBGM)
-    if music && music!=""
-      ret=pbStringToAudioFile(music)
-    end
-  end
-  ret=pbStringToAudioFile("005-Boss01") if !ret
-  return ret
-end
-
-def pbGetTrainerVictoryME(trainer) # can be a PokeBattle_Trainer or an array of PokeBattle_Trainer
-  if $PokemonGlobal.nextBattleME
-    return $PokemonGlobal.nextBattleME.clone
-  end
-  music=nil
-  pbRgssOpen("Data/trainertypes.dat","rb"){|f|
-     trainertypes=Marshal.load(f)
-     if !trainer.is_a?(Array)
-       trainerarray=[trainer]
-     else
-       trainerarray=trainer
-     end
-     for i in 0...trainerarray.length
-       trainertype=trainerarray[i].trainertype
-       if trainertypes[trainertype]
-         music=trainertypes[trainertype][5]
-       end
-     end
-  }
-  ret=nil
-  if music && music!=""
-    ret=pbStringToAudioFile(music)
-  end
-  if !ret && $game_map
-    # Check map-specific metadata
-    music=pbGetMetadata($game_map.map_id,MetadataMapTrainerVictoryME)
-    if music && music!=""
-      ret=pbStringToAudioFile(music)
-    end
-  end
-  if !ret
-    # Check global metadata
-    music=pbGetMetadata(0,MetadataTrainerVictoryME)
-    if music && music!=""
-      ret=pbStringToAudioFile(music)
-    end
-  end
-  ret=pbStringToAudioFile("001-Victory01") if !ret
-  ret.name="../../Audio/ME/"+ret.name
-  return ret
-end
-
-
-
-################################################################################
-# Creating and storing Pokémon
-################################################################################
-# For demonstration purposes only, not to be used in a real game.
-def pbCreatePokemon
-  party=[]
-  species=[:PIKACHU,:PIDGEOTTO,:KADABRA,:GYARADOS,:DIGLETT,:CHANSEY]
-  for id in species
-    party.push(getConst(PBSpecies,id)) if hasConst?(PBSpecies,id)
-  end
-  # Species IDs of the Pokémon to be created
-  for i in 0...party.length
-    species=party[i]
-    # Generate Pokémon with species and level 20
-    $Trainer.party[i]=PokeBattle_Pokemon.new(species,20,$Trainer)
-    $Trainer.seen[species]=true # Set this species to seen and owned
-    $Trainer.owned[species]=true
-    pbSeenForm($Trainer.party[i])
-  end
-  $Trainer.party[1].pbLearnMove(:FLY)
-  $Trainer.party[2].pbLearnMove(:FLASH)
-  $Trainer.party[2].pbLearnMove(:TELEPORT)
-  $Trainer.party[3].pbLearnMove(:SURF)
-  $Trainer.party[3].pbLearnMove(:DIVE)
-  $Trainer.party[3].pbLearnMove(:WATERFALL)
-  $Trainer.party[4].pbLearnMove(:DIG)
-  $Trainer.party[4].pbLearnMove(:CUT)
-  $Trainer.party[4].pbLearnMove(:HEADBUTT)
-  $Trainer.party[4].pbLearnMove(:ROCKSMASH)
-  $Trainer.party[5].pbLearnMove(:SOFTBOILED)
-  $Trainer.party[5].pbLearnMove(:STRENGTH)
-  $Trainer.party[5].pbLearnMove(:SWEETSCENT)
-  for i in 0...party.length
-    $Trainer.party[i].pbRecordFirstMoves
-  end
-end
-
-def pbCreatePokemon2
-  party=[]
-  species=[:JOICON,:JOICON,:JOICON,:JOICON,:JOICON,:JOICON]
-  for id in species
-    party.push(getConst(PBSpecies,id)) if hasConst?(PBSpecies,id)
-  end
-  # Species IDs of the Pokémon to be created
-  for i in 0...party.length
-    species=party[i]
-    # Generate Pokémon with species and level 5
-    $Trainer.party[i]=PokeBattle_Pokemon.new(species,5,$Trainer)
-    $Trainer.seen[species]=true # Set this species to seen and owned
-    $Trainer.owned[species]=true
-    pbSeenForm($Trainer.party[i])
-  end
-end
-
-
-def pbBoxesFull?
-  return !$Trainer || ($Trainer.party.length==6 && $PokemonStorage.full?)
-end
-
-def pbNickname(pokemon)
-  speciesname=PBSpecies.getName(pokemon.species)
-  if Kernel.pbConfirmMessage(_INTL("Would you like to give a nickname to {1}?",speciesname))
-    helptext=_INTL("{1}'s nickname?",speciesname)
-    newname=pbEnterPokemonName(helptext,0,10,"",pokemon)
-    pokemon.name=newname if newname!=""
-  end
-end
-
-def pbStorePokemon(pokemon)
-  if pbBoxesFull?
-    Kernel.pbMessage(_INTL("There's no more room for Pokémon!\1"))
-    Kernel.pbMessage(_INTL("The Pokémon Boxes are full and can't accept any more!"))
+  if sx == 0 and sy == 0
     return
   end
-  pokemon.pbRecordFirstMoves
-  # changed added - https://reliccastle.com/resources/176/
-  if $Trainer.party.length<6
-    $Trainer.party[$Trainer.party.length] = pokemon
-    swap = false
+  if sx.abs > sy.abs
+    sx > 0 ? event.turn_left : event.turn_right
   else
-    if Kernel.pbConfirmMessage(_INTL("Would you like to keep {1} in your party?",pokemon.name))
-      pokemon2 = pokemon
-      Kernel.pbMessage(_INTL("Please select a Pokémon to swap from your party."))
-      pbChoosePokemon(1,2)
-      cancel = pbGet(1)
-      if cancel >= 0
-        swap = true
-        pokemon = $Trainer.party[pbGet(1)]
-        pbRemovePokemonAt(pbGet(1))
-        $Trainer.party[$Trainer.party.length] = pokemon2
-      end
-    end    
-    oldcurbox=$PokemonStorage.currentBox
-    storedbox=$PokemonStorage.pbStoreCaught(pokemon)
-    curboxname=$PokemonStorage[oldcurbox].name
-    boxname=$PokemonStorage[storedbox].name
-    pokemon.formTime=nil if pokemon.respond_to?("formTime") && pokemon.formTime
-    creator=nil
-    creator=Kernel.pbGetStorageCreator if $PokemonGlobal.seenStorageCreator
-    if storedbox!=oldcurbox
-      Kernel.pbReceiveTrophy(:TBOXFILLER)
-      if creator
-        Kernel.pbMessage(_INTL("Box \"{1}\" on {2}'s PC was full.\1",curboxname,creator))
-      else
-        Kernel.pbMessage(_INTL("Box \"{1}\" on someone's PC was full.\1",curboxname))
-      end
-      Kernel.pbMessage(_INTL("{1} was transferred to box \"{2}.\"",pokemon.name,boxname))
-    else
-      if creator
-        Kernel.pbMessage(_INTL("{1} was transferred to {2}'s PC.\1",pokemon.name,creator))
-      else
-        Kernel.pbMessage(_INTL("{1} was transferred to someone's PC.\1",pokemon.name))
-      end
-      Kernel.pbMessage(_INTL("It was stored in box \"{1}.\"",boxname))
-    end
-    # changed added - https://reliccastle.com/resources/176/
-    if swap
-      Kernel.pbMessage(_INTL("{2} was added to {1}'s party!\\se[PokemonGet]",$Trainer.name,pokemon2.name))
-    end
-    # changed end
+    sy > 0 ? event.turn_up : event.turn_down
   end
 end
 
-def pbNicknameAndStore(pokemon)
-  if pbBoxesFull?
-    Kernel.pbMessage(_INTL("There's no more room for Pokémon!\1"))
-    Kernel.pbMessage(_INTL("The Pokémon Boxes are full and can't accept any more!"))
-    return
-  end
-  $Trainer.seen[pokemon.species]=true
-  $Trainer.owned[pokemon.species]=true
-  pbNickname(pokemon)
-  pbStorePokemon(pokemon)
-end
-
-def pbAddPokemon(pokemon,level=nil,seeform=true)
-  return if !pokemon || !$Trainer 
-  if pbBoxesFull?
-    Kernel.pbMessage(_INTL("There's no more room for Pokémon!\1"))
-    Kernel.pbMessage(_INTL("The Pokémon Boxes are full and can't accept any more!"))
-    return false
-  end
-  if pokemon.is_a?(String) || pokemon.is_a?(Symbol)
-    pokemon=getID(PBSpecies,pokemon)
-  end
-  if pokemon.is_a?(Integer) && level.is_a?(Integer)
-    pokemon=PokeBattle_Pokemon.new(pokemon,level,$Trainer)
-  end
-  speciesname=PBSpecies.getName(pokemon.species)
-  Kernel.pbMessage(_INTL("{1} obtained {2}!\\se[PokemonGet]\1",$Trainer.name,speciesname))
-  pbNicknameAndStore(pokemon)
-  pbSeenForm(pokemon) if seeform
-  return true
-end
-
-def pbAddPokemonSilent(pokemon,level=nil,seeform=true)
-  return false if !pokemon || pbBoxesFull? || !$Trainer
-  if pokemon.is_a?(String) || pokemon.is_a?(Symbol)
-    pokemon=getID(PBSpecies,pokemon)
-  end
-  if pokemon.is_a?(Integer) && level.is_a?(Integer)
-    pokemon=PokeBattle_Pokemon.new(pokemon,level,$Trainer)
-  end
-  $Trainer.seen[pokemon.species]=true
-  $Trainer.owned[pokemon.species]=true
-  pbSeenForm(pokemon) if seeform
-  pokemon.pbRecordFirstMoves
-  if $Trainer.party.length<6
-    $Trainer.party[$Trainer.party.length]=pokemon
-  else
-    $PokemonStorage.pbStoreCaught(pokemon)
-  end
-  return true
-end
-
-def pbAddToParty(pokemon,level=nil,seeform=true)
-  return false if !pokemon || !$Trainer || $Trainer.party.length>=6
-  if pokemon.is_a?(String) || pokemon.is_a?(Symbol)
-    pokemon=getID(PBSpecies,pokemon)
-  end
-  if pokemon.is_a?(Integer) && level.is_a?(Integer)
-    pokemon=PokeBattle_Pokemon.new(pokemon,level,$Trainer)
-  end
-  speciesname=PBSpecies.getName(pokemon.species)
-  Kernel.pbMessage(_INTL("{1} obtained {2}!\\se[PokemonGet]\1",$Trainer.name,speciesname))
-  pbNicknameAndStore(pokemon)
-  pbSeenForm(pokemon) if seeform
-  return true
-end
-
-def pbAddToPartySilent(pokemon,level=nil,seeform=true)
-  return false if !pokemon || !$Trainer || $Trainer.party.length>=6
-  if pokemon.is_a?(String) || pokemon.is_a?(Symbol)
-    pokemon=getID(PBSpecies,pokemon)
-  end
-  if pokemon.is_a?(Integer) && level.is_a?(Integer)
-    pokemon=PokeBattle_Pokemon.new(pokemon,level,$Trainer)
-  end
-  $Trainer.seen[pokemon.species]=true
-  $Trainer.owned[pokemon.species]=true
-  pbSeenForm(pokemon) if seeform
-  pokemon.pbRecordFirstMoves
-  $Trainer.party[$Trainer.party.length]=pokemon
-  return true
-end
-
-def pbAddForeignPokemon(pokemon,level=nil,ownerName=nil,nickname=nil,ownerGender=0,seeform=true)
-  return false if !pokemon || !$Trainer || $Trainer.party.length>=6
-  if pokemon.is_a?(String) || pokemon.is_a?(Symbol)
-    pokemon=getID(PBSpecies,pokemon)
-  end
-  if pokemon.is_a?(Integer) && level.is_a?(Integer)
-    pokemon=PokeBattle_Pokemon.new(pokemon,level,$Trainer)
-  end
-  # Set original trainer to a foreign one (if ID isn't already foreign)
-  if pokemon.trainerID==$Trainer.id
-    pokemon.trainerID=$Trainer.getForeignID
-    pokemon.ot=ownerName if ownerName && ownerName!=""
-    pokemon.otgender=ownerGender
-  end
-  # Set nickname
-  pokemon.name=nickname[0,10] if nickname && nickname!=""
-  # Recalculate stats
-  pokemon.calcStats
-  if ownerName
-    Kernel.pbMessage(_INTL("{1} received a Pokémon from {2}.\\se[PokemonGet]\1",$Trainer.name,ownerName))
-  else
-    Kernel.pbMessage(_INTL("{1} received a Pokémon.\\se[PokemonGet]\1",$Trainer.name))
-  end
-  pbStorePokemon(pokemon)
-  $Trainer.seen[pokemon.species]=true
-  $Trainer.owned[pokemon.species]=true
-  pbSeenForm(pokemon) if seeform
-  return true
-end
-
-def pbGenerateEgg(pokemon,text="")
-  return false if !pokemon || !$Trainer || $Trainer.party.length>=6
-  if pokemon.is_a?(String) || pokemon.is_a?(Symbol)
-    pokemon=getID(PBSpecies,pokemon)
-  end
-  if pokemon.is_a?(Integer)
-    pokemon=PokeBattle_Pokemon.new(pokemon,EGGINITIALLEVEL,$Trainer)
-  end
-  # Get egg steps
-  dexdata=pbOpenDexData
-  pbDexDataOffset(dexdata,pokemon.species,21)
-  eggsteps=dexdata.fgetw
-  dexdata.close
-  # Set egg's details
-  pokemon.name=_INTL("Egg")
-  pokemon.eggsteps=eggsteps
-  pokemon.obtainText=text
-  pokemon.calcStats
-  # Add egg to party
-  $Trainer.party[$Trainer.party.length]=pokemon
-  return true
-end
-
-def pbRemovePokemonAt(index)
-  return false if index<0 || !$Trainer || index>=$Trainer.party.length
-  haveAble=false
-  for i in 0...$Trainer.party.length
-    next if i==index
-    haveAble=true if $Trainer.party[i].hp>0 && !$Trainer.party[i].isEgg?
-  end
-  return false if !haveAble
-  $Trainer.party.delete_at(index)
-  return true
-end
-
-def pbSeenForm(poke,gender=0,form=0)
-  $Trainer.formseen=[] if !$Trainer.formseen
-  $Trainer.formlastseen=[] if !$Trainer.formlastseen
-  if poke.is_a?(String) || poke.is_a?(Symbol)
-    poke=getID(PBSpecies,poke)
-  end
-  if poke.is_a?(PokeBattle_Pokemon)
-    gender=poke.gender
-    form=(poke.form rescue 0)
-    species=poke.species
-  else
-    species=poke
-  end
-  return if !species || species<=0
-  gender=0 if gender>1
-  formnames=pbGetMessage(MessageTypes::FormNames,species)
-  form=0 if !formnames || formnames==""
-  $Trainer.formseen[species]=[[],[]] if !$Trainer.formseen[species]
-  $Trainer.formseen[species][gender][form]=true
-  $Trainer.formlastseen[species]=[] if !$Trainer.formlastseen[species]
-  $Trainer.formlastseen[species]=[gender,form] if $Trainer.formlastseen[species]==[]
-end
-
-
-
-################################################################################
-# Analysing Pokémon
-################################################################################
-# Heals all Pokémon in the party.
-def pbHealAll
-  return if !$Trainer
-  for i in $Trainer.party
-    i.heal
-  end
-end
-
-# Returns the first unfainted, non-egg Pokémon in the player's party.
-def pbFirstAblePokemon(variableNumber)
-  for i in 0...$Trainer.party.length
-    p=$Trainer.party[i]
-    if p && !p.isEgg? && p.hp>0
-      pbSet(variableNumber,i)
-      return $Trainer.party[i]
+def Kernel.pbMoveTowardPlayer(event)
+  maxsize=[$game_map.width,$game_map.height].max
+  return if !pbEventCanReachPlayer?(event,$game_player,maxsize)
+  loop do
+    x=event.x
+    y=event.y
+    event.move_toward_player
+    break if event.x==x && event.y==y
+    while event.moving?
+      Graphics.update
+      Input.update
+      pbUpdateSceneMap
     end
   end
-  pbSet(variableNumber,-1)
-  return nil
+  $PokemonMap.addMovedEvent(event.id) if $PokemonMap
 end
 
-# Checks whether the player would still have an unfainted Pokémon if the
-# Pokémon given by _pokemonIndex_ were removed from the party.
-def pbCheckAble(pokemonIndex)
-  for i in 0...$Trainer.party.length
-    p=$Trainer.party[i]
-    next if i==pokemonIndex
-    return true if p && !p.isEgg? && p.hp>0
+def Kernel.pbJumpToward(dist=1,playSound=false,cancelSurf=false)
+  x=$game_player.x
+  y=$game_player.y
+  case $game_player.direction
+  when 2 # down
+    $game_player.jump(0,dist)
+  when 4 # left
+    $game_player.jump(-dist,0)
+  when 6 # right
+    $game_player.jump(dist,0)
+  when 8 # up
+    $game_player.jump(0,-dist)
   end
-  return false
-end
-
-# Returns true if there are no usable Pokémon in the player's party.
-def pbAllFainted
-  for i in $Trainer.party
-    return false if !i.isEgg? && i.hp>0
-  end
-  return true
-end
-
-def pbBalancedLevel(party)
-  return 1 if party.length==0
-  # Calculate the mean of all levels
-  sum=0
-  party.each{|p| sum+=p.level }
-  return 1 if sum==0
-  average=sum.to_f/party.length.to_f
-  # Calculate the standard deviation
-  varianceTimesN=0
-  for i in 0...party.length
-    deviation=party[i].level-average
-    varianceTimesN+=deviation*deviation
-  end
-  # Note: This is the "population" standard deviation calculation, since no
-  # sample is being taken
-  stdev=Math.sqrt(varianceTimesN/party.length)
-  mean=0
-  weights=[]
-  # Skew weights according to standard deviation
-  for i in 0...party.length
-    weight=party[i].level.to_f/sum.to_f
-    if weight<0.5
-      weight-=(stdev/PBExperience::MAXLEVEL.to_f)
-      weight=0.001 if weight<=0.001
-    else
-      weight+=(stdev/PBExperience::MAXLEVEL.to_f)
-      weight=0.999 if weight>=0.999
+  if $game_player.x!=x || $game_player.y!=y
+#    pbSEPlay("jump") if playSound
+    Kernel.pbCancelVehicles if cancelSurf
+    while $game_player.jumping?
+      Graphics.update
+      Input.update
+      pbUpdateSceneMap
     end
-    weights.push(weight)
-  end
-  weightSum=0
-  weights.each{|weight| weightSum+=weight }
-  # Calculate the weighted mean, assigning each weight to each level's
-  # contribution to the sum
-  for i in 0...party.length
-    mean+=party[i].level*weights[i]
-  end
-  mean/=weightSum
-  # Round to nearest number
-  mean=mean.round
-  # Adjust level to minimum
-  mean=1 if mean<1
-  # Add 2 to the mean to challenge the player
-  mean+=2
-  # Adjust level to maximum
-  mean=PBExperience::MAXLEVEL if mean>PBExperience::MAXLEVEL
-  return mean
-end
-
-# Returns the Pokémon's size in millimeters.
-def pbSize(pokemon)
-  dexdata=pbOpenDexData
-  pbDexDataOffset(dexdata,pokemon.species,33)
-  baseheight=dexdata.fgetw # Gets the base height in tenths of a meter
-  dexdata.close
-  hpiv=pokemon.iv[0]&15
-  ativ=pokemon.iv[1]&15
-  dfiv=pokemon.iv[2]&15
-  spiv=pokemon.iv[3]&15
-  saiv=pokemon.iv[4]&15
-  sdiv=pokemon.iv[5]&15
-  m=pokemon.personalID&0xFF
-  n=(pokemon.personalID>>8)&0xFF
-  s=(((ativ^dfiv)*hpiv)^m)*256+(((saiv^sdiv)*spiv)^n)
-  xyz=[]
-  if s<10
-    xyz=[290,1,0]
-  elsif s<110
-    xyz=[300,1,10]
-  elsif s<310
-    xyz=[400,2,110]
-  elsif s<710
-    xyz=[500,4,310]
-  elsif s<2710
-    xyz=[600,20,710]
-  elsif s<7710
-    xyz=[700,50,2710]
-  elsif s<17710
-    xyz=[800,100,7710]
-  elsif s<32710
-    xyz=[900,150,17710]
-  elsif s<47710
-    xyz=[1000,150,32710]
-  elsif s<57710
-    xyz=[1100,100,47710]
-  elsif s<62710
-    xyz=[1200,50,57710]
-  elsif s<64710
-    xyz=[1300,20,62710]
-  elsif s<65210
-    xyz=[1400,5,64710]
-  elsif s<65410
-    xyz=[1500,2,65210]
-  else
-    xyz=[1700,1,65510]
-  end
-  return (((s-xyz[2])/xyz[1]+xyz[0]).floor*baseheight/10).floor
-end
-
-# Returns true if the given species can be legitimately obtained as an egg.
-def pbHasEgg?(species)
-  if species.is_a?(String) || species.is_a?(Symbol)
-    species=getID(PBSpecies,species)
-  end
-  evospecies=pbGetEvolvedFormData(species)
-  compatspecies=(evospecies && evospecies[0]) ? evospecies[0][2] : species
-  dexdata=pbOpenDexData
-  pbDexDataOffset(dexdata,compatspecies,31)
-  compat1=dexdata.fgetb   # Get egg group 1 of this species
-  compat2=dexdata.fgetb   # Get egg group 2 of this species
-  dexdata.close
-  return false if isConst?(compat1,PBEggGroups,:Ditto) ||
-                  isConst?(compat1,PBEggGroups,:Undiscovered) ||
-                  isConst?(compat2,PBEggGroups,:Ditto) ||
-                  isConst?(compat2,PBEggGroups,:Undiscovered)
-  baby=pbGetBabySpecies(species)
-  return true if species==baby   # Is a basic species
-  baby=pbGetBabySpecies(species,0,0)
-  return true if species==baby   # Is an egg species without incense
-  return false
-end
-
-
-
-################################################################################
-# Look through Pokémon in storage, choose a Pokémon in the party
-################################################################################
-# Yields every Pokémon/egg in storage in turn.
-def pbEachPokemon
-  for i in -1...$PokemonStorage.maxBoxes
-    for j in 0...$PokemonStorage.maxPokemon(i)
-      poke=$PokemonStorage[i][j]
-      yield(poke,i) if poke
-    end
-  end
-end
-
-# Yields every Pokémon in storage in turn.
-def pbEachNonEggPokemon
-  pbEachPokemon{|pokemon,box|
-     yield(pokemon,box) if !pokemon.isEgg?
-  }
-end
-
-# Choose a Pokémon/egg from the party.
-# Stores result in variable _variableNumber_ and the chosen Pokémon's name in
-# variable _nameVarNumber_; result is -1 if no Pokémon was chosen
-def pbChoosePokemon(variableNumber,nameVarNumber,ableProc=nil, allowIneligible=false)
-  chosen=0
-  pbFadeOutIn(99999){
-     scene=PokemonScreen_Scene.new
-     screen=PokemonScreen.new(scene,$Trainer.party)
-     if ableProc
-       chosen=screen.pbChooseAblePokemon(ableProc,allowIneligible)      
-     else
-       screen.pbStartScene(_INTL("Choose a Pokémon."),false)
-       chosen=screen.pbChoosePokemon
-       screen.pbEndScene
-     end
-  }
-  pbSet(variableNumber,chosen)
-  if chosen>=0
-    pbSet(nameVarNumber,$Trainer.party[chosen].name)
-  else
-    pbSet(nameVarNumber,"")
-  end
-end
-
-def pbChooseNonEggPokemon(variableNumber,nameVarNumber)
-  pbChoosePokemon(variableNumber,nameVarNumber,proc {|poke|
-     !poke.isEgg?
-  })
-end
-
-def pbChooseAblePokemon(variableNumber,nameVarNumber)
-  pbChoosePokemon(variableNumber,nameVarNumber,proc {|poke|
-     !poke.isEgg? && poke.hp>0
-  })
-end
-
-def pbChoosePokemonForTrade(variableNumber,nameVarNumber,wanted)
-  pbChoosePokemon(variableNumber,nameVarNumber,proc {|poke|
-     if wanted.is_a?(String) || wanted.is_a?(Symbol)
-       wanted=getID(PBSpecies,wanted)
-     end
-     return !poke.isEgg? && !(poke.isShadow? rescue false) && poke.species==wanted
-  })
-end
-
-
-
-################################################################################
-# Checks through the party for something
-################################################################################
-def pbHasSpecies?(species)
-  if species.is_a?(String) || species.is_a?(Symbol)
-    species=getID(PBSpecies,species)
-  end
-  for pokemon in $Trainer.party
-    next if pokemon.isEgg?
-    return true if pokemon.species==species
-  end
-  return false
-end
-
-def pbHasSpecForm?(species,form) # Case for Eternal 0-6
-  if species.is_a?(String) || species.is_a?(Symbol)
-    species=getID(PBSpecies,species)
-  end
-  for pokemon in $Trainer.party
-    next if pokemon.isEgg?
-    return true if pokemon.species==species && pokemon.form==form
-  end
-  return false
-end
-
-def pbHasAllLegends?
-  return pbHasSpecies?(:XERNEAS) && pbHasSpecies?(:YVELTAL) &&
-         pbHasSpecies?(:SOLGALEO) && pbHasSpecies?(:LUNALA) &&
-         pbHasSpecies?(:ZACIAN) && pbHasSpecies?(:ZAMAZENTA)
-end
-
-
-def pbHasFatefulSpecies?(species)
-  if species.is_a?(String) || species.is_a?(Symbol)
-    species=getID(PBSpecies,species)
-  end
-  for pokemon in $Trainer.party
-    next if pokemon.isEgg?
-    return true if pokemon.species==species && pokemon.obtainMode==4
-  end
-  return false
-end
-
-def pbHasType?(type)
-  if type.is_a?(String) || type.is_a?(Symbol)
-    type=getID(PBTypes,type)
-  end
-  for pokemon in $Trainer.party
-    next if pokemon.isEgg?
-    return true if pokemon.hasType?(type)
-  end
-  return false
-end
-
-# Checks whether any Pokémon in the party knows the given move, and returns
-# the index of that Pokémon, or nil if no Pokémon has that move.
-def pbCheckMove(move)
-  move=getID(PBMoves,move)
-  return nil if !move || move<=0
-  for i in $Trainer.party
-    next if i.isEgg?
-    for j in i.moves
-      return i if j.id==move
-    end
-  end
-  return nil
-end
-
-
-
-################################################################################
-# Regional and National Pokédexes
-################################################################################
-# Gets the Regional Pokédex number of the national species for the specified
-# Regional Dex.  The parameter "region" is zero-based.  For example, if two
-# regions are defined, they would each be specified as 0 and 1.
-def pbGetRegionalNumber(region, nationalSpecies)
-  if nationalSpecies<=0 || nationalSpecies>PBSpecies.maxValue
-    # Return 0 if national species is outside range
-    return 0
-  end
-  pbRgssOpen("Data/regionals.dat","rb"){|f|
-     numRegions=f.fgetw
-     numDexDatas=f.fgetw
-     if region>=0 && region<numRegions
-       f.pos=4+region*numDexDatas*2
-       f.pos+=nationalSpecies*2
-       return f.fgetw
-    end
-  }
-  return 0
-end
-
-# Gets the National Pokédex number of the specified species and region.  The
-# parameter "region" is zero-based.  For example, if two regions are defined,
-# they would each be specified as 0 and 1.
-def pbGetNationalNumber(region, regionalSpecies)
-  pbRgssOpen("Data/regionals.dat","rb"){|f|
-     numRegions=f.fgetw
-     numDexDatas=f.fgetw
-     if region>=0 && region<numRegions
-       f.pos=4+region*numDexDatas*2
-       # "i" specifies the national species
-       for i in 0...numDexDatas
-         regionalNum=f.fgetw
-         return i if regionalNum==regionalSpecies
-       end
-     end
-  }
-  return 0
-end
-
-# Gets an array of all national species within the given Regional Dex, sorted by
-# Regional Dex number.  The number of items in the array should be the
-# number of species in the Regional Dex plus 1, since index 0 is considered
-# to be empty.  The parameter "region" is zero-based.  For example, if two
-# regions are defined, they would each be specified as 0 and 1.
-def pbAllRegionalSpecies(region)
-  ret=[0]
-  pbRgssOpen("Data/regionals.dat","rb"){|f|
-     numRegions=f.fgetw
-     numDexDatas=f.fgetw
-     if region>=0 && region<numRegions
-       f.pos=4+region*numDexDatas*2
-       # "i" specifies the national species
-       for i in 0...numDexDatas
-         regionalNum=f.fgetw
-         ret[regionalNum]=i if regionalNum!=0
-       end
-       # Replace unspecified regional
-       # numbers with zeros
-       for i in 0...ret.length
-         ret[i]=0 if !ret[i]
-       end
-     end
-  }
-  return ret
-end
-
-# Gets the ID number for the current region based on the player's current
-# position.  Returns the value of "defaultRegion" (optional, default is -1) if
-# no region was defined in the game's metadata.  The ID numbers returned by
-# this function depend on the current map's position metadata.
-def pbGetCurrentRegion(defaultRegion=-1)
-  mappos=!$game_map ? nil : pbGetMetadata($game_map.map_id,MetadataMapPosition)
-  if !mappos
-    return defaultRegion # No region defined
-  else
-    return mappos[0]
-  end
-end
-
-# Decides which Dex lists are able to be viewed (i.e. they are unlocked and have
-# at least 1 seen species in them), and saves all viable dex region numbers
-# (National Dex comes after regional dexes).
-# If the Dex list shown depends on the player's location, this just decides if
-# a species in the current region has been seen - doesn't look at other regions.
-# Here, just used to decide whether to show the Pokédex in the Pause menu.
-def pbSetViableDexes
-  $PokemonGlobal.pokedexViable=[]
-  if DEXDEPENDSONLOCATION
-    region=pbGetCurrentRegion
-    region=-1 if region>=$PokemonGlobal.pokedexUnlocked.length-1
-    if $Trainer.pokedexSeen(region)>0
-      $PokemonGlobal.pokedexViable[0]=region
-    end
-  else
-    numDexes=$PokemonGlobal.pokedexUnlocked.length
-    case numDexes
-    when 1          # National Dex only
-      if $PokemonGlobal.pokedexUnlocked[0]
-        if $Trainer.pokedexSeen>0
-          $PokemonGlobal.pokedexViable.push(0)
-        end
-      end
-    else            # Regional dexes + National Dex
-      for i in 0...numDexes
-        regionToCheck=(i==numDexes-1) ? -1 : i
-        if $PokemonGlobal.pokedexUnlocked[i]
-          if $Trainer.pokedexSeen(regionToCheck)>0
-            $PokemonGlobal.pokedexViable.push(i)
-          end
-        end
-      end
-    end
-  end
-end
-
-# Unlocks a Dex list.  The National Dex is -1 here (or nil argument).
-def pbUnlockDex(dex=-1)
-  index=dex
-  index=$PokemonGlobal.pokedexUnlocked.length-1 if index<0
-  index=$PokemonGlobal.pokedexUnlocked.length-1 if index>$PokemonGlobal.pokedexUnlocked.length-1
-  $PokemonGlobal.pokedexUnlocked[index]=true
-end
-
-# Locks a Dex list.  The National Dex is -1 here (or nil argument).
-def pbLockDex(dex=-1)
-  index=dex
-  index=$PokemonGlobal.pokedexUnlocked.length-1 if index<0
-  index=$PokemonGlobal.pokedexUnlocked.length-1 if index>$PokemonGlobal.pokedexUnlocked.length-1
-  $PokemonGlobal.pokedexUnlocked[index]=false
-end
-
-
-
-################################################################################
-# Other utilities
-################################################################################
-def pbTextEntry(helptext,minlength,maxlength,variableNumber)
-  $game_variables[variableNumber]=pbEnterText(helptext,minlength,maxlength)
-  $game_map.need_refresh = true if $game_map
-end
-
-def pbMoveTutorAnnotations(move,movelist=nil)
-  ret=[]
-  for i in 0...6
-    ret[i]=nil
-    next if i>=$Trainer.party.length
-    found=false
-    for j in 0...4
-      if !$Trainer.party[i].isEgg? && $Trainer.party[i].moves[j].id==move
-        ret[i]=_INTL("LEARNED")
-        found=true
-      end
-    end
-    next if found
-    species=$Trainer.party[i].species
-    if !$Trainer.party[i].isEgg? && movelist && movelist.any?{|j| j==species }
-      # Checked data from movelist
-      ret[i]=_INTL("ABLE")
-    elsif !$Trainer.party[i].isEgg? && $Trainer.party[i].isCompatibleWithMove?(move)
-      # Checked data from PBS/tm.txt
-      ret[i]=_INTL("ABLE")
-    else
-      ret[i]=_INTL("NOT ABLE")
-    end
-  end
-  return ret
-end
-
-def pbMoveTutorChoose(move,movelist=nil,bymachine=false)
-  ret=false
-  if move.is_a?(String) || move.is_a?(Symbol)
-    move=getID(PBMoves,move)
-  end
-  if movelist!=nil && movelist.is_a?(Array)
-    for i in 0...movelist.length
-      if movelist[i].is_a?(String) || movelist[i].is_a?(Symbol)
-        movelist[i]=getID(PBSpecies,movelist[i])
-      end
-    end
-  end
-  pbFadeOutIn(99999){
-     scene=PokemonScreen_Scene.new
-     movename=PBMoves.getName(move)
-     screen=PokemonScreen.new(scene,$Trainer.party)
-     annot=pbMoveTutorAnnotations(move,movelist)
-     screen.pbStartScene(_INTL("Teach which Pokémon?"),false,annot)
-     loop do
-       chosen=screen.pbChoosePokemon
-       if chosen>=0
-         pokemon=$Trainer.party[chosen]
-         if pokemon.isEgg?
-           Kernel.pbMessage(_INTL("{1} can't be taught to an Egg.",movename))
-         elsif (pokemon.isShadow? rescue false)
-           Kernel.pbMessage(_INTL("Shadow Pokémon can't be taught any moves."))
-         elsif movelist && !movelist.any?{|j| j==pokemon.species }
-           Kernel.pbMessage(_INTL("{1} and {2} are not compatible.",pokemon.name,movename))
-           Kernel.pbMessage(_INTL("{1} can't be learned.",movename))
-         elsif !pokemon.isCompatibleWithMove?(move)
-           Kernel.pbMessage(_INTL("{1} and {2} are not compatible.",pokemon.name,movename))
-           Kernel.pbMessage(_INTL("{1} can't be learned.",movename))
-         else
-           if pbLearnMove(pokemon,move,false,bymachine)
-             ret=true
-             break
-           end
-         end
-       else
-         break
-       end  
-     end
-     screen.pbEndScene
-  }
-  return ret # Returns whether the move was learned by a Pokemon
-end
-
-def pbChooseMove(pokemon,variableNumber,nameVarNumber)
-  return if !pokemon
-  ret=-1
-  pbFadeOutIn(99999){
-     scene=PokemonSummaryScene.new
-     screen=PokemonSummary.new(scene)
-     ret=screen.pbStartForgetScreen([pokemon],0,0)
-  }
-  $game_variables[variableNumber]=ret
-  if ret>=0
-    $game_variables[nameVarNumber]=PBMoves.getName(pokemon.moves[ret].id)
-  else
-    $game_variables[nameVarNumber]=""
-  end
-  $game_map.need_refresh = true if $game_map
-end
-
-# Opens the Pokémon screen
-def pbPokemonScreen
-  return if !$Trainer
-  sscene=PokemonScreen_Scene.new
-  sscreen=PokemonScreen.new(sscene,$Trainer.party)
-  pbFadeOutIn(99999) { sscreen.pbPokemonScreen }
-end
-
-def pbSaveScreen
-  ret=false
-  scene=PokemonSaveScene.new
-  screen=PokemonSave.new(scene)
-  ret=screen.pbSaveScreen
-  return ret
-end
-
-def pbConvertItemToItem(variable,array)
-  item=pbGet(variable)
-  pbSet(variable,0)
-  for i in 0...(array.length/2)
-    if isConst?(item,PBItems,array[2*i])
-      pbSet(variable,getID(PBItems,array[2*i+1]))
-      return
-    end
-  end
-end
-
-def pbConvertItemToPokemon(variable,array)
-  item=pbGet(variable)
-  pbSet(variable,0)
-  for i in 0...(array.length/2)
-    if isConst?(item,PBItems,array[2*i])
-      pbSet(variable,getID(PBSpecies,array[2*i+1]))
-      return
-    end
-  end
-end
-
-
-
-
-class PokemonGlobalMetadata
-  attr_accessor :trainerRecording
-end
-
-
-
-def pbRecordTrainer
-  wave=pbRecord(nil,10)
-  if wave
-    $PokemonGlobal.trainerRecording=wave
     return true
   end
   return false
+end
+
+def pbWait(numframes)
+  numframes.times do
+    Graphics.update
+    Input.update
+    pbUpdateSceneMap
+  end
+end
+
+
+
+module PBMoveRoute
+  Down               = 1
+  Left               = 2
+  Right              = 3
+  Up                 = 4
+  LowerLeft          = 5
+  LowerRight         = 6
+  UpperLeft          = 7
+  UpperRight         = 8
+  Random             = 9
+  TowardPlayer       = 10
+  AwayFromPlayer     = 11
+  Forward            = 12
+  Backward           = 13
+  Jump               = 14 # xoffset, yoffset
+  Wait               = 15 # frames
+  TurnDown           = 16
+  TurnLeft           = 17
+  TurnRight          = 18
+  TurnUp             = 19
+  TurnRight90        = 20
+  TurnLeft90         = 21
+  Turn180            = 22
+  TurnRightOrLeft90  = 23
+  TurnRandom         = 24
+  TurnTowardPlayer   = 25
+  TurnAwayFromPlayer = 26
+  SwitchOn           = 27 # 1 param
+  SwitchOff          = 28 # 1 param
+  ChangeSpeed        = 29 # 1 param
+  ChangeFreq         = 30 # 1 param
+  WalkAnimeOn        = 31
+  WalkAnimeOff       = 32
+  StepAnimeOn        = 33
+  StepAnimeOff       = 34
+  DirectionFixOn     = 35
+  DirectionFixOff    = 36
+  ThroughOn          = 37
+  ThroughOff         = 38
+  AlwaysOnTopOn      = 39
+  AlwaysOnTopOff     = 40
+  Graphic            = 41 # Name, hue, direction, pattern
+  Opacity            = 42 # 1 param
+  Blending           = 43 # 1 param
+  PlaySE             = 44 # 1 param
+  Script             = 45 # 1 param
+  ScriptAsync        = 101 # 1 param
+end
+
+
+
+def pbMoveRoute(event,commands,waitComplete=false)
+  route=RPG::MoveRoute.new
+  route.repeat=false
+  route.skippable=true
+  route.list.clear
+  route.list.push(RPG::MoveCommand.new(PBMoveRoute::ThroughOn))
+  i=0; while i<commands.length
+    case commands[i]
+    when PBMoveRoute::Wait, PBMoveRoute::SwitchOn, PBMoveRoute::SwitchOff,
+       PBMoveRoute::ChangeSpeed, PBMoveRoute::ChangeFreq, PBMoveRoute::Opacity,
+       PBMoveRoute::Blending, PBMoveRoute::PlaySE, PBMoveRoute::Script
+      route.list.push(RPG::MoveCommand.new(commands[i],[commands[i+1]]))
+      i+=1
+    when PBMoveRoute::ScriptAsync
+      route.list.push(RPG::MoveCommand.new(PBMoveRoute::Script,[commands[i+1]]))
+      route.list.push(RPG::MoveCommand.new(PBMoveRoute::Wait,[0]))
+      i+=1
+    when PBMoveRoute::Jump
+      route.list.push(RPG::MoveCommand.new(commands[i],[commands[i+1],commands[i+2]]))
+      i+=2
+    when PBMoveRoute::Graphic
+      route.list.push(RPG::MoveCommand.new(commands[i],
+         [commands[i+1],commands[i+2],commands[i+3],commands[i+4]]))
+      i+=4
+    else
+      route.list.push(RPG::MoveCommand.new(commands[i]))
+    end
+    i+=1
+  end
+  route.list.push(RPG::MoveCommand.new(PBMoveRoute::ThroughOff))
+  route.list.push(RPG::MoveCommand.new(0))
+  if event
+    event.force_move_route(route)
+  end
+  return route
+end
+
+
+
+#===============================================================================
+# Screen effects
+#===============================================================================
+def pbToneChangeAll(tone, duration)
+  $game_screen.start_tone_change(tone,duration * 2)
+  for picture in $game_screen.pictures
+    picture.start_tone_change(tone,duration * 2) if picture
+  end
+end
+
+def pbShake(power,speed,frames)
+  $game_screen.start_shake(power,speed,frames * 2)
+end
+
+def pbFlash(color,frames)
+  $game_screen.start_flash(color,frames * 2)
+end
+
+def pbScrollMap(direction, distance, speed)
+  return if !$game_map
+  if speed==0
+    case direction
+    when 2
+      $game_map.scroll_down(distance * 128)
+    when 4
+      $game_map.scroll_left(distance * 128)
+    when 6
+      $game_map.scroll_right(distance * 128)
+    when 8
+      $game_map.scroll_up(distance * 128)
+    end
+  else
+    $game_map.start_scroll(direction, distance, speed);
+    oldx=$game_map.display_x
+    oldy=$game_map.display_y
+    loop do
+      Graphics.update
+      Input.update
+      if !$game_map.scrolling?
+        break
+      end
+      pbUpdateSceneMap
+      if $game_map.display_x==oldx && $game_map.display_y==oldy
+        break
+      end
+      oldx=$game_map.display_x
+      oldy=$game_map.display_y 
+    end
+  end
+end
+
+
+
+#===============================================================================
+# Events
+#===============================================================================
+class Game_Event
+  def cooledDown?(seconds)
+    if !(expired?(seconds) && tsOff?("A"))
+      self.need_refresh=true
+      return false
+    else
+      return true
+    end
+  end
+
+  def cooledDownDays?(days)
+    if !(expiredDays?(days) && tsOff?("A"))
+      self.need_refresh=true
+      return false
+    else
+      return true
+    end
+  end
+end
+
+
+
+module InterpreterFieldMixin
+  # Used in boulder events. Allows an event to be pushed. To be used in
+  # a script event command.
+  def pbPushThisEvent
+    event=get_character(0)
+    oldx=event.x
+    oldy=event.y
+    # Apply strict version of passable, which makes impassable
+    # tiles that are passable only from certain directions
+    if !event.passableStrict?(event.x,event.y,$game_player.direction)
+      return
+    end
+    case $game_player.direction
+    when 2 # down
+      event.move_down
+    when 4 # left
+      event.move_left
+    when 6 # right
+      event.move_right
+    when 8 # up
+      event.move_up
+    end
+    $PokemonMap.addMovedEvent(@event_id) if $PokemonMap
+    if oldx!=event.x || oldy!=event.y
+      $game_player.lock
+      begin
+        Graphics.update
+        Input.update
+        pbUpdateSceneMap
+      end until !event.moving?
+      $game_player.unlock
+    end
+  end
+
+  def pbPushThisBoulder
+    if $PokemonMap.strengthUsed
+      pbPushThisEvent
+    end
+    return true
+  end
+
+  def pbHeadbutt
+    Kernel.pbHeadbutt(get_character(0))
+    return true
+  end
+
+  def pbTrainerIntro(symbol)
+    if ($DEBUG || $TEST)
+      return if !Kernel.pbTrainerTypeCheck(symbol)
+    end
+    trtype=PBTrainers.const_get(symbol)
+    pbGlobalLock
+#    Kernel.pbPlayTrainerIntroME(trtype)
+    return true
+  end
+
+  def pbTrainerEnd
+    pbGlobalUnlock
+    e=get_character(0)
+    e.erase_route if e
+  end
+
+  def pbParams
+    @parameters ? @parameters : @params
+  end
+
+  def pbGetPokemon(id)
+    return $Trainer.party[pbGet(id)]
+  end
+
+  def pbSetEventTime(*arg)
+    $PokemonGlobal.eventvars={} if !$PokemonGlobal.eventvars
+    time=pbGetTimeNow
+    time=time.to_i
+    pbSetSelfSwitch(@event_id,"A",true)
+    $PokemonGlobal.eventvars[[@map_id,@event_id]]=time
+    for otherevt in arg
+      pbSetSelfSwitch(otherevt,"A",true)
+      $PokemonGlobal.eventvars[[@map_id,otherevt]]=time
+    end
+  end
+
+  def getVariable(*arg)
+    if arg.length==0
+      return nil if !$PokemonGlobal.eventvars
+      return $PokemonGlobal.eventvars[[@map_id,@event_id]]
+    else
+      return $game_variables[arg[0]]
+    end
+  end
+
+  def setVariable(*arg)
+    if arg.length==1
+      $PokemonGlobal.eventvars={} if !$PokemonGlobal.eventvars
+      $PokemonGlobal.eventvars[[@map_id,@event_id]]=arg[0]
+    else
+      $game_variables[arg[0]]=arg[1]
+      $game_map.need_refresh=true
+    end
+  end
+
+  def tsOff?(c)
+    get_character(0).tsOff?(c)
+  end
+
+  def tsOn?(c)
+    get_character(0).tsOn?(c)
+  end
+
+  alias isTempSwitchOn? tsOn?
+  alias isTempSwitchOff? tsOff?
+
+  def setTempSwitchOn(c)
+    get_character(0).setTempSwitchOn(c)
+  end
+
+  def setTempSwitchOff(c)
+    get_character(0).setTempSwitchOff(c)
+  end
+
+# Must use this approach to share the methods because the methods already
+# defined in a class override those defined in an included module
+  CustomEventCommands=<<_END_
+
+  def command_352
+    scene=PokemonSaveScene.new
+    screen=PokemonSave.new(scene)
+    screen.pbSaveScreen
+    return true
+  end
+
+  def command_125
+    value = operate_value(pbParams[0], pbParams[1], pbParams[2])
+    $Trainer.money+=value
+    return true
+  end
+
+  def command_132
+    $PokemonGlobal.nextBattleBGM=(pbParams[0]) ? pbParams[0].clone : nil
+    return true
+  end
+
+  def command_133
+    $PokemonGlobal.nextBattleME=(pbParams[0]) ? pbParams[0].clone : nil
+    return true
+  end
+
+  def command_353
+    pbBGMFade(1.0)
+    pbBGSFade(1.0)
+    pbFadeOutIn(99999){ Kernel.pbStartOver(true) }
+  end
+
+  def command_314
+    if pbParams[0] == 0 && $Trainer && $Trainer.party
+      pbHealAll()
+    end
+    return true
+  end
+
+_END_
+end
+
+
+
+class Interpreter
+  include InterpreterFieldMixin
+  eval(InterpreterFieldMixin::CustomEventCommands)
+end
+
+
+
+class Game_Interpreter
+  include InterpreterFieldMixin
+  eval(InterpreterFieldMixin::CustomEventCommands)
 end

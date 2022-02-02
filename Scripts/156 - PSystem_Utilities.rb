@@ -361,7 +361,11 @@ end
 
 # Returns the Accent Color Folder
 def getAccentFolder
-  return "Accents/Accent Color " + $PokemonSystem.accentcolor
+  if $PokemonSystem
+    return "Accents/Accent Color " + $PokemonSystem.accentcolor.to_s + "/"
+  else
+    return "Accents/Accent Color " + "0/"
+  end
 end
 
 ################################################################################

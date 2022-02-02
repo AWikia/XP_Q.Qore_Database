@@ -503,6 +503,7 @@ class PokemonSystem
   attr_accessor :vrtrophynotif
   attr_accessor :temps
   attr_accessor :mechanics
+  attr_accessor :accentcolor
   
   def initialize
     @textspeed        = 2   # Frames Per Second (0=24, 1=30, 2=40, 3=50)
@@ -536,6 +537,7 @@ class PokemonSystem
     @vrtrophynotif    = 0   # Notifications for collected trophy (0 = On, 1 = Off)
     @temps            = 0   # Temperature Display (0 = Celsius, 1 = Fahrenheit)
     @mechanics        = 1   # Battle Mechanics
+    @accentcolor      = 0   # Accent Color
 end
   
   def language
@@ -635,6 +637,9 @@ end
     return (!@mechanics) ? 1 : @mechanics
   end    
 
+  def accentcolor
+    return (!@accentcolor) ? 0 : @accentcolor
+  end    
   
   def tilemap; return MAPVIEWMODE; end
 
@@ -856,6 +861,10 @@ There are different modes:
               MessageConfig.pbSetSpeechFrame("Graphics/Windowskins/"+$SpeechFrames[value])
               MessageConfig.pbSetSystemFrame($TextFrames[value])
            }
+         ),
+         NumberOption.new(_INTL("Accent Color"),1,8,
+           proc { $PokemonSystem.accentcolor },
+           proc {|value| $PokemonSystem.accentcolor = value }
          ),
          NumberOption.new(_INTL("Cartridge Style"),1,5,
            proc { $PokemonSystem.colortige },

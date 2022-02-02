@@ -825,17 +825,15 @@ def pbGetEnvironment
   galarmaps=[419]
   # But you should stop from below on unless what are you doing
   return PBEnvironment::None if !$game_map
-  if !IEMODE # Mustn't run in Internet Explorer Mode
-    return PBEnvironment::Forest if forestmaps.include?($game_map.map_id)
-    return PBEnvironment::Snow if snowmaps.include?($game_map.map_id)
-    return PBEnvironment::Volcano if volcanomaps.include?($game_map.map_id)
-    return PBEnvironment::Graveyard if graveyardmaps.include?($game_map.map_id)
-    return PBEnvironment::Space if spacemaps.include?($game_map.map_id)
-    return PBEnvironment::Galaxy if galaxymaps.include?($game_map.map_id) # FLINT Environment
-    return PBEnvironment::Boardwalk if boardwalkmaps.include?($game_map.map_id) # FLINT Environment
-    return PBEnvironment::Alola if alolamaps.include?($game_map.map_id) # Alola
-    return PBEnvironment::Galar if galarmaps.include?($game_map.map_id) # Galar
-  end
+  return PBEnvironment::Forest if forestmaps.include?($game_map.map_id)
+  return PBEnvironment::Snow if snowmaps.include?($game_map.map_id)
+  return PBEnvironment::Volcano if volcanomaps.include?($game_map.map_id)
+  return PBEnvironment::Graveyard if graveyardmaps.include?($game_map.map_id)
+  return PBEnvironment::Space if spacemaps.include?($game_map.map_id)
+  return PBEnvironment::Galaxy if galaxymaps.include?($game_map.map_id) # FLINT Environment
+  return PBEnvironment::Boardwalk if boardwalkmaps.include?($game_map.map_id) # FLINT Environment
+  return PBEnvironment::Alola if alolamaps.include?($game_map.map_id) # Alola
+  return PBEnvironment::Galar if galarmaps.include?($game_map.map_id) # Galar
   if $PokemonGlobal && $PokemonGlobal.diving
     return PBEnvironment::Underwater
   elsif $PokemonEncounters && $PokemonEncounters.isCave?

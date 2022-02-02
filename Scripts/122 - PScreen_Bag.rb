@@ -11,7 +11,7 @@ class Window_PokemonBag < Window_DrawableCommand
     @sortIndex=-1
     @adapter=PokemonMartAdapter.new
     super(x,y,width,height)
-    @selarrow=AnimatedBitmap.new("Graphics/Pictures/bagSel")
+    @selarrow=AnimatedBitmap.new("Graphics/Pictures/"+getAccentFolder+"/bagSel")
     self.windowskin=nil
   end
 

@@ -551,7 +551,6 @@ end
   end
   
   def textskin
-    return 0 if IEMODE # No such option in IE Mode
     return (!@textskin) ? 0 : @textskin
   end
 
@@ -597,7 +596,6 @@ end
   end
 
   def colortige
-    return 1 if IEMODE # No such option in IE Mode
     return (!@colortige) ? 0 : @colortige
   end
 
@@ -737,15 +735,11 @@ There are different modes:
 # ------------------------------------------------------------------------------
     @PokemonOptions=[]
     if mode==0
-      if !IEMODE
-        @PokemonOptions+=[
-          NumberOption.new(_INTL("Night Style"),1,4,
-            proc { $PokemonSystem.night },
-            proc {|value| $PokemonSystem.night = value }
-          ),
-        ]
-      end
       @PokemonOptions+=[
+        NumberOption.new(_INTL("Night Style"),1,4,
+          proc { $PokemonSystem.night },
+          proc {|value| $PokemonSystem.night = value }
+        ),
         EnumOption.new(_INTL("Debugger (Requires Restart)"),[_INTL("Off"),_INTL("On")],
            proc { $PokemonSystem.debugmode },
            proc {|value|
@@ -818,16 +812,12 @@ There are different modes:
                  $PokemonSystem.jbtempo=5
               end
           }
-       )
+       ),
+        EnumOption.new(_INTL("Cry Style"),[_INTL("Classic"),_INTL("Modern")],
+          proc { $PokemonSystem.cryclassic },
+          proc {|value| $PokemonSystem.cryclassic = value }
+        )
       ]
-      if !IEMODE
-        @PokemonOptions+=[
-          EnumOption.new(_INTL("Cry Style"),[_INTL("Classic"),_INTL("Modern")],
-            proc { $PokemonSystem.cryclassic },
-            proc {|value| $PokemonSystem.cryclassic = value }
-          )
-        ]
-      end
     end
     if mode==2
       @PokemonOptions+=[
@@ -858,23 +848,19 @@ There are different modes:
       ]
     end
     if mode==3
-      if !IEMODE
-        @PokemonOptions+=[
-          NumberOption.new(_INTL("Text Skin"),1,$SpeechFrames.length,
-            proc { $PokemonSystem.textskin },
-            proc {|value| 
-               $PokemonSystem.textskin=value
-               MessageConfig.pbSetSpeechFrame("Graphics/Windowskins/"+$SpeechFrames[value])
-               MessageConfig.pbSetSystemFrame($TextFrames[value])
-            }
-          ),
-          NumberOption.new(_INTL("Cartridge Style"),1,5,
-            proc { $PokemonSystem.colortige },
-            proc {|value| $PokemonSystem.colortige = value }
-          ),
-        ]
-      end
       @PokemonOptions+=[
+         NumberOption.new(_INTL("Text Skin"),1,$SpeechFrames.length,
+           proc { $PokemonSystem.textskin },
+           proc {|value| 
+              $PokemonSystem.textskin=value
+              MessageConfig.pbSetSpeechFrame("Graphics/Windowskins/"+$SpeechFrames[value])
+              MessageConfig.pbSetSystemFrame($TextFrames[value])
+           }
+         ),
+         NumberOption.new(_INTL("Cartridge Style"),1,5,
+           proc { $PokemonSystem.colortige },
+           proc {|value| $PokemonSystem.colortige = value }
+         ),
          EnumOption.new(_INTL("Screen Border"),[_INTL("Off"),_INTL("On")],
             proc { $PokemonSystem.border },
             proc {|value|

@@ -3146,8 +3146,8 @@ end
 
 module UpDownArrowMixin
   def initUpDownArrow
-    @uparrow=AnimatedSprite.create("Graphics/Pictures/uparrow",8,2,self.viewport)
-    @downarrow=AnimatedSprite.create("Graphics/Pictures/downarrow",8,2,self.viewport)
+    @uparrow=AnimatedSprite.create("Graphics/Pictures/"+getAccentFolder+"/uparrow",8,2,self.viewport)
+    @downarrow=AnimatedSprite.create("Graphics/Pictures/"+getAccentFolder+"/downarrow",8,2,self.viewport)
     @uparrow.z=99998
     @downarrow.z=99998
     @uparrow.visible=false

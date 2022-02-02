@@ -1545,8 +1545,7 @@ end
 
 def pbSetSmallFont2(bitmap) # Variant without any font editions (Uses 26px of font size)
   fontname=MessageConfig.pbGetSystemFontName()
-  bitmap.font.name="Didact Gothic" if IEMODE
-  if fontname=="Didact Gothic" || IEMODE
+  if fontname=="Didact Gothic"
     bitmap.font.size=28
   else
     bitmap.font.size=26

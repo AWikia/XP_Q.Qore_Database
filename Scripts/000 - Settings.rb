@@ -32,8 +32,7 @@ BORDERWIDTH          = 80
 BORDERHEIGHT         = 48 # Was 80
 MAPVIEWMODE          = 1
 QQORECHANNEL         = 0
-QQORECHANNEL         = 1 if (RTP2.getGameIniValue("Qortex", "Channel") == "Beta" || 
-                             RTP2.getGameIniValue("Qortex", "IEMode") == "true") # IE Mode throttles channel to beta
+QQORECHANNEL         = 1 if RTP2.getGameIniValue("Qortex", "Channel") == "Beta" # IE Mode throttles channel to beta
 QQORECHANNEL         = 2 if (RTP2.getGameIniValue("Qortex", "Channel") == "Dev" ||
                              RTP2.getGameIniValue("Qortex", "Channel") == "Alpha")
 QQORECHANNEL         = 3 if RTP2.getGameIniValue("Qortex", "Channel") == "Canary"
@@ -116,8 +115,6 @@ USESCALEDEXPFORMULA   = false
 NOSPLITEXP            = true
 USECRITICALCAPTURE    = true
 GAINEXPFORCAPTURE     = true
-IEMODE                = false
-IEMODE                = true if RTP2.getGameIniValue("Qortex", "IEMode") == "true"
 
 #===============================================================================
 # * The minimum number of badges required to boost each stat of a player's

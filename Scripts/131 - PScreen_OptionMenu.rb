@@ -6,7 +6,7 @@ def pbOptionSecMenu
     @sprites["title"]=Window_UnformattedTextPokemon.newWithSize(
        _INTL("Settings"),0,0,Graphics.width,64,viewport)
     @sprites["textbox"]=Kernel.pbCreateMessageWindow
-    @sprites["textbox"].text=_INTL("Text Skin {1}.",1+$PokemonSystem.textskin)
+    @sprites["textbox"].text=_INTL("Text Skin {1}.\n{2} Accent Color.",1+$PokemonSystem.textskin,getAccentName)
     @sprites["textbox"].letterbyletter=false
   commands.add("general",_INTL("General Settings")) # For settings that do not fit in the below categories
   commands.add("sound",_INTL("Sound Settings")) # For settings which affect Music and Sound

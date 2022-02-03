@@ -212,6 +212,18 @@ ItemHandlers::UseInField.add(:ESCAPEROPE,proc{|item|
    pbEraseEscapePoint
 })
 
+
+ItemHandlers::UseInField.add(:PCSTORAGEBOX,proc{|item|
+  if $game_switches[172]
+     Kernel.pbMessage(_INTL("Can't use that here."))
+     next 0
+  else
+     pbPokeCenterPC
+     next 1
+  end
+})
+
+
 ItemHandlers::UseInField.add(:BICYCLE,proc{|item|
    if pbBikeCheck
      if $PokemonGlobal.bicycle

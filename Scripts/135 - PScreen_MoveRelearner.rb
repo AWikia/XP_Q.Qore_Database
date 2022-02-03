@@ -62,7 +62,7 @@ class MoveRelearnerScene
     @sprites["pokeicon"].x=288
     @sprites["pokeicon"].y=44
     @sprites["background"]=IconSprite.new(0,0,@viewport)
-    @sprites["background"].setBitmap("Graphics/Pictures/reminderSel")
+    @sprites["background"].setBitmap("Graphics/Pictures/"+getAccentFolder+"/reminderSel")
     @sprites["background"].y=78
     @sprites["background"].src_rect=Rect.new(0,72,258,72)
     @sprites["overlay"]=BitmapSprite.new(Graphics.width,Graphics.height,@viewport)
@@ -120,7 +120,7 @@ class MoveRelearnerScene
       end
       yPos+=64
     end
-    imagepos.push(["Graphics/Pictures/reminderSel",
+    imagepos.push(["Graphics/Pictures/"+getAccentFolder+"/reminderSel",
        0,78+(@sprites["commands"].index-@sprites["commands"].top_item)*64,
        0,0,258,72])
     selmovedata=PBMoveData.new(@moves[@sprites["commands"].index])

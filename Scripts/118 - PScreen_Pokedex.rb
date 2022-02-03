@@ -10,7 +10,7 @@ class Window_DexesList < Window_CommandPokemon
     @seen=seen
     @owned=owned
     super(commands,width)
-    @selarrow=AnimatedBitmap.new("Graphics/Pictures/selarrowwhite")
+    @selarrow=AnimatedBitmap.new("Graphics/Pictures/"+getAccentFolder+"/selarrowaccent")
     self.windowskin=nil
   end
 
@@ -120,7 +120,7 @@ end
 #===============================================================================
 class Window_CommandPokemonWhiteArrow < Window_CommandPokemon
   def drawCursor(index,rect)
-    selarrow=AnimatedBitmap.new("Graphics/Pictures/selarrow")
+    selarrow=AnimatedBitmap.new("Graphics/Pictures/"+getAccentFolder+"/selarrowaccent")
     if self.index==index
       pbCopyBitmap(self.contents,selarrow.bitmap,rect.x,rect.y)
     end
@@ -224,7 +224,7 @@ class Window_ComplexCommandPokemon < Window_DrawableCommand
     dims=[]
     getAutoDims(commands,dims,width)
     super(0,0,dims[0],dims[1])
-    @selarrow=AnimatedBitmap.new("Graphics/Pictures/selarrow")
+    @selarrow=AnimatedBitmap.new("Graphics/Pictures/"+getAccentFolder+"/selarrowaccent")
     @starting=false
   end
 

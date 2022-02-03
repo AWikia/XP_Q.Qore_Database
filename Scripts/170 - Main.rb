@@ -94,6 +94,7 @@ def mainFunctionDebug #:nodoc:
     $data_system        = pbLoadRxData("Data/System")
     $game_system        = Game_System.new
     $PokemonSystem = PokemonSystem.new if !$PokemonSystem
+    $oldAccent   = $PokemonSystem.accentcolor
     $BORDERS=[
       "border",
       "border_1",

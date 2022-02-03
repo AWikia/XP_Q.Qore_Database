@@ -245,47 +245,67 @@ class PokeSelectionSprite < SpriteWrapper
     @numberbitmap=AnimatedBitmap.new(_INTL("Graphics/Pictures/icon_numbers"))
     @numberbitmap2=AnimatedBitmap.new(_INTL("Graphics/Pictures/icon_numbers_white"))
     if active # Rounded panel
+      # High Temp
       @deselbitmapO=AnimatedBitmap.new("Graphics/Pictures/partyPanelRound3_Orange")
-      @selbitmapO=AnimatedBitmap.new("Graphics/Pictures/"+getAccentFolder+"/partyPanelRoundSel3_Orange")
+      @selbitmapO=AnimatedBitmap.new("Graphics/Pictures/partyPanelRoundSel3_Orange")
+      # Very High Temp
       @deselbitmapO2=AnimatedBitmap.new("Graphics/Pictures/partyPanelRound3_Red")
-      @selbitmapO2=AnimatedBitmap.new("Graphics/Pictures/"+getAccentFolder+"/partyPanelRoundSel3_Red")
+      @selbitmapO2=AnimatedBitmap.new("Graphics/Pictures/partyPanelRoundSel3_Red")
+      # Normal Temp
       @deselbitmapN=AnimatedBitmap.new("Graphics/Pictures/partyPanelRound3_Green")
-      @selbitmapN=AnimatedBitmap.new("Graphics/Pictures/"+getAccentFolder+"/partyPanelRoundSel3_Green")
+      @selbitmapN=AnimatedBitmap.new("Graphics/Pictures/partyPanelRoundSel3_Green")
+      # Low Temp
       @deselbitmapC=AnimatedBitmap.new("Graphics/Pictures/partyPanelRound3_Cyan")
-      @selbitmapC=AnimatedBitmap.new("Graphics/Pictures/"+getAccentFolder+"/partyPanelRoundSel3_Cyan")
+      @selbitmapC=AnimatedBitmap.new("Graphics/Pictures/partyPanelRoundSel3_Cyan")
+      # Very Low Temp
       @deselbitmapC2=AnimatedBitmap.new("Graphics/Pictures/partyPanelRound3_Blue")
-      @selbitmapC2=AnimatedBitmap.new("Graphics/Pictures/"+getAccentFolder+"/partyPanelRoundSel3_Blue")
-
+      @selbitmapC2=AnimatedBitmap.new("Graphics/Pictures/partyPanelRoundSel3_Blue")
+      # Egg/Remote Boxes
       @deselbitmapEgg=AnimatedBitmap.new("Graphics/Pictures/partyPanelRound3")
-      @selbitmapEgg=AnimatedBitmap.new("Graphics/Pictures/"+getAccentFolder+"/partyPanelRoundSel3")      
+      @selbitmapEgg=AnimatedBitmap.new("Graphics/Pictures/partyPanelRoundSel3")      
+      # Normal Temp
       @deselbitmap=AnimatedBitmap.new("Graphics/Pictures/partyPanelRound3_Yellow")
-      @selbitmap=AnimatedBitmap.new("Graphics/Pictures/"+getAccentFolder+"/partyPanelRoundSel3_Yellow")
+      @selbitmap=AnimatedBitmap.new("Graphics/Pictures/partyPanelRoundSel3_Yellow")
+      # Fainted
       @deselfntbitmap=AnimatedBitmap.new("Graphics/Pictures/partyPanelRound3_Faint")
-      @selfntbitmap=AnimatedBitmap.new("Graphics/Pictures/"+getAccentFolder+"/partyPanelRoundSel3_Faint")
+      @selfntbitmap=AnimatedBitmap.new("Graphics/Pictures/partyPanelRoundSel3_Faint")
+      # Swapping
       @deselswapbitmap=AnimatedBitmap.new("Graphics/Pictures/partyPanelRound3_Swap")
-      @selswapbitmap=AnimatedBitmap.new("Graphics/Pictures/"+getAccentFolder+"/partyPanelRoundSel3_Swap")
-      @selswapbitmap2=AnimatedBitmap.new("Graphics/Pictures/"+getAccentFolder+"/partyPanelRoundSel3_Swap2")
+      @selswapbitmap=AnimatedBitmap.new("Graphics/Pictures/partyPanelRoundSel3_Swap")
+      # Selections
+      @selbitmap2=AnimatedBitmap.new("Graphics/Pictures/"+getAccentFolder+"/partyPanelRoundSel3_Selection")
+      @selswapbitmap2=AnimatedBitmap.new("Graphics/Pictures/partyPanelRoundSel3_Swap2")
     else # Rectangular panel
+      # High Temp
       @deselbitmapO=AnimatedBitmap.new("Graphics/Pictures/partyPanelRect3_Orange")
-      @selbitmapO=AnimatedBitmap.new("Graphics/Pictures/"+getAccentFolder+"/partyPanelRectSel3_Orange")
+      @selbitmapO=AnimatedBitmap.new("Graphics/Pictures/partyPanelRectSel3_Orange")
+      # Very High Temp
       @deselbitmapO2=AnimatedBitmap.new("Graphics/Pictures/partyPanelRect3_Red")
-      @selbitmapO2=AnimatedBitmap.new("Graphics/Pictures/"+getAccentFolder+"/partyPanelRectSel3_Red")
+      @selbitmapO2=AnimatedBitmap.new("Graphics/Pictures/partyPanelRectSel3_Red")
+      # Normal Temp
       @deselbitmapN=AnimatedBitmap.new("Graphics/Pictures/partyPanelRect3_Green")
-      @selbitmapN=AnimatedBitmap.new("Graphics/Pictures/"+getAccentFolder+"/partyPanelRectSel3_Green")
+      @selbitmapN=AnimatedBitmap.new("Graphics/Pictures/partyPanelRectSel3_Green")
+      # Low Temp
       @deselbitmapC=AnimatedBitmap.new("Graphics/Pictures/partyPanelRect3_Cyan")
-      @selbitmapC=AnimatedBitmap.new("Graphics/Pictures/"+getAccentFolder+"/partyPanelRectSel3_Cyan")
+      @selbitmapC=AnimatedBitmap.new("Graphics/Pictures/partyPanelRectSel3_Cyan")
+      # Very Low Temp
       @deselbitmapC2=AnimatedBitmap.new("Graphics/Pictures/partyPanelRect3_Blue")
-      @selbitmapC2=AnimatedBitmap.new("Graphics/Pictures/"+getAccentFolder+"/partyPanelRectSel3_Blue")
-      
+      @selbitmapC2=AnimatedBitmap.new("Graphics/Pictures/partyPanelRectSel3_Blue")
+      # Egg/Remote Boxes
       @deselbitmapEgg=AnimatedBitmap.new("Graphics/Pictures/partyPanelRect3")
-      @selbitmapEgg=AnimatedBitmap.new("Graphics/Pictures/"+getAccentFolder+"/partyPanelRectSel3")   
+      @selbitmapEgg=AnimatedBitmap.new("Graphics/Pictures/partyPanelRectSel3")   
+      # Normal Temp
       @deselbitmap=AnimatedBitmap.new("Graphics/Pictures/partyPanelRect3_Yellow")
-      @selbitmap=AnimatedBitmap.new("Graphics/Pictures/"+getAccentFolder+"/partyPanelRectSel3_Yellow")
+      @selbitmap=AnimatedBitmap.new("Graphics/Pictures/partyPanelRectSel3_Yellow")
+      # Fainted
       @deselfntbitmap=AnimatedBitmap.new("Graphics/Pictures/partyPanelRect3_Faint")
-      @selfntbitmap=AnimatedBitmap.new("Graphics/Pictures/"+getAccentFolder+"/partyPanelRectSel3_Faint")
+      @selfntbitmap=AnimatedBitmap.new("Graphics/Pictures/partyPanelRectSel3_Faint")
+      # Swapping
       @deselswapbitmap=AnimatedBitmap.new("Graphics/Pictures/partyPanelRect3_Swap")
-      @selswapbitmap=AnimatedBitmap.new("Graphics/Pictures/"+getAccentFolder+"/partyPanelRectSel3_Swap")
-      @selswapbitmap2=AnimatedBitmap.new("Graphics/Pictures/"+getAccentFolder+"/partyPanelRectSel3_Swap2")
+      @selswapbitmap=AnimatedBitmap.new("Graphics/Pictures/partyPanelRectSel3_Swap")
+      # Selections
+      @selbitmap2=AnimatedBitmap.new("Graphics/Pictures/"+getAccentFolder+"/partyPanelRectSel3_Selection")
+      @selswapbitmap2=AnimatedBitmap.new("Graphics/Pictures/partyPanelRectSel3_Swap2")
     end
     @spriteXOffset=28
     @spriteYOffset=0
@@ -365,6 +385,7 @@ class PokeSelectionSprite < SpriteWrapper
   
   def dispose
     @selbitmap.dispose
+    @selbitmap2.dispose
     @statuses.dispose
     @hpbar.dispose
     @deselbitmap.dispose
@@ -464,6 +485,7 @@ class PokeSelectionSprite < SpriteWrapper
       self.bitmap.clear if self.bitmap
       if self.selected
         if self.preselected
+          self.bitmap.blt(0,0,@selbitmap2.bitmap,Rect.new(0,0,@selbitmap2.width,@selbitmap2.height))
           self.bitmap.blt(0,0,@selswapbitmap2.bitmap,Rect.new(0,0,@selswapbitmap2.width,@selswapbitmap2.height))
 #          self.bitmap.blt(0,0,@deselswapbitmap.bitmap,Rect.new(0,0,@deselswapbitmap.width,@deselswapbitmap.height))
         elsif @switching
@@ -484,6 +506,9 @@ class PokeSelectionSprite < SpriteWrapper
           self.bitmap.blt(0,0,@selbitmapEgg.bitmap,Rect.new(0,0,@selbitmapEgg.width,@selbitmapEgg.height))
         else
           self.bitmap.blt(0,0,@selbitmap.bitmap,Rect.new(0,0,@selbitmap.width,@selbitmap.height))
+        end
+        if !self.preselected
+          self.bitmap.blt(0,0,@selbitmap2.bitmap,Rect.new(0,0,@selbitmap2.width,@selbitmap2.height))
         end
       else
         if self.preselected

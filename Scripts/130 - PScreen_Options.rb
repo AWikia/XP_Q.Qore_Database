@@ -731,7 +731,7 @@ There are different modes:
 #    @sprites["title"].shadowColor=Color.new(168,184,184)
     @sprites["textbox"]=Kernel.pbCreateMessageWindow
     @sprites["textbox"].letterbyletter=false
-    @sprites["textbox"].text=_INTL("Text Skin {1}.",1+$PokemonSystem.textskin)
+    @sprites["textbox"].text=_INTL("Text Skin {1}.\n{2} Accent Color.",1+$PokemonSystem.textskin,getAccentName)
     # These are the different options in the game.  To add an option, define a
     # setter and a getter for that option.  To delete an option, comment it out
     # or delete it.  The game's options may be placed in any order.
@@ -938,6 +938,7 @@ There are different modes:
   def pbOptions
     oldSystemSkin = $PokemonSystem.frame      # Menu
     oldTextSkin   = $PokemonSystem.textskin   # Speech
+    oldAccent   = $PokemonSystem.accentcolor   # Speech
 #    oldFont       = $PokemonSystem.font
     pbActivateWindow(@sprites,"option"){
        loop do
@@ -960,7 +961,7 @@ There are different modes:
            if $PokemonSystem.textskin!=oldTextSkin
              @sprites["textbox"].setSkin(MessageConfig.pbGetSpeechFrame())
              @sprites["textbox"].width = @sprites["textbox"].width  # Necessary evil
-             @sprites["textbox"].text  = _INTL("Text Skin {1}.",1+$PokemonSystem.textskin)
+             @sprites["textbox"].text  = _INTL("Text Skin {1}.\n{2} Accent Color.",1+$PokemonSystem.textskin,getAccentName)
              oldTextSkin = $PokemonSystem.textskin
            end
            if $PokemonSystem.frame!=oldSystemSkin
@@ -968,10 +969,15 @@ There are different modes:
              @sprites["option"].setSkin(MessageConfig.pbGetSystemFrame())
              oldSystemSkin = $PokemonSystem.frame
            end
+           if $PokemonSystem.accentcolor!=oldAccent
+             @sprites["textbox"].width = @sprites["textbox"].width  # Necessary evil
+             @sprites["textbox"].text  = _INTL("Text Skin {1}.\n{2} Accent Color.",1+$PokemonSystem.textskin,getAccentName)
+            oldAccent   = $PokemonSystem.accentcolor   # Speech
+           end
 =begin
            if $PokemonSystem.font!=oldFont
              pbSetSystemFont(@sprites["textbox"].contents)
-             @sprites["textbox"].text=_INTL("Text Skin {1}.",1+$PokemonSystem.textskin)
+             @sprites["textbox"].text=_INTL("Text Skin {1}.\n{2} Accent Color.",1+$PokemonSystem.textskin,getAccentName)
              oldFont = $PokemonSystem.font
            end
 =end

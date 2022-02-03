@@ -3183,6 +3183,14 @@ module UpDownArrowMixin
 
   def update
     super
+    # Accent Start
+    if $oldAccent != $PokemonSystem.accentcolor && $PokemonSystem
+      @uparrow.dispose
+      @downarrow.dispose    
+      initUpDownArrow
+      $oldAccent   = $PokemonSystem.accentcolor
+    end
+    # Accent End
     @uparrow.x=self.x+(self.width/2)-(@uparrow.framewidth/2)
     @downarrow.x=self.x+(self.width/2)-(@downarrow.framewidth/2)
     @uparrow.y=self.y

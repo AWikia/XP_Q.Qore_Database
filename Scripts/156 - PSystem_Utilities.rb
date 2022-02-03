@@ -368,6 +368,10 @@ def getAccentFolder
   end
 end
 
+def getAccentNames
+  return ["Blue", "Purple", "Pink", "Red", "Orange", "Yellow", "Green", "Gray"]
+end
+
 ################################################################################
 # Linear congruential random number generator
 ################################################################################

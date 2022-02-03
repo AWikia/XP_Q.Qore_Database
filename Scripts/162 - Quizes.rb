@@ -123,7 +123,7 @@ module TypeQuiz
       return if finished?
       @typeQuestion=TypeQuestion.new
       @answerLabel=""
-      @sprites["arrow"].setBitmap("Graphics/Pictures/selarrow")
+      @sprites["arrow"].setBitmap("Graphics/Pictures/"+getAccentFolder+"/selarrow")
       refresh
       @index=2 # Normal effective index
       updateCursor
@@ -200,7 +200,7 @@ module TypeQuiz
               pbSEPlay("buzzer") 
               if SHOWRIGHTANSWER
                 @index=@typeQuestion.result
-                @sprites["arrow"].setBitmap("Graphics/Pictures/selarrowwhite")
+                @sprites["arrow"].setBitmap("Graphics/Pictures/"+getAccentFolder+"/selarrowwhite")
                 updateCursor
                 waitFrames*=2
               end

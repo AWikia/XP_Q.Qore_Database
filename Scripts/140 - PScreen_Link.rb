@@ -8,7 +8,7 @@ class LinkBattleButton < SpriteWrapper
     @index=index
     @name=name
     @selected=false
-    @button=AnimatedBitmap.new("Graphics/Pictures/linkButton")
+    @button=AnimatedBitmap.new("Graphics/Pictures/"+getAccentFolder+"/linkButton")
     @contents=BitmapWrapper.new(@button.width,@button.height)
     self.bitmap=@contents
     self.x=x
@@ -82,7 +82,7 @@ class Scene_LinkBattle
     
     @viewport=Viewport.new(0,0,Graphics.width,Graphics.height)
     @viewport.z=99999
-    @button=AnimatedBitmap.new("Graphics/Pictures/linkButton")
+    @button=AnimatedBitmap.new("Graphics/Pictures/"+getAccentFolder+"/linkButton")
     @sprites={}
     @sprites["background"] = IconSprite.new(0,0)
     @sprites["background"].setBitmap("Graphics/Pictures/linkbg")

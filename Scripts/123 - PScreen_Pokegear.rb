@@ -8,11 +8,11 @@ class PokegearButton < SpriteWrapper
     @index=index
     @name=name
     @selected=false
-    fembutton=pbResolveBitmap(sprintf("Graphics/Pictures/pokegearButtonf"))
+    fembutton=pbResolveBitmap(sprintf("Graphics/Pictures/"+getAccentFolder+"/pokegearButtonf"))
     if $Trainer.isFemale? && fembutton
-      @button=AnimatedBitmap.new("Graphics/Pictures/pokegearButtonf")
+      @button=AnimatedBitmap.new("Graphics/Pictures/"+getAccentFolder+"/pokegearButtonf")
     else
-      @button=AnimatedBitmap.new("Graphics/Pictures/pokegearButton")
+      @button=AnimatedBitmap.new("Graphics/Pictures/"+getAccentFolder+"/pokegearButton")
     end
     @contents=BitmapWrapper.new(@button.width,@button.height)
     self.bitmap=@contents
@@ -88,7 +88,7 @@ class Scene_Pokegear
 
     @viewport=Viewport.new(0,0,Graphics.width,Graphics.height)
     @viewport.z=99999
-    @button=AnimatedBitmap.new("Graphics/Pictures/pokegearButton")
+    @button=AnimatedBitmap.new("Graphics/Pictures/"+getAccentFolder+"/pokegearButton")
     @sprites={}
     @sprites["background"] = IconSprite.new(0,0)
     femback=pbResolveBitmap(sprintf("Graphics/Pictures/pokegearbgf"))

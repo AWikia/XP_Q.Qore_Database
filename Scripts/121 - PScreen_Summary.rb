@@ -4,7 +4,7 @@ class MoveSelectionSprite < SpriteWrapper
 
   def initialize(viewport=nil,fifthmove=false)
     super(viewport)
-    @movesel=AnimatedBitmap.new("Graphics/Pictures/summarymovesel")
+    @movesel=AnimatedBitmap.new("Graphics/Pictures/"+getAccentFolder+"/summarymovesel")
     @frame=0
     @index=0
     @fifthmove=fifthmove

@@ -311,7 +311,7 @@ end
 
 class Window_PhoneList < Window_CommandPokemon
   def drawCursor(index,rect)
-    selarrow=AnimatedBitmap.new("Graphics/Pictures/phoneSel")
+    selarrow=AnimatedBitmap.new("Graphics/Pictures/"+getAccentFolder+"/phoneSel")
     if self.index==index
       pbCopyBitmap(self.contents,selarrow.bitmap,rect.x,rect.y)
     end

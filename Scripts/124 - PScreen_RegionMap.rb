@@ -178,7 +178,7 @@ class PokemonRegionMapScene
         end
       end
     end
-    @sprites["cursor"]=AnimatedSprite.create("Graphics/Pictures/mapCursor",2,15)
+    @sprites["cursor"]=AnimatedSprite.create("Graphics/Pictures/"+getAccentFolder+"/mapCursor",2,15)
     @sprites["cursor"].viewport=@viewport
     @sprites["cursor"].play
     @sprites["cursor"].x=-SQUAREWIDTH/2+(@mapX*SQUAREWIDTH)+(Graphics.width-@sprites["map"].bitmap.width)/2

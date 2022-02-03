@@ -3146,8 +3146,8 @@ end
 
 module UpDownArrowMixin
   def initUpDownArrow
-    @uparrow=AnimatedSprite.create("Graphics/Pictures/uparrow",8,2,self.viewport)
-    @downarrow=AnimatedSprite.create("Graphics/Pictures/downarrow",8,2,self.viewport)
+    @uparrow=AnimatedSprite.create("Graphics/Pictures/"+getAccentFolder+"/uparrow",8,2,self.viewport)
+    @downarrow=AnimatedSprite.create("Graphics/Pictures/"+getAccentFolder+"/downarrow",8,2,self.viewport)
     @uparrow.z=99998
     @downarrow.z=99998
     @uparrow.visible=false
@@ -3183,6 +3183,14 @@ module UpDownArrowMixin
 
   def update
     super
+    # Accent Start
+    if $oldAccent != $PokemonSystem.accentcolor && $PokemonSystem
+      @uparrow.dispose
+      @downarrow.dispose    
+      initUpDownArrow
+      $oldAccent   = $PokemonSystem.accentcolor
+    end
+    # Accent End
     @uparrow.x=self.x+(self.width/2)-(@uparrow.framewidth/2)
     @downarrow.x=self.x+(self.width/2)-(@downarrow.framewidth/2)
     @uparrow.y=self.y

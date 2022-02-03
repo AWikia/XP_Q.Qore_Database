@@ -226,12 +226,12 @@ class PokedexFormScene
     @available=pbGetAvailable # [name, gender, form]
     @sprites={}
     @sprites["background"]=IconSprite.new(0,0,@viewport)
-    @sprites["uparrow"] = AnimatedSprite.new("Graphics/Pictures/uparrow",8,28,40,2,@viewport)
+    @sprites["uparrow"] = AnimatedSprite.new("Graphics/Pictures/"+getAccentFolder+"/uparrow",8,28,40,2,@viewport)
     @sprites["uparrow"].x = 242+64
     @sprites["uparrow"].y = 268
     @sprites["uparrow"].play
     @sprites["uparrow"].visible = false
-    @sprites["downarrow"] = AnimatedSprite.new("Graphics/Pictures/downarrow",8,28,40,2,@viewport)
+    @sprites["downarrow"] = AnimatedSprite.new("Graphics/Pictures/"+getAccentFolder+"/downarrow",8,28,40,2,@viewport)
     @sprites["downarrow"].x = 242+64
     @sprites["downarrow"].y = 348
     @sprites["downarrow"].play

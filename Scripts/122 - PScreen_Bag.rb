@@ -11,7 +11,7 @@ class Window_PokemonBag < Window_DrawableCommand
     @sortIndex=-1
     @adapter=PokemonMartAdapter.new
     super(x,y,width,height)
-    @selarrow=AnimatedBitmap.new("Graphics/Pictures/bagSel")
+    @selarrow=AnimatedBitmap.new("Graphics/Pictures/"+getAccentFolder+"/bagSel")
     self.windowskin=nil
   end
 
@@ -130,8 +130,8 @@ class PokemonBag_Scene
     lastitem=@bag.getChoice(lastpocket)
     @sprites["background"]=IconSprite.new(0,0,@viewport)
     @sprites["background"].setBitmap(sprintf("Graphics/Pictures/bagbg#{lastpocket}"))
-    @sprites["leftarrow"]=AnimatedSprite.new("Graphics/Pictures/leftarrow",8,40,28,2,@viewport)
-    @sprites["rightarrow"]=AnimatedSprite.new("Graphics/Pictures/rightarrow",8,40,28,2,@viewport)
+    @sprites["leftarrow"]=AnimatedSprite.new("Graphics/Pictures/"+getAccentFolder+"/leftarrow",8,40,28,2,@viewport)
+    @sprites["rightarrow"]=AnimatedSprite.new("Graphics/Pictures/"+getAccentFolder+"/rightarrow",8,40,28,2,@viewport)
     @sprites["leftarrow"].play
     @sprites["rightarrow"].play
     @sprites["bag"]=IconSprite.new(30,20,@viewport)

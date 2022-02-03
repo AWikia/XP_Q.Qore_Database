@@ -155,9 +155,9 @@ class Window_Pokedex < Window_DrawableCommand
 
   def drawCursor(index,rect)
     if pbGetPokedexRegion==-1 # Using national Pokédex
-    selarrow=AnimatedBitmap.new("Graphics/Pictures/pokedexSel")
+    selarrow=AnimatedBitmap.new("Graphics/Pictures/"+getAccentFolder+"/pokedexSel")
     else
-    selarrow=AnimatedBitmap.new("Graphics/Pictures/pokedexSel")
+    selarrow=AnimatedBitmap.new("Graphics/Pictures/"+getAccentFolder+"/pokedexSel")
 #    selarrow=AnimatedBitmap.new("Graphics/Pictures/pokedexSelREGION")
     end
     if self.index==index

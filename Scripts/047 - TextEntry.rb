@@ -1122,9 +1122,9 @@ class PokemonEntryScene2
     def initialize(viewport)
       @sprite=SpriteWrapper.new(viewport)
       @cursortype=0
-      @cursor1=AnimatedBitmap.new("Graphics/Pictures/NamingCursor1")
-      @cursor2=AnimatedBitmap.new("Graphics/Pictures/NamingCursor2")
-      @cursor3=AnimatedBitmap.new("Graphics/Pictures/NamingCursor3")
+      @cursor1=AnimatedBitmap.new("Graphics/Pictures/"+getAccentFolder+"/NamingCursor1")
+      @cursor2=AnimatedBitmap.new("Graphics/Pictures/"+getAccentFolder+"/NamingCursor2")
+      @cursor3=AnimatedBitmap.new("Graphics/Pictures/"+getAccentFolder+"/NamingCursor3")
       @cursorPos=0
       updateInternal
     end

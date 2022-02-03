@@ -369,7 +369,11 @@ def getAccentFolder
 end
 
 def getAccentName
-  return ["Blue", "Purple", "Pink", "Red", "Orange", "Yellow", "Green", "Gray"][$PokemonSystem.accentcolor]
+  if $PokemonSystem
+    return ["Blue", "Purple", "Pink", "Red", "Orange", "Yellow", "Green", "Gray"][$PokemonSystem.accentcolor]
+  else
+    return "Blue"
+  end
 end
 
 ################################################################################

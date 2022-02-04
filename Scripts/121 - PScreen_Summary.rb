@@ -324,6 +324,14 @@ class PokemonSummaryScene
     ballused=@pokemon.ballused ? @pokemon.ballused : 0
     ballimage=sprintf("Graphics/Pictures/summaryball%02d",@pokemon.ballused)
     imagepos.push([ballimage,14,60,0,0,-1,-1])
+    # Egg Steps Start
+     dexdata=pbOpenDexData
+     pbDexDataOffset(dexdata,pokemon.species,21)
+     maxesteps=dexdata.fgetw
+     dexdata.close
+    shadowfract=pokemon.eggsteps*1.0/maxesteps # Egg Steps TMP
+    imagepos.push(["Graphics/Pictures/"+getAccentFolder+"/summaryEggBar",370,244,0,0,(shadowfract*248).floor,-1])
+    # Egg Steps End
     pbDrawImagePositions(overlay,imagepos)
     base=Color.new(248,248,248)
     shadow=Color.new(104,104,104)
@@ -338,6 +346,7 @@ class PokemonSummaryScene
     else
       textpos.push([_INTL("None"),16,352,0,Color.new(184,184,160),Color.new(208,208,200)])
     end
+    textpos.push([_INTL("\"The Egg Watch\""),360,204,0,shadow,nil,0])
     pbDrawTextPositions(overlay,textpos)
     memo=""
     if pokemon.timeReceived
@@ -354,12 +363,12 @@ class PokemonSummaryScene
       memo+=_INTL("<c3=404040,B0B0B0>A mysterious Pokémon Egg received from <c3=F83820,E09890>{1}<c3=404040,B0B0B0>.\n",mapname)
     end
     memo+="<c3=404040,B0B0B0>\n"
-    memo+=_INTL("<c3=404040,B0B0B0>\"The Egg Watch\"\n")
     eggstate=_INTL("It looks like this Egg will take a long time to hatch.")
     eggstate=_INTL("What will hatch from this? It doesn't seem close to hatching.") if pokemon.eggsteps<10200
     eggstate=_INTL("It appears to move occasionally. It may be close to hatching.") if pokemon.eggsteps<2550
     eggstate=_INTL("Sounds can be heard coming from inside! It will hatch soon!") if pokemon.eggsteps<1275
-    memo+=sprintf("<c3=404040,B0B0B0>%s\n",eggstate)
+    eggstatemsg=sprintf("<c3=404040,B0B0B0>%s\n",eggstate)
+    drawFormattedTextEx(overlay,360,268,272,eggstatemsg)
     drawFormattedTextEx(overlay,360,78,276,memo)
     drawMarkings(overlay,15,291,72,20,pokemon.markings)
   end

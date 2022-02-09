@@ -11296,3 +11296,119 @@ MultipleForms.register(:MICROSOFT,{
    end
 }
 })
+
+
+MultipleForms.register(:NAMCO,{
+"getForm"=>proc{|pokemon|
+   next 1  if pokemon.isFemale?    # Fire
+
+   next 0
+},
+
+"onSetForm"=>proc{|pokemon,form|
+   pbSeenForm(pokemon)
+}
+})
+
+MultipleForms.copy(:NAMCO,:BANDAI)
+
+MultipleForms.register(:BANDAINAMCO,{
+  
+ "type1"=>proc{|pokemon|
+   types=[:FIRE,:PSYCHIC]
+   next getID(PBTypes,types[pokemon.form])  
+},
+ "type2"=>proc{|pokemon|
+   types=[:FIRE,:PSYCHIC]
+   next getID(PBTypes,types[pokemon.form])  
+},
+"getForm"=>proc{|pokemon|
+   next 1  if pokemon.isFemale?    # Fire
+
+   next 0
+},
+"color"=>proc{|pokemon|
+   next if pokemon.form==0
+   next 6 if pokemon.form==1
+},
+"getMoveList"=>proc{|pokemon|
+   next if pokemon.form==0
+   movelist=[[0,:FORBIDDENSPELL],[1,:GRAVITY],[1,:CONSTRICT],[1,:HARDEN],[5,:GROWL],
+             [10,:AGILITY],[15,:UPROAR],[20,:PSYBEAM],[25,:TOXIC],[30,:MINDBLOW],
+             [35,:HYPNOSIS],[40,:FLY],[45,:DREAMTOPIA],[50,:PSYCHIC],
+             [60,:PSYCHICTERRAIN],[60,:TERRAINPULSE]] if pokemon.form==1 # Eternal
+   for i in movelist
+     i[1]=getConst(PBMoves,i[1])
+   end
+   next movelist
+},
+
+"onSetForm"=>proc{|pokemon,form|
+   pbSeenForm(pokemon)
+}
+})
+
+
+MultipleForms.register(:DELIABANDAINAMCO,{
+  
+ "type1"=>proc{|pokemon|
+   types=[:FIRE,:PSYCHIC]
+   next getID(PBTypes,types[pokemon.form])  
+},
+ "type2"=>proc{|pokemon|
+   types=[:FIRE,:PSYCHIC]
+   next getID(PBTypes,types[pokemon.form])  
+},
+"getForm"=>proc{|pokemon|
+   next 1  if pokemon.isFemale?    # Fire
+
+   next 0
+},
+"color"=>proc{|pokemon|
+   next if pokemon.form==0
+   next 6 if pokemon.form==1
+},
+"getMoveList"=>proc{|pokemon|
+   next if pokemon.form==0
+   movelist=[[0,:FORBIDDENSPELL],[1,:GRAVITY],[1,:CONSTRICT],[1,:HARDEN],
+             [6,:GROWL],[12,:AGILITY],[18,:UPROAR],[24,:PSYBEAM],[30,:TOXIC],
+             [36,:MINDBLOW],[42,:HYPNOSIS],[48,:FLY],[54,:DREAMTOPIA],
+             [60,:PSYCHIC],[72,:PSYCHICTERRAIN],[72,:TERRAINPULSE]] if pokemon.form==1 # Eternal
+   for i in movelist
+     i[1]=getConst(PBMoves,i[1])
+   end
+   next movelist
+},
+
+"onSetForm"=>proc{|pokemon,form|
+   pbSeenForm(pokemon)
+}
+})
+
+MultipleForms.register(:DELIABANDAIPLUS,{
+  
+ "type1"=>proc{|pokemon|
+   types=[:FIRE,:PSYCHIC]
+   next getID(PBTypes,types[pokemon.form])  
+},
+"getForm"=>proc{|pokemon|
+   next 1  if pokemon.isFemale?    # Fire
+
+   next 0
+},
+"getMoveList"=>proc{|pokemon|
+   next if pokemon.form==0
+   movelist=[[0,:DOOMSURPLETE],[1,:FORBIDDENSPELL],[1,:GRAVITY],[1,:CONSTRICT],
+             [1,:HARDEN],[6,:GROWL],[12,:AGILITY],[18,:UPROAR],[24,:PSYBEAM],
+             [30,:TOXIC],[36,:MINDBLOW],[42,:HYPNOSIS],[48,:FLY],[54,:DREAMTOPIA],
+             [60,:PSYCHIC],[72,:PSYCHICTERRAIN],[72,:TERRAINPULSE]] if pokemon.form==1 # Eternal
+   for i in movelist
+     i[1]=getConst(PBMoves,i[1])
+   end
+   next movelist
+},
+
+"onSetForm"=>proc{|pokemon,form|
+   pbSeenForm(pokemon)
+}
+})

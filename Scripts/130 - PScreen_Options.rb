@@ -862,12 +862,8 @@ There are different modes:
            proc { $PokemonSystem.accentcolor },
            proc {|value| 
              $PokemonSystem.accentcolor = value 
-             if ($ACCENTBORDER != -1)
-               $BORDERS[$ACCENTBORDER]=getAccentFolder+"/border_4"
-               if ($PokemonSystem.bordergraphic==$ACCENTBORDER rescue false)
-                 setScreenBorderName($BORDERS[$PokemonSystem.bordergraphic]) # Accented Border
-               end
-             end
+             $BORDERS=getBorders
+             setScreenBorderName($BORDERS[$PokemonSystem.bordergraphic]) # Accented Border
            }
          ),
          NumberOption.new(_INTL("Cartridge Style"),1,5,

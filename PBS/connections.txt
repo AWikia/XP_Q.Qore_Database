@@ -176,8 +176,6 @@
 405,East,28,403,West,0
 # Understairs Semuora Drei (405) - Understairs Marrine Cave (404)
 405,South,0,404,North,0
-# Corni Carven (419) - Corni Carven (369)
-419,East,0,369,West,0
 # Route 102 (189) - Oldale Town (187)
 189,East,0,187,West,0
 # Route 101 (186) - Oldale Town (187)
@@ -198,3 +196,9 @@
 191,West,0,196,East,85
 # Route 101 (186) - Petallburg City (191)
 186,North,0,191,South,80
+# Corni Carven (369) - Corni Carven (462)
+369,North,0,462,South,20
+# Corni Carven (419) - Corni Carven (462)
+419,North,0,462,South,0
+# Corni Carven (419) - Corni Carven (369)
+419,East,0,369,West,0

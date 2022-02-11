@@ -391,7 +391,7 @@ ShowArea=true
 # Semuora Drei
 MapSize=2,1111
 BattleBack=Semuora
-Weather=Sunny,35
+Weather=Sun,35
 Bicycle=false
 MapPosition=4,15,5
 Outdoor=true
@@ -400,7 +400,7 @@ ShowArea=true
 # Semuora Vier
 MapSize=2,1111
 BattleBack=Semuora
-Weather=Sunny,10
+Weather=Sun,10
 Bicycle=false
 MapPosition=4,22,17
 Outdoor=true
@@ -428,7 +428,7 @@ ShowArea=true
 # Kenuora Drei
 MapSize=2,1111
 BattleBack=Kenuora
-Weather=Sunny,40
+Weather=Sun,40
 MapPosition=5,17,5
 Outdoor=true
 ShowArea=true
@@ -703,7 +703,7 @@ ShowArea=true
 [134]
 # Xeniora Drei
 BattleBack=Xeniora
-Weather=Sunny,100
+Weather=Sun,100
 MapPosition=9,6,5
 Outdoor=true
 ShowArea=true
@@ -717,7 +717,7 @@ ShowArea=true
 Bicycle=true
 MapPosition=9,2,8
 [137]
-# Pokémon Fusion Generation
+# Pokemon Fusion Generation
 MapPosition=9,2,8
 [138]
 # Understairs Swuora Zwei
@@ -1109,13 +1109,13 @@ HealingSpot=201,14,8
 [206]
 # Route 113
 MapSize=4,1111
+BattleBack=Mountain
 Weather=Sandstorm,100
 TrainerBattleBGM=113 - Vs. Hoenn Trainer.mp3
 MapPosition=11,5,2
 Outdoor=true
 WildBattleBGM=112 - Vs. Wild Hoenn.mp3
 ShowArea=true
-BattleBack=Mountain
 [207]
 # Understaurs Route 111
 TrainerBattleBGM=113 - Vs. Hoenn Trainer.mp3
@@ -1137,38 +1137,38 @@ HealingSpot=208,22,6
 [211]
 # Understairs Route 119
 MapSize=1,111111
+BattleBack=CaveDarker
 TrainerBattleBGM=113 - Vs. Hoenn Trainer.mp3
 MapPosition=11,12,2
 DarkMap=true
 WildBattleBGM=112 - Vs. Wild Hoenn.mp3
 ShowArea=true
-BattleBack=CaveDarker
 [212]
 # Understairs Fortree City
+BattleBack=CaveDarker
 TrainerBattleBGM=113 - Vs. Hoenn Trainer.mp3
 MapPosition=11,13,2
 DarkMap=true
 WildBattleBGM=112 - Vs. Wild Hoenn.mp3
 ShowArea=true
-BattleBack=CaveDarker
 [213]
 # Understairs Route 120
 MapSize=1,1111
+BattleBack=CaveDarker
 TrainerBattleBGM=113 - Vs. Hoenn Trainer.mp3
 MapPosition=11,14,2
 DarkMap=true
 WildBattleBGM=112 - Vs. Wild Hoenn.mp3
 ShowArea=true
-BattleBack=CaveDarker
 [214]
 # Understairs Route 121
 MapSize=4,1111
+BattleBack=CaveDarker
 TrainerBattleBGM=113 - Vs. Hoenn Trainer.mp3
 MapPosition=11,15,5
 DarkMap=true
 WildBattleBGM=112 - Vs. Wild Hoenn.mp3
 ShowArea=true
-BattleBack=CaveDarker
 [215]
 # Route 121
 TrainerBattleBGM=113 - Vs. Hoenn Trainer.mp3
@@ -1361,7 +1361,7 @@ Outdoor=true
 WildBattleBGM=Shinnoh Battle.mp3
 ShowArea=true
 [252]
-# Valley Windowrks
+# Valley Windworks
 Bicycle=true
 TrainerBattleBGM=Shinnoh trainer.mp3
 WildBattleBGM=Shinnoh Battle.mp3
@@ -1872,7 +1872,7 @@ HealingSpot=128,22,5
 [342]
 # Xeniora Vier
 BattleBack=Xeniora
-Weather=Sunny,100
+Weather=Sun,100
 MapPosition=9,5,8
 Outdoor=true
 ShowArea=true
@@ -1898,7 +1898,7 @@ ShowArea=true
 # Cindyora Eins
 MapSize=3,110111011
 BattleBack=Cindyora
-Weather=Sunny,10
+Weather=Sun,10
 Bicycle=false
 MapPosition=13,1,1
 Outdoor=true
@@ -1926,14 +1926,14 @@ ShowArea=true
 # Cindyora Vier
 MapSize=1,111
 BattleBack=Cindyora
-Weather=Sunny,100
+Weather=Sun,100
 MapPosition=13,14,2
 Outdoor=true
 ShowArea=true
 [350]
 # Cindyora Funf
 BattleBack=Cindyora
-Weather=Sunny,100
+Weather=Sun,100
 MapPosition=13,16,8
 Outdoor=true
 ShowArea=true
@@ -1961,7 +1961,7 @@ ShowArea=true
 # Sanuora Eins
 MapSize=3,110111011
 BattleBack=Sanuora
-Weather=Sunny,30
+Weather=Sun,30
 MapPosition=14,1,1
 Outdoor=true
 ShowArea=true
@@ -1985,7 +1985,7 @@ ShowArea=true
 # Sanuora Vier
 MapSize=3,101101111
 BattleBack=Sanuora
-Weather=Sunny,100
+Weather=Sun,100
 MapPosition=14,2,11
 Outdoor=true
 ShowArea=true
@@ -1993,7 +1993,7 @@ ShowArea=true
 # Sanuora Funf
 MapSize=3,111111111
 BattleBack=CloneWars
-Weather=Sunny,100
+Weather=Sun,100
 MapPosition=14,24,6
 Outdoor=true
 ShowArea=true
@@ -2353,18 +2353,18 @@ MapPosition=14,4,13
 ShowArea=true
 [420]
 # Navel Rock
-Outdoor=true
 BattleBack=Navel
 Bicycle=true
 MapPosition=2,7,6
+Outdoor=true
 ShowArea=true
 [421]
-# Pikimon Institute
+# Yorkbook Institute
 BattleBack=IndoorE
 MapPosition=6,13,12
 ShowArea=true
 [422]
-# Kenuora Zwei
+# Understairs Kenuora Zwei
 MapSize=3,111111
 BattleBack=CaveDark
 Bicycle=false
@@ -2372,7 +2372,7 @@ MapPosition=5,9,7
 DarkMap=true
 ShowArea=true
 [423]
-# Cindyora Sechs
+# Cindy Mesh Minigame
 MapSize=2,111011
 BattleBack=IndoorF
 MapPosition=13,4,13
@@ -2381,110 +2381,110 @@ ShowArea=true
 [425]
 # Netherworld Cave
 BattleBack=Cave
+Bicycle=true
 MapPosition=8,5,9
 ShowArea=true
-Bicycle=true
 [426]
 # Netherworld Cave
 BattleBack=CaveDarker
+Weather=Sandstorm,99
+Bicycle=true
 MapPosition=8,5,9
 DarkMap=true
 ShowArea=true
-Bicycle=true
-Weather=Sandstorm,99
 [427]
-# Quora Eins
+# Qortex Essentials Mousio
 BattleBack=Quora
 Bicycle=false
 MapPosition=2,3,2
 [428]
-# Quora Eins
+# Qortex Essentials Mousio
 BattleBack=Quora
 Bicycle=false
 MapPosition=2,3,2
 [429]
-# Quora Eins
+# Quora Vier
 BattleBack=Quora
 Bicycle=false
 Outdoor=true
 ShowArea=true
 [430]
-# Quora Eins
+# Swuora Vier
 BattleBack=Swuora
 Bicycle=false
 Outdoor=true
 ShowArea=true
 [431]
-# Quora Eins
+# Semuora Funf
 BattleBack=Semuora
 Bicycle=false
 Outdoor=true
 ShowArea=true
 [432]
-# Kenuora Eins
+# Understairs Kenuora Funf
 BattleBack=Cave
 ShowArea=true
 [433]
-# Kenuora Eins
+# Kenuora Funf
 BattleBack=Kenuora
 Bicycle=false
 Outdoor=true
 ShowArea=true
 [434]
-# Kenuora Eins
+# Xenuora Sechs
 BattleBack=Xenuora
 Bicycle=false
 Outdoor=true
 ShowArea=true
 [435]
-# Kenuora Eins
+# Annuora Sechs
 BattleBack=Annuora
 Bicycle=false
 Outdoor=true
 ShowArea=true
 [436]
-# Kenuora Eins
+# Understairs Keniora Sieben
 BattleBack=Cave
 ShowArea=true
 [437]
-# Kenuora Eins
+# Keniora Sieben
 BattleBack=Keniora
 Bicycle=false
 Outdoor=true
 ShowArea=true
 [438]
-# Kenuora Eins
+# Xeniora Sieben
 BattleBack=Xeniora
 Bicycle=false
 Outdoor=true
 ShowArea=true
 [439]
-# Kenuora Eins
+# Cindyora Acht
 BattleBack=Cindyora
 Bicycle=false
 Outdoor=true
 ShowArea=true
 [441]
-# Kenuora Eins
+# Quadro Cave
+MapSize=2,01
 BattleBack=Cave
-ShowArea=true
 Bicycle=true
 MapPosition=14,8,9
-MapSize=2,01
+ShowArea=true
 [443]
-# Sanuora Eins
+# Sanuora Acht
 BattleBack=Sanuora
 Bicycle=false
 Outdoor=true
 ShowArea=true
 [445]
-# Navel Rock
+# Fossilized Tunnel
 BattleBack=CaveDark
 Bicycle=false
 MapPosition=2,7,6
 ShowArea=true
 [446]
-# Navel Rock
+# Digitalized Stone
 BattleBack=CaveDark
 Bicycle=false
 MapPosition=2,7,6
@@ -2498,86 +2498,92 @@ MapPosition=11,4,2
 WildBattleBGM=112 - Vs. Wild Hoenn.mp3
 ShowArea=true
 [448]
-# Netherworld Cave
+# Netherworld Cave Puzzle
 BattleBack=Cave
+Bicycle=true
 MapPosition=8,5,9
 ShowArea=true
-Bicycle=true
 [449]
-# Netherworld Cave
+# Netherworld Cave Puzzle
 BattleBack=Cave
+Bicycle=true
 MapPosition=8,5,9
 ShowArea=true
-Bicycle=true
 [450]
-# Netherworld Cave
+# Netherworld Cave Puzzle
 BattleBack=Cave
+Bicycle=true
 MapPosition=8,5,9
 ShowArea=true
-Bicycle=true
 [451]
-# Netherworld Cave
+# Netherworld Cave Puzzle
 BattleBack=Cave
+Bicycle=true
 MapPosition=8,5,9
 ShowArea=true
-Bicycle=true
 [452]
-# Netherworld Cave
+# Netherworld Cave Puzzle
 BattleBack=Cave
+Bicycle=true
 MapPosition=8,5,9
 ShowArea=true
-Bicycle=true
 [453]
-# Netherworld Cave
+# Netherworld Cave Puzzle
 BattleBack=Cave
+Bicycle=true
 MapPosition=8,5,9
 ShowArea=true
-Bicycle=true
 [454]
-# Netherworld Cave
+# Netherworld Cave Puzzle
 BattleBack=Cave
+Bicycle=true
 MapPosition=8,5,9
 ShowArea=true
-Bicycle=true
 [455]
-# Netherworld Cave
+# Netherworld Cave Puzzle
 BattleBack=Cave
+Bicycle=true
 MapPosition=8,5,9
 ShowArea=true
-Bicycle=true
 [456]
-# Netherworld Cave
+# Netherworld Cave Puzzle
 BattleBack=Cave
+Bicycle=true
 MapPosition=8,5,9
 ShowArea=true
-Bicycle=true
 [457]
-# Netherworld Cave
+# Netherworld Cave Puzzle
 BattleBack=Cave
+Bicycle=true
 MapPosition=8,5,9
 ShowArea=true
-Bicycle=true
 [458]
-# Netherworld Cave
+# Netherworld Cave Puzzle
 BattleBack=Cave
+Bicycle=true
 MapPosition=8,5,9
 ShowArea=true
-Bicycle=true
 [459]
-# Netherworld Cave
+# Netherworld Cave Puzzle
 BattleBack=Cave
+Bicycle=true
 MapPosition=8,5,9
 ShowArea=true
-Bicycle=true
 [460]
-# Netherworld Cave
+# Netherworld Cave Puzzle
 BattleBack=Cave
+Bicycle=true
 MapPosition=8,5,9
 ShowArea=true
-Bicycle=true
 [461]
-# Netherworld Cave
+# Netherworld Cave Puzzle
 BattleBack=Cave
+Bicycle=true
 MapPosition=8,5,9
 ShowArea=true
+[462]
+# Corni Carven
+BattleBack=IndoorF
 Bicycle=true
+MapPosition=14,17,9
+ShowArea=true

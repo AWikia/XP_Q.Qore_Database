@@ -862,7 +862,7 @@ There are different modes:
            proc { $PokemonSystem.accentcolor },
            proc {|value| 
              $PokemonSystem.accentcolor = value 
-             $BORDERS=getBorders()
+             $BORDERS=getBorders
              setScreenBorderName($BORDERS[$PokemonSystem.bordergraphic]) # Accented Border
            }
          ),

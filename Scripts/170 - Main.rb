@@ -48,7 +48,7 @@ def qoreInitials
     end
 end
 
-def getBorders
+def getBorders # Edit this to add more borders
   return [
         "border",
         "border_1",
@@ -105,7 +105,6 @@ def mainFunctionDebug #:nodoc:
     $PokemonSystem = PokemonSystem.new if !$PokemonSystem
     $oldAccent   = $PokemonSystem.accentcolor
     $BORDERS=getBorders
-    $ACCENTBORDER = 4; # Accent-Aware Border
     setScreenBorderName($BORDERS[$PokemonSystem.bordergraphic]) # Sets image file for the border
     Graphics.update
     Graphics.freeze

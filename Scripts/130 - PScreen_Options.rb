@@ -420,10 +420,6 @@ $VersionStyles=[
   [MessageConfig::FontName]
 ]
 
-#$BORDERS=[
-#      "border",
-#      "border_1"
-#]
 
 def pbSettingToTextSpeed(speed)
   return 1 if speed==0
@@ -866,7 +862,12 @@ There are different modes:
            proc { $PokemonSystem.accentcolor },
            proc {|value| 
              $PokemonSystem.accentcolor = value 
-             setScreenBorderName($BORDERS[$PokemonSystem.bordergraphic]) # Accented Border
+             if ($ACCENTBORDER != -1)
+               $BORDERS[$ACCENTBORDER]=getAccentFolder+"/border_4"
+               if ($PokemonSystem.bordergraphic==$ACCENTBORDER rescue false)
+                 setScreenBorderName($BORDERS[$PokemonSystem.bordergraphic]) # Accented Border
+               end
+             end
            }
          ),
          NumberOption.new(_INTL("Cartridge Style"),1,5,

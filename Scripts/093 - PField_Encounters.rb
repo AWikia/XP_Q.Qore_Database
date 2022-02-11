@@ -1,31 +1,32 @@
 module EncounterTypes
-  Land           = 0
-  Cave            = 1
-  Water           = 2
-  RockSmash       = 3
-  OldRod          = 4
-  GoodRod         = 5
-  SuperRod        = 6
-  HeadbuttLow     = 7
-  HeadbuttHigh    = 8
-  LandMorning     = 9
-  LandDay         = 10
-  LandNight       = 11
-  BugContest      = 12
-  CaveNight       = 13
-  WaterRare       = 14
-  LandRare        = 15
-  ScubaDuba       = 16
-  ScubaDubaRare   = 17
-  CaveLarge       = 18
-  CaveLolan       = 19
-  CaveNightLarge  = 20
-  CaveRare        = 21
-  LandLarge       = 22
-  LandNightLarge  = 23
-  LandMorningLarge= 24
-  CaveXLarge      = 25
-  CaveMorningLarge  = 26
+  Land             = 0
+  Cave             = 1
+  Water            = 2
+  RockSmash        = 3
+  OldRod           = 4
+  GoodRod          = 5
+  SuperRod         = 6
+  HeadbuttLow      = 7
+  HeadbuttHigh     = 8
+  LandMorning      = 9
+  LandDay          = 10
+  LandNight        = 11
+  BugContest       = 12
+  CaveNight        = 13
+  WaterRare        = 14
+  LandRare         = 15
+  ScubaDuba        = 16
+  ScubaDubaRare    = 17
+  CaveLarge        = 18
+  CaveLolan        = 19
+  CaveNightLarge   = 20
+  CaveRare         = 21
+  LandLarge        = 22
+  LandNightLarge   = 23
+  LandMorningLarge = 24
+  CaveXLarge       = 25
+  CaveMorningLarge = 26
+  CaveHisui        = 27
   
   Names=[
      "Land",
@@ -55,38 +56,40 @@ module EncounterTypes
      "LandMorningLarge",
      "CaveXLarge",
      "CaveMorningLarge",
+     "CaveHisui",
   ]
   EnctypeChances=[
-     [20,20,10,10,10,10,5,5,4,4,1,1],                           # Land (12)
-     [20,20,10,10,10,10,5,5,4,4,1,1],                           # Cave (12)
-     [60,30,5,4,1],                                             # Water (5)
-     [60,30,5,4,1],                                             # RockSmash (5)
-     [70,30],                                                   # OldRod (2)
-     [60,20,20],                                                # GoodRod (3)
-     [40,40,15,4,1],                                            # SuperRod (5)
-     [30,25,20,10,5,5,4,1],                                     # HeadbuttLow (8)
-     [30,25,20,10,5,5,4,1],                                     # HeadbuttHigh (8)
-     [20,20,10,10,10,10,5,5,4,4,1,1],                           # LandMorning (12)
-     [20,20,10,10,10,10,5,5,4,4,1,1],                           # LandDay (12)
-     [20,20,10,10,10,10,5,5,4,4,1,1],                           # LandNight (12)
-     [20,20,10,10,10,10,5,5,4,4,1,1],                           # BugContest (12)
-     [20,20,10,10,10,10,5,5,4,4,1,1],                           # CaveNight (12)
-     [70,30],                                                   # WaterRare (2)
-     [20,20,15,15,10,10,5,5],                                   # LandRare (8)
-     [4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4],       # ScubaDuba (25)
-     [20,20,15,15,10,10,5,5],                                   # ScubaDubaRare (8)
-     [10,10,10,10,10,5,5,5,5,5,4,4,4,4,4,1,1,1,1,1],            # CaveLarge (20)
-     [10,10,10,10,10,5,5,5,5,5,4,4,4,4,3,1,1,1,1,1,1],          # CaveLoLan (21)
-     [10,10,10,10,10,5,5,5,5,5,4,4,4,4,4,1,1,1,1,1],            # CaveNightLarge (20)
-     [20,20,15,15,10,10,5,5],                                   # CaveRare (8)
-     [10,10,10,10,10,5,5,5,5,5,4,4,4,4,4,1,1,1,1,1],            # LandLarge (20)
-     [10,10,10,10,10,5,5,5,5,5,4,4,4,4,4,1,1,1,1,1],            # LargeNightLarge (20)
-     [10,10,10,10,10,5,5,5,5,5,4,4,4,4,4,1,1,1,1,1],            # LandMorningLarge (20)
-     [10,10,10,10,5,5,5,5,4,4,4,4,4,4,2,2,2,2,1,1,1,1,1,1,1,1], # CaveXLarge (26)
-     [10,10,10,10,10,5,5,5,5,5,4,4,4,4,4,1,1,1,1,1],            # CaveMorningLarge (20)
+     [20,20,10,10,10,10,5,5,4,4,1,1],                                    # Land (12)
+     [20,20,10,10,10,10,5,5,4,4,1,1],                                    # Cave (12)
+     [60,30,5,4,1],                                                      # Water (5)
+     [60,30,5,4,1],                                                      # RockSmash (5)
+     [70,30],                                                            # OldRod (2)
+     [60,20,20],                                                         # GoodRod (3)
+     [40,40,15,4,1],                                                     # SuperRod (5)
+     [30,25,20,10,5,5,4,1],                                              # HeadbuttLow (8)
+     [30,25,20,10,5,5,4,1],                                              # HeadbuttHigh (8)
+     [20,20,10,10,10,10,5,5,4,4,1,1],                                    # LandMorning (12)
+     [20,20,10,10,10,10,5,5,4,4,1,1],                                    # LandDay (12)
+     [20,20,10,10,10,10,5,5,4,4,1,1],                                    # LandNight (12)
+     [20,20,10,10,10,10,5,5,4,4,1,1],                                    # BugContest (12)
+     [20,20,10,10,10,10,5,5,4,4,1,1],                                    # CaveNight (12)
+     [70,30],                                                            # WaterRare (2)
+     [20,20,15,15,10,10,5,5],                                            # LandRare (8)
+     [4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4],                # ScubaDuba (25)
+     [20,20,15,15,10,10,5,5],                                            # ScubaDubaRare (8)
+     [10,10,10,10,10,5,5,5,5,5,4,4,4,4,4,1,1,1,1,1],                     # CaveLarge (20)
+     [10,10,10,10,10,5,5,5,5,5,4,4,4,4,3,1,1,1,1,1,1],                   # CaveLoLan (21)
+     [10,10,10,10,10,5,5,5,5,5,4,4,4,4,4,1,1,1,1,1],                     # CaveNightLarge (20)
+     [20,20,15,15,10,10,5,5],                                            # CaveRare (8)
+     [10,10,10,10,10,5,5,5,5,5,4,4,4,4,4,1,1,1,1,1],                     # LandLarge (20)
+     [10,10,10,10,10,5,5,5,5,5,4,4,4,4,4,1,1,1,1,1],                     # LargeNightLarge (20)
+     [10,10,10,10,10,5,5,5,5,5,4,4,4,4,4,1,1,1,1,1],                     # LandMorningLarge (20)
+     [10,10,10,10,5,5,5,5,4,4,4,4,4,4,2,2,2,2,1,1,1,1,1,1,1,1],          # CaveXLarge (26)
+     [10,10,10,10,10,5,5,5,5,5,4,4,4,4,4,1,1,1,1,1],                     # CaveMorningLarge (20)
+     [10,10,10,10,5,5,5,5,4,4,4,4,3,3,3,2,2,2,2,1,1,1,1,1,1,1],          # CaveHisui (26)
   ]
-  EnctypeDensities=[25,10,10,0,0,0,0,0,0,25,25,25,25,10,10,25,8,8,10,11,10,10,25,25,25,10,10]
-  EnctypeCompileDens=[1,2,3,0,0,0,0,0,0,1,1,1,1,2,3,1,0,0,2,2,2,2,1,1,1,2,2]
+  EnctypeDensities=[25,10,10,0,0,0,0,0,0,25,25,25,25,10,10,25,8,8,10,11,10,10,25,25,25,10,10,10]
+  EnctypeCompileDens=[1,2,3,0,0,0,0,0,0,1,1,1,1,2,3,1,0,0,2,2,2,2,1,1,1,2,2,2]
 end
 
 
@@ -118,6 +121,7 @@ class PokemonEncounters
             @enctypes[EncounterTypes::ScubaDubaRare] ||
             @enctypes[EncounterTypes::CaveLarge] ||
             @enctypes[EncounterTypes::CaveLolan] ||
+            @enctypes[EncounterTypes::CaveHisui] ||
             @enctypes[EncounterTypes::CaveNightLarge] ||
             @enctypes[EncounterTypes::CaveMorningLarge] ||
             @enctypes[EncounterTypes::CaveRare] || 
@@ -169,6 +173,7 @@ class PokemonEncounters
       enctype=EncounterTypes::ScubaDubaRare if self.hasEncounter?(EncounterTypes::ScubaDubaRare) && (rand(15) < 2) && dubamaps.include?($game_map.map_id)
       enctype=EncounterTypes::CaveLarge if self.hasEncounter?(EncounterTypes::CaveLarge)
       enctype=EncounterTypes::CaveLolan if self.hasEncounter?(EncounterTypes::CaveLolan)
+      enctype=EncounterTypes::CaveHisui if self.hasEncounter?(EncounterTypes::CaveHisui)
       enctype=EncounterTypes::CaveNightLarge if self.hasEncounter?(EncounterTypes::CaveNightLarge) && PBDayNight.isNight?(time)
       enctype=EncounterTypes::CaveMorningLarge if self.hasEncounter?(EncounterTypes::CaveMorningLarge) && PBDayNight.isMorning?(time)
       enctype=EncounterTypes::CaveXLarge if self.hasEncounter?(EncounterTypes::CaveXLarge)
@@ -444,7 +449,8 @@ class PokemonEncounters
         end
       end
       if isConst?(firstpoke.ability,PBAbilities,:SINISTRO) ||
-         isConst?(firstpoke.item,PBItems,:COLORCATCHER)
+        isConst?(firstpoke.ability,PBAbilities,:PROTEINCROTELINE) ||
+        isConst?(firstpoke.item,PBItems,:COLORCATCHER)
         newencs=[]; newchances=[]
         dexdata=pbOpenDexData
         for i in 0...encounters.length

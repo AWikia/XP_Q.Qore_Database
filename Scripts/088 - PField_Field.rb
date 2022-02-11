@@ -823,6 +823,7 @@ def pbGetEnvironment
   boardwalkmaps=[118,323,343,394,423]             # Keniora Funf, Bot Boyend, Xeniora Funf, Birthday Mystery, Cindyora Sechs
   alolamaps=[369]
   galarmaps=[419]
+  hisuimaps=[462]
   # But you should stop from below on unless what are you doing
   return PBEnvironment::None if !$game_map
   return PBEnvironment::Forest if forestmaps.include?($game_map.map_id)
@@ -834,6 +835,7 @@ def pbGetEnvironment
   return PBEnvironment::Boardwalk if boardwalkmaps.include?($game_map.map_id) # FLINT Environment
   return PBEnvironment::Alola if alolamaps.include?($game_map.map_id) # Alola
   return PBEnvironment::Galar if galarmaps.include?($game_map.map_id) # Galar
+  return PBEnvironment::Hisui if hisuimaps.include?($game_map.map_id) # Hisui
   if $PokemonGlobal && $PokemonGlobal.diving
     return PBEnvironment::Underwater
   elsif $PokemonEncounters && $PokemonEncounters.isCave?

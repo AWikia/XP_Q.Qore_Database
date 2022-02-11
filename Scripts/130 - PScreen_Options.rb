@@ -420,10 +420,6 @@ $VersionStyles=[
   [MessageConfig::FontName]
 ]
 
-#$BORDERS=[
-#      "border",
-#      "border_1"
-#]
 
 def pbSettingToTextSpeed(speed)
   return 1 if speed==0
@@ -524,12 +520,12 @@ class PokemonSystem
     @sevolume         = 100 # Volume of sound effects
     @textinput        = 0   # Text input mode (0=cursor, 1=keyboard)
     @night            = 2   # Night Style (0=Vanilla, 1=Cool, 2=Warm, 3=Crossover)
-    @colortige        = 1   # Cartidge Style (0=GenIV with Color text, 1=GenIV unmodded, 2=GenIV with Dark Text, 3=Creamy white with light colored text/based on GenIV style)
+    @colortige        = 1   # Cartidge Style (0=GenIV with Color text, 1=GenIV with Light Text, 2=GenIV with Dark Text, 3=Creamy white with light colored text/based on GenIV style, 4=FRLG Style)
     @outfit           = 0   # Player's Appearance
     @doublebattles    = 0   # Battle Mode (0=Single Wild Battles, 1=Double Wild Battles) - Ignored while you're with someone
     @mgraphic         = 0   # Mirrored Graphics in some places
     @bordercrop       = 1   # Border Cropping in Full Screen Mode
-    @bordergraphic    = 2   # Screen Border Graphic
+    @bordergraphic    = 4   # Screen Border Graphic (0=Qora Qore, 1=Pokemon Yellow, 2=Qora Qore V2, 3=Qora Qore V3 Channel-Aware, 4=Qora Qore V3 Accent-Aware)
     @charset2         = 0   # Charset (0 = Latin, 1 = Greek, 2 = Cyrrilic (Not added yet))
     @dsampling        = 0   # Charset (0 = Latin, 1 = Greek, 2 = Cyrrilic (Not added yet))
     @cryclassic       = 1   # Cry Style (0 = Classic, 1 = Modern)
@@ -606,7 +602,7 @@ end
   end
 
   def bordergraphic
-    return (!@bordergraphic) ? 0 : @bordergraphic
+    return (!@bordergraphic) ? 4 : @bordergraphic
   end
 
   def charset2
@@ -864,7 +860,11 @@ There are different modes:
          ),
          NumberOption.new(_INTL("Accent Color"),1,8,
            proc { $PokemonSystem.accentcolor },
-           proc {|value| $PokemonSystem.accentcolor = value }
+           proc {|value| 
+             $PokemonSystem.accentcolor = value 
+             $BORDERS=getBorders
+             setScreenBorderName($BORDERS[$PokemonSystem.bordergraphic]) # Accented Border
+           }
          ),
          NumberOption.new(_INTL("Cartridge Style"),1,5,
            proc { $PokemonSystem.colortige },
@@ -907,6 +907,7 @@ There are different modes:
             proc { $PokemonSystem.bordergraphic },
             proc {|value|
                $PokemonSystem.bordergraphic=value
+               $BORDERS=getBorders
                setScreenBorderName($BORDERS[value]) # Sets image file for the border
             }
          )

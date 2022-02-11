@@ -907,6 +907,7 @@ There are different modes:
             proc { $PokemonSystem.bordergraphic },
             proc {|value|
                $PokemonSystem.bordergraphic=value
+               $BORDERS=getBorders
                setScreenBorderName($BORDERS[value]) # Sets image file for the border
             }
          )

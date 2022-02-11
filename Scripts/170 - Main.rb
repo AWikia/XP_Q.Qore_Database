@@ -48,7 +48,7 @@ def qoreInitials
     end
 end
 
-def getΒorders
+def getBorders
   return [
         "border",
         "border_1",

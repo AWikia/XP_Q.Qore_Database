@@ -99,7 +99,7 @@ def mainFunctionDebug #:nodoc:
       "border",
       "border_1",
       "border_2",
-      ['border_3','border_3_beta','border_3_dev','border_3_canary'][QQORECHANNEL]
+      ['border_3','border_3_beta','border_3_dev','border_3_canary'][QQORECHANNEL],
       getAccentFolder+"/border_4"
     ]
     setScreenBorderName($BORDERS[$PokemonSystem.bordergraphic]) # Sets image file for the border

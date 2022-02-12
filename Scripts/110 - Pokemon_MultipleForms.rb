@@ -3574,7 +3574,7 @@ MultipleForms.register(:CYNDAQUIL,{
    when 1; movelist=[[1,:TACKLE],[1,:LEER],[6,:SMOKESCREEN],[10,:EMBER],
                      [13,:QUICKATTACK],[19,:FLAMEWHEEL],[22,:DEFENSECURL],
                      [28,:FLAMECHARGE],[31,:SWIFT],[37,:SHADOWBALL],
-                     [40,FLAMETHROWER],[46,:INFERNO],[49,:ROLLOUT],
+                     [40,:FLAMETHROWER],[46,:INFERNO],[49,:ROLLOUT],
                      [55,:DOUBLEEDGE],[58,:BURNUP],[64,:ERUPTION]]
    end
    for i in movelist
@@ -3649,7 +3649,7 @@ MultipleForms.register(:QUILAVA,{
    when 1; movelist=[[0,:INFERNALPARADE],[1,:TACKLE],[1,:LEER],[6,:SMOKESCREEN],
                      [10,:EMBER],[13,:QUICKATTACK],[20,:FLAMEWHEEL],
                      [24,:DEFENSECURL],[31,:FLAMECHARGE],[35,:SWIFT],
-                     [42,:SHADOWBALL],[46,FLAMETHROWER],[53,:INFERNO],
+                     [42,:SHADOWBALL],[46,:FLAMETHROWER],[53,:INFERNO],
                      [57,:ROLLOUT],[64,:DOUBLEEDGE],[68,:BURNUP],
                      [75,:ERUPTION]]
    end
@@ -3725,7 +3725,7 @@ MultipleForms.register(:TYPHLOSION,{
    when 1; movelist=[[0,:HEX],[1,:INFERNALPARADE],[1,:TACKLE],[1,:LEER],
                      [6,:SMOKESCREEN],[10,:EMBER],[13,:QUICKATTACK],
                      [20,:FLAMEWHEEL],[24,:DEFENSECURL],[31,:FLAMECHARGE],
-                     [35,:SWIFT],[43,:SHADOWBALL],[48,FLAMETHROWER],
+                     [35,:SWIFT],[43,:SHADOWBALL],[48,:FLAMETHROWER],
                      [56,:INFERNO],[61,:ROLLOUT],[69,:DOUBLEEDGE],[74,:BURNUP],
                      [82,:ERUPTION]]
    end

@@ -1480,10 +1480,10 @@ ItemHandlers::UseOnPokemon.add(:ROTOMCATALOG,proc{|item,pokemon,scene|
                   _INTL("Remove Appliance"),
                   _INTL("Cancel")]
       cmd = scene.pbShowCommands(msg,commands,cmd)
-      forme=cmd
+      forme=cmd+1
       if cmd>=0 && cmd<=4 && pokemon.form!=forme
         scene.pbDisplay(_INTL("{1} changed appliance!",pokemon.name)) 
-        pokemon.form=forme+1
+        pokemon.form=forme
         scene.pbRefresh
         next true
       elsif cmd==5 && pokemon.form>0

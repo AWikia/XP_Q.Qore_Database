@@ -1483,7 +1483,7 @@ ItemHandlers::UseOnPokemon.add(:ROTOMCATALOG,proc{|item,pokemon,scene|
       forme=cmd
       if cmd>=0 && cmd<=4 && pokemon.form!=forme
         scene.pbDisplay(_INTL("{1} changed appliance!",pokemon.name)) 
-        pokemon.form=forme
+        pokemon.form=forme+1
         scene.pbRefresh
         next true
       elsif cmd==5 && pokemon.form>0

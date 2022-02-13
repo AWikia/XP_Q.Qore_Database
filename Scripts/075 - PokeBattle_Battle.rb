@@ -485,11 +485,17 @@ class PokeBattle_Battle
     return true if pbIsMail?(item)
     return false if pkmn.effects[PBEffects::Transform]
     if isConst?(pkmn.ability,PBAbilities,:MULTITYPE)
-      # TODO: FLINT Plates
+      # Ordinal Plates
       plates=[:FISTPLATE,:SKYPLATE,:TOXICPLATE,:EARTHPLATE,:STONEPLATE,
               :INSECTPLATE,:SPOOKYPLATE,:IRONPLATE,:FLAMEPLATE,:SPLASHPLATE,
               :MEADOWPLATE,:ZAPPLATE,:MINDPLATE,:ICICLEPLATE,:DRACOPLATE,
               :DREADPLATE,:PIXIEPLATE]
+      # FLINT Plates
+      plates+=[:WIZARDPLATE,:BOMBPLATE,:JELLYLICIOUSPLATE,:GYROPLATE,
+               :VOLCANOPLATE,:WHIRLWINDPLATE,:CANDLEPLATE,:CHARGINGPLATE,
+               :BOTANICPLATE,:MENTALPLATE,:FISSIONPLATE,:SUNSHINEPLATE,
+               :LUNARPLATE,:BRAINPLATE,:LOVEPLATE,:COLDPLATE,
+               :CARBONPLATE,:GALAXYPLATE]
       for i in plates
         return true if isConst?(item,PBItems,i)
       end

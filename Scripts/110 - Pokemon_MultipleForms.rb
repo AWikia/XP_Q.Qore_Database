@@ -7784,16 +7784,24 @@ MultipleForms.register(:SHAYMIN,{
 MultipleForms.register(:ARCEUS,{
 "type1"=>proc{|pokemon|
    types=[:NORMAL,:FIGHTING,:FLYING,:POISON,:GROUND,
-          :ROCK,:BUG,:GHOST,:STEEL,:QMARKS,
+          :ROCK,:BUG,:GHOST,:STEEL,
           :FIRE,:WATER,:GRASS,:ELECTRIC,:PSYCHIC,
-          :ICE,:DRAGON,:DARK,:FAIRY]
+          :ICE,:DRAGON,:DARK,:FAIRY,:MAGIC,
+          :DOOM,:JELLY,:SHARPENER,:lAVA,:WIND,
+          :LICK,:BOLT,:HERB,:CHLORPHYLL,:GUST,
+          :SUN,:MOON,:MIND,:HEART,:BLIZZARD,
+          :GAS,:GLIMSE]
    next getID(PBTypes,types[pokemon.form])
 },
 "type2"=>proc{|pokemon|
    types=[:NORMAL,:FIGHTING,:FLYING,:POISON,:GROUND,
-          :ROCK,:BUG,:GHOST,:STEEL,:QMARKS,
+          :ROCK,:BUG,:GHOST,:STEEL,
           :FIRE,:WATER,:GRASS,:ELECTRIC,:PSYCHIC,
-          :ICE,:DRAGON,:DARK,:FAIRY]
+          :ICE,:DRAGON,:DARK,:FAIRY,:MAGIC,
+          :DOOM,:JELLY,:SHARPENER,:lAVA,:WIND,
+          :LICK,:BOLT,:HERB,:CHLORPHYLL,:GUST,
+          :SUN,:MOON,:MIND,:HEART,:BLIZZARD,
+          :GAS,:GLIMSE]
    next getID(PBTypes,types[pokemon.form])
 },
 "getForm"=>proc{|pokemon|
@@ -7805,15 +7813,35 @@ MultipleForms.register(:ARCEUS,{
    next 6  if isConst?(pokemon.item,PBItems,:INSECTPLATE)
    next 7  if isConst?(pokemon.item,PBItems,:SPOOKYPLATE)
    next 8  if isConst?(pokemon.item,PBItems,:IRONPLATE)
-   next 10 if isConst?(pokemon.item,PBItems,:FLAMEPLATE)
-   next 11 if isConst?(pokemon.item,PBItems,:SPLASHPLATE)
-   next 12 if isConst?(pokemon.item,PBItems,:MEADOWPLATE)
-   next 13 if isConst?(pokemon.item,PBItems,:ZAPPLATE)
-   next 14 if isConst?(pokemon.item,PBItems,:MINDPLATE)
-   next 15 if isConst?(pokemon.item,PBItems,:ICICLEPLATE)
-   next 16 if isConst?(pokemon.item,PBItems,:DRACOPLATE)
-   next 17 if isConst?(pokemon.item,PBItems,:DREADPLATE)
-   next 18 if isConst?(pokemon.item,PBItems,:PIXIEPLATE)
+   next 9 if isConst?(pokemon.item,PBItems,:FLAMEPLATE)
+   next 10 if isConst?(pokemon.item,PBItems,:SPLASHPLATE)
+   next 11 if isConst?(pokemon.item,PBItems,:MEADOWPLATE)
+   next 12 if isConst?(pokemon.item,PBItems,:ZAPPLATE)
+   next 13 if isConst?(pokemon.item,PBItems,:MINDPLATE)
+   next 14 if isConst?(pokemon.item,PBItems,:ICICLEPLATE)
+   next 15 if isConst?(pokemon.item,PBItems,:DRACOPLATE)
+   next 16 if isConst?(pokemon.item,PBItems,:DREADPLATE)
+   next 17 if isConst?(pokemon.item,PBItems,:PIXIEPLATE)
+  # FLINT
+   next 18 if isConst?(pokemon.item,PBItems,:WIZARDPLATE)
+   next 19 if isConst?(pokemon.item,PBItems,:BOMBPLATE)
+   next 20 if isConst?(pokemon.item,PBItems,:JELLYLICIOUSPLATE)
+   next 21 if isConst?(pokemon.item,PBItems,:GYROPLATE)
+   next 22 if isConst?(pokemon.item,PBItems,:VOLCANOPLATE)
+   next 23 if isConst?(pokemon.item,PBItems,:WHIRLWINDPLATE)
+   next 24 if isConst?(pokemon.item,PBItems,:CANDLEPLATE)
+   next 25 if isConst?(pokemon.item,PBItems,:CHARGINGPLATE)
+   next 26 if isConst?(pokemon.item,PBItems,:BOTANICPLATE)
+   next 27 if isConst?(pokemon.item,PBItems,:MENTALPLATE)
+   next 28 if isConst?(pokemon.item,PBItems,:FISSIONPLATE)
+   next 29 if isConst?(pokemon.item,PBItems,:SUNSHINEPLATE)
+   next 30 if isConst?(pokemon.item,PBItems,:LUNARPLATE)
+   next 31 if isConst?(pokemon.item,PBItems,:BRAINPLATE)
+   next 32 if isConst?(pokemon.item,PBItems,:LOVEPLATE)
+   next 33 if isConst?(pokemon.item,PBItems,:COLDPLATE)
+   next 34 if isConst?(pokemon.item,PBItems,:CARBONPLATE)
+   next 35 if isConst?(pokemon.item,PBItems,:GALAXYPLATE)
+
    next 0
 }
 })

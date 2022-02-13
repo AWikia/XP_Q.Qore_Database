@@ -7788,7 +7788,7 @@ MultipleForms.register(:ARCEUS,{
           :FIRE,:WATER,:GRASS,:ELECTRIC,:PSYCHIC,
           :ICE,:DRAGON,:DARK,:FAIRY,:MAGIC,
           :DOOM,:JELLY,:SHARPENER,:lAVA,:WIND,
-          :LICK,:BOLT,:HERB:CHLORPHYLL,:GUST,
+          :LICK,:BOLT,:HERB,:CHLORPHYLL,:GUST,
           :SUN,:MOON,:MIND,:HEART,:BLIZZARD,
           :GAS,:GLIMSE]
    next getID(PBTypes,types[pokemon.form])
@@ -7799,7 +7799,7 @@ MultipleForms.register(:ARCEUS,{
           :FIRE,:WATER,:GRASS,:ELECTRIC,:PSYCHIC,
           :ICE,:DRAGON,:DARK,:FAIRY,:MAGIC,
           :DOOM,:JELLY,:SHARPENER,:lAVA,:WIND,
-          :LICK,:BOLT,:HERB:CHLORPHYLL,:GUST,
+          :LICK,:BOLT,:HERB,:CHLORPHYLL,:GUST,
           :SUN,:MOON,:MIND,:HEART,:BLIZZARD,
           :GAS,:GLIMSE]
    next getID(PBTypes,types[pokemon.form])

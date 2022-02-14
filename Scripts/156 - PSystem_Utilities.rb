@@ -135,6 +135,9 @@ def toCelsius(fahrenheit)
   return ((fahrenheit-32)*5.0/9.0).round
 end
 
+################################################################################
+# Qortex Essentials utilities
+################################################################################
 
 # Used only on some cases
 def worksOnCorendo(workable=true)

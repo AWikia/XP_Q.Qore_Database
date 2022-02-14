@@ -161,6 +161,15 @@ def worksOnCorendo2(workable=true)
   end
 end
 
+# About Q.Qore
+def qortexAbout
+  @QQSR="\\l[3]"
+  @QQSR+="Q.Qore Channel:" + RTP2.getGameIniValue("Qortex", "Channel")
+  @QQSR+="\\nQ.Qore Release:" + RTP2.getGameIniValue("Qortex", "Release")
+  @QQSR+="\\nQ.Qore Version:" + RTP2.getGameIniValue("Qortex", "Version") 
+  Kernel.pbMessage(@QQSR)
+end
+
 # Memorize
 =begin
   Use of "qorePartyMemorise" script will require new Pokemon to be added

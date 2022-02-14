@@ -272,6 +272,7 @@ class PokemonLoad
     cmdQQSR        = -1
     cmdQQRM        = -1
     cmdQuit        = -1
+    cmdAbout       = -1
     commands       = []
     savefile = RTP.getSaveFileName("Game.rxdata")
     FontInstaller.install
@@ -333,6 +334,7 @@ class PokemonLoad
     commands[cmdQQSR=commands.length]=_INTL("System Requirements") # Due to a bug in VR Corendo, we need to set it here
     commands[cmdQQRM=commands.length]=_INTL("Reference Manual") # This is handled elsewhere on VR Corendo
     commands[cmdQuit=commands.length]=_INTL("Quit Game")
+    commands[cmdAbout=commands.length]=_INTL("About")
     @scene.pbStartScene(commands,showContinue,trainer,framecount,mapid)
     @scene.pbSetParty(trainer) if showContinue
     @scene.pbStartScene2
@@ -517,6 +519,8 @@ class PokemonLoad
         @scene.pbEndScene
         $scene=nil
         return
+      elsif cmdAbout>=0 && command==cmdAbout
+        qortexAbout
       end
     end
     @scene.pbEndScene

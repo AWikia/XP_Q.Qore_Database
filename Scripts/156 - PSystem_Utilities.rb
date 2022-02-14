@@ -135,6 +135,9 @@ def toCelsius(fahrenheit)
   return ((fahrenheit-32)*5.0/9.0).round
 end
 
+################################################################################
+# Qortex Essentials utilities
+################################################################################
 
 # Used only on some cases
 def worksOnCorendo(workable=true)
@@ -159,6 +162,15 @@ def worksOnCorendo2(workable=true)
     Kernel.pbMessage(_INTL("\\c[8]\\w[TrophyWindow]For members who want to try out the feature, please run the RGSS RPG XP Version"))
     Kernel.pbMessage(_INTL("\\c[8]\\w[TrophyWindow]For VirtualReality Corendo members, this feature does nothing"))
   end
+end
+
+# About Q.Qore
+def qortexAbout
+  @QQSR="\\l[3]"
+  @QQSR+="Q.Qore Channel:" + RTP2.getGameIniValue("Qortex", "Channel")
+  @QQSR+="\\nQ.Qore Release:" + RTP2.getGameIniValue("Qortex", "Release")
+  @QQSR+="\\nQ.Qore Version:" + RTP2.getGameIniValue("Qortex", "Version") 
+  Kernel.pbMessage(@QQSR)
 end
 
 # Memorize

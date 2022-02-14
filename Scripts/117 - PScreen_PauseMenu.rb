@@ -298,11 +298,7 @@ class PokemonMenu
           pbShowMenu
         end
       elsif cmdAbout>=0 && command==cmdAbout
-        @QQSR="\\l[3]"
-        @QQSR+="Q.Qore Channel:" + RTP2.getGameIniValue("Qortex", "Channel")
-        @QQSR+="\\nQ.Qore Release:" + RTP2.getGameIniValue("Qortex", "Release")
-        @QQSR+="\\nQ.Qore Version:" + RTP2.getGameIniValue("Qortex", "Version") 
-        Kernel.pbMessage(@QQSR)
+        qortexAbout
         pbShowMenu
       else
         break

@@ -208,8 +208,8 @@ class PokemonSummaryScene
       imagepos.push(["Graphics/Pictures/summaryShadowBar",370,280,0,0,(shadowfract*248).floor,-1])
     end
     pbDrawImagePositions(overlay,imagepos)
-    base=Color.new(248,248,248)
-    shadow=Color.new(104,104,104)
+    base=Color.new(230,230,230)
+    shadow=Color.new(58,58,58)
     pbSetSystemFont(overlay)
     numberbase=(pokemon.isShiny?) ? Color.new(248,56,32) : Color.new(64,64,64)
     numbershadow=(pokemon.isShiny?) ? Color.new(224,152,144) : Color.new(176,176,176)
@@ -227,15 +227,15 @@ class PokemonSummaryScene
        [pokename,46,62,0,base,shadow],
        [pokemon.level.to_s,46,92,0,Color.new(64,64,64),Color.new(176,176,176)],
        [_INTL("Item"),66,318,0,base,shadow],
-       [_ISPRINTF("Dex No."),366,16,0,shadow,nil,0],
+       [_ISPRINTF("Dex No."),366,16,0,base,nil,0],
        [_INTL("{1}",fdexno),563,16,2,numberbase,numbershadow],
        [_INTL("Species"),366,48,0,shadow,nil,0],
        [speciesname,563,48,2,Color.new(64,64,64),Color.new(176,176,176)],
-       [_INTL("Color"),366,80,0,shadow,nil,0],
+       [_INTL("Color"),366,80,0,base,nil,0],
        [_INTL("Compats"),366,112,0,shadow,nil,0],
-       [_INTL("Type"),366,144,0,shadow,nil,0],
+       [_INTL("Type"),366,144,0,base,nil,0],
        [_INTL("OT"),366,176,0,shadow,nil,0],
-       [_INTL("ID No."),366,208,0,shadow,nil,0],
+       [_INTL("ID No."),366,208,0,base,nil,0],
     ]
     if pokemon.hasItem?
       textpos.push([PBItems.getName(pokemon.item),16,352,0,Color.new(64,64,64),Color.new(176,176,176)])
@@ -333,8 +333,8 @@ class PokemonSummaryScene
     imagepos.push(["Graphics/Pictures/"+getAccentFolder+"/summaryEggBar",370,244,0,0,(shadowfract*248).floor,-1])
     # Egg Steps End
     pbDrawImagePositions(overlay,imagepos)
-    base=Color.new(248,248,248)
-    shadow=Color.new(104,104,104)
+    base=Color.new(230,230,230)
+    shadow=Color.new(58,58,58)
     pbSetSystemFont(overlay)
     textpos=[
  #      [_INTL("Trainer Information"),26,8,0,base,shadow,1],
@@ -396,8 +396,8 @@ class PokemonSummaryScene
     ballimage=sprintf("Graphics/Pictures/summaryball%02d",@pokemon.ballused)
     imagepos.push([ballimage,14,60,0,0,-1,-1])
     pbDrawImagePositions(overlay,imagepos)
-    base=Color.new(248,248,248)
-    shadow=Color.new(104,104,104)
+    base=Color.new(230,230,230)
+    shadow=Color.new(58,58,58)
     pbSetSystemFont(overlay)
     naturename=PBNatures.getName(pokemon.nature)
     pokename=@pokemon.name
@@ -541,11 +541,13 @@ class PokemonSummaryScene
     ballimage=sprintf("Graphics/Pictures/summaryball%02d",@pokemon.ballused)
     imagepos.push([ballimage,14,60,0,0,-1,-1])
     pbDrawImagePositions(overlay,imagepos)
-    base=Color.new(248,248,248)
-    shadow=Color.new(104,104,104)
+    base=Color.new(230,230,230)
+    shadow=Color.new(58,58,58)
     nat = (pokemon.mint!=-1) ? pokemon.mint : pokemon.nature
     statshadows=[]
+    statshadows2=[]
     for i in 0...5; statshadows[i]=nil; end
+    for i in 0...5; statshadows2[i]=shadow; end
     if !(pokemon.isShadow? rescue false) || pokemon.heartStage<=3
 #      natup=(pokemon.nature/5).floor
 #      natdn=(pokemon.nature%5).floor
@@ -553,6 +555,9 @@ class PokemonSummaryScene
       natdn=(nat%5).floor
       statshadows[natup]=Color.new(136,96,72) if natup!=natdn
       statshadows[natdn]=Color.new(64,120,152) if natup!=natdn
+
+      statshadows2[natup]=base if natup!=natdn
+      statshadows2[natdn]=base if natup!=natdn
     end
     pbSetSystemFont(overlay)
     abilityname=PBAbilities.getName(pokemon.ability)
@@ -565,17 +570,17 @@ class PokemonSummaryScene
        [_INTL("Item"),66,318,0,base,shadow],
        [_INTL("HP"),420,76-64,2,base,nil,0],
        [sprintf("%3d/%3d",pokemon.hp,pokemon.totalhp),548,76-64,2,Color.new(64,64,64),Color.new(176,176,176)],
-       [_INTL("Attack"),376,120-64,0,base,statshadows[0],1],
+       [_INTL("Attack"),376,120-64,0,statshadows2[0],statshadows[0],1],
        [sprintf("%d",pokemon.attack),548,120-64,2,Color.new(64,64,64),Color.new(176,176,176)],
        [_INTL("Defense"),376,152-64,0,base,statshadows[1],1],
        [sprintf("%d",pokemon.defense),548,152-64,2,Color.new(64,64,64),Color.new(176,176,176)],
-       [_INTL("Sp. Atk"),376,184-64,0,base,statshadows[3],1],
+       [_INTL("Sp. Atk"),376,184-64,0,statshadows2[3],statshadows[3],1],
        [sprintf("%d",pokemon.spatk),548,184-64,2,Color.new(64,64,64),Color.new(176,176,176)],
        [_INTL("Sp. Def"),376,216-64,0,base,statshadows[4],1],
        [sprintf("%d",pokemon.spdef),548,216-64,2,Color.new(64,64,64),Color.new(176,176,176)],
-       [_INTL("Speed"),376,248-64,0,base,statshadows[2],1],
+       [_INTL("Speed"),376,248-64,0,statshadows2[2],statshadows[2],1],
        [sprintf("%d",pokemon.speed),548,248-64,2,Color.new(64,64,64),Color.new(176,176,176)],
-       [_INTL("Ability"),288,284-64,0,base,nil,0],
+       [_INTL("Ability"),288,284-64,0,shadow,nil,0],
        [abilityname,426,284-64,0,Color.new(64,64,64),Color.new(176,176,176)],
       ]
     if pokemon.hasItem?
@@ -635,11 +640,13 @@ def drawPageFour(pokemon)
     ballimage=sprintf("Graphics/Pictures/summaryball%02d",@pokemon.ballused)
     imagepos.push([ballimage,14,60,0,0,-1,-1])
     pbDrawImagePositions(overlay,imagepos)
-    base=Color.new(248,248,248)
-    shadow=Color.new(104,104,104)
+    base=Color.new(230,230,230)
+    shadow=Color.new(58,58,58)
     nat = (pokemon.mint!=-1) ? pokemon.mint : pokemon.nature
     statshadows=[]
+    statshadows2=[]
     for i in 0...5; statshadows[i]=nil end
+    for i in 0...5; statshadows2[i]=shadow; end
     if !(pokemon.isShadow? rescue false) || pokemon.heartStage<=3
 #      natup=(pokemon.nature/5).floor
 #      natdn=(pokemon.nature%5).floor
@@ -647,6 +654,9 @@ def drawPageFour(pokemon)
       natdn=(nat%5).floor
       statshadows[natup]=Color.new(136,96,72) if natup!=natdn
       statshadows[natdn]=Color.new(64,120,152) if natup!=natdn
+
+      statshadows2[natup]=base if natup!=natdn
+      statshadows2[natdn]=base if natup!=natdn
     end
     pbSetSystemFont(overlay)
     abilityname=PBAbilities.getName(pokemon.ability)
@@ -659,17 +669,17 @@ def drawPageFour(pokemon)
        [_INTL("Item"),66,318,0,base,shadow],
        [_INTL("HP"),420,76-64,2,base,nil,0],
        [sprintf("%d",pokemon.ev[0]),548,76-64,2,Color.new(64,64,64),Color.new(176,176,176)],
-       [_INTL("Attack"),376,120-64,0,base,statshadows[0],1],
+       [_INTL("Attack"),376,120-64,0,statshadows2[0],statshadows[0],1],
        [sprintf("%d",pokemon.ev[1]),548,120-64,2,Color.new(64,64,64),Color.new(176,176,176)],
        [_INTL("Defense"),376,152-64,0,base,statshadows[1],1],
        [sprintf("%d",pokemon.ev[2]),548,152-64,2,Color.new(64,64,64),Color.new(176,176,176)],
-       [_INTL("Sp. Atk"),376,184-64,0,base,statshadows[3],1],
+       [_INTL("Sp. Atk"),376,184-64,0,statshadows2[3],statshadows[3],1],
        [sprintf("%d",pokemon.ev[4]),548,184-64,2,Color.new(64,64,64),Color.new(176,176,176)],
        [_INTL("Sp. Def"),376,216-64,0,base,statshadows[4],1],
        [sprintf("%d",pokemon.ev[5]),548,216-64,2,Color.new(64,64,64),Color.new(176,176,176)],
-       [_INTL("Speed"),376,248-64,0,base,statshadows[2],1],
+       [_INTL("Speed"),376,248-64,0,statshadows2[2],statshadows[2],1],
        [sprintf("%d",pokemon.ev[3]),548,248-64,2,Color.new(64,64,64),Color.new(176,176,176)],
-       [_INTL("Ability"),288,284-64,0,base,nil,0],
+       [_INTL("Ability"),288,284-64,0,shadow,nil,0],
        [abilityname,426,284-64,0,Color.new(64,64,64),Color.new(176,176,176)],
       ]
     if pokemon.hasItem?
@@ -729,8 +739,8 @@ def drawPageFive(pokemon)
     ballimage=sprintf("Graphics/Pictures/summaryball%02d",@pokemon.ballused)
     imagepos.push([ballimage,14,60,0,0,-1,-1])
     pbDrawImagePositions(overlay,imagepos)
-    base=Color.new(248,248,248)
-    shadow=Color.new(104,104,104)
+    base=Color.new(230,230,230)
+    shadow=Color.new(58,58,58)
     nat = (pokemon.mint!=-1) ? pokemon.mint : pokemon.nature
     statshadows=[]
     statshadows2=[]
@@ -839,8 +849,8 @@ def drawPageFive(pokemon)
     ballimage=sprintf("Graphics/Pictures/summaryball%02d",@pokemon.ballused)
     imagepos.push([ballimage,14,60,0,0,-1,-1])
     pbDrawImagePositions(overlay,imagepos)
-    base=Color.new(248,248,248)
-    shadow=Color.new(104,104,104)
+    base=Color.new(230,230,230)
+    shadow=Color.new(58,58,58)
     pbSetSystemFont(overlay)
     pokename=@pokemon.name
     textpos=[
@@ -931,8 +941,8 @@ def drawPageFive(pokemon)
   def drawMoveSelection(pokemon,moveToLearn)
     overlay=@sprites["overlay"].bitmap
     overlay.clear
-    base=Color.new(248,248,248)
-    shadow=Color.new(104,104,104)
+    base=Color.new(230,230,230)
+    shadow=Color.new(58,58,58)
     ppBase   = [Color.new(64,64,64),     # More than 1/2 of total PP
                 Color.new(248,192,0),    # 1/2 of total PP or less
                 Color.new(248,136,32),   # 1/4 of total PP or less
@@ -1026,8 +1036,8 @@ def drawPageFive(pokemon)
     ballimage=sprintf("Graphics/Pictures/summaryball%02d",@pokemon.ballused)
     imagepos.push([ballimage,14,60,0,0,-1,-1])
     pbDrawImagePositions(overlay,imagepos)
-    base=Color.new(248,248,248)
-    shadow=Color.new(104,104,104)
+    base=Color.new(230,230,230)
+    shadow=Color.new(58,58,58)
     pbSetSystemFont(overlay)
     pokename=@pokemon.name
     textpos=[
@@ -1094,8 +1104,8 @@ def drawPageFive(pokemon)
     ballimage=sprintf("Graphics/Pictures/summaryball%02d",@pokemon.ballused)
     imagepos.push([ballimage,14,60,0,0,-1,-1])
     pbDrawImagePositions(overlay,imagepos)
-    base=Color.new(248,248,248)
-    shadow=Color.new(104,104,104)
+    base=Color.new(230,230,230)
+    shadow=Color.new(58,58,58)
     statshadows=[]
     for i in 0...5; statshadows[i]=shadow; end
     if !(pokemon.isShadow? rescue false) || pokemon.heartStage<=3
@@ -1144,15 +1154,15 @@ def drawPageFive(pokemon)
        [pokename,46,62,0,base,shadow],
        [pokemon.level.to_s,46,92,0,Color.new(64,64,64),Color.new(176,176,176)],
        [_INTL("Item"),66,318,0,base,shadow],
-       [_INTL("Best Stat"),420,76-64,2,shadow,nil,0],
+       [_INTL("Best Stat"),420,76-64,2,base,nil,0],
        [_INTL("{1}",beststat),548,76-64,2,Color.new(64,64,64),Color.new(176,176,176)],
        [_INTL("Happiness"),376,120-64,0,shadow,nil,0],
        [sprintf("%d",pokemon.happiness),548,120-64,2,Color.new(64,64,64),Color.new(176,176,176)],
-       [_INTL("Temperature"),376,152-64,0,shadow,nil,0], # Was Physical
+       [_INTL("Temperature"),376,152-64,0,base,nil,0], # Was Physical
        [_INTL("{1} {2}",physicalstat,kind),548,152-64,2,Color.new(64,64,64),Color.new(176,176,176)],
        [_INTL("Special"),376,184-64,0,shadow,nil,0],
        [_INTL("{1}",specialstat),548,184-64,2,Color.new(64,64,64),Color.new(176,176,176)],
-       [_INTL("Stamina"),376,216-64,0,shadow,nil,0],
+       [_INTL("Stamina"),376,216-64,0,base,nil,0],
        [sprintf("%d",stamina),548,216-64,2,Color.new(64,64,64),Color.new(176,176,176)],
        [_INTL("Efforts"),376,248-64,0,shadow,nil,0],
        [sprintf("%d",efforts),548,248-64,2,Color.new(64,64,64),Color.new(176,176,176)],

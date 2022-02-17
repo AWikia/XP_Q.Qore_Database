@@ -755,12 +755,12 @@
 1085,ESPERWING,Esper Wing,000,75,ELECTRIC,Physical,90,10,0,00,-4,befh,"The user slashes the target with aura-enriched wings. Critical hits land more easily."
 1086,HEADLONGRUSH,Headlong Rush,03C,100,FIGHTING,Physical,100,5,0,00,0,abef,"The user smashes into the target in a full-body tackle. This also lowers the user's Defense and Sp. Def. stats."
 1087,INFERNALPARADE,Infernal Parade,00A,60,POISON,Physical,100,15,0,00,0,abef,"The user launches countless toxic barbs to inflict damage. This may also poison the target. This move’s power is doubled if the target has a status condition."
-1088,LUNARBLESSING,Recover,330,0,PSYCHIC,Status,0,10,0,10,0,d,"The user heals its own status conditions and restores its HP."
-1089,MOUNTAINGALE,Bleakwind Storm,000,100,ICE,Special,85,5,0,00,5,bef,"The user hurls giant chunks of ice at the target to inflict damage."
+1088,LUNARBLESSING,Lunar Blessing,330,0,PSYCHIC,Status,0,10,0,10,0,d,"The user heals its own status conditions and restores its HP."
+1089,MOUNTAINGALE,Mountain Gale,000,100,ICE,Special,85,5,0,00,5,bef,"The user hurls giant chunks of ice at the target to inflict damage."
 1090,MYSTICALPOWER,Mystical Power,02D,70,PSYCHIC,Special,90,10,10,00,0,bef,The user strengthens itself with a mysterious power. This may also raise all the user's stats at once.
 1091,POWERSHIFT,Power Shift,331,0,NORMAL,Status,0,10,0,10,0,d,The user swaps its offensive and defensive stats.
 1092,PSYSHIELDBASH,Psyshield Bash,02A,70,PSYCHIC,Physical,90,10,30,00,0,bef,"Cloaking itself in psychic energy, the user slams into the target. This may also raise the user's Defense and Sp. Def. stats."
-1093,RAGINGFURY,Raging Fury,000,90,FIRE,Physical,85,10,0,00,0,befh,"The user slashes the target with aura-enriched wings. Critical hits land more easily."
+1093,RAGINGFURY,Raging Fury,02D,90,FIRE,Physical,85,10,0,00,0,befh,"The user rampages and spews vicious flames to inflict damage on the target, then becomes fixated on using this move."
 1094,SANDSEARSTORM,Sandsear Storm,00A,95,GROUND,Special,80,5,100,00,0,abef,"The user attacks by wrapping the target in fierce winds and searingly hot sand. This also leaves the target with a burn."
 1095,SHELTER,Shelter,02A,0,STEEL,Status,0,20,0,10,0,d,"The user makes its skin as hard as an iron shield, raising its Defense and Sp. Def stats."
 1096,SPRINGTIDESTORM,Springtide Storm,02D,95,FAIRY,Special,80,5,30,00,0,bef,The user attacks by wrapping the target in fierce winds brimming with love and hate. This may also raise all the user's stats at once.

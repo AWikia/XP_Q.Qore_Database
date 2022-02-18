@@ -736,8 +736,8 @@
 899,TD35,TD35,TD35s,4,0,"The user fires a beam of steel that it collected from its entire body. This also damages the user.",6,0,0,STEELBEAM
 900,TD36,TD36,TD36s,4,0,"Using an odd shock wave, the user damages any Pokémon of the same color as the user.",6,0,0,COLORATURA
 901,TD37,TD37,TD37s,4,0,"The user attacks an opposing Pokémon with massive electricity. This move may also paralyze the target and power is doubled if a Pokémon has the corresponding ability.",6,0,0,TRANSISTOR
-902,TD38,TD38,TD38s,4,0,"Fumes of afro is sprayed in the face of opposing Pokémon. This may poison those hit.",6,0,0,DRAGONSMAW
-903,TD39,TD39,TD39s,4,0,"The user attacks an opposing Pokémon with greater fire. This move may also burn the target and power is doubled if a Pokémon has the corresponding ability.",6,0,0,AFROFUMES
+902,TD38,TD38,TD38s,4,0,"The user attacks an opposing Pokémon with greater fire. This move may also burn the target and power is doubled if a Pokémon has the corresponding ability.",6,0,0,DRAGONSMAW
+903,TD39,TD39,TD39s,4,0,"Fumes of afro is sprayed in the face of opposing Pokémon. This may poison those hit.",6,0,0,AFROFUMES
 904,TD40,TD40,TD40s,4,0,"The user does Herbal exercise 3 times, drastically increasing Defense but severely decreasing Evasion. This attack never goes encored.",6,0,0,HERBOTOPIA
 905,TD41,TD41,TD41s,4,0,"The user waggles a finger and stimulates its brain into randomly using nearly any move.",6,0,0,METRONOME
 906,TD42,TD42,TD42s,4,0,"The user thows a wrapped bounce, hitting the entire side with large scratches.",6,0,0,WRAPPEDSCRATCH
@@ -780,7 +780,7 @@
 943,TD79,TD79,TD79s,4,0,"The user attacks by slamming its body into the target. The higher the user's Defense, the more damage it can inflict on the target.",6,0,0,BODYPRESS
 944,TD80,TD80,TD80s,4,0,"If the target has already taken some damage in the same turn, this attack's power is doubled.",6,0,0,ROCKYTUNNEL
 945,TD81,TD81,TD81s,4,0,"The target is struck with large, imposing wings spread wide to inflict damage.",6,0,0,WINDFLY
-946,TD82,TD82,TD82s,4,0,"Diving on the first turn, the user rises and hits on the next turn. It can be used to dive in the ocean.",6,0,0,DIVE
+946,TD82,TD82,TD82s,4,0,"Traps foes in a violent swirling whirlpool for four to five turns.",6,0,0,WHIRLPOOL
 947,TD83,TD83,TD83s,4,0,"The user hits underwater at brunal levels in the first turn and hits the target with brunal water in the next turn.",6,0,0,BRUNALWATER
 948,TD84,TD84,TD84s,4,0,"The user assists an ally by boosting its Special Attack stat by two stages.",6,0,0,LAVAASSIST
 949,TD85,TD85,TD85s,4,0,"The user looses a ground-shaking quake affecting everyone around the user. Its power varies.",6,0,0,EERIEQUAKE
@@ -974,3 +974,4 @@
 863,RELICFLOWER,Relic Flower,Relic Flowers,1,0,"A mysterious flower. One Pokémon will be able to produce specialized versions of Wikitech.",0,0,0,
 864,HEARTBRANDITE,Heartbrandite,Heartbrandites,1,10000,"One of the mysterious Mega Stones. Have Heartbrand hold it, and this stone will enable it to Mega Evolve in battle.",0,0,12,
 965,ROTOMCATALOG,Rotom Catalog,Rotom Catalogs,8,0,"A catalog of devices that Rotom like. Use the catalog to have Rotom hop in and out of the various devices listed within.",5,0,6,
+966,HEARTBRANDITE2,Heartbrandite2,Heartbrandite2s,1,10000,"One of the mysterious Mega Stones. Have Heartbrand hold it, and this stone will enable it to Mega Evolve in battle.",0,0,12,

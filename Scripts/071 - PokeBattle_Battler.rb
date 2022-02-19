@@ -514,6 +514,7 @@ class PokeBattle_Battler
     @effects[PBEffects::UltraBurst]       = 0
     @effects[PBEffects::UBForm]           = 0
     @effects[PBEffects::Eternamax]        = 0
+    @effects[PBEffects::Soufliz]        = 0
     @effects[PBEffects::BurningJelousy]   = false
     @effects[PBEffects::LashOut]          = false
     @effects[PBEffects::Illusion]         = nil
@@ -2091,7 +2092,8 @@ class PokeBattle_Battler
       end
     end
     # Soufliz
-    if self.hasWorkingAbility(:SOUFLIZ) && self.status!=0 && onactive
+    if self.hasWorkingAbility(:SOUFLIZ) && self.status!=0 && (onactive || self.effects[PBEffects::Soufliz] == 0 )
+        self.effects[PBEffects::Soufliz] == 1
         dodge=false
         damager=(rand(100)<50) ? pbOpposing1 : pbOpposing2
         if (attacker.status==PBStatuses::PARALYSIS && !pbOpposing1.pbCanParalyze?(attacker,false,self)) ||

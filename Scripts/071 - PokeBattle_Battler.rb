@@ -2470,28 +2470,28 @@ class PokeBattle_Battler
              (target.status==PBStatuses::FROZEN && user.pbCanFreeze?(target,false,self)))
           case target.status
           when PBStatuses::PARALYSIS
-            attacker.pbParalyze(target,_INTL("{1}'s {2} paralyzed {3}! It may be unable to move!",target.pbThis,PBAbilities.getName(target.ability),attacker.pbThis(true)))
-            attacker.pbAbilityCureCheck
+            user.pbParalyze(target,_INTL("{1}'s {2} paralyzed {3}! It may be unable to move!",target.pbThis,PBAbilities.getName(target.ability),user.pbThis(true)))
+            user.pbAbilityCureCheck
         target.pbCureStatus(false)
         @battle.pbDisplay(_INTL("{1} was cured of paralysis.",target.pbThis))
           when PBStatuses::SLEEP
-            attacker.pbSleep(_INTL("{1}'s {2} made {3} fall asleep!",target.pbThis,PBAbilities.getName(target.ability),attacker.pbThis(true)))
-            attacker.pbAbilityCureCheck
+            user.pbSleep(_INTL("{1}'s {2} made {3} fall asleep!",target.pbThis,PBAbilities.getName(target.ability),user.pbThis(true)))
+            user.pbAbilityCureCheck
         target.pbCureStatus(false)
         @battle.pbDisplay(_INTL("{1} woke up.",target.pbThis))
           when PBStatuses::POISON
-            attacker.pbPoison(target,_INTL("{1}'s {2} poisoned {3}!",target.pbThis,PBAbilities.getName(target.ability),attacker.pbThis(true)),target.statusCount!=0)
-            attacker.pbAbilityCureCheck
+            user.pbPoison(target,_INTL("{1}'s {2} poisoned {3}!",target.pbThis,PBAbilities.getName(target.ability),user.pbThis(true)),target.statusCount!=0)
+            user.pbAbilityCureCheck
         target.pbCureStatus(false)
         @battle.pbDisplay(_INTL("{1} was cured of its poisoning.",target.pbThis))
           when PBStatuses::BURN
-            attacker.pbBurn(target,_INTL("{1}'s {2} burned {3}!",target.pbThis,PBAbilities.getName(target.ability),attacker.pbThis(true)))
-            attacker.pbAbilityCureCheck
+            user.pbBurn(target,_INTL("{1}'s {2} burned {3}!",target.pbThis,PBAbilities.getName(target.ability),user.pbThis(true)))
+            user.pbAbilityCureCheck
         target.pbCureStatus(false)
         @battle.pbDisplay(_INTL("{1}'s burn was healed.",target.pbThis))
           when PBStatuses::FROZEN
-            attacker.pbFreeze(_INTL("{1}'s {2} made {3} frozen solid!",target.pbThis,PBAbilities.getName(target.ability),attacker.pbThis(true)))
-            attacker.pbAbilityCureCheck
+            user.pbFreeze(_INTL("{1}'s {2} made {3} frozen solid!",target.pbThis,PBAbilities.getName(target.ability),user.pbThis(true)))
+            user.pbAbilityCureCheck
         target.pbCureStatus(false)
         @battle.pbDisplay(_INTL("{1} was thawed out.",target.pbThis))
           end

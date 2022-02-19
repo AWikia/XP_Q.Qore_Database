@@ -514,7 +514,6 @@ class PokeBattle_Battler
     @effects[PBEffects::UltraBurst]       = 0
     @effects[PBEffects::UBForm]           = 0
     @effects[PBEffects::Eternamax]        = 0
-    @effects[PBEffects::Soufliz]        = 0
     @effects[PBEffects::BurningJelousy]   = false
     @effects[PBEffects::LashOut]          = false
     @effects[PBEffects::Illusion]         = nil
@@ -2092,30 +2091,29 @@ class PokeBattle_Battler
       end
     end
     # Soufliz
-    if self.hasWorkingAbility(:SOUFLIZ) && self.status!=0 && (onactive || self.effects[PBEffects::Soufliz] == 0 )
-        self.effects[PBEffects::Soufliz] == 1
+    if self.hasWorkingAbility(:SOUFLIZ) && self.status!=0 && onactive
         dodge=false
         damager=(rand(100)<50) ? pbOpposing1 : pbOpposing2
-        if (attacker.status==PBStatuses::PARALYSIS && !pbOpposing1.pbCanParalyze?(attacker,false,self)) ||
-           (attacker.status==PBStatuses::SLEEP && !pbOpposing1.pbCanSleep?(attacker,false,self)) ||
-           (attacker.status==PBStatuses::POISON && !pbOpposing1.pbCanPoison?(attacker,false,self)) ||
-           (attacker.status==PBStatuses::BURN && !pbOpposing1.pbCanBurn?(attacker,false,self)) ||
-           (attacker.status==PBStatuses::FROZEN && !pbOpposing1.pbCanFreeze?(attacker,false,self))
+        if (self.status==PBStatuses::PARALYSIS && !pbOpposing1.pbCanParalyze?(self,false,self)) ||
+           (self.status==PBStatuses::SLEEP && !pbOpposing1.pbCanSleep?(self,false,self)) ||
+           (self.status==PBStatuses::POISON && !pbOpposing1.pbCanPoison?(self,false,self)) ||
+           (self.status==PBStatuses::BURN && !pbOpposing1.pbCanBurn?(self,false,self)) ||
+           (self.status==PBStatuses::FROZEN && !pbOpposing1.pbCanFreeze?(self,false,self))
             damager=pbOpposing2  # If 1st opposing can't be affected, use the 2nd
             dodge=true if !@battle.doublebattle
-        elsif (attacker.status==PBStatuses::PARALYSIS && !pbOpposing2.pbCanParalyze?(attacker,false,self)) ||
-           (attacker.status==PBStatuses::SLEEP && !pbOpposing2.pbCanSleep?(attacker,false,self)) ||
-           (attacker.status==PBStatuses::POISON && !pbOpposing2.pbCanPoison?(attacker,false,self)) ||
-           (attacker.status==PBStatuses::BURN && !pbOpposing2.pbCanBurn?(attacker,false,self)) ||
-           (attacker.status==PBStatuses::FROZEN && !pbOpposing2.pbCanFreeze?(attacker,false,self))
+        elsif (self.status==PBStatuses::PARALYSIS && !pbOpposing2.pbCanParalyze?(self,false,self)) ||
+           (self.status==PBStatuses::SLEEP && !pbOpposing2.pbCanSleep?(self,false,self)) ||
+           (self.status==PBStatuses::POISON && !pbOpposing2.pbCanPoison?(self,false,self)) ||
+           (self.status==PBStatuses::BURN && !pbOpposing2.pbCanBurn?(self,false,self)) ||
+           (self.status==PBStatuses::FROZEN && !pbOpposing2.pbCanFreeze?(self,false,self))
             damager=pbOpposing1  # If 2nd opposing can't be affected, use the 1st
             dodge=true if !@battle.doublebattle
         end
-        if (attacker.status==PBStatuses::PARALYSIS && !pbOpposing1.pbCanParalyze?(attacker,false,self) && !pbOpposing2.pbCanParalyze?(attacker,false,self) ) ||
-           (attacker.status==PBStatuses::SLEEP && !pbOpposing1.pbCanSleep?(attacker,false,self) && !pbOpposing2.pbCanSleep?(attacker,false,self)) ||
-           (attacker.status==PBStatuses::POISON && !pbOpposing1.pbCanPoison?(attacker,false,self) && !pbOpposing2.pbCanPoison?(attacker,false,self)) ||
-           (attacker.status==PBStatuses::BURN && !pbOpposing1.pbCanBurn?(attacker,false,self) && !pbOpposing2.pbCanBurn?(attacker,false,self)) ||
-           (attacker.status==PBStatuses::FROZEN && !pbOpposing1.pbCanFreeze?(attacker,false,self) && !pbOpposing2.pbCanFreeze?(attacker,false,self))
+        if (self.status==PBStatuses::PARALYSIS && !pbOpposing1.pbCanParalyze?(self,false,self) && !pbOpposing2.pbCanParalyze?(self,false,self) ) ||
+           (self.status==PBStatuses::SLEEP && !pbOpposing1.pbCanSleep?(self,false,self) && !pbOpposing2.pbCanSleep?(self,false,self)) ||
+           (self.status==PBStatuses::POISON && !pbOpposing1.pbCanPoison?(self,false,self) && !pbOpposing2.pbCanPoison?(self,false,self)) ||
+           (self.status==PBStatuses::BURN && !pbOpposing1.pbCanBurn?(self,false,self) && !pbOpposing2.pbCanBurn?(self,false,self)) ||
+           (self.status==PBStatuses::FROZEN && !pbOpposing1.pbCanFreeze?(self,false,self) && !pbOpposing2.pbCanFreeze?(self,false,self))
             dodge=true # If neither opposing can't be affected, dodge the ability completely
         end
         next if dodge

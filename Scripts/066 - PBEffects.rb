@@ -139,6 +139,7 @@ begin
     Eternamax          = 135 # Used for Eternatus
     BurningJelousy     = 136
     LashOut            = 137
+    Soufliz            = 138
 
     
     ############################################################################

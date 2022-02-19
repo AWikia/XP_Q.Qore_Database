@@ -2094,6 +2094,7 @@ class PokeBattle_Battler
     if self.hasWorkingAbility(:SOUFLIZ) && self.status!=0 && onactive
         dodge=false
         damager=(rand(100)<50) ? pbOpposing1 : pbOpposing2
+        damager= pbOpposing1 if !@battle.doublebattle
         if (self.status==PBStatuses::PARALYSIS && !pbOpposing1.pbCanParalyze?(self,false,self)) ||
            (self.status==PBStatuses::SLEEP && !pbOpposing1.pbCanSleep?(self,false,self)) ||
            (self.status==PBStatuses::POISON && !pbOpposing1.pbCanPoison?(self,false,self)) ||
@@ -2101,11 +2102,11 @@ class PokeBattle_Battler
            (self.status==PBStatuses::FROZEN && !pbOpposing1.pbCanFreeze?(self,false,self))
             damager=pbOpposing2  # If 1st opposing can't be affected, use the 2nd
             dodge=true if !@battle.doublebattle
-        elsif (self.status==PBStatuses::PARALYSIS && !pbOpposing2.pbCanParalyze?(self,false,self)) ||
+        elsif ((self.status==PBStatuses::PARALYSIS && !pbOpposing2.pbCanParalyze?(self,false,self)) ||
            (self.status==PBStatuses::SLEEP && !pbOpposing2.pbCanSleep?(self,false,self)) ||
            (self.status==PBStatuses::POISON && !pbOpposing2.pbCanPoison?(self,false,self)) ||
            (self.status==PBStatuses::BURN && !pbOpposing2.pbCanBurn?(self,false,self)) ||
-           (self.status==PBStatuses::FROZEN && !pbOpposing2.pbCanFreeze?(self,false,self))
+           (self.status==PBStatuses::FROZEN && !pbOpposing2.pbCanFreeze?(self,false,self))) && @battle.doublebattle
             damager=pbOpposing1  # If 2nd opposing can't be affected, use the 1st
             dodge=true if !@battle.doublebattle
         end
@@ -2113,26 +2114,28 @@ class PokeBattle_Battler
            (self.status==PBStatuses::SLEEP && !pbOpposing1.pbCanSleep?(self,false,self) && !pbOpposing2.pbCanSleep?(self,false,self)) ||
            (self.status==PBStatuses::POISON && !pbOpposing1.pbCanPoison?(self,false,self) && !pbOpposing2.pbCanPoison?(self,false,self)) ||
            (self.status==PBStatuses::BURN && !pbOpposing1.pbCanBurn?(self,false,self) && !pbOpposing2.pbCanBurn?(self,false,self)) ||
-           (self.status==PBStatuses::FROZEN && !pbOpposing1.pbCanFreeze?(self,false,self) && !pbOpposing2.pbCanFreeze?(self,false,self))
+           (self.status==PBStatuses::FROZEN && !pbOpposing1.pbCanFreeze?(self,false,self) && !pbOpposing2.pbCanFreeze?(self,false,self)) &&
+           @battle.doublebattle
             dodge=true # If neither opposing can't be affected, dodge the ability completely
         end
-        next if dodge
-        case self.status
-        when PBStatuses::PARALYSIS
-          damager.pbParalyze(self,_INTL("{1}'s {2} paralyzed {3}! It may be unable to move!",self.pbThis,PBAbilities.getName(self.ability),damager.pbThis(true)))
-          damager.pbAbilityCureCheck
-        when PBStatuses::SLEEP
-          damager.pbSleep(_INTL("{1}'s {2} made {3} fall asleep!",self.pbThis,PBAbilities.getName(self.ability),damager.pbThis(true)))
-          damager.pbAbilityCureCheck
-        when PBStatuses::POISON
-          damager.pbPoison(self,_INTL("{1}'s {2} poisoned {3}!",self.pbThis,PBAbilities.getName(self.ability),damager.pbThis(true)),self.statusCount!=0)
-          damager.pbAbilityCureCheck
-        when PBStatuses::BURN
-          damager.pbBurn(self,_INTL("{1}'s {2} burned {3}!",self.pbThis,PBAbilities.getName(self.ability),damager.pbThis(true)))
-          damager.pbAbilityCureCheck
-        when PBStatuses::FROZEN
-          damager.pbFreeze(_INTL("{1}'s {2} made {3} frozen solid!",self.pbThis,PBAbilities.getName(self.ability),damager.pbThis(true)))
-          damager.pbAbilityCureCheck
+        if !dodge
+          case self.status
+          when PBStatuses::PARALYSIS
+            damager.pbParalyze(self,_INTL("{1}'s {2} paralyzed {3}! It may be unable to move!",self.pbThis,PBAbilities.getName(self.ability),damager.pbThis(true)))
+            damager.pbAbilityCureCheck
+          when PBStatuses::SLEEP
+            damager.pbSleep(_INTL("{1}'s {2} made {3} fall asleep!",self.pbThis,PBAbilities.getName(self.ability),damager.pbThis(true)))
+            damager.pbAbilityCureCheck
+          when PBStatuses::POISON
+            damager.pbPoison(self,_INTL("{1}'s {2} poisoned {3}!",self.pbThis,PBAbilities.getName(self.ability),damager.pbThis(true)),self.statusCount!=0)
+            damager.pbAbilityCureCheck
+          when PBStatuses::BURN
+            damager.pbBurn(self,_INTL("{1}'s {2} burned {3}!",self.pbThis,PBAbilities.getName(self.ability),damager.pbThis(true)))
+            damager.pbAbilityCureCheck
+          when PBStatuses::FROZEN
+            damager.pbFreeze(_INTL("{1}'s {2} made {3} frozen solid!",self.pbThis,PBAbilities.getName(self.ability),damager.pbThis(true)))
+            damager.pbAbilityCureCheck
+          end
         end
     end
     # Air Balloon message
@@ -3342,12 +3345,13 @@ class PokeBattle_Battler
           if pbOpposing1.hasWorkingAbility(:SOLBEYU)
             damager=pbOpposing2  # If 1st opposing has Solbeyu, use the 2nd
             dodgesol=true if !@battle.doublebattle
-          elsif pbOpposing2.hasWorkingAbility(:SOLBEYU)
+          elsif pbOpposing2.hasWorkingAbility(:SOLBEYU) && @battle.doublebattle
             damager=pbOpposing1 # If 2nd opposing has Solbeyu, use the 1st
             dodgesol=true if !@battle.doublebattle
           end
           if pbOpposing1.hasWorkingAbility(:SOLBEYU) && 
-                pbOpposing2.hasWorkingAbility(:SOLBEYU)
+                pbOpposing2.hasWorkingAbility(:SOLBEYU) &&
+                @battle.doublebattle
             dodgesol=true
           end
         end

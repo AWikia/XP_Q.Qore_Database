@@ -2090,6 +2090,51 @@ class PokeBattle_Battler
         PBDebug.log("[Pokémon transformed] #{pbThis} transformed into #{choice.pbThis(true)}")
       end
     end
+    # Soufliz
+    if self.hasWorkingAbility(:SOUFLIZ) && self.status!=0 && onactive
+        dodge=false
+        damager=(rand(100)<50) ? pbOpposing1 : pbOpposing2
+        if (attacker.status==PBStatuses::PARALYSIS && !pbOpposing1.pbCanParalyze?(attacker,false,self)) ||
+           (attacker.status==PBStatuses::SLEEP && !pbOpposing1.pbCanSleep?(attacker,false,self)) ||
+           (attacker.status==PBStatuses::POISON && !pbOpposing1.pbCanPoison?(attacker,false,self)) ||
+           (attacker.status==PBStatuses::BURN && !pbOpposing1.pbCanBurn?(attacker,false,self)) ||
+           (attacker.status==PBStatuses::FROZEN && !pbOpposing1.pbCanFreeze?(attacker,false,self))
+            damager=pbOpposing2  # If 1st opposing can't be affected, use the 2nd
+            dodge=true if !@battle.doublebattle
+        elsif (attacker.status==PBStatuses::PARALYSIS && !pbOpposing2.pbCanParalyze?(attacker,false,self)) ||
+           (attacker.status==PBStatuses::SLEEP && !pbOpposing2.pbCanSleep?(attacker,false,self)) ||
+           (attacker.status==PBStatuses::POISON && !pbOpposing2.pbCanPoison?(attacker,false,self)) ||
+           (attacker.status==PBStatuses::BURN && !pbOpposing2.pbCanBurn?(attacker,false,self)) ||
+           (attacker.status==PBStatuses::FROZEN && !pbOpposing2.pbCanFreeze?(attacker,false,self))
+            damager=pbOpposing1  # If 2nd opposing can't be affected, use the 1st
+            dodge=true if !@battle.doublebattle
+        end
+        if (attacker.status==PBStatuses::PARALYSIS && !pbOpposing1.pbCanParalyze?(attacker,false,self) && !pbOpposing2.pbCanParalyze?(attacker,false,self) ) ||
+           (attacker.status==PBStatuses::SLEEP && !pbOpposing1.pbCanSleep?(attacker,false,self) && !pbOpposing2.pbCanSleep?(attacker,false,self)) ||
+           (attacker.status==PBStatuses::POISON && !pbOpposing1.pbCanPoison?(attacker,false,self) && !pbOpposing2.pbCanPoison?(attacker,false,self)) ||
+           (attacker.status==PBStatuses::BURN && !pbOpposing1.pbCanBurn?(attacker,false,self) && !pbOpposing2.pbCanBurn?(attacker,false,self)) ||
+           (attacker.status==PBStatuses::FROZEN && !pbOpposing1.pbCanFreeze?(attacker,false,self) && !pbOpposing2.pbCanFreeze?(attacker,false,self))
+            dodge=true # If neither opposing can't be affected, dodge the ability completely
+        end
+        next if dodge
+        case self.status
+        when PBStatuses::PARALYSIS
+          damager.pbParalyze(self,_INTL("{1}'s {2} paralyzed {3}! It may be unable to move!",self.pbThis,PBAbilities.getName(self.ability),damager.pbThis(true)))
+          damager.pbAbilityCureCheck
+        when PBStatuses::SLEEP
+          damager.pbSleep(_INTL("{1}'s {2} made {3} fall asleep!",self.pbThis,PBAbilities.getName(self.ability),damager.pbThis(true)))
+          damager.pbAbilityCureCheck
+        when PBStatuses::POISON
+          damager.pbPoison(self,_INTL("{1}'s {2} poisoned {3}!",self.pbThis,PBAbilities.getName(self.ability),damager.pbThis(true)),self.statusCount!=0)
+          damager.pbAbilityCureCheck
+        when PBStatuses::BURN
+          damager.pbBurn(self,_INTL("{1}'s {2} burned {3}!",self.pbThis,PBAbilities.getName(self.ability),damager.pbThis(true)))
+          damager.pbAbilityCureCheck
+        when PBStatuses::FROZEN
+          damager.pbFreeze(_INTL("{1}'s {2} made {3} frozen solid!",self.pbThis,PBAbilities.getName(self.ability),damager.pbThis(true)))
+          damager.pbAbilityCureCheck
+        end
+    end
     # Air Balloon message
     if self.hasWorkingItem(:AIRBALLOON) && onactive
       @battle.pbDisplay(_INTL("{1} floats in the air with its {2}!",pbThis,PBItems.getName(self.item)))
@@ -2363,7 +2408,7 @@ class PokeBattle_Battler
         if target.hasWorkingAbility(:FROZENBODY,true) && @battle.pbRandom(10)<5 &&
            user.pbCanFreeze?(nil,false)
           PBDebug.log("[Ability triggered] #{target.pbThis}'s Flame Body")
-          user.pbFreeze(target,_INTL("{1}'s {2} froze {3}!",target.pbThis,
+          user.pbFreeze(_INTL("{1}'s {2} made {3} frozen solid!",target.pbThis,
              PBAbilities.getName(target.ability),user.pbThis(true)))
         end
         if target.hasWorkingAbility(:MUMMY,true) && !user.isFainted?
@@ -2412,6 +2457,41 @@ class PokeBattle_Battler
           PBDebug.log("[Ability triggered] #{target.pbThis}'s Static")
           user.pbParalyze(target,_INTL("{1}'s {2} paralyzed {3}! It may be unable to move!",
              target.pbThis,PBAbilities.getName(target.ability),user.pbThis(true)))
+        end
+        if target.hasWorkingAbility(:SOUFLAZ,true) && @battle.pbRandom(10)<5 &&
+            target.status !=0 && user.status ==0 &&
+            ((target.status==PBStatuses::PARALYSIS && user.pbCanParalyze?(target,false,self)) ||
+             (target.status==PBStatuses::SLEEP && user.pbCanSleep?(target,false,self)) ||
+             (target.status==PBStatuses::POISON && user.pbCanPoison?(target,false,self)) ||
+             (target.status==PBStatuses::BURN && user.pbCanBurn?(target,false,self)) ||
+             (target.status==PBStatuses::FROZEN && user.pbCanFreeze?(target,false,self)))
+          case target.status
+          when PBStatuses::PARALYSIS
+            attacker.pbParalyze(target,_INTL("{1}'s {2} paralyzed {3}! It may be unable to move!",target.pbThis,PBAbilities.getName(target.ability),attacker.pbThis(true)))
+            attacker.pbAbilityCureCheck
+        target.pbCureStatus(false)
+        @battle.pbDisplay(_INTL("{1} was cured of paralysis.",target.pbThis))
+          when PBStatuses::SLEEP
+            attacker.pbSleep(_INTL("{1}'s {2} made {3} fall asleep!",target.pbThis,PBAbilities.getName(target.ability),attacker.pbThis(true)))
+            attacker.pbAbilityCureCheck
+        target.pbCureStatus(false)
+        @battle.pbDisplay(_INTL("{1} woke up.",target.pbThis))
+          when PBStatuses::POISON
+            attacker.pbPoison(target,_INTL("{1}'s {2} poisoned {3}!",target.pbThis,PBAbilities.getName(target.ability),attacker.pbThis(true)),target.statusCount!=0)
+            attacker.pbAbilityCureCheck
+        target.pbCureStatus(false)
+        @battle.pbDisplay(_INTL("{1} was cured of its poisoning.",target.pbThis))
+          when PBStatuses::BURN
+            attacker.pbBurn(target,_INTL("{1}'s {2} burned {3}!",target.pbThis,PBAbilities.getName(target.ability),attacker.pbThis(true)))
+            attacker.pbAbilityCureCheck
+        target.pbCureStatus(false)
+        @battle.pbDisplay(_INTL("{1}'s burn was healed.",target.pbThis))
+          when PBStatuses::FROZEN
+            attacker.pbFreeze(_INTL("{1}'s {2} made {3} frozen solid!",target.pbThis,PBAbilities.getName(target.ability),attacker.pbThis(true)))
+            attacker.pbAbilityCureCheck
+        target.pbCureStatus(false)
+        @battle.pbDisplay(_INTL("{1} was thawed out.",target.pbThis))
+          end
         end
         if user.pbOwnSide.effects[PBEffects::Electromania]>0 &&
            target.pbCanParalyze?(nil,false)
@@ -3265,7 +3345,8 @@ class PokeBattle_Battler
           elsif pbOpposing2.hasWorkingAbility(:SOLBEYU)
             damager=pbOpposing1 # If 2nd opposing has Solbeyu, use the 1st
             dodgesol=true if !@battle.doublebattle
-          elsif pbOpposing1.hasWorkingAbility(:SOLBEYU) && 
+          end
+          if pbOpposing1.hasWorkingAbility(:SOLBEYU) && 
                 pbOpposing2.hasWorkingAbility(:SOLBEYU)
             dodgesol=true
           end

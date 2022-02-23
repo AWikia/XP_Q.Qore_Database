@@ -78,6 +78,7 @@ class PokemonSummaryScene
   end
 
   def pbStartScene(party,partyindex)
+    $summarysizex = 80
     @viewport=Viewport.new(0,0,Graphics.width,Graphics.height)
     @viewport.z=99999
     @party=party
@@ -97,14 +98,15 @@ class PokemonSummaryScene
     # mirror=true in past
     @sprites["pokemon"].mirror=$PokemonSystem.mgraphic==0 rescue false
     @sprites["pokemon"].color=Color.new(0,0,0,0)
-    pbPositionPokemonSprite(@sprites["pokemon"],72,144)
+    pbPositionPokemonSprite(@sprites["pokemon"],$summarysizex,180)
     @sprites["pokeicon"]=PokemonBoxIcon.new(@pokemon,@viewport)
     @sprites["pokeicon"].x=14
     @sprites["pokeicon"].y=52
     @sprites["pokeicon"].mirror=false
     @sprites["pokeicon"].visible=false
-    @sprites["itemicon"] = ItemIconSprite.new(30,320,@pokemon.item,@viewport)
-    @sprites["itemicon"].blankzero = true
+    @sprites["itemicon2"] = ItemIconSprite.new(243,222,@pokemon.item,@viewport)
+    @sprites["itemicon2"].blankzero = true
+    
     @sprites["movepresel"]=MoveSelectionSprite.new(@viewport)
     @sprites["movepresel"].visible=false
     @sprites["movepresel"].preselected=true
@@ -181,6 +183,8 @@ class PokemonSummaryScene
       drawPageOneEgg(pokemon)
       return
     end
+    $summarysizex = 80
+    @sprites["itemicon2"].visible = false
     overlay=@sprites["overlay"].bitmap
     overlay.clear
     @sprites["background"].setBitmap("Graphics/Pictures/summary1")
@@ -226,7 +230,6 @@ class PokemonSummaryScene
  #      [_INTL("Pokémon Information"),26,8,0,base,shadow,1],
        [pokename,46,62,0,base,shadow],
        [pokemon.level.to_s,46,92,0,Color.new(64,64,64),Color.new(176,176,176)],
-       [_INTL("Item"),66,318,0,base,shadow],
        [_ISPRINTF("Dex No."),366,16,0,base,nil,0],
        [_INTL("{1}",fdexno),563,16,2,numberbase,numbershadow],
        [_INTL("Species"),366,48,0,shadow,nil,0],
@@ -237,11 +240,6 @@ class PokemonSummaryScene
        [_INTL("OT"),366,176,0,shadow,nil,0],
        [_INTL("ID No."),366,208,0,base,nil,0],
     ]
-    if pokemon.hasItem?
-      textpos.push([PBItems.getName(pokemon.item),16,352,0,Color.new(64,64,64),Color.new(176,176,176)])
-    else
-      textpos.push([_INTL("None"),16,352,0,Color.new(184,184,160),Color.new(208,208,200)])
-    end
     if (pokemon.isShadow? rescue false)
       textpos.push([_INTL("Heart Gauge"),366,240,0,shadow,nil,0])
       heartmessage=[_INTL("The door to its heart is open! Undo the final lock!"),
@@ -288,7 +286,7 @@ class PokemonSummaryScene
     end
     pbDrawImagePositions(overlay,gendericon)
     pbDrawTextPositions(overlay,textpos)
-    drawMarkings(overlay,65,291,72,20,pokemon.markings)
+    drawMarkings(overlay,20,343,72,20,pokemon.markings)
     colorrect=Rect.new(64*$PokemonSystem.colortige,colourd*28,64,28)
     type1rect=Rect.new(64*$PokemonSystem.colortige,pokemon.type1*28,64,28)
     type2rect=Rect.new(64*$PokemonSystem.colortige,pokemon.type2*28,64,28)
@@ -314,7 +312,9 @@ class PokemonSummaryScene
   end
 
   def drawPageOneEgg(pokemon)
-    @sprites["itemicon"].item = @pokemon.item
+    $summarysizex = 80
+    @sprites["itemicon2"].visible = false
+    @sprites["itemicon2"].item = @pokemon.item
     overlay=@sprites["overlay"].bitmap
     overlay.clear
     @sprites["background"].setBitmap("Graphics/Pictures/summaryEgg")
@@ -339,13 +339,7 @@ class PokemonSummaryScene
     textpos=[
  #      [_INTL("Trainer Information"),26,8,0,base,shadow,1],
        [pokemon.name,46,62,0,base,shadow],
-       [_INTL("Item"),16,318,0,base,shadow]
     ]
-    if pokemon.hasItem?
-      textpos.push([PBItems.getName(pokemon.item),16,352,0,Color.new(64,64,64),Color.new(176,176,176)])
-    else
-      textpos.push([_INTL("None"),16,352,0,Color.new(184,184,160),Color.new(208,208,200)])
-    end
     textpos.push([_INTL("\"The Egg Watch\""),360,204,0,shadow,nil,0])
     pbDrawTextPositions(overlay,textpos)
     memo=""
@@ -370,10 +364,12 @@ class PokemonSummaryScene
     eggstatemsg=sprintf("<c3=404040,B0B0B0>%s\n",eggstate)
     drawFormattedTextEx(overlay,360,268,272,eggstatemsg)
     drawFormattedTextEx(overlay,360,78,276,memo)
-    drawMarkings(overlay,15,291,72,20,pokemon.markings)
+    drawMarkings(overlay,20,343,72,20,pokemon.markings)
   end
 
   def drawPageTwo(pokemon)
+    $summarysizex = 80
+    @sprites["itemicon2"].visible = false
     overlay=@sprites["overlay"].bitmap
     overlay.clear
     @sprites["background"].setBitmap("Graphics/Pictures/summary2")
@@ -405,13 +401,7 @@ class PokemonSummaryScene
   #     [_INTL("Trainer Information"),26,8,0,base,shadow,1],
        [pokename,46,62,0,base,shadow],
        [pokemon.level.to_s,46,92,0,Color.new(64,64,64),Color.new(176,176,176)],
-       [_INTL("Item"),66,318,0,base,shadow]
     ]
-    if pokemon.hasItem?
-      textpos.push([PBItems.getName(pokemon.item),16,352,0,Color.new(64,64,64),Color.new(176,176,176)])
-    else
-      textpos.push([_INTL("None"),16,352,0,Color.new(184,184,160),Color.new(208,208,200)])
-    end
     gendericon=[]
     if pokemon.isMale?
 #      textpos.push([_INTL("♂"),178,62,0,Color.new(24,112,216),Color.new(136,168,208)])
@@ -515,10 +505,12 @@ class PokemonSummaryScene
       memo+=sprintf("<c3=404040,B0B0B0>%s\n",characteristic)
     end
     drawFormattedTextEx(overlay,360,78,276,memo)
-    drawMarkings(overlay,65,291,72,20,pokemon.markings)
+    drawMarkings(overlay,20,343,72,20,pokemon.markings)
   end
 
   def drawPageThree(pokemon)
+    $summarysizex = 40
+    @sprites["itemicon2"].visible = false
     overlay=@sprites["overlay"].bitmap
     overlay.clear
     @sprites["background"].setBitmap("Graphics/Pictures/summary3")
@@ -567,7 +559,6 @@ class PokemonSummaryScene
       # [_INTL("Pokémon Statistics"),26,8,0,base,shadow,1],
        [pokename,46,62,0,base,shadow],
        [pokemon.level.to_s,46,92,0,Color.new(64,64,64),Color.new(176,176,176)],
-       [_INTL("Item"),66,318,0,base,shadow],
        [_INTL("HP"),420,76-64,2,base,nil,0],
        [sprintf("%3d/%3d",pokemon.hp,pokemon.totalhp),548,76-64,2,Color.new(64,64,64),Color.new(176,176,176)],
        [_INTL("Attack"),376,120-64,0,statshadows2[0],statshadows[0],1],
@@ -583,11 +574,6 @@ class PokemonSummaryScene
        [_INTL("Ability"),288,284-64,0,shadow,nil,0],
        [abilityname,426,284-64,0,Color.new(64,64,64),Color.new(176,176,176)],
       ]
-    if pokemon.hasItem?
-      textpos.push([PBItems.getName(pokemon.item),16,352,0,Color.new(64,64,64),Color.new(176,176,176)])
-    else
-      textpos.push([_INTL("None"),16,352,0,Color.new(184,184,160),Color.new(208,208,200)])
-    end
     gendericon=[]
     if pokemon.isMale?
 #      textpos.push([_INTL("♂"),178,62,0,Color.new(24,112,216),Color.new(136,168,208)])
@@ -602,7 +588,7 @@ class PokemonSummaryScene
     pbDrawImagePositions(overlay,gendericon)
     pbDrawTextPositions(overlay,textpos)
     drawTextEx(overlay,224,316-64,410,4,abilitydesc,Color.new(64,64,64),Color.new(176,176,176))
-    drawMarkings(overlay,65,291,72,20,pokemon.markings)
+    drawMarkings(overlay,20,343,72,20,pokemon.markings)
     if pokemon.hp>0
       hpcolors=[
          Color.new(24,192,32),Color.new(0,144,0),     # Green
@@ -618,6 +604,8 @@ class PokemonSummaryScene
   end
 
 def drawPageFour(pokemon)
+    $summarysizex = 40
+    @sprites["itemicon2"].visible = false
     overlay=@sprites["overlay"].bitmap
     overlay.clear
     @sprites["background"].setBitmap("Graphics/Pictures/summary3_1")
@@ -666,7 +654,6 @@ def drawPageFour(pokemon)
     #   [_INTL("Effort Values"),26,8,0,base,shadow,1],
        [pokename,46,62,0,base,shadow],
        [pokemon.level.to_s,46,92,0,Color.new(64,64,64),Color.new(176,176,176)],
-       [_INTL("Item"),66,318,0,base,shadow],
        [_INTL("HP"),420,76-64,2,base,nil,0],
        [sprintf("%d",pokemon.ev[0]),548,76-64,2,Color.new(64,64,64),Color.new(176,176,176)],
        [_INTL("Attack"),376,120-64,0,statshadows2[0],statshadows[0],1],
@@ -682,11 +669,6 @@ def drawPageFour(pokemon)
        [_INTL("Ability"),288,284-64,0,shadow,nil,0],
        [abilityname,426,284-64,0,Color.new(64,64,64),Color.new(176,176,176)],
       ]
-    if pokemon.hasItem?
-      textpos.push([PBItems.getName(pokemon.item),16,352,0,Color.new(64,64,64),Color.new(176,176,176)])
-    else
-      textpos.push([_INTL("None"),16,352,0,Color.new(184,184,160),Color.new(208,208,200)])
-    end
     gendericon=[]
     if pokemon.isMale?
 #      textpos.push([_INTL("♂"),178,62,0,Color.new(24,112,216),Color.new(136,168,208)])
@@ -701,7 +683,7 @@ def drawPageFour(pokemon)
     pbDrawImagePositions(overlay,gendericon)
     pbDrawTextPositions(overlay,textpos)
     drawTextEx(overlay,224,316-64,410,4,abilitydesc,Color.new(64,64,64),Color.new(176,176,176))
-    drawMarkings(overlay,65,291,72,20,pokemon.markings)
+    drawMarkings(overlay,20,343,72,20,pokemon.markings)
     if pokemon.hp>0
       hpcolors=[
          Color.new(24,192,32),Color.new(0,144,0),     # Green
@@ -717,6 +699,8 @@ def drawPageFour(pokemon)
   end
 
 def drawPageFive(pokemon)
+    $summarysizex = 40
+    @sprites["itemicon2"].visible = false
     overlay=@sprites["overlay"].bitmap
     overlay.clear
     @sprites["background"].setBitmap("Graphics/Pictures/summary3_2")
@@ -765,7 +749,6 @@ def drawPageFive(pokemon)
   #     [_INTL("Individual Values"),26,8,0,base,shadow,1],
        [pokename,46,62,0,base,shadow],
        [pokemon.level.to_s,46,92,0,Color.new(64,64,64),Color.new(176,176,176)],
-       [_INTL("Item"),66,318,0,base,shadow],
        [_INTL("HP"),420,76-64,2,base,nil,0],
        [sprintf("%d",pokemon.iv[0]),548,76-64,2,Color.new(64,64,64),Color.new(176,176,176)],
        [_INTL("Attack"),376,120-64,0,statshadows2[0],statshadows[0],1],
@@ -781,11 +764,6 @@ def drawPageFive(pokemon)
        [_INTL("Ability"),288,284-64,0,shadow,nil,0],
        [abilityname,426,284-64,0,Color.new(64,64,64),Color.new(176,176,176)],
       ]
-    if pokemon.hasItem?
-      textpos.push([PBItems.getName(pokemon.item),16,352,0,Color.new(64,64,64),Color.new(176,176,176)])
-    else
-      textpos.push([_INTL("None"),16,352,0,Color.new(184,184,160),Color.new(208,208,200)])
-    end
     gendericon=[]
     if pokemon.isMale?
 #      textpos.push([_INTL("♂"),178,62,0,Color.new(24,112,216),Color.new(136,168,208)])
@@ -800,7 +778,7 @@ def drawPageFive(pokemon)
     pbDrawImagePositions(overlay,gendericon)
     pbDrawTextPositions(overlay,textpos)
     drawTextEx(overlay,224,316-64,410,4,abilitydesc,Color.new(64,64,64),Color.new(176,176,176))
-    drawMarkings(overlay,65,291,72,20,pokemon.markings)
+    drawMarkings(overlay,20,343,72,20,pokemon.markings)
     if pokemon.hp>0
       hpcolors=[
          Color.new(24,192,32),Color.new(0,144,0),     # Green
@@ -816,6 +794,8 @@ def drawPageFive(pokemon)
   end
   
   def drawPageSix(pokemon)
+    $summarysizex = 80
+    @sprites["itemicon2"].visible = false
     overlay=@sprites["overlay"].bitmap
     overlay.clear
     ppBase   = [Color.new(64,64,64),     # More than 1/2 of total PP
@@ -831,7 +811,6 @@ def drawPageFive(pokemon)
 #    @sprites["header"].setBitmap("Graphics/Pictures/header4")
     @sprites["pokemon"].visible=true
     @sprites["pokeicon"].visible=false
-    @sprites["itemicon"].visible = true
     imagepos=[]
     if pbPokerus(pokemon)==1 || pokemon.hp==0 || @pokemon.status>0
       status=6 if pbPokerus(pokemon)==1
@@ -857,13 +836,7 @@ def drawPageFive(pokemon)
   #     [_INTL("Pokémon Moveset"),26,8,0,base,shadow,1],
        [pokename,46,62,0,base,shadow],
        [pokemon.level.to_s,46,92,0,Color.new(64,64,64),Color.new(176,176,176)],
-       [_INTL("Item"),66,318,0,base,shadow]
     ]
-    if pokemon.hasItem?
-      textpos.push([PBItems.getName(pokemon.item),16,352,0,Color.new(64,64,64),Color.new(176,176,176)])
-    else
-      textpos.push([_INTL("None"),16,352,0,Color.new(184,184,160),Color.new(208,208,200)])
-    end
     gendericon=[]
     if pokemon.isMale?
 #      textpos.push([_INTL("♂"),178,62,0,Color.new(24,112,216),Color.new(136,168,208)])
@@ -904,7 +877,7 @@ def drawPageFive(pokemon)
     end
     pbDrawTextPositions(overlay,textpos)
     pbDrawImagePositions(overlay,imagepos)
-    drawMarkings(overlay,65,291,72,20,pokemon.markings)
+    drawMarkings(overlay,20,343,72,20,pokemon.markings)
   end
 
   def drawSelectedMove(pokemon,moveToLearn,moveid)
@@ -915,7 +888,6 @@ def drawPageFive(pokemon)
     @sprites["pokeicon"].x=14
     @sprites["pokeicon"].y=52
     @sprites["pokeicon"].visible=true
-    @sprites["itemicon"].visible  = false if @sprites["itemicon"]
     movedata=PBMoveData.new(moveid)
     basedamage=movedata.basedamage
     type=movedata.type
@@ -1014,6 +986,8 @@ def drawPageFive(pokemon)
   end
 
   def drawPageSeven(pokemon)
+    $summarysizex = 80
+    @sprites["itemicon2"].visible = false
     overlay=@sprites["overlay"].bitmap
     overlay.clear
     @sprites["background"].setBitmap("Graphics/Pictures/summary5")
@@ -1044,15 +1018,9 @@ def drawPageFive(pokemon)
   #     [_INTL("Pokémon Ribbons"),26,8,0,base,shadow,1],
        [pokename,46,62,0,base,shadow],
        [pokemon.level.to_s,46,92,0,Color.new(64,64,64),Color.new(176,176,176)],
-       [_INTL("Item"),66,318,0,base,shadow],
        [_INTL("No. of Ribbons:"),362,342,0,Color.new(64,64,64),Color.new(176,176,176)],
        [pokemon.ribbonCount.to_s,578,342,1,Color.new(64,64,64),Color.new(176,176,176)],
     ]
-    if pokemon.hasItem?
-      textpos.push([PBItems.getName(pokemon.item),16,352,0,Color.new(64,64,64),Color.new(176,176,176)])
-    else
-      textpos.push([_INTL("None"),16,352,0,Color.new(184,184,160),Color.new(208,208,200)])
-    end
     gendericon=[]
     if pokemon.isMale?
 #      textpos.push([_INTL("♂"),178,62,0,Color.new(24,112,216),Color.new(136,168,208)])
@@ -1078,10 +1046,12 @@ def drawPageFive(pokemon)
       end
     end
     pbDrawImagePositions(overlay,imagepos)
-    drawMarkings(overlay,65,291,72,20,pokemon.markings)
+    drawMarkings(overlay,20,343,72,20,pokemon.markings)
   end
 
   def drawPageEight(pokemon)
+    $summarysizex = 40
+    @sprites["itemicon2"].visible = true
     overlay=@sprites["overlay"].bitmap
     overlay.clear
     @sprites["background"].setBitmap("Graphics/Pictures/summary6_1")
@@ -1153,7 +1123,6 @@ def drawPageFive(pokemon)
   #     [_INTL("Advanced Information"),26,8,0,base,shadow,1],
        [pokename,46,62,0,base,shadow],
        [pokemon.level.to_s,46,92,0,Color.new(64,64,64),Color.new(176,176,176)],
-       [_INTL("Item"),66,318,0,base,shadow],
        [_INTL("Best Stat"),420,76-64,2,base,nil,0],
        [_INTL("{1}",beststat),548,76-64,2,Color.new(64,64,64),Color.new(176,176,176)],
        [_INTL("Happiness"),376,120-64,0,shadow,nil,0],
@@ -1169,11 +1138,6 @@ def drawPageFive(pokemon)
        [_INTL("Item"),288,284-64,0,shadow,nil,0],
        [itemname,426,284-64,0,Color.new(64,64,64),Color.new(176,176,176)],
       ]
-    if pokemon.hasItem?
-      textpos.push([PBItems.getName(pokemon.item),16,352,0,Color.new(64,64,64),Color.new(176,176,176)])
-    else
-      textpos.push([_INTL("None"),16,352,0,Color.new(184,184,160),Color.new(208,208,200)])
-    end
     gendericon=[]
     if pokemon.isMale?
 #      textpos.push([_INTL("♂"),178,62,0,Color.new(24,112,216),Color.new(136,168,208)])
@@ -1188,7 +1152,7 @@ def drawPageFive(pokemon)
     pbDrawImagePositions(overlay,gendericon)
     pbDrawTextPositions(overlay,textpos)
     drawTextEx(overlay,224,316-64,410,4,itemdesc,Color.new(64,64,64),Color.new(176,176,176))
-    drawMarkings(overlay,65,291,72,20,pokemon.markings)
+    drawMarkings(overlay,20,343,72,20,pokemon.markings)
     if pokemon.hp>0
       hpcolors=[
          Color.new(24,192,32),Color.new(0,144,0),     # Green
@@ -1447,8 +1411,8 @@ def drawPageFive(pokemon)
           @pokemon=@party[@partyindex]
           @sprites["pokemon"].setPokemonBitmap(@pokemon)
           @sprites["pokemon"].color=Color.new(0,0,0,0)
-          @sprites["itemicon"].item = @pokemon.item
-          pbPositionPokemonSprite(@sprites["pokemon"],72,144)
+          @sprites["itemicon2"].item = @pokemon.item
+          pbPositionPokemonSprite(@sprites["pokemon"],$summarysizex,180)
           dorefresh=true
           pbSEStop
           pbPlayCursorSE()
@@ -1462,8 +1426,8 @@ def drawPageFive(pokemon)
           @pokemon=@party[@partyindex]
           @sprites["pokemon"].setPokemonBitmap(@pokemon)
           @sprites["pokemon"].color=Color.new(0,0,0,0)
-          @sprites["itemicon"].item = @pokemon.item
-          pbPositionPokemonSprite(@sprites["pokemon"],72,144)
+          @sprites["itemicon2"].item = @pokemon.item
+          pbPositionPokemonSprite(@sprites["pokemon"],$summarysizex,180)
           dorefresh=true
           pbSEStop
           pbPlayCursorSE()
@@ -1494,7 +1458,7 @@ def drawPageFive(pokemon)
         end
       end
       if dorefresh
-        @sprites["itemicon"].item = @pokemon.item
+        @sprites["itemicon2"].item = @pokemon.item
         case @page
         when 0
           drawPageOne(@pokemon) # Pokemon Information
@@ -1513,6 +1477,7 @@ def drawPageFive(pokemon)
         when 7
           drawPageEight (@pokemon) # Advanced Information
         end
+        pbPositionPokemonSprite(@sprites["pokemon"],$summarysizex,180)
       end
     end
     return @partyindex

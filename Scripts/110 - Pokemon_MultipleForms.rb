@@ -11406,7 +11406,7 @@ MultipleForms.register(:DELIABANDAINAMCO,{
 },
 "color"=>proc{|pokemon|
    next if pokemon.form==0
-   next 6 if pokemon.form==1
+   next 9 if pokemon.form==1
 },
 "getMoveList"=>proc{|pokemon|
    next if pokemon.form==0

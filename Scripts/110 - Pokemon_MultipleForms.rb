@@ -7500,7 +7500,13 @@ MultipleForms.register(:BURMY,{
    else
      next 0 # Plant Cloak
    end
+},
+"dexEntry"=>proc{|pokemon|
+   next if pokemon.form==0 
+   next _INTL("It creates a cloak by weaving together sand, mud, and silk it has spat out. This earthen cloak is ruined by wind and rain, so the Pokémon hides away in caves and other such places.") if pokemon.form==1
+   next _INTL("When confronted by a lack of other materials, Burmy will create its cloak using dust and refuse. The cloak seems to be more comfortable than one would think.") if pokemon.form==2
 }
+
 })
 
 MultipleForms.register(:WORMADAM,{
@@ -7591,6 +7597,11 @@ MultipleForms.register(:WORMADAM,{
      movelist[i]=getConst(PBMoves,movelist[i])
    end
    next movelist
+},
+"dexEntry"=>proc{|pokemon|
+   next if pokemon.form==0 
+   next _INTL("Its earthen skin is reasonably hard—it has no problem repelling a Starly's pecking, at least.") if pokemon.form==1
+   next _INTL("Its body, composed of refuse, blends in to the scenery so much as to be inconspicuous. This seems to be the perfect way for the Pokémon to evade the detection of predators.") if pokemon.form==2
 }
 })
 
@@ -7732,6 +7743,10 @@ MultipleForms.register(:GIRATINA,{
      next 1
    end
    next 0
+},
+"dexEntry"=>proc{|pokemon|
+   next if pokemon.form==0 
+   next _INTL("Giratina loses its legs upon changing into this form. I believe this Pokémon must hail from a world where the heavens and the earth are as one, though I have no way of proving it.") if pokemon.form==1                    # Heat, Microwave
 }
 })
 
@@ -7778,6 +7793,10 @@ MultipleForms.register(:SHAYMIN,{
      i[1]=getConst(PBMoves,i[1])
    end
    next movelist
+},
+"dexEntry"=>proc{|pokemon|
+   next if pokemon.form==0 
+   next _INTL("Upon taking in the scent of a particular rare flower, Shaymin is enveloped in light, and its tiny body transforms. I took a whiff of the flower myself, but alas, my body remained unchanged.") if pokemon.form==1                    # Heat, Microwave
 }
 })
 
@@ -8237,6 +8256,12 @@ MultipleForms.register(:GOURGEIST,{
    next [65,90,122,84,58,75] if pokemon.form==1    # Average Size
    next [75,95,122,69,58,75] if pokemon.form==2    # Large Size
    next [85,100,122,54,58,75] if pokemon.form==3   # Super Size
+},
+"wildHoldItems"=>proc{|pokemon|
+   next [getID(PBItems,:MIRACLESEED),
+         getID(PBItems,:MIRACLESEED),
+         getID(PBItems,:MIRACLESEED)] if pokemon.form==3 # Super Size
+   next
 },
 "dexEntry"=>proc{|pokemon|
    next if pokemon.form==0 
@@ -8737,6 +8762,10 @@ MultipleForms.register(:MAGEARNA,{
 "color"=>proc{|pokemon|
    next if pokemon.form==0
    next 0 if pokemon.form==1
+},
+"dexEntry"=>proc{|pokemon|
+   next if pokemon.form==0
+   next _INTL("This is its form from almost 500 years ago. Its body is nothing more than a container—its artificial heart is the actual life-form.") if pokemon.form==1 # Dusk Mane
 }
 })
 

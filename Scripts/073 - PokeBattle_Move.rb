@@ -1119,7 +1119,7 @@ class PokeBattle_Move
       damagemult=(damagemult*1.5).round
     end
     if @battle.field.effects[PBEffects::LovelyTerrain]>0 &&
-       !opponent.isAirborne?(attacker.hasMoldBreaker) && (isConst?(type,PBTypes,:PSYCHIC) || isConst?(type,PBTypes,:FAIRY) || isConst?(type,PBTypes,:HEART))
+       !opponent.isAirborne?(attacker.hasMoldBreaker) && (isConst?(type,PBTypes,:PSYCHIC) || isConst?(type,PBTypes,:FAIRY) || isConst?(type,PBTypes,:MIND))
       damagemult=(damagemult*0.5).round
     end
     if @battle.field.effects[PBEffects::Cinament]>0 &&

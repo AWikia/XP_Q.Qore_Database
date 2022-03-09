@@ -2021,6 +2021,9 @@ class PokeBattle_Battle
       pbCommonAnimation("PrimalKyogre",@battlers[index],nil)
     elsif isConst?(@battlers[index].pokemon.species,PBSpecies,:GROUDON)
       pbCommonAnimation("PrimalGroudon",@battlers[index],nil)
+    elsif isConst?(@battlers[index].pokemon.species,PBSpecies,:WINDOWS10) ||
+          isConst?(@battlers[index].pokemon.species,PBSpecies,:WINDOWS11)
+      pbCommonAnimation("PrimalWindows",@battlers[index],nil)
     end
     @battlers[index].pokemon.makePrimal
     @battlers[index].form=@battlers[index].pokemon.form
@@ -2030,6 +2033,9 @@ class PokeBattle_Battle
       pbCommonAnimation("PrimalKyogre2",@battlers[index],nil)
     elsif isConst?(@battlers[index].pokemon.species,PBSpecies,:GROUDON)
       pbCommonAnimation("PrimalGroudon2",@battlers[index],nil)
+    elsif isConst?(@battlers[index].pokemon.species,PBSpecies,:WINDOWS10) ||
+          isConst?(@battlers[index].pokemon.species,PBSpecies,:WINDOWS11)
+      pbCommonAnimation("PrimalWindows2",@battlers[index],nil)
     end
     pbDisplay(_INTL("{1}'s Primal Reversion!\nIt reverted to its primal form!",@battlers[index].pbThis))
     PBDebug.log("[Primal Reversion] #{@battlers[index].pbThis} Primal Reverted")

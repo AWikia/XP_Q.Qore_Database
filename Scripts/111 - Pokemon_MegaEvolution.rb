@@ -1414,6 +1414,10 @@ MultipleForms.register(:WINDOWS10,{
    next 1 if isConst?(pokemon.item,PBItems,:MICROSOFTORB)
    next
 },
+"type2"=>proc{|pokemon|
+   next getID(PBTypes,:MAGIC) if pokemon.form==1
+   next
+},
 "ability"=>proc{|pokemon|
    case pokemon.form
      when 1; next getID(PBAbilities,:TRUMMETSPIRIT)
@@ -1434,6 +1438,10 @@ MultipleForms.register(:WINDOWS10,{
 MultipleForms.register(:WINDOWS11,{
 "getPrimalForm"=>proc{|pokemon|
    next 1 if isConst?(pokemon.item,PBItems,:MICROSOFTORB)
+   next
+},
+"type2"=>proc{|pokemon|
+   next getID(PBTypes,:MAGIC) if pokemon.form==1
    next
 },
 "ability"=>proc{|pokemon|

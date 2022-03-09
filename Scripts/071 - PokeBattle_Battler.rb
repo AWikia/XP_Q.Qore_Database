@@ -1574,6 +1574,13 @@ class PokeBattle_Battler
         @battle.pbDisplay(_INTL("Mist swirls around the battlefield!"))
         PBDebug.log("[#{pbThis}: Misty Surge made Misty Terrain]")
       end
+      if self.hasWorkingAbility(:DARKTUNNEL) && @battle.field.effects[PBEffects::GlimmyGalaxy]<=0
+        @battle.field.effects[PBEffects::GlimmyGalaxy]=3
+        self.effects[PBEffects::DarkTunnel] = true
+        pbCommonAnimation("GlimmyGalaxy",nil,nil)
+        @battle.pbDisplay(_INTL("A Galaxian Tunnel has been emergenced on the battlefield!"))
+        PBDebug.log("[#{pbThis}: Dark Tunnel made Glimmy Galaxy]")
+      end
       # End surges
       if self.hasWorkingAbility(:ASTROPLANET) && @battle.field.effects[PBEffects::Gravity]<=0
         @battle.field.effects[PBEffects::Gravity]=5

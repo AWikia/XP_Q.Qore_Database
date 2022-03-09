@@ -139,6 +139,8 @@ begin
     Eternamax          = 135 # Used for Eternatus
     BurningJelousy     = 136
     LashOut            = 137
+    DarkTunnel         = 138
+
     
     ############################################################################
     # These effects apply to a side

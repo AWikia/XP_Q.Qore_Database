@@ -516,6 +516,7 @@ class PokeBattle_Battler
     @effects[PBEffects::Eternamax]        = 0
     @effects[PBEffects::BurningJelousy]   = false
     @effects[PBEffects::LashOut]          = false
+    @effects[PBEffects::DarkTunnel]          = false
     @effects[PBEffects::Illusion]         = nil
     if self.hasWorkingAbility(:ILLUSION)
       lastpoke=@battle.pbGetLastPokeInTeam(@index)

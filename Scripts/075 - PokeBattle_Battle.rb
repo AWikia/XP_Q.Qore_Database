@@ -3666,6 +3666,7 @@ class PokeBattle_Battle
         !(i.pbHasType?(:MOON) ||
           i.pbHasType?(:GLIMSE) ||
           i.hasWorkingItem(:BLACKPLUS) ||
+          i.effects[PBEffects::DarkTunnel] ||
           i.hasWorkingAbility(:MAGICGUARD) ||
           i.hasWorkingAbility(:SUPERCLEARBODY) ||
           i.hasWorkingAbility(:HEALTHYTUNNEL) ||
@@ -4261,6 +4262,12 @@ class PokeBattle_Battle
     if @field.effects[PBEffects::GlimmyGalaxy]>0
       @field.effects[PBEffects::GlimmyGalaxy]-=1
       if @field.effects[PBEffects::GlimmyGalaxy]==0
+        for i in priority
+          next if i.isFainted?
+          if i.effects[PBEffects::DarkTunnel]
+            i.effects[PBEffects::DarkTunnel] = false
+          end
+        end
         pbDisplay(_INTL("The Galaxian Tunnel faded from the battlefield."))
         PBDebug.log("[End of effect] Glimmy Galaxy ended")
       end

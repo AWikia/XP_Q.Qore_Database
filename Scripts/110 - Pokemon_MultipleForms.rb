@@ -9857,44 +9857,6 @@ MultipleForms.register(:PLAYSTORE,{
 }
 })
 
-MultipleForms.register(:WINDOWS10,{
-"ability"=>proc{|pokemon|
-   case pokemon.form
-     when 1; next getID(PBAbilities,:SLOWSTART)
-     else;   next 
-   end
-},
-"getBaseStats"=>proc{|pokemon|
-   next if pokemon.form==0
-   case pokemon.form
-     when 1; next [255,95,255,200,70,99]
-     else;   next
-   end
-},
-
-"height"=>proc{|pokemon|
-   next if pokemon.form==0
-   next 97 
-},
-"weight"=>proc{|pokemon|
-   next if pokemon.form==0
-   next 8340
-},
-
-"getMoveList"=>proc{|pokemon|
-   next if pokemon.form==0
-   movelist=[]
-   case pokemon.form
-     when 1; movelist=[[1,:TRIATTACK],[10,:METRONOME],[16,:GROWL],[16,:ASSIST],
-                       [23,:HIDDENPOWER],[30,:NATUREPOWER],[40,:GLASSPUNCH]]
-   end
-   for i in movelist
-     i[1]=getConst(PBMoves,i[1])
-   end
-   next movelist
-}
-})
-
 MultipleForms.register(:VODAFONE,{
 "type1"=>proc{|pokemon|
    next if pokemon.form==0 

@@ -1408,3 +1408,45 @@ MultipleForms.register(:GROUDON,{
    next
 }
 })
+
+MultipleForms.register(:WINDOWS10,{
+"getPrimalForm"=>proc{|pokemon|
+   next 1 if isConst?(pokemon.item,PBItems,:MICROSOFTORB)
+   next
+},
+"ability"=>proc{|pokemon|
+   case pokemon.form
+     when 1; next getID(PBAbilities,:TRUMMETSPIRIT)
+     else;   next 
+   end
+},
+"getBaseStats"=>proc{|pokemon|
+   next if pokemon.form==0
+   case pokemon.form
+     when 1; next [159,125,179,10,145,156]
+     else;   next
+   end
+}
+})
+
+
+
+MultipleForms.register(:WINDOWS11,{
+"getPrimalForm"=>proc{|pokemon|
+   next 1 if isConst?(pokemon.item,PBItems,:MICROSOFTORB)
+   next
+},
+"ability"=>proc{|pokemon|
+   case pokemon.form
+     when 1; next getID(PBAbilities,:TRUMMETSPIRIT)
+     else;   next 
+   end
+},
+"getBaseStats"=>proc{|pokemon|
+   next if pokemon.form==0
+   case pokemon.form
+     when 1; next [209,175,229,10,195,206]
+     else;   next
+   end
+}
+})

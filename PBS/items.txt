@@ -975,3 +975,4 @@
 864,HEARTBRANDITE,Heartbrandite,Heartbrandites,1,10000,"One of the mysterious Mega Stones. Have Heartbrand hold it, and this stone will enable it to Mega Evolve in battle.",0,0,12,
 965,ROTOMCATALOG,Rotom Catalog,Rotom Catalogs,8,0,"A catalog of devices that Rotom like. Use the catalog to have Rotom hop in and out of the various devices listed within.",5,0,6,
 966,HEARTBRANDITE2,Heartbrandite2,Heartbrandite2s,1,10000,"One of the mysterious Mega Stones. Have Heartbrand hold it, and this stone will enable it to Mega Evolve in battle.",0,0,12,
+967,MICROSOFTORB,Microsoft Orb,Microsoft Orbs,1,0,"A shiny multicolored orb that is said to have a legend tied to it. It's known to have a deep connection to Windows 10 and 11.",0,0,0,

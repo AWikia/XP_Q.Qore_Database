@@ -549,6 +549,8 @@ class PokeBattle_Battle
             [:GLALIE,:GLALITITE],
             [:GYARADOS,:GYARADOSITE],
             [:HERACROSS,:HERACRONITE],
+            [:HEARTBRAND,:HEARTBRANDITE],
+            [:HEARTBRAND,:HEARTBRANDITE2],
             [:HOUNDOOM,:HOUNDOOMINITE],
             [:KANGASKHAN,:KANGASKHANITE],
             [:LATIAS,:LATIASITE],
@@ -576,6 +578,8 @@ class PokeBattle_Battle
             # Primal Reversion stones
             [:KYOGRE,:BLUEORB],
             [:GROUDON,:REDORB],
+            [:WINDOWS10,:MICROSOFTORB],
+            [:WINDOWS11,:MICROSOFTORB],
             # Elemental Stones for SBC
             [:SBC,:FIRESTONE],
             [:SBC,:LEAFSTONE],

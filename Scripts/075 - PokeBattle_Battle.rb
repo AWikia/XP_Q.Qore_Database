@@ -486,7 +486,7 @@ class PokeBattle_Battle
     return false if pkmn.effects[PBEffects::Transform]
     if isConst?(pkmn.ability,PBAbilities,:MULTITYPE)
       # Ordinal Plates
-      plates=[:FISTPLATE,:SKYPLATE,:TOXICPLATE,:EARTHPLATE,:STONEPLATE,
+      plates=[:BLANKPLATE,:FISTPLATE,:SKYPLATE,:TOXICPLATE,:EARTHPLATE,:STONEPLATE,
               :INSECTPLATE,:SPOOKYPLATE,:IRONPLATE,:FLAMEPLATE,:SPLASHPLATE,
               :MEADOWPLATE,:ZAPPLATE,:MINDPLATE,:ICICLEPLATE,:DRACOPLATE,
               :DREADPLATE,:PIXIEPLATE]

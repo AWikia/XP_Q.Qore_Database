@@ -575,3 +575,33 @@ def pbPickBerry(berry,qty=1)
     pbSetSelfSwitch(thisEvent.id,"A",true)
   end
 end
+
+def pbPickBerryMuseum(berry,qty=1) # This is only used on Museum Missions
+  interp=pbMapInterpreter
+  thisEvent=interp.get_character(0)
+  berryData=interp.getVariable
+  if berry.is_a?(String) || berry.is_a?(Symbol)
+    berry=getID(PBItems,berry)
+  end
+  itemname=(qty>1) ? PBItems.getNamePlural(berry) : PBItems.getName(berry)
+  if qty>1
+    message=_INTL("There are {1} {2}!\nWant to pick them?",qty,itemname)
+  else
+    message=_INTL("There is 1 {1}!\nWant to pick it?",itemname)
+  end
+  if Kernel.pbConfirmMessage(message)
+    if !$PokemonBag.pbCanStore?(berry,qty)
+      Kernel.pbMessage(_INTL("Too bad...\nThe bag is full."))
+      return
+    end
+    $PokemonBag.pbStoreItem(berry,qty)
+    pocket=pbGetPocket(berry)
+    if qty>1
+      Kernel.pbMessage(_INTL("You picked the {1} {2}.\\wtnp[30]",qty,itemname))
+    else
+      Kernel.pbMessage(_INTL("You picked the {1}.\\wtnp[30]",itemname))
+    end
+    Kernel.pbMessage(_INTL("{1} put away the {2} in the <icon=bagPocket#{pocket}>\\c[1]Berries\\c[0] Pocket.\1",
+       $Trainer.name,itemname))
+  end
+end

@@ -958,7 +958,8 @@ class PokeBattle_Move
        (attacker.hasWorkingItem(:GLIMSEBOX) && isConst?(type,PBTypes,:GLIMSE))
        damagemult=(damagemult*1.5).round
     end
-    if (attacker.hasWorkingItem(:FISTPLATE) && isConst?(type,PBTypes,:FIGHTING)) ||
+    if (attacker.hasWorkingItem(:BLANKPLATE) && isConst?(type,PBTypes,:NORMAL)) ||
+       (attacker.hasWorkingItem(:FISTPLATE) && isConst?(type,PBTypes,:FIGHTING)) ||
        (attacker.hasWorkingItem(:SKYPLATE) && isConst?(type,PBTypes,:FLYING)) ||
        (attacker.hasWorkingItem(:TOXICPLATE) && isConst?(type,PBTypes,:POISON)) ||
        (attacker.hasWorkingItem(:EARTHPLATE) && isConst?(type,PBTypes,:GROUND)) ||

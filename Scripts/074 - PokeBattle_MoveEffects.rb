@@ -10362,6 +10362,7 @@ class PokeBattle_Move_154 < PokeBattle_Move
     @battle.field.effects[PBEffects::ElectricTerrain]=5
     @battle.field.effects[PBEffects::ElectricTerrain]=8 if attacker.hasWorkingItem(:TERRAINEXTENDER)
     @battle.pbDisplay(_INTL("An electric current runs across the battlefield!"))
+    checkMimicryAll
     return 0
   end
 end
@@ -10390,6 +10391,7 @@ class PokeBattle_Move_155 < PokeBattle_Move
     @battle.field.effects[PBEffects::GrassyTerrain]=5
     @battle.field.effects[PBEffects::GrassyTerrain]=8 if attacker.hasWorkingItem(:TERRAINEXTENDER)
     @battle.pbDisplay(_INTL("Grass grew to cover the battlefield!"))
+    checkMimicryAll
     return 0
   end
 end
@@ -10418,6 +10420,7 @@ class PokeBattle_Move_156 < PokeBattle_Move
     @battle.field.effects[PBEffects::MistyTerrain]=5
     @battle.field.effects[PBEffects::MistyTerrain]=8 if attacker.hasWorkingItem(:TERRAINEXTENDER)
     @battle.pbDisplay(_INTL("Mist swirled about the battlefield!"))
+    checkMimicryAll
     return 0
   end
 end
@@ -12910,6 +12913,7 @@ class PokeBattle_Move_250 < PokeBattle_Move
     @battle.field.effects[PBEffects::VolcanicTerrain]=5
     @battle.field.effects[PBEffects::VolcanicTerrain]=8 if attacker.hasWorkingItem(:TERRAINEXTENDER)
     @battle.pbDisplay(_INTL("A heatness has been set up on the battlefield!"))
+    checkMimicryAll
     return 0
   end
 end
@@ -13148,6 +13152,7 @@ class PokeBattle_Move_276 < PokeBattle_Move
     @battle.field.effects[PBEffects::LovelyTerrain]=5
     @battle.field.effects[PBEffects::LovelyTerrain]=8 if attacker.hasWorkingItem(:TERRAINEXTENDER)
     @battle.pbDisplay(_INTL("A loveness has been set up on the battlefield!"))
+    checkMimicryAll
     return 0
   end
 end
@@ -14162,6 +14167,7 @@ class PokeBattle_Move_209 < PokeBattle_Move
     @battle.field.effects[PBEffects::PsychicTerrain]=5
     @battle.field.effects[PBEffects::PsychicTerrain]=8 if attacker.hasWorkingItem(:TERRAINEXTENDER)
     @battle.pbDisplay(_INTL("The battlefield got weird!"))
+    checkMimicryAll
     return 0
   end
 end
@@ -15213,8 +15219,9 @@ class PokeBattle_Move_267 < PokeBattle_Move
       @battle.pbDisplay("But it failed!")
       return -1
     end
-    pbShowAnimation(@id,attacker,nil,hitnum,alltargets,showanimation) if !didsomething
-    attacker.pbActivateBerryEffect(attceker.item,false) if attacker.hasWorkingBerry
+    pbShowAnimation(@id,attacker,nil,hitnum,alltargets,showanimation)
+    attacker.pbActivateBerryEffect(attacker.item,false) if attacker.hasWorkingBerry
+    showanim=true
     if attacker.pbCanIncreaseStatStage?(PBStats::DEFENSE,attacker,false,self)
       attacker.pbIncreaseStat(PBStats::DEFENSE,2,attacker,false,self,showanim)
       showanim=false

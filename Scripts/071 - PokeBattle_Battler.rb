@@ -857,8 +857,6 @@ class PokeBattle_Battler
   def checkMimicry
     if hasWorkingAbility(:MIMICRY)
       type= @battle.field.effects[PBEffects::GrassyTerrain]>0 ? getConst(PBTypes,:GRASS) :  @battle.field.effects[PBEffects::MistyTerrain]>0 ? getConst(PBTypes,:FAIRY) :  @battle.field.effects[PBEffects::PsychicTerrain]>0 ? getConst(PBTypes,:PSYCHIC) : @battle.field.effects[PBEffects::VolcanicTerrain]>0 ? getConst(PBTypes,:LAVA) : @battle.field.effects[PBEffects::LovelyTerrain]>0 ? getConst(PBTypes,:FAIRY) : @battle.field.effects[PBEffects::Cinament]>0 ? getConst(PBTypes,:BOLT) : @battle.field.effects[PBEffects::ElectricTerrain]>0 ? getConst(PBTypes,:ELECTRIC) : 0
-      if @battle.field.effects[PBEffects::ElectricTerrain]>0
-      end
       if (type1==getConst(PBTypes,type) &&
          type2==getConst(PBTypes,type)) || self.isFainted?
       elsif type != 0
@@ -870,13 +868,30 @@ class PokeBattle_Battler
       end
     end
   end
+
+  def removeMimicry
+    if hasWorkingAbility(:MIMICRY) && @effects[PBEffects::Mimicry]
+      @effects[PBEffects::Mimicry] = false
+      self.type1=@effects[PBEffects::Type1]
+      self.type2=@effects[PBEffects::Type]
+      @battle.pbDisplay(_INTL("{1} transformed into the original types!",self.pbThis))
+    end
+  end
+
   
   def checkMimicryAll
     for i in [self,self.pbPartner,self.pbOpposing1,self.pbOpposing2]
       i.checkMimicry
     end
   end
+
+  def removeMimicryAll
+    for i in [self,self.pbPartner,self.pbOpposing1,self.pbOpposing2]
+      i.removeMimicry
+    end
+  end
   
+
   def pbSpeed()
     stagemul=[10,10,10,10,10,10,10,15,20,25,30,35,40]
     stagediv=[40,35,30,25,20,15,10,10,10,10,10,10,10]

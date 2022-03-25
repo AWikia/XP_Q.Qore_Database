@@ -2625,6 +2625,7 @@ class PokeBattle_Move_05E < PokeBattle_Move
     end
     pbShowAnimation(@id,attacker,nil,hitnum,alltargets,showanimation)
     newtype=types[@battle.pbRandom(types.length)]
+    attacker.effects[PBEffects::Mimicry] = false
     attacker.type1=newtype
     attacker.type2=newtype
     attacker.effects[PBEffects::Type3]=-1
@@ -2677,6 +2678,7 @@ class PokeBattle_Move_05F < PokeBattle_Move
     end
     pbShowAnimation(@id,attacker,opponent,hitnum,alltargets,showanimation)
     newtype=types[@battle.pbRandom(types.length)]
+    attacker.effects[PBEffects::Mimicry] = false
     attacker.type1=newtype
     attacker.type2=newtype
     attacker.effects[PBEffects::Type3]=-1
@@ -2740,6 +2742,7 @@ class PokeBattle_Move_060 < PokeBattle_Move
       return -1  
     end
     pbShowAnimation(@id,attacker,nil,hitnum,alltargets,showanimation)
+    attacker.effects[PBEffects::Mimicry] = false
     attacker.type1=type
     attacker.type2=type
     attacker.effects[PBEffects::Type3]=-1
@@ -2777,6 +2780,7 @@ class PokeBattle_Move_061 < PokeBattle_Move
        @battle.pbDisplay(_INTL("But it failed!"))
       return -1
     end
+    opponent.effects[PBEffects::Mimicry] = false
     opponent.type1=getConst(PBTypes,:WATER)
     opponent.type2=getConst(PBTypes,:WATER)
     opponent.effects[PBEffects::Type3]=-1
@@ -3354,6 +3358,7 @@ class PokeBattle_Move_069 < PokeBattle_Move
     end
     pbShowAnimation(@id,attacker,opponent,hitnum,alltargets,showanimation)
     attacker.effects[PBEffects::Transform]=true
+    attacker.effects[PBEffects::Mimicry] = opponent.effects[PBEffects::Mimicry]
     attacker.type1=opponent.type1
     attacker.type2=opponent.type2
     attacker.effects[PBEffects::Type3]=-1
@@ -10536,6 +10541,7 @@ class PokeBattle_Move_160 < PokeBattle_Move
        @battle.pbDisplay(_INTL("But it failed!"))
       return -1
     end
+    opponent.effects[PBEffects::Mimicry] = false
     opponent.type1=getConst(PBTypes,:NORMAL)
     opponent.type2=getConst(PBTypes,:NORMAL)
     opponent.effects[PBEffects::Type3]=-1
@@ -10571,6 +10577,7 @@ class PokeBattle_Move_161 < PokeBattle_Move
        @battle.pbDisplay(_INTL("But it failed!"))
       return -1
     end
+    opponent.effects[PBEffects::Mimicry] = false
     opponent.type1=getConst(PBTypes,:JELLY)
     opponent.type2=getConst(PBTypes,:JELLY)
     opponent.effects[PBEffects::Type3]=-1
@@ -11008,6 +11015,7 @@ class PokeBattle_Move_176 < PokeBattle_Move
        @battle.pbDisplay(_INTL("But it failed!"))
       return -1
     end
+    opponent.effects[PBEffects::Mimicry] = false
     opponent.type1=getConst(PBTypes,:CHLOROPHYLL)
     opponent.type2=getConst(PBTypes,:CHLOROPHYLL)
     opponent.effects[PBEffects::Type3]=-1
@@ -11866,6 +11874,7 @@ class PokeBattle_Move_199 < PokeBattle_Move
     elsif attacker.type2==type
       attacker.type2=attacker.type1
     end
+    attacker.effects[PBEffects::Mimicry] = false
     @battle.pbDisplay(_INTL("{1} burned itself out!",attacker.pbThis))
     return ret
   end
@@ -12138,6 +12147,7 @@ class PokeBattle_Move_204 < PokeBattle_Move
     elsif attacker.type2==type
       attacker.type2=attacker.type1
     end
+    attacker.effects[PBEffects::Mimicry] = false
     @battle.pbDisplay(_INTL("{1} gusted itself out!",attacker.pbThis))
     return ret
   end
@@ -12789,6 +12799,7 @@ class PokeBattle_Move_247 < PokeBattle_Move
        @battle.pbDisplay(_INTL("But it failed!"))
       return -1
     end
+    opponent.effects[PBEffects::Mimicry] = false
     opponent.type1=getConst(PBTypes,:DOOM)
     opponent.type2=getConst(PBTypes,:DOOM)
     opponent.effects[PBEffects::Type3]=-1
@@ -12882,6 +12893,7 @@ class PokeBattle_Move_249 < PokeBattle_Move
       return -1  
     end
     pbShowAnimation(@id,attacker,opponent,hitnum,alltargets,showanimation)
+    opponent.effects[PBEffects::Mimicry] = false
     opponent.type1=type
     opponent.type2=type
     opponent.effects[PBEffects::Type3]=-1
@@ -13120,6 +13132,7 @@ class PokeBattle_Move_275 < PokeBattle_Move
        @battle.pbDisplay(_INTL("But it failed!"))
       return -1
     end
+    opponent.effects[PBEffects::Mimicry] = false
     opponent.type1=getConst(PBTypes,:ELECTRIC)
     opponent.type2=getConst(PBTypes,:ELECTRIC)
     opponent.effects[PBEffects::Type3]=-1
@@ -13300,6 +13313,7 @@ class PokeBattle_Move_281 < PokeBattle_Move
     elsif attacker.type2==type
       attacker.type2=attacker.type1
     end
+    attacker.effects[PBEffects::Mimicry] = false
     @battle.pbDisplay(_INTL("{1} leafed itself out!",attacker.pbThis))
     return ret
   end
@@ -15158,6 +15172,7 @@ class PokeBattle_Move_265 < PokeBattle_Move
        @battle.pbDisplay(_INTL("But it failed!"))
       return -1
     end
+    opponent.effects[PBEffects::Mimicry] = false
     opponent.type1=getConst(PBTypes,:PSYCHIC)
     opponent.type2=getConst(PBTypes,:PSYCHIC)
     opponent.effects[PBEffects::Type3]=-1

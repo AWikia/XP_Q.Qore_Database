@@ -482,6 +482,8 @@ class PokeBattle_Battler
         @battle.battlers[i].effects[PBEffects::Attract]=-1
       end
     end
+    @effects[PBEffects::Type1]            = self.type1
+    @effects[PBEffects::Type2]            = self.type2
     @effects[PBEffects::BatonPass]        = false
     @effects[PBEffects::Bide]             = 0
     @effects[PBEffects::Splicern]         = 0
@@ -607,6 +609,7 @@ class PokeBattle_Battler
     @effects[PBEffects::MagicDelta]        = false
     @effects[PBEffects::SilveryBliss]        = false
     @effects[PBEffects::JawLock]        = false
+    @effects[PBEffects::Mimicry]        = false
     # Disguise causes the ability-suppressing effect to fade
     # if it was passed on through Baton Pass
     if self.hasWorkingAbility(:DISGUISE) && isConst?(self.species,PBSpecies,:MIMIKYU)
@@ -851,6 +854,44 @@ class PokeBattle_Battler
     return false
   end
 
+  def checkMimicry
+    if hasWorkingAbility(:MIMICRY)
+      type= @battle.field.effects[PBEffects::GrassyTerrain]>0 ? getConst(PBTypes,:GRASS) :  @battle.field.effects[PBEffects::MistyTerrain]>0 ? getConst(PBTypes,:FAIRY) :  @battle.field.effects[PBEffects::PsychicTerrain]>0 ? getConst(PBTypes,:PSYCHIC) : @battle.field.effects[PBEffects::VolcanicTerrain]>0 ? getConst(PBTypes,:LAVA) : @battle.field.effects[PBEffects::LovelyTerrain]>0 ? getConst(PBTypes,:FAIRY) : @battle.field.effects[PBEffects::Cinament]>0 ? getConst(PBTypes,:BOLT) : @battle.field.effects[PBEffects::ElectricTerrain]>0 ? getConst(PBTypes,:ELECTRIC) : 0
+      if (type1==getConst(PBTypes,type) &&
+         type2==getConst(PBTypes,type)) || self.isFainted?
+      elsif type != 0
+        @effects[PBEffects::Mimicry] = true
+        self.type1=type
+        self.type2=type
+        typename=PBTypes.getName(type)
+        @battle.pbDisplay(_INTL("{1} transformed into the {2} type!",self.pbThis,typename))
+      end
+    end
+  end
+
+  def removeMimicry
+    if hasWorkingAbility(:MIMICRY) && @effects[PBEffects::Mimicry]
+      @effects[PBEffects::Mimicry] = false
+      self.type1=@effects[PBEffects::Type1]
+      self.type2=@effects[PBEffects::Type]
+      @battle.pbDisplay(_INTL("{1} transformed into the original types!",self.pbThis))
+    end
+  end
+
+  
+  def checkMimicryAll
+    for i in [self,self.pbPartner,self.pbOpposing1,self.pbOpposing2]
+      i.checkMimicry
+    end
+  end
+
+  def removeMimicryAll
+    for i in [self,self.pbPartner,self.pbOpposing1,self.pbOpposing2]
+      i.removeMimicry
+    end
+  end
+  
+
   def pbSpeed()
     stagemul=[10,10,10,10,10,10,10,15,20,25,30,35,40]
     stagediv=[40,35,30,25,20,15,10,10,10,10,10,10,10]
@@ -1044,6 +1085,9 @@ class PokeBattle_Battler
         PBDebug.log("[Ability triggered] #{self.pbPartner.pbThis}'s Chikolini")
         @battle.pbAnimation(getConst(PBMoves,:TRANSFORM),self.pbPartner,choice)
         self.pbPartner.effects[PBEffects::Transform]=true
+        self.pbPartner.effects[PBEffects::Mimicry] = choice.effects[PBEffects::Mimicry]
+        self.pbPartner.effects[PBEffects::Type1] = choice.effects[PBEffects::Type1]
+        self.pbPartner.effects[PBEffects::Type2] = choice.effects[PBEffects::Type2]
         self.pbPartner.type1=choice.type1
         self.pbPartner.type2=choice.type2
         self.pbPartner.effects[PBEffects::Type3]=-1
@@ -1536,6 +1580,7 @@ class PokeBattle_Battler
         @battle.field.effects[PBEffects::LovelyTerrain]=0
         @battle.pbDisplay(_INTL("An electric current runs across the battlefield!"))
         PBDebug.log("[#{pbThis}: Electric Surge made Electric Terrain]") # Kept Japanese name in Debug log
+        checkMimicryAll
         # The Electric Seed raised Hawlucha's Defense!
       end
       if self.hasWorkingAbility(:PSYCHICSURGE) && @battle.field.effects[PBEffects::PsychicTerrain]<=0
@@ -1549,6 +1594,7 @@ class PokeBattle_Battler
         @battle.field.effects[PBEffects::LovelyTerrain]=0
         @battle.pbDisplay(_INTL("The battlefield got weird!"))
         PBDebug.log("[#{pbThis}: Psychic Surge made Psychic Terrain]")
+        checkMimicryAll
       end
       if self.hasWorkingAbility(:GRASSYSURGE) && @battle.field.effects[PBEffects::GrassyTerrain]<=0
         @battle.field.effects[PBEffects::ElectricTerrain]=0
@@ -1561,6 +1607,7 @@ class PokeBattle_Battler
         @battle.field.effects[PBEffects::LovelyTerrain]=0
         @battle.pbDisplay(_INTL("Grass grew to cover the battlefield!"))
         PBDebug.log("[#{pbThis}: Grassy Surge made Grassy Terrain]")
+        checkMimicryAll
       end
       if self.hasWorkingAbility(:MISTYSURGE) && @battle.field.effects[PBEffects::MistyTerrain]<=0
         @battle.field.effects[PBEffects::ElectricTerrain]=0
@@ -1573,6 +1620,7 @@ class PokeBattle_Battler
         @battle.field.effects[PBEffects::LovelyTerrain]=0
         @battle.pbDisplay(_INTL("Mist swirls around the battlefield!"))
         PBDebug.log("[#{pbThis}: Misty Surge made Misty Terrain]")
+        checkMimicryAll
       end
       if self.hasWorkingAbility(:DARKTUNNEL) && @battle.field.effects[PBEffects::GlimmyGalaxy]<=0
         @battle.field.effects[PBEffects::GlimmyGalaxy]=3
@@ -2027,6 +2075,10 @@ class PokeBattle_Battler
       @battle.pbDisplay(_INTL("{1} can't get it going because of its {2}!",
          pbThis,PBAbilities.getName(self.ability)))
     end
+    # Mimicry 
+    if self.hasWorkingAbility(:MIMICRY) && onactive
+      self.checkMimicry
+    end
     # Parent Child
     if isConst?(species,PBSpecies,:ETV) && form<2 && hasWorkingItem(:PARENTCHILD)
       self.form+=2
@@ -2074,6 +2126,9 @@ class PokeBattle_Battler
         PBDebug.log("[Ability triggered] #{pbThis}'s Imposter")
         @battle.pbAnimation(getConst(PBMoves,:TRANSFORM),self,choice)
         @effects[PBEffects::Transform]=true
+        @effects[PBEffects::Mimicry] = choice.effects[PBEffects::Mimicry]
+        @effects[PBEffects::Type1] = choice.effects[PBEffects::Type1]
+        @effects[PBEffects::Type2] = choice.effects[PBEffects::Type2]
         @type1=choice.type1
         @type2=choice.type2
         @effects[PBEffects::Type3]=-1
@@ -2321,6 +2376,9 @@ class PokeBattle_Battler
           PBDebug.log("[Ability triggered] #{target.pbThis}'s Heralina")
           @battle.pbAnimation(getConst(PBMoves,:TRANSFORM),target,choice)
           target.effects[PBEffects::Transform]=true
+          target.effects[PBEffects::Mimicry] = choice.effects[PBEffects::Mimicry]
+          target.effects[PBEffects::Type1] = choice.effects[PBEffects::Type1]
+          target.effects[PBEffects::Type2] = choice.effects[PBEffects::Type2]
           target.type1=choice.type1
           target.type2=choice.type2
           target.effects[PBEffects::Type3]=-1
@@ -2386,6 +2444,9 @@ class PokeBattle_Battler
           PBDebug.log("[Ability triggered] #{user.pbThis}'s Ferfatina")
           @battle.pbAnimation(getConst(PBMoves,:TRANSFORM),user,choice)
           user.effects[PBEffects::Transform]=true
+          user.effects[PBEffects::Mimicry] = choice.effects[PBEffects::Mimicry]
+          user.effects[PBEffects::Type1] = choice.effects[PBEffects::Type1]
+          user.effects[PBEffects::Type2] = choice.effects[PBEffects::Type2]
           user.type1=choice.type1
           user.type2=choice.type2
           user.effects[PBEffects::Type3]=-1
@@ -4297,6 +4358,9 @@ class PokeBattle_Battler
             PBDebug.log("[Item triggered] #{user.pbThis}'s Pyro Claw")
             @battle.pbAnimation(getConst(PBMoves,:TRANSFORM),user,choice)
             user.effects[PBEffects::Transform]=true
+            user.effects[PBEffects::Mimicry] = choice.effects[PBEffects::Mimicry]
+            user.effects[PBEffects::Type1] = choice.effects[PBEffects::Type1]
+            user.effects[PBEffects::Type2] = choice.effects[PBEffects::Type2]
             user.type1=choice.type1
             user.type2=choice.type2
             user.effects[PBEffects::Type3]=-1

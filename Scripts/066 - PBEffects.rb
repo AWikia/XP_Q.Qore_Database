@@ -140,7 +140,8 @@ begin
     BurningJelousy     = 136
     LashOut            = 137
     DarkTunnel         = 138
-
+    Type1              = 139
+    Type2              = 140
     
     ############################################################################
     # These effects apply to a side

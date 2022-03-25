@@ -609,6 +609,7 @@ class PokeBattle_Battler
     @effects[PBEffects::MagicDelta]        = false
     @effects[PBEffects::SilveryBliss]        = false
     @effects[PBEffects::JawLock]        = false
+    @effects[PBEffects::Mimicry]        = false
     # Disguise causes the ability-suppressing effect to fade
     # if it was passed on through Baton Pass
     if self.hasWorkingAbility(:DISGUISE) && isConst?(self.species,PBSpecies,:MIMIKYU)

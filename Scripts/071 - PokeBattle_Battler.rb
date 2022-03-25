@@ -1085,6 +1085,9 @@ class PokeBattle_Battler
         PBDebug.log("[Ability triggered] #{self.pbPartner.pbThis}'s Chikolini")
         @battle.pbAnimation(getConst(PBMoves,:TRANSFORM),self.pbPartner,choice)
         self.pbPartner.effects[PBEffects::Transform]=true
+        self.pbPartner.effects[PBEffects::Mimicry] = choice.effects[PBEffects::Mimicry]
+        self.pbPartner.effects[PBEffects::Type1] = choice.effects[PBEffects::Type1]
+        self.pbPartner.effects[PBEffects::Type2] = choice.effects[PBEffects::Type2]
         self.pbPartner.type1=choice.type1
         self.pbPartner.type2=choice.type2
         self.pbPartner.effects[PBEffects::Type3]=-1
@@ -1591,6 +1594,7 @@ class PokeBattle_Battler
         @battle.field.effects[PBEffects::LovelyTerrain]=0
         @battle.pbDisplay(_INTL("The battlefield got weird!"))
         PBDebug.log("[#{pbThis}: Psychic Surge made Psychic Terrain]")
+        checkMimicryAll
       end
       if self.hasWorkingAbility(:GRASSYSURGE) && @battle.field.effects[PBEffects::GrassyTerrain]<=0
         @battle.field.effects[PBEffects::ElectricTerrain]=0
@@ -2122,6 +2126,9 @@ class PokeBattle_Battler
         PBDebug.log("[Ability triggered] #{pbThis}'s Imposter")
         @battle.pbAnimation(getConst(PBMoves,:TRANSFORM),self,choice)
         @effects[PBEffects::Transform]=true
+        @effects[PBEffects::Mimicry] = choice.effects[PBEffects::Mimicry]
+        @effects[PBEffects::Type1] = choice.effects[PBEffects::Type1]
+        @effects[PBEffects::Type2] = choice.effects[PBEffects::Type2]
         @type1=choice.type1
         @type2=choice.type2
         @effects[PBEffects::Type3]=-1
@@ -2369,6 +2376,9 @@ class PokeBattle_Battler
           PBDebug.log("[Ability triggered] #{target.pbThis}'s Heralina")
           @battle.pbAnimation(getConst(PBMoves,:TRANSFORM),target,choice)
           target.effects[PBEffects::Transform]=true
+          target.effects[PBEffects::Mimicry] = choice.effects[PBEffects::Mimicry]
+          target.effects[PBEffects::Type1] = choice.effects[PBEffects::Type1]
+          target.effects[PBEffects::Type2] = choice.effects[PBEffects::Type2]
           target.type1=choice.type1
           target.type2=choice.type2
           target.effects[PBEffects::Type3]=-1
@@ -2434,6 +2444,9 @@ class PokeBattle_Battler
           PBDebug.log("[Ability triggered] #{user.pbThis}'s Ferfatina")
           @battle.pbAnimation(getConst(PBMoves,:TRANSFORM),user,choice)
           user.effects[PBEffects::Transform]=true
+          user.effects[PBEffects::Mimicry] = choice.effects[PBEffects::Mimicry]
+          user.effects[PBEffects::Type1] = choice.effects[PBEffects::Type1]
+          user.effects[PBEffects::Type2] = choice.effects[PBEffects::Type2]
           user.type1=choice.type1
           user.type2=choice.type2
           user.effects[PBEffects::Type3]=-1
@@ -4345,6 +4358,9 @@ class PokeBattle_Battler
             PBDebug.log("[Item triggered] #{user.pbThis}'s Pyro Claw")
             @battle.pbAnimation(getConst(PBMoves,:TRANSFORM),user,choice)
             user.effects[PBEffects::Transform]=true
+            user.effects[PBEffects::Mimicry] = choice.effects[PBEffects::Mimicry]
+            user.effects[PBEffects::Type1] = choice.effects[PBEffects::Type1]
+            user.effects[PBEffects::Type2] = choice.effects[PBEffects::Type2]
             user.type1=choice.type1
             user.type2=choice.type2
             user.effects[PBEffects::Type3]=-1

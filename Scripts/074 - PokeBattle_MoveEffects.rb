@@ -3359,6 +3359,8 @@ class PokeBattle_Move_069 < PokeBattle_Move
     pbShowAnimation(@id,attacker,opponent,hitnum,alltargets,showanimation)
     attacker.effects[PBEffects::Transform]=true
     attacker.effects[PBEffects::Mimicry] = opponent.effects[PBEffects::Mimicry]
+    attacker.effects[PBEffects::Type1] = opponent.effects[PBEffects::Type1]
+    attacker.effects[PBEffects::Type2] = opponent.effects[PBEffects::Type2]
     attacker.type1=opponent.type1
     attacker.type2=opponent.type2
     attacker.effects[PBEffects::Type3]=-1

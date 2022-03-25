@@ -1562,6 +1562,7 @@ class PokeBattle_Battler
         @battle.field.effects[PBEffects::LovelyTerrain]=0
         @battle.pbDisplay(_INTL("An electric current runs across the battlefield!"))
         PBDebug.log("[#{pbThis}: Electric Surge made Electric Terrain]") # Kept Japanese name in Debug log
+        checkMimicryAll
         # The Electric Seed raised Hawlucha's Defense!
       end
       if self.hasWorkingAbility(:PSYCHICSURGE) && @battle.field.effects[PBEffects::PsychicTerrain]<=0
@@ -1587,6 +1588,7 @@ class PokeBattle_Battler
         @battle.field.effects[PBEffects::LovelyTerrain]=0
         @battle.pbDisplay(_INTL("Grass grew to cover the battlefield!"))
         PBDebug.log("[#{pbThis}: Grassy Surge made Grassy Terrain]")
+        checkMimicryAll
       end
       if self.hasWorkingAbility(:MISTYSURGE) && @battle.field.effects[PBEffects::MistyTerrain]<=0
         @battle.field.effects[PBEffects::ElectricTerrain]=0
@@ -1599,6 +1601,7 @@ class PokeBattle_Battler
         @battle.field.effects[PBEffects::LovelyTerrain]=0
         @battle.pbDisplay(_INTL("Mist swirls around the battlefield!"))
         PBDebug.log("[#{pbThis}: Misty Surge made Misty Terrain]")
+        checkMimicryAll
       end
       if self.hasWorkingAbility(:DARKTUNNEL) && @battle.field.effects[PBEffects::GlimmyGalaxy]<=0
         @battle.field.effects[PBEffects::GlimmyGalaxy]=3

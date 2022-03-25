@@ -142,6 +142,7 @@ begin
     DarkTunnel         = 138
     Type1              = 139
     Type2              = 140
+    Mimicry            = 141
     
     ############################################################################
     # These effects apply to a side

@@ -482,6 +482,8 @@ class PokeBattle_Battler
         @battle.battlers[i].effects[PBEffects::Attract]=-1
       end
     end
+    @effects[PBEffects::Type1]            = self.type1
+    @effects[PBEffects::Type2]            = self.type2
     @effects[PBEffects::BatonPass]        = false
     @effects[PBEffects::Bide]             = 0
     @effects[PBEffects::Splicern]         = 0

@@ -859,8 +859,8 @@ class PokeBattle_Battler
       type= @battle.field.effects[PBEffects::GrassyTerrain]>0 ? getConst(PBTypes,:GRASS) :  @battle.field.effects[PBEffects::MistyTerrain]>0 ? getConst(PBTypes,:FAIRY) :  @battle.field.effects[PBEffects::PsychicTerrain]>0 ? getConst(PBTypes,:PSYCHIC) : @battle.field.effects[PBEffects::VolcanicTerrain]>0 ? getConst(PBTypes,:LAVA) : @battle.field.effects[PBEffects::LovelyTerrain]>0 ? getConst(PBTypes,:FAIRY) : @battle.field.effects[PBEffects::Cinament]>0 ? getConst(PBTypes,:BOLT) : @battle.field.effects[PBEffects::ElectricTerrain]>0 ? getConst(PBTypes,:ELECTRIC) : 0
       if @battle.field.effects[PBEffects::ElectricTerrain]>0
       end
-      if type1==getConst(PBTypes,type) &&
-         type2==getConst(PBTypes,type)
+      if (type1==getConst(PBTypes,type) &&
+         type2==getConst(PBTypes,type)) || self.isFainted?
       elsif type != 0
         @effects[PBEffects::Mimicry] = true
         self.type1=type
@@ -868,6 +868,12 @@ class PokeBattle_Battler
         typename=PBTypes.getName(type)
         @battle.pbDisplay(_INTL("{1} transformed into the {2} type!",self.pbThis,typename))
       end
+    end
+  end
+  
+  def checkMimicryAll
+    for i in [self,self.pbPartner,self.pbOpposing1,self.pbOpposing2]
+      i.checkMimicry
     end
   end
   

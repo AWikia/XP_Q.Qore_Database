@@ -885,13 +885,6 @@ class PokeBattle_Battler
       i.checkMimicry
     end
   end
-
-  def removeMimicryAll
-    for i in [self,self.pbPartner,self.pbOpposing1,self.pbOpposing2]
-      next if !i
-      i.removeMimicry
-    end
-  end
   
 
   def pbSpeed()

@@ -12505,6 +12505,7 @@ class PokeBattle_Move_241 < PokeBattle_Move
     @battle.field.effects[PBEffects::Cinament]=8 if attacker.hasWorkingItem(:TERRAINEXTENDER)
     @battle.pbCommonAnimation("Cinament",nil,nil)
     @battle.pbDisplay(_INTL("A bolty cauldron has sweeped the battlefield!"))
+    attacker.checkMimicryAll
     return 0
   end
 end

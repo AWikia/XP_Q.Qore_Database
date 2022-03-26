@@ -4298,7 +4298,9 @@ class PokeBattle_Battle
       if @field.effects[PBEffects::ElectricTerrain]==0
         pbDisplay(_INTL("The electric current disappeared from the battlefield."))
         PBDebug.log("[End of effect] Electric Terrain ended")
-        removeMimicryAll
+        for i in priority
+          i.removeMimicry
+        end
       end
     end
     # Grassy Terrain (counting down)
@@ -4317,7 +4319,9 @@ class PokeBattle_Battle
       if @field.effects[PBEffects::GrassyTerrain]==0
         pbDisplay(_INTL("The grass disappeared from the battlefield."))
         PBDebug.log("[End of effect] Grassy Terrain ended")
-        removeMimicryAll
+        for i in priority
+          i.removeMimicry
+        end
       end
     end
     # Misty Terrain
@@ -4336,7 +4340,9 @@ class PokeBattle_Battle
       if @field.effects[PBEffects::MistyTerrain]==0
         pbDisplay(_INTL("The mist disappeared from the battlefield."))
         PBDebug.log("[End of effect] Misty Terrain ended")
-        removeMimicryAll
+        for i in priority
+          i.removeMimicry
+        end
       end
     end
     # Psychic Terrain
@@ -4355,7 +4361,9 @@ class PokeBattle_Battle
       if @field.effects[PBEffects::PsychicTerrain]==0
         pbDisplay(_INTL("The weirdness disappeared from the battlefield!"))
         PBDebug.log("[End of effect] Psychic Terrain ended")
-        removeMimicryAll
+        for i in priority
+          i.removeMimicry
+        end
       end
     end
     # Volcanic Terrain
@@ -4374,7 +4382,9 @@ class PokeBattle_Battle
       if @field.effects[PBEffects::VolcanicTerrain]==0
         pbDisplay(_INTL("The heatness disappeared from the battlefield!"))
         PBDebug.log("[End of effect] Volcanic Terrain ended")
-        removeMimicryAll
+        for i in priority
+          i.removeMimicry
+        end
       end
     end
     # Lovely Terrain
@@ -4393,7 +4403,9 @@ class PokeBattle_Battle
       if @field.effects[PBEffects::LovelyTerrain]==0
         pbDisplay(_INTL("The loveness disappeared from the battlefield!"))
         PBDebug.log("[End of effect] Lovely Terrain ended")
-        removeMimicryAll
+        for i in priority
+          i.removeMimicry
+        end
       end
     end
     # Cinament
@@ -4412,7 +4424,9 @@ class PokeBattle_Battle
       if @field.effects[PBEffects::Cinament]==0
         pbDisplay(_INTL("The bolty cauldron disappeared from the battlefield!"))
         PBDebug.log("[End of effect] Cinament ended")
-        removeMimicryAll
+        for i in priority
+          i.removeMimicry
+        end
       else
          pbCommonAnimation("Cinament",nil,nil)
 #        pbDisplay(_INTL("The bolty cauldron still emergences"))

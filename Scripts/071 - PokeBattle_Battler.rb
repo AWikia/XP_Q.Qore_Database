@@ -873,7 +873,7 @@ class PokeBattle_Battler
     if hasWorkingAbility(:MIMICRY) && @effects[PBEffects::Mimicry]
       @effects[PBEffects::Mimicry] = false
       self.type1=@effects[PBEffects::Type1]
-      self.type2=@effects[PBEffects::Type]
+      self.type2=@effects[PBEffects::Type2]
       @battle.pbDisplay(_INTL("{1} transformed into the original types!",self.pbThis))
     end
   end

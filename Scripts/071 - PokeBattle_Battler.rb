@@ -880,13 +880,15 @@ class PokeBattle_Battler
 
   
   def checkMimicryAll
-    for i in [self,self.pbPartner,self.pbOpposing1,self.pbOpposing2]
+    for i in 0...4
+      next if !@battle.battlers[i]
       i.checkMimicry
     end
   end
 
   def removeMimicryAll
-    for i in [self,self.pbPartner,self.pbOpposing1,self.pbOpposing2]
+    for i in 0...4
+      next if !@battle.battlers[i]
       i.removeMimicry
     end
   end

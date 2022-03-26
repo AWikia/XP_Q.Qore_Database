@@ -10369,7 +10369,7 @@ class PokeBattle_Move_154 < PokeBattle_Move
     @battle.field.effects[PBEffects::ElectricTerrain]=5
     @battle.field.effects[PBEffects::ElectricTerrain]=8 if attacker.hasWorkingItem(:TERRAINEXTENDER)
     @battle.pbDisplay(_INTL("An electric current runs across the battlefield!"))
-    checkMimicryAll
+    attacker.checkMimicryAll
     return 0
   end
 end
@@ -10398,7 +10398,7 @@ class PokeBattle_Move_155 < PokeBattle_Move
     @battle.field.effects[PBEffects::GrassyTerrain]=5
     @battle.field.effects[PBEffects::GrassyTerrain]=8 if attacker.hasWorkingItem(:TERRAINEXTENDER)
     @battle.pbDisplay(_INTL("Grass grew to cover the battlefield!"))
-    checkMimicryAll
+    attacker.checkMimicryAll
     return 0
   end
 end
@@ -10427,7 +10427,7 @@ class PokeBattle_Move_156 < PokeBattle_Move
     @battle.field.effects[PBEffects::MistyTerrain]=5
     @battle.field.effects[PBEffects::MistyTerrain]=8 if attacker.hasWorkingItem(:TERRAINEXTENDER)
     @battle.pbDisplay(_INTL("Mist swirled about the battlefield!"))
-    checkMimicryAll
+    attacker.checkMimicryAll
     return 0
   end
 end
@@ -12927,7 +12927,7 @@ class PokeBattle_Move_250 < PokeBattle_Move
     @battle.field.effects[PBEffects::VolcanicTerrain]=5
     @battle.field.effects[PBEffects::VolcanicTerrain]=8 if attacker.hasWorkingItem(:TERRAINEXTENDER)
     @battle.pbDisplay(_INTL("A heatness has been set up on the battlefield!"))
-    checkMimicryAll
+    attacker.checkMimicryAll
     return 0
   end
 end
@@ -13167,7 +13167,7 @@ class PokeBattle_Move_276 < PokeBattle_Move
     @battle.field.effects[PBEffects::LovelyTerrain]=5
     @battle.field.effects[PBEffects::LovelyTerrain]=8 if attacker.hasWorkingItem(:TERRAINEXTENDER)
     @battle.pbDisplay(_INTL("A loveness has been set up on the battlefield!"))
-    checkMimicryAll
+    attacker.checkMimicryAll
     return 0
   end
 end
@@ -14183,7 +14183,7 @@ class PokeBattle_Move_209 < PokeBattle_Move
     @battle.field.effects[PBEffects::PsychicTerrain]=5
     @battle.field.effects[PBEffects::PsychicTerrain]=8 if attacker.hasWorkingItem(:TERRAINEXTENDER)
     @battle.pbDisplay(_INTL("The battlefield got weird!"))
-    checkMimicryAll
+    attacker.checkMimicryAll
     return 0
   end
 end

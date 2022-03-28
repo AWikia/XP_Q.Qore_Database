@@ -140,27 +140,29 @@ end
 ################################################################################
 
 # Used only on some cases
-def worksOnCorendo(workable=true)
-  if workable
-    Kernel.pbMessage(_INTL("This feature is only available in VirtualReality Corendo Version."))
-    Kernel.pbMessage(_INTL("For Orbitron Medium members, please go to the Corendo Emulator or use the CorendoPlayer Console"))
-    Kernel.pbMessage(_INTL("For Standard members, this feature does nothing"))
+def worksOnCorendo(clients=[])
+  if clients.length==0
+    Kernel.pbMessage(_INTL("This feature does not work anywhere"))
   else
-    Kernel.pbMessage(_INTL("This feature is only available in RPG Maker XP Version."))
-    Kernel.pbMessage(_INTL("For members who want to try out the feature, please run the RGSS RPG XP Version"))
-    Kernel.pbMessage(_INTL("For VirtualReality Corendo members, this feature does nothing"))
+    message = _INTL("\\l[{1}]This feature only works on the following clients:", 2+clients.length)
+      for i in 1..clients.length
+          message+=  _INTL("\\n- {1}", clients[i-1])
+      end
+      message+=  _INTL("\\nIn this client, it does nothing")
+      Kernel.pbMessage(message)
   end
 end
 
-def worksOnCorendo2(workable=true)
-  if workable
-    Kernel.pbMessage(_INTL("\\c[8]\\w[TrophyWindow]This feature is only available in VirtualReality Corendo Version."))
-    Kernel.pbMessage(_INTL("\\c[8]\\w[TrophyWindow]For Orbitron Medium members, please go to the Corendo Emulator or use the CorendoPlayer Console"))
-    Kernel.pbMessage(_INTL("\\c[8]\\w[TrophyWindow]For Standard members, this feature does nothing"))
+def worksOnCorendo2(clients=[])
+  if clients.length==0
+    Kernel.pbMessage(_INTL("\\c[8]\\w[TrophyWindow]This feature does not work anywhere"))
   else
-    Kernel.pbMessage(_INTL("\\c[8]\\w[TrophyWindow]This feature is only available in RPG Maker XP Version."))
-    Kernel.pbMessage(_INTL("\\c[8]\\w[TrophyWindow]For members who want to try out the feature, please run the RGSS RPG XP Version"))
-    Kernel.pbMessage(_INTL("\\c[8]\\w[TrophyWindow]For VirtualReality Corendo members, this feature does nothing"))
+    message = _INTL("\\c[8]\\w[TrophyWindow]\\l[{1}]This feature only works on the following clients:", 2+clients.length)
+      for i in 1..clients.length
+          message+=  _INTL("\\n- {1}", clients[i-1])
+      end
+      message+=  _INTL("\\nIn this client, it does nothing")
+      Kernel.pbMessage(message)
   end
 end
 

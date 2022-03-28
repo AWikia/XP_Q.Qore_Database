@@ -909,14 +909,8 @@ class SpriteWindow_DebugRight < Window_DrawableCommand
     elsif align==1
       x+=(w/2)-(width/2)
     end
-    isDarkSkin=isDarkWindowskin(self.windowskin)
-    if isDarkSkin
-      pbDrawShadowText(self.contents,x,y,[width,w].max,h,t,
-         Color.new(26*8,26*8,25*8),Color.new(12*8,12*8,12*8)) # Color.new(12*8,12*8,12*8),Color.new(26*8,26*8,25*8))
-    else
-      pbDrawShadowText(self.contents,x,y,[width,w].max,h,t,
-          Color.new(12*8,12*8,12*8),Color.new(26*8,26*8,25*8))
-    end
+    pbDrawShadowText(self.contents,x,y,[width,w].max,h,t,
+       $AEditorTextBase,$AEditorTextShadow) # Color.new(12*8,12*8,12*8),Color.new(26*8,26*8,25*8))
   end
 
   def drawItem(index,count,rect)

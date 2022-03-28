@@ -51,15 +51,15 @@ module ShadowText
       x+=(w/2)-(width/2)
     end
     # Bugfix
-    isDarkSkin=false # isDarkWindowskin(@_windowskin)
+    isDarkSkin=false # isDarkWindowskin(self.windowskin)
     if isDarkSkin
       pbDrawShadowText(bitmap,x,y,w,h,t,
-         disabled ? Color.new(12*8,12*8,12*8) : Color.new(26*8,26*8,25*8),
-         Color.new(12*8,12*8,12*8))
+         disabled ? $AEditorTextBase : $AEditorTextShadow,
+         $AEditorTextBase)
     else
       pbDrawShadowText(bitmap,x,y,w,h,t,
-         disabled ? Color.new(26*8,26*8,25*8) : Color.new(12*8,12*8,12*8),
-         Color.new(26*8,26*8,25*8))
+         disabled ? $AEditorTextShadow : $AEditorTextBase,
+         $AEditorTextShadow)
     end
     # Bugfix
   end

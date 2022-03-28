@@ -1093,21 +1093,24 @@ end
 def getDefaultTextColors(windowskin)
   if !windowskin || windowskin.disposed? || 
      windowskin.width!=128 || windowskin.height!=128
-    if isDarkWindowskin(windowskin)
-      return [MessageConfig::LIGHTTEXTBASE,MessageConfig::LIGHTTEXTSHADOW] # White
-    else
-      return [MessageConfig::DARKTEXTBASE,MessageConfig::DARKTEXTSHADOW] # Dark gray
+    if isDarkWindowskin(windowskin) # White
+      $AEditorTextBase = MessageConfig::LIGHTTEXTBASE
+      $AEditorTextShadow = MessageConfig::LIGHTTEXTSHADOW
+    else # Dark Gray
+      $AEditorTextBase = MessageConfig::DARKTEXTBASE
+      $AEditorTextShadow = MessageConfig::DARKTEXTSHADOW
     end
+    return [$AEditorTextBase,$AEditorTextShadow]
   else # VX windowskin
-    color=windowskin.get_pixel(64, 96)
+    $AEditorTextBase=windowskin.get_pixel(64, 96)
     shadow=nil
     isdark=(color.red+color.green+color.blue)/3 < 128
     if isdark
-      shadow=Color.new(color.red+64,color.green+64,color.blue+64)
+      $AEditorTextShadow=Color.new(color.red+64,color.green+64,color.blue+64)
     else
-      shadow=Color.new(color.red-64,color.green-64,color.blue-64)
+      $AEditorTextShadow=Color.new(color.red-64,color.green-64,color.blue-64)
     end
-    return [color,shadow]
+    return [$AEditorTextBase,$AEditorTextShadow]
   end
 end
 

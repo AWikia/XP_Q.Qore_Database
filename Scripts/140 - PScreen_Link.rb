@@ -147,7 +147,7 @@ class Scene_LinkBattle
       Kernel.pbMessage(@QQSR)
     end
     if Input.trigger?(Input::Z) # Global Leaderboard warn for non-corendo
-      worksOnCorendo2(workable=true)
+      worksOnCorendo2(['VR Corendo','Bsisbina Clients','Jinnybell HSPA','Emerald Emulator','Yorkbook Digital Professional','Yorkbook Xe'])
     end
     if Input.trigger?(Input::C) || Input.triggerex?(Input::LeftMouseKey)
       if @cmdLink>=0 && @sprites["command_window"].index==@cmdLink
@@ -196,10 +196,10 @@ class Scene_LinkBattle
     
       end
       if @cmdLinkG>=0 && @sprites["command_window"].index==@cmdLinkG
-        worksOnCorendo2(workable=true)
+      worksOnCorendo2(['VR Corendo','Bsisbina Clients','Jinnybell HSPA','Emerald Emulator','Yorkbook Digital Professional','Yorkbook Xe'])
       end
       if @cmdLinkP>=0 && @sprites["command_window"].index==@cmdLinkP
-        worksOnCorendo2(workable=true)
+      worksOnCorendo2(['VR Corendo','Bsisbina Clients','Jinnybell HSPA'])
       end
       if @cmdLinkS>=0 && @sprites["command_window"].index==@cmdLinkS
           items=[PBItems::POKEBALL,

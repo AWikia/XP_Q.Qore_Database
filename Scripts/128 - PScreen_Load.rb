@@ -514,7 +514,7 @@ class PokemonLoad
         $scene=pbCallTitle
         return
       elsif cmdQQRM>=0 && command==cmdQQRM
-        worksOnCorendo()
+        worksOnCorendo(['VR Corendo'])
       elsif cmdQuit>=0 && command==cmdQuit
         @scene.pbEndScene
         $scene=nil

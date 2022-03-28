@@ -317,8 +317,12 @@ def pbDebugMenu
     end
     break if ret==-1
     cmd=commands.getCommand(ret)
-    if cmd=="corendo" || cmd=="corendo2" || cmd=="corendo3" # Compat mode with Corendo
-      worksOnCorendo()
+    if cmd=="corendo" # Compat mode with Corendo
+      worksOnCorendo(['VR Corendo'])
+    elsif cmd=="corendo2" # Compat mode with Corendo
+      worksOnCorendo(['VR Corendo','Bsibsina Clients'])
+    elsif cmd=="corendo3" # Compat mode with Corendo
+      worksOnCorendo(['VR Corendo','Jinnybell HSPA'])
     elsif cmd=="switches"
       pbFadeOutIn(99999) { pbDebugScreen(0) }
     elsif cmd=="variables"
@@ -857,19 +861,19 @@ def pbDebugMenu
       pbPurifyChamber()
     elsif cmd=="extracttext"
       if $CORENDO
-        worksOnCorendo(false)
+        worksOnCorendo(['RGSS Player'])
         return -1
       end
       pbExtractText
     elsif cmd=="compiletext"
       if $CORENDO
-        worksOnCorendo(false)
+        worksOnCorendo(['RGSS Player'])
         return -1
       end
       pbCompileTextUI
     elsif cmd=="compiledata"
       if $CORENDO
-        worksOnCorendo(false)
+        worksOnCorendo(['RGSS Player'])
         return -1
       end
       msgwindow=Kernel.pbCreateMessageWindow

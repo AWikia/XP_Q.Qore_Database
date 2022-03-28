@@ -772,7 +772,7 @@ class PokemonStorageScreen
       @scene.pbStartBox(self,command)
       @scene.pbCloseBox
     elsif command==0
-      worksOnCorendo()
+      worksOnCorendo(['VR Corendo','Bsibsina Clients','ΣΟΥΒΛ Crystal','Intensive PCReady'])
     end
   end
 

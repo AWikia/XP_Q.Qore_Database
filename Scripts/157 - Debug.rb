@@ -235,9 +235,9 @@ def pbDebugMenu
   viewport.z=99999
   sprites={}
   commands=CommandList.new
-  commands.add("corendo",_INTL("Game Cartige Check")) # For Compatibility with Corendo
-  commands.add("corendo2",_INTL("Control Setup Check")) # For Compatibility with Corendo
-  commands.add("corendo3",_INTL("Memory Check")) # For Compatibility with Corendo
+  commands.add("corendo",_INTL("Game ROM Memory Check")) # For Compatibility with Corendo
+  commands.add("corendo2",_INTL("Control Configuration Check")) # For Compatibility with Corendo
+  commands.add("corendo3",_INTL("Game RAM Memory Check")) # For Compatibility with Corendo
   commands.add("switches",_INTL("Switches"))
   commands.add("variables",_INTL("Variables"))
   commands.add("refreshmap",_INTL("Refresh Map"))
@@ -269,7 +269,7 @@ def pbDebugMenu
   commands.add("quickhatch",_INTL("Quick Hatch"))
   commands.add("roamerstatus",_INTL("Roaming Pokémon Status"))
   commands.add("roam",_INTL("Advance Roaming"))
-  commands.add("games",_INTL("Mini-Games")) # Κορα Κορε addition
+  commands.add("games",_INTL("Mini Games")) # Κορα Κορε addition
   commands.add("spriteposition",_INTL("Reposition Sprites")) # Taken from Editor 
   commands.add("spriteposition2",_INTL("Reposition All Sprites")) # Taken from Editor 
   commands.add("setencounters",_INTL("Set Encounters")) 
@@ -732,19 +732,19 @@ def pbDebugMenu
       gamecmd=0
       loop do 
         gamecmds=[
-           _INTL("Voltorb Flip"),
            _INTL("Slot Machine"),
-           _INTL("Mining"),
+           _INTL("Voltorb Flip"),
+           _INTL("Underground Mining"),
         ]
         gamecmd=Kernel.pbShowCommands(nil,gamecmds,-1,gamecmd)
         break if gamecmd<0
         case gamecmd
         when 0 # VoltorbFlip
-			pbVoltorbFlip
+          pbSlotMachine
         when 1 # Slot Machine
-			pbSlotMachine
+          pbVoltorbFlip
         when 2 # Mining
-			pbMiningGame
+          pbMiningGame
         end
       end
     elsif cmd=="spriteposition"

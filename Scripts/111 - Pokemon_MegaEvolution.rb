@@ -1430,6 +1430,10 @@ MultipleForms.register(:WINDOWS10,{
      when 1; next [159,125,179,10,145,156]
      else;   next
    end
+},
+"dexEntry"=>proc{|pokemon|
+   next if pokemon.form==0
+   next _INTL("Windows 10 have undergone Primal Reversion. When it gets Microsoft-colored, no one will ever know that Windows have been transfromed into a Microsoft-like appearance.") if pokemon.form==1
 }
 })
 
@@ -1456,5 +1460,10 @@ MultipleForms.register(:WINDOWS11,{
      when 1; next [209,175,229,10,195,206]
      else;   next
    end
+},
+"dexEntry"=>proc{|pokemon|
+   next if pokemon.form==0
+   next _INTL("Windows 11 have undergone Primal Reversion. When it gets Microsoft-colored, no one will ever know that Windows have been transfromed into a Microsoft-like appearance.") if pokemon.form==1
 }
+
 })

@@ -35,7 +35,7 @@ def pbEmergencySave
   oldscene=$scene
   $scene=nil
 #  Kernel.pbMessage(_INTL("The script is taking too long. The game will restart. If this happens constantly, this may be due to the weak processor or RAM"))
-    Kernel.pbMessage(_INTL("I must be restared due to problems. If this happens constantly, this may be due to the weak processor or RAM"))
+    Kernel.pbMessage(_INTL("Qora Qore must be restared due to a script hang. If this happens constantly, this may be due to the weak processor or RAM"))
   return if !$Trainer
   if safeExists?(RTP.getSaveFileName("Game.rxdata"))
     File.open(RTP.getSaveFileName("Game.rxdata"),  'rb') {|r|

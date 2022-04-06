@@ -9234,25 +9234,6 @@ MultipleForms.register(:ENAMORUS,{
 ################################################################################
 # Other Forms (Q.Qore Pokemon)
 ################################################################################
-MultipleForms.register(:BRONGRASS,{
-"getForm"=>proc{|pokemon|
-   if ($PokemonGlobal.surfing || $PokemonGlobal.diving) && $PokemonGlobal
-     next 1 # Sun
-   else
-     next 0 # No Sun (Cannot evolve into SBC or Alert TV)
-   end
-}
-})
-
-MultipleForms.copy(:BRONGRASS,:FOXFIRE,:TURTLEWATER,:PERILGRASS,:PERILFIRE,:PERILWATER,:JELLERY,:STEELYMAX,:PERILLY,:BRONSHILD,:TURTLESHELD,:MPRINGI,:PERILMAX,:THANDAROUS,:PERILOUS,:PROBOMIND,:PERILMIND,:DRACOGENIE,:PERILGENIE,:FOXSHIELD,:SHILDGRASS,:SHIELDFIRE,:SHELDWATER)
-
-
-=begin
-MultipleForms.copy(:BRONGRASS,:FOXFIRE,:TURTLEWATER,:PERILGRASS,:PERILFIRE,
-                   :PERILWATER,:JELLERY,:PERILLY,:BRONSHILD,:TURTLESHELD,
-                   :MPRINGI,:THANDAROUS,:PERILOUS,:PROBOMIND,:PERILMIND,
-                   :FOXSHIELD,:SHILDGRASS,:SHIELDFIRE,:SHELDWATER)
-=end
 MultipleForms.register(:SUNNYCHANNEL,{
 "type1"=>proc{|pokemon|
    types=[:SUN,:NORMAL]

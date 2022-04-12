@@ -741,7 +741,7 @@ There are different modes:
           proc { $PokemonSystem.night },
           proc {|value| $PokemonSystem.night = value }
         ),
-        EnumOption.new(_INTL("Debugger (Requires Restart)"),[_INTL("Off"),_INTL("On")],
+        EnumOption.new(_INTL("Debug Mode (Requires Restart)"),[_INTL("Off"),_INTL("On")],
            proc { $PokemonSystem.debugmode },
            proc {|value|
              $PokemonSystem.debugmode=value
@@ -805,7 +805,7 @@ There are different modes:
              end
           }
        ),
-       SliderOption.new(_INTL("Jukebox BGM Rate"),0,200,5,
+       SliderOption.new(_INTL("Jukebox BGM Speed"),0,200,5,
           proc { $PokemonSystem.jbtempo },
           proc {|value|
                $PokemonSystem.jbtempo=value
@@ -814,7 +814,7 @@ There are different modes:
               end
           }
        ),
-        EnumOption.new(_INTL("Cry Style"),[_INTL("Classic"),_INTL("Modern")],
+        EnumOption.new(_INTL("Pokémon Cry Style"),[_INTL("Classic"),_INTL("Modern")],
           proc { $PokemonSystem.cryclassic },
           proc {|value| $PokemonSystem.cryclassic = value }
         )
@@ -826,7 +826,7 @@ There are different modes:
            proc { $PokemonSystem.battlescene },
            proc {|value| $PokemonSystem.battlescene=value }
         ),
-        EnumOption.new(_INTL("Wild Battle Mode"),[_INTL("Single"),_INTL("Double")],
+        EnumOption.new(_INTL("Wild Pokémon Battle Style"),[_INTL("Single"),_INTL("Double")],
         # During join with stat trainers, all wild battles are in double battle regardless of this setting
         # If the user has only one Pokemon, all wild battles are in single battle regardless of this setting
            proc { $PokemonSystem.doublebattles },
@@ -842,7 +842,7 @@ There are different modes:
              $PokemonSystem.mechanics=value
            }
         ),
-        EnumOption.new(_INTL("New Generation 6 Pokemon Style"),[_INTL("Off"),_INTL("On")],
+        EnumOption.new(_INTL("Generation VI Pokémon Graphic Style"),[_INTL("Classic"),_INTL("Modern")],
           proc { $PokemonSystem.newsix },
           proc {|value| $PokemonSystem.newsix = value }
         )
@@ -866,7 +866,7 @@ There are different modes:
              setScreenBorderName($BORDERS[$PokemonSystem.bordergraphic]) # Accented Border
            }
          ),
-         NumberOption.new(_INTL("Cartridge Style"),1,5,
+         NumberOption.new(_INTL("Pokémon Type Icon Style"),1,5,
            proc { $PokemonSystem.colortige },
            proc {|value| $PokemonSystem.colortige = value }
          ),

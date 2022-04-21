@@ -1909,7 +1909,7 @@ def pbPlayCry(pokemon,volume=85,pitch=nil)
       pkmnwav=pbCryFile(pokemon)
       if pkmnwav
         pbSEPlay(RPG::AudioFile.new(pkmnwav,volume,
-           pitch ? pitch : (pokemon.hp*50/pokemon.totalhp)+50)) rescue nil
+           pitch ? pitch : (pokemon.hp*25/pokemon.totalhp)+75)) rescue nil
       end
     end
   end

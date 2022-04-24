@@ -5159,7 +5159,7 @@ MultipleForms.register(:RUFFLET,{
 }
 })
 
-MultipleForms.register(:BRIVIARY,{
+MultipleForms.register(:BRAVIARY,{
 "type1"=>proc{|pokemon|
    next if pokemon.form==0            # Kanto
    case pokemon.form
@@ -5947,7 +5947,7 @@ MultipleForms.register(:AVALUGG,{
 },
 "kind"=>proc{|pokemon|
    next if pokemon.form!=1
-   next _INTL("iCEBERG")
+   next _INTL("Iceberg")
 },
 
 "dexEntry"=>proc{|pokemon|

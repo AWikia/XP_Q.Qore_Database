@@ -848,8 +848,6 @@ There are different modes:
            proc { $PokemonSystem.darkmode },
            proc {|value|
              $PokemonSystem.darkmode=value
-              MessageConfig.pbSetSpeechFrame("Graphics/Windowskins/"+getDarkModeFolder+"/"+$SpeechFrames[$PokemonSystem.textskin])
-              MessageConfig.pbSetSystemFrame("Graphics/Windowskins/"+getDarkModeFolder+"/"+$TextFrames[$PokemonSystem.textskin])
            }
         ),
          NumberOption.new(_INTL("Text Skin"),1,$SpeechFrames.length,
@@ -937,7 +935,8 @@ There are different modes:
     oldSystemSkin = $PokemonSystem.frame      # Menu
     oldTextSkin   = $PokemonSystem.textskin   # Speech
     oldAccent   = $PokemonSystem.accentcolor   # Speech
-#    oldFont       = $PokemonSystem.font
+    oldmode = $PokemonSystem.darkmode
+    #    oldFont       = $PokemonSystem.font
     pbActivateWindow(@sprites,"option"){
        loop do
          Graphics.update
@@ -971,7 +970,12 @@ There are different modes:
              @sprites["textbox"].width = @sprites["textbox"].width  # Necessary evil
              @sprites["textbox"].text  = _INTL("Text Skin {1}.\n{2} Accent Color.",1+$PokemonSystem.textskin,getAccentName)
             oldAccent   = $PokemonSystem.accentcolor   # Speech
-           end
+          end
+          if $PokemonSystem.darkmode != oldmode
+              MessageConfig.pbSetSpeechFrame("Graphics/Windowskins/"+getDarkModeFolder+"/"+$SpeechFrames[$PokemonSystem.textskin])
+              MessageConfig.pbSetSystemFrame("Graphics/Windowskins/"+getDarkModeFolder+"/"+$TextFrames[$PokemonSystem.textskin])
+              oldmode = $PokemonSystem.darkmode
+          end
 =begin
            if $PokemonSystem.font!=oldFont
              pbSetSystemFont(@sprites["textbox"].contents)

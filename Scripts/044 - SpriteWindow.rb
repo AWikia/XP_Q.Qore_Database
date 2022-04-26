@@ -1,8 +1,8 @@
 module MessageConfig
 # in Graphics/Windowskins/ (specify empty string to use the default windowskin)
   WindowOpacity = 255
-  TextSkinName    = "QChoice1"
-  ChoiceSkinName  = "QChoice1c"
+  TextSkinName    = "Skin0"
+  ChoiceSkinName  = "Choice0"
 # FontName        = "Mpisto U2019 Condensed Medium"
   FontName        = "Didact Gothic"
   TextSpeed       = nil # can be positive to wait frames or negative to

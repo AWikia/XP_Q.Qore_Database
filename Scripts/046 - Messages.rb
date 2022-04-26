@@ -1334,7 +1334,8 @@ def pbDisplayCoinsWindow(msgwindow,goldwindow)
   else
     coinwindow.baseColor=MessageConfig::LIGHTTEXTBASE
     coinwindow.shadowColor=MessageConfig::LIGHTEXTSHADOW
-  end  coinwindow.resizeToFit(coinwindow.text,Graphics.width)
+  end  
+  coinwindow.resizeToFit(coinwindow.text,Graphics.width)
   coinwindow.width=160 if coinwindow.width<=160
   if msgwindow.y==0
     coinwindow.y=(goldwindow) ? goldwindow.y-coinwindow.height : Graphics.height-coinwindow.height

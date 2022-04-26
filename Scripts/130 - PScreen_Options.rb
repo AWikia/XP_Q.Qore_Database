@@ -843,6 +843,7 @@ There are different modes:
       ]
     end
     if mode==3
+      @PokemonOptions+=[
         EnumOption.new(_INTL("Theme"),[_INTL("Light"),_INTL("Dark")],
            proc { $PokemonSystem.darkmode },
            proc {|value|
@@ -851,7 +852,6 @@ There are different modes:
               MessageConfig.pbSetSystemFrame("Graphics/Windowskins/"+getDarkModeFolder+"/"+$TextFrames[$PokemonSystem.textskin])
            }
         ),
-      @PokemonOptions+=[
          NumberOption.new(_INTL("Text Skin"),1,$SpeechFrames.length,
            proc { $PokemonSystem.textskin },
            proc {|value| 

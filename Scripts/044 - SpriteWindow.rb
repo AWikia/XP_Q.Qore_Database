@@ -71,7 +71,7 @@ module MessageConfig
       skin=pbResolveBitmap("Graphics/System/Window")
     end
     if !skin || skin==""
-      skin=pbResolveBitmap("Graphics/Windowskins/001-Blue01")
+      skin=pbResolveBitmap("Graphics/Windowskins/"+getDarkModeFolder+"/"+"001-Blue01")
     end
     return skin || ""
   end

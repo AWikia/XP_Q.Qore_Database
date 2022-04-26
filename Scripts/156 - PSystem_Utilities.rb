@@ -383,6 +383,16 @@ def getAccentFolder
   end
 end
 
+# Returns the Dark Mode Folder
+def getDarkModeFolder
+  if $PokemonSystem
+    return ["","Dark Mode"][$PokemonSystem.darkmode]
+  else
+    return ""
+  end
+end
+
+# Returns the Active Accent Color
 def getAccentName
   if $PokemonSystem
     return ["Blue", "Purple", "Pink", "Red", "Orange", "Yellow", "Green", "Gray"][$PokemonSystem.accentcolor]

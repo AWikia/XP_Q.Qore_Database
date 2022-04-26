@@ -974,6 +974,9 @@ There are different modes:
           if $PokemonSystem.darkmode != oldmode
               MessageConfig.pbSetSpeechFrame("Graphics/Windowskins/"+getDarkModeFolder+"/"+$SpeechFrames[$PokemonSystem.textskin])
               MessageConfig.pbSetSystemFrame("Graphics/Windowskins/"+getDarkModeFolder+"/"+$TextFrames[$PokemonSystem.textskin])
+             @sprites["textbox"].setSkin(MessageConfig.pbGetSpeechFrame())
+             @sprites["textbox"].width = @sprites["textbox"].width  # Necessary evil
+             @sprites["textbox"].text  = _INTL("Text Skin {1}.\n{2} Accent Color.",1+$PokemonSystem.textskin,getAccentName)
               oldmode = $PokemonSystem.darkmode
           end
 =begin

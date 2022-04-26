@@ -3,10 +3,17 @@ class Window_PokemonOption < Window_DrawableCommand
 
   def initialize(options,x,y,width,height)
     @options=options
-    @nameBaseColor=Color.new(24*8,15*8,0)
-    @nameShadowColor=Color.new(31*8,22*8,10*8)
-    @selBaseColor=Color.new(31*8,6*8,3*8)
-    @selShadowColor=Color.new(31*8,17*8,16*8)
+    if ($PokemonSystem.darkmode==0 rescue false)  # Light Mode
+      @nameBaseColor=Color.new(24*8,15*8,0)
+      @nameShadowColor=Color.new(31*8,22*8,10*8)
+      @selBaseColor=Color.new(31*8,6*8,3*8)
+      @selShadowColor=Color.new(31*8,17*8,16*8)
+    else                                          # Dark mode
+      @nameBaseColor=Color.new(29*8,22*8,9*8)
+      @nameShadowColor=Color.new(15*8,9*8,0)
+      @selBaseColor=Color.new(31*8,18*8,17*8)
+      @selShadowColor=Color.new(24*8,3*8,1*8)
+    end
     @optvalues=[]
     @mustUpdateOptions=false
     for i in 0...@options.length

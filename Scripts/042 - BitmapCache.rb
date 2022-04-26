@@ -257,7 +257,7 @@ module RPG
     end
 
     def self.windowskin(filename)
-      self.load_bitmap("Graphics/Windowskins/", filename)
+      self.load_bitmap("Graphics/Windowskins/"+getDarkModeFolder+"/", filename)
     end
 
     def self.tile(filename, tile_id, hue)

@@ -1089,7 +1089,7 @@ class Interpreter
     for i in 0...$SpeechFrames.length
       if $SpeechFrames[i]==@parameters[0]
         $PokemonSystem.textskin=i
-        MessageConfig.pbSetSpeechFrame("Graphics/Windowskins/"+$SpeechFrames[i])
+        MessageConfig.pbSetSpeechFrame("Graphics/Windowskins/"+getDarkModeFolder+"/"$SpeechFrames[i])
         return true
       end
     end

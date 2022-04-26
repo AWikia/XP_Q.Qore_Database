@@ -1,8 +1,8 @@
 module MessageConfig
 # in Graphics/Windowskins/ (specify empty string to use the default windowskin)
   WindowOpacity = 255
-  TextSkinName    = "QChoice1"
-  ChoiceSkinName  = "QChoice1c"
+  TextSkinName    = "Skin0"
+  ChoiceSkinName  = "Choice0"
 # FontName        = "Mpisto U2019 Condensed Medium"
   FontName        = "Didact Gothic"
   TextSpeed       = nil # can be positive to wait frames or negative to
@@ -50,12 +50,12 @@ module MessageConfig
 
   def self.pbDefaultSystemFrame
     return "" if !MessageConfig::ChoiceSkinName
-    return pbResolveBitmap("Graphics/Windowskins/"+MessageConfig::ChoiceSkinName)||""
+    return pbResolveBitmap("Graphics/Windowskins/"+getDarkModeFolder+"/"+MessageConfig::ChoiceSkinName)||""
   end
 
   def self.pbDefaultSpeechFrame
     return "" if !MessageConfig::TextSkinName
-    return pbResolveBitmap("Graphics/Windowskins/"+MessageConfig::TextSkinName)||""
+    return pbResolveBitmap("Graphics/Windowskins/"+getDarkModeFolder+"/"+MessageConfig::TextSkinName)||""
   end
 
   def self.pbDefaultSystemFontName
@@ -65,13 +65,13 @@ module MessageConfig
   def self.pbDefaultWindowskin
     skin=load_data("Data/System.rxdata").windowskin_name rescue nil
     if skin && skin!=""
-      skin=pbResolveBitmap("Graphics/Windowskins/"+skin) || ""
+      skin=pbResolveBitmap("Graphics/Windowskins/"+getDarkModeFolder+"/"+skin) || ""
     end
     if !skin || skin==""
       skin=pbResolveBitmap("Graphics/System/Window")
     end
     if !skin || skin==""
-      skin=pbResolveBitmap("Graphics/Windowskins/001-Blue01")
+      skin=pbResolveBitmap("Graphics/Windowskins/"+getDarkModeFolder+"/"+"001-Blue01")
     end
     return skin || ""
   end
@@ -3274,6 +3274,14 @@ class Window_DrawableCommand < SpriteWindow_SelectableEx
     return Rect.new(rect.x+16,rect.y,rect.width-16,rect.height)
   end
 
+  def drawCursor2(index,rect)
+    if self.index==index
+      pbCopyBitmap(self.contents,@selarrow.bitmap,rect.x,rect.y-2)
+    end
+    return Rect.new(rect.x+16,rect.y,rect.width-16,rect.height)
+  end
+
+  
   def dispose
     @selarrow.dispose
     super

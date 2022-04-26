@@ -258,35 +258,30 @@ end
   $SpeechFrames=[
   # Q.Qore
   MessageConfig::TextSkinName, # Default: speech hgss 1
-  "QChoice2",
-  "QChoice3",
-  "QChoice4",
-  "QChoice5",
-  "QChoice6",
-  "QChoice7",
-  "QChoice8",
-  "speech ug 4",
+  "Skin1",
+  "Skin2",
+  "Skin3",
+  "Skin4",
+  "Skin5",
+  "Skin6",
+  "Skin7",
   # Blandy Blush Sada
-  "speech web",
+  "Skin8",
   # GSC Style
-  "speech pl 18",
-  "speech pl 18_dark",
+  "Skin9",
   # HGSS Style
-  "speech hgss 1",
-  "speech hgss 2",
-  "speech hgss 3",
-  "speech hgss 4",
-  "speech hgss 5",
-  "speech hgss 6",
-  "speech hgss 7",
-  "speech hgss 13",
-  "speech hgss 17",
+  "Skin10",
+  "Skin11",
+  "Skin12",
+  "Skin13",
+  "Skin14",
+  "Skin15",
+  "Skin16",
+  "Skin17",
+  "Skin18",
   # DP Style
-  "speech dp 3",
-  "speech dp 18",
-  # Other
-  "001-Blue01",
-  "Window"
+  "Skin19",
+  "Skin20"
 ]
 # 2 more colors
 =begin
@@ -367,35 +362,30 @@ end
 $TextFrames=[
   # Q.Qore
   MessageConfig::ChoiceSkinName, # Default: choice 1
-  "QChoice2c",
-  "QChoice3c",
-  "QChoice4c",
-  "QChoice5c",
-  "QChoice6c",
-  "QChoice7c",
-  "QChoice8c",
-  "choice ug 3",
+  "Choice1",
+  "Choice2",
+  "Choice3",
+  "Choice4",
+  "Choice5",
+  "Choice6",
+  "Choice7",
   # Blandy Blush Sada
-  "choice web",
+  "Choice8",
   # GSC Style
-  "choice 2",
-  "choice 2_dark",
+  "Choice9",
   # HGSS Style
-  "choice hgss 1",
-  "choice hgss 2",
-  "choice hgss 3",
-  "choice hgss 4",
-  "choice hgss 5",
-  "choice hgss 6",
-  "choice hgss 7",
-  "choice hgss 13",
-  "choice 23",
+  "Choice10",
+  "Choice11",
+  "Choice12",
+  "Choice13",
+  "Choice14",
+  "Choice15",
+  "Choice16",
+  "Choice17",
+  "Choice18",
   # DP Style
-  "choice dp 3",
-  "choice dp 18",
-  # Others
-  "001-Blue01",
-  "Window"
+  "Choice19",
+  "Choice20"
 ]
 
 =begin

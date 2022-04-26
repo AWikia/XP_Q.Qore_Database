@@ -367,11 +367,11 @@ class PokemonMartScene
     @sprites["moneywindow"].width=190
     @sprites["moneywindow"].height=96
     if ($PokemonSystem.darkmode==0 rescue false)
-      @sprites["moneywindow"].baseColor=MessageConfig::DARKTEXTBASE
-      @sprites["moneywindow"].shadowColor=MessageConfig::DARKTEXTSHADOW
+      @sprites["moneywindow"].baseColor=Color.new(88,88,80)
+      @sprites["moneywindow"].shadowColor=Color.new(168,184,184)
     else
-      @sprites["moneywindow"].baseColor=MessageConfig::LIGHTTEXTBASE
-      @sprites["moneywindow"].shadowColor=MessageConfig::LIGHTEXTSHADOW
+      @sprites["moneywindow"].baseColor=Color.new(248,248,240)
+      @sprites["moneywindow"].shadowColor=Color.new(72,88,88)
     end  
     pbDeactivateWindows(@sprites)
     @buying=buying
@@ -421,11 +421,11 @@ class PokemonMartScene
     @sprites["moneywindow"].width=186
     @sprites["moneywindow"].height=96
     if ($PokemonSystem.darkmode==0 rescue false)
-      @sprites["moneywindow"].baseColor=MessageConfig::DARKTEXTBASE
-      @sprites["moneywindow"].shadowColor=MessageConfig::DARKTEXTSHADOW
+      @sprites["moneywindow"].baseColor=Color.new(88,88,80)
+      @sprites["moneywindow"].shadowColor=Color.new(168,184,184)
     else
-      @sprites["moneywindow"].baseColor=MessageConfig::LIGHTTEXTBASE
-      @sprites["moneywindow"].shadowColor=MessageConfig::LIGHTEXTSHADOW
+      @sprites["moneywindow"].baseColor=Color.new(248,248,240)
+      @sprites["moneywindow"].shadowColor=Color.new(72,88,88)
     end  
     pbDeactivateWindows(@sprites)
     @buying=false

@@ -1286,11 +1286,11 @@ def pbDisplayGoldWindow(msgwindow)
   goldwindow=Window_AdvancedTextPokemon.new(_INTL("Money:\n<ar>{1}</ar>",moneyString))
   goldwindow.setSkin("Graphics/Windowskins/"+getDarkModeFolder+"/"+"goldskin")
   if ($PokemonSystem.darkmode==0 rescue false)
-    goldwindow.baseColor=MessageConfig::DARKTEXTBASE
-    goldwindow.shadowColor=MessageConfig::DARKTEXTSHADOW
+    goldwindow.baseColor=Color.new(88,88,80)
+    goldwindow.shadowColor=Color.new(168,184,184)
   else
-    goldwindow.baseColor=MessageConfig::LIGHTTEXTBASE
-    goldwindow.shadowColor=MessageConfig::LIGHTEXTSHADOW
+    goldwindow.baseColor=Color.new(248,248,240)
+    goldwindow.shadowColor=Color.new(72,88,88)
   end
   goldwindow.resizeToFit(goldwindow.text,Graphics.width)
   goldwindow.width=160 if goldwindow.width<=160
@@ -1329,11 +1329,11 @@ def pbDisplayCoinsWindow(msgwindow,goldwindow)
   coinwindow=Window_AdvancedTextPokemon.new(_INTL("Coins:\n<ar>{1}</ar>",coinString))
   coinwindow.setSkin("Graphics/Windowskins/"+getDarkModeFolder+"/"+"goldskin")
   if ($PokemonSystem.darkmode==0 rescue false)
-    coinwindow.baseColor=MessageConfig::DARKTEXTBASE
-    coinwindow.shadowColor=MessageConfig::DARKTEXTSHADOW
+    coinwindow.baseColor=Color.new(88,88,80)
+    coinwindow.shadowColor=Color.new(168,184,184)
   else
-    coinwindow.baseColor=MessageConfig::LIGHTTEXTBASE
-    coinwindow.shadowColor=MessageConfig::LIGHTEXTSHADOW
+    coinwindow.baseColor=Color.new(248,248,240)
+    coinwindow.shadowColor=Color.new(72,88,88)
   end  
   coinwindow.resizeToFit(coinwindow.text,Graphics.width)
   coinwindow.width=160 if coinwindow.width<=160

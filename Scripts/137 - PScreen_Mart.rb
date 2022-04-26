@@ -359,7 +359,7 @@ class PokemonMartScene
     pbBottomLeftLines(@sprites["helpwindow"],1)
     @sprites["moneywindow"]=Window_AdvancedTextPokemon.new("")
     pbPrepareWindow(@sprites["moneywindow"])
-    @sprites["moneywindow"].setSkin("Graphics/Windowskins/goldskin")
+    @sprites["moneywindow"].setSkin("Graphics/Windowskins/"+getDarkModeFolder+"/"+"goldskin")
     @sprites["moneywindow"].visible=true
     @sprites["moneywindow"].viewport=@viewport
     @sprites["moneywindow"].x=0
@@ -408,7 +408,7 @@ class PokemonMartScene
     pbBottomLeftLines(@sprites["helpwindow"],1)
     @sprites["moneywindow"]=Window_AdvancedTextPokemon.new("")
     pbPrepareWindow(@sprites["moneywindow"])
-    @sprites["moneywindow"].setSkin("Graphics/Windowskins/goldskin")
+    @sprites["moneywindow"].setSkin("Graphics/Windowskins/"+getDarkModeFolder+"/"+"goldskin")
     @sprites["moneywindow"].visible=false
     @sprites["moneywindow"].viewport=@viewport
     @sprites["moneywindow"].x=0

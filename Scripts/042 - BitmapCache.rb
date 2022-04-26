@@ -465,7 +465,7 @@ module BitmapCache
   end
 
   def self.windowskin(filename)
-    self.load_bitmap("Graphics/Windowskins/"+ filename)
+    self.load_bitmap("Graphics/Windowskins/"+getDarkModeFolder+"/"+ filename)
   end
 
   def self.tileEx(filename, tile_id, hue)

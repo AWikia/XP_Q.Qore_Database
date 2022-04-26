@@ -1954,7 +1954,7 @@ end
 module WindowskinProperty
   def self.set(settingname,oldsetting)
     chosenmap=pbListScreen(settingname,
-       GraphicsLister.new("Graphics/Windowskins/",oldsetting))
+       GraphicsLister.new("Graphics/Windowskins/"+getDarkModeFolder+"/",oldsetting))
     return chosenmap && chosenmap!="" ? chosenmap : oldsetting
   end
 

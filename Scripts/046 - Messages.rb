@@ -937,7 +937,7 @@ def Kernel.pbShowCommandsLB(msgwindow,commands=nil,cmdIfCancel=0,defaultCmd=0)
     cmdwindow=Window_CommandPokemonEx.new(commands)
     cmdwindow.z=99999
     cmdwindow.visible=true
-    cmdwindow.setSkin("Graphics/Windowskins/TrophyWindow")
+    cmdwindow.setSkin("Graphics/Windowskins/"+getDarkModeFolder+"/"+"TrophyWindow")
     cmdwindow.baseColor=Color.new(248,248,240)
     cmdwindow.shadowColor=Color.new(182,182,182)
     cmdwindow.resizeToFit(cmdwindow.commands)
@@ -1284,7 +1284,7 @@ end
 def pbDisplayGoldWindow(msgwindow)
   moneyString=pbGetGoldString()
   goldwindow=Window_AdvancedTextPokemon.new(_INTL("Money:\n<ar>{1}</ar>",moneyString))
-  goldwindow.setSkin("Graphics/Windowskins/goldskin")
+  goldwindow.setSkin("Graphics/Windowskins/"+getDarkModeFolder+"/"+"goldskin")
   goldwindow.baseColor=Color.new(88,88,80)
   goldwindow.shadowColor=Color.new(168,184,184)
   goldwindow.resizeToFit(goldwindow.text,Graphics.width)
@@ -1303,7 +1303,7 @@ end
 def pbDisplayLinkBalanceWindow(msgwindow)
   moneyString=$game_variables[1002]
   goldwindow=Window_AdvancedTextPokemon.new(_INTL("Balance:\n<ar>{1} Points</ar>",moneyString))
-  goldwindow.setSkin("Graphics/Windowskins/TrophyWindow")
+  goldwindow.setSkin("Graphics/Windowskins/"+getDarkModeFolder+"/"+"TrophyWindow")
   goldwindow.baseColor=Color.new(248,248,240)
   goldwindow.shadowColor=Color.new(182,182,182)
   goldwindow.resizeToFit(goldwindow.text,Graphics.width)
@@ -1322,7 +1322,7 @@ end
 def pbDisplayCoinsWindow(msgwindow,goldwindow)
   coinString=($PokemonGlobal) ? $PokemonGlobal.coins.to_s_formatted : "0"
   coinwindow=Window_AdvancedTextPokemon.new(_INTL("Coins:\n<ar>{1}</ar>",coinString))
-  coinwindow.setSkin("Graphics/Windowskins/goldskin")
+  coinwindow.setSkin("Graphics/Windowskins/"+getDarkModeFolder+"/"+"goldskin")
   coinwindow.baseColor=Color.new(88,88,80)
   coinwindow.shadowColor=Color.new(168,184,184)
   coinwindow.resizeToFit(coinwindow.text,Graphics.width)
@@ -1576,7 +1576,7 @@ def Kernel.pbMessageDisplay(msgwindow,message,letterbyletter=true,commandProc=ni
           if param==""
             msgwindow.windowskin=nil
           else
-            msgwindow.setSkin("Graphics/Windowskins/#{param}")
+            msgwindow.setSkin("Graphics/Windowskins/"+getDarkModeFolder+"/"+"#{param}")
           end
           msgwindow.width=msgwindow.width  # Necessary evil
         when "^" # Wait, no pause

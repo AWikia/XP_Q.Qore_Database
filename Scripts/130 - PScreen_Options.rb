@@ -296,48 +296,48 @@ end
 
 # Old Skin Frames
 =begin
-  "Graphics/Windowskins/choice 2",
-  "Graphics/Windowskins/choice 3",
-  "Graphics/Windowskins/choice 4",
-  "Graphics/Windowskins/choice 5",
-  "Graphics/Windowskins/choice 6",
-  "Graphics/Windowskins/choice 7",
-  "Graphics/Windowskins/choice 8",
-  "Graphics/Windowskins/choice 9",
-  "Graphics/Windowskins/choice 10",
-  "Graphics/Windowskins/choice 11",
-  "Graphics/Windowskins/choice 12",
-  "Graphics/Windowskins/choice 13",
-  "Graphics/Windowskins/choice 14",
-  "Graphics/Windowskins/choice 15",
-  "Graphics/Windowskins/choice 16",
-  "Graphics/Windowskins/choice 17",
-  "Graphics/Windowskins/choice 18",
-  "Graphics/Windowskins/choice 19",
-  "Graphics/Windowskins/choice 20",
-  "Graphics/Windowskins/choice 21",
-  "Graphics/Windowskins/choice 22",
-  "Graphics/Windowskins/choice 23",
-  "Graphics/Windowskins/choice 24",
-  "Graphics/Windowskins/choice 25",
-  "Graphics/Windowskins/choice 26",
-  "Graphics/Windowskins/choice 27",
-  "Graphics/Windowskins/choice 28"
+  "choice 2",
+  "choice 3",
+  "choice 4",
+  "choice 5",
+  "choice 6",
+  "choice 7",
+  "choice 8",
+  "choice 9",
+  "choice 10",
+  "choice 11",
+  "choice 12",
+  "choice 13",
+  "choice 14",
+  "choice 15",
+  "choice 16",
+  "choice 17",
+  "choice 18",
+  "choice 19",
+  "/choice 20",
+  "choice 21",
+  "choice 22",
+  "choice 23",
+  "choice 24",
+  "choice 25",
+  "choice 26",
+  "choice 27",
+  "choice 28"
 
   
-  "Graphics/Windowskins/"+MessageConfig::ChoiceSkinName, # Default: choice 1
-  "Graphics/Windowskins/chat2",
-  "Graphics/Windowskins/chat3",
-  "Graphics/Windowskins/chat4",
-  "Graphics/Windowskins/chat5",
-  "Graphics/Windowskins/chat6",
-  "Graphics/Windowskins/chat7",
-  "Graphics/Windowskins/chat8",
-  "Graphics/Windowskins/chat9",
-  "Graphics/Windowskins/chat10",
-  "Graphics/Windowskins/chat11",
-  "Graphics/Windowskins/chat12",
-  "Graphics/Windowskins/chat13"  
+  MessageConfig::ChoiceSkinName, # Default: choice 1
+  "chat2",
+  "chat3",
+  "chat4",
+  "chat5",
+  "chat6",
+  "chat7",
+  "chat8",
+  "chat9",
+  "chat10",
+  "chat11",
+  "chat12",
+  "chat13"  
   "color2",
   "color3",
   "color4",
@@ -366,36 +366,36 @@ end
 
 $TextFrames=[
   # Q.Qore
-  "Graphics/Windowskins/"+MessageConfig::ChoiceSkinName, # Default: choice 1
-  "Graphics/Windowskins/QChoice2c",
-  "Graphics/Windowskins/QChoice3c",
-  "Graphics/Windowskins/QChoice4c",
-  "Graphics/Windowskins/QChoice5c",
-  "Graphics/Windowskins/QChoice6c",
-  "Graphics/Windowskins/QChoice7c",
-  "Graphics/Windowskins/QChoice8c",
-  "Graphics/Windowskins/choice ug 3",
+  MessageConfig::ChoiceSkinName, # Default: choice 1
+  "QChoice2c",
+  "QChoice3c",
+  "QChoice4c",
+  "QChoice5c",
+  "QChoice6c",
+  "QChoice7c",
+  "QChoice8c",
+  "choice ug 3",
   # Blandy Blush Sada
-  "Graphics/Windowskins/choice web",
+  "choice web",
   # GSC Style
-  "Graphics/Windowskins/choice 2",
-  "Graphics/Windowskins/choice 2_dark",
+  "choice 2",
+  "choice 2_dark",
   # HGSS Style
-  "Graphics/Windowskins/choice hgss 1",
-  "Graphics/Windowskins/choice hgss 2",
-  "Graphics/Windowskins/choice hgss 3",
-  "Graphics/Windowskins/choice hgss 4",
-  "Graphics/Windowskins/choice hgss 5",
-  "Graphics/Windowskins/choice hgss 6",
-  "Graphics/Windowskins/choice hgss 7",
-  "Graphics/Windowskins/choice hgss 13",
-  "Graphics/Windowskins/choice 23",
+  "choice hgss 1",
+  "choice hgss 2",
+  "choice hgss 3",
+  "choice hgss 4",
+  "choice hgss 5",
+  "choice hgss 6",
+  "choice hgss 7",
+  "choice hgss 13",
+  "choice 23",
   # DP Style
-  "Graphics/Windowskins/choice dp 3",
-  "Graphics/Windowskins/choice dp 18",
+  "choice dp 3",
+  "choice dp 18",
   # Others
-  "Graphics/Windowskins/001-Blue01",
-  "Graphics/Windowskins/Window"
+  "001-Blue01",
+  "Window"
 ]
 
 =begin
@@ -434,17 +434,17 @@ end
 module MessageConfig
   def self.pbDefaultSystemFrame
     if !$PokemonSystem
-      return pbResolveBitmap("Graphics/Windowskins/"+MessageConfig::ChoiceSkinName)||""
+      return pbResolveBitmap("Graphics/Windowskins/"+getDarkModeFolder+"/"+MessageConfig::ChoiceSkinName)||""
     else
-      return pbResolveBitmap($TextFrames[$PokemonSystem.textskin])||""
+      return pbResolveBitmap("Graphics/Windowskins/"+getDarkModeFolder+"/"+$TextFrames[$PokemonSystem.textskin])||""
     end
   end
 
   def self.pbDefaultSpeechFrame
     if !$PokemonSystem
-      return pbResolveBitmap("Graphics/Windowskins/"+MessageConfig::TextSkinName)||""
+      return pbResolveBitmap("Graphics/Windowskins/"+getDarkModeFolder+"/"+MessageConfig::TextSkinName)||""
     else
-      return pbResolveBitmap("Graphics/Windowskins/"+$SpeechFrames[$PokemonSystem.textskin])||""
+      return pbResolveBitmap("Graphics/Windowskins/"+getDarkModeFolder+"/"+$SpeechFrames[$PokemonSystem.textskin])||""
     end
   end
 
@@ -500,6 +500,7 @@ class PokemonSystem
   attr_accessor :temps
   attr_accessor :mechanics
   attr_accessor :accentcolor
+  attr_accessor :darkmode
   
   def initialize
     @textspeed        = 2   # Frames Per Second (0=24, 1=30, 2=40, 3=50)
@@ -534,6 +535,7 @@ class PokemonSystem
     @temps            = 0   # Temperature Display (0 = Celsius, 1 = Fahrenheit)
     @mechanics        = 1   # Battle Mechanics
     @accentcolor      = 0   # Accent Color
+    @darkmode         = 0   # Theme Mode (0 = Light, 1 = Dark)
 end
   
   def language
@@ -636,6 +638,11 @@ end
   def accentcolor
     return (!@accentcolor) ? 0 : @accentcolor
   end    
+
+  def darkmode
+    return (!@darkmode) ? 0 : @darkmode
+  end    
+
   
   def tilemap; return MAPVIEWMODE; end
 
@@ -722,9 +729,6 @@ There are different modes:
     @viewport.z=99999
     @sprites["title"]=Window_UnformattedTextPokemon.newWithSize(
        title[mode],0,0,Graphics.width,64,@viewport)
-  #  @sprites["title"].setSkin("Graphics/Windowskins/goldskin")
-#    @sprites["title"].baseColor=Color.new(88,88,80)
-#    @sprites["title"].shadowColor=Color.new(168,184,184)
     @sprites["textbox"]=Kernel.pbCreateMessageWindow
     @sprites["textbox"].letterbyletter=false
     @sprites["textbox"].text=_INTL("Text Skin {1}.\n{2} Accent Color.",1+$PokemonSystem.textskin,getAccentName)
@@ -849,13 +853,21 @@ There are different modes:
       ]
     end
     if mode==3
+        EnumOption.new(_INTL("Theme"),[_INTL("Light"),_INTL("Dark")],
+           proc { $PokemonSystem.darkmode },
+           proc {|value|
+             $PokemonSystem.darkmode=value
+              MessageConfig.pbSetSpeechFrame("Graphics/Windowskins/"+getDarkModeFolder+"/"+$SpeechFrames[$PokemonSystem.textskin])
+              MessageConfig.pbSetSystemFrame("Graphics/Windowskins/"+getDarkModeFolder+"/"+$TextFrames[$PokemonSystem.textskin])
+           }
+        ),
       @PokemonOptions+=[
          NumberOption.new(_INTL("Text Skin"),1,$SpeechFrames.length,
            proc { $PokemonSystem.textskin },
            proc {|value| 
               $PokemonSystem.textskin=value
-              MessageConfig.pbSetSpeechFrame("Graphics/Windowskins/"+$SpeechFrames[value])
-              MessageConfig.pbSetSystemFrame($TextFrames[value])
+              MessageConfig.pbSetSpeechFrame("Graphics/Windowskins/"+getDarkModeFolder+"/"+$SpeechFrames[value])
+              MessageConfig.pbSetSystemFrame("Graphics/Windowskins/"+getDarkModeFolder+"/"+$TextFrames[value])
            }
          ),
          NumberOption.new(_INTL("Accent Color"),1,8,
@@ -919,11 +931,6 @@ There are different modes:
        Graphics.height-@sprites["title"].height-@sprites["textbox"].height)
     @sprites["option"].viewport=@viewport
     @sprites["option"].visible=true
-=begin
-    @sprites["option"].setSkin("Graphics/Windowskins/choice dp")
-    @sprites["option"].baseColor=Color.new(88,88,80)
-    @sprites["option"].shadowColor=Color.new(168,184,184)
-=end
     # Get the values of each option
     for i in 0...@PokemonOptions.length
       @sprites["option"][i]=(@PokemonOptions[i].get || 0)

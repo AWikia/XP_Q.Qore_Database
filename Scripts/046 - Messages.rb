@@ -1185,11 +1185,8 @@ def itemIconTag(item)
 end
 
 def getSkinColor(windowskin,color,isDarkSkin)
-  if !windowskin || windowskin.disposed? || 
-     windowskin.width!=128 || windowskin.height!=128
-    textcolors=[
-       isDarkSkin ? shadowc3tag(MessageConfig::LIGHTTEXTBASE, MessageConfig::LIGHTTEXTSHADOW) :
-                    shadowc3tag(MessageConfig::DARKTEXTBASE, MessageConfig::DARKTEXTSHADOW),
+=begin
+Old Colors:
        "<c2=7E105D08>",   # Red
        "<c2=421F2117>",   # Blue
        "<c2=43F022E8>",   # Green
@@ -1198,6 +1195,21 @@ def getSkinColor(windowskin,color,isDarkSkin)
        "<c2=43FF22F7>",   # Cyan
        "<c2=63184210>",   # Grey
        "<c2=7FFF5EF7>"    # White
+
+=end
+  if !windowskin || windowskin.disposed? || 
+     windowskin.width!=128 || windowskin.height!=128
+    textcolors=[
+       isDarkSkin ? shadowc3tag(MessageConfig::LIGHTTEXTBASE, MessageConfig::LIGHTTEXTSHADOW) :
+                    shadowc3tag(MessageConfig::DARKTEXTBASE, MessageConfig::DARKTEXTSHADOW),
+       isDarkSkin ? "<c2=39DF107D>" : "<c2=107D39DF>",   # Red
+       isDarkSkin ? "<c2=7A9648C5>" : "<c2=48C57A96>",   # Blue
+       isDarkSkin ? "<c2=67F32A80>" : "<c2=2A8067F3>",   # Green
+       isDarkSkin ? "<c2=37DF03DF>" : "<c2=03DF37DF>",   # Yellow
+       isDarkSkin ? "<c2=61DF441D>" : "<c2=441D61DF>",   # Magenta
+       isDarkSkin ? "<c2=7F4D76A0>" : "<c2=76A07F4D>",   # Cyan
+       isDarkSkin ? "<c2=67384E73>" : "<c2=4E736738>",   # Grey
+       isDarkSkin ? "<c2=7FFF6738>" : "<c2=67387FFF>",   # White
     ]
     color=0 if color>textcolors.length
     return textcolors[color]

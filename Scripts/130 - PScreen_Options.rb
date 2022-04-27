@@ -851,7 +851,7 @@ There are different modes:
     end
     if mode==3
       @PokemonOptions+=[
-        EnumOption.new(_INTL("Theme"),[_INTL("Light"),_INTL("Dark")],
+        EnumOption.new(_INTL("System Theme"),[_INTL("Light"),_INTL("Dark")],
            proc { $PokemonSystem.darkmode },
            proc {|value|
              $PokemonSystem.darkmode=value

@@ -217,7 +217,8 @@ class Scene_LinkBattle
                  PBItems::BEASTBALL,
                  PBItems::RODOFSPARROW,
                  PBItems::RARECANDY,
-                 PBItems::VICIOUSCANDY]
+                 PBItems::VICIOUSCANDY,
+                 PBItems::RELICFLOWER]
           prices=[50,
                   100,
                   150,
@@ -233,7 +234,8 @@ class Scene_LinkBattle
                   1000,
                   1500,
                   2000,
-                  4000]
+                  4000,
+                  8000]
         loop do
           commands=[
                   _INTL("Poké Ball (50 Points)"),
@@ -252,6 +254,7 @@ class Scene_LinkBattle
                   _INTL("Rod of Sparrow (1500 Points)"),
                   _INTL("Rare Candy (2000 Points)"),
                   _INTL("Vicious Candy (4000 Points)"),
+                  _INTL("Relic Flower (8000 Points)"),
                   _INTL("Cancel")]
           command=Kernel.pbMessageLB(
               _INTL("\\g[1]\\c[8]\\w[TrophyWindow]Which item would you like to buy?"),commands,-1)

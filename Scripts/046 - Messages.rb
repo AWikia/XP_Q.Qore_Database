@@ -1202,12 +1202,12 @@ Old Colors:
     textcolors=[
        isDarkSkin ? shadowc3tag(MessageConfig::LIGHTTEXTBASE, MessageConfig::LIGHTTEXTSHADOW) :
                     shadowc3tag(MessageConfig::DARKTEXTBASE, MessageConfig::DARKTEXTSHADOW),
-       isDarkSkin ? "<c2=39DF107D>" : "<c2=107D39DF>",   # Red
        isDarkSkin ? "<c2=7A9648C5>" : "<c2=48C57A96>",   # Blue
+       isDarkSkin ? "<c2=39DF107D>" : "<c2=107D39DF>",   # Red
        isDarkSkin ? "<c2=67F32A80>" : "<c2=2A8067F3>",   # Green
-       isDarkSkin ? "<c2=37DF03DF>" : "<c2=03DF37DF>",   # Yellow
-       isDarkSkin ? "<c2=61DF441D>" : "<c2=441D61DF>",   # Magenta
        isDarkSkin ? "<c2=7F4D76A0>" : "<c2=76A07F4D>",   # Cyan
+       isDarkSkin ? "<c2=61DF441D>" : "<c2=441D61DF>",   # Magenta
+       isDarkSkin ? "<c2=37DF03DF>" : "<c2=03DF37DF>",   # Yellow
        isDarkSkin ? "<c2=67384E73>" : "<c2=4E736738>",   # Grey
        isDarkSkin ? "<c2=7FFF6738>" : "<c2=67387FFF>",   # White
     ]

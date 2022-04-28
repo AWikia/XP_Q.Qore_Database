@@ -288,7 +288,10 @@ end
   "Skin18",
   # DP Style
   "Skin19",
-  "Skin20"
+  "Skin20",
+  # Other
+  "Skin21",
+  "Skin22"
 ]
 # 2 more colors
 =begin
@@ -392,7 +395,10 @@ $TextFrames=[
   "Choice18",
   # DP Style
   "Choice19",
-  "Choice20"
+  "Choice20",
+  # Other
+  "Skin21",
+  "Skin22"
 ]
 
 =begin

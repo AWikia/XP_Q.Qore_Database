@@ -237,7 +237,8 @@ RIVALNAMES = [
    [:RIVAL2,12],
    [:CHAMPION,12],
    [:POKEMONTRAINER_Lyrithya,15],
-   [:POKEMONTRAINER_Leaf,16]
+   [:POKEMONTRAINER_Leaf,16],
+   [:LINKER,1004]
 ]
 
 #===============================================================================

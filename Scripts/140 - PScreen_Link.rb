@@ -180,16 +180,18 @@ class Scene_LinkBattle
           point=[50,100,150,200,300][command]
           double= Kernel.pbConfirmMessageLB(_INTL("\\c[8]\\w[TrophyWindow]The battle is normally single. However, you can do a double battle. Do you want to do it so?"))
           $PokemonGlobal.nextBattleBack="000"
+          cpuname = ['Nic','Karla','Jimmy','Britney','Duncan','Kelli','Todd','Nina','Ross','Heidi','Steven','Miriam','Darrell','Teresa','Reed','Aubrey','Chris','Kelly','Brad','Naomi','Dwight','Abby','Randy','Denise','Andy','Tamara','Joey','Linda','Eric','Faith','Mark','Mari','Maggie'][rand(33)]
+          pbSet(1004,cpuname)
           if pbTrainerBattle(:LINKER,trainer,_I(trainer2),double,0,true,0)
-            Kernel.pbMessage(_INTL("\\c[8]\\w[TrophyWindow]You seem to be a strong player. Get your prize."))
+            Kernel.pbMessage(_INTL("\\c[8]\\w[TrophyWindow]You won against {1} as you seem to be a strong player. Get your prize.",cpuname))
             $game_variables[1001] += 1
             $game_variables[1002] += point
             Kernel.pbMessage(_INTL("\\c[8]\\w[TrophyWindow]\\me[EvolutionSuccess_1]Obtained {1} Link Points!\\wtnp[30]",point)) if $PokemonSystem.vrtrophynotif==0 rescue false
             Kernel.pbReceiveTrophy(:TLINKER)
             Kernel.pbMessage(_INTL("\\c[8]\\w[TrophyWindow]You can use these to purchase various items."))
           else
-            Kernel.pbMessage(_INTL("\\c[8]\\w[TrophyWindow]You seem to have weaker species. Better luck next time"))
-          end
+            Kernel.pbMessage(_INTL("\\c[8]\\w[TrophyWindow]You lost against {1} as you seem to have weaker species. Better luck next time",cpuname))
+            end
           # End Battle
           $game_variables[1003] = 0
         end

@@ -55,7 +55,8 @@ def getBorders # Edit this to add more borders
         "border_2",
         ['border_3','border_3_beta','border_3_dev','border_3_canary'][QQORECHANNEL],
         getAccentFolder+"/border_4",
-        getDarkModeFolder+"/border_5"
+        getDarkModeFolder+"/border_5",
+        getDarkModeFolder+"/border_6"
       ]
 end
             

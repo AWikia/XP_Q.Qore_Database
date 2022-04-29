@@ -861,6 +861,7 @@ There are different modes:
            proc { $PokemonSystem.darkmode },
            proc {|value|
              $PokemonSystem.darkmode=value
+             setScreenBorderName($BORDERS[$PokemonSystem.bordergraphic]) # Accented Border
            }
         ),
          NumberOption.new(_INTL("Text Skin"),1,$SpeechFrames.length,

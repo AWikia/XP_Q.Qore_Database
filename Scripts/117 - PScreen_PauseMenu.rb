@@ -49,27 +49,12 @@ class PokemonMenu_Scene
     @viewport.z=99999
     @sprites={}
     @sprites["cmdwindow"]=Window_CommandPokemon.new([])
-=begin
-    @sprites["cmdwindow"].setSkin("Graphics/Windowskins/choice dp")
-    @sprites["cmdwindow"].baseColor=Color.new(88,88,80)
-    @sprites["cmdwindow"].shadowColor=Color.new(168,184,184)
-=end
     @sprites["infowindow"]=Window_UnformattedTextPokemon.newWithSize("",0,0,32,32,@viewport)
     @sprites["infowindow"].visible=false
-=begin
-    @sprites["infowindow"].setSkin("Graphics/Windowskins/choice dp")
-    @sprites["infowindow"].baseColor=Color.new(88,88,80)
-    @sprites["infowindow"].shadowColor=Color.new(168,184,184)
-=end
     @sprites["infowindow"].z=601
     @sprites["helpwindow"]=Window_UnformattedTextPokemon.newWithSize("",0,0,32,32,@viewport)
     @sprites["helpwindow"].visible=false
     @sprites["helpwindow"].z=601
-=begin
-    @sprites["helpwindow"].setSkin("Graphics/Windowskins/choice dp")
-    @sprites["helpwindow"].baseColor=Color.new(88,88,80)
-    @sprites["helpwindow"].shadowColor=Color.new(168,184,184)
-=end
     @sprites["cmdwindow"].visible=false
     @sprites["cmdwindow"].z=601
     @sprites["curtain"]=BitmapSprite.new(Graphics.width,Graphics.height,@viewport)

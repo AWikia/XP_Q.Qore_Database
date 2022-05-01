@@ -937,7 +937,7 @@ def Kernel.pbShowCommandsLB(msgwindow,commands=nil,cmdIfCancel=0,defaultCmd=0)
     cmdwindow=Window_CommandPokemonEx.new(commands)
     cmdwindow.z=99999
     cmdwindow.visible=true
-    cmdwindow.setSkin("Graphics/Windowskins/TrophyWindow")
+    cmdwindow.setSkin("Graphics/Windowskins/"+getDarkModeFolder+"/"+"TrophyWindow")
     cmdwindow.baseColor=Color.new(248,248,240)
     cmdwindow.shadowColor=Color.new(182,182,182)
     cmdwindow.resizeToFit(cmdwindow.commands)
@@ -1185,11 +1185,8 @@ def itemIconTag(item)
 end
 
 def getSkinColor(windowskin,color,isDarkSkin)
-  if !windowskin || windowskin.disposed? || 
-     windowskin.width!=128 || windowskin.height!=128
-    textcolors=[
-       isDarkSkin ? shadowc3tag(MessageConfig::LIGHTTEXTBASE, MessageConfig::LIGHTTEXTSHADOW) :
-                    shadowc3tag(MessageConfig::DARKTEXTBASE, MessageConfig::DARKTEXTSHADOW),
+=begin
+Old Colors:
        "<c2=7E105D08>",   # Red
        "<c2=421F2117>",   # Blue
        "<c2=43F022E8>",   # Green
@@ -1198,6 +1195,21 @@ def getSkinColor(windowskin,color,isDarkSkin)
        "<c2=43FF22F7>",   # Cyan
        "<c2=63184210>",   # Grey
        "<c2=7FFF5EF7>"    # White
+
+=end
+  if !windowskin || windowskin.disposed? || 
+     windowskin.width!=128 || windowskin.height!=128
+    textcolors=[
+       isDarkSkin ? shadowc3tag(MessageConfig::LIGHTTEXTBASE, MessageConfig::LIGHTTEXTSHADOW) :
+                    shadowc3tag(MessageConfig::DARKTEXTBASE, MessageConfig::DARKTEXTSHADOW),
+       isDarkSkin ? "<c2=7A9648C5>" : "<c2=48C57A96>",   # Blue
+       isDarkSkin ? "<c2=39DF107D>" : "<c2=107D39DF>",   # Red
+       isDarkSkin ? "<c2=67F32A80>" : "<c2=2A8067F3>",   # Green
+       isDarkSkin ? "<c2=7F4D76A0>" : "<c2=76A07F4D>",   # Cyan
+       isDarkSkin ? "<c2=61DF441D>" : "<c2=441D61DF>",   # Magenta
+       isDarkSkin ? "<c2=37DF03DF>" : "<c2=03DF37DF>",   # Yellow
+       isDarkSkin ? "<c2=67384E73>" : "<c2=4E736738>",   # Grey
+       isDarkSkin ? "<c2=7FFF6738>" : "<c2=67387FFF>",   # White
     ]
     color=0 if color>textcolors.length
     return textcolors[color]
@@ -1284,9 +1296,14 @@ end
 def pbDisplayGoldWindow(msgwindow)
   moneyString=pbGetGoldString()
   goldwindow=Window_AdvancedTextPokemon.new(_INTL("Money:\n<ar>{1}</ar>",moneyString))
-  goldwindow.setSkin("Graphics/Windowskins/goldskin")
-  goldwindow.baseColor=Color.new(88,88,80)
-  goldwindow.shadowColor=Color.new(168,184,184)
+  goldwindow.setSkin("Graphics/Windowskins/"+getDarkModeFolder+"/"+"goldskin")
+  if ($PokemonSystem.darkmode==0 rescue false)
+    goldwindow.baseColor=Color.new(88,88,80)
+    goldwindow.shadowColor=Color.new(168,184,184)
+  else
+    goldwindow.baseColor=Color.new(248,248,240)
+    goldwindow.shadowColor=Color.new(72,88,88)
+  end
   goldwindow.resizeToFit(goldwindow.text,Graphics.width)
   goldwindow.width=160 if goldwindow.width<=160
   if msgwindow.y==0
@@ -1303,7 +1320,7 @@ end
 def pbDisplayLinkBalanceWindow(msgwindow)
   moneyString=$game_variables[1002]
   goldwindow=Window_AdvancedTextPokemon.new(_INTL("Balance:\n<ar>{1} Points</ar>",moneyString))
-  goldwindow.setSkin("Graphics/Windowskins/TrophyWindow")
+  goldwindow.setSkin("Graphics/Windowskins/"+getDarkModeFolder+"/"+"TrophyWindow")
   goldwindow.baseColor=Color.new(248,248,240)
   goldwindow.shadowColor=Color.new(182,182,182)
   goldwindow.resizeToFit(goldwindow.text,Graphics.width)
@@ -1322,9 +1339,14 @@ end
 def pbDisplayCoinsWindow(msgwindow,goldwindow)
   coinString=($PokemonGlobal) ? $PokemonGlobal.coins.to_s_formatted : "0"
   coinwindow=Window_AdvancedTextPokemon.new(_INTL("Coins:\n<ar>{1}</ar>",coinString))
-  coinwindow.setSkin("Graphics/Windowskins/goldskin")
-  coinwindow.baseColor=Color.new(88,88,80)
-  coinwindow.shadowColor=Color.new(168,184,184)
+  coinwindow.setSkin("Graphics/Windowskins/"+getDarkModeFolder+"/"+"goldskin")
+  if ($PokemonSystem.darkmode==0 rescue false)
+    coinwindow.baseColor=Color.new(88,88,80)
+    coinwindow.shadowColor=Color.new(168,184,184)
+  else
+    coinwindow.baseColor=Color.new(248,248,240)
+    coinwindow.shadowColor=Color.new(72,88,88)
+  end  
   coinwindow.resizeToFit(coinwindow.text,Graphics.width)
   coinwindow.width=160 if coinwindow.width<=160
   if msgwindow.y==0
@@ -1576,7 +1598,7 @@ def Kernel.pbMessageDisplay(msgwindow,message,letterbyletter=true,commandProc=ni
           if param==""
             msgwindow.windowskin=nil
           else
-            msgwindow.setSkin("Graphics/Windowskins/#{param}")
+            msgwindow.setSkin("Graphics/Windowskins/"+getDarkModeFolder+"/"+"#{param}")
           end
           msgwindow.width=msgwindow.width  # Necessary evil
         when "^" # Wait, no pause

@@ -33,7 +33,7 @@ def qoreInitials
     $newmech= $PokemonSystem.mechanics
     $TEST=($debugmode==1) ? true : false
     $DEBUG=($debugmode==1) ? true : false
-    $REGIONALCOMBO=1030
+    $REGIONALCOMBO=1050
     $USENEWBATTLEMECHANICS=($newmech==1) ? true : false
     $inbattle=false # Initialization
     value=$PokemonSystem.textspeed
@@ -54,7 +54,9 @@ def getBorders # Edit this to add more borders
         "border_1",
         "border_2",
         ['border_3','border_3_beta','border_3_dev','border_3_canary'][QQORECHANNEL],
-        getAccentFolder+"/border_4"
+        getAccentFolder+"/border_4",
+        getDarkModeFolder+"/border_5",
+        getDarkModeFolder+"/border_6"
       ]
 end
             

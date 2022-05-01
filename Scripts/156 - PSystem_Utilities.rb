@@ -168,9 +168,10 @@ end
 
 # About Q.Qore
 def qortexAbout
-  @QQSR="\\l[3]"
+  @QQSR="\\l[4]"
   @QQSR+="Q.Qore Channel:" + RTP2.getGameIniValue("Qortex", "Channel")
   @QQSR+="\\nQ.Qore Release:" + RTP2.getGameIniValue("Qortex", "Release")
+  @QQSR+="\\nQ.Qore Semester:" + RTP2.getGameIniValue("Qortex", "Semester")
   @QQSR+="\\nQ.Qore Version:" + RTP2.getGameIniValue("Qortex", "Version") 
   Kernel.pbMessage(@QQSR)
 end
@@ -382,6 +383,16 @@ def getAccentFolder
   end
 end
 
+# Returns the Dark Mode Folder
+def getDarkModeFolder
+  if $PokemonSystem
+    return ["","Dark Mode"][$PokemonSystem.darkmode]
+  else
+    return ""
+  end
+end
+
+# Returns the Active Accent Color
 def getAccentName
   if $PokemonSystem
     return ["Blue", "Purple", "Pink", "Red", "Orange", "Yellow", "Green", "Gray"][$PokemonSystem.accentcolor]
@@ -1909,7 +1920,7 @@ def pbPlayCry(pokemon,volume=85,pitch=nil)
       pkmnwav=pbCryFile(pokemon)
       if pkmnwav
         pbSEPlay(RPG::AudioFile.new(pkmnwav,volume,
-           pitch ? pitch : (pokemon.hp*50/pokemon.totalhp)+50)) rescue nil
+           pitch ? pitch : (pokemon.hp*25/pokemon.totalhp)+75)) rescue nil
       end
     end
   end

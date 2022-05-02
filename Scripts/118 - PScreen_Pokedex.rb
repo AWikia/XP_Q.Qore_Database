@@ -402,8 +402,8 @@ class PokemonPokedexScene
       @sprites["auxlist"].baseColor=MessageConfig::DARKTEXTBASE
       @sprites["auxlist"].shadowColor=MessageConfig::DARKTEXTSHADOW
     else
-      @sprites["auxlist"].baseColor=MessageConfig::DARKTEXTBASE
-      @sprites["auxlist"].shadowColor=MessageConfig::DARKTEXTSHADOW
+      @sprites["auxlist"].baseColor=MessageConfig::LIGHTTEXTBASE
+      @sprites["auxlist"].shadowColor=MessageConfig::LIGHTTEXTSHADOW
     end
     @sprites["auxlist"].visible=false
     @sprites["messagebox"]=Window_UnformattedTextPokemon.newWithSize("",316,256,328,128,@viewport)

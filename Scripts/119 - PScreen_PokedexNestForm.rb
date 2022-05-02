@@ -45,9 +45,9 @@ class PokemonNestMapScene
     end
     @sprites["background"]=IconSprite.new(0,0,@viewport)
   if pbGetPokedexRegion==-1 # Using national Pokédex
-    @sprites["background"].setBitmap(_INTL("Graphics/Pictures/pokedexNest"))
+    @sprites["background"].setBitmap(_INTL("Graphics/Pictures/"+getDarkModeFolder+"/pokedexNest"))
   else
-    @sprites["background"].setBitmap(_INTL("Graphics/Pictures/pokedexNest"))
+    @sprites["background"].setBitmap(_INTL("Graphics/Pictures/"+getDarkModeFolder+"/pokedexNest"))
 #    @sprites["background"].setBitmap(_INTL("Graphics/Pictures/pokedexNestREGION"))
   end  
     @sprites["map"]=IconSprite.new(0,0,@viewport)
@@ -67,26 +67,31 @@ class PokemonNestMapScene
         ])
       end
     end
+    if ($PokemonSystem.darkmode==0 rescue false)
+      color = 248
+    else
+      color = 56
+    end
     @point=BitmapWrapper.new(PokemonRegionMapScene::SQUAREWIDTH+4,
                              PokemonRegionMapScene::SQUAREHEIGHT+4)
     @point.fill_rect(0,0,
                      PokemonRegionMapScene::SQUAREWIDTH+4,
-                     PokemonRegionMapScene::SQUAREHEIGHT+4,Color.new(0,248,248))
+                     PokemonRegionMapScene::SQUAREHEIGHT+4,Color.new(0,color,color))
     @point2=BitmapWrapper.new(PokemonRegionMapScene::SQUAREWIDTH+4,
                               PokemonRegionMapScene::SQUAREHEIGHT+4)
     @point2.fill_rect(4,0,
                       PokemonRegionMapScene::SQUAREWIDTH,
-                      PokemonRegionMapScene::SQUAREHEIGHT+4,Color.new(0,248,248))
+                      PokemonRegionMapScene::SQUAREHEIGHT+4,Color.new(0,color,color))
     @point3=BitmapWrapper.new(PokemonRegionMapScene::SQUAREWIDTH+4,
                               PokemonRegionMapScene::SQUAREHEIGHT+4)
     @point3.fill_rect(0,4,
                       PokemonRegionMapScene::SQUAREWIDTH+4,
-                      PokemonRegionMapScene::SQUAREHEIGHT,Color.new(0,248,248))
+                      PokemonRegionMapScene::SQUAREHEIGHT,Color.new(0,color,color))
     @point4=BitmapWrapper.new(PokemonRegionMapScene::SQUAREWIDTH+4,
                               PokemonRegionMapScene::SQUAREHEIGHT+4)
     @point4.fill_rect(4,4,
                       PokemonRegionMapScene::SQUAREWIDTH,
-                      PokemonRegionMapScene::SQUAREHEIGHT,Color.new(0,248,248))
+                      PokemonRegionMapScene::SQUAREHEIGHT,Color.new(0,color,color))
     encdata=load_data("Data/encounters.dat")
     points=[]
     mapwidth=1+PokemonRegionMapScene::RIGHT-PokemonRegionMapScene::LEFT
@@ -237,9 +242,9 @@ class PokedexFormScene
     @sprites["downarrow"].play
     @sprites["downarrow"].visible = false
   if pbGetPokedexRegion==-1 # Using national Pokédex
-    @sprites["background"].setBitmap(_INTL("Graphics/Pictures/pokedexForm"))
+    @sprites["background"].setBitmap(_INTL("Graphics/Pictures/"+getDarkModeFolder+"/pokedexForm"))
   else
-    @sprites["background"].setBitmap(_INTL("Graphics/Pictures/pokedexForm"))
+    @sprites["background"].setBitmap(_INTL("Graphics/Pictures/"+getDarkModeFolder+"/pokedexForm"))
 #    @sprites["background"].setBitmap(_INTL("Graphics/Pictures/pokedexFormREGION"))
   end
     @sprites["info"]=BitmapSprite.new(Graphics.width,Graphics.height,@viewport)
@@ -288,13 +293,20 @@ class PokedexFormScene
 
 =end
 
+    if ($PokemonSystem.darkmode==0 rescue false)
+      color=Color.new(20,20,20)
+    else
+      color=Color.new(248,248,248)
+    end
+
+
     text=[
        [sprintf("%s",PBSpecies.getName(@species)),
           (Graphics.width+0)/2,Graphics.height-86,2,
-          Color.new(20,20,20)],
+          color],
        [sprintf("%s",name),
           (Graphics.width+0)/2,Graphics.height-54,2,
-          Color.new(20,20,20)],
+          color],
     ]
 
     pbDrawTextPositions(@sprites["info"].bitmap,text)

@@ -75,13 +75,11 @@ def renderLineBrokenChunksWithShadow(bitmap,xDst,yDst,normtext,maxheight,baseCol
     if maxheight==0 || normtext[i][2]<maxheight
       height=normtext[i][4]
       text=normtext[i][0]
-      if shadowColor
+      if shadowColor && (shadowColor !=0)
         bitmap.font.color=shadowColor
      #   bitmap.draw_text(textx+2,texty,width+2,height,text)
      #   bitmap.draw_text(textx,texty+2,width+2,height,text)
-       if !baseColor
-      #    bitmap.draw_text(textx+2,texty+2,width+2,height,text)
-        end
+        bitmap.draw_text(textx+2,texty+2,width+2,height,text)
       end
       bitmap.font.color=baseColor
       bitmap.draw_text(textx,texty,width+2,height,text)
@@ -97,7 +95,7 @@ def renderLineBrokenChunksWithOutline(bitmap,xDst,yDst,normtext,maxheight,baseCo
     if maxheight==0 || normtext[i][2]<maxheight
       height=normtext[i][4]
       text=normtext[i][0]
-      if shadowColor
+      if shadowColor && (shadowColor !=0)
         bitmap.font.color=shadowColor
         bitmap.draw_text(textx-2,texty-2,width+2,height,text)
         bitmap.draw_text(textx,texty-2,width+2,height,text)

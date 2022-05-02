@@ -133,7 +133,7 @@ end
 class Window_Pokedex < Window_DrawableCommand
   def initialize(x,y,width,height)
     if pbGetPokedexRegion==-1 # Using national Pokédex
-    @pokeballOwned=AnimatedBitmap.new("Graphics/Pictures/"+getDarkModeFolder+"/pokedexOwned")
+    @pokeballOwned=AnimatedBitmap.new("Graphics/Pictures/pokedexOwned")
     @pokeballSeen=AnimatedBitmap.new("Graphics/Pictures/pokedexSeen")
     else
 #    @pokeballOwned=AnimatedBitmap.new("Graphics/Pictures/pokedexOwnedREGION")
@@ -148,13 +148,8 @@ class Window_Pokedex < Window_DrawableCommand
 #    self.baseColor=Color.new(88,88,80)
 #    self.shadowColor=Color.new(168,184,184)
 #    self.baseColor=Color.new(77,38,115)
-
-    if ($PokemonSystem.darkmode==0 rescue false)
-      self.baseColor=Color.new(20,20,20)
-    else
-      self.baseColor=Color.new(248,248,248)
-    end
-    self.shadowColor=nil
+    self.baseColor=Color.new(20,20,20)
+    self.shadowColor=Color.new(140,83,198)
 
   end
 
@@ -368,12 +363,12 @@ class PokemonPokedexScene
     @sprites["pokedex"].viewport=@viewport
     @sprites["dexentry"]=IconSprite.new(0,0,@viewport)
     @sprites["dexentry2"]=IconSprite.new(0,0,@viewport)
-    @sprites["dexentry2"].setBitmap(_INTL("Graphics/Pictures/"+getDarkModeFolder+"/pokedexEntry_2"))
+    @sprites["dexentry2"].setBitmap(_INTL("Graphics/Pictures/pokedexEntry_2"))
   if pbGetPokedexRegion==-1 # Using national Pokédex
-    @sprites["dexentry"].setBitmap(_INTL("Graphics/Pictures/"+getDarkModeFolder+"/pokedexEntry"))
+    @sprites["dexentry"].setBitmap(_INTL("Graphics/Pictures/pokedexEntry"))
   else
 #    @sprites["dexentry"].setBitmap(_INTL("Graphics/Pictures/pokedexEntryREGION"))
-    @sprites["dexentry"].setBitmap(_INTL("Graphics/Pictures/"+getDarkModeFolder+"/pokedexEntry"))
+    @sprites["dexentry"].setBitmap(_INTL("Graphics/Pictures/pokedexEntry"))
   end
     @sprites["dexentry"].visible=false
     @sprites["dexentry2"].visible=false
@@ -389,31 +384,16 @@ class PokemonPokedexScene
     @sprites["searchtitle"].text=_ISPRINTF("Search Mode")
     @sprites["searchtitle"].visible=false
     @sprites["searchlist"]=Window_ComplexCommandPokemon.newEmpty(-6,32,284,352,@viewport)
-    if ($PokemonSystem.darkmode==0 rescue false)
-      @sprites["searchlist"].baseColor=MessageConfig::DARKTEXTBASE
-      @sprites["searchlist"].shadowColor=MessageConfig::DARKTEXTSHADOW
-    else
-      @sprites["searchlist"].baseColor=MessageConfig::LIGHTTEXTBASE
-      @sprites["searchlist"].shadowColor=MessageConfig::LIGHTTEXTSHADOW
-    end
+    @sprites["searchlist"].baseColor=MessageConfig::DARKTEXTBASE
+    @sprites["searchlist"].shadowColor=MessageConfig::DARKTEXTSHADOW
     @sprites["searchlist"].visible=false
     @sprites["auxlist"]=Window_CommandPokemonWhiteArrow.newEmpty(318,32,348,224,@viewport)
-    if ($PokemonSystem.darkmode==0 rescue false)
-      @sprites["auxlist"].baseColor=MessageConfig::DARKTEXTBASE
-      @sprites["auxlist"].shadowColor=MessageConfig::DARKTEXTSHADOW
-    else
-      @sprites["auxlist"].baseColor=MessageConfig::DARKTEXTBASE
-      @sprites["auxlist"].shadowColor=MessageConfig::DARKTEXTSHADOW
-    end
+    @sprites["auxlist"].baseColor=MessageConfig::DARKTEXTBASE
+    @sprites["auxlist"].shadowColor=MessageConfig::DARKTEXTSHADOW
     @sprites["auxlist"].visible=false
     @sprites["messagebox"]=Window_UnformattedTextPokemon.newWithSize("",316,256,328,128,@viewport)
-    if ($PokemonSystem.darkmode==0 rescue false)
-      @sprites["messagebox"].baseColor=MessageConfig::DARKTEXTBASE
-      @sprites["messagebox"].shadowColor=MessageConfig::DARKTEXTSHADOW
-    else
-      @sprites["messagebox"].baseColor=MessageConfig::LIGHTTEXTBASE
-      @sprites["messagebox"].shadowColor=MessageConfig::LIGHTTEXTSHADOW
-    end
+    @sprites["messagebox"].baseColor=MessageConfig::DARKTEXTBASE
+    @sprites["messagebox"].shadowColor=MessageConfig::DARKTEXTSHADOW
     @sprites["messagebox"].visible=false
     @sprites["messagebox"].letterbyletter=false
 #    @sprites["dexname"]=Window_AdvancedTextPokemon.newWithSize("",2,-18,Graphics.width,64,@viewport)
@@ -425,38 +405,26 @@ class PokemonPokedexScene
 #    @sprites["species"].baseColor=Color.new(88,88,80)
 #    @sprites["species"].shadowColor=Color.new(168,184,184)
 #    @sprites["species"].baseColor=Color.new(77,38,115)
-    if ($PokemonSystem.darkmode==0 rescue false)
-      @sprites["species"].baseColor=Color.new(20,20,20)
-    else
-      @sprites["species"].baseColor=Color.new(248,248,248)
-    end
-    @sprites["species"].shadowColor=nil
+    @sprites["species"].baseColor=Color.new(20,20,20)
+    @sprites["species"].shadowColor=Color.new(140,83,198)
     @sprites["seen"]=Window_AdvancedTextPokemon.newWithSize("",34,299,164,64,@viewport)
     @sprites["seen"].windowskin=nil
 #    @sprites["seen"].baseColor=Color.new(88,88,80)
 #    @sprites["seen"].shadowColor=Color.new(168,184,184)
 #    @sprites["seen"].baseColor=Color.new(77,38,115)
-    if ($PokemonSystem.darkmode==0 rescue false)
-      @sprites["seen"].baseColor=Color.new(20,20,20)
-    else
-      @sprites["seen"].baseColor=Color.new(248,248,248)
-    end
-    @sprites["seen"].shadowColor=nil
+    @sprites["seen"].baseColor=Color.new(20,20,20)
+    @sprites["seen"].shadowColor=Color.new(140,83,198)
     @sprites["owned"]=Window_AdvancedTextPokemon.newWithSize("",34,329,164,64,@viewport)
     @sprites["owned"].windowskin=nil
 #    @sprites["owned"].baseColor=Color.new(88,88,80)
 #    @sprites["owned"].shadowColor=Color.new(168,184,184)
 #    @sprites["owned"].baseColor=Color.new(77,38,115)
-    if ($PokemonSystem.darkmode==0 rescue false)
-      @sprites["owned"].baseColor=Color.new(20,20,20)
-    else
-      @sprites["owned"].baseColor=Color.new(248,248,248)
-    end
-    @sprites["owned"].shadowColor=nil
+    @sprites["owned"].baseColor=Color.new(20,20,20)
+    @sprites["owned"].shadowColor=Color.new(140,83,198)
     if pbGetPokedexRegion==-1 # Using national Pokédex
-      addBackgroundPlane(@sprites,"searchbg",_INTL(getDarkModeFolder+"/pokedexSearchbg"),@viewport)
+      addBackgroundPlane(@sprites,"searchbg",_INTL("pokedexSearchbg"),@viewport)
     else
-      addBackgroundPlane(@sprites,"searchbg",_INTL(getDarkModeFolder+"/pokedexSearchbg"),@viewport)
+      addBackgroundPlane(@sprites,"searchbg",_INTL("pokedexSearchbg"),@viewport)
 #      addBackgroundPlane(@sprites,"searchbg",_INTL("pokedexSearchbgREGION"),@viewport)
     end
     @sprites["searchbg"].visible=false
@@ -471,16 +439,16 @@ class PokemonPokedexScene
     end
 =end
     if pbGetPokedexRegion==-1 # Using national Pokédex
-      addBackgroundPlane(@sprites,"background",getDarkModeFolder+"/pokedexbg",@viewport)
+      addBackgroundPlane(@sprites,"background","pokedexbg",@viewport)
     else
-       addBackgroundPlane(@sprites,"background",getDarkModeFolder+"pokedexbg",@viewport)
+       addBackgroundPlane(@sprites,"background","pokedexbg",@viewport)
 #      addBackgroundPlane(@sprites,"background","pokedexbgREGION",@viewport)
     end
     @sprites["slider"]=IconSprite.new(Graphics.width-40,62,@viewport)
     if pbGetPokedexRegion==-1 # Using national Pokédex
-    @sprites["slider"].setBitmap(sprintf("Graphics/Pictures/"+getDarkModeFolder+"/pokedexSlider"))
+    @sprites["slider"].setBitmap(sprintf("Graphics/Pictures/pokedexSlider"))
     else
-    @sprites["slider"].setBitmap(sprintf("Graphics/Pictures/"+getDarkModeFolder+"/pokedexSlider"))
+    @sprites["slider"].setBitmap(sprintf("Graphics/Pictures/pokedexSlider"))
 #    @sprites["slider"].setBitmap(sprintf("Graphics/Pictures/pokedexSliderREGION"))
     end
     @sprites["icon"]=PokemonSprite.new(@viewport)
@@ -823,7 +791,7 @@ class PokemonPokedexScene
     @sprites["dexentry"]=IconSprite.new(0,0,@viewport)
     @sprites["dexentry2"]=IconSprite.new(0,0,@viewport)
     @sprites["dexentry2"].setBitmap(_INTL("Graphics/Pictures/pokedexentry_2"))
-    @sprites["dexentry"].setBitmap(_INTL("Graphics/Pictures/"+getDarkModeFolder+"/pokedexentry"))
+    @sprites["dexentry"].setBitmap(_INTL("Graphics/Pictures/pokedexentry"))
     @sprites["dexentry"].visible=false
     @sprites["overlay"]=BitmapSprite.new(Graphics.width,Graphics.height,@viewport)
     pbSetSystemFont(@sprites["overlay"].bitmap)
@@ -852,19 +820,15 @@ class PokemonPokedexScene
 
   def pbDexEntryBitmaps(species)
     @sprites["overlay"].bitmap.clear
+    basecolor=Color.new(88,88,80)
+    shadowcolor=Color.new(168,184,184)
+    basecolor2=Color.new(255,255,255)
+    shadowcolor2=Color.new(49,138,91)
+    basecolor3=Color.new(77,38,115)
+    shadowcolor3=Color.new(140,83,198)
 
-    if ($PokemonSystem.darkmode==0 rescue false)
-      basecolor=Color.new(88,88,80)
-      shadowcolor=Color.new(168,184,184)
-      basecolor2=Color.new(20,20,20)
-      basecolor3=Color.new(248,248,248)
-    else
-      basecolor=Color.new(248,248,240)
-      shadowcolor=Color.new(72,88,88)
-      basecolor2=Color.new(248,248,248)
-      basecolor3=Color.new(248,248,248)
-    end
-
+    basecolor4=Color.new(20,20,20)
+    shadowcolor4=Color.new(248,248,248)
     
     indexNumber=pbGetRegionalNumber(pbGetPokedexRegion(),species)
     indexNumber=species if indexNumber==0
@@ -883,9 +847,9 @@ class PokemonPokedexScene
     textpos=[
        [_INTL("{1}{2} {3}",fdexno," ",PBSpecies.getName(species)),
   #    372,40,0,Color.new(248,248,248),Color.new(0,0,0),1],
-       372,40,0,basecolor3],
-       [sprintf(_INTL("Height")),436,158,0,basecolor2],
-       [sprintf(_INTL("Weight")),436,190,0,basecolor2]
+       372,40,0,shadowcolor4],
+       [sprintf(_INTL("Height")),436,158,0,basecolor4],
+       [sprintf(_INTL("Weight")),436,190,0,basecolor4]
     ]
     if $Trainer.owned[species]
       type1=@dummypokemon.type1
@@ -899,16 +863,16 @@ class PokemonPokedexScene
       dexentry=@dummypokemon.dexEntry
       inches=(height/0.254).round
       pounds=(weight/0.45359).round
-      textpos.push([_ISPRINTF("{1:s} Pokémon",kind),372,74,0,basecolor2])
+      textpos.push([_ISPRINTF("{1:s} Pokémon",kind),372,74,0,basecolor4,shadowcolor3])
       if pbGetCountry()==0xF4 # If the user is in the United States
-        textpos.push([_ISPRINTF("{1:d}'{2:02d}\"",inches/12,inches%12),594,158,1,basecolor2])
-        textpos.push([_ISPRINTF("{1:4.1f} lbs.",pounds/10.0),628,190,1,basecolor2])
+        textpos.push([_ISPRINTF("{1:d}'{2:02d}\"",inches/12,inches%12),594,158,1,basecolor4])
+        textpos.push([_ISPRINTF("{1:4.1f} lbs.",pounds/10.0),628,190,1,basecolor4])
       else
-        textpos.push([_ISPRINTF("{1:.1f} m",height/10.0),604,158,1,basecolor2])
-        textpos.push([_ISPRINTF("{1:.1f} kg",weight/10.0),616,190,1,basecolor2])
+        textpos.push([_ISPRINTF("{1:.1f} m",height/10.0),604,158,1,basecolor4])
+        textpos.push([_ISPRINTF("{1:.1f} kg",weight/10.0),616,190,1,basecolor4])
       end
       drawTextEx(@sprites["overlay"].bitmap,
-         42,240,Graphics.width-(42*2),4,dexentry,basecolor2,nil,false)
+         42,240,Graphics.width-(42*2),4,dexentry,basecolor4,nil,false)
 #      footprintfile=pbPokemonFootprintFile(@dummypokemon)
 #      if footprintfile
 #        footprint=BitmapCache.load_bitmap(footprintfile)
@@ -941,13 +905,13 @@ class PokemonPokedexScene
       typebitmap.dispose
       colorbitmap.dispose
     else
-      textpos.push([_INTL("????? Pokémon"),372,74,0,basecolor2])
+      textpos.push([_INTL("????? Pokémon"),372,74,0,basecolor4,shadowcolor3])
       if pbGetCountry()==0xF4 # If the user is in the United States
-        textpos.push([_INTL("???'??\""),594,158,1,basecolor2])
-        textpos.push([_INTL("????.? lbs."),628,190,1,basecolor2])
+        textpos.push([_INTL("???'??\""),594,158,1,basecolor4])
+        textpos.push([_INTL("????.? lbs."),628,190,1,basecolor4])
       else
-        textpos.push([_INTL("????.? m"),604,158,1,basecolor2])
-        textpos.push([_INTL("????.? kg"),616,190,1,basecolor2])
+        textpos.push([_INTL("????.? m"),604,158,1,basecolor4])
+        textpos.push([_INTL("????.? kg"),616,190,1,basecolor4])
       end
     end
     pbDrawTextPositions(@sprites["overlay"].bitmap,textpos)

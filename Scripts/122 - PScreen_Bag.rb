@@ -111,10 +111,14 @@ class PokemonBag_Scene
 ## Configuration
   ITEMLISTBASECOLOR     = Color.new(88,88,80)
   ITEMLISTSHADOWCOLOR   = Color.new(168,184,184)
+  DARKITEMLISTBASECOLOR     =  Color.new(248,248,240)
+  DARKITEMLISTSHADOWCOLOR   = Color.new(72,88,88)
   ITEMTEXTBASECOLOR     = Color.new(248,248,248)
   ITEMTEXTSHADOWCOLOR   = Color.new(0,0,0)
   POCKETNAMEBASECOLOR   = Color.new(88,88,80)
   POCKETNAMESHADOWCOLOR = Color.new(168,184,184)
+  DARKPOCKETNAMEBASECOLOR     =  Color.new(248,248,240)
+  DARKPOCKETNAMESHADOWCOLOR   = Color.new(72,88,88)
   ITEMSVISIBLE          = 7
 
   def update
@@ -129,7 +133,7 @@ class PokemonBag_Scene
     lastpocket=@bag.lastpocket
     lastitem=@bag.getChoice(lastpocket)
     @sprites["background"]=IconSprite.new(0,0,@viewport)
-    @sprites["background"].setBitmap(sprintf("Graphics/Pictures/bagbg#{lastpocket}"))
+    @sprites["background"].setBitmap(sprintf("Graphics/Pictures/"+getDarkModeFolder+"/bagbg#{lastpocket}"))
     @sprites["leftarrow"]=AnimatedSprite.new("Graphics/Pictures/"+getAccentFolder+"/leftarrow",8,40,28,2,@viewport)
     @sprites["rightarrow"]=AnimatedSprite.new("Graphics/Pictures/"+getAccentFolder+"/rightarrow",8,40,28,2,@viewport)
     @sprites["leftarrow"].play
@@ -140,11 +144,16 @@ class PokemonBag_Scene
     @sprites["itemwindow"].viewport=@viewport
     @sprites["itemwindow"].pocket=lastpocket
     @sprites["itemwindow"].index=lastitem
-    @sprites["itemwindow"].baseColor=ITEMLISTBASECOLOR
-    @sprites["itemwindow"].shadowColor=ITEMLISTSHADOWCOLOR
+    if ($PokemonSystem.darkmode==0 rescue false)
+      @sprites["itemwindow"].baseColor=ITEMLISTBASECOLOR
+      @sprites["itemwindow"].shadowColor=ITEMLISTSHADOWCOLOR
+    else
+      @sprites["itemwindow"].baseColor=DARKITEMLISTBASECOLOR
+      @sprites["itemwindow"].shadowColor=DARKITEMLISTSHADOWCOLOR
+    end
     @sprites["itemwindow"].refresh
     @sprites["slider"]=IconSprite.new(Graphics.width-40,60,@viewport)
-    @sprites["slider"].setBitmap(sprintf("Graphics/Pictures/bagSlider"))
+    @sprites["slider"].setBitmap(sprintf("Graphics/Pictures/"+getDarkModeFolder+"/bagSlider"))
     @sprites["pocketwindow"]=BitmapSprite.new(186,228,@viewport)
     pbSetSystemFont(@sprites["pocketwindow"].bitmap)
     @sprites["itemtextwindow"]=Window_UnformattedTextPokemon.new("")
@@ -197,7 +206,7 @@ class PokemonBag_Scene
     bm=@sprites["pocketwindow"].bitmap
     bm.clear
     # Set the background bitmap for the currently selected pocket
-    @sprites["background"].setBitmap(sprintf("Graphics/Pictures/bagbg#{@bag.lastpocket}"))
+    @sprites["background"].setBitmap(sprintf("Graphics/Pictures/"+getDarkModeFolder+"/bagbg#{@bag.lastpocket}"))
     # Set the bag picture for the currently selected pocket
     fbagexists=pbResolveBitmap(sprintf("Graphics/Pictures/bag#{@bag.lastpocket}f"))
     if $Trainer.isFemale? && fbagexists
@@ -207,8 +216,13 @@ class PokemonBag_Scene
     end
     # Draw the pocket name
     name=PokemonBag.pocketNames()[@bag.lastpocket]
-    base=POCKETNAMEBASECOLOR
-    shadow=POCKETNAMESHADOWCOLOR
+    if ($PokemonSystem.darkmode==0 rescue false)
+      base=POCKETNAMEBASECOLOR
+      shadow=POCKETNAMESHADOWCOLOR
+    else
+      base=DARKPOCKETNAMEBASECOLOR
+      shadow=DARKPOCKETNAMESHADOWCOLOR
+    end
     pbDrawTextPositions(bm,[
        [name,bm.width/2,180,2,base,shadow]
     ])

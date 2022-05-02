@@ -154,6 +154,7 @@ class Window_Pokedex < Window_DrawableCommand
     else
       self.baseColor=Color.new(248,248,248)
     end
+    self.shadowColor=Color.new(300,300,300)
 
   end
 
@@ -429,6 +430,7 @@ class PokemonPokedexScene
     else
       @sprites["species"].baseColor=Color.new(248,248,248)
     end
+    @sprites["species"].shadowColor=Color.new(300,300,300)
     @sprites["seen"]=Window_AdvancedTextPokemon.newWithSize("",34,299,164,64,@viewport)
     @sprites["seen"].windowskin=nil
 #    @sprites["seen"].baseColor=Color.new(88,88,80)
@@ -439,6 +441,7 @@ class PokemonPokedexScene
     else
       @sprites["seen"].baseColor=Color.new(248,248,248)
     end
+    @sprites["seen"].shadowColor=Color.new(300,300,300)
     @sprites["owned"]=Window_AdvancedTextPokemon.newWithSize("",34,329,164,64,@viewport)
     @sprites["owned"].windowskin=nil
 #    @sprites["owned"].baseColor=Color.new(88,88,80)
@@ -449,6 +452,7 @@ class PokemonPokedexScene
     else
       @sprites["owned"].baseColor=Color.new(248,248,248)
     end
+    @sprites["owned"].shadowColor=Color.new(300,300,300)
     if pbGetPokedexRegion==-1 # Using national Pokédex
       addBackgroundPlane(@sprites,"searchbg",_INTL(getDarkModeFolder+"/pokedexSearchbg"),@viewport)
     else

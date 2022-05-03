@@ -1053,7 +1053,8 @@ class PokeBattle_Battler
           0xCC,    # Bounce
           0xCD,    # Shadow Force
           0xCE,    # Sky Drop
-          0x14D    # Phantom Force
+          0x14D,   # Phantom Force
+          0x336    # Steel Fly
       ]
       if choice.effects[PBEffects::Transform] ||
           self.pbPartner.effects[PBEffects::Transform] ||
@@ -1634,9 +1635,10 @@ class PokeBattle_Battler
         for i in 0...4
           poke=@battle.battlers[i]
           next if !poke
-          if PBMoveData.new(poke.effects[PBEffects::TwoTurnAttack]).function==0xC9 || # Fly
-             PBMoveData.new(poke.effects[PBEffects::TwoTurnAttack]).function==0xCC || # Bounce
-             PBMoveData.new(poke.effects[PBEffects::TwoTurnAttack]).function==0xCE    # Sky Drop
+          if PBMoveData.new(poke.effects[PBEffects::TwoTurnAttack]).function==0xC9  || # Fly
+             PBMoveData.new(poke.effects[PBEffects::TwoTurnAttack]).function==0xCC  || # Bounce
+             PBMoveData.new(poke.effects[PBEffects::TwoTurnAttack]).function==0xCE  || # Sky Drop
+             PBMoveData.new(poke.effects[PBEffects::TwoTurnAttack]).function==0x366 || # Steel Fly
             poke.effects[PBEffects::TwoTurnAttack]=0
           end
           if poke.effects[PBEffects::SkyDrop]
@@ -2096,7 +2098,8 @@ class PokeBattle_Battler
          0xCC,    # Bounce
          0xCD,    # Shadow Force
          0xCE,    # Sky Drop
-         0x14D    # Phantom Force
+         0x14D,   # Phantom Force
+         0x336    # Steel Fly
       ]
       if choice.effects[PBEffects::Transform] ||
          @effects[PBEffects::TransformBlock] ||
@@ -2345,7 +2348,8 @@ class PokeBattle_Battler
            0xCC,    # Bounce
            0xCD,    # Shadow Force
            0xCE,    # Sky Drop
-           0x14D    # Phantom Force
+           0x14D,   # Phantom Force
+           0x336    # Steel Fly
         ]
         if choice.effects[PBEffects::Transform] ||
            target.effects[PBEffects::Transform] ||
@@ -2413,7 +2417,8 @@ class PokeBattle_Battler
            0xCC,    # Bounce
            0xCD,    # Shadow Force
            0xCE,    # Sky Drop
-           0x14D    # Phantom Force
+           0x14D,   # Phantom Force
+           0x336    # Steel Fly
         ]
         if choice.effects[PBEffects::Transform] ||
            user.effects[PBEffects::Transform] ||
@@ -4326,7 +4331,8 @@ class PokeBattle_Battler
              0xCC,    # Bounce
              0xCD,    # Shadow Force
              0xCE,    # Sky Drop
-             0x14D    # Phantom Force
+             0x14D,   # Phantom Force
+             0x336    # Steel Fly
           ]
           if choice.effects[PBEffects::Transform] ||
              user.effects[PBEffects::Transform] ||

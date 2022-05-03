@@ -610,6 +610,8 @@ class PokeBattle_Battler
     @effects[PBEffects::SilveryBliss]        = false
     @effects[PBEffects::JawLock]        = false
     @effects[PBEffects::Mimicry]        = false
+    @effects[PBEffects::NeutralTrap]        = 0
+    @effects[PBEffects::Brainymedia]        = false
     # Disguise causes the ability-suppressing effect to fade
     # if it was passed on through Baton Pass
     if self.hasWorkingAbility(:DISGUISE) && isConst?(self.species,PBSpecies,:MIMIKYU)
@@ -787,6 +789,7 @@ class PokeBattle_Battler
   def hasWorkingAbility(ability,ignorefainted=false)
     return false if self.isFainted? && !ignorefainted
     if @battle.field.effects[PBEffects::NeutralizingGas] && !self.pbHasType?(:GAS)
+      return false if @effects[PBEffects::NeutralTrap]>0
       return false if @effects[PBEffects::GastroAcid]
       return false if !isConst?(@ability,PBAbilities,:STANCECHANGE) ||
                       !isConst?(@ability,PBAbilities,:SCHOOLING) ||
@@ -794,6 +797,7 @@ class PokeBattle_Battler
                       !isConst?(@ability,PBAbilities,:ABILITOPIA) ||
                       !isConst?(@ability,PBAbilities,:NEUTRALIZINGGAS)
     end
+    return false if @effects[PBEffects::NeutralTrap]>0
     return false if @effects[PBEffects::GastroAcid] && !self.pbHasType?(:GAS)
     return isConst?(@ability,PBAbilities,ability)
   end
@@ -3814,7 +3818,8 @@ class PokeBattle_Battler
         target=tmp
       end
     end
-    if target.pbOwnSide.effects[PBEffects::Brainologic] > 0 && 
+    if (target.pbOwnSide.effects[PBEffects::Brainologic] > 0 ||
+        target.pbOwnSide.effects[PBEffects::RevelationPowder] > 0)&& 
         !(thismove.function==0x300 || user.hasWorkingAbility(:BALLOONIST)) && 
         user.pbIsOpposing?(target.index)
         target=target.pbPartner
@@ -4627,6 +4632,7 @@ class PokeBattle_Battler
     realnumhits=0
     totaldamage=0
     destinybond=false
+    brainymedia=false
     neutralizinggas=false
     originalTarget=target
     for i in 0...numhits
@@ -4819,6 +4825,7 @@ class PokeBattle_Battler
       end
       if target.isFainted?
         destinybond=destinybond || target.effects[PBEffects::DestinyBond]
+        brainymedia=brainymedia || target.effects[PBEffects::Brainymedia]
       end
       user.pbFaint if user.isFainted? # no return
       break if user.isFainted?
@@ -4920,6 +4927,26 @@ class PokeBattle_Battler
         user.pbReduceHP(user.hp)
         user.pbFaint # no return
         @battle.pbJudgeCheckpoint(user)
+      end
+      if brainymedia && target.pbIsOpposing?(user.index)
+        if (target.pbCanReduceStatStage?(PBStats::ATTACK,target) ||
+           target.pbCanReduceStatStage?(PBStats::DEFENSE,target) ||
+           target.pbCanReduceStatStage?(PBStats::SPATK,target) ||
+           target.pbCanReduceStatStage?(PBStats::SPDEF,target) ||
+           target.pbCanReduceStatStage?(PBStats::SPEED,target) ||
+           target.pbCanReduceStatStage?(PBStats::ACCURACY,target) ||
+           target.pbCanReduceStatStage?(PBStats::EVASION,target))
+          PBDebug.log("[Lingering effect triggered] #{target.pbThis}'s Brainymedia")
+          user.stages[PBStats::ATTACK]=-6
+          user.stages[PBStats::DEFENSE]=-6
+          user.stages[PBStats::SPATK]=-6
+          user.stages[PBStats::SPDEF]=-6
+          user.stages[PBStats::SPEED]=-6
+          user.stages[PBStats::ACCURACY]=-6
+          user.stages[PBStats::EVASION]=-6
+          @battle.pbCommonAnimation("StatDown",user,nil)
+          @battle.pbDisplay(_INTL("{1} lowered its attacker stats!",target.pbThis))
+        end
       end
     end
     pbEffectsAfterHit(user,target,thismove,turneffects)
@@ -5282,6 +5309,25 @@ class PokeBattle_Battler
       pbEndTurn(choice)
       return
     end
+    # Revelation Powder
+    if user.effects[PBEffects::RevelationPowder]>0 && isConst?(thismove.pbType(thismove.type,user,nil),PBTypes,:FIRE)
+      PBDebug.log("[Lingering effect triggered] Revelation Powder cancelled the Fire move")
+      @battle.pbCommonAnimation("Powder",user,nil)
+      @battle.pbDisplay(_INTL("When the flame touched the powder on the Pokémon, it exploded!"))
+      user.pbReduceHP(1+(user.totalhp/4).floor) if !(user.hasWorkingAbility(:MAGICGUARD) || user.hasWorkingAbility(:SUPERCLEARBODY))
+      user.lastMoveUsed=thismove.id
+      user.lastMoveUsedType=thismove.pbType(thismove.type,user,nil)
+      if !turneffects[PBEffects::SpecialUsage]
+        user.lastMoveUsedSketch=thismove.id if user.effects[PBEffects::TwoTurnAttack]==0
+        user.lastRegularMoveUsed=thismove.id
+      end
+      @battle.lastMoveUsed=thismove.id
+      @battle.lastMoveUser=user.index
+      user.pbFaint if user.isFainted?
+      pbEndTurn(choice)
+      return
+    end
+
     # Protean
     if user.hasWorkingAbility(:PROTEAN) &&
        thismove.function!=0xAE &&   # Mirror Move
@@ -5493,6 +5539,7 @@ class PokeBattle_Battler
   def pbBeginTurn(choice)
     # Cancel some lingering effects which only apply until the user next moves
     @effects[PBEffects::DestinyBond]=false
+    @effects[PBEffects::Brainymedia]=false
     @effects[PBEffects::Grudge]=false
     # Reset Parental Bond's count
     @effects[PBEffects::ParentalBond]=0

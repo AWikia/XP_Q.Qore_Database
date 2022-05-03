@@ -1241,7 +1241,7 @@ def drawPageFive(pokemon)
        [pokename,46,62,0,base,shadow],
        [pokemon.level.to_s,46,92,0,base,shadow],
        [_INTL("Best Stat"),420,76-64,2,base2,nil,0],
-       [_INTL("{1}",beststat),548,76-64,2,base,shadow,
+       [_INTL("{1}",beststat),548,76-64,2,base,shadow],
        [_INTL("Happiness"),376,120-64,0,shadow2,nil,0],
        [sprintf("%d",pokemon.happiness),548,120-64,2,base,shadow],
        [_INTL("Temperature"),376,152-64,0,base2,nil,0], # Was Physical

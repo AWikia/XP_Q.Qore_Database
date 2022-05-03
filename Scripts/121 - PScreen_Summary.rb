@@ -729,7 +729,7 @@ def drawPageFour(pokemon)
        [_INTL("Sp. Def"),376,216-64,0,base2,statshadows[4],1],
        [sprintf("%d",pokemon.ev[5]),548,216-64,2,base,shadow],
        [_INTL("Speed"),376,248-64,0,statshadows2[2],statshadows[2],1],
-       [sprintf("%d",pokemon.ev[3]),548,248-64,2,Color.new(64,64,64),Color.new(176,176,176)],
+       [sprintf("%d",pokemon.ev[3]),548,248-64,2,base,shadow],
        [_INTL("Ability"),288,284-64,0,shadow2,nil,0],
        [abilityname,426,284-64,0,base,shadow],
       ]
@@ -876,14 +876,6 @@ def drawPageFive(pokemon)
     @sprites["itemicon2"].visible = false
     overlay=@sprites["overlay"].bitmap
     overlay.clear
-    ppBase   = [Color.new(64,64,64),     # More than 1/2 of total PP
-                Color.new(248,192,0),    # 1/2 of total PP or less
-                Color.new(248,136,32),   # 1/4 of total PP or less
-                Color.new(248,72,72)]    # Zero PP
-    ppShadow = [Color.new(176,176,176), # More than 1/2 of total PP
-                Color.new(144,104,0),   # 1/2 of total PP or less
-                Color.new(144,72,24),   # 1/4 of total PP or less
-                Color.new(136,48,48)]   # Zero PP
     @sprites["background"].setBitmap("Graphics/Pictures/"+getDarkModeFolder+"/summary4")
 #    @sprites["header-bg"].setBitmap("Graphics/Pictures/header-global")      
 #    @sprites["header"].setBitmap("Graphics/Pictures/header4")
@@ -906,14 +898,31 @@ def drawPageFive(pokemon)
     ballimage=sprintf("Graphics/Pictures/summaryball%02d",@pokemon.ballused)
     imagepos.push([ballimage,14,60,0,0,-1,-1])
     pbDrawImagePositions(overlay,imagepos)
-    base=Color.new(230,230,230)
-    shadow=Color.new(58,58,58)
+    if ($PokemonSystem.darkmode==0 rescue false)
+      base=Color.new(88,88,80)
+      shadow=Color.new(168,184,184)
+      base2=Color.new(230,230,230)
+      shadow2=Color.new(58,58,58)
+    else
+      base=Color.new(248,248,240)
+      shadow=Color.new(72,88,88)
+      base2=Color.new(230,230,230)
+      shadow2=Color.new(230,230,230)
+    end   
+      ppBase   = [base,                   # More than 1/2 of total PP
+                  Color.new(248,192,0),   # 1/2 of total PP or less
+                  Color.new(248,136,32),  # 1/4 of total PP or less
+                  Color.new(248,72,72)]   # Zero PP
+      ppShadow = [shadow,                 # More than 1/2 of total PP
+                  Color.new(144,104,0),   # 1/2 of total PP or less
+                  Color.new(144,72,24),   # 1/4 of total PP or less
+                  Color.new(136,48,48)]   # Zero PP
     pbSetSystemFont(overlay)
     pokename=@pokemon.name
     textpos=[
   #     [_INTL("Pokémon Moveset"),26,8,0,base,shadow,1],
        [pokename,46,62,0,base,shadow],
-       [pokemon.level.to_s,46,92,0,Color.new(64,64,64),Color.new(176,176,176)],
+       [pokemon.level.to_s,46,92,0,base,shadow],
     ]
     gendericon=[]
     if pokemon.isMale?
@@ -938,7 +947,7 @@ def drawPageFive(pokemon)
            typeColors[pokemon.moves[i].type][0],typeColors[pokemon.moves[i].type][1]])
         if pokemon.moves[i].totalpp>0
           textpos.push([_ISPRINTF("PP"),470,yPos+32,0,
-             Color.new(64,64,64),Color.new(176,176,176)])
+             base,shadow])
           ppfraction = 0
           if pokemon.moves[i].pp==0;                             ppfraction = 3
           elsif pokemon.moves[i].pp*4<=pokemon.moves[i].totalpp; ppfraction = 2
@@ -948,8 +957,8 @@ def drawPageFive(pokemon)
              588,yPos+32,1,ppBase[ppfraction],ppShadow[ppfraction]])
         end
       else
-        textpos.push(["-",444,yPos,0,Color.new(64,64,64),Color.new(176,176,176)])
-        textpos.push(["--",570,yPos+32,1,Color.new(64,64,64),Color.new(176,176,176)])
+        textpos.push(["-",444,yPos,0,base,shadow])
+        textpos.push(["--",570,yPos+32,1,base,shadow])
       end
       yPos+=64
     end
@@ -974,11 +983,22 @@ def drawPageFive(pokemon)
     drawMoveSelection(pokemon,moveToLearn)
     pbSetSystemFont(overlay)
     move=moveid
+    if ($PokemonSystem.darkmode==0 rescue false)
+      base=Color.new(88,88,80)
+      shadow=Color.new(168,184,184)
+      base2=Color.new(230,230,230)
+      shadow2=Color.new(58,58,58)
+    else
+      base=Color.new(248,248,240)
+      shadow=Color.new(72,88,88)
+      base2=Color.new(230,230,230)
+      shadow2=Color.new(230,230,230)
+    end
     textpos=[
        [basedamage<=1 ? basedamage==1 ? "???" : "---" : sprintf("%d",basedamage),
-          288,154,1,Color.new(64,64,64),Color.new(176,176,176)],
+          288,154,1,base,shadow],
        [accuracy==0 ? "---" : sprintf("%d",accuracy),
-          288,186,1,Color.new(64,64,64),Color.new(176,176,176)] # Was 280
+          288,186,1,base,shadow] # Was 280
     ]
     pbDrawTextPositions(overlay,textpos)
     imagepos=[["Graphics/Pictures/category",238,124,64*$PokemonSystem.colortige,category*28,64,28]] # Was 230
@@ -991,16 +1011,25 @@ def drawPageFive(pokemon)
   def drawMoveSelection(pokemon,moveToLearn)
     overlay=@sprites["overlay"].bitmap
     overlay.clear
-    base=Color.new(230,230,230)
-    shadow=Color.new(58,58,58)
-    ppBase   = [Color.new(64,64,64),     # More than 1/2 of total PP
-                Color.new(248,192,0),    # 1/2 of total PP or less
-                Color.new(248,136,32),   # 1/4 of total PP or less
-                Color.new(248,72,72)]    # Zero PP
-    ppShadow = [Color.new(176,176,176), # More than 1/2 of total PP
-                Color.new(144,104,0),   # 1/2 of total PP or less
-                Color.new(144,72,24),   # 1/4 of total PP or less
-                Color.new(136,48,48)]   # Zero PP
+    if ($PokemonSystem.darkmode==0 rescue false)
+      base=Color.new(88,88,80)
+      shadow=Color.new(168,184,184)
+      base2=Color.new(230,230,230)
+      shadow2=Color.new(58,58,58)
+    else
+      base=Color.new(248,248,240)
+      shadow=Color.new(72,88,88)
+      base2=Color.new(230,230,230)
+      shadow2=Color.new(58,58,58)
+    end   
+      ppBase   = [base,                   # More than 1/2 of total PP
+                  Color.new(248,192,0),   # 1/2 of total PP or less
+                  Color.new(248,136,32),  # 1/4 of total PP or less
+                  Color.new(248,72,72)]   # Zero PP
+      ppShadow = [shadow,                 # More than 1/2 of total PP
+                  Color.new(144,104,0),   # 1/2 of total PP or less
+                  Color.new(144,72,24),   # 1/4 of total PP or less
+                  Color.new(136,48,48)]   # Zero PP
     if moveToLearn==0
       @sprites["background"].setBitmap("Graphics/Pictures/"+getDarkModeFolder+"/summary4details")
 #      @sprites["header-bg"].setBitmap("Graphics/Pictures/header-global")      
@@ -1012,9 +1041,9 @@ def drawPageFive(pokemon)
     pbSetSystemFont(overlay)
     textpos=[
    #    [_INTL("Pokémon Moveset"),26,8,0,base,shadow,1],
-       [_INTL("Category"),20,122,0,base,shadow],
-       [_INTL("Power"),20,154,0,base,shadow],
-       [_INTL("Accuracy"),20,186,0,base,shadow]
+       [_INTL("Category"),20,122,0,base2,shadow2],
+       [_INTL("Power"),20,154,0,base2,shadow2],
+       [_INTL("Accuracy"),20,186,0,base2,shadow2]
     ]
     type1rect=Rect.new(64*$PokemonSystem.colortige,pokemon.type1*28,64,28)
     type2rect=Rect.new(64*$PokemonSystem.colortige,pokemon.type2*28,64,28)
@@ -1043,7 +1072,7 @@ def drawPageFive(pokemon)
              typeColors[moveobject.type][0],typeColors[moveobject.type][1]])
           if moveobject.totalpp>0
             textpos.push([_ISPRINTF("PP"),470,yPos+32,0,
-               Color.new(64,64,64),Color.new(176,176,176)])
+               base,shadow])
           ppfraction = 0
           if moveobject.pp==0;                 ppfraction = 3
           elsif moveobject.pp*4<=moveobject.totalpp; ppfraction = 2
@@ -1053,8 +1082,8 @@ def drawPageFive(pokemon)
                588,yPos+32,1,ppBase[ppfraction],ppShadow[ppfraction]])
           end
         else
-          textpos.push(["-",444,yPos,0,Color.new(64,64,64),Color.new(176,176,176)])
-          textpos.push(["--",570,yPos+32,1,Color.new(64,64,64),Color.new(176,176,176)])
+          textpos.push(["-",444,yPos,0,base,shadow])
+          textpos.push(["--",570,yPos+32,1,base,shadow])
         end
       end
       yPos+=64

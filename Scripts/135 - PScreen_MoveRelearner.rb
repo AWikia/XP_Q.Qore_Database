@@ -101,7 +101,7 @@ class MoveRelearnerScene
       overlay.blt(436,70,@typebitmap.bitmap,type2rect)
     end
     textpos=[
-       [_INTL("Teach which move?"),16,8,0,Color.new(88,88,80),Color.new(168,184,184)]
+       [_INTL("Teach which move?"),16,8,0,baseColor,shadowColor]
     ]
     yPos=82
     for i in 0...VISIBLEMOVES
@@ -144,7 +144,7 @@ class MoveRelearnerScene
     pbDrawTextPositions(overlay,textpos)
     imagepos.push(["Graphics/Pictures/category",436+64,116,64*$PokemonSystem.colortige,category*28,64,28])
     if @sprites["commands"].index<@moves.length-1
-      imagepos.push(["Graphics/Pictures/reminderButtons",48,350,0,0,76,32])
+      imagepos.push(["Graphics/Pictures/"+getDarkModeFolder+"/reminderButtons",48,350,0,0,76,32])
     end
     if @sprites["commands"].index>0
       imagepos.push(["Graphics/Pictures/"+getDarkModeFolder+"/reminderButtons",134,350,76,0,76,32])

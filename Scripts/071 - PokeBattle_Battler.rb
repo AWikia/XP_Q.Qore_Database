@@ -4246,7 +4246,7 @@ class PokeBattle_Battler
       miss=false; override=false
       invulmove=PBMoveData.new(target.effects[PBEffects::TwoTurnAttack]).function
       case invulmove
-      when 0xC9, 0xCC # Fly, Bounce
+      when 0xC9, 0xCC, 0x336 # Fly, Bounce
         miss=true unless thismove.function==0x08 ||  # Thunder
                          thismove.function==0x15 ||  # Hurricane
                          thismove.function==0x77 ||  # Gust

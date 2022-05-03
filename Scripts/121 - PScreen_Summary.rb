@@ -215,17 +215,13 @@ class PokemonSummaryScene
     if ($PokemonSystem.darkmode==0 rescue false)
       base=Color.new(88,88,80)
       shadow=Color.new(168,184,184)
-
       base2=Color.new(230,230,230)
       shadow2=Color.new(58,58,58)
-      
     else
       base=Color.new(248,248,240)
       shadow=Color.new(72,88,88)
-
       base2=Color.new(230,230,230)
       shadow2=Color.new(230,230,230)
-
     end
     pbSetSystemFont(overlay)
     numberbase=(pokemon.isShiny?) ? Color.new(248,56,32) : base
@@ -241,7 +237,7 @@ class PokemonSummaryScene
     colourd=pokemon.color
     textpos=[
  #      [_INTL("Pokémon Information"),26,8,0,base,shadow,1],
-       [pokename,46,62,0,Color.new(230,230,230),Color.new(50,50,50)],
+       [pokename,46,62,0,base,shadow],
        [pokemon.level.to_s,46,92,0,base,shadow],
        [_ISPRINTF("Dex No."),366,16,0,base2,nil,0],
        [_INTL("{1}",fdexno),563,16,2,numberbase,numbershadow],
@@ -356,35 +352,44 @@ class PokemonSummaryScene
     imagepos.push(["Graphics/Pictures/"+getAccentFolder+"/summaryEggBar",370,244,0,0,(shadowfract*248).floor,-1])
     # Egg Steps End
     pbDrawImagePositions(overlay,imagepos)
-    base=Color.new(230,230,230)
-    shadow=Color.new(58,58,58)
+    if ($PokemonSystem.darkmode==0 rescue false)
+      base=Color.new(88,88,80)
+      shadow=Color.new(168,184,184)
+      base2=Color.new(230,230,230)
+      shadow2=Color.new(58,58,58)
+    else
+      base=Color.new(248,248,240)
+      shadow=Color.new(72,88,88)
+      base2=Color.new(230,230,230)
+      shadow2=Color.new(230,230,230)
+    end
     pbSetSystemFont(overlay)
     textpos=[
  #      [_INTL("Trainer Information"),26,8,0,base,shadow,1],
        [pokemon.name,46,62,0,base,shadow],
     ]
-    textpos.push([_INTL("\"The Egg Watch\""),360,204,0,shadow,nil,0])
+    textpos.push([_INTL("\"The Egg Watch\""),360,204,0,shadow2,nil,0])
     pbDrawTextPositions(overlay,textpos)
     memo=""
     if pokemon.timeReceived
       month=pbGetAbbrevMonthName(pokemon.timeReceived.mon)
       date=pokemon.timeReceived.day
       year=pokemon.timeReceived.year
-      memo+=_INTL("<c3=404040,B0B0B0>{1} {2}, {3}\n",month,date,year)
+      memo+=_INTL("<c3={1},{2}>{3} {4}, {5}\n",colorToRgb32(base),colorToRgb32(shadow),month,date,year)
     end
     mapname=pbGetMapNameFromId(pokemon.obtainMap)
     if (pokemon.obtainText rescue false) && pokemon.obtainText!=""
       mapname=pokemon.obtainText
     end
     if mapname && mapname!=""
-      memo+=_INTL("<c3=404040,B0B0B0>A mysterious Pokémon Egg received from <c3=F83820,E09890>{1}<c3=404040,B0B0B0>.\n",mapname)
+      memo+=_INTL("<c3={1},{2}>A mysterious Pokémon Egg received from <c3=F83820,E09890>{3}<c3={1},{2}>.\n",colorToRgb32(base),colorToRgb32(shadow),mapname)
     end
-    memo+="<c3=404040,B0B0B0>\n"
+    memo+=_INTL("<c3={1},{2}>\n",colorToRgb32(base),colorToRgb32(shadow))
     eggstate=_INTL("It looks like this Egg will take a long time to hatch.")
     eggstate=_INTL("What will hatch from this? It doesn't seem close to hatching.") if pokemon.eggsteps<10200
     eggstate=_INTL("It appears to move occasionally. It may be close to hatching.") if pokemon.eggsteps<2550
     eggstate=_INTL("Sounds can be heard coming from inside! It will hatch soon!") if pokemon.eggsteps<1275
-    eggstatemsg=sprintf("<c3=404040,B0B0B0>%s\n",eggstate)
+    eggstatemsg=sprintf("<c3=%s,%s>%s\n",colorToRgb32(base),colorToRgb32(shadow),eggstate)
     drawFormattedTextEx(overlay,360,268,272,eggstatemsg)
     drawFormattedTextEx(overlay,360,78,276,memo)
     drawMarkings(overlay,20,343,72,20,pokemon.markings)
@@ -415,15 +420,24 @@ class PokemonSummaryScene
     ballimage=sprintf("Graphics/Pictures/summaryball%02d",@pokemon.ballused)
     imagepos.push([ballimage,14,60,0,0,-1,-1])
     pbDrawImagePositions(overlay,imagepos)
-    base=Color.new(230,230,230)
-    shadow=Color.new(58,58,58)
+    if ($PokemonSystem.darkmode==0 rescue false)
+      base=Color.new(88,88,80)
+      shadow=Color.new(168,184,184)
+      base2=Color.new(230,230,230)
+      shadow2=Color.new(58,58,58)
+    else
+      base=Color.new(248,248,240)
+      shadow=Color.new(72,88,88)
+      base2=Color.new(230,230,230)
+      shadow2=Color.new(230,230,230)
+    end
     pbSetSystemFont(overlay)
     naturename=PBNatures.getName(pokemon.nature)
     pokename=@pokemon.name
     textpos=[
   #     [_INTL("Trainer Information"),26,8,0,base,shadow,1],
        [pokename,46,62,0,base,shadow],
-       [pokemon.level.to_s,46,92,0,Color.new(64,64,64),Color.new(176,176,176)],
+       [pokemon.level.to_s,46,92,0,base,shadow],
     ]
     gendericon=[]
     if pokemon.isMale?
@@ -441,13 +455,13 @@ class PokemonSummaryScene
     memo=""
     shownature=(!(pokemon.isShadow? rescue false)) || pokemon.heartStage<=3
     if shownature
-      memo+=_INTL("<c3=F83820,E09890>{1}<c3=404040,B0B0B0> nature.\n",naturename)
+      memo+=_INTL("<c3=F83820,E09890>{1}<c3={2},{3}> nature.\n",naturename,colorToRgb32(base),colorToRgb32(shadow))
     end
     if pokemon.timeReceived
       month=pbGetAbbrevMonthName(pokemon.timeReceived.mon)
       date=pokemon.timeReceived.day
       year=pokemon.timeReceived.year
-      memo+=_INTL("<c3=404040,B0B0B0>{1} {2}, {3}\n",month,date,year)
+      memo+=_INTL("<c3={1},{2}>{3} {4}, {5}\n",colorToRgb32(base),colorToRgb32(shadow),month,date,year)
     end
     mapname=pbGetMapNameFromId(pokemon.obtainMap)
     if (pokemon.obtainText rescue false) && pokemon.obtainText!=""
@@ -465,13 +479,13 @@ class PokemonSummaryScene
                "",
                _INTL("Had a fateful encounter at Lv. {1}.",pokemon.obtainLevel)
                ][pokemon.obtainMode]
-      memo+=sprintf("<c3=404040,B0B0B0>%s\n",mettext)
+      memo+=sprintf("<c3=%s,%s>%s\n",colorToRgb32(base),colorToRgb32(shadow),mettext)
       if pokemon.obtainMode==1 # hatched
         if pokemon.timeEggHatched
           month=pbGetAbbrevMonthName(pokemon.timeEggHatched.mon)
           date=pokemon.timeEggHatched.day
           year=pokemon.timeEggHatched.year
-          memo+=_INTL("<c3=404040,B0B0B0>{1} {2}, {3}\n",month,date,year)
+          memo+=_INTL("<c3={1},{2}>{3} {4}, {5}\n",colorToRgb32(base),colorToRgb32(shadow),month,date,year)
         end
         mapname=pbGetMapNameFromId(pokemon.hatchedMap)
         if mapname && mapname!=""
@@ -481,7 +495,7 @@ class PokemonSummaryScene
         end
         memo+=_INTL("<c3=404040,B0B0B0>Egg hatched.\n")
       else
-        memo+="<c3=404040,B0B0B0>\n"
+        memo+=_INTL("<c3={1},{2}>\n",colorToRgb32(base),colorToRgb32(shadow))
       end
     end
     if shownature
@@ -525,7 +539,7 @@ class PokemonSummaryScene
                       _INTL("Hates to lose."),
                       _INTL("Somewhat stubborn.")
                       ][bestiv*5+pokemon.iv[bestiv]%5]
-      memo+=sprintf("<c3=404040,B0B0B0>%s\n",characteristic)
+      memo+=sprintf("<c3=%s,%s>%s\n",colorToRgb32(base),colorToRgb32(shadow),characteristic)
     end
     drawFormattedTextEx(overlay,360,78,276,memo)
     drawMarkings(overlay,20,343,72,20,pokemon.markings)

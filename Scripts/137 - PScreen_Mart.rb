@@ -272,8 +272,13 @@ class Window_PokemonMart < Window_DrawableCommand
     @adapter=adapter
     super(x,y,width,height,viewport)
     @selarrow=AnimatedBitmap.new("Graphics/Pictures/"+getAccentFolder+"/martSel")
-    @baseColor=Color.new(88,88,80)
-    @shadowColor=Color.new(168,184,184)
+    if ($PokemonSystem.darkmode==0 rescue false)
+      @baseColor=Color.new(88,88,80)
+      @shadowColor=Color.new(168,184,184)
+    else
+      @baseColor=Color.new(248,248,280)
+      @shadowColor=Color.new(72,88,88)
+    end
     self.windowskin=nil
   end
 
@@ -333,7 +338,7 @@ class PokemonMartScene
     @adapter=adapter
     @sprites={}
     @sprites["background"]=IconSprite.new(0,0,@viewport)
-    @sprites["background"].setBitmap("Graphics/Pictures/martScreen")
+    @sprites["background"].setBitmap("Graphics/Pictures/"+getDarkModeFolder+"/martScreen")
     @sprites["icon"]=ItemIconSprite.new(36,Graphics.height-50,-1,@viewport)
     winAdapter=buying ? BuyAdapter.new(adapter) : SellAdapter.new(adapter)
     @sprites["itemwindow"]=Window_PokemonMart.new(stock,winAdapter,

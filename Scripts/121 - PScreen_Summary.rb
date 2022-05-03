@@ -585,7 +585,7 @@ class PokemonSummaryScene
     statshadows=[]
     statshadows2=[]
     for i in 0...5; statshadows[i]=nil; end
-    for i in 0...5; statshadows2[i]=shadow3; end
+    for i in 0...5; statshadows2[i]=shadow2; end
     if !(pokemon.isShadow? rescue false) || pokemon.heartStage<=3
 #      natup=(pokemon.nature/5).floor
 #      natdn=(pokemon.nature%5).floor

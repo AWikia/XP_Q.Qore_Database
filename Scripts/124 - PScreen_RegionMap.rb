@@ -140,9 +140,9 @@ class PokemonRegionMapScene
       return false
     end
     if $Trainer.isFemale?
-      addBackgroundOrColoredPlane(@sprites,"background","mapbgf",Color.new(255,255,255),@viewport)
+      addBackgroundOrColoredPlane(@sprites,"background",getDarkModeFolder+"/mapbgf",Color.new(255,255,255),@viewport)
     else
-      addBackgroundOrColoredPlane(@sprites,"background","mapbg",Color.new(255,255,255),@viewport)
+      addBackgroundOrColoredPlane(@sprites,"background",getDarkModeFolder+"/mapbg",Color.new(255,255,255),@viewport)
     end
     @sprites["map"]=IconSprite.new(0,0,@viewport)
     @sprites["map"].setBitmap("Graphics/Regional Maps/#{@map[1]}")

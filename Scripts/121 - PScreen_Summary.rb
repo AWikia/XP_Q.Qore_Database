@@ -212,11 +212,24 @@ class PokemonSummaryScene
       imagepos.push(["Graphics/Pictures/summaryShadowBar",370,280,0,0,(shadowfract*248).floor,-1])
     end
     pbDrawImagePositions(overlay,imagepos)
-    base=Color.new(230,230,230)
-    shadow=Color.new(58,58,58)
+    if ($PokemonSystem.darkmode==0 rescue false)
+      base=Color.new(88,88,80)
+      shadow=Color.new(168,184,184)
+
+      base2=Color.new(230,230,230)
+      shadow2=Color.new(58,58,58)
+      
+    else
+      base=Color.new(248,248,240)
+      shadow=Color.new(72,88,88)
+
+      base2=Color.new(230,230,230)
+      shadow2=Color.new(230,230,230)
+
+    end
     pbSetSystemFont(overlay)
-    numberbase=(pokemon.isShiny?) ? Color.new(248,56,32) : Color.new(64,64,64)
-    numbershadow=(pokemon.isShiny?) ? Color.new(224,152,144) : Color.new(176,176,176)
+    numberbase=(pokemon.isShiny?) ? Color.new(248,56,32) : base
+    numbershadow=(pokemon.isShiny?) ? Color.new(224,152,144) : shadow
     publicID=pokemon.publicID
     speciesname=PBSpecies.getName(pokemon.species)
     growthrate=pokemon.growthrate
@@ -228,20 +241,20 @@ class PokemonSummaryScene
     colourd=pokemon.color
     textpos=[
  #      [_INTL("Pokémon Information"),26,8,0,base,shadow,1],
-       [pokename,46,62,0,base,shadow],
-       [pokemon.level.to_s,46,92,0,Color.new(64,64,64),Color.new(176,176,176)],
-       [_ISPRINTF("Dex No."),366,16,0,base,nil,0],
+       [pokename,46,62,0,Color.new(230,230,230),Color.new(50,50,50)],
+       [pokemon.level.to_s,46,92,0,base,shadow],
+       [_ISPRINTF("Dex No."),366,16,0,base2,nil,0],
        [_INTL("{1}",fdexno),563,16,2,numberbase,numbershadow],
-       [_INTL("Species"),366,48,0,shadow,nil,0],
-       [speciesname,563,48,2,Color.new(64,64,64),Color.new(176,176,176)],
-       [_INTL("Color"),366,80,0,base,nil,0],
-       [_INTL("Compats"),366,112,0,shadow,nil,0],
-       [_INTL("Type"),366,144,0,base,nil,0],
-       [_INTL("OT"),366,176,0,shadow,nil,0],
-       [_INTL("ID No."),366,208,0,base,nil,0],
+       [_INTL("Species"),366,48,0,shadow2,nil,0],
+       [speciesname,563,48,2,base,shadow],
+       [_INTL("Color"),366,80,0,base2,nil,0],
+       [_INTL("Compats"),366,112,0,shadow2,nil,0],
+       [_INTL("Type"),366,144,0,base2,nil,0],
+       [_INTL("OT"),366,176,0,shadow2,nil,0],
+       [_INTL("ID No."),366,208,0,base2,nil,0],
     ]
     if (pokemon.isShadow? rescue false)
-      textpos.push([_INTL("Heart Gauge"),366,240,0,shadow,nil,0])
+      textpos.push([_INTL("Heart Gauge"),366,240,0,shadow2,nil,0])
       heartmessage=[_INTL("The door to its heart is open! Undo the final lock!"),
                     _INTL("The door to its heart is almost fully open."),
                     _INTL("The door to its heart is nearly open."),
@@ -249,27 +262,37 @@ class PokemonSummaryScene
                     _INTL("The door to its heart is opening up."),
                     _INTL("The door to its heart is tightly shut.")
                     ][pokemon.heartStage]
-      memo=sprintf("<c3=404040,B0B0B0>%s\n",heartmessage)
+      memo=sprintf("<c3=%s,%s>%s\n",colorToRgb32(base),colorToRgb32(shadow),heartmessage)
       drawFormattedTextEx(overlay,366,304,276,memo)
     else
-      textpos.push([_INTL("Exp. Points"),366,240,0,shadow,nil,0])
-      textpos.push([_INTL("{1}",pokemon.exp.to_s_formatted),616,272,1,Color.new(64,64,64),Color.new(176,176,176)])
-      textpos.push([_INTL("To Next Lv."),366,304,0,shadow,nil,0])
-      textpos.push([_INTL("{1}",(endexp-pokemon.exp).to_s_formatted),616,336,1,Color.new(64,64,64),Color.new(176,176,176)])
+      textpos.push([_INTL("Exp. Points"),366,240,0,shadow2,nil,0])
+      textpos.push([_INTL("{1}",pokemon.exp.to_s_formatted),616,272,1,base,shadow])
+      textpos.push([_INTL("To Next Lv."),366,304,0,shadow2,nil,0])
+      textpos.push([_INTL("{1}",(endexp-pokemon.exp).to_s_formatted),616,336,1,base,shadow])
     end
     idno=(pokemon.ot=="") ? "?????" : sprintf("%05d",publicID)
-    textpos.push([idno,563,208,2,Color.new(64,64,64),Color.new(176,176,176)])
+    textpos.push([idno,563,208,2,base,shadow])
     if pokemon.ot==""
-      textpos.push([_INTL("Rental"),563,176,2,Color.new(64,64,64),Color.new(176,176,176)])
+      textpos.push([_INTL("Rental"),563,176,2,base,shadow])
     else
-      ownerbase=Color.new(64,64,64)
-      ownershadow=Color.new(176,176,176)
+      ownerbase=base
+      ownershadow=shadow
       if pokemon.otgender==0 # male OT
-        ownerbase=Color.new(24,112,216)
-        ownershadow=Color.new(136,168,208)
+        if ($PokemonSystem.darkmode==0 rescue false)
+          ownerbase=Color.new(24,112,216)
+          ownershadow=Color.new(136,168,208)
+        else
+          ownerbase=Color.new(136,168,208)
+          ownershadow=Color.new(24,112,216)
+        end
       elsif pokemon.otgender==1 # female OT
-        ownerbase=Color.new(248,56,32)
-        ownershadow=Color.new(224,152,144)
+        if ($PokemonSystem.darkmode==0 rescue false)
+          ownerbase=Color.new(248,56,32)
+          ownershadow=Color.new(224,152,144)
+        else
+          ownerbase=Color.new(224,152,144)
+          ownershadow=Color.new(248,56,32)
+        end
       end
       textpos.push([pokemon.ot,563,176,2,ownerbase,ownershadow])
     end

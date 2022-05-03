@@ -609,7 +609,7 @@ class PokemonSummaryScene
       # [_INTL("Pokémon Statistics"),26,8,0,base,shadow,1],
        [pokename,46,62,0,base,shadow],
        [pokemon.level.to_s,46,92,0,base,shadow],
-       [_INTL("HP"),420,76-64,2,base3,nil,0],
+       [_INTL("HP"),420,76-64,2,base2,nil,0],
        [sprintf("%3d/%3d",pokemon.hp,pokemon.totalhp),548,76-64,2,base,shadow],
        [_INTL("Attack"),376,120-64,0,statshadows2[0],statshadows[0],1],
        [sprintf("%d",pokemon.attack),548,120-64,2,base,shadow],

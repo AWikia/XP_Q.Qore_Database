@@ -1005,7 +1005,7 @@ def drawPageFive(pokemon)
     pbDrawImagePositions(overlay,imagepos)
     drawTextEx(overlay,4,218,302,5,
        pbGetMessage(MessageTypes::MoveDescriptions,moveid),
-       Color.new(64,64,64),Color.new(176,176,176))
+       base,shadow)
   end
 
   def drawMoveSelection(pokemon,moveToLearn)
@@ -1117,16 +1117,25 @@ def drawPageFive(pokemon)
     ballimage=sprintf("Graphics/Pictures/summaryball%02d",@pokemon.ballused)
     imagepos.push([ballimage,14,60,0,0,-1,-1])
     pbDrawImagePositions(overlay,imagepos)
-    base=Color.new(230,230,230)
-    shadow=Color.new(58,58,58)
+    if ($PokemonSystem.darkmode==0 rescue false)
+      base=Color.new(88,88,80)
+      shadow=Color.new(168,184,184)
+      base2=Color.new(230,230,230)
+      shadow2=Color.new(58,58,58)
+    else
+      base=Color.new(248,248,240)
+      shadow=Color.new(72,88,88)
+      base2=Color.new(230,230,230)
+      shadow2=Color.new(230,230,230)
+    end
     pbSetSystemFont(overlay)
     pokename=@pokemon.name
     textpos=[
   #     [_INTL("Pokémon Ribbons"),26,8,0,base,shadow,1],
        [pokename,46,62,0,base,shadow],
-       [pokemon.level.to_s,46,92,0,Color.new(64,64,64),Color.new(176,176,176)],
-       [_INTL("No. of Ribbons:"),362,342,0,Color.new(64,64,64),Color.new(176,176,176)],
-       [pokemon.ribbonCount.to_s,578,342,1,Color.new(64,64,64),Color.new(176,176,176)],
+       [pokemon.level.to_s,46,92,0,base,shadow],
+       [_INTL("No. of Ribbons:"),362,342,0,base,shadow],
+       [pokemon.ribbonCount.to_s,578,342,1,base,shadow],
     ]
     gendericon=[]
     if pokemon.isMale?
@@ -1181,15 +1190,16 @@ def drawPageFive(pokemon)
     ballimage=sprintf("Graphics/Pictures/summaryball%02d",@pokemon.ballused)
     imagepos.push([ballimage,14,60,0,0,-1,-1])
     pbDrawImagePositions(overlay,imagepos)
-    base=Color.new(230,230,230)
-    shadow=Color.new(58,58,58)
-    statshadows=[]
-    for i in 0...5; statshadows[i]=shadow; end
-    if !(pokemon.isShadow? rescue false) || pokemon.heartStage<=3
-      natup=(pokemon.nature/5).floor
-      natdn=(pokemon.nature%5).floor
-      statshadows[natup]=Color.new(136,96,72) if natup!=natdn
-      statshadows[natdn]=Color.new(64,120,152) if natup!=natdn
+    if ($PokemonSystem.darkmode==0 rescue false)
+      base=Color.new(88,88,80)
+      shadow=Color.new(168,184,184)
+      base2=Color.new(230,230,230)
+      shadow2=Color.new(58,58,58)
+    else
+      base=Color.new(248,248,240)
+      shadow=Color.new(72,88,88)
+      base2=Color.new(230,230,230)
+      shadow2=Color.new(230,230,230)
     end
     pbSetSystemFont(overlay)
     abilityname=PBAbilities.getName(pokemon.ability)
@@ -1229,21 +1239,21 @@ def drawPageFive(pokemon)
     textpos=[
   #     [_INTL("Advanced Information"),26,8,0,base,shadow,1],
        [pokename,46,62,0,base,shadow],
-       [pokemon.level.to_s,46,92,0,Color.new(64,64,64),Color.new(176,176,176)],
-       [_INTL("Best Stat"),420,76-64,2,base,nil,0],
-       [_INTL("{1}",beststat),548,76-64,2,Color.new(64,64,64),Color.new(176,176,176)],
-       [_INTL("Happiness"),376,120-64,0,shadow,nil,0],
-       [sprintf("%d",pokemon.happiness),548,120-64,2,Color.new(64,64,64),Color.new(176,176,176)],
-       [_INTL("Temperature"),376,152-64,0,base,nil,0], # Was Physical
-       [_INTL("{1} {2}",physicalstat,kind),548,152-64,2,Color.new(64,64,64),Color.new(176,176,176)],
-       [_INTL("Special"),376,184-64,0,shadow,nil,0],
-       [_INTL("{1}",specialstat),548,184-64,2,Color.new(64,64,64),Color.new(176,176,176)],
-       [_INTL("Stamina"),376,216-64,0,base,nil,0],
-       [sprintf("%d",stamina),548,216-64,2,Color.new(64,64,64),Color.new(176,176,176)],
-       [_INTL("Efforts"),376,248-64,0,shadow,nil,0],
-       [sprintf("%d",efforts),548,248-64,2,Color.new(64,64,64),Color.new(176,176,176)],
-       [_INTL("Item"),288,284-64,0,shadow,nil,0],
-       [itemname,426,284-64,0,Color.new(64,64,64),Color.new(176,176,176)],
+       [pokemon.level.to_s,46,92,0,base,shadow],
+       [_INTL("Best Stat"),420,76-64,2,base2,nil,0],
+       [_INTL("{1}",beststat),548,76-64,2,base,shadow,
+       [_INTL("Happiness"),376,120-64,0,shadow2,nil,0],
+       [sprintf("%d",pokemon.happiness),548,120-64,2,base,shadow],
+       [_INTL("Temperature"),376,152-64,0,base2,nil,0], # Was Physical
+       [_INTL("{1} {2}",physicalstat,kind),548,152-64,2,base,shadow],
+       [_INTL("Special"),376,184-64,0,shadow2,nil,0],
+       [_INTL("{1}",specialstat),548,184-64,2,base,shadow],
+       [_INTL("Stamina"),376,216-64,0,base2,nil,0],
+       [sprintf("%d",stamina),548,216-64,2,base,shadow],
+       [_INTL("Efforts"),376,248-64,0,shadow2,nil,0],
+       [sprintf("%d",efforts),548,248-64,2,base,shadow],
+       [_INTL("Item"),288,284-64,0,shadow2,nil,0],
+       [itemname,426,284-64,0,base,shadow],
       ]
     gendericon=[]
     if pokemon.isMale?
@@ -1258,7 +1268,7 @@ def drawPageFive(pokemon)
     end
     pbDrawImagePositions(overlay,gendericon)
     pbDrawTextPositions(overlay,textpos)
-    drawTextEx(overlay,224,316-64,410,4,itemdesc,Color.new(64,64,64),Color.new(176,176,176))
+    drawTextEx(overlay,224,316-64,410,4,itemdesc,base,shadow)
     drawMarkings(overlay,20,343,72,20,pokemon.markings)
     if pokemon.hp>0
       hpcolors=[

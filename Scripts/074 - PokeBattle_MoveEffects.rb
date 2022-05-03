@@ -3300,7 +3300,8 @@ class PokeBattle_Move_069 < PokeBattle_Move
        0xCC,   # Bounce
        0xCD,   # Shadow Force
        0xCE,   # Sky Drop
-       0x14D   # Phantom Force
+       0x14D,  # Phantom Force
+       0x336   # Steel FLy
     ]
     if attacker.effects[PBEffects::Transform] ||
        opponent.effects[PBEffects::Transform] ||
@@ -3637,9 +3638,10 @@ end
 ################################################################################
 class PokeBattle_Move_077 < PokeBattle_Move
   def pbBaseDamage(basedmg,attacker,opponent)
-    if PBMoveData.new(opponent.effects[PBEffects::TwoTurnAttack]).function==0xC9 || # Fly
-       PBMoveData.new(opponent.effects[PBEffects::TwoTurnAttack]).function==0xCC || # Bounce
-       PBMoveData.new(opponent.effects[PBEffects::TwoTurnAttack]).function==0xCE || # Sky Drop
+    if PBMoveData.new(opponent.effects[PBEffects::TwoTurnAttack]).function==0xC9  || # Fly
+       PBMoveData.new(opponent.effects[PBEffects::TwoTurnAttack]).function==0xCC  || # Bounce
+       PBMoveData.new(opponent.effects[PBEffects::TwoTurnAttack]).function==0xCE  || # Sky Drop
+       PBMoveData.new(opponent.effects[PBEffects::TwoTurnAttack]).function==0x336 || # Steel Fly
        opponent.effects[PBEffects::SkyDrop]
       return basedmg*2
     end
@@ -3656,9 +3658,10 @@ end
 ################################################################################
 class PokeBattle_Move_078 < PokeBattle_Move
   def pbBaseDamage(basedmg,attacker,opponent)
-    if PBMoveData.new(opponent.effects[PBEffects::TwoTurnAttack]).function==0xC9 || # Fly
-       PBMoveData.new(opponent.effects[PBEffects::TwoTurnAttack]).function==0xCC || # Bounce
-       PBMoveData.new(opponent.effects[PBEffects::TwoTurnAttack]).function==0xCE || # Sky Drop
+    if PBMoveData.new(opponent.effects[PBEffects::TwoTurnAttack]).function==0xC9  || # Fly
+       PBMoveData.new(opponent.effects[PBEffects::TwoTurnAttack]).function==0xCC  || # Bounce
+       PBMoveData.new(opponent.effects[PBEffects::TwoTurnAttack]).function==0xCE  || # Sky Drop
+       PBMoveData.new(opponent.effects[PBEffects::TwoTurnAttack]).function==0x336 || # Steel Fly
        opponent.effects[PBEffects::SkyDrop]
       return basedmg*2
     end
@@ -5201,7 +5204,8 @@ class PokeBattle_Move_0AF < PokeBattle_Move
          0xCD,    # Shadow Force
          0xCE,    # Sky Drop
          0x14D,   # Phantom Force
-         0x14E    # Geomancy
+         0x14E,   # Geomancy
+         0x336    # Steel Fly
       ]
     end
     if battle.lastMoveUsed<=0 ||
@@ -5395,6 +5399,7 @@ class PokeBattle_Move_0B4 < PokeBattle_Move
        0xCE,    # Sky Drop
        0x14D,   # Phantom Force
        0x14E,   # Geomancy
+       0x336,   # Steel Fly
 # Dedicated Moves
        0x172,   # Κουλούνδιν
        0x325    # Elder Special Moves
@@ -5489,7 +5494,8 @@ class PokeBattle_Move_0B5 < PokeBattle_Move
          0xCD,    # Shadow Force
          0xCE,    # Sky Drop
          0x14D,   # Phantom Force
-         0x14E    # Geomancy
+         0x14E,   # Geomancy
+         0x336    # Steel Fly
       ]
     end
     moves=[]
@@ -9134,8 +9140,9 @@ class PokeBattle_Move_118 < PokeBattle_Move
       next if !poke
       if PBMoveData.new(poke.effects[PBEffects::TwoTurnAttack]).function==0xC9 || # Fly
          PBMoveData.new(poke.effects[PBEffects::TwoTurnAttack]).function==0xCC || # Bounce
-         PBMoveData.new(poke.effects[PBEffects::TwoTurnAttack]).function==0xCE    # Sky Drop
-        poke.effects[PBEffects::TwoTurnAttack]=0
+         PBMoveData.new(poke.effects[PBEffects::TwoTurnAttack]).function==0xCE || # Sky Drop
+         PBMoveData.new(poke.effects[PBEffects::TwoTurnAttack]).function==0x336   # Steel Fly
+         poke.effects[PBEffects::TwoTurnAttack]=0
       end
       if poke.effects[PBEffects::SkyDrop]
         poke.effects[PBEffects::SkyDrop]=false
@@ -9225,9 +9232,10 @@ end
 ################################################################################
 class PokeBattle_Move_11C < PokeBattle_Move
   def pbBaseDamage(basedmg,attacker,opponent)
-    if PBMoveData.new(opponent.effects[PBEffects::TwoTurnAttack]).function==0xC9 || # Fly
-       PBMoveData.new(opponent.effects[PBEffects::TwoTurnAttack]).function==0xCC || # Bounce
-       PBMoveData.new(opponent.effects[PBEffects::TwoTurnAttack]).function==0xCE || # Sky Drop
+    if PBMoveData.new(opponent.effects[PBEffects::TwoTurnAttack]).function==0xC9  || # Fly
+       PBMoveData.new(opponent.effects[PBEffects::TwoTurnAttack]).function==0xCC  || # Bounce
+       PBMoveData.new(opponent.effects[PBEffects::TwoTurnAttack]).function==0xCE  || # Sky Drop
+       PBMoveData.new(opponent.effects[PBEffects::TwoTurnAttack]).function==0x336 || # Steel Fly
        opponent.effects[PBEffects::SkyDrop]
       return basedmg*2
     end
@@ -9242,8 +9250,9 @@ class PokeBattle_Move_11C < PokeBattle_Move
       showmsg=(opponent.pbHasType?(:FLYING) ||
                opponent.hasWorkingAbility(:LEVITATE))
       if PBMoveData.new(opponent.effects[PBEffects::TwoTurnAttack]).function==0xC9 || # Fly
-         PBMoveData.new(opponent.effects[PBEffects::TwoTurnAttack]).function==0xCC    # Bounce
-        opponent.effects[PBEffects::TwoTurnAttack]=0; showmsg=true
+         PBMoveData.new(opponent.effects[PBEffects::TwoTurnAttack]).function==0xCC || # Bounce
+         PBMoveData.new(opponent.effects[PBEffects::TwoTurnAttack]).function==0x336   # Steel Fly
+         opponent.effects[PBEffects::TwoTurnAttack]=0; showmsg=true
       end
       if opponent.effects[PBEffects::MagnetRise]>0
         opponent.effects[PBEffects::MagnetRise]=0; showmsg=true
@@ -14177,6 +14186,75 @@ class PokeBattle_Move_334 < PokeBattle_Move
   end
 end
 
+################################################################################
+# For five turns, user's and ally's are partially swapped and makes a poweder. 
+# Does not affect your moves in your side (Revelation Powder)
+################################################################################
+class PokeBattle_Move_335 < PokeBattle_Move
+  def pbEffect(attacker,opponent,hitnum=0,alltargets=nil,showanimation=true)
+    if attacker.pbOwnSide.effects[PBEffects::RevelationPowder]>0 ||
+      !@battle.doublebattle
+			pbSEPlay("protection")
+      @battle.pbDisplay(_INTL("But it failed!"))
+      return -1
+    end
+    pbShowAnimation(@id,attacker,nil,hitnum,alltargets,showanimation)
+    attacker.pbOwnSide.effects[PBEffects::RevelationPowder]=5
+    if !@battle.pbIsOpposing?(attacker.index)
+      @battle.pbDisplay(_INTL("Your team was switched out!"))
+    else
+      @battle.pbDisplay(_INTL("The opposing team was switched out"))
+    end
+    return 0
+  end
+end
+
+
+################################################################################
+# Two turn attack. Skips first turn, attacks second turn.
+# Damage is multiplied by Flying's effectiveness against the target. (Steel Fly)
+# (Handled in Battler's pbSuccessCheck): Is semi-invulnerable during use.
+################################################################################
+class PokeBattle_Move_336 < PokeBattle_Move
+  def unusableInGravity?
+    return true
+  end
+
+  
+  def pbModifyDamage(damagemult,attacker,opponent)
+    type=getConst(PBTypes,:FLYING) || -1
+    if type>=0
+      mult=PBTypes.getCombinedEffectiveness(type,
+         opponent.type1,opponent.type2,opponent.effects[PBEffects::Type3])
+      return ((damagemult*mult)/8).round
+    end
+    return damagemult
+  end
+
+  
+  def pbTwoTurnAttack(attacker)
+    @immediate=false
+    if !@immediate && attacker.hasWorkingItem(:POWERHERB)
+      @immediate=true
+    end
+    return false if @immediate
+    return attacker.effects[PBEffects::TwoTurnAttack]==0
+  end
+
+  def pbEffect(attacker,opponent,hitnum=0,alltargets=nil,showanimation=true)
+    if @immediate || attacker.effects[PBEffects::TwoTurnAttack]>0
+      pbShowAnimation(@id,attacker,opponent,1,alltargets,showanimation) # Charging anim
+      @battle.pbDisplay(_INTL("{1} flew up high!",attacker.pbThis))
+    end
+    if @immediate
+      @battle.pbCommonAnimation("UseItem",attacker,nil)
+      @battle.pbDisplay(_INTL("{1} became fully charged due to its Power Herb!",attacker.pbThis))
+      attacker.pbConsumeItem
+    end
+    return 0 if attacker.effects[PBEffects::TwoTurnAttack]>0
+    return super(attacker,opponent,hitnum,alltargets,showanimation)
+  end
+end
 
 
 ################################################################################
@@ -14330,6 +14408,7 @@ class PokeBattle_Move_212 < PokeBattle_Move
       0xC7,    # Sky Attack
       0xCE,    # Sky Drop
       0xC4,    # Solar Beam, Solar Blade
+      0x336,   # Steel Fly
       0x245,   # Doom Catapult
       0x246,   # Fiery Catapult
       0x295,   # Grassy Catapult

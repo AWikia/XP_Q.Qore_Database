@@ -704,10 +704,17 @@ def Kernel.pbDive
   if ($DEBUG || $TEST) ||
     (HIDDENMOVESCOUNTBADGES ? $Trainer.numbadges>=BADGEFORDIVE : $Trainer.badges[BADGEFORDIVE])
     movefinder=Kernel.pbCheckMove(:DIVE)
+    movename="Dive"
+    if !movefinder
+      movefinder=Kernel.pbCheckMove(:WATERSPLASH)
+      if movefinder
+        movename="Water Splash"
+      end
+    end
     if ($DEBUG || $TEST) || movefinder
-      if Kernel.pbConfirmMessage(_INTL("The sea is deep here. Would you like to use Dive?"))
+      if Kernel.pbConfirmMessage(_INTL("The sea is deep here. Would you like to use {1}?",movename))
         speciesname=!movefinder ? $Trainer.name : movefinder.name
-        Kernel.pbMessage(_INTL("{1} used Dive!",speciesname))
+        Kernel.pbMessage(_INTL("{1} used {2}!",speciesname,movename))
         pbHiddenMoveAnimation(movefinder)
         pbFadeOutIn(99999){
            $game_temp.player_new_map_id=divemap
@@ -746,11 +753,18 @@ def Kernel.pbSurfacing
   end
   return if !divemap
   movefinder=Kernel.pbCheckMove(:DIVE)
+    movename="Dive"
+  if !movefinder
+    movefinder=Kernel.pbCheckMove(:WATERSPLASH)
+    if movefinder
+      movename="Water Splash"
+    end
+  end
   if ($DEBUG || $TEST) || (movefinder &&
     (HIDDENMOVESCOUNTBADGES ? $Trainer.numbadges>=BADGEFORDIVE : $Trainer.badges[BADGEFORDIVE]) )
-    if Kernel.pbConfirmMessage(_INTL("Light is filtering down from above. Would you like to use Dive?"))
+    if Kernel.pbConfirmMessage(_INTL("Light is filtering down from above. Would you like to use {1}?",movename))
       speciesname=!movefinder ? $Trainer.name : movefinder.name
-      Kernel.pbMessage(_INTL("{1} used Dive!",speciesname))
+      Kernel.pbMessage(_INTL("{1} used {2}!",speciesname,movename))
       pbHiddenMoveAnimation(movefinder)
       pbFadeOutIn(99999){
          $game_temp.player_new_map_id=divemap
@@ -858,6 +872,8 @@ HiddenMoveHandlers::CanUseMove.add(:DIVE,proc{|move,pkmn|
    return true
 })
 
+HiddenMoveHandlers::CanUseMove.copy(:DIVE,:WATERSPLASH)
+
 HiddenMoveHandlers::UseMove.add(:DIVE,proc{|move,pokemon|
    wasdiving=$PokemonGlobal.diving
    if $PokemonGlobal.diving
@@ -896,6 +912,9 @@ HiddenMoveHandlers::UseMove.add(:DIVE,proc{|move,pokemon|
    }
    return true
 })
+
+HiddenMoveHandlers::UseMove.copy(:DIVE,:WATERSPLASH)
+
 
 #===============================================================================
 # Fly
@@ -1030,7 +1049,7 @@ HiddenMoveHandlers::UseMove.add(:TELEPORT,proc{|move,pokemon|
 })
 
 #===============================================================================
-# Dig
+# Dig & Deep Dig
 #===============================================================================
 HiddenMoveHandlers::CanUseMove.add(:DIG,proc{|move,pkmn|
    escape=($PokemonGlobal.escapePoint rescue nil)
@@ -1048,6 +1067,8 @@ HiddenMoveHandlers::CanUseMove.add(:DIG,proc{|move,pkmn|
    end
    return false
 })
+
+HiddenMoveHandlers::CanUseMove.copy(:DIG,:DEEPDIG)
 
 HiddenMoveHandlers::UseMove.add(:DIG,proc{|move,pokemon|
    escape=($PokemonGlobal.escapePoint rescue nil)
@@ -1070,6 +1091,9 @@ HiddenMoveHandlers::UseMove.add(:DIG,proc{|move,pokemon|
    end
    return false
 })
+
+HiddenMoveHandlers::UseMove.copy(:DIG,:DEEPDIG)
+
 
 #===============================================================================
 # Sweet Scent

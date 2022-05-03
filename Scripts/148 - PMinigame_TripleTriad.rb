@@ -165,7 +165,7 @@ class TriadScene
     # Allocate viewport
     @viewport=Viewport.new(0,0,Graphics.width,Graphics.height)
     @viewport.z=99999
-    addBackgroundPlane(@sprites,"background","triadbg",@viewport)
+    addBackgroundPlane(@sprites,"background",getDarkModeFolder+"/triadbg",@viewport)
     @sprites["helpwindow"]=Window_AdvancedTextPokemon.newWithSize("",
        0,Graphics.height-64,Graphics.width,64,@viewport)
     for i in 0...@battle.width*@battle.height

@@ -49,7 +49,7 @@ class MapBottomSprite < SpriteWrapper
   def refresh
     self.bitmap.clear
     if @nonests
-      imagepos=[[sprintf("Graphics/Pictures/pokedexNestUnknown"),172,172,0,0,-1,-1]]
+      imagepos=[[sprintf("Graphics/Pictures/"+getDarkModeFolder+"/pokedexNestUnknown"),172,172,0,0,-1,-1]]
       pbDrawImagePositions(self.bitmap,imagepos)
     end
 =begin
@@ -59,6 +59,14 @@ class MapBottomSprite < SpriteWrapper
        [@mapdetails,Graphics.width-16,354,1,Color.new(255,192,77)]
     ]
 =end
+
+    if ($PokemonSystem.darkmode==0 rescue false)
+      color=Color.new(20,20,20)
+    else
+      color=Color.new(248,248,248)
+    end
+
+
     textpos=[
        [@mapname,18,-2,0,Color.new(248,248,248),Color.new(0,0,0)],
        [@maplocation,18,354,0,Color.new(20,20,20)],
@@ -66,7 +74,7 @@ class MapBottomSprite < SpriteWrapper
     ]
     if @nonests
       textpos.push([_INTL("Area Unknown"),Graphics.width/2,Graphics.height/2-16,2,
-         Color.new(20,20,20)]) # 204,132,0
+         color]) # 204,132,0
     end
     pbDrawTextPositions(self.bitmap,textpos)
   end
@@ -132,9 +140,9 @@ class PokemonRegionMapScene
       return false
     end
     if $Trainer.isFemale?
-      addBackgroundOrColoredPlane(@sprites,"background","mapbgf",Color.new(255,255,255),@viewport)
+      addBackgroundOrColoredPlane(@sprites,"background",getDarkModeFolder+"/mapbgf",Color.new(255,255,255),@viewport)
     else
-      addBackgroundOrColoredPlane(@sprites,"background","mapbg",Color.new(255,255,255),@viewport)
+      addBackgroundOrColoredPlane(@sprites,"background",getDarkModeFolder+"/mapbg",Color.new(255,255,255),@viewport)
     end
     @sprites["map"]=IconSprite.new(0,0,@viewport)
     @sprites["map"].setBitmap("Graphics/Regional Maps/#{@map[1]}")

@@ -187,7 +187,7 @@ class PokemonSummaryScene
     @sprites["itemicon2"].visible = false
     overlay=@sprites["overlay"].bitmap
     overlay.clear
-    @sprites["background"].setBitmap("Graphics/Pictures/summary1")
+    @sprites["background"].setBitmap("Graphics/Pictures/"+getDarkModeFolder+"/summary1")
 #    @sprites["header-bg"].setBitmap("Graphics/Pictures/header-global")
 #    @sprites["header"].setBitmap("Graphics/Pictures/header1")
     imagepos=[]
@@ -207,16 +207,25 @@ class PokemonSummaryScene
     ballimage=sprintf("Graphics/Pictures/summaryball%02d",@pokemon.ballused)
     imagepos.push([ballimage,14,60,0,0,-1,-1])
     if (pokemon.isShadow? rescue false)
-      imagepos.push(["Graphics/Pictures/summaryShadow",352,240,0,0,-1,-1])
+      imagepos.push(["Graphics/Pictures/"+getDarkModeFolder+"/summaryShadow",352,240,0,0,-1,-1])
       shadowfract=pokemon.heartgauge*1.0/PokeBattle_Pokemon::HEARTGAUGESIZE
       imagepos.push(["Graphics/Pictures/summaryShadowBar",370,280,0,0,(shadowfract*248).floor,-1])
     end
     pbDrawImagePositions(overlay,imagepos)
-    base=Color.new(230,230,230)
-    shadow=Color.new(58,58,58)
+    if ($PokemonSystem.darkmode==0 rescue false)
+      base=Color.new(88,88,80)
+      shadow=Color.new(168,184,184)
+      base2=Color.new(230,230,230)
+      shadow2=Color.new(58,58,58)
+    else
+      base=Color.new(248,248,240)
+      shadow=Color.new(72,88,88)
+      base2=Color.new(230,230,230)
+      shadow2=Color.new(230,230,230)
+    end
     pbSetSystemFont(overlay)
-    numberbase=(pokemon.isShiny?) ? Color.new(248,56,32) : Color.new(64,64,64)
-    numbershadow=(pokemon.isShiny?) ? Color.new(224,152,144) : Color.new(176,176,176)
+    numberbase=(pokemon.isShiny?) ? Color.new(248,56,32) : base
+    numbershadow=(pokemon.isShiny?) ? Color.new(224,152,144) : shadow
     publicID=pokemon.publicID
     speciesname=PBSpecies.getName(pokemon.species)
     growthrate=pokemon.growthrate
@@ -229,19 +238,19 @@ class PokemonSummaryScene
     textpos=[
  #      [_INTL("Pokémon Information"),26,8,0,base,shadow,1],
        [pokename,46,62,0,base,shadow],
-       [pokemon.level.to_s,46,92,0,Color.new(64,64,64),Color.new(176,176,176)],
-       [_ISPRINTF("Dex No."),366,16,0,base,nil,0],
+       [pokemon.level.to_s,46,92,0,base,shadow],
+       [_ISPRINTF("Dex No."),366,16,0,base2,nil,0],
        [_INTL("{1}",fdexno),563,16,2,numberbase,numbershadow],
-       [_INTL("Species"),366,48,0,shadow,nil,0],
-       [speciesname,563,48,2,Color.new(64,64,64),Color.new(176,176,176)],
-       [_INTL("Color"),366,80,0,base,nil,0],
-       [_INTL("Compats"),366,112,0,shadow,nil,0],
-       [_INTL("Type"),366,144,0,base,nil,0],
-       [_INTL("OT"),366,176,0,shadow,nil,0],
-       [_INTL("ID No."),366,208,0,base,nil,0],
+       [_INTL("Species"),366,48,0,shadow2,nil,0],
+       [speciesname,563,48,2,base,shadow],
+       [_INTL("Color"),366,80,0,base2,nil,0],
+       [_INTL("Compats"),366,112,0,shadow2,nil,0],
+       [_INTL("Type"),366,144,0,base2,nil,0],
+       [_INTL("OT"),366,176,0,shadow2,nil,0],
+       [_INTL("ID No."),366,208,0,base2,nil,0],
     ]
     if (pokemon.isShadow? rescue false)
-      textpos.push([_INTL("Heart Gauge"),366,240,0,shadow,nil,0])
+      textpos.push([_INTL("Heart Gauge"),366,240,0,shadow2,nil,0])
       heartmessage=[_INTL("The door to its heart is open! Undo the final lock!"),
                     _INTL("The door to its heart is almost fully open."),
                     _INTL("The door to its heart is nearly open."),
@@ -249,27 +258,37 @@ class PokemonSummaryScene
                     _INTL("The door to its heart is opening up."),
                     _INTL("The door to its heart is tightly shut.")
                     ][pokemon.heartStage]
-      memo=sprintf("<c3=404040,B0B0B0>%s\n",heartmessage)
+      memo=sprintf("<c3=%s,%s>%s\n",colorToRgb32(base),colorToRgb32(shadow),heartmessage)
       drawFormattedTextEx(overlay,366,304,276,memo)
     else
-      textpos.push([_INTL("Exp. Points"),366,240,0,shadow,nil,0])
-      textpos.push([_INTL("{1}",pokemon.exp.to_s_formatted),616,272,1,Color.new(64,64,64),Color.new(176,176,176)])
-      textpos.push([_INTL("To Next Lv."),366,304,0,shadow,nil,0])
-      textpos.push([_INTL("{1}",(endexp-pokemon.exp).to_s_formatted),616,336,1,Color.new(64,64,64),Color.new(176,176,176)])
+      textpos.push([_INTL("Exp. Points"),366,240,0,shadow2,nil,0])
+      textpos.push([_INTL("{1}",pokemon.exp.to_s_formatted),616,272,1,base,shadow])
+      textpos.push([_INTL("To Next Lv."),366,304,0,shadow2,nil,0])
+      textpos.push([_INTL("{1}",(endexp-pokemon.exp).to_s_formatted),616,336,1,base,shadow])
     end
     idno=(pokemon.ot=="") ? "?????" : sprintf("%05d",publicID)
-    textpos.push([idno,563,208,2,Color.new(64,64,64),Color.new(176,176,176)])
+    textpos.push([idno,563,208,2,base,shadow])
     if pokemon.ot==""
-      textpos.push([_INTL("Rental"),563,176,2,Color.new(64,64,64),Color.new(176,176,176)])
+      textpos.push([_INTL("Rental"),563,176,2,base,shadow])
     else
-      ownerbase=Color.new(64,64,64)
-      ownershadow=Color.new(176,176,176)
+      ownerbase=base
+      ownershadow=shadow
       if pokemon.otgender==0 # male OT
-        ownerbase=Color.new(24,112,216)
-        ownershadow=Color.new(136,168,208)
+        if ($PokemonSystem.darkmode==0 rescue false)
+          ownerbase=Color.new(24,112,216)
+          ownershadow=Color.new(136,168,208)
+        else
+          ownerbase=Color.new(136,168,208)
+          ownershadow=Color.new(24,112,216)
+        end
       elsif pokemon.otgender==1 # female OT
-        ownerbase=Color.new(248,56,32)
-        ownershadow=Color.new(224,152,144)
+        if ($PokemonSystem.darkmode==0 rescue false)
+          ownerbase=Color.new(248,56,32)
+          ownershadow=Color.new(224,152,144)
+        else
+          ownerbase=Color.new(224,152,144)
+          ownershadow=Color.new(248,56,32)
+        end
       end
       textpos.push([pokemon.ot,563,176,2,ownerbase,ownershadow])
     end
@@ -317,7 +336,7 @@ class PokemonSummaryScene
     @sprites["itemicon2"].item = @pokemon.item
     overlay=@sprites["overlay"].bitmap
     overlay.clear
-    @sprites["background"].setBitmap("Graphics/Pictures/summaryEgg")
+    @sprites["background"].setBitmap("Graphics/Pictures/"+getDarkModeFolder+"/summaryEgg")
 #    @sprites["header-bg"].setBitmap("Graphics/Pictures/header-global")
 #    @sprites["header"].setBitmap("Graphics/Pictures/headerB1")
     imagepos=[]
@@ -333,35 +352,44 @@ class PokemonSummaryScene
     imagepos.push(["Graphics/Pictures/"+getAccentFolder+"/summaryEggBar",370,244,0,0,(shadowfract*248).floor,-1])
     # Egg Steps End
     pbDrawImagePositions(overlay,imagepos)
-    base=Color.new(230,230,230)
-    shadow=Color.new(58,58,58)
+    if ($PokemonSystem.darkmode==0 rescue false)
+      base=Color.new(88,88,80)
+      shadow=Color.new(168,184,184)
+      base2=Color.new(230,230,230)
+      shadow2=Color.new(58,58,58)
+    else
+      base=Color.new(248,248,240)
+      shadow=Color.new(72,88,88)
+      base2=Color.new(230,230,230)
+      shadow2=Color.new(230,230,230)
+    end
     pbSetSystemFont(overlay)
     textpos=[
  #      [_INTL("Trainer Information"),26,8,0,base,shadow,1],
        [pokemon.name,46,62,0,base,shadow],
     ]
-    textpos.push([_INTL("\"The Egg Watch\""),360,204,0,shadow,nil,0])
+    textpos.push([_INTL("\"The Egg Watch\""),360,204,0,shadow2,nil,0])
     pbDrawTextPositions(overlay,textpos)
     memo=""
     if pokemon.timeReceived
       month=pbGetAbbrevMonthName(pokemon.timeReceived.mon)
       date=pokemon.timeReceived.day
       year=pokemon.timeReceived.year
-      memo+=_INTL("<c3=404040,B0B0B0>{1} {2}, {3}\n",month,date,year)
+      memo+=_INTL("<c3={1},{2}>{3} {4}, {5}\n",colorToRgb32(base),colorToRgb32(shadow),month,date,year)
     end
     mapname=pbGetMapNameFromId(pokemon.obtainMap)
     if (pokemon.obtainText rescue false) && pokemon.obtainText!=""
       mapname=pokemon.obtainText
     end
     if mapname && mapname!=""
-      memo+=_INTL("<c3=404040,B0B0B0>A mysterious Pokémon Egg received from <c3=F83820,E09890>{1}<c3=404040,B0B0B0>.\n",mapname)
+      memo+=_INTL("<c3={1},{2}>A mysterious Pokémon Egg received from <c3=F83820,E09890>{3}<c3={1},{2}>.\n",colorToRgb32(base),colorToRgb32(shadow),mapname)
     end
-    memo+="<c3=404040,B0B0B0>\n"
+    memo+=_INTL("<c3={1},{2}>\n",colorToRgb32(base),colorToRgb32(shadow))
     eggstate=_INTL("It looks like this Egg will take a long time to hatch.")
     eggstate=_INTL("What will hatch from this? It doesn't seem close to hatching.") if pokemon.eggsteps<10200
     eggstate=_INTL("It appears to move occasionally. It may be close to hatching.") if pokemon.eggsteps<2550
     eggstate=_INTL("Sounds can be heard coming from inside! It will hatch soon!") if pokemon.eggsteps<1275
-    eggstatemsg=sprintf("<c3=404040,B0B0B0>%s\n",eggstate)
+    eggstatemsg=sprintf("<c3=%s,%s>%s\n",colorToRgb32(base),colorToRgb32(shadow),eggstate)
     drawFormattedTextEx(overlay,360,268,272,eggstatemsg)
     drawFormattedTextEx(overlay,360,78,276,memo)
     drawMarkings(overlay,20,343,72,20,pokemon.markings)
@@ -372,7 +400,7 @@ class PokemonSummaryScene
     @sprites["itemicon2"].visible = false
     overlay=@sprites["overlay"].bitmap
     overlay.clear
-    @sprites["background"].setBitmap("Graphics/Pictures/summary2")
+    @sprites["background"].setBitmap("Graphics/Pictures/"+getDarkModeFolder+"/summary2")
 #    @sprites["header-bg"].setBitmap("Graphics/Pictures/header-global")      
 #    @sprites["header"].setBitmap("Graphics/Pictures/header2")
     imagepos=[]
@@ -392,15 +420,24 @@ class PokemonSummaryScene
     ballimage=sprintf("Graphics/Pictures/summaryball%02d",@pokemon.ballused)
     imagepos.push([ballimage,14,60,0,0,-1,-1])
     pbDrawImagePositions(overlay,imagepos)
-    base=Color.new(230,230,230)
-    shadow=Color.new(58,58,58)
+    if ($PokemonSystem.darkmode==0 rescue false)
+      base=Color.new(88,88,80)
+      shadow=Color.new(168,184,184)
+      base2=Color.new(230,230,230)
+      shadow2=Color.new(58,58,58)
+    else
+      base=Color.new(248,248,240)
+      shadow=Color.new(72,88,88)
+      base2=Color.new(230,230,230)
+      shadow2=Color.new(230,230,230)
+    end
     pbSetSystemFont(overlay)
     naturename=PBNatures.getName(pokemon.nature)
     pokename=@pokemon.name
     textpos=[
   #     [_INTL("Trainer Information"),26,8,0,base,shadow,1],
        [pokename,46,62,0,base,shadow],
-       [pokemon.level.to_s,46,92,0,Color.new(64,64,64),Color.new(176,176,176)],
+       [pokemon.level.to_s,46,92,0,base,shadow],
     ]
     gendericon=[]
     if pokemon.isMale?
@@ -418,13 +455,13 @@ class PokemonSummaryScene
     memo=""
     shownature=(!(pokemon.isShadow? rescue false)) || pokemon.heartStage<=3
     if shownature
-      memo+=_INTL("<c3=F83820,E09890>{1}<c3=404040,B0B0B0> nature.\n",naturename)
+      memo+=_INTL("<c3=F83820,E09890>{1}<c3={2},{3}> nature.\n",naturename,colorToRgb32(base),colorToRgb32(shadow))
     end
     if pokemon.timeReceived
       month=pbGetAbbrevMonthName(pokemon.timeReceived.mon)
       date=pokemon.timeReceived.day
       year=pokemon.timeReceived.year
-      memo+=_INTL("<c3=404040,B0B0B0>{1} {2}, {3}\n",month,date,year)
+      memo+=_INTL("<c3={1},{2}>{3} {4}, {5}\n",colorToRgb32(base),colorToRgb32(shadow),month,date,year)
     end
     mapname=pbGetMapNameFromId(pokemon.obtainMap)
     if (pokemon.obtainText rescue false) && pokemon.obtainText!=""
@@ -442,13 +479,13 @@ class PokemonSummaryScene
                "",
                _INTL("Had a fateful encounter at Lv. {1}.",pokemon.obtainLevel)
                ][pokemon.obtainMode]
-      memo+=sprintf("<c3=404040,B0B0B0>%s\n",mettext)
+      memo+=sprintf("<c3=%s,%s>%s\n",colorToRgb32(base),colorToRgb32(shadow),mettext)
       if pokemon.obtainMode==1 # hatched
         if pokemon.timeEggHatched
           month=pbGetAbbrevMonthName(pokemon.timeEggHatched.mon)
           date=pokemon.timeEggHatched.day
           year=pokemon.timeEggHatched.year
-          memo+=_INTL("<c3=404040,B0B0B0>{1} {2}, {3}\n",month,date,year)
+          memo+=_INTL("<c3={1},{2}>{3} {4}, {5}\n",colorToRgb32(base),colorToRgb32(shadow),month,date,year)
         end
         mapname=pbGetMapNameFromId(pokemon.hatchedMap)
         if mapname && mapname!=""
@@ -458,7 +495,7 @@ class PokemonSummaryScene
         end
         memo+=_INTL("<c3=404040,B0B0B0>Egg hatched.\n")
       else
-        memo+="<c3=404040,B0B0B0>\n"
+        memo+=_INTL("<c3={1},{2}>\n",colorToRgb32(base),colorToRgb32(shadow))
       end
     end
     if shownature
@@ -502,7 +539,7 @@ class PokemonSummaryScene
                       _INTL("Hates to lose."),
                       _INTL("Somewhat stubborn.")
                       ][bestiv*5+pokemon.iv[bestiv]%5]
-      memo+=sprintf("<c3=404040,B0B0B0>%s\n",characteristic)
+      memo+=sprintf("<c3=%s,%s>%s\n",colorToRgb32(base),colorToRgb32(shadow),characteristic)
     end
     drawFormattedTextEx(overlay,360,78,276,memo)
     drawMarkings(overlay,20,343,72,20,pokemon.markings)
@@ -513,7 +550,7 @@ class PokemonSummaryScene
     @sprites["itemicon2"].visible = false
     overlay=@sprites["overlay"].bitmap
     overlay.clear
-    @sprites["background"].setBitmap("Graphics/Pictures/summary3")
+    @sprites["background"].setBitmap("Graphics/Pictures/"+getDarkModeFolder+"/summary3")
 #      @sprites["header-bg"].setBitmap("Graphics/Pictures/header-global")      
 #      @sprites["header"].setBitmap("Graphics/Pictures/header3")
     imagepos=[]
@@ -533,23 +570,36 @@ class PokemonSummaryScene
     ballimage=sprintf("Graphics/Pictures/summaryball%02d",@pokemon.ballused)
     imagepos.push([ballimage,14,60,0,0,-1,-1])
     pbDrawImagePositions(overlay,imagepos)
-    base=Color.new(230,230,230)
-    shadow=Color.new(58,58,58)
+    if ($PokemonSystem.darkmode==0 rescue false)
+      base=Color.new(88,88,80)
+      shadow=Color.new(168,184,184)
+      base2=Color.new(230,230,230)
+      shadow2=Color.new(58,58,58)
+    else
+      base=Color.new(248,248,240)
+      shadow=Color.new(72,88,88)
+      base2=Color.new(230,230,230)
+      shadow2=Color.new(230,230,230)
+    end
     nat = (pokemon.mint!=-1) ? pokemon.mint : pokemon.nature
     statshadows=[]
     statshadows2=[]
     for i in 0...5; statshadows[i]=nil; end
-    for i in 0...5; statshadows2[i]=shadow; end
+    for i in 0...5; statshadows2[i]=shadow2; end
     if !(pokemon.isShadow? rescue false) || pokemon.heartStage<=3
 #      natup=(pokemon.nature/5).floor
 #      natdn=(pokemon.nature%5).floor
       natup=(nat/5).floor
       natdn=(nat%5).floor
-      statshadows[natup]=Color.new(136,96,72) if natup!=natdn
-      statshadows[natdn]=Color.new(64,120,152) if natup!=natdn
-
-      statshadows2[natup]=base if natup!=natdn
-      statshadows2[natdn]=base if natup!=natdn
+      if ($PokemonSystem.darkmode==0 rescue false)
+        statshadows[natup]=Color.new(136,96,72) if natup!=natdn
+        statshadows[natdn]=Color.new(64,120,152) if natup!=natdn
+      else
+        statshadows[natup]=Color.new(183,143,119) if natup!=natdn
+        statshadows[natdn]=Color.new(103,159,191) if natup!=natdn
+      end
+      statshadows2[natup]=base2 if natup!=natdn
+      statshadows2[natdn]=base2 if natup!=natdn
     end
     pbSetSystemFont(overlay)
     abilityname=PBAbilities.getName(pokemon.ability)
@@ -558,21 +608,21 @@ class PokemonSummaryScene
     textpos=[
       # [_INTL("Pokémon Statistics"),26,8,0,base,shadow,1],
        [pokename,46,62,0,base,shadow],
-       [pokemon.level.to_s,46,92,0,Color.new(64,64,64),Color.new(176,176,176)],
-       [_INTL("HP"),420,76-64,2,base,nil,0],
-       [sprintf("%3d/%3d",pokemon.hp,pokemon.totalhp),548,76-64,2,Color.new(64,64,64),Color.new(176,176,176)],
+       [pokemon.level.to_s,46,92,0,base,shadow],
+       [_INTL("HP"),420,76-64,2,base2,nil,0],
+       [sprintf("%3d/%3d",pokemon.hp,pokemon.totalhp),548,76-64,2,base,shadow],
        [_INTL("Attack"),376,120-64,0,statshadows2[0],statshadows[0],1],
-       [sprintf("%d",pokemon.attack),548,120-64,2,Color.new(64,64,64),Color.new(176,176,176)],
-       [_INTL("Defense"),376,152-64,0,base,statshadows[1],1],
-       [sprintf("%d",pokemon.defense),548,152-64,2,Color.new(64,64,64),Color.new(176,176,176)],
+       [sprintf("%d",pokemon.attack),548,120-64,2,base,shadow],
+       [_INTL("Defense"),376,152-64,0,base2,statshadows[1],1],
+       [sprintf("%d",pokemon.defense),548,152-64,2,base,shadow],
        [_INTL("Sp. Atk"),376,184-64,0,statshadows2[3],statshadows[3],1],
-       [sprintf("%d",pokemon.spatk),548,184-64,2,Color.new(64,64,64),Color.new(176,176,176)],
-       [_INTL("Sp. Def"),376,216-64,0,base,statshadows[4],1],
-       [sprintf("%d",pokemon.spdef),548,216-64,2,Color.new(64,64,64),Color.new(176,176,176)],
+       [sprintf("%d",pokemon.spatk),548,184-64,2,base,shadow],
+       [_INTL("Sp. Def"),376,216-64,0,base2,statshadows[4],1],
+       [sprintf("%d",pokemon.spdef),548,216-64,2,base,shadow],
        [_INTL("Speed"),376,248-64,0,statshadows2[2],statshadows[2],1],
-       [sprintf("%d",pokemon.speed),548,248-64,2,Color.new(64,64,64),Color.new(176,176,176)],
-       [_INTL("Ability"),288,284-64,0,shadow,nil,0],
-       [abilityname,426,284-64,0,Color.new(64,64,64),Color.new(176,176,176)],
+       [sprintf("%d",pokemon.speed),548,248-64,2,base,shadow],
+       [_INTL("Ability"),288,284-64,0,shadow2,nil,0],
+       [abilityname,426,284-64,0,base,shadow],
       ]
     gendericon=[]
     if pokemon.isMale?
@@ -587,7 +637,7 @@ class PokemonSummaryScene
     end
     pbDrawImagePositions(overlay,gendericon)
     pbDrawTextPositions(overlay,textpos)
-    drawTextEx(overlay,224,316-64,410,4,abilitydesc,Color.new(64,64,64),Color.new(176,176,176))
+    drawTextEx(overlay,224,316-64,410,4,abilitydesc,base,shadow)
     drawMarkings(overlay,20,343,72,20,pokemon.markings)
     if pokemon.hp>0
       hpcolors=[
@@ -608,7 +658,7 @@ def drawPageFour(pokemon)
     @sprites["itemicon2"].visible = false
     overlay=@sprites["overlay"].bitmap
     overlay.clear
-    @sprites["background"].setBitmap("Graphics/Pictures/summary3_1")
+    @sprites["background"].setBitmap("Graphics/Pictures/"+getDarkModeFolder+"/summary3_1")
 #    @sprites["header-bg"].setBitmap("Graphics/Pictures/header-global")      
 #    @sprites["header"].setBitmap("Graphics/Pictures/header3_1")
     imagepos=[]
@@ -628,23 +678,37 @@ def drawPageFour(pokemon)
     ballimage=sprintf("Graphics/Pictures/summaryball%02d",@pokemon.ballused)
     imagepos.push([ballimage,14,60,0,0,-1,-1])
     pbDrawImagePositions(overlay,imagepos)
-    base=Color.new(230,230,230)
-    shadow=Color.new(58,58,58)
+    if ($PokemonSystem.darkmode==0 rescue false)
+      base=Color.new(88,88,80)
+      shadow=Color.new(168,184,184)
+      base2=Color.new(230,230,230)
+      shadow2=Color.new(58,58,58)
+    else
+      base=Color.new(248,248,240)
+      shadow=Color.new(72,88,88)
+      base2=Color.new(230,230,230)
+      shadow2=Color.new(230,230,230)
+    end
     nat = (pokemon.mint!=-1) ? pokemon.mint : pokemon.nature
     statshadows=[]
     statshadows2=[]
     for i in 0...5; statshadows[i]=nil end
-    for i in 0...5; statshadows2[i]=shadow; end
+    for i in 0...5; statshadows2[i]=shadow2; end
     if !(pokemon.isShadow? rescue false) || pokemon.heartStage<=3
 #      natup=(pokemon.nature/5).floor
 #      natdn=(pokemon.nature%5).floor
       natup=(nat/5).floor
       natdn=(nat%5).floor
-      statshadows[natup]=Color.new(136,96,72) if natup!=natdn
-      statshadows[natdn]=Color.new(64,120,152) if natup!=natdn
+      if ($PokemonSystem.darkmode==0 rescue false)
+        statshadows[natup]=Color.new(136,96,72) if natup!=natdn
+        statshadows[natdn]=Color.new(64,120,152) if natup!=natdn
+      else
+        statshadows[natup]=Color.new(183,143,119) if natup!=natdn
+        statshadows[natdn]=Color.new(103,159,191) if natup!=natdn
+      end
 
-      statshadows2[natup]=base if natup!=natdn
-      statshadows2[natdn]=base if natup!=natdn
+      statshadows2[natup]=base2 if natup!=natdn
+      statshadows2[natdn]=base2 if natup!=natdn
     end
     pbSetSystemFont(overlay)
     abilityname=PBAbilities.getName(pokemon.ability)
@@ -653,21 +717,21 @@ def drawPageFour(pokemon)
     textpos=[
     #   [_INTL("Effort Values"),26,8,0,base,shadow,1],
        [pokename,46,62,0,base,shadow],
-       [pokemon.level.to_s,46,92,0,Color.new(64,64,64),Color.new(176,176,176)],
+       [pokemon.level.to_s,46,92,0,base,shadow],
        [_INTL("HP"),420,76-64,2,base,nil,0],
-       [sprintf("%d",pokemon.ev[0]),548,76-64,2,Color.new(64,64,64),Color.new(176,176,176)],
+       [sprintf("%d",pokemon.ev[0]),548,76-64,2,base,shadow],
        [_INTL("Attack"),376,120-64,0,statshadows2[0],statshadows[0],1],
-       [sprintf("%d",pokemon.ev[1]),548,120-64,2,Color.new(64,64,64),Color.new(176,176,176)],
-       [_INTL("Defense"),376,152-64,0,base,statshadows[1],1],
-       [sprintf("%d",pokemon.ev[2]),548,152-64,2,Color.new(64,64,64),Color.new(176,176,176)],
+       [sprintf("%d",pokemon.ev[1]),548,120-64,2,base,shadow],
+       [_INTL("Defense"),376,152-64,0,base2,statshadows[1],1],
+       [sprintf("%d",pokemon.ev[2]),548,152-64,2,base,shadow],
        [_INTL("Sp. Atk"),376,184-64,0,statshadows2[3],statshadows[3],1],
-       [sprintf("%d",pokemon.ev[4]),548,184-64,2,Color.new(64,64,64),Color.new(176,176,176)],
-       [_INTL("Sp. Def"),376,216-64,0,base,statshadows[4],1],
-       [sprintf("%d",pokemon.ev[5]),548,216-64,2,Color.new(64,64,64),Color.new(176,176,176)],
+       [sprintf("%d",pokemon.ev[4]),548,184-64,2,base,shadow],
+       [_INTL("Sp. Def"),376,216-64,0,base2,statshadows[4],1],
+       [sprintf("%d",pokemon.ev[5]),548,216-64,2,base,shadow],
        [_INTL("Speed"),376,248-64,0,statshadows2[2],statshadows[2],1],
-       [sprintf("%d",pokemon.ev[3]),548,248-64,2,Color.new(64,64,64),Color.new(176,176,176)],
-       [_INTL("Ability"),288,284-64,0,shadow,nil,0],
-       [abilityname,426,284-64,0,Color.new(64,64,64),Color.new(176,176,176)],
+       [sprintf("%d",pokemon.ev[3]),548,248-64,2,base,shadow],
+       [_INTL("Ability"),288,284-64,0,shadow2,nil,0],
+       [abilityname,426,284-64,0,base,shadow],
       ]
     gendericon=[]
     if pokemon.isMale?
@@ -682,7 +746,7 @@ def drawPageFour(pokemon)
     end
     pbDrawImagePositions(overlay,gendericon)
     pbDrawTextPositions(overlay,textpos)
-    drawTextEx(overlay,224,316-64,410,4,abilitydesc,Color.new(64,64,64),Color.new(176,176,176))
+    drawTextEx(overlay,224,316-64,410,4,abilitydesc,base,shadow)
     drawMarkings(overlay,20,343,72,20,pokemon.markings)
     if pokemon.hp>0
       hpcolors=[
@@ -703,7 +767,7 @@ def drawPageFive(pokemon)
     @sprites["itemicon2"].visible = false
     overlay=@sprites["overlay"].bitmap
     overlay.clear
-    @sprites["background"].setBitmap("Graphics/Pictures/summary3_2")
+    @sprites["background"].setBitmap("Graphics/Pictures/"+getDarkModeFolder+"/summary3_2")
 #    @sprites["header-bg"].setBitmap("Graphics/Pictures/header-global")      
 #    @sprites["header"].setBitmap("Graphics/Pictures/header3_2")
     imagepos=[]
@@ -723,23 +787,37 @@ def drawPageFive(pokemon)
     ballimage=sprintf("Graphics/Pictures/summaryball%02d",@pokemon.ballused)
     imagepos.push([ballimage,14,60,0,0,-1,-1])
     pbDrawImagePositions(overlay,imagepos)
-    base=Color.new(230,230,230)
-    shadow=Color.new(58,58,58)
+    if ($PokemonSystem.darkmode==0 rescue false)
+      base=Color.new(88,88,80)
+      shadow=Color.new(168,184,184)
+      base2=Color.new(230,230,230)
+      shadow2=Color.new(58,58,58)
+    else
+      base=Color.new(248,248,240)
+      shadow=Color.new(72,88,88)
+      base2=Color.new(230,230,230)
+      shadow2=Color.new(230,230,230)
+    end
     nat = (pokemon.mint!=-1) ? pokemon.mint : pokemon.nature
     statshadows=[]
     statshadows2=[]
     for i in 0...5; statshadows[i]=nil; end
-    for i in 0...5; statshadows2[i]=shadow; end
+    for i in 0...5; statshadows2[i]=shadow2; end
       if !(pokemon.isShadow? rescue false) || pokemon.heartStage<=3
 #      natup=(pokemon.nature/5).floor
 #      natdn=(pokemon.nature%5).floor
       natup=(nat/5).floor
       natdn=(nat%5).floor
-      statshadows[natup]=Color.new(136,96,72) if natup!=natdn
-      statshadows[natdn]=Color.new(64,120,152) if natup!=natdn
+      if ($PokemonSystem.darkmode==0 rescue false)
+        statshadows[natup]=Color.new(136,96,72) if natup!=natdn
+        statshadows[natdn]=Color.new(64,120,152) if natup!=natdn
+      else
+        statshadows[natup]=Color.new(183,143,119) if natup!=natdn
+        statshadows[natdn]=Color.new(103,159,191) if natup!=natdn
+      end
 
-      statshadows2[natup]=base if natup!=natdn
-      statshadows2[natdn]=base if natup!=natdn
+      statshadows2[natup]=base2 if natup!=natdn
+      statshadows2[natdn]=base2 if natup!=natdn
     end
     pbSetSystemFont(overlay)
     abilityname=PBAbilities.getName(pokemon.ability)
@@ -748,21 +826,21 @@ def drawPageFive(pokemon)
     textpos=[
   #     [_INTL("Individual Values"),26,8,0,base,shadow,1],
        [pokename,46,62,0,base,shadow],
-       [pokemon.level.to_s,46,92,0,Color.new(64,64,64),Color.new(176,176,176)],
-       [_INTL("HP"),420,76-64,2,base,nil,0],
-       [sprintf("%d",pokemon.iv[0]),548,76-64,2,Color.new(64,64,64),Color.new(176,176,176)],
+       [pokemon.level.to_s,46,92,0,base,shadow],
+       [_INTL("HP"),420,76-64,2,base2,nil,0],
+       [sprintf("%d",pokemon.iv[0]),548,76-64,2,base,shadow],
        [_INTL("Attack"),376,120-64,0,statshadows2[0],statshadows[0],1],
-       [sprintf("%d",pokemon.iv[1]),548,120-64,2,Color.new(64,64,64),Color.new(176,176,176)],
-       [_INTL("Defense"),376,152-64,0,base,statshadows[1],1],
-       [sprintf("%d",pokemon.iv[2]),548,152-64,2,Color.new(64,64,64),Color.new(176,176,176)],
+       [sprintf("%d",pokemon.iv[1]),548,120-64,2,base,shadow],
+       [_INTL("Defense"),376,152-64,0,base2,statshadows[1],1],
+       [sprintf("%d",pokemon.iv[2]),548,152-64,2,base,shadow],
        [_INTL("Sp. Atk"),376,184-64,0,statshadows2[3],statshadows[3],1],
-       [sprintf("%d",pokemon.iv[4]),548,184-64,2,Color.new(64,64,64),Color.new(176,176,176)],
-       [_INTL("Sp. Def"),376,216-64,0,base,statshadows[4],1],
-       [sprintf("%d",pokemon.iv[5]),548,216-64,2,Color.new(64,64,64),Color.new(176,176,176)],
+       [sprintf("%d",pokemon.iv[4]),548,184-64,2,base,shadow],
+       [_INTL("Sp. Def"),376,216-64,0,base2,statshadows[4],1],
+       [sprintf("%d",pokemon.iv[5]),548,216-64,2,base,shadow],
        [_INTL("Speed"),376,248-64,0,statshadows2[2],statshadows[2],1],
-       [sprintf("%d",pokemon.iv[3]),548,248-64,2,Color.new(64,64,64),Color.new(176,176,176)],
-       [_INTL("Ability"),288,284-64,0,shadow,nil,0],
-       [abilityname,426,284-64,0,Color.new(64,64,64),Color.new(176,176,176)],
+       [sprintf("%d",pokemon.iv[3]),548,248-64,2,base,shadow],
+       [_INTL("Ability"),288,284-64,0,shadow2,nil,0],
+       [abilityname,426,284-64,0,base,shadow],
       ]
     gendericon=[]
     if pokemon.isMale?
@@ -777,7 +855,7 @@ def drawPageFive(pokemon)
     end
     pbDrawImagePositions(overlay,gendericon)
     pbDrawTextPositions(overlay,textpos)
-    drawTextEx(overlay,224,316-64,410,4,abilitydesc,Color.new(64,64,64),Color.new(176,176,176))
+    drawTextEx(overlay,224,316-64,410,4,abilitydesc,base,shadow)
     drawMarkings(overlay,20,343,72,20,pokemon.markings)
     if pokemon.hp>0
       hpcolors=[
@@ -798,15 +876,7 @@ def drawPageFive(pokemon)
     @sprites["itemicon2"].visible = false
     overlay=@sprites["overlay"].bitmap
     overlay.clear
-    ppBase   = [Color.new(64,64,64),     # More than 1/2 of total PP
-                Color.new(248,192,0),    # 1/2 of total PP or less
-                Color.new(248,136,32),   # 1/4 of total PP or less
-                Color.new(248,72,72)]    # Zero PP
-    ppShadow = [Color.new(176,176,176), # More than 1/2 of total PP
-                Color.new(144,104,0),   # 1/2 of total PP or less
-                Color.new(144,72,24),   # 1/4 of total PP or less
-                Color.new(136,48,48)]   # Zero PP
-    @sprites["background"].setBitmap("Graphics/Pictures/summary4")
+    @sprites["background"].setBitmap("Graphics/Pictures/"+getDarkModeFolder+"/summary4")
 #    @sprites["header-bg"].setBitmap("Graphics/Pictures/header-global")      
 #    @sprites["header"].setBitmap("Graphics/Pictures/header4")
     @sprites["pokemon"].visible=true
@@ -828,14 +898,31 @@ def drawPageFive(pokemon)
     ballimage=sprintf("Graphics/Pictures/summaryball%02d",@pokemon.ballused)
     imagepos.push([ballimage,14,60,0,0,-1,-1])
     pbDrawImagePositions(overlay,imagepos)
-    base=Color.new(230,230,230)
-    shadow=Color.new(58,58,58)
+    if ($PokemonSystem.darkmode==0 rescue false)
+      base=Color.new(88,88,80)
+      shadow=Color.new(168,184,184)
+      base2=Color.new(230,230,230)
+      shadow2=Color.new(58,58,58)
+    else
+      base=Color.new(248,248,240)
+      shadow=Color.new(72,88,88)
+      base2=Color.new(230,230,230)
+      shadow2=Color.new(230,230,230)
+    end   
+      ppBase   = [base,                   # More than 1/2 of total PP
+                  Color.new(248,192,0),   # 1/2 of total PP or less
+                  Color.new(248,136,32),  # 1/4 of total PP or less
+                  Color.new(248,72,72)]   # Zero PP
+      ppShadow = [shadow,                 # More than 1/2 of total PP
+                  Color.new(144,104,0),   # 1/2 of total PP or less
+                  Color.new(144,72,24),   # 1/4 of total PP or less
+                  Color.new(136,48,48)]   # Zero PP
     pbSetSystemFont(overlay)
     pokename=@pokemon.name
     textpos=[
   #     [_INTL("Pokémon Moveset"),26,8,0,base,shadow,1],
        [pokename,46,62,0,base,shadow],
-       [pokemon.level.to_s,46,92,0,Color.new(64,64,64),Color.new(176,176,176)],
+       [pokemon.level.to_s,46,92,0,base,shadow],
     ]
     gendericon=[]
     if pokemon.isMale?
@@ -860,7 +947,7 @@ def drawPageFive(pokemon)
            typeColors[pokemon.moves[i].type][0],typeColors[pokemon.moves[i].type][1]])
         if pokemon.moves[i].totalpp>0
           textpos.push([_ISPRINTF("PP"),470,yPos+32,0,
-             Color.new(64,64,64),Color.new(176,176,176)])
+             base,shadow])
           ppfraction = 0
           if pokemon.moves[i].pp==0;                             ppfraction = 3
           elsif pokemon.moves[i].pp*4<=pokemon.moves[i].totalpp; ppfraction = 2
@@ -870,8 +957,8 @@ def drawPageFive(pokemon)
              588,yPos+32,1,ppBase[ppfraction],ppShadow[ppfraction]])
         end
       else
-        textpos.push(["-",444,yPos,0,Color.new(64,64,64),Color.new(176,176,176)])
-        textpos.push(["--",570,yPos+32,1,Color.new(64,64,64),Color.new(176,176,176)])
+        textpos.push(["-",444,yPos,0,base,shadow])
+        textpos.push(["--",570,yPos+32,1,base,shadow])
       end
       yPos+=64
     end
@@ -896,47 +983,67 @@ def drawPageFive(pokemon)
     drawMoveSelection(pokemon,moveToLearn)
     pbSetSystemFont(overlay)
     move=moveid
+    if ($PokemonSystem.darkmode==0 rescue false)
+      base=Color.new(88,88,80)
+      shadow=Color.new(168,184,184)
+      base2=Color.new(230,230,230)
+      shadow2=Color.new(58,58,58)
+    else
+      base=Color.new(248,248,240)
+      shadow=Color.new(72,88,88)
+      base2=Color.new(230,230,230)
+      shadow2=Color.new(230,230,230)
+    end
     textpos=[
        [basedamage<=1 ? basedamage==1 ? "???" : "---" : sprintf("%d",basedamage),
-          288,154,1,Color.new(64,64,64),Color.new(176,176,176)],
+          288,154,1,base,shadow],
        [accuracy==0 ? "---" : sprintf("%d",accuracy),
-          288,186,1,Color.new(64,64,64),Color.new(176,176,176)] # Was 280
+          288,186,1,base,shadow] # Was 280
     ]
     pbDrawTextPositions(overlay,textpos)
     imagepos=[["Graphics/Pictures/category",238,124,64*$PokemonSystem.colortige,category*28,64,28]] # Was 230
     pbDrawImagePositions(overlay,imagepos)
     drawTextEx(overlay,4,218,302,5,
        pbGetMessage(MessageTypes::MoveDescriptions,moveid),
-       Color.new(64,64,64),Color.new(176,176,176))
+       base,shadow)
   end
 
   def drawMoveSelection(pokemon,moveToLearn)
     overlay=@sprites["overlay"].bitmap
     overlay.clear
-    base=Color.new(230,230,230)
-    shadow=Color.new(58,58,58)
-    ppBase   = [Color.new(64,64,64),     # More than 1/2 of total PP
-                Color.new(248,192,0),    # 1/2 of total PP or less
-                Color.new(248,136,32),   # 1/4 of total PP or less
-                Color.new(248,72,72)]    # Zero PP
-    ppShadow = [Color.new(176,176,176), # More than 1/2 of total PP
-                Color.new(144,104,0),   # 1/2 of total PP or less
-                Color.new(144,72,24),   # 1/4 of total PP or less
-                Color.new(136,48,48)]   # Zero PP
+    if ($PokemonSystem.darkmode==0 rescue false)
+      base=Color.new(88,88,80)
+      shadow=Color.new(168,184,184)
+      base2=Color.new(230,230,230)
+      shadow2=Color.new(58,58,58)
+    else
+      base=Color.new(248,248,240)
+      shadow=Color.new(72,88,88)
+      base2=Color.new(230,230,230)
+      shadow2=Color.new(58,58,58)
+    end   
+      ppBase   = [base,                   # More than 1/2 of total PP
+                  Color.new(248,192,0),   # 1/2 of total PP or less
+                  Color.new(248,136,32),  # 1/4 of total PP or less
+                  Color.new(248,72,72)]   # Zero PP
+      ppShadow = [shadow,                 # More than 1/2 of total PP
+                  Color.new(144,104,0),   # 1/2 of total PP or less
+                  Color.new(144,72,24),   # 1/4 of total PP or less
+                  Color.new(136,48,48)]   # Zero PP
     if moveToLearn==0
-      @sprites["background"].setBitmap("Graphics/Pictures/summary4details")
+      @sprites["background"].setBitmap("Graphics/Pictures/"+getDarkModeFolder+"/summary4details")
 #      @sprites["header-bg"].setBitmap("Graphics/Pictures/header-global")      
 #      @sprites["header"].setBitmap("Graphics/Pictures/header4")
     end
     if moveToLearn!=0
-      @sprites["background"].setBitmap("Graphics/Pictures/summary4learning")
+      @sprites["background"].setBitmap("Graphics/Pictures/"+getDarkModeFolder+"/summary4learning")
     end
     pbSetSystemFont(overlay)
     textpos=[
    #    [_INTL("Pokémon Moveset"),26,8,0,base,shadow,1],
-       [_INTL("Category"),20,122,0,base,shadow],
-       [_INTL("Power"),20,154,0,base,shadow],
-       [_INTL("Accuracy"),20,186,0,base,shadow]
+       [_INTL("Category"),20,122,0,base2,shadow2],
+       [_INTL("Power"),20,154,0,base2,shadow2],
+       [_INTL("Accuracy"),20,186,0,base2,shadow2]
     ]
     type1rect=Rect.new(64*$PokemonSystem.colortige,pokemon.type1*28,64,28)
     type2rect=Rect.new(64*$PokemonSystem.colortige,pokemon.type2*28,64,28)
@@ -965,7 +1072,7 @@ def drawPageFive(pokemon)
              typeColors[moveobject.type][0],typeColors[moveobject.type][1]])
           if moveobject.totalpp>0
             textpos.push([_ISPRINTF("PP"),470,yPos+32,0,
-               Color.new(64,64,64),Color.new(176,176,176)])
+               base,shadow])
           ppfraction = 0
           if moveobject.pp==0;                 ppfraction = 3
           elsif moveobject.pp*4<=moveobject.totalpp; ppfraction = 2
@@ -975,8 +1082,8 @@ def drawPageFive(pokemon)
                588,yPos+32,1,ppBase[ppfraction],ppShadow[ppfraction]])
           end
         else
-          textpos.push(["-",444,yPos,0,Color.new(64,64,64),Color.new(176,176,176)])
-          textpos.push(["--",570,yPos+32,1,Color.new(64,64,64),Color.new(176,176,176)])
+          textpos.push(["-",444,yPos,0,base,shadow])
+          textpos.push(["--",570,yPos+32,1,base,shadow])
         end
       end
       yPos+=64
@@ -990,7 +1097,7 @@ def drawPageFive(pokemon)
     @sprites["itemicon2"].visible = false
     overlay=@sprites["overlay"].bitmap
     overlay.clear
-    @sprites["background"].setBitmap("Graphics/Pictures/summary5")
+    @sprites["background"].setBitmap("Graphics/Pictures/"+getDarkModeFolder+"/summary5")
 #    @sprites["header-bg"].setBitmap("Graphics/Pictures/header-global")      
 #    @sprites["header"].setBitmap("Graphics/Pictures/header5")
     imagepos=[]
@@ -1010,16 +1117,25 @@ def drawPageFive(pokemon)
     ballimage=sprintf("Graphics/Pictures/summaryball%02d",@pokemon.ballused)
     imagepos.push([ballimage,14,60,0,0,-1,-1])
     pbDrawImagePositions(overlay,imagepos)
-    base=Color.new(230,230,230)
-    shadow=Color.new(58,58,58)
+    if ($PokemonSystem.darkmode==0 rescue false)
+      base=Color.new(88,88,80)
+      shadow=Color.new(168,184,184)
+      base2=Color.new(230,230,230)
+      shadow2=Color.new(58,58,58)
+    else
+      base=Color.new(248,248,240)
+      shadow=Color.new(72,88,88)
+      base2=Color.new(230,230,230)
+      shadow2=Color.new(230,230,230)
+    end
     pbSetSystemFont(overlay)
     pokename=@pokemon.name
     textpos=[
   #     [_INTL("Pokémon Ribbons"),26,8,0,base,shadow,1],
        [pokename,46,62,0,base,shadow],
-       [pokemon.level.to_s,46,92,0,Color.new(64,64,64),Color.new(176,176,176)],
-       [_INTL("No. of Ribbons:"),362,342,0,Color.new(64,64,64),Color.new(176,176,176)],
-       [pokemon.ribbonCount.to_s,578,342,1,Color.new(64,64,64),Color.new(176,176,176)],
+       [pokemon.level.to_s,46,92,0,base,shadow],
+       [_INTL("No. of Ribbons:"),362,342,0,base,shadow],
+       [pokemon.ribbonCount.to_s,578,342,1,base,shadow],
     ]
     gendericon=[]
     if pokemon.isMale?
@@ -1054,7 +1170,7 @@ def drawPageFive(pokemon)
     @sprites["itemicon2"].visible = true
     overlay=@sprites["overlay"].bitmap
     overlay.clear
-    @sprites["background"].setBitmap("Graphics/Pictures/summary6_1")
+    @sprites["background"].setBitmap("Graphics/Pictures/"+getDarkModeFolder+"/summary6_1")
 #    @sprites["header-bg"].setBitmap("Graphics/Pictures/header-global")      
 #    @sprites["header"].setBitmap("Graphics/Pictures/header6")
     imagepos=[]
@@ -1074,15 +1190,16 @@ def drawPageFive(pokemon)
     ballimage=sprintf("Graphics/Pictures/summaryball%02d",@pokemon.ballused)
     imagepos.push([ballimage,14,60,0,0,-1,-1])
     pbDrawImagePositions(overlay,imagepos)
-    base=Color.new(230,230,230)
-    shadow=Color.new(58,58,58)
-    statshadows=[]
-    for i in 0...5; statshadows[i]=shadow; end
-    if !(pokemon.isShadow? rescue false) || pokemon.heartStage<=3
-      natup=(pokemon.nature/5).floor
-      natdn=(pokemon.nature%5).floor
-      statshadows[natup]=Color.new(136,96,72) if natup!=natdn
-      statshadows[natdn]=Color.new(64,120,152) if natup!=natdn
+    if ($PokemonSystem.darkmode==0 rescue false)
+      base=Color.new(88,88,80)
+      shadow=Color.new(168,184,184)
+      base2=Color.new(230,230,230)
+      shadow2=Color.new(58,58,58)
+    else
+      base=Color.new(248,248,240)
+      shadow=Color.new(72,88,88)
+      base2=Color.new(230,230,230)
+      shadow2=Color.new(230,230,230)
     end
     pbSetSystemFont(overlay)
     abilityname=PBAbilities.getName(pokemon.ability)
@@ -1122,21 +1239,21 @@ def drawPageFive(pokemon)
     textpos=[
   #     [_INTL("Advanced Information"),26,8,0,base,shadow,1],
        [pokename,46,62,0,base,shadow],
-       [pokemon.level.to_s,46,92,0,Color.new(64,64,64),Color.new(176,176,176)],
-       [_INTL("Best Stat"),420,76-64,2,base,nil,0],
-       [_INTL("{1}",beststat),548,76-64,2,Color.new(64,64,64),Color.new(176,176,176)],
-       [_INTL("Happiness"),376,120-64,0,shadow,nil,0],
-       [sprintf("%d",pokemon.happiness),548,120-64,2,Color.new(64,64,64),Color.new(176,176,176)],
-       [_INTL("Temperature"),376,152-64,0,base,nil,0], # Was Physical
-       [_INTL("{1} {2}",physicalstat,kind),548,152-64,2,Color.new(64,64,64),Color.new(176,176,176)],
-       [_INTL("Special"),376,184-64,0,shadow,nil,0],
-       [_INTL("{1}",specialstat),548,184-64,2,Color.new(64,64,64),Color.new(176,176,176)],
-       [_INTL("Stamina"),376,216-64,0,base,nil,0],
-       [sprintf("%d",stamina),548,216-64,2,Color.new(64,64,64),Color.new(176,176,176)],
-       [_INTL("Efforts"),376,248-64,0,shadow,nil,0],
-       [sprintf("%d",efforts),548,248-64,2,Color.new(64,64,64),Color.new(176,176,176)],
-       [_INTL("Item"),288,284-64,0,shadow,nil,0],
-       [itemname,426,284-64,0,Color.new(64,64,64),Color.new(176,176,176)],
+       [pokemon.level.to_s,46,92,0,base,shadow],
+       [_INTL("Best Stat"),420,76-64,2,base2,nil,0],
+       [_INTL("{1}",beststat),548,76-64,2,base,shadow],
+       [_INTL("Happiness"),376,120-64,0,shadow2,nil,0],
+       [sprintf("%d",pokemon.happiness),548,120-64,2,base,shadow],
+       [_INTL("Temperature"),376,152-64,0,base2,nil,0], # Was Physical
+       [_INTL("{1} {2}",physicalstat,kind),548,152-64,2,base,shadow],
+       [_INTL("Special"),376,184-64,0,shadow2,nil,0],
+       [_INTL("{1}",specialstat),548,184-64,2,base,shadow],
+       [_INTL("Stamina"),376,216-64,0,base2,nil,0],
+       [sprintf("%d",stamina),548,216-64,2,base,shadow],
+       [_INTL("Efforts"),376,248-64,0,shadow2,nil,0],
+       [sprintf("%d",efforts),548,248-64,2,base,shadow],
+       [_INTL("Item"),288,284-64,0,shadow2,nil,0],
+       [itemname,426,284-64,0,base,shadow],
       ]
     gendericon=[]
     if pokemon.isMale?
@@ -1151,7 +1268,7 @@ def drawPageFive(pokemon)
     end
     pbDrawImagePositions(overlay,gendericon)
     pbDrawTextPositions(overlay,textpos)
-    drawTextEx(overlay,224,316-64,410,4,itemdesc,Color.new(64,64,64),Color.new(176,176,176))
+    drawTextEx(overlay,224,316-64,410,4,itemdesc,base,shadow)
     drawMarkings(overlay,20,343,72,20,pokemon.markings)
     if pokemon.hp>0
       hpcolors=[

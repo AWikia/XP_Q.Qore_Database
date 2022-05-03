@@ -1763,7 +1763,7 @@ class PokemonBoxPartySprite < SpriteWrapper
 
   def initialize(party,viewport=nil)
     super(viewport)
-    @boxbitmap=AnimatedBitmap.new("Graphics/Pictures/boxpartytab")
+    @boxbitmap=AnimatedBitmap.new("Graphics/Pictures/"+getDarkModeFolder+"/boxpartytab")
     @pokemonsprites=[]
     @party=party
     for i in 0...6
@@ -1791,8 +1791,15 @@ class PokemonBoxPartySprite < SpriteWrapper
   def refresh
     @contents.blt(0,0,@boxbitmap.bitmap,Rect.new(0,0,172,352))
     # V17 Backport
+    if ($PokemonSystem.darkmode==0 rescue false)
+      color1=Color.new(248,248,248)
+      color2=Color.new(80,80,80)
+    else
+      color1=Color.new(85,85,85)
+      color2=Color.new(248,248,248)
+    end
     pbDrawTextPositions(self.bitmap,[
-       [_INTL("Back"),86,242,2,Color.new(248,248,248),Color.new(80,80,80),1]
+       [_INTL("Back"),86,242,2,color1,color2,1]
     ])
     pbSetSystemFont(self.bitmap)
     # V17 Backport End
@@ -2078,13 +2085,13 @@ class PokemonStorageScene
     @choseFromParty=false
     @command=command
     if $Trainer.isFemale?
-      addBackgroundPlane(@sprites,"background","boxbg2",@bgviewport)
+      addBackgroundPlane(@sprites,"background",getDarkModeFolder+"/boxbg2",@bgviewport)
     else
-      addBackgroundPlane(@sprites,"background","boxbg2",@bgviewport)
+      addBackgroundPlane(@sprites,"background",getDarkModeFolder+"/boxbg2",@bgviewport)
     end
     @sprites["box"]=PokemonBoxSprite.new(@storage,@storage.currentBox,@boxviewport)
     @sprites["boxsides"]=IconSprite.new(0,0,@boxsidesviewport)
-    @sprites["boxsides"].setBitmap("Graphics/Pictures/boxsides")
+    @sprites["boxsides"].setBitmap("Graphics/Pictures/"+getDarkModeFolder+"/boxsides")
     @sprites["overlay"]=BitmapSprite.new(Graphics.width-64,Graphics.height,@boxsidesviewport)
     @sprites["pokemon"]=AutoMosaicPokemonSprite.new(@viewport2)
     pbSetSystemFont(@sprites["overlay"].bitmap)
@@ -2361,8 +2368,13 @@ class PokemonStorageScene
     overlay=@sprites["overlay"].bitmap
     overlay.clear
     # V17 Addition
-    buttonbase = Color.new(248,248,248)
-    buttonshadow = Color.new(80,80,80)
+    if ($PokemonSystem.darkmode==0 rescue false)
+      buttonbase=Color.new(248,248,248)
+      buttonshadow=Color.new(80,80,80)
+    else
+      buttonbase=Color.new(85,85,85)
+      buttonshadow=Color.new(248,248,248)
+    end
     pbDrawTextPositions(overlay,[
        [_INTL("Party: {1}",(@storage.party.length rescue 0)),270,328,2,buttonbase,buttonshadow,1],
        [_INTL("Exit"),446,328,2,buttonbase,buttonshadow,1],
@@ -2379,10 +2391,23 @@ class PokemonStorageScene
       return
     end
     @sprites["pokemon"].visible=true
-    base=Color.new(88,88,80)
-    shadow=Color.new(168,184,184)
-    nonbase=Color.new(208,200,184)
-    nonshadow=Color.new(224,216,200)
+
+    if ($PokemonSystem.darkmode==0 rescue false)
+      base=Color.new(88,88,80)
+      shadow=Color.new(168,184,184)
+ #     nonbase=Color.new(208,200,184)
+ #     nonshadow=Color.new(224,216,200)
+      nonbase=Color.new(88,88,80,128)
+      nonshadow=Color.new(168,184,184,128)
+    else
+      base=Color.new(248,248,240)
+      shadow=Color.new(72,88,88)
+ #     nonbase=Color.new(208,200,184)
+ #     nonshadow=Color.new(224,216,200)
+      nonbase=Color.new(248,248,240,128)
+      nonshadow=Color.new(72,88,88,128)
+    end
+
     pokename=pokemon.name
     textstrings=[
        [pokename,10,8,false,base,shadow]

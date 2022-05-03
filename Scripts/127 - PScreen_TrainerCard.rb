@@ -7,18 +7,18 @@ class PokemonTrainerCardScene
     @sprites={}
     @viewport=Viewport.new(0,0,Graphics.width,Graphics.height)
     @viewport.z=99999
-    background=pbResolveBitmap(sprintf("Graphics/Pictures/trainercardbgf"))
+    background=pbResolveBitmap(sprintf("Graphics/Pictures/"+getDarkModeFolder+"/trainercardbgf"))
     if $Trainer.isFemale? && background
-      addBackgroundPlane(@sprites,"bg","trainercardbgf",@viewport)
+      addBackgroundPlane(@sprites,"bg",getDarkModeFolder+"/trainercardbgf",@viewport)
     else
-      addBackgroundPlane(@sprites,"bg","trainercardbg",@viewport)
+      addBackgroundPlane(@sprites,"bg",getDarkModeFolder+"/trainercardbg",@viewport)
     end
-    cardexists=pbResolveBitmap(sprintf("Graphics/Pictures/trainercardf"))
+    cardexists=pbResolveBitmap(sprintf("Graphics/Pictures/"+getDarkModeFolder+"/trainercardf"))
     @sprites["card"]=IconSprite.new(0,0,@viewport)
     if $Trainer.isFemale? && cardexists
-      @sprites["card"].setBitmap("Graphics/Pictures/trainercardf")
+      @sprites["card"].setBitmap("Graphics/Pictures/"+getDarkModeFolder+"/trainercardf")
     else
-      @sprites["card"].setBitmap("Graphics/Pictures/trainercard")
+      @sprites["card"].setBitmap("Graphics/Pictures/"+getDarkModeFolder+"/trainercard")
     end
     @sprites["overlay"]=BitmapSprite.new(Graphics.width,Graphics.height,@viewport)
     @sprites["trainer"]=IconSprite.new(336,112,@viewport)
@@ -47,8 +47,13 @@ class PokemonTrainerCardScene
        $PokemonGlobal.startTime.day,
        $PokemonGlobal.startTime.year)
     pubid=sprintf("%05d",$Trainer.publicID($Trainer.id))
-    baseColor=Color.new(72,72,72)
-    shadowColor=Color.new(160,160,160)
+    if ($PokemonSystem.darkmode==0 rescue false)
+      baseColor=Color.new(88,88,80)
+      shadowColor=Color.new(168,184,184)
+    else
+      baseColor=Color.new(248,248,240)
+      shadowColor=Color.new(72,88,88)
+    end
     textPositions=[
        [_INTL("Name"),34+64,64,0,baseColor,shadowColor],
        [_INTL("{1}",$Trainer.name),302+64,64,1,baseColor,shadowColor],
@@ -91,17 +96,17 @@ class PokemonTrainerCardScene
           pbChangePlayer(1)
           Kernel.pbMessage(_INTL("\\f[introElm]\\bRappy:You're now playing the Girl Version"))
         end
-        background=pbResolveBitmap(sprintf("Graphics/Pictures/trainercardbgf"))
+        background=pbResolveBitmap(sprintf("Graphics/Pictures/"+getDarkModeFolder+"/trainercardbgf"))
         if $Trainer.isFemale? && background
-          @sprites["bg"].setBitmap("Graphics/Pictures/trainercardbgf")
+          @sprites["bg"].setBitmap("Graphics/Pictures/"+getDarkModeFolder+"/trainercardbgf")
         else
-          @sprites["bg"].setBitmap("Graphics/Pictures/trainercardbg")
+          @sprites["bg"].setBitmap("Graphics/Pictures/"+getDarkModeFolder+"/trainercardbg")
         end
-        cardexists=pbResolveBitmap(sprintf("Graphics/Pictures/trainercardf"))
+        cardexists=pbResolveBitmap(sprintf("Graphics/Pictures/"+getDarkModeFolder+"/trainercardf"))
         if $Trainer.isFemale? && cardexists
-          @sprites["card"].setBitmap("Graphics/Pictures/trainercardf")
+          @sprites["card"].setBitmap("Graphics/Pictures/"+getDarkModeFolder+"/trainercardf")
         else
-          @sprites["card"].setBitmap("Graphics/Pictures/trainercard")
+          @sprites["card"].setBitmap("Graphics/Pictures/"+getDarkModeFolder+"/trainercard")
         end
         @sprites["trainer"].setBitmap(pbPlayerSpriteFile($Trainer.trainertype))
       end

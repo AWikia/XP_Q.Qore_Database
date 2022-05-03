@@ -85,7 +85,7 @@ class Scene_LinkBattle
     @button=AnimatedBitmap.new("Graphics/Pictures/"+getAccentFolder+"/linkButton")
     @sprites={}
     @sprites["background"] = IconSprite.new(0,0)
-    @sprites["background"].setBitmap("Graphics/Pictures/linkbg")
+    @sprites["background"].setBitmap("Graphics/Pictures/"+getDarkModeFolder+"/linkbg")
     @sprites["command_window"] = Window_CommandPokemon.new(commands,160)
     @sprites["command_window"].visible = false
     @sprites["command_window"].index = @menu_index

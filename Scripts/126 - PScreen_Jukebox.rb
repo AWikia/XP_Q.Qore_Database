@@ -25,9 +25,9 @@ class Scene_Jukebox
     @viewport.z=99999
     @sprites["background"] = IconSprite.new(0,0)
     if $Trainer.isFemale?
-      @sprites["background"].setBitmap("Graphics/Pictures/jukeboxbgf")
+      @sprites["background"].setBitmap("Graphics/Pictures/"+getDarkModeFolder+"/jukeboxbgf")
     else
-      @sprites["background"].setBitmap("Graphics/Pictures/jukeboxbg")
+      @sprites["background"].setBitmap("Graphics/Pictures/"+getDarkModeFolder+"/jukeboxbg")
     end
     @sprites["background"].z=255
     @choices=[
@@ -44,8 +44,13 @@ class Scene_Jukebox
     @sprites["header"].windowskin=nil
     @sprites["command_window"] = Window_CommandPokemon.new(@choices,324)
     @sprites["command_window"].windowskin=nil
-    @sprites["command_window"].baseColor=Color.new(88,88,80)
-    @sprites["command_window"].shadowColor=Color.new(168,184,184)
+    if ($PokemonSystem.darkmode==0 rescue false)
+      @sprites["command_window"].baseColor=Color.new(88,88,80)
+      @sprites["command_window"].shadowColor=Color.new(168,184,184)
+    else
+      @sprites["command_window"].baseColor=Color.new(248,248,240)
+      @sprites["command_window"].shadowColor=Color.new(72,88,88)
+    end
     @sprites["command_window"].index = @menu_index
     @sprites["command_window"].height = 224
     @sprites["command_window"].width = 324

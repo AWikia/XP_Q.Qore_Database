@@ -3333,7 +3333,7 @@ class PokeBattle_Battle
         if skill>=PBTrainerAI.bestSkill   # Can get past semi-invulnerability
           miss=false
           case invulmove
-          when 0xC9, 0xCC # Fly, Bounce
+          when 0xC9, 0xCC,0x336 # Fly, Bounce
             miss=true unless move.function==0x08 ||  # Thunder
                              move.function==0x15 ||  # Hurricane
                              move.function==0x77 ||  # Gust
@@ -3348,7 +3348,7 @@ class PokeBattle_Battle
             miss=true unless move.function==0x75 || # Surf
                              move.function==0xD0    # Whirlpool
           when 0xCD # Shadow Force
-            miss=true
+            miss=true unless thismove.function==0x240    # Nightly
           when 0xCE # Sky Drop
             miss=true unless move.function==0x08 ||  # Thunder
                              move.function==0x15 ||  # Hurricane
@@ -3357,7 +3357,7 @@ class PokeBattle_Battle
                              move.function==0x11B || # Sky Uppercut
                              move.function==0x11C    # Smack Down
           when 0x14D # Phantom Force
-            miss=true
+            miss=true unless thismove.function==0x240    # Nightly
           end
           if opponent.effects[PBEffects::SkyDrop]
             miss=true unless move.function==0x08 ||  # Thunder

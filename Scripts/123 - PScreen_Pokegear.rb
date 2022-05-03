@@ -91,11 +91,11 @@ class Scene_Pokegear
     @button=AnimatedBitmap.new("Graphics/Pictures/"+getAccentFolder+"/pokegearButton")
     @sprites={}
     @sprites["background"] = IconSprite.new(0,0)
-    femback=pbResolveBitmap(sprintf("Graphics/Pictures/pokegearbgf"))
+    femback=pbResolveBitmap(sprintf("Graphics/Pictures/"+getDarkModeFolder+"/pokegearbgf"))
     if $Trainer.isFemale? && femback
-      @sprites["background"].setBitmap("Graphics/Pictures/pokegearbgf")
+      @sprites["background"].setBitmap("Graphics/Pictures/"+getDarkModeFolder+"/pokegearbgf")
     else
-      @sprites["background"].setBitmap("Graphics/Pictures/pokegearbg")
+      @sprites["background"].setBitmap("Graphics/Pictures/"+getDarkModeFolder+"/pokegearbg")
     end
     @sprites["command_window"] = Window_CommandPokemon.new(commands,160)
     @sprites["command_window"].visible = false

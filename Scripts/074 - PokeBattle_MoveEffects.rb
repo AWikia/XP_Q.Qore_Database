@@ -12350,11 +12350,11 @@ class PokeBattle_Move_206 < PokeBattle_Move
 end
 
 ################################################################################
-# Damage is multiplied by Sun's effectiveness against the target. (Sunny Dragon)
+# Damage is multiplied by Dragon's effectiveness against the target. (Sunny Dragon)
 ################################################################################
 class PokeBattle_Move_236 < PokeBattle_Move
   def pbModifyDamage(damagemult,attacker,opponent)
-    type=getConst(PBTypes,:SUN) || -1
+    type=getConst(PBTypes,:DRAGON) || -1
     if type>=0
       mult=PBTypes.getCombinedEffectiveness(type,
          opponent.type1,opponent.type2,opponent.effects[PBEffects::Type3])
@@ -14114,6 +14114,70 @@ class PokeBattle_Move_327 < PokeBattle_Move
     return 0
   end
 end
+
+################################################################################
+# Two turn attack. Attacks first turn, skips second turn (if successful).
+# Also confuses the user. (Stylus)
+################################################################################
+class PokeBattle_Move_332 < PokeBattle_Move
+  def pbEffectAfterHit(attacker,opponent,turneffects)
+    if opponent.damagestate.calcdamage>0
+      attacker.effects[PBEffects::HyperBeam]=2
+      attacker.currentMove=@id
+      if attacker.pbCanConfuseSelf?(false)
+        attacker.pbConfuse
+        @battle.pbDisplay(_INTL("{1} became confused",attacker.pbThis))
+      end
+    end
+  end
+end
+
+
+################################################################################
+# Two turn attack. Attacks first turn, skips second turn (if successful).
+# Damage is multiplied by Electic's effectiveness against the target. (Aeroshock)
+################################################################################
+class PokeBattle_Move_333 < PokeBattle_Move
+  def pbModifyDamage(damagemult,attacker,opponent)
+    type=getConst(PBTypes,:ELECTRIC) || -1
+    if type>=0
+      mult=PBTypes.getCombinedEffectiveness(type,
+         opponent.type1,opponent.type2,opponent.effects[PBEffects::Type3])
+      return ((damagemult*mult)/8).round
+    end
+    return damagemult
+  end
+
+  def pbEffect(attacker,opponent,hitnum=0,alltargets=nil,showanimation=true)
+    ret=super(attacker,opponent,hitnum,alltargets,showanimation)
+    if opponent.damagestate.calcdamage>0
+      attacker.effects[PBEffects::HyperBeam]=2
+      attacker.currentMove=@id
+    end
+    return ret
+  end
+end
+
+################################################################################
+# Increases the user's Accuracy by 3 stages. (Toxic Decoration)
+################################################################################
+class PokeBattle_Move_334 < PokeBattle_Move
+  def pbEffect(attacker,opponent,hitnum=0,alltargets=nil,showanimation=true)
+    return super(attacker,opponent,hitnum,alltargets,showanimation) if pbIsDamaging?
+    return -1 if !attacker.pbCanIncreaseStatStage?(PBStats::ACCURACY,attacker,true,self)
+    pbShowAnimation(@id,attacker,opponent,hitnum,alltargets,showanimation)
+    ret=attacker.pbIncreaseStat(PBStats::ACCURACY,3,attacker,false,self)
+    return ret ? 0 : -1
+  end
+
+  def pbAdditionalEffect(attacker,opponent)
+    if attacker.pbCanIncreaseStatStage?(PBStats::ACCURACY,attacker,false,self)
+      attacker.pbIncreaseStat(PBStats::ACCURACY,3,attacker,false,self)
+    end
+  end
+end
+
+
 
 ################################################################################
 ################################################################################

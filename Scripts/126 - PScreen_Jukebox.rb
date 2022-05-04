@@ -44,7 +44,7 @@ class Scene_Jukebox
     @sprites["header"].windowskin=nil
     @sprites["command_window"] = Window_CommandPokemon.new(@choices,324)
     @sprites["command_window"].windowskin=nil
-    if ($PokemonSystem.darkmode==0 rescue false)
+    if (!isDarkMode?)
       @sprites["command_window"].baseColor=Color.new(88,88,80)
       @sprites["command_window"].shadowColor=Color.new(168,184,184)
     else

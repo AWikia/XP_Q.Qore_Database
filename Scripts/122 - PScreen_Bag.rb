@@ -144,7 +144,7 @@ class PokemonBag_Scene
     @sprites["itemwindow"].viewport=@viewport
     @sprites["itemwindow"].pocket=lastpocket
     @sprites["itemwindow"].index=lastitem
-    if ($PokemonSystem.darkmode==0 rescue false)
+    if (!isDarkMode?)
       @sprites["itemwindow"].baseColor=ITEMLISTBASECOLOR
       @sprites["itemwindow"].shadowColor=ITEMLISTSHADOWCOLOR
     else
@@ -216,7 +216,7 @@ class PokemonBag_Scene
     end
     # Draw the pocket name
     name=PokemonBag.pocketNames()[@bag.lastpocket]
-    if ($PokemonSystem.darkmode==0 rescue false)
+    if (!isDarkMode?)
       base=POCKETNAMEBASECOLOR
       shadow=POCKETNAMESHADOWCOLOR
     else

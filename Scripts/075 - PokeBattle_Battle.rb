@@ -4020,6 +4020,17 @@ class PokeBattle_Battle
         end
       end
     end
+    # Neutral Trap
+    for i in priority
+      next if i.isFainted?
+      if i.effects[PBEffects::NeutralTrap]>0
+        i.effects[PBEffects::NeutralTrap]-=1
+        if i.effects[PBEffects::NeutralTrap]==0
+          pbDisplay(_INTL("{1}'s ability was regained.",i.pbThis(true)))
+          PBDebug.log("[End of effect] #{i.pbThis} is no longer affected by neutral trap")
+        end
+      end
+    end
     # Perish Song
     perishSongUsers=[]
     for i in priority
@@ -4129,6 +4140,18 @@ class PokeBattle_Battle
           pbDisplay(_INTL("The opposing tem returned to normal!")) if i==1
           PBDebug.log("[End of effect] Brainologic ended on the player's side") if i==0
           PBDebug.log("[End of effect] Brainologic ended on the opponent's side") if i==1
+        end
+      end
+    end
+    # Revelation Powder
+    for i in 0...2
+      if sides[i].effects[PBEffects::RevelationPowder]>0
+        sides[i].effects[PBEffects::RevelationPowder]-=1
+        if sides[i].effects[PBEffects::RevelationPowder]==0
+          pbDisplay(_INTL("Your team returned to normal!")) if i==0
+          pbDisplay(_INTL("The opposing tem returned to normal!")) if i==1
+          PBDebug.log("[End of effect] Revelation Powder ended on the player's side") if i==0
+          PBDebug.log("[End of effect] Revelation Powder ended on the opponent's side") if i==1
         end
       end
     end

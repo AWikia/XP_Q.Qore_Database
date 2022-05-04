@@ -143,6 +143,8 @@ begin
     Type1              = 139
     Type2              = 140
     Mimicry            = 141
+    NeutralTrap        = 142
+    Brainymedia        = 143
     
     ############################################################################
     # These effects apply to a side
@@ -173,6 +175,7 @@ begin
     Brainologic        = 24
     Fierymania         = 25
     ToxicSwamp         = 26
+    RevelationPowder   = 27
     
     ############################################################################
     # These effects apply to the battle (i.e. both sides)

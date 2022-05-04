@@ -377,7 +377,11 @@ end
 # Returns the Accent Color Folder
 def getAccentFolder
   if $PokemonSystem
-    return "Accents/Accent Color " + $PokemonSystem.accentcolor.to_s
+    if ($PokemonSystem.accentcolor.to_s != 8) # Accent Color 8 is hardcoded to be the channel-aware ones
+      return "Accents/Accent Color " + $PokemonSystem.accentcolor.to_s
+    else
+      return "Accents/Accent Color " + $PokemonSystem.accentcolor.to_s + ["//Stable","//Beta","//Dev",""][QQORECHANNEL]
+    end
   else
     return "Accents/Accent Color " + "0"
   end
@@ -395,7 +399,7 @@ end
 # Returns the Active Accent Color
 def getAccentName
   if $PokemonSystem
-    return ["Blue", "Purple", "Pink", "Red", "Orange", "Yellow", "Green", "Gray"][$PokemonSystem.accentcolor]
+    return ["Blue", "Purple", "Pink", "Red", "Orange", "Yellow", "Green", "Gray","Channel-aware"][$PokemonSystem.accentcolor]
   else
     return "Blue"
   end
@@ -1903,7 +1907,7 @@ def pbCryFrameLength(pokemon,pitch=nil)
   end
   playtime/=pitch # sound is lengthened the lower the pitch
   # 4 is added to provide a buffer between sounds
-  return (playtime*Graphics.frame_rate).ceil+16
+  return (playtime*Graphics.frame_rate).ceil+4
 end
 
 def pbPlayCry(pokemon,volume=85,pitch=nil)

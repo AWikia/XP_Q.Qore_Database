@@ -872,7 +872,7 @@ There are different modes:
               MessageConfig.pbSetSystemFrame("Graphics/Windowskins/"+getDarkModeFolder+"/"+$TextFrames[value])
            }
          ),
-         NumberOption.new(_INTL("Accent Color"),1,8,
+         NumberOption.new(_INTL("Accent Color"),1,9,
            proc { $PokemonSystem.accentcolor },
            proc {|value| 
              $PokemonSystem.accentcolor = value 

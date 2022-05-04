@@ -1038,7 +1038,10 @@ def pbGetMapNameFromId(id)
 end
 
 def Kernel.pbMessage(message,commands=nil,cmdIfCancel=0,skin=nil,defaultCmd=0,&block)
-
+  # Dark Mode
+#  MessageConfig.pbSetSpeechFrame("Graphics/Windowskins/"+getDarkModeFolder+"/"+$SpeechFrames[$PokemonSystem.textskin])
+#  MessageConfig.pbSetSystemFrame("Graphics/Windowskins/"+getDarkModeFolder+"/"+$TextFrames[$PokemonSystem.textskin])
+  # Dark Mode End
   ret=0
   msgwindow=Kernel.pbCreateMessageWindow(nil,skin)
   if commands
@@ -1382,10 +1385,6 @@ end
 
 def Kernel.pbMessageDisplay(msgwindow,message,letterbyletter=true,commandProc=nil)
   return if !msgwindow
-  # Dark Mode
-  MessageConfig.pbSetSpeechFrame("Graphics/Windowskins/"+getDarkModeFolder+"/"+$SpeechFrames[$PokemonSystem.textskin])
-  MessageConfig.pbSetSystemFrame("Graphics/Windowskins/"+getDarkModeFolder+"/"+$TextFrames[$PokemonSystem.textskin])
-  # Dark Mode End
   oldletterbyletter=msgwindow.letterbyletter
   msgwindow.letterbyletter=(letterbyletter ? true : false)
   ret=nil
@@ -1422,11 +1421,16 @@ def Kernel.pbMessageDisplay(msgwindow,message,letterbyletter=true,commandProc=ni
   text.gsub!(/\\[Pp][Oo][Gg]/,"\\b") if $Trainer && $Trainer.isFemale?
   text.gsub!(/\\[Pp][Gg]/,"")
   text.gsub!(/\\[Pp][Oo][Gg]/,"")
-  text.gsub!(/\\[Bb]/,"<c2=6546675A>")
-  text.gsub!(/\\[Rr]/,"<c2=043C675A>")
+  isDarkSkin=isDarkWindowskin(msgwindow.windowskin)
+  if (isDarkSkin)
+    text.gsub!(/\\[Bb]/,"<c2=7A96675A>")
+    text.gsub!(/\\[Rr]/,"<c2=39DF675A>")
+  else
+    text.gsub!(/\\[Bb]/,"<c2=48C5675A>")
+    text.gsub!(/\\[Rr]/,"<c2=107D675A>")
+  end
   text.gsub!(/\\1/,"\1")
   colortag=""
-  isDarkSkin=isDarkWindowskin(msgwindow.windowskin)
   if ($game_message && $game_message.background>0) ||
      ($game_system && $game_system.respond_to?("message_frame") &&
       $game_system.message_frame != 0)

@@ -212,7 +212,7 @@ class PokemonSummaryScene
       imagepos.push(["Graphics/Pictures/summaryShadowBar",370,280,0,0,(shadowfract*248).floor,-1])
     end
     pbDrawImagePositions(overlay,imagepos)
-    if ($PokemonSystem.darkmode==0 rescue false)
+    if (!isDarkMode?)
       base=Color.new(88,88,80)
       shadow=Color.new(168,184,184)
       base2=Color.new(230,230,230)
@@ -274,7 +274,7 @@ class PokemonSummaryScene
       ownerbase=base
       ownershadow=shadow
       if pokemon.otgender==0 # male OT
-        if ($PokemonSystem.darkmode==0 rescue false)
+        if (!isDarkMode?)
           ownerbase=Color.new(24,112,216)
           ownershadow=Color.new(136,168,208)
         else
@@ -282,7 +282,7 @@ class PokemonSummaryScene
           ownershadow=Color.new(24,112,216)
         end
       elsif pokemon.otgender==1 # female OT
-        if ($PokemonSystem.darkmode==0 rescue false)
+        if (!isDarkMode?)
           ownerbase=Color.new(248,56,32)
           ownershadow=Color.new(224,152,144)
         else
@@ -352,7 +352,7 @@ class PokemonSummaryScene
     imagepos.push(["Graphics/Pictures/"+getAccentFolder+"/summaryEggBar",370,244,0,0,(shadowfract*248).floor,-1])
     # Egg Steps End
     pbDrawImagePositions(overlay,imagepos)
-    if ($PokemonSystem.darkmode==0 rescue false)
+    if (!isDarkMode?)
       base=Color.new(88,88,80)
       shadow=Color.new(168,184,184)
       base2=Color.new(230,230,230)
@@ -420,7 +420,7 @@ class PokemonSummaryScene
     ballimage=sprintf("Graphics/Pictures/summaryball%02d",@pokemon.ballused)
     imagepos.push([ballimage,14,60,0,0,-1,-1])
     pbDrawImagePositions(overlay,imagepos)
-    if ($PokemonSystem.darkmode==0 rescue false)
+    if (!isDarkMode?)
       base=Color.new(88,88,80)
       shadow=Color.new(168,184,184)
       base2=Color.new(230,230,230)
@@ -570,7 +570,7 @@ class PokemonSummaryScene
     ballimage=sprintf("Graphics/Pictures/summaryball%02d",@pokemon.ballused)
     imagepos.push([ballimage,14,60,0,0,-1,-1])
     pbDrawImagePositions(overlay,imagepos)
-    if ($PokemonSystem.darkmode==0 rescue false)
+    if (!isDarkMode?)
       base=Color.new(88,88,80)
       shadow=Color.new(168,184,184)
       base2=Color.new(230,230,230)
@@ -591,7 +591,7 @@ class PokemonSummaryScene
 #      natdn=(pokemon.nature%5).floor
       natup=(nat/5).floor
       natdn=(nat%5).floor
-      if ($PokemonSystem.darkmode==0 rescue false)
+      if (!isDarkMode?)
         statshadows[natup]=Color.new(136,96,72) if natup!=natdn
         statshadows[natdn]=Color.new(64,120,152) if natup!=natdn
       else
@@ -678,7 +678,7 @@ def drawPageFour(pokemon)
     ballimage=sprintf("Graphics/Pictures/summaryball%02d",@pokemon.ballused)
     imagepos.push([ballimage,14,60,0,0,-1,-1])
     pbDrawImagePositions(overlay,imagepos)
-    if ($PokemonSystem.darkmode==0 rescue false)
+    if (!isDarkMode?)
       base=Color.new(88,88,80)
       shadow=Color.new(168,184,184)
       base2=Color.new(230,230,230)
@@ -699,7 +699,7 @@ def drawPageFour(pokemon)
 #      natdn=(pokemon.nature%5).floor
       natup=(nat/5).floor
       natdn=(nat%5).floor
-      if ($PokemonSystem.darkmode==0 rescue false)
+      if (!isDarkMode?)
         statshadows[natup]=Color.new(136,96,72) if natup!=natdn
         statshadows[natdn]=Color.new(64,120,152) if natup!=natdn
       else
@@ -787,7 +787,7 @@ def drawPageFive(pokemon)
     ballimage=sprintf("Graphics/Pictures/summaryball%02d",@pokemon.ballused)
     imagepos.push([ballimage,14,60,0,0,-1,-1])
     pbDrawImagePositions(overlay,imagepos)
-    if ($PokemonSystem.darkmode==0 rescue false)
+    if (!isDarkMode?)
       base=Color.new(88,88,80)
       shadow=Color.new(168,184,184)
       base2=Color.new(230,230,230)
@@ -808,7 +808,7 @@ def drawPageFive(pokemon)
 #      natdn=(pokemon.nature%5).floor
       natup=(nat/5).floor
       natdn=(nat%5).floor
-      if ($PokemonSystem.darkmode==0 rescue false)
+      if (!isDarkMode?)
         statshadows[natup]=Color.new(136,96,72) if natup!=natdn
         statshadows[natdn]=Color.new(64,120,152) if natup!=natdn
       else
@@ -898,7 +898,7 @@ def drawPageFive(pokemon)
     ballimage=sprintf("Graphics/Pictures/summaryball%02d",@pokemon.ballused)
     imagepos.push([ballimage,14,60,0,0,-1,-1])
     pbDrawImagePositions(overlay,imagepos)
-    if ($PokemonSystem.darkmode==0 rescue false)
+    if (!isDarkMode?)
       base=Color.new(88,88,80)
       shadow=Color.new(168,184,184)
       base2=Color.new(230,230,230)
@@ -983,7 +983,7 @@ def drawPageFive(pokemon)
     drawMoveSelection(pokemon,moveToLearn)
     pbSetSystemFont(overlay)
     move=moveid
-    if ($PokemonSystem.darkmode==0 rescue false)
+    if (!isDarkMode?)
       base=Color.new(88,88,80)
       shadow=Color.new(168,184,184)
       base2=Color.new(230,230,230)
@@ -1011,7 +1011,7 @@ def drawPageFive(pokemon)
   def drawMoveSelection(pokemon,moveToLearn)
     overlay=@sprites["overlay"].bitmap
     overlay.clear
-    if ($PokemonSystem.darkmode==0 rescue false)
+    if (!isDarkMode?)
       base=Color.new(88,88,80)
       shadow=Color.new(168,184,184)
       base2=Color.new(230,230,230)
@@ -1117,7 +1117,7 @@ def drawPageFive(pokemon)
     ballimage=sprintf("Graphics/Pictures/summaryball%02d",@pokemon.ballused)
     imagepos.push([ballimage,14,60,0,0,-1,-1])
     pbDrawImagePositions(overlay,imagepos)
-    if ($PokemonSystem.darkmode==0 rescue false)
+    if (!isDarkMode?)
       base=Color.new(88,88,80)
       shadow=Color.new(168,184,184)
       base2=Color.new(230,230,230)
@@ -1190,7 +1190,7 @@ def drawPageFive(pokemon)
     ballimage=sprintf("Graphics/Pictures/summaryball%02d",@pokemon.ballused)
     imagepos.push([ballimage,14,60,0,0,-1,-1])
     pbDrawImagePositions(overlay,imagepos)
-    if ($PokemonSystem.darkmode==0 rescue false)
+    if (!isDarkMode?)
       base=Color.new(88,88,80)
       shadow=Color.new(168,184,184)
       base2=Color.new(230,230,230)

@@ -387,10 +387,25 @@ def getAccentFolder
   end
 end
 
+# Returns if Dark Mode is active
+def isDarkMode?
+  if $PokemonSystem
+    if (($PokemonSystem.darkmode==1 rescue false))  # Dark Mode
+      return true
+    end
+    if (($PokemonSystem.darkmode==2 rescue false))  # Automatic Mode
+      return (PBDayNight.isNight? rescue false)
+    end
+    return false                                    # Light Mode
+  else
+    return false
+  end
+end
+
 # Returns the Dark Mode Folder
 def getDarkModeFolder
   if $PokemonSystem
-    return ["","Dark Mode"][$PokemonSystem.darkmode]
+    return isDarkMode? ? "Dark Mode" : ""
   else
     return ""
   end

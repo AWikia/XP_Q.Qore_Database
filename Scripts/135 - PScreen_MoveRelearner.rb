@@ -81,7 +81,7 @@ class MoveRelearnerScene
   end
 
   def pbDrawMoveList
-    if ($PokemonSystem.darkmode==0 rescue false)
+    if (!isDarkMode?)
       baseColor=Color.new(88,88,80)
       shadowColor=Color.new(168,184,184)
     else

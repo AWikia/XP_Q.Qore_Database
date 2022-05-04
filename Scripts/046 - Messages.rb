@@ -1297,7 +1297,7 @@ def pbDisplayGoldWindow(msgwindow)
   moneyString=pbGetGoldString()
   goldwindow=Window_AdvancedTextPokemon.new(_INTL("Money:\n<ar>{1}</ar>",moneyString))
   goldwindow.setSkin("Graphics/Windowskins/"+getDarkModeFolder+"/"+"goldskin")
-  if ($PokemonSystem.darkmode==0 rescue false)
+  if (!isDarkMode?)
     goldwindow.baseColor=Color.new(88,88,80)
     goldwindow.shadowColor=Color.new(168,184,184)
   else
@@ -1340,7 +1340,7 @@ def pbDisplayCoinsWindow(msgwindow,goldwindow)
   coinString=($PokemonGlobal) ? $PokemonGlobal.coins.to_s_formatted : "0"
   coinwindow=Window_AdvancedTextPokemon.new(_INTL("Coins:\n<ar>{1}</ar>",coinString))
   coinwindow.setSkin("Graphics/Windowskins/"+getDarkModeFolder+"/"+"goldskin")
-  if ($PokemonSystem.darkmode==0 rescue false)
+  if (!isDarkMode?)
     coinwindow.baseColor=Color.new(88,88,80)
     coinwindow.shadowColor=Color.new(168,184,184)
   else

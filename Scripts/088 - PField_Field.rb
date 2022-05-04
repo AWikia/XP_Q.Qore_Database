@@ -1402,6 +1402,16 @@ Events.onStepTaken+=proc{
 }
 
 Events.onStepTaken+=proc{
+  # Dark Mode
+  if ($PokemonSystem.darkmode==2 rescue false)
+    MessageConfig.pbSetSpeechFrame("Graphics/Windowskins/"+getDarkModeFolder+"/"+$SpeechFrames[$PokemonSystem.textskin])
+    MessageConfig.pbSetSystemFrame("Graphics/Windowskins/"+getDarkModeFolder+"/"+$TextFrames[$PokemonSystem.textskin])
+  end
+  # Dark Mode End
+}
+
+
+Events.onStepTaken+=proc{
   for pkmn in $Trainer.party
     if pkmn.hp>0 && !pkmn.isEgg?
       pkmn.addTemp = 0

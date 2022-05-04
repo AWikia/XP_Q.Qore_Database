@@ -1038,6 +1038,7 @@ def pbGetMapNameFromId(id)
 end
 
 def Kernel.pbMessage(message,commands=nil,cmdIfCancel=0,skin=nil,defaultCmd=0,&block)
+
   ret=0
   msgwindow=Kernel.pbCreateMessageWindow(nil,skin)
   if commands
@@ -1381,6 +1382,10 @@ end
 
 def Kernel.pbMessageDisplay(msgwindow,message,letterbyletter=true,commandProc=nil)
   return if !msgwindow
+  # Dark Mode
+  MessageConfig.pbSetSpeechFrame("Graphics/Windowskins/"+getDarkModeFolder+"/"+$SpeechFrames[$PokemonSystem.textskin])
+  MessageConfig.pbSetSystemFrame("Graphics/Windowskins/"+getDarkModeFolder+"/"+$TextFrames[$PokemonSystem.textskin])
+  # Dark Mode End
   oldletterbyletter=msgwindow.letterbyletter
   msgwindow.letterbyletter=(letterbyletter ? true : false)
   ret=nil

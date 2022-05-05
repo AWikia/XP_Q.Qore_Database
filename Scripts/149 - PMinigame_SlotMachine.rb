@@ -268,6 +268,11 @@ class SlotMachineScene
     else
       addBackgroundPlane(@sprites,"bg","Slot Machine/bg",@viewport)
     end
+    @sprites["header"]=Window_UnformattedTextPokemon.newWithSize(_INTL("Slot Machine"),
+       2,-18,256,64,@viewport)
+    @sprites["header"].baseColor=Color.new(248,248,248)
+    @sprites["header"].shadowColor=Color.new(0,0,0)
+    @sprites["header"].windowskin=nil
     @sprites["reel1"]=SlotMachineReel.new(64,112,difficulty)
     @sprites["reel2"]=SlotMachineReel.new(144,112,difficulty)
     @sprites["reel3"]=SlotMachineReel.new(224,112,difficulty)

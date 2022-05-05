@@ -835,7 +835,7 @@ class PokemonPokedexScene
     @sprites["overlay"].visible=false
     @sprites["entryicon"]=PokemonSprite.new(@viewport)
     pbChangeToDexEntry(species)
-    pbDrawImagePositions(@sprites["overlay"].bitmap,[["Graphics/Pictures/pokedexBlank",0,0,0,0,-1,-1]])
+    pbDrawImagePositions(@sprites["overlay"].bitmap,[["Graphics/Pictures/"+getDarkModeFolder+"/pokedexBlank",0,0,0,0,-1,-1]])
     pbFadeInAndShow(@sprites)
   end
 

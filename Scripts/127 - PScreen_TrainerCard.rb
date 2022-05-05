@@ -47,7 +47,7 @@ class PokemonTrainerCardScene
        $PokemonGlobal.startTime.day,
        $PokemonGlobal.startTime.year)
     pubid=sprintf("%05d",$Trainer.publicID($Trainer.id))
-    if ($PokemonSystem.darkmode==0 rescue false)
+    if (!isDarkMode?)
       baseColor=Color.new(88,88,80)
       shadowColor=Color.new(168,184,184)
     else

@@ -60,7 +60,7 @@ class MapBottomSprite < SpriteWrapper
     ]
 =end
 
-    if ($PokemonSystem.darkmode==0 rescue false)
+    if (!isDarkMode?)
       color=Color.new(20,20,20)
     else
       color=Color.new(248,248,248)

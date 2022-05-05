@@ -149,7 +149,7 @@ class Window_Pokedex < Window_DrawableCommand
 #    self.shadowColor=Color.new(168,184,184)
 #    self.baseColor=Color.new(77,38,115)
 
-    if ($PokemonSystem.darkmode==0 rescue false)
+    if (!isDarkMode?)
       self.baseColor=Color.new(20,20,20)
     else
       self.baseColor=Color.new(248,248,248)
@@ -389,7 +389,7 @@ class PokemonPokedexScene
     @sprites["searchtitle"].text=_ISPRINTF("Search Mode")
     @sprites["searchtitle"].visible=false
     @sprites["searchlist"]=Window_ComplexCommandPokemon.newEmpty(-6,32,284,352,@viewport)
-    if ($PokemonSystem.darkmode==0 rescue false)
+    if (!isDarkMode?)
       @sprites["searchlist"].baseColor=MessageConfig::DARKTEXTBASE
       @sprites["searchlist"].shadowColor=MessageConfig::DARKTEXTSHADOW
     else
@@ -398,7 +398,7 @@ class PokemonPokedexScene
     end
     @sprites["searchlist"].visible=false
     @sprites["auxlist"]=Window_CommandPokemonWhiteArrow.newEmpty(318,32,348,224,@viewport)
-    if ($PokemonSystem.darkmode==0 rescue false)
+    if (!isDarkMode?)
       @sprites["auxlist"].baseColor=MessageConfig::DARKTEXTBASE
       @sprites["auxlist"].shadowColor=MessageConfig::DARKTEXTSHADOW
     else
@@ -407,7 +407,7 @@ class PokemonPokedexScene
     end
     @sprites["auxlist"].visible=false
     @sprites["messagebox"]=Window_UnformattedTextPokemon.newWithSize("",316,256,328,128,@viewport)
-    if ($PokemonSystem.darkmode==0 rescue false)
+    if (!isDarkMode?)
       @sprites["messagebox"].baseColor=MessageConfig::DARKTEXTBASE
       @sprites["messagebox"].shadowColor=MessageConfig::DARKTEXTSHADOW
     else
@@ -425,7 +425,7 @@ class PokemonPokedexScene
 #    @sprites["species"].baseColor=Color.new(88,88,80)
 #    @sprites["species"].shadowColor=Color.new(168,184,184)
 #    @sprites["species"].baseColor=Color.new(77,38,115)
-    if ($PokemonSystem.darkmode==0 rescue false)
+    if (!isDarkMode?)
       @sprites["species"].baseColor=Color.new(20,20,20)
       @sprites["species"].shadowColor=Color.new(172,115,229)
     else
@@ -437,7 +437,7 @@ class PokemonPokedexScene
 #    @sprites["seen"].baseColor=Color.new(88,88,80)
 #    @sprites["seen"].shadowColor=Color.new(168,184,184)
 #    @sprites["seen"].baseColor=Color.new(77,38,115)
-    if ($PokemonSystem.darkmode==0 rescue false)
+    if (!isDarkMode?)
       @sprites["seen"].baseColor=Color.new(20,20,20)
       @sprites["seen"].shadowColor=Color.new(172,115,229)
     else
@@ -449,7 +449,7 @@ class PokemonPokedexScene
 #    @sprites["owned"].baseColor=Color.new(88,88,80)
 #    @sprites["owned"].shadowColor=Color.new(168,184,184)
 #    @sprites["owned"].baseColor=Color.new(77,38,115)
-    if ($PokemonSystem.darkmode==0 rescue false)
+    if (!isDarkMode?)
       @sprites["owned"].baseColor=Color.new(20,20,20)
       @sprites["owned"].shadowColor=Color.new(172,115,229)
     else
@@ -856,7 +856,7 @@ class PokemonPokedexScene
   def pbDexEntryBitmaps(species)
     @sprites["overlay"].bitmap.clear
 
-    if ($PokemonSystem.darkmode==0 rescue false)
+    if (!isDarkMode?)
       basecolor=Color.new(88,88,80)
       shadowcolor=Color.new(168,184,184)
       basecolor2=Color.new(20,20,20)

@@ -67,7 +67,7 @@ class PokemonNestMapScene
         ])
       end
     end
-    if ($PokemonSystem.darkmode==0 rescue false)
+    if (!isDarkMode?)
       color = 248
     else
       color = 56
@@ -293,7 +293,7 @@ class PokedexFormScene
 
 =end
 
-    if ($PokemonSystem.darkmode==0 rescue false)
+    if (!isDarkMode?)
       color=Color.new(20,20,20)
     else
       color=Color.new(248,248,248)

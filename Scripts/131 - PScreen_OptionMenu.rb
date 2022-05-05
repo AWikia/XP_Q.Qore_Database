@@ -2,6 +2,12 @@ def pbOptionSecMenu
   viewport=Viewport.new(0,0,Graphics.width,Graphics.height)
   viewport.z=99999
   @sprites={}
+  # Dark Mode
+  if ($PokemonSystem.darkmode==2 rescue false)
+    MessageConfig.pbSetSpeechFrame("Graphics/Windowskins/"+getDarkModeFolder+"/"+$SpeechFrames[$PokemonSystem.textskin])
+    MessageConfig.pbSetSystemFrame("Graphics/Windowskins/"+getDarkModeFolder+"/"+$TextFrames[$PokemonSystem.textskin])
+  end
+  # Dark Mode End
   commands=CommandList.new
     @sprites["title"]=Window_UnformattedTextPokemon.newWithSize(
        _INTL("Settings"),0,0,Graphics.width,64,viewport)

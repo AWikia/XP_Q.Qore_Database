@@ -1791,7 +1791,7 @@ class PokemonBoxPartySprite < SpriteWrapper
   def refresh
     @contents.blt(0,0,@boxbitmap.bitmap,Rect.new(0,0,172,352))
     # V17 Backport
-    if ($PokemonSystem.darkmode==0 rescue false)
+    if (!isDarkMode?)
       color1=Color.new(248,248,248)
       color2=Color.new(80,80,80)
     else
@@ -2368,7 +2368,7 @@ class PokemonStorageScene
     overlay=@sprites["overlay"].bitmap
     overlay.clear
     # V17 Addition
-    if ($PokemonSystem.darkmode==0 rescue false)
+    if (!isDarkMode?)
       buttonbase=Color.new(248,248,248)
       buttonshadow=Color.new(80,80,80)
     else
@@ -2392,7 +2392,7 @@ class PokemonStorageScene
     end
     @sprites["pokemon"].visible=true
 
-    if ($PokemonSystem.darkmode==0 rescue false)
+    if (!isDarkMode?)
       base=Color.new(88,88,80)
       shadow=Color.new(168,184,184)
  #     nonbase=Color.new(208,200,184)

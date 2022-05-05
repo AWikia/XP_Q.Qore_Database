@@ -3,7 +3,7 @@ class Window_PokemonOption < Window_DrawableCommand
 
   def initialize(options,x,y,width,height)
     @options=options
-    if ($PokemonSystem.darkmode==0 rescue false)  # Light Mode
+    if (!isDarkMode?)  # Light Mode
       @nameBaseColor=Color.new(24*8,15*8,0)
       @nameShadowColor=Color.new(31*8,22*8,10*8)
       @selBaseColor=Color.new(31*8,6*8,3*8)
@@ -857,7 +857,7 @@ There are different modes:
     end
     if mode==3
       @PokemonOptions+=[
-        EnumOption.new(_INTL("System Theme"),[_INTL("Light"),_INTL("Dark")],
+        EnumOption.new(_INTL("System Theme"),[_INTL("Light"),_INTL("Dark"),_INTL("Automatic")],
            proc { $PokemonSystem.darkmode },
            proc {|value|
              $PokemonSystem.darkmode=value

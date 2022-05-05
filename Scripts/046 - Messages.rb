@@ -1038,6 +1038,12 @@ def pbGetMapNameFromId(id)
 end
 
 def Kernel.pbMessage(message,commands=nil,cmdIfCancel=0,skin=nil,defaultCmd=0,&block)
+  # Dark Mode
+  if ($PokemonSystem.darkmode==2 rescue false)
+    MessageConfig.pbSetSpeechFrame("Graphics/Windowskins/"+getDarkModeFolder+"/"+$SpeechFrames[$PokemonSystem.textskin])
+    MessageConfig.pbSetSystemFrame("Graphics/Windowskins/"+getDarkModeFolder+"/"+$TextFrames[$PokemonSystem.textskin])
+  end
+  # Dark Mode End
   ret=0
   msgwindow=Kernel.pbCreateMessageWindow(nil,skin)
   if commands
@@ -1297,7 +1303,7 @@ def pbDisplayGoldWindow(msgwindow)
   moneyString=pbGetGoldString()
   goldwindow=Window_AdvancedTextPokemon.new(_INTL("Money:\n<ar>{1}</ar>",moneyString))
   goldwindow.setSkin("Graphics/Windowskins/"+getDarkModeFolder+"/"+"goldskin")
-  if ($PokemonSystem.darkmode==0 rescue false)
+  if (!isDarkMode?)
     goldwindow.baseColor=Color.new(88,88,80)
     goldwindow.shadowColor=Color.new(168,184,184)
   else
@@ -1340,7 +1346,7 @@ def pbDisplayCoinsWindow(msgwindow,goldwindow)
   coinString=($PokemonGlobal) ? $PokemonGlobal.coins.to_s_formatted : "0"
   coinwindow=Window_AdvancedTextPokemon.new(_INTL("Coins:\n<ar>{1}</ar>",coinString))
   coinwindow.setSkin("Graphics/Windowskins/"+getDarkModeFolder+"/"+"goldskin")
-  if ($PokemonSystem.darkmode==0 rescue false)
+  if (!isDarkMode?)
     coinwindow.baseColor=Color.new(88,88,80)
     coinwindow.shadowColor=Color.new(168,184,184)
   else
@@ -1417,11 +1423,16 @@ def Kernel.pbMessageDisplay(msgwindow,message,letterbyletter=true,commandProc=ni
   text.gsub!(/\\[Pp][Oo][Gg]/,"\\b") if $Trainer && $Trainer.isFemale?
   text.gsub!(/\\[Pp][Gg]/,"")
   text.gsub!(/\\[Pp][Oo][Gg]/,"")
-  text.gsub!(/\\[Bb]/,"<c2=6546675A>")
-  text.gsub!(/\\[Rr]/,"<c2=043C675A>")
+  isDarkSkin=isDarkWindowskin(msgwindow.windowskin)
+  if (isDarkSkin)
+    text.gsub!(/\\[Bb]/,"<c2=7A96675A>")
+    text.gsub!(/\\[Rr]/,"<c2=39DF675A>")
+  else
+    text.gsub!(/\\[Bb]/,"<c2=48C5675A>")
+    text.gsub!(/\\[Rr]/,"<c2=107D675A>")
+  end
   text.gsub!(/\\1/,"\1")
   colortag=""
-  isDarkSkin=isDarkWindowskin(msgwindow.windowskin)
   if ($game_message && $game_message.background>0) ||
      ($game_system && $game_system.respond_to?("message_frame") &&
       $game_system.message_frame != 0)

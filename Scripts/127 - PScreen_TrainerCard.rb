@@ -14,6 +14,11 @@ class PokemonTrainerCardScene
       addBackgroundPlane(@sprites,"bg",getDarkModeFolder+"/trainercardbg",@viewport)
     end
     cardexists=pbResolveBitmap(sprintf("Graphics/Pictures/"+getDarkModeFolder+"/trainercardf"))
+    @sprites["header"]=Window_UnformattedTextPokemon.newWithSize(_INTL("Trainer Card"),
+       2,-18,128,64,@viewport)
+    @sprites["header"].baseColor=Color.new(248,248,248)
+    @sprites["header"].shadowColor=Color.new(0,0,0)
+    @sprites["header"].windowskin=nil
     @sprites["card"]=IconSprite.new(0,0,@viewport)
     if $Trainer.isFemale? && cardexists
       @sprites["card"].setBitmap("Graphics/Pictures/"+getDarkModeFolder+"/trainercardf")

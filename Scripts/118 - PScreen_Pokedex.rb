@@ -420,6 +420,11 @@ class PokemonPokedexScene
 #    @sprites["dexname"].windowskin=nil
 #    @sprites["dexname"].baseColor=Color.new(248,248,248)
 #    @sprites["dexname"].shadowColor=Color.new(0,0,0)
+    @sprites["header"]=Window_UnformattedTextPokemon.newWithSize(_INTL("Pokédex"),
+       2,-18,128,64,@viewport)
+    @sprites["header"].baseColor=Color.new(248,248,248)
+    @sprites["header"].shadowColor=Color.new(0,0,0)
+    @sprites["header"].windowskin=nil
     @sprites["species"]=Window_AdvancedTextPokemon.newWithSize("",34,18,160,64,@viewport)
     @sprites["species"].windowskin=nil
 #    @sprites["species"].baseColor=Color.new(88,88,80)

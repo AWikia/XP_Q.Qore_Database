@@ -119,7 +119,7 @@ class PokemonBag_Scene
   POCKETNAMESHADOWCOLOR = Color.new(168,184,184)
   DARKPOCKETNAMEBASECOLOR     =  Color.new(248,248,240)
   DARKPOCKETNAMESHADOWCOLOR   = Color.new(72,88,88)
-  ITEMSVISIBLE          = 7
+  ITEMSVISIBLE          = 6
 
   def update
     pbUpdateSpriteHash(@sprites)
@@ -140,7 +140,7 @@ class PokemonBag_Scene
     @sprites["rightarrow"].play
     @sprites["bag"]=IconSprite.new(30,20,@viewport)
     @sprites["icon"]=ItemIconSprite.new(48,Graphics.height-48,-1,@viewport)
-    @sprites["itemwindow"]=Window_PokemonBag.new(@bag,lastpocket,168,-8,314,40+32+ITEMSVISIBLE*32)
+    @sprites["itemwindow"]=Window_PokemonBag.new(@bag,lastpocket,168,-8+32,314,40+32+ITEMSVISIBLE*32)
     @sprites["itemwindow"].viewport=@viewport
     @sprites["itemwindow"].pocket=lastpocket
     @sprites["itemwindow"].index=lastitem
@@ -152,7 +152,11 @@ class PokemonBag_Scene
       @sprites["itemwindow"].shadowColor=DARKITEMLISTSHADOWCOLOR
     end
     @sprites["itemwindow"].refresh
-    @sprites["slider"]=IconSprite.new(Graphics.width-40,60,@viewport)
+    @sprites["header"]=Window_UnformattedTextPokemon.newWithSize(_INTL("{1}",PokemonBag.pocketNames()[@bag.lastpocket]),2,-18,256,64,@viewport)
+    @sprites["header"].baseColor=Color.new(248,248,248)
+    @sprites["header"].shadowColor=Color.new(0,0,0)
+    @sprites["header"].windowskin=nil
+    @sprites["slider"]=IconSprite.new(Graphics.width-40,78,@viewport)
     @sprites["slider"].setBitmap(sprintf("Graphics/Pictures/"+getDarkModeFolder+"/bagSlider"))
     @sprites["pocketwindow"]=BitmapSprite.new(186,228,@viewport)
     pbSetSystemFont(@sprites["pocketwindow"].bitmap)
@@ -216,6 +220,7 @@ class PokemonBag_Scene
     end
     # Draw the pocket name
     name=PokemonBag.pocketNames()[@bag.lastpocket]
+    @sprites["header"].text=name
     if (!isDarkMode?)
       base=POCKETNAMEBASECOLOR
       shadow=POCKETNAMESHADOWCOLOR
@@ -233,9 +238,9 @@ class PokemonBag_Scene
     @sprites["rightarrow"].y=76
     itemwindow=@sprites["itemwindow"]
     # Draw the slider
-    ycoord=60
+    ycoord=78
     if itemwindow.itemCount>1
-      ycoord+=116.0 * itemwindow.index/(itemwindow.itemCount-1)
+      ycoord+=98.0 * itemwindow.index/(itemwindow.itemCount-1)
     end
     @sprites["slider"].y=ycoord
     # Set the icon for the currently selected item
@@ -264,9 +269,9 @@ class PokemonBag_Scene
          self.update
          if itemwindow.item!=olditem
            # Update slider position
-           ycoord=60
+           ycoord=78
            if itemwindow.itemCount>1
-             ycoord+=116.0 * itemwindow.index/(itemwindow.itemCount-1)
+             ycoord+=98.0 * itemwindow.index/(itemwindow.itemCount-1)
            end
            @sprites["slider"].y=ycoord
            # Update item icon and description

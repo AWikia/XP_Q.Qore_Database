@@ -4,7 +4,7 @@ class PokeSelectionPlaceholderSprite < SpriteWrapper
   def initialize(pokemon,index,viewport=nil)
     super(viewport)
     xvalues=[32,352,32,352,32,352]
-    yvalues=[16,0,112,96,208,192]
+    yvalues=[36,32,132,128,228,224] # Was [16,0,112,96,208,192]
 =begin
     if $Trainer.isFemale?
       @pbitmap=AnimatedBitmap.new("Graphics/Pictures/partyPanelBlank")
@@ -332,7 +332,7 @@ class PokeSelectionSprite < SpriteWrapper
 #    xvalues=[64,320,64,320,64,320]
 #    yvalues=[0,16,96,112,192,208]
     xvalues=[32,352,32,352,32,352]
-    yvalues=[16,0,112,96,208,192]
+    yvalues=[32,32,128,128,224,224] # Was [16,0,112,96,208,192]
     @text=nil
     @statuses=AnimatedBitmap.new(_INTL("Graphics/Pictures/statuses"))
     @hpbar=AnimatedBitmap.new("Graphics/Pictures/partyHP")
@@ -722,6 +722,13 @@ class PokemonScreen_Scene
       addBackgroundOrColoredPlaneGlobal(@sprites,"partybg","loadbg_empty",
          Color.new(0,0,0),@viewport)
     end
+      addBackgroundOrColoredPlane(@sprites,"partybg_title",getDarkModeFolder+"/partybg",
+         Color.new(0,0,0),@viewport)
+    @sprites["header"]=Window_UnformattedTextPokemon.newWithSize(_INTL("Party Pokémon"),
+       2,-18,256,64,@viewport)
+    @sprites["header"].baseColor=Color.new(248,248,248)
+    @sprites["header"].shadowColor=Color.new(0,0,0)
+    @sprites["header"].windowskin=nil
     @sprites["messagebox"]=Window_AdvancedTextPokemon.new("")
     @sprites["helpwindow"]=Window_UnformattedTextPokemon.new(starthelptext)
     @sprites["messagebox"].viewport=@viewport

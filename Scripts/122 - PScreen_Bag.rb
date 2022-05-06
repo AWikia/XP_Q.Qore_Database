@@ -138,7 +138,7 @@ class PokemonBag_Scene
     @sprites["rightarrow"]=AnimatedSprite.new("Graphics/Pictures/"+getAccentFolder+"/rightarrow",8,40,28,2,@viewport)
     @sprites["leftarrow"].play
     @sprites["rightarrow"].play
-    @sprites["bag"]=IconSprite.new(30,20,@viewport)
+    @sprites["bag"]=IconSprite.new(30,34,@viewport)
     @sprites["icon"]=ItemIconSprite.new(48,Graphics.height-48,-1,@viewport)
     @sprites["itemwindow"]=Window_PokemonBag.new(@bag,lastpocket,168,-8+32,314,40+32+ITEMSVISIBLE*32)
     @sprites["itemwindow"].viewport=@viewport
@@ -233,9 +233,9 @@ class PokemonBag_Scene
     ])
     # Reset positions of left/right arrows around the bag
     @sprites["leftarrow"].x=-4
-    @sprites["leftarrow"].y=76
+    @sprites["leftarrow"].y=90
     @sprites["rightarrow"].x=150
-    @sprites["rightarrow"].y=76
+    @sprites["rightarrow"].y=90
     itemwindow=@sprites["itemwindow"]
     # Draw the slider
     ycoord=78

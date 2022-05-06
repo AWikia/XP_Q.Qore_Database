@@ -86,6 +86,11 @@ class Scene_LinkBattle
     @sprites={}
     @sprites["background"] = IconSprite.new(0,0)
     @sprites["background"].setBitmap("Graphics/Pictures/"+getDarkModeFolder+"/linkbg")
+    @sprites["header"]=Window_UnformattedTextPokemon.newWithSize(_INTL("Link Battle"),
+       2,-18,256,64,@viewport)
+    @sprites["header"].baseColor=Color.new(248,248,248)
+    @sprites["header"].shadowColor=Color.new(0,0,0)
+    @sprites["header"].windowskin=nil
     @sprites["command_window"] = Window_CommandPokemon.new(commands,160)
     @sprites["command_window"].visible = false
     @sprites["command_window"].index = @menu_index

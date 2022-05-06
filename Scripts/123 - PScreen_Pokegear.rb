@@ -97,6 +97,11 @@ class Scene_Pokegear
     else
       @sprites["background"].setBitmap("Graphics/Pictures/"+getDarkModeFolder+"/pokegearbg")
     end
+    @sprites["header"]=Window_UnformattedTextPokemon.newWithSize(_INTL("Pokégear"),
+       2,-18,128,64,@viewport)
+    @sprites["header"].baseColor=Color.new(248,248,248)
+    @sprites["header"].shadowColor=Color.new(0,0,0)
+    @sprites["header"].windowskin=nil
     @sprites["command_window"] = Window_CommandPokemon.new(commands,160)
     @sprites["command_window"].visible = false
     @sprites["command_window"].index = @menu_index

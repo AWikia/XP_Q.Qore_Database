@@ -5316,7 +5316,7 @@ class PokeBattle_Battler
       return
     end
     # Revelation Powder
-    if target.pbOwnSide.effects[PBEffects::RevelationPowder]>0 && isConst?(thismove.pbType(thismove.type,user,nil),PBTypes,:FIRE)
+    if user.pbOpposingSide.effects[PBEffects::RevelationPowder]>0 && isConst?(thismove.pbType(thismove.type,user,nil),PBTypes,:FIRE)
       PBDebug.log("[Lingering effect triggered] Revelation Powder cancelled the Fire move")
       @battle.pbCommonAnimation("Powder",user,nil)
       @battle.pbDisplay(_INTL("When the flame reached the revelation powder on the other side, it exploded!"))

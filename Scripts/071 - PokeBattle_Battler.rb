@@ -5316,10 +5316,10 @@ class PokeBattle_Battler
       return
     end
     # Revelation Powder
-    if user.effects[PBEffects::RevelationPowder]>0 && isConst?(thismove.pbType(thismove.type,user,nil),PBTypes,:FIRE)
+    if target.pbOwnSide.effects[PBEffects::RevelationPowder]>0 && isConst?(thismove.pbType(thismove.type,user,nil),PBTypes,:FIRE)
       PBDebug.log("[Lingering effect triggered] Revelation Powder cancelled the Fire move")
       @battle.pbCommonAnimation("Powder",user,nil)
-      @battle.pbDisplay(_INTL("When the flame touched the powder on the Pokémon, it exploded!"))
+      @battle.pbDisplay(_INTL("When the flame reached the revelation powder on the other side, it exploded!"))
       user.pbReduceHP(1+(user.totalhp/4).floor) if !(user.hasWorkingAbility(:MAGICGUARD) || user.hasWorkingAbility(:SUPERCLEARBODY))
       user.lastMoveUsed=thismove.id
       user.lastMoveUsedType=thismove.pbType(thismove.type,user,nil)

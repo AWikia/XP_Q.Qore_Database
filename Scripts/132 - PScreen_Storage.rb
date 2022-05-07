@@ -2002,7 +2002,7 @@ class PokemonBoxSprite < SpriteWrapper
     @contents=BitmapWrapper.new(324,296)
     self.bitmap=@contents
     self.x=184
-    self.y=18
+    self.y=18+16
     refresh
   end
 
@@ -2089,6 +2089,11 @@ class PokemonStorageScene
     else
       addBackgroundPlane(@sprites,"background",getDarkModeFolder+"/boxbg2",@bgviewport)
     end
+      addBackgroundOrColoredPlane(@sprites,"partybg_title",getDarkModeFolder+"/partybg",Color.new(0,0,0),@bgviewport)
+    @sprites["header"]=Window_AdvancedTextPokemon.newWithSize(_INTL("Storage System"),2,-18,400,64,@bgviewport)
+    @sprites["header"].baseColor=(isDarkMode?) ? Color.new(248,248,248) : Color.new(0,0,0)
+    @sprites["header"].shadowColor=(!isDarkMode?) ? Color.new(248,248,248) : Color.new(0,0,0)
+    @sprites["header"].windowskin=nil
     @sprites["box"]=PokemonBoxSprite.new(@storage,@storage.currentBox,@boxviewport)
     @sprites["boxsides"]=IconSprite.new(0,0,@boxsidesviewport)
     @sprites["boxsides"].setBitmap("Graphics/Pictures/"+getDarkModeFolder+"/boxsides")
@@ -2125,17 +2130,17 @@ class PokemonStorageScene
   def pbSetArrow(arrow,selection)
     case selection
     when -1, -4, -5 # Box name, move left, move right
-      arrow.y=-16
+      arrow.y=-16+16
       arrow.x=157*2
     when -2 # Party Pokémon
-      arrow.y=143*2
+      arrow.y=(143*2)+16
       arrow.x=119*2
     when -3 # Close Box
-      arrow.y=143*2
+      arrow.y=(143*2)+16
       arrow.x=207*2
     else
       arrow.x = (97+24*(selection%6) ) * 2
-      arrow.y = (8+24*(selection/6) ) * 2
+      arrow.y = ((8+24*(selection/6) ) * 2) + 16
     end
   end
 
@@ -2376,18 +2381,21 @@ class PokemonStorageScene
       buttonshadow=Color.new(248,248,248)
     end
     pbDrawTextPositions(overlay,[
-       [_INTL("Party: {1}",(@storage.party.length rescue 0)),270,328,2,buttonbase,buttonshadow,1],
-       [_INTL("Exit"),446,328,2,buttonbase,buttonshadow,1],
+       [_INTL("Party: {1}",(@storage.party.length rescue 0)),270,328+14,2,buttonbase,buttonshadow,1],
+       [_INTL("Exit"),446,328+14,2,buttonbase,buttonshadow,1],
     ])
     # V17 Addition End
     pokemon=nil
+    boxname = (party) ? "Party Pokémon" : @storage[@storage.currentBox].name
     if @screen.pbHeldPokemon
+      boxname = "Held Pokémon"
       pokemon=@screen.pbHeldPokemon
     elsif selection>=0
       pokemon=(party) ? party[selection] : @storage[@storage.currentBox,selection]
     end
     if !pokemon
       @sprites["pokemon"].visible=false
+      @sprites["header"].text = _INTL("{1}", boxname)
       return
     end
     @sprites["pokemon"].visible=true
@@ -2409,20 +2417,22 @@ class PokemonStorageScene
     end
 
     pokename=pokemon.name
+    @sprites["header"].text = _INTL("{1} - {2}", boxname, pokename)
     textstrings=[
-       [pokename,10,8,false,base,shadow]
+#       [pokename,10,8,false,base,shadow]
     ]
+    
     if !pokemon.isEgg?
       imagepos = []
       if pokemon.isMale?
 #        textstrings.push([_INTL("♂"),148,8,false,Color.new(24,112,216),Color.new(136,168,208)])
-        imagepos.push(["Graphics/Pictures/gender_male",148,15,0,0,-1,-1])
+        imagepos.push(["Graphics/Pictures/gender_male_b",8,40,0,0,-1,-1])
       elsif pokemon.isFemale?
 #        textstrings.push([_INTL("♀"),148,8,false,Color.new(248,56,32),Color.new(224,152,144)])
-        imagepos.push(["Graphics/Pictures/gender_female",148,15,0,0,-1,-1])
+        imagepos.push(["Graphics/Pictures/gender_female_b",8,40,0,0,-1,-1])
       elsif pokemon.isGenderless?
 #        textstrings.push([_INTL("♀"),148,8,false,Color.new(248,56,32),Color.new(224,152,144)])
-        imagepos.push(["Graphics/Pictures/gender_transgender",148,15,0,0,-1,-1])
+        imagepos.push(["Graphics/Pictures/gender_transgender_b",8,40,0,0,-1,-1])
       end
       imagepos.push(["Graphics/Pictures/storage_lv",6,246,0,0,-1,-1])
       textstrings.push([pokemon.level.to_s,28,234,false,base,shadow])
@@ -2462,7 +2472,7 @@ class PokemonStorageScene
     end
 =end
     @sprites["pokemon"].setPokemonBitmap(pokemon)
-    pbPositionPokemonSprite(@sprites["pokemon"],26+64,70)
+    pbPositionPokemonSprite(@sprites["pokemon"],26+64,63)
   end
 
   def pbDropDownPartyTab

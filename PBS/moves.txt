@@ -865,7 +865,7 @@
 943,HORN,Horn,000,60,BUG,Physical,85,20,0,00,0,abef,"Using its impressive horn, the user rams into the target with no letup."
 1111,REVELATIONPOWDER,Revelation Powder,335,0,BUG,Status,0,10,0,40,0,,"For five turns, user and target are underswapped in a brainy storm and explodes and damages targets that will use a Fire-type move."
 1112,GOLDWIND,Gold Wind,02D,60,BUG,Physical,100,5,15,00,0,bef,The foe is attacked with powdery scales blown by wind. This may also raise all the user's stats.
-1113,BUGMASH,Bug Smash,043,40,Bug,Physical,100,15,45,00,0,abef,The user attacks with a punch that can shatter like a bug. This may also lower the foe's Defense stat.
+1113,BUGSMASH,Bug Smash,043,40,Bug,Physical,100,15,45,00,0,abef,The user attacks with a punch that can shatter like a bug. This may also lower the foe's Defense stat.
 ## FLINT Moves = Ghost
 633,DESTINYSCROLL,Destiny Scroll,091,40,GHOST,Special,0,40,50,800,0,bi,The user slips up using a ghostly scroll. Its power increases if it hits in succession.
 944,SHADOWSLASH,Shadow Slash,000,70,GHOST,Physical,100,15,0,00,0,abefh,The user slashes the target the instant an opportunity arises. Critical hits land more easily.
@@ -1101,7 +1101,7 @@
 1009,CHLOROPUNCH,Chloro Punch,007,70,CHLOROPHYLL,Special,50,20,20,00,0,befj,The user stinks some chlorophyll punches to the target. It may also leave the target with paralysis.
 1010,ALOEVERA,Aloe Vera,219,0,CHLOROPHYLL,Status,0,20,0,100,0,bc,"The user heals the ally's status condition. If the move succeeds, it also restores the users own HP."
 1069,SUPERCHLOROPHYLL,Super Chlorophyll,078,80,CHLOROPHYLL,Special,100,35,0,00,0,bef,A bunch of chlorophyll is whipped up by vines and launched at the target to inflict damage.
-1136,AROMATICRECOVERCY,Aromatic Recovercy,0D5,0,CHLOROPHYLL,Status,0,10,0,10,0,d,"Restoring its own cells, the user restores its own HP by half of its max HP."
+1136,AROMATICRECOVERY,Aromatic Recovery,0D5,0,CHLOROPHYLL,Status,0,10,0,10,0,d,"Restoring its own cells, the user restores its own HP by half of its max HP."
 ## FLINT Moves = Gust
 705,GUSTINGPOND,Gusting Pond,033,0,GUST,Status,0,20,0,10,0,d,The user creates itself a pond of gusts that will increase Special Defense by 2 stages.
 707,GIERYFIST,Giery Fist,000,100,GUST,Physical,75,20,0,00,0,abef,The target inflicts damage using Fists made by Gust
@@ -1161,7 +1161,7 @@
 754,BLIZZARDOUSOCEAN,Blizzardous Ocean,206,0,BLIZZARD,Status,0,10,0,00,0,,The user ponds the target into a blizzardous ocean. This not only the user gains target's ability but also suppresses it.
 1023,BLIZZARDICHASE,Blizzardi Chase,294,90,BLIZZARD,Physical,100,10,0,00,0,abef,"Although this move has great power, it only works if the target tries to switch out."
 1024,BLIZZARDOUSCLOAK,Blizzardous Cloak,169,0,BLIZZARD,Status,0,5,0,10,0,b,The user is cloaked into a heavy blizzard. This will drastactically raise the user's Speed
-1142,COLDMOUNTAUN,Cold Mountain,00C,100,BLIZZARD,Physical,100,10,25,08,0,bef,The user sets up a colder mountain that strikes each Pokémon hit. This may leave the targets frozen solid.
+1142,COLDMOUNTAIN,Cold Mountain,00C,100,BLIZZARD,Physical,100,10,25,08,0,bef,The user sets up a colder mountain that strikes each Pokémon hit. This may leave the targets frozen solid.
 ## FLINT Moves = Gastro
 830,NEUTRALIZINGGAS,Neutralizing Gas,244,1,GAS,Physical,0,10,0,00,-3,k,The user hurls down some gas. Its power randomly varies and can bypass protections.
 832,MARINEGASTRO,Marine Gastro,239,55,GAS,Physical,100,10,20,00,0,abef,"If the user moves before the target, this attack's power will be doubled and may poison the target as well."

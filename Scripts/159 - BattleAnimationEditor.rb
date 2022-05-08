@@ -1446,7 +1446,15 @@ class AnimationCanvas < Sprite
     @battle=MiniBattle.new
     @user=AnimatedBitmap.new("Graphics/Pictures/testback").deanimate
     @target=AnimatedBitmap.new("Graphics/Pictures/testfront").deanimate
-    @testscreen=AnimatedBitmap.new("Graphics/Pictures/testscreen")
+    @testscreen=AnimatedBitmap.new("Graphics/Pictures/"+getDarkModeFolder+"/testscreen")
+    addBackgroundPlane(@sprites,"background2",getDarkModeFolder+"/aebg",viewport)
+    @sprites["background2"].bitmap=AnimatedBitmap.new("Graphics/Pictures/"+getDarkModeFolder+"/aebg").deanimate
+    @sprites["header"]=Window_UnformattedTextPokemon.newWithSize(_INTL("Animation Editor"),
+       2,-18,256,64,viewport)
+    @sprites["header"].baseColor=Color.new(248,248,248)
+    @sprites["header"].shadowColor=Color.new(0,0,0)
+    @sprites["header"].windowskin=nil
+
     self.bitmap=@testscreen.bitmap
     for i in 0...PBAnimation::MAXSPRITES
       @lastframesprites[i]=SpriteFrame.new(i,@celsprites[i],viewport,true)

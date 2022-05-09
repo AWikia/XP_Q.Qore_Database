@@ -312,7 +312,7 @@ class PokemonSummaryScene
     end
     pbDrawImagePositions(overlay,gendericon)
     pbDrawTextPositions(overlay,textpos)
-    drawMarkings(overlay,-4,363,72,20,pokemon.markings)
+    drawMarkings(overlay,-6,363,72,20,pokemon.markings)
     colorrect=Rect.new(64*$PokemonSystem.colortige,colourd*28,64,28)
     type1rect=Rect.new(64*$PokemonSystem.colortige,pokemon.type1*28,64,28)
     type2rect=Rect.new(64*$PokemonSystem.colortige,pokemon.type2*28,64,28)
@@ -400,7 +400,7 @@ class PokemonSummaryScene
     eggstatemsg=sprintf("<c3=%s,%s>%s\n",colorToRgb32(base),colorToRgb32(shadow),eggstate)
     drawFormattedTextEx(overlay,360,268,272,eggstatemsg)
     drawFormattedTextEx(overlay,360,78,276,memo)
-    drawMarkings(overlay,-4,363,72,20,pokemon.markings)
+    drawMarkings(overlay,-6,363,72,20,pokemon.markings)
   end
 
   def drawPageTwo(pokemon)
@@ -550,7 +550,7 @@ class PokemonSummaryScene
       memo+=sprintf("<c3=%s,%s>%s\n",colorToRgb32(base),colorToRgb32(shadow),characteristic)
     end
     drawFormattedTextEx(overlay,360,78,276,memo)
-    drawMarkings(overlay,-4,363,72,20,pokemon.markings)
+    drawMarkings(overlay,-6,363,72,20,pokemon.markings)
   end
 
   def drawPageThree(pokemon)
@@ -646,7 +646,7 @@ class PokemonSummaryScene
     pbDrawImagePositions(overlay,gendericon)
     pbDrawTextPositions(overlay,textpos)
     drawTextEx(overlay,224,316-64,410,4,abilitydesc,base,shadow)
-    drawMarkings(overlay,-4,363,72,20,pokemon.markings)
+    drawMarkings(overlay,-6,363,72,20,pokemon.markings)
     if pokemon.hp>0
       hpcolors=[
          Color.new(24,192,32),Color.new(0,144,0),     # Green
@@ -755,7 +755,7 @@ def drawPageFour(pokemon)
     pbDrawImagePositions(overlay,gendericon)
     pbDrawTextPositions(overlay,textpos)
     drawTextEx(overlay,224,316-64,410,4,abilitydesc,base,shadow)
-    drawMarkings(overlay,-4,363,72,20,pokemon.markings)
+    drawMarkings(overlay,-6,363,72,20,pokemon.markings)
     if pokemon.hp>0
       hpcolors=[
          Color.new(24,192,32),Color.new(0,144,0),     # Green
@@ -864,7 +864,7 @@ def drawPageFive(pokemon)
     pbDrawImagePositions(overlay,gendericon)
     pbDrawTextPositions(overlay,textpos)
     drawTextEx(overlay,224,316-64,410,4,abilitydesc,base,shadow)
-    drawMarkings(overlay,-4,363,72,20,pokemon.markings)
+    drawMarkings(overlay,-6,363,72,20,pokemon.markings)
     if pokemon.hp>0
       hpcolors=[
          Color.new(24,192,32),Color.new(0,144,0),     # Green
@@ -972,7 +972,7 @@ def drawPageFive(pokemon)
     end
     pbDrawTextPositions(overlay,textpos)
     pbDrawImagePositions(overlay,imagepos)
-    drawMarkings(overlay,-4,363,72,20,pokemon.markings)
+    drawMarkings(overlay,-6,363,72,20,pokemon.markings)
   end
 
   def drawSelectedMove(pokemon,moveToLearn,moveid)
@@ -1170,7 +1170,7 @@ def drawPageFive(pokemon)
       end
     end
     pbDrawImagePositions(overlay,imagepos)
-    drawMarkings(overlay,-4,363,72,20,pokemon.markings)
+    drawMarkings(overlay,-6,363,72,20,pokemon.markings)
   end
 
   def drawPageEight(pokemon)
@@ -1277,7 +1277,7 @@ def drawPageFive(pokemon)
     pbDrawImagePositions(overlay,gendericon)
     pbDrawTextPositions(overlay,textpos)
     drawTextEx(overlay,224,316-64,410,4,itemdesc,base,shadow)
-    drawMarkings(overlay,-4,363,72,20,pokemon.markings)
+    drawMarkings(overlay,-6,363,72,20,pokemon.markings)
     if pokemon.hp>0
       hpcolors=[
          Color.new(24,192,32),Color.new(0,144,0),     # Green

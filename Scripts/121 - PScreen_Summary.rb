@@ -187,11 +187,7 @@ class PokemonSummaryScene
     @sprites["itemicon2"].visible = false
     overlay=@sprites["overlay"].bitmap
     overlay.clear
-    if pokemon.level==PBExperience::MAXLEVEL || (pokemon.isShadow? rescue false)
-      @sprites["background"].setBitmap("Graphics/Pictures/"+getDarkModeFolder+"/summary1 (Classic)")
-    else
-      @sprites["background"].setBitmap("Graphics/Pictures/"+getDarkModeFolder+"/summary1")
-    end
+    @sprites["background"].setBitmap("Graphics/Pictures/"+getDarkModeFolder+"/summary1")
 #    @sprites["header-bg"].setBitmap("Graphics/Pictures/header-global")
 #    @sprites["header"].setBitmap("Graphics/Pictures/header1")
     imagepos=[]
@@ -213,13 +209,28 @@ class PokemonSummaryScene
     growthrate=pokemon.growthrate
     startexp=PBExperience.pbGetStartExperience(pokemon.level,growthrate)
     endexp=PBExperience.pbGetStartExperience(pokemon.level+1,growthrate)
+    finexp=PBExperience.pbGetStartExperience(PBExperience::MAXLEVEL,growthrate)
     if (pokemon.isShadow? rescue false)
       imagepos.push(["Graphics/Pictures/"+getDarkModeFolder+"/summaryShadow",352,240,0,0,-1,-1])
       shadowfract=pokemon.heartgauge*1.0/PokeBattle_Pokemon::HEARTGAUGESIZE
-      imagepos.push(["Graphics/Pictures/summaryShadowBar",370,280,0,0,(shadowfract*248).floor,-1])
+      if ($PokemonSystem.threecolorbar==1 rescue false)
+        imagepos.push(["Graphics/Pictures/summaryShadowBar_threecolorbar",370,280,0,0,(shadowfract*248).floor,-1])
+      else
+        imagepos.push(["Graphics/Pictures/summaryShadowBar",370,280,0,0,(shadowfract*248).floor,-1])
+      end
     elsif pokemon.level<PBExperience::MAXLEVEL
-      shadowfract=(endexp-pokemon.exp)*100/(endexp - startexp)
-      imagepos.push(["Graphics/Pictures/"+getAccentFolder+"/summaryEggBar",86,360,0,0,(shadowfract*2.48).floor,-1])
+      shadowfract1=(finexp-pokemon.exp)*100/(finexp)
+      if ($PokemonSystem.threecolorbar==1 rescue false)
+        imagepos.push(["Graphics/Pictures/"+getAccentFolder+"/summaryEggBar_threecolorbar",370,280,0,0,(shadowfract1*2.48).floor,-1])
+      else
+        imagepos.push(["Graphics/Pictures/"+getAccentFolder+"/summaryEggBar",370,280,0,0,(shadowfract1*2.48).floor,-1])
+      end
+      shadowfract2=(endexp-pokemon.exp)*100/(endexp - startexp)
+      if ($PokemonSystem.threecolorbar==1 rescue false)
+        imagepos.push(["Graphics/Pictures/"+getAccentFolder+"/summaryEggBar_threecolorbar",370,344,0,0,(shadowfract2*2.48).floor,-1])
+      else
+        imagepos.push(["Graphics/Pictures/"+getAccentFolder+"/summaryEggBar",370,344,0,0,(shadowfract2*2.48).floor,-1])
+      end
     end
     pbDrawImagePositions(overlay,imagepos)
     if (!isDarkMode?)
@@ -269,9 +280,9 @@ class PokemonSummaryScene
       drawFormattedTextEx(overlay,366,304,276,memo)
     else
       textpos.push([_INTL("Exp. Points"),366,240,0,shadow2,nil,0])
-      textpos.push([_INTL("{1}",pokemon.exp.to_s_formatted),616,272,1,base,shadow])
+      textpos.push([_INTL("{1}",pokemon.exp.to_s_formatted),616,240,1,base,shadow])
       textpos.push([_INTL("To Next Lv."),366,304,0,shadow2,nil,0])
-      textpos.push([_INTL("{1}",(endexp-pokemon.exp).to_s_formatted),616,336,1,base,shadow])
+      textpos.push([_INTL("{1}",(endexp-pokemon.exp).to_s_formatted),616,304,1,base,shadow])
     end
     idno=(pokemon.ot=="") ? "?????" : sprintf("%05d",publicID)
     textpos.push([idno,563,208,2,base,shadow])
@@ -312,7 +323,7 @@ class PokemonSummaryScene
     end
     pbDrawImagePositions(overlay,gendericon)
     pbDrawTextPositions(overlay,textpos)
-    drawMarkings(overlay,-6,363,72,20,pokemon.markings)
+    drawMarkings(overlay,0,363,72,20,pokemon.markings)
     colorrect=Rect.new(64*$PokemonSystem.colortige,colourd*28,64,28)
     type1rect=Rect.new(64*$PokemonSystem.colortige,pokemon.type1*28,64,28)
     type2rect=Rect.new(64*$PokemonSystem.colortige,pokemon.type2*28,64,28)
@@ -357,7 +368,11 @@ class PokemonSummaryScene
      maxesteps=dexdata.fgetw
      dexdata.close
     shadowfract=pokemon.eggsteps*1.0/maxesteps # Egg Steps TMP
-    imagepos.push(["Graphics/Pictures/"+getAccentFolder+"/summaryEggBar",370,244,0,0,(shadowfract*248).floor,-1])
+      if ($PokemonSystem.threecolorbar==1 rescue false)
+        imagepos.push(["Graphics/Pictures/"+getAccentFolder+"/summaryEggBar_threecolorbar",370,244,0,0,(shadowfract*248).floor,-1])
+      else
+        imagepos.push(["Graphics/Pictures/"+getAccentFolder+"/summaryEggBar",370,244,0,0,(shadowfract*248).floor,-1])
+      end
     # Egg Steps End
     pbDrawImagePositions(overlay,imagepos)
     if (!isDarkMode?)
@@ -400,7 +415,7 @@ class PokemonSummaryScene
     eggstatemsg=sprintf("<c3=%s,%s>%s\n",colorToRgb32(base),colorToRgb32(shadow),eggstate)
     drawFormattedTextEx(overlay,360,268,272,eggstatemsg)
     drawFormattedTextEx(overlay,360,78,276,memo)
-    drawMarkings(overlay,-6,363,72,20,pokemon.markings)
+    drawMarkings(overlay,0,363,72,20,pokemon.markings)
   end
 
   def drawPageTwo(pokemon)
@@ -550,7 +565,7 @@ class PokemonSummaryScene
       memo+=sprintf("<c3=%s,%s>%s\n",colorToRgb32(base),colorToRgb32(shadow),characteristic)
     end
     drawFormattedTextEx(overlay,360,78,276,memo)
-    drawMarkings(overlay,-6,363,72,20,pokemon.markings)
+    drawMarkings(overlay,0,363,72,20,pokemon.markings)
   end
 
   def drawPageThree(pokemon)
@@ -646,7 +661,7 @@ class PokemonSummaryScene
     pbDrawImagePositions(overlay,gendericon)
     pbDrawTextPositions(overlay,textpos)
     drawTextEx(overlay,224,316-64,410,4,abilitydesc,base,shadow)
-    drawMarkings(overlay,-6,363,72,20,pokemon.markings)
+    drawMarkings(overlay,0,363,72,20,pokemon.markings)
     if pokemon.hp>0
       hpcolors=[
          Color.new(24,192,32),Color.new(0,144,0),     # Green
@@ -755,7 +770,7 @@ def drawPageFour(pokemon)
     pbDrawImagePositions(overlay,gendericon)
     pbDrawTextPositions(overlay,textpos)
     drawTextEx(overlay,224,316-64,410,4,abilitydesc,base,shadow)
-    drawMarkings(overlay,-6,363,72,20,pokemon.markings)
+    drawMarkings(overlay,0,363,72,20,pokemon.markings)
     if pokemon.hp>0
       hpcolors=[
          Color.new(24,192,32),Color.new(0,144,0),     # Green
@@ -864,7 +879,7 @@ def drawPageFive(pokemon)
     pbDrawImagePositions(overlay,gendericon)
     pbDrawTextPositions(overlay,textpos)
     drawTextEx(overlay,224,316-64,410,4,abilitydesc,base,shadow)
-    drawMarkings(overlay,-6,363,72,20,pokemon.markings)
+    drawMarkings(overlay,0,363,72,20,pokemon.markings)
     if pokemon.hp>0
       hpcolors=[
          Color.new(24,192,32),Color.new(0,144,0),     # Green
@@ -972,7 +987,7 @@ def drawPageFive(pokemon)
     end
     pbDrawTextPositions(overlay,textpos)
     pbDrawImagePositions(overlay,imagepos)
-    drawMarkings(overlay,-6,363,72,20,pokemon.markings)
+    drawMarkings(overlay,0,363,72,20,pokemon.markings)
   end
 
   def drawSelectedMove(pokemon,moveToLearn,moveid)
@@ -1170,7 +1185,7 @@ def drawPageFive(pokemon)
       end
     end
     pbDrawImagePositions(overlay,imagepos)
-    drawMarkings(overlay,-6,363,72,20,pokemon.markings)
+    drawMarkings(overlay,0,363,72,20,pokemon.markings)
   end
 
   def drawPageEight(pokemon)
@@ -1277,7 +1292,7 @@ def drawPageFive(pokemon)
     pbDrawImagePositions(overlay,gendericon)
     pbDrawTextPositions(overlay,textpos)
     drawTextEx(overlay,224,316-64,410,4,itemdesc,base,shadow)
-    drawMarkings(overlay,-6,363,72,20,pokemon.markings)
+    drawMarkings(overlay,0,363,72,20,pokemon.markings)
     if pokemon.hp>0
       hpcolors=[
          Color.new(24,192,32),Color.new(0,144,0),     # Green

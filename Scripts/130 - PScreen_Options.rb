@@ -504,6 +504,7 @@ class PokemonSystem
   attr_accessor :mechanics
   attr_accessor :accentcolor
   attr_accessor :darkmode
+  attr_accessor :threecolorbar
   
   def initialize
     @textspeed        = 2   # Frames Per Second (0=24, 1=30, 2=40, 3=50)
@@ -539,6 +540,7 @@ class PokemonSystem
     @mechanics        = 1   # Battle Mechanics
     @accentcolor      = 0   # Accent Color
     @darkmode         = 0   # Theme Mode (0 = Light, 1 = Dark)
+    @threecolorbar    = 0   # Three Color Progress Bar
 end
   
   def language
@@ -644,6 +646,10 @@ end
 
   def darkmode
     return (!@darkmode) ? 0 : @darkmode
+  end    
+
+  def threecolorbar
+    return (!@threecolorbar) ? 0 : @threecolorbar
   end    
 
   
@@ -774,6 +780,10 @@ There are different modes:
         EnumOption.new(_INTL("Temperature Display"),[_INTL("Celsius"),_INTL("Fahrenheit")],
           proc { $PokemonSystem.temps },
           proc {|value| $PokemonSystem.temps = value }
+        ),
+        EnumOption.new(_INTL("Progress Bar Display"),[_INTL("2-colored"),_INTL("3-colored")],
+          proc { $PokemonSystem.threecolorbar },
+          proc {|value| $PokemonSystem.threecolorbar = value }
         ),
         EnumOption.new(_INTL("Trophy Notifications"),[_INTL("On"),_INTL("Off")],
            proc { $PokemonSystem.vrtrophynotif },

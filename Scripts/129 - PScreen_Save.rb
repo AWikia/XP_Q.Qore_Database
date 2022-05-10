@@ -7,8 +7,14 @@ class PokemonSaveScene
     hour = totalsec / 60 / 60
     min = totalsec / 60 % 60
     mapname=$game_map.name
-    textColor=["0070F8,78B8E8","E82010,F8A8B8","0070F8,78B8E8"][$Trainer.gender]
-    loctext=_INTL("<ac><c2=06644bd2>{1}</c2></ac>",mapname)
+    if (!isDarkMode?)
+      textColor=["0070F8,78B8E8","E82010,F8A8B8","0070F8,78B8E8"][$Trainer.gender]
+      loccolor = '06644bd2'
+    else
+      textColor=["A3CFEF,005AC7","F8A8B8,E82010","A3CFEF,005AC7"][$Trainer.gender]
+      loccolor = '4bd20664'
+    end
+    loctext=_INTL("<ac><c2={1}>{2}</c2></ac>",loccolor,mapname)
     loctext+=_INTL("Player<r><c3={1}>{2}</c3><br>",textColor,$Trainer.name)
     loctext+=_ISPRINTF("Time<r><c3={1:s}>{2:02d}:{3:02d}</c3><br>",textColor,hour,min)
     loctext+=_INTL("Badges<r><c3={1}>{2}</c3><br>",textColor,$Trainer.numbadges)

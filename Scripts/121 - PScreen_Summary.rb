@@ -408,8 +408,8 @@ class PokemonSummaryScene
       redbase = 'F83820'
       redshadow = 'E09890'
     else
-      redbase = 'E09890'
-      redshadow = 'F83820'
+      redbase = 'EBBCB7'
+      redshadow = 'DF2007'
     end
     if mapname && mapname!=""
       memo+=_INTL("<c3={1},{2}>A mysterious Pokémon Egg received from <c3={3},{4}>{5}<c3={1},{2}>.\n",colorToRgb32(base),colorToRgb32(shadow),redbase,redshadow,mapname)
@@ -486,8 +486,8 @@ class PokemonSummaryScene
       redbase = 'F83820'
       redshadow = 'E09890'
     else
-      redbase = 'E09890'
-      redshadow = 'F83820'
+      redbase = 'EBBCB7'
+      redshadow = 'DF2007'
     end
     memo=""
     shownature=(!(pokemon.isShadow? rescue false)) || pokemon.heartStage<=3

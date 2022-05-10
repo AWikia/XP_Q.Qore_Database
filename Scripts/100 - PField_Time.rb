@@ -282,7 +282,7 @@ HourlyTones2=[ # Linear
 # Returns true if it's dark.
   def self.isDark?(time=nil)
     time=pbGetTimeNow if !time
-    if ($PokemonSystem.darkmodestart==$PokemonSystem.darkmodestart rescue false)
+    if ($PokemonSystem.darkmodestart==$PokemonSystem.darkmodeend rescue false)
       return true
     elsif ($PokemonSystem.darkmodestart>$PokemonSystem.darkmodeend rescue false)
       return (time.hour>=($PokemonSystem.darkmodestart rescue 0) || time.hour<($PokemonSystem.darkmodeend rescue 0)) # Was 20 and 6

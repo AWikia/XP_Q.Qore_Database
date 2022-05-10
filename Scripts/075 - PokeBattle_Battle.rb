@@ -3881,7 +3881,9 @@ class PokeBattle_Battle
             pbCommonAnimation("Infestation",i,nil)
           elsif isConst?(i.effects[PBEffects::MultiTurnAttack],PBMoves,:BADDREAMS)
             pbCommonAnimation("BadDreams",i,nil)
-            else
+          elsif isConst?(i.effects[PBEffects::MultiTurnAttack],PBMoves,:STONEAXE)
+            pbCommonAnimation("StoneAxe",i,nil)
+          else
             pbCommonAnimation("Wrap",i,nil)
           end
           if !i.hasWorkingAbility(:MAGICGUARD) && !i.hasWorkingAbility(:SUPERCLEARBODY)

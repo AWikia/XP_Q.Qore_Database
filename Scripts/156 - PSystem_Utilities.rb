@@ -396,6 +396,9 @@ def isDarkMode?
     if (($PokemonSystem.darkmode==2 rescue false))  # Automatic Mode
       return (PBDayNight.isNight? rescue false)
     end
+    if (($PokemonSystem.darkmode==3 rescue false))  # Automatic Mode
+      return (PBDayNight.isDark? rescue false)
+    end
     return false                                    # Light Mode
   else
     return false

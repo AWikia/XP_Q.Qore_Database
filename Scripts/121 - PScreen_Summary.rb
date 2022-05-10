@@ -620,9 +620,7 @@ class PokemonSummaryScene
     end
     nat = (pokemon.mint!=-1) ? pokemon.mint : pokemon.nature
     statshadows=[]
-    statshadows2=[]
     for i in 0...5; statshadows[i]=nil; end
-    for i in 0...5; statshadows2[i]=shadow2; end
     if !(pokemon.isShadow? rescue false) || pokemon.heartStage<=3
 #      natup=(pokemon.nature/5).floor
 #      natdn=(pokemon.nature%5).floor
@@ -635,8 +633,6 @@ class PokemonSummaryScene
         statshadows[natup]=Color.new(183,143,119) if natup!=natdn
         statshadows[natdn]=Color.new(103,159,191) if natup!=natdn
       end
-      statshadows2[natup]=base2 if natup!=natdn
-      statshadows2[natdn]=base2 if natup!=natdn
     end
     pbSetSystemFont(overlay)
     abilityname=PBAbilities.getName(pokemon.ability)
@@ -648,15 +644,15 @@ class PokemonSummaryScene
        [pokemon.level.to_s,46,92,0,base,shadow],
        [_INTL("HP"),420,76-64,2,base2,nil,0],
        [sprintf("%3d/%3d",pokemon.hp,pokemon.totalhp),548,76-64,2,base,shadow],
-       [_INTL("Attack"),376,120-64,0,statshadows2[0],statshadows[0],1],
+       [_INTL("Attack"),376,120-64,0,shadow2,statshadows[0],0],
        [sprintf("%d",pokemon.attack),548,120-64,2,base,shadow],
-       [_INTL("Defense"),376,152-64,0,base2,statshadows[1],1],
+       [_INTL("Defense"),376,152-64,0,base2,statshadows[1],0],
        [sprintf("%d",pokemon.defense),548,152-64,2,base,shadow],
-       [_INTL("Sp. Atk"),376,184-64,0,statshadows2[3],statshadows[3],1],
+       [_INTL("Sp. Atk"),376,184-64,0,shadow2,statshadows[3],0],
        [sprintf("%d",pokemon.spatk),548,184-64,2,base,shadow],
-       [_INTL("Sp. Def"),376,216-64,0,base2,statshadows[4],1],
+       [_INTL("Sp. Def"),376,216-64,0,base2,statshadows[4],0],
        [sprintf("%d",pokemon.spdef),548,216-64,2,base,shadow],
-       [_INTL("Speed"),376,248-64,0,statshadows2[2],statshadows[2],1],
+       [_INTL("Speed"),376,248-64,0,shadow2,statshadows[2],0],
        [sprintf("%d",pokemon.speed),548,248-64,2,base,shadow],
        [_INTL("Ability"),288,284-64,0,shadow2,nil,0],
        [abilityname,426,284-64,0,base,shadow],
@@ -728,9 +724,7 @@ def drawPageFour(pokemon)
     end
     nat = (pokemon.mint!=-1) ? pokemon.mint : pokemon.nature
     statshadows=[]
-    statshadows2=[]
     for i in 0...5; statshadows[i]=nil end
-    for i in 0...5; statshadows2[i]=shadow2; end
     if !(pokemon.isShadow? rescue false) || pokemon.heartStage<=3
 #      natup=(pokemon.nature/5).floor
 #      natdn=(pokemon.nature%5).floor
@@ -743,9 +737,6 @@ def drawPageFour(pokemon)
         statshadows[natup]=Color.new(183,143,119) if natup!=natdn
         statshadows[natdn]=Color.new(103,159,191) if natup!=natdn
       end
-
-      statshadows2[natup]=base2 if natup!=natdn
-      statshadows2[natdn]=base2 if natup!=natdn
     end
     pbSetSystemFont(overlay)
     abilityname=PBAbilities.getName(pokemon.ability)
@@ -757,15 +748,15 @@ def drawPageFour(pokemon)
        [pokemon.level.to_s,46,92,0,base,shadow],
        [_INTL("HP"),420,76-64,2,base,nil,0],
        [sprintf("%d",pokemon.ev[0]),548,76-64,2,base,shadow],
-       [_INTL("Attack"),376,120-64,0,statshadows2[0],statshadows[0],1],
+       [_INTL("Attack"),376,120-64,0,shadow2,statshadows[0],0],
        [sprintf("%d",pokemon.ev[1]),548,120-64,2,base,shadow],
-       [_INTL("Defense"),376,152-64,0,base2,statshadows[1],1],
+       [_INTL("Defense"),376,152-64,0,base2,statshadows[1],0],
        [sprintf("%d",pokemon.ev[2]),548,152-64,2,base,shadow],
-       [_INTL("Sp. Atk"),376,184-64,0,statshadows2[3],statshadows[3],1],
+       [_INTL("Sp. Atk"),376,184-64,0,shadow2,statshadows[3],0],
        [sprintf("%d",pokemon.ev[4]),548,184-64,2,base,shadow],
-       [_INTL("Sp. Def"),376,216-64,0,base2,statshadows[4],1],
+       [_INTL("Sp. Def"),376,216-64,0,base2,statshadows[4],0],
        [sprintf("%d",pokemon.ev[5]),548,216-64,2,base,shadow],
-       [_INTL("Speed"),376,248-64,0,statshadows2[2],statshadows[2],1],
+       [_INTL("Speed"),376,248-64,0,shadow2,statshadows[2],0],
        [sprintf("%d",pokemon.ev[3]),548,248-64,2,base,shadow],
        [_INTL("Ability"),288,284-64,0,shadow2,nil,0],
        [abilityname,426,284-64,0,base,shadow],
@@ -837,9 +828,7 @@ def drawPageFive(pokemon)
     end
     nat = (pokemon.mint!=-1) ? pokemon.mint : pokemon.nature
     statshadows=[]
-    statshadows2=[]
     for i in 0...5; statshadows[i]=nil; end
-    for i in 0...5; statshadows2[i]=shadow2; end
       if !(pokemon.isShadow? rescue false) || pokemon.heartStage<=3
 #      natup=(pokemon.nature/5).floor
 #      natdn=(pokemon.nature%5).floor
@@ -852,9 +841,6 @@ def drawPageFive(pokemon)
         statshadows[natup]=Color.new(183,143,119) if natup!=natdn
         statshadows[natdn]=Color.new(103,159,191) if natup!=natdn
       end
-
-      statshadows2[natup]=base2 if natup!=natdn
-      statshadows2[natdn]=base2 if natup!=natdn
     end
     pbSetSystemFont(overlay)
     abilityname=PBAbilities.getName(pokemon.ability)
@@ -866,15 +852,15 @@ def drawPageFive(pokemon)
        [pokemon.level.to_s,46,92,0,base,shadow],
        [_INTL("HP"),420,76-64,2,base2,nil,0],
        [sprintf("%d",pokemon.iv[0]),548,76-64,2,base,shadow],
-       [_INTL("Attack"),376,120-64,0,statshadows2[0],statshadows[0],1],
+       [_INTL("Attack"),376,120-64,0,shadow2,statshadows[0],0],
        [sprintf("%d",pokemon.iv[1]),548,120-64,2,base,shadow],
-       [_INTL("Defense"),376,152-64,0,base2,statshadows[1],1],
+       [_INTL("Defense"),376,152-64,0,base2,statshadows[1],0],
        [sprintf("%d",pokemon.iv[2]),548,152-64,2,base,shadow],
-       [_INTL("Sp. Atk"),376,184-64,0,statshadows2[3],statshadows[3],1],
+       [_INTL("Sp. Atk"),376,184-64,0,shadow2,statshadows[3],0],
        [sprintf("%d",pokemon.iv[4]),548,184-64,2,base,shadow],
-       [_INTL("Sp. Def"),376,216-64,0,base2,statshadows[4],1],
+       [_INTL("Sp. Def"),376,216-64,0,base2,statshadows[4],0],
        [sprintf("%d",pokemon.iv[5]),548,216-64,2,base,shadow],
-       [_INTL("Speed"),376,248-64,0,statshadows2[2],statshadows[2],1],
+       [_INTL("Speed"),376,248-64,0,shadow2,statshadows[2],0],
        [sprintf("%d",pokemon.iv[3]),548,248-64,2,base,shadow],
        [_INTL("Ability"),288,284-64,0,shadow2,nil,0],
        [abilityname,426,284-64,0,base,shadow],

@@ -504,6 +504,8 @@ class PokemonSystem
   attr_accessor :mechanics
   attr_accessor :accentcolor
   attr_accessor :darkmode
+  attr_accessor :darkmodestart
+  attr_accessor :darkmodeend
   attr_accessor :threecolorbar
   
   def initialize
@@ -540,6 +542,8 @@ class PokemonSystem
     @mechanics        = 1   # Battle Mechanics
     @accentcolor      = 0   # Accent Color
     @darkmode         = 0   # Theme Mode (0 = Light, 1 = Dark)
+    @darkmodestart    = 19  # Scheduled Dark Mode Start
+    @darkmodeend      = 7   # Scheduled Dark Mode End
     @threecolorbar    = 0   # Three Color Progress Bar
 end
   
@@ -648,6 +652,15 @@ end
     return (!@darkmode) ? 0 : @darkmode
   end    
 
+  def darkmodestart
+    return (!@darkmodestart) ? 19 : @darkmodestart
+  end    
+
+  def darkmodeend
+    return (!@darkmodeend) ? 7 : @darkmodeend
+  end    
+
+  
   def threecolorbar
     return (!@threecolorbar) ? 0 : @threecolorbar
   end    
@@ -867,13 +880,31 @@ There are different modes:
     end
     if mode==3
       @PokemonOptions+=[
-        EnumOption.new(_INTL("System Theme"),[_INTL("Light"),_INTL("Dark"),_INTL("Automatic")],
+        EnumOption.new(_INTL("System Theme"),[_INTL("Light"),_INTL("Dark"),_INTL("Auto"),_INTL("Custom")],
            proc { $PokemonSystem.darkmode },
            proc {|value|
              $PokemonSystem.darkmode=value
              setScreenBorderName($BORDERS[$PokemonSystem.bordergraphic]) # Accented Border
            }
         ),
+       SliderOption.new(_INTL("Scheduled Dark Mode Start"),0,23,1,
+          proc { $PokemonSystem.darkmodestart },
+          proc {|value|
+             if $PokemonSystem.darkmodestart!=value
+               $PokemonSystem.darkmodestart=value
+               setScreenBorderName($BORDERS[$PokemonSystem.bordergraphic]) # Accented Border
+             end
+          }
+       ),
+       SliderOption.new(_INTL("Scheduled Dark Mode End"),0,23,1,
+          proc { $PokemonSystem.darkmodeend },
+          proc {|value|
+             if $PokemonSystem.darkmodeend!=value
+               $PokemonSystem.darkmodeend=value
+               setScreenBorderName($BORDERS[$PokemonSystem.bordergraphic]) # Accented Border
+             end
+          }
+       ),
          NumberOption.new(_INTL("Text Skin"),1,$SpeechFrames.length,
            proc { $PokemonSystem.textskin },
            proc {|value| 
@@ -959,7 +990,7 @@ There are different modes:
     oldSystemSkin = $PokemonSystem.frame      # Menu
     oldTextSkin   = $PokemonSystem.textskin   # Speech
     oldAccent   = $PokemonSystem.accentcolor   # Speech
-    oldmode = $PokemonSystem.darkmode
+    oldmode = isDarkMode?
     #    oldFont       = $PokemonSystem.font
     pbActivateWindow(@sprites,"option"){
        loop do
@@ -995,13 +1026,13 @@ There are different modes:
              @sprites["textbox"].text  = _INTL("Text Skin {1}.\n{2} Accent Color.",1+$PokemonSystem.textskin,getAccentName)
             oldAccent   = $PokemonSystem.accentcolor   # Speech
           end
-          if $PokemonSystem.darkmode != oldmode
+          if isDarkMode? != oldmode
               MessageConfig.pbSetSpeechFrame("Graphics/Windowskins/"+getDarkModeFolder+"/"+$SpeechFrames[$PokemonSystem.textskin])
               MessageConfig.pbSetSystemFrame("Graphics/Windowskins/"+getDarkModeFolder+"/"+$TextFrames[$PokemonSystem.textskin])
              @sprites["textbox"].setSkin(MessageConfig.pbGetSpeechFrame())
              @sprites["textbox"].width = @sprites["textbox"].width  # Necessary evil
              @sprites["textbox"].text  = _INTL("Text Skin {1}.\n{2} Accent Color.",1+$PokemonSystem.textskin,getAccentName)
-              oldmode = $PokemonSystem.darkmode
+              oldmode = isDarkMode?
           end
 =begin
            if $PokemonSystem.font!=oldFont

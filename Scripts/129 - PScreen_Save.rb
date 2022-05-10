@@ -11,7 +11,7 @@ class PokemonSaveScene
       textColor=["0070F8,78B8E8","E82010,F8A8B8","0070F8,78B8E8"][$Trainer.gender]
       loccolor = '06644bd2'
     else
-      textColor=["A3CFEF,005AC7","F8A8B8,E82010","A3CFEF,005AC7"][$Trainer.gender]
+      textColor=["78B8E8,0070F8","F8A8B8,E82010","A3CFEF,005AC7"][$Trainer.gender]
       loccolor = '4bd20664'
     end
     loctext=_INTL("<ac><c2={1}>{2}</c2></ac>",loccolor,mapname)

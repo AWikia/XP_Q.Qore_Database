@@ -627,8 +627,16 @@ class PokemonSummaryScene
       natup=(nat/5).floor
       natdn=(nat%5).floor
       if (!isDarkMode?)
-        statshadows[natup]=Color.new(136,96,72) if natup!=natdn
-        statshadows[natdn]=Color.new(64,120,152) if natup!=natdn
+        if (natup == 1 || natup == 4)
+          statshadows[natup]=Color.new(183,143,119) if natup!=natdn
+        else
+          statshadows[natup]=Color.new(136,96,72) if natup!=natdn
+        end
+        if (natdown == 1 || natdown == 4)
+          statshadows[natdn]=Color.new(103,159,191) if natup!=natdn
+        else
+          statshadows[natdn]=Color.new(64,120,152) if natup!=natdn
+        end
       else
         statshadows[natup]=Color.new(183,143,119) if natup!=natdn
         statshadows[natdn]=Color.new(103,159,191) if natup!=natdn
@@ -731,8 +739,16 @@ def drawPageFour(pokemon)
       natup=(nat/5).floor
       natdn=(nat%5).floor
       if (!isDarkMode?)
-        statshadows[natup]=Color.new(136,96,72) if natup!=natdn
-        statshadows[natdn]=Color.new(64,120,152) if natup!=natdn
+        if (natup == 1 || natup == 4)
+          statshadows[natup]=Color.new(183,143,119) if natup!=natdn
+        else
+          statshadows[natup]=Color.new(136,96,72) if natup!=natdn
+        end
+        if (natdown == 1 || natdown == 4)
+          statshadows[natdn]=Color.new(103,159,191) if natup!=natdn
+        else
+          statshadows[natdn]=Color.new(64,120,152) if natup!=natdn
+        end
       else
         statshadows[natup]=Color.new(183,143,119) if natup!=natdn
         statshadows[natdn]=Color.new(103,159,191) if natup!=natdn
@@ -835,8 +851,16 @@ def drawPageFive(pokemon)
       natup=(nat/5).floor
       natdn=(nat%5).floor
       if (!isDarkMode?)
-        statshadows[natup]=Color.new(136,96,72) if natup!=natdn
-        statshadows[natdn]=Color.new(64,120,152) if natup!=natdn
+        if (natup == 1 || natup == 4)
+          statshadows[natup]=Color.new(183,143,119) if natup!=natdn
+        else
+          statshadows[natup]=Color.new(136,96,72) if natup!=natdn
+        end
+        if (natdown == 1 || natdown == 4)
+          statshadows[natdn]=Color.new(103,159,191) if natup!=natdn
+        else
+          statshadows[natdn]=Color.new(64,120,152) if natup!=natdn
+        end
       else
         statshadows[natup]=Color.new(183,143,119) if natup!=natdn
         statshadows[natdn]=Color.new(103,159,191) if natup!=natdn

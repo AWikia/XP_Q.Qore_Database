@@ -404,8 +404,15 @@ class PokemonSummaryScene
     if (pokemon.obtainText rescue false) && pokemon.obtainText!=""
       mapname=pokemon.obtainText
     end
+    if (!isDarkMode?)
+      redbase = 'F83820'
+      redshadow = 'E09890'
+    else
+      redbase = 'E09890'
+      redshadow = 'F83820'
+    end
     if mapname && mapname!=""
-      memo+=_INTL("<c3={1},{2}>A mysterious Pokémon Egg received from <c3=F83820,E09890>{3}<c3={1},{2}>.\n",colorToRgb32(base),colorToRgb32(shadow),mapname)
+      memo+=_INTL("<c3={1},{2}>A mysterious Pokémon Egg received from <c3={3},{4}>{5}<c3={1},{2}>.\n",colorToRgb32(base),colorToRgb32(shadow),redbase,redshadow,mapname)
     end
     memo+=_INTL("<c3={1},{2}>\n",colorToRgb32(base),colorToRgb32(shadow))
     eggstate=_INTL("It looks like this Egg will take a long time to hatch.")
@@ -475,10 +482,17 @@ class PokemonSummaryScene
     end
     pbDrawImagePositions(overlay,gendericon)
     pbDrawTextPositions(overlay,textpos)
+    if (!isDarkMode?)
+      redbase = 'F83820'
+      redshadow = 'E09890'
+    else
+      redbase = 'E09890'
+      redshadow = 'F83820'
+    end
     memo=""
     shownature=(!(pokemon.isShadow? rescue false)) || pokemon.heartStage<=3
     if shownature
-      memo+=_INTL("<c3=F83820,E09890>{1}<c3={2},{3}> nature.\n",naturename,colorToRgb32(base),colorToRgb32(shadow))
+      memo+=_INTL("<c3={1},{2}>{3}<c3={4},{5}> nature.\n",redbase,redshadow,naturename,colorToRgb32(base),colorToRgb32(shadow))
     end
     if pokemon.timeReceived
       month=pbGetAbbrevMonthName(pokemon.timeReceived.mon)
@@ -491,9 +505,9 @@ class PokemonSummaryScene
       mapname=pokemon.obtainText
     end
     if mapname && mapname!=""
-      memo+=sprintf("<c3=F83820,E09890>%s\n",mapname)
+      memo+=sprintf("<c3=%s,%s>%s\n",redbase,redshadow,mapname)
     else
-      memo+=_INTL("<c3=F83820,E09890>Unkown area\n") # Faraway place
+      memo+=_INTL("<c3={1},{2}>Unkown area\n",redbase,redshadow) # Faraway place
     end
     if pokemon.obtainMode
       mettext=[_INTL("Met at Lv. {1}.",pokemon.obtainLevel),
@@ -512,11 +526,11 @@ class PokemonSummaryScene
         end
         mapname=pbGetMapNameFromId(pokemon.hatchedMap)
         if mapname && mapname!=""
-          memo+=sprintf("<c3=F83820,E09890>%s\n",mapname)
+          memo+=sprintf("<c3=%s,%s>%s\n",redbase,redshadow,mapname)
         else
-          memo+=_INTL("<c3=F83820,E09890>Unknown area\n")
+          memo+=_INTL("<c3={1},{2}>Unknown area\n",redbase,redshadow)
         end
-        memo+=_INTL("<c3=404040,B0B0B0>Egg hatched.\n")
+        memo+=_INTL("<c3={1},{2}>Egg hatched.\n",colorToRgb32(base),colorToRgb32(shadow))
       else
         memo+=_INTL("<c3={1},{2}>\n",colorToRgb32(base),colorToRgb32(shadow))
       end

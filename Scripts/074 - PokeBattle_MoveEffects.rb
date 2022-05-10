@@ -7260,6 +7260,14 @@ end
 ################################################################################
 class PokeBattle_Move_0E7 < PokeBattle_Move
   def pbEffect(attacker,opponent,hitnum=0,alltargets=nil,showanimation=true)
+    if pbIsDamaging?
+      ret = super(attacker,opponent,hitnum,alltargets,showanimation)
+      if !attacker.effects[PBEffects::DestinyBond]
+        attacker.effects[PBEffects::DestinyBond]=true
+        @battle.pbDisplay(_INTL("{1} is trying to take its foe down with it!",attacker.pbThis))
+      end
+      return ret
+    end
     pbShowAnimation(@id,attacker,nil,hitnum,alltargets,showanimation)
     attacker.effects[PBEffects::DestinyBond]=true
     @battle.pbDisplay(_INTL("{1} is trying to take its foe down with it!",attacker.pbThis))

@@ -9,6 +9,7 @@ class MoveSelectionSprite < SpriteWrapper
     @index=0
     @fifthmove=fifthmove
     @preselected=false
+    @preselected=false
     @updating=false
     @spriteVisible=true
     refresh
@@ -632,7 +633,7 @@ class PokemonSummaryScene
         else
           statshadows[natup]=Color.new(136,96,72) if natup!=natdn
         end
-        if (natdown == 1 || natdown == 4)
+        if (natdn == 1 || natdn == 4)
           statshadows[natdn]=Color.new(103,159,191) if natup!=natdn
         else
           statshadows[natdn]=Color.new(64,120,152) if natup!=natdn
@@ -744,7 +745,7 @@ def drawPageFour(pokemon)
         else
           statshadows[natup]=Color.new(136,96,72) if natup!=natdn
         end
-        if (natdown == 1 || natdown == 4)
+        if (natdn == 1 || natdn == 4)
           statshadows[natdn]=Color.new(103,159,191) if natup!=natdn
         else
           statshadows[natdn]=Color.new(64,120,152) if natup!=natdn
@@ -856,7 +857,7 @@ def drawPageFive(pokemon)
         else
           statshadows[natup]=Color.new(136,96,72) if natup!=natdn
         end
-        if (natdown == 1 || natdown == 4)
+        if (natdn == 1 || natdn == 4)
           statshadows[natdn]=Color.new(103,159,191) if natup!=natdn
         else
           statshadows[natdn]=Color.new(64,120,152) if natup!=natdn

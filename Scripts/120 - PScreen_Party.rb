@@ -156,10 +156,12 @@ class PokeSelectionConfirmCancelSprite < SpriteWrapper
   def refresh
     if @bgsprite && !@bgsprite.disposed?
       @bgsprite.changeBitmap((@selected) ? "selbitmap" : "deselbitmap")
-      @bgsprite2.changeBitmap((@selected) ? "selbitmap2" : nil)
       @bgsprite.x=self.x
       @bgsprite.y=self.y
       @bgsprite.color=self.color
+    end
+    if @bgsprite2 && @bgsprite && !@bgsprite2.disposed? && !@bgsprite.disposed?
+      @bgsprite2.changeBitmap((@selected) ? "selbitmap2" : nil)
       @bgsprite2.x=@bgsprite.x
       @bgsprite2.y=@bgsprite.y
     end

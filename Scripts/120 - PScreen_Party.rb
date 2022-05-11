@@ -5,13 +5,6 @@ class PokeSelectionPlaceholderSprite < SpriteWrapper
     super(viewport)
     xvalues=[32,352,32,352,32,352]
     yvalues=[36,32,132,128,228,224] # Was [16,0,112,96,208,192]
-=begin
-    if $Trainer.isFemale?
-      @pbitmap=AnimatedBitmap.new("Graphics/Pictures/partyPanelBlank")
-    else
-      @pbitmap=AnimatedBitmap.new("Graphics/Pictures/partyPanelBlankm")
-    end
-=end
     @pbitmap=AnimatedBitmap.new("Graphics/Pictures/partyPanelBlank3")
     self.bitmap=@pbitmap.bitmap
     self.x=xvalues[index]
@@ -65,25 +58,6 @@ class PokeSelectionConfirmCancelSprite < SpriteWrapper
     @refreshBitmap=true
     @bgsprite=ChangelingSprite.new(0,0,viewport)
     @bgsprite2=ChangelingSprite.new(0,0,viewport)
-=begin
-    if $Trainer.isFemale?
-      if narrowbox
-        @bgsprite.addBitmap("deselbitmap","Graphics/Pictures/partyCancelNarrow")
-        @bgsprite.addBitmap("selbitmap","Graphics/Pictures/partyCancelSelNarrow")
-      else
-        @bgsprite.addBitmap("deselbitmap","Graphics/Pictures/partyCancel")
-        @bgsprite.addBitmap("selbitmap","Graphics/Pictures/partyCancelSel")
-      end
-    else
-      if narrowbox
-        @bgsprite.addBitmap("deselbitmap","Graphics/Pictures/partyCancelNarrowm")
-        @bgsprite.addBitmap("selbitmap","Graphics/Pictures/partyCancelSelNarrowm")
-      else
-        @bgsprite.addBitmap("deselbitmap","Graphics/Pictures/partyCancelm")
-        @bgsprite.addBitmap("selbitmap","Graphics/Pictures/partyCancelSelm")
-      end
-    end
-=end
     if narrowbox
       @bgsprite.addBitmap("deselbitmap","Graphics/Pictures/partyCancelNarrow3")
       @bgsprite2.addBitmap("deselbitmap2","Graphics/Pictures/partyCancelNarrow3_empty")
@@ -91,7 +65,7 @@ class PokeSelectionConfirmCancelSprite < SpriteWrapper
       @bgsprite2.addBitmap("selbitmap2","Graphics/Pictures/"+getAccentFolder+"/partyCancelSelNarrow3")
     else
       @bgsprite.addBitmap("deselbitmap","Graphics/Pictures/partyCancel3")
-      @bgsprite2.addBitmap("deselbitmap","Graphics/Pictures/partyCancel3_empty")
+      @bgsprite2.addBitmap("deselbitmap2","Graphics/Pictures/partyCancel3_empty")
       @bgsprite.addBitmap("selbitmap","Graphics/Pictures/partyCancelSel3_base")
       @bgsprite2.addBitmap("selbitmap2","Graphics/Pictures/"+getAccentFolder+"/partyCancelSel3")
     end
@@ -105,7 +79,6 @@ class PokeSelectionConfirmCancelSprite < SpriteWrapper
     textpos=[[text,56,8+ynarrow,2,Color.new(40,40,40),Color.new(248,248,248)]]
     pbDrawTextPositions(@overlaysprite.bitmap,textpos)
     @overlaysprite.z=self.z+1 # For compatibility with RGSS2
-    @overlaysprite2.z=self.z+1 # For compatibility with RGSS2
     self.x=x
     self.y=y
   end
@@ -115,8 +88,8 @@ class PokeSelectionConfirmCancelSprite < SpriteWrapper
     @overlaysprite.dispose
     @overlaysprite2.bitmap.dispose
     @overlaysprite2.dispose
-    @bgsprite.dispose
     @bgsprite2.dispose
+    @bgsprite.dispose
     super
   end
 
@@ -140,6 +113,12 @@ class PokeSelectionConfirmCancelSprite < SpriteWrapper
     refresh
   end
 
+  def z=(value)
+    super
+    refresh
+  end
+
+  
   def selected=(value)
     @selected=value
     refresh
@@ -168,17 +147,18 @@ class PokeSelectionConfirmCancelSprite < SpriteWrapper
     end
     if @bgsprite2 && @bgsprite && !@bgsprite2.disposed? && !@bgsprite.disposed?
       @bgsprite2.changeBitmap((@selected) ? "selbitmap2" : "deselbitmap2")
-      @bgsprite2.x=@bgsprite.x
-      @bgsprite2.y=@bgsprite.y
+      @bgsprite2.x=self.x
+      @bgsprite2.y=self.y
     end
     if @overlaysprite && !@overlaysprite.disposed?
       @overlaysprite.x=self.x
       @overlaysprite.y=self.y
       @overlaysprite.color=self.color
     end
-    if @overlaysprite2 && @overlaysprite && !@overlaysprite.disposed? &&!@overlaysprite2.disposed?
-      @overlaysprite2.x=@overlaysprite.x
-      @overlaysprite2.y=@overlaysprite.y
+    if @overlaysprite2 && !@overlaysprite2.disposed?
+      @overlaysprite2.x=self.x
+      @overlaysprite2.y=self.y
+      @overlaysprite2.color=self.color
     end
   end
 end
@@ -716,21 +696,6 @@ class PokemonScreen_Scene
     @viewport=Viewport.new(0,0,Graphics.width,Graphics.height)
     @viewport.z=99999
     @multiselect=multiselect
-=begin
-    if $Trainer.isFemale?
-      if $dbattle && !($PokemonGlobal.partner)
-      addBackgroundPlane(@sprites,"partybgD","partybgD",@viewport)
-      else
-      addBackgroundPlane(@sprites,"partybg","partybg",@viewport)
-      end
-    else
-      if $dbattle && !($PokemonGlobal.partner)
-      addBackgroundPlane(@sprites,"partybgDm","partybgDm",@viewport)
-      else
-      addBackgroundPlane(@sprites,"partybgm","partybgm",@viewport)
-      end
-    end
-=end
     title=['loadbg','loadbg_beta','loadbg_dev','loadbg_canary'][QQORECHANNEL]
     if pbResolveBitmap(_INTL("Graphics/Global Pictures/{1}",title))
       addBackgroundOrColoredPlaneGlobal(@sprites,"partybg",title,

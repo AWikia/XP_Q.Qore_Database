@@ -913,7 +913,7 @@ There are different modes:
               MessageConfig.pbSetSystemFrame("Graphics/Windowskins/"+getDarkModeFolder+"/"+$TextFrames[value])
            }
          ),
-         NumberOption.new(_INTL("Accent Color"),1,9,
+         NumberOption.new(_INTL("Accent Color"),1,21,
            proc { $PokemonSystem.accentcolor },
            proc {|value| 
              $PokemonSystem.accentcolor = value 

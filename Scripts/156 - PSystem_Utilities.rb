@@ -417,7 +417,7 @@ end
 # Returns the Active Accent Color
 def getAccentName
   if $PokemonSystem 
-    return ["Bold Yellow", "Yellow", "Bold Orange", "Orange", "Bold Red", "Red", "Medium Red", "Dark Red", "Pink", "Purple", "Dark Purple", "Light Blue", "Bold Blue", "Blue", "Dark Blue", "Light Green", "Bold Green", "Green", "Medium Green", "Gray", "Channel-Aware"][$PokemonSystem.accentcolor]
+    return ["Bold Yellow", "Yellow", "Bold Orange", "Orange", "Bold Red", "Red", "Dark Red", "Pink", "Dark Pink", "Purple", "Dark Purple", "Light Blue", "Bold Blue", "Blue", "Dark Blue", "Light Green", "Bold Green", "Green", "Dark Green", "Gray", "Channel-Aware"][$PokemonSystem.accentcolor]
   else
     return "Blue"
   end

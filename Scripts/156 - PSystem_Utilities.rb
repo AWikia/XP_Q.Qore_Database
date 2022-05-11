@@ -377,7 +377,7 @@ end
 # Returns the Accent Color Folder
 def getAccentFolder
   if $PokemonSystem
-    if (($PokemonSystem.accentcolor!=8 rescue false)) # Accent Color 8 is hardcoded to be the channel-aware ones
+    if (($PokemonSystem.accentcolor!=20 rescue false)) # Accent Color 19 is hardcoded to be the channel-aware ones
       return "Accents/Accent Color " + $PokemonSystem.accentcolor.to_s
     else
       return "Accents/Accent Color " + $PokemonSystem.accentcolor.to_s + ["/Stable","/Beta","/Dev","/Canary"][QQORECHANNEL]
@@ -416,8 +416,8 @@ end
 
 # Returns the Active Accent Color
 def getAccentName
-  if $PokemonSystem
-    return ["Blue", "Purple", "Pink", "Red", "Orange", "Yellow", "Green", "Gray","Channel-Aware"][$PokemonSystem.accentcolor]
+  if $PokemonSystem 
+    return ["Blue", "Purple", "Pink", "Red", "Orange", "Yellow", "Green", "Gray", "Dark Blue", "Bold Red", "Bold Yellow", "Bold Green", "Dark Red", "Light Blue", "Medium Green", "Light Green", "Dark Purple", "Bold Orange", "Medium Red","Bold Blue","Channel-Aware"][$PokemonSystem.accentcolor]
   else
     return "Blue"
   end

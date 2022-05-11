@@ -86,22 +86,26 @@ class PokeSelectionConfirmCancelSprite < SpriteWrapper
 =end
     if narrowbox
       @bgsprite.addBitmap("deselbitmap","Graphics/Pictures/partyCancelNarrow3")
+      @bgsprite2.addBitmap("deselbitmap2","Graphics/Pictures/partyCancelNarrow3_empty")
       @bgsprite.addBitmap("selbitmap","Graphics/Pictures/partyCancelSelNarrow3_base")
       @bgsprite2.addBitmap("selbitmap2","Graphics/Pictures/"+getAccentFolder+"/partyCancelSelNarrow3")
     else
       @bgsprite.addBitmap("deselbitmap","Graphics/Pictures/partyCancel3")
+      @bgsprite2.addBitmap("deselbitmap","Graphics/Pictures/partyCancel3_empty")
       @bgsprite.addBitmap("selbitmap","Graphics/Pictures/partyCancelSel3_base")
       @bgsprite2.addBitmap("selbitmap2","Graphics/Pictures/"+getAccentFolder+"/partyCancelSel3")
     end
     @bgsprite.changeBitmap("deselbitmap")
-    @bgsprite2.changeBitmap(nil)
+    @bgsprite2.changeBitmap("deselbitmap2")
     @overlaysprite=BitmapSprite.new(@bgsprite.bitmap.width,@bgsprite.bitmap.height,viewport)
+    @overlaysprite2=BitmapSprite.new(@bgsprite2.bitmap.width,@bgsprite2.bitmap.height,viewport)
     @yoffset=8
     ynarrow=narrowbox ? -6 : 0
     pbSetSystemFont(@overlaysprite.bitmap)
     textpos=[[text,56,8+ynarrow,2,Color.new(40,40,40),Color.new(248,248,248)]]
     pbDrawTextPositions(@overlaysprite.bitmap,textpos)
     @overlaysprite.z=self.z+1 # For compatibility with RGSS2
+    @overlaysprite2.z=self.z+1 # For compatibility with RGSS2
     self.x=x
     self.y=y
   end
@@ -109,6 +113,8 @@ class PokeSelectionConfirmCancelSprite < SpriteWrapper
   def dispose
     @overlaysprite.bitmap.dispose
     @overlaysprite.dispose
+    @overlaysprite2.bitmap.dispose
+    @overlaysprite2.dispose
     @bgsprite.dispose
     @bgsprite2.dispose
     super
@@ -161,7 +167,7 @@ class PokeSelectionConfirmCancelSprite < SpriteWrapper
       @bgsprite.color=self.color
     end
     if @bgsprite2 && @bgsprite && !@bgsprite2.disposed? && !@bgsprite.disposed?
-      @bgsprite2.changeBitmap((@selected) ? "selbitmap2" : nil)
+      @bgsprite2.changeBitmap((@selected) ? "selbitmap2" : "deselbitmap2")
       @bgsprite2.x=@bgsprite.x
       @bgsprite2.y=@bgsprite.y
     end
@@ -169,6 +175,10 @@ class PokeSelectionConfirmCancelSprite < SpriteWrapper
       @overlaysprite.x=self.x
       @overlaysprite.y=self.y
       @overlaysprite.color=self.color
+    end
+    if @overlaysprite2 && @overlaysprite && !@overlaysprite.disposed? &&!@overlaysprite2.disposed?
+      @overlaysprite2.x=@overlaysprite.x
+      @overlaysprite2.y=@overlaysprite.y
     end
   end
 end

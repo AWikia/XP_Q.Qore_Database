@@ -64,6 +64,7 @@ class PokeSelectionConfirmCancelSprite < SpriteWrapper
     super(viewport)
     @refreshBitmap=true
     @bgsprite=ChangelingSprite.new(0,0,viewport)
+    @bgsprite2=ChangelingSprite.new(0,0,viewport)
 =begin
     if $Trainer.isFemale?
       if narrowbox
@@ -85,12 +86,15 @@ class PokeSelectionConfirmCancelSprite < SpriteWrapper
 =end
     if narrowbox
       @bgsprite.addBitmap("deselbitmap","Graphics/Pictures/partyCancelNarrow3")
-      @bgsprite.addBitmap("selbitmap","Graphics/Pictures/"+getAccentFolder+"/partyCancelSelNarrow3")
+      @bgsprite.addBitmap("selbitmap","Graphics/Pictures/partyCancelSelNarrow3_base")
+      @bgsprite2.addBitmap("selbitmap2","Graphics/Pictures/"+getAccentFolder+"/partyCancelSelNarrow3")
     else
       @bgsprite.addBitmap("deselbitmap","Graphics/Pictures/partyCancel3")
-      @bgsprite.addBitmap("selbitmap","Graphics/Pictures/"+getAccentFolder+"/partyCancelSel3")
+      @bgsprite.addBitmap("selbitmap","Graphics/Pictures/partyCancelSel3_base")
+      @bgsprite2.addBitmap("selbitmap2","Graphics/Pictures/"+getAccentFolder+"/partyCancelSel3")
     end
     @bgsprite.changeBitmap("deselbitmap")
+    @bgsprite2.changeBitmap(nil)
     @overlaysprite=BitmapSprite.new(@bgsprite.bitmap.width,@bgsprite.bitmap.height,viewport)
     @yoffset=8
     ynarrow=narrowbox ? -6 : 0
@@ -106,6 +110,7 @@ class PokeSelectionConfirmCancelSprite < SpriteWrapper
     @overlaysprite.bitmap.dispose
     @overlaysprite.dispose
     @bgsprite.dispose
+    @bgsprite2.dispose
     super
   end
 
@@ -151,9 +156,12 @@ class PokeSelectionConfirmCancelSprite < SpriteWrapper
   def refresh
     if @bgsprite && !@bgsprite.disposed?
       @bgsprite.changeBitmap((@selected) ? "selbitmap" : "deselbitmap")
+      @bgsprite2.changeBitmap((@selected) ? "selbitmap2" : nil)
       @bgsprite.x=self.x
       @bgsprite.y=self.y
       @bgsprite.color=self.color
+      @bgsprite2.x=@bgsprite.x
+      @bgsprite2.y=@bgsprite.y
     end
     if @overlaysprite && !@overlaysprite.disposed?
       @overlaysprite.x=self.x

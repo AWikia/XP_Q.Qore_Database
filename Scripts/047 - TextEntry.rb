@@ -164,10 +164,12 @@ class Window_TextEntry < SpriteWindow_Base
     colors=getDefaultTextColors(self.windowskin)
     @baseColor=colors[0]
     @shadowColor=colors[1]
+=begin
     if usedarkercolor
       @baseColor=Color.new(16,24,32)
       @shadowColor=Color.new(168,184,184)
     end
+=end
     @helper=CharacterEntryHelper.new(text)
     @heading=heading
     self.active=true
@@ -264,7 +266,11 @@ class Window_TextEntry < SpriteWindow_Base
     x+=4
     width=self.width-self.borderX
     height=self.height-self.borderY
-    cursorcolor=Color.new(16,24,32)
+    if (!isDarkMode?)
+      cursorcolor=Color.new(88,88,80)
+    else
+      cursorcolor=Color.new(248,248,240)
+    end
     textscan=self.text.scan(/./m)
     scanlength=textscan.length
     @helper.cursor=scanlength if @helper.cursor>scanlength
@@ -692,7 +698,11 @@ class Window_MultilineTextEntry < SpriteWindow_Base
     x+=4
     width=self.width-self.borderX
     height=self.height-self.borderY
-    cursorcolor=Color.new(0,0,0)
+    if (!isDarkMode?)
+      cursorcolor=Color.new(0,0,0)
+    else
+      cursorcolor=Color.new(255,255,255)
+    end
     textchars=getTextChars()
     scanlength=@helper.length
     startY=getLineY(@firstline)
@@ -943,16 +953,21 @@ class PokemonEntryScene
     @sprites["helpwindow"].letterbyletter=false
     @sprites["helpwindow"].viewport=@viewport
     @sprites["helpwindow"].visible=USEKEYBOARD
-    @sprites["helpwindow"].baseColor=Color.new(16,24,32)
-    @sprites["helpwindow"].shadowColor=Color.new(168,184,184)
-    addBackgroundPlane(@sprites,"background","naming2bg",@viewport)
+    if (!isDarkMode?)
+      @sprites["helpwindow"].baseColor=Color.new(88,88,80)
+      @sprites["helpwindow"].shadowColor=Color.new(168,184,184)
+    else
+      @sprites["helpwindow"].baseColor=Color.new(248,248,240)
+      @sprites["helpwindow"].shadowColor=Color.new(72,88,88)
+    end
+    addBackgroundPlane(@sprites,"background",getDarkModeFolder+"/naming2bg",@viewport)
     case subject
     when 1   # Player
       if $PokemonGlobal
         meta=pbGetMetadata(0,MetadataPlayerA+$PokemonGlobal.playerID)
         if meta
           @sprites["shadow"]=IconSprite.new(0,0,@viewport)
-          @sprites["shadow"].setBitmap("Graphics/Pictures/namingShadow")
+          @sprites["shadow"].setBitmap("Graphics/Pictures/"+getDarkModeFolder+"/namingShadow")
           @sprites["shadow"].x=33*2+64
           @sprites["shadow"].y=32*2
           filename=pbGetPlayerCharset(meta,1)
@@ -966,7 +981,7 @@ class PokemonEntryScene
     when 2   # Pokémon
       if pokemon
         @sprites["shadow"]=IconSprite.new(0,0,@viewport)
-        @sprites["shadow"].setBitmap("Graphics/Pictures/namingShadow")
+        @sprites["shadow"].setBitmap("Graphics/Pictures/"+getDarkModeFolder+"/namingShadow")
         @sprites["shadow"].x=33*2+64
         @sprites["shadow"].y=32*2
         @sprites["subject"]=PokemonIconSprite.new(pokemon,@viewport)
@@ -987,12 +1002,12 @@ class PokemonEntryScene
       end
     when 3   # Storage box
       @sprites["subject"]=IconSprite.new(0,0,@viewport)
-      @sprites["subject"].setBitmap("Graphics/Pictures/namingStorage")
+      @sprites["subject"].setBitmap("Graphics/Pictures/"+getDarkModeFolder+"/namingStorage")
       @sprites["subject"].x=68+64
       @sprites["subject"].y=32
     when 4   # NPC
       @sprites["shadow"]=IconSprite.new(0,0,@viewport)
-      @sprites["shadow"].setBitmap("Graphics/Pictures/namingShadow")
+      @sprites["shadow"].setBitmap("Graphics/Pictures/"+getDarkModeFolder+"/namingShadow")
       @sprites["shadow"].x=33*2+64
       @sprites["shadow"].y=32*2
       @sprites["subject"]=TrainerWalkingCharSprite.new(pokemon.to_s,@viewport)
@@ -1218,13 +1233,20 @@ class PokemonEntryScene2
     @helptext=helptext
     @helper=CharacterEntryHelper.new(initialText)
     @bitmaps=[
-       AnimatedBitmap.new("Graphics/Pictures/namingTab1"),
-       AnimatedBitmap.new("Graphics/Pictures/namingTab2"),
-       AnimatedBitmap.new("Graphics/Pictures/namingTab3")
+       AnimatedBitmap.new("Graphics/Pictures/"+getDarkModeFolder+"/namingTab1"),
+       AnimatedBitmap.new("Graphics/Pictures/"+getDarkModeFolder+"/namingTab2"),
+       AnimatedBitmap.new("Graphics/Pictures/"+getDarkModeFolder+"/namingTab3")
     ]
     @bitmaps[3]=@bitmaps[0].bitmap.clone
     @bitmaps[4]=@bitmaps[1].bitmap.clone
     @bitmaps[5]=@bitmaps[2].bitmap.clone
+    if (!isDarkMode?)
+      baseColor=Color.new(88,88,80)
+      shadowColor=Color.new(168,184,184)
+    else
+      baseColor=Color.new(248,248,240)
+      shadowColor=Color.new(72,88,88)
+    end
     for i in 0...3
       pos=0
       pbSetSystemFont(@bitmaps[i+3])
@@ -1233,13 +1255,13 @@ class PokemonEntryScene2
         for x in 0...ROWS
           if ($PokemonSystem.charset2==2 rescue false)
             textPos.push([@@Characters2[i][0][pos],44+x*32,18+y*38,2,
-               Color.new(16,24,32), Color.new(160,160,160)])
+               baseColor,shadowColor])
           elsif ($PokemonSystem.charset2==1 rescue false)
             textPos.push([@@Characters1[i][0][pos],44+x*32,18+y*38,2,
-               Color.new(16,24,32), Color.new(160,160,160)])
+               baseColor,shadowColor])
           else
             textPos.push([@@Characters0[i][0][pos],44+x*32,18+y*38,2,
-               Color.new(16,24,32), Color.new(160,160,160)])
+               baseColor,shadowColor])
           end
           pos+=1
         end
@@ -1247,17 +1269,17 @@ class PokemonEntryScene2
       pbDrawTextPositions(@bitmaps[i+3],textPos)
     end
     @bitmaps[6]=BitmapWrapper.new(24,6)
-    @bitmaps[6].fill_rect(2,2,22,4,Color.new(168,184,184))
-    @bitmaps[6].fill_rect(0,0,22,4,Color.new(16,24,32))
+    @bitmaps[6].fill_rect(2,2,22,4,shadowColor)
+    @bitmaps[6].fill_rect(0,0,22,4,baseColor)
     @sprites["bg"]=IconSprite.new(0,0,@viewport)
-    @sprites["bg"].setBitmap("Graphics/Pictures/namingbg")
+    @sprites["bg"].setBitmap("Graphics/Pictures/"+getDarkModeFolder+"/namingbg")
     case subject
     when 1   # Player
       if $PokemonGlobal
         meta=pbGetMetadata(0,MetadataPlayerA+$PokemonGlobal.playerID)
         if meta
           @sprites["shadow"]=IconSprite.new(0,0,@viewport)
-          @sprites["shadow"].setBitmap("Graphics/Pictures/namingShadow")
+          @sprites["shadow"].setBitmap("Graphics/Pictures/"+getDarkModeFolder+"/namingShadow")
           @sprites["shadow"].x=33*2+64
           @sprites["shadow"].y=32*2
           filename=pbGetPlayerCharset(meta,1)
@@ -1271,7 +1293,7 @@ class PokemonEntryScene2
     when 2   # Pokémon
       if pokemon
         @sprites["shadow"]=IconSprite.new(0,0,@viewport)
-        @sprites["shadow"].setBitmap("Graphics/Pictures/namingShadow")
+        @sprites["shadow"].setBitmap("Graphics/Pictures/"+getDarkModeFolder+"/namingShadow")
         @sprites["shadow"].x=33*2+64
         @sprites["shadow"].y=32*2
         @sprites["subject"]=PokemonIconSprite.new(pokemon,@viewport)
@@ -1292,7 +1314,7 @@ class PokemonEntryScene2
       end
     when 3   # Storage box
       @sprites["subject"]=TrainerWalkingCharSprite.new(nil,@viewport)
-      @sprites["subject"].altcharset="Graphics/Pictures/namingStorage"
+      @sprites["subject"].altcharset="Graphics/Pictures/"+getDarkModeFolder+"/namingStorage"
       @sprites["subject"].animspeed=4
       charwidth=@sprites["subject"].bitmap.width
       charheight=@sprites["subject"].bitmap.height
@@ -1300,7 +1322,7 @@ class PokemonEntryScene2
       @sprites["subject"].y = 26*2 - charheight/2
     when 4   # NPC
       @sprites["shadow"]=IconSprite.new(0,0,@viewport)
-      @sprites["shadow"].setBitmap("Graphics/Pictures/namingShadow")
+      @sprites["shadow"].setBitmap("Graphics/Pictures/"+getDarkModeFolder+"/namingShadow")
       @sprites["shadow"].x=33*2+64
       @sprites["shadow"].y=32*2
       @sprites["subject"]=TrainerWalkingCharSprite.new(pokemon.to_s,@viewport)
@@ -1330,7 +1352,7 @@ class PokemonEntryScene2
     @sprites["toptab"].y=162
     @sprites["toptab"].bitmap=@bitmaps[1+3]
     @sprites["controls"]=IconSprite.new(0,0,@viewport)
-    @sprites["controls"].setBitmap("Graphics/Pictures/namingControls")
+    @sprites["controls"].setBitmap("Graphics/Pictures/"+getDarkModeFolder+"/namingControls")
     @sprites["controls"].x=16+64
     @sprites["controls"].y=96
     @init=true
@@ -1350,23 +1372,30 @@ class PokemonEntryScene2
   def pbDoUpdateOverlay2
     overlay=@sprites["overlay"].bitmap
     overlay.clear
-    modeIcon=[["Graphics/Pictures/namingMode",48+@mode*64+64,120,@mode*60,0,60,44]]
+    modeIcon=[["Graphics/Pictures/"+getDarkModeFolder+"/namingMode",48+@mode*64+64,120,@mode*60,0,60,44]]
     pbDrawImagePositions(overlay,modeIcon)
   end
 
   def pbDoUpdateOverlay
     return if !@refreshOverlay
     @refreshOverlay=false
+    if (!isDarkMode?)
+      baseColor=Color.new(88,88,80)
+      shadowColor=Color.new(168,184,184)
+    else
+      baseColor=Color.new(248,248,240)
+      shadowColor=Color.new(72,88,88)
+    end
     bgoverlay=@sprites["bgoverlay"].bitmap
     bgoverlay.clear
     pbSetSystemFont(bgoverlay)
     textPositions=[
-       [@helptext,160+64,12,false,Color.new(16,24,32),Color.new(168,184,184)]
+       [@helptext,160+64,12,false,baseColor,shadowColor]
     ]
     chars=@helper.textChars
     x=166
     for ch in chars
-      textPositions.push([ch,x+64,48,false,Color.new(16,24,32),Color.new(168,184,184)])
+      textPositions.push([ch,x+64,48,false,baseColor,shadowColor])
       x+=24
     end
     pbDrawTextPositions(bgoverlay,textPositions)

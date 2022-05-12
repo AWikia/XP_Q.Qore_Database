@@ -138,7 +138,7 @@ class Window_Pokedex < Window_DrawableCommand
     else
 #    @pokeballOwned=AnimatedBitmap.new("Graphics/Pictures/pokedexOwnedREGION")
 #    @pokeballSeen=AnimatedBitmap.new("Graphics/Pictures/pokedexSeenREGION")
-    @pokeballOwned=AnimatedBitmap.new("Graphics/Pictures/pokedexOwned")
+    @pokeballOwned=AnimatedBitmap.new("Graphics/Pictures/"+getDarkModeFolder+"/pokedexOwned")
     @pokeballSeen=AnimatedBitmap.new("Graphics/Pictures/pokedexSeen")
     end
 
@@ -924,9 +924,9 @@ class PokemonPokedexScene
 #        footprint.dispose
 #      end
     if pbGetPokedexRegion==-1 # Using national Pokédex
-      pbDrawImagePositions(@sprites["overlay"].bitmap,[["Graphics/Pictures/pokedexOwned",340,42,0,0,-1,-1]])
+      pbDrawImagePositions(@sprites["overlay"].bitmap,[["Graphics/Pictures/"+getDarkModeFolder+"/pokedexOwned",340,42,0,0,-1,-1]])
     else
-      pbDrawImagePositions(@sprites["overlay"].bitmap,[["Graphics/Pictures/pokedexOwned",340,42,0,0,-1,-1]])
+      pbDrawImagePositions(@sprites["overlay"].bitmap,[["Graphics/Pictures/"+getDarkModeFolder+"/pokedexOwned",340,42,0,0,-1,-1]])
 #      pbDrawImagePositions(@sprites["overlay"].bitmap,[["Graphics/Pictures/pokedexOwnedREGION",340,42,0,0,-1,-1]])
     end
       typebitmap=AnimatedBitmap.new("Graphics/Global Pictures/pokedexTypes")

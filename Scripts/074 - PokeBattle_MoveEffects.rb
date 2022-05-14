@@ -1064,7 +1064,7 @@ class PokeBattle_Move_024 < PokeBattle_Move
       return -1
     end
     pbShowAnimation(@id,attacker,opponent,hitnum,alltargets,showanimation)
-    showanim=true
+    showanim='mix' # Was true
     if attacker.pbCanIncreaseStatStage?(PBStats::ATTACK,attacker,false,self)
       attacker.pbIncreaseStat(PBStats::ATTACK,1,attacker,false,self,showanim)
       showanim=false
@@ -1091,7 +1091,7 @@ class PokeBattle_Move_025 < PokeBattle_Move
       return -1
     end
     pbShowAnimation(@id,attacker,opponent,hitnum,alltargets,showanimation)
-    showanim=true
+    showanim='mix' # Was true
     if attacker.pbCanIncreaseStatStage?(PBStats::ATTACK,attacker,false,self)
       attacker.pbIncreaseStat(PBStats::ATTACK,1,attacker,false,self,showanim)
       showanim=false
@@ -1121,7 +1121,7 @@ class PokeBattle_Move_026 < PokeBattle_Move
       return -1
     end
     pbShowAnimation(@id,attacker,opponent,hitnum,alltargets,showanimation)
-    showanim=true
+    showanim='mix' # Was true
     if attacker.pbCanIncreaseStatStage?(PBStats::ATTACK,attacker,false,self)
       attacker.pbIncreaseStat(PBStats::ATTACK,1,attacker,false,self,showanim)
       showanim=false
@@ -1147,7 +1147,7 @@ class PokeBattle_Move_027 < PokeBattle_Move
       return -1
     end
     pbShowAnimation(@id,attacker,opponent,hitnum,alltargets,showanimation)
-    showanim=true
+    showanim='mix' # Was true
     if attacker.pbCanIncreaseStatStage?(PBStats::ATTACK,attacker,false,self)
       attacker.pbIncreaseStat(PBStats::ATTACK,1,attacker,false,self,showanim)
       showanim=false
@@ -1161,7 +1161,7 @@ class PokeBattle_Move_027 < PokeBattle_Move
 
   def pbAdditionalEffect(attacker,opponent)
     return if opponent.damagestate.substitute
-    showanim=true
+    showanim='mix' # Was true
     if attacker.pbCanIncreaseStatStage?(PBStats::ATTACK,attacker,false,self)
       attacker.pbIncreaseStat(PBStats::ATTACK,1,attacker,false,self,showanim)
       showanim=false
@@ -1188,7 +1188,7 @@ class PokeBattle_Move_028 < PokeBattle_Move
       return -1
     end
     pbShowAnimation(@id,attacker,opponent,hitnum,alltargets,showanimation)
-    showanim=true
+    showanim='mix' # Was true
     increment=1
     if @battle.pbWeather==PBWeather::SUNNYDAY ||
        @battle.pbWeather==PBWeather::HARSHSUN && !attacker.hasWorkingItem(:UTILITYUMBRELLA)
@@ -1219,7 +1219,7 @@ class PokeBattle_Move_029 < PokeBattle_Move
       return -1
     end
     pbShowAnimation(@id,attacker,opponent,hitnum,alltargets,showanimation)
-    showanim=true
+    showanim='mix' # Was true
     if attacker.pbCanIncreaseStatStage?(PBStats::ATTACK,attacker,false,self)
       attacker.pbIncreaseStat(PBStats::ATTACK,1,attacker,false,self,showanim)
       showanim=false
@@ -1245,7 +1245,7 @@ class PokeBattle_Move_02A < PokeBattle_Move
       return -1
     end
     pbShowAnimation(@id,attacker,opponent,hitnum,alltargets,showanimation)
-    showanim=true
+    showanim='mix' # Was true
     if attacker.pbCanIncreaseStatStage?(PBStats::DEFENSE,attacker,false,self)
       attacker.pbIncreaseStat(PBStats::DEFENSE,1,attacker,false,self,showanim)
       showanim=false
@@ -1259,7 +1259,7 @@ class PokeBattle_Move_02A < PokeBattle_Move
 
   def pbAdditionalEffect(attacker,opponent)
     return if opponent.damagestate.substitute
-    showanim=true
+    showanim='mix' # Was true
     if attacker.pbCanIncreaseStatStage?(PBStats::DEFENSE,attacker,false,self)
       attacker.pbIncreaseStat(PBStats::DEFENSE,1,attacker,false,self,showanim)
       showanim=false
@@ -1286,7 +1286,7 @@ class PokeBattle_Move_02B < PokeBattle_Move
       return -1
     end
     pbShowAnimation(@id,attacker,opponent,hitnum,alltargets,showanimation)
-    showanim=true
+    showanim='mix' # Was true
     if attacker.pbCanIncreaseStatStage?(PBStats::SPATK,attacker,false,self)
       attacker.pbIncreaseStat(PBStats::SPATK,1,attacker,false,self,showanim)
       showanim=false
@@ -1316,7 +1316,7 @@ class PokeBattle_Move_02C < PokeBattle_Move
       return -1
     end
     pbShowAnimation(@id,attacker,opponent,hitnum,alltargets,showanimation)
-    showanim=true
+    showanim='mix' # Was true
     if attacker.pbCanIncreaseStatStage?(PBStats::SPATK,attacker,false,self)
       attacker.pbIncreaseStat(PBStats::SPATK,1,attacker,false,self,showanim)
       showanim=false
@@ -1337,7 +1337,7 @@ end
 ################################################################################
 class PokeBattle_Move_02D < PokeBattle_Move
   def pbAdditionalEffect(attacker,opponent)
-    showanim=true
+    showanim='mix' # Was true
     if attacker.pbCanIncreaseStatStage?(PBStats::ATTACK,attacker,false,self)
       attacker.pbIncreaseStat(PBStats::ATTACK,1,attacker,false,self,showanim)
       showanim=false
@@ -1524,7 +1524,7 @@ class PokeBattle_Move_035 < PokeBattle_Move
       return -1
     end
     pbShowAnimation(@id,attacker,opponent,hitnum,alltargets,showanimation)
-    showanim=true
+    showanim='mix' # Was true
     if attacker.pbCanReduceStatStage?(PBStats::DEFENSE,attacker,false,self)
       attacker.pbReduceStat(PBStats::DEFENSE,1,attacker,false,self,showanim)
       showanim=false
@@ -1533,7 +1533,7 @@ class PokeBattle_Move_035 < PokeBattle_Move
       attacker.pbReduceStat(PBStats::SPDEF,1,attacker,false,self,showanim)
       showanim=false
     end
-    showanim=true
+    showanim='mix' # Was true
     if attacker.pbCanIncreaseStatStage?(PBStats::ATTACK,attacker,false,self)
       attacker.pbIncreaseStat(PBStats::ATTACK,2,attacker,false,self,showanim)
       showanim=false
@@ -1563,7 +1563,7 @@ class PokeBattle_Move_036 < PokeBattle_Move
       return -1
     end
     pbShowAnimation(@id,attacker,opponent,hitnum,alltargets,showanimation)
-    showanim=true
+    showanim='mix' # Was true
     if attacker.pbCanIncreaseStatStage?(PBStats::SPEED,attacker,false,self)
       attacker.pbIncreaseStat(PBStats::SPEED,2,attacker,false,self,showanim)
       showanim=false
@@ -1686,7 +1686,7 @@ class PokeBattle_Move_03B < PokeBattle_Move
   def pbEffect(attacker,opponent,hitnum=0,alltargets=nil,showanimation=true)
     ret=super(attacker,opponent,hitnum,alltargets,showanimation)
     if opponent.damagestate.calcdamage>0
-      showanim=true
+      showanim='mix' # Was true
       if attacker.pbCanReduceStatStage?(PBStats::ATTACK,attacker,false,self)
         attacker.pbReduceStat(PBStats::ATTACK,1,attacker,false,self,showanim)
         showanim=false
@@ -1709,7 +1709,7 @@ class PokeBattle_Move_03C < PokeBattle_Move
   def pbEffect(attacker,opponent,hitnum=0,alltargets=nil,showanimation=true)
     ret=super(attacker,opponent,hitnum,alltargets,showanimation)
     if opponent.damagestate.calcdamage>0
-      showanim=true
+      showanim='mix' # Was true
       if attacker.pbCanReduceStatStage?(PBStats::DEFENSE,attacker,false,self)
         attacker.pbReduceStat(PBStats::DEFENSE,1,attacker,false,self,showanim)
         showanim=false
@@ -1736,7 +1736,7 @@ class PokeBattle_Move_03D < PokeBattle_Move
       if attacker.pbPartner && !attacker.pbPartner.isFainted?
         attacker.pbPartner.pbReduceHP((attacker.pbPartner.totalhp/16).floor,true)
       end
-      showanim=true
+      showanim='mix' # Was true
       if attacker.pbCanReduceStatStage?(PBStats::SPEED,attacker,false,self)
         attacker.pbReduceStat(PBStats::SPEED,1,attacker,false,self,showanim)
         showanim=false
@@ -2099,7 +2099,7 @@ class PokeBattle_Move_04A < PokeBattle_Move
       return -1
     end
     pbShowAnimation(@id,attacker,opponent,hitnum,alltargets,showanimation)
-    showanim=true
+    showanim='mix' # Was true
     if opponent.pbCanReduceStatStage?(PBStats::ATTACK,attacker,false,self)
       opponent.pbReduceStat(PBStats::ATTACK,1,attacker,false,self,showanim)
       showanim=false
@@ -7135,7 +7135,7 @@ class PokeBattle_Move_0E2 < PokeBattle_Move
       return -1
     end
     pbShowAnimation(@id,attacker,opponent,hitnum,alltargets,showanimation)
-    ret=-1; showanim=true
+    ret=-1; showanim='mix' # Was true
     if opponent.pbReduceStat(PBStats::ATTACK,2,attacker,false,self,showanim)
       ret=0; showanim=false
     end
@@ -8824,7 +8824,7 @@ class PokeBattle_Move_10D < PokeBattle_Move
         if lowerspeed
           attacker.pbReduceStat(PBStats::SPEED,1,attacker,false,self)
         end
-        showanim=true
+        showanim='mix' # Was true
         if raiseatk
           attacker.pbIncreaseStat(PBStats::ATTACK,1,attacker,false,self,showanim)
           showanim=false
@@ -8990,7 +8990,7 @@ class PokeBattle_Move_112 < PokeBattle_Move
     attacker.effects[PBEffects::Stockpile]+=1
     @battle.pbDisplay(_INTL("{1} stockpiled {2}!",attacker.pbThis,
         attacker.effects[PBEffects::Stockpile]))
-    showanim=true
+    showanim='mix' # Was true
     if attacker.pbCanIncreaseStatStage?(PBStats::DEFENSE,attacker,false,self)
       attacker.pbIncreaseStat(PBStats::DEFENSE,1,attacker,false,self,showanim)
       attacker.effects[PBEffects::StockpileDef]+=1
@@ -9022,7 +9022,7 @@ class PokeBattle_Move_113 < PokeBattle_Move
 
   def pbEffectAfterHit(attacker,opponent,turneffects)
     if !attacker.isFainted? && turneffects[PBEffects::TotalDamage]>0
-      showanim=true
+      showanim='mix' # Was true
       if attacker.effects[PBEffects::StockpileDef]>0
         if attacker.pbCanReduceStatStage?(PBStats::DEFENSE,attacker,false,self)
           attacker.pbReduceStat(PBStats::DEFENSE,attacker.effects[PBEffects::StockpileDef],
@@ -9080,7 +9080,7 @@ class PokeBattle_Move_114 < PokeBattle_Move
     if attacker.pbRecoverHP(hpgain,true)>0
       @battle.pbDisplay(_INTL("{1}'s HP was restored.",attacker.pbThis))
     end
-    showanim=true
+    showanim='mix' # Was true
     if attacker.effects[PBEffects::StockpileDef]>0
       if attacker.pbCanReduceStatStage?(PBStats::DEFENSE,attacker,false,self)
         attacker.pbReduceStat(PBStats::DEFENSE,attacker.effects[PBEffects::StockpileDef],
@@ -9562,7 +9562,7 @@ class PokeBattle_Move_137 < PokeBattle_Move
               !i.pbCanIncreaseStatStage?(PBStats::SPDEF,attacker,false,self)
       pbShowAnimation(@id,attacker,nil,hitnum,alltargets,showanimation) if !didsomething
       didsomething=true
-      showanim=true
+      showanim='mix' # Was true
       if i.pbCanIncreaseStatStage?(PBStats::DEFENSE,attacker,false,self)
         i.pbIncreaseStat(PBStats::DEFENSE,1,attacker,false,self,showanim)
         showanim=false
@@ -9631,7 +9631,7 @@ class PokeBattle_Move_13A < PokeBattle_Move
       return -1
     end
     pbShowAnimation(@id,attacker,opponent,hitnum,alltargets,showanimation)
-    showanim=true
+    showanim='mix' # Was true
     if opponent.pbCanReduceStatStage?(PBStats::ATTACK,attacker,false,self)
       opponent.pbReduceStat(PBStats::ATTACK,1,attacker,false,self,showanim)
       showanim=false
@@ -9726,7 +9726,7 @@ class PokeBattle_Move_13E < PokeBattle_Move
               !i.pbCanIncreaseStatStage?(PBStats::SPATK,attacker,false,self)
       pbShowAnimation(@id,attacker,nil,hitnum,alltargets,showanimation) if !didsomething
       didsomething=true
-      showanim=true
+      showanim='mix' # Was true
       if i.pbCanIncreaseStatStage?(PBStats::ATTACK,attacker,false,self)
         i.pbIncreaseStat(PBStats::ATTACK,1,attacker,false,self,showanim)
         showanim=false
@@ -9760,10 +9760,8 @@ class PokeBattle_Move_13F < PokeBattle_Move
       next if !i.pbCanIncreaseStatStage?(PBStats::ATTACK,attacker,false,self)
       pbShowAnimation(@id,attacker,nil,hitnum,alltargets,showanimation) if !didsomething
       didsomething=true
-      showanim=true
       if i.pbCanIncreaseStatStage?(PBStats::DEFENSE,attacker,false,self)
-        i.pbIncreaseStat(PBStats::DEFENSE,1,attacker,false,self,showanim)
-        showanim=false
+        i.pbIncreaseStat(PBStats::DEFENSE,1,attacker,false,self,true)
       end
     end
     if !didsomething
@@ -9792,7 +9790,7 @@ class PokeBattle_Move_140 < PokeBattle_Move
               !i.pbCanReduceStatStage?(PBStats::SPEED,attacker,false,self)
       pbShowAnimation(@id,attacker,nil,hitnum,alltargets,showanimation) if !didsomething
       didsomething=true
-      showanim=true
+      showanim='mix' # Was true
       if i.pbCanReduceStatStage?(PBStats::ATTACK,attacker,false,self)
         i.pbReduceStat(PBStats::ATTACK,1,attacker,false,self,showanim)
         showanim=false
@@ -10257,7 +10255,7 @@ class PokeBattle_Move_14E < PokeBattle_Move
       return -1
     end
     pbShowAnimation(@id,attacker,opponent,hitnum,alltargets,showanimation)
-    showanim=true
+    showanim='mix' # Was true
     if attacker.pbCanIncreaseStatStage?(PBStats::SPATK,attacker,false,self)
       attacker.pbIncreaseStat(PBStats::SPATK,2,attacker,false,self,showanim)
       showanim=false
@@ -10332,7 +10330,7 @@ class PokeBattle_Move_151 < PokeBattle_Move
     pbShowAnimation(@id,attacker,opponent,hitnum,alltargets,showanimation)
     if !self.isSoundBased? ||
        attacker.hasMoldBreaker || !opponent.hasWorkingAbility(:SOUNDPROOF)
-      showanim=true
+      showanim='mix' # Was true
       if opponent.pbReduceStat(PBStats::ATTACK,1,attacker,false,self,showanim)
         showanim=false; ret=0
       end
@@ -10532,7 +10530,7 @@ class PokeBattle_Move_159 < PokeBattle_Move
     return damagemult
   end
   def pbAdditionalEffect(attacker,opponent)
-    showanim=true
+    showanim='mix' # Was true
     if opponent.pbCanReduceStatStage?(PBStats::ATTACK,false)
       opponent.pbReduceStat(PBStats::ATTACK,1,attacker,false,self,showanim)
       showanim=false
@@ -10651,7 +10649,7 @@ class PokeBattle_Move_163 < PokeBattle_Move
       return -1
     end
     pbShowAnimation(@id,attacker,opponent,hitnum,alltargets,showanimation)
-    ret=-1; showanim=true
+    ret=-1; showanim='mix' # Was true
     if opponent.pbReduceStat(PBStats::ATTACK,3,attacker,false,self,showanim)
       ret=0; showanim=false
     end
@@ -10700,7 +10698,7 @@ end
 ################################################################################
 class PokeBattle_Move_165 < PokeBattle_Move
   def pbEffect(attacker,opponent,hitnum=0,alltargets=nil,showanimation=true)
-    showanim=true
+    showanim='mix' # Was true
     ret=super(attacker,opponent,hitnum,alltargets,showanimation)
     if opponent.damagestate.calcdamage>0 && opponent.isFainted?
       if attacker.pbCanIncreaseStatStage?(PBStats::EVASION,attacker,false,self)
@@ -10898,14 +10896,11 @@ class PokeBattle_Move_171 < PokeBattle_Move
       return -1
     end
     pbShowAnimation(@id,attacker,opponent,hitnum,alltargets,showanimation)
-    showanim=true
     if attacker.pbCanIncreaseStatStage?(PBStats::EVASION,attacker,false,self)
-      attacker.pbIncreaseStat(PBStats::EVASION,3,attacker,false,self,showanim)
-#      showanim=false
+      attacker.pbIncreaseStat(PBStats::EVASION,3,attacker,false,self,true)
     end
     if attacker.pbCanReduceStatStage?(PBStats::DEFENSE,attacker,false,self)
-      attacker.pbReduceStat(PBStats::DEFENSE,3,attacker,false,self,showanim)
-#      showanim=false
+      attacker.pbReduceStat(PBStats::DEFENSE,3,attacker,false,self,true)
     end
     return 0
   end
@@ -10959,14 +10954,11 @@ class PokeBattle_Move_173 < PokeBattle_Move
       return -1
     end
     pbShowAnimation(@id,attacker,opponent,hitnum,alltargets,showanimation)
-    showanim=true
     if attacker.pbCanIncreaseStatStage?(PBStats::DEFENSE,attacker,false,self)
-      attacker.pbIncreaseStat(PBStats::DEFENSE,3,attacker,false,self,showanim)
-#      showanim=false
+      attacker.pbIncreaseStat(PBStats::DEFENSE,3,attacker,false,self,true)
     end
     if attacker.pbCanReduceStatStage?(PBStats::EVASION,attacker,false,self)
-      attacker.pbReduceStat(PBStats::EVASION,3,attacker,false,self,showanim)
-#      showanim=false
+      attacker.pbReduceStat(PBStats::EVASION,3,attacker,false,self,true)
     end
     return 0
   end
@@ -10992,12 +10984,10 @@ class PokeBattle_Move_174 < PokeBattle_Move
   end
 
   def pbEffect(attacker,opponent,hitnum=0,alltargets=nil,showanimation=true)
-    showanim=true
     ret=super(attacker,opponent,hitnum,alltargets,showanimation)
     if opponent.damagestate.calcdamage>0 && opponent.isFainted?
       if attacker.pbCanIncreaseStatStage?(PBStats::ATTACK,attacker,false,self)
-        attacker.pbIncreaseStat(PBStats::ATTACK,1,attacker,false,self,showanim)
-        showanim=false
+        attacker.pbIncreaseStat(PBStats::ATTACK,1,attacker,false,self,true)
       end
         attacker.pbRecoverHP(((attacker.totalhp+3)/6).floor,true)
     end
@@ -11201,7 +11191,7 @@ class PokeBattle_Move_181 < PokeBattle_Move
       return -1
     end
     pbShowAnimation(@id,attacker,opponent,hitnum,alltargets,showanimation)
-    ret=-1; showanim=true
+    ret=-1; showanim='mix' # Was true
     if opponent.pbReduceStat(PBStats::ATTACK,3,attacker,false,self,showanim)
       ret=0; showanim=false
     end
@@ -11786,9 +11776,8 @@ class PokeBattle_Move_196 < PokeBattle_Move
         @battle.pbDisplay(_INTL("{1} emptied the battlefield",attacker.pbThis))
         return 0
       else # LEGO
-        showanim=true
-        if opponent.pbReduceStat(PBStats::DEFENSE,1,attacker,false,self,showanim)
-          ret=0;showanim=false
+        if opponent.pbReduceStat(PBStats::DEFENSE,1,attacker,false,self,true)
+          ret=0;
         return 0
       end
     end
@@ -12123,7 +12112,7 @@ class PokeBattle_Move_203 < PokeBattle_Move
   
   def pbAdditionalEffect(attacker,opponent)
     if attacker.turncount<2
-      showanim=true
+      showanim='mix' # Was true
       if opponent.pbCanReduceStatStage?(PBStats::ATTACK,false)
         opponent.pbReduceStat(PBStats::ATTACK,2,attacker,false,self,showanim)
         showanim=false
@@ -13075,11 +13064,9 @@ class PokeBattle_Move_253 < PokeBattle_Move
       next if !i.pbCanIncreaseStatStage?(PBStats::ACCURACY,attacker,false,self)
       pbShowAnimation(@id,attacker,nil,hitnum,alltargets,showanimation) if !didsomething
       didsomething=true
-      showanim=true
       upping = (i.pbHasType?(:MIND) || isUltraBlue?(i)) ? 2 : 1
       if i.pbCanIncreaseStatStage?(PBStats::ACCURACY,attacker,false,self)
-        i.pbIncreaseStat(PBStats::ACCURACY,upping,attacker,false,self,showanim)
-        showanim=false
+        i.pbIncreaseStat(PBStats::ACCURACY,upping,attacker,false,self,true)
       end
     end
     if !didsomething
@@ -13745,7 +13732,7 @@ class PokeBattle_Move_296 < PokeBattle_Move
       return -1
     end
     pbShowAnimation(@id,attacker,opponent,hitnum,alltargets,showanimation)
-    showanim=true
+    showanim='mix' # Was true
     increment=1
     if @battle.pbWeather==PBWeather::SUNNYDAY ||
        @battle.pbWeather==PBWeather::HARSHSUN && !attacker.hasWorkingItem(:UTILITYUMBRELLA)
@@ -13776,17 +13763,11 @@ class PokeBattle_Move_297 < PokeBattle_Move
       next if !i.pbCanReduceStatStage?(PBStats::EVASION,attacker,false,self) && !i.pbHasType?(:JELLY)
       pbShowAnimation(@id,attacker,nil,hitnum,alltargets,showanimation) if !didsomething
       didsomething=true
-      showanim=true
-      showanim2=true
       if i.pbCanIncreaseStatStage?(PBStats::EVASION,attacker,false,self) && i.pbHasType?(:JELLY)
-        i.pbIncreaseStat(PBStats::EVASION,1,attacker,false,self,showanim)
-        showanim=false
-        showanim2=true
+        i.pbIncreaseStat(PBStats::EVASION,1,attacker,false,self,true)
       end
       if i.pbCanReduceStatStage?(PBStats::EVASION,attacker,false,self) && !i.pbHasType?(:JELLY)
-        i.pbReduceStat(PBStats::EVASION,1,attacker,false,self,showanim2)
-        showanim2=false
-        showanim=true
+        i.pbReduceStat(PBStats::EVASION,1,attacker,false,self,true)
       end
     end
     if !didsomething
@@ -13997,17 +13978,11 @@ class PokeBattle_Move_323 < PokeBattle_Move
       next if !i.pbCanReduceStatStage?(PBStats::ACCURACY,attacker,false,self) && !i.pbHasType?(:DOOM)
       pbShowAnimation(@id,attacker,nil,hitnum,alltargets,showanimation) if !didsomething
       didsomething=true
-      showanim=true
-      showanim2=true
       if i.pbCanIncreaseStatStage?(PBStats::ACCURACY,attacker,false,self) && i.pbHasType?(:DOOM)
-        i.pbIncreaseStat(PBStats::ACCURACY,1,attacker,false,self,showanim)
-        showanim=false
-        showanim2=true
+        i.pbIncreaseStat(PBStats::ACCURACY,1,attacker,false,self,true)
       end
       if i.pbCanReduceStatStage?(PBStats::ACCURACY,attacker,false,self) && !i.pbHasType?(:DOOM)
-        i.pbReduceStat(PBStats::ACCURACY,1,attacker,false,self,showanim2)
-        showanim2=false
-        showanim=true
+        i.pbReduceStat(PBStats::ACCURACY,1,attacker,false,self,true)
       end
     end
     if !didsomething
@@ -14033,17 +14008,11 @@ class PokeBattle_Move_324 < PokeBattle_Move
       next if !i.pbCanReduceStatStage?(PBStats::ACCURACY,attacker,false,self) && !i.pbHasType?(:ELECTRIC)
       pbShowAnimation(@id,attacker,nil,hitnum,alltargets,showanimation) if !didsomething
       didsomething=true
-      showanim=true
-      showanim2=true
       if i.pbCanIncreaseStatStage?(PBStats::ACCURACY,attacker,false,self) && i.pbHasType?(:ELECTRIC)
-        i.pbIncreaseStat(PBStats::ACCURACY,1,attacker,false,self,showanim)
-        showanim=false
-        showanim2=true
+        i.pbIncreaseStat(PBStats::ACCURACY,1,attacker,false,self,true)
       end
       if i.pbCanReduceStatStage?(PBStats::ACCURACY,attacker,false,self) && !i.pbHasType?(:ELECTRIC)
-        i.pbReduceStat(PBStats::ACCURACY,1,attacker,false,self,showanim2)
-        showanim2=false
-        showanim=true
+        i.pbReduceStat(PBStats::ACCURACY,1,attacker,false,self,true)
       end
     end
     if !didsomething
@@ -14704,7 +14673,7 @@ class PokeBattle_Move_213 < PokeBattle_Move
         end
       end
       @battle.pbDisplay(_INTL("{1} stole the target's boosted stats!",attacker.pbThis))
-      showanim=true
+      showanim='mix' # Was true
       for i in 1...8
         if attacker.pbCanIncreaseStatStage?(i,attacker,true) && stolenstats[i]>0
           attacker.pbIncreaseStat(i,stolenstats[i],attacker,false,self,showanim)
@@ -14760,7 +14729,7 @@ class PokeBattle_Move_215 < PokeBattle_Move
               !i.pbCanIncreaseStatStage?(PBStats::SPATK,attacker,false,self)
       pbShowAnimation(@id,attacker,nil,hitnum,alltargets,showanimation) if !didsomething
       didsomething=true
-      showanim=true
+      showanim='mix' # Was true
       if i.pbCanIncreaseStatStage?(PBStats::ATTACK,attacker,false,self)
         i.pbIncreaseStat(PBStats::ATTACK,1,attacker,false,self,showanim)
         showanim=false
@@ -15358,7 +15327,7 @@ end
 class PokeBattle_Move_260 < PokeBattle_Move
   def pbEffect(attacker,opponent,hitnum=0,alltargets=nil,showanimation=true)
     pbShowAnimation(@id,attacker,opponent,hitnum,alltargets,showanimation)
-    ret=-1; showanim=true
+    ret=-1; showanim='mix' # Was true
     if attacker.effects[PBEffects::NoRetreat] && !attacker.effects[PBEffects::MeanLook]
 			pbSEPlay("protection")
       @battle.pbDisplay(_INTL("But it failed!"))
@@ -15499,7 +15468,7 @@ class PokeBattle_Move_263 < PokeBattle_Move
       return -1
     end
     pbShowAnimation(@id,attacker,opponent,hitnum,alltargets,showanimation)
-    showanim=true
+    showanim='mix' # Was true
     if opponent.pbCanIncreaseStatStage?(PBStats::ATTACK,attacker,false,self)
       opponent.pbIncreaseStat(PBStats::ATTACK,2,attacker,false,self,showanim)
       showanim=false
@@ -15627,7 +15596,7 @@ class PokeBattle_Move_267 < PokeBattle_Move
     end
     pbShowAnimation(@id,attacker,nil,hitnum,alltargets,showanimation)
     attacker.pbActivateBerryEffect(attacker.item,false) if attacker.hasWorkingBerry
-    showanim=true
+    showanim='mix' # Was true
     if attacker.pbCanIncreaseStatStage?(PBStats::DEFENSE,attacker,false,self)
       attacker.pbIncreaseStat(PBStats::DEFENSE,2,attacker,false,self,showanim)
       showanim=false
@@ -15692,7 +15661,7 @@ end
 class PokeBattle_Move_271 < PokeBattle_Move
   def pbEffect(attacker,opponent,hitnum=0,alltargets=nil,showanimation=true)
     pbShowAnimation(@id,attacker,opponent,hitnum,alltargets,showanimation)
-    ret=-1; showanim=true
+    ret=-1; showanim='mix' # Was true
       sublife=[(attacker.totalhp/6).floor,1].max
     if attacker.hp<=sublife
 			pbSEPlay("protection")
@@ -15854,13 +15823,13 @@ end
 class PokeBattle_Move_280 < PokeBattle_Move
   def pbEffect(attacker,opponent,hitnum=0,alltargets=nil,showanimation=true)
     pbShowAnimation(@id,attacker,opponent,hitnum,alltargets,showanimation)
-    ret=-1; showanim=true
+    ret=-1;
     if attacker.pbCanIncreaseStatStage?(PBStats::ATTACK,attacker,false,self)
-      attacker.pbIncreaseStat(PBStats::ATTACK,1,attacker,false,self,showanim)
+      attacker.pbIncreaseStat(PBStats::ATTACK,1,attacker,false,self,true)
       ret=0
     end
     if attacker.pbPartner.pbCanIncreaseStatStage?(PBStats::ATTACK,attacker,false,self) && $USENEWBATTLEMECHANICS
-      attacker.pbPartner.pbIncreaseStat(PBStats::ATTACK,1,attacker,false,self,showanim)
+      attacker.pbPartner.pbIncreaseStat(PBStats::ATTACK,1,attacker,false,self,true)
       ret=0
     end
     return ret
@@ -16163,7 +16132,7 @@ class PokeBattle_Move_317 < PokeBattle_Move
     end
     return super(attacker,opponent,hitnum,alltargets,showanimation) if pbIsDamaging?
     pbShowAnimation(@id,attacker,opponent,hitnum,alltargets,showanimation)
-    showanim=true
+    showanim='mix' # Was true
     if opponent.pbCanIncreaseStatStage?(PBStats::ATTACK,attacker,false,self)
       opponent.pbIncreaseStat(PBStats::ATTACK,1,attacker,false,self,showanim)
       showanim=false

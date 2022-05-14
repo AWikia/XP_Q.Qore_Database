@@ -790,7 +790,19 @@ class PokeBattle_Battler
         if ignoreContrary
           @battle.pbDisplay(_INTL("{1}'s {2} activated!",pbThis,PBAbilities.getName(self.ability))) if upanim
         end
-        @battle.pbCommonAnimation("StatUp",self,nil) if upanim
+        if upanim
+          if upanim == 'mix'
+            @battle.pbCommonAnimation("StatUp",self,nil)
+          else
+            @battle.pbCommonAnimation("StatUpAttack",self,nil)   if stat==PBStats::ATTACK
+            @battle.pbCommonAnimation("StatUpDefense",self,nil)  if stat==PBStats::DEFENSE
+            @battle.pbCommonAnimation("StatUpSpAtk",self,nil)    if stat==PBStats::SPATK
+            @battle.pbCommonAnimation("StatUpSpDef",self,nil)    if stat==PBStats::SPDEF
+            @battle.pbCommonAnimation("StatUpSpeed",self,nil)    if stat==PBStats::SPEED
+            @battle.pbCommonAnimation("StatUpEvasion",self,nil)  if stat==PBStats::EVASION
+            @battle.pbCommonAnimation("StatUpAccuracy",self,nil) if stat==PBStats::ACCURACY
+          end
+        end
         arrStatTexts=[_INTL("{1}'s {2} rose!",pbThis,PBStats.getName(stat)),
            _INTL("{1}'s {2} rose sharply!",pbThis,PBStats.getName(stat)),
            _INTL("{1}'s {2} rose drastically!",pbThis,PBStats.getName(stat))]
@@ -823,7 +835,19 @@ class PokeBattle_Battler
         if ignoreContrary
           @battle.pbDisplay(_INTL("{1}'s {2} activated!",pbThis,PBAbilities.getName(self.ability))) if showanim
         end
-        @battle.pbCommonAnimation("StatUp",self,nil) if showanim
+        if showanim
+          if showanim == 'mix'
+            @battle.pbCommonAnimation("StatUp",self,nil)
+          else
+            @battle.pbCommonAnimation("StatUpAttack",self,nil)   if stat==PBStats::ATTACK
+            @battle.pbCommonAnimation("StatUpDefense",self,nil)  if stat==PBStats::DEFENSE
+            @battle.pbCommonAnimation("StatUpSpAtk",self,nil)    if stat==PBStats::SPATK
+            @battle.pbCommonAnimation("StatUpSpDef",self,nil)    if stat==PBStats::SPDEF
+            @battle.pbCommonAnimation("StatUpSpeed",self,nil)    if stat==PBStats::SPEED
+            @battle.pbCommonAnimation("StatUpEvasion",self,nil)  if stat==PBStats::EVASION
+            @battle.pbCommonAnimation("StatUpAccuracy",self,nil) if stat==PBStats::ACCURACY
+          end
+        end
         if attacker.index==self.index
           arrStatTexts=[_INTL("{1}'s {2} raised its {3}!",pbThis,cause,PBStats.getName(stat)),
              _INTL("{1}'s {2} sharply raised its {3}!",pbThis,cause,PBStats.getName(stat)),
@@ -985,7 +1009,19 @@ class PokeBattle_Battler
         if ignoremirror
           @battle.pbDisplay(_INTL("{1}'s {2} activated!",attacker.pbThis,PBAbilities.getName(attacker.ability))) if downanim
         end
-        @battle.pbCommonAnimation("StatDown",self,nil) if downanim
+        if downanim
+          if downanim == 'mix'
+            @battle.pbCommonAnimation("StatDown",self,nil)
+          else
+            @battle.pbCommonAnimation("StatDownAttack",self,nil)   if stat==PBStats::ATTACK
+            @battle.pbCommonAnimation("StatDownDefense",self,nil)  if stat==PBStats::DEFENSE
+            @battle.pbCommonAnimation("StatDownSpAtk",self,nil)    if stat==PBStats::SPATK
+            @battle.pbCommonAnimation("StatDownSpDef",self,nil)    if stat==PBStats::SPDEF
+            @battle.pbCommonAnimation("StatDownSpeed",self,nil)    if stat==PBStats::SPEED
+            @battle.pbCommonAnimation("StatDownEvasion",self,nil)  if stat==PBStats::EVASION
+            @battle.pbCommonAnimation("StatDownAccuracy",self,nil) if stat==PBStats::ACCURACY
+          end
+        end        
         arrStatTexts=[_INTL("{1}'s {2} fell!",pbThis,PBStats.getName(stat)),
            _INTL("{1}'s {2} harshly fell!",pbThis,PBStats.getName(stat)),
            _INTL("{1}'s {2} severely fell!",pbThis,PBStats.getName(stat))]
@@ -1046,7 +1082,19 @@ class PokeBattle_Battler
         if ignoremirror
           @battle.pbDisplay(_INTL("{1}'s {2} activated!",attacker.pbThis,PBAbilities.getName(attacker.ability))) if showanim
         end
-        @battle.pbCommonAnimation("StatDown",self,nil) if showanim
+        if showanim
+          if showanim == 'mix'
+            @battle.pbCommonAnimation("StatDown",self,nil)
+          else
+            @battle.pbCommonAnimation("StatDownAttack",self,nil)   if stat==PBStats::ATTACK
+            @battle.pbCommonAnimation("StatDownDefense",self,nil)  if stat==PBStats::DEFENSE
+            @battle.pbCommonAnimation("StatDownSpAtk",self,nil)    if stat==PBStats::SPATK
+            @battle.pbCommonAnimation("StatDownSpDef",self,nil)    if stat==PBStats::SPDEF
+            @battle.pbCommonAnimation("StatDownSpeed",self,nil)    if stat==PBStats::SPEED
+            @battle.pbCommonAnimation("StatDownEvasion",self,nil)  if stat==PBStats::EVASION
+            @battle.pbCommonAnimation("StatDownAccuracy",self,nil) if stat==PBStats::ACCURACY
+          end
+        end        
         if attacker.index==self.index
           arrStatTexts=[_INTL("{1}'s {2} lowered its {3}!",pbThis,cause,PBStats.getName(stat)),
              _INTL("{1}'s {2} harshly lowered its {3}!",pbThis,cause,PBStats.getName(stat)),

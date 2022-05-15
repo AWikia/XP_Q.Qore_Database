@@ -1464,7 +1464,7 @@ class PokeBattle_Battler
     if transformed
       pbUpdate(true)
       @battle.scene.pbChangePokemon(self,@pokemon)
-      pbSEPlay("SWCHAR")
+      pbSEPlay("GUI party switch")
       @battle.pbDisplay(_INTL("{1} transformed!",pbThis))
       PBDebug.log("[Form changed] #{pbThis} changed to form #{self.form}")
     end
@@ -2297,7 +2297,7 @@ class PokeBattle_Battler
           if oldform != target.form
             target.pbUpdate(true)
             @battle.scene.pbChangePokemon(target,target.pokemon)
-            pbSEPlay("SWCHAR")
+            pbSEPlay("GUI party switch")
             @battle.pbDisplay(_INTL("{1} transformed!",target.pbThis))
             PBDebug.log("[Form changed] #{pbThis} changed to form #{self.form}")
           end

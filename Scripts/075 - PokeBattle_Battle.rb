@@ -4567,7 +4567,7 @@ class PokeBattle_Battle
         i.form=(i.form+1)%2
         i.pbUpdate(true)
         scene.pbChangePokemon(i,i.pokemon)
-        pbSEPlay("SWCHAR")
+        pbSEPlay("GUI party switch")
         pbDisplay(_INTL("{1} transformed!",i.pbThis))
       end
       if i.isFainted?

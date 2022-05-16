@@ -219,8 +219,9 @@ class PokemonBag_Scene
       @sprites["bag"].setBitmap("Graphics/Pictures/bag#{@bag.lastpocket}")
     end
     # Draw the pocket name
+    itemwindow=@sprites["itemwindow"]
     name=PokemonBag.pocketNames()[@bag.lastpocket]
-    @sprites["header"].text=name
+    @sprites["header"].text=(itemwindow.item==0) ? name : name + " - " + PBItems.getName(itemwindow.item)
     if (!isDarkMode?)
       base=POCKETNAMEBASECOLOR
       shadow=POCKETNAMESHADOWCOLOR
@@ -236,7 +237,6 @@ class PokemonBag_Scene
     @sprites["leftarrow"].y=90
     @sprites["rightarrow"].x=150
     @sprites["rightarrow"].y=90
-    itemwindow=@sprites["itemwindow"]
     # Draw the slider
     ycoord=78
     if itemwindow.itemCount>1
@@ -262,6 +262,8 @@ class PokemonBag_Scene
     sortindex=-1
     pbActivateWindow(@sprites,"itemwindow"){
        loop do
+         name=PokemonBag.pocketNames()[@bag.lastpocket]
+         @sprites["header"].text=(itemwindow.item==0) ? name : name + " - " + PBItems.getName(itemwindow.item)
          Graphics.update
          Input.update
          olditem=itemwindow.item

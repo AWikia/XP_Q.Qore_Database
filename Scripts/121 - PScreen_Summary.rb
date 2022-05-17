@@ -392,7 +392,11 @@ class PokemonSummaryScene
  #      [_INTL("Trainer Information"),26,8,0,base,shadow,1],
        [pokemon.name,46,62,0,base,shadow],
     ]
-    textpos.push([_INTL("\"The Egg Watch\""),360,204,0,shadow2,nil,0])
+    if pokemon.isRB?
+      textpos.push([_INTL("Remote Box Battery"),360,204,0,shadow2,nil,0])
+    else
+      textpos.push([_INTL("The Egg Watch"),360,204,0,shadow2,nil,0])
+    end
     pbDrawTextPositions(overlay,textpos)
     memo=""
     if pokemon.timeReceived
@@ -416,10 +420,17 @@ class PokemonSummaryScene
       memo+=_INTL("<c3={1},{2}>A mysterious Pokémon Egg received from <c3={3},{4}>{5}<c3={1},{2}>.\n",colorToRgb32(base),colorToRgb32(shadow),redbase,redshadow,mapname)
     end
     memo+=_INTL("<c3={1},{2}>\n",colorToRgb32(base),colorToRgb32(shadow))
-    eggstate=_INTL("It looks like this Egg will take a long time to hatch.")
-    eggstate=_INTL("What will hatch from this? It doesn't seem close to hatching.") if pokemon.eggsteps<10200
-    eggstate=_INTL("It appears to move occasionally. It may be close to hatching.") if pokemon.eggsteps<2550
-    eggstate=_INTL("Sounds can be heard coming from inside! It will hatch soon!") if pokemon.eggsteps<1275
+    if pokemon.isRB?
+      eggstate=_INTL("It looks like the Remote Box's battery is in its prime.")
+      eggstate=_INTL("Remote Box's battery is currently in a good condition.") if shadowfract*100 < 76
+      eggstate=_INTL("Remote Box's battery is close to run out. It may be close to open!") if shadowfract*100 < 51
+      eggstate=_INTL("Remote Box's battery is about to run out! It will open soon!") if shadowfract*100 < 26
+    else
+      eggstate=_INTL("It looks like this Egg will take a long time to hatch.")
+      eggstate=_INTL("What will hatch from this? It doesn't seem close to hatching.") if pokemon.eggsteps<10200
+      eggstate=_INTL("It appears to move occasionally. It may be close to hatching.") if pokemon.eggsteps<2550
+      eggstate=_INTL("Sounds can be heard coming from inside! It will hatch soon!") if pokemon.eggsteps<1275
+    end
     eggstatemsg=sprintf("<c3=%s,%s>%s\n",colorToRgb32(base),colorToRgb32(shadow),eggstate)
     drawFormattedTextEx(overlay,360,268,272,eggstatemsg)
     drawFormattedTextEx(overlay,360,78,276,memo)
@@ -515,7 +526,8 @@ class PokemonSummaryScene
                _INTL("Egg received."),
                _INTL("Traded at Lv. {1}.",pokemon.obtainLevel),
                "",
-               _INTL("Had a fateful encounter at Lv. {1}.",pokemon.obtainLevel)
+               _INTL("Had a fateful encounter at Lv. {1}.",pokemon.obtainLevel),
+               _INTL("Remote Box received.")
                ][pokemon.obtainMode]
       memo+=sprintf("<c3=%s,%s>%s\n",colorToRgb32(base),colorToRgb32(shadow),mettext)
       if pokemon.obtainMode==1 # hatched
@@ -532,6 +544,20 @@ class PokemonSummaryScene
           memo+=_INTL("<c3={1},{2}>Unknown area\n",redbase,redshadow)
         end
         memo+=_INTL("<c3={1},{2}>Egg hatched.\n",colorToRgb32(base),colorToRgb32(shadow))
+      elsif pokemon.obtainMode==5 # Box opened
+        if pokemon.timeEggHatched
+          month=pbGetAbbrevMonthName(pokemon.timeEggHatched.mon)
+          date=pokemon.timeEggHatched.day
+          year=pokemon.timeEggHatched.year
+          memo+=_INTL("<c3={1},{2}>{3} {4}, {5}\n",colorToRgb32(base),colorToRgb32(shadow),month,date,year)
+        end
+        mapname=pbGetMapNameFromId(pokemon.hatchedMap)
+        if mapname && mapname!=""
+          memo+=sprintf("<c3=%s,%s>%s\n",redbase,redshadow,mapname)
+        else
+          memo+=_INTL("<c3={1},{2}>Unknown area\n",redbase,redshadow)
+        end
+        memo+=_INTL("<c3={1},{2}>Remote Box opened.\n",colorToRgb32(base),colorToRgb32(shadow))
       else
         memo+=_INTL("<c3={1},{2}>\n",colorToRgb32(base),colorToRgb32(shadow))
       end

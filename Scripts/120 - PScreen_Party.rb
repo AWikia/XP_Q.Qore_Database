@@ -1160,7 +1160,10 @@ class PokemonScreen
 
   def pbGiveMail(item,pkmn,pkmnid=0)
     thisitemname=PBItems.getName(item)
-    if pkmn.isEgg?
+    if pkmn.isRB?
+      pbDisplay(_INTL("Remote Boxes can't hold items."))
+      return false
+    elsif pkmn.isEgg?
       pbDisplay(_INTL("Eggs can't hold items."))
       return false
     elsif pkmn.mail
@@ -1225,6 +1228,8 @@ class PokemonScreen
       pkmn=@party[pkmnid]
       if pkmn.item!=0 || pkmn.mail
         pbDisplay(_INTL("This Pokémon is holding an item. It can't hold mail."))
+      elsif pkmn.isRB?
+        pbDisplay(_INTL("Remote Boxes can't hold mail."))
       elsif pkmn.isEgg?
         pbDisplay(_INTL("Eggs can't hold mail."))
       else
@@ -1984,10 +1989,12 @@ class PokemonScreen
       when 17
         cmd=0
         loop do
-          msg=[_INTL("Not an egg"),
-               _INTL("Egg with eggsteps: {1}.",pkmn.eggsteps)][pkmn.isEgg? ? 1 : 0]
+          msg=[_INTL("Not an egg or remote box"),
+               _INTL("Egg with eggsteps: {1}.",pkmn.eggsteps),
+               _INTL("Remote Box with {1} steps remaning.",pkmn.eggsteps)][pkmn.isRB? ? 2 : pkmn.isEgg? ? 1 : 0]
           cmd=@scene.pbShowCommands(msg,[
                _INTL("Make egg"),
+               _INTL("Make Remote Box"),
                _INTL("Make Pokémon"),
                _INTL("Set eggsteps to 1")],cmd)
           # Break
@@ -2006,17 +2013,32 @@ class PokemonScreen
               dexdata.close
               pkmn.hatchedMap=0
               pkmn.obtainMode=1
+              pkmn.removeRB if pkmn.isRB?
               pbRefreshSingle(pkmnid)
             end
-          # Make Pokémon
+          # Make remote box
           elsif cmd==1
+            pkmn.level=50
+            pkmn.calcStats
+            pkmn.name=_INTL("Remote Box")
+            dexdata=pbOpenDexData
+            pbDexDataOffset(dexdata,pkmn.species,21)
+            pkmn.eggsteps=dexdata.fgetw
+            dexdata.close
+            pkmn.hatchedMap=0
+            pkmn.obtainMode=5
+            pkmn.makeRB
+            pbRefreshSingle(pkmnid)
+          # Make Pokémon
+          elsif cmd==2
             pkmn.name=PBSpecies.getName(pkmn.species)
             pkmn.eggsteps=0
             pkmn.hatchedMap=0
             pkmn.obtainMode=0
+            pkmn.removeRB if pkmn.isRB?
             pbRefreshSingle(pkmnid)
           # Set eggsteps to 1
-          elsif cmd==2
+          elsif cmd==3
             pkmn.eggsteps=1 if pkmn.eggsteps>0
           end
         end
@@ -2139,6 +2161,8 @@ class PokemonScreen
               newpkmn=@party[pkmnid]
               if pkmnid==oldpkmnid
                 pbDisplay(_INTL("{1} can't use {2} on itself!",pkmn.name,PBMoves.getName(pkmn.moves[i].id)))
+              elsif newpkmn.isRB?
+                pbDisplay(_INTL("{1} can't be used on a Remote Box!",PBMoves.getName(pkmn.moves[i].id)))
               elsif newpkmn.isEgg?
                 pbDisplay(_INTL("{1} can't be used on an Egg!",PBMoves.getName(pkmn.moves[i].id)))
               elsif newpkmn.hp==0 || newpkmn.hp==newpkmn.totalhp
@@ -2168,6 +2192,8 @@ class PokemonScreen
               newpkmn=@party[pkmnid]
               if pkmnid==oldpkmnid
                 pbDisplay(_INTL("{1} can't use {2} on itself!",pkmn.name,PBMoves.getName(pkmn.moves[i].id)))
+              elsif newpkmn.isRB?
+                pbDisplay(_INTL("{1} can't be used on a Remote Box!",PBMoves.getName(pkmn.moves[i].id)))
               elsif newpkmn.isEgg?
                 pbDisplay(_INTL("{1} can't be used on an Egg!",PBMoves.getName(pkmn.moves[i].id)))
               elsif newpkmn.hp==0 || newpkmn.hp==newpkmn.totalhp
@@ -2200,6 +2226,8 @@ class PokemonScreen
               end
               if pkmnid==oldpkmnid
                 pbDisplay(_INTL("{1} can't use {2} on itself!",pkmn.name,PBMoves.getName(pkmn.moves[i].id)))
+              elsif newpkmn.isRB?
+                pbDisplay(_INTL("{1} can't be used on a Remote Box!",PBMoves.getName(pkmn.moves[i].id)))
               elsif newpkmn.isEgg?
                 pbDisplay(_INTL("{1} can't be used on an Egg!",PBMoves.getName(pkmn.moves[i].id)))
               elsif newpkmn.hp==0 || newpkmn.hp==newpkmn.totalhp
@@ -2297,6 +2325,8 @@ class PokemonScreen
             newpkmn=@party[pkmnid]
             if pkmnid==oldpkmnid
               break
+            elsif newpkmn.isRB?
+              pbDisplay(_INTL("Remote Boxes can't hold items."))
             elsif newpkmn.isEgg?
               pbDisplay(_INTL("Eggs can't hold items."))
             elsif !newpkmn.hasItem?

@@ -278,6 +278,9 @@ class PokeBattle_Battler
   end
 
   def pbInitPokemon(pkmn,pkmnIndex)
+    if pkmn.isRB?
+      raise _INTL("An Remote Box can't be an active Pokémon")
+    end
     if pkmn.isEgg?
       raise _INTL("An egg can't be an active Pokémon")
     end
@@ -328,6 +331,9 @@ class PokeBattle_Battler
   end
 
   def pbInitDummyPokemon(pkmn,pkmnIndex)
+    if pkmn.isRB?
+      raise _INTL("An Remote Box can't be an active Pokémon")
+    end
     if pkmn.isEgg?
       raise _INTL("An egg can't be an active Pokémon")
     end

@@ -41,13 +41,14 @@ def timecapQV # IE => Q.Qore
     if pkmn.name==PBSpecies.getName(pkmn.species).upcase
       pkmn.name=PBSpecies.getName(pkmn.species)
     end
-    pkmn.obtainMode=5
+    pkmn.obtainMode=0
     pkmn.obtainLevel=pkmn.level
     if $game_map
       pkmn.obtainMap=$game_map.map_id
     end
     pkmn.migrated=true
     pbAddPokemon(pkmn)
+    
     newspecies=pbTradeCheckEvolution(pkmn,pkmn)
     if newspecies>0
       evo=PokemonEvolutionScene.new
@@ -93,7 +94,7 @@ def timecapQQ # Q.Qore => IE
     if pkmn.name==PBSpecies.getName(pkmn.species).upcase
       pkmn.name=PBSpecies.getName(pkmn.species)
     end
-    pkmn.obtainMode=5
+    pkmn.obtainMode=0
     pkmn.obtainLevel=pkmn.level
     if $game_map
       pkmn.obtainMap=$game_map.map_id
@@ -146,7 +147,7 @@ def timecapPF # PFG
     if pkmn.name==PBSpecies.getName(pkmn.species).upcase
       pkmn.name=PBSpecies.getName(pkmn.species)
     end
-    pkmn.obtainMode=5
+    pkmn.obtainMode=0
     pkmn.obtainLevel=pkmn.level
     if $game_map
       pkmn.obtainMap=$game_map.map_id

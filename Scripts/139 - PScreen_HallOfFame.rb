@@ -23,7 +23,7 @@ class HallOfFameScene
   # Speed in pokémon movement in hall entry. Don't use less than 2!
   ANIMATIONSPEED = 40 # Was 30
   # Entry wait time between each pokémon (and trainer) is show
-  ENTRYWAITTIME = 999 # Was 130
+  ENTRYWAITTIME = 130 # Was 130
   # Maximum number limit of simultaneous hall entries saved. 
   # 0 = Doesn't save any hall. -1 = no limit
   # Prefer to use larger numbers (like 500 and 1000) than don't put a limit
@@ -367,6 +367,7 @@ class HallOfFameScene
     end
     pokename+="/"+speciesname
     pokename=_INTL("Egg")+"/"+_INTL("Egg") if pokemon.isEgg?
+    pokename=_INTL("Remote Box")+"/"+_INTL("Remote Box") if pokemon.isRB?
     idno=(pokemon.ot=="" || pokemon.isEgg?) ? "?????" : 
        sprintf("%05d",pokemon.publicID)
     fdexno = getDexNumber(pokemon.species)

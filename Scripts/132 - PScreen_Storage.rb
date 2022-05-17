@@ -241,7 +241,10 @@ class PokemonStorageScreen
     index=selected[1]
     pokemon=(heldpoke)?heldpoke:@storage[box,index]
     return if !pokemon
-    if pokemon.isEgg?
+    if pokemon.isRB?
+      pbDisplay(_INTL("You can't release a Pokémon inside a Remote Box."))
+      return false
+    elsif pokemon.isEgg?
       pbDisplay(_INTL("You can't release an Egg."))
       return false
     elsif pokemon.mail
@@ -418,7 +421,10 @@ class PokemonStorageScreen
     box=selected[0]
     index=selected[1]
     pokemon=(heldpoke) ? heldpoke : @storage[box,index]
-    if pokemon.isEgg?
+    if pokemon.isRB?
+      pbDisplay(_INTL("Remote Boxes can't hold items."))
+      return
+    elsif pokemon.isEgg?
       pbDisplay(_INTL("Eggs can't hold items."))
       return
     elsif pokemon.mail
@@ -1270,10 +1276,12 @@ class PokemonStorageScreen
       when 16
         cmd=0
         loop do
-          msg=[_INTL("Not an egg"),
-               _INTL("Egg with eggsteps: {1}.",pkmn.eggsteps)][pkmn.isEgg? ? 1 : 0]
+          msg=[_INTL("Not an egg or remote box"),
+               _INTL("Egg with eggsteps: {1}.",pkmn.eggsteps),
+               _INTL("Remote Box with {1} steps remaning.",pkmn.eggsteps)][pkmn.isRB? ? 2 : pkmn.isEgg? ? 1 : 0]
           cmd=@scene.pbShowCommands(msg,[
                _INTL("Make egg"),
+               _INTL("Make Remote Box"),
                _INTL("Make Pokémon"),
                _INTL("Set eggsteps to 1")],cmd)
           # Break
@@ -1292,17 +1300,32 @@ class PokemonStorageScreen
               dexdata.close
               pkmn.hatchedMap=0
               pkmn.obtainMode=1
+              pkmn.removeRB if pkmn.isRB?
               @scene.pbHardRefresh
             end
-          # Make Pokémon
+          # Make remote box
           elsif cmd==1
+            pkmn.level=50
+            pkmn.calcStats
+            pkmn.name=_INTL("Remote Box")
+            dexdata=pbOpenDexData
+            pbDexDataOffset(dexdata,pkmn.species,21)
+            pkmn.eggsteps=dexdata.fgetw
+            dexdata.close
+            pkmn.hatchedMap=0
+            pkmn.obtainMode=5
+            pkmn.makeRB
+            @scene.pbHardRefresh
+          # Make Pokémon
+          elsif cmd==2
             pkmn.name=PBSpecies.getName(pkmn.species)
             pkmn.eggsteps=0
             pkmn.hatchedMap=0
             pkmn.obtainMode=0
+            pkmn.removeRB if pkmn.isRB?
             @scene.pbHardRefresh
           # Set eggsteps to 1
-          elsif cmd==2
+          elsif cmd==3
             pkmn.eggsteps=1 if pkmn.eggsteps>0
           end
         end

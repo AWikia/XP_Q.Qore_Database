@@ -111,7 +111,12 @@ class PokemonEggHatchScene
     pbPlayCry(@pokemon)
     updateScene(frames)
     pbMEPlay("EvolutionSuccess")
-    Kernel.pbMessage(_INTL("\\se[]{1} hatched from the Egg!\\wt[80]",@pokemon.name)) { update }
+    if @pokemon.remoteBox==1
+      Kernel.pbMessage(_INTL("\\se[]{1} released from its Remote Box!\\wt[80]",@pokemon.name)) { update }
+      @pokemon.removeRB
+    else
+      Kernel.pbMessage(_INTL("\\se[]{1} hatched from the Egg!\\wt[80]",@pokemon.name)) { update }
+    end
     if Kernel.pbConfirmMessage(
         _INTL("Would you like to nickname the newly hatched {1}?",@pokemon.name)) { update }
       nickname=pbEnterPokemonName(_INTL("{1}'s nickname?",@pokemon.name),0,10,"",@pokemon,true)
@@ -209,7 +214,12 @@ def pbHatch(pokemon)
     Kernel.pbMessage(_INTL("Huh?\1"))
     Kernel.pbMessage(_INTL("...\1"))
     Kernel.pbMessage(_INTL("... .... .....\1"))
-    Kernel.pbMessage(_INTL("{1} hatched from the Egg!",speciesname))
+    if pokemon.remoteBox==1
+      Kernel.pbMessage(_INTL("{1} released from its Remote Box!",speciesname))
+      pokemon.removeRB
+    else
+      Kernel.pbMessage(_INTL("{1} hatched from the Egg!",speciesname))
+    end
     if Kernel.pbConfirmMessage(_INTL("Would you like to nickname the newly hatched {1}?",speciesname))
       species=PBSpecies.getName(pokemon.species)
       nickname=pbEnterPokemonName(_INTL("{1}'s nickname?",speciesname),0,10,"",pokemon)
@@ -223,23 +233,41 @@ Events.onStepTaken+=proc {|sender,e|
    next if !$Trainer
    for egg in $Trainer.party
      if egg.eggsteps>0
-       egg.eggsteps-=1
+       egg.eggsteps-=1 if !egg.isRB? # This is handled elsewhere for remote boxes
        for i in $Trainer.pokemonParty
-         if isConst?(i.ability,PBAbilities,:FINITI)
-           egg.eggsteps-=[rand(4),rand(4)].min
-         end
-         if isConst?(i.ability,PBAbilities,:NERVOUSCRACK)
-           egg.eggsteps-=[rand(100),rand(100)].min
-           break
-         end
-         if isConst?(i.ability,PBAbilities,:SIAXIS)
-           egg.eggsteps-=1
-         end
-         if isConst?(i.ability,PBAbilities,:FLAMEBODY) ||
-            isConst?(i.ability,PBAbilities,:MAGMAARMOR) ||
-            isConst?(i.ability,PBAbilities,:STEAMENGINE)
-           egg.eggsteps-=1
-#           break
+         if egg.isRB? # Remote Box
+           if !i.isEgg? # Don't check for eggs or other remote boxes
+             egg.eggsteps-=1 # Reduces egg steps even if the Pokémon can't gain experience
+             maxexp=PBExperience.pbGetMaxExperience(i.growthrate)
+             if i.exp<maxexp
+               oldlevel=i.level
+               i.exp+=1
+               if i.level!=oldlevel
+                 i.calcStats
+                 movelist=i.getMoveList
+                 for i in movelist
+                   i.pbLearnMove(i[1]) if i[0]==i.level       # Learned a new move
+                 end
+               end
+             end
+           end
+         else # Egg
+           if isConst?(i.ability,PBAbilities,:FINITI)
+             egg.eggsteps-=[rand(4),rand(4)].min 
+           end
+           if isConst?(i.ability,PBAbilities,:NERVOUSCRACK)
+             egg.eggsteps-=[rand(100),rand(100)].min 
+             break
+           end
+           if isConst?(i.ability,PBAbilities,:SIAXIS)
+             egg.eggsteps-=1
+           end
+           if isConst?(i.ability,PBAbilities,:FLAMEBODY) ||
+              isConst?(i.ability,PBAbilities,:MAGMAARMOR) ||
+              isConst?(i.ability,PBAbilities,:STEAMENGINE)
+             egg.eggsteps-=1
+  #           break
+           end
          end
        end
        if egg.eggsteps<=0

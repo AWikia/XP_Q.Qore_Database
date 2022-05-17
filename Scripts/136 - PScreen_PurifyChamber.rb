@@ -383,6 +383,10 @@ class PurifyChamberScreen
 
   def pbPlace(pkmn,position)
     return false if !pkmn
+    if pkmn.isRB?
+      @scene.pbDisplay(_INTL("Can't place a Remote Box there."))
+      return false
+    end  
     if pkmn.isEgg?
       @scene.pbDisplay(_INTL("Can't place an egg there."))
       return false

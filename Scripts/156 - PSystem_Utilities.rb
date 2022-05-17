@@ -1379,128 +1379,22 @@ end
 # Note: Returns an AnimatedBitmap, not a Bitmap
 def pbLoadPokemonBitmapSpecies(pokemon,species,back=false)
   ret = nil
-  if pokemon.isEgg?
-    bitmapFileName = sprintf("Graphics/Battlers/%segg_%d",getConstantName(PBSpecies,species),pokemon.form) rescue nil
+  if pokemon.isRB?
+    bitmapFileName = sprintf("Graphics/Battlers/%sremotebox_%d",getConstantName(PBSpecies,species),pokemon.form) rescue nil
     if !pbResolveBitmap(bitmapFileName)
-      bitmapFileName = sprintf("Graphics/Battlers/%03degg_%d",species,pokemon.form)
+      bitmapFileName = sprintf("Graphics/Battlers/%03dremotebox_%d",species,pokemon.form)
       if !pbResolveBitmap(bitmapFileName)
-        bitmapFileName = sprintf("Graphics/Battlers/%segg",getConstantName(PBSpecies,species)) rescue nil
+        bitmapFileName = sprintf("Graphics/Battlers/%sremotebox",getConstantName(PBSpecies,species)) rescue nil
         if !pbResolveBitmap(bitmapFileName)
-          bitmapFileName = sprintf("Graphics/Battlers/%03degg",species)
+          bitmapFileName = sprintf("Graphics/Battlers/%03dremotebox",species)
           if !pbResolveBitmap(bitmapFileName)
-            bitmapFileName = sprintf("Graphics/Battlers/egg")
+            bitmapFileName = sprintf("Graphics/Battlers/remotebox")
           end
         end
       end
     end
     bitmapFileName = pbResolveBitmap(bitmapFileName)
-  else
-    bitmapFileName = pbCheckPokemonBitmapFiles([species,back,(pokemon.isFemale?),
-       pokemon.isShiny?,(pokemon.form rescue 0),(pokemon.isShadow? rescue false)])
-    # Alter bitmap if supported
-    alterBitmap = (MultipleForms.getFunction(species,"alterBitmap") rescue nil)
-  end
-  if bitmapFileName && alterBitmap
-    animatedBitmap = AnimatedBitmap.new(bitmapFileName)
-    copiedBitmap = animatedBitmap.copy
-    animatedBitmap.dispose
-    copiedBitmap.each {|bitmap| alterBitmap.call(pokemon,bitmap) }
-    ret = copiedBitmap
-  elsif bitmapFileName
-    ret = AnimatedBitmap.new(bitmapFileName)
-  end
-  return ret
-end
-
-# Note: Returns an AnimatedBitmap, not a Bitmap
-def pbLoadSpeciesBitmap(species,female=false,form=0,shiny=false,shadow=false,back=false,egg=false)
-  ret = nil
-  if egg
-    bitmapFileName = sprintf("Graphics/Battlers/%segg_%d",getConstantName(PBSpecies,species),form) rescue nil
-    if !pbResolveBitmap(bitmapFileName)
-      bitmapFileName = sprintf("Graphics/Battlers/%03degg_%d",species,form)
-      if !pbResolveBitmap(bitmapFileName)
-        bitmapFileName = sprintf("Graphics/Battlers/%segg",getConstantName(PBSpecies,species)) rescue nil
-        if !pbResolveBitmap(bitmapFileName)
-          bitmapFileName = sprintf("Graphics/Battlers/%03degg",species)
-          if !pbResolveBitmap(bitmapFileName)
-            bitmapFileName = sprintf("Graphics/Battlers/egg")
-          end
-        end
-      end
-    end
-    bitmapFileName = pbResolveBitmap(bitmapFileName)
-  else
-    bitmapFileName = pbCheckPokemonBitmapFiles([species,back,female,shiny,form,shadow])
-  end
-  if bitmapFileName
-    ret = AnimatedBitmap.new(bitmapFileName)
-  end
-  return ret
-end
-
-
-=begin
-# Note: Returns an AnimatedBitmap, not a Bitmap
-def pbLoadPokemonBitmapSpecies(pokemon, species, back=false)
-  ret=nil
-  if pokemon.isEgg?
-    bitmapFileName=sprintf("Graphics/Battlers/%segg",getConstantName(PBSpecies,species)) rescue nil
-    if !pbResolveBitmap(bitmapFileName)
-      bitmapFileName=sprintf("Graphics/Battlers/%03degg",species)
-      if !pbResolveBitmap(bitmapFileName)
-        bitmapFileName=sprintf("Graphics/Battlers/egg")
-      end
-    end
-    bitmapFileName=pbResolveBitmap(bitmapFileName)
-  else
-    bitmapFileName=pbCheckPokemonBitmapFiles([species,back,
-                                              (pokemon.isFemale?),
-                                              pokemon.isShiny?,
-                                              (pokemon.form rescue 0),
-                                              (pokemon.isShadow? rescue false)])
-    # Alter bitmap if supported
-    alterBitmap=(MultipleForms.getFunction(species,"alterBitmap") rescue nil)
-  end
-  if bitmapFileName && alterBitmap
-    animatedBitmap=AnimatedBitmap.new(bitmapFileName)
-    copiedBitmap=animatedBitmap.copy
-    animatedBitmap.dispose
-    copiedBitmap.each {|bitmap|
-       alterBitmap.call(pokemon,bitmap)
-    }
-    ret=copiedBitmap
-  elsif bitmapFileName
-    ret=AnimatedBitmap.new(bitmapFileName)
-  end
-  return ret
-end
-
-# Note: Returns an AnimatedBitmap, not a Bitmap
-def pbLoadSpeciesBitmap(species,female=false,form=0,shiny=false,shadow=false,back=false,egg=false)
-  ret=nil
-  if egg
-    bitmapFileName=sprintf("Graphics/Battlers/%segg",getConstantName(PBSpecies,species)) rescue nil
-    if !pbResolveBitmap(bitmapFileName)
-      bitmapFileName=sprintf("Graphics/Battlers/%03degg",species)
-      if !pbResolveBitmap(bitmapFileName)
-        bitmapFileName=sprintf("Graphics/Battlers/egg")
-      end
-    end
-    bitmapFileName=pbResolveBitmap(bitmapFileName)
-  else
-    bitmapFileName=pbCheckPokemonBitmapFiles([species,back,female,shiny,form,shadow])
-  end
-  if bitmapFileName
-    ret=AnimatedBitmap.new(bitmapFileName)
-  end
-  return ret
-end
-=end
-# Note: Returns an AnimatedBitmap, not a Bitmap
-def pbLoadPokemonBitmapSpecies(pokemon,species,back=false)
-  ret = nil
-  if pokemon.isEgg?
+  elsif pokemon.isEgg?
     bitmapFileName = sprintf("Graphics/Battlers/%segg_%d",getConstantName(PBSpecies,species),pokemon.form) rescue nil
     if !pbResolveBitmap(bitmapFileName)
       bitmapFileName = sprintf("Graphics/Battlers/%03degg_%d",species,pokemon.form)
@@ -2425,6 +2319,31 @@ def pbGenerateEgg(pokemon,text="")
   $Trainer.party[$Trainer.party.length]=pokemon
   return true
 end
+
+def pbGenerateRemoteBox(pokemon,text="")
+  return false if !pokemon || !$Trainer || $Trainer.party.length>=6
+  if pokemon.is_a?(String) || pokemon.is_a?(Symbol)
+    pokemon=getID(PBSpecies,pokemon)
+  end
+  if pokemon.is_a?(Integer)
+    pokemon=PokeBattle_Pokemon.new(pokemon,50,$Trainer)
+  end
+  # Get egg steps
+  dexdata=pbOpenDexData
+  pbDexDataOffset(dexdata,pokemon.species,21)
+  eggsteps=dexdata.fgetw
+  dexdata.close
+  # Set egg's details
+  pokemon.name=_INTL("Remote Box")
+  pokemon.eggsteps=eggsteps
+  pokemon.obtainText=text
+  pokemon.calcStats
+  pokemon.makeRB
+  # Add egg to party
+  $Trainer.party[$Trainer.party.length]=pokemon
+  return true
+end
+
 
 def pbRemovePokemonAt(index)
   return false if index<0 || !$Trainer || index>=$Trainer.party.length

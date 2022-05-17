@@ -1160,11 +1160,11 @@ class PokemonScreen
 
   def pbGiveMail(item,pkmn,pkmnid=0)
     thisitemname=PBItems.getName(item)
-    if pkmn.isEgg?
-      pbDisplay(_INTL("Eggs can't hold items."))
-      return false
-    elsif pkmn.isRB?
+    if pkmn.isRB?
       pbDisplay(_INTL("Remote Boxes can't hold items."))
+      return false
+    elsif pkmn.isEgg?
+      pbDisplay(_INTL("Eggs can't hold items."))
       return false
     elsif pkmn.mail
       pbDisplay(_INTL("{1}'s mail must be removed before giving it an item.",pkmn.name))
@@ -1228,10 +1228,10 @@ class PokemonScreen
       pkmn=@party[pkmnid]
       if pkmn.item!=0 || pkmn.mail
         pbDisplay(_INTL("This Pokémon is holding an item. It can't hold mail."))
-      elsif pkmn.isEgg?
-        pbDisplay(_INTL("Eggs can't hold mail."))
       elsif pkmn.isRB?
         pbDisplay(_INTL("Remote Boxes can't hold mail."))
+      elsif pkmn.isEgg?
+        pbDisplay(_INTL("Eggs can't hold mail."))
       else
         pbDisplay(_INTL("Mail was transferred from the Mailbox."))
         pkmn.mail=$PokemonGlobal.mailbox[mailIndex]

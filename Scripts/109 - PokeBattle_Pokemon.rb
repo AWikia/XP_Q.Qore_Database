@@ -56,6 +56,7 @@ class PokeBattle_Pokemon
   attr_accessor(:mint)
   attr_accessor(:temperature)
   attr_accessor(:addTemp)
+  attr_accessor(:remoteBox)
   
   EVLIMIT     = 1512  # Max total EVs and was 510
   EVSTATLIMIT = 252   # Max EVs that a single stat can have
@@ -143,6 +144,22 @@ class PokeBattle_Pokemon
 
   def egg?; return isEgg?; end
 
+# Returns whether this Pokemon is a remote box.
+
+  def isRB?
+    return @remoteBox==1 && isEgg? # Remote boxes are also eggs
+  end
+
+  def makeRB
+    @remoteBox=1
+  end
+
+  def removeRB
+    @remoteBox=0
+  end
+    
+
+    
 # Returns this Pokemon's growth rate.
   def growthrate
     dexdata=pbOpenDexData
@@ -679,7 +696,7 @@ class PokeBattle_Pokemon
     return addTemp+@temperature ||= self.basetemp # modification done by ATechno in order to avoid crashes
   end
 
-  def temperatureN
+  def temperatureN # Temperature without addTemp
     return @temperature ||= self.basetemp # modification done by ATechno in order to avoid crashes
   end
 
@@ -720,7 +737,9 @@ class PokeBattle_Pokemon
   def resetTemperature
     @temperature=basetemp
   end
-  
+
+
+ 
 =begin
 TooHighTemp/Red = 96+ for Hot Species or 91+
 HighTemp/Orange = 91-95 for Hot Species or 71-90
@@ -1079,6 +1098,7 @@ TooLowTemp = 5- for Cold Species or 10-
     dexdata.close
     @name=PBSpecies.getName(@species)
     @eggsteps=0
+    @remoteBox=0
     @status=0
     @statusCount=0
     @item=0

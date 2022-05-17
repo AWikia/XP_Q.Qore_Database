@@ -996,6 +996,8 @@ ItemHandlers::UseOnPokemon.add(:DNASPLICERS,proc{|item,pokemon,scene|
              scene.pbHardRefresh
              scene.pbDisplay(_INTL("{1} changed Forme!",pokemon.name))
              next true
+           elsif poke2.isRB?
+             scene.pbDisplay(_INTL("It cannot be fused with an Remote Box."))
            elsif poke2.isEgg?
              scene.pbDisplay(_INTL("It cannot be fused with an Egg."))
            elsif poke2.hp<=0
@@ -1040,6 +1042,8 @@ ItemHandlers::UseOnPokemon.add(:DNASPLICERS,proc{|item,pokemon,scene|
              scene.pbHardRefresh
              scene.pbDisplay(_INTL("{1} changed Forme!",pokemon.name))
              next true
+           elsif poke2.isRB?
+             scene.pbDisplay(_INTL("It cannot be fused with an Remote Box."))
            elsif poke2.isEgg?
              scene.pbDisplay(_INTL("It cannot be fused with an Egg."))
            elsif poke2.hp<=0
@@ -1084,6 +1088,8 @@ ItemHandlers::UseOnPokemon.add(:DNASPLICERS,proc{|item,pokemon,scene|
              scene.pbHardRefresh
              scene.pbDisplay(_INTL("{1} changed Forme!",pokemon.name))
              next true
+           elsif poke2.isRB?
+             scene.pbDisplay(_INTL("It cannot be fused with an Remote Box."))
            elsif poke2.isEgg?
              scene.pbDisplay(_INTL("It cannot be fused with an Egg."))
            elsif poke2.hp<=0
@@ -1132,6 +1138,8 @@ ItemHandlers::UseOnPokemon.add(:DNASPLICERS,proc{|item,pokemon,scene|
              scene.pbHardRefresh
              scene.pbDisplay(_INTL("{1} changed Forme!",pokemon.name))
              next true
+           elsif poke2.isRB?
+             scene.pbDisplay(_INTL("It cannot be fused with an Remote Box."))
            elsif poke2.isEgg?
              scene.pbDisplay(_INTL("It cannot be fused with an Egg."))
            elsif poke2.hp<=0

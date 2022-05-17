@@ -540,7 +540,7 @@ class PokemonSystem
     @vrtrophynotif    = 0   # Notifications for collected trophy (0 = On, 1 = Off)
     @temps            = 0   # Temperature Display (0 = Celsius, 1 = Fahrenheit)
     @mechanics        = 1   # Battle Mechanics
-    @accentcolor      = 22  # Accent Color
+    @accentcolor      = 16  # Accent Color
     @darkmode         = 0   # Theme Mode (0 = Light, 1 = Dark)
     @darkmodestart    = 19  # Scheduled Dark Mode Start
     @darkmodeend      = 7   # Scheduled Dark Mode End
@@ -645,7 +645,7 @@ end
   end    
 
   def accentcolor
-    return (!@accentcolor) ? 22 : @accentcolor
+    return (!@accentcolor) ? 16 : @accentcolor
   end    
 
   def darkmode
@@ -913,7 +913,7 @@ There are different modes:
               MessageConfig.pbSetSystemFrame("Graphics/Windowskins/"+getDarkModeFolder+"/"+$TextFrames[value])
            }
          ),
-         NumberOption.new(_INTL("Accent Color"),1,33,
+         NumberOption.new(_INTL("Accent Color"),1,25,
            proc { $PokemonSystem.accentcolor },
            proc {|value| 
              $PokemonSystem.accentcolor = value 

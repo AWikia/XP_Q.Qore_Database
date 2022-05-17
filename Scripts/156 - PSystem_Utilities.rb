@@ -1379,7 +1379,22 @@ end
 # Note: Returns an AnimatedBitmap, not a Bitmap
 def pbLoadPokemonBitmapSpecies(pokemon,species,back=false)
   ret = nil
-  if pokemon.isEgg?
+  if pokemon.isRB?
+    bitmapFileName = sprintf("Graphics/Battlers/%sremotebox_%d",getConstantName(PBSpecies,species),pokemon.form) rescue nil
+    if !pbResolveBitmap(bitmapFileName)
+      bitmapFileName = sprintf("Graphics/Battlers/%03dremotebox_%d",species,pokemon.form)
+      if !pbResolveBitmap(bitmapFileName)
+        bitmapFileName = sprintf("Graphics/Battlers/%sremotebox",getConstantName(PBSpecies,species)) rescue nil
+        if !pbResolveBitmap(bitmapFileName)
+          bitmapFileName = sprintf("Graphics/Battlers/%03dremotebox",species)
+          if !pbResolveBitmap(bitmapFileName)
+            bitmapFileName = sprintf("Graphics/Battlers/remotebox")
+          end
+        end
+      end
+    end
+    bitmapFileName = pbResolveBitmap(bitmapFileName)
+  elsif pokemon.isEgg?
     bitmapFileName = sprintf("Graphics/Battlers/%segg_%d",getConstantName(PBSpecies,species),pokemon.form) rescue nil
     if !pbResolveBitmap(bitmapFileName)
       bitmapFileName = sprintf("Graphics/Battlers/%03degg_%d",species,pokemon.form)

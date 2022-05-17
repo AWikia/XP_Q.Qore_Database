@@ -111,7 +111,12 @@ class PokemonEggHatchScene
     pbPlayCry(@pokemon)
     updateScene(frames)
     pbMEPlay("EvolutionSuccess")
-    Kernel.pbMessage(_INTL("\\se[]{1} hatched from the Egg!\\wt[80]",@pokemon.name)) { update }
+    if @pokemon.remoteBox==1
+      Kernel.pbMessage(_INTL("\\se[]{1} released from its Remote Box!\\wt[80]",@pokemon.name)) { update }
+      @pokemon.removeRB
+    else
+      Kernel.pbMessage(_INTL("\\se[]{1} hatched from the Egg!\\wt[80]",@pokemon.name)) { update }
+    end
     if Kernel.pbConfirmMessage(
         _INTL("Would you like to nickname the newly hatched {1}?",@pokemon.name)) { update }
       nickname=pbEnterPokemonName(_INTL("{1}'s nickname?",@pokemon.name),0,10,"",@pokemon,true)
@@ -209,7 +214,12 @@ def pbHatch(pokemon)
     Kernel.pbMessage(_INTL("Huh?\1"))
     Kernel.pbMessage(_INTL("...\1"))
     Kernel.pbMessage(_INTL("... .... .....\1"))
-    Kernel.pbMessage(_INTL("{1} hatched from the Egg!",speciesname))
+    if pokemon.remoteBox==1
+      Kernel.pbMessage(_INTL("{1} released from its Remote Box!",speciesname))
+      pokemon.removeRB
+    else
+      Kernel.pbMessage(_INTL("{1} hatched from the Egg!",speciesname))
+    end
     if Kernel.pbConfirmMessage(_INTL("Would you like to nickname the newly hatched {1}?",speciesname))
       species=PBSpecies.getName(pokemon.species)
       nickname=pbEnterPokemonName(_INTL("{1}'s nickname?",speciesname),0,10,"",pokemon)

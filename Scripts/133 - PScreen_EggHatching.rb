@@ -233,23 +233,40 @@ Events.onStepTaken+=proc {|sender,e|
    next if !$Trainer
    for egg in $Trainer.party
      if egg.eggsteps>0
-       egg.eggsteps-=1
+       egg.eggsteps-=1 if !egg.isRB? # This is handled elsewhere for remote boxes
        for i in $Trainer.pokemonParty
-         if isConst?(i.ability,PBAbilities,:FINITI)
-           egg.eggsteps-=[rand(4),rand(4)].min
-         end
-         if isConst?(i.ability,PBAbilities,:NERVOUSCRACK)
-           egg.eggsteps-=[rand(100),rand(100)].min
-           break
-         end
-         if isConst?(i.ability,PBAbilities,:SIAXIS)
-           egg.eggsteps-=1
-         end
-         if isConst?(i.ability,PBAbilities,:FLAMEBODY) ||
-            isConst?(i.ability,PBAbilities,:MAGMAARMOR) ||
-            isConst?(i.ability,PBAbilities,:STEAMENGINE)
-           egg.eggsteps-=1
-#           break
+         if egg.isRB? # Remote Box
+           if !i.isEgg? # Don't check for eggs or other remote boxes
+             egg.eggsteps-=1 # Reduces egg steps even if the Pokémon can't gain experience
+             if i.exp<maxexp
+               oldlevel=i.level
+               i.exp+=1
+               if i.level!=oldlevel
+                 i.calcStats
+                 movelist=i.getMoveList
+                 for i in movelist
+                   i.pbLearnMove(i[1]) if i[0]==i.level       # Learned a new move
+                 end
+               end
+             end
+           end
+         else # Egg
+           if isConst?(i.ability,PBAbilities,:FINITI)
+             egg.eggsteps-=[rand(4),rand(4)].min 
+           end
+           if isConst?(i.ability,PBAbilities,:NERVOUSCRACK)
+             egg.eggsteps-=[rand(100),rand(100)].min 
+             break
+           end
+           if isConst?(i.ability,PBAbilities,:SIAXIS)
+             egg.eggsteps-=1
+           end
+           if isConst?(i.ability,PBAbilities,:FLAMEBODY) ||
+              isConst?(i.ability,PBAbilities,:MAGMAARMOR) ||
+              isConst?(i.ability,PBAbilities,:STEAMENGINE)
+             egg.eggsteps-=1
+  #           break
+           end
          end
        end
        if egg.eggsteps<=0

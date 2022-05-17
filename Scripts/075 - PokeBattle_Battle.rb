@@ -1328,6 +1328,10 @@ class PokeBattle_Battle
       if !party[pkmnidxTo]
         return false
       end
+      if party[pkmnidxTo].isRemoteBox?
+        pbDisplayPaused(_INTL("A Remote Box can't battle!")) if showMessages 
+        return false
+      end
       if party[pkmnidxTo].isEgg?
         pbDisplayPaused(_INTL("An Egg can't battle!")) if showMessages 
         return false

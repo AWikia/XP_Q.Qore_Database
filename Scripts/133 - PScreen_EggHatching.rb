@@ -238,6 +238,7 @@ Events.onStepTaken+=proc {|sender,e|
          if egg.isRB? # Remote Box
            if !i.isEgg? # Don't check for eggs or other remote boxes
              egg.eggsteps-=1 # Reduces egg steps even if the Pokémon can't gain experience
+             maxexp=PBExperience.pbGetMaxExperience(i.growthrate)
              if i.exp<maxexp
                oldlevel=i.level
                i.exp+=1

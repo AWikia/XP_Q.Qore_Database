@@ -2026,7 +2026,7 @@ class PokemonScreen
             pkmn.eggsteps=dexdata.fgetw
             dexdata.close
             pkmn.hatchedMap=0
-            pkmn.obtainMode=1
+            pkmn.obtainMode=5
             pkmn.makeRB
             pbRefreshSingle(pkmnid)
           # Make Pokémon

@@ -417,7 +417,11 @@ class PokemonSummaryScene
       redshadow = 'DF2007'
     end
     if mapname && mapname!=""
-      memo+=_INTL("<c3={1},{2}>A mysterious Pokémon Egg received from <c3={3},{4}>{5}<c3={1},{2}>.\n",colorToRgb32(base),colorToRgb32(shadow),redbase,redshadow,mapname)
+      if pokemon.isRB?
+        memo+=_INTL("<c3={1},{2}>A magnetic Remote Box received from <c3={3},{4}>{5}<c3={1},{2}>.\n",colorToRgb32(base),colorToRgb32(shadow),redbase,redshadow,mapname)
+      else
+        memo+=_INTL("<c3={1},{2}>A mysterious Pokémon Egg received from <c3={3},{4}>{5}<c3={1},{2}>.\n",colorToRgb32(base),colorToRgb32(shadow),redbase,redshadow,mapname)
+      end
     end
     memo+=_INTL("<c3={1},{2}>\n",colorToRgb32(base),colorToRgb32(shadow))
     if pokemon.isRB?

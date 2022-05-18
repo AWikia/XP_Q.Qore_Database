@@ -290,7 +290,7 @@ class Scene_LinkBattle
                   else
                     pokemon = PBSpecies::DITTO
                   end
-                  if pbGenerateRemoteBox(pokemon,_I("Liquorice Larry"))
+                  if pbGenerateRemoteBox(pokemon,_I("Link Battle Marketplace"))
                     $game_variables[1002] -= itemprice
                   else
                     Kernel.pbMessage(_INTL("\\g[1]\\c[8]\\w[TrophyWindow]You don't have enough space to store the box. Make room and come again."))

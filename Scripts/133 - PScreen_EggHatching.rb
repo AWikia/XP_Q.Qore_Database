@@ -242,7 +242,10 @@ Events.onStepTaken+=proc {|sender,e|
              maxexp=PBExperience.pbGetMaxExperience(i.growthrate)
              if i.exp<maxexp
                oldlevel=i.level
-               i.exp+=1
+               expp =  1
+               expp *= 2 if isConst?(i.item,PBItems,:LUCKYEGG)
+               expp *= 2 if isConst?(i.ability,PBAbilities,:PROTEINCROTELINE)
+               i.exp+=expp
                if i.level!=oldlevel
                  i.calcStats
                  movelist=i.getMoveList

@@ -225,7 +225,8 @@ class Scene_LinkBattle
                  PBItems::RODOFSPARROW,
                  PBItems::RARECANDY,
                  PBItems::VICIOUSCANDY,
-                 PBItems::RELICFLOWER]
+                 PBItems::RELICFLOWER,
+                 'RB']
           prices=[50,
                   100,
                   150,
@@ -242,6 +243,7 @@ class Scene_LinkBattle
                   1500,
                   2000,
                   4000,
+                  6000,
                   8000]
         loop do
           commands=[
@@ -261,7 +263,8 @@ class Scene_LinkBattle
                   _INTL("Rod of Sparrow (1500 Points)"),
                   _INTL("Rare Candy (2000 Points)"),
                   _INTL("Vicious Candy (4000 Points)"),
-                  _INTL("Relic Flower (8000 Points)"),
+                  _INTL("Relic Flower (6000 Points)"),
+                  _INTL("Remote Box (8000 Points)"),
                   _INTL("Cancel")]
           command=Kernel.pbMessageLB(
               _INTL("\\g[1]\\c[8]\\w[TrophyWindow]Which item would you like to buy?"),commands,-1)
@@ -270,15 +273,33 @@ class Scene_LinkBattle
             break
           else
             itemname=  items[command]
-            itemname2= PBItems.getName(itemname)
+            if itemname == 'RB'
+              itemname2='Remote Box'
+            else
+              itemname2= PBItems.getName(itemname)
+            end
             itemprice= prices[command]
             if Kernel.pbConfirmMessageLB(_INTL("\\g[1]\\c[8]\\w[TrophyWindow]Would you like to buy {1} {2}? It will cost {3} Link Points", (command==4) ? "an" : "a" ,itemname2,itemprice))
               if $game_variables[1002] < itemprice
                 Kernel.pbMessage(_INTL("\\g[1]\\c[8]\\w[TrophyWindow]You don't have enough points to buy that."))
                 break
               else
-                $game_variables[1002] -= itemprice
-                $PokemonBag.pbStoreItem(itemname)
+                if itemname == 'RB'
+                  if completedTechnicalDiscs
+                    pokemon = [PBSpecies::DITTO, PBSpecies::ROTOM][rand(2)]
+                  else
+                    pokemon = PBSpecies::DITTO
+                  end
+                  if pbGenerateRemoteBox(pokemon,_I("Liquorice Larry"))
+                    $game_variables[1002] -= itemprice
+                  else
+                    Kernel.pbMessage(_INTL("\\g[1]\\c[8]\\w[TrophyWindow]You don't have enough space to store the box. Make room and come again."))
+                    break
+                  end
+                else
+                  $game_variables[1002] -= itemprice
+                  $PokemonBag.pbStoreItem(itemname)
+                end
                 Kernel.pbMessage(_INTL("\\g[1]\\c[8]\\w[TrophyWindow]\\me[EvolutionSuccess_1]Spent {1} Link Points and earned one {2}",itemprice,itemname2))
                 break
               end

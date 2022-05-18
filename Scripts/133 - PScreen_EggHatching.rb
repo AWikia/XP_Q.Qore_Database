@@ -16,6 +16,7 @@ class PokemonEggHatchScene
     @nicknamed=false
     @viewport=Viewport.new(0,0,Graphics.width,Graphics.height)
     @viewport.z=99999
+    isbox = @pokemon.remoteBox==1
     if isHisuian?(@pokemon)
       background="hatchbg_hisui"
     elsif isGalarian?(@pokemon) || isMysterical?(@pokemon)
@@ -30,7 +31,7 @@ class PokemonEggHatchScene
     @sprites["pokemon"]=PokemonSprite.new(@viewport)
     @sprites["pokemon"].setSpeciesBitmap(@pokemon.species,@pokemon.isFemale?,
                                          (@pokemon.form rescue 0),@pokemon.isShiny?,
-                                         false,false,true) # Egg sprite
+                                         false,false,true,isbox) # Egg sprite
     @sprites["pokemon"].x=Graphics.width/2-@sprites["pokemon"].bitmap.width/2
     @sprites["pokemon"].y=48+(Graphics.height-@sprites["pokemon"].bitmap.height)/2
     @sprites["hatch"]=BitmapSprite.new(Graphics.width,Graphics.height,@viewport)

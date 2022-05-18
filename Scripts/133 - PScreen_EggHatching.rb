@@ -246,8 +246,8 @@ Events.onStepTaken+=proc {|sender,e|
                if i.level!=oldlevel
                  i.calcStats
                  movelist=i.getMoveList
-                 for i in movelist
-                   i.pbLearnMove(i[1]) if i[0]==i.level       # Learned a new move
+                 for j in movelist
+                   j.pbLearnMove(j[1]) if j[0]==i.level       # Learned a new move
                  end
                end
              end

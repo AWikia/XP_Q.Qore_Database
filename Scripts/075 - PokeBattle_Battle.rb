@@ -1328,7 +1328,7 @@ class PokeBattle_Battle
       if !party[pkmnidxTo]
         return false
       end
-      if party[pkmnidxTo].isRemoteBox?
+      if party[pkmnidxTo].isRB?
         pbDisplayPaused(_INTL("A Remote Box can't battle!")) if showMessages 
         return false
       end

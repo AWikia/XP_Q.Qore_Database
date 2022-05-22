@@ -1039,7 +1039,8 @@ end
 
 def Kernel.pbMessage(message,commands=nil,cmdIfCancel=0,skin=nil,defaultCmd=0,&block)
   # Dark Mode
-  if ($PokemonSystem.darkmode==2 rescue false)
+  if ($PokemonSystem.darkmode==2 rescue false) || 
+     ($PokemonSystem.darkmode==3 rescue false)
     MessageConfig.pbSetSpeechFrame("Graphics/Windowskins/"+getDarkModeFolder+"/"+$SpeechFrames[$PokemonSystem.textskin])
     MessageConfig.pbSetSystemFrame("Graphics/Windowskins/"+getDarkModeFolder+"/"+$TextFrames[$PokemonSystem.textskin])
   end

@@ -1403,7 +1403,8 @@ Events.onStepTaken+=proc{
 
 Events.onStepTaken+=proc{
   # Dark Mode
-  if ($PokemonSystem.darkmode==2 rescue false)
+  if ($PokemonSystem.darkmode==2 rescue false) || 
+     ($PokemonSystem.darkmode==3 rescue false)
     MessageConfig.pbSetSpeechFrame("Graphics/Windowskins/"+getDarkModeFolder+"/"+$SpeechFrames[$PokemonSystem.textskin])
     MessageConfig.pbSetSystemFrame("Graphics/Windowskins/"+getDarkModeFolder+"/"+$TextFrames[$PokemonSystem.textskin])
   end

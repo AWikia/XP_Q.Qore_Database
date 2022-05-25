@@ -930,6 +930,7 @@
 1058,TRANSISTOR,Transistor,007,55,ELECTRIC,Special,95,15,20,00,0,bef,"The user attacks an opposing Pokémon with massive electricity. This move may also paralyze the target and power is doubled if a Pokémon has the corresponding ability."
 1068,VOLTENERGY,Volt Energy,324,0,ELECTRIC,Status,0,15,0,20,-1,,"A electic energy is being done at the battle. This increases accuracy of Electric Pokémon and decreases accuracy for other types."
 1120,CENTROVOLT,Centro Volt,338,250,ELECTRIC,Physical,30,5,100,00,4,abef,"The user soars some dramatic lightning bolt and electricity to the target. If this move hits, its partner will be paralyzed as well. This move works as both Electric and Bolt move."
+1145,ELECTRICGLIDE,Electric Glide,345,70,ELECTRIC,Physical,100,20,0,00,0,abef,"Gliding on the ground, the user attacks the target. This move always goes first on Electric Terrain."
 ## FLINT Moves = Psychic
 744,PSYCHOTRACK,Psycho Track,170,200,PSYCHIC,Special,100,5,30,04,0,bef,The user inflicts damage on all opposing Pokémon. The user faints upon using this move and may also severely cut down Defense.
 897,PSYCHOSLASH,Psycho Slash,009,80,PSYCHIC,Physical,100,10,0,00,0,abe,The users does a Psycho Slash at the target. This may also make the target flinch.
@@ -961,6 +962,7 @@
 982,DARKPUNCH,Dark Punch,0A5,80,DARK,Physical,0,10,0,00,0,abefj,"The user punches the target using its Dark Force. This attack never misses."
 1124,CHOCOLATE,Chocolate,340,40,DARK,Special,100,30,0,00,0,abef,The user spils up some chocolate to the target. This move works as a neutral dark move without additional effects.
 1125,CHOCOSLIM,Choco Slim,031,0,DARK,Status,0,15,0,10,0,d,The user drinks some diet choco milk to make itself lighter and sharply raise its Speed stat.
+1146,DARKCHOCOLATE,Dark Chocolate,340,80,DARK,Special,100,15,0,00,0,abef,The user spils up dark some chocolate to the target. This move works as a neutral dark move without additional effects.
 ## FLINT Moves = Fairy
 622,JEWELLERY,Jewellery,03D,180,FAIRY,Special,65,10,40,04,-1,bg,The user stirs up a fairy jewel and makes contact on all pokemon. User loses HP after use.
 635,CASANOVA,Casanova,0EC,130,FAIRY,Special,60,40,0,04,5,befk,"The user invents fairy power using a nova. It switches a pokemon. In the wild, the battle ends."
@@ -1006,6 +1008,7 @@
 990,DOOMSMASH,Doom Smash,08E,1,DOOM,Special,100,10,0,00,0,bef,"The user attacks using its doomy power. The more the user's stats are raised, the greater the damage."
 1064,DOOMARIETTA,Doom Arietta,323,0,DOOM,Status,0,15,0,20,-1,,"A doomy vocal is played at the battle. This increases accuracy of Doom Pokémon and decreases accuracy for other types."
 1128,MARIAMARA,Mariamara,051,0,DOOM,Status,0,30,0,20,0,,The user creates a doomy cloud that eliminates every stat change among all non-Doom Pokémon engaged in battle.
+1147,DOOMLACTA,Doom Lacta,259,85,DOOM,Special,100,15,0,00,0,bef,"The user ignores the effects of opposing Pokémon's moves and Abilities that draw in moves, allowing this move to hit the chosen target."
 ## FLINT Moves = Jelly
 641,JELLYKICK,Jelly Kick,09A,1,JELLY,Physical,100,20,0,00,0,abef,A powerful jelly kick that makes the foe fall over. It inflicts greater damage on heavier foes.
 642,JELLYWAVE,Jelly Wave,000,40,JELLY,Special,100,30,0,00,1,bef,The user whirls its fists to send a wave of pure jelly at the target. This move always goes first.
@@ -1145,6 +1148,7 @@
 1019,MINDIA,Mindia,013,0,MIND,Staus,50,10,0,04,0,bce,"Opposing Pokémon are scattered by user's mind that confuses them"
 1020,MINDYGLOPS,Mindy Glops,300,30,MIND,Special,99,20,0,04,0,bf,"This move ignores the other Brainologic and Mindy Glops, allowing this move to properly hit the targets"
 1140,BRAINYMEDIA,Brainymedia,344,0,MIND,Status,0,5,0,10,0,,"When this move is used, if the user faints, the foe that landed the knockout will have its stat stages reduced to minimum."
+1147,BRAINDAMAGE,Brain Damage,344,175,MIND,Special,55,5,0,00,0,abef,"Deals massive damage. If this move succeeds, once the user faints, the foe that landed the knockout hit will have its stat stages reduced to minimum."
 ## FLINT Moves = Heart
 743,SMORESMIRI,S'More S'Miri,198,0,HEART,Status,0,20,0,10,0,d,A move created for Love Crystal Ball. This move will restore HP depending on user's Happiness
 751,HEARTGLOW,Heart Glow,00F,50,HEART,Physical,0,20,25,00,0,abeg,.A glowing heart that will do damage. User thraws out before using this move. Target may be flinched as well.
@@ -1177,7 +1181,7 @@
 1028,BLACKMOON,Black Moon,291,0,GLIMSE,Status,100,10,0,100,5,,"The user send a blackness moon into its ally. This passes its stat changes to share their powers."
 1029,GLIMMYGALAXY,Glimmy Galaxy,292,0,GLIMSE,Status,100,10,0,40,0,,"The user creates a galaxian tunnel in the field in order to damage out some Pokémon."
 1075,ELDERGLIMMYWAVE,Elder Glimmy Wave,325,200,GLIMSE,ElderSpecial,100,5,0,08,-2,,"The user casts its powerful Glimse elder spell with incredible power to all targets. This, also makes the user unable to move in the next turn."
-1144,SELENTISKORCH,Selentiskorch,0E7,175,GLIMSE,Special,55,5,0,10,0,abef,"Deals massive damage. If this move succeeds, once the user faints, the foe that landed the knockout hit also faints."
+1144,SELENTISKORCH,Selentiskorch,0E7,175,GLIMSE,Special,55,5,0,00,0,abef,"Deals massive damage. If this move succeeds, once the user faints, the foe that landed the knockout hit also faints."
 ## Robot Moves
 739,LOBBY,Lobby,001,0,ROBOT,Status,0,1,0,10,0,,The user just lobs around to no effect at all...
 745,ROBTRATA,Robtrata,302,1,ROBOT,Physical,0,1,0,04,0,b,Opposing Pokémon are hit with a robot noise

@@ -4032,6 +4032,7 @@ class PokeBattle_Battler
       p+=1 if user.hasWorkingAbility(:SINISTRO) && thismove.isContactMove?
       p+=1 if user.hasWorkingAbility(:GALEWINGS) && isConst?(thismove.type,PBTypes,:FLYING)
       p+=1 if @battle.field.effects[PBEffects::GrassyTerrain]>0 && thismove.function==0x310
+      p+=1 if @battle.field.effects[PBEffects::ElectricTerrain]>0 && thismove.function==0x345
     end
     if target.hasWorkingAbility(:PROVENDO) &&  thismove.canProtectAgainst? && 
       p>0 && !target.effects[PBEffects::ProtectNegation]

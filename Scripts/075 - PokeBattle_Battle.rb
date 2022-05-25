@@ -1228,6 +1228,8 @@ class PokeBattle_Battle
                   isConst?(@choices[i][2].type,PBTypes,:FLYING)
         pri+=1 if @field.effects[PBEffects::GrassyTerrain]>0 && 
                   @choices[i][2].function==0x310
+        pri+=1 if @field.effects[PBEffects::ElectricTerrain]>0 && 
+                  @choices[i][2].function==0x345
       end
       priorities[i]=pri
       if i==0

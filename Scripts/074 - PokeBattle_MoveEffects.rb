@@ -5192,7 +5192,8 @@ class PokeBattle_Move_0AF < PokeBattle_Move
        0x246,   # Fiery Catapult
        0x221,   # Baneful Bunker
        0x295,   # Grassy Catapult
-       0x325    # Elder Special Moves
+       0x325,   # Elder Special Moves
+       0x344    # Brainymedia
     ]
     if $USENEWBATTLEMECHANICS
       blacklist+=[
@@ -5483,7 +5484,8 @@ class PokeBattle_Move_0B5 < PokeBattle_Move
        0x211,   # Shell Trap
        0x229,   # Spotlight
        0x295,   # Grassy Catapult
-       0x325    # Elder Special Moves
+       0x325,   # Elder Special Moves
+       0x344    # Brainymedia
     ]
     if $USENEWBATTLEMECHANICS
       blacklist+=[
@@ -5579,7 +5581,8 @@ class PokeBattle_Move_0B6 < PokeBattle_Move
        0x212,   # Instruct
        0x229,   # Spotlight
        0x295,   # Grassy Catapult
-       0x325    # Elder Special Moves
+       0x325,   # Elder Special Moves
+       0x344    # Brainymedia
     ]
     blacklistmoves=[
        :DIAMONDSTORM,
@@ -14464,12 +14467,28 @@ end
 ################################################################################
 class PokeBattle_Move_344 < PokeBattle_Move
   def pbEffect(attacker,opponent,hitnum=0,alltargets=nil,showanimation=true)
+    if pbIsDamaging?
+      ret = super(attacker,opponent,hitnum,alltargets,showanimation)
+      if !attacker.effects[PBEffects::Brainymedia]
+        attacker.effects[PBEffects::Brainymedia]=true
+        @battle.pbDisplay(_INTL("{1} is trying to take the target's brain with it!",attacker.pbThis))
+      end
+      return ret
+    end
     pbShowAnimation(@id,attacker,nil,hitnum,alltargets,showanimation)
     attacker.effects[PBEffects::Brainymedia]=true
     @battle.pbDisplay(_INTL("{1} is trying to take the target's brain with it!",attacker.pbThis))
     return 0
   end
 end
+
+################################################################################
+# (handled elsewhere) This move will have increased priority when used in
+# Electric Terrain (Electric Glide)
+################################################################################
+class PokeBattle_Move_345 < PokeBattle_Move
+end
+
 
 ################################################################################
 ################################################################################

@@ -48,7 +48,7 @@ def qoreInitials
     end
 end
 
-def getBorders # Edit this to add more borders
+def getBorders # Edit this along with getBorderNames to add more borders
   return [
         "border",
         "border_1",
@@ -59,7 +59,20 @@ def getBorders # Edit this to add more borders
         getDarkModeFolder+"/border_6"
       ]
 end
-            
+
+def getBorderNames # Edit this along with getBorders to add more borders
+  return [
+        "Classic",
+        "Retro",
+        "Modern",
+        "Channel-Aware",
+        "Accent-Aware",
+        "Green Theme-Aware",
+        "Purple Theme-Aware"
+      ]
+end
+
+
 def pbCallTitle #:nodoc:
   qoreInitials
   title=['QoreTitle','QoreTitle_1','QoreTitle_2','QoreTitle_3'][QQORECHANNEL]

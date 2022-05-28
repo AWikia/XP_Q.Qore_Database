@@ -68,8 +68,12 @@ class Window_PokemonOption < Window_DrawableCommand
            optionname,self.baseColor,self.shadowColor)
       end
     elsif @options[index].is_a?(NumberOption)
-      value=sprintf("Type %d/%d",@options[index].optstart+self[index],
-         @options[index].optend-@options[index].optstart+1)
+      if @options[index].listdisplay.is_a?(Array)
+        value=sprintf("%s",@options[index].listdisplay[self[index]])
+      else
+        value=sprintf("Option %d/%d",@options[index].optstart+self[index],
+           @options[index].optend-@options[index].optstart+1)
+      end
       xpos=optionwidth+rect.x
       pbDrawShadowText(self.contents,xpos,rect.y,optionwidth,rect.height,value,
          @selBaseColor,@selShadowColor)
@@ -193,13 +197,15 @@ class NumberOption
   attr_reader :name
   attr_reader :optstart
   attr_reader :optend
+  attr_reader :listdisplay # Optional. If it is an array, it will replace the Type X/X with the X item from the given array
 
-  def initialize(name,optstart,optend,getProc,setProc)
+  def initialize(name,optstart,optend,getProc,setProc,listdisplay=nil)
     @name=name
     @optstart=optstart
     @optend=optend
     @getProc=getProc
     @setProc=setProc
+    @listdisplay=listdisplay
   end
 
   def next(current)
@@ -400,6 +406,39 @@ $TextFrames=[
   "Skin21",
   "Skin22"
 ]
+
+  $SpeechFramesNames=[
+  # Q.Qore
+  "Purple", # Default: speech hgss 1
+  "Red",
+  "Blue",
+  "Orange",
+  "Green",
+  "Gray",
+  "Blue-Gray",
+  "Underground",
+  # Blandy Blush Sada
+  "Candy",
+  # GSC Style
+  "Retro",
+  # HGSS Style
+  "HeartGold",
+  "SoulSilver",
+  "Light Red",
+  "Light Blue",
+  "Light Green",
+  "Light Orange",
+  "Light Purple",
+  "Dark Forest",
+  "Air Mail",
+  # DP Style
+  "Dark Blue",
+  "Poké Ball",
+  # Other
+  "RPG Maker XP",
+  "RPG Maker VX"
+]
+
 
 =begin
 $VersionStyles=[
@@ -765,7 +804,8 @@ There are different modes:
       @PokemonOptions+=[
         NumberOption.new(_INTL("Night Style"),1,4,
           proc { $PokemonSystem.night },
-          proc {|value| $PokemonSystem.night = value }
+          proc {|value| $PokemonSystem.night = value },
+          ["Classic", "Linear", "Lunar", "Cubic"]
         ),
         EnumOption.new(_INTL("Debug Mode (Requires Restart)"),[_INTL("Off"),_INTL("On")],
            proc { $PokemonSystem.debugmode },
@@ -911,7 +951,8 @@ There are different modes:
               $PokemonSystem.textskin=value
               MessageConfig.pbSetSpeechFrame("Graphics/Windowskins/"+getDarkModeFolder+"/"+$SpeechFrames[value])
               MessageConfig.pbSetSystemFrame("Graphics/Windowskins/"+getDarkModeFolder+"/"+$TextFrames[value])
-           }
+           },
+           $SpeechFramesNames
          ),
          NumberOption.new(_INTL("Accent Color"),1,getAccentNames.length,
            proc { $PokemonSystem.accentcolor },
@@ -919,11 +960,13 @@ There are different modes:
              $PokemonSystem.accentcolor = value 
              $BORDERS=getBorders
              setScreenBorderName($BORDERS[$PokemonSystem.bordergraphic]) # Accented Border
-           }
+           },
+           getAccentNames
          ),
          NumberOption.new(_INTL("Pokémon Type Icon Style"),1,5,
            proc { $PokemonSystem.colortige },
-           proc {|value| $PokemonSystem.colortige = value }
+           proc {|value| $PokemonSystem.colortige = value },
+           ["Colored Text", "Light Text", "Dark Text", "Minimal", "Retro"]
          ),
          EnumOption.new(_INTL("Screen Border"),[_INTL("Off"),_INTL("On")],
             proc { $PokemonSystem.border },
@@ -945,7 +988,8 @@ There are different modes:
                  pbSetResizeFactor($PokemonSystem.screensize)
                  ObjectSpace.each_object(TilemapLoader){|o| next if o.disposed?; o.updateClass }
                end
-            }
+            },
+            ["Normal", "Large", "Xtra Large", "Xtra² Large", "Full-Screen"]
          ),
          EnumOption.new(_INTL("Full Screen Border Crop"),[_INTL("Off"),_INTL("On")],
             proc { $PokemonSystem.bordercrop },
@@ -964,7 +1008,8 @@ There are different modes:
                $PokemonSystem.bordergraphic=value
                $BORDERS=getBorders
                setScreenBorderName($BORDERS[value]) # Sets image file for the border
-            }
+            },
+            getBorderNames
          )
       ]
     end

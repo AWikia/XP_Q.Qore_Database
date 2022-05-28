@@ -134,6 +134,10 @@ module PropertyMixin
   def set(value)
     @setProc.call(value) if @setProc
   end
+  
+  def help
+    return @help
+  end
 end
 
 
@@ -143,11 +147,12 @@ class EnumOption
   attr_reader :values
   attr_reader :name
 
-  def initialize(name,options,getProc,setProc)            
+  def initialize(name,options,getProc,setProc,help="No Description")            
     @values=options
     @name=name
     @getProc=getProc
     @setProc=setProc
+    @help=help
   end
 
   def next(current)
@@ -170,11 +175,12 @@ class EnumOption2
   attr_reader :values
   attr_reader :name
 
-  def initialize(name,options,getProc,setProc)             
+  def initialize(name,options,getProc,setProc,help="No Description")             
     @values=options
     @name=name
     @getProc=getProc
     @setProc=setProc
+    @help=help
   end
 
   def next(current)
@@ -199,13 +205,14 @@ class NumberOption
   attr_reader :optend
   attr_reader :listdisplay # Optional. If it is an array, it will replace the Type X/X with the X item from the given array
 
-  def initialize(name,optstart,optend,getProc,setProc,listdisplay=nil)
+  def initialize(name,optstart,optend,getProc,setProc,listdisplay=nil,help="No Description")
     @name=name
     @optstart=optstart
     @optend=optend
     @getProc=getProc
     @setProc=setProc
     @listdisplay=listdisplay
+    @help=help
   end
 
   def next(current)
@@ -235,13 +242,14 @@ class SliderOption
   attr_reader :optstart
   attr_reader :optend
 
-  def initialize(name,optstart,optend,optinterval,getProc,setProc)
+  def initialize(name,optstart,optend,optinterval,getProc,setProc,help="No Description")
     @name=name
     @optstart=optstart
     @optend=optend
     @optinterval=optinterval
     @getProc=getProc
     @setProc=setProc
+    @help=help
   end
 
   def next(current)
@@ -792,7 +800,6 @@ There are different modes:
        title[mode],0,0,Graphics.width,64,@viewport)
     @sprites["textbox"]=Kernel.pbCreateMessageWindow
     @sprites["textbox"].letterbyletter=false
-    @sprites["textbox"].text=_INTL("Text Skin {1}.\n{2} Accent Color.",1+$PokemonSystem.textskin,getAccentName)
     # These are the different options in the game.  To add an option, define a
     # setter and a getter for that option.  To delete an option, comment it out
     # or delete it.  The game's options may be placed in any order.
@@ -805,13 +812,15 @@ There are different modes:
         NumberOption.new(_INTL("Night Style"),1,4,
           proc { $PokemonSystem.night },
           proc {|value| $PokemonSystem.night = value },
-          ["Classic Tint", "Linear Tint", "Lunar Tint", "Cubic Tint"]
-        ),
+          ["Classic Tint", "Linear Tint", "Lunar Tint", "Cubic Tint"],
+           "Sets the styling of Day/Night tinting in outdoor maps."
+          ),
         EnumOption.new(_INTL("Debug Mode (Requires Restart)"),[_INTL("Off"),_INTL("On")],
            proc { $PokemonSystem.debugmode },
            proc {|value|
              $PokemonSystem.debugmode=value
-           }
+           },
+           "Enables or Disables Debugger. Requires restart for this to apply."
         ),
         EnumOption.new(_INTL("Running Key"),[_INTL("Hold"),_INTL("Toggle")],
            proc { $PokemonSystem.runstyle },
@@ -820,27 +829,33 @@ There are different modes:
                 $PokemonSystem.runstyle=value
                 $PokemonGlobal.runtoggle=false if $PokemonGlobal
               end
-           }
+           },
+           "Sets the way running is activated. Hold makes the run button toggle between running states"
         ),
         EnumOption.new(_INTL("Text Entry"),[_INTL("Cursor"),_INTL("Keyboard")],
           proc { $PokemonSystem.textinput },
-          proc {|value| $PokemonSystem.textinput = value }
+          proc {|value| $PokemonSystem.textinput = value },
+          "Sets the way running you type out text. Set this option to Keybaord to write text using your keyboard. "
         ),
         EnumOption.new(_INTL("Input Language"),[_INTL("Latin"),_INTL("Greek"),_INTL("Cyrillic")],
           proc { $PokemonSystem.charset2 },
-          proc {|value| $PokemonSystem.charset2 = value }
+          proc {|value| $PokemonSystem.charset2 = value },
+          "Sets the charset to be used in the Upper and Lower modes of the Cursor Text Entry "
         ),
         EnumOption.new(_INTL("Temperature Display"),[_INTL("Celsius"),_INTL("Fahrenheit")],
           proc { $PokemonSystem.temps },
-          proc {|value| $PokemonSystem.temps = value }
+          proc {|value| $PokemonSystem.temps = value },
+          "Sets how Temperature is shown the Advanced Information section of the Summary Screen."
         ),
         EnumOption.new(_INTL("Progress Bar Display"),[_INTL("2-colored"),_INTL("3-colored")],
           proc { $PokemonSystem.threecolorbar },
-          proc {|value| $PokemonSystem.threecolorbar = value }
+          proc {|value| $PokemonSystem.threecolorbar = value },
+          "Sets the amount of colors to be shown in Progress bars found in Summary Screens."
         ),
         EnumOption.new(_INTL("Trophy Notifications"),[_INTL("On"),_INTL("Off")],
            proc { $PokemonSystem.vrtrophynotif },
-           proc {|value| $PokemonSystem.vrtrophynotif=value }
+           proc {|value| $PokemonSystem.vrtrophynotif=value },
+          "Enables or Disables the notification when a Trophy is awarded."
         )
       ]
     end
@@ -858,7 +873,8 @@ There are different modes:
                  $game_system.bgm_resume(playingBGM)
                end
              end
-          }
+          },
+          "Controls the volume of Music Playback."
        ),
        SliderOption.new(_INTL("SE Volume"),0,100,5,
           proc { $PokemonSystem.sevolume },
@@ -873,7 +889,8 @@ There are different modes:
                end
                pbPlayCursorSE()
              end
-          }
+          },
+          "Controls the volume of Sound Effect Playback."
        ),
        SliderOption.new(_INTL("Jukebox BGM Speed"),0,200,5,
           proc { $PokemonSystem.jbtempo },
@@ -882,11 +899,13 @@ There are different modes:
                if value<5
                  $PokemonSystem.jbtempo=5
               end
-          }
+          },
+          "Controls the speed of Music Playback played by the Jukebox."
        ),
         EnumOption.new(_INTL("Pokémon Cry Style"),[_INTL("Classic"),_INTL("Modern")],
           proc { $PokemonSystem.cryclassic },
-          proc {|value| $PokemonSystem.cryclassic = value }
+          proc {|value| $PokemonSystem.cryclassic = value },
+          "Controls the style of Pokémon Cries heard. Set this to Classic to get the legacy cries."
         )
       ]
     end
@@ -894,23 +913,27 @@ There are different modes:
       @PokemonOptions+=[
         EnumOption.new(_INTL("Battle Effects"),[_INTL("On"),_INTL("Off")],
            proc { $PokemonSystem.battlescene },
-           proc {|value| $PokemonSystem.battlescene=value }
+           proc {|value| $PokemonSystem.battlescene=value },
+           "Enables or Disables Battle Animations"
         ),
         EnumOption.new(_INTL("Wild Pokémon Battle Style"),[_INTL("Single"),_INTL("Double")],
         # During join with stat trainers, all wild battles are in double battle regardless of this setting
         # If the user has only one Pokemon, all wild battles are in single battle regardless of this setting
            proc { $PokemonSystem.doublebattles },
-           proc {|value| $PokemonSystem.doublebattles=value }
+           proc {|value| $PokemonSystem.doublebattles=value },
+          "Controls whether Wild Pokémon Battles will start with one or two Pokémon when you're not with someone."
         ),
         EnumOption.new(_INTL("Battle Style"),[_INTL("Switch"),_INTL("Set")],
            proc { $PokemonSystem.battlestyle },
-           proc {|value| $PokemonSystem.battlestyle=value }
+           proc {|value| $PokemonSystem.battlestyle=value },
+           "Enables or Disables the ability to switch with another Pokémon upon defeating a trainer's Pokémon in Single Battles."
         ),
         EnumOption.new(_INTL("Battle Mechanics (Requires Restart)"),[_INTL("Generation V"),_INTL("NextGen")],
            proc { $PokemonSystem.mechanics },
            proc {|value|
              $PokemonSystem.mechanics=value
-           }
+           },
+           "Controls whether the Fifth Generation or the Current Generation Battle Mechanics are used. Requires restart for this to apply."
         ),
         EnumOption.new(_INTL("Generation VI Pokémon Graphic Style"),[_INTL("Classic"),_INTL("Modern")],
           proc { $PokemonSystem.newsix },
@@ -925,7 +948,8 @@ There are different modes:
            proc {|value|
              $PokemonSystem.darkmode=value
              setScreenBorderName($BORDERS[$PokemonSystem.bordergraphic]) # Accented Border
-           }
+           },
+           "Sets the theme of the UI and Textboxes. Setting this to Auto or Custom will enable Dark Mode only in specified hours."
         ),
        SliderOption.new(_INTL("Scheduled Dark Mode Start"),0,23,1,
           proc { $PokemonSystem.darkmodestart },
@@ -934,7 +958,8 @@ There are different modes:
                $PokemonSystem.darkmodestart=value
                setScreenBorderName($BORDERS[$PokemonSystem.bordergraphic]) # Accented Border
              end
-          }
+          },
+          "Sets the hour that will enable the Dark Mode when System Theme is set to Custom."
        ),
        SliderOption.new(_INTL("Scheduled Dark Mode End"),0,23,1,
           proc { $PokemonSystem.darkmodeend },
@@ -943,7 +968,8 @@ There are different modes:
                $PokemonSystem.darkmodeend=value
                setScreenBorderName($BORDERS[$PokemonSystem.bordergraphic]) # Accented Border
              end
-          }
+          },
+          "Sets the hour that will disable the Dark Mode when System Theme is set to Custom."
        ),
          NumberOption.new(_INTL("Text Skin"),1,$SpeechFrames.length,
            proc { $PokemonSystem.textskin },
@@ -952,7 +978,8 @@ There are different modes:
               MessageConfig.pbSetSpeechFrame("Graphics/Windowskins/"+getDarkModeFolder+"/"+$SpeechFrames[value])
               MessageConfig.pbSetSystemFrame("Graphics/Windowskins/"+getDarkModeFolder+"/"+$TextFrames[value])
            },
-           $SpeechFramesNames
+           $SpeechFramesNames,
+          "Sets the skin that will be shown in Texboxes and Menuboxes."
          ),
          NumberOption.new(_INTL("Accent Color"),1,getAccentNames.length,
            proc { $PokemonSystem.accentcolor },
@@ -961,12 +988,14 @@ There are different modes:
              $BORDERS=getBorders
              setScreenBorderName($BORDERS[$PokemonSystem.bordergraphic]) # Accented Border
            },
-           getAccentNames
+           getAccentNames,
+          "Sets the color in Accent-Aware graphics."
          ),
          NumberOption.new(_INTL("Pokémon Type Icon Style"),1,5,
            proc { $PokemonSystem.colortige },
            proc {|value| $PokemonSystem.colortige = value },
-           ["Colored Text", "Light Text", "Dark Text", "Minimal", "Retro"]
+           ["Colored Text", "Light Text", "Dark Text", "Minimal", "Retro"],
+           "Sets the style of Pokémon Type Icons"
          ),
          EnumOption.new(_INTL("Screen Border"),[_INTL("Off"),_INTL("On")],
             proc { $PokemonSystem.border },
@@ -977,7 +1006,8 @@ There are different modes:
                   pbSetResizeFactor($PokemonSystem.screensize)
                   ObjectSpace.each_object(TilemapLoader){|o| next if o.disposed?; o.updateClass }
                 end
-            }
+            },
+           "Enables or Disables the decorative screen border"
           ),
          NumberOption.new(_INTL("Screen Size"),1,5,
             proc { $PokemonSystem.screensize },
@@ -989,7 +1019,8 @@ There are different modes:
                  ObjectSpace.each_object(TilemapLoader){|o| next if o.disposed?; o.updateClass }
                end
             },
-            ["Normal", "Large", "Xtra Large", "Xtra² Large", "Full-Screen"]
+            ["Normal", "Large", "Xtra Large", "Xtra² Large", "Full-Screen"],
+            "Sets screen scaling level. The last option will set it to Full-Screen"
          ),
          EnumOption.new(_INTL("Full Screen Border Crop"),[_INTL("Off"),_INTL("On")],
             proc { $PokemonSystem.bordercrop },
@@ -1000,7 +1031,8 @@ There are different modes:
                 pbSetResizeFactor($PokemonSystem.screensize)
                 ObjectSpace.each_object(TilemapLoader){|o| next if o.disposed?; o.updateClass }
               end
-           }
+           },
+          "Enables or Disables Screen Border cropping in Full-Screen Mode, if Screen Border is enabled."
          ),
          NumberOption.new(_INTL("Screen Border Graphic"),1,$BORDERS.length,
             proc { $PokemonSystem.bordergraphic },
@@ -1009,7 +1041,8 @@ There are different modes:
                $BORDERS=getBorders
                setScreenBorderName($BORDERS[value]) # Sets image file for the border
             },
-            getBorderNames
+            getBorderNames,
+           "Sets the graphic to bs used in the Screen Border, if that is enabled."
          )
       ]
     end
@@ -1023,6 +1056,7 @@ There are different modes:
     for i in 0...@PokemonOptions.length
       @sprites["option"][i]=(@PokemonOptions[i].get || 0)
     end
+    @sprites["textbox"].text=_INTL("{1}",@PokemonOptions[0].help)
     pbDeactivateWindows(@sprites)
     pbFadeInAndShow(@sprites) { pbUpdate }
   end
@@ -1036,29 +1070,29 @@ There are different modes:
     oldTextSkin   = $PokemonSystem.textskin   # Speech
     oldAccent   = $PokemonSystem.accentcolor   # Speech
     oldmode = isDarkMode?
+    oldindex = @sprites["option"].index
     #    oldFont       = $PokemonSystem.font
     pbActivateWindow(@sprites,"option"){
        loop do
          Graphics.update
          Input.update
          pbUpdate
+         if @sprites["option"].index != oldindex
+           oldindex = @sprites["option"].index
+           if @sprites["option"].index==@PokemonOptions.length
+             @sprites["textbox"].text=_INTL("Exit from {1}", @sprites["title"].text)
+           else
+             @sprites["textbox"].text=_INTL("{1}",@PokemonOptions[@sprites["option"].index].help)
+           end
+         end
          if @sprites["option"].mustUpdateOptions
            # Set the values of each option
            for i in 0...@PokemonOptions.length
              @PokemonOptions[i].set(@sprites["option"][i])
            end
-=begin
-           @sprites["title"].setSkin(MessageConfig.pbGetSystemFrame())
-           @sprites["option"].setSkin(MessageConfig.pbGetSystemFrame())
-           @sprites["textbox"].width=@sprites["textbox"].width  # Necessary evil
-           @sprites["textbox"].setSkin(MessageConfig.pbGetSpeechFrame())
-           pbSetSystemFont(@sprites["textbox"].contents)
-           @sprites["textbox"].text = _INTL("Speech frame {1}.",1+$PokemonSystem.textskin)
-=end
            if $PokemonSystem.textskin!=oldTextSkin
              @sprites["textbox"].setSkin(MessageConfig.pbGetSpeechFrame())
              @sprites["textbox"].width = @sprites["textbox"].width  # Necessary evil
-             @sprites["textbox"].text  = _INTL("Text Skin {1}.\n{2} Accent Color.",1+$PokemonSystem.textskin,getAccentName)
              oldTextSkin = $PokemonSystem.textskin
            end
            if $PokemonSystem.frame!=oldSystemSkin
@@ -1067,22 +1101,17 @@ There are different modes:
              oldSystemSkin = $PokemonSystem.frame
            end
            if $PokemonSystem.accentcolor!=oldAccent
-             @sprites["textbox"].width = @sprites["textbox"].width  # Necessary evil
-             @sprites["textbox"].text  = _INTL("Text Skin {1}.\n{2} Accent Color.",1+$PokemonSystem.textskin,getAccentName)
             oldAccent   = $PokemonSystem.accentcolor   # Speech
           end
           if isDarkMode? != oldmode
               MessageConfig.pbSetSpeechFrame("Graphics/Windowskins/"+getDarkModeFolder+"/"+$SpeechFrames[$PokemonSystem.textskin])
               MessageConfig.pbSetSystemFrame("Graphics/Windowskins/"+getDarkModeFolder+"/"+$TextFrames[$PokemonSystem.textskin])
              @sprites["textbox"].setSkin(MessageConfig.pbGetSpeechFrame())
-             @sprites["textbox"].width = @sprites["textbox"].width  # Necessary evil
-             @sprites["textbox"].text  = _INTL("Text Skin {1}.\n{2} Accent Color.",1+$PokemonSystem.textskin,getAccentName)
               oldmode = isDarkMode?
           end
 =begin
            if $PokemonSystem.font!=oldFont
              pbSetSystemFont(@sprites["textbox"].contents)
-             @sprites["textbox"].text=_INTL("Text Skin {1}.\n{2} Accent Color.",1+$PokemonSystem.textskin,getAccentName)
              oldFont = $PokemonSystem.font
            end
 =end

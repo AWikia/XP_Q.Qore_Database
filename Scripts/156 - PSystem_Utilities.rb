@@ -374,19 +374,6 @@ def getDexNumber4(i=0)
     return fdexno
 end
 
-# Returns the Accent Color Folder
-def getAccentFolder
-  if $PokemonSystem
-    if (($PokemonSystem.accentcolor!=24 rescue false)) # Accent Color 19 is hardcoded to be the channel-aware ones
-      return "Accents/Accent Color " + $PokemonSystem.accentcolor.to_s
-    else
-      return "Accents/Accent Color " + $PokemonSystem.accentcolor.to_s + ["/Stable","/Beta","/Dev","/Canary"][QQORECHANNEL]
-    end
-  else
-    return "Accents/Accent Color " + "0"
-  end
-end
-
 # Returns if Dark Mode is active
 def isDarkMode?
   if $PokemonSystem
@@ -414,10 +401,30 @@ def getDarkModeFolder
   end
 end
 
+
+
+# Returns the Accent Color Folder
+def getAccentFolder
+  if $PokemonSystem
+    if (($PokemonSystem.accentcolor!=24 rescue false)) # Accent Color 19 is hardcoded to be the channel-aware ones
+      return "Accents/Accent Color " + $PokemonSystem.accentcolor.to_s
+    else
+      return "Accents/Accent Color " + $PokemonSystem.accentcolor.to_s + ["/Stable","/Beta","/Dev","/Canary"][QQORECHANNEL]
+    end
+  else
+    return "Accents/Accent Color " + "0"
+  end
+end
+
+# Returns the Accent Colors
+def getAccentNames
+  return ["Light Yellow", "Yellow", "Dark Yellow", "Light Orange", "Orange", "Dark Orange", "Light Red", "Red", "Dark Red", "Light Pink", "Pink", "Dark Pink", "Light Purple", "Purple", "Dark Purple", "Light Blue", "Blue", "Dark Blue", "Light Green", "Green", "Dark Green", "Light Gray", "Gray", "Dark Gray", "Channel-Aware", "Multi-Colored", "Black and White", "Pokémon Quadruplet", "Bronze Medal", "Silver Medal", "Gold Medal", "Platinum Medal"]
+end
+
 # Returns the Active Accent Color
 def getAccentName
   if $PokemonSystem 
-    return ["Light Yellow", "Yellow", "Dark Yellow", "Light Orange", "Orange", "Dark Orange", "Light Red", "Red", "Dark Red", "Light Pink", "Pink", "Dark Pink", "Light Purple", "Purple", "Dark Purple", "Light Blue", "Blue", "Dark Blue", "Light Green", "Green", "Dark Green", "Light Gray", "Gray", "Dark Gray", "Channel-Aware", "Multi-Colored", "Black and White", "Pokémon Quadruplet", "Bronze Medal", "Silver Medal", "Gold Medal", "Platinum Medal"][$PokemonSystem.accentcolor]
+    return getAccentNames[$PokemonSystem.accentcolor]
   else
     return "Blue"
   end

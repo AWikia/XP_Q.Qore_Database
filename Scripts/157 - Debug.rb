@@ -234,6 +234,8 @@ def pbDebugMenu
   viewport=Viewport.new(0,0,Graphics.width,Graphics.height)
   viewport.z=99999
   sprites={}
+    sprites["title"]=Window_UnformattedTextPokemon.newWithSize(
+       _INTL("Debug Mode"),0,0,Graphics.width,64,viewport)
   commands=CommandList.new
   commands.add("corendo",_INTL("Game ROM Memory Check")) # For Compatibility with Corendo
   commands.add("corendo2",_INTL("Control Configuration Check")) # For Compatibility with Corendo
@@ -294,9 +296,10 @@ def pbDebugMenu
   cmdwindow=sprites["cmdwindow"]
   cmdwindow.viewport=viewport
   cmdwindow.resizeToFit(cmdwindow.commands)
-  cmdwindow.height=Graphics.height if cmdwindow.height>Graphics.height
+  cmdwindow.width=Graphics.width
+  cmdwindow.height=Graphics.height - sprites["title"].height if cmdwindow.height>(Graphics.height - sprites["title"].height)
   cmdwindow.x=0
-  cmdwindow.y=0
+  cmdwindow.y=sprites["title"].height
   cmdwindow.visible=true
   pbFadeInAndShow(sprites)
   ret=-1

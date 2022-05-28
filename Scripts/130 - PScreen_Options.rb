@@ -805,7 +805,7 @@ There are different modes:
         NumberOption.new(_INTL("Night Style"),1,4,
           proc { $PokemonSystem.night },
           proc {|value| $PokemonSystem.night = value },
-          ["Classic", "Linear", "Lunar", "Cubic"]
+          ["Classic Tint", "Linear Tint", "Lunar Tint", "Cubic Tint"]
         ),
         EnumOption.new(_INTL("Debug Mode (Requires Restart)"),[_INTL("Off"),_INTL("On")],
            proc { $PokemonSystem.debugmode },

@@ -271,6 +271,7 @@ class PokemonLoad
     cmdMysteryGift = -1
     cmdQQSR        = -1
     cmdQQRM        = -1
+    cmdDebug       = -1
     cmdQuit        = -1
     cmdAbout       = -1
     commands       = []
@@ -333,6 +334,7 @@ class PokemonLoad
     commands[cmdLanguage=commands.length]=_INTL("Language") if LANGUAGES.length>=2
     commands[cmdQQSR=commands.length]=_INTL("System Requirements") # Due to a bug in VR Corendo, we need to set it here
     commands[cmdQQRM=commands.length]=_INTL("Reference Manual") # This is handled elsewhere on VR Corendo
+    commands[cmdDebug=commands.length]=_INTL("Debug") if $DEBUG || $TEST
     commands[cmdQuit=commands.length]=_INTL("Quit Game")
     commands[cmdAbout=commands.length]=_INTL("About")
     @scene.pbStartScene(commands,showContinue,trainer,framecount,mapid)
@@ -481,7 +483,7 @@ class PokemonLoad
         }
       elsif cmdQQSR>=0 && command==cmdQQSR
         @QQSR="\\l[9]"
-        @QQSR+="Windows Operating System: XP (8.1 recommended)"
+        @QQSR+="Windows Operating System: 7 (8.1 recommended)"
         @QQSR+="\\nRAM: 1GB (2GB recommended)"
         @QQSR+="\\nProcessor: 1GHz (1.5GHz recommened)"
         @QQSR+="\\nColor Depth: High Color (True color recommended)"
@@ -515,6 +517,10 @@ class PokemonLoad
         return
       elsif cmdQQRM>=0 && command==cmdQQRM
         worksOnCorendo(['VR Corendo'])
+      elsif cmdDebug>=0 && command==cmdDebug
+        pbFadeOutIn(99999) { 
+           pbDebugMenu(false)
+        }
       elsif cmdQuit>=0 && command==cmdQuit
         @scene.pbEndScene
         $scene=nil

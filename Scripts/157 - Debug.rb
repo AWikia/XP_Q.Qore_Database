@@ -231,6 +231,9 @@ def pbWarpToMap()
 end
 
 def pbDebugMenu(fromgame=true)
+  if !fromgame
+    pbBGMPlay("Screen")
+  end
   viewport=Viewport.new(0,0,Graphics.width,Graphics.height)
   viewport.z=99999
   sprites={}
@@ -886,7 +889,7 @@ def pbDebugMenu(fromgame=true)
     elsif cmd=="mapconnections"
       pbFadeOutIn(99999) { pbEditorScreen }
     elsif cmd=="animeditor"
-      pbFadeOutIn(99999) { pbAnimationEditor }
+      pbFadeOutIn(99999) { pbAnimationEditor(fromgame) }
     elsif cmd=="debugconsole"
       Console::setup_console
     elsif cmd=="togglelogging"

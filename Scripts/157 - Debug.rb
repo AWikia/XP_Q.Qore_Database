@@ -275,7 +275,7 @@ def pbDebugMenu(fromgame=true)
   commands.add("roamerstatus",_INTL("Roaming Pokémon Status")) if fromgame
   commands.add("roam",_INTL("Advance Roaming")) if fromgame
   commands.add("games",_INTL("Mini Games")) if fromgame # Κορα Κορε addition
-  commands.add("spriteposition",_INTL("Reposition Sprites")) # Taken from Editor 
+  commands.add("spriteposition",_INTL("Reposition Sprites"))  if fromgame # Taken from Editor 
   commands.add("spriteposition2",_INTL("Reposition All Sprites")) # Taken from Editor 
   commands.add("setencounters",_INTL("Set Encounters")) 
   commands.add("setmetadata",_INTL("Set Metadata")) 

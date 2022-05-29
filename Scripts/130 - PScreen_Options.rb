@@ -813,14 +813,14 @@ There are different modes:
           proc { $PokemonSystem.night },
           proc {|value| $PokemonSystem.night = value },
           ["Classic Tint", "Linear Tint", "Lunar Tint", "Cubic Tint"],
-           "Sets the styling of Day/Night tinting. 0 is Classic, 1 is Linear, 2 is Lunar (Default) and 3 is Cubic. Tintings come from Essentials 17."
+           "Sets the styling of Day/Night tinting in outdoor maps."
           ),
         EnumOption.new(_INTL("Debug Mode (Requires Restart)"),[_INTL("Off"),_INTL("On")],
            proc { $PokemonSystem.debugmode },
            proc {|value|
              $PokemonSystem.debugmode=value
            },
-           "Enables or Disables Debugging features. Requires restart for this to apply."
+           "Enables or Disables Debugger. Requires restart for this to apply."
         ),
         EnumOption.new(_INTL("Running Key"),[_INTL("Hold"),_INTL("Toggle")],
            proc { $PokemonSystem.runstyle },
@@ -830,32 +830,32 @@ There are different modes:
                 $PokemonGlobal.runtoggle=false if $PokemonGlobal
               end
            },
-           "Sets the way running is activated (Hold requires the Z button to be held in order to run)."
+           "Sets the way running is activated. Hold makes the run button toggle between running states"
         ),
         EnumOption.new(_INTL("Text Entry"),[_INTL("Cursor"),_INTL("Keyboard")],
           proc { $PokemonSystem.textinput },
           proc {|value| $PokemonSystem.textinput = value },
-          "Sets the way you type text. Choice between Cursor as in the official games or Keyboard."
+          "Sets the way running you type out text. Set this option to Keybaord to write text using your keyboard. "
         ),
         EnumOption.new(_INTL("Input Language"),[_INTL("Latin"),_INTL("Greek"),_INTL("Cyrillic")],
           proc { $PokemonSystem.charset2 },
           proc {|value| $PokemonSystem.charset2 = value },
-          "Sets the charset in the naming dialog (Cursor Mode). Choice between Latin, Greek and Cyrillic."
+          "Sets the charset to be used in the Upper and Lower modes of the Cursor Text Entry "
         ),
         EnumOption.new(_INTL("Temperature Display"),[_INTL("Celsius"),_INTL("Fahrenheit")],
           proc { $PokemonSystem.temps },
           proc {|value| $PokemonSystem.temps = value },
-          "Sets the way Temperature is shown on the Advanced Information section of the Summary Screen. Choice between Celsius and Fahrenheit."
+          "Sets how Temperature is shown the Advanced Information section of the Summary Screen."
         ),
         EnumOption.new(_INTL("Progress Bar Display"),[_INTL("2-colored"),_INTL("3-colored")],
           proc { $PokemonSystem.threecolorbar },
           proc {|value| $PokemonSystem.threecolorbar = value },
-          "Sets the amount of colors to be shown in Progress bars found in Summary Screens. Choice between 2 and 3 -colored"
+          "Sets the amount of colors to be shown in Progress bars found in Summary Screens."
         ),
         EnumOption.new(_INTL("Trophy Notifications"),[_INTL("On"),_INTL("Off")],
            proc { $PokemonSystem.vrtrophynotif },
            proc {|value| $PokemonSystem.vrtrophynotif=value },
-          "When set to off, no notifications about an awarded trophy will appear."
+          "Enables or Disables the notification when a Trophy is awarded."
         )
       ]
     end
@@ -874,7 +874,7 @@ There are different modes:
                end
              end
           },
-          "Controls BGM playback volume."
+          "Controls the volume of Music Playback."
        ),
        SliderOption.new(_INTL("SE Volume"),0,100,5,
           proc { $PokemonSystem.sevolume },
@@ -890,7 +890,7 @@ There are different modes:
                pbPlayCursorSE()
              end
           },
-          "Controls SFX playback volume."
+          "Controls the volume of Sound Effect Playback."
        ),
        SliderOption.new(_INTL("Jukebox BGM Speed"),0,200,5,
           proc { $PokemonSystem.jbtempo },
@@ -900,12 +900,12 @@ There are different modes:
                  $PokemonSystem.jbtempo=5
               end
           },
-          "Controls pitch on playback casted by the Jukebox Pokégear feature."
+          "Controls the speed of Music Playback played by the Jukebox."
        ),
         EnumOption.new(_INTL("Pokémon Cry Style"),[_INTL("Classic"),_INTL("Modern")],
           proc { $PokemonSystem.cryclassic },
           proc {|value| $PokemonSystem.cryclassic = value },
-          "Sets Pokémon Cry Style. Choice between Classic and Modern and starts with Modern Cries by default."
+          "Controls the style of Pokémon Cries heard. Set this to Classic to get the legacy cries."
         )
       ]
     end
@@ -914,32 +914,31 @@ There are different modes:
         EnumOption.new(_INTL("Battle Effects"),[_INTL("On"),_INTL("Off")],
            proc { $PokemonSystem.battlescene },
            proc {|value| $PokemonSystem.battlescene=value },
-           "When set to Off, no battle animations will be shown"
+           "Enables or Disables Battle Animations"
         ),
         EnumOption.new(_INTL("Wild Pokémon Battle Style"),[_INTL("Single"),_INTL("Double")],
         # During join with stat trainers, all wild battles are in double battle regardless of this setting
         # If the user has only one Pokemon, all wild battles are in single battle regardless of this setting
            proc { $PokemonSystem.doublebattles },
            proc {|value| $PokemonSystem.doublebattles=value },
-          "When set to double, all wild battles will be forced to double when you're not with someone."
+          "Controls whether Wild Pokémon Battles will start with one or two Pokémon when you're not with someone."
         ),
         EnumOption.new(_INTL("Battle Style"),[_INTL("Switch"),_INTL("Set")],
            proc { $PokemonSystem.battlestyle },
            proc {|value| $PokemonSystem.battlestyle=value },
-           "When set to Switch, it allows you to switch to another Pokémon on trainer battles when defating a Pokémon. When set to Set, it won’t prompt you to switch to another Pokémon if you wish when defating a Trainer’s Pokémon."
+           "Enables or Disables the ability to switch with another Pokémon upon defeating a trainer's Pokémon in Single Battles."
         ),
         EnumOption.new(_INTL("Battle Mechanics (Requires Restart)"),[_INTL("Generation V"),_INTL("NextGen")],
            proc { $PokemonSystem.mechanics },
            proc {|value|
              $PokemonSystem.mechanics=value
            },
-           "When set to Generation V, it uses mechanics found in Generation V games. When set to NextGen, it uses mechanics found in the latest Generation of Pokémon Games (Whichever is latest). Requires restart for this to apply."
+           "Controls whether the Fifth Generation or the Current Generation Battle Mechanics are used. Requires restart for this to apply."
         ),
         EnumOption.new(_INTL("Generation VI Pokémon Graphic Style"),[_INTL("Classic"),_INTL("Modern")],
           proc { $PokemonSystem.newsix },
           proc {|value| $PokemonSystem.newsix = value }
-        ),
-        "This is inteded as a transition point between the Original Gen6 and the revamped Gen6 sprites. Set this to off to disable them. New games have this setting enabled by default. This does not affect Hisuian Goomy or Bergmite families as those were added after the project started but does affect Sylvia since it is a recolored form of Female Meowstic"
+        )
       ]
     end
     if mode==3
@@ -950,7 +949,7 @@ There are different modes:
              $PokemonSystem.darkmode=value
              setScreenBorderName($BORDERS[$PokemonSystem.bordergraphic]) # Accented Border
            },
-           "Sets the theme of Windowskins, the UI and other elements in the game. By default, it is set to Light but can be set to Dark to make those Dark or to either Auto or Custom to let the game decide when to apply Dark Mode."
+           "Sets the theme of the UI and Textboxes. Setting this to Auto or Custom will enable Dark Mode only in specified hours."
         ),
        SliderOption.new(_INTL("Scheduled Dark Mode Start"),0,23,1,
           proc { $PokemonSystem.darkmodestart },
@@ -980,7 +979,7 @@ There are different modes:
               MessageConfig.pbSetSystemFrame("Graphics/Windowskins/"+getDarkModeFolder+"/"+$TextFrames[value])
            },
            $SpeechFramesNames,
-          "Sets the windowskin graphics to be used in the game."
+          "Sets the skin that will be shown in Texboxes and Menuboxes."
          ),
          NumberOption.new(_INTL("Accent Color"),1,getAccentNames.length,
            proc { $PokemonSystem.accentcolor },
@@ -990,13 +989,13 @@ There are different modes:
              setScreenBorderName($BORDERS[$PokemonSystem.bordergraphic]) # Accented Border
            },
            getAccentNames,
-          "Sets the color of all accent-aware elements. Thirty-Two Colors exist which consist of Yellow, Orange, Red, Pink, Purple, Blue, Green and Gray with Light, Normal and Dark forms as well as eight special ones. Blue is the default color."
+          "Sets the color in Accent-Aware graphics."
          ),
          NumberOption.new(_INTL("Pokémon Type Icon Style"),1,5,
            proc { $PokemonSystem.colortige },
            proc {|value| $PokemonSystem.colortige = value },
            ["Colored Text", "Light Text", "Dark Text", "Minimal", "Retro"],
-           "Sets style of All Icon graphics"
+           "Sets the style of Pokémon Type Icons"
          ),
          EnumOption.new(_INTL("Screen Border"),[_INTL("Off"),_INTL("On")],
             proc { $PokemonSystem.border },
@@ -1008,7 +1007,7 @@ There are different modes:
                   ObjectSpace.each_object(TilemapLoader){|o| next if o.disposed?; o.updateClass }
                 end
             },
-           "When set to on, it shows a decorative border"
+           "Enables or Disables the decorative screen border"
           ),
          NumberOption.new(_INTL("Screen Size"),1,5,
             proc { $PokemonSystem.screensize },
@@ -1021,7 +1020,7 @@ There are different modes:
                end
             },
             ["Normal", "Large", "Xtra Large", "Xtra² Large", "Full-Screen"],
-            "Sets screen size. Choice between 4 sizes and Full Screen (The fifth size)"
+            "Sets screen scaling level. The last option will set it to Full-Screen"
          ),
          EnumOption.new(_INTL("Full Screen Border Crop"),[_INTL("Off"),_INTL("On")],
             proc { $PokemonSystem.bordercrop },
@@ -1033,7 +1032,7 @@ There are different modes:
                 ObjectSpace.each_object(TilemapLoader){|o| next if o.disposed?; o.updateClass }
               end
            },
-          "When set to on, border will be cropped, enabling larger graphics on Full Screen mode with screen border enabled"
+          "Enables or Disables Screen Border cropping in Full-Screen Mode, if Screen Border is enabled."
          ),
          NumberOption.new(_INTL("Screen Border Graphic"),1,$BORDERS.length,
             proc { $PokemonSystem.bordergraphic },
@@ -1043,7 +1042,7 @@ There are different modes:
                setScreenBorderName($BORDERS[value]) # Sets image file for the border
             },
             getBorderNames,
-           "On RGSS XP, it sets the decorative border graphic. On VR Corendo, it sets the pillarboxed area graphic."
+           "Sets the graphic to bs used in the Screen Border, if that is enabled."
          )
       ]
     end
@@ -1078,7 +1077,7 @@ There are different modes:
          Input.update
          pbUpdate
          if Input.trigger?(Input::A) && @sprites["option"].index != @PokemonOptions.length
-            Kernel.pbMessage(_INTL("\\l[4]{1}",@PokemonOptions[@sprites["option"].index].help))
+            Kernel.pbMessage(_INTL("\\l[3]{1}",@PokemonOptions[@sprites["option"].index].help))
          end
          if @sprites["option"].mustUpdateOptions
            # Set the values of each option

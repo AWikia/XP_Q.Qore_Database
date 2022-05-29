@@ -950,7 +950,7 @@ There are different modes:
              $PokemonSystem.darkmode=value
              setScreenBorderName($BORDERS[$PokemonSystem.bordergraphic]) # Accented Border
            },
-           "Sets the theme of Windowskins, the UI and other elements in the game. By default, it is set to Light but can be set to Dark to make those Dark or to either Auto or Custom to let the game decide when to apply Dark Mode."
+           "Sets the theme of Windowskins, the UI and other elements in the game. By default, it is set to Light but can be set to Dark to make those Dark or to either Auto or Custom."
         ),
        SliderOption.new(_INTL("Scheduled Dark Mode Start"),0,23,1,
           proc { $PokemonSystem.darkmodestart },

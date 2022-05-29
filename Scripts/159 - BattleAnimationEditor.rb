@@ -3520,7 +3520,7 @@ end
 ################################################################################
 # Main
 ################################################################################
-def animationEditorMain(animation)
+def animationEditorMain(animation,fromgame=true)
   viewport=Viewport.new(0,0,512+288,384+288)
   viewport.z=99999
   # Canvas
@@ -3745,9 +3745,13 @@ def animationEditorMain(animation)
   bottomwindow.dispose
   viewport.dispose
   GC.start
+  if !fromgame
+    pbBGMPlay("Screen")
+  end
+
 end
 
-def pbAnimationEditor
+def pbAnimationEditor(fromgame=true)
   pbBGMStop()
   animation=tryLoadData("Data/PkmnAnimations.rxdata")
   if !animation || !animation[0]
@@ -3760,7 +3764,7 @@ def pbAnimationEditor
   $PokemonSystem.border = 0
   pbSetResizeFactor
   Win32API.SetWindowPos((512+288)*$ResizeFactor,(384+288)*$ResizeFactor)
-  animationEditorMain(animation)
+  animationEditorMain(animation,fromgame)
   $PokemonSystem.border = oldborder
   pbSetResizeFactor(oldzoom)
   Win32API.SetWindowPos(oldsize[0],oldsize[1])

@@ -230,7 +230,7 @@ def pbWarpToMap()
   return nil
 end
 
-def pbDebugMenu
+def pbDebugMenu(fromgame=true)
   viewport=Viewport.new(0,0,Graphics.width,Graphics.height)
   viewport.z=99999
   sprites={}
@@ -240,58 +240,58 @@ def pbDebugMenu
   commands.add("corendo",_INTL("Game ROM Memory Check")) # For Compatibility with Corendo
   commands.add("corendo2",_INTL("Control Configuration Check")) # For Compatibility with Corendo
   commands.add("corendo3",_INTL("Game RAM Memory Check")) # For Compatibility with Corendo
-  commands.add("switches",_INTL("Switches"))
-  commands.add("variables",_INTL("Variables"))
-  commands.add("refreshmap",_INTL("Refresh Map"))
-  commands.add("warp",_INTL("Warp to Map"))
-  commands.add("healparty",_INTL("Heal Party"))
-  commands.add("additem",_INTL("Add Item"))
-  commands.add("fillbag",_INTL("Fill Bag"))
-  commands.add("clearbag",_INTL("Empty Bag"))
-  commands.add("addpokemon",_INTL("Add Pokémon"))
-  commands.add("fillboxes",_INTL("Fill Storage Boxes"))
-  commands.add("clearboxes",_INTL("Clear Storage Boxes"))
-  commands.add("usepc",_INTL("Use PC"))
-  commands.add("setplayer",_INTL("Set Player Character"))
-  commands.add("renameplayer",_INTL("Rename Player"))
-  commands.add("randomid",_INTL("Randomise Player's ID"))
-#  commands.add("changeoutfit",_INTL("Change Player Outfit"))
-  commands.add("setmoney",_INTL("Set Money"))
-  commands.add("setcoins",_INTL("Set Coins"))
-  commands.add("setbadges",_INTL("Set Badges"))
-  commands.add("demoparty",_INTL("Give Demo Party"))
-  commands.add("demoparty2",_INTL("Give Joicon Party"))
-  commands.add("toggleshoes",_INTL("Toggle Running Shoes Ownership"))
-  commands.add("togglepokegear",_INTL("Toggle Pokégear Ownership"))
-  commands.add("togglepokedex",_INTL("Toggle Pokédex Ownership"))
-  commands.add("dexlists",_INTL("Dex List Accessibility"))
-  commands.add("readyrematches",_INTL("Ready Phone Rematches"))
-  commands.add("mysterygift",_INTL("Manage Mystery Gifts"))
-  commands.add("daycare",_INTL("Day Care Options..."))
-  commands.add("quickhatch",_INTL("Quick Hatch"))
-  commands.add("roamerstatus",_INTL("Roaming Pokémon Status"))
-  commands.add("roam",_INTL("Advance Roaming"))
-  commands.add("games",_INTL("Mini Games")) # Κορα Κορε addition
+  commands.add("switches",_INTL("Switches")) if fromgame
+  commands.add("variables",_INTL("Variables")) if fromgame
+  commands.add("refreshmap",_INTL("Refresh Map")) if fromgame
+  commands.add("warp",_INTL("Warp to Map")) if fromgame
+  commands.add("healparty",_INTL("Heal Party")) if fromgame
+  commands.add("additem",_INTL("Add Item")) if fromgame
+  commands.add("fillbag",_INTL("Fill Bag")) if fromgame
+  commands.add("clearbag",_INTL("Empty Bag")) if fromgame
+  commands.add("addpokemon",_INTL("Add Pokémon")) if fromgame
+  commands.add("fillboxes",_INTL("Fill Storage Boxes")) if fromgame
+  commands.add("clearboxes",_INTL("Clear Storage Boxes")) if fromgame
+  commands.add("usepc",_INTL("Use PC")) if fromgame
+  commands.add("setplayer",_INTL("Set Player Character")) if fromgame
+  commands.add("renameplayer",_INTL("Rename Player")) if fromgame
+  commands.add("randomid",_INTL("Randomise Player's ID")) if fromgame
+#  commands.add("changeoutfit",_INTL("Change Player Outfit")) if fromgame
+  commands.add("setmoney",_INTL("Set Money")) if fromgame
+  commands.add("setcoins",_INTL("Set Coins")) if fromgame
+  commands.add("setbadges",_INTL("Set Badges")) if fromgame
+  commands.add("demoparty",_INTL("Give Demo Party")) if fromgame
+  commands.add("demoparty2",_INTL("Give Joicon Party")) if fromgame
+  commands.add("toggleshoes",_INTL("Toggle Running Shoes Ownership")) if fromgame
+  commands.add("togglepokegear",_INTL("Toggle Pokégear Ownership")) if fromgame
+  commands.add("togglepokedex",_INTL("Toggle Pokédex Ownership")) if fromgame
+  commands.add("dexlists",_INTL("Dex List Accessibility")) if fromgame
+  commands.add("readyrematches",_INTL("Ready Phone Rematches")) if fromgame
+  commands.add("mysterygift",_INTL("Manage Mystery Gifts")) if fromgame
+  commands.add("daycare",_INTL("Day Care Options...")) if fromgame
+  commands.add("quickhatch",_INTL("Quick Hatch")) if fromgame
+  commands.add("roamerstatus",_INTL("Roaming Pokémon Status")) if fromgame
+  commands.add("roam",_INTL("Advance Roaming")) if fromgame
+  commands.add("games",_INTL("Mini Games")) if fromgame # Κορα Κορε addition
   commands.add("spriteposition",_INTL("Reposition Sprites")) # Taken from Editor 
   commands.add("spriteposition2",_INTL("Reposition All Sprites")) # Taken from Editor 
   commands.add("setencounters",_INTL("Set Encounters")) 
   commands.add("setmetadata",_INTL("Set Metadata")) 
   commands.add("terraintags",_INTL("Set Terrain Tags"))
   commands.add("trainertypes",_INTL("Edit Trainer Types"))
-  commands.add("resettrainers",_INTL("Reset Trainers"))
-  commands.add("testwildbattle",_INTL("Test Wild Battle"))
-  commands.add("testdoublewildbattle",_INTL("Test Double Wild Battle"))
-  commands.add("testtrainerbattle",_INTL("Test Trainer Battle"))
-  commands.add("testdoubletrainerbattle",_INTL("Test Double Trainer Battle"))
-  commands.add("relicstone",_INTL("Relic Stone"))
-  commands.add("purifychamber",_INTL("Purify Chamber"))
+  commands.add("resettrainers",_INTL("Reset Trainers")) if fromgame
+  commands.add("testwildbattle",_INTL("Test Wild Battle")) if fromgame
+  commands.add("testdoublewildbattle",_INTL("Test Double Wild Battle")) if fromgame
+  commands.add("testtrainerbattle",_INTL("Test Trainer Battle")) if fromgame
+  commands.add("testdoubletrainerbattle",_INTL("Test Double Trainer Battle")) if fromgame
+  commands.add("relicstone",_INTL("Relic Stone")) if fromgame
+  commands.add("purifychamber",_INTL("Purify Chamber")) if fromgame
   commands.add("extracttext",_INTL("Extract Text"))
   commands.add("compiletext",_INTL("Compile Text"))
   commands.add("compiledata",_INTL("Compile Data"))
   commands.add("mapconnections",_INTL("Map Connections"))
   commands.add("animeditor",_INTL("Animation Editor"))
   commands.add("debugconsole",_INTL("Debug Console"))
-  commands.add("togglelogging",_INTL("Toggle Battle Logging"))
+  commands.add("togglelogging",_INTL("Toggle Battle Logging")) if fromgame
   sprites["cmdwindow"]=Window_CommandPokemonEx.new(commands.list)
   cmdwindow=sprites["cmdwindow"]
   cmdwindow.viewport=viewport

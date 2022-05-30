@@ -1148,7 +1148,7 @@
 1019,MINDIA,Mindia,013,0,MIND,Staus,50,10,0,04,0,bce,"Opposing Pokémon are scattered by user's mind that confuses them"
 1020,MINDYGLOPS,Mindy Glops,300,30,MIND,Special,99,20,0,04,0,bf,"This move ignores the other Brainologic and Mindy Glops, allowing this move to properly hit the targets"
 1140,BRAINYMEDIA,Brainymedia,344,0,MIND,Status,0,5,0,10,0,,"When this move is used, if the user faints, the foe that landed the knockout will have its stat stages reduced to minimum."
-1147,BRAINDAMAGE,Brain Damage,344,175,MIND,Special,55,5,0,00,0,abef,"Deals massive damage. If this move succeeds, once the user faints, the foe that landed the knockout hit will have its stat stages reduced to minimum."
+1148,BRAINDAMAGE,Brain Damage,344,175,MIND,Special,55,5,0,00,0,abef,"Deals massive damage. If this move succeeds, once the user faints, the foe that landed the knockout hit will have its stat stages reduced to minimum."
 ## FLINT Moves = Heart
 743,SMORESMIRI,S'More S'Miri,198,0,HEART,Status,0,20,0,10,0,d,A move created for Love Crystal Ball. This move will restore HP depending on user's Happiness
 751,HEARTGLOW,Heart Glow,00F,50,HEART,Physical,0,20,25,00,0,abeg,.A glowing heart that will do damage. User thraws out before using this move. Target may be flinched as well.

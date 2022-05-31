@@ -435,7 +435,8 @@ class Game_Map
       $MapFactory.setCurrentMap
     end
     if @scroll_rest > 0
-      distance = 2 ** @scroll_speed
+      distance = 1 << @scroll_speed # 2 **
+      distance = @scroll_rest if distance>@scroll_rest
       case @scroll_direction
       when 2
         scroll_down(distance)

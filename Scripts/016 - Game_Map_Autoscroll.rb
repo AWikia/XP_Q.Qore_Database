@@ -175,7 +175,8 @@ class Game_Map
     # If scrolling
     if @scroll_rest > 0
       # Change from scroll speed to distance in map coordinates
-      distance = 2 ** @scroll_speed
+      distance = 1 << @scroll_speed # 2 **
+      distance = @scroll_rest if distance>@scroll_rest
       # Execute scrolling
       case @scroll_direction
 #-------------------------------------------------------------------------------

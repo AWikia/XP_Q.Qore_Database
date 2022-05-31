@@ -37,6 +37,7 @@ def qoreInitials
     $USENEWBATTLEMECHANICS=($newmech==1) ? true : false
     $inbattle=false # Initialization
     value=$PokemonSystem.textspeed
+    # All FPS Values must be multiple of 8 or else Jinnybell HSPA will filcker
     if value==3 
       Graphics.frame_rate=50
     elsif value==2

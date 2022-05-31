@@ -32058,7 +32058,7 @@ InternalName=META
 Type1=SHARPENER
 Type2=JELLY
 BaseStats=110,145,65,20,80,80
-GenderRate=AlwaysFemale
+GenderRate=Female75Percent
 GrowthRate=Parabolic
 BaseEXP=120
 EffortPoints=0,0,0,0,0,0
@@ -33590,7 +33590,7 @@ Pokedex=This Pokémon was once found as Facebook.inc
 BattlerPlayerY=36
 BattlerEnemyY=40
 BattlerAltitude=0
-Evolutions=META,HappinessFemale,
+Evolutions=META,Happiness,
 Incense=NORMALBOX
 [1237]
 Name=Brave

@@ -8982,6 +8982,10 @@ MultipleForms.register(:INDEEDEE,{
 })
 
 MultipleForms.register(:MORPEKO,{
+"color"=>proc{|pokemon|
+   next if pokemon.form==0
+   next 6 if pokemon.form==1
+},
 "dexEntry"=>proc{|pokemon|
    next if pokemon.form==0
    next _INTL("Intense hunger drives it to extremes of violence, and the electricity in its cheek sacs has converted into a Dark-type energy.") if pokemon.form==1
@@ -11238,11 +11242,11 @@ MultipleForms.register(:META,{
    next rand(5)
 },
 "color"=>proc{|pokemon|
-   next if pokemon.form==0
-   next 1 if pokemon.form==1
-   next 6 if pokemon.form==2
-   next 0 if pokemon.form==3
-   next 3 if pokemon.form==4
+   next                         if pokemon.form==0
+   next 1                       if pokemon.form==1
+   next 6                       if pokemon.form==2
+   next pokemon.isMale? ? 0 : 9 if pokemon.form==3
+   next 3                       if pokemon.form==4
 }
 })
 

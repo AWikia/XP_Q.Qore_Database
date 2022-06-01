@@ -7,12 +7,26 @@ class PokemonTrainerCardScene
     @sprites={}
     @viewport=Viewport.new(0,0,Graphics.width,Graphics.height)
     @viewport.z=99999
-    background=pbResolveBitmap(sprintf("Graphics/Pictures/"+getDarkModeFolder+"/trainercardbgf"))
-    if $Trainer.isFemale? && background
-      addBackgroundPlane(@sprites,"bg",getDarkModeFolder+"/trainercardbgf",@viewport)
-    else
-      addBackgroundPlane(@sprites,"bg",getDarkModeFolder+"/trainercardbg",@viewport)
+    level = 0
+    if $game_switches
+      if $game_switches[12]                           # E4 defeated
+          level+=1
+      end
+      if $game_switches[70]                           # Johto Done
+          level+=1
+      end
+      if $game_switches[76]                           # Pregame Done
+          level+=1
+      end
+      if completedTrophies && completedTechnicalDiscs # Found every TD and Trophy
+          level+=1
+      end
+      if $game_variables && $game_variables[13]>99    # Found every TD and Trophy
+          level+=1
+      end
+
     end
+      addBackgroundPlane(@sprites,"bg",getDarkModeFolder+"/trainercardbg_"+level.to_s,@viewport)
     cardexists=pbResolveBitmap(sprintf("Graphics/Pictures/"+getDarkModeFolder+"/trainercardf"))
     @sprites["header"]=Window_UnformattedTextPokemon.newWithSize(_INTL("Trainer Card"),
        2,-18,256,64,@viewport)
@@ -20,11 +34,7 @@ class PokemonTrainerCardScene
     @sprites["header"].shadowColor=Color.new(0,0,0)
     @sprites["header"].windowskin=nil
     @sprites["card"]=IconSprite.new(0,0,@viewport)
-    if $Trainer.isFemale? && cardexists
-      @sprites["card"].setBitmap("Graphics/Pictures/"+getDarkModeFolder+"/trainercardf")
-    else
-      @sprites["card"].setBitmap("Graphics/Pictures/"+getDarkModeFolder+"/trainercard")
-    end
+    @sprites["card"].setBitmap("Graphics/Pictures/"+getDarkModeFolder+"/trainercard_"+level.to_s)
     @sprites["overlay"]=BitmapSprite.new(Graphics.width,Graphics.height,@viewport)
     @sprites["trainer"]=IconSprite.new(336,112,@viewport)
     @sprites["trainer"].setBitmap(pbPlayerSpriteFile($Trainer.trainertype))
@@ -100,18 +110,6 @@ class PokemonTrainerCardScene
           $game_switches[73]=true
           pbChangePlayer(1)
           Kernel.pbMessage(_INTL("\\f[introElm]\\bRappy:You're now playing the Girl Version"))
-        end
-        background=pbResolveBitmap(sprintf("Graphics/Pictures/"+getDarkModeFolder+"/trainercardbgf"))
-        if $Trainer.isFemale? && background
-          @sprites["bg"].setBitmap("Graphics/Pictures/"+getDarkModeFolder+"/trainercardbgf")
-        else
-          @sprites["bg"].setBitmap("Graphics/Pictures/"+getDarkModeFolder+"/trainercardbg")
-        end
-        cardexists=pbResolveBitmap(sprintf("Graphics/Pictures/"+getDarkModeFolder+"/trainercardf"))
-        if $Trainer.isFemale? && cardexists
-          @sprites["card"].setBitmap("Graphics/Pictures/"+getDarkModeFolder+"/trainercardf")
-        else
-          @sprites["card"].setBitmap("Graphics/Pictures/"+getDarkModeFolder+"/trainercard")
         end
         @sprites["trainer"].setBitmap(pbPlayerSpriteFile($Trainer.trainertype))
       end

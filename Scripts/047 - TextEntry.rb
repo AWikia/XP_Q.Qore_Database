@@ -910,10 +910,10 @@ end
 #===============================================================================
 class PokemonEntryScene
   @@Characters=[
-     [("ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyzΑΒΓΔΕΖΗΘΙΚΛΜΝΞΟΠΡΣΤΥΦΧΨΩ").scan(/./),"[*]"],
+     [("ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz??G????T?????????S??F??O").scan(/./),"[*]"],
      [("0123456789   !@\#$%^&*()   ~`-_+={}[]   :;'\"<>,.?/   ").scan(/./),"[A]"],
   ]
-  USEKEYBOARD=false
+  USEKEYBOARD=true
 
   def pbStartScene(helptext,minlength,maxlength,initialText,subject=0,pokemon=nil)
     @sprites={}
@@ -978,7 +978,7 @@ class PokemonEntryScene
           @sprites["subject"].y = 38*2 - charheight/4
         end
       end
-    when 2   # Pokémon
+    when 2   # Pok�mon
       if pokemon
         @sprites["shadow"]=IconSprite.new(0,0,@viewport)
         @sprites["shadow"].setBitmap("Graphics/Pictures/"+getDarkModeFolder+"/namingShadow")
@@ -994,9 +994,9 @@ class PokemonEntryScene
         pbSetSystemFont(@sprites["gender"].bitmap)
         textpos=[]
         if pokemon.isMale?
-          textpos.push([_INTL("♂"),0,0,false,Color.new(0,128,248),Color.new(168,184,184)])
+          textpos.push([_INTL("?"),0,0,false,Color.new(0,128,248),Color.new(168,184,184)])
         elsif pokemon.isFemale?
-          textpos.push([_INTL("♀"),0,0,false,Color.new(248,24,24),Color.new(168,184,184)])
+          textpos.push([_INTL("?"),0,0,false,Color.new(248,24,24),Color.new(168,184,184)])
         end
         pbDrawTextPositions(@sprites["gender"].bitmap,textpos)
       end
@@ -1104,32 +1104,37 @@ end
 class PokemonEntryScene2
 =begin
   @@Characters=[
-     [("ABCDEFGHIJ ,."+"KLMNOPQRST '-"+"UVWXYZ     ♂♀"+"             "+"0123456789   ").scan(/./),_INTL("UPPER")],
-     [("abcdefghij ,."+"klmnopqrst '-"+"uvwxyz     ♂♀"+"             "+"0123456789   ").scan(/./),_INTL("lower")],
-     [(",.:;!?   ♂♀  "+"\"'()<>[]     "+"~@#%*&$      "+"+-=^_/\\|     "+"             ").scan(/./),_INTL("other")],
+     [("ABCDEFGHIJ ,."+"KLMNOPQRST '-"+"UVWXYZ     ??"+"             "+"0123456789   ").scan(/./),_INTL("UPPER")],
+     [("abcdefghij ,."+"klmnopqrst '-"+"uvwxyz     ??"+"             "+"0123456789   ").scan(/./),_INTL("lower")],
+     [(",.:;!?   ??  "+"\"'()<>[]     "+"~@#%*&$      "+"+-=^_/\\|     "+"             ").scan(/./),_INTL("other")],
   ]
 =end
 
   @@Characters0=[ # Latin
-    [("ABCDEFGHIJÅÂÊ"+"KLMNOPQRSTÝËÎ"+"UVWXYZÇÐÃÑÕÞÆ"+"ÁÉÍÓÚÀÈÌÒÙÄÖÜ"+"ČŎŠŽŒĞĎĔĬŬÔÛŁ").scan(/./),_INTL("UPPER")],
-    [("abcdefghijåâê"+"klmnopqrstýëî"+"uvwxyzçðàñõþæ"+"áéíóúàèìòùäöü"+"čŏšžœğďĕĭŭôûł").scan(/./),_INTL("lower")],
-    [(",.:;!?ß€£♂♀§µ"+"\"'()<>[]¿,¥®©"+"~@#%*&$ÿ     "+"+-=^_/\\|     "+"0123456789   ").scan(/./),_INTL("other")],
+    [("ABCDEFGHIJ���"+"KLMNOPQRST���"+"UVWXYZ�������"+"�������������"+"CO���GDEIU��L").scan(/./),_INTL("UPPER")],
+    [("abcdefghij���"+"klmnopqrst���"+"uvwxyz�������"+"�������������"+"co���gdeiu��l").scan(/./),_INTL("lower")],
+    [("??G????T?????"+"?????S??F??O?"+"a�?de??????�?"+"???p?st?f????"+"?????????????").scan(/./),_INTL("greek")],
+    [(",.:;!?߀�??��"+"\"'()<>[]�,���"+"~@#%*&$�     "+"+-=^_/\\|     "+"0123456789   ").scan(/./),_INTL("other")],
   ]
-  @@Characters1=[ # Ληνικά
-     [("ΑΒΓΔΕΖΗΘΙΚ   "+"ΛΜΝΞΟΠΡΣΤΥ   "+"ΦΧΨΩ         "+"ΆΈΊΌΎΏΪΫ     "+"             ").scan(/./),_INTL("UPPER")],
-     [("αβγδεζηθικ   "+"λμνξοπρστυ   "+"φχψω         "+"άέίόύώϊϋΐΰς  "+"             ").scan(/./),_INTL("lower")],
-     [(",.:;!?ß€£♂♀§µ"+"\"'()<>[]¿,¥®©"+"~@#%*&$ÿ      "+"+-=^_/\\|     "+"0123456789   ").scan(/./),_INTL("other")],
+  
+=begin
+  @@Characters1=[ # ??????
+     [("??G????T??   "+"???????S??   "+"F??O         "+"????????     "+"             ").scan(/./),_INTL("UPPER")],
+     [("a�?de?????   "+"?�???p?st?   "+"f???         "+"???????????  "+"             ").scan(/./),_INTL("lower")],
+     [(",.:;!?߀�??��"+"\"'()<>[]�,���"+"~@#%*&$�      "+"+-=^_/\\|     "+"0123456789   ").scan(/./),_INTL("other")],
   ]
   @@Characters2=[ # Kirynla
-     [("АБВГДЕЖЗИЙЃЌӘ"+"КЛМНОПРСТУЁЎӔ"+"ФХЦЧШЩЪЫЬЭЇҐӚ"+"ЮЯЂЉЊЋЏЈЄЅІЀѲ"+"ҤӴӸЎѪӜӞӤӦӰѰӠ ").scan(/./),_INTL("UPPER")],
-     [("абвгдежзийѓќә"+"клмнопрстуёўӕ"+"фхццшщъыьэїґӛ"+"юяђљњћџјєѕіѐѳ"+"ҥӵӹўѫӝӟӥӧӱѱӡ ").scan(/./),_INTL("lower")],
-     [(",.:;!?ß€£♂♀§µ"+"\"'()<>[]¿,¥®©"+"~@#%*&$ÿ      "+"+-=^_/\\|     "+"0123456789   ").scan(/./),_INTL("other")],
+     [("?????????????"+"?????????????"+"?????????????"+"?????????????"+"???????????? ").scan(/./),_INTL("UPPER")],
+     [("?????????????"+"?????????????"+"?????????????"+"?????????????"+"???????????? ").scan(/./),_INTL("lower")],
+     [(",.:;!?߀�??��"+"\"'()<>[]�,���"+"~@#%*&$�      "+"+-=^_/\\|     "+"0123456789   ").scan(/./),_INTL("other")],
   ]
+=end
   ROWS=13
   COLUMNS=5
-  MODE1=-5
-  MODE2=-4
-  MODE3=-3
+  MODE1=-6
+  MODE2=-5
+  MODE3=-4
+  MODE4=-3
   BACK=-2
   OK=-1
 
@@ -1151,23 +1156,27 @@ class PokemonEntryScene2
     def updateCursorPos
       value=@cursorPos
       if value==PokemonEntryScene2::MODE1 # Upper case
-        @sprite.x=48+64
+        @sprite.x=44+64
         @sprite.y=120
         @cursortype=1
       elsif value==PokemonEntryScene2::MODE2 # Lower case
-        @sprite.x=112+64
+        @sprite.x=106+64
         @sprite.y=120
         @cursortype=1
-      elsif value==PokemonEntryScene2::MODE3 # Other symbols
-        @sprite.x=176+64
+      elsif value==PokemonEntryScene2::MODE3 # Greek
+        @sprite.x=168+64
         @sprite.y=120
         @cursortype=1
+      elsif value==PokemonEntryScene2::MODE4   # Other symbols
+        @sprite.x = 230+64
+        @sprite.y = 120
+        @cursortype = 1
       elsif value==PokemonEntryScene2::BACK # Back
-        @sprite.x=312+64
+        @sprite.x=314+64
         @sprite.y=120
         @cursortype=2
       elsif value==PokemonEntryScene2::OK # OK
-        @sprite.x=392+64
+        @sprite.x=394+64
         @sprite.y=120
         @cursortype=2
       elsif value>=0
@@ -1235,11 +1244,13 @@ class PokemonEntryScene2
     @bitmaps=[
        AnimatedBitmap.new("Graphics/Pictures/"+getDarkModeFolder+"/namingTab1"),
        AnimatedBitmap.new("Graphics/Pictures/"+getDarkModeFolder+"/namingTab2"),
-       AnimatedBitmap.new("Graphics/Pictures/"+getDarkModeFolder+"/namingTab3")
+       AnimatedBitmap.new("Graphics/Pictures/"+getDarkModeFolder+"/namingTab3"),
+       AnimatedBitmap.new("Graphics/Pictures/"+getDarkModeFolder+"/namingTab4")
     ]
-    @bitmaps[3]=@bitmaps[0].bitmap.clone
-    @bitmaps[4]=@bitmaps[1].bitmap.clone
-    @bitmaps[5]=@bitmaps[2].bitmap.clone
+    @bitmaps[4]=@bitmaps[0].bitmap.clone
+    @bitmaps[5]=@bitmaps[1].bitmap.clone
+    @bitmaps[6]=@bitmaps[2].bitmap.clone
+    @bitmaps[7]=@bitmaps[3].bitmap.clone
     if (!isDarkMode?)
       baseColor=Color.new(88,88,80)
       shadowColor=Color.new(168,184,184)
@@ -1247,30 +1258,22 @@ class PokemonEntryScene2
       baseColor=Color.new(248,248,240)
       shadowColor=Color.new(72,88,88)
     end
-    for i in 0...3
+    for i in 0...4
       pos=0
-      pbSetSystemFont(@bitmaps[i+3])
+      pbSetSystemFont(@bitmaps[i+4])
       textPos=[]
       for y in 0...COLUMNS
         for x in 0...ROWS
-          if ($PokemonSystem.charset2==2 rescue false)
-            textPos.push([@@Characters2[i][0][pos],44+x*32,18+y*38,2,
-               baseColor,shadowColor])
-          elsif ($PokemonSystem.charset2==1 rescue false)
-            textPos.push([@@Characters1[i][0][pos],44+x*32,18+y*38,2,
-               baseColor,shadowColor])
-          else
             textPos.push([@@Characters0[i][0][pos],44+x*32,18+y*38,2,
                baseColor,shadowColor])
-          end
           pos+=1
         end
       end
-      pbDrawTextPositions(@bitmaps[i+3],textPos)
+      pbDrawTextPositions(@bitmaps[i+4],textPos)
     end
-    @bitmaps[6]=BitmapWrapper.new(24,6)
-    @bitmaps[6].fill_rect(2,2,22,4,shadowColor)
-    @bitmaps[6].fill_rect(0,0,22,4,baseColor)
+    @bitmaps[8]=BitmapWrapper.new(24,6)
+    @bitmaps[8].fill_rect(2,2,22,4,shadowColor)
+    @bitmaps[8].fill_rect(0,0,22,4,baseColor)
     @sprites["bg"]=IconSprite.new(0,0,@viewport)
     @sprites["bg"].setBitmap("Graphics/Pictures/"+getDarkModeFolder+"/namingbg")
     case subject
@@ -1290,7 +1293,7 @@ class PokemonEntryScene2
           @sprites["subject"].y = 38*2 - charheight/4
         end
       end
-    when 2   # Pokémon
+    when 2   # Pok�mon
       if pokemon
         @sprites["shadow"]=IconSprite.new(0,0,@viewport)
         @sprites["shadow"].setBitmap("Graphics/Pictures/"+getDarkModeFolder+"/namingShadow")
@@ -1306,9 +1309,9 @@ class PokemonEntryScene2
         pbSetSystemFont(@sprites["gender"].bitmap)
         textpos=[]
         if pokemon.isMale?
-          textpos.push([_INTL("♂"),64,0,false,Color.new(0,128,248),Color.new(168,184,184)])
+          textpos.push([_INTL("?"),64,0,false,Color.new(0,128,248),Color.new(168,184,184)])
         elsif pokemon.isFemale?
-          textpos.push([_INTL("♀"),64,0,false,Color.new(248,24,24),Color.new(168,184,184)])
+          textpos.push([_INTL("?"),64,0,false,Color.new(248,24,24),Color.new(168,184,184)])
         end
         pbDrawTextPositions(@sprites["gender"].bitmap,textpos)
       end
@@ -1339,18 +1342,18 @@ class PokemonEntryScene2
     @maxlength=maxlength
     @maxlength.times {|i|
        @sprites["blank#{i}"]=SpriteWrapper.new(@viewport)
-       @sprites["blank#{i}"].bitmap=@bitmaps[6]
+       @sprites["blank#{i}"].bitmap=@bitmaps[8]
        @sprites["blank#{i}"].x=160+24*i+64
        @blanks[i]=0
     }
     @sprites["bottomtab"]=SpriteWrapper.new(@viewport) # Current tab
     @sprites["bottomtab"].x=22+64
     @sprites["bottomtab"].y=162
-    @sprites["bottomtab"].bitmap=@bitmaps[0+3]
+    @sprites["bottomtab"].bitmap=@bitmaps[0+4]
     @sprites["toptab"]=SpriteWrapper.new(@viewport) # Next tab
     @sprites["toptab"].x=22-504
     @sprites["toptab"].y=162
-    @sprites["toptab"].bitmap=@bitmaps[1+3]
+    @sprites["toptab"].bitmap=@bitmaps[1+4]
     @sprites["controls"]=IconSprite.new(0,0,@viewport)
     @sprites["controls"].setBitmap("Graphics/Pictures/"+getDarkModeFolder+"/namingControls")
     @sprites["controls"].x=16+64
@@ -1372,7 +1375,7 @@ class PokemonEntryScene2
   def pbDoUpdateOverlay2
     overlay=@sprites["overlay"].bitmap
     overlay.clear
-    modeIcon=[["Graphics/Pictures/"+getDarkModeFolder+"/namingMode",48+@mode*64+64,120,@mode*60,0,60,44]]
+    modeIcon=[["Graphics/Pictures/"+getDarkModeFolder+"/namingMode",44+@mode*62+64,120,@mode*60,0,60,44]]
     pbDrawImagePositions(overlay,modeIcon)
   end
 
@@ -1404,7 +1407,7 @@ class PokemonEntryScene2
   def pbChangeTab(newtab=@mode+1)
     pbSEPlay("naming tab swap start")
     @sprites["cursor"].visible=false
-    @sprites["toptab"].bitmap=@bitmaps[(newtab%3)+3]
+    @sprites["toptab"].bitmap=@bitmaps[(newtab%4)+4]
     21.times do
       @sprites["toptab"].x+=24
       @sprites["bottomtab"].y+=12
@@ -1424,8 +1427,8 @@ class PokemonEntryScene2
     Graphics.update
     Input.update
     pbUpdate
-    @mode=(newtab)%3
-    newtab=@bitmaps[((@mode+1)%3)+3]
+    @mode=(newtab)%4
+    newtab=@bitmaps[((@mode+1)%4)+4]
     @sprites["cursor"].visible=true
     @sprites["toptab"].bitmap=newtab
     @sprites["toptab"].x=22-(504)
@@ -1435,7 +1438,7 @@ class PokemonEntryScene2
   end
 
   def pbUpdate
-    for i in 0...3
+    for i in 0...4
       @bitmaps[i].update
     end
     if @init || Graphics.frame_count%5==0
@@ -1458,13 +1461,7 @@ class PokemonEntryScene2
 
   def pbColumnEmpty?(m)
     return false if m>=ROWS-1
-    if ($PokemonSystem.charset2==2 rescue false)
-      chset=@@Characters2[@mode][0]
-    elsif ($PokemonSystem.charset2==1 rescue false)
-      chset=@@Characters1[@mode][0]
-    else
       chset=@@Characters0[@mode][0]
-    end
     return (
        chset[m]==" " &&
        chset[m+((ROWS-1))]==" " &&
@@ -1513,6 +1510,8 @@ class PokemonEntryScene2
           @cursorpos=ROWS*(COLUMNS-1)+2
         when MODE3
           @cursorpos=ROWS*(COLUMNS-1)+4
+        when MODE4
+          @cursorpos=ROWS*(COLUMNS-1)+6
         when BACK
           @cursorpos=ROWS*(COLUMNS-1)+8
         when OK
@@ -1524,9 +1523,11 @@ class PokemonEntryScene2
           @cursorpos=MODE1
         when 2,3
           @cursorpos=MODE2
-        when 4,5,6
+        when 4,5
           @cursorpos=MODE3
-        when 7,8,9,10
+        when 6,7
+          @cursorpos=MODE4
+        when 8,9,10
           @cursorpos=BACK
         when 11,12
           @cursorpos=OK
@@ -1544,6 +1545,8 @@ class PokemonEntryScene2
           @cursorpos=2
         when MODE3
           @cursorpos=4
+        when MODE4
+          @cursorpos=6
         when BACK
           @cursorpos=8
         when OK
@@ -1555,9 +1558,11 @@ class PokemonEntryScene2
           @cursorpos=MODE1
         when ROWS*(COLUMNS-1)+2,ROWS*(COLUMNS-1)+3
           @cursorpos=MODE2
-        when ROWS*(COLUMNS-1)+4,ROWS*(COLUMNS-1)+5,ROWS*(COLUMNS-1)+6
+        when ROWS*(COLUMNS-1)+4,ROWS*(COLUMNS-1)+5
           @cursorpos=MODE3
-        when ROWS*(COLUMNS-1)+7,ROWS*(COLUMNS-1)+8,ROWS*(COLUMNS-1)+9,ROWS*(COLUMNS-1)+10
+        when ROWS*(COLUMNS-1)+6,ROWS*(COLUMNS-1)+7
+          @cursorpos=MODE4
+        when ROWS*(COLUMNS-1)+8,ROWS*(COLUMNS-1)+9,ROWS*(COLUMNS-1)+10
           @cursorpos=BACK
         when ROWS*(COLUMNS-1)+11,ROWS*(COLUMNS-1)+12
           @cursorpos=OK
@@ -1605,17 +1610,13 @@ class PokemonEntryScene2
           pbChangeTab(1) if @mode!=1
         elsif @cursorpos==MODE3
           pbChangeTab(2) if @mode!=2
+        elsif @cursorpos==MODE4
+          pbChangeTab(3) if @mode!=3
         else
           cursormod=@cursorpos%ROWS
           cursordiv=@cursorpos/ROWS
           charpos=cursordiv*(ROWS)+cursormod
-          if ($PokemonSystem.charset2==2 rescue false)
-            chset=@@Characters2[@mode][0]
-          elsif ($PokemonSystem.charset2==1 rescue false)
-            chset=@@Characters1[@mode][0]
-          else
             chset=@@Characters0[@mode][0]
-          end
           if @helper.length>=@maxlength
             @helper.delete
           end

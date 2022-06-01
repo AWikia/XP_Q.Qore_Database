@@ -763,6 +763,11 @@ There are different modes:
              MessageConfig.pbSetSystemFrame($TextFrames[value]) 
           }
        ),
+        EnumOption.new(_INTL("Input Language"),[_INTL("Latin"),_INTL("Greek"),_INTL("Cyrillic")],
+          proc { $PokemonSystem.charset2 },
+          proc {|value| $PokemonSystem.charset2 = value },
+          "Sets the charset in the naming dialog (Cursor Mode). Choice between Latin, Greek and Cyrillic."
+        ),
        NumberOption.new(_INTL("Font Style"),1,$VersionStyles.length,
           proc { $PokemonSystem.font },
           proc {|value|
@@ -836,11 +841,6 @@ There are different modes:
           proc { $PokemonSystem.textinput },
           proc {|value| $PokemonSystem.textinput = value },
           "Sets the way you type text. Choice between Cursor as in the official games or Keyboard."
-        ),
-        EnumOption.new(_INTL("Input Language"),[_INTL("Latin"),_INTL("Greek"),_INTL("Cyrillic")],
-          proc { $PokemonSystem.charset2 },
-          proc {|value| $PokemonSystem.charset2 = value },
-          "Sets the charset in the naming dialog (Cursor Mode). Choice between Latin, Greek and Cyrillic."
         ),
         EnumOption.new(_INTL("Temperature Display"),[_INTL("Celsius"),_INTL("Fahrenheit")],
           proc { $PokemonSystem.temps },

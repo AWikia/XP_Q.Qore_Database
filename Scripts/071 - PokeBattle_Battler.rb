@@ -4942,13 +4942,13 @@ class PokeBattle_Battler
         @battle.pbJudgeCheckpoint(user)
       end
       if brainymedia && target.pbIsOpposing?(user.index)
-        if (target.pbCanReduceStatStage?(PBStats::ATTACK,target) ||
-           target.pbCanReduceStatStage?(PBStats::DEFENSE,target) ||
-           target.pbCanReduceStatStage?(PBStats::SPATK,target) ||
-           target.pbCanReduceStatStage?(PBStats::SPDEF,target) ||
-           target.pbCanReduceStatStage?(PBStats::SPEED,target) ||
-           target.pbCanReduceStatStage?(PBStats::ACCURACY,target) ||
-           target.pbCanReduceStatStage?(PBStats::EVASION,target))
+        if (user.pbCanReduceStatStage?(PBStats::ATTACK,target) ||
+           user.pbCanReduceStatStage?(PBStats::DEFENSE,target) ||
+           user.pbCanReduceStatStage?(PBStats::SPATK,target) ||
+           user.pbCanReduceStatStage?(PBStats::SPDEF,target) ||
+           user.pbCanReduceStatStage?(PBStats::SPEED,target) ||
+           user.pbCanReduceStatStage?(PBStats::ACCURACY,target) ||
+           user.pbCanReduceStatStage?(PBStats::EVASION,target))
           PBDebug.log("[Lingering effect triggered] #{target.pbThis}'s Brainymedia")
           user.stages[PBStats::ATTACK]=-6
           user.stages[PBStats::DEFENSE]=-6

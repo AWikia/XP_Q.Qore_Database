@@ -196,7 +196,7 @@ class PokemonSummaryScene
       status=6 if pbPokerus(pokemon)==1
       status=@pokemon.status-1 if @pokemon.status>0
       status=5 if pokemon.hp==0
-      imagepos.push(["Graphics/Pictures/statuses",124,100,0,16*status,44,16])
+      imagepos.push(["Graphics/Pictures/statuses",216,100,0,16*status,44,16])
     end
     if pokemon.isShiny?
       imagepos.push([sprintf("Graphics/Pictures/shiny"),2,134,0,0,-1,-1])
@@ -454,7 +454,7 @@ class PokemonSummaryScene
       status=6 if pbPokerus(pokemon)==1
       status=@pokemon.status-1 if @pokemon.status>0
       status=5 if pokemon.hp==0
-      imagepos.push(["Graphics/Pictures/statuses",124,100,0,16*status,44,16])
+      imagepos.push(["Graphics/Pictures/statuses",216,100,0,16*status,44,16])
     end
     if pokemon.isShiny?
       imagepos.push([sprintf("Graphics/Pictures/shiny"),2,134,0,0,-1,-1])
@@ -626,7 +626,7 @@ class PokemonSummaryScene
       status=6 if pbPokerus(pokemon)==1
       status=@pokemon.status-1 if @pokemon.status>0
       status=5 if pokemon.hp==0
-      imagepos.push(["Graphics/Pictures/statuses",124,100,0,16*status,44,16])
+      imagepos.push(["Graphics/Pictures/statuses",216,100,0,16*status,44,16])
     end
     if pokemon.isShiny?
       imagepos.push([sprintf("Graphics/Pictures/shiny"),2,134,0,0,-1,-1])
@@ -738,7 +738,7 @@ def drawPageFour(pokemon)
       status=6 if pbPokerus(pokemon)==1
       status=@pokemon.status-1 if @pokemon.status>0
       status=5 if pokemon.hp==0
-      imagepos.push(["Graphics/Pictures/statuses",124,100,0,16*status,44,16])
+      imagepos.push(["Graphics/Pictures/statuses",216,100,0,16*status,44,16])
     end
     if pokemon.isShiny?
       imagepos.push([sprintf("Graphics/Pictures/shiny"),2,134,0,0,-1,-1])
@@ -850,7 +850,7 @@ def drawPageFive(pokemon)
       status=6 if pbPokerus(pokemon)==1
       status=@pokemon.status-1 if @pokemon.status>0
       status=5 if pokemon.hp==0
-      imagepos.push(["Graphics/Pictures/statuses",124,100,0,16*status,44,16])
+      imagepos.push(["Graphics/Pictures/statuses",216,100,0,16*status,44,16])
     end
     if pokemon.isShiny?
       imagepos.push([sprintf("Graphics/Pictures/shiny"),2,134,0,0,-1,-1])
@@ -964,7 +964,7 @@ def drawPageFive(pokemon)
       status=6 if pbPokerus(pokemon)==1
       status=@pokemon.status-1 if @pokemon.status>0
       status=5 if pokemon.hp==0
-      imagepos.push(["Graphics/Pictures/statuses",124,100,0,16*status,44,16])
+      imagepos.push(["Graphics/Pictures/statuses",216,100,0,16*status,44,16])
     end
     if pokemon.isShiny?
       imagepos.push([sprintf("Graphics/Pictures/shiny"),2,134,0,0,-1,-1])
@@ -1183,7 +1183,7 @@ def drawPageFive(pokemon)
       status=6 if pbPokerus(pokemon)==1
       status=@pokemon.status-1 if @pokemon.status>0
       status=5 if pokemon.hp==0
-      imagepos.push(["Graphics/Pictures/statuses",124,100,0,16*status,44,16])
+      imagepos.push(["Graphics/Pictures/statuses",216,100,0,16*status,44,16])
     end
     if pokemon.isShiny?
       imagepos.push([sprintf("Graphics/Pictures/shiny"),2,134,0,0,-1,-1])
@@ -1256,7 +1256,7 @@ def drawPageFive(pokemon)
       status=6 if pbPokerus(pokemon)==1
       status=@pokemon.status-1 if @pokemon.status>0
       status=5 if pokemon.hp==0
-      imagepos.push(["Graphics/Pictures/statuses",124,100,0,16*status,44,16])
+      imagepos.push(["Graphics/Pictures/statuses",216,100,0,16*status,44,16])
     end
     if pokemon.isShiny?
       imagepos.push([sprintf("Graphics/Pictures/shiny"),2,134,0,0,-1,-1])

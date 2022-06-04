@@ -7718,6 +7718,60 @@ MultipleForms.register(:ROTOM,{
 }
 })
 
+MultipleForms.register(:DIALGA,{
+"height"=>proc{|pokemon|
+   next if pokemon.form==0 # Altered Forme
+   next 70                 # Origin Forme
+},
+"weight"=>proc{|pokemon|
+   next if pokemon.form==0 # Altered Forme
+   next 8487               # Origin Forme
+},
+"getBaseStats"=>proc{|pokemon|
+   next if pokemon.form==0       # Altered Forme
+   next [100,100,120,90,150,120] # Origin Forme
+},
+"getForm"=>proc{|pokemon|
+   maps=[49,50,51,72,73,420,412,413,414,415,416,417,418,445,446]   # Map IDs for Origin Forme
+   if isConst?(pokemon.item,PBItems,:ADAMANTORB) ||
+      ($game_map && maps.include?($game_map.map_id))
+     next 1
+   end
+   next 0
+},
+"dexEntry"=>proc{|pokemon|
+   next if pokemon.form==0 
+   next _INTL("Radiant light caused Dialga to take on a form bearing a striking resemblance to the creator Pokémon. Dialga now wields such colossal strength that one must conclude this is its true form.") if pokemon.form==1                    # Heat, Microwave
+}
+})
+
+MultipleForms.register(:PALKIA,{
+"height"=>proc{|pokemon|
+   next if pokemon.form==0 # Altered Forme
+   next 63                 # Origin Forme
+},
+"weight"=>proc{|pokemon|
+   next if pokemon.form==0 # Altered Forme
+   next 6590               # Origin Forme
+},
+"getBaseStats"=>proc{|pokemon|
+   next if pokemon.form==0       # Altered Forme
+   next [90,100,100,120,150,120] # Origin Forme
+},
+"getForm"=>proc{|pokemon|
+   maps=[49,50,51,72,73,420,412,413,414,415,416,417,418,445,446]   # Map IDs for Origin Forme
+   if isConst?(pokemon.item,PBItems,:LUSTROUSORB) ||
+      ($game_map && maps.include?($game_map.map_id))
+     next 1
+   end
+   next 0
+},
+"dexEntry"=>proc{|pokemon|
+   next if pokemon.form==0 
+   next _INTL("It soars across the sky in a form that greatly resembles the creator of all things. Perhaps this imitation of appearance is Palkia's strategy for gaining Arceus's powers.") if pokemon.form==1                    # Heat, Microwave
+}
+})
+
 MultipleForms.register(:GIRATINA,{
 "getAbilityList"=>proc{|pokemon|
    next if pokemon.form==0                  # Altered Forme
@@ -7734,7 +7788,7 @@ MultipleForms.register(:GIRATINA,{
 },
 "getBaseStats"=>proc{|pokemon|
    next if pokemon.form==0       # Altered Forme
-   next [150,120,100,90,120,100] # Origin Forme
+   next [150,120,100,90,120,100,420,412,413,414,415,416,417,418,445,446] # Origin Forme
 },
 "getForm"=>proc{|pokemon|
    maps=[49,50,51,72,73]   # Map IDs for Origin Forme

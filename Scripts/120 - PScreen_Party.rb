@@ -725,7 +725,7 @@ class PokemonScreen_Scene
       addBackgroundOrColoredPlane(@sprites,"partybg_title",getDarkModeFolder+"/partybg",
          Color.new(0,0,0),@viewport)
     @sprites["header"]=Window_UnformattedTextPokemon.newWithSize(_INTL("Party Pokémon"),
-       2,-18,256,64,@viewport)
+       2,-18,576,64,@viewport)      
     @sprites["header"].baseColor=(isDarkMode?) ? Color.new(248,248,248) : Color.new(0,0,0)
     @sprites["header"].shadowColor=(!isDarkMode?) ? Color.new(248,248,248) : Color.new(0,0,0)
     @sprites["header"].windowskin=nil
@@ -761,6 +761,7 @@ class PokemonScreen_Scene
     # Select first Pokémon
     @activecmd=0
     @sprites["pokemon0"].selected=true
+    @sprites["header"].text=_INTL("Party Pokémon - {1}",@party[0].name)
     pbFadeInAndShow(@sprites) { update }
   end
 
@@ -830,6 +831,7 @@ class PokemonScreen_Scene
           sprite.refresh
         end
       end
+      @sprites["header"].text=(@activecmd>5)  ? _INTL("Party Pokémon") : _INTL("Party Pokémon - {1}",@party[@activecmd].name) if @activecmd == i
     end
   end
 
@@ -842,6 +844,7 @@ class PokemonScreen_Scene
         sprite.refresh
       end
     end
+    @sprites["header"].text=(@activecmd>5)  ? _INTL("Party Pokémon") : _INTL("Party Pokémon - {1}",@party[@activecmd].name) if @activecmd == i
   end
 
   def pbHardRefresh
@@ -897,6 +900,7 @@ class PokemonScreen_Scene
         for i in 0...numsprites
           @sprites["pokemon#{i}"].selected=(i==@activecmd)
         end
+        @sprites["header"].text=(@activecmd>5)  ? _INTL("Party Pokémon") : _INTL("Party Pokémon - {1}",@party[@activecmd].name)
       end
       if Input.trigger?(Input::B) || Input.triggerex?(Input::RightMouseKey)
         pbPlayCancelSE()
@@ -922,6 +926,7 @@ class PokemonScreen_Scene
     for i in 0...numsprites
       @sprites["pokemon#{i}"].selected=(i==@activecmd)
     end
+    @sprites["header"].text=(@activecmd>5)  ? _INTL("Party Pokémon") : _INTL("Party Pokémon - {1}",@party[@activecmd].name)
   end
 
   def pbDisplay(text)

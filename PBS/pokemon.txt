@@ -22708,7 +22708,7 @@ BattlerEnemyY=8
 BattlerAltitude=0
 Evolutions=FENPLUS,Item,DOOMSTONE
 [832]
-Name=Wikia Language Brigade
+Name=Language Brigade
 InternalName=WIKIALANGUAGEBRIGADE
 Type1=HERB
 Type2=GUST

@@ -265,6 +265,13 @@ def pbDownloadMysteryGift(trainer)
   viewport=Viewport.new(0,0,Graphics.width,Graphics.height)
   viewport.z=99999
   addBackgroundPlane(sprites,"background",getDarkModeFolder+"/mysteryGiftbg",viewport)
+  addBackgroundPlane(sprites,"background_2",getDarkModeFolder+"/mysteryGiftbg2",viewport)
+    sprites["header"]=Window_UnformattedTextPokemon.newWithSize(_INTL("Mystery Gift"),
+       2,-18,576,64,viewport)
+    sprites["header"].baseColor=(isDarkMode?) ? Color.new(248,248,248) : Color.new(0,0,0)
+    sprites["header"].shadowColor=(!isDarkMode?) ? Color.new(248,248,248) : Color.new(0,0,0)
+    sprites["header"].windowskin=nil
+
   pbFadeInAndShow(sprites)
   sprites["msgwindow"]=Kernel.pbCreateMessageWindow
   Kernel.pbMessageDisplay(sprites["msgwindow"],_INTL("Searching for a gift.\nPlease wait...\\wtnp[0]"))

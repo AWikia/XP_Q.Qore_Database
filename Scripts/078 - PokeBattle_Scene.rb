@@ -2728,7 +2728,7 @@ end
   end
 
   def pbNameEntry(helptext,pokemon)
-    return pbEnterPokemonName(helptext,0,10,"",pokemon)
+    return pbEnterPokemonName(helptext,0,12,"",pokemon)
   end
 
   def pbSelectBattler(index,selectmode=1)

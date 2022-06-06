@@ -120,7 +120,7 @@ class PokemonEggHatchScene
     end
     if Kernel.pbConfirmMessage(
         _INTL("Would you like to nickname the newly hatched {1}?",@pokemon.name)) { update }
-      nickname=pbEnterPokemonName(_INTL("{1}'s nickname?",@pokemon.name),0,10,"",@pokemon,true)
+      nickname=pbEnterPokemonName(_INTL("{1}'s nickname?",@pokemon.name),0,12,"",@pokemon,true)
       @pokemon.name=nickname if nickname!=""
       @nicknamed=true
     end
@@ -223,7 +223,7 @@ def pbHatch(pokemon)
     end
     if Kernel.pbConfirmMessage(_INTL("Would you like to nickname the newly hatched {1}?",speciesname))
       species=PBSpecies.getName(pokemon.species)
-      nickname=pbEnterPokemonName(_INTL("{1}'s nickname?",speciesname),0,10,"",pokemon)
+      nickname=pbEnterPokemonName(_INTL("{1}'s nickname?",speciesname),0,12,"",pokemon)
       pokemon.name=nickname if nickname!=""
     end
   end

@@ -1220,7 +1220,7 @@ class PokemonStorageScreen
             break
           # Rename
           elsif cmd==0
-            newname=pbEnterPokemonName(_INTL("{1}'s nickname?",speciesname),0,10,"",pkmn)
+            newname=pbEnterPokemonName(_INTL("{1}'s nickname?",speciesname),0,12,"",pkmn)
             pkmn.name=(newname=="") ? speciesname : newname
             @scene.pbHardRefresh
           # Erase name

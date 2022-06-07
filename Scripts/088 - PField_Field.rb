@@ -9,7 +9,7 @@ class DarknessSprite < SpriteWrapper
     @darkness=BitmapWrapper.new(Graphics.width,Graphics.height)
     @radius=64 # Was 64 before 200
     self.bitmap=@darkness
-    self.z=99998
+    self.z=99996
     refresh
   end
 
@@ -52,9 +52,9 @@ class LocationWindow
     @window.resizeToFit(name,Graphics.width)
     @window.x=0
     @window.y=-@window.height
-    @window.z=99999
+    @window.z=99997
     @window.viewport=Viewport.new(0,0,Graphics.width,Graphics.height)
-    @window.viewport.z=99999
+    @window.viewport.z=99997
     @currentmap=$game_map.map_id
     @frames=0
   end

@@ -5,9 +5,10 @@ class PokemonMenu_Scene
     cmdwindow.viewport=@viewport
     cmdwindow.index=$PokemonTemp.menuLastChoice
     cmdwindow.resizeToFit(commands)
+    cmdwindow.height=Graphics.height - 32 if cmdwindow.height>(Graphics.height - 32)
     cmdwindow.commands=commands
     cmdwindow.x=Graphics.width-cmdwindow.width
-    cmdwindow.y=0
+    cmdwindow.y=32
     cmdwindow.visible=true
     loop do
       cmdwindow.update
@@ -48,16 +49,27 @@ class PokemonMenu_Scene
     @viewport=Viewport.new(0,0,Graphics.width,Graphics.height)
     @viewport.z=99999
     @sprites={}
+    @sprites["partybg_title"] = IconSprite.new(0,0)        
+    @sprites["partybg_title"].setBitmap("Graphics/Pictures/"+getDarkModeFolder+"/partybg")
+    @sprites["partybg_title"].z=99998
+    @sprites["partybg_title"].visible=true
+    @sprites["header"]=Window_UnformattedTextPokemon.newWithSize(_INTL("Pause Menu"),
+       2,-18,576,64,@viewport)      
+    @sprites["header"].baseColor=(isDarkMode?) ? Color.new(248,248,248) : Color.new(0,0,0)
+    @sprites["header"].shadowColor=(!isDarkMode?) ? Color.new(248,248,248) : Color.new(0,0,0)
+    @sprites["header"].windowskin=nil
+    @sprites["header"].z=99999
     @sprites["cmdwindow"]=Window_CommandPokemon.new([])
-    @sprites["infowindow"]=Window_UnformattedTextPokemon.newWithSize("",0,0,32,32,@viewport)
+    @sprites["infowindow"]=Window_UnformattedTextPokemon.newWithSize("",0,32,32,32,@viewport)
     @sprites["infowindow"].visible=false
     @sprites["infowindow"].z=601
-    @sprites["helpwindow"]=Window_UnformattedTextPokemon.newWithSize("",0,0,32,32,@viewport)
+    @sprites["helpwindow"]=Window_UnformattedTextPokemon.newWithSize("",0,32,32,32,@viewport)
     @sprites["helpwindow"].visible=false
     @sprites["helpwindow"].z=601
     @sprites["cmdwindow"].visible=false
     @sprites["cmdwindow"].z=601
     @sprites["curtain"]=BitmapSprite.new(Graphics.width,Graphics.height,@viewport)
+    @sprites["curtain"].y=32
     @sprites["curtain"].z=600
     @sprites["curtain"].bitmap.fill_rect(0,0,Graphics.width,Graphics.height,Color.new(0,0,0))
     @sprites["curtain"].opacity=100

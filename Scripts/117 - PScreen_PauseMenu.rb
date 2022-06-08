@@ -53,7 +53,12 @@ class PokemonMenu_Scene
     @sprites["partybg_title"].setBitmap("Graphics/Pictures/"+getDarkModeFolder+"/partybg")
     @sprites["partybg_title"].z=99998
     @sprites["partybg_title"].visible=true
-    @sprites["header"]=Window_UnformattedTextPokemon.newWithSize(_INTL("Pause Menu"),
+
+    title=RTP.getGameIniValue("Game", "Game") # QQC Edit 
+    title=RTP.getGameIniValue("Game","Title") if title==""
+    title="RGSS Game" if title==""
+
+    @sprites["header"]=Window_UnformattedTextPokemon.newWithSize(_INTL(title),
        2,-18,576,64,@viewport)      
     @sprites["header"].baseColor=(isDarkMode?) ? Color.new(248,248,248) : Color.new(0,0,0)
     @sprites["header"].shadowColor=(!isDarkMode?) ? Color.new(248,248,248) : Color.new(0,0,0)

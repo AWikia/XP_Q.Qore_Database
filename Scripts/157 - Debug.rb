@@ -908,8 +908,8 @@ end
 class SpriteWindow_DebugRight < Window_DrawableCommand
   attr_reader :mode
 
-  def initialize
-    super(0, 0, Graphics.width, Graphics.height)
+  def initialize(additional_reduce=0)
+    super(0, additional_reduce, Graphics.width, Graphics.height-additional_reduce)
   end
 
   def shadowtext(x,y,w,h,t,align=0)
@@ -986,7 +986,9 @@ def pbDebugScreen(mode)
   viewport=Viewport.new(0,0,Graphics.width,Graphics.height)
   viewport.z=99999
   sprites={}
-  sprites["right_window"] = SpriteWindow_DebugRight.new  
+    sprites["title"]=Window_UnformattedTextPokemon.newWithSize(
+       _INTL(["Switches", "Variables"][mode]),0,0,Graphics.width,64,viewport)
+  sprites["right_window"] = SpriteWindow_DebugRight.new(sprites["title"].height) 
   right_window=sprites["right_window"]
   right_window.mode=mode
   right_window.viewport=viewport

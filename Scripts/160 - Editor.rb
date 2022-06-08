@@ -3741,7 +3741,16 @@ GLOBALMETADATA=[
     @dragOffsetX=0
     @dragOffsetY=0
     @selmapid=-1
-    addBackgroundPlane(@sprites,"background","trainercardbg",@viewport)
+    addBackgroundPlane(@sprites,"background",getDarkModeFolder+"/mysteryGiftbg",@viewport)
+    addBackgroundPlane(@sprites,"background_2",getDarkModeFolder+"/mysteryGiftbg2",@viewport)
+      @sprites["background_2"].z=2
+      @sprites["header"]=Window_UnformattedTextPokemon.newWithSize(_INTL("Map Connections"),
+         2,-18,576,64,@viewport)
+      @sprites["header"].baseColor=(isDarkMode?) ? Color.new(248,248,248) : Color.new(0,0,0)
+      @sprites["header"].shadowColor=(!isDarkMode?) ? Color.new(248,248,248) : Color.new(0,0,0)
+      @sprites["header"].windowskin=nil
+      @sprites["header"].z=2
+
     @sprites["selsprite"]=SelectionSprite.new(@viewport)
     @sprites["title"]=Window_UnformattedTextPokemon.new(_INTL("F5: Help"))
     @sprites["title"].x=0

@@ -267,9 +267,17 @@ def pbEncounterSpecies(phonenum)
   end
   species=pbRandomEncounterSpecies(enctypes[0]) # Land
   species=pbRandomEncounterSpecies(enctypes[1]) if species==0 # Cave
+  species=pbRandomEncounterSpecies(enctypes[13]) if species==0 # CaveNight
+  species=pbRandomEncounterSpecies(enctypes[18]) if species==0 # CaveLarge
+  species=pbRandomEncounterSpecies(enctypes[20]) if species==0 # CaveNightlarge
+  species=pbRandomEncounterSpecies(enctypes[26]) if species==0 # CaveMorning
+  species=pbRandomEncounterSpecies(enctypes[25]) if species==0 # CaveXLarge
   species=pbRandomEncounterSpecies(enctypes[9]) if species==0 # LandMorning
   species=pbRandomEncounterSpecies(enctypes[10]) if species==0 # LandDay
   species=pbRandomEncounterSpecies(enctypes[11]) if species==0 # LandNight
+  species=pbRandomEncounterSpecies(enctypes[22]) # LandLarge
+  species=pbRandomEncounterSpecies(enctypes[23]) # LandNightLarge
+  species=pbRandomEncounterSpecies(enctypes[24]) # LandMorningLarge
   species=pbRandomEncounterSpecies(enctypes[2]) if species==0 # Water
   return "" if species==0
   return PBSpecies.getName(species)
@@ -349,7 +357,7 @@ class PokemonPhoneScene
     @sprites={}
     @viewport=Viewport.new(0,0,Graphics.width,Graphics.height)
     @viewport.z=99999
-    @sprites["list"]=Window_PhoneList.newEmpty(152,32,Graphics.width-142,Graphics.height-80,@viewport)
+    @sprites["list"]=Window_PhoneList.newEmpty(152+64,32,Graphics.width-142 - 64,Graphics.height-80,@viewport)
     @sprites["header"]=Window_UnformattedTextPokemon.newWithSize(_INTL("Phone"),
        2,-18,128,64,@viewport)
     @sprites["header"].baseColor=Color.new(248,248,248)
@@ -359,9 +367,14 @@ class PokemonPhoneScene
        162,Graphics.height-64,Graphics.width-158,64,@viewport)
     @sprites["bottom"].text="<ac>"+mapname
     @sprites["info"]=Window_AdvancedTextPokemon.newWithSize("",
-       -8,224,180,160,@viewport)
-    addBackgroundPlane(@sprites,"bg","phonebg",@viewport)
-    @sprites["icon"]=IconSprite.new(70,102,@viewport)
+       -8 + 64,224,180,160,@viewport)
+    femback=pbResolveBitmap(sprintf("Graphics/Pictures/"+getDarkModeFolder+"/phonebgf"))
+    if $Trainer.isFemale? && femback
+      addBackgroundPlane(@sprites,"bg",getDarkModeFolder+"/phonebgf",@viewport)
+    else
+      addBackgroundPlane(@sprites,"bg",getDarkModeFolder+"/phonebg",@viewport)
+    end
+    @sprites["icon"]=IconSprite.new(70+64,102,@viewport)
     if @trainers[0].length==4
       filename=pbTrainerCharFile(@trainers[0][0])
     else
@@ -370,7 +383,7 @@ class PokemonPhoneScene
     @sprites["icon"].setBitmap(filename)
     charwidth=@sprites["icon"].bitmap.width
     charheight=@sprites["icon"].bitmap.height
-    @sprites["icon"].x = 86 - charwidth/8
+    @sprites["icon"].x = 86 - charwidth/8 + 64
     @sprites["icon"].y = 134 - charheight/8
     @sprites["icon"].src_rect = Rect.new(0,0,charwidth/4,charheight/4)
     for trainer in @trainers
@@ -386,7 +399,7 @@ class PokemonPhoneScene
     end
     @sprites["list"].commands=commands
     for i in 0...@sprites["list"].page_item_max
-      @sprites["rematch[#{i}]"]=IconSprite.new(468,62+i*32,@viewport)
+      @sprites["rematch[#{i}]"]=IconSprite.new(468 + 64,62+i*32,@viewport)
       j=i+@sprites["list"].top_item
       next if j >= commands.length
       trainer=@trainers[j]
@@ -423,7 +436,7 @@ class PokemonPhoneScene
            @sprites["icon"].setBitmap(filename)
            charwidth=@sprites["icon"].bitmap.width
            charheight=@sprites["icon"].bitmap.height
-           @sprites["icon"].x = 86 - charwidth/8
+           @sprites["icon"].x = 86 - charwidth/8 + 64
            @sprites["icon"].y = 134 - charheight/8
            @sprites["icon"].src_rect = Rect.new(0,0,charwidth/4,charheight/4)
            mapname=(trainer[2]) ? pbGetMessage(MessageTypes::MapNames,trainer[2]) : ""

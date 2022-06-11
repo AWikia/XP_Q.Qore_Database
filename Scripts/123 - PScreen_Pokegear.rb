@@ -82,8 +82,8 @@ class Scene_Pokegear
     @cmdPhone=-1
     @cmdJukebox=-1
     commands[@cmdMap=commands.length]=_INTL("Map")
-#    commands[@cmdPhone=commands.length]=_INTL("Phone") if $PokemonGlobal.phoneNumbers &&
-#                                                          $PokemonGlobal.phoneNumbers.length>0
+    commands[@cmdPhone=commands.length]=_INTL("Phone") if $PokemonGlobal.phoneNumbers &&
+                                                          $PokemonGlobal.phoneNumbers.length>0
     commands[@cmdJukebox=commands.length]=_INTL("Jukebox")
 
     @viewport=Viewport.new(0,0,Graphics.width,Graphics.height)

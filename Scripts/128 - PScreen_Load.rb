@@ -137,7 +137,21 @@ class PokemonLoadScene
       addBackgroundOrColoredPlaneGlobal(@sprites,"background","loadbg_empty",
          Color.new(248,248,248),@viewport)
     end
-    y=16*2
+      addBackgroundOrColoredPlane(@sprites,"partybg_title",getDarkModeFolder+"/partybg",
+         Color.new(0,0,0),@viewport)
+    title=RTP.getGameIniValue("Game", "Game") # QQC Edit 
+    title=RTP.getGameIniValue("Game","Title") if title==""
+    title="RGSS Game" if title==""
+
+    @sprites["header"]=Window_UnformattedTextPokemon.newWithSize(_INTL(title),
+       2,-18,576,64,@viewport)      
+    @sprites["header"].baseColor=(isDarkMode?) ? Color.new(248,248,248) : Color.new(0,0,0)
+    @sprites["header"].shadowColor=(!isDarkMode?) ? Color.new(248,248,248) : Color.new(0,0,0)
+    @sprites["header"].windowskin=nil
+    @sprites["partybg_title"].z=99999
+    @sprites["header"].z=99999
+    
+    y=16*2+4
     for i in 0...commands.length
       @sprites["panel#{i}"]=PokemonLoadPanel.new(i,commands[i],
          (showContinue ? (i==0) : false),trainer,framecount,mapid,@viewport)
@@ -174,14 +188,14 @@ class PokemonLoadScene
       charwidth=@sprites["player"].bitmap.width
       charheight=@sprites["player"].bitmap.height
       @sprites["player"].x = (56*2)+64 - charwidth/8
-      @sprites["player"].y = 56*2 - charheight/8
+      @sprites["player"].y = 56*2 - charheight/8 + 4
       @sprites["player"].src_rect = Rect.new(0,0,charwidth/4,charheight/4)
     end
     for i in 0...trainer.party.length
       @sprites["party#{i}"]=PokemonIconSprite.new(trainer.party[i],@viewport)
-      @sprites["party#{i}"].z=99999
+      @sprites["party#{i}"].z=99998
       @sprites["party#{i}"].x=((151*2)+64)+33*2*(i&1)
-      @sprites["party#{i}"].y=36*2+25*2*(i/2)
+      @sprites["party#{i}"].y=36*2+25*2*(i/2)+4
     end
   end
 

@@ -1574,7 +1574,6 @@ class PokeBattle_Battler
       # End of Primal weather cancelling regular weather
       # Surges
       # https://www.pokecommunity.com/showthread.php?t=383035&page=2
-      # TODO: Volcanic Surge, Lovely Surge, Cinema Maker, Tunnel Maker
       if self.hasWorkingAbility(:ELECTRICSURGE) && @battle.field.effects[PBEffects::ElectricTerrain]<=0
         @battle.field.effects[PBEffects::GrassyTerrain]=0
         @battle.field.effects[PBEffects::MistyTerrain]=0
@@ -1617,7 +1616,7 @@ class PokeBattle_Battler
       end
       if self.hasWorkingAbility(:MISTYSURGE) && @battle.field.effects[PBEffects::MistyTerrain]<=0
         @battle.field.effects[PBEffects::ElectricTerrain]=0
-        @battle.field.effects[PBEffects::MistyTerrain]=0
+        @battle.field.effects[PBEffects::GrassyTerrain]=0
         @battle.field.effects[PBEffects::PsychicTerrain]=0
         @battle.field.effects[PBEffects::MistyTerrain]=5
         @battle.field.effects[PBEffects::MistyTerrain]=8 if self.hasWorkingItem(:TERRAINEXTENDER)
@@ -1628,6 +1627,47 @@ class PokeBattle_Battler
         PBDebug.log("[#{pbThis}: Misty Surge made Misty Terrain]")
         self.checkMimicryAll
       end
+      if self.hasWorkingAbility(:VOLCANICSURGE) && @battle.field.effects[PBEffects::VolcanicTerrain]<=0
+        @battle.field.effects[PBEffects::ElectricTerrain]=0
+        @battle.field.effects[PBEffects::GrassyTerrain]=0
+        @battle.field.effects[PBEffects::PsychicTerrain]=0
+        @battle.field.effects[PBEffects::VolcanicTerrain]=5
+        @battle.field.effects[PBEffects::VolcanicTerrain]=8 if self.hasWorkingItem(:TERRAINEXTENDER)
+        @battle.field.effects[PBEffects::Cinament]=0
+        @battle.field.effects[PBEffects::MistyTerrain]=0
+        @battle.field.effects[PBEffects::LovelyTerrain]=0
+        @battle.pbDisplay(_INTL("A heatness has been set up on the battlefield!"))
+        PBDebug.log("[#{pbThis}: Volcanic Surge made Volcanic Terrain]")
+        self.checkMimicryAll
+      end
+      if self.hasWorkingAbility(:LOVELYSURGE) && @battle.field.effects[PBEffects::LovelyTerrain]<=0
+        @battle.field.effects[PBEffects::ElectricTerrain]=0
+        @battle.field.effects[PBEffects::GrassyTerrain]=0
+        @battle.field.effects[PBEffects::PsychicTerrain]=0
+        @battle.field.effects[PBEffects::LovelyTerrain]=5
+        @battle.field.effects[PBEffects::LovelyTerrain]=8 if self.hasWorkingItem(:TERRAINEXTENDER)
+        @battle.field.effects[PBEffects::Cinament]=0
+        @battle.field.effects[PBEffects::MistyTerrain]=0
+        @battle.field.effects[PBEffects::VolcanicTerrain]=0
+        @battle.pbDisplay(_INTL("A loveness has been set up on the battlefield!"))
+        PBDebug.log("[#{pbThis}: Lovely Surge made Lovely Terrain]")
+        self.checkMimicryAll
+      end
+      if self.hasWorkingAbility(:CINEMAMAKER) && @battle.field.effects[PBEffects::Cinament]<=0
+        @battle.field.effects[PBEffects::ElectricTerrain]=0
+        @battle.field.effects[PBEffects::GrassyTerrain]=0
+        @battle.field.effects[PBEffects::PsychicTerrain]=0
+        @battle.field.effects[PBEffects::Cinament]=5
+        @battle.field.effects[PBEffects::Cinament]=8 if self.hasWorkingItem(:TERRAINEXTENDER)
+        @battle.field.effects[PBEffects::LovelyTerrain]=0
+        @battle.field.effects[PBEffects::MistyTerrain]=0
+        @battle.field.effects[PBEffects::VolcanicTerrain]=0
+        @battle.pbCommonAnimation("Cinament",nil,nil)
+        @battle.pbDisplay(_INTL("A bolty cauldron has sweeped the battlefield!"))
+        PBDebug.log("[#{pbThis}: Cinema Maker made Cinament]")
+        self.checkMimicryAll
+      end
+
       if self.hasWorkingAbility(:DARKTUNNEL) && @battle.field.effects[PBEffects::GlimmyGalaxy]<=0
         @battle.field.effects[PBEffects::GlimmyGalaxy]=3
         self.effects[PBEffects::DarkTunnel] = true
@@ -2614,6 +2654,13 @@ class PokeBattle_Battler
           PBDebug.log("[Ability triggered] #{user.pbThis}'s Poison Touch")
           target.pbPoison(user,_INTL("{1}'s {2} poisoned {3}!",user.pbThis,
              PBAbilities.getName(user.ability),target.pbThis(true)))
+        end
+        if user.hasWorkingAbility(:ILLUSIVEBILITY) && @battle.pbRandom(10)<5 && !target.pbHasType?(:SHARPENER)
+          if !target.isFainted? && target.pbCanAttract?(target,false)
+            PBDebug.log("[Ability triggered] #{target.pbThis}'s Illusive Bility")
+            target.pbAttract(user,_INTL("{1}'s {2} made {3} fall in love!",user.pbThis,
+               PBAbilities.getName(user.ability),target.pbThis(true)))
+          end
         end
         if target.hasWorkingAbility(:PERISHBODY)
           user.effects[PBEffects::PerishSong]=4
@@ -4033,6 +4080,11 @@ class PokeBattle_Battler
       p+=1 if user.hasWorkingAbility(:GALEWINGS) && isConst?(thismove.type,PBTypes,:FLYING)
       p+=1 if @battle.field.effects[PBEffects::GrassyTerrain]>0 && thismove.function==0x310
       p+=1 if @battle.field.effects[PBEffects::ElectricTerrain]>0 && thismove.function==0x345
+      p+=1 if @battle.field.effects[PBEffects::MistyTerrain]>0 && thismove.function==0x346
+      p+=1 if @battle.field.effects[PBEffects::PsychicTerrain]>0 && thismove.function==0x347
+      p+=1 if @battle.field.effects[PBEffects::VolcanicTerrain]>0 && thismove.function==0x348
+      p+=1 if @battle.field.effects[PBEffects::LovelyTerrain]>0 && thismove.function==0x349
+      p+=1 if @battle.field.effects[PBEffects::Cinament]>0 && thismove.function==0x350
     end
     if target.hasWorkingAbility(:PROVENDO) &&  thismove.canProtectAgainst? && 
       p>0 && !target.effects[PBEffects::ProtectNegation]
@@ -4204,6 +4256,15 @@ class PokeBattle_Battler
         if target.effects[PBEffects::Telekinesis]>0
           @battle.pbDisplay(_INTL("{1} makes Ground moves miss with Telekinesis!",target.pbThis))
           PBDebug.log("[Lingering effect triggered] #{target.pbThis}'s Telekinesis made the Ground-type move miss")
+          return false
+        end
+      end
+      if isConst?(type,PBTypes,:MAGIC) && !target.hasWorkingItem(:RINGTARGET) &&
+         thismove.function!=0x97 # Magic Starfruit
+        if !user.hasMoldBreaker && target.hasWorkingAbility(:MAGICBLOCK)
+					pbSEPlay("protection")
+          @battle.pbDisplay(_INTL("{1} makes Magic moves miss with Magic Block",target.pbThis))
+          PBDebug.log("[Ability triggered] #{target.pbThis}'s Magic Block made the Mind-type move miss")
           return false
         end
       end

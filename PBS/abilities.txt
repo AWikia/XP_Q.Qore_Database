@@ -355,3 +355,8 @@
 349,SOUFLIZ,Soufliz,"The Pokémon passes its status condition to a random target upon entering a battle."
 350,SOUFLAZ,Souflaz,"Contact with the Pokémon may transfer its status condition to the attacker."
 351,DARKTUNNEL,Dark Tunnel,"Summons Glimmy Galaxy to the battlefield when the Pokémon enters a battle."
+352,VOLCANICSURGE,Volcanic Surge,Turns the ground into Volcanic Terrain when the Pokémon enters a battle.
+353,LOVELYSURGE,Lovely Surge,Turns the ground into Lovely Terrain when the Pokémon enters a battle.
+354,CINEMAMAKER,Cinema Maker,Turns the ground into Cinament when the Pokémon enters a battle.
+355,MAGICBLOCK,Magic Block,"The Pokémon receives full immunity to all Magic-type moves by blocking magical signals."
+356,ILLUSIVEBILITY,Illusive Bility,"May infatuate a target when the Pokémon makes contact."

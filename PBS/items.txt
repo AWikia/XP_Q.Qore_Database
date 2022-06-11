@@ -665,6 +665,7 @@
 759,UTILITYUMBRELLA,Utility Umbrela,Utility Umbrelas,1,4000,An item to be held by a Pokémon. This sturdy umbrella protects the holder from the effects of weather.,0,0,0,
 861,GALARICACUFF,Galarica Cuff,Galarica Cuffs,1,6000,"A cuff made from woven-together Galarica Twigs. Giving it to Galarian Slowpoke makes the Pokémon very happy.",1,0,0,
 862,GALARICAWREATH,Galarica Wreath,Galarica Wreaths,1,6000,"A wreath made from woven-together Galarica Twigs. Placing it on the head of a Galarian Slowpoke makes the Pokémon very happy.",1,0,0,
+968,BLANKPLATE,Blank Plate,Blank Plates,1,1000,An item to be held by a Pokémon. It is a stone tablet that boosts the power of Normal-type moves.,0,0,0,
 ## Trophies (28 Total)
 # Platina
 827,TQOREMASTER,Qora Qore Master,Qora Qore Master,6,0,Awarded for completing all the pregame,2,0,6,
@@ -976,3 +977,4 @@
 965,ROTOMCATALOG,Rotom Catalog,Rotom Catalogs,8,0,"A catalog of devices that Rotom like. Use the catalog to have Rotom hop in and out of the various devices listed within.",5,0,6,
 966,HEARTBRANDITE2,Heartbrandite2,Heartbrandite2s,1,10000,"One of the mysterious Mega Stones. Have Heartbrand hold it, and this stone will enable it to Mega Evolve in battle.",0,0,12,
 967,MICROSOFTORB,Microsoft Orb,Microsoft Orbs,1,0,"A shiny multicolored orb that is said to have a legend tied to it. It's known to have a deep connection to Windows 10 and 11.",0,0,0,
+969,HEARTBRANDITE3,Heartbrandite3,Heartbrandite3s,1,10000,"One of the mysterious Mega Stones. Have Heartbrand hold it, and this stone will enable it to Mega Evolve in battle.",0,0,12,

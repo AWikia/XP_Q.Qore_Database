@@ -1327,31 +1327,41 @@ MultipleForms.register(:HEARTBRAND,{
 "getMegaForm"=>proc{|pokemon|
    next 1 if isConst?(pokemon.item,PBItems,:HEARTBRANDITE)
    next 2 if isConst?(pokemon.item,PBItems,:HEARTBRANDITE2)
+   next 3 if isConst?(pokemon.item,PBItems,:HEARTBRANDITE3)
    next
 },
 "getMegaName"=>proc{|pokemon|
    next _INTL("Mega Heartbrand2") if pokemon.form==2
+   next _INTL("Mega Heartbrand3") if pokemon.form==3
    next
 },
+"type1"=>proc{|pokemon|
+   next getID(PBTypes,:MAGIC) if pokemon.form==3
+   next
+},
+
 "type2"=>proc{|pokemon|
    next getID(PBTypes,:ELECTRIC) if pokemon.form==1
-   next getID(PBTypes,:MAGIC) if pokemon.form==2
+   next getID(PBTypes,:MAGIC) if pokemon.form==2 || pokemon.form==3
    next
 },
 "getBaseStats"=>proc{|pokemon|
    next [100,70,75,30,70,75] if pokemon.form==1
    next [100,65,80,30,65,80] if pokemon.form==2
+   next [100,70,70,40,70,70] if pokemon.form==3
    next
 },
 "getAbilityList"=>proc{|pokemon|
    next [[getID(PBAbilities,:TRUMMETSPIRIT),0]] if pokemon.form==1
    next [[getID(PBAbilities,:SOUFLIZ),0]] if pokemon.form==2
+   next [[getID(PBAbilities,:MAGICBLOCK),0]] if pokemon.form==3
    next
 },
 "dexEntry"=>proc{|pokemon|
    next if pokemon.form==0
    next _INTL("After having undergo Mega Evolution, a yellow glow started appearing inside Heartbrand's body.") if pokemon.form==1
    next _INTL("Moments after mega-evolving and after a yellow glow started appearing inside Heartbrand's body, its body then became darker and magical.") if pokemon.form==2
+   next _INTL("After Mega Evovling into this form, this Pokemon started to block any Magical attack he found.") if pokemon.form==3
 }
 })
 

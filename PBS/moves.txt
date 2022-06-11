@@ -940,6 +940,7 @@
 1076,COLORATURA,Coloratura,326,120,PSYCHIC,Special,100,10,0,08,0,bef,"Using an odd shock wave, the user damages any Pokémon of the same color as the user."
 1078,FORBIDDENSPELL,Forbidden Spell,327,0,PSYCHIC,Status,100,10,0,00,0,bce,The user blocks the target from using items any longer to the target by making its Ability Klutz.
 1121,KINECTSPIRIT,Kinect Spirit,066,0,PSYCHIC,Status,100,15,0,100,0,bce,"The user inserts a Kinect to its partner, changing its Ability to the same as the user's."
+1150,PSYCHICGLIDE,Psychic Glide,347,70,PSYCHIC,Physical,100,20,0,00,0,abef,"Gliding on the ground, the user attacks the target. This move always goes first on Psychic Terrain."
 ## FLINT Moves = Ice
 753,COLDWATER,Cold Water,000,40,ICE,Special,100,30,0,00,1,bef,The user shoot a lot of cold water to the target. This move always goes first.
 974,FROZENYOGHURT,Frozen Yoghurt,293,55,ICE,Physical,100,10,100,00,0,abef,"If the user moves before the target, this attack's power will be doubled and freeze the target as well."
@@ -975,6 +976,7 @@
 985,FAIRYEYE,Fairy Eye,0EF,0,FAIRY,Status,0,5,0,00,0,bce,"The user pins the target with a dark, arresting look. The target becomes unable to flee."
 986,VIBRATION,Vibration,046,90,FAIRY,Special,100,10,10,00,0,befk,The user vibrates its wings to generate a damaging sound wave. This may also lower the target's Sp. Def stat.
 1126,FLANGE,Flange,341,40,FAIRY,Physical,100,35,0,00,0,abef,Using its fairy tackling power, it damages the target. This move's power doubles when the target is on Misty Terrain.
+1149,MISTYGLIDE,Misty Glide,346,70,FAIRY,Physical,100,20,0,00,0,abef,"Gliding on the ground, the user attacks the target. This move always goes first on Misty Terrain."
 ## FLINT Moves = Magic
 627,MAGICHAND,Magic Hand,000,55,MAGIC,Special,100,30,0,00,0,abeg,A hand that does magic attack. User thraws out before using this move
 629,MAGICCROWN,Magic Crown,02D,95,MAGIC,Special,95,20,50,400,0,abeg,The user stands out a crown of swords at the target. May raise user's all stats
@@ -1043,6 +1045,7 @@
 844,LAVACRAYON,Lava Crayon,254,40,LAVA,Physical,90,20,0,00,0,ab,"By using its crayon power of lava, if your and the opposing last move has failed, this move deals massive damage."
 1077,LAVEROCK,Laverock,000,100,LAVA,Physical,0,15,0,00,0,bef,The user unleases its power to hurl a big volcanic fire to the target.
 1131,EXTREMEMAGMA,Extreme Magma,00A,110,LAVA,Special,85,5,10,00,0,bef,The foe is attacked with an extreme lava. This may also leave the target with a burn.
+1151,VOLCANICGLIDE,Volcanic Glide,348,70,LAVA,Physical,100,20,0,00,0,abef,"Gliding on the ground, the user attacks the target. This move always goes first on Volcanic Terrain."
 ## FLINT Moves = Wind
 623,DAMADON,Damadon,022,70,WIND,Special,90,40,45,04,0,beh,The user danks all the foes with an adition of grass. May raise the user's evasion
 683,WINDATTACK,Wind Attack,000,60,WIND,Physical,100,30,0,00,0,abef,"The target is struck with large, imposing wings spread wide to inflict damage."
@@ -1078,6 +1081,7 @@
 1004,PIXELBOLT,Pixel Bolt,298,30,BOLT,Physical,100,20,30,00,0,bf,"The user damages the target twice. This may also paralyze the target on each hit."
 1005,BOLTBLOW,Bolt Blow,298,30,BOLT,Special,100,20,30,00,0,bf,"The user damages the target twice. This may also paralyze the target on each hit."
 1134,BOLTSOUNDS,Bolt Sounds,000,80,BOLT,Special,100,10,0,04,0,befk,"The user attacks opposing Pokémon by twanging a guitar or bass guitar, causing a huge echo and strong vibration."
+1153,CINEMATICGLIDE,Cinematic Glide,348,70,BOLD,Special,100,20,0,00,0,abef,"Gliding on the ground, the user attacks the target. This move always goes first on Cinament."
 ## FLINT Moves = Herb
 637,DAZZLINGLICK,Dazzling Lick,159,90,HERB,Physical,0,5,40,08,1,abj,The user inficts Dazzle damage to all enemies in the battle. May Lower all stats.
 695,HERBLEAF,Herb Leaf,0E0,250,HERB,Physical,100,5,0,08,0,b,"User Hurls leafs accross the Pokémon. The user however, will also faint"
@@ -1160,6 +1164,7 @@
 1022,LOVEGOODAEROBICS,Lovegood Aerobics,013,85,HEART,Physical,100,15,30,04,0,abef,The user drops onto the other side with aerobics. It may leave the target(s) with confusion.
 1034,TREBLE,Treble,304,50,HEART,Physical,100,15,30,00,0,bek,This attack can be used only if the user is asleep. The harsh noise may also confuse the target.
 1141,ILLUSIVELOVE,Illusive Love,046,70,HEART,Special,100,15,10,00,0,bef,The target is hit by loveness. This may also reduce the target's Sp. Def stat.
+1152,LOVELYGLIDE,Lovely Glide,348,70,HEART,Physical,100,20,0,00,0,abef,"Gliding on the ground, the user attacks the target. This move always goes first on Lovely Terrain."
 ## FLINT Moves = Blizzard
 750,TITANUMBLIZZARD,Titanum Blizzard,205,110,BLIZZARD,Special,70,5,10,04,0,bef,A howling blizzard is summoned to strike the opposing team. It may also freeze them solid. Move also works as a Steel-type move stimulationaly
 754,BLIZZARDOUSOCEAN,Blizzardous Ocean,206,0,BLIZZARD,Status,0,10,0,00,0,,The user ponds the target into a blizzardous ocean. This not only the user gains target's ability but also suppresses it.

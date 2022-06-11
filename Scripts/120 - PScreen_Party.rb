@@ -4,7 +4,7 @@ class PokeSelectionPlaceholderSprite < SpriteWrapper
   def initialize(pokemon,index,viewport=nil)
     super(viewport)
     xvalues=[32,352,32,352,32,352]
-    yvalues=[36,32,132,128,228,224] # Was [16,0,112,96,208,192]
+    yvalues=[32,32,128,128,224,224] # Was [16,0,112,96,208,192]
 =begin
     if $Trainer.isFemale?
       @pbitmap=AnimatedBitmap.new("Graphics/Pictures/partyPanelBlank")

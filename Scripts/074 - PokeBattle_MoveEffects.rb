@@ -14489,6 +14489,41 @@ end
 class PokeBattle_Move_345 < PokeBattle_Move
 end
 
+################################################################################
+# (handled elsewhere) This move will have increased priority when used in
+# Misty Terrain (Misty Glide)
+################################################################################
+class PokeBattle_Move_346 < PokeBattle_Move
+end
+
+################################################################################
+# (handled elsewhere) This move will have increased priority when used in
+# Psychic Terrain (Psychic Glide)
+################################################################################
+class PokeBattle_Move_347 < PokeBattle_Move
+end
+
+################################################################################
+# (handled elsewhere) This move will have increased priority when used in
+# Volcanic Terrain (Volcanic Glide)
+################################################################################
+class PokeBattle_Move_348 < PokeBattle_Move
+end
+
+################################################################################
+# (handled elsewhere) This move will have increased priority when used in
+# Lovely Terrain (Lovely Glide)
+################################################################################
+class PokeBattle_Move_349 < PokeBattle_Move
+end
+
+################################################################################
+# (handled elsewhere) This move will have increased priority when used in
+# Cinament (Cinematic Glide)
+################################################################################
+class PokeBattle_Move_350 < PokeBattle_Move
+end
+
 
 ################################################################################
 ################################################################################

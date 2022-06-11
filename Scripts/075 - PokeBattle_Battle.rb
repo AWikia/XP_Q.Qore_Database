@@ -1230,6 +1230,16 @@ class PokeBattle_Battle
                   @choices[i][2].function==0x310
         pri+=1 if @field.effects[PBEffects::ElectricTerrain]>0 && 
                   @choices[i][2].function==0x345
+        pri+=1 if @field.effects[PBEffects::MistyTerrain]>0 && 
+                  @choices[i][2].function==0x346
+        pri+=1 if @field.effects[PBEffects::PsychicTerrain]>0 && 
+                  @choices[i][2].function==0x347
+        pri+=1 if @field.effects[PBEffects::VolcanicTerrain]>0 && 
+                  @choices[i][2].function==0x348
+        pri+=1 if @field.effects[PBEffects::LovelyTerrain]>0 && 
+                  @choices[i][2].function==0x349
+        pri+=1 if @field.effects[PBEffects::Cinament]>0 && 
+                  @choices[i][2].function==0x350
       end
       priorities[i]=pri
       if i==0

@@ -7,7 +7,7 @@ class PokemonAboutScreenScene
     @sprites={}
     @viewport=Viewport.new(0,0,Graphics.width,Graphics.height)
     @viewport.z=99999
-    @viewport2=Viewport.new(62,80,Graphics.width-124,Graphics.height-160)
+    @viewport2=Viewport.new(62,97,Graphics.width-124,Graphics.height-160)
     @viewport2.z=99999
 
     femback=pbResolveBitmap(sprintf("Graphics/Pictures/"+getDarkModeFolder+"/aboutbg"))

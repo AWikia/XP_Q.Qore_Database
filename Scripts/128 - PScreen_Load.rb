@@ -142,7 +142,7 @@ class PokemonLoadScene
     title=RTP.getGameIniValue("Game", "Game") # QQC Edit 
     title=RTP.getGameIniValue("Game","Title") if title==""
     title="RGSS Game" if title==""
-
+    
     @sprites["header"]=Window_UnformattedTextPokemon.newWithSize(_INTL(title),
        2,-18,576,64,@viewport)      
     @sprites["header"].baseColor=(isDarkMode?) ? Color.new(248,248,248) : Color.new(0,0,0)
@@ -207,6 +207,9 @@ class PokemonLoadScene
       pbUpdate
       if Input.trigger?(Input::C) || Input.triggerex?(Input::LeftMouseKey)
         return @sprites["cmdwindow"].index
+      end
+      if @sprites["header"].windowskin!=nil
+        @sprites["header"].windowskin=nil
       end
     end
   end
@@ -540,7 +543,11 @@ class PokemonLoad
         $scene=nil
         return
       elsif cmdAbout>=0 && command==cmdAbout
-        qortexAbout
+        scene=PokemonAboutScreenScene.new
+        screen=PokemonAboutScreen.new(scene)
+        pbFadeOutIn(99999) { 
+           screen.pbStartScreen
+        }
       end
     end
     @scene.pbEndScene

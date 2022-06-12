@@ -58,17 +58,18 @@ end
 # By Qora Qore Telecommunities
 # Based on  Scene_Pokegear
 #===============================================================================
-class Scene_LinkBattle
+class Scene_LinkBattleScene
   #-----------------------------------------------------------------------------
   # initialize
   #-----------------------------------------------------------------------------
-  def initialize(menu_index = 0)
+  def pbStartScene(menu_index = 0)
     @menu_index = menu_index
   end
   #-----------------------------------------------------------------------------
   # main
   #-----------------------------------------------------------------------------
-  def main
+  def pbLinkScreen
+    @sprites={}
     commands=[]
 # OPTIONS - If you change these, you should also change update_command below.
     @cmdLink=-1
@@ -83,9 +84,7 @@ class Scene_LinkBattle
     @viewport=Viewport.new(0,0,Graphics.width,Graphics.height)
     @viewport.z=99999
     @button=AnimatedBitmap.new("Graphics/Pictures/"+getAccentFolder+"/linkButton")
-    @sprites={}
-    @sprites["background"] = IconSprite.new(0,0)
-    @sprites["background"].setBitmap("Graphics/Pictures/"+getDarkModeFolder+"/linkbg")
+    addBackgroundPlane(@sprites,"background",getDarkModeFolder+"/linkbg",@viewport)
     @sprites["header"]=Window_UnformattedTextPokemon.newWithSize(_INTL("Link Battle"),
        2,-18,256,64,@viewport)
     @sprites["header"].baseColor=Color.new(248,248,248)
@@ -101,17 +100,16 @@ class Scene_LinkBattle
       @sprites["button#{i}"].selected=(i==@sprites["command_window"].index)
       @sprites["button#{i}"].update
     end
-    Graphics.transition
+    pbFadeInAndShow(@sprites)
     loop do
       Graphics.update
       Input.update
       update
-      if $scene != self
+      if Input.trigger?(Input::B) || Input.triggerex?(Input::RightMouseKey)
+        pbPlayCancelSE()
         break
       end
     end
-    Graphics.freeze
-    pbDisposeSpriteHash(@sprites)
   end
   #-----------------------------------------------------------------------------
   # update the scene
@@ -132,11 +130,6 @@ class Scene_LinkBattle
   # update the command window
   #-----------------------------------------------------------------------------
   def update_command
-    if Input.trigger?(Input::B) || Input.triggerex?(Input::RightMouseKey)
-      pbPlayCancelSE()
-      $scene = Scene_Map.new
-      return
-    end
     if Input.trigger?(Input::X) # Help
       @QQSR="\\l[9]\\c[8]\\w[TrophyWindow]"
       @QQSR+="Choose any of the three modes present. Local Battles is you vs. an opponent with random Pokemon while the other uses communication with another player."
@@ -311,5 +304,25 @@ class Scene_LinkBattle
       end
       return
     end
+  end
+
+  def pbEndScene
+    pbFadeOutAndHide(@sprites) { update }
+    pbDisposeSpriteHash(@sprites)
+    @viewport.dispose
+  end
+  
+
+end
+
+class Scene_LinkBattle
+  def initialize(scene)
+    @scene=scene
+  end
+
+  def pbStartScreen
+    @scene.pbStartScene
+    @scene.pbLinkScreen
+    @scene.pbEndScene
   end
 end

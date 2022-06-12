@@ -64,19 +64,21 @@ end
 # Modified by Peter O.
 # Also Modified By OblivionMew
 # Overhauled by Maruno
+# Modified by Qora Qore Telecommunities
 #===============================================================================
-class Scene_Pokegear
+class Scene_PokegearScene
   #-----------------------------------------------------------------------------
   # initialize
   #-----------------------------------------------------------------------------
-  def initialize(menu_index = 0)
+  def pbStartScene(menu_index = 0)
     @menu_index = menu_index
   end
   #-----------------------------------------------------------------------------
   # main
   #-----------------------------------------------------------------------------
-  def main
+  def pbPokegearScreen
     commands=[]
+    @sprites={}
 # OPTIONS - If you change these, you should also change update_command below.
     @cmdMap=-1
     @cmdPhone=-1
@@ -89,13 +91,11 @@ class Scene_Pokegear
     @viewport=Viewport.new(0,0,Graphics.width,Graphics.height)
     @viewport.z=99999
     @button=AnimatedBitmap.new("Graphics/Pictures/"+getAccentFolder+"/pokegearButton")
-    @sprites={}
-    @sprites["background"] = IconSprite.new(0,0)
     femback=pbResolveBitmap(sprintf("Graphics/Pictures/"+getDarkModeFolder+"/pokegearbgf"))
-    if $Trainer.isFemale? && femback
-      @sprites["background"].setBitmap("Graphics/Pictures/"+getDarkModeFolder+"/pokegearbgf")
+    if $Trainer && $Trainer.isFemale? && femback
+      addBackgroundPlane(@sprites,"background",getDarkModeFolder+"/pokegearbgf",@viewport)
     else
-      @sprites["background"].setBitmap("Graphics/Pictures/"+getDarkModeFolder+"/pokegearbg")
+      addBackgroundPlane(@sprites,"background",getDarkModeFolder+"/pokegearbg",@viewport)
     end
     @sprites["header"]=Window_UnformattedTextPokemon.newWithSize(_INTL("Pokégear"),
        2,-18,128,64,@viewport)
@@ -112,17 +112,16 @@ class Scene_Pokegear
       @sprites["button#{i}"].selected=(i==@sprites["command_window"].index)
       @sprites["button#{i}"].update
     end
-    Graphics.transition
+    pbFadeInAndShow(@sprites)
     loop do
       Graphics.update
       Input.update
       update
-      if $scene != self
+      if Input.trigger?(Input::B) || Input.triggerex?(Input::RightMouseKey)
+        pbPlayCancelSE()
         break
       end
     end
-    Graphics.freeze
-    pbDisposeSpriteHash(@sprites)
   end
   #-----------------------------------------------------------------------------
   # update the scene
@@ -143,11 +142,6 @@ class Scene_Pokegear
   # update the command window
   #-----------------------------------------------------------------------------
   def update_command
-    if Input.trigger?(Input::B) || Input.triggerex?(Input::RightMouseKey)
-      pbPlayCancelSE()
-      $scene = Scene_Map.new
-      return
-    end
     if Input.trigger?(Input::C) || Input.triggerex?(Input::LeftMouseKey)
       if @cmdMap>=0 && @sprites["command_window"].index==@cmdMap
         pbPlayDecisionSE()
@@ -161,9 +155,36 @@ class Scene_Pokegear
       end
       if @cmdJukebox>=0 && @sprites["command_window"].index==@cmdJukebox
         pbPlayDecisionSE()
-        $scene = Scene_Jukebox.new
+
+        scene=Scene_JukeboxScene.new
+        screen=Scene_Jukebox.new(scene)
+        pbFadeOutIn(99999) {
+           screen.pbStartScreen
+        }
+        
+
       end
       return
     end
+  end
+end
+
+
+  def pbEndScene
+    pbFadeOutAndHide(@sprites) { update }
+    pbDisposeSpriteHash(@sprites)
+    @viewport.dispose
+  end
+  
+
+class Scene_Pokegear
+  def initialize(scene)
+    @scene=scene
+  end
+
+  def pbStartScreen
+    @scene.pbStartScene
+    @scene.pbPokegearScreen
+    @scene.pbEndScene
   end
 end

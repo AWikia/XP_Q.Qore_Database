@@ -2,46 +2,45 @@
 # ** Scene_iPod
 # ** Created by xLeD (Scene_Jukebox)
 # ** Modified by Harshboy
+# ** Modified again by Qora Qore Telecommunities
 #-------------------------------------------------------------------------------
 #  This class performs menu screen processing.
 #===============================================================================
-class Scene_Jukebox
+class Scene_JukeboxScene
   #-----------------------------------------------------------------------------
   # * Object Initialization
   #     menu_index : command cursor's initial position
   #-----------------------------------------------------------------------------
-  def initialize(menu_index = 0)
+  def pbStartScene(menu_index = 0)
     @menu_index = menu_index
   end
   #-----------------------------------------------------------------------------
   # * Main Processing
   #-----------------------------------------------------------------------------
-  def main
+  def pbJukeboxScreen
     # Make song command window
     fadein = true
     # Makes the text window
     @sprites={}
     @viewport=Viewport.new(0,0,Graphics.width,Graphics.height)
     @viewport.z=99999
-    @sprites["background"] = IconSprite.new(0,0)
-    if $Trainer.isFemale?
-      @sprites["background"].setBitmap("Graphics/Pictures/"+getDarkModeFolder+"/jukeboxbgf")
+    @sprites["background2"]=IconSprite.new(0,0,@viewport)
+    @sprites["background2"].visible=false
+    if $Trainer && $Trainer.isFemale?
+      addBackgroundPlane(@sprites,"background",getDarkModeFolder+"/jukeboxbgf",@viewport)
+      @sprites["background2"].setBitmap(_INTL("Graphics/Pictures/"+getDarkModeFolder+"/jukeboxbgf_2"))
     else
-      @sprites["background"].setBitmap("Graphics/Pictures/"+getDarkModeFolder+"/jukeboxbg")
+      addBackgroundPlane(@sprites,"background",getDarkModeFolder+"/jukeboxbg",@viewport)
+      @sprites["background2"].setBitmap(_INTL("Graphics/Pictures/"+getDarkModeFolder+"/jukeboxbg_2"))
     end
-    @sprites["background"].z=255
+    @sprites["background"].z = 1
+    @sprites["background2"].z = 2
     @choices=[
-       _INTL("March"),
-       _INTL("Lullaby"),
-       _INTL("Oak"),
-       _INTL("Custom"),
+       _INTL("March Radio"),
+       _INTL("Lullaby Radio"),
+       _INTL("Oak Radio"),
        _INTL("Exit")
     ]
-    @sprites["header"]=Window_UnformattedTextPokemon.newWithSize(_INTL("Jukebox"),
-       2,-18,128,64,@viewport)
-    @sprites["header"].baseColor=Color.new(248,248,248)
-    @sprites["header"].shadowColor=Color.new(0,0,0)
-    @sprites["header"].windowskin=nil
     @sprites["command_window"] = Window_CommandPokemon.new(@choices,324)
     @sprites["command_window"].windowskin=nil
     if (!isDarkMode?)
@@ -56,10 +55,12 @@ class Scene_Jukebox
     @sprites["command_window"].width = 324
     @sprites["command_window"].x = 94+64
     @sprites["command_window"].y = 92
-    @sprites["command_window"].z = 256
+    @sprites["command_window"].z = 99999
     @custom=false
+    @cancel=false
+    @page=0
     # Execute transition
-    Graphics.transition
+    pbFadeInAndShow(@sprites)
     # Main loop
     loop do
       # Update game screen
@@ -69,15 +70,44 @@ class Scene_Jukebox
       # Frame update
       update
       # Abort loop if screen is changed
-      if $scene != self
-        break
+      if @cancel
+         break
+      end
+      if Input.trigger?(Input::RIGHT) && @page==0
+        pbPlayCursorSE()
+        @page=1
+        files=[_INTL("(Default)")]
+        Dir.chdir("Audio/BGM/"){
+           Dir.glob("*.mp3"){|f| files.push(f) }
+           Dir.glob("*.MP3"){|f| files.push(f) }
+           Dir.glob("*.ogg"){|f| files.push(f) }
+           Dir.glob("*.OGG"){|f| files.push(f) }
+           Dir.glob("*.wav"){|f| files.push(f) }
+           Dir.glob("*.WAV"){|f| files.push(f) }
+           Dir.glob("*.mid"){|f| files.push(f) }
+           Dir.glob("*.MID"){|f| files.push(f) }
+           Dir.glob("*.midi"){|f| files.push(f) }
+           Dir.glob("*.MIDI"){|f| files.push(f) }
+        }
+        @sprites["command_window"].commands=files
+        @sprites["command_window"].index=0
+        @custom=true
+        @sprites["background2"].visible=true
+      end
+      if Input.trigger?(Input::LEFT) && @page==1
+        pbPlayCursorSE()
+        @page=0
+        @sprites["command_window"].commands=@choices
+        @sprites["command_window"].index=0
+        @custom=false
+        @sprites["background2"].visible=false
+      end
+      if Input.trigger?(Input::B) || Input.triggerex?(Input::RightMouseKey)
+         pbPlayCancelSE()
+         break
       end
     end
-    # Prepares for transition
-    Graphics.freeze
-    # Disposes the windows
-    pbDisposeSpriteHash(@sprites)
-    @viewport.dispose
+
   end
   #-----------------------------------------------------------------------------
   # * Frame Update
@@ -97,8 +127,7 @@ class Scene_Jukebox
   #-----------------------------------------------------------------------------
   def updateCustom
     if Input.trigger?(Input::B) || Input.triggerex?(Input::RightMouseKey)
-      @sprites["command_window"].commands=@choices
-      @sprites["command_window"].index=3
+      @cancel=true
       @custom=false
       return
     end
@@ -117,13 +146,6 @@ class Scene_Jukebox
   end
 
   def update_command
-    # If B button was pressed
-    if Input.trigger?(Input::B) || Input.triggerex?(Input::RightMouseKey)
-      pbPlayCancelSE()
-      # Switch to map screen
-      $scene = Scene_Pokegear.new
-      return
-    end
     # If C button was pressed
     if Input.trigger?(Input::C) || Input.triggerex?(Input::LeftMouseKey)
       # Branch by command window cursor position
@@ -144,27 +166,31 @@ class Scene_Jukebox
         $PokemonMap.whiteFluteUsed=false if $PokemonMap
         $PokemonMap.blackFluteUsed=false if $PokemonMap
       when 3
-        files=[_INTL("(Default)")]
-        Dir.chdir("Audio/BGM/"){
-           Dir.glob("*.mp3"){|f| files.push(f) }
-           Dir.glob("*.MP3"){|f| files.push(f) }
-           Dir.glob("*.ogg"){|f| files.push(f) }
-           Dir.glob("*.OGG"){|f| files.push(f) }
-           Dir.glob("*.wav"){|f| files.push(f) }
-           Dir.glob("*.WAV"){|f| files.push(f) }
-           Dir.glob("*.mid"){|f| files.push(f) }
-           Dir.glob("*.MID"){|f| files.push(f) }
-           Dir.glob("*.midi"){|f| files.push(f) }
-           Dir.glob("*.MIDI"){|f| files.push(f) }
-        }
-        @sprites["command_window"].commands=files
-        @sprites["command_window"].index=0
-        @custom=true
-      when 4
         pbPlayDecisionSE()
-        $scene = Scene_Pokegear.new
+        @cancel=true
       end
       return
     end
+  end
+
+  def pbEndScene
+    pbFadeOutAndHide(@sprites) { update }
+    pbDisposeSpriteHash(@sprites)
+    @viewport.dispose
+  end
+
+  
+end
+
+
+class Scene_Jukebox
+  def initialize(scene)
+    @scene=scene
+  end
+
+  def pbStartScreen
+    @scene.pbStartScene
+    @scene.pbJukeboxScreen
+    @scene.pbEndScene
   end
 end

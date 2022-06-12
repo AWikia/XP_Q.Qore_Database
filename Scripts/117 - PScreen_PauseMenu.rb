@@ -202,9 +202,19 @@ class PokemonMenu
           end
         end
       elsif cmdPokegear>=0 && command==cmdPokegear
-        pbLoadRpgxpScene(Scene_Pokegear.new)
+        scene=Scene_PokegearScene.new
+        screen=Scene_Pokegear.new(scene)
+        pbFadeOutIn(99999) {
+           screen.pbStartScreen
+           @scene.pbRefresh
+        }
       elsif cmdLink>=0 && command==cmdLink
-        pbLoadRpgxpScene(Scene_LinkBattle.new)
+        scene=Scene_LinkBattleScene.new
+        screen=Scene_LinkBattle.new(scene)
+        pbFadeOutIn(99999) {
+           screen.pbStartScreen
+           @scene.pbRefresh
+        }
       elsif cmdPokemon>=0 && command==cmdPokemon
         sscene=PokemonScreen_Scene.new
         sscreen=PokemonScreen.new(sscene,$Trainer.party)

@@ -937,9 +937,9 @@ There are different modes:
         ),
         EnumOption.new(_INTL("Generation VI Pokémon Graphic Style"),[_INTL("Classic"),_INTL("Modern")],
           proc { $PokemonSystem.newsix },
-          proc {|value| $PokemonSystem.newsix = value }
-        ),
+          proc {|value| $PokemonSystem.newsix = value },
         "This is inteded as a transition point between the Original Gen6 and the revamped Gen6 sprites. Set this to off to disable them. New games have this setting enabled by default. This does not affect Hisuian Goomy or Bergmite families as those were added after the project started but does affect Sylvia since it is a recolored form of Female Meowstic"
+        ),
       ]
     end
     if mode==3

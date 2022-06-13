@@ -2341,7 +2341,7 @@ end
 
 
 
-def Kernel.pbReceiveTrophy(item)
+def Kernel.pbReceiveTrophy(item,slient=false)
   if item.is_a?(String) || item.is_a?(Symbol)
     item=getID(PBItems,item)
   end
@@ -2349,7 +2349,7 @@ def Kernel.pbReceiveTrophy(item)
   return false if !item || item<=0 || pocket!=6 || $PokemonBag.pbQuantity(item)>0
   itemname=PBItems.getName(item)
 
-  Kernel.pbMessage(_INTL("\\c[8]\\sign[TrophyWindow]\\se[TrophyGet]Trophy \\c[1]{1}\\c[8] was obtained!\\wtnp[30]",itemname)) if $PokemonSystem.vrtrophynotif==0 rescue false
+  Kernel.pbMessage(_INTL("\\c[8]\\sign[TrophyWindow]\\se[TrophyGet]Trophy \\c[1]{1}\\c[8] was obtained!\\wtnp[30]",itemname)) if $PokemonSystem.vrtrophynotif==0 rescue false && !slient
   if $PokemonBag.pbStoreItem(item,1)   # If item can be added
     return true
   end

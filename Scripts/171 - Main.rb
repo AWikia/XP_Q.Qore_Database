@@ -36,6 +36,8 @@ def qoreInitials
     $REGIONALCOMBO=1050
     $USENEWBATTLEMECHANICS=($newmech==1) ? true : false
     $inbattle=false # Initialization
+    $JBIndex0= 0
+    $JBIndex1= 1
     value=$PokemonSystem.textspeed
     # All FPS Values must be multiple of 8 or else Jinnybell HSPA will filcker
     if value==3 

@@ -12,7 +12,7 @@ class Scene_JukeboxScene
   #     menu_index : command cursor's initial position
   #-----------------------------------------------------------------------------
   def pbStartScene(menu_index = 0)
-    @menu_index = menu_index
+    @menu_index =  menu_index
   end
   #-----------------------------------------------------------------------------
   # * Main Processing
@@ -90,7 +90,7 @@ class Scene_JukeboxScene
            Dir.glob("*.MIDI"){|f| files.push(f) }
         }
         @sprites["command_window"].commands=files
-        @sprites["command_window"].index=0
+        @sprites["command_window"].index=$JBIndex1
         @custom=true
         @sprites["background2"].visible=true
       end
@@ -98,7 +98,7 @@ class Scene_JukeboxScene
         pbPlayCursorSE()
         @page=0
         @sprites["command_window"].commands=@choices
-        @sprites["command_window"].index=0
+        @sprites["command_window"].index=$JBIndex0
         @custom=false
         @sprites["background2"].visible=false
       end
@@ -131,6 +131,7 @@ class Scene_JukeboxScene
       @custom=false
       return
     end
+    $JBIndex1= @sprites["command_window"].index if @page == 1
     if Input.trigger?(Input::C) || Input.triggerex?(Input::LeftMouseKey)
       $PokemonMap.whiteFluteUsed=false if $PokemonMap
       $PokemonMap.blackFluteUsed=false if $PokemonMap
@@ -146,6 +147,7 @@ class Scene_JukeboxScene
   end
 
   def update_command
+    $JBIndex0= @sprites["command_window"].index if @page == 0
     # If C button was pressed
     if Input.trigger?(Input::C) || Input.triggerex?(Input::LeftMouseKey)
       # Branch by command window cursor position
@@ -189,7 +191,7 @@ class Scene_Jukebox
   end
 
   def pbStartScreen
-    @scene.pbStartScene
+    @scene.pbStartScene($JBIndex0)
     @scene.pbJukeboxScreen
     @scene.pbEndScene
   end

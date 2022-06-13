@@ -221,6 +221,7 @@ class PokemonBag_Scene
     # Draw the pocket name
     itemwindow=@sprites["itemwindow"]
     name=PokemonBag.pocketNames()[@bag.lastpocket]
+    itemcount = "In Inventory: " + (itemwindow.itemCount-1).to_s_formatted
     @sprites["header"].text=(itemwindow.item==0) ? name : name + " - " + PBItems.getName(itemwindow.item)
     if (!isDarkMode?)
       base=POCKETNAMEBASECOLOR
@@ -230,7 +231,7 @@ class PokemonBag_Scene
       shadow=DARKPOCKETNAMESHADOWCOLOR
     end
     pbDrawTextPositions(bm,[
-       [name,bm.width/2,180,2,base,shadow]
+       [itemcount,bm.width/2,180,2,base,shadow]
     ])
     # Reset positions of left/right arrows around the bag
     @sprites["leftarrow"].x=-4

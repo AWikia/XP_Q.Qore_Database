@@ -546,7 +546,7 @@ class MiningGameScene
           pbSEPlay("MiningMove")
           @sprites["cursor"].position+=1
         end
-      elsif Input.trigger?(Input::A) # Change tool mode
+      elsif Input.trigger?(Input::A) || Input.triggerex?(Input::CenterMouseKey) # Change tool mode
         pbSEPlay("MiningChangeTool")
         newmode=(@sprites["cursor"].mode+1)%2
         @sprites["cursor"].mode=newmode

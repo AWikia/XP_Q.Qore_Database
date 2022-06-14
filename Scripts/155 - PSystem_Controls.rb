@@ -33,7 +33,7 @@ module Input
   F9    = 29
   LeftMouseKey   = 1
   RightMouseKey  = 2
-  CenterMouseKey = 0
+  CenterMouseKey = 4
   # GetAsyncKeyState or GetKeyState will work here
   @GetKeyState=Win32API.new("user32", "GetAsyncKeyState", "i", "i")
   @GetForegroundWindow=Win32API.new("user32", "GetForegroundWindow", "", "i")

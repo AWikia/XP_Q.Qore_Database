@@ -906,12 +906,6 @@ class PokemonScreen_Scene
         pbPlayCancelSE()
         return -1
       end
-      if Input.trigger?(Input::A) && 
-        ($game_switches[4]==true) && !$inbattle &&
-        false
-        pbPokeCenterPC
-        pbHardRefresh
-      end
       if Input.trigger?(Input::C) || Input.triggerex?(Input::LeftMouseKey)
         pbPlayDecisionSE()
         cancelsprite=(@multiselect) ? 7 : 6

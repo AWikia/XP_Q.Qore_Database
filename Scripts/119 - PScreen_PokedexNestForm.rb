@@ -449,7 +449,7 @@ class PokedexFormScene
       Graphics.update
       Input.update
       pbUpdate
-      if Input.trigger?(Input::A)
+      if Input.trigger?(Input::A) || Input.triggerex?(Input::CenterMouseKey)
         pbPlayDecisionSE()
         @shinyform=!@shinyform
       elsif (Input.trigger?(Input::C) || Input.triggerex?(Input::LeftMouseKey)) && @available.length > 1

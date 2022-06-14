@@ -2629,7 +2629,7 @@ end
         pbPlayDecisionSE() 
         @lastmove[index]=ret
         return ret
-      elsif Input.trigger?(Input::A)   # Use Mega Evolution
+      elsif Input.trigger?(Input::A) || Input.triggerex?(Input::CenterMouseKey)   # Use Mega Evolution
         if @battle.pbCanMegaEvolve?(index)
           @battle.pbRegisterMegaEvolution(index)
           cw.megaButton=2

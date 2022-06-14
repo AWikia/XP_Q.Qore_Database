@@ -985,7 +985,7 @@ class PokemonEntryScene
           @sprites["subject"].y = 38*2 - charheight/4 + 16
         end
       end
-    when 2   # Pokémon
+    when 2   # Pok�mon
       if pokemon
         @sprites["shadow"]=IconSprite.new(0,0,@viewport)
         @sprites["shadow"].setBitmap("Graphics/Pictures/"+getDarkModeFolder+"/namingShadow")
@@ -1111,29 +1111,29 @@ end
 class PokemonEntryScene2
 =begin
   @@Characters=[
-     [("ABCDEFGHIJ ,."+"KLMNOPQRST '-"+"UVWXYZ     ♂♀"+"             "+"0123456789   ").scan(/./),_INTL("UPPER")],
-     [("abcdefghij ,."+"klmnopqrst '-"+"uvwxyz     ♂♀"+"             "+"0123456789   ").scan(/./),_INTL("lower")],
-     [(",.:;!?   ♂♀  "+"\"'()<>[]     "+"~@#%*&$      "+"+-=^_/\\|     "+"             ").scan(/./),_INTL("other")],
+     [("ABCDEFGHIJ ,."+"KLMNOPQRST '-"+"UVWXYZ     ??"+"             "+"0123456789   ").scan(/./),_INTL("UPPER")],
+     [("abcdefghij ,."+"klmnopqrst '-"+"uvwxyz     ??"+"             "+"0123456789   ").scan(/./),_INTL("lower")],
+     [(",.:;!?   ??  "+"\"'()<>[]     "+"~@#%*&$      "+"+-=^_/\\|     "+"             ").scan(/./),_INTL("other")],
   ]
 =end
 
   @@Characters0=[ # Latin
-    [("ABCDEFGHIJÅÂÊ"+"KLMNOPQRSTÝËÎ"+"UVWXYZÇÐÃÑÕÞÆ"+"ÁÉÍÓÚÀÈÌÒÙÄÖÜ"+"ČŎŠŽŒĞĎĔĬŬÔÛŁ").scan(/./),_INTL("UPPER")],
-    [("abcdefghijåâê"+"klmnopqrstýëî"+"uvwxyzçðàñõþæ"+"áéíóúàèìòùäöü"+"čŏšžœğďĕĭŭôûł").scan(/./),_INTL("lower")],
-    [("ΑΒΓΔΕΖΗΘΙΚΛΜΪ"+"ΝΞΟΠΡΣΤΥΦΧΨΩΫ"+"αβγδεζηθικλμϊ"+"νξοπρστυφχψωϋ"+"ΆΈΉΊΌΎάέήίόώς").scan(/./),_INTL("greek")],
-    [(",.:;!?ß€£♂♀§µ"+"\"'()<>[]¿,¥®©"+"~@#%*&$ÿ     "+"+-=^_/\\|     "+"0123456789   ").scan(/./),_INTL("other")],
+    [("ABCDEFGHIJ���"+"KLMNOPQRST���"+"UVWXYZ�������"+"�������������"+"CO���GDEIU��L").scan(/./),_INTL("UPPER")],
+    [("abcdefghij���"+"klmnopqrst���"+"uvwxyz�������"+"�������������"+"co���gdeiu��l").scan(/./),_INTL("lower")],
+    [("??G????T?????"+"?????S??F??O?"+"a�?de??????�?"+"???p?st?f????"+"?????????????").scan(/./),_INTL("greek")],
+    [(",.:;!?߀�??��"+"\"'()<>[]�,���"+"~@#%*&$�     "+"+-=^_/\\|     "+"0123456789   ").scan(/./),_INTL("other")],
   ]
   
 =begin
-  @@Characters1=[ # Ληνικά
-     [("ΑΒΓΔΕΖΗΘΙΚ   "+"ΛΜΝΞΟΠΡΣΤΥ   "+"ΦΧΨΩ         "+"ΆΈΊΌΎΏΪΫ     "+"             ").scan(/./),_INTL("UPPER")],
-     [("αβγδεζηθικ   "+"λμνξοπρστυ   "+"φχψω         "+"άέίόύώϊϋΐΰς  "+"             ").scan(/./),_INTL("lower")],
-     [(",.:;!?ß€£♂♀§µ"+"\"'()<>[]¿,¥®©"+"~@#%*&$ÿ      "+"+-=^_/\\|     "+"0123456789   ").scan(/./),_INTL("other")],
+  @@Characters1=[ # ??????
+     [("??G????T??   "+"???????S??   "+"F??O         "+"????????     "+"             ").scan(/./),_INTL("UPPER")],
+     [("a�?de?????   "+"?�???p?st?   "+"f???         "+"???????????  "+"             ").scan(/./),_INTL("lower")],
+     [(",.:;!?߀�??��"+"\"'()<>[]�,���"+"~@#%*&$�      "+"+-=^_/\\|     "+"0123456789   ").scan(/./),_INTL("other")],
   ]
   @@Characters2=[ # Kirynla
-     [("АБВГДЕЖЗИЙЃЌӘ"+"КЛМНОПРСТУЁЎӔ"+"ФХЦЧШЩЪЫЬЭЇҐӚ"+"ЮЯЂЉЊЋЏЈЄЅІЀѲ"+"ҤӴӸЎѪӜӞӤӦӰѰӠ ").scan(/./),_INTL("UPPER")],
-     [("абвгдежзийѓќә"+"клмнопрстуёўӕ"+"фхццшщъыьэїґӛ"+"юяђљњћџјєѕіѐѳ"+"ҥӵӹўѫӝӟӥӧӱѱӡ ").scan(/./),_INTL("lower")],
-     [(",.:;!?ß€£♂♀§µ"+"\"'()<>[]¿,¥®©"+"~@#%*&$ÿ      "+"+-=^_/\\|     "+"0123456789   ").scan(/./),_INTL("other")],
+     [("?????????????"+"?????????????"+"?????????????"+"?????????????"+"???????????? ").scan(/./),_INTL("UPPER")],
+     [("?????????????"+"?????????????"+"?????????????"+"?????????????"+"???????????? ").scan(/./),_INTL("lower")],
+     [(",.:;!?߀�??��"+"\"'()<>[]�,���"+"~@#%*&$�      "+"+-=^_/\\|     "+"0123456789   ").scan(/./),_INTL("other")],
   ]
 =end
   ROWS=13
@@ -1307,7 +1307,7 @@ class PokemonEntryScene2
           @sprites["subject"].y = 38*2 - charheight/4 + 16
         end
       end
-    when 2   # Pokémon
+    when 2   # Pok�mon
       if pokemon
         @sprites["shadow"]=IconSprite.new(0,0,@viewport)
         @sprites["shadow"].setBitmap("Graphics/Pictures/"+getDarkModeFolder+"/namingShadow")
@@ -1642,7 +1642,7 @@ class PokemonEntryScene2
           end
           pbUpdateOverlay
         end
-      elsif Input.trigger?(Input::A)
+      elsif Input.trigger?(Input::A) || Input.triggerex?(Input::CenterMouseKey)
         @cursorpos=OK
         @sprites["cursor"].setCursorPos(@cursorpos)
       elsif Input.trigger?(Input::F5)

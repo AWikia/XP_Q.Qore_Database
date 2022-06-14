@@ -1021,7 +1021,7 @@ class PokemonPokedexScene
       pbDexEntryBitmaps(@dexlist[curindex][0])
     end
 # End
-         elsif Input.trigger?(Input::A)
+         elsif Input.trigger?(Input::A) || Input.triggerex?(Input::CenterMouseKey)
            # pbPlayCry(@dexlist[curindex][0])
            pbSEStop;
            pbPlayCry(@dummypokemon)

@@ -24,7 +24,7 @@ class Game_Player
   def pbCanRun?
     return false if $game_temp.in_menu
     terrain=pbGetTerrainTag
-    input=($PokemonSystem.runstyle==1) ? ($PokemonGlobal && $PokemonGlobal.runtoggle) : (Input.press?(Input::A) || Input.triggerex?(Input::CenterMouseKey))
+    input=($PokemonSystem.runstyle==1) ? ($PokemonGlobal && $PokemonGlobal.runtoggle) : (Input.press?(Input::A) || Input.pressex?(Input::CenterMouseKey))
     return input &&
        !pbMapInterpreterRunning? && !@move_route_forcing && 
        $PokemonGlobal && $PokemonGlobal.runningShoes &&

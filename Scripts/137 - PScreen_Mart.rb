@@ -497,7 +497,7 @@ class PokemonMartScene
       if i==0 && !cw.busy?
         pbRefresh
       end
-      if (Input.trigger?(Input::C) || Input.triggerex?(Input::LeftMouseKey)) && cw.busy?
+      if (Input.trigger?(Input::C)) && cw.busy?
         cw.resume
       end
       if i==60
@@ -523,7 +523,7 @@ class PokemonMartScene
       if !cw.busy? && wasbusy
         pbRefresh
       end
-      if (Input.trigger?(Input::C) || Input.triggerex?(Input::LeftMouseKey)) && cw.resume && !cw.busy?
+      if (Input.trigger?(Input::C)) && cw.resume && !cw.busy?
         @sprites["helpwindow"].visible=false
         return
       end
@@ -549,13 +549,13 @@ class PokemonMartScene
       Input.update
       cw.update
       self.update
-      if (Input.trigger?(Input::B) || Input.triggerex?(Input::RightMouseKey)) && 
+      if (Input.trigger?(Input::B)) && 
         dw.resume && !dw.busy?
         cw.dispose
         @sprites["helpwindow"].visible=false
         return false
       end
-      if (Input.trigger?(Input::C) || Input.triggerex?(Input::LeftMouseKey)) && dw.resume && !dw.busy?
+      if (Input.trigger?(Input::C)) && dw.resume && !dw.busy?
         cw.dispose
         @sprites["helpwindow"].visible=false
         return (cw.index==0)?true:false
@@ -618,11 +618,11 @@ class PokemonMartScene
               curnumber-=1
               curnumber=maximum if curnumber<1
               numwindow.text=_INTL("x{1}<r>$ {2}",curnumber,(curnumber*itemprice).to_s_formatted)
-            elsif Input.trigger?(Input::C) || Input.triggerex?(Input::LeftMouseKey)
+            elsif Input.trigger?(Input::C)
               pbPlayDecisionSE()
               ret=curnumber
               break
-            elsif Input.trigger?(Input::B) || Input.triggerex?(Input::RightMouseKey)
+            elsif Input.trigger?(Input::B)
               pbPlayCancelSE()
               ret=0
               break
@@ -649,10 +649,10 @@ class PokemonMartScene
            @sprites["itemtextwindow"].text=(itemwindow.item==0) ? _INTL("Quit shopping.") :
               @adapter.getDescription(itemwindow.item)
          end
-         if Input.trigger?(Input::B) || Input.triggerex?(Input::RightMouseKey)
+         if Input.trigger?(Input::B)
            return 0
          end
-         if Input.trigger?(Input::C) || Input.triggerex?(Input::LeftMouseKey)
+         if Input.trigger?(Input::C)
            if itemwindow.index<@stock.length
              pbRefresh
              return @stock[itemwindow.index]

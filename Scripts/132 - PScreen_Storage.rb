@@ -2287,7 +2287,7 @@ class PokemonStorageScene
         pbSetMosaic(selection)
       end
       pbUpdateSpriteHash(@sprites)
-      if Input.trigger?(Input::C) || Input.triggerex?(Input::LeftMouseKey)
+      if Input.trigger?(Input::C)
         if selection>=0 && selection<6
           @selection=selection
           return selection
@@ -2296,7 +2296,7 @@ class PokemonStorageScene
           return (depositing) ? -3 : -1
         end
       end
-      if Input.trigger?(Input::B) || Input.triggerex?(Input::RightMouseKey)
+      if Input.trigger?(Input::B)
         @selection=selection
         return -1
       end
@@ -2564,7 +2564,7 @@ class PokemonStorageScene
         pbSetMosaic(selection)
       end
       pbUpdateSpriteHash(@sprites)
-      if Input.trigger?(Input::C) || Input.triggerex?(Input::LeftMouseKey)
+      if Input.trigger?(Input::C)
         if selection>=0
           @selection=selection
           return [@storage.currentBox,selection]
@@ -2579,7 +2579,7 @@ class PokemonStorageScene
           return [-3,-1]
         end
       end
-      if Input.trigger?(Input::B) || Input.triggerex?(Input::RightMouseKey)
+      if Input.trigger?(Input::B)
         @selection=selection
         return nil
       end
@@ -2796,10 +2796,10 @@ class PokemonStorageScene
     loop do
       Graphics.update
       Input.update
-      if Input.trigger?(Input::B) || Input.triggerex?(Input::RightMouseKey)
+      if Input.trigger?(Input::B)
         break # cancel
       end
-      if Input.trigger?(Input::C) || Input.triggerex?(Input::LeftMouseKey)
+      if Input.trigger?(Input::C)
         if cmdwindow.index==commands.length-1
           break # cancel
         elsif cmdwindow.index==commands.length-2
@@ -2891,11 +2891,11 @@ class PokemonStorageScene
     loop do
       Graphics.update
       Input.update
-      if Input.trigger?(Input::B) || Input.triggerex?(Input::RightMouseKey)
+      if Input.trigger?(Input::B)
         ret=-1
         break
       end
-      if Input.trigger?(Input::C) || Input.triggerex?(Input::LeftMouseKey)
+      if Input.trigger?(Input::C)
         ret=cmdwindow.index
         break
       end
@@ -2920,10 +2920,10 @@ class PokemonStorageScene
     loop do
       Graphics.update
       Input.update
-      if Input.trigger?(Input::B) || Input.triggerex?(Input::RightMouseKey)
+      if Input.trigger?(Input::B)
         break
       end
-      if Input.trigger?(Input::C) || Input.triggerex?(Input::LeftMouseKey)
+      if Input.trigger?(Input::C)
         break
       end
       msgwindow.update

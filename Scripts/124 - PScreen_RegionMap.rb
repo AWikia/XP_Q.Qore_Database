@@ -339,7 +339,7 @@ class PokemonRegionMapScene
         newX=@sprites["cursor"].x+xOffset
         newY=@sprites["cursor"].y+yOffset
       end
-      if Input.trigger?(Input::B) || Input.triggerex?(Input::RightMouseKey)
+      if Input.trigger?(Input::B)
         if @editor && @changed
           if Kernel.pbConfirmMessage(_INTL("Save changes?")) { pbUpdate }
             pbSaveMapData
@@ -350,7 +350,7 @@ class PokemonRegionMapScene
         else
           break
         end
-      elsif (Input.trigger?(Input::C) || Input.triggerex?(Input::LeftMouseKey)) && mode==1 # Choosing an area to fly to
+      elsif (Input.trigger?(Input::C)) && mode==1 # Choosing an area to fly to
         healspot=pbGetHealingSpot(@mapX,@mapY)
         if healspot
           if $PokemonGlobal.visitedMaps[healspot[0]] ||
@@ -358,7 +358,7 @@ class PokemonRegionMapScene
             return healspot
           end
         end
-      elsif (Input.trigger?(Input::C) || Input.triggerex?(Input::LeftMouseKey)) && @editor # Intentionally placed after other C button check
+      elsif (Input.trigger?(Input::C)) && @editor # Intentionally placed after other C button check
         pbChangeMapLocation(@mapX,@mapY)
       end
     end

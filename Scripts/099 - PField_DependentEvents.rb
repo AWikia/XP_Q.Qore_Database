@@ -406,7 +406,7 @@ class DependentEvents
       events[i][5]=event.direction
     end
     # Check event triggers
-    if (Input.trigger?(Input::C) || Input.triggerex?(Input::LeftMouseKey)) && !pbMapInterpreterRunning?
+    if (Input.trigger?(Input::C)) && !pbMapInterpreterRunning?
       # Get position of tile facing the player
       facingTile=$MapFactory.getFacingTile()
       self.eachEvent {|e,d|

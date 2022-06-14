@@ -91,11 +91,11 @@ module Input
     when Input::UP
       return [0x26] # Up
     when Input::A
-      return [0x5A,0x10] # Z, Shift
+      return [0x5A,0x10,0x04] # Z, Shift, Middle Mouse Key
     when Input::B
-      return [0x58,0x1B] # X, ESC 
+      return [0x58,0x1B,0x02] # X, ESC, Right Mouse Key
     when Input::C
-      return [0x43,0x0D,0x20] # C, ENTER, Space
+      return [0x43,0x0D,0x20,0x01] # C, ENTER, Space, Left Mouse Key
     when Input::X
       return [0x41] # A
     when Input::Y

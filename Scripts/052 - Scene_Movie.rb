@@ -43,7 +43,7 @@ class Scene_Movie
       if true_status.to_s != "play"
         break
       end
-      if Input.trigger?(Input::B) || Input.triggerex?(Input::RightMouseKey)
+      if Input.trigger?(Input::B)
         movie.call("close FILE",0,0,0)
         $scene = Scene_Map.new  
         break

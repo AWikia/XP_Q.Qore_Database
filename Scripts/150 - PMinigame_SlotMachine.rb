@@ -233,7 +233,7 @@ class SlotMachineScene
         update
         @sprites["payout"].score-=1
         @sprites["credit"].score+=1
-        if Input.trigger?(Input::C) || Input.triggerex?(Input::LeftMouseKey) || 
+        if Input.trigger?(Input::C) || 
           @sprites["credit"].score==MAXCOINS
           @sprites["credit"].score+=@sprites["payout"].score
           @sprites["payout"].score=0
@@ -327,7 +327,7 @@ class SlotMachineScene
       elsif @gameRunning # Reels are spinning
         @sprites["window1"].setBitmap(sprintf("Graphics/Pictures/Slot Machine/stop"))
         @sprites["window1"].src_rect.set(152*((frame/10)%4),0,152,208)
-        if Input.trigger?(Input::C) || Input.triggerex?(Input::LeftMouseKey)
+        if Input.trigger?(Input::C)
           pbSEPlay("SlotsStop")
           if @sprites["reel1"].spinning
             @sprites["reel1"].stopSpinning(@replay)
@@ -375,7 +375,7 @@ class SlotMachineScene
             @sprites["row1"].visible=true
           end
         elsif @wager>=3 || (@wager>0 && @sprites["credit"].score==0) ||
-              ((Input.trigger?(Input::C) || Input.triggerex?(Input::LeftMouseKey)) && @wager>0) || @replay
+              ((Input.trigger?(Input::C)) && @wager>0) || @replay
           if @replay
             @wager=3
             for i in 1..5
@@ -387,7 +387,7 @@ class SlotMachineScene
           @sprites["reel3"].startSpinning
           frame=0
           @gameRunning=true
-        elsif (Input.trigger?(Input::B) || Input.triggerex?(Input::RightMouseKey)) && @wager==0
+        elsif (Input.trigger?(Input::B)) && @wager==0
           break
         end
       end

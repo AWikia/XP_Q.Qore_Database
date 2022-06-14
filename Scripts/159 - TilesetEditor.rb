@@ -161,7 +161,7 @@ class PokemonTilesetScene
         when 2
           pbChooseTileset
         end
-      elsif Input.trigger?(Input::B) || Input.triggerex?(Input::RightMouseKey)
+      elsif Input.trigger?(Input::B)
         if Kernel.pbConfirmMessage(_INTL("Save changes?"))
           @tilesetwrapper.save
           $data_tilesets=@tilesetwrapper.data
@@ -176,7 +176,7 @@ class PokemonTilesetScene
           Kernel.pbMessage(_INTL("To ensure that the changes remain, close and reopen RPG Maker XP."))
         end
         break if Kernel.pbConfirmMessage(_INTL("Exit from the editor?"))
-      elsif Input.trigger?(Input::C) || Input.triggerex?(Input::LeftMouseKey)
+      elsif Input.trigger?(Input::C)
         selected=pbGetSelected(@x,@y)
         params=ChooseNumberParams.new
         params.setRange(0,99)

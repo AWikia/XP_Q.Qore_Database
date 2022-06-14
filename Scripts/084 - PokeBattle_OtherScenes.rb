@@ -136,7 +136,7 @@ class PokeBattle_DebugScene
         cw.dispose
         return
       end
-      if Input.trigger?(Input::C) || Input.triggerex?(Input::LeftMouseKey)
+      if Input.trigger?(Input::C)
         cw.dispose
         return
       end
@@ -152,7 +152,7 @@ class PokeBattle_DebugScene
       Graphics.update
       Input.update
       cw.update
-      if Input.trigger?(Input::C) || Input.triggerex?(Input::LeftMouseKey)
+      if Input.trigger?(Input::C)
         cw.dispose
         return
       end
@@ -172,12 +172,12 @@ class PokeBattle_DebugScene
       Graphics.update
       Input.update
       pbFrameUpdate(cw)
-      if Input.trigger?(Input::B) || Input.triggerex?(Input::RightMouseKey)
+      if Input.trigger?(Input::B)
         cw.dispose
         dw.dispose
         return false
       end
-      if Input.trigger?(Input::C) || Input.triggerex?(Input::LeftMouseKey)
+      if Input.trigger?(Input::C)
         cw.dispose
         dw.dispose
         return (cw.index==0)?true:false
@@ -270,7 +270,7 @@ class PokeBattle_DebugScene
       Graphics.update
       Input.update
       pbFrameUpdate(cw)
-      if Input.trigger?(Input::C) || Input.triggerex?(Input::LeftMouseKey)
+      if Input.trigger?(Input::C)
         ret=cw.index
         cw.dispose
         @lastcmd[index]=ret
@@ -327,12 +327,12 @@ class PokeBattle_DebugScene
       Graphics.update
       Input.update
       pbFrameUpdate(cw)
-      if Input.trigger?(Input::B) || Input.triggerex?(Input::RightMouseKey)
+      if Input.trigger?(Input::B)
         @lastmove[index]=cw.index
         cw.dispose
         return -1
       end
-      if Input.trigger?(Input::C) || Input.triggerex?(Input::LeftMouseKey)
+      if Input.trigger?(Input::C)
         ret=cw.index
         @lastmove[index]=ret
         cw.dispose
@@ -412,14 +412,14 @@ class PokeBattle_DebugScene
           end
         end
       end
-      if Input.trigger?(Input::B) || Input.triggerex?(Input::RightMouseKey)
+      if Input.trigger?(Input::B)
         for i in 0...numwindows
           @pkmnwindows[i].highlighted=false
           @pkmnwindows[i].update
         end
         return -1
       end
-      if Input.trigger?(Input::C) || Input.triggerex?(Input::LeftMouseKey)
+      if Input.trigger?(Input::C)
         for i in 0...numwindows
           @pkmnwindows[i].highlighted=false
           @pkmnwindows[i].update
@@ -467,12 +467,12 @@ class PokeBattle_DebugScene
       Graphics.update
       Input.update
       pbFrameUpdate(cw)
-      if cancancel && (Input.trigger?(Input::B) || Input.triggerex?(Input::RightMouseKey))
+      if cancancel && (Input.trigger?(Input::B))
         ret=-1
         cw.dispose
         break
       end
-      if Input.trigger?(Input::C) || Input.triggerex?(Input::LeftMouseKey)
+      if Input.trigger?(Input::C)
         pkmnindex=partypos[cw.index]
         canswitch=lax ? @battle.pbCanSwitchLax?(index,pkmnindex,true) :
            @battle.pbCanSwitch?(index,pkmnindex,true)

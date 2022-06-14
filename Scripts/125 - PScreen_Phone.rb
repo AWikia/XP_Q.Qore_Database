@@ -453,10 +453,10 @@ class PokemonPhoneScene
              end
            end
          end
-         if Input.trigger?(Input::B) || Input.triggerex?(Input::RightMouseKey)
+         if Input.trigger?(Input::B)
            break
          end
-         if Input.trigger?(Input::C) || Input.triggerex?(Input::LeftMouseKey)
+         if Input.trigger?(Input::C)
            index=@sprites["list"].index
            if index>=0
              pbCallTrainer(@trainers[index][0],@trainers[index][1])

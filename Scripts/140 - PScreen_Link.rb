@@ -105,7 +105,7 @@ class Scene_LinkBattleScene
       Graphics.update
       Input.update
       update
-      if Input.trigger?(Input::B) || Input.triggerex?(Input::RightMouseKey)
+      if Input.trigger?(Input::B)
         pbPlayCancelSE()
         break
       end
@@ -147,7 +147,7 @@ class Scene_LinkBattleScene
     if Input.trigger?(Input::Z) # Global Leaderboard warn for non-corendo
       worksOnCorendo2(['VR Corendo','Bsisbina Clients','Jinnybell HSPA','Emerald Emulator','Yorkbook Digital Professional','Yorkbook Xe'])
     end
-    if Input.trigger?(Input::C) || Input.triggerex?(Input::LeftMouseKey)
+    if Input.trigger?(Input::C)
       if @cmdLink>=0 && @sprites["command_window"].index==@cmdLink
         if $game_player.pbHasDependentEvents?
           Kernel.pbMessage(_INTL("\\c[8]\\w[TrophyWindow]It can't be used when you have someone with you."))

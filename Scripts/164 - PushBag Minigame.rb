@@ -159,12 +159,12 @@ class PunchBagScene
       if @endGame
         return @score if !@animating
       else  
-        if (Input.trigger?(Input::B) || Input.triggerex?(Input::RightMouseKey)) && ($DEBUG || $TEST)
+        if (Input.trigger?(Input::B)) && ($DEBUG || $TEST)
           pbSEPlay($data_system.decision_se) 
           break
         end
         arrowX = @sprites["arrow"].x
-        if (Input.trigger?(Input::C) || Input.triggerex?(Input::LeftMouseKey)) && @lastScore==0
+        if (Input.trigger?(Input::C)) && @lastScore==0
           @lastScore = BARLEFTSIZE-(arrowX>@arrowXMiddle ? 
               arrowX-@arrowXMiddle : @arrowXMiddle-arrowX)
           @lastScore=[(@lastScore-BARLEFTSIZE)/ARROWSPEED+MAXSCORE,MINSCORE].max

@@ -102,7 +102,7 @@ class Scene_JukeboxScene
         @custom=false
         @sprites["background2"].visible=false
       end
-      if Input.trigger?(Input::B) || Input.triggerex?(Input::RightMouseKey)
+      if Input.trigger?(Input::B)
          pbPlayCancelSE()
          break
       end
@@ -126,13 +126,13 @@ class Scene_JukeboxScene
   # * Frame Update (when command window is active)
   #-----------------------------------------------------------------------------
   def updateCustom
-    if Input.trigger?(Input::B) || Input.triggerex?(Input::RightMouseKey)
+    if Input.trigger?(Input::B)
       @cancel=true
       @custom=false
       return
     end
     $JBIndex1= @sprites["command_window"].index if @page == 1
-    if Input.trigger?(Input::C) || Input.triggerex?(Input::LeftMouseKey)
+    if Input.trigger?(Input::C)
       $PokemonMap.whiteFluteUsed=false if $PokemonMap
       $PokemonMap.blackFluteUsed=false if $PokemonMap
       if @sprites["command_window"].index==0
@@ -149,7 +149,7 @@ class Scene_JukeboxScene
   def update_command
     $JBIndex0= @sprites["command_window"].index if @page == 0
     # If C button was pressed
-    if Input.trigger?(Input::C) || Input.triggerex?(Input::LeftMouseKey)
+    if Input.trigger?(Input::C)
       # Branch by command window cursor position
       case @sprites["command_window"].index
       when 0

@@ -248,7 +248,7 @@ class TriadScene
       Graphics.update
       Input.update
       pbUpdate
-      if Input.trigger?(Input::C) || Input.triggerex?(Input::LeftMouseKey)
+      if Input.trigger?(Input::C)
         if @sprites["helpwindow"].busy?
           pbPlayDecisionSE() if @sprites["helpwindow"].pausing?
           @sprites["helpwindow"].resume
@@ -314,7 +314,7 @@ class TriadScene
         pbPlayCursorSE()
         choice-=1
         choice=numCards-1 if choice<0
-      elsif Input.trigger?(Input::B) || Input.triggerex?(Input::RightMouseKey)
+      elsif Input.trigger?(Input::B)
         pbPlayCancelSE()
         choice=-1
       end
@@ -353,10 +353,10 @@ class TriadScene
         pbPlayCursorSE()
         choice-=1
         choice=numCards-1 if choice<0
-      elsif Input.trigger?(Input::C) || Input.triggerex?(Input::LeftMouseKey)
+      elsif Input.trigger?(Input::C)
         pbPlayDecisionSE()
         break
-      elsif (Input.trigger?(Input::A) || Input.triggerex?(Input::CenterMouseKey) ) && @battle.openHand
+      elsif (Input.trigger?(Input::A) ) && @battle.openHand
         pbPlayDecisionSE()
         pbViewOpponentCards(numCards)
         @sprites["helpwindow"].text=_INTL("Choose a card, or check opponent with Z.")
@@ -465,9 +465,9 @@ class TriadScene
         boardX+=1
         boardX=0 if boardX>=@battle.width
         doRefresh=true
-      elsif Input.trigger?(Input::B) || Input.triggerex?(Input::RightMouseKey)
+      elsif Input.trigger?(Input::B)
         return nil
-      elsif Input.trigger?(Input::C) || Input.triggerex?(Input::LeftMouseKey)
+      elsif Input.trigger?(Input::C)
         if @battle.isOccupied?(boardX,boardY)
           pbPlayBuzzerSE()
         else
@@ -513,7 +513,7 @@ class TriadScene
         end
         index=command.index
       end
-      if Input.trigger?(Input::B) || Input.triggerex?(Input::RightMouseKey)
+      if Input.trigger?(Input::B)
         if chosenCards.length>0
           item=chosenCards.pop
           @battle.pbAdd(cardStorage,item)
@@ -526,7 +526,7 @@ class TriadScene
         else
           pbPlayBuzzerSE()
         end
-      elsif Input.trigger?(Input::C) || Input.triggerex?(Input::LeftMouseKey)
+      elsif Input.trigger?(Input::C)
         if chosenCards.length==@battle.maxCards
           break
         end
@@ -550,8 +550,7 @@ class TriadScene
           index=-1
         end
       end
-      if Input.trigger?(Input::C) || Input.trigger?(Input::B) ||
-         Input.triggerex?(Input::LeftMouseKey) || Input.triggerex?(Input::RightMouseKey)
+      if Input.trigger?(Input::C) || Input.trigger?(Input::B)
         for i in 0...@battle.maxCards
           @sprites["player#{i}"].visible=(i<chosenCards.length)
         end
@@ -1111,11 +1110,11 @@ def pbBuyTriads
       cmdwindow.active=true
       cmdwindow.update
       goldwindow.update
-      if Input.trigger?(Input::B) || Input.triggerex?(Input::RightMouseKey)
+      if Input.trigger?(Input::B)
         done=true
         break
       end
-      if Input.trigger?(Input::C) || Input.triggerex?(Input::LeftMouseKey)
+      if Input.trigger?(Input::C)
         price=commands[cmdwindow.index][0]
         item=commands[cmdwindow.index][3]
         itemname=commands[cmdwindow.index][1]
@@ -1194,11 +1193,11 @@ def pbSellTriads
       cmdwindow.active=true
       cmdwindow.update
       goldwindow.update
-      if Input.trigger?(Input::B) || Input.triggerex?(Input::RightMouseKey)
+      if Input.trigger?(Input::B)
         done=true
         break
       end
-      if Input.trigger?(Input::C) || Input.triggerex?(Input::LeftMouseKey)
+      if Input.trigger?(Input::C)
         if cmdwindow.index>=$PokemonGlobal.triads.length
           done=true
           break
@@ -1284,11 +1283,11 @@ def pbTriadList
         end
         lastIndex=cmdwindow.index
       end
-      if Input.trigger?(Input::B) || Input.triggerex?(Input::RightMouseKey)
+      if Input.trigger?(Input::B)
         done=true
         break
       end
-      if Input.trigger?(Input::C) || Input.triggerex?(Input::LeftMouseKey)
+      if Input.trigger?(Input::C)
         if cmdwindow.index>=$PokemonGlobal.triads.length
           done=true
           break

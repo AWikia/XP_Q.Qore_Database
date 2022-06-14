@@ -79,8 +79,7 @@ def pbDisplayMail(mail,bearer=nil)
     Graphics.update
     Input.update
     pbUpdateSpriteHash(sprites)
-    if Input.trigger?(Input::B) || Input.trigger?(Input::C) ||
-       Input.triggerex?(Input::LeftMouseKey) || Input.triggerex?(Input::RightMouseKey)
+    if Input.trigger?(Input::B) || Input.trigger?(Input::C)
       break
     end
   end

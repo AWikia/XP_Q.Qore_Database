@@ -205,7 +205,7 @@ class PokemonLoadScene
       Graphics.update
       Input.update
       pbUpdate
-      if Input.trigger?(Input::C) || Input.triggerex?(Input::LeftMouseKey)
+      if Input.trigger?(Input::C)
         return @sprites["cmdwindow"].index
       end
       if @sprites["header"].windowskin!=nil

@@ -1474,7 +1474,7 @@ class PokeBattle_Scene
 
   def pbInputUpdate
     Input.update
-    if (Input.trigger?(Input::B) || Input.triggerex?(Input::RightMouseKey)) && @abortable && !@aborted
+    if (Input.trigger?(Input::B)) && @abortable && !@aborted
       @aborted=true
       @battle.pbAbort
     end
@@ -1557,8 +1557,7 @@ class PokeBattle_Scene
         cw.visible=false
         return
       end
-      if Input.trigger?(Input::C) || @abortable ||
-         Input.triggerex?(Input::LeftMouseKey)
+      if Input.trigger?(Input::C) || @abortable
         if cw.pausing?
           pbPlayDecisionSE() if !@abortable
           cw.resume
@@ -1588,8 +1587,7 @@ class PokeBattle_Scene
       pbGraphicsUpdate
       pbInputUpdate
       pbFrameUpdate(cw)
-      if Input.trigger?(Input::C) || @abortable ||
-         Input.triggerex?(Input::LeftMouseKey)
+      if Input.trigger?(Input::C) || @abortable
         if cw.busy?
           pbPlayDecisionSE() if cw.pausing? && !@abortable
           cw.resume
@@ -1626,7 +1624,7 @@ class PokeBattle_Scene
       pbInputUpdate
       pbFrameUpdate(cw)
       dw.update
-      if Input.trigger?(Input::B) || Input.triggerex?(Input::RightMouseKey) && defaultValue>=0
+      if Input.trigger?(Input::B) && defaultValue>=0
         if dw.busy?
           pbPlayDecisionSE() if dw.pausing?
           dw.resume
@@ -1636,7 +1634,7 @@ class PokeBattle_Scene
           return defaultValue
         end
       end
-      if Input.trigger?(Input::C) || Input.triggerex?(Input::LeftMouseKey)
+      if Input.trigger?(Input::C)
         if dw.busy?
           pbPlayDecisionSE() if dw.pausing?
           dw.resume
@@ -2582,12 +2580,12 @@ end
         pbPlayCursorSE()
         cw.index+=2
       end
-      if Input.trigger?(Input::C) || Input.triggerex?(Input::LeftMouseKey)   # Confirm choice
+      if Input.trigger?(Input::C)   # Confirm choice
         pbPlayDecisionSE()
         ret=cw.index
         @lastcmd[index]=ret
         return ret
-      elsif (Input.trigger?(Input::B) || Input.triggerex?(Input::RightMouseKey)) && index==2 && @lastcmd[0]!=2 # Cancel
+      elsif (Input.trigger?(Input::B)) && index==2 && @lastcmd[0]!=2 # Cancel
         pbPlayDecisionSE()
         return -1
       end
@@ -2624,18 +2622,18 @@ end
       elsif Input.trigger?(Input::DOWN) &&  (cw.index&2)==0
         pbPlayCursorSE() if cw.setIndex(cw.index+2)
       end
-      if Input.trigger?(Input::C) || Input.triggerex?(Input::LeftMouseKey)  # Confirm choice
+      if Input.trigger?(Input::C)  # Confirm choice
         ret=cw.index
         pbPlayDecisionSE() 
         @lastmove[index]=ret
         return ret
-      elsif Input.trigger?(Input::A) || Input.triggerex?(Input::CenterMouseKey)   # Use Mega Evolution
+      elsif Input.trigger?(Input::A)   # Use Mega Evolution
         if @battle.pbCanMegaEvolve?(index)
           @battle.pbRegisterMegaEvolution(index)
           cw.megaButton=2
           pbPlayDecisionSE()
         end
-      elsif Input.trigger?(Input::B) || Input.triggerex?(Input::RightMouseKey)   # Cancel fight menu
+      elsif Input.trigger?(Input::B)   # Cancel fight menu
         @lastmove[index]=cw.index
         pbPlayCancelSE()
         return -1
@@ -2794,11 +2792,11 @@ end
       pbInputUpdate
       pbFrameUpdate
       pbUpdateSelected(curwindow)
-      if Input.trigger?(Input::C) || Input.triggerex?(Input::LeftMouseKey)
+      if Input.trigger?(Input::C)
         pbUpdateSelected(-1)
         return curwindow
       end
-      if Input.trigger?(Input::B) || Input.triggerex?(Input::RightMouseKey)
+      if Input.trigger?(Input::B)
         pbUpdateSelected(-1)
         return -1
       end

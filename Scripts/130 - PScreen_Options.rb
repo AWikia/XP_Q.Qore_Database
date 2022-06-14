@@ -1077,7 +1077,7 @@ There are different modes:
          Graphics.update
          Input.update
          pbUpdate
-         if (Input.trigger?(Input::A) || Input.triggerex?(Input::CenterMouseKey) ) && @sprites["option"].index != @PokemonOptions.length
+         if (Input.trigger?(Input::A) ) && @sprites["option"].index != @PokemonOptions.length
             Kernel.pbMessage(_INTL("\\l[3]{1}",@PokemonOptions[@sprites["option"].index].help))
          end
          if @sprites["option"].mustUpdateOptions
@@ -1111,9 +1111,9 @@ There are different modes:
            end
 =end
          end
-         if Input.trigger?(Input::B) || Input.triggerex?(Input::RightMouseKey)
+         if Input.trigger?(Input::B)
            break
-         elsif (Input.trigger?(Input::C) || Input.triggerex?(Input::LeftMouseKey)) && 
+         elsif (Input.trigger?(Input::C)) && 
            @sprites["option"].index==@PokemonOptions.length
            break
          end

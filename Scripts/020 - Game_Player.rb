@@ -484,7 +484,7 @@ class Game_Player < Game_Character
         Kernel.pbOnStepTaken(result) # *Added function call
       end
       # If C button was pressed
-      if (Input.trigger?(Input::C) || Input.triggerex?(Input::LeftMouseKey)) && !$PokemonTemp.miniupdate
+      if (Input.trigger?(Input::C)) && !$PokemonTemp.miniupdate
         # Same position and front event determinant
         check_event_trigger_here([0])
         check_event_trigger_there([0,2]) # *Modified to prevent unnecessary triggers

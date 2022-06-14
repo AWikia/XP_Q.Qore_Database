@@ -39,10 +39,10 @@ class PokemonAboutScreenScene
     end
     textPositions=[
        [_INTL("Qora Qore " + RTP2.getGameIniValue("Qortex", "Channel")),0,0,0,baseColor,shadowColor],
-       [_INTL("Version " + RTP2.getGameIniValue("Qortex", "Release") + " (Release " + RTP2.getGameIniValue("Qortex", "Version") + ")"),0,32,0,baseColor,shadowColor],
-       [_INTL("The Qora Qore project was started in December 2013 and"),0,96,0,baseColor,shadowColor],
-       [_INTL("it is now a community-oriented project as a service."),0,128,0,baseColor,shadowColor],
-       [_INTL("Work based upon the " + RTP2.getGameIniValue("Qortex", "Semester") + " codebase."),0,192,0,baseColor,shadowColor],
+       [_INTL("Version " + RTP2.getGameIniValue("Qortex", "Release") + " (" + RTP2.getGameIniValue("Qortex", "Version") + " Release)"),0,32,0,baseColor,shadowColor],
+       [_INTL("The Qora Qore project begun in December 2013 and it is"),0,96,0,baseColor,shadowColor],
+       [_INTL("now a community-oriented project as a service."),0,128,0,baseColor,shadowColor],
+       [_INTL("Work is based upon the " + RTP2.getGameIniValue("Qortex", "Semester") + " codebase."),0,192,0,baseColor,shadowColor],
     ]
     pbDrawTextPositions(overlay,textPositions)
   end
@@ -52,7 +52,7 @@ class PokemonAboutScreenScene
       Graphics.update
       Input.update
       self.update
-      if Input.trigger?(Input::B) || Input.triggerex?(Input::RightMouseKey)
+      if Input.trigger?(Input::B)
         pbPlayCancelSE()
         break
       end

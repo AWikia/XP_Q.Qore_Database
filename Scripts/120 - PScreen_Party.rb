@@ -663,12 +663,12 @@ class PokemonScreen_Scene
          Input.update
          cmdwindow.update
          self.update
-         if Input.trigger?(Input::B) || Input.triggerex?(Input::RightMouseKey)
+         if Input.trigger?(Input::B)
            pbPlayCancelSE()
            ret=-1
            break
          end
-         if Input.trigger?(Input::C) || Input.triggerex?(Input::LeftMouseKey)
+         if Input.trigger?(Input::C)
            pbPlayDecisionSE()
            ret=cmdwindow.index
            break
@@ -902,11 +902,11 @@ class PokemonScreen_Scene
         end
         @sprites["header"].text=(@activecmd>5)  ? _INTL("Party Pokémon") : _INTL("Party Pokémon - {1}",@party[@activecmd].name)
       end
-      if Input.trigger?(Input::B) || Input.triggerex?(Input::RightMouseKey)
+      if Input.trigger?(Input::B)
         pbPlayCancelSE()
         return -1
       end
-      if Input.trigger?(Input::C) || Input.triggerex?(Input::LeftMouseKey)
+      if Input.trigger?(Input::C)
         pbPlayDecisionSE()
         cancelsprite=(@multiselect) ? 7 : 6
         return (@activecmd==cancelsprite) ? -1 : @activecmd
@@ -932,13 +932,12 @@ class PokemonScreen_Scene
       Graphics.update
       Input.update
       self.update
-      if @sprites["messagebox"].busy? && (Input.trigger?(Input::C) || Input.triggerex?(Input::LeftMouseKey))
+      if @sprites["messagebox"].busy? && (Input.trigger?(Input::C))
         pbPlayDecisionSE() if @sprites["messagebox"].pausing?
         @sprites["messagebox"].resume
       end
       if !@sprites["messagebox"].busy? &&
-         (Input.trigger?(Input::C) || Input.trigger?(Input::B) ||
-          Input.triggerex?(Input::LeftMouseKey) || Input.triggerex?(Input::RightMouseKey))
+         (Input.trigger?(Input::C) || Input.trigger?(Input::B))
         break
       end
     end
@@ -995,11 +994,11 @@ class PokemonScreen_Scene
          cmdwindow.visible=true if !@sprites["messagebox"].busy?
          cmdwindow.update
          self.update
-         if (Input.trigger?(Input::B) || Input.triggerex?(Input::RightMouseKey)) && !@sprites["messagebox"].busy?
+         if (Input.trigger?(Input::B)) && !@sprites["messagebox"].busy?
            ret=false
            break
          end
-         if (Input.trigger?(Input::C) || Input.triggerex?(Input::LeftMouseKey)) && @sprites["messagebox"].resume && !@sprites["messagebox"].busy?
+         if (Input.trigger?(Input::C)) && @sprites["messagebox"].resume && !@sprites["messagebox"].busy?
            ret=(cmdwindow.index==0)
            break
          end

@@ -117,7 +117,7 @@ class Scene_PokegearScene
       Graphics.update
       Input.update
       update
-      if Input.trigger?(Input::B) || Input.triggerex?(Input::RightMouseKey)
+      if Input.trigger?(Input::B)
         pbPlayCancelSE()
         break
       end
@@ -142,7 +142,7 @@ class Scene_PokegearScene
   # update the command window
   #-----------------------------------------------------------------------------
   def update_command
-    if Input.trigger?(Input::C) || Input.triggerex?(Input::LeftMouseKey)
+    if Input.trigger?(Input::C)
       if @cmdMap>=0 && @sprites["command_window"].index==@cmdMap
         pbPlayDecisionSE()
         pbShowMap(-1,false)

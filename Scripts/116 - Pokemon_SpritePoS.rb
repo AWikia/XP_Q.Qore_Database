@@ -104,13 +104,13 @@ class SpritePositioner
         @metrics[param][@pkmn.species]=altitude
         refresh
       end
-      if Input.repeat?(Input::B) || Input.triggerex?(Input::RightMouseKey)
+      if Input.repeat?(Input::B)
         @metrics[param][@pkmn.species]=oldaltitude
         pbPlayCancelSE()
         refresh
         break
       end
-      if Input.repeat?(Input::C) || Input.triggerex?(Input::LeftMouseKey)
+      if Input.repeat?(Input::C)
         @metricsChanged=true
         pbPlayDecisionSE()
         break
@@ -177,7 +177,7 @@ class SpritePositioner
         refresh
       end
       self.update
-      if Input.trigger?(Input::C) || Input.triggerex?(Input::LeftMouseKey)
+      if Input.trigger?(Input::C)
         pbChangeSpecies(allspecies[cw.index][0])
         species=allspecies[cw.index][0]
         break
@@ -211,12 +211,12 @@ class SpritePositioner
       Input.update
       cw.update
       self.update
-      if Input.trigger?(Input::C) || Input.triggerex?(Input::LeftMouseKey)
+      if Input.trigger?(Input::C)
         pbPlayDecisionSE()
         ret=cw.index
         break
       end
-      if Input.trigger?(Input::B) || Input.triggerex?(Input::RightMouseKey)
+      if Input.trigger?(Input::B)
         pbPlayCancelSE()
         break
       end

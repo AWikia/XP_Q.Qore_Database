@@ -256,7 +256,7 @@ class VoltorbFlip
         @index[0]=0
         @sprites["cursor"].x=0
       end
-    elsif Input.trigger?(Input::C) || Input.triggerex?(Input::LeftMouseKey)
+    elsif Input.trigger?(Input::C)
       if @cursor[0][3]==64 # If in mark mode
         for i in 0...@squares.length
           if @index[0]*64+128+64==@squares[i][0] && @index[1]*64==@squares[i][1] && @squares[i][3]==false
@@ -409,7 +409,7 @@ class VoltorbFlip
         @cursor[0]=[@directory+"cursor",128+64,0,0,0,64,64]
         @sprites["memo"].visible=false
       end
-    elsif Input.trigger?(Input::B) || Input.triggerex?(Input::RightMouseKey)
+    elsif Input.trigger?(Input::B)
       @sprites["curtain"].opacity=100
       if @points==0
         if Kernel.pbConfirmMessage("You haven't found any Coins! Are you sure you want to quit?")
@@ -521,8 +521,7 @@ class VoltorbFlip
     # Wait for user input to continue
     loop do
       pbWait(1)
-      if Input.trigger?(Input::C) || Input.trigger?(Input::B) ||
-         Input.triggerex?(Input::LeftMouseKey) || Input.triggerex?(Input::RightMouseKey)
+      if Input.trigger?(Input::C) || Input.trigger?(Input::B)
         break
       end
     end

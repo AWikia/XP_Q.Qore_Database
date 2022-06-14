@@ -316,7 +316,7 @@ class PokemonBag_Scene
            end
          end
          # Cancel switching or cancel the item screen
-         if Input.trigger?(Input::B) || Input.triggerex?(Input::RightMouseKey)
+         if Input.trigger?(Input::B)
            if sorting
              pbPlayCancelSE()
              sorting=false
@@ -326,7 +326,7 @@ class PokemonBag_Scene
            end
          end
          # Confirm selection or item switch
-         if Input.trigger?(Input::C) || Input.triggerex?(Input::LeftMouseKey)
+         if Input.trigger?(Input::C)
            thispocket=@bag.pockets[itemwindow.pocket]
            if itemwindow.index<thispocket.length
              if sorting
@@ -990,10 +990,10 @@ class ItemStorageScene
          if itemwindow.item!=olditem
            self.pbRefresh
          end
-         if Input.trigger?(Input::B) || Input.triggerex?(Input::RightMouseKey)
+         if Input.trigger?(Input::B)
            return 0
          end
-         if Input.trigger?(Input::C) || Input.triggerex?(Input::LeftMouseKey)
+         if Input.trigger?(Input::C)
            if itemwindow.index<@bag.length
              pbRefresh
              return @bag[itemwindow.index][0]
@@ -1151,11 +1151,11 @@ module UIHelper
            curnumber=maximum if curnumber<1
            numwindow.text=_ISPRINTF("x{1:03d}",curnumber)
            pbPlayCursorSE()
-         elsif Input.trigger?(Input::C) || Input.triggerex?(Input::LeftMouseKey)
+         elsif Input.trigger?(Input::C)
            ret=curnumber
            pbPlayDecisionSE()
            break
-         elsif Input.trigger?(Input::B) || Input.triggerex?(Input::RightMouseKey)
+         elsif Input.trigger?(Input::B)
            ret=0
            pbPlayCancelSE()
            break
@@ -1177,11 +1177,11 @@ module UIHelper
     loop do
       Graphics.update
       Input.update
-      if Input.trigger?(Input::B) || Input.triggerex?(Input::RightMouseKey)
+      if Input.trigger?(Input::B)
         break
        pbPlayCancelSE()
       end
-      if Input.trigger?(Input::C) || Input.triggerex?(Input::LeftMouseKey)
+      if Input.trigger?(Input::C)
         break
       end
       block_given? ? yield : msgwindow.update
@@ -1206,7 +1206,7 @@ module UIHelper
         cw.visible=oldvisible
         return
       end
-      if (Input.trigger?(Input::C) || Input.triggerex?(Input::LeftMouseKey)) && cw.resume && !cw.busy?
+      if (Input.trigger?(Input::C)) && cw.resume && !cw.busy?
         cw.visible=oldvisible
         return
       end
@@ -1234,14 +1234,14 @@ module UIHelper
       Input.update
       cw.update
       block_given? ? yield : dw.update
-      if (Input.trigger?(Input::B) || Input.triggerex?(Input::RightMouseKey)) && 
+      if (Input.trigger?(Input::B)) && 
         dw.resume && !dw.busy?
         cw.dispose
         dw.visible=oldvisible
         pbPlayCancelSE()
         return false
       end
-      if (Input.trigger?(Input::C) || Input.triggerex?(Input::LeftMouseKey)) && dw.resume && !dw.busy?
+      if (Input.trigger?(Input::C)) && dw.resume && !dw.busy?
         cwIndex=cw.index
         cw.dispose
         dw.visible=oldvisible
@@ -1268,12 +1268,12 @@ module UIHelper
         Input.update
         yield
         cmdwindow.update
-        if Input.trigger?(Input::B) || Input.triggerex?(Input::RightMouseKey)
+        if Input.trigger?(Input::B)
           ret=-1
           pbPlayCancelSE()
           break
         end
-        if Input.trigger?(Input::C) || Input.triggerex?(Input::LeftMouseKey)
+        if Input.trigger?(Input::C)
           ret=cmdwindow.index
           pbPlayDecisionSE()
           break

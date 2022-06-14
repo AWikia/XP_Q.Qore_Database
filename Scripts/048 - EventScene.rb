@@ -700,10 +700,10 @@ class EventScene
       end
     end
     @onUpdate.trigger(self)
-    if Input.trigger?(Input::C) || Input.triggerex?(Input::LeftMouseKey)
+    if Input.trigger?(Input::C)
       @onCTrigger.trigger(self)
     end
-    if Input.trigger?(Input::B) || Input.triggerex?(Input::RightMouseKey)
+    if Input.trigger?(Input::B)
       @onBTrigger.trigger(self)
     end
   end

@@ -184,7 +184,7 @@ class PokemonNestMapScene
       elsif Input.trigger?(Input::DOWN) && listlimits&2==0 # If not at end of list
         ret=2
         break
-      elsif Input.trigger?(Input::B) || Input.triggerex?(Input::RightMouseKey)
+      elsif Input.trigger?(Input::B)
         ret=1
         pbPlayCancelSE()
         pbFadeOutAndHide(@sprites)
@@ -425,14 +425,14 @@ class PokedexFormScene
            @form=@available[cmdwindow.index][2]
            pbRefresh
          end
-         if Input.trigger?(Input::B) || Input.triggerex?(Input::RightMouseKey)
+         if Input.trigger?(Input::B)
            pbPlayCancelSE()
            @gender=oldgender
            @form=oldform
            pbRefresh
            break
          end
-         if Input.trigger?(Input::C) || Input.triggerex?(Input::LeftMouseKey)
+         if Input.trigger?(Input::C)
            pbPlayDecisionSE()
            break
          end
@@ -449,10 +449,10 @@ class PokedexFormScene
       Graphics.update
       Input.update
       pbUpdate
-      if Input.trigger?(Input::A) || Input.triggerex?(Input::CenterMouseKey)
+      if Input.trigger?(Input::A)
         pbPlayDecisionSE()
         @shinyform=!@shinyform
-      elsif (Input.trigger?(Input::C) || Input.triggerex?(Input::LeftMouseKey)) && @available.length > 1
+      elsif (Input.trigger?(Input::C)) && @available.length > 1
         pbChooseForm
       elsif Input.trigger?(Input::LEFT)
         ret=4
@@ -463,7 +463,7 @@ class PokedexFormScene
       elsif Input.trigger?(Input::DOWN) && listlimits&2==0 # If not at end of list
         ret=2
         break
-      elsif Input.trigger?(Input::B) || Input.triggerex?(Input::RightMouseKey)
+      elsif Input.trigger?(Input::B)
         ret=1
         pbPlayCancelSE()
         pbFadeOutAndHide(@sprites) { pbUpdate }

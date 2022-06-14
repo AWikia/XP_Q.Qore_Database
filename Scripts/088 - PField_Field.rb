@@ -2134,7 +2134,7 @@ def pbRecord(text,maxtime=30.0)
       Input.update
       textwindow.update
       msgwindow.update
-      if Input.trigger?(Input::B) || Input.triggerex?(Input::RightMouseKey)
+      if Input.trigger?(Input::B)
         Kernel.Audio_bgm_set_volume(oldvolume)
         Kernel.pbDisposeMessageWindow(msgwindow)
         textwindow.dispose
@@ -2151,7 +2151,7 @@ def pbRecord(text,maxtime=30.0)
       Input.update
       textwindow.update
       msgwindow.update
-      if Input.trigger?(Input::B) || Input.triggerex?(Input::RightMouseKey)
+      if Input.trigger?(Input::B)
         break
       end
     end

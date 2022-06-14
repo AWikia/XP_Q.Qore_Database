@@ -1115,6 +1115,7 @@ def pbTrackPopupMenu(commands)
       menuwindow.dispose
       return hit
     end
+# Those must be after the Left and Right Mouse Key triggers
     if Input.trigger?(Input::C)
       hit=menuwindow.index
       menuwindow.dispose
@@ -2207,7 +2208,7 @@ def pbTimingList(canvas)
         next
       end
     end
-    if (Input.trigger?(Input::C) || (cmdwin.doubleclick? rescue false))
+    if ((Input.trigger?(Input::C) && !Input.triggerex?(Input::LeftMouseKey)) || (cmdwin.doubleclick? rescue false))
       redrawcmds=false
       if cmdwin.index==cmdNewSound # Add new sound
         newaudio=PBAnimTiming.new(0)
@@ -2329,7 +2330,7 @@ def pbSelectSE(canvas,audio)
     if maxsizewindow.changed?(6) # Cancel
       break
     end
-    if (Input.trigger?(Input::C) || (cmdwin.doubleclick? rescue false)) && animfiles.length>0
+    if ((Input.trigger?(Input::C) && !Input.triggerex?(Input::LeftMouseKey)) || (cmdwin.doubleclick? rescue false)) && animfiles.length>0
       filename=(cmdwin.index==cmdNone) ? "" : cmdwin.commands[cmdwin.index]
       displayname=(filename!="") ? filename : _INTL("<user's cry>")
       maxsizewindow.controls[0].text=_INTL("File: \"{1}\"",displayname)
@@ -2392,7 +2393,7 @@ def pbSelectBG(canvas,timing)
     if maxsizewindow.changed?(9) # Cancel
       break
     end
-    if (Input.trigger?(Input::C) || (cmdwin.doubleclick? rescue false)) && animfiles.length>0
+    if ((Input.trigger?(Input::C) && !Input.triggerex?(Input::LeftMouseKey)) || (cmdwin.doubleclick? rescue false)) && animfiles.length>0
       filename=(cmdwin.index==cmdErase) ? "" : cmdwin.commands[cmdwin.index]
       maxsizewindow.controls[0].text=_INTL("File: \"{1}\"",filename)
     elsif Input.trigger?(Input::B)
@@ -2766,7 +2767,7 @@ def pbSelectAnim(canvas,animwin)
     if ctlwin.changed?(0)
       bmpwin.hue=ctlwin.value(0)
     end
-    if (Input.trigger?(Input::C) || (cmdwin.doubleclick? rescue false)) && animfiles.length>0
+    if ((Input.trigger?(Input::C) && !Input.triggerex?(Input::LeftMouseKey)) || (cmdwin.doubleclick? rescue false)) && animfiles.length>0
       bitmap=AnimatedBitmap.new("Graphics/Animations/"+cmdwin.commands[cmdwin.index],ctlwin.value(0)).deanimate
       canvas.animation.graphic=cmdwin.commands[cmdwin.index]
       canvas.animation.hue=ctlwin.value(0)
@@ -2867,7 +2868,7 @@ def pbAnimList(animations,canvas,animwin)
       cmdwin.index=animations.selected
       next
     end
-    if (Input.trigger?(Input::C) || (cmdwin.doubleclick? rescue false)) && animations.length>0
+    if ((Input.trigger?(Input::C) && !Input.triggerex?(Input::LeftMouseKey)) || (cmdwin.doubleclick? rescue false)) && animations.length>0
       cmd2=Kernel.pbShowCommands(helpwindow,[
          _INTL("Load Animation"),
          _INTL("Rename"),
@@ -2954,7 +2955,7 @@ def pbImportAnim(animations,canvas,animwin)
     Graphics.update
     Input.update
     cmdwin.update
-    if (Input.trigger?(Input::C) || (cmdwin.doubleclick? rescue false)) && animfiles.length>0
+    if ((Input.trigger?(Input::C) && !Input.triggerex?(Input::LeftMouseKey)) || (cmdwin.doubleclick? rescue false)) && animfiles.length>0
       begin
         textdata=loadBase64Anim(IO.read(animfiles[cmdwin.index]))
         throw "Bad data" if !textdata.is_a?(PBAnimation)
@@ -3565,7 +3566,7 @@ def animationEditorMain(animation,fromgame=true)
     if animwin.changed?
       canvas.pattern=animwin.selected
     end
-    if Input.trigger?(Input::B)
+    if Input.trigger?(Input::B) && !Input.triggerex?(Input::RightMouseKey) # Don't run with right mouse button, has different action set
       if Kernel.pbConfirmMessage(_INTL("Save changes?"))
         save_data(animation,"Data/PkmnAnimations.rxdata")
       end

@@ -163,7 +163,7 @@ def pbTopRightWindow(text)
     Graphics.update
     Input.update
     window.update
-    if Input.trigger?(Input::C) || Input.triggerex?(Input::LeftMouseKey)
+    if Input.trigger?(Input::C)
       break
     end
   end

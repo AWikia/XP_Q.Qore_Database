@@ -128,12 +128,12 @@ class Scene_Map
     if $game_temp.message_window_showing
       return
     end
-    if Input.trigger?(Input::C) || Input.triggerex?(Input::LeftMouseKey)
+    if Input.trigger?(Input::C)
       unless pbMapInterpreterRunning?
         $PokemonTemp.hiddenMoveEventCalling=true
       end
     end      
-    if Input.trigger?(Input::B) || Input.triggerex?(Input::RightMouseKey)
+    if Input.trigger?(Input::B)
       unless pbMapInterpreterRunning? or $game_system.menu_disabled or $game_player.moving?
         $game_temp.menu_calling = true
         $game_temp.menu_beep = true

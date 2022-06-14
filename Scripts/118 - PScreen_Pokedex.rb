@@ -88,12 +88,12 @@ class Scene_PokedexMenu
   end
 
   def update_command
-    if Input.trigger?(Input::B) || Input.triggerex?(Input::RightMouseKey)
+    if Input.trigger?(Input::B)
       pbPlayCancelSE()
       $scene = Scene_Map.new
       return
     end
-    if Input.trigger?(Input::C) || Input.triggerex?(Input::LeftMouseKey)
+    if Input.trigger?(Input::C)
       case @sprites["commands"].index
       when @sprites["commands"].itemCount-1
         pbPlayDecisionSE()
@@ -502,12 +502,12 @@ class PokemonPokedexScene
          if auxlist.index!=oldindex && helptexts
            messagebox.text=helptexts[auxlist.index]
          end
-         if Input.trigger?(Input::B) || Input.triggerex?(Input::RightMouseKey)
+         if Input.trigger?(Input::B)
            ret=selitem
            pbPlayCancelSE()
            break
          end
-         if Input.trigger?(Input::C) || Input.triggerex?(Input::LeftMouseKey)
+         if Input.trigger?(Input::C)
            ret=auxlist.index
            pbPlayDecisionSE()
            break
@@ -838,8 +838,7 @@ class PokemonPokedexScene
          Graphics.update
          Input.update
          pbUpdate
-         if Input.trigger?(Input::B) || Input.trigger?(Input::C) ||
-            Input.triggerex?(Input::LeftMouseKey) || Input.triggerex?(Input::RightMouseKey)
+         if Input.trigger?(Input::B) || Input.trigger?(Input::C)
            break
          end
        end
@@ -965,7 +964,7 @@ class PokemonPokedexScene
          Graphics.update if page==1
          Input.update
          pbUpdate
-         if Input.trigger?(Input::B) || Input.triggerex?(Input::RightMouseKey) ||
+         if Input.trigger?(Input::B) ||
             ret==1
            if page==1
              pbPlayCancelSE()
@@ -1021,7 +1020,7 @@ class PokemonPokedexScene
       pbDexEntryBitmaps(@dexlist[curindex][0])
     end
 # End
-         elsif Input.trigger?(Input::A) || Input.triggerex?(Input::CenterMouseKey)
+         elsif Input.trigger?(Input::A)
            # pbPlayCry(@dexlist[curindex][0])
            pbSEStop;
            pbPlayCry(@dummypokemon)
@@ -1165,7 +1164,7 @@ class PokemonPokedexScene
          if searchlist.index!=oldindex
            pbRefreshDexSearch(params)
          end
-         if Input.trigger?(Input::C) || Input.triggerex?(Input::LeftMouseKey)
+         if Input.trigger?(Input::C)
            pbPlayDecisionSE()
            command=searchlist.indexToCommand(searchlist.index)
            if command==[2,0]
@@ -1241,7 +1240,7 @@ class PokemonPokedexScene
              pbRefreshDexList
              break
            end
-         elsif Input.trigger?(Input::B) || Input.triggerex?(Input::RightMouseKey)
+         elsif Input.trigger?(Input::B)
            pbPlayCancelSE()
            break
          end
@@ -1287,14 +1286,14 @@ class PokemonPokedexScene
            end
            @sprites["slider"].y=ycoord
          end
-         if Input.trigger?(Input::B) || Input.triggerex?(Input::RightMouseKey)
+         if Input.trigger?(Input::B)
            pbPlayCancelSE()
            if @searchResults
              pbCloseSearch
            else
              break
            end
-           elsif Input.trigger?(Input::C) || Input.triggerex?(Input::LeftMouseKey)
+           elsif Input.trigger?(Input::C)
            if $Trainer.seen[@sprites["pokedex"].species]
              pbPlayDecisionSE()
              pbDexEntry(@sprites["pokedex"].index)

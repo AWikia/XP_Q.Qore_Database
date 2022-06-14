@@ -245,7 +245,7 @@ class Window_TextEntry < SpriteWindow_Base
       return
     end
     # Backspace
-    if Input.repeat?(Input::B) || Input.triggerex?(Input::RightMouseKey)
+    if Input.repeat?(Input::B)
       self.delete if @helper.cursor > 0
       return
     end
@@ -1056,7 +1056,7 @@ class PokemonEntryScene
       @sprites["entry"].update
       @sprites["entry2"].update
       @sprites["subject"].update if @sprites["subject"]
-      if Input.trigger?(Input::C) || Input.triggerex?(Input::LeftMouseKey)
+      if Input.trigger?(Input::C)
         index=@sprites["entry2"].command
         if index==-3 # Confirm text
           ret=@sprites["entry"].text
@@ -1602,11 +1602,11 @@ class PokemonEntryScene2
       Input.update
       pbUpdate
       next if pbMoveCursor
-      if Input.trigger?(Input::B) || Input.triggerex?(Input::RightMouseKey)
+      if Input.trigger?(Input::B)
         @helper.delete
         pbPlayCancelSE()
         pbUpdateOverlay
-      elsif Input.trigger?(Input::C) || Input.triggerex?(Input::LeftMouseKey)
+      elsif Input.trigger?(Input::C)
         if @cursorpos==BACK # Backspace
           @helper.delete
           pbPlayCancelSE()
@@ -1642,7 +1642,7 @@ class PokemonEntryScene2
           end
           pbUpdateOverlay
         end
-      elsif Input.trigger?(Input::A) || Input.triggerex?(Input::CenterMouseKey)
+      elsif Input.trigger?(Input::A)
         @cursorpos=OK
         @sprites["cursor"].setCursorPos(@cursorpos)
       elsif Input.trigger?(Input::F5)

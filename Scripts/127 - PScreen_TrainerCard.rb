@@ -113,7 +113,7 @@ class PokemonTrainerCardScene
         end
         @sprites["trainer"].setBitmap(pbPlayerSpriteFile($Trainer.trainertype))
       end
-      if Input.trigger?(Input::B) || Input.triggerex?(Input::RightMouseKey)
+      if Input.trigger?(Input::B)
         pbPlayCancelSE()
         break
       end

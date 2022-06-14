@@ -311,12 +311,12 @@ def pbDebugMenu(fromgame=true)
       cmdwindow.update
       Graphics.update
       Input.update
-      if Input.trigger?(Input::B) || Input.triggerex?(Input::RightMouseKey)
+      if Input.trigger?(Input::B)
         pbPlayCancelSE()
         ret=-1
         break
       end
-      if Input.trigger?(Input::C) || Input.triggerex?(Input::LeftMouseKey)
+      if Input.trigger?(Input::C)
         ret=cmdwindow.index
         break
       end
@@ -999,13 +999,13 @@ def pbDebugScreen(mode)
     Graphics.update
     Input.update
     pbUpdateSpriteHash(sprites)
-    if Input.trigger?(Input::B) || Input.triggerex?(Input::RightMouseKey)
+    if Input.trigger?(Input::B)
       pbPlayCancelSE()
       break
     end
     current_id = right_window.index+1
     if mode == 0
-      if Input.trigger?(Input::C) || Input.triggerex?(Input::LeftMouseKey)
+      if Input.trigger?(Input::C)
         pbPlayDecisionSE()
         $game_switches[current_id] = (not $game_switches[current_id])
         right_window.refresh
@@ -1017,7 +1017,7 @@ def pbDebugScreen(mode)
       elsif Input.repeat?(Input::LEFT)
         pbDebugSetVariable(current_id,-1)
         right_window.refresh
-      elsif Input.trigger?(Input::C) || Input.triggerex?(Input::LeftMouseKey)
+      elsif Input.trigger?(Input::C)
         pbDebugVariableScreen(current_id)
         right_window.refresh
       end

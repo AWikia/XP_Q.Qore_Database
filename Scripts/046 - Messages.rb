@@ -816,7 +816,7 @@ def pbChooseNumber(msgwindow,params)
     cmdwindow.update
     msgwindow.update if msgwindow
     yield if block_given?
-    if Input.trigger?(Input::C) || Input.triggerex?(Input::LeftMouseKey)
+    if Input.trigger?(Input::C)
       ret=cmdwindow.number
       if ret>maximum
         pbPlayBuzzerSE()
@@ -826,7 +826,7 @@ def pbChooseNumber(msgwindow,params)
         pbPlayDecisionSE()
         break
       end
-    elsif Input.trigger?(Input::B) || Input.triggerex?(Input::RightMouseKey)
+    elsif Input.trigger?(Input::B)
       pbPlayCancelSE()
       ret=cancelNumber
       break
@@ -864,7 +864,7 @@ def Kernel.pbShowCommandsWithHelp(msgwindow,commands,help,cmdIfCancel=0,defaultC
       end
       msgwin.update
       yield if block_given?
-      if Input.trigger?(Input::B) || Input.triggerex?(Input::RightMouseKey)
+      if Input.trigger?(Input::B)
         if cmdIfCancel>0
           command=cmdIfCancel-1
           break
@@ -873,7 +873,7 @@ def Kernel.pbShowCommandsWithHelp(msgwindow,commands,help,cmdIfCancel=0,defaultC
           break
         end
       end
-      if Input.trigger?(Input::C) || Input.triggerex?(Input::LeftMouseKey)
+      if Input.trigger?(Input::C)
         command=cmdwindow.index
         break
       end
@@ -907,7 +907,7 @@ def Kernel.pbShowCommands(msgwindow,commands=nil,cmdIfCancel=0,defaultCmd=0)
       cmdwindow.update
       msgwindow.update if msgwindow
       yield if block_given?
-      if Input.trigger?(Input::B) || Input.triggerex?(Input::RightMouseKey)
+      if Input.trigger?(Input::B)
         if cmdIfCancel>0
           command=cmdIfCancel-1
           break
@@ -916,7 +916,7 @@ def Kernel.pbShowCommands(msgwindow,commands=nil,cmdIfCancel=0,defaultCmd=0)
           break
         end
       end
-      if Input.trigger?(Input::C) || Input.triggerex?(Input::LeftMouseKey)
+      if Input.trigger?(Input::C)
         command=cmdwindow.index
         break
       end
@@ -950,7 +950,7 @@ def Kernel.pbShowCommandsLB(msgwindow,commands=nil,cmdIfCancel=0,defaultCmd=0)
       cmdwindow.update
       msgwindow.update if msgwindow
       yield if block_given?
-      if Input.trigger?(Input::B) || Input.triggerex?(Input::RightMouseKey)
+      if Input.trigger?(Input::B)
         if cmdIfCancel>0
           command=cmdIfCancel-1
           break
@@ -959,7 +959,7 @@ def Kernel.pbShowCommandsLB(msgwindow,commands=nil,cmdIfCancel=0,defaultCmd=0)
           break
         end
       end
-      if Input.trigger?(Input::C) || Input.triggerex?(Input::LeftMouseKey)
+      if Input.trigger?(Input::C)
         command=cmdwindow.index
         break
       end
@@ -1638,8 +1638,7 @@ def Kernel.pbMessageDisplay(msgwindow,message,letterbyletter=true,commandProc=ni
       msgwindow.resume if msgwindow.busy?
       break if !msgwindow.busy?
     end
-    if (Input.trigger?(Input::C) || Input.trigger?(Input::B) || 
-        Input.triggerex?(Input::LeftMouseKey) || Input.triggerex?(Input::RightMouseKey))
+    if (Input.trigger?(Input::C) || Input.trigger?(Input::B))
       if msgwindow.busy?
         pbPlayDecisionSE() if msgwindow.pausing?
         msgwindow.resume

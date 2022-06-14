@@ -1239,11 +1239,11 @@ class PurifyChamberScene
            pbPlayCursorSE()
            return [1,nextset]
          end
-         if Input.trigger?(Input::C) || Input.triggerex?(Input::LeftMouseKey)
+         if Input.trigger?(Input::C)
            pbPlayDecisionSE()
            return [0,@sprites["setview"].cursor]
          end
-         if Input.trigger?(Input::B) || Input.triggerex?(Input::RightMouseKey)
+         if Input.trigger?(Input::B)
            pbPlayCancelSE()
            return [3,0]
          end
@@ -1260,11 +1260,11 @@ class PurifyChamberScene
            @sprites["setview"].set=oldindex
          end
          Graphics.update; Input.update; pbUpdate
-         if Input.trigger?(Input::C) || Input.triggerex?(Input::LeftMouseKey)
+         if Input.trigger?(Input::C)
            pbPlayDecisionSE()
            return @sprites["setwindow"].index
          end
-         if Input.trigger?(Input::B) || Input.triggerex?(Input::RightMouseKey)
+         if Input.trigger?(Input::B)
            pbPlayCancelSE()
            return -1
          end

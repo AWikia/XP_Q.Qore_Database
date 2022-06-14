@@ -1371,12 +1371,12 @@ def drawPageFive(pokemon)
       Graphics.update
       Input.update
       pbUpdate
-      if Input.trigger?(Input::B) || Input.triggerex?(Input::RightMouseKey)
+      if Input.trigger?(Input::B)
         pbPlayCancelSE()
         ret=4
         break
       end
-      if Input.trigger?(Input::C) || Input.triggerex?(Input::LeftMouseKey)
+      if Input.trigger?(Input::C)
         pbPlayDecisionSE()
         break
       end
@@ -1422,13 +1422,13 @@ def drawPageFive(pokemon)
       else
         @sprites["movepresel"].z=@sprites["movesel"].z
       end
-      if Input.trigger?(Input::B) || Input.triggerex?(Input::RightMouseKey)
+      if Input.trigger?(Input::B)
         pbPlayCancelSE()
         break if !switching
         @sprites["movepresel"].visible=false
         switching=false
       end
-      if Input.trigger?(Input::C) || Input.triggerex?(Input::LeftMouseKey)
+      if Input.trigger?(Input::C)
         pbPlayDecisionSE()
         if selmove==4
           break if !switching
@@ -1579,16 +1579,16 @@ def drawPageFive(pokemon)
       Graphics.update
       Input.update
       pbUpdate
-      if Input.trigger?(Input::A) || Input.triggerex?(Input::CenterMouseKey)
+      if Input.trigger?(Input::A)
         pbSEStop
         pbPlayCry(@pokemon)
       end
-      if Input.trigger?(Input::B) || Input.triggerex?(Input::RightMouseKey)
+      if Input.trigger?(Input::B)
         pbPlayCancelSE()
         break
       end
       dorefresh=false
-      if Input.trigger?(Input::C) || Input.triggerex?(Input::LeftMouseKey)
+      if Input.trigger?(Input::C)
         if @page==0
           pbPlayCancelSE()
           break

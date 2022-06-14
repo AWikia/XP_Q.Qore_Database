@@ -15,12 +15,12 @@ class PokemonMenu_Scene
       Graphics.update
       Input.update
       pbUpdateSceneMap
-      if Input.trigger?(Input::B) || Input.triggerex?(Input::RightMouseKey)
+      if Input.trigger?(Input::B)
         pbPlayCancelSE()
         ret=-1
         break
       end
-      if Input.trigger?(Input::C) || Input.triggerex?(Input::LeftMouseKey)
+      if Input.trigger?(Input::C)
         pbPlayDecisionSE()
         ret=cmdwindow.index
         $PokemonTemp.menuLastChoice=ret

@@ -1,3 +1,12 @@
+module AboutClipboard
+  def pbcopy(input)
+   str = input.to_s
+   IO.popen('clip', 'w') { |f| f << str }
+   str
+  end
+
+end
+
 class PokemonAboutScreenScene
   def update
     pbUpdateSpriteHash(@sprites)
@@ -55,6 +64,14 @@ class PokemonAboutScreenScene
       if Input.trigger?(Input::B)
         pbPlayCancelSE()
         break
+      end
+      if Input.press?(Input::CTRL) && Input.press?(Input::C)
+        clip =  _INTL("Qora Qore " + RTP2.getGameIniValue("Qortex", "Channel"))
+        clip += _INTL("\nVersion " + RTP2.getGameIniValue("Qortex", "Release") + " (" + RTP2.getGameIniValue("Qortex", "Version") + " Release)")
+        clip += _INTL("\nThe Qora Qore project begun in December 2013 and it is now a community-oriented project as a service.")
+        clip += _INTL("\nWork is based upon the " + RTP2.getGameIniValue("Qortex", "Semester") + " codebase.")
+        AboutClipboard.pbcopy(clip)
+        Kernel.pbMessage("Copied About Screen Contents to the clipboard")
       end
     end 
   end

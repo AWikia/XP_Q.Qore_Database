@@ -990,7 +990,7 @@ There are different modes:
              setScreenBorderName($BORDERS[$PokemonSystem.bordergraphic]) # Accented Border
            },
            getAccentNames,
-          "Sets the color of all accent-aware elements. Thirty-Two Colors exist in where Twenty-Four are normal and Eight are Special. Blue is the default color."
+          "Sets the color of all accent-aware elements. Forty-Eight options exist. More than one color may be used to constuct an accent color. Blue is the default color."
          ),
          NumberOption.new(_INTL("Pokémon Type Icon Style"),1,5,
            proc { $PokemonSystem.colortige },

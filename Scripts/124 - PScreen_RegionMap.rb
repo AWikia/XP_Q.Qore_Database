@@ -69,8 +69,8 @@ class MapBottomSprite < SpriteWrapper
 
     textpos=[
        [@mapname,18,-2,0,Color.new(248,248,248),Color.new(0,0,0)],
-       [@maplocation,18,354,0,Color.new(20,20,20)],
-       [@mapdetails,Graphics.width-16,354,1,Color.new(20,20,20)]
+       [@maplocation,18,354,0,color],
+       [@mapdetails,Graphics.width-16,354,1,color]
     ]
     if @nonests
       textpos.push([_INTL("Area Unknown"),Graphics.width/2,Graphics.height/2-16,2,

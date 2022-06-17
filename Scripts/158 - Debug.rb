@@ -237,8 +237,14 @@ def pbDebugMenu(fromgame=true)
   viewport=Viewport.new(0,0,Graphics.width,Graphics.height)
   viewport.z=99999
   sprites={}
-    sprites["title"]=Window_UnformattedTextPokemon.newWithSize(
-       _INTL("Debug Mode"),0,0,Graphics.width,64,viewport)
+      addBackgroundOrColoredPlane(sprites,"title",getDarkModeFolder+"/settingsbg",
+         Color.new(0,0,0),viewport)
+    title="Debug Mode"    
+    sprites["header"]=Window_UnformattedTextPokemon.newWithSize(_INTL(title),
+       2,-18,576,64,viewport)      
+    sprites["header"].baseColor=(isDarkMode?) ? Color.new(248,248,248) : Color.new(0,0,0)
+    sprites["header"].shadowColor=(!isDarkMode?) ? Color.new(248,248,248) : Color.new(0,0,0)
+    sprites["header"].windowskin=nil
   commands=CommandList.new
   commands.add("corendo",_INTL("Game ROM Memory Check")) # For Compatibility with Corendo
   commands.add("corendo2",_INTL("Control Configuration Check")) # For Compatibility with Corendo
@@ -300,9 +306,9 @@ def pbDebugMenu(fromgame=true)
   cmdwindow.viewport=viewport
   cmdwindow.resizeToFit(cmdwindow.commands)
   cmdwindow.width=Graphics.width
-  cmdwindow.height=Graphics.height - sprites["title"].height if cmdwindow.height>(Graphics.height - sprites["title"].height)
+  cmdwindow.height=Graphics.height - 32 if cmdwindow.height>(Graphics.height - 32)
   cmdwindow.x=0
-  cmdwindow.y=sprites["title"].height
+  cmdwindow.y=32
   cmdwindow.visible=true
   pbFadeInAndShow(sprites)
   ret=-1
@@ -986,9 +992,17 @@ def pbDebugScreen(mode)
   viewport=Viewport.new(0,0,Graphics.width,Graphics.height)
   viewport.z=99999
   sprites={}
-    sprites["title"]=Window_UnformattedTextPokemon.newWithSize(
-       _INTL(["Switches", "Variables"][mode]),0,0,Graphics.width,64,viewport)
-  sprites["right_window"] = SpriteWindow_DebugRight.new(sprites["title"].height) 
+      addBackgroundOrColoredPlane(sprites,"title",getDarkModeFolder+"/settingsbg_"+["2","3"][mode],
+         Color.new(0,0,0),viewport)
+    title=["Switches", "Variables"][mode]    
+    sprites["header"]=Window_UnformattedTextPokemon.newWithSize(_INTL(title),
+       2,-18,576,64,viewport)      
+    sprites["header"].baseColor=(isDarkMode?) ? Color.new(248,248,248) : Color.new(0,0,0)
+    sprites["header"].shadowColor=(!isDarkMode?) ? Color.new(248,248,248) : Color.new(0,0,0)
+    sprites["header"].windowskin=nil
+
+    
+  sprites["right_window"] = SpriteWindow_DebugRight.new(32) 
   right_window=sprites["right_window"]
   right_window.mode=mode
   right_window.viewport=viewport

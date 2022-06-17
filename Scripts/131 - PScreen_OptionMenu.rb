@@ -10,8 +10,15 @@ def pbOptionSecMenu
   end
   # Dark Mode End
   commands=CommandList.new
-    @sprites["title"]=Window_UnformattedTextPokemon.newWithSize(
-       _INTL("Settings"),0,0,Graphics.width,64,viewport)
+      addBackgroundOrColoredPlane(@sprites,"title",getDarkModeFolder+"/settingsbg",
+         Color.new(0,0,0),viewport)
+    title="Settings"    
+    @sprites["header"]=Window_UnformattedTextPokemon.newWithSize(_INTL(title),
+       2,-18,576,64,viewport)      
+    @sprites["header"].baseColor=(isDarkMode?) ? Color.new(248,248,248) : Color.new(0,0,0)
+    @sprites["header"].shadowColor=(!isDarkMode?) ? Color.new(248,248,248) : Color.new(0,0,0)
+    @sprites["header"].windowskin=nil
+
     @sprites["textbox"]=Kernel.pbCreateMessageWindow
     @sprites["textbox"].text=_INTL("Use the arrow keys to navigate to the menu. Press C or Space to open the selected settings page")
     @sprites["textbox"].letterbyletter=false
@@ -25,9 +32,9 @@ def pbOptionSecMenu
   cmdwindow.viewport=viewport
   cmdwindow.resizeToFit(cmdwindow.commands)
   cmdwindow.width=Graphics.width
-  cmdwindow.height=Graphics.height-@sprites["title"].height-@sprites["textbox"].height
+  cmdwindow.height=Graphics.height-32-@sprites["textbox"].height
   cmdwindow.x=0
-  cmdwindow.y=@sprites["title"].height
+  cmdwindow.y=32
   cmdwindow.visible=true
   pbFadeInAndShow(@sprites)
   ret=-1
@@ -36,6 +43,7 @@ def pbOptionSecMenu
       cmdwindow.update
       Graphics.update
       Input.update
+      @sprites["header"].windowskin=nil if @sprites["header"].windowskin!=nil
       if Input.trigger?(Input::B)
         pbPlayCancelSE()
         ret=-1

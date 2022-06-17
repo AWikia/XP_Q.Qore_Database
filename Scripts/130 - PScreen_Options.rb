@@ -801,8 +801,14 @@ There are different modes:
     title=["General Settings", "Sound Settings", "Battle Settings", "Display Settings"]
     @viewport=Viewport.new(0,0,Graphics.width,Graphics.height)
     @viewport.z=99999
-    @sprites["title"]=Window_UnformattedTextPokemon.newWithSize(
-       title[mode],0,0,Graphics.width,64,@viewport)
+      addBackgroundOrColoredPlane(@sprites,"title",getDarkModeFolder+"/settingsbg_1",
+         Color.new(0,0,0),@viewport)
+    @sprites["header"]=Window_UnformattedTextPokemon.newWithSize(_INTL(title[mode]),
+       2,-18,576,64,@viewport)      
+    @sprites["header"].baseColor=(isDarkMode?) ? Color.new(248,248,248) : Color.new(0,0,0)
+    @sprites["header"].shadowColor=(!isDarkMode?) ? Color.new(248,248,248) : Color.new(0,0,0)
+    @sprites["header"].windowskin=nil
+    
     @sprites["textbox"]=Kernel.pbCreateMessageWindow
     @sprites["textbox"].letterbyletter=false
     # These are the different options in the game.  To add an option, define a
@@ -978,6 +984,7 @@ There are different modes:
               $PokemonSystem.textskin=value
               MessageConfig.pbSetSpeechFrame("Graphics/Windowskins/"+getDarkModeFolder+"/"+$SpeechFrames[value])
               MessageConfig.pbSetSystemFrame("Graphics/Windowskins/"+getDarkModeFolder+"/"+$TextFrames[value])
+              @sprites["header"].windowskin=nil
            },
            $SpeechFramesNames,
           "Sets the windowskin graphics to be used in the game."
@@ -1049,8 +1056,8 @@ There are different modes:
     end
     @PokemonOptions=pbAddOnOptions(@PokemonOptions)
     @sprites["option"]=Window_PokemonOption.new(@PokemonOptions,0,
-       @sprites["title"].height,Graphics.width,
-       Graphics.height-@sprites["title"].height-@sprites["textbox"].height)
+       32,Graphics.width,
+       Graphics.height-32-@sprites["textbox"].height)
     @sprites["option"].viewport=@viewport
     @sprites["option"].visible=true
     # Get the values of each option
@@ -1091,7 +1098,6 @@ There are different modes:
              oldTextSkin = $PokemonSystem.textskin
            end
            if $PokemonSystem.frame!=oldSystemSkin
-             @sprites["title"].setSkin(MessageConfig.pbGetSystemFrame())
              @sprites["option"].setSkin(MessageConfig.pbGetSystemFrame())
              oldSystemSkin = $PokemonSystem.frame
            end
@@ -1102,7 +1108,8 @@ There are different modes:
               MessageConfig.pbSetSpeechFrame("Graphics/Windowskins/"+getDarkModeFolder+"/"+$SpeechFrames[$PokemonSystem.textskin])
               MessageConfig.pbSetSystemFrame("Graphics/Windowskins/"+getDarkModeFolder+"/"+$TextFrames[$PokemonSystem.textskin])
              @sprites["textbox"].setSkin(MessageConfig.pbGetSpeechFrame())
-              oldmode = isDarkMode?
+             @sprites["textbox"].width = @sprites["textbox"].width  # Necessary evil
+             oldmode = isDarkMode?
           end
 =begin
            if $PokemonSystem.font!=oldFont
@@ -1111,6 +1118,7 @@ There are different modes:
            end
 =end
          end
+        @sprites["header"].windowskin=nil if @sprites["header"].windowskin!=nil
          if Input.trigger?(Input::B)
            break
          elsif (Input.trigger?(Input::C)) && 

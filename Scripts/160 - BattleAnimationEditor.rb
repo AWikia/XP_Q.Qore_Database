@@ -2556,7 +2556,7 @@ def pbTweening(canvas)
     Graphics.update
     Input.update
     sliderwin2.update
-    if sliderwin2.changed?(okbutton) || Input.trigger?(Input::C)
+    if sliderwin2.changed?(okbutton) || (Input.trigger?(Input::C) && !Input.triggerex?(Input::LeftMouseKey))
       startframe=sliderwin2.value(s1set0)-1
       endframe=sliderwin2.value(s1set1)-1
       break if startframe>=endframe
@@ -2648,7 +2648,7 @@ def pbCellBatch(canvas)
     Input.update
     sliderwin1.update
     sliderwin2.update
-    if sliderwin2.changed?(okbutton) || Input.trigger?(Input::C)
+    if sliderwin2.changed?(okbutton) || (Input.trigger?(Input::C) && !Input.triggerex?(Input::LeftMouseKey))
       startframe=sliderwin1.value(s1set0)-1
       endframe=sliderwin1.value(s1set1)-1
       startcel=sliderwin1.value(s1set2)

@@ -304,7 +304,7 @@ HourlyTones2=[ # Linear
 # tone for the current time of day.
   def self.getTone()
     @cachedTone=Tone.new(0,0,0) if !@cachedTone
-    return @cachedTone if !ENABLESHADING
+    return @cachedTone if ($PokemonSystem.enableshading==0 rescue false)
     if !@dayNightToneLastUpdate || @dayNightToneLastUpdate!=Graphics.frame_count       
       getToneInternal()
       @dayNightToneLastUpdate=Graphics.frame_count
@@ -364,12 +364,12 @@ def pbDayNightTint(object)
   if !$scene.is_a?(Scene_Map)
     return
   else
-    if ENABLESHADING && $game_map && pbGetMetadata($game_map.map_id,MetadataOutdoor) # Outdoor maps with ENABLESHADING
+    if ($PokemonSystem.enableshading==1 rescue false) && $game_map && pbGetMetadata($game_map.map_id,MetadataOutdoor) # Outdoor maps with Outdoor Map Shading setting set to "On"
       tone=PBDayNight.getTone()
       object.tone.set(tone.red,tone.green,tone.blue,tone.gray)
     elsif $game_map && darkmaps.include?($game_map.map_id) # Pseudo-dark maps
       object.tone.set(-110,-114,-118,60)  # In order to avoid glitches
-    else # Non outdoor maps or disabled ENABLESHADING
+    else # Non outdoor maps or Outdoor Map Shading setting set to "Off"
       object.tone.set(0,0,0,0)  
     end
   end  

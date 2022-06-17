@@ -554,6 +554,7 @@ class PokemonSystem
   attr_accessor :darkmodestart
   attr_accessor :darkmodeend
   attr_accessor :threecolorbar
+  attr_accessor :enableshading
   
   def initialize
     @textspeed        = 2   # Frames Per Second (0=24, 1=30, 2=40, 3=50)
@@ -592,6 +593,7 @@ class PokemonSystem
     @darkmodestart    = 19  # Scheduled Dark Mode Start
     @darkmodeend      = 7   # Scheduled Dark Mode End
     @threecolorbar    = 0   # Three Color Progress Bar
+    @enableshading    = 0   # Outdoor Map Shading
 end
   
   def language
@@ -710,6 +712,10 @@ end
   
   def threecolorbar
     return (!@threecolorbar) ? 0 : @threecolorbar
+  end    
+
+  def enableshading
+    return (!@enableshading) ? 1 : @enableshading
   end    
 
   
@@ -950,6 +956,11 @@ There are different modes:
           ["Classic Tint", "Linear Tint", "Lunar Tint", "Cubic Tint"],
            "Sets the styling of Day/Night tinting. 0 is Classic, 1 is Linear, 2 is Lunar (Default) and 3 is Cubic. Tintings come from Essentials 17."
           ),
+         EnumOption.new(_INTL("Outdoor Map Shading"),[_INTL("Off"),_INTL("On")],
+          proc { $PokemonSystem.enableshading },
+          proc {|value| $PokemonSystem.enableshading = value },
+          "When set to on, all outdoor maps will be tinted according to the time of day. Disabling this will neither affect the darkening on pseudo-dark maps nor the Auto Dark Mode."
+         ),
          EnumOption.new(_INTL("Screen Border"),[_INTL("Off"),_INTL("On")],
             proc { $PokemonSystem.border },
             proc {|value|

@@ -1788,7 +1788,7 @@ class PokeBattle_Scene
     end
     # Choose time of day
     time=""
-    if ENABLESHADING
+    if ($PokemonSystem.enableshading==1 rescue false) && $PokemonSystem
       trialname=""
       timenow=pbGetTimeNow
       if PBDayNight.isNight?(timenow)

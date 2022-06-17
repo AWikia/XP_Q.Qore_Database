@@ -79,7 +79,7 @@ INFINITETMS           = true
 #===============================================================================
 # * Whether outdoor maps should be shaded according to the time of day.
 #===============================================================================
-ENABLESHADING = true
+ENABLESHADING = true # DEPRECATED - DO NOT CHANGE
 
 #===============================================================================
 # * Pairs of map IDs, where the location signpost isn't shown when moving from

@@ -25,7 +25,8 @@ def pbOptionSecMenu
   commands.add("general",_INTL("General Settings")) # For settings that do not fit in the below categories
   commands.add("sound",_INTL("Sound Settings")) # For settings which affect Music and Sound
   commands.add("battle",_INTL("Battle Settings")) # For settings which affect Battle or Pokemon Battlers
-  commands.add("display",_INTL("Display Settings")) # For settings which affect Graphic and Screen Display
+  commands.add("display",_INTL("Display Settings")) # For settings which affect Screen Display
+  commands.add("personalization",_INTL("Personalization Settings")) # For settings which affect Graphic
 
   @sprites["cmdwindow"]=Window_CommandPokemonEx.new(commands.list)
   cmdwindow=@sprites["cmdwindow"]
@@ -83,6 +84,13 @@ def pbOptionSecMenu
       screen=PokemonOption.new(scene)
       pbFadeOutIn(99999) {
         screen.pbStartScreen(false,3)
+        pbUpdateSceneMap
+      }
+    elsif cmd=="personalization"
+      scene=PokemonOptionScene.new
+      screen=PokemonOption.new(scene)
+      pbFadeOutIn(99999) {
+        screen.pbStartScreen(false,4)
         pbUpdateSceneMap
       }
     end

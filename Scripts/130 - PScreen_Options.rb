@@ -798,7 +798,7 @@ There are different modes:
 
  def pbStartScene(inloadscreen=false,mode=0)
     @sprites={}
-    title=["General Settings", "Sound Settings", "Battle Settings", "Display Settings"]
+    title=["General Settings", "Sound Settings", "Battle Settings", "Display Settings","Personalization Settings"]
     @viewport=Viewport.new(0,0,Graphics.width,Graphics.height)
     @viewport.z=99999
       addBackgroundOrColoredPlane(@sprites,"title",getDarkModeFolder+"/settingsbg_1",
@@ -820,12 +820,6 @@ There are different modes:
     @PokemonOptions=[]
     if mode==0
       @PokemonOptions+=[
-        NumberOption.new(_INTL("Night Style"),1,4,
-          proc { $PokemonSystem.night },
-          proc {|value| $PokemonSystem.night = value },
-          ["Classic Tint", "Linear Tint", "Lunar Tint", "Cubic Tint"],
-           "Sets the styling of Day/Night tinting. 0 is Classic, 1 is Linear, 2 is Lunar (Default) and 3 is Cubic. Tintings come from Essentials 17."
-          ),
         EnumOption.new(_INTL("Debug Mode (Requires Restart)"),[_INTL("Off"),_INTL("On")],
            proc { $PokemonSystem.debugmode },
            proc {|value|
@@ -950,6 +944,53 @@ There are different modes:
     end
     if mode==3
       @PokemonOptions+=[
+        NumberOption.new(_INTL("Night Style"),1,4,
+          proc { $PokemonSystem.night },
+          proc {|value| $PokemonSystem.night = value },
+          ["Classic Tint", "Linear Tint", "Lunar Tint", "Cubic Tint"],
+           "Sets the styling of Day/Night tinting. 0 is Classic, 1 is Linear, 2 is Lunar (Default) and 3 is Cubic. Tintings come from Essentials 17."
+          ),
+         EnumOption.new(_INTL("Screen Border"),[_INTL("Off"),_INTL("On")],
+            proc { $PokemonSystem.border },
+            proc {|value|
+                oldvalue=$PokemonSystem.border
+                $PokemonSystem.border=value
+                if value!=oldvalue
+                  pbSetResizeFactor($PokemonSystem.screensize)
+                  ObjectSpace.each_object(TilemapLoader){|o| next if o.disposed?; o.updateClass }
+                end
+            },
+           "When set to on, it shows a decorative border"
+          ),
+         NumberOption.new(_INTL("Screen Size"),1,5,
+            proc { $PokemonSystem.screensize },
+            proc {|value|
+               oldvalue=$PokemonSystem.screensize
+               $PokemonSystem.screensize=value
+               if value!=oldvalue
+                 pbSetResizeFactor($PokemonSystem.screensize)
+                 ObjectSpace.each_object(TilemapLoader){|o| next if o.disposed?; o.updateClass }
+               end
+            },
+            ["Normal", "Large", "Xtra Large", "Xtra² Large", "Full-Screen"],
+            "Sets screen size. Choice between 4 sizes and Full Screen (The fifth size)"
+         ),
+         EnumOption.new(_INTL("Full Screen Border Crop"),[_INTL("Off"),_INTL("On")],
+            proc { $PokemonSystem.bordercrop },
+            proc {|value|
+              oldvalue=$PokemonSystem.bordercrop
+              $PokemonSystem.bordercrop=value
+              if value!=oldvalue
+                pbSetResizeFactor($PokemonSystem.screensize)
+                ObjectSpace.each_object(TilemapLoader){|o| next if o.disposed?; o.updateClass }
+              end
+           },
+          "When set to on, border will be cropped, enabling larger graphics on Full Screen mode with screen border enabled"
+         )
+      ]
+    end
+    if mode==4
+      @PokemonOptions+=[
         EnumOption.new(_INTL("System Theme"),[_INTL("Light"),_INTL("Dark"),_INTL("Auto"),_INTL("Custom")],
            proc { $PokemonSystem.darkmode },
            proc {|value|
@@ -1004,43 +1045,6 @@ There are different modes:
            proc {|value| $PokemonSystem.colortige = value },
            ["Colored Text", "Light Text", "Dark Text", "Minimal", "Retro"],
            "Sets style of All Icon graphics"
-         ),
-         EnumOption.new(_INTL("Screen Border"),[_INTL("Off"),_INTL("On")],
-            proc { $PokemonSystem.border },
-            proc {|value|
-                oldvalue=$PokemonSystem.border
-                $PokemonSystem.border=value
-                if value!=oldvalue
-                  pbSetResizeFactor($PokemonSystem.screensize)
-                  ObjectSpace.each_object(TilemapLoader){|o| next if o.disposed?; o.updateClass }
-                end
-            },
-           "When set to on, it shows a decorative border"
-          ),
-         NumberOption.new(_INTL("Screen Size"),1,5,
-            proc { $PokemonSystem.screensize },
-            proc {|value|
-               oldvalue=$PokemonSystem.screensize
-               $PokemonSystem.screensize=value
-               if value!=oldvalue
-                 pbSetResizeFactor($PokemonSystem.screensize)
-                 ObjectSpace.each_object(TilemapLoader){|o| next if o.disposed?; o.updateClass }
-               end
-            },
-            ["Normal", "Large", "Xtra Large", "Xtra² Large", "Full-Screen"],
-            "Sets screen size. Choice between 4 sizes and Full Screen (The fifth size)"
-         ),
-         EnumOption.new(_INTL("Full Screen Border Crop"),[_INTL("Off"),_INTL("On")],
-            proc { $PokemonSystem.bordercrop },
-            proc {|value|
-              oldvalue=$PokemonSystem.bordercrop
-              $PokemonSystem.bordercrop=value
-              if value!=oldvalue
-                pbSetResizeFactor($PokemonSystem.screensize)
-                ObjectSpace.each_object(TilemapLoader){|o| next if o.disposed?; o.updateClass }
-              end
-           },
-          "When set to on, border will be cropped, enabling larger graphics on Full Screen mode with screen border enabled"
          ),
          NumberOption.new(_INTL("Screen Border Graphic"),1,$BORDERS.length,
             proc { $PokemonSystem.bordergraphic },

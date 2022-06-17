@@ -1,7 +1,7 @@
 class MapBottomSprite < SpriteWrapper
   attr_reader :mapname,:maplocation
 
-  def initialize(viewport=nil)
+  def initialize(viewport=nil,frommap=false)
     super(viewport)
     @mapname=""
     @maplocation=""
@@ -12,6 +12,7 @@ class MapBottomSprite < SpriteWrapper
     self.y=0
     self.x=0
     self.bitmap=@thisbitmap
+    @frommap=frommap
     refresh
   end
 
@@ -66,12 +67,22 @@ class MapBottomSprite < SpriteWrapper
       color=Color.new(248,248,248)
     end
 
-
     textpos=[
-       [@mapname,18,-2,0,Color.new(248,248,248),Color.new(0,0,0)],
-       [@maplocation,18,354,0,color],
-       [@mapdetails,Graphics.width-16,354,1,color]
+       [@mapname,18,-2,0,Color.new(248,248,248),Color.new(0,0,0)]
     ]
+
+    
+    if @frommap
+      textpos+=[
+         [@maplocation,18,354,0,color],
+         [@mapdetails,Graphics.width-16,354,1,color]
+      ]
+    else
+      textpos+=[
+         [@maplocation,18,354,0,Color.new(248,248,248),Color.new(0,0,0)],
+         [@mapdetails,Graphics.width-16,354,1,Color.new(248,248,248),Color.new(0,0,0)]
+      ]
+    end
     if @nonests
       textpos.push([_INTL("Area Unknown"),Graphics.width/2,Graphics.height/2-16,2,
          color]) # 204,132,0

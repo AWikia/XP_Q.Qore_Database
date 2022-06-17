@@ -150,7 +150,7 @@ class PokemonNestMapScene
       end
     end
     @numpoints=i
-    @sprites["mapbottom"]=MapBottomSprite.new(@viewport)
+    @sprites["mapbottom"]=MapBottomSprite.new(@viewport,true)
     @sprites["mapbottom"].maplocation=pbGetMessage(MessageTypes::RegionNames,region)
     @sprites["mapbottom"].mapdetails=_INTL("{1}'s nest",PBSpecies.getName(species))
     if points.length==0

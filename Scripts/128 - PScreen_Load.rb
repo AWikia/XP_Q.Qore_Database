@@ -499,16 +499,11 @@ class PokemonLoad
            trainer=pbDownloadMysteryGift(trainer)
         }
       elsif cmdQQSR>=0 && command==cmdQQSR
-        @QQSR="\\l[9]"
-        @QQSR+="Windows Operating System: 7 (8.1 recommended)"
-        @QQSR+="\\nRAM: 1GB (2GB recommended)"
-        @QQSR+="\\nProcessor: 1GHz (1.5GHz recommened)"
-        @QQSR+="\\nColor Depth: High Color (True color recommended)"
-        @QQSR+="\\nHDD: 4GB (8GB recommended)"
-        @QQSR+="\\nAdditional Info: Wide-Gamut Displays are unsuitable since the app is not color managed and will display distorted colors."
-        @QQSR+=" High DPI Displays will work but will display them a bit blurry. "
-        @QQSR="Refer to ΚΟΡΑ ΚΟΡΕ Information in VR Corendo for the neccessary settings you need to have for the best experience" if $CORENDO
-        Kernel.pbMessage(@QQSR)
+        scene=PokemonSysReqScreenScene.new
+        screen=PokemonSysReqScreen.new(scene)
+        pbFadeOutIn(99999) { 
+           screen.pbStartScreen
+        }
       elsif cmdOption>=0 && command==cmdOption
         pbFadeOutIn(99999) { 
           pbOptionSecMenu           

@@ -305,7 +305,10 @@ end
   "Skin20",
   # Other
   "Skin21",
-  "Skin22"
+  "Skin22",
+  "Skin23",
+  "Skin24",
+  "Skin25"
 ]
 # 2 more colors
 =begin
@@ -412,7 +415,10 @@ $TextFrames=[
   "Choice20",
   # Other
   "Skin21",
-  "Skin22"
+  "Skin22",
+  "Skin23",
+  "Skin24",
+  "Skin25"
 ]
 
   $SpeechFramesNames=[
@@ -444,7 +450,10 @@ $TextFrames=[
   "Poké Ball",
   # Other
   "RPG Maker XP",
-  "RPG Maker VX"
+  "RPG Maker VX",
+  "RGP Maker VX Ace",
+  "RPG Maker MV",
+  "RPG Maker MZ"
 ]
 
 

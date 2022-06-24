@@ -233,6 +233,8 @@ end
 Events.onStepTaken+=proc {|sender,e|
    next if !$Trainer
    for egg in $Trainer.party
+     marmor = false
+     crack = false
      if egg.eggsteps>0
        egg.eggsteps-=1 if !egg.isRB? # This is handled elsewhere for remote boxes
        for i in $Trainer.pokemonParty
@@ -260,8 +262,8 @@ Events.onStepTaken+=proc {|sender,e|
              egg.eggsteps-=[rand(4),rand(4)].min 
            end
            if isConst?(i.ability,PBAbilities,:NERVOUSCRACK)
-             egg.eggsteps-=[rand(100),rand(100)].min 
-             break
+             egg.eggsteps-=[rand(100),rand(100)].min if !crack
+             crack = true
            end
            if isConst?(i.ability,PBAbilities,:SIAXIS)
              egg.eggsteps-=1
@@ -269,8 +271,8 @@ Events.onStepTaken+=proc {|sender,e|
            if isConst?(i.ability,PBAbilities,:FLAMEBODY) ||
               isConst?(i.ability,PBAbilities,:MAGMAARMOR) ||
               isConst?(i.ability,PBAbilities,:STEAMENGINE)
-             egg.eggsteps-=1
-  #           break
+             egg.eggsteps-=1 if !marmor
+             marmor = true
            end
          end
        end

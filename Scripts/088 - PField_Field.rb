@@ -2812,7 +2812,7 @@ module InterpreterFieldMixin
     end
     trtype=PBTrainers.const_get(symbol)
     pbGlobalLock
-#    Kernel.pbPlayTrainerIntroME(trtype)
+    Kernel.pbPlayTrainerIntroME(trtype)
     return true
   end
 

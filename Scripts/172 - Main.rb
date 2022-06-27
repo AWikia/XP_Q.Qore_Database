@@ -59,7 +59,9 @@ def getBorders # Edit this along with getBorderNames to add more borders
         ['border_3','border_3_beta','border_3_dev','border_3_canary'][QQORECHANNEL],
         getAccentFolder+"/border_4",
         getDarkModeFolder+"/border_5",
-        getDarkModeFolder+"/border_6"
+        getDarkModeFolder+"/border_6",
+        "border_7",
+        getDarkModeFolder+"/border_8"
       ]
 end
 
@@ -71,7 +73,9 @@ def getBorderNames # Edit this along with getBorders to add more borders
         "Channel-Aware",
         "Accent-Aware",
         "Green Theme-Aware",
-        "Purple Theme-Aware"
+        "Purple Theme-Aware",
+        "Pride",
+        "Old Script"
       ]
 end
 

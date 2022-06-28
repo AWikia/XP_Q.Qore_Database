@@ -499,24 +499,11 @@ class PokemonLoad
            trainer=pbDownloadMysteryGift(trainer)
         }
       elsif cmdQQSR>=0 && command==cmdQQSR
-        if Input.press?(Input::SHIFT)
-          @QQSR="\\l[9]"
-          @QQSR+="Windows Operating System: 7 (8.1 recommended)"
-          @QQSR+="\\nRAM: 1GB (2GB recommended)"
-          @QQSR+="\\nProcessor: 1GHz (2.7GHz recommened)"
-          @QQSR+="\\nColor Depth: High Color (True color recommended)"
-          @QQSR+="\\nHDD: 2GB (4GB recommended)"
-          @QQSR+="\\nAdditional Info: Wide-Gamut Displays are unsuitable since the app is not color managed and will display distorted colors."
-          @QQSR+=" High DPI Displays will work but will display them a bit blurry. "
-          @QQSR="Refer to ΚΟΡΑ ΚΟΡΕ Information in VR Corendo for the neccessary settings you need to have for the best experience" if $CORENDO
-          Kernel.pbMessage(@QQSR)
-        else
-          scene=PokemonSysReqScreenScene.new
-          screen=PokemonSysReqScreen.new(scene)
-          pbFadeOutIn(99999) { 
-             screen.pbStartScreen
-          }
-        end
+        scene=PokemonSysReqScreenScene.new
+        screen=PokemonSysReqScreen.new(scene)
+        pbFadeOutIn(99999) { 
+           screen.pbStartScreen
+        }
       elsif cmdOption>=0 && command==cmdOption
         pbFadeOutIn(99999) { 
           pbOptionSecMenu           
@@ -551,15 +538,11 @@ class PokemonLoad
         $scene=nil
         return
       elsif cmdAbout>=0 && command==cmdAbout
-        if Input.press?(Input::SHIFT)
-          qortexAbout
-        else
-          scene=PokemonAboutScreenScene.new
-          screen=PokemonAboutScreen.new(scene)
-          pbFadeOutIn(99999) { 
-             screen.pbStartScreen
-          }
-        end
+        scene=PokemonAboutScreenScene.new
+        screen=PokemonAboutScreen.new(scene)
+        pbFadeOutIn(99999) { 
+          screen.pbStartScreen
+        }
       end
     end
     @scene.pbEndScene

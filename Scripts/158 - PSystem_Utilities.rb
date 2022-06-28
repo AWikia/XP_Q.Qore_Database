@@ -166,8 +166,14 @@ def worksOnCorendo2(clients=[])
   end
 end
 
-# About Q.Qore (No effect anymore)
+# About Q.Qore (Classic Version)
 def qortexAbout
+  @QQSR="\\l[4]"
+  @QQSR+="Q.Qore Channel:" + RTP2.getGameIniValue("Qortex", "Channel")
+  @QQSR+="\\nQ.Qore Release:" + RTP2.getGameIniValue("Qortex", "Release")
+  @QQSR+="\\nQ.Qore Semester:" + RTP2.getGameIniValue("Qortex", "Semester")
+  @QQSR+="\\nQ.Qore Version:" + RTP2.getGameIniValue("Qortex", "Version") 
+  Kernel.pbMessage(@QQSR)
 end
 
 # Memorize

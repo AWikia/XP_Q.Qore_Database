@@ -310,12 +310,17 @@ class PokemonMenu
           pbShowMenu
         end
       elsif cmdAbout>=0 && command==cmdAbout
-        scene=PokemonAboutScreenScene.new
-        screen=PokemonAboutScreen.new(scene)
-        pbFadeOutIn(99999) { 
-           screen.pbStartScreen
-           @scene.pbRefresh
-        }
+        if Input.press?(Input::SHIFT)
+          qortexAbout
+          pbShowMenu
+        else
+          scene=PokemonAboutScreenScene.new
+          screen=PokemonAboutScreen.new(scene)
+          pbFadeOutIn(99999) { 
+             screen.pbStartScreen
+             @scene.pbRefresh
+          }
+        end
       else
         break
       end

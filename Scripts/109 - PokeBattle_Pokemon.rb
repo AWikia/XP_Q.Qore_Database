@@ -867,6 +867,15 @@ TooLowTemp = 5- for Cold Species or 10-
     return ret
   end
 
+# Returns this Pokémon's maximum egg steps
+  def maxsteps
+    dexdata=pbOpenDexData
+    pbDexDataOffset(dexdata,@species,21)
+    ret=dexdata.fgetw
+    dexdata.close
+    return ret
+  end
+ 
 # Returns the EV yield of this Pokémon.
   def evYield
     ret=[]

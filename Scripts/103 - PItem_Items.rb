@@ -152,6 +152,18 @@ def pbIsMulch?(item)
   return false
 end
 
+def pbIsUsableOnRB?(item)
+  potions=[:POTION,:SUPERPOTION,:HYPERPOTION,:MEGAPOTION,
+           :MAXPOTION,:FULLRESTORE,:CHERRYBOX,:ORANGEBOX,
+           :MELONBOX,:CHOCOLATEBOX,:BELLBOX,:ENERGYPOWDER,
+           :ENERGYROOT]
+  for i in potions
+    return true if isConst?(item,PBItems,i)
+  end
+  return false
+end
+
+
 def pbTopRightWindow(text)
   window=Window_AdvancedTextPokemon.new(text)
   window.z=99999
@@ -382,6 +394,7 @@ def pbConvertStats(pokemon,scene,item,nature,mints)
 end
 
 def pbItemRestoreHP(pokemon,restorehp)
+  return pbItemRestoreSteps if pokemon.isRB?
   newhp=pokemon.hp+restorehp
   newhp=pokemon.totalhp if newhp>pokemon.totalhp
   hpgain=newhp-pokemon.hp
@@ -389,8 +402,28 @@ def pbItemRestoreHP(pokemon,restorehp)
   return hpgain
 end
 
+
+def pbItemRestoreSteps(pokemon,restorehp)
+  newhp=pokemon.eggsteps+restorehp
+  newhp=pokemon.maxsteps if newhp>pokemon.maxsteps
+  hpgain=newhp-pokemon.eggsteps
+  pokemon.eggsteps=newhp
+  return hpgain
+end
+
+
 def pbHPItem(pokemon,restorehp,scene)
-  if pokemon.hp<=0 || pokemon.hp==pokemon.totalhp || pokemon.isEgg?
+  if pokemon.isRB? # Must go before the isEgg? check
+    if pokemon.eggsteps==pokemon.maxsteps
+      scene.pbDisplay(_INTL("It won't have any effect."))
+      return false
+    else
+      hpgain=pbItemRestoreSteps(pokemon,restorehp)
+      scene.pbRefresh
+      scene.pbDisplay(_INTL("Remote Box's battery was restored by {2} steps.",pokemon.name,hpgain))
+      return true
+    end
+  elsif pokemon.hp<=0 || pokemon.hp==pokemon.totalhp || pokemon.isEgg? # Pokemon
     scene.pbDisplay(_INTL("It won't have any effect."))
     return false
   else
@@ -626,7 +659,7 @@ def pbLearnMove(pokemon,move,ignoreifknown=false,bymachine=false,&block)
 end
 
 def pbCheckUseOnPokemon(item,pokemon,screen)
-  return pokemon && !pokemon.isEgg?
+  return pokemon && (!pokemon.isEgg? || (pokemon.isRB? && pbIsUsableOnRB?(item) ) )
 end
 
 def pbConsumeItemInBattle(bag,item)

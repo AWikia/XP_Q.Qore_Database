@@ -396,17 +396,23 @@ ItemHandlers::UseOnPokemon.add(:SUPERPOTION,proc{|item,pokemon,scene|
 })
 
 ItemHandlers::UseOnPokemon.add(:HYPERPOTION,proc{|item,pokemon,scene|
+   next pbHPItem(pokemon,120,scene)
+})
+
+ItemHandlers::UseOnPokemon.add(:MEGAPOTION,proc{|item,pokemon,scene|
    next pbHPItem(pokemon,200,scene)
 })
 
 ItemHandlers::UseOnPokemon.add(:MAXPOTION,proc{|item,pokemon,scene|
-   next pbHPItem(pokemon,pokemon.totalhp-pokemon.hp,scene)
+   hp = pokemon.isRB? ? pokemon.maxsteps - pokemon.eggsteps : pokemon.totalhp-pokemon.hp
+   next pbHPItem(pokemon,hp,scene)
 })
 
 ItemHandlers::UseOnPokemon.copy(:MAXPOTION,:MELONBOX)
 
 ItemHandlers::UseOnPokemon.add(:ORANGEBOX,proc{|item,pokemon,scene|
-   next pbHPItem(pokemon,(pokemon.totalhp/2).floor,scene)
+   hp = pokemon.isRB? ? pokemon.maxsteps : pokemon.totalhp
+   next pbHPItem(pokemon,(hp/2).floor,scene)
 })
 
 ItemHandlers::UseOnPokemon.add(:BERRYJUICE,proc{|item,pokemon,scene|
@@ -546,7 +552,17 @@ ItemHandlers::UseOnPokemon.copy(:FULLHEAL,
    :BIGMALASADA,:STRAWBERRYBOX,:PEWTERCRUNCHIES,:RAGECANDYBAR)
 
 ItemHandlers::UseOnPokemon.add(:FULLRESTORE,proc{|item,pokemon,scene|
-   if pokemon.hp<=0 || (pokemon.hp==pokemon.totalhp && pokemon.status==0)
+  if pokemon.isRB? # Done separately
+    if pokemon.eggsteps==pokemon.maxsteps
+      scene.pbDisplay(_INTL("It won't have any effect."))
+      return false
+    else
+      hpgain=pbItemRestoreSteps(pokemon,pokemon.maxsteps-pokemon.eggsteps)
+      scene.pbRefresh
+      scene.pbDisplay(_INTL("Remote Box's battery was restored by {2} steps.",pokemon.name,hpgain))
+      return true
+    end
+  elsif pokemon.hp<=0 || (pokemon.hp==pokemon.totalhp && pokemon.status==0)
      scene.pbDisplay(_INTL("It won't have any effect."))
      next false
    else
@@ -588,8 +604,11 @@ ItemHandlers::UseOnPokemon.add(:MAXREVIVE,proc{|item,pokemon,scene|
    end
 })
 
+ItemHandlers::UseOnPokemon.copy(:MAXREVIVE,:GALAXIANBOX)
+
+
 ItemHandlers::UseOnPokemon.add(:ENERGYPOWDER,proc{|item,pokemon,scene|
-   if pbHPItem(pokemon,50,scene)
+   if pbHPItem(pokemon,60,scene)
      pokemon.changeHappiness("powder")
      next true
    end
@@ -597,7 +616,7 @@ ItemHandlers::UseOnPokemon.add(:ENERGYPOWDER,proc{|item,pokemon,scene|
 })
 
 ItemHandlers::UseOnPokemon.add(:ENERGYROOT,proc{|item,pokemon,scene|
-   if pbHPItem(pokemon,200,scene)
+   if pbHPItem(pokemon,120,scene)
      pokemon.changeHappiness("Energy Root")
      next true
    end
@@ -1556,8 +1575,13 @@ ItemHandlers::BattleUseOnPokemon.add(:SUPERPOTION,proc{|item,pokemon,battler,sce
 })
 
 ItemHandlers::BattleUseOnPokemon.add(:HYPERPOTION,proc{|item,pokemon,battler,scene|
+   next pbBattleHPItem(pokemon,battler,120,scene)
+})
+
+ItemHandlers::BattleUseOnPokemon.add(:MEGAPOTION,proc{|item,pokemon,battler,scene|
    next pbBattleHPItem(pokemon,battler,200,scene)
 })
+
 
 ItemHandlers::BattleUseOnPokemon.add(:MAXPOTION,proc{|item,pokemon,battler,scene|
    next pbBattleHPItem(pokemon,battler,pokemon.totalhp-pokemon.hp,scene)
@@ -1772,8 +1796,11 @@ ItemHandlers::BattleUseOnPokemon.add(:MAXREVIVE,proc{|item,pokemon,battler,scene
    end
 })
 
+ItemHandlers::BattleUseOnPokemon.copy(:MAXREVIVE,:GALAXIANBOX)
+
+
 ItemHandlers::BattleUseOnPokemon.add(:ENERGYPOWDER,proc{|item,pokemon,battler,scene|
-   if pbBattleHPItem(pokemon,battler,50,scene)
+   if pbBattleHPItem(pokemon,battler,60,scene)
      pokemon.changeHappiness("powder")
      next true
    end
@@ -1781,7 +1808,7 @@ ItemHandlers::BattleUseOnPokemon.add(:ENERGYPOWDER,proc{|item,pokemon,battler,sc
 })
 
 ItemHandlers::BattleUseOnPokemon.add(:ENERGYROOT,proc{|item,pokemon,battler,scene|
-   if pbBattleHPItem(pokemon,battler,200,scene)
+   if pbBattleHPItem(pokemon,battler,120,scene)
      pokemon.changeHappiness("Energy Root")
      next true
    end

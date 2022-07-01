@@ -4839,6 +4839,7 @@ class PokeBattle_Battle
       if isConst?(i,PBItems,:POTION) || 
          isConst?(i,PBItems,:SUPERPOTION) || 
          isConst?(i,PBItems,:HYPERPOTION) || 
+         isConst?(i,PBItems,:MEGAPOTION) || 
          isConst?(i,PBItems,:MAXPOTION) ||
          isConst?(i,PBItems,:FULLRESTORE) ||
          isConst?(i,PBItems,:SWEETCANDY) ||
@@ -4858,6 +4859,7 @@ class PokeBattle_Battle
       elsif isConst?(i,PBItems,:POTION) || 
          isConst?(i,PBItems,:SUPERPOTION) || 
          isConst?(i,PBItems,:HYPERPOTION) || 
+         isConst?(i,PBItems,:MEGAPOTION) || 
          isConst?(i,PBItems,:MAXPOTION) ||
          isConst?(i,PBItems,:SWEETCANDY) ||
          isConst?(i,PBItems,:SOURCANDY) ||

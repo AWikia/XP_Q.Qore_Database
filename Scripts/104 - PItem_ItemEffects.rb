@@ -429,6 +429,33 @@ ItemHandlers::UseOnPokemon.add(:CHOCOLATEBOX,proc{|item,pokemon,scene|
    next pbHPItem(pokemon,120,scene)
 })
 
+ItemHandlers::UseOnPokemon.add(:BELLBOX,proc{|item,pokemon,scene|
+  if pokemon.isRB? && pokemon.eggsteps!=pokemon.maxsteps
+    hpgain=pbItemRestoreSteps(pokemon,pokemon.maxsteps/4)
+    scene.pbRefresh
+    scene.pbDisplay(_INTL("Remote Box's battery was restored by {2} steps.",pokemon.name,hpgain))
+    return true
+  else
+     scene.pbDisplay(_INTL("It won't have any effect."))
+     next false
+  end
+})
+
+
+ItemHandlers::UseOnPokemon.add(:KEYBOX,proc{|item,pokemon,scene|
+  if (pokemon.isEgg? && !pokemon.isRB?) && pokemon.eggsteps>1
+    reduce = (pokemon.maxsteps/2).ceil * -1
+    hpgain=pbItemRestoreSteps(pokemon,reduce)
+    scene.pbRefresh
+    scene.pbDisplay(_INTL("Egg's hatch steps have been reduced by {2}.",pokemon.name,hpgain*-1))
+    return true
+  else
+     scene.pbDisplay(_INTL("It won't have any effect."))
+     next false
+  end
+})
+
+
 =begin
 ItemHandlers::UseOnPokemon.add(:RAGECANDYBAR,proc{|item,pokemon,scene|
    next pbHPItem(pokemon,20,scene)

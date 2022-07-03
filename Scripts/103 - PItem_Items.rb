@@ -163,6 +163,15 @@ def pbIsUsableOnRB?(item)
   return false
 end
 
+def pbIsUsableOnEgg?(item)
+  potions=[:KEYBOX]
+  for i in potions
+    return true if isConst?(item,PBItems,i)
+  end
+  return false
+end
+
+
 
 def pbTopRightWindow(text)
   window=Window_AdvancedTextPokemon.new(text)
@@ -659,7 +668,10 @@ def pbLearnMove(pokemon,move,ignoreifknown=false,bymachine=false,&block)
 end
 
 def pbCheckUseOnPokemon(item,pokemon,screen)
-  return pokemon && (!pokemon.isEgg? || (pokemon.isRB? && pbIsUsableOnRB?(item) ) )
+  return false if !pokemon
+  return pbIsUsableOnRB?(item) if pokemon.isRB?       # Remote Boxes
+  return pbIsUsableOnEgg?(item) if pokemon.isEgg?     # Eggs
+  return true
 end
 
 def pbConsumeItemInBattle(bag,item)

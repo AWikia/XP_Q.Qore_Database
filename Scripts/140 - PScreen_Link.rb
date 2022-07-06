@@ -278,11 +278,17 @@ class Scene_LinkBattleScene
                 break
               else
                 if itemname == 'RB'
-                  if completedTechnicalDiscs
-                    pokemon = [PBSpecies::DITTO, PBSpecies::ROTOM][rand(2)]
-                  else
-                    pokemon = PBSpecies::DITTO
+                  species = [PBSpecies::DITTO,PBSpecies::BLUEGHOST]
+                  if $game_switches && $game_switches[67]
+                    species.push(PBSpecies::UNOWN)
                   end
+                  if completedTrophies
+                    species.push(PBSpecies::MICROSOFT)
+                  end
+                  if completedTechnicalDiscs
+                    species.push(PBSpecies::ROTOM)
+                  end
+                  pokemon = species[rand(species.length)]
                   if pbGenerateRemoteBox(pokemon,_I("Link Battle Marketplace"))
                     $game_variables[1002] -= itemprice
                   else

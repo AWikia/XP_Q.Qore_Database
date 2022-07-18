@@ -2342,7 +2342,7 @@ def pbGenerateEgg(pokemon,text="")
   return true
 end
 
-def pbGenerateRemoteBox(pokemon,text="")
+def pbGenerateRemoteBox(pokemon,text="",form=nil)
   return false if !pokemon || !$Trainer || $Trainer.party.length>=6
   if pokemon.is_a?(String) || pokemon.is_a?(Symbol)
     pokemon=getID(PBSpecies,pokemon)
@@ -2359,6 +2359,9 @@ def pbGenerateRemoteBox(pokemon,text="")
   pokemon.name=_INTL("Remote Box")
   pokemon.eggsteps=eggsteps
   pokemon.obtainText=text
+  if form
+    pokemon.form=form
+  end
   pokemon.calcStats
   pokemon.makeRB
   # Add egg to party

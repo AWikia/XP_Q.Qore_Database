@@ -10503,8 +10503,8 @@ MultipleForms.register(:ONE,{
 MultipleForms.register(:DOLPHIN,{
 "getBaseStats"=>proc{|pokemon|
    next                     if pokemon.form==0      # Field
-   next [50,20,60,50,30,90] if pokemon.form==1      # Octum
-   next [50,60,20,30,90,30] if pokemon.form==2      # Stealth
+   next [60,20,60,50,30,90] if pokemon.form==1      # Octum
+   next [60,60,20,30,90,30] if pokemon.form==2      # Stealth
 },
 "baseExp"=>proc{|pokemon|
    next if pokemon.form==0

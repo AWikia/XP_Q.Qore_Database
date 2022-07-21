@@ -846,7 +846,7 @@
 922,MEGAKLATSOSWHEEL,Mega Klatsos Wheel,043,180,GROUND,Physical,85,5,50,400,1,abe,"The user spins up using a wheel, which is made by Klatsos wooden furniture. This may lower the target's defense stat."
 923,EERIEQUAKE,Eerie Quake,095,1,GROUND,Special,100,30,0,08,0,bef,The user looses a ground-shaking quake affecting everyone around the user. Its power varies.
 928,SANDSPIT,Sand Spit,0BD,50,GROUND,Physical,90,10,0,00,0,bef,"The user spits up some sand at the target twice in a row."
-1063,SANDYBRIDGE,Sandy Gridge,0EF,0,GROUND,Status,0,5,0,04,0,bce,"The user puts the opponents into a sandy bridge. Those become unable to flee."
+1063,SANDYBRIDGE,Sandy Bridge,0EF,0,GROUND,Status,0,5,0,04,0,bce,"The user puts the opponents into a sandy bridge. Those become unable to flee."
 1108,EXTREMEEARTHQUAKE,Extreme Earthquake,076,200,GROUND,Physical,100,5,0,08,0,bef,The user sets off a mega earthquake that strikes every Pokémon around it.
 1109,DEEPDIG,Deep Dig,0CA,160,GROUND,Physical,100,5,0,00,0,abef,"The user burrows, then attacks on the second turn. It can also be used to exit dungeons."
 ## FLINT Moves = Rock

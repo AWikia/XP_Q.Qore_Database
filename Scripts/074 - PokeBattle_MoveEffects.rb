@@ -425,8 +425,17 @@ end
 
 ################################################################################
 # Freezes the target.
+# Bitter Malice: Power is doubled if the target has a status condition
 ################################################################################
 class PokeBattle_Move_00C < PokeBattle_Move
+  def pbBaseDamageMultiplier(damagemult,attacker,opponent)
+    if (isConst?(@id,PBMoves,:BITTERMALICE) && 
+        opponent.status!=0)
+      return (damagemult*2.0).round
+    end
+    return damagemult
+  end
+
   def pbEffect(attacker,opponent,hitnum=0,alltargets=nil,showanimation=true)
     return super(attacker,opponent,hitnum,alltargets,showanimation) if pbIsDamaging?
     return -1 if !opponent.pbCanFreeze?(attacker,true,self)
@@ -16299,28 +16308,26 @@ end
 ################################################################################
 
 ################################################################################
-# May also paralyze or poison the tagret (Dire Claw)
+# May also paralyze, poison or leave asleep the tagret (Dire Claw)
 ################################################################################
 class PokeBattle_Move_328 < PokeBattle_Move
-
   def pbAdditionalEffect(attacker,opponent)
     return if opponent.damagestate.substitute
-    case @battle.pbRandom(2)
+    case @battle.pbRandom(3)
     when 0
       if opponent.pbCanPoison?(attacker,false,self)
         opponent.pbPoison(attacker)
-      elsif opponent.pbCanParalyze?(attacker,false,self)
-        opponent.pbParalyze(attacker)
       end
     when 1
       if opponent.pbCanParalyze?(attacker,false,self)
-        opponent.pbParalyze(attacker)
-      elsif opponent.pbCanPoison?(attacker,false,self)
-        opponent.pbPoison(attacker)
+        opponent.pbParalyze
+      end
+    when 2
+      if opponent.pbCanSleep?(attacker,false,self)
+        opponent.pbSleep(attacker)
       end
     end
   end
-
 
 end
 

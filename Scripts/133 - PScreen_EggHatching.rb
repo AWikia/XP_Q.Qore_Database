@@ -206,6 +206,7 @@ def pbHatch(pokemon)
   pokemon.happiness=120
   pokemon.timeEggHatched=pbGetTimeNow
   pokemon.obtainMode=1 # hatched from egg
+  pokemon.obtainMode=5 if pokemon.remoteBox==1
   pokemon.hatchedMap=$game_map.map_id
   $Trainer.seen[pokemon.species]=true
   $Trainer.owned[pokemon.species]=true

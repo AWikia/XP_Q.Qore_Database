@@ -272,12 +272,17 @@ def pbEncounterSpecies(phonenum)
   species=pbRandomEncounterSpecies(enctypes[20]) if species==0 # CaveNightlarge
   species=pbRandomEncounterSpecies(enctypes[26]) if species==0 # CaveMorning
   species=pbRandomEncounterSpecies(enctypes[25]) if species==0 # CaveXLarge
+  species=pbRandomEncounterSpecies(enctypes[29]) if species==0 # CaveMorningXLarge
+  species=pbRandomEncounterSpecies(enctypes[30]) if species==0 # CaveNightXLarge
   species=pbRandomEncounterSpecies(enctypes[9]) if species==0 # LandMorning
   species=pbRandomEncounterSpecies(enctypes[10]) if species==0 # LandDay
   species=pbRandomEncounterSpecies(enctypes[11]) if species==0 # LandNight
   species=pbRandomEncounterSpecies(enctypes[22]) # LandLarge
   species=pbRandomEncounterSpecies(enctypes[23]) # LandNightLarge
   species=pbRandomEncounterSpecies(enctypes[24]) # LandMorningLarge
+  species=pbRandomEncounterSpecies(enctypes[31]) # LandXLarge
+  species=pbRandomEncounterSpecies(enctypes[32]) # LandNightXLarge
+  species=pbRandomEncounterSpecies(enctypes[33]) # LandMorningXLarge
   species=pbRandomEncounterSpecies(enctypes[2]) if species==0 # Water
   return "" if species==0
   return PBSpecies.getName(species)

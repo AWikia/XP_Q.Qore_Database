@@ -239,10 +239,18 @@ def pbRoamingMethodAllowed(enctype)
     return true if encounter==EncounterTypes::Cave
     return true if encounter==EncounterTypes::CaveNight
     return true if encounter==EncounterTypes::CaveLarge
+    return true if encounter==EncounterTypes::CaveMorningLarge
+    return true if encounter==EncounterTypes::CaveNightLarge
+    return true if encounter==EncounterTypes::CaveXLarge
+    return true if encounter==EncounterTypes::CaveMorningXLarge
+    return true if encounter==EncounterTypes::CaveNightXLarge
     return true if encounter==EncounterTypes::RockSmash
     return true if encounter==EncounterTypes::LandLarge
     return true if encounter==EncounterTypes::LandMorningLarge
     return true if encounter==EncounterTypes::LandNightLarge
+    return true if encounter==EncounterTypes::LandXLarge
+    return true if encounter==EncounterTypes::LandMorningXLarge
+    return true if encounter==EncounterTypes::LandNightXLarge
   when 1   # Grass (except Bug Contest)/walking in caves only
     return true if encounter==EncounterTypes::Land
     return true if encounter==EncounterTypes::LandMorning
@@ -251,9 +259,17 @@ def pbRoamingMethodAllowed(enctype)
     return true if encounter==EncounterTypes::Cave
     return true if encounter==EncounterTypes::CaveNight
     return true if encounter==EncounterTypes::CaveLarge
+    return true if encounter==EncounterTypes::CaveMorningLarge
+    return true if encounter==EncounterTypes::CaveNightLarge
+    return true if encounter==EncounterTypes::CaveXLarge
+    return true if encounter==EncounterTypes::CaveMorningXLarge
+    return true if encounter==EncounterTypes::CaveNightXLarge
     return true if encounter==EncounterTypes::LandLarge
     return true if encounter==EncounterTypes::LandMorningLarge
     return true if encounter==EncounterTypes::LandNightLarge
+    return true if encounter==EncounterTypes::LandXLarge
+    return true if encounter==EncounterTypes::LandMorningXLarge
+    return true if encounter==EncounterTypes::LandNightXLarge
   when 2   # Surfing only
     return true if encounter==EncounterTypes::Water
     return true if encounter==EncounterTypes::WaterRare
@@ -271,6 +287,11 @@ def pbRoamingMethodAllowed(enctype)
     return true if encounter==EncounterTypes::Cave
     return true if encounter==EncounterTypes::CaveNight
     return true if encounter==EncounterTypes::CaveLarge
+    return true if encounter==EncounterTypes::CaveMorningLarge
+    return true if encounter==EncounterTypes::CaveNightLarge
+    return true if encounter==EncounterTypes::CaveXLarge
+    return true if encounter==EncounterTypes::CaveMorningXLarge
+    return true if encounter==EncounterTypes::CaveNightXLarge
     return true if encounter==EncounterTypes::RockSmash
   end
   return false

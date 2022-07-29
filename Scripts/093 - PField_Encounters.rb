@@ -1,32 +1,38 @@
 module EncounterTypes
-  Land             = 0
-  Cave             = 1
-  Water            = 2
-  RockSmash        = 3
-  OldRod           = 4
-  GoodRod          = 5
-  SuperRod         = 6
-  HeadbuttLow      = 7
-  HeadbuttHigh     = 8
-  LandMorning      = 9
-  LandDay          = 10
-  LandNight        = 11
-  BugContest       = 12
-  CaveNight        = 13
-  WaterRare        = 14
-  LandRare         = 15
-  ScubaDuba        = 16
-  ScubaDubaRare    = 17
-  CaveLarge        = 18
-  CaveLolan        = 19
-  CaveNightLarge   = 20
-  CaveRare         = 21
-  LandLarge        = 22
-  LandNightLarge   = 23
-  LandMorningLarge = 24
-  CaveXLarge       = 25
-  CaveMorningLarge = 26
-  CaveHisui        = 27
+  Land              = 0
+  Cave              = 1
+  Water             = 2
+  RockSmash         = 3
+  OldRod            = 4
+  GoodRod           = 5
+  SuperRod          = 6
+  HeadbuttLow       = 7
+  HeadbuttHigh      = 8
+  LandMorning       = 9
+  LandDay           = 10
+  LandNight         = 11
+  BugContest        = 12
+  CaveNight         = 13
+  WaterRare         = 14
+  LandRare          = 15
+  ScubaDuba         = 16
+  ScubaDubaRare     = 17
+  CaveLarge         = 18
+  CaveLolan         = 19
+  CaveNightLarge    = 20
+  CaveRare          = 21
+  LandLarge         = 22
+  LandNightLarge    = 23
+  LandMorningLarge  = 24
+  CaveXLarge        = 25
+  CaveMorningLarge  = 26
+  CaveHisui         = 27
+  CaveInter         = 28
+  CaveMorningXLarge = 29
+  CaveNightXLarge   = 30
+  LandXLarge        = 31
+  LandNightXLarge   = 32
+  LandMorningXLarge = 33
   
   Names=[
      "Land",
@@ -57,6 +63,12 @@ module EncounterTypes
      "CaveXLarge",
      "CaveMorningLarge",
      "CaveHisui",
+     "CaveInter",
+     "CaveMorningXLarge",
+     "CaveNightXLarge",
+     "LandXLarge",
+     "LandMorningXLarge",
+     "LandNightXLarge"
   ]
   EnctypeChances=[
      [20,20,10,10,10,10,5,5,4,4,1,1],                                    # Land (12)
@@ -87,9 +99,15 @@ module EncounterTypes
      [10,10,10,10,5,5,5,5,4,4,4,4,4,4,2,2,2,2,1,1,1,1,1,1,1,1],          # CaveXLarge (26)
      [10,10,10,10,10,5,5,5,5,5,4,4,4,4,4,1,1,1,1,1],                     # CaveMorningLarge (20)
      [10,10,10,10,5,5,5,5,4,4,4,4,3,3,3,2,2,2,2,1,1,1,1,1,1,1],          # CaveHisui (26)
+     [40,30,30],                                                         # CaveInter (3)
+     [10,10,10,10,5,5,5,5,4,4,4,4,4,4,2,2,2,2,1,1,1,1,1,1,1,1],          # CaveMorningXLarge (26)
+     [10,10,10,10,5,5,5,5,4,4,4,4,4,4,2,2,2,2,1,1,1,1,1,1,1,1],          # CaveNightXLarge (26)
+     [10,10,10,10,5,5,5,5,4,4,4,4,4,4,2,2,2,2,1,1,1,1,1,1,1,1],          # LandXLarge (26)
+     [10,10,10,10,5,5,5,5,4,4,4,4,4,4,2,2,2,2,1,1,1,1,1,1,1,1],          # LandMorningXLarge (26)
+     [10,10,10,10,5,5,5,5,4,4,4,4,4,4,2,2,2,2,1,1,1,1,1,1,1,1],          # LandNightXLarge (26)
   ]
-  EnctypeDensities=[25,10,10,0,0,0,0,0,0,25,25,25,25,10,10,25,8,8,10,11,10,10,25,25,25,10,10,10]
-  EnctypeCompileDens=[1,2,3,0,0,0,0,0,0,1,1,1,1,2,3,1,0,0,2,2,2,2,1,1,1,2,2,2]
+  EnctypeDensities=[25,10,10,0,0,0,0,0,0,25,25,25,25,10,10,25,8,8,10,11,10,10,25,25,25,10,10,10,10,10,10,25,25,25]
+  EnctypeCompileDens=[1,2,3,0,0,0,0,0,0,1,1,1,1,2,3,1,0,0,2,2,2,2,1,1,1,2,2,2,2,2,2,1,1,1]
 end
 
 
@@ -125,7 +143,10 @@ class PokemonEncounters
             @enctypes[EncounterTypes::CaveNightLarge] ||
             @enctypes[EncounterTypes::CaveMorningLarge] ||
             @enctypes[EncounterTypes::CaveRare] || 
-            @enctypes[EncounterTypes::CaveXLarge]) ? true : false
+            @enctypes[EncounterTypes::CaveXLarge] ||
+            @enctypes[EncounterTypes::CaveMorningXLarge] ||
+            @enctypes[EncounterTypes::CaveNightXLarge] ||
+            @enctypes[EncounterTypes::CaveInter]) ? true : false
   end
 
   def isGrass?
@@ -138,7 +159,10 @@ class PokemonEncounters
             @enctypes[EncounterTypes::LandRare] ||
             @enctypes[EncounterTypes::LandLarge] ||
             @enctypes[EncounterTypes::LandNightLarge] ||
-            @enctypes[EncounterTypes::LandMorningLarge]) ? true : false
+            @enctypes[EncounterTypes::LandMorningLarge] ||
+            @enctypes[EncounterTypes::LandXLarge] ||
+            @enctypes[EncounterTypes::LandMorningXLarge] ||
+            @enctypes[EncounterTypes::LandNightXLarge]) ? true : false
   end
 
   def isRegularGrass?
@@ -150,7 +174,10 @@ class PokemonEncounters
             @enctypes[EncounterTypes::LandRare] ||
             @enctypes[EncounterTypes::LandLarge] ||
             @enctypes[EncounterTypes::LandNightLarge] ||
-            @enctypes[EncounterTypes::LandMorningLarge]) ? true : false
+            @enctypes[EncounterTypes::LandMorningLarge] ||
+            @enctypes[EncounterTypes::LandXLarge] ||
+            @enctypes[EncounterTypes::LandMorningXLarge] ||
+            @enctypes[EncounterTypes::LandNightXLarge]) ? true : false
   end
 
   def isWater?
@@ -178,6 +205,9 @@ class PokemonEncounters
       enctype=EncounterTypes::CaveMorningLarge if self.hasEncounter?(EncounterTypes::CaveMorningLarge) && PBDayNight.isMorning?(time)
       enctype=EncounterTypes::CaveXLarge if self.hasEncounter?(EncounterTypes::CaveXLarge)
       enctype=EncounterTypes::CaveRare if self.hasEncounter?(EncounterTypes::CaveRare) && (rand(15) < 2) && $game_switches[70]==true
+      enctype=EncounterTypes::CaveNightXLarge if self.hasEncounter?(EncounterTypes::CaveNightXLarge) && PBDayNight.isNight?(time)
+      enctype=EncounterTypes::CaveMorningXLarge if self.hasEncounter?(EncounterTypes::CaveMorningXLarge) && PBDayNight.isMorning?(time)
+      enctype=EncounterTypes::CaveInter if self.hasEncounter?(EncounterTypes::CaveInter)
       return enctype
     elsif self.isGrass? 
       time=pbGetTimeNow
@@ -189,6 +219,9 @@ class PokemonEncounters
       enctype=EncounterTypes::LandNightLarge if self.hasEncounter?(EncounterTypes::LandNightLarge) && PBDayNight.isNight?(time)
       enctype=EncounterTypes::LandMorningLarge if self.hasEncounter?(EncounterTypes::LandMorningLarge) && PBDayNight.isMorning?(time)
       enctype=EncounterTypes::LandRare if self.hasEncounter?(EncounterTypes::LandRare) && (rand(15) < 2) && $game_switches[70]==true
+      enctype=EncounterTypes::LandXLarge if self.hasEncounter?(EncounterTypes::LandXLarge)
+      enctype=EncounterTypes::LandNightXLarge if self.hasEncounter?(EncounterTypes::LandNightXLarge) && PBDayNight.isNight?(time)
+      enctype=EncounterTypes::LandMorningXLarge if self.hasEncounter?(EncounterTypes::LandMorningXLarge) && PBDayNight.isMorning?(time)
       if pbInBugContest? && self.hasEncounter?(EncounterTypes::BugContest)
         enctype=EncounterTypes::BugContest
       end

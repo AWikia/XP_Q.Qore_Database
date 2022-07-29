@@ -2242,14 +2242,29 @@ def pbNewEncounterType(enc)
     if !enc[1][i]
       if i==0
         dogen=true unless enc[1][EncounterTypes::Cave] || 
-                          enc[1][EncounterTypes::CaveNight]
+                          enc[1][EncounterTypes::CaveNight] ||
+                          enc[1][EncounterTypes::CaveLarge] ||
+                          enc[1][EncounterTypes::CaveMorningLarge] ||
+                          enc[1][EncounterTypes::CaveNightLarge] ||
+                          enc[1][EncounterTypes::CaveXLarge] ||
+                          enc[1][EncounterTypes::CaveMorningXLarge] ||
+                          enc[1][EncounterTypes::CaveNightXLarge] ||
+                          enc[1][EncounterTypes::CaveRare] ||
+                          enc[1][EncounterTypes::CaveInter]
+
       elsif i==1
         dogen=true unless enc[1][EncounterTypes::Land] || 
                           enc[1][EncounterTypes::LandMorning] || 
                           enc[1][EncounterTypes::LandDay] || 
                           enc[1][EncounterTypes::LandNight] || 
                           enc[1][EncounterTypes::BugContest] ||
-                          enc[1][EncounterTypes::LandRare]
+                          enc[1][EncounterTypes::LandRare] ||
+                          enc[1][EncounterTypes::LandLarge] ||
+                          enc[1][EncounterTypes::LandMorninglarge] ||
+                          enc[1][EncounterTypes::LandNightLarge] ||
+                          enc[1][EncounterTypes::LandXLarge] ||
+                          enc[1][EncounterTypes::LandMorningXLarge] ||
+                          enc[1][EncounterTypes::LandNightXLarge]
       else
         dogen=true
       end

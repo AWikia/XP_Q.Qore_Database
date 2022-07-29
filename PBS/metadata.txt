@@ -22,7 +22,7 @@ BattleBack=IndoorB
 MapPosition=0,13,12
 HealingSpot=2,8,8
 [004]
-# Pokémon Lab
+# Pokemon Lab
 MapPosition=0,13,12
 ShowArea=false
 [005]
@@ -2586,4 +2586,187 @@ ShowArea=true
 BattleBack=IndoorF
 Bicycle=true
 MapPosition=14,17,9
+ShowArea=true
+[463]
+# Rest Area
+MapPosition=2,11,8
+HealingSpot=32,17,5
+[464]
+# Rest Area
+MapPosition=4,16,5
+HealingSpot=81,29,5
+[465]
+# Rest Area
+MapPosition=5,9,7
+HealingSpot=85,3,8
+[466]
+# Rest Area
+MapPosition=6,21,13
+HealingSpot=95,22,5
+[467]
+# Rest Area
+MapPosition=7,22,8
+HealingSpot=108,2,7
+[468]
+# Rest Area
+MapPosition=8,9,3
+HealingSpot=115,4,9
+[469]
+# Rest Area
+MapPosition=9,6,5
+HealingSpot=134,15,8
+[470]
+# Quora Eins
+BattleBack=Cave
+MapPosition=2,2,2
+ShowArea=true
+[471]
+# Quora Eins
+BattleBack=Cave
+MapPosition=2,10,9
+ShowArea=true
+[472]
+# Quora Eins
+BattleBack=Cave
+MapPosition=2,26,7
+ShowArea=true
+[473]
+# Quora Eins
+BattleBack=Cave
+MapPosition=3,1,2
+ShowArea=true
+[474]
+# Quora Eins
+BattleBack=Cave
+MapPosition=3,21,4
+ShowArea=true
+[475]
+# Quora Eins
+BattleBack=Cave
+MapPosition=4,4,9
+ShowArea=true
+[476]
+# Quora Eins
+BattleBack=Cave
+MapPosition=4,16,6
+ShowArea=true
+[477]
+# Quora Eins
+BattleBack=Cave
+MapPosition=4,22,17
+ShowArea=true
+[478]
+# Quora Eins
+BattleBack=Cave
+MapPosition=5,1,4
+ShowArea=true
+[479]
+# Quora Eins
+BattleBack=Cave
+MapPosition=5,12,10
+ShowArea=true
+[480]
+# Quora Eins
+BattleBack=Cave
+MapPosition=5,17,5
+ShowArea=true
+[481]
+# Quora Eins
+BattleBack=Cave
+MapPosition=5,26,17
+ShowArea=true
+[482]
+# Quora Eins
+BattleBack=Cave
+MapPosition=6,1,4
+ShowArea=true
+[483]
+# Quora Eins
+BattleBack=Cave
+MapPosition=6,13,13
+ShowArea=true
+[484]
+# Quora Eins
+BattleBack=Cave
+MapPosition=6,23,12
+ShowArea=true
+[485]
+# Quora Eins
+BattleBack=Cave
+MapPosition=7,1,3
+ShowArea=true
+[486]
+# Quora Eins
+BattleBack=Cave
+MapPosition=7,17,1
+ShowArea=true
+[487]
+# Quora Eins
+BattleBack=Cave
+MapPosition=7,23,8
+ShowArea=true
+[488]
+# Quora Eins
+BattleBack=Cave
+MapPosition=7,24,15
+ShowArea=true
+[489]
+# Quora Eins
+BattleBack=Cave
+MapPosition=8,1,3
+ShowArea=true
+[490]
+# Quora Eins
+BattleBack=Cave
+MapPosition=8,5,9
+ShowArea=true
+[491]
+# Quora Eins
+BattleBack=Cave
+MapPosition=8,9,3
+ShowArea=true
+[492]
+# Quora Eins
+BattleBack=Cave
+MapPosition=8,15,5
+ShowArea=true
+[493]
+# Quora Eins
+BattleBack=Cave
+MapPosition=9,2,3
+ShowArea=true
+[494]
+# Quora Eins
+BattleBack=Cave
+MapPosition=9,5,8
+ShowArea=true
+[495]
+# Quora Eins
+BattleBack=Cave
+MapPosition=9,9,10
+ShowArea=true
+[496]
+# Quora Eins
+BattleBack=Cave
+MapPosition=9,18,16
+ShowArea=true
+[497]
+# Quora Eins
+BattleBack=Cave
+MapPosition=13,1,1
+ShowArea=true
+[498]
+# Quora Eins
+BattleBack=Cave
+MapPosition=13,9,5
+ShowArea=true
+[499]
+# Quora Eins
+BattleBack=Cave
+MapPosition=13,16,8
+ShowArea=true
+[500]
+# Quora Eins
+BattleBack=Cave
+MapPosition=13,5,13
 ShowArea=true

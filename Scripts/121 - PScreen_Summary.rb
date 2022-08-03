@@ -105,7 +105,7 @@ class PokemonSummaryScene
     @sprites["pokeicon"].y=52
     @sprites["pokeicon"].mirror=false
     @sprites["pokeicon"].visible=false
-    @sprites["itemicon2"] = ItemIconSprite.new(243,222,@pokemon.item,@viewport)
+    @sprites["itemicon2"] = ItemIconSprite.new(244,222,@pokemon.item,@viewport)
     @sprites["itemicon2"].blankzero = true
     
     @sprites["movepresel"]=MoveSelectionSprite.new(@viewport)
@@ -693,8 +693,8 @@ class PokemonSummaryScene
        [sprintf("%d",pokemon.spdef),548,216-64,2,base,shadow],
        [_INTL("Speed"),376,248-64,0,shadow2,statshadows[2],0],
        [sprintf("%d",pokemon.speed),548,248-64,2,base,shadow],
-       [_INTL("Ability"),288,284-64,0,shadow2,nil,0],
-       [abilityname,426,284-64,0,base,shadow],
+       [_INTL("Ability"),288-64,284-64,0,shadow2,nil,0],
+       [abilityname,426-64,284-64,0,base,shadow],
       ]
     gendericon=[]
     if pokemon.isMale?
@@ -805,8 +805,8 @@ def drawPageFour(pokemon)
        [sprintf("%d",pokemon.ev[5]),548,216-64,2,base,shadow],
        [_INTL("Speed"),376,248-64,0,shadow2,statshadows[2],0],
        [sprintf("%d",pokemon.ev[3]),548,248-64,2,base,shadow],
-       [_INTL("Ability"),288,284-64,0,shadow2,nil,0],
-       [abilityname,426,284-64,0,base,shadow],
+       [_INTL("Ability"),288-64,284-64,0,shadow2,nil,0],
+       [abilityname,426-64,284-64,0,base,shadow],
       ]
     gendericon=[]
     if pokemon.isMale?
@@ -917,8 +917,8 @@ def drawPageFive(pokemon)
        [sprintf("%d",pokemon.iv[5]),548,216-64,2,base,shadow],
        [_INTL("Speed"),376,248-64,0,shadow2,statshadows[2],0],
        [sprintf("%d",pokemon.iv[3]),548,248-64,2,base,shadow],
-       [_INTL("Ability"),288,284-64,0,shadow2,nil,0],
-       [abilityname,426,284-64,0,base,shadow],
+       [_INTL("Ability"),288-64,284-64,0,shadow2,nil,0],
+       [abilityname,426-64,284-64,0,base,shadow],
       ]
     gendericon=[]
     if pokemon.isMale?
@@ -1331,7 +1331,7 @@ def drawPageFive(pokemon)
        [_INTL("Efforts"),376,248-64,0,shadow2,nil,0],
        [sprintf("%d",efforts),548,248-64,2,base,shadow],
        [_INTL("Item"),288,284-64,0,shadow2,nil,0],
-       [itemname,426,284-64,0,base,shadow],
+       [itemname,426-64,284-64,0,base,shadow],
       ]
     gendericon=[]
     if pokemon.isMale?

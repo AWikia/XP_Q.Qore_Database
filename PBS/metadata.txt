@@ -2770,3 +2770,8 @@ ShowArea=true
 BattleBack=Cave
 MapPosition=13,5,13
 ShowArea=true
+[501]
+# Quora Eins
+BattleBack=Cave
+MapPosition=6,11,3
+ShowArea=true

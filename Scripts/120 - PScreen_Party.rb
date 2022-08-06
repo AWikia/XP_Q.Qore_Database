@@ -2241,7 +2241,8 @@ class PokemonScreen
             break
           elsif Kernel.pbCanUseHiddenMove?(pkmn,pkmn.moves[i].id)
             @scene.pbEndScene
-            if isConst?(pkmn.moves[i].id,PBMoves,:FLY)
+            if isConst?(pkmn.moves[i].id,PBMoves,:FLY) ||
+               isConst?(pkmn.moves[i].id,PBMoves,:STEELFLY)
               scene=PokemonRegionMapScene.new(-1,false)
               screen=PokemonRegionMap.new(scene)
               ret=screen.pbStartFlyScreen

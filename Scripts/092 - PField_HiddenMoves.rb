@@ -936,6 +936,9 @@ HiddenMoveHandlers::CanUseMove.add(:FLY,proc{|move,pkmn|
    return true
 })
 
+HiddenMoveHandlers::CanUseMove.copy(:FLY,:STEELFLY)
+
+
 HiddenMoveHandlers::UseMove.add(:FLY,proc{|move,pokemon|
    if !$PokemonTemp.flydata
      Kernel.pbMessage(_INTL("Can't use that here."))
@@ -957,6 +960,8 @@ HiddenMoveHandlers::UseMove.add(:FLY,proc{|move,pokemon|
    pbEraseEscapePoint
    return true
 })
+
+HiddenMoveHandlers::UseMove.copy(:FLY,:STEELFLY)
 
 #===============================================================================
 # Flash

@@ -175,8 +175,8 @@ end
 
 class CommandMenuButtons < BitmapSprite
   def initialize(index=0,mode=0,viewport=nil)
-    super(260,96,viewport)
-    self.x=Graphics.width-260
+    super(320,96,viewport)
+    self.x=Graphics.width-320 # Change
     self.y=Graphics.height-96
     @mode=mode
     @buttonbitmap=AnimatedBitmap.new(_INTL("Graphics/Global Pictures/battleCommandButtons"))
@@ -206,15 +206,15 @@ class CommandMenuButtons < BitmapSprite
     end
     for i in 0...4
       next if i==index
-      x=((i%2)==0) ? 0 : 126
+      x=((i%2)==0) ? 0 : 126 + 30
       y=((i/2)==0) ? 6 : 48
-      self.bitmap.blt(x,y,@buttonbitmap.bitmap,Rect.new(0,cmdarray[i]*46,130,46))
+      self.bitmap.blt(x,y,@buttonbitmap.bitmap,Rect.new(0,cmdarray[i]*46,130+30,46))
     end
     for i in 0...4
       next if i!=index
-      x=((i%2)==0) ? 0 : 126
+      x=((i%2)==0) ? 0 : 126 + 30
       y=((i/2)==0) ? 6 : 48
-      self.bitmap.blt(x,y,@buttonbitmap.bitmap,Rect.new(130,cmdarray[i]*46,130,46))
+      self.bitmap.blt(x,y,@buttonbitmap.bitmap,Rect.new(130+30,cmdarray[i]*46,130+30,46))
     end
   end
 end

@@ -2780,3 +2780,10 @@ ShowArea=true
 BattleBack=Cave
 MapPosition=9,18,16
 ShowArea=true
+[503]
+# Jarol Cave
+BattleBack=CaveDarker
+Bicycle=true
+MapPosition=6,12,12
+DarkMap=true
+ShowArea=true

@@ -71,6 +71,7 @@ MetadataMapTrainerBattleBGM = 15
 MetadataMapWildVictoryME    = 16
 MetadataMapTrainerVictoryME = 17
 MetadataMapSize             = 18
+MetadataPastMap             = 19
 
 
 
@@ -101,6 +102,7 @@ module PokemonMetadata
      "Weather"=>[MetadataWeather,"eu",:PBFieldWeather],
      "MapPosition"=>[MetadataMapPosition,"uuu"],
      "DiveMap"=>[MetadataDiveMap,"u"],
+     "PastMap"=>[MetadataPastMap,"u"],
      "DarkMap"=>[MetadataDarkMap,"b"],
      "SafariMap"=>[MetadataSafariMap,"b"],
      "SnapEdges"=>[MetadataSnapEdges,"b"],

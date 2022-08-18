@@ -9134,6 +9134,14 @@ MultipleForms.register(:ETERNATUS,{
 }
 })
 
+MultipleForms.register(:KUBFU,{
+"getForm"=>proc{|pokemon|
+   next 1  if $Trainer.isFemale?    # Fire
+   next 0
+}
+})
+
+
 MultipleForms.register(:URSHIFU,{
 "type2"=>proc{|pokemon|
    types=[:DARK,:WATER]

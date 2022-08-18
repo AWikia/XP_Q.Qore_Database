@@ -364,13 +364,23 @@ def pbDayNightTint(object)
   if !$scene.is_a?(Scene_Map)
     return
   else
+    r = 0
+    g = 0
+    b = 0
+    w = 0
+    if ($PokemonGlobal.inPast rescue false) 
+      r = -34
+      g = -34
+      b = -68
+      w = 170
+    end
     if ($PokemonSystem.enableshading==1 rescue false) && $game_map && pbGetMetadata($game_map.map_id,MetadataOutdoor) # Outdoor maps with Outdoor Map Shading setting set to "On"
       tone=PBDayNight.getTone()
-      object.tone.set(tone.red,tone.green,tone.blue,tone.gray)
+      object.tone.set(tone.red+r,tone.green+g,tone.blue+b,tone.gray+w)
     elsif $game_map && darkmaps.include?($game_map.map_id) # Pseudo-dark maps
-      object.tone.set(-110,-114,-118,60)  # In order to avoid glitches
+      object.tone.set(-110+r,-114+g,-118+b,60+w)  # In order to avoid glitches
     else # Non outdoor maps or Outdoor Map Shading setting set to "Off"
-      object.tone.set(0,0,0,0)  
+      object.tone.set(r,g,b,w)  
     end
   end  
 end

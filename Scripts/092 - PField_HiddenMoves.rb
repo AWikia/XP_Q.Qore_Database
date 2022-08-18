@@ -929,6 +929,10 @@ HiddenMoveHandlers::CanUseMove.add(:FLY,proc{|move,pkmn|
      Kernel.pbMessage(_INTL("It can't be used when you have someone with you."))
      return false
    end
+   if $PokemonGlobal.inPast && $PokemonGlobal
+     Kernel.pbMessage(_INTL("It can only be used while you're in the present."))
+     return false
+   end
    if !pbGetMetadata($game_map.map_id,MetadataOutdoor)
      Kernel.pbMessage(_INTL("Can't use that here."))
      return false
@@ -1012,6 +1016,10 @@ HiddenMoveHandlers::CanUseMove.add(:TELEPORT,proc{|move,pkmn|
      Kernel.pbMessage(_INTL("It can't be used when you have someone with you."))
      return false
    end
+   if $PokemonGlobal.inPast && $PokemonGlobal
+     Kernel.pbMessage(_INTL("It can only be used while you're in the present."))
+     return false
+   end
    healing=$PokemonGlobal.healingSpot
    if !healing
      healing=pbGetMetadata(0,MetadataHome) # Home
@@ -1064,6 +1072,10 @@ HiddenMoveHandlers::CanUseMove.add(:DIG,proc{|move,pkmn|
    end
    if $game_player.pbHasDependentEvents?
      Kernel.pbMessage(_INTL("It can't be used when you have someone with you."))
+     return false
+   end
+   if $PokemonGlobal.inPast && $PokemonGlobal
+     Kernel.pbMessage(_INTL("It can only be used while you're in the present."))
      return false
    end
    mapname=pbGetMapNameFromId(escape[0])
@@ -1149,3 +1161,65 @@ HiddenMoveHandlers::UseMove.add(:SWEETSCENT,proc{|move,pokemon|
    pbSweetScent
    return true
 })
+
+#===============================================================================
+# Rocky Tunnel
+#===============================================================================
+
+HiddenMoveHandlers::CanUseMove.add(:ROCKYTUNNEL,proc{|move,pkmn|
+   if $PokemonGlobal.inPast
+     meta=pbLoadMetadata
+     for i in 0...meta.length
+       if meta[i] && meta[i][MetadataPastMap]
+         if meta[i][MetadataPastMap]==$game_map.map_id
+           return true
+         end
+       end
+     end
+     Kernel.pbMessage(_INTL("Can't use that here."))
+     return false
+   elsif !pbGetMetadata($game_map.map_id,MetadataPastMap) || $PokemonGlobal.surfing
+     Kernel.pbMessage(_INTL("Can't use that here."))
+     return false
+   end
+   return true
+})
+
+
+HiddenMoveHandlers::UseMove.add(:ROCKYTUNNEL,proc{|move,pokemon|
+   wasinPast=$PokemonGlobal.inPast
+   if $PokemonGlobal.inPast
+     pastmap=nil
+     meta=pbLoadMetadata
+     for i in 0...meta.length
+       if meta[i] && meta[i][MetadataPastMap]
+         if meta[i][MetadataPastMap]==$game_map.map_id
+           pastmap=i
+           break
+         end
+       end
+     end
+   else
+     pastmap=pbGetMetadata($game_map.map_id,MetadataPastMap)
+   end
+   return false if !pastmap
+   if !pbHiddenMoveAnimation(pokemon)
+     Kernel.pbMessage(_INTL("{1} used {2}!",pokemon.name,PBMoves.getName(move)))
+   end
+   pbFadeOutIn(99999){
+      $game_temp.player_new_map_id=pastmap
+      $game_temp.player_new_x=$game_player.x
+      $game_temp.player_new_y=$game_player.y
+      $game_temp.player_new_direction=$game_player.direction
+      if wasinPast
+        $PokemonGlobal.inPast=false
+      else
+        $PokemonGlobal.inPast=true
+      end
+      $scene.transfer_player(false)
+      $game_map.autoplay
+      $game_map.refresh
+   }
+   return true
+})
+

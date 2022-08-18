@@ -3515,6 +3515,8 @@ LOCALMAPS=[
        _INTL("Identifies the point on the regional map for this map.")],
    ["DiveMap",MapProperty,
        _INTL("Specifies the underwater layer of this map. Use only if this map has deep water.")],
+   ["PastMap",MapProperty,
+       _INTL("Specifies the past version of this map. This map can be accessed using Rocky Tunnel outside of a battle.")],
    ["DarkMap",BooleanProperty,
        _INTL("If true, this map is dark and a circle of light appears around the player. Flash can be used to expand the circle.")],
    ["SafariMap",BooleanProperty,

@@ -95,6 +95,7 @@ Bicycle=false
 MapPosition=2,2,2
 Outdoor=true
 ShowArea=true
+PastMap=504
 [023]
 # Lerucean Town
 MapPosition=0,15,8
@@ -2786,4 +2787,16 @@ BattleBack=CaveDarker
 Bicycle=true
 MapPosition=6,12,12
 DarkMap=true
+ShowArea=true
+[504]
+# Past Quora Eins
+MapSize=2,1111
+BattleBack=Quora
+Bicycle=false
+MapPosition=2,2,2
+Outdoor=true
+ShowArea=true
+[505]
+# Qore Temple
+MapPositoin=2,3,2
 ShowArea=true

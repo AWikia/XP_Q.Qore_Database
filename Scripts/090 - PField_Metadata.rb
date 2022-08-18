@@ -53,6 +53,7 @@ class PokemonGlobalMetadata
   attr_accessor :phoneTime
   attr_accessor :eventvars
   attr_accessor :safesave
+  attr_accessor :inPast
 
   def initialize
     @bicycle              = false
@@ -111,6 +112,7 @@ class PokemonGlobalMetadata
     @phoneTime            = 0
     @eventvars            = {}
     @safesave             = false
+    @inPast              = false
   end
 
   def bridge

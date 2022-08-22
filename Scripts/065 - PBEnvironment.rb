@@ -23,6 +23,9 @@ begin
     Hisui       = 20 # Hisuian Forms
   end
 
+  def PBEnvironment.maxValue; 20; end
+  def PBEnvironment.getCount; 21; end
+  
 rescue Exception
   if $!.is_a?(SystemExit) || "#{$!.class}"=="Reset"
     raise $!

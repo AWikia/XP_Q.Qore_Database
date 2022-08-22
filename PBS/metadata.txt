@@ -473,6 +473,7 @@ Bicycle=false
 MapPosition=6,12,12
 Outdoor=true
 ShowArea=true
+Environment=Forest
 [093]
 # Jarol Cave
 BattleBack=CaveDark
@@ -584,6 +585,7 @@ ShowArea=true
 [112]
 # MYSTERY ZONE
 BattleBack=MYSTERY
+Environment=Galaxy
 [113]
 # Keniora Eins
 MapSize=2,11
@@ -621,6 +623,7 @@ Bicycle=false
 MapPosition=8,19,3
 Outdoor=true
 ShowArea=true
+Environment=Boardwalk
 [119]
 # Rest Area
 MapPosition=8,19,3
@@ -658,6 +661,7 @@ Bicycle=false
 MapPosition=9,2,3
 Outdoor=true
 ShowArea=true
+Environment=Graveyard
 [125]
 # Magnet Rail
 BattleBack=Cave
@@ -669,6 +673,7 @@ Bicycle=false
 MapPosition=9,2,3
 Outdoor=true
 ShowArea=true
+Environment=Sky
 [127]
 # Magnet Rail
 BattleBack=Cave
@@ -708,6 +713,7 @@ Weather=Sun,100
 MapPosition=9,6,5
 Outdoor=true
 ShowArea=true
+Environment=Forest
 [135]
 # Understairs Glitch Cave
 BattleBack=Underwater
@@ -776,6 +782,7 @@ MapPosition=3,3,16
 DarkMap=true
 WildBattleBGM=112 - Vs. Wild Johto.mp3
 ShowArea=true
+Environment=Graveyard
 [148]
 # Understairs Keniora Funf
 BattleBack=CaveDark
@@ -834,6 +841,7 @@ DarkMap=true
 Outdoor=true
 WildBattleBGM=112 - Vs. Wild Johto.mp3
 ShowArea=true
+Environment=Forest
 [156]
 # Understairs Route 34
 MapSize=1,11
@@ -1004,6 +1012,7 @@ TrainerBattleBGM=113 - Vs. Johto Trainer.mp3
 MapPosition=10,20,7
 WildBattleBGM=112 - Vs. Wild Johto.mp3
 ShowArea=true
+Environment=Snow
 [181]
 # Lake of Rage Entrance
 TrainerBattleBGM=113 - Vs. Johto Trainer.mp3
@@ -1520,6 +1529,7 @@ Bicycle=true
 TrainerBattleBGM=sfxBattler_TEAMROCKETS
 MapPosition=12,19,19
 ShowArea=true
+Environment=Graveyard
 [276]
 # Understairs Kenuora Eins
 BattleBack=IndoorB
@@ -1666,6 +1676,7 @@ MapPosition=11,1,10
 Outdoor=true
 WildBattleBGM=112 - Vs. Wild Hoenn.mp3
 ShowArea=true
+Environment=Forest
 [302]
 # The Staffhouse
 BattleBack=IndoorF
@@ -1673,6 +1684,7 @@ TrainerBattleBGM=113 - Vs. Johto Trainer.mp3
 MapPosition=10,17,7
 WildBattleBGM=112 - Vs. Wild Johto.mp3
 ShowArea=true
+Environment=Graveyard
 [303]
 # Route 46
 TrainerBattleBGM=113 - Vs. Johto Trainer.mp3
@@ -1706,6 +1718,7 @@ Dungeon=true
 MapPosition=4,10,10
 DarkMap=true
 ShowArea=true
+Environment=Space
 [308]
 # Jumbo Cave
 SnapEdges=true
@@ -1715,6 +1728,10 @@ Dungeon=true
 MapPosition=8,15,5
 DarkMap=true
 ShowArea=true
+Environment=Space
+[313]
+# Isle of Termor
+Environment=Space
 [314]
 # Meteor Falls
 SnapEdges=true
@@ -1756,6 +1773,7 @@ TrainerBattleBGM=113 - Vs. Johto Trainer
 MapPosition=6,12,12
 WildBattleBGM=112 - Vs. Wild Johto
 ShowArea=true
+Environment=Space
 [320]
 # Victory 6
 BattleBack=CaveDark
@@ -1764,6 +1782,7 @@ TrainerBattleBGM=113 - Vs. Johto Trainer
 MapPosition=11,5,13
 WildBattleBGM=112 - Vs. Wild Johto
 ShowArea=true
+Environment=Space
 [323]
 # Bot Boyend Path
 BattleBack=CaveDarker
@@ -1771,6 +1790,7 @@ Weather=Rain,40
 Bicycle=true
 MapPosition=4,15,5
 ShowArea=true
+Environment=Boardwalk
 [324]
 # Jelly Queen
 BattleBack=EliteA
@@ -1805,6 +1825,7 @@ TrainerBattleBGM=113 - Vs. Johto Trainer.mp3
 MapPosition=10,20,7
 WildBattleBGM=112 - Vs. Wild Johto.mp3
 ShowArea=true
+Environment=Snow
 [331]
 # Ice Path
 SnapEdges=true
@@ -1813,6 +1834,7 @@ TrainerBattleBGM=113 - Vs. Johto Trainer.mp3
 MapPosition=10,20,7
 WildBattleBGM=112 - Vs. Wild Johto.mp3
 ShowArea=true
+Environment=Snow
 [332]
 # Ice River Run Path
 SnapEdges=true
@@ -1822,6 +1844,7 @@ TrainerBattleBGM=113 - Vs. Johto Trainer.mp3
 MapPosition=10,20,7
 WildBattleBGM=112 - Vs. Wild Johto.mp3
 ShowArea=true
+Environment=Snow
 [334]
 # Scuba Duba Minigame
 MapSize=2,1111
@@ -1844,6 +1867,7 @@ BattleBack=Snow
 Weather=Snow,100
 MapPosition=6,22,11
 ShowArea=true
+Environment=Snow
 [337]
 # Fission Cave
 BattleBack=CaveDarker
@@ -1858,6 +1882,7 @@ SnapEdges=true
 BattleBack=IndoorF
 MapPosition=6,22,11
 ShowArea=true
+Environment=Volcano
 [339]
 # Rest Area
 MapPosition=3,4,16
@@ -1877,6 +1902,7 @@ Weather=Sun,100
 MapPosition=9,5,8
 Outdoor=true
 ShowArea=true
+Environment=Forest
 [343]
 # Xeniora Funf
 MapSize=2,11
@@ -1886,6 +1912,7 @@ Bicycle=false
 MapPosition=9,8,10
 Outdoor=true
 ShowArea=true
+Environment=Boardwalk
 [344]
 # Xeniora Sechs
 MapSize=2,11
@@ -1946,6 +1973,7 @@ Weather=Blizzard,100
 MapPosition=13,4,13
 Outdoor=true
 ShowArea=true
+Environment=Snow
 [352]
 # Rest Area
 MapPosition=13,4,13
@@ -1958,6 +1986,7 @@ Weather=Storm,30
 MapPosition=13,27,18
 Outdoor=true
 ShowArea=true
+Environment=Snow
 [354]
 # Sanuora Eins
 MapSize=3,110111011
@@ -1966,6 +1995,7 @@ Weather=Sun,30
 MapPosition=14,1,1
 Outdoor=true
 ShowArea=true
+Environment=Space
 [355]
 # Sanuora Zwei
 MapSize=3,111101111101
@@ -1982,6 +2012,7 @@ Weather=Sandstorm,75
 MapPosition=14,15,5
 Outdoor=true
 ShowArea=true
+Environment=Space
 [357]
 # Sanuora Vier
 MapSize=3,101101111
@@ -1990,6 +2021,7 @@ Weather=Sun,100
 MapPosition=14,2,11
 Outdoor=true
 ShowArea=true
+Environment=Space
 [358]
 # Sanuora Funf
 MapSize=3,111111111
@@ -1998,6 +2030,7 @@ Weather=Sun,100
 MapPosition=14,24,6
 Outdoor=true
 ShowArea=true
+Environment=Sky
 [359]
 # Sanuora Sechs
 MapSize=3,111101111111101
@@ -2007,6 +2040,7 @@ Weather=Storm,100
 MapPosition=14,1,15
 Outdoor=true
 ShowArea=true
+Environment=Galaxy
 [360]
 # Understairs Sanuora Sechs
 MapSize=3,111101111111101
@@ -2021,6 +2055,7 @@ Weather=Storm,100
 MapPosition=14,25,13
 Outdoor=true
 ShowArea=true
+Environment=Galaxy
 [362]
 # Saniora Eins
 BattleBack=Saniora
@@ -2057,6 +2092,7 @@ BattleBack=IndoorF
 Bicycle=true
 MapPosition=14,17,9
 ShowArea=true
+Environment=Alola
 [370]
 # Lovecorn Minigame
 MapSize=2,1111
@@ -2064,6 +2100,7 @@ SnapEdges=true
 BattleBack=Cave
 MapPosition=6,22,11
 ShowArea=true
+Environment=Galaxy
 [371]
 # Abandoned Shire
 BattleBack=Cave
@@ -2169,6 +2206,7 @@ BattleBack=Jarol
 MapPosition=6,11,3
 Outdoor=true
 ShowArea=true
+Environment=Forest
 [387]
 # Jarol Garden
 BattleBack=Jarol
@@ -2203,6 +2241,7 @@ SnapEdges=true
 BattleBack=Cave
 MapPosition=8,15,5
 ShowArea=true
+Environment=Boardwalk
 [396]
 # Floaroma Meadow
 BattleBack=Forest
@@ -2297,6 +2336,7 @@ Bicycle=false
 MapPosition=8,20,14
 Outdoor=true
 ShowArea=true
+Environment=Sky
 [411]
 # Ancient Temple
 SnapEdges=true
@@ -2352,6 +2392,7 @@ BattleBack=IndoorF
 Bicycle=true
 MapPosition=14,4,13
 ShowArea=true
+Environment=Galar
 [420]
 # Navel Rock
 BattleBack=Navel
@@ -2379,6 +2420,7 @@ BattleBack=IndoorF
 MapPosition=13,4,13
 Outdoor=true
 ShowArea=true
+Environment=Boardwalk
 [425]
 # Netherworld Cave
 BattleBack=Cave
@@ -2588,6 +2630,7 @@ BattleBack=IndoorF
 Bicycle=true
 MapPosition=14,17,9
 ShowArea=true
+Environment=Hisui
 [463]
 # Rest Area
 MapPosition=2,11,8

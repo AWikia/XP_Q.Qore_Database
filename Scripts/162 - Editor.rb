@@ -3207,6 +3207,24 @@ module WeatherEffectProperty
   end
 end
 
+module EnvironmentProperty
+  def self.set(settingname,oldsetting)
+    options = []
+    for i in 0..PBEnvironment.maxValue
+      options.push(getConstantName(PBEnvironment,i) || "ERROR")
+    end
+    cmd = Kernel.pbMessage(_INTL("Choose an environment."),options,-1)
+    if cmd==-1
+      return nil
+    end
+    return cmd
+  end
+
+  def self.format(value)
+    return (value) ? (getConstantName(PBEnvironment,value) || "ERROR") : value.inspect
+  end
+end
+
 
 
 module MapProperty
@@ -3538,6 +3556,8 @@ LOCALMAPS=[
        _INTL("Default ME played after winning a Trainer battle on this map.")],
    ["MapSize",MapSizeProperty,
        _INTL("The width of the map in Town Map squares, and a string indicating which squares are part of this map.")],
+   ["Environment",EnvironmentProperty,
+       _INTL("The default battle environment for battles on this map")],
 ]
 GLOBALMETADATA=[
    ["Home",MapCoordsFacingProperty,

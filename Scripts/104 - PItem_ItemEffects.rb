@@ -1770,8 +1770,11 @@ ItemHandlers::BattleUseOnPokemon.add(:FULLRESTORE,proc{|item,pokemon,battler,sce
      scene.pbDisplay(_INTL("It won't have any effect."))
      next false
    else
-     hpgain=pbItemRestoreHP(pokemon,pokemon.totalhp-pokemon.hp)
-     battler.hp=pokemon.hp if battler
+      if battler
+        hpgain = battler.pbRecoverHP(pokemon.totalhp-pokemon.hp)
+      else
+        hpgain = pbItemRestoreHP(pokemon,pokemon.totalhp-pokemon.hp)
+      end
      pokemon.healStatus
      battler.status=0 if battler
      battler.effects[PBEffects::Confusion]=0 if battler

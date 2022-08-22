@@ -807,35 +807,10 @@ def pbPrepareBattle(battle)
 end
 
 def pbGetEnvironment
-# The following arrays can contain maps in where it will force an environment it
-# is currently impossible to set within the default Essentials settings
-# It also gives you access to two environments only possible with FLINT
-# You may edit from here if you want the X map have the X environment
-# For instance, place the X map in the skymaps array if the X map will use Sky as
-# the default environment. You should not place the X map in more than one array
-  forestmaps=[92,134,155,300,342,386]             # Jarol Garden, Xeniora Drei Ilex Forest, Rustboro Forest, Xeniora Vier, Episodio XR
-  snowmaps=[180,330,331,332,336,351,353]          # Ice Path, Ice River Run, Skating, Cindyora Sechs, Cindyora Sieben
-  volcanomaps=[338]                               # Volcano
-  graveyardmaps=[124,147,275,302]                 # Xeniora Eins, Magnet Train, Lineel Zwanzig, Staffhouse
-  skymaps=[126,358,410]                           # Isolated Woods, Sanuora Funf, Upstrairs Keniora Sechs
-  spacemaps=[307,308,313,319,320,354,355,356,357] # Lost Cave, Jumbo Cave, Isle of Termor, Victory 6, Sanuora Eins, Sanuora Zwei, Sanuora Drei, Sanuora Vier
-  galaxymaps=[112,359,361,370]                    # MYSTER ZONE, Sanuora Sechs, Sanuora Sieben, Lovecorn
-  boardwalkmaps=[118,323,343,394,423]             # Keniora Funf, Bot Boyend, Xeniora Funf, Birthday Mystery, Cindyora Sechs
-  alolamaps=[369]
-  galarmaps=[419]
-  hisuimaps=[462]
-  # But you should stop from below on unless what are you doing
-  return PBEnvironment::None if !$game_map
-  return PBEnvironment::Forest if forestmaps.include?($game_map.map_id)
-  return PBEnvironment::Snow if snowmaps.include?($game_map.map_id)
-  return PBEnvironment::Volcano if volcanomaps.include?($game_map.map_id)
-  return PBEnvironment::Graveyard if graveyardmaps.include?($game_map.map_id)
-  return PBEnvironment::Space if spacemaps.include?($game_map.map_id)
-  return PBEnvironment::Galaxy if galaxymaps.include?($game_map.map_id) # FLINT Environment
-  return PBEnvironment::Boardwalk if boardwalkmaps.include?($game_map.map_id) # FLINT Environment
-  return PBEnvironment::Alola if alolamaps.include?($game_map.map_id) # Alola
-  return PBEnvironment::Galar if galarmaps.include?($game_map.map_id) # Galar
-  return PBEnvironment::Hisui if hisuimaps.include?($game_map.map_id) # Hisui
+  mapenv = pbGetMetadata($game_map.map_id,MetadataEnvironment)
+  if mapenv       # if Found
+    return mapenv
+  end
   if $PokemonGlobal && $PokemonGlobal.diving
     return PBEnvironment::Underwater
   elsif $PokemonEncounters && $PokemonEncounters.isCave?

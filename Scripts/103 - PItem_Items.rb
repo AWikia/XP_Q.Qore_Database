@@ -448,9 +448,11 @@ def pbBattleHPItem(pokemon,battler,restorehp,scene)
     scene.pbDisplay(_INTL("But it had no effect!"))
     return false
   else
-    hpgain=pbItemRestoreHP(pokemon,restorehp)
-    battler.hp=pokemon.hp if battler
-    scene.pbRefresh
+    if battler
+      hpgain = battler.pbRecoverHP(restorehp)
+    else
+      hpgain = pbItemRestoreHP(pokemon,restorehp)
+    end
     scene.pbDisplay(_INTL("{1}'s HP was restored.",pokemon.name,hpgain))
     return true
   end

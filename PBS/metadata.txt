@@ -203,6 +203,7 @@ BattleBack=Swuora
 MapPosition=3,3,16
 Outdoor=true
 ShowArea=true
+PastMap=506
 [044]
 # Route 6
 MapSize=2,11
@@ -234,6 +235,7 @@ BattleBack=CaveDark
 Bicycle=true
 MapPosition=3,3,16
 ShowArea=true
+PastMap=507
 [049]
 # Rock Cave
 Bicycle=true
@@ -2842,4 +2844,17 @@ ShowArea=true
 [505]
 # Qore Temple
 MapPositoin=2,3,2
+ShowArea=true
+[506]
+# Past Swuora Zwei
+MapSize=2,1111
+BattleBack=Swuora
+MapPosition=3,3,16
+Outdoor=true
+ShowArea=true
+[507]
+# Past Glitch Cave
+BattleBack=CaveDark
+Bicycle=true
+MapPosition=3,3,16
 ShowArea=true

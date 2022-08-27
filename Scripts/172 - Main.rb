@@ -33,6 +33,7 @@ def qoreInitials
     $newmech= $PokemonSystem.mechanics
     $TEST=($debugmode==1) ? true : false
     $DEBUG=($debugmode==1) ? true : false
+    $INTERNAL=($debugmode==1) ? true : false
     $REGIONALCOMBO=1050
     $USENEWBATTLEMECHANICS=($newmech==1) ? true : false
     $inbattle=false # Initialization

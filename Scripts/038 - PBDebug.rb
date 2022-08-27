@@ -29,6 +29,7 @@ module PBDebug
     if ($DEBUG || $TEST) && $INTERNAL
       @@log.push("#{msg}\r\n")
 #      if @@log.length>1024
+        echoln(msg)
         PBDebug.flush
 #      end
     end

@@ -1172,13 +1172,23 @@ HiddenMoveHandlers::CanUseMove.add(:ROCKYTUNNEL,proc{|move,pkmn|
      for i in 0...meta.length
        if meta[i] && meta[i][MetadataPastMap]
          if meta[i][MetadataPastMap]==$game_map.map_id
-           return true
+            if $MapFactory.isPassableStrict?(i,$game_player.x,$game_player.y, $game_player)
+             return true
+            else
+             Kernel.pbMessage(_INTL("Can't use that here."))
+             return false
+            end
          end
        end
      end
      Kernel.pbMessage(_INTL("Can't use that here."))
      return false
    elsif !pbGetMetadata($game_map.map_id,MetadataPastMap) || $PokemonGlobal.surfing
+     Kernel.pbMessage(_INTL("Can't use that here."))
+     return false
+   end
+   pastmap = pbGetMetadata($game_map.map_id,MetadataPastMap)
+   if !$MapFactory.isPassableStrict?(pastmap,$game_player.x,$game_player.y, $game_player)
      Kernel.pbMessage(_INTL("Can't use that here."))
      return false
    end

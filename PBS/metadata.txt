@@ -468,6 +468,7 @@ Bicycle=true
 MapPosition=6,12,3
 DarkMap=true
 ShowArea=true
+PastMap=510
 [092]
 # Jarol Garden
 BattleBack=Jarol
@@ -476,6 +477,7 @@ MapPosition=6,12,12
 Outdoor=true
 ShowArea=true
 Environment=Forest
+PastMap=509
 [093]
 # Jarol Cave
 BattleBack=CaveDark
@@ -483,6 +485,7 @@ Bicycle=true
 MapPosition=6,12,12
 DarkMap=true
 ShowArea=true
+PastMap=511
 [094]
 # Xenuora Drei
 MapSize=2,1111
@@ -2833,6 +2836,7 @@ Bicycle=true
 MapPosition=6,12,12
 DarkMap=true
 ShowArea=true
+PastMap=508
 [504]
 # Past Quora Eins
 MapSize=2,1111
@@ -2857,4 +2861,32 @@ ShowArea=true
 BattleBack=CaveDark
 Bicycle=true
 MapPosition=3,3,16
+ShowArea=true
+[508]
+# Past Jarol Cave
+BattleBack=CaveDark
+Bicycle=true
+MapPosition=6,12,12
+ShowArea=true
+[509]
+# Heart of Jarol
+BattleBack=Cave
+Bicycle=false
+MapPosition=6,12,12
+ShowArea=true
+[510]
+# Past Jarol Cave
+Bicycle=true
+MapPosition=6,12,3
+ShowArea=true
+[511]
+# Past Jarol Cave
+Bicycle=true
+MapPosition=6,12,12
+ShowArea=true
+[512]
+# Past Jarol Cave
+BattleBack=CaveDark
+Bicycle=true
+MapPosition=6,12,12
 ShowArea=true

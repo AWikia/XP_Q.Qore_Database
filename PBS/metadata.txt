@@ -383,6 +383,7 @@ BattleBack=CaveDark
 Bicycle=true
 MapPosition=4,10,10
 ShowArea=true
+PastMap=513
 [080]
 # Marrine Cave
 BattleBack=CaveDark
@@ -390,6 +391,7 @@ Weather=Sandstorm,30
 Bicycle=true
 MapPosition=4,15,5
 ShowArea=true
+PastMap=514
 [081]
 # Semuora Drei
 MapSize=2,1111
@@ -2889,4 +2891,15 @@ ShowArea=true
 BattleBack=CaveDark
 Bicycle=true
 MapPosition=6,12,12
+ShowArea=true
+[513]
+# Marrine Cave
+MapSize=2,11
+Bicycle=true
+MapPosition=4,10,10
+ShowArea=true
+[514]
+# Marrine Cave
+Bicycle=true
+MapPosition=4,15,5
 ShowArea=true

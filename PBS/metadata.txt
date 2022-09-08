@@ -437,6 +437,7 @@ Weather=Sun,40
 MapPosition=5,17,5
 Outdoor=true
 ShowArea=true
+PastMap=516
 [087]
 # Kenuora Vier
 MapSize=2,1111
@@ -2902,4 +2903,23 @@ ShowArea=true
 # Marrine Cave
 Bicycle=true
 MapPosition=4,15,5
+ShowArea=true
+[515]
+# Marrine Cave
+MapSize=2,11
+Bicycle=true
+MapPosition=4,10,10
+ShowArea=true
+[516]
+# Past Kenuora Drei
+MapSize=2,1111
+BattleBack=Kenuora
+Weather=Rain,90
+MapPosition=5,17,5
+Outdoor=true
+ShowArea=true
+[517]
+# Algido Carven
+BattleBack=Cave
+MapPosition=5,17,6
 ShowArea=true

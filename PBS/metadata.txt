@@ -542,6 +542,7 @@ BattleBack=Annuora
 MapPosition=7,1,2
 Outdoor=true
 ShowArea=true
+PastMap=518
 [106]
 # Annuora Zwei
 BattleBack=Annuora
@@ -2122,6 +2123,7 @@ BattleBack=CaveDark
 Bicycle=true
 MapPosition=4,10,10
 ShowArea=true
+PastMap=515
 [373]
 # Ancient Temple
 SnapEdges=true
@@ -2894,18 +2896,18 @@ Bicycle=true
 MapPosition=6,12,12
 ShowArea=true
 [513]
-# Marrine Cave
+# Past Marrine Cave
 MapSize=2,11
 Bicycle=true
 MapPosition=4,10,10
 ShowArea=true
 [514]
-# Marrine Cave
+# Past Marrine Cave
 Bicycle=true
 MapPosition=4,15,5
 ShowArea=true
 [515]
-# Marrine Cave
+# Past Marrine Cave
 MapSize=2,11
 Bicycle=true
 MapPosition=4,10,10
@@ -2922,4 +2924,18 @@ ShowArea=true
 # Algido Carven
 BattleBack=Cave
 MapPosition=5,17,6
+ShowArea=true
+[518]
+# Past Annuora Eins
+MapSize=2,1111
+BattleBack=Annuora
+MapPosition=7,1,2
+Outdoor=true
+ShowArea=true
+Environment=Rock
+[519]
+# Past Understairs Annuora Eins
+MapSize=2,1111
+BattleBack=Cave
+MapPosition=7,1,2
 ShowArea=true

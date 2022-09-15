@@ -623,6 +623,7 @@ BattleBack=Keniora
 MapPosition=8,15,5
 Outdoor=true
 ShowArea=true
+PastMap=522
 [118]
 # Keniora Funf
 MapSize=1,111
@@ -2329,12 +2330,14 @@ BattleBack=CaveDark
 Weather=Sandstorm,100
 MapPosition=8,9,3
 ShowArea=true
+PastMap=520
 [408]
 # Liberty Corridor Path
 BattleBack=CaveDarker
 MapPosition=8,9,3
 DarkMap=true
 ShowArea=true
+PastMap=524
 [409]
 # XenuLeage
 BattleBack=IndoorB
@@ -2938,4 +2941,35 @@ Environment=Rock
 MapSize=2,1111
 BattleBack=Cave
 MapPosition=7,1,2
+ShowArea=true
+[520]
+# Past Liberty Corridor Path
+SnapEdges=true
+BattleBack=Cave
+MapPosition=8,9,3
+ShowArea=true
+[521]
+# Past Liberty Corridor Path
+SnapEdges=true
+BattleBack=Cave
+MapPosition=8,9,3
+ShowArea=true
+[522]
+# Past Keniora Vier
+MapSize=2,1111
+BattleBack=Keniora
+MapPosition=8,15,5
+Outdoor=true
+ShowArea=true
+[523]
+# Past Liberty Corridor Path
+SnapEdges=true
+BattleBack=Cave
+MapPosition=8,16,5
+ShowArea=true
+[524]
+# Past Liberty Corridor Path
+SnapEdges=true
+BattleBack=Cave
+MapPosition=8,16,5
 ShowArea=true

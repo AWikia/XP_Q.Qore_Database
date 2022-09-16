@@ -10543,23 +10543,23 @@ class PokeBattle_Move_159 < PokeBattle_Move
   end
   def pbAdditionalEffect(attacker,opponent)
     showanim='mix' # Was true
-    if opponent.pbCanReduceStatStage?(PBStats::ATTACK,false)
+    if opponent.pbCanReduceStatStage?(PBStats::ATTACK,attacker,false)
       opponent.pbReduceStat(PBStats::ATTACK,1,attacker,false,self,showanim)
       showanim=false
     end
-    if opponent.pbCanReduceStatStage?(PBStats::DEFENSE,false)
+    if opponent.pbCanReduceStatStage?(PBStats::DEFENSE,attacker,false)
       opponent.pbReduceStat(PBStats::DEFENSE,1,attacker,false,self,showanim)
       showanim=false
     end
-    if opponent.pbCanReduceStatStage?(PBStats::SPATK,false)
+    if opponent.pbCanReduceStatStage?(PBStats::SPATK,attacker,false)
       opponent.pbReduceStat(PBStats::SPATK,1,attacker,false,self,showanim)
       showanim=false
     end
-    if opponent.pbCanReduceStatStage?(PBStats::SPDEF,false)
+    if opponent.pbCanReduceStatStage?(PBStats::SPDEF,attacker,false)
       opponent.pbReduceStat(PBStats::SPDEF,1,attacker,false,self,showanim)
       showanim=false
     end
-    if opponent.pbCanReduceStatStage?(PBStats::SPEED,false)
+    if opponent.pbCanReduceStatStage?(PBStats::SPEED,attacker,false)
       opponent.pbReduceStat(PBStats::SPEED,1,attacker,false,self,showanim)
       showanim=false
     end
@@ -12125,23 +12125,23 @@ class PokeBattle_Move_203 < PokeBattle_Move
   def pbAdditionalEffect(attacker,opponent)
     if attacker.turncount<2
       showanim='mix' # Was true
-      if opponent.pbCanReduceStatStage?(PBStats::ATTACK,false)
+      if opponent.pbCanReduceStatStage?(PBStats::ATTACK,attacker,false)
         opponent.pbReduceStat(PBStats::ATTACK,2,attacker,false,self,showanim)
         showanim=false
       end
-      if opponent.pbCanReduceStatStage?(PBStats::DEFENSE,false)
+      if opponent.pbCanReduceStatStage?(PBStats::DEFENSE,attacker,false)
         opponent.pbReduceStat(PBStats::DEFENSE,2,attacker,false,self,showanim)
         showanim=false
       end
-      if opponent.pbCanReduceStatStage?(PBStats::SPATK,false)
+      if opponent.pbCanReduceStatStage?(PBStats::SPATK,attacker,false)
         opponent.pbReduceStat(PBStats::SPATK,2,attacker,false,self,showanim)
         showanim=false
       end
-      if opponent.pbCanReduceStatStage?(PBStats::SPDEF,false)
+      if opponent.pbCanReduceStatStage?(PBStats::SPDEF,attacker,false)
         opponent.pbReduceStat(PBStats::SPDEF,2,attacker,false,self,showanim)
         showanim=false
       end
-      if opponent.pbCanReduceStatStage?(PBStats::SPEED,false)
+      if opponent.pbCanReduceStatStage?(PBStats::SPEED,attacker,false)
         opponent.pbReduceStat(PBStats::SPEED,2,attacker,false,self,showanim)
         showanim=false
       end

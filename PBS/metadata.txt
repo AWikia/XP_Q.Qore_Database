@@ -1679,6 +1679,7 @@ TrainerBattleBGM=113 - Vs. Johto Trainer.mp3
 MapPosition=10,13,17
 WildBattleBGM=112 - Vs. Wild Johto.mp3
 ShowArea=true
+PastMap=527
 [300]
 # Rubstoro Forest
 TrainerBattleBGM=113 - Vs. Hoenn Trainer.mp3
@@ -1941,6 +1942,7 @@ Bicycle=false
 MapPosition=13,1,1
 Outdoor=true
 ShowArea=true
+PastMap=525
 [346]
 # Cindyora Zwei
 BattleBack=Cindyora
@@ -2973,3 +2975,26 @@ SnapEdges=true
 BattleBack=Cave
 MapPosition=8,16,5
 ShowArea=true
+[525]
+# Cindyora Eins
+MapSize=3,110111011
+BattleBack=Cindyora
+Weather=Rain,80
+Bicycle=false
+MapPosition=13,1,1
+Outdoor=true
+ShowArea=true
+[526]
+# Union Path
+BattleBack=Cave
+Bicycle=true
+MapPosition=10,13,17
+ShowArea=true
+Environment=Rock
+[527]
+# Past Union Cave
+BattleBack=Cave
+Bicycle=true
+MapPosition=10,13,17
+ShowArea=true
+Environment=Rock

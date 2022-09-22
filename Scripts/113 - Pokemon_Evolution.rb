@@ -1075,18 +1075,20 @@ end
 #  Pokemon to check; evolution type; level or other parameter; ID of the new Pokemon species
 def pbCheckEvolutionEx(pokemon)
   return -1 if pokemon.species<=0 || pokemon.isEgg?
-  return -1 if isConst?(pokemon.species,PBSpecies,:PICHU) && pokemon.form==1 # Spiky-Eared Pichu
-  return -1 if isEternal?(pokemon) && pokemon.form==1 # Eternal Formes
-  return -1 if isConst?(pokemon.species,PBSpecies,:ETV) && pokemon.form>1 # Parental Bond ETV
+  return -1 if isConst?(pokemon.species,PBSpecies,:PICHU) && pokemon.form==1        # Spiky-Eared Pichu
+  return -1 if isEternal?(pokemon) && pokemon.form==1                               # Eternal Formes
+  return -1 if isConst?(pokemon.species,PBSpecies,:ETV) && pokemon.form>1           # Parental Bond ETV
   return -1 if isConst?(pokemon.species,PBSpecies,:SUNNYCHANNEL) && pokemon.form==1 # Sunless Sunny Channel
-  return -1 if isConst?(pokemon.species,PBSpecies,:FLOETTE) && pokemon.form==5 # Eternal Flower Floette
-  return -1 if isConst?(pokemon.species,PBSpecies,:MEDIAWIKI) && pokemon.form==1 # Collectors forme 
-  return -1 if isConst?(pokemon.species,PBSpecies,:PIKACHU) && pokemon.form>1 # Cosplay Pikachu
+  return -1 if isConst?(pokemon.species,PBSpecies,:FLOETTE) && pokemon.form==5      # Eternal Flower Floette
+  return -1 if isConst?(pokemon.species,PBSpecies,:MEDIAWIKI) && pokemon.form==1    # Collectors forme 
+  return -1 if isConst?(pokemon.species,PBSpecies,:PIKACHU) && pokemon.form>1       # Cosplay Pikachu
+  return -1 if isConst?(pokemon.item,PBItems,:GIRAFARIGITE) &&
+               isConst?(pokemon.species,PBSpecies,:GIRAFARIG)                       # Girafarig that can Mega Evolve
   return -1 if isConst?(pokemon.item,PBItems,:EVERSTONE) &&
-               !isConst?(pokemon.species,PBSpecies,:KADABRA)
-  return -1 if $game_switches[172]
+               !isConst?(pokemon.species,PBSpecies,:KADABRA)                        # Everstone
+  return -1 if $game_switches[172]                                                  # During a Museum Mission
   return -1 if (isConst?(pokemon.species,PBSpecies,:LINNONE)) && 
-                !isGalarian?(pokemon)
+                !isGalarian?(pokemon)                                               # Regular Linnone
   ret=-1
   for form in pbGetEvolvedFormData(pokemon.species)
     ret=yield pokemon,form[0],form[1],form[2]

@@ -818,7 +818,6 @@
 ## FLINT Moves = Fighting
 846,LEGSWIDTH,Leg's Width,020,120,FIGHTING,Special,100,5,100,00,0,bfm,"Being widthful, it shoots a leg. This raises the user's Sp. Atk stat."
 887,LEGSHEIGHT,Leg's Height,01C,120,FIGHTING,Physical,100,5,100,00,0,bfm,"Being heightful, it shoots a leg. This raises the user's Attack stat."
-1070,GORILLATACTICS,Gorilla Tactics,280,0,GRASS,Status,0,40,0,10,0,d,"The user enforced temporarly some gorilla tactics, boosting its Attack stat."
 1105,DOUBLELEG,Leg's Height,027,240,FIGHTING,Physical,100,5,100,00,0,bfm,"Being heightful, it shoots two legs. This raises the user's Attack and Special Attack stats."
 ## FLINT Moves = Flying
 686,AEROBICS,Aerobics,007,85,FLYING,Physical,100,15,30,04,0,abef,The user drops onto the other side with aerobics. It may leave the target(s) with paralysis.
@@ -852,7 +851,7 @@
 ## FLINT Moves = Rock
 924,ROCKYHELMET,Rocky Helmet,14C,0,ROCK,Status,0,10,0,10,0,d,"In addition to protecting the user from attacks, this move also damages any attacker who makes direct contact."
 925,ROCKYFLECTOR,Rocky Flector,0AA,0,ROCK,Status,0,10,0,10,4,,It enables the user to evade all attacks. Its chance of failing rises if it is used in succession.
-1062,ROCKYTUNNEL,Rocky Tunnel,082,60,ROCK,Physical,100,10,0,00,0,abef,"If the target has already taken some damage in the same turn, this attack's power is doubled."
+1062,ROCKYTUNNEL,Rocky Tunnel,082,60,ROCK,Physical,100,10,0,00,0,abef,"If the target has already taken some damage in the same turn, this attack's power is doubled. This can also be used to travel in the past."
 1110,TITANSTONE,Titan Stone,159,20,ROCK,Physical,100,15,100,04,-2,b,The user hurls up a titanic stone that does low damage. This move will always dip foe's stats by 1 stage.
 ## FLINT Moves = Bug
 926,BUGSLASH,Bug Slash,000,10,BUG,Physical,100,50,0,00,0,abefh,The user attacks using a tiny slash. Critical hits land more easily.
@@ -918,6 +917,7 @@
 968,LEAFGUARD,Leaf Guard,019,0,GRASS,Status,0,5,0,40,0,d,The user releases a soothing scent that heals all status problems affecting the user's party.
 969,FLOWEROTOPIA,Flowerotopia,296,0,GRASS,Status,0,20,0,10,0,d,"The user covers itself with a flower, raising the Defense and Sp. Def stats."
 970,LEAFUP,Leaf Up,199,130,GRASS,Special,100,5,0,00,0,befg,"To inflict massive damage, the user leafs itself out. After using this move, the user will no longer be Grass type."
+1070,GORILLATACTICS,Gorilla Tactics,280,0,GRASS,Status,0,40,0,10,0,d,"The user enforced temporarly some gorilla tactics, boosting its Attack stat."
 1119,SOLARENERGY,Solar Energy,0DC,75,GRASS,Physical,90,10,100,00,0,abef,"The user blasts a bundled beam which plants a seed that steals some HP from the target every turn."
 ## FLINT Moves = Electric
 621,THUNDERWIND,Thunder Wind,008,40,ELECTRIC,Special,100,30,30,00,0,abef,The user stirs up a thunder wind and strikes the target with it. May paralyze the target

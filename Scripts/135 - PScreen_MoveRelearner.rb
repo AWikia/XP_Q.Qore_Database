@@ -104,6 +104,7 @@ class MoveRelearnerScene
        [_INTL("Teach which move?"),16,8,0,baseColor,shadowColor]
     ]
     yPos=82
+    dark = (isDarkMode?) ? [2,0] : [0,1]
     for i in 0...VISIBLEMOVES
       moveobject=@moves[@sprites["commands"].top_item+i]
       if moveobject
@@ -112,7 +113,7 @@ class MoveRelearnerScene
           imagepos.push(["Graphics/Global Pictures/types",12,yPos+2,64*$PokemonSystem.colortige,
           movedata.type*28,64,28])
           textpos.push([PBMoves.getName(moveobject),80,yPos,0,
-             typeColors[movedata.type][0],typeColors[movedata.type][1]])
+             typeColors[movedata.type][dark[0]],typeColors[movedata.type][dark[1]]])
           if movedata.totalpp>0
             textpos.push([_INTL("PP"),112,yPos+32,0,
                baseColor,shadowColor])

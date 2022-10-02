@@ -8678,7 +8678,7 @@ MultipleForms.register(:MINIOR,{
    next colors[pokemon.form-7]
 },
 "getFormOnCreation"=>proc{|pokemon|
-   next rand(7)
+   next 7+rand(7)
 }
 })
 

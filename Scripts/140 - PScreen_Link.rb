@@ -278,7 +278,7 @@ class Scene_LinkBattleScene
                 break
               else
                 if itemname == 'RB'
-                  species = [PBSpecies::DITTO,PBSpecies::BLUEGHOST]
+                  species = [PBSpecies::DITTO,PBSpecies::DISCORD,PBSpecies::BLUEGHOST]
                   if $game_switches && $game_switches[67]
                     species.push(PBSpecies::UNOWN)
                   end

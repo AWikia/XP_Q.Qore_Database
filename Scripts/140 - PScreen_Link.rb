@@ -279,6 +279,7 @@ class Scene_LinkBattleScene
               else
                 if itemname == 'RB'
                   species = [PBSpecies::DITTO,PBSpecies::DISCORD,PBSpecies::BLUEGHOST]
+# Unlockables
                   if $game_switches && $game_switches[67]
                     species.push(PBSpecies::UNOWN)
                   end
@@ -288,6 +289,13 @@ class Scene_LinkBattleScene
                   if completedTechnicalDiscs
                     species.push(PBSpecies::ROTOM)
                   end
+                  if $game_switches && $game_variables &&
+                     $game_switches[12] && $game_switches[70] && 
+                     $game_switches[76] && completedTrophies &&
+                     completedTechnicalDiscs && $game_variables[13]>99
+                    species.push(PBSpecies::ALCREMIE)
+                  end
+# End Unlockables
                   pokemon = species[rand(species.length)]
                   if pbGenerateRemoteBox(pokemon,_I("Link Battle Marketplace"))
                     $game_variables[1002] -= itemprice

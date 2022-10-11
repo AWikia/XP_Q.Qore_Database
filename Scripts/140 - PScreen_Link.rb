@@ -178,7 +178,7 @@ class Scene_LinkBattleScene
           point=[50,100,150,200,300][command]
           double= Kernel.pbConfirmMessageLB(_INTL("\\c[8]\\w[TrophyWindow]The battle is normally single. However, you can do a double battle. Do you want to do it so?"))
           $PokemonGlobal.nextBattleBack="000"
-          cpuname = ['Nic','Karla','Jimmy','Britney','Duncan','Kelli','Todd','Nina','Ross','Heidi','Steven','Miriam','Darrell','Teresa','Reed','Aubrey','Chris','Kelly','Brad','Naomi','Dwight','Abby','Randy','Denise','Andy','Tamara','Joey','Linda','Eric','Faith','Mark','Mari','Maggie'][rand(33)]
+          cpuname = ['Nic','Karla','Jimmy','Britney','Duncan','Kelli','Todd','Nina','Ross','Heidi','Steven','Miriam','Darrell','Teresa','Reed','Aubrey','Chris','Kelly','Brad','Naomi','Dwight','Abby','Randy','Denise','Andy','Tamara','Joey','Linda','Eric','Faith','Mark','Mari','Maggie','Ash','Dion','Jude','Terell','Kris','Talon','Lonny','Jess','Chase','Keili','Lindy','Turdy','Krissa','Dodie','Flora'][rand(48)]
           pbSet(1004,cpuname)
           if pbTrainerBattle(:LINKER,trainer,_I(trainer2),double,0,true,0)
             Kernel.pbMessage(_INTL("\\c[8]\\w[TrophyWindow]You won against {1} as you seem to be a strong player. Get your prize.",cpuname))
@@ -214,11 +214,15 @@ class Scene_LinkBattleScene
                  PBItems::MAXPOTION,
                  PBItems::FULLRESTORE,
                  PBItems::TERRAINEXTENDER,
+                 PBItems::BOTANICSMOKE,
                  PBItems::BEASTBALL,
                  PBItems::RODOFSPARROW,
                  PBItems::RARECANDY,
+                 PBItems::BELLBOX,
                  PBItems::VICIOUSCANDY,
+                 PBItems::KEYBOX,
                  PBItems::RELICFLOWER,
+                 PBItems::SACREDASH,
                  'RB']
           prices=[50,
                   100,
@@ -232,11 +236,15 @@ class Scene_LinkBattleScene
                   600,
                   700,
                   800,
+                  900,
                   1000,
                   1500,
                   2000,
+                  3000,
                   4000,
+                  5000,
                   6000,
+                  7000,
                   8000]
         loop do
           commands=[
@@ -252,11 +260,15 @@ class Scene_LinkBattleScene
                   _INTL("Max Potion (600 Points)"),
                   _INTL("Full Restore (700 Points)"),
                   _INTL("Terrain Extender (800 Points)"),
+                  _INTL("Botanic Smoke (900 Points)"),
                   _INTL("Beast Ball (1000 Points)"),
                   _INTL("Rod of Sparrow (1500 Points)"),
                   _INTL("Rare Candy (2000 Points)"),
+                  _INTL("Bell Box (3000 Points)"),
                   _INTL("Vicious Candy (4000 Points)"),
+                  _INTL("Key Box (5000 Points)"),
                   _INTL("Relic Flower (6000 Points)"),
+                  _INTL("Sacred Ash (7000 Points)"),
                   _INTL("Remote Box (8000 Points)"),
                   _INTL("Cancel")]
           command=Kernel.pbMessageLB(

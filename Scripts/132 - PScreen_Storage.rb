@@ -2457,7 +2457,11 @@ class PokemonStorageScene
 #        textstrings.push([_INTL("♀"),148,8,false,Color.new(248,56,32),Color.new(224,152,144)])
         imagepos.push(["Graphics/Pictures/gender_transgender_b",8,40,0,0,-1,-1])
       end
-      imagepos.push(["Graphics/Pictures/storage_lv",6,246,0,0,-1,-1])
+      if (!isDarkMode?)
+        imagepos.push(["Graphics/Pictures/storage_lv",6,246,0,0,-1,-1])
+      else
+        imagepos.push(["Graphics/Pictures/white_lv",6,246,0,0,-1,-1])
+      end
       textstrings.push([pokemon.level.to_s,28,234,false,base,shadow])
       if pokemon.ability>0
         textstrings.push([PBAbilities.getName(pokemon.ability),85,306,2,base,shadow])

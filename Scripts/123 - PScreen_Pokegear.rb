@@ -8,12 +8,13 @@ class PokegearButton < SpriteWrapper
     @index=index
     @name=name
     @selected=false
-    fembutton=pbResolveBitmap(sprintf("Graphics/Pictures/"+getAccentFolder+"/pokegearButtonf"))
+    fembutton=pbResolveBitmap(sprintf("Graphics/Pictures/"+getDarkModeFolder+"/pokegearButtonf"))
     if $Trainer.isFemale? && fembutton
-      @button=AnimatedBitmap.new("Graphics/Pictures/"+getAccentFolder+"/pokegearButtonf")
+      @button=AnimatedBitmap.new("Graphics/Pictures/"+getDarkModeFolder+"/pokegearButtonf")
     else
-      @button=AnimatedBitmap.new("Graphics/Pictures/"+getAccentFolder+"/pokegearButton")
+      @button=AnimatedBitmap.new("Graphics/Pictures/"+getDarkModeFolder+"/pokegearButton")
     end
+    @button2=AnimatedBitmap.new("Graphics/Pictures/"+getAccentFolder+"/linkgearSelection")
     @contents=BitmapWrapper.new(@button.width,@button.height)
     self.bitmap=@contents
     self.x=x
@@ -24,6 +25,7 @@ class PokegearButton < SpriteWrapper
 
   def dispose
     @button.dispose
+    @button2.dispose
     @contents.dispose
     super
   end
@@ -31,6 +33,7 @@ class PokegearButton < SpriteWrapper
   def refresh
     self.bitmap.clear
     self.bitmap.blt(0,0,@button.bitmap,Rect.new(0,0,@button.width,@button.height))
+    self.bitmap.blt(0,0,@button2.bitmap,Rect.new(0,0,@button2.width,@button2.height))
     pbSetSystemFont(self.bitmap)
     textpos=[          # Name is written on both unselected and selected buttons
        [@name,self.bitmap.width/2,10,2,Color.new(248,248,248),Color.new(40,40,40)],
@@ -90,7 +93,7 @@ class Scene_PokegearScene
 
     @viewport=Viewport.new(0,0,Graphics.width,Graphics.height)
     @viewport.z=99999
-    @button=AnimatedBitmap.new("Graphics/Pictures/"+getAccentFolder+"/pokegearButton")
+    @button=AnimatedBitmap.new("Graphics/Pictures/"+getDarkModeFolder+"/pokegearButton")
     femback=pbResolveBitmap(sprintf("Graphics/Pictures/"+getDarkModeFolder+"/pokegearbgf"))
     if $Trainer && $Trainer.isFemale? && femback
       addBackgroundPlane(@sprites,"background",getDarkModeFolder+"/pokegearbgf",@viewport)

@@ -22594,6 +22594,7 @@ BattlerPlayerY=0
 BattlerEnemyY=4
 BattlerAltitude=0
 Evolutions=NORTON,Item,THUNDERSTONE,NORTON,Trained,150
+Incense=NORTONOPIA
 [828]
 Name=Star
 InternalName=STAR

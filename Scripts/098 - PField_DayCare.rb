@@ -174,11 +174,7 @@ def pbDayCareGenerateEgg
   end
   babyspecies=pbGetBabySpecies(babyspecies,mother.item,father.item)
   relicflower = false
-  if isConst?(babyspecies,PBSpecies,:NORTONI) && !(isConst?(mother.item,PBItems,:NORTONOPIA) || isConst?(father.item,PBItems,:NORTONOPIA))
-    babyspecies=getConst(PBSpecies,:NORTON)
-  elsif (isConst?(babyspecies,PBSpecies,:NORTON) || isConst?(babyspecies,PBSpecies,:NORTONPLUS)) && (isConst?(mother.item,PBItems,:NORTONOPIA) || isConst?(father.item,PBItems,:NORTONOPIA))
-    babyspecies=getConst(PBSpecies,:NORTONI)
-  elsif (isConst?(babyspecies,PBSpecies,:MEDIAWIKI)) && babyform == 1 && (isConst?(mother.item,PBItems,:RELICFLOWER) || isConst?(father.item,PBItems,:RELICFLOWER))
+  if (isConst?(babyspecies,PBSpecies,:MEDIAWIKI)) && babyform == 1 && (isConst?(mother.item,PBItems,:RELICFLOWER) || isConst?(father.item,PBItems,:RELICFLOWER))
     babyspecies=getConst(PBSpecies,:WIKITECH)
     relicflower = true
   elsif (isConst?(babyspecies,PBSpecies,:WIKITECH)) && babyform == 1 && (isConst?(mother.item,PBItems,:RELICFLOWER) || isConst?(father.item,PBItems,:RELICFLOWER))

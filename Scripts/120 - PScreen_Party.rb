@@ -1895,7 +1895,7 @@ class PokemonScreen
             pkmn.otgender=$Trainer.gender
           # Set OT's name
           elsif cmd==1
-            newot=pbEnterPlayerName(_INTL("{1}'s OT's name?",pkmn.name),1,7)
+            newot=pbEnterPlayerName(_INTL("{1}'s OT's name?",pkmn.name),1,12)
             pkmn.ot=newot
           # Set OT's gender
           elsif cmd==2

@@ -1868,16 +1868,16 @@ def pbCryFile(pokemon)
   return nil if !pokemon
   return pbCryFileClassic(pokemon) if ($PokemonSystem.cryclassic==0 rescue false)
   if pokemon.is_a?(Numeric)
-    filename=sprintf("Cries/%sCry",getConstantName(PBSpecies,pokemon,(pokemon.form rescue 0))) rescue nil
-    filename=sprintf("Cries/%03dCry",pokemon, (pokemon.form rescue 0)) if !pbResolveAudioSE(filename)
+    filename=sprintf("%sCry",getConstantName(PBSpecies,pokemon,(pokemon.form rescue 0))) rescue nil
+    filename=sprintf("%03dCry",pokemon, (pokemon.form rescue 0)) if !pbResolveAudioSE(filename)
     return filename if pbResolveAudioSE(filename)
   elsif !pokemon.isEgg?
-    filename=sprintf("Cries/%sCry_%d",getConstantName(PBSpecies,pokemon.species,(pokemon.form rescue 0))) rescue nil
-    filename=sprintf("Cries/%03dCry_%d",pokemon.species,(pokemon.form rescue 0)) if !pbResolveAudioSE(filename)
+    filename=sprintf("%sCry_%d",getConstantName(PBSpecies,pokemon.species,(pokemon.form rescue 0))) rescue nil
+    filename=sprintf("%03dCry_%d",pokemon.species,(pokemon.form rescue 0)) if !pbResolveAudioSE(filename)
     if !pbResolveAudioSE(filename)
-      filename=sprintf("Cries/%sCry",getConstantName(PBSpecies,pokemon.species,(pokemon.form rescue 0))) rescue nil
+      filename=sprintf("%sCry",getConstantName(PBSpecies,pokemon.species,(pokemon.form rescue 0))) rescue nil
     end
-    filename=sprintf("Cries/%03dCry",pokemon.species,(pokemon.form rescue 0)) if !pbResolveAudioSE(filename)
+    filename=sprintf("%03dCry",pokemon.species,(pokemon.form rescue 0)) if !pbResolveAudioSE(filename)
     return filename if pbResolveAudioSE(filename)
   end
   return nil
@@ -1885,6 +1885,7 @@ end
 
 
 def pbCryFileClassic(pokemon)
+=begin
   return nil if !pokemon
   if pokemon.is_a?(Numeric)
     filename=sprintf("Classic Cries/%sCry",getConstantName(PBSpecies,pokemon,(pokemon.form rescue 0))) rescue nil
@@ -1899,6 +1900,7 @@ def pbCryFileClassic(pokemon)
     filename=sprintf("Classic Cries/%03dCry",pokemon.species,(pokemon.form rescue 0)) if !pbResolveAudioSE(filename)
     return filename if pbResolveAudioSE(filename)
   end
+=end
   return nil
 end
 

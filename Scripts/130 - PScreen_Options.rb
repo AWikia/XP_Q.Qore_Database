@@ -941,19 +941,19 @@ There are different modes:
         EnumOption.new(_INTL("Battle Style"),[_INTL("Switch"),_INTL("Set")],
            proc { $PokemonSystem.battlestyle },
            proc {|value| $PokemonSystem.battlestyle=value },
-           "When set to Switch, it allows you to switch to another Pokémon on trainer battles when defating a Pokémon. When set to Set, it won’t prompt you to switch to another Pokémon if you wish when defating a Trainer’s Pokémon."
+           "When set to Switch, it allows you to switch to another Pokémon on trainer battles when defating a Pokémon. When set to Set, it won’t prompt you to switch to another Pokémon."
         ),
         EnumOption.new(_INTL("Battle Mechanics (Requires Restart)"),[_INTL("Generation V"),_INTL("NextGen")],
            proc { $PokemonSystem.mechanics },
            proc {|value|
              $PokemonSystem.mechanics=value
            },
-           "When set to Generation V, it uses mechanics found in Generation V games. When set to NextGen, it uses mechanics found in the latest Generation of Pokémon Games (Whichever is latest). Requires restart for this to apply."
+           "When set to Generation V, it uses mechanics found in Generation V games. When set to NextGen, it uses mechanics found in the latest Pokémon Games."
         ),
         EnumOption.new(_INTL("Generation VI Pokémon Graphic Style"),[_INTL("Classic"),_INTL("Modern")],
           proc { $PokemonSystem.newsix },
           proc {|value| $PokemonSystem.newsix = value },
-        "This is inteded as a transition point between the Original Gen6 and the revamped Gen6 sprites. Set this to off to disable them. New games have this setting enabled by default. This does not affect Hisuian Goomy or Bergmite families as those were added after the project started but does affect Sylvia since it is a recolored form of Female Meowstic"
+        "This is inteded as a transition point between the Original Gen6 and the revamped Gen6 sprites. Set this to off to disable them."
         ),
       ]
     end

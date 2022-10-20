@@ -917,10 +917,10 @@ There are different modes:
           },
           "Controls pitch on playback casted by the Jukebox Pokégear feature."
        ),
-        EnumOption.new(_INTL("Pokémon Cry Style"),[_INTL("None"),_INTL("Modern")],
+        EnumOption.new(_INTL("Pokémon Cry Sounds"),[_INTL("Off"),_INTL("On")],
           proc { $PokemonSystem.cryclassic },
           proc {|value| $PokemonSystem.cryclassic = value },
-          "Sets Pokémon Cry Style. Choice between Classic and Modern and starts with Modern Cries by default."
+          "When set to off, no sound is heard from Pokémon. When set to Prograda, its Pokémon name will be heard."
         )
       ]
     end

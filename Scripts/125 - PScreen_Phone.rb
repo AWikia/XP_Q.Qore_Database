@@ -363,10 +363,6 @@ class PokemonPhoneScene
     @viewport=Viewport.new(0,0,Graphics.width,Graphics.height)
     @viewport.z=99999
     @sprites["list"]=Window_PhoneList.newEmpty(152+64,32,Graphics.width-142 - 64,Graphics.height-80,@viewport)
-    @sprites["header"]=Window_UnformattedTextPokemon.newWithSize(_INTL("Phone"),
-       2,-18,128,64,@viewport)
-    @sprites["header"].baseColor=Color.new(248,248,248)
-    @sprites["header"].shadowColor=Color.new(0,0,0)
     mapname=(@trainers[0][2]) ? pbGetMessage(MessageTypes::MapNames,@trainers[0][2]) : ""
     @sprites["bottom"]=Window_AdvancedTextPokemon.newWithSize("",
        162,Graphics.height-64,Graphics.width-158,64,@viewport)
@@ -374,11 +370,18 @@ class PokemonPhoneScene
     @sprites["info"]=Window_AdvancedTextPokemon.newWithSize("",
        -8 + 64,224,180,160,@viewport)
     femback=pbResolveBitmap(sprintf("Graphics/Pictures/"+getDarkModeFolder+"/phonebgf"))
+    forcedark = true
     if $Trainer.isFemale? && femback
       addBackgroundPlane(@sprites,"bg",getDarkModeFolder+"/phonebgf",@viewport)
+      forcedark = false
     else
       addBackgroundPlane(@sprites,"bg",getDarkModeFolder+"/phonebg",@viewport)
     end
+    @sprites["header"]=Window_UnformattedTextPokemon.newWithSize(_INTL("Phone"),
+       2,-18,128,64,@viewport)
+    @sprites["header"].baseColor=(isDarkMode? || forcedark) ? Color.new(248,248,248) : Color.new(0,0,0)
+    @sprites["header"].shadowColor=nil #(isDarkMode? || forcedark) ? Color.new(248,248,248) : Color.new(0,0,0)
+    @sprites["header"].windowskin=nil
     @sprites["icon"]=IconSprite.new(70+64,102,@viewport)
     if @trainers[0].length==4
       filename=pbTrainerCharFile(@trainers[0][0])

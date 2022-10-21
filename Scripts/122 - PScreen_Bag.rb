@@ -154,7 +154,7 @@ class PokemonBag_Scene
     @sprites["itemwindow"].refresh
     @sprites["header"]=Window_UnformattedTextPokemon.newWithSize(_INTL("{1}",PokemonBag.pocketNames()[@bag.lastpocket]),2,-18,500,64,@viewport)
     @sprites["header"].baseColor=Color.new(248,248,248)
-    @sprites["header"].shadowColor=Color.new(0,0,0)
+    @sprites["header"].shadowColor=nil #Color.new(0,0,0)
     @sprites["header"].windowskin=nil
     @sprites["slider"]=IconSprite.new(Graphics.width-40,78,@viewport)
     @sprites["slider"].setBitmap(sprintf("Graphics/Pictures/"+getDarkModeFolder+"/bagSlider"))

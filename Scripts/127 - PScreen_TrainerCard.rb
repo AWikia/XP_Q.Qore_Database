@@ -30,7 +30,7 @@ class PokemonTrainerCardScene
     cardexists=pbResolveBitmap(sprintf("Graphics/Pictures/"+getDarkModeFolder+"/trainercardf"))
     @sprites["header"]=Window_UnformattedTextPokemon.newWithSize(_INTL("Trainer Card"),
        2,-18,256,64,@viewport)
-    if (!isDarkMode?) && (level == 3 || level == 4)
+    if (!isDarkMode?)
       base=Color.new(0,0,0)
       shadow=Color.new(248,248,248)
     else
@@ -38,7 +38,7 @@ class PokemonTrainerCardScene
       shadow=Color.new(0,0,0)
     end
     @sprites["header"].baseColor=base
-    @sprites["header"].shadowColor=shadow
+    @sprites["header"].shadowColor=nil #shadow
     @sprites["header"].windowskin=nil
     @sprites["card"]=IconSprite.new(0,0,@viewport)
     @sprites["card"].setBitmap("Graphics/Pictures/"+getDarkModeFolder+"/trainercard_"+level.to_s)

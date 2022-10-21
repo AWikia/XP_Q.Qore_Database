@@ -385,7 +385,7 @@ class PokemonPokedexScene
     @sprites["searchtitle"]=Window_AdvancedTextPokemon.newWithSize("",2,-18,Graphics.width,64,@viewport)
     @sprites["searchtitle"].windowskin=nil
     @sprites["searchtitle"].baseColor=Color.new(248,248,248)
-    @sprites["searchtitle"].shadowColor=Color.new(0,0,0)
+    @sprites["searchtitle"].shadowColor= Color.new(74,74,74)
     @sprites["searchtitle"].text=_ISPRINTF("Search Mode")
     @sprites["searchtitle"].visible=false
     @sprites["searchlist"]=Window_ComplexCommandPokemon.newEmpty(-6,32,284,352,@viewport)
@@ -423,7 +423,7 @@ class PokemonPokedexScene
     @sprites["header"]=Window_UnformattedTextPokemon.newWithSize(_INTL("Pokédex"),
        2,-18,384,64,@viewport)
     @sprites["header"].baseColor=Color.new(248,248,248)
-    @sprites["header"].shadowColor=Color.new(0,0,0)
+    @sprites["header"].shadowColor=nil #Color.new(0,0,0)
     @sprites["header"].windowskin=nil
     @sprites["seen"]=Window_AdvancedTextPokemon.newWithSize("",34,299,164,64,@viewport)
     @sprites["seen"].windowskin=nil

@@ -727,7 +727,7 @@ class PokemonScreen_Scene
     @sprites["header"]=Window_UnformattedTextPokemon.newWithSize(_INTL("Party Pokémon"),
        2,-18,576,64,@viewport)      
     @sprites["header"].baseColor=(isDarkMode?) ? Color.new(248,248,248) : Color.new(0,0,0)
-    @sprites["header"].shadowColor=(!isDarkMode?) ? Color.new(248,248,248) : Color.new(0,0,0)
+    @sprites["header"].shadowColor=nil #(!isDarkMode?) ? Color.new(248,248,248) : Color.new(0,0,0)
     @sprites["header"].windowskin=nil
     @sprites["messagebox"]=Window_AdvancedTextPokemon.new("")
     @sprites["helpwindow"]=Window_UnformattedTextPokemon.new(starthelptext)

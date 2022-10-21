@@ -95,15 +95,17 @@ class Scene_PokegearScene
     @viewport.z=99999
     @button=AnimatedBitmap.new("Graphics/Pictures/"+getDarkModeFolder+"/pokegearButton")
     femback=pbResolveBitmap(sprintf("Graphics/Pictures/"+getDarkModeFolder+"/pokegearbgf"))
+    forcedark = true
     if $Trainer && $Trainer.isFemale? && femback
       addBackgroundPlane(@sprites,"background",getDarkModeFolder+"/pokegearbgf",@viewport)
+      forcedark = false
     else
       addBackgroundPlane(@sprites,"background",getDarkModeFolder+"/pokegearbg",@viewport)
     end
     @sprites["header"]=Window_UnformattedTextPokemon.newWithSize(_INTL("Pokégear"),
        2,-18,128,64,@viewport)
-    @sprites["header"].baseColor=Color.new(248,248,248)
-    @sprites["header"].shadowColor=Color.new(0,0,0)
+    @sprites["header"].baseColor=(isDarkMode? || forcedark) ? Color.new(248,248,248) : Color.new(0,0,0)
+    @sprites["header"].shadowColor=nil #(!isDarkMode? && !forcedark) ? Color.new(248,248,248) : Color.new(0,0,0)
     @sprites["header"].windowskin=nil
     @sprites["command_window"] = Window_CommandPokemon.new(commands,160)
     @sprites["command_window"].visible = false

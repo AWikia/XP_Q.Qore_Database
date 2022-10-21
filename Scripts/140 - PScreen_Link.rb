@@ -91,7 +91,7 @@ class Scene_LinkBattleScene
     @sprites["header"]=Window_UnformattedTextPokemon.newWithSize(_INTL("Link Battle"),
        2,-18,256,64,@viewport)
     @sprites["header"].baseColor=Color.new(248,248,248)
-    @sprites["header"].shadowColor=Color.new(0,0,0)
+    @sprites["header"].shadowColor=nil #Color.new(0,0,0)
     @sprites["header"].windowskin=nil
     @sprites["command_window"] = Window_CommandPokemon.new(commands,160)
     @sprites["command_window"].visible = false

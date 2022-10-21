@@ -65,6 +65,11 @@ class MoveRelearnerScene
     @sprites["background"].setBitmap("Graphics/Pictures/"+getAccentFolder+"/reminderSel")
     @sprites["background"].y=78
     @sprites["background"].src_rect=Rect.new(0,72,258,72)
+    @sprites["header"]=Window_UnformattedTextPokemon.newWithSize(_INTL("Teach which move to {1}?", @pokemon.name),
+       2,-18,512,64,@viewport)
+    @sprites["header"].baseColor=(isDarkMode?) ? Color.new(248,248,248) : Color.new(0,0,0)
+    @sprites["header"].shadowColor=nil #(!isDarkMode?) ? Color.new(248,248,248) : Color.new(0,0,0)
+    @sprites["header"].windowskin=nil
     @sprites["overlay"]=BitmapSprite.new(Graphics.width,Graphics.height,@viewport)
     pbSetSystemFont(@sprites["overlay"].bitmap)
     @sprites["commands"]=Window_CommandPokemon.new(moveCommands,32)
@@ -101,8 +106,9 @@ class MoveRelearnerScene
       overlay.blt(436,70,@typebitmap.bitmap,type2rect)
     end
     textpos=[
-       [_INTL("Teach which move?"),16,8,0,baseColor,shadowColor]
+#       [_INTL("Teach which move?"),16,8,0,baseColor,shadowColor]
     ]
+
     yPos=82
     dark = (isDarkMode?) ? [2,0] : [0,1]
     for i in 0...VISIBLEMOVES

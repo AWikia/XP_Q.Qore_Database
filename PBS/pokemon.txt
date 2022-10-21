@@ -19224,8 +19224,8 @@ Kind=Wikia
 Pokedex=Wikia is from Wikia, inc. Was the farmer with a lot of  wikis and it was a helper project.
 WildItemCommon=BRIGHTPOWDER
 WildItemUncommon=EVERSTONE
-BattlerPlayerY=0
-BattlerEnemyY=4
+BattlerPlayerY=1
+BattlerEnemyY=5
 BattlerAltitude=0
 Evolutions=WIKIA,Trained,90
 [703]

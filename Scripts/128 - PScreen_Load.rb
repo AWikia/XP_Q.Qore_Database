@@ -137,7 +137,7 @@ class PokemonLoadScene
       addBackgroundOrColoredPlaneGlobal(@sprites,"background","loadbg_empty",
          Color.new(248,248,248),@viewport)
     end
-      addBackgroundOrColoredPlane(@sprites,"partybg_title",getDarkModeFolder+"/partybg",
+      addBackgroundOrColoredPlane(@sprites,"partybg_title",getDarkModeFolder+"/partybg_1",
          Color.new(0,0,0),@viewport)
     title=RTP.getGameIniValue("Game", "Game") # QQC Edit 
     title=RTP.getGameIniValue("Game","Title") if title==""

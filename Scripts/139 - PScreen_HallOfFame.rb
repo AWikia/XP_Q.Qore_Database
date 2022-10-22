@@ -150,16 +150,26 @@ class HallOfFameScene
   end  
 
   # Placement for pokemon icons
-  def pbStartScene
+  def pbStartScene(pcscreen=true)
     @sprites={}
     @viewport=Viewport.new(0,0,Graphics.width, Graphics.height)
     @viewport.z=99999
     # Comment the below line to doesn't use a background
     addBackgroundPlane(@sprites,"bg","hallfamebg",@viewport)
     @sprites["hallbars"]=IconSprite.new(@viewport)
-    @sprites["hallbars"].setBitmap("Graphics/Pictures/hallfamebars")
+    if pcscreen
+      @sprites["hallbars"].setBitmap("Graphics/Pictures/hallfamebars")
+    else
+      @sprites["hallbars"].setBitmap("Graphics/Pictures/hallfamebars_2")
+    end
     @sprites["overlay"]=BitmapSprite.new(Graphics.width,Graphics.height,@viewport)
     @sprites["overlay"].z=10
+
+    @sprites["header"]=Window_UnformattedTextPokemon.newWithSize(_INTL("Hall of Fame"),2,-18,500,64,@viewport)
+    @sprites["header"].baseColor=Color.new(248,248,248)
+    @sprites["header"].shadowColor=nil #Color.new(0,0,0)
+    @sprites["header"].windowskin=nil
+    
     pbSetSystemFont(@sprites["overlay"].bitmap)
     @alreadyFadedInEnd=false
     @useMusic=false
@@ -168,7 +178,7 @@ class HallOfFameScene
   end
 
   def pbStartSceneEntry
-    pbStartScene
+    pbStartScene(false)
     @useMusic=(ENTRYMUSIC && ENTRYMUSIC!="")
     pbBGMPlay(ENTRYMUSIC) if @useMusic
     saveHallEntry
@@ -206,6 +216,7 @@ class HallOfFameScene
     ret=0
     if !SINGLEROW
       ret=32+160*xpositionformula(battlernumber)
+      ret+=(Graphics.width - 512) / 2
     else
       ret=(60*(battlernumber/2)+48)*(xpositionformula(battlernumber)-1)
       ret+=Graphics.width/2-56
@@ -381,8 +392,7 @@ class HallOfFameScene
            Graphics.width-192,Graphics.height-48,2,BASECOLOR,SHADOWCOLOR]
     ]
     if (hallNumber>-1)
-      textPositions.push([_INTL("Hall of Fame No."),Graphics.width/2-104,0,0,BASECOLOR,SHADOWCOLOR])
-      textPositions.push([hallNumber.to_s,Graphics.width/2+104,0,1,BASECOLOR,SHADOWCOLOR])
+      @sprites["header"].text=_INTL("Hall of Fame No. {1}", hallNumber.to_s)
     end       
     pbDrawTextPositions(overlay,textPositions)
   end

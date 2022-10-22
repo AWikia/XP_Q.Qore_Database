@@ -140,7 +140,7 @@ class PokemonBag_Scene
     @sprites["rightarrow"].play
     @sprites["bag"]=IconSprite.new(30,34,@viewport)
     @sprites["icon"]=ItemIconSprite.new(48,Graphics.height-48,-1,@viewport)
-    @sprites["itemwindow"]=Window_PokemonBag.new(@bag,lastpocket,168,-8+32,314,40+32+ITEMSVISIBLE*32)
+    @sprites["itemwindow"]=Window_PokemonBag.new(@bag,lastpocket,168,-8+32,314+116,40+32+ITEMSVISIBLE*32)
     @sprites["itemwindow"].viewport=@viewport
     @sprites["itemwindow"].pocket=lastpocket
     @sprites["itemwindow"].index=lastitem

@@ -711,7 +711,7 @@ class PokemonScreen_Scene
       end
     end
 =end
-    title=['loadbg','loadbg_beta','loadbg_dev','loadbg_canary'][QQORECHANNEL]
+    title=['loadbg','loadbg_beta','loadbg_dev','loadbg_canary','loadbg_internal'][QQORECHANNEL]
     if pbResolveBitmap(_INTL("Graphics/Global Pictures/{1}",title))
       addBackgroundOrColoredPlaneGlobal(@sprites,"partybg",title,
          Color.new(0,0,0),@viewport)

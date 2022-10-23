@@ -126,7 +126,7 @@ class PokemonLoadScene
     @sprites={}
     @viewport=Viewport.new(0,0,Graphics.width,Graphics.height)
     @viewport.z=99998
-    title=['loadbg','loadbg_beta','loadbg_dev','loadbg_canary'][QQORECHANNEL]
+    title=['loadbg','loadbg_beta','loadbg_dev','loadbg_canary','loadbg_internal'][QQORECHANNEL]
     if pbResolveBitmap(_INTL("Graphics/Global Pictures/{1}",title))
       addBackgroundOrColoredPlaneGlobal(@sprites,"background",title,
          Color.new(248,248,248),@viewport)

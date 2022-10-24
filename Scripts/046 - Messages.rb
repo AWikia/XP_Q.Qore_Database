@@ -1490,7 +1490,7 @@ def Kernel.pbMessageDisplay(msgwindow,message,letterbyletter=true,commandProc=ni
     text.gsub!(/\\[Bb]/,"<c2="+['7E70','69E0','69AD','7D88'][colorscheme]+"18A5>")
     text.gsub!(/\\[Rr]/,"<c2="+['217F','211F','107D','28DF'][colorscheme]+"18A5>")
   else
-    text.gsub!(/\\[Bb]/,"<c2="+['5CE3','69E0','2C22','40A3'][colorscheme]+"675A>")
+    text.gsub!(/\\[Bb]/,"<c2="+['5CE3','34E0','2C22','40A3'][colorscheme]+"675A>")
     text.gsub!(/\\[Rr]/,"<c2="+['0058','1090','0011','1470'][colorscheme]+"675A>")
   end
   text.gsub!(/\\1/,"\1")

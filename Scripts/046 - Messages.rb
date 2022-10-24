@@ -1204,11 +1204,9 @@ Old Colors:
        "<c2=7FFF5EF7>"    # White
 
 =end
-  if !windowskin || windowskin.disposed? || 
-     windowskin.width!=128 || windowskin.height!=128
-    textcolors=[
-       isDarkSkin ? shadowc3tag(MessageConfig::LIGHTTEXTBASE, MessageConfig::LIGHTTEXTSHADOW) :
-                    shadowc3tag(MessageConfig::DARKTEXTBASE, MessageConfig::DARKTEXTSHADOW),
+
+=begin
+Old Colors 2:
        isDarkSkin ? "<c2=7A9648C5>" : "<c2=48C57A96>",   # Blue
        isDarkSkin ? "<c2=39DF107D>" : "<c2=107D39DF>",   # Red
        isDarkSkin ? "<c2=67F32A80>" : "<c2=2A8067F3>",   # Green
@@ -1217,9 +1215,67 @@ Old Colors:
        isDarkSkin ? "<c2=37DF03DF>" : "<c2=03DF37DF>",   # Yellow
        isDarkSkin ? "<c2=67384E73>" : "<c2=4E736738>",   # Grey
        isDarkSkin ? "<c2=7FFF6738>" : "<c2=67387FFF>",   # White
+=end
+  if !windowskin || windowskin.disposed? || 
+     windowskin.width!=128 || windowskin.height!=128
+    textcolors=[  # Standard
+       isDarkSkin ? shadowc3tag(MessageConfig::LIGHTTEXTBASE, MessageConfig::LIGHTTEXTSHADOW) :
+                    shadowc3tag(MessageConfig::DARKTEXTBASE, MessageConfig::DARKTEXTSHADOW),
+       isDarkSkin ? "<c2=7E705CE3>" : "<c2=5CE37E70>",   # Blue
+       isDarkSkin ? "<c2=217F0058>" : "<c2=0058217F>",   # Red
+       isDarkSkin ? "<c2=22EC0204>" : "<c2=020422EC>",   # Green
+       isDarkSkin ? "<c2=7F694E04>" : "<c2=4E047F69>",   # Cyan
+       isDarkSkin ? "<c2=6599386D>" : "<c2=386D6599>",   # Magenta
+       isDarkSkin ? "<c2=277F0299>" : "<c2=0299277F>",   # Yellow
+       isDarkSkin ? "<c2=5AD635AD>" : "<c2=35AD5AD6>",   # Grey
+       isDarkSkin ? "<c2=739C5AD6>" : "<c2=5AD6739C>",   # White
     ]
-    color=0 if color>textcolors.length
-    return textcolors[color]
+    
+    textcolors2=[  # Colors
+       isDarkSkin ? shadowc3tag(MessageConfig::LIGHTTEXTBASE, MessageConfig::LIGHTTEXTSHADOW) :
+                    shadowc3tag(MessageConfig::DARKTEXTBASE, MessageConfig::DARKTEXTSHADOW),
+       isDarkSkin ? "<c2=69E034E0>" : "<c2=34E069E0>",   # Blue
+       isDarkSkin ? "<c2=211F1090>" : "<c2=1090211F>",   # Red
+       isDarkSkin ? "<c2=37201980>" : "<c2=19803720>",   # Green
+       isDarkSkin ? "<c2=62C03160>" : "<c2=316062C0>",   # Cyan
+       isDarkSkin ? "<c2=6116308B>" : "<c2=308B6116>",   # Magenta
+       isDarkSkin ? "<c2=02FF0170>" : "<c2=017002FF>",   # Yellow
+       isDarkSkin ? "<c2=5EF72108>" : "<c2=21085EF7>",   # Grey
+       isDarkSkin ? "<c2=7FFF5EF7>" : "<c2=5EF77FFF>",   # White
+    ]
+    
+    textcolors3=[  # CMYK
+       isDarkSkin ? shadowc3tag(MessageConfig::LIGHTTEXTBASE, MessageConfig::LIGHTTEXTSHADOW) :
+                    shadowc3tag(MessageConfig::DARKTEXTBASE, MessageConfig::DARKTEXTSHADOW),
+       isDarkSkin ? "<c2=69AD2C22>" : "<c2=2C2269AD>",   # Blue
+       isDarkSkin ? "<c2=107D0011>" : "<c2=0011107D>",   # Red
+       isDarkSkin ? "<c2=2A801580>" : "<c2=15802A80>",   # Green
+       isDarkSkin ? "<c2=76A049A0>" : "<c2=49A076A0>",   # Cyan
+       isDarkSkin ? "<c2=441D2811>" : "<c2=2811441D>",   # Magenta
+       isDarkSkin ? "<c2=03DF0232>" : "<c2=023203DF>",   # Yellow
+       isDarkSkin ? "<c2=6738318C>" : "<c2=318C6738>",   # Grey
+       isDarkSkin ? "<c2=7FFF6738>" : "<c2=67387FFF>",   # White
+    ]
+
+    textcolors4=[  # Vintage
+       isDarkSkin ? shadowc3tag(MessageConfig::LIGHTTEXTBASE, MessageConfig::LIGHTTEXTSHADOW) :
+                    shadowc3tag(MessageConfig::DARKTEXTBASE, MessageConfig::DARKTEXTSHADOW),
+       isDarkSkin ? "<c2=7D8840A3>" : "<c2=40A37D88>",   # Blue
+       isDarkSkin ? "<c2=28DF1470>" : "<c2=147028DF>",   # Red
+       isDarkSkin ? "<c2=1BEA0E05>" : "<c2=0E051BEA>",   # Green
+       isDarkSkin ? "<c2=7EE64163>" : "<c2=41637EE6>",   # Cyan
+       isDarkSkin ? "<c2=5CDF2C70>" : "<c2=2C705CDF>",   # Magenta
+       isDarkSkin ? "<c2=1B7F0DB0>" : "<c2=0DB01B7F>",   # Yellow
+       isDarkSkin ? "<c2=5EF72108>" : "<c2=21085EF7>",   # Grey
+       isDarkSkin ? "<c2=7FFF5EF7>" : "<c2=5EF77FFF>",   # White
+    ]
+    if $PokemonSystem
+      preferredscheme = [textcolors,textcolors2,textcolors3,textcolors4][$PokemonSystem.textskincolors]
+    else
+      preferredscheme = textcolors
+    end
+    color=0 if color>preferredscheme.length
+    return preferredscheme[color]
   else # VX windowskin
     color=0 if color>=32
     x = 64 + (color % 8) * 8
@@ -1425,12 +1481,17 @@ def Kernel.pbMessageDisplay(msgwindow,message,letterbyletter=true,commandProc=ni
   text.gsub!(/\\[Pp][Gg]/,"")
   text.gsub!(/\\[Pp][Oo][Gg]/,"")
   isDarkSkin=isDarkWindowskin(msgwindow.windowskin)
-  if (isDarkSkin)
-    text.gsub!(/\\[Bb]/,"<c2=7A96675A>")
-    text.gsub!(/\\[Rr]/,"<c2=39DF675A>")
+  if $PokemonSystem
+    colorscheme = $PokemonSystem.textskincolors
   else
-    text.gsub!(/\\[Bb]/,"<c2=48C5675A>")
-    text.gsub!(/\\[Rr]/,"<c2=107D675A>")
+    colorscheme = 0
+  end
+  if (isDarkSkin)
+    text.gsub!(/\\[Bb]/,"<c2="+['7E70','69E0','69AD','7D88'][colorscheme]+"18A5>")
+    text.gsub!(/\\[Rr]/,"<c2="+['217F','211F','107D','28DF'][colorscheme]+"18A5>")
+  else
+    text.gsub!(/\\[Bb]/,"<c2="+['5CE3','69E0','2C22','40A3'][colorscheme]+"675A>")
+    text.gsub!(/\\[Rr]/,"<c2="+['0058','1090','0011','1470'][colorscheme]+"675A>")
   end
   text.gsub!(/\\1/,"\1")
   colortag=""

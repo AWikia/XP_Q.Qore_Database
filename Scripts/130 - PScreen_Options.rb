@@ -564,6 +564,7 @@ class PokemonSystem
   attr_accessor :darkmodeend
   attr_accessor :threecolorbar
   attr_accessor :enableshading
+  attr_accessor :textskincolors
   
   def initialize
     @textspeed        = 2   # Frames Per Second (0=24, 1=30, 2=40, 3=50)
@@ -603,6 +604,7 @@ class PokemonSystem
     @darkmodeend      = 7   # Scheduled Dark Mode End
     @threecolorbar    = 0   # Three Color Progress Bar
     @enableshading    = 0   # Outdoor Map Shading
+    @textskincolors   = 0   # Text Skin Color Scheme (0=Standard, 1=Colors, 2=CMYK, 3=Vintage)
 end
   
   def language
@@ -726,6 +728,11 @@ end
   def enableshading
     return (!@enableshading) ? 1 : @enableshading
   end    
+
+  
+  def textskincolors
+    return (!@textskincolors) ? 0 : @textskincolors
+  end
 
   
   def tilemap; return MAPVIEWMODE; end
@@ -1050,6 +1057,15 @@ There are different modes:
            $SpeechFramesNames,
           "Sets the windowskin graphics to be used in the game."
          ),
+         NumberOption.new(_INTL("Text Skin Color Scheme"),0,3,
+           proc { $PokemonSystem.textskincolors },
+           proc {|value| 
+              $PokemonSystem.textskincolors=value
+           },
+           ["Standard", "Colors", "CMYK", "Vintage"],
+          "Sets the colors to be used in Windowskins."
+         ),
+
          NumberOption.new(_INTL("Accent Color"),1,getAccentNames.length,
            proc { $PokemonSystem.accentcolor },
            proc {|value| 

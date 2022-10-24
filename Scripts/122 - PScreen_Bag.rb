@@ -241,7 +241,7 @@ class PokemonBag_Scene
     # Draw the slider
     ycoord=78
     if itemwindow.itemCount>1
-      ycoord+=98.0 * itemwindow.index/(itemwindow.itemCount-1)
+      ycoord+=110.0 * itemwindow.index/(itemwindow.itemCount-1)
     end
     @sprites["slider"].y=ycoord
     # Set the icon for the currently selected item
@@ -274,7 +274,7 @@ class PokemonBag_Scene
            # Update slider position
            ycoord=78
            if itemwindow.itemCount>1
-             ycoord+=98.0 * itemwindow.index/(itemwindow.itemCount-1)
+             ycoord+=110.0 * itemwindow.index/(itemwindow.itemCount-1)
            end
            @sprites["slider"].y=ycoord
            # Update item icon and description

@@ -393,12 +393,12 @@ class HallOfFameScene
     fdexno = getDexNumber(pokemon.species)
     dexnumber=pokemon.isEgg? ? _INTL("No. ???") : _INTL("No. {1}",fdexno)
     textPositions=[
-       [dexnumber,32,Graphics.height-80,0,@BASECOLOR,@SHADOWCOLOR],
-       [pokename,Graphics.width-192,Graphics.height-80,2,@BASECOLOR,@SHADOWCOLOR],
+       [dexnumber,32,Graphics.height-80,0,@BASECOLOR,nil],
+       [pokename,Graphics.width-192,Graphics.height-80,2,@BASECOLOR,nil],
        [_INTL("Lv. {1}",pokemon.isEgg? ? "?" : pokemon.level),
-           64,Graphics.height-48,0,@BASECOLOR,@SHADOWCOLOR],
+           64,Graphics.height-48,0,@BASECOLOR,nil],
        [_INTL("IDNo.{1}",pokemon.isEgg? ? "?????" : idno),
-           Graphics.width-192,Graphics.height-48,2,@BASECOLOR,@SHADOWCOLOR]
+           Graphics.width-192,Graphics.height-48,2,@BASECOLOR,nil]
     ]
     if (hallNumber>-1)
       @sprites["header"].text=_INTL("Hall of Fame No. {1}", hallNumber.to_s)
@@ -417,7 +417,7 @@ class HallOfFameScene
     overlay=@sprites["overlay"].bitmap
     overlay.clear
     pbDrawTextPositions(overlay,[[_INTL("Welcome to the Hall of Fame!"),
-        Graphics.width/2,Graphics.height-80,2,@BASECOLOR,@SHADOWCOLOR]])
+        Graphics.width/2,Graphics.height-80,2,@BASECOLOR,nil]])
   end
 
   def pbEndScene

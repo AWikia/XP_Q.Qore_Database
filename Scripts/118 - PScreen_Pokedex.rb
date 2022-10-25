@@ -134,12 +134,12 @@ class Window_Pokedex < Window_DrawableCommand
   def initialize(x,y,width,height)
     if pbGetPokedexRegion==-1 # Using national Pokédex
     @pokeballOwned=AnimatedBitmap.new("Graphics/Pictures/"+getDarkModeFolder+"/pokedexOwned")
-    @pokeballSeen=AnimatedBitmap.new("Graphics/Pictures/pokedexSeen")
+    @pokeballSeen=AnimatedBitmap.new("Graphics/Pictures/"+getDarkModeFolder+"/pokedexSeen")
     else
 #    @pokeballOwned=AnimatedBitmap.new("Graphics/Pictures/pokedexOwnedREGION")
 #    @pokeballSeen=AnimatedBitmap.new("Graphics/Pictures/pokedexSeenREGION")
     @pokeballOwned=AnimatedBitmap.new("Graphics/Pictures/"+getDarkModeFolder+"/pokedexOwned")
-    @pokeballSeen=AnimatedBitmap.new("Graphics/Pictures/pokedexSeen")
+    @pokeballSeen=AnimatedBitmap.new("Graphics/Pictures/"+getDarkModeFolder+"/pokedexSeen")
     end
 
     @commands=[]

@@ -155,19 +155,19 @@ class HallOfFameScene
     @viewport=Viewport.new(0,0,Graphics.width, Graphics.height)
     @viewport.z=99999
     # Comment the below line to doesn't use a background
-    addBackgroundPlane(@sprites,"bg","hallfamebg",@viewport)
+    addBackgroundPlane(@sprites,"bg",getDarkModeFolder+"/hallfamebg",@viewport)
     @sprites["hallbars"]=IconSprite.new(@viewport)
     if pcscreen
-      @sprites["hallbars"].setBitmap("Graphics/Pictures/hallfamebars")
+      @sprites["hallbars"].setBitmap("Graphics/Pictures/"+getDarkModeFolder+"/hallfamebars")
     else
-      @sprites["hallbars"].setBitmap("Graphics/Pictures/hallfamebars_2")
+      @sprites["hallbars"].setBitmap("Graphics/Pictures/"+getDarkModeFolder+"/hallfamebars_2")
     end
     @sprites["overlay"]=BitmapSprite.new(Graphics.width,Graphics.height,@viewport)
     @sprites["overlay"].z=10
 
     @sprites["header"]=Window_UnformattedTextPokemon.newWithSize(_INTL("Hall of Fame"),2,-18,500,64,@viewport)
-    @sprites["header"].baseColor=Color.new(248,248,248)
-    @sprites["header"].shadowColor=nil #Color.new(0,0,0)
+    @sprites["header"].baseColor=(isDarkMode?) ? Color.new(248,248,248) : Color.new(0,0,0)
+    @sprites["header"].shadowColor=nil #(!isDarkMode?) ? Color.new(248,248,248) : Color.new(0,0,0)
     @sprites["header"].windowskin=nil
     
     pbSetSystemFont(@sprites["overlay"].bitmap)
@@ -363,10 +363,19 @@ class HallOfFameScene
         _INTL("League champion!\nCongratulations!\\^"))
   end  
 
-  BASECOLOR   = Color.new(248,248,248)
-  SHADOWCOLOR = Color.new(0,0,0)
-
+  BASE   = Color.new(0,0,0)
+  SHADOW = Color.new(248,248,248)
+  BASEDARK   = SHADOW
+  SHADOWDARK = BASE
+  
   def writePokemonData(pokemon,hallNumber=-1)
+    if (isDarkMode?)
+      @BASECOLOR   = BASEDARK
+      @SHADOWCOLOR = SHADOWDARK
+    else
+      @BASECOLOR   = BASE
+      @SHADOWCOLOR = SHADOW      
+    end
     overlay=@sprites["overlay"].bitmap
     overlay.clear 
     pokename=pokemon.name
@@ -384,12 +393,12 @@ class HallOfFameScene
     fdexno = getDexNumber(pokemon.species)
     dexnumber=pokemon.isEgg? ? _INTL("No. ???") : _INTL("No. {1}",fdexno)
     textPositions=[
-       [dexnumber,32,Graphics.height-80,0,BASECOLOR,SHADOWCOLOR],
-       [pokename,Graphics.width-192,Graphics.height-80,2,BASECOLOR,SHADOWCOLOR],
+       [dexnumber,32,Graphics.height-80,0,@BASECOLOR,@SHADOWCOLOR],
+       [pokename,Graphics.width-192,Graphics.height-80,2,@BASECOLOR,@SHADOWCOLOR],
        [_INTL("Lv. {1}",pokemon.isEgg? ? "?" : pokemon.level),
-           64,Graphics.height-48,0,BASECOLOR,SHADOWCOLOR],
+           64,Graphics.height-48,0,@BASECOLOR,@SHADOWCOLOR],
        [_INTL("IDNo.{1}",pokemon.isEgg? ? "?????" : idno),
-           Graphics.width-192,Graphics.height-48,2,BASECOLOR,SHADOWCOLOR]
+           Graphics.width-192,Graphics.height-48,2,@BASECOLOR,@SHADOWCOLOR]
     ]
     if (hallNumber>-1)
       @sprites["header"].text=_INTL("Hall of Fame No. {1}", hallNumber.to_s)
@@ -398,10 +407,17 @@ class HallOfFameScene
   end
 
   def writeWelcome
+    if (isDarkMode?)
+      @BASECOLOR   = BASEDARK
+      @SHADOWCOLOR = SHADOWDARK
+    else
+      @BASECOLOR   = BASE
+      @SHADOWCOLOR = SHADOW      
+    end
     overlay=@sprites["overlay"].bitmap
     overlay.clear
     pbDrawTextPositions(overlay,[[_INTL("Welcome to the Hall of Fame!"),
-        Graphics.width/2,Graphics.height-80,2,BASECOLOR,SHADOWCOLOR]])
+        Graphics.width/2,Graphics.height-80,2,@BASECOLOR,@SHADOWCOLOR]])
   end
 
   def pbEndScene

@@ -1387,35 +1387,13 @@ end
 def pbLoadPokemonBitmapSpecies(pokemon,species,back=false)
   ret = nil
   if pokemon.isRB?
-    bitmapFileName = sprintf("Graphics/Battlers/%sremotebox_%d",getConstantName(PBSpecies,species),pokemon.form) rescue nil
-    if !pbResolveBitmap(bitmapFileName)
-      bitmapFileName = sprintf("Graphics/Battlers/%03dremotebox_%d",species,pokemon.form)
-      if !pbResolveBitmap(bitmapFileName)
-        bitmapFileName = sprintf("Graphics/Battlers/%sremotebox",getConstantName(PBSpecies,species)) rescue nil
-        if !pbResolveBitmap(bitmapFileName)
-          bitmapFileName = sprintf("Graphics/Battlers/%03dremotebox",species)
-          if !pbResolveBitmap(bitmapFileName)
-            bitmapFileName = sprintf("Graphics/Battlers/remotebox")
-          end
-        end
-      end
-    end
-    bitmapFileName = pbResolveBitmap(bitmapFileName)
+    bitmapFileName = pbCheckPokemonBitmapFiles([species,back,(pokemon.isFemale?),
+       pokemon.isShiny?,(pokemon.form rescue 0),(pokemon.isShadow? rescue false)],
+       'remotebox')
   elsif pokemon.isEgg?
-    bitmapFileName = sprintf("Graphics/Battlers/%segg_%d",getConstantName(PBSpecies,species),pokemon.form) rescue nil
-    if !pbResolveBitmap(bitmapFileName)
-      bitmapFileName = sprintf("Graphics/Battlers/%03degg_%d",species,pokemon.form)
-      if !pbResolveBitmap(bitmapFileName)
-        bitmapFileName = sprintf("Graphics/Battlers/%segg",getConstantName(PBSpecies,species)) rescue nil
-        if !pbResolveBitmap(bitmapFileName)
-          bitmapFileName = sprintf("Graphics/Battlers/%03degg",species)
-          if !pbResolveBitmap(bitmapFileName)
-            bitmapFileName = sprintf("Graphics/Battlers/egg")
-          end
-        end
-      end
-    end
-    bitmapFileName = pbResolveBitmap(bitmapFileName)
+    bitmapFileName = pbCheckPokemonBitmapFiles([species,back,(pokemon.isFemale?),
+       pokemon.isShiny?,(pokemon.form rescue 0),(pokemon.isShadow? rescue false)],
+       'egg')
   else
     bitmapFileName = pbCheckPokemonBitmapFiles([species,back,(pokemon.isFemale?),
        pokemon.isShiny?,(pokemon.form rescue 0),(pokemon.isShadow? rescue false)])
@@ -1438,35 +1416,9 @@ end
 def pbLoadSpeciesBitmap(species,female=false,form=0,shiny=false,shadow=false,back=false,egg=false,box=false)
   ret = nil
   if box
-    bitmapFileName = sprintf("Graphics/Battlers/%sremotebox_%d",getConstantName(PBSpecies,species),form) rescue nil
-    if !pbResolveBitmap(bitmapFileName)
-      bitmapFileName = sprintf("Graphics/Battlers/%03dremotebox_%d",species,form)
-      if !pbResolveBitmap(bitmapFileName)
-        bitmapFileName = sprintf("Graphics/Battlers/%sremotebox",getConstantName(PBSpecies,species)) rescue nil
-        if !pbResolveBitmap(bitmapFileName)
-          bitmapFileName = sprintf("Graphics/Battlers/%03dremotebox",species)
-          if !pbResolveBitmap(bitmapFileName)
-            bitmapFileName = sprintf("Graphics/Battlers/remotebox")
-          end
-        end
-      end
-    end
-    bitmapFileName = pbResolveBitmap(bitmapFileName)
+    bitmapFileName = pbCheckPokemonBitmapFiles([species,back,female,shiny,form,shadow],'remotebox')
   elsif egg
-    bitmapFileName = sprintf("Graphics/Battlers/%segg_%d",getConstantName(PBSpecies,species),form) rescue nil
-    if !pbResolveBitmap(bitmapFileName)
-      bitmapFileName = sprintf("Graphics/Battlers/%03degg_%d",species,form)
-      if !pbResolveBitmap(bitmapFileName)
-        bitmapFileName = sprintf("Graphics/Battlers/%segg",getConstantName(PBSpecies,species)) rescue nil
-        if !pbResolveBitmap(bitmapFileName)
-          bitmapFileName = sprintf("Graphics/Battlers/%03degg",species)
-          if !pbResolveBitmap(bitmapFileName)
-            bitmapFileName = sprintf("Graphics/Battlers/egg")
-          end
-        end
-      end
-    end
-    bitmapFileName = pbResolveBitmap(bitmapFileName)
+    bitmapFileName = pbCheckPokemonBitmapFiles([species,back,female,shiny,form,shadow],'egg')
   else
     bitmapFileName = pbCheckPokemonBitmapFiles([species,back,female,shiny,form,shadow])
   end
@@ -1476,7 +1428,7 @@ def pbLoadSpeciesBitmap(species,female=false,form=0,shiny=false,shadow=false,bac
   return ret
 end
 
-def pbCheckPokemonBitmapFiles(params)
+def pbCheckPokemonBitmapFiles(params,extra='')
   species=params[0]
   back=params[1]
   factors=[]
@@ -1504,8 +1456,9 @@ def pbCheckPokemonBitmapFiles(params)
     end
 #TEMP
    if ($PokemonSystem.newsix==1 rescue false) 
-      bitmapFileName=sprintf("Graphics/Battlers/New6/%s%s%s%s%s%s",
+      bitmapFileName=sprintf("Graphics/Battlers/New6/%s%s%s%s%s%s%s",
          getConstantName(PBSpecies,species),
+         extra,
          tgender ? "f" : "",
          tshiny ? "s" : "",
          back ? "b" : "",
@@ -1513,8 +1466,9 @@ def pbCheckPokemonBitmapFiles(params)
          tshadow ? "_shadow" : "") rescue nil
       ret=pbResolveBitmap(bitmapFileName)
       return ret if ret
-      bitmapFileName=sprintf("Graphics/Battlers/New6/%03d%s%s%s%s%s",
+      bitmapFileName=sprintf("Graphics/Battlers/New6/%03d%s%s%s%s%s%s",
          species,
+         extra,
          tgender ? "f" : "",
          tshiny ? "s" : "",
          back ? "b" : "",
@@ -1524,8 +1478,9 @@ def pbCheckPokemonBitmapFiles(params)
       return ret if ret
     end
 #TEMP
-    bitmapFileName=sprintf("Graphics/Battlers/%s%s%s%s%s%s",
+    bitmapFileName=sprintf("Graphics/Battlers/%s%s%s%s%s%s%s",
        getConstantName(PBSpecies,species),
+       extra,
        tgender ? "f" : "",
        tshiny ? "s" : "",
        back ? "b" : "",
@@ -1533,8 +1488,9 @@ def pbCheckPokemonBitmapFiles(params)
        tshadow ? "_shadow" : "") rescue nil
     ret=pbResolveBitmap(bitmapFileName)
     return ret if ret
-    bitmapFileName=sprintf("Graphics/Battlers/%03d%s%s%s%s%s",
+    bitmapFileName=sprintf("Graphics/Battlers/%03d%s%s%s%s%s%s",
        species,
+       extra,
        tgender ? "f" : "",
        tshiny ? "s" : "",
        back ? "b" : "",
@@ -1543,8 +1499,8 @@ def pbCheckPokemonBitmapFiles(params)
     ret=pbResolveBitmap(bitmapFileName)
     return ret if ret
   end
-    bitmapFileName=sprintf("Graphics/Battlers/%s%s%s%s%s%s",
-       '000',
+    bitmapFileName=sprintf("Graphics/Battlers/000%s%s%s%s%s%s",
+       extra,
        tgender ? "f" : "",
        tshiny ? "s" : "",
        back ? "b" : "",

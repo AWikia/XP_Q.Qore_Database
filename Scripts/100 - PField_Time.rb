@@ -252,34 +252,40 @@ HourlyTones2=[ # Linear
 # Returns true if it's day.
   def self.isDay?(time=nil)
     time=pbGetTimeNow if !time
-    return (time.hour>=5 && time.hour<20) # Was 6 and 20
+    return (time.hour>=[5,4,6,7][pbGetSeason] && time.hour<[20,21,20,19][pbGetSeason])
   end
 
 # Returns true if it's night.
   def self.isNight?(time=nil)
     time=pbGetTimeNow if !time
-    return (time.hour>=20 || time.hour<5) # Was 20 and 6
+    return (time.hour>=[20,21,20,19][pbGetSeason] || time.hour<[5,4,6,7][pbGetSeason])
   end
 
 # Returns true if it's morning.
   def self.isMorning?(time=nil)
     time=pbGetTimeNow if !time
-    return (time.hour>=5 && time.hour<10) # Was 6 and 12
+    return (time.hour>=[5,4,6,7][pbGetSeason] && time.hour<[10,9,10,11][pbGetSeason])
   end
 
 # Returns true if it's the afternoon.
   def self.isAfternoon?(time=nil)
     time=pbGetTimeNow if !time
-    return (time.hour>=14 && time.hour<17) # Was 12 and 20
+    return (time.hour>=[14,15,14,13][pbGetSeason] && time.hour<[17,19,18,17][pbGetSeason])
   end
 
 # Returns true if it's the evening.
   def self.isEvening?(time=nil)
     time=pbGetTimeNow if !time
-    return (time.hour>=17 && time.hour<20)
+    return (time.hour>=[17,19,18,17][pbGetSeason] && time.hour<[20,21,20,19][pbGetSeason])
+  end
+
+# Returns true if it's the proper time for Rainbow Alcremie.
+  def self.isRainbow?(time=nil)
+    time=pbGetTimeNow if !time
+    return (time.hour>=[19,20,19,18][pbGetSeason] && time.hour<[20,21,20,19][pbGetSeason])
   end
   
-# Returns true if it's dark.
+# Returns true if it's the proper time for Dark Mode when System Theme is set to Cusotm.
   def self.isDark?(time=nil)
     time=pbGetTimeNow if !time
     if ($PokemonSystem.darkmodestart==$PokemonSystem.darkmodeend rescue false)

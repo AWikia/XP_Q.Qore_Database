@@ -8439,7 +8439,7 @@ MultipleForms.register(:ROCKRUFF,{
 "getForm"=>proc{|pokemon| # Needs to use getForm in order to determine the final form
    env=pbGetEnvironment()
    next 1 if PBDayNight.isNight? || env==PBEnvironment::Galaxy
-   next 2 if pbGetTimeNow.hour==17
+   next 2 if PBDayNight.isEvening?
    next 0
 }
 })
@@ -8531,7 +8531,7 @@ MultipleForms.register(:LYCANROC,{
 "getFormOnCreation"=>proc{|pokemon|
    env=pbGetEnvironment()
    next 1 if PBDayNight.isNight? || env==PBEnvironment::Galaxy
-   next 2 if pbGetTimeNow.hour==17
+   next 2 if PBDayNight.isEvening?
    next 0
 }
 })
@@ -8937,9 +8937,13 @@ MultipleForms.register(:MILCERY,{
    env=pbGetEnvironment()
    flavour=0
    topping=0
-   flavour=[0,0,0,0,1,1,1,1,6.6,7,7][rand(12)]
-   flavour=8 if pbGetTimeNow.hour==17
-   flavour=[2,2,2,2,3,3,4,4,5,5,5,5][rand(12)] if PBDayNight.isNight? || env==PBEnvironment::Galaxy
+   if PBDayNight.isRainbow?
+     flavour=[0,0,0,0,1,1,1,1,6.6,7,7,8][rand(13)]
+     flavour=[2,2,2,2,3,3,4,4,5,5,5,5,8][rand(13)] if env==PBEnvironment::Galaxy
+   else
+     flavour=[0,0,0,0,1,1,1,1,6.6,7,7][rand(12)]
+     flavour=[2,2,2,2,3,3,4,4,5,5,5,5][rand(12)] if PBDayNight.isNight? || env==PBEnvironment::Galaxy
+   end
    topping=[0,9,18,27,36,45,54][rand(7)]
    next flavour if !topping
    next topping if !flavour
@@ -8950,9 +8954,15 @@ MultipleForms.register(:MILCERY,{
 MultipleForms.register(:ALCREMIE,{
 "getFormOnCreation"=>proc{|pokemon|
    env=pbGetEnvironment()
-   flavour=[0,0,0,0,1,1,1,1,6.6,7,7][rand(12)]
-   flavour=8 if pbGetTimeNow.hour==17
-   flavour=[2,2,2,2,3,3,4,4,5,5,5,5][rand(12)] if PBDayNight.isNight? || env==PBEnvironment::Galaxy
+   flavour=0
+   topping=0
+   if PBDayNight.isRainbow?
+     flavour=[0,0,0,0,1,1,1,1,6.6,7,7,8][rand(13)]
+     flavour=[2,2,2,2,3,3,4,4,5,5,5,5,8][rand(13)] if env==PBEnvironment::Galaxy
+   else
+     flavour=[0,0,0,0,1,1,1,1,6.6,7,7][rand(12)]
+     flavour=[2,2,2,2,3,3,4,4,5,5,5,5][rand(12)] if PBDayNight.isNight? || env==PBEnvironment::Galaxy
+   end
    topping=[0,9,18,27,36,45,54][rand(7)]
    next flavour if !topping
    next topping if !flavour

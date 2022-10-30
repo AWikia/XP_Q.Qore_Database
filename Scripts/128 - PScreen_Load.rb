@@ -505,8 +505,10 @@ class PokemonLoad
            screen.pbStartScreen
         }
       elsif cmdOption>=0 && command==cmdOption
-        pbFadeOutIn(99999) { 
-          pbOptionSecMenu           
+        scene=Scene_OptionSectionScene.new
+        screen=Scene_OptionSection.new(scene)
+        pbFadeOutIn(99999) {
+           screen.pbStartScreen
         }
       elsif cmdLanguage>=0 && command==cmdLanguage
         @scene.pbEndScene

@@ -291,8 +291,10 @@ class PokemonMenu
            @scene.pbRefresh
         }
       elsif cmdOption>=0 && command==cmdOption
-        pbFadeOutIn(99999) { 
-           pbOptionSecMenu           
+        scene=Scene_OptionSectionScene.new
+        screen=Scene_OptionSection.new(scene)
+        pbFadeOutIn(99999) {
+           screen.pbStartScreen
            @scene.pbRefresh
         }
       elsif cmdEndGame>=0 && command==cmdEndGame

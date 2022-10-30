@@ -93,6 +93,7 @@ Pikafan2000<s>Nintendo
 leparagon<s>RadicalCharizard
 MultiDiegoDani<s>Megax Rocker
 Kalaloki<s>Ivy
+AztecCroc
 
 "Rest of Sprite Creidts:"
 Wikimedia Commons<s>Wikimedia

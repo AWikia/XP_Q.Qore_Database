@@ -923,7 +923,7 @@ class PokemonEntryScene
     @sprites["header"]=Window_UnformattedTextPokemon.newWithSize(_INTL("{1}",helptext),
        2,-18,512,64,@viewport)
     @sprites["header"].baseColor=Color.new(248,248,248)
-    @sprites["header"].shadowColor=Color.new(0,0,0)
+    @sprites["header"].shadowColor=nil #Color.new(0,0,0)
     @sprites["header"].windowskin=nil
 
     if USEKEYBOARD
@@ -1252,7 +1252,7 @@ class PokemonEntryScene2
     @sprites["header"]=Window_UnformattedTextPokemon.newWithSize(_INTL("{1}",helptext),
        2,-18,512,64,@viewport)
     @sprites["header"].baseColor=Color.new(248,248,248)
-    @sprites["header"].shadowColor=Color.new(0,0,0)
+    @sprites["header"].shadowColor=nil #Color.new(0,0,0)
     @sprites["header"].windowskin=nil
 
     @bitmaps=[

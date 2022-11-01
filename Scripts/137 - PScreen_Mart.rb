@@ -321,6 +321,7 @@ class PokemonMartScene
   def pbRefresh
     if !@subscene
       itemwindow=@sprites["itemwindow"]
+      @sprites["header"].text=(itemwindow.item==0) ? "Pokémon Mart" : "Pokémon Mart - " +  @adapter.getName(itemwindow.item)
       @sprites["icon"].item=itemwindow.item
       @sprites["itemtextwindow"].text=(itemwindow.item==0) ? _INTL("Quit shopping.") :
          @adapter.getDescription(itemwindow.item)
@@ -342,10 +343,17 @@ class PokemonMartScene
     @sprites["icon"]=ItemIconSprite.new(36,Graphics.height-50,-1,@viewport)
     winAdapter=buying ? BuyAdapter.new(adapter) : SellAdapter.new(adapter)
     @sprites["itemwindow"]=Window_PokemonMart.new(stock,winAdapter,
-       Graphics.width-316-16,12,330+16,Graphics.height-126)
+       Graphics.width-316-16,12+32,330+16,Graphics.height-126-32)
     @sprites["itemwindow"].viewport=@viewport
     @sprites["itemwindow"].index=0
     @sprites["itemwindow"].refresh
+
+    @sprites["header"]=Window_UnformattedTextPokemon.newWithSize(_INTL("Pokémon Mart"),
+       2,-18,512,64,@viewport)
+    @sprites["header"].baseColor=(isDarkMode?) ? Color.new(248,248,248) : Color.new(0,0,0)
+    @sprites["header"].shadowColor=nil #(!isDarkMode?) ? Color.new(248,248,248) : Color.new(0,0,0)
+    @sprites["header"].windowskin=nil
+    
     @sprites["itemtextwindow"]=Window_UnformattedTextPokemon.new("")
     pbPrepareWindow(@sprites["itemtextwindow"])
     @sprites["itemtextwindow"].x=64
@@ -368,7 +376,7 @@ class PokemonMartScene
     @sprites["moneywindow"].visible=true
     @sprites["moneywindow"].viewport=@viewport
     @sprites["moneywindow"].x=0
-    @sprites["moneywindow"].y=0
+    @sprites["moneywindow"].y=32
     @sprites["moneywindow"].width=190
     @sprites["moneywindow"].height=96
     if (!isDarkMode?)
@@ -422,7 +430,7 @@ class PokemonMartScene
     @sprites["moneywindow"].visible=false
     @sprites["moneywindow"].viewport=@viewport
     @sprites["moneywindow"].x=0
-    @sprites["moneywindow"].y=0
+    @sprites["moneywindow"].y=32
     @sprites["moneywindow"].width=186
     @sprites["moneywindow"].height=96
     if (!isDarkMode?)
@@ -645,6 +653,7 @@ class PokemonMartScene
          olditem=itemwindow.item
          self.update
          if itemwindow.item!=olditem
+           @sprites["header"].text=(itemwindow.item==0) ? "Pokémon Mart" : "Pokémon Mart - " +  @adapter.getName(itemwindow.item)
            @sprites["icon"].item=itemwindow.item
            @sprites["itemtextwindow"].text=(itemwindow.item==0) ? _INTL("Quit shopping.") :
               @adapter.getDescription(itemwindow.item)

@@ -11,15 +11,17 @@ class PokemonSysReqScreenScene
     @viewport2.z=99999
 
     femback=pbResolveBitmap(sprintf("Graphics/Pictures/"+getDarkModeFolder+"/aboutbg"))
+    forcedark = true
     if $Trainer && $Trainer.isFemale? && femback
       addBackgroundPlane(@sprites,"bg",getDarkModeFolder+"/aboutbgf",@viewport)
+      forcedark = false
     else
       addBackgroundPlane(@sprites,"bg",getDarkModeFolder+"/aboutbg",@viewport)
     end
     @sprites["header"]=Window_UnformattedTextPokemon.newWithSize(_INTL("System Requirements"),
        2,-18,256,64,@viewport)
-    @sprites["header"].baseColor=Color.new(248,248,248)
-    @sprites["header"].shadowColor=Color.new(0,0,0)
+    @sprites["header"].baseColor=(isDarkMode? || forcedark) ? Color.new(248,248,248) : Color.new(0,0,0)
+    @sprites["header"].shadowColor=nil #(!isDarkMode? && !forcedark) ? Color.new(248,248,248) : Color.new(0,0,0)
     @sprites["header"].windowskin=nil
     @sprites["overlay"]=BitmapSprite.new(Graphics.width - 104,Graphics.height - 104,@viewport2)
     pbSetSystemFont(@sprites["overlay"].bitmap)

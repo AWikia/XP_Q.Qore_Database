@@ -36,6 +36,8 @@ QQORECHANNEL         = 1 if RTP2.getGameIniValue("Qortex", "Channel") == "Beta" 
 QQORECHANNEL         = 2 if (RTP2.getGameIniValue("Qortex", "Channel") == "Dev" ||
                              RTP2.getGameIniValue("Qortex", "Channel") == "Alpha")
 QQORECHANNEL         = 3 if RTP2.getGameIniValue("Qortex", "Channel") == "Canary"
+QQORECHANNEL         = 4 if (RTP2.getGameIniValue("Qortex", "Channel") == "Internal" ||
+                             RTP2.getGameIniValue("Qortex", "Channel") == "Upgrade Wizard")
 #SHOWHEADER           = true
 # To forbid the player from changing the screen size themselves, quote out or
 # delete the relevant bit of code in the PScreen_Options script section.

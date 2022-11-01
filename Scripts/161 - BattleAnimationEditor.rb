@@ -1452,8 +1452,8 @@ class AnimationCanvas < Sprite
     @sprites["background2"].bitmap=AnimatedBitmap.new("Graphics/Pictures/"+getDarkModeFolder+"/aebg").deanimate
     @sprites["header"]=Window_UnformattedTextPokemon.newWithSize(_INTL("Animation Editor"),
        2,-18,256,64,viewport)
-    @sprites["header"].baseColor=Color.new(248,248,248)
-    @sprites["header"].shadowColor=Color.new(0,0,0)
+    @sprites["header"].baseColor=(isDarkMode?) ? Color.new(248,248,248) : Color.new(0,0,0)
+    @sprites["header"].shadowColor=nil #(!isDarkMode?) ? Color.new(248,248,248) : Color.new(0,0,0)
     @sprites["header"].windowskin=nil
 
     self.bitmap=@testscreen.bitmap

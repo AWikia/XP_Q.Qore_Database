@@ -134,12 +134,12 @@ class Window_Pokedex < Window_DrawableCommand
   def initialize(x,y,width,height)
     if pbGetPokedexRegion==-1 # Using national Pokédex
     @pokeballOwned=AnimatedBitmap.new("Graphics/Pictures/"+getDarkModeFolder+"/pokedexOwned")
-    @pokeballSeen=AnimatedBitmap.new("Graphics/Pictures/pokedexSeen")
+    @pokeballSeen=AnimatedBitmap.new("Graphics/Pictures/"+getDarkModeFolder+"/pokedexSeen")
     else
 #    @pokeballOwned=AnimatedBitmap.new("Graphics/Pictures/pokedexOwnedREGION")
 #    @pokeballSeen=AnimatedBitmap.new("Graphics/Pictures/pokedexSeenREGION")
     @pokeballOwned=AnimatedBitmap.new("Graphics/Pictures/"+getDarkModeFolder+"/pokedexOwned")
-    @pokeballSeen=AnimatedBitmap.new("Graphics/Pictures/pokedexSeen")
+    @pokeballSeen=AnimatedBitmap.new("Graphics/Pictures/"+getDarkModeFolder+"/pokedexSeen")
     end
 
     @commands=[]
@@ -382,10 +382,10 @@ class PokemonPokedexScene
     @sprites["overlay"].x=0
     @sprites["overlay"].y=0
     @sprites["overlay"].visible=false
-    @sprites["searchtitle"]=Window_AdvancedTextPokemon.newWithSize("",2,-18,Graphics.width,64,@viewport)
+    @sprites["searchtitle"]=Window_UnformattedTextPokemon.newWithSize("",2,-18,Graphics.width,64,@viewport)
     @sprites["searchtitle"].windowskin=nil
-    @sprites["searchtitle"].baseColor=Color.new(248,248,248)
-    @sprites["searchtitle"].shadowColor=Color.new(0,0,0)
+    @sprites["searchtitle"].baseColor=(isDarkMode?) ? Color.new(248,248,248) : Color.new(0,0,0)
+    @sprites["searchtitle"].shadowColor=nil #(!isDarkMode?) ? Color.new(248,248,248) : Color.new(0,0,0)
     @sprites["searchtitle"].text=_ISPRINTF("Search Mode")
     @sprites["searchtitle"].visible=false
     @sprites["searchlist"]=Window_ComplexCommandPokemon.newEmpty(-6,32,284,352,@viewport)
@@ -423,7 +423,7 @@ class PokemonPokedexScene
     @sprites["header"]=Window_UnformattedTextPokemon.newWithSize(_INTL("Pokédex"),
        2,-18,384,64,@viewport)
     @sprites["header"].baseColor=Color.new(248,248,248)
-    @sprites["header"].shadowColor=Color.new(0,0,0)
+    @sprites["header"].shadowColor=nil #Color.new(0,0,0)
     @sprites["header"].windowskin=nil
     @sprites["seen"]=Window_AdvancedTextPokemon.newWithSize("",34,299,164,64,@viewport)
     @sprites["seen"].windowskin=nil

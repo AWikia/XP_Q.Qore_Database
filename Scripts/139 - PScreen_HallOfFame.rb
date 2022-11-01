@@ -150,16 +150,26 @@ class HallOfFameScene
   end  
 
   # Placement for pokemon icons
-  def pbStartScene
+  def pbStartScene(pcscreen=true)
     @sprites={}
     @viewport=Viewport.new(0,0,Graphics.width, Graphics.height)
     @viewport.z=99999
     # Comment the below line to doesn't use a background
-    addBackgroundPlane(@sprites,"bg","hallfamebg",@viewport)
+    addBackgroundPlane(@sprites,"bg",getDarkModeFolder+"/hallfamebg",@viewport)
     @sprites["hallbars"]=IconSprite.new(@viewport)
-    @sprites["hallbars"].setBitmap("Graphics/Pictures/hallfamebars")
+    if pcscreen
+      @sprites["hallbars"].setBitmap("Graphics/Pictures/"+getDarkModeFolder+"/hallfamebars")
+    else
+      @sprites["hallbars"].setBitmap("Graphics/Pictures/"+getDarkModeFolder+"/hallfamebars_2")
+    end
     @sprites["overlay"]=BitmapSprite.new(Graphics.width,Graphics.height,@viewport)
     @sprites["overlay"].z=10
+
+    @sprites["header"]=Window_UnformattedTextPokemon.newWithSize(_INTL("Hall of Fame"),2,-18,500,64,@viewport)
+    @sprites["header"].baseColor=(isDarkMode?) ? Color.new(248,248,248) : Color.new(0,0,0)
+    @sprites["header"].shadowColor=nil #(!isDarkMode?) ? Color.new(248,248,248) : Color.new(0,0,0)
+    @sprites["header"].windowskin=nil
+    
     pbSetSystemFont(@sprites["overlay"].bitmap)
     @alreadyFadedInEnd=false
     @useMusic=false
@@ -168,7 +178,7 @@ class HallOfFameScene
   end
 
   def pbStartSceneEntry
-    pbStartScene
+    pbStartScene(false)
     @useMusic=(ENTRYMUSIC && ENTRYMUSIC!="")
     pbBGMPlay(ENTRYMUSIC) if @useMusic
     saveHallEntry
@@ -206,6 +216,7 @@ class HallOfFameScene
     ret=0
     if !SINGLEROW
       ret=32+160*xpositionformula(battlernumber)
+      ret+=(Graphics.width - 512) / 2
     else
       ret=(60*(battlernumber/2)+48)*(xpositionformula(battlernumber)-1)
       ret+=Graphics.width/2-56
@@ -352,10 +363,19 @@ class HallOfFameScene
         _INTL("League champion!\nCongratulations!\\^"))
   end  
 
-  BASECOLOR   = Color.new(248,248,248)
-  SHADOWCOLOR = Color.new(0,0,0)
-
+  BASE   = Color.new(0,0,0)
+  SHADOW = Color.new(248,248,248)
+  BASEDARK   = SHADOW
+  SHADOWDARK = BASE
+  
   def writePokemonData(pokemon,hallNumber=-1)
+    if (isDarkMode?)
+      @BASECOLOR   = BASEDARK
+      @SHADOWCOLOR = SHADOWDARK
+    else
+      @BASECOLOR   = BASE
+      @SHADOWCOLOR = SHADOW      
+    end
     overlay=@sprites["overlay"].bitmap
     overlay.clear 
     pokename=pokemon.name
@@ -373,25 +393,31 @@ class HallOfFameScene
     fdexno = getDexNumber(pokemon.species)
     dexnumber=pokemon.isEgg? ? _INTL("No. ???") : _INTL("No. {1}",fdexno)
     textPositions=[
-       [dexnumber,32,Graphics.height-80,0,BASECOLOR,SHADOWCOLOR],
-       [pokename,Graphics.width-192,Graphics.height-80,2,BASECOLOR,SHADOWCOLOR],
+       [dexnumber,32,Graphics.height-80,0,@BASECOLOR,nil],
+       [pokename,Graphics.width-192,Graphics.height-80,2,@BASECOLOR,nil],
        [_INTL("Lv. {1}",pokemon.isEgg? ? "?" : pokemon.level),
-           64,Graphics.height-48,0,BASECOLOR,SHADOWCOLOR],
+           64,Graphics.height-48,0,@BASECOLOR,nil],
        [_INTL("IDNo.{1}",pokemon.isEgg? ? "?????" : idno),
-           Graphics.width-192,Graphics.height-48,2,BASECOLOR,SHADOWCOLOR]
+           Graphics.width-192,Graphics.height-48,2,@BASECOLOR,nil]
     ]
     if (hallNumber>-1)
-      textPositions.push([_INTL("Hall of Fame No."),Graphics.width/2-104,0,0,BASECOLOR,SHADOWCOLOR])
-      textPositions.push([hallNumber.to_s,Graphics.width/2+104,0,1,BASECOLOR,SHADOWCOLOR])
+      @sprites["header"].text=_INTL("Hall of Fame No. {1}", hallNumber.to_s)
     end       
     pbDrawTextPositions(overlay,textPositions)
   end
 
   def writeWelcome
+    if (isDarkMode?)
+      @BASECOLOR   = BASEDARK
+      @SHADOWCOLOR = SHADOWDARK
+    else
+      @BASECOLOR   = BASE
+      @SHADOWCOLOR = SHADOW      
+    end
     overlay=@sprites["overlay"].bitmap
     overlay.clear
     pbDrawTextPositions(overlay,[[_INTL("Welcome to the Hall of Fame!"),
-        Graphics.width/2,Graphics.height-80,2,BASECOLOR,SHADOWCOLOR]])
+        Graphics.width/2,Graphics.height-80,2,@BASECOLOR,nil]])
   end
 
   def pbEndScene

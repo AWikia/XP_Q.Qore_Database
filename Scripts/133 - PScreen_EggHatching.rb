@@ -7,7 +7,7 @@
 #===============================================================================
 # To this script works, put it above Main and put a picture (a 5 frames
 # sprite sheet) with egg sprite height and 5 times the egg sprite width at
-# Graphics/Battlers/eggCracks.
+# Graphics/Battlers/000eggCracks.
 #===============================================================================
 class PokemonEggHatchScene
   def pbStartScene(pokemon)
@@ -45,13 +45,7 @@ class PokemonEggHatchScene
   end
 
   def pbMain
-    crackfilename=sprintf("Graphics/Battlers/%seggCracks",getConstantName(PBSpecies,@pokemon.species)) rescue nil
-    if !pbResolveBitmap(crackfilename)
-      crackfilename=sprintf("Graphics/Battlers/%03deggCracks",@pokemon.species)
-      if !pbResolveBitmap(crackfilename)
-        crackfilename=sprintf("Graphics/Battlers/eggCracks")
-      end
-    end
+    crackfilename = pbCheckPokemonBitmapFiles([@pokemon.species,false,@pokemon.isFemale?,@pokemon.isShiny?,(@pokemon.form rescue 0),false],'eggCracks')
     crackfilename=pbResolveBitmap(crackfilename)
     hatchSheet=AnimatedBitmap.new(crackfilename)
     if isGalarian?(@pokemon)

@@ -59,12 +59,17 @@ class MoveRelearnerScene
     @sprites={}
     addBackgroundPlane(@sprites,"bg",getDarkModeFolder+"/reminderbg",@viewport)
     @sprites["pokeicon"]=PokemonIconSprite.new(@pokemon,@viewport)
-    @sprites["pokeicon"].x=288
+    @sprites["pokeicon"].x=288+64
     @sprites["pokeicon"].y=44
     @sprites["background"]=IconSprite.new(0,0,@viewport)
     @sprites["background"].setBitmap("Graphics/Pictures/"+getAccentFolder+"/reminderSel")
     @sprites["background"].y=78
     @sprites["background"].src_rect=Rect.new(0,72,258,72)
+    @sprites["header"]=Window_UnformattedTextPokemon.newWithSize(_INTL("Teach which move to {1}?", @pokemon.name),
+       2,-18,512,64,@viewport)
+    @sprites["header"].baseColor=(isDarkMode?) ? Color.new(248,248,248) : Color.new(0,0,0)
+    @sprites["header"].shadowColor=nil #(!isDarkMode?) ? Color.new(248,248,248) : Color.new(0,0,0)
+    @sprites["header"].windowskin=nil
     @sprites["overlay"]=BitmapSprite.new(Graphics.width,Graphics.height,@viewport)
     pbSetSystemFont(@sprites["overlay"].bitmap)
     @sprites["commands"]=Window_CommandPokemon.new(moveCommands,32)
@@ -95,14 +100,15 @@ class MoveRelearnerScene
     type1rect=Rect.new(64*$PokemonSystem.colortige,@pokemon.type1*28,64,28)
     type2rect=Rect.new(64*$PokemonSystem.colortige,@pokemon.type2*28,64,28)
     if @pokemon.type1==@pokemon.type2
-      overlay.blt(400,70,@typebitmap.bitmap,type1rect)
+      overlay.blt(400+64,70,@typebitmap.bitmap,type1rect)
     else
-      overlay.blt(366,70,@typebitmap.bitmap,type1rect)
-      overlay.blt(436,70,@typebitmap.bitmap,type2rect)
+      overlay.blt(366+64,70,@typebitmap.bitmap,type1rect)
+      overlay.blt(436+64,70,@typebitmap.bitmap,type2rect)
     end
     textpos=[
-       [_INTL("Teach which move?"),16,8,0,baseColor,shadowColor]
+#       [_INTL("Teach which move?"),16,8,0,baseColor,shadowColor]
     ]
+
     yPos=82
     dark = (isDarkMode?) ? [2,0] : [0,1]
     for i in 0...VISIBLEMOVES
@@ -138,12 +144,12 @@ class MoveRelearnerScene
     textpos.push([_INTL("Category"),272,114,0,Color.new(248,248,248),Color.new(0,0,0)])
     textpos.push([_INTL("Power"),272,146,0,Color.new(248,248,248),Color.new(0,0,0)])
     textpos.push([basedamage<=1 ? basedamage==1 ? "???" : "---" : sprintf("%d",basedamage),
-          468+64,146,2,baseColor,shadowColor])
+          468+128,146,2,baseColor,shadowColor])
     textpos.push([_INTL("Accuracy"),272,178,0,Color.new(248,248,248),Color.new(0,0,0)])
     textpos.push([accuracy==0 ? "---" : sprintf("%d",accuracy),
-          468+64,178,2,baseColor,shadowColor])
+          468+128,178,2,baseColor,shadowColor])
     pbDrawTextPositions(overlay,textpos)
-    imagepos.push(["Graphics/Pictures/category",436+64,116,64*$PokemonSystem.colortige,category*28,64,28])
+    imagepos.push(["Graphics/Pictures/category",436+128,116,64*$PokemonSystem.colortige,category*28,64,28])
     if @sprites["commands"].index<@moves.length-1
       imagepos.push(["Graphics/Pictures/"+getDarkModeFolder+"/reminderButtons",48,350,0,0,76,32])
     end
@@ -151,7 +157,7 @@ class MoveRelearnerScene
       imagepos.push(["Graphics/Pictures/"+getDarkModeFolder+"/reminderButtons",134,350,76,0,76,32])
     end
     pbDrawImagePositions(overlay,imagepos)
-    drawTextEx(overlay,272,210,238+64,5,
+    drawTextEx(overlay,272,210,238+128,5,
        pbGetMessage(MessageTypes::MoveDescriptions,@moves[@sprites["commands"].index]),
        baseColor,shadowColor)
   end

@@ -61,7 +61,7 @@ class PokemonMenu_Scene
     @sprites["header"]=Window_UnformattedTextPokemon.newWithSize(_INTL(title),
        2,-18,576,64,@viewport)      
     @sprites["header"].baseColor=(isDarkMode?) ? Color.new(248,248,248) : Color.new(0,0,0)
-    @sprites["header"].shadowColor=(!isDarkMode?) ? Color.new(248,248,248) : Color.new(0,0,0)
+    @sprites["header"].shadowColor=nil #(!isDarkMode?) ? Color.new(248,248,248) : Color.new(0,0,0)
     @sprites["header"].windowskin=nil
     @sprites["header"].z=99999
     @sprites["cmdwindow"]=Window_CommandPokemon.new([])
@@ -291,8 +291,10 @@ class PokemonMenu
            @scene.pbRefresh
         }
       elsif cmdOption>=0 && command==cmdOption
-        pbFadeOutIn(99999) { 
-           pbOptionSecMenu           
+        scene=Scene_OptionSectionScene.new
+        screen=Scene_OptionSection.new(scene)
+        pbFadeOutIn(99999) {
+           screen.pbStartScreen
            @scene.pbRefresh
         }
       elsif cmdEndGame>=0 && command==cmdEndGame

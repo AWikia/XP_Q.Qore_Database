@@ -101,8 +101,8 @@ class PokemonSummaryScene
     @sprites["pokemon"].color=Color.new(0,0,0,0)
     pbPositionPokemonSprite(@sprites["pokemon"],$summarysizex,180)
     @sprites["pokeicon"]=PokemonBoxIcon.new(@pokemon,@viewport)
-    @sprites["pokeicon"].x=14
-    @sprites["pokeicon"].y=52
+    @sprites["pokeicon"].x=46
+    @sprites["pokeicon"].y=54
     @sprites["pokeicon"].mirror=false
     @sprites["pokeicon"].visible=false
     @sprites["itemicon2"] = ItemIconSprite.new(244,222,@pokemon.item,@viewport)
@@ -134,8 +134,8 @@ class PokemonSummaryScene
     @sprites["header"]=IconSprite.new(0,0,@viewport)
     @sprites["overlay"]=BitmapSprite.new(Graphics.width,Graphics.height,@viewport)
     @sprites["pokeicon"]=PokemonBoxIcon.new(@pokemon,@viewport)
-    @sprites["pokeicon"].x=14
-    @sprites["pokeicon"].y=52
+    @sprites["pokeicon"].x=46
+    @sprites["pokeicon"].y=54
     @sprites["pokeicon"].mirror=false
     @sprites["movesel"]=MoveSelectionSprite.new(@viewport,moveToLearn>0)
     @sprites["movesel"].visible=false
@@ -1051,8 +1051,8 @@ def drawPageFive(pokemon)
     @sprites["pokemon"].visible=false if @sprites["pokemon"]
     @sprites["pokeicon"].setBitmap(pbPokemonIconFile(pokemon))
     @sprites["pokeicon"].src_rect=Rect.new(0,0,64,64)
-    @sprites["pokeicon"].x=14
-    @sprites["pokeicon"].y=52
+    @sprites["pokeicon"].x=46
+    @sprites["pokeicon"].y=54
     @sprites["pokeicon"].visible=true
     movedata=PBMoveData.new(moveid)
     basedamage=movedata.basedamage
@@ -1075,14 +1075,14 @@ def drawPageFive(pokemon)
     end
     textpos=[
        [basedamage<=1 ? basedamage==1 ? "???" : "---" : sprintf("%d",basedamage),
-          288,154,1,base,shadow],
+          340,154,1,base,shadow],
        [accuracy==0 ? "---" : sprintf("%d",accuracy),
-          288,186,1,base,shadow] # Was 280
+          340,186,1,base,shadow] # Was 280
     ]
     pbDrawTextPositions(overlay,textpos)
-    imagepos=[["Graphics/Pictures/category",238,124,64*$PokemonSystem.colortige,category*28,64,28]] # Was 230
+    imagepos=[["Graphics/Pictures/category",290,124,64*$PokemonSystem.colortige,category*28,64,28]] # Was 230
     pbDrawImagePositions(overlay,imagepos)
-    drawTextEx(overlay,4,218,302,5,
+    drawTextEx(overlay,4,222,366,5,
        pbGetMessage(MessageTypes::MoveDescriptions,moveid),
        base,shadow)
   end
@@ -1093,8 +1093,8 @@ def drawPageFive(pokemon)
     if (!isDarkMode?)
       base=Color.new(88,88,80)
       shadow=Color.new(168,184,184)
-      base2=Color.new(230,230,230)
-      shadow2=Color.new(58,58,58)
+      base2=Color.new(58,58,58)
+      shadow2=Color.new(230,230,230)
     else
       base=Color.new(248,248,240)
       shadow=Color.new(72,88,88)
@@ -1127,10 +1127,10 @@ def drawPageFive(pokemon)
     type1rect=Rect.new(64*$PokemonSystem.colortige,pokemon.type1*28,64,28)
     type2rect=Rect.new(64*$PokemonSystem.colortige,pokemon.type2*28,64,28)
     if pokemon.type1==pokemon.type2
-      overlay.blt(130,78,@typebitmap.bitmap,type1rect)
+      overlay.blt(162,80,@typebitmap.bitmap,type1rect)
     else
-      overlay.blt(96,78,@typebitmap.bitmap,type1rect)
-      overlay.blt(166,78,@typebitmap.bitmap,type2rect)
+      overlay.blt(128,80,@typebitmap.bitmap,type1rect)
+      overlay.blt(198,80,@typebitmap.bitmap,type2rect)
     end
     imagepos=[]
     yPos=98

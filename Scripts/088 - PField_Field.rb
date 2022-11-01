@@ -1378,10 +1378,13 @@ Events.onStepTaken+=proc{
 
 Events.onStepTaken+=proc{
   # Dark Mode
-  if ($PokemonSystem.darkmode==2 rescue false) || 
-     ($PokemonSystem.darkmode==3 rescue false)
+  if (($PokemonSystem.darkmode==2 rescue false) || 
+     ($PokemonSystem.darkmode==3 rescue false)) &&
+     ($BORDERS!=getBorders)
     MessageConfig.pbSetSpeechFrame("Graphics/Windowskins/"+getDarkModeFolder+"/"+$SpeechFrames[$PokemonSystem.textskin])
     MessageConfig.pbSetSystemFrame("Graphics/Windowskins/"+getDarkModeFolder+"/"+$TextFrames[$PokemonSystem.textskin])
+    $BORDERS=getBorders
+    setScreenBorderName($BORDERS[$PokemonSystem.bordergraphic])
   end
   # Dark Mode End
 }

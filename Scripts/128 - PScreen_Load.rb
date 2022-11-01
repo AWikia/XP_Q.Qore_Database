@@ -126,7 +126,7 @@ class PokemonLoadScene
     @sprites={}
     @viewport=Viewport.new(0,0,Graphics.width,Graphics.height)
     @viewport.z=99998
-    title=['loadbg','loadbg_beta','loadbg_dev','loadbg_canary'][QQORECHANNEL]
+    title=['loadbg','loadbg_beta','loadbg_dev','loadbg_canary','loadbg_internal'][QQORECHANNEL]
     if pbResolveBitmap(_INTL("Graphics/Global Pictures/{1}",title))
       addBackgroundOrColoredPlaneGlobal(@sprites,"background",title,
          Color.new(248,248,248),@viewport)
@@ -137,7 +137,7 @@ class PokemonLoadScene
       addBackgroundOrColoredPlaneGlobal(@sprites,"background","loadbg_empty",
          Color.new(248,248,248),@viewport)
     end
-      addBackgroundOrColoredPlane(@sprites,"partybg_title",getDarkModeFolder+"/partybg",
+      addBackgroundOrColoredPlane(@sprites,"partybg_title",getDarkModeFolder+"/partybg_1",
          Color.new(0,0,0),@viewport)
     title=RTP.getGameIniValue("Game", "Game") # QQC Edit 
     title=RTP.getGameIniValue("Game","Title") if title==""
@@ -146,7 +146,7 @@ class PokemonLoadScene
     @sprites["header"]=Window_UnformattedTextPokemon.newWithSize(_INTL(title),
        2,-18,576,64,@viewport)      
     @sprites["header"].baseColor=(isDarkMode?) ? Color.new(248,248,248) : Color.new(0,0,0)
-    @sprites["header"].shadowColor=(!isDarkMode?) ? Color.new(248,248,248) : Color.new(0,0,0)
+    @sprites["header"].shadowColor=nil #(!isDarkMode?) ? Color.new(248,248,248) : Color.new(0,0,0)
     @sprites["header"].windowskin=nil
     @sprites["partybg_title"].z=99999
     @sprites["header"].z=99999
@@ -505,8 +505,10 @@ class PokemonLoad
            screen.pbStartScreen
         }
       elsif cmdOption>=0 && command==cmdOption
-        pbFadeOutIn(99999) { 
-          pbOptionSecMenu           
+        scene=Scene_OptionSectionScene.new
+        screen=Scene_OptionSection.new(scene)
+        pbFadeOutIn(99999) {
+           screen.pbStartScreen
         }
       elsif cmdLanguage>=0 && command==cmdLanguage
         @scene.pbEndScene

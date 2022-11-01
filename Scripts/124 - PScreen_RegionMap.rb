@@ -61,28 +61,25 @@ class MapBottomSprite < SpriteWrapper
     ]
 =end
 
-    if (!isDarkMode?)
-      color=Color.new(20,20,20)
+
+    forcedark = true
+    if $Trainer.isFemale? || @frommap
+      forcedark = false
+    end
+
+    if (!isDarkMode? && !forcedark)
+      color=Color.new(0,0,0)
     else
       color=Color.new(248,248,248)
     end
 
+    
     textpos=[
-       [@mapname,18,-2,0,Color.new(248,248,248),Color.new(0,0,0)]
+       [@mapname,18,-2,0,color],
+       [@maplocation,18,354,0,color],
+       [@mapdetails,Graphics.width-16,354,1,color]
     ]
 
-    
-    if @frommap
-      textpos+=[
-         [@maplocation,18,354,0,color],
-         [@mapdetails,Graphics.width-16,354,1,color]
-      ]
-    else
-      textpos+=[
-         [@maplocation,18,354,0,Color.new(248,248,248),Color.new(0,0,0)],
-         [@mapdetails,Graphics.width-16,354,1,Color.new(248,248,248),Color.new(0,0,0)]
-      ]
-    end
     if @nonests
       textpos.push([_INTL("Area Unknown"),Graphics.width/2,Graphics.height/2-16,2,
          color]) # 204,132,0
@@ -150,8 +147,10 @@ class PokemonRegionMapScene
       Kernel.pbMessage(_INTL("The map data cannot be found."))
       return false
     end
+    forcedark = true
     if $Trainer.isFemale?
       addBackgroundOrColoredPlane(@sprites,"background",getDarkModeFolder+"/mapbgf",Color.new(255,255,255),@viewport)
+      forcedark = false
     else
       addBackgroundOrColoredPlane(@sprites,"background",getDarkModeFolder+"/mapbg",Color.new(255,255,255),@viewport)
     end

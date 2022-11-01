@@ -3784,7 +3784,7 @@ GLOBALMETADATA=[
       @sprites["header"]=Window_UnformattedTextPokemon.newWithSize(_INTL("Map Connections"),
          2,-18,576,64,@viewport)
       @sprites["header"].baseColor=(isDarkMode?) ? Color.new(248,248,248) : Color.new(0,0,0)
-      @sprites["header"].shadowColor=(!isDarkMode?) ? Color.new(248,248,248) : Color.new(0,0,0)
+      @sprites["header"].shadowColor=nil #(!isDarkMode?) ? Color.new(248,248,248) : Color.new(0,0,0)
       @sprites["header"].windowskin=nil
       @sprites["header"].z=2
 

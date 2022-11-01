@@ -451,7 +451,7 @@ $TextFrames=[
   # Other
   "RPG Maker XP",
   "RPG Maker VX",
-  "RGP Maker VX Ace",
+  "RPG Maker VX Ace",
   "RPG Maker MV",
   "RPG Maker MZ"
 ]
@@ -564,6 +564,7 @@ class PokemonSystem
   attr_accessor :darkmodeend
   attr_accessor :threecolorbar
   attr_accessor :enableshading
+  attr_accessor :textskincolors
   
   def initialize
     @textspeed        = 2   # Frames Per Second (0=24, 1=30, 2=40, 3=50)
@@ -603,6 +604,7 @@ class PokemonSystem
     @darkmodeend      = 7   # Scheduled Dark Mode End
     @threecolorbar    = 0   # Three Color Progress Bar
     @enableshading    = 0   # Outdoor Map Shading
+    @textskincolors   = 0   # Text Skin Color Scheme (0=Standard, 1=Colors, 2=CMYK, 3=Vintage)
 end
   
   def language
@@ -728,6 +730,11 @@ end
   end    
 
   
+  def textskincolors
+    return (!@textskincolors) ? 0 : @textskincolors
+  end
+
+  
   def tilemap; return MAPVIEWMODE; end
 
 end
@@ -821,7 +828,7 @@ There are different modes:
     @sprites["header"]=Window_UnformattedTextPokemon.newWithSize(_INTL(title[mode]),
        2,-18,576,64,@viewport)      
     @sprites["header"].baseColor=(isDarkMode?) ? Color.new(248,248,248) : Color.new(0,0,0)
-    @sprites["header"].shadowColor=(!isDarkMode?) ? Color.new(248,248,248) : Color.new(0,0,0)
+    @sprites["header"].shadowColor=nil #(!isDarkMode?) ? Color.new(248,248,248) : Color.new(0,0,0)
     @sprites["header"].windowskin=nil
     
     @sprites["textbox"]=Kernel.pbCreateMessageWindow
@@ -917,10 +924,10 @@ There are different modes:
           },
           "Controls pitch on playback casted by the Jukebox Pokégear feature."
        ),
-        EnumOption.new(_INTL("Pokémon Cry Style"),[_INTL("Classic"),_INTL("Modern")],
+        EnumOption.new(_INTL("Pokémon Cry Sounds"),[_INTL("Off"),_INTL("On")],
           proc { $PokemonSystem.cryclassic },
           proc {|value| $PokemonSystem.cryclassic = value },
-          "Sets Pokémon Cry Style. Choice between Classic and Modern and starts with Modern Cries by default."
+          "When set to off, no sound is heard from Pokémon. When set to Prograda, its Pokémon name will be heard."
         )
       ]
     end
@@ -941,19 +948,19 @@ There are different modes:
         EnumOption.new(_INTL("Battle Style"),[_INTL("Switch"),_INTL("Set")],
            proc { $PokemonSystem.battlestyle },
            proc {|value| $PokemonSystem.battlestyle=value },
-           "When set to Switch, it allows you to switch to another Pokémon on trainer battles when defating a Pokémon. When set to Set, it won’t prompt you to switch to another Pokémon if you wish when defating a Trainer’s Pokémon."
+           "When set to Switch, it allows you to switch to another Pokémon on trainer battles when defating a Pokémon. When set to Set, it won’t prompt you to switch to another Pokémon."
         ),
         EnumOption.new(_INTL("Battle Mechanics (Requires Restart)"),[_INTL("Generation V"),_INTL("NextGen")],
            proc { $PokemonSystem.mechanics },
            proc {|value|
              $PokemonSystem.mechanics=value
            },
-           "When set to Generation V, it uses mechanics found in Generation V games. When set to NextGen, it uses mechanics found in the latest Generation of Pokémon Games (Whichever is latest). Requires restart for this to apply."
+           "When set to Generation V, it uses mechanics found in Generation V games. When set to NextGen, it uses mechanics found in the latest Pokémon Games."
         ),
         EnumOption.new(_INTL("Generation VI Pokémon Graphic Style"),[_INTL("Classic"),_INTL("Modern")],
           proc { $PokemonSystem.newsix },
           proc {|value| $PokemonSystem.newsix = value },
-        "This is inteded as a transition point between the Original Gen6 and the revamped Gen6 sprites. Set this to off to disable them. New games have this setting enabled by default. This does not affect Hisuian Goomy or Bergmite families as those were added after the project started but does affect Sylvia since it is a recolored form of Female Meowstic"
+        "This is inteded as a transition point between the Original Gen6 and the revamped Gen6 sprites. Set this to off to disable them."
         ),
       ]
     end
@@ -1050,6 +1057,15 @@ There are different modes:
            $SpeechFramesNames,
           "Sets the windowskin graphics to be used in the game."
          ),
+         NumberOption.new(_INTL("Text Skin Color Scheme"),0,3,
+           proc { $PokemonSystem.textskincolors },
+           proc {|value| 
+              $PokemonSystem.textskincolors=value
+           },
+           ["Standard", "Colors", "CMYK", "Vintage"],
+          "Sets the colors to be used in Windowskins."
+         ),
+
          NumberOption.new(_INTL("Accent Color"),1,getAccentNames.length,
            proc { $PokemonSystem.accentcolor },
            proc {|value| 

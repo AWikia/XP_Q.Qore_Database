@@ -57,7 +57,7 @@ def getBorders # Edit this along with getBorderNames to add more borders
         "border",
         "border_1",
         "border_2",
-        ['border_3','border_3_beta','border_3_dev','border_3_canary'][QQORECHANNEL],
+        ['border_3','border_3_beta','border_3_dev','border_3_canary','border_3_internal'][QQORECHANNEL],
         getAccentFolder+"/border_4",
         getDarkModeFolder+"/border_5",
         getDarkModeFolder+"/border_6",
@@ -83,7 +83,7 @@ end
 
 def pbCallTitle #:nodoc:
   qoreInitials
-  title=['QoreTitle','QoreTitle_1','QoreTitle_2','QoreTitle_3'][QQORECHANNEL]
+  title=['QoreTitle','QoreTitle_1','QoreTitle_2','QoreTitle_3','QoreTitle_4'][QQORECHANNEL]
   title='QoreTitle' if !pbResolveBitmap(_INTL("Graphics/Titles/{1}", title))
 #  Win32API.SyncTitle
   if ($DEBUG || $TEST)

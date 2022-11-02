@@ -308,7 +308,8 @@ end
   "Skin22",
   "Skin23",
   "Skin24",
-  "Skin25"
+  "Skin25",
+  ['Skin26','Skin26_1','Skin26_2','Skin26_3','Skin26_4'][QQORECHANNEL]
 ]
 # 2 more colors
 =begin
@@ -418,7 +419,8 @@ $TextFrames=[
   "Skin22",
   "Skin23",
   "Skin24",
-  "Skin25"
+  "Skin25",
+  ['Choice26','Choice26_1','Choice26_2','Choice26_3','Choice26_4'][QQORECHANNEL]
 ]
 
   $SpeechFramesNames=[
@@ -453,7 +455,8 @@ $TextFrames=[
   "RPG Maker VX",
   "RPG Maker VX Ace",
   "RPG Maker MV",
-  "RPG Maker MZ"
+  "RPG Maker MZ",
+  "Channel-Aware"
 ]
 
 

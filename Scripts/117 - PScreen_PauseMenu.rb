@@ -171,7 +171,7 @@ class PokemonMenu
     else
       @scene.pbShowInfo(_INTL("Trophies: {1}/28 ({2}%)\nTechnical Discs: {3}/100\n",Kernel.pbTrophies, Kernel.pbTrophyScore, Kernel.pbTechnicalDiscScore))
       commands[cmdSave=commands.length]=_INTL("Save") if !$game_system || !$game_system.save_disabled
-      commands[cmdLink=commands.length]=_INTL("Link...") if $game_switches[12]
+#      commands[cmdLink=commands.length]=_INTL("Link...") if $game_switches[12]
     end
     commands[cmdOption=commands.length]=_INTL("Settings")
     commands[cmdDebug=commands.length]=_INTL("Debug") if ($DEBUG || $TEST)

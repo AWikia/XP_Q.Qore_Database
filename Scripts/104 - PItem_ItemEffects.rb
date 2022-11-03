@@ -391,6 +391,31 @@ ItemHandlers::UseOnPokemon.add(:PRISMSTONE,proc{|item,pokemon,scene|
    end
 })
 
+ItemHandlers::UseOnPokemon.add(:LINKINGCORD,proc{|item,pokemon,scene|
+   if (pokemon.isShadow? rescue false)
+     scene.pbDisplay(_INTL("It won't have any effect."))
+     next false
+   end
+   newspecies=pbTradeCheckEvolution(pokemon,pokemon)
+   if newspecies<=0
+     scene.pbDisplay(_INTL("It won't have any effect."))
+     next false
+   else
+     pbFadeOutInWithMusic(99999){
+        evo=PokemonEvolutionScene.new
+        evo.pbStartScreen(pokemon,newspecies)
+        evo.pbEvolution(false)
+        evo.pbEndScreen
+        if scene.is_a?(PokemonBag_Scene)
+          scene.pbRefreshAnnotations(proc{|p| pbCheckEvolution(p,item)>0 })
+          scene.pbRefresh
+        end
+     }
+     next true
+   end
+})
+
+
           
 ItemHandlers::UseOnPokemon.add(:POTION,proc{|item,pokemon,scene|
    next pbHPItem(pokemon,20,scene)

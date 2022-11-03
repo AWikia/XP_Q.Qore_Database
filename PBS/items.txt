@@ -666,6 +666,7 @@
 861,GALARICACUFF,Galarica Cuff,Galarica Cuffs,1,6000,"A cuff made from woven-together Galarica Twigs. Giving it to Galarian Slowpoke makes the Pokémon very happy.",1,0,0,
 862,GALARICAWREATH,Galarica Wreath,Galarica Wreaths,1,6000,"A wreath made from woven-together Galarica Twigs. Placing it on the head of a Galarian Slowpoke makes the Pokémon very happy.",1,0,0,
 968,BLANKPLATE,Blank Plate,Blank Plates,1,1000,An item to be held by a Pokémon. It is a stone tablet that boosts the power of Normal-type moves.,0,0,0,
+974,LINKINGCORD,Linking Cord,Linking Cords,1,1000,"A string exuding a mysterious energy that makes you feel a strange sense of connection. It’s loved by certain Pokémon.",1,0,0,
 ## Trophies (28 Total)
 # Platina
 827,TQOREMASTER,Qora Qore Master,Qora Qore Master,6,0,Awarded for completing all the pregame,2,0,6,

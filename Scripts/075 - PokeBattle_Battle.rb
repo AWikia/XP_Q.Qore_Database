@@ -3902,6 +3902,8 @@ class PokeBattle_Battle
             pbCommonAnimation("BadDreams",i,nil)
           elsif isConst?(i.effects[PBEffects::MultiTurnAttack],PBMoves,:STONEAXE)
             pbCommonAnimation("StoneAxe",i,nil)
+          elsif isConst?(i.effects[PBEffects::MultiTurnAttack],PBMoves,:GALINSPOISON)
+            pbCommonAnimation("GalinsPoison",i,nil)
           else
             pbCommonAnimation("Wrap",i,nil)
           end

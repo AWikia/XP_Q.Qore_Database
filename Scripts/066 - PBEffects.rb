@@ -176,6 +176,7 @@ begin
     Fierymania         = 25
     ToxicSwamp         = 26
     RevelationPowder   = 27
+    Trampoline         = 28
     
     ############################################################################
     # These effects apply to the battle (i.e. both sides)

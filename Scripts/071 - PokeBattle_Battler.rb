@@ -3867,9 +3867,21 @@ class PokeBattle_Battler
       end
     end
     if !thismove.isContactMove? || user.hasWorkingAbility(:LONGREACH)
-      if !(user.hasMoldBreaker || thismove.function==0x300) && target.hasWorkingAbility(:MINDYGLOPS)
+      if !(user.hasMoldBreaker || thismove.function==0x300 || thismove.pbIsStatus?) && 
+            target.hasWorkingAbility(:MINDYGLOPS)
         # switch user and target
         PBDebug.log("[Ability triggered] #{target.pbThis}'s Mindy Glops made it use #{user.pbThis(true)}'s #{thismove.name}")
+        changeeffect=3
+        tmp=user
+        user=target
+        target=tmp
+      end
+    end
+# Trampoline
+    if !thismove.isContactMove? || user.hasWorkingAbility(:LONGREACH)
+      if thismove.pbIsDamaging? && target.pbOwnSide.effects[PBEffects::Trampoline]
+        # switch user and target
+        PBDebug.log("[Lingering effect triggered] #{target.pbThis}'s Trampoline made it use #{user.pbThis(true)}'s #{thismove.name}")
         changeeffect=3
         tmp=user
         user=target

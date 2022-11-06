@@ -325,7 +325,7 @@
 310,SOLBEYU,Solbeyu,"Once the Pokémon has eaten a berry, it can hurt a random opponent as well."
 311,DOOMYSLUSH,Doomy Slush,"The Pokémon maxes its stats if it is hit by a Doom-type move or a critical hit."
 312,DOLPHININO,Dolphinino,The Pokémon changes its form to Stealth Forme when it uses a physical move and changes to Octum Forme when it uses Octum Shield.
-313,MINDYGLOPS,Mindy Glops,Bounces back all moves that do not make direct contact. It also gives full immunity to Mind-type moves.
+313,MINDYGLOPS,Mindy Glops,Bounces back all damaging moves that do not make direct contact. It also gives full immunity to Mind-type moves.
 314,LONGGRASS,Long Grass,Powers up the Pokémon's Grass-type moves if it's hit by one.
 315,BALLOONIST,Balloonist,Ignores the other side's Brainologic when attacking.
 316,ABILITOPIA,Abilitopia,The Pokémon is able to suppress or replace almost any ability the opponent has.

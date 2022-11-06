@@ -14533,6 +14533,32 @@ end
 class PokeBattle_Move_350 < PokeBattle_Move
 end
 
+################################################################################
+# All damaging moves that do not make any contact are bounced for the rest of 
+# the round. (Trampoline)
+################################################################################
+class PokeBattle_Move_351 < PokeBattle_Move
+  def pbEffect(attacker,opponent,hitnum=0,alltargets=nil,showanimation=true)
+    unmoved=false
+    for poke in @battle.battlers
+      next if poke.index==attacker.index
+      if @battle.choices[poke.index][0]==1 && # Chose a move
+         !poke.hasMovedThisRound?
+        unmoved=true; break
+      end
+    end
+    if !unmoved || attacker.pbOwnSide.effects[PBEffects::Trampoline]
+			pbSEPlay("protection")
+      @battle.pbDisplay(_INTL("But it failed!"))
+      return -1
+    end
+    pbShowAnimation(@id,attacker,nil,hitnum,alltargets,showanimation)
+    attacker.pbOwnSide.effects[PBEffects::Trampoline] = true
+    @battle.pbDisplay(_INTL("A trampoline emergenced!"))
+    return 0
+  end
+end
+
 
 ################################################################################
 ################################################################################

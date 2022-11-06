@@ -4756,6 +4756,7 @@ class PokeBattle_Battle
       @sides[i].effects[PBEffects::QuickGuard]=false
       @sides[i].effects[PBEffects::WideGuard]=false
       @sides[i].effects[PBEffects::CraftyShield]=false
+      @sides[i].effects[PBEffects::Trampoline]=false
       @sides[i].effects[PBEffects::Round]=0
       @sides[i].effects[PBEffects::CrateBuster]-=1 if @sides[i].effects[PBEffects::CrateBuster]>0
     end

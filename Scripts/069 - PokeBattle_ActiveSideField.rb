@@ -32,6 +32,7 @@ begin
       @effects[PBEffects::ToxicSwamp]         = 0
       @effects[PBEffects::Brainologic]        = 0
       @effects[PBEffects::RevelationPowder]   = 0
+      @effects[PBEffects::Trampoline]         = false
     end
   end
 

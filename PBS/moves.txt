@@ -994,6 +994,7 @@
 989,MAGICSTARFRUIT,Magic Starfruit,097,1,MAGIC,Physical,0,5,0,00,0,abef,"The fewer PP this move has, the greater its attack power."
 1073,ELDERMAGICWAND,Elder Magic Wand,325,200,MAGIC,ElderSpecial,100,5,0,08,-2,,"The user casts its powerful Magic elder spell with incredible power to all targets. This, also makes the user unable to move in the next turn."
 1127,WISHINGSTAR,Wishing Star,0D7,0,MAGIC,Status,0,10,0,10,1,d,"One turn after this move is used, the target's HP is restored by half the user's maximum HP. This move always goes first."
+1154,TRAMPOLINE,Trampoline,351,0,MAGIC,Status,0,15,0,40,1,,"The user creates a Trampoline, which bounces all damaging moves that do not make any contact back to opposing Pokémon."
 ## FLINT Moves = Doom
 639,DOOMTACKLE,Doom Tackle,000,65,DOOM,Physical,100,30,0,00,0,abef,A doomy attack in which the user charges and slams into the target with its whole body.
 640,DOOMCLAW,Doom Claw,000,90,DOOM,Physical,100,10,0,00,0,abefh,The user slashes with a loud claw made from dooms. Critical hits land more easily.

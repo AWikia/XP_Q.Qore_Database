@@ -73,6 +73,7 @@ MetadataMapTrainerVictoryME = 17
 MetadataMapSize             = 18
 MetadataPastMap             = 19
 MetadataEnvironment         = 20
+MetadataFutureMap           = 21
 
 
 
@@ -104,6 +105,7 @@ module PokemonMetadata
      "MapPosition"=>[MetadataMapPosition,"uuu"],
      "DiveMap"=>[MetadataDiveMap,"u"],
      "PastMap"=>[MetadataPastMap,"u"],
+     "FutureMap"=>[MetadataFutureMap,"u"],
      "DarkMap"=>[MetadataDarkMap,"b"],
      "SafariMap"=>[MetadataSafariMap,"b"],
      "SnapEdges"=>[MetadataSnapEdges,"b"],

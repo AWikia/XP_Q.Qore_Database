@@ -374,6 +374,12 @@ def pbDayNightTint(object)
     g = 0
     b = 0
     w = 0
+    if ($PokemonGlobal.inFuture rescue false) 
+      r = 17
+      g = 17
+      b = 34
+      w = 42
+    end
     if ($PokemonGlobal.inPast rescue false) 
       r = -34
       g = -34

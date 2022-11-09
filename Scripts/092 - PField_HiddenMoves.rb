@@ -929,7 +929,7 @@ HiddenMoveHandlers::CanUseMove.add(:FLY,proc{|move,pkmn|
      Kernel.pbMessage(_INTL("It can't be used when you have someone with you."))
      return false
    end
-   if $PokemonGlobal.inPast && $PokemonGlobal
+   if ($PokemonGlobal.inPast || $PokemonGlobal.inFuture) && $PokemonGlobal
      Kernel.pbMessage(_INTL("It can only be used while you're in the present."))
      return false
    end
@@ -1016,7 +1016,7 @@ HiddenMoveHandlers::CanUseMove.add(:TELEPORT,proc{|move,pkmn|
      Kernel.pbMessage(_INTL("It can't be used when you have someone with you."))
      return false
    end
-   if $PokemonGlobal.inPast && $PokemonGlobal
+   if ($PokemonGlobal.inPast || $PokemonGlobal.inFuture) && $PokemonGlobal
      Kernel.pbMessage(_INTL("It can only be used while you're in the present."))
      return false
    end
@@ -1074,7 +1074,7 @@ HiddenMoveHandlers::CanUseMove.add(:DIG,proc{|move,pkmn|
      Kernel.pbMessage(_INTL("It can't be used when you have someone with you."))
      return false
    end
-   if $PokemonGlobal.inPast && $PokemonGlobal
+   if ($PokemonGlobal.inPast || $PokemonGlobal.inFuture) && $PokemonGlobal
      Kernel.pbMessage(_INTL("It can only be used while you're in the present."))
      return false
    end
@@ -1183,7 +1183,8 @@ HiddenMoveHandlers::CanUseMove.add(:ROCKYTUNNEL,proc{|move,pkmn|
      end
      Kernel.pbMessage(_INTL("Can't use that here."))
      return false
-   elsif !pbGetMetadata($game_map.map_id,MetadataPastMap) || $PokemonGlobal.surfing
+   elsif !pbGetMetadata($game_map.map_id,MetadataPastMap) || $PokemonGlobal.surfing ||
+          $PokemonGlobal.inFuture
      Kernel.pbMessage(_INTL("Can't use that here."))
      return false
    end
@@ -1233,3 +1234,74 @@ HiddenMoveHandlers::UseMove.add(:ROCKYTUNNEL,proc{|move,pokemon|
    return true
 })
 
+#===============================================================================
+# Glimmy Galaxy
+#===============================================================================
+
+HiddenMoveHandlers::CanUseMove.add(:GLIMMYGALAXY,proc{|move,pkmn|
+   if $PokemonGlobal.inFuture
+     meta=pbLoadMetadata
+     for i in 0...meta.length
+       if meta[i] && meta[i][MetadataFutureMap]
+         if meta[i][MetadataFutureMap]==$game_map.map_id
+            if $MapFactory.isPassableStrict?(i,$game_player.x,$game_player.y, $game_player)
+             return true
+            else
+             Kernel.pbMessage(_INTL("Can't use that here."))
+             return false
+            end
+         end
+       end
+     end
+     Kernel.pbMessage(_INTL("Can't use that here."))
+     return false
+   elsif !pbGetMetadata($game_map.map_id,MetadataFutureMap) || $PokemonGlobal.surfing ||
+          $PokemonGlobal.inPast
+     Kernel.pbMessage(_INTL("Can't use that here."))
+     return false
+   end
+   futuremap = pbGetMetadata($game_map.map_id,MetadataFutureMap)
+   if !$MapFactory.isPassableStrict?(futuremap,$game_player.x,$game_player.y, $game_player)
+     Kernel.pbMessage(_INTL("Can't use that here."))
+     return false
+   end
+   return true
+})
+
+
+HiddenMoveHandlers::UseMove.add(:GLIMMYGALAXY,proc{|move,pokemon|
+   wasinFuture=$PokemonGlobal.inFuture
+   if $PokemonGlobal.inFuture
+     futuremap=nil
+     meta=pbLoadMetadata
+     for i in 0...meta.length
+       if meta[i] && meta[i][MetadataFutureMap]
+         if meta[i][MetadataFutureMap]==$game_map.map_id
+           futuremap=i
+           break
+         end
+       end
+     end
+   else
+     futuremap=pbGetMetadata($game_map.map_id,MetadataFutureMap)
+   end
+   return false if !futuremap
+   if !pbHiddenMoveAnimation(pokemon)
+     Kernel.pbMessage(_INTL("{1} used {2}!",pokemon.name,PBMoves.getName(move)))
+   end
+   pbFadeOutIn(99999){
+      $game_temp.player_new_map_id=futuremap
+      $game_temp.player_new_x=$game_player.x
+      $game_temp.player_new_y=$game_player.y
+      $game_temp.player_new_direction=$game_player.direction
+      if wasinFuture
+        $PokemonGlobal.inFuture=false
+      else
+        $PokemonGlobal.inFuture=true
+      end
+      $scene.transfer_player(false)
+      $game_map.autoplay
+      $game_map.refresh
+   }
+   return true
+})

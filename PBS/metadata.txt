@@ -140,6 +140,7 @@ BattleBack=Quora
 MapPosition=2,10,8
 Outdoor=true
 ShowArea=true
+FutureMap=528
 [033]
 # Quora Drei
 MapSize=2,1111
@@ -204,6 +205,7 @@ MapPosition=3,3,16
 Outdoor=true
 ShowArea=true
 PastMap=506
+FutureMap=530
 [044]
 # Route 6
 MapSize=2,11
@@ -2286,6 +2288,7 @@ BattleBack=Quora
 MapPosition=2,10,9
 Outdoor=true
 ShowArea=true
+FutureMap=529
 [401]
 # Understairs Swuora Drei
 MapSize=3,111111111
@@ -2998,3 +3001,22 @@ Bicycle=true
 MapPosition=10,13,17
 ShowArea=true
 Environment=Rock
+[528]
+# Future Quora Zwei
+MapSize=2,11
+BattleBack=Quora
+MapPosition=2,10,8
+Outdoor=true
+ShowArea=true
+[529]
+# Quora Zwei
+MapSize=2,11
+BattleBack=Quora
+MapPosition=2,10,9
+Outdoor=true
+ShowArea=true
+[530]
+# Swuora Museum
+BattleBack=IndoorB
+MapPosition=2,10,9
+ShowArea=true

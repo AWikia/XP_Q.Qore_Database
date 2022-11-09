@@ -1185,7 +1185,7 @@
 831,GLIMSETREAT,Glimse Treat,174,150,GLIMSE,Special,100,15,70,00,-5,abj,The user takes some time to create a treat and then damages. It also increases Attack stat and recover some HP when it knocks out the target
 1027,MOONGEIST,Moongeist,000,75,GLIMSE,Physical,100,15,0,00,0,abefj,"The target is hit by a glimmy moongeist shot."
 1028,BLACKMOON,Black Moon,291,0,GLIMSE,Status,100,10,0,100,5,,"The user send a blackness moon into its ally. This passes its stat changes to share their powers."
-1029,GLIMMYGALAXY,Glimmy Galaxy,292,0,GLIMSE,Status,100,10,0,40,0,,"The user creates a galaxian tunnel in the field in order to damage out some Pokémon."
+1029,GLIMMYGALAXY,Glimmy Galaxy,292,0,GLIMSE,Status,100,10,0,40,0,,"The user creates a galaxian tunnel in the field in order to damage out some Pokémon. This can also be used to travel in the future."
 1075,ELDERGLIMMYWAVE,Elder Glimmy Wave,325,200,GLIMSE,ElderSpecial,100,5,0,08,-2,,"The user casts its powerful Glimse elder spell with incredible power to all targets. This, also makes the user unable to move in the next turn."
 1144,SELENTISKORCH,Selentiskorch,0E7,175,GLIMSE,Special,55,5,0,00,0,abef,"Deals massive damage. If this move succeeds, once the user faints, the foe that landed the knockout hit also faints."
 ## Robot Moves

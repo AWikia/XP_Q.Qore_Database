@@ -61,7 +61,7 @@ ItemHandlers::UseFromBag.add(:ESCAPEROPE,proc{|item|
      Kernel.pbMessage(_INTL("It can't be used when you have someone with you."))
      next 0
    end
-   if $PokemonGlobal.inPast && $PokemonGlobal
+   if ($PokemonGlobal.inPast || $PokemonGlobal.inFuture) && $PokemonGlobal
      Kernel.pbMessage(_INTL("It can only be used while you're in the present."))
      next 0
    end
@@ -202,7 +202,7 @@ ItemHandlers::UseInField.add(:ESCAPEROPE,proc{|item|
      Kernel.pbMessage(_INTL("It can't be used when you have someone with you."))
      next
    end
-   if $PokemonGlobal.inPast && $PokemonGlobal
+   if ($PokemonGlobal.inPast || $PokemonGlobal.inFuture) && $PokemonGlobal
      Kernel.pbMessage(_INTL("It can only be used while you're in the present."))
      next
    end

@@ -440,6 +440,7 @@ MapPosition=5,17,5
 Outdoor=true
 ShowArea=true
 PastMap=516
+FutureMap=532
 [087]
 # Kenuora Vier
 MapSize=2,1111
@@ -483,6 +484,7 @@ Outdoor=true
 ShowArea=true
 Environment=Forest
 PastMap=509
+FutureMap=535
 [093]
 # Jarol Cave
 BattleBack=CaveDark
@@ -567,6 +569,7 @@ Bicycle=false
 MapPosition=7,22,8
 Outdoor=true
 ShowArea=true
+FutureMap=536
 [109]
 # Annuora Funf
 MapSize=2,1111
@@ -1266,6 +1269,7 @@ TrainerBattleBGM=113 - Vs. Hoenn Trainer.mp3
 MapPosition=4,10,10
 WildBattleBGM=112 - Vs. Wild Hoenn.mp3
 ShowArea=true
+FutureMap=533
 [228]
 # Twinleaf Town
 TrainerBattleBGM=Shinnoh trainer.mp3
@@ -3009,14 +3013,57 @@ MapPosition=2,10,8
 Outdoor=true
 ShowArea=true
 [529]
-# Quora Zwei
+# Future Quora Zwei
 MapSize=2,11
 BattleBack=Quora
 MapPosition=2,10,9
 Outdoor=true
 ShowArea=true
 [530]
+# Future Swuora Zwei
+MapSize=2,1111
+BattleBack=Swuora
+MapPosition=3,3,16
+Outdoor=true
+ShowArea=true
+[531]
 # Swuora Museum
 BattleBack=IndoorB
 MapPosition=2,10,9
+ShowArea=true
+[532]
+# Kenuora Drei
+MapSize=2,1111
+BattleBack=Kenuora
+MapPosition=5,17,5
+Outdoor=true
+ShowArea=true
+[533]
+# Future PiXie Cave
+MapSize=2,11
+BattleBack=CaveDark
+Bicycle=true
+MapPosition=4,10,10
+ShowArea=true
+[534]
+# PiXie Path
+BattleBack=CaveDark
+Bicycle=true
+MapPosition=5,17,5
+ShowArea=true
+[535]
+# Jarol Playground
+BattleBack=Jarol
+Bicycle=false
+MapPosition=6,12,12
+Outdoor=true
+ShowArea=true
+Environment=Forest
+[536]
+# Future Annuora Vier
+MapSize=2,11
+BattleBack=Annuora
+Bicycle=false
+MapPosition=7,22,8
+Outdoor=true
 ShowArea=true

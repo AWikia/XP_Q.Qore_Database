@@ -2340,6 +2340,7 @@ Weather=Sandstorm,100
 MapPosition=8,9,3
 ShowArea=true
 PastMap=520
+FututeMap=537
 [408]
 # Liberty Corridor Path
 BattleBack=CaveDarker
@@ -2536,6 +2537,7 @@ BattleBack=Cave
 Bicycle=true
 MapPosition=14,8,9
 ShowArea=true
+FutureMap=538
 [443]
 # Sanuora Acht
 BattleBack=Sanuora
@@ -3066,4 +3068,24 @@ BattleBack=Annuora
 Bicycle=false
 MapPosition=7,22,8
 Outdoor=true
+ShowArea=true
+[537]
+# Future Liberty Corridor Path
+SnapEdges=true
+BattleBack=CaveDark
+MapPosition=8,9,3
+ShowArea=true
+PastMap=520
+[538]
+# Future Quadro Cave
+MapSize=2,01
+BattleBack=Cave
+Bicycle=true
+MapPosition=14,8,9
+ShowArea=true
+[539]
+# Future Quadro Cave
+BattleBack=Cave
+Bicycle=true
+MapPosition=14,9,9
 ShowArea=true

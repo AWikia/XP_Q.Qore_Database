@@ -1493,6 +1493,7 @@ class PokeBattle_Battler
          isConst?(self.species,PBSpecies,:EISCUE) ||
          isConst?(self.species,PBSpecies,:ZACIAN) ||
          isConst?(self.species,PBSpecies,:ZAMAZENTA) ||
+         isConst?(self.species,PBSpecies,:ETERNATUS) ||
          isConst?(self.species,PBSpecies,:KOULUNDIN) ||
          isConst?(self.species,PBSpecies,:FLAMENGO) ||
          isConst?(self.species,PBSpecies,:PACMAN) ||
@@ -1511,7 +1512,7 @@ class PokeBattle_Battler
         self.form=rand(5)
       elsif isConst?(self.species,PBSpecies,:ETV)
         self.form-=2 if self.form>1
-        elsif isConst?(self.species,PBSpecies,:NECROZMA)
+      elsif isConst?(self.species,PBSpecies,:NECROZMA)
         self.form=@effects[PBEffects::UBForm] if self.form==3
       end
     end

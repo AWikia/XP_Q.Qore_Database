@@ -304,83 +304,83 @@
 387,MYCELIUMMIGHT,Mycelium Might,"The Pokémon will always act more slowly when using status moves, but these moves will be unimpeded by the Ability of the target."
 # FLINT Abilities
 192,DOOMER,Doomer,Increases power of Doom Attcaks when the Pokémon's HP is low.
-193,MARIAMARA,Mariamara,Doubles the power of Dark Attacks when the Pokémon's HP is half or less.
-194,SUPERCLEARBODY,Super Clear Body,"The Pokémon takes damage only from attacks. In addition, no one may lower its stats."
-195,INTIMIDOOM,Intimidoom,"The Pokémon intimidooms opposing Pokémon upon entering battle, lowering their Sp. Attack stat."
-196,KOULUNDIN,Κουλούνδιν,Contact with the Pokémon lowers the attacker's Accuracy stat.
-197,FIERYGIST,Fiery Gist,"When the Pokémon is about to flinch, it raises its Evasiveness."
-198,FLOERYGIST,Floery Gist,"When the Pokémon is about to flinch, it raises its Accuracy."
-199,DOOMELIST,Doom Elist,Powers up the Pokémon's Doom-type moves if it's hit by one.
+193,MARIAMARA,Mariamara,"Doubles the power of Dark Attacks when the Pokémon's HP drops to half or less."
+194,SUPERCLEARBODY,Super Clear Body,"The Pokémon takes damage only from attacks. This also prevents other Pokémon from lowering it’s stats."
+195,INTIMIDOOM,Intimidoom,"When the Pokémon enters a battle, it intimidooms opposing Pokémon and makes them cower, lowering their Sp. Atk stats."
+196,KOULUNDIN,Κουλούνδιν,Contact with the Pokémon lowers the attacker's Accuracy.
+197,FIERYGIST,Fiery Gist,"Every time it flinches, it boosts its evasiveness with its own gist."
+198,FLOERYGIST,Floery Gist,"Every time it flinches, it boosts its accuracy with its own gist."
+199,DOOMELIST,Doom Elist,"If hit by a Doom-type move, the Pokémon absorbs the dooms and uses them to power up its own Doom-type moves."
 200,HERBLOBBY,Herb Lobby,The Pokémon creates a herb lobby in where super-effective moves will not hit.
-201,HERBALILITY,Herbalility,"If the user faints, the target that landed the knockout hit also faints."
-202,INTIMILOW,Intimilow,"The Pokémon intimilows opposing Pokémon upon entering battle, lowering their Speed stat."
-203,PROVENDO,Provendo,"The user is a Provendo, and protects itslef from any move with priority greather than 0."
+201,HERBALILITY,Herbalility,"If the user faints, the Pokémon that knocked it out will also faint."
+202,INTIMILOW,Intimilow,"When the Pokémon enters a battle, it intimilows opposing Pokémon and makes them cower, lowering their Speed stats."
+203,PROVENDO,Provendo,"The user is a provendo, and that makes opponents unable to use priority moves against the Pokémon or its allies."
 204,SIAXIS,SIAXIS,"With the aid of SIAXIS power, the Pokémon may use any move without letting itself to faint."
-205,SONIKO,Soniko,Gives priority to damaging moves
-206,NETPLAY,NetPlay,Compares an opposing Pokémon's Attack and Sp. Atk stats before raising its own Defense or Sp. Def stat—whichever will be more effective.
-207,MAXTHIN,Maxthin,May disable damaging or status moves on the Pokémon.
-208,HERALINA,Heralina,The Pokémon is very conscious about the opposing Pokémon so contact with it may transfrom into the contacter.
-209,BAIKARI,Baikari,Being hit by a Sun-type move sharply boosts the Defense stat of the Pokémon.
+205,SONIKO,Soniko,"Gives priority to the Pokémon’s damaging moves."
+206,NETPLAY,NetPlay,"The Pokémon compares an opposing Pokémon's Attack and Sp. Atk stats before raising its own Defense or Sp. Def stat—whichever will be more effective."
+207,MAXTHIN,Maxthin,"May disable damaging or status moves to Pokémon that dealt damage with it."
+208,HERALINA,Heralina,"The Pokémon is very conscious about opposing Pokémon and may transform into an attacker that make direct contact with it."
+209,BAIKARI,Baikari,"When the Pokémon is hit by a Sun-type attack, its Defense stat is boosted sharply."
 210,ANTIMENTO,Anti-Mento,"The user doesn't like Mementos a lot, so he may use them without any fainting of itself."
-211,CLOCKAPIA,Clockapia,Raises Accuracy if the Pokémon is about to be hit by Sight-based moves.
+211,CLOCKAPIA,Clockapia,"The Pokémon takes no damage when hit by sight-based moves. Instead, its Accuracy is boosted."
 213,BURNOLA,Burnola,The Pokémon can burn the target even if it's a Fire type.
 214,PARAJINDA,Parajinda,The Pokémon can paralyze the target even if it's a Electric or Bolt type.
 215,SHEERCOLD,Sheer Cold,The Pokémon can freeze the target even if it's a Ice or Blizzard type.
-216,ANTISHARPNESS,Anti-Sharpness,"The use dislikes Sharpener, so he may cause romance even on Sharpener Pokémon"
-217,ALLERGY,Allergy,The Pokémon has a lot of Allergy and that drastically boosts Sp. Def. after knocking out any Pokémon.
+216,ANTISHARPNESS,Anti-Sharpness,"The use dislikes Sharpener, so he can infatuate Sharpener Pokémon as well."
+217,ALLERGY,Allergy,"When the Pokémon knocks out a target, it has a lot of allergy, which boosts the Sp. Def stat drastically."
 218,LIGHTER,Lighter,The Pokémon also works as a torch so it will open up dark maps. Shiny Pokémon are slightly increased.
 219,SHINYGATHER,Shiny Gather,Raises the likelihood of meeting shiny wild Pokémon.
-220,DOOMYABSORB,Doomy Absorb,Restores HP if hit by a Doom-type move instead of taking damage.
-221,NERVOUSCRACK,Nervous Crack,"Prevents the use of crate-destructing moves, such as Doom Crate, by being nervous on its surroundings."
-262,ALONELY,Alonely,The Pokémon is alonely and prevents others from transforming into itself.
-263,BOTANOTHERAPY,Botanotherpy,The Pokémon assists its allies and protects other Pokémon from being cursed.
+220,DOOMYABSORB,Doomy Absorb,"If hit by a Doom-type move, the Pokémon has its HP restored instead of taking damage."
+221,NERVOUSCRACK,Nervous Crack,"The Pokémon beomes very nervous, preventing all Pokémon from using crate-destructing moves such as Doom Crate."
+262,ALONELY,Alonely,"The Pokémon’s lone living prevents others from transforming into it."
+263,BOTANOTHERAPY,Botanotherpy,"The Pokémon assists its allies by curing their own status conditions and protects other Pokémon from being cursed."
 264,SOUPRSOWL,Soupr's Owl,"Raises the likehood of meeting Sharpener-type Pokémon, if any exist."
-265,SINISTRO,Sinistro,Gives priority to moves that make direct contact.
-266,SOUNDTRACK,Soundtrack,Gives priority to sound-based moves. The power is boosted a litle.
+265,SINISTRO,Sinistro,"Gives priority to the Pokémon’s moves that make direct contact."
+266,SOUNDTRACK,Soundtrack,"Gives priority to the Pokémon’s sound-based moves. The power is boosted a little."
 267,FINITI,Finiti,Boosts the power and additional effects of catapult moves but makes it evade more likely.
-268,IMPRISIN,Imprisin,The Pokémon sets up an Imprison upon entering battle which seals the opposing Pokémon’s moves.
+268,IMPRISIN,Imprisin,"The Pokémon sets up an Imprison upon entering battle which prevents opposing Pokémon from using moves known by it."
 269,ROCONNINO,Roconnico,The Pokémon’s Rocon body gives full immunity to all healing moves.
-270,ANTIHEALER,Anti-Healer,May disable healing moves on the Pokémon.
+270,ANTIHEALER,Anti-Healer,"May disable a healing move that has dealt damage to the Pokémon."
 271,KOURTINA,Kourtina,Powers up its moves if either Pokémon's last move failed.
-272,CHIKOLINI,Chikolini,"The Pokémon can transform to a grounded defeated ally. If the Pokémon is Airborne, it may transform to any defeated ally."
+272,CHIKOLINI,Chikolini,"The Pokémon can transform to a grounded fainted ally. If the Pokémon is airborne, it can transform into ungrounded fainted ally in addition."
 273,METRONOME,Metronome,"Powers up moves used consercutively, but only until a different move is used."
-274,FERFATINA,Ferfatina,May trasnform itself to a target when the Pokémon makes contact
+274,FERFATINA,Ferfatina,"May transform itself to a target when the Pokémon makes contact"
 275,DOOMYTREVOR,Doomy Trevor,"Draws in all Doom-type moves. Instead of being hit by Doom-type moves, it restores HP."
-277,VERGINI,Vergini,Powers up moves that are super effective.
-278,STARPUNNY,Star Punny,"Once an opposing Pokémon eats a berry, it will hurt itself. It will not hurt itself when eating a berry as well."
+277,VERGINI,Vergini,"Powers up the Pokémon’s supereffective attacks even further."
+278,STARPUNNY,Star Punny,"Opposing Pokémon will hurt itself when they eat a berry. This also protects it from being hurt when it eats a berry."
 279,MINIMALIST,Minimalist,Contact with the Pokémon lowers the attacker's Accuracy stat.
 305,CINEMALINTER,Cinema Linter,Doubles the Pokémon's accuracy on Cinament.
-306,PHOTONFORCE,Photon Force,"The Pokémon boosts its ally Pokémon's most proficient stat after knocking out any Pokémon."
-307,FIERYSPIRIT,Fiery Spirit,"Powers up ally Pokémon’s Fire-type moves."
+306,PHOTONFORCE,Photon Force,"Boosts the ally’s most proficient stat every time it knocks out a target."
+307,FIERYSPIRIT,Fiery Spirit,"Powers up the Fire-type moves of the Pokémon and its allies."
 308,ANTIFOGGER,Anti-Fogger,"Doubles the power of Dragon-type moves in Misty Terrain."
-309,PHANTOMSPIRIT,Phantom Spirit,"Boosts the power of Ghost-, Moon- and Glimse-type moves but its ally Pokémon can use moves regardless of its abilities."
-310,SOLBEYU,Solbeyu,"Once the Pokémon has eaten a berry, it can hurt a random opponent as well."
+309,PHANTOMSPIRIT,Phantom Spirit,"Boosts the power of Ghost-, Moon- and Glimse- type moves but its ally Pokémon’s moves are unimpeded by the Ability of the target."
+310,SOLBEYU,Solbeyu,"The Pokémon’s HP can hurt a random opponent when it eats any Berry, in addition to the Berry’s usual effect"
 311,DOOMYSLUSH,Doomy Slush,"The Pokémon maxes its stats if it is hit by a Doom-type move or a critical hit."
 312,DOLPHININO,Dolphinino,The Pokémon changes its form to Stealth Forme when it uses a physical move and changes to Octum Forme when it uses Octum Shield.
-313,MINDYGLOPS,Mindy Glops,Bounces back all damaging moves that do not make direct contact. It also gives full immunity to Mind-type moves.
-314,LONGGRASS,Long Grass,Powers up the Pokémon's Grass-type moves if it's hit by one.
+313,MINDYGLOPS,Mindy Glops,"The Pokémon bounces damaging moves that do not make direct contact instead of getting hit by them. This also gives full immunity to Mind-type moves."
+314,LONGGRASS,Long Grass,"If hit by a Grass-type move, the Pokémon absorbs the leaves and uses them to power up its own Doom-type moves."
 315,BALLOONIST,Balloonist,Ignores the other side's Brainologic when attacking.
 316,ABILITOPIA,Abilitopia,The Pokémon is able to suppress or replace almost any ability the opponent has.
 317,CANAVISROBOT,Canavis Robot,The Pokémon receives double damage from Robot-type attacks.
 318,MORFAT,Morfat,"The Pokémon ignores the effects of Trick Room, Wonder Room and Magic Room while in battle."
 319,POWERLEECH,Power Leech,Powers up healing moves.
 324,BIGVOLCANO,Big Volcano,"Boosts the Pokémon’s evasiveness in Volcanic Terrain."
-325,LOVINGCLUSTER,Loving Cluster,"Heals status conditions in Lovely Terrain."
-326,HEALTHYTUNNEL,Healthy Tunnel,Restores HP in Glimmy Galaxy instead of taking damage.
+325,LOVINGCLUSTER,Loving Cluster,"Cures the Pokémon’s status conditions in Lovely Terrain."
+326,HEALTHYTUNNEL,Healthy Tunnel,"The Pokémon gradually regains HP in Glimmy Galaxy instead of taking damage."
 327,PASTRYSUN,Pastry Sun,"The Pokémon gradually regains HP in harsh sunlight."
 328,CRATECRUSTER,Crate Cruster,"Doubles the power of every weaken crate-destructing moves in Psychic Terrain."
-330,PROTEINCROTELINE,Protein Croteline,"The Pokémon gains double points in the second and triple points in the third attempt during Protein Mag turns."
-333,ANGRYBIRD,Angry Bird,"The Pokémon is a very angry fighter and that boosts its evasiveness stat."
-334,BRIDINI,Bridini,The brandy body of the Pokémon halves the damage from Flying-type moves that hit it.
+330,PROTEINCROTELINE,Protein Croteline,"The Pokémon has increased performance during Protein Mag turns. It also protects itself from being affected by Intimidate."
+333,ANGRYBIRD,Angry Bird,"The Pokémon is a very angry fighter and that boosts its evasiveness."
+334,BRIDINI,Bridini,"The Pokémon’s brandy body halves the damage taken from Flying-type moves."
 337,WATERSPLASH,Water Splash,Doubles the power of Water-type attacks.
-338,UPLOAD,Upload,Compares an opposing Pokémon's Attack and Sp. Atk stats before raising its own Defense or Sp. Def stat—whichever will be more effective.
-339,HIRALINA,Hiralina,"The Hustle body of the Pokémon halves the damage from Heart-type moves that hit it."
-340,MASKEDHERB,Masked Herb,"Its powerful mask the Pokémon has halves the damage from Herb-type moves that hit it."
+338,UPLOAD,Upload,The Pokémon compares an opposing Pokémon's Attack and Sp. Atk stats before raising its own Defense or Sp. Def stat—whichever will be more effective.
+339,HIRALINA,Hiralina,"The Pokémon’s hustle body halves the damage taken from Heart-type moves."
+340,MASKEDHERB,Masked Herb,"The Pokémon’s powerful mask halves the damage taken from Herb-type moves. This also protects itself from botanic smokes."
 341,ELDERPROJECTOR,Elder Projector,"Gives to Pokémon full immunity to all Elder Special moves."
 342,ELDERMASTER,Elder Master,"Doubles the power of Elder Special moves."
-343,ENIGMATACTICS,Enigma Tactics,"Boosts the Pokémon’s evasion but makes it incapable of switching out, fleeing and negates such moves that do it."
-344,PHONYPREDATOR,Phony Predator,Summons allies when HP is half or less to increase power and defense.
-345,PENATIVA,Penativa,"The Pokémon tranctuates most one-hit KO moves and temporary doubles defense."
+343,ENIGMATACTICS,Enigma Tactics,"Boosts the Pokémon’s evasiveness. This also makes it unable to be switched out and protects it from moves and items that would force it to switch out."
+344,PHONYPREDATOR,Phony Predator,"The Pokémon summons allies when HP is drops to half or less to increase power and defense."
+345,PENATIVA,Penativa,"The Pokémon tranctuates most one-hit KO moves and temporary doubles the Defense stat."
 346,ASTROPLANET,Astro Planet, "Makes gravity intensified when the Pokémon enters a battle."
 347,FROZENBODY,Frozen Body,Contact with the Pokémon may freeze the attacker.
 348,TRUMMETSPIRIT,Trummet Spirit,"Prevents opposing Pokémon from using their moves twice in a row."

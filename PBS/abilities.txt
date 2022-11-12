@@ -350,7 +350,7 @@
 278,STARPUNNY,Star Punny,"Opposing Pokémon will hurt itself when they eat a berry. This also protects it from being hurt when it eats a berry."
 279,MINIMALIST,Minimalist,Contact with the Pokémon lowers the attacker's Accuracy.
 305,CINEMALINTER,Cinema Linter,Doubles the Pokémon's accuracy on Cinament.
-306,PHOTONFORCE,Photon Force,"Boosts the ally’s most proficient stat every time it knocks out a target."
+306,PHOTONFORCE,Photon Force,"Boosts the ally Pokémon’s most proficient stat every time it knocks out a target."
 307,FIERYSPIRIT,Fiery Spirit,"Powers up the Fire-type moves of the Pokémon and its allies."
 308,ANTIFOGGER,Anti-Fogger,"Doubles the power of Dragon-type moves in Misty Terrain."
 309,PHANTOMSPIRIT,Phantom Spirit,"Boosts the power of Ghost-, Moon- and Glimse- type moves but its ally Pokémon’s moves are unimpeded by the Ability of the target."

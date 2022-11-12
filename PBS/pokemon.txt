@@ -28446,8 +28446,8 @@ Color=Black
 Habitat=Grassland
 Kind=Rising
 Pokedex=NOT
-BattlerPlayerY=15
-BattlerEnemyY=19
+BattlerPlayerY=3
+BattlerEnemyY=7
 BattlerAltitude=0
 Evolutions=
 [1045]

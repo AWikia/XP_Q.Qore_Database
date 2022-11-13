@@ -126,6 +126,26 @@ class PokeBattle_Battler
            !hasWorkingAbility(:MORFAT)) ? @defense : @spdef
   end
 
+  def profstat 
+      if @attack >= @defense &&
+          @attack >= @spatk &&
+          @attack >= @spdef &&
+          @attack >= @speed
+        return PBStats::ATTACK
+      elsif @defense >= @spatk &&
+          @defense >= @spdef &&
+          @defense >= @speed
+        return PBStats::DEFENSE
+      elsif @spatk >= @spdef &&
+          @spatk >= @speed
+        return PBStats::SPATK
+      elsif @spdef >= @speed
+        return PBStats::SPDEF
+      else
+        return PBStats::SPEED
+      end
+  end
+
   def nature
     return (@pokemon) ? @pokemon.nature : 0
   end
@@ -3059,62 +3079,14 @@ class PokeBattle_Battler
     end
     # Beast Boost
     if user.hasWorkingAbility(:BEASTBOOST) && target.isFainted?
-      if user.attack >= user.defense &&
-          user.attack >= user.spatk &&
-          user.attack >= user.spdef &&
-          user.attack >= user.speed
-        if pbIncreaseStatWithCause(PBStats::ATTACK,1,user,PBAbilities.getName(user.ability))
-          PBDebug.log("[Ability triggered] #{pbThis}'s Beast Boost (raising Attack)")
-        end
-      elsif user.defense >= user.spatk &&
-          user.defense >= user.spdef &&
-          user.defense >= user.speed
-        if pbIncreaseStatWithCause(PBStats::DEFENSE,1,user,PBAbilities.getName(user.ability))
-          PBDebug.log("[Ability triggered] #{pbThis}'s Beast Boost (raising Defense)")
-        end
-      elsif user.spatk >= user.spdef &&
-          user.spatk >= user.speed
-        if pbIncreaseStatWithCause(PBStats::SPATK,1,user,PBAbilities.getName(user.ability))
-          PBDebug.log("[Ability triggered] #{pbThis}'s Beast Boost (raising Special Attack)")
-        end
-      elsif user.spdef >= user.speed
-        if pbIncreaseStatWithCause(PBStats::SPDEF,1,user,PBAbilities.getName(user.ability))
-          PBDebug.log("[Ability triggered] #{pbThis}'s Beast Boost (raising Special Defense)")
-        end
-      else
-        if pbIncreaseStatWithCause(PBStats::SPEED,1,user,PBAbilities.getName(user.ability))
-          PBDebug.log("[Ability triggered] #{pbThis}'s Beast Boost (raising Speed)")
-        end
+      if pbIncreaseStatWithCause(user.profstat,1,user,PBAbilities.getName(user.ability))
+        PBDebug.log("[Ability triggered] #{pbThis}'s Beast Boost (raising Attack)")
       end
     end
     # Photon Force
     if user.hasWorkingAbility(:PHOTONFORCE) && target.isFainted? && user.pbPartner
-      if user.pbPartner.attack >= user.pbPartner.defense &&
-          user.pbPartner.attack >= user.pbPartner.spatk &&
-          user.pbPartner.attack >= user.pbPartner.spdef &&
-          user.pbPartner.attack >= user.pbPartner.speed
-        if user.pbPartner.pbIncreaseStatWithCause(PBStats::ATTACK,1,user,PBAbilities.getName(user.ability))
-          PBDebug.log("[Ability triggered] #{pbThis}'s Photon Force (raising Attack)")
-        end
-      elsif user.pbPartner.defense >= user.pbPartner.spatk &&
-          user.pbPartner.defense >= user.pbPartner.spdef &&
-          user.pbPartner.defense >= user.pbPartner.speed
-        if user.pbPartner.pbIncreaseStatWithCause(PBStats::DEFENSE,1,user,PBAbilities.getName(user.ability))
-          PBDebug.log("[Ability triggered] #{pbThis}'s Photon Force (raising Defense)")
-        end
-      elsif user.pbPartner.spatk >= user.pbPartner.spdef &&
-          user.pbPartner.spatk >= user.pbPartner.speed
-        if user.pbPartner.pbIncreaseStatWithCause(PBStats::SPATK,1,user,PBAbilities.getName(user.ability))
-          PBDebug.log("[Ability triggered] #{pbThis}'s Photon Force (raising Special Attack)")
-        end
-      elsif user.pbPartner.spdef >= user.pbPartner.speed
-        if user.pbPartner.pbIncreaseStatWithCause(PBStats::SPDEF,1,user,PBAbilities.getName(user.ability))
-          PBDebug.log("[Ability triggered] #{pbThis}'s Photon Force (raising Special Defense)")
-        end
-      else
-        if user.pbPartner.pbIncreaseStatWithCause(PBStats::SPEED,1,user,PBAbilities.getName(user.ability))
-          PBDebug.log("[Ability triggered] #{pbThis}'s Photon Force (raising Speed)")
-        end
+      if user.pbPartner.pbIncreaseStatWithCause(user.pbPartner.profstat,1,user,PBAbilities.getName(user.ability))
+        PBDebug.log("[Ability triggered] #{pbThis}'s Photon Force (raising Attack)")
       end
     end
     # Berserk

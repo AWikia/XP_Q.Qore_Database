@@ -3080,13 +3080,13 @@ class PokeBattle_Battler
     # Beast Boost
     if user.hasWorkingAbility(:BEASTBOOST) && target.isFainted?
       if pbIncreaseStatWithCause(user.profstat,1,user,PBAbilities.getName(user.ability))
-        PBDebug.log("[Ability triggered] #{pbThis}'s Beast Boost (raising Attack)")
+        PBDebug.log("[Ability triggered] #{pbThis}'s Beast Boost (raising #{PBStats.getName(user.profstat)})")
       end
     end
     # Photon Force
     if user.hasWorkingAbility(:PHOTONFORCE) && target.isFainted? && user.pbPartner
       if user.pbPartner.pbIncreaseStatWithCause(user.pbPartner.profstat,1,user,PBAbilities.getName(user.ability))
-        PBDebug.log("[Ability triggered] #{pbThis}'s Photon Force (raising Attack)")
+        PBDebug.log("[Ability triggered] #{pbThis}'s Photon Force (raising #{PBStats.getName(user.pbPartner.profstat)})")
       end
     end
     # Berserk
@@ -4517,14 +4517,14 @@ class PokeBattle_Battler
         thismove.id==@lastMoveUsed && thismove.id!=@battle.struggle.id &&
         @effects[PBEffects::TwoTurnAttack]==0
         pbSEPlay("protection")
-        @battle.pbDisplayPaused(_INTL("{1} can't use the same move in a row due to {2}'s Trummet Spirit!",pbThis,pbOpposing1.pbThis))
+        @battle.pbDisplayPaused(_INTL("{1} can't use the same move in a row due to {2}'s Trummet Spirit!",pbThis(true),pbOpposing1.pbThis(true)))
         PBDebug.log("[Move failed] #{pbThis} can't use #{thismove.name} because of Torment")
         return false
       elsif pbOpposing2.hasWorkingAbility(:TRUMMETSPIRIT) && !pbOpposing2.isFainted? &&
         thismove.id==@lastMoveUsed && thismove.id!=@battle.struggle.id &&
         @effects[PBEffects::TwoTurnAttack]==0
         pbSEPlay("protection")
-        @battle.pbDisplayPaused(_INTL("{1} can't use the same move in a row due to {2}'s Trummet Spirit!",pbThis,pbOpposing2.pbThis))
+        @battle.pbDisplayPaused(_INTL("{1} can't use the same move in a row due to {2}'s Trummet Spirit!",pbThis,pbOpposing2.pbThis(true)))
         PBDebug.log("[Move failed] #{pbThis} can't use #{thismove.name} because of Torment")
         return false
       end

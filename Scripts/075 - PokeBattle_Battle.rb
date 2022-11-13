@@ -1041,14 +1041,14 @@ class PokeBattle_Battle
       if opp1.hasWorkingAbility(:TRUMMETSPIRIT)
         if thismove.id==thispkmn.lastMoveUsed
           if showMessages
-            pbDisplayPaused(_INTL("{1} can't use the same move twice in a row due to {2}'s Trummet Spirit!",thispkmn.pbThis,opp1.pbThis))
+            pbDisplayPaused(_INTL("{1} can't use the same move twice in a row due to {2}'s Trummet Spirit!",thispkmn.pbThis,opp1.pbThis(true)))
           end
           return false
         end
       elsif opp2.hasWorkingAbility(:TRUMMETSPIRIT)
         if thismove.id==thispkmn.lastMoveUsed
           if showMessages
-            pbDisplayPaused(_INTL("{1} can't use the same move twice in a row due to {2}'s Trummet Spirit!",thispkmn.pbThis,opp2.pbThis))
+            pbDisplayPaused(_INTL("{1} can't use the same move twice in a row due to {2}'s Trummet Spirit!",thispkmn.pbThis,opp2.pbThis(true)))
           end
           return false
         end

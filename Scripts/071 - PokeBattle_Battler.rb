@@ -3850,7 +3850,19 @@ class PokeBattle_Battler
         target=tmp
       end
     end
-# Trampoline
+# Trampoline (Ability)
+    if !thismove.isContactMove? || user.hasWorkingAbility(:LONGREACH)
+      if !(user.hasMoldBreaker || thismove.pbIsStatus?) && 
+            target.hasWorkingAbility(:TRAMPOLINE)
+        # switch user and target
+        PBDebug.log("[Ability triggered] #{target.pbThis}'s Trampoline made it use #{user.pbThis(true)}'s #{thismove.name}")
+        changeeffect=3
+        tmp=user
+        user=target
+        target=tmp
+      end
+    end
+# Trampoline (Move)
     if !thismove.isContactMove? || user.hasWorkingAbility(:LONGREACH)
       if thismove.pbIsDamaging? && target.pbOwnSide.effects[PBEffects::Trampoline]
         # switch user and target

@@ -392,3 +392,4 @@
 354,CINEMAMAKER,Cinema Maker,Turns the ground into Cinament when the Pokémon enters a battle.
 355,MAGICBLOCK,Magic Block,"The Pokémon receives full immunity to all Magic-type moves by blocking magical signals."
 356,ILLUSIVEBILITY,Illusive Bility,"May infatuate a target when the Pokémon makes contact."
+388,TRAMPOLINE,Trampoline,"The Pokémon bounces damaging moves that do not make direct contact instead of getting hit by them."

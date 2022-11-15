@@ -14559,6 +14559,21 @@ class PokeBattle_Move_351 < PokeBattle_Move
   end
 end
 
+################################################################################
+# Power gets increased the more rooms are active (Tactie Cream)
+################################################################################
+class PokeBattle_Move_352 < PokeBattle_Move
+  def pbBaseDamage(basedmg,attacker,opponent)
+    mult = 1
+    # Boosts damage even if the user has Morfat
+    mult += 1 if @battle.field.effects[PBEffects::TrickRoom]>0
+    mult += 1 if @battle.field.effects[PBEffects::WonderRoom]>0
+    mult += 1 if @battle.field.effects[PBEffects::MagicRoom]>0
+    return basedmg*mult
+  end
+end
+
+
 
 ################################################################################
 ################################################################################

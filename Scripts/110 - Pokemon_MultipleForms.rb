@@ -11276,11 +11276,11 @@ MultipleForms.register(:WIKITECH,{
 
 "getMoveList"=>proc{|pokemon|
    next if pokemon.form==0
-   movelist=[[1,:HARDEN],[1,:WATERGUN],[1,:GROWL],[10,:DAMADON],[10,:BUBBLEBEAM],
-             [10,:SPINJITZUAEROBICS],[20,:MINDRECOVERCY],[20,:WINDGLOW],
-             [20,:CAPTIVATE],[30,:SUPERDAMADON],[30,:WATERLOGO],[30,:LAVASHIFT],
-             [40,:CASTLEMANIA],[40,:CONFUSION],[40,:WATERSPOUT],[50,:DOOMARIETTA],
-             [50,:WINDSLASH],[50,:WINDYAEROBICS]] if pokemon.form==1 # Eternal
+   movelist=[[1,:FALSWSWIPE],[1,:HARDEN],[1,:WATERGUN],[1,:GROWL],[10,:DAMADON],
+             [10,:BUBBLEBEAM],[10,:SPINJITZUAEROBICS],[20,:MINDRECOVERCY],
+             [20,:WINDGLOW],[20,:CAPTIVATE],[30,:SUPERDAMADON],[30,:WATERLOGO],
+             [30,:LAVASHIFT],[40,:CASTLEMANIA],[40,:CONFUSION],[40,:WATERSPOUT],
+             [50,:DOOMARIETTA],[50,:WINDSLASH],[50,:WINDYAEROBICS]] if pokemon.form==1 # Eternal
    for i in movelist
      i[1]=getConst(PBMoves,i[1])
    end

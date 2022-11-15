@@ -977,6 +977,7 @@
 986,VIBRATION,Vibration,046,90,FAIRY,Special,100,10,10,00,0,befk,The user vibrates its wings to generate a damaging sound wave. This may also lower the target's Sp. Def stat.
 1126,FLANGE,Flange,341,40,FAIRY,Physical,100,35,0,00,0,abef,Using its fairy tackling power, it damages the target. This move's power doubles when the target is on Misty Terrain.
 1149,MISTYGLIDE,Misty Glide,346,70,FAIRY,Physical,100,20,0,00,0,abef,"Gliding on the ground, the user attacks the target. This move always goes first on Misty Terrain."
+1155,TACTIECREAM,Tactie Cream,352,60,FAIRY,Physical,95,10,0,00,1,abef,"The user hurls a soft cream to the target. The more rooms there are active in the battlefield, the greater the move's power."
 ## FLINT Moves = Magic
 627,MAGICHAND,Magic Hand,000,55,MAGIC,Special,100,30,0,00,0,abeg,A hand that does magic attack. User thraws out before using this move
 629,MAGICCROWN,Magic Crown,02D,95,MAGIC,Special,95,20,50,400,0,abeg,The user stands out a crown of swords at the target. May raise user's all stats

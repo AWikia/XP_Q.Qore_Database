@@ -36742,7 +36742,7 @@ BattlerAltitude=0
 Evolutions=
 [1356]
 Name=Iron Valiant
-InternalName=IRONVALINAT
+InternalName=IRONVALIANT
 Type1=FAIRY
 Type2=FIGHTING
 BaseStats=74,130,90,116,120,60

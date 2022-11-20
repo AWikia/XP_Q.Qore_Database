@@ -50,6 +50,7 @@ class PokeBattle_Battler
       if hasWorkingAbility(:VITALSPIRIT) ||
          hasWorkingAbility(:INSOMNIA) ||
          hasWorkingAbility(:SWEETVEIL) ||
+         hasWorkingAbility(:PURIFYINGSALT) ||
          (hasWorkingAbility(:FLOWERVEIL) && pbHasType?(:GRASS)) ||
          (hasWorkingAbility(:LEAFGUARD) && (@battle.pbWeather==PBWeather::SUNNYDAY ||
                                             @battle.pbWeather==PBWeather::HARSHSUN) &&
@@ -159,6 +160,7 @@ class PokeBattle_Battler
     end
     if !attacker || !attacker.hasMoldBreaker
       if hasWorkingAbility(:IMMUNITY) || hasWorkingAbility(:PASTELVEIL) ||
+         hasWorkingAbility(:PURIFYINGSALT) ||
          (hasWorkingAbility(:FLOWERVEIL) && pbHasType?(:GRASS)) ||
          (hasWorkingAbility(:LEAFGUARD) && (@battle.pbWeather==PBWeather::SUNNYDAY ||
                                             @battle.pbWeather==PBWeather::HARSHSUN) &&
@@ -193,7 +195,8 @@ class PokeBattle_Battler
       return false
     end   
     return false if self.status!=0 || isConst?(ability,PBAbilities,:COMATOSE) || pbShieldsUp?
-    if hasWorkingAbility(:IMMUNITY) || hasWorkingAbility(:PASTELVEIL)
+    if hasWorkingAbility(:IMMUNITY) || hasWorkingAbility(:PASTELVEIL) ||
+       hasWorkingAbility(:PURIFYINGSALT) ||
        (hasWorkingAbility(:FLOWERVEIL) && pbHasType?(:GRASS)) ||
        (hasWorkingAbility(:LEAFGUARD) && (@battle.pbWeather==PBWeather::SUNNYDAY ||
                                           @battle.pbWeather==PBWeather::HARSHSUN) &&
@@ -220,7 +223,8 @@ class PokeBattle_Battler
     return false if self.status!=0 || isConst?(ability,PBAbilities,:COMATOSE)
     return false if pbHasType?(:POISON) || pbHasType?(:STEEL) || pbHasType?(:GAS)
     if !moldbreaker
-      return false if hasWorkingAbility(:IMMUNITY) || hasWorkingAbility(:PASTELVEIL) || pbPartner.hasWorkingAbility(:PASTELVEIL)
+      return false if hasWorkingAbility(:IMMUNITY) || hasWorkingAbility(:PASTELVEIL) || pbPartner.hasWorkingAbility(:PASTELVEIL) ||
+                      hasWorkingAbility(:PURIFYINGSALT) ||
                       (hasWorkingAbility(:FLOWERVEIL) && pbHasType?(:GRASS)) ||
                       (pbPartner.hasWorkingAbility(:FLOWERVEIL) && pbHasType?(:GRASS))
       return false if hasWorkingAbility(:LEAFGUARD) &&
@@ -295,7 +299,9 @@ class PokeBattle_Battler
       return false
     end
     if !attacker || !attacker.hasMoldBreaker
-      if hasWorkingAbility(:WATERVEIL) || hasWorkingAbility(:WATERBUBBLE) || 
+      if hasWorkingAbility(:WATERVEIL) || hasWorkingAbility(:WATERBUBBLE) ||
+          hasWorkingAbility(:THERMALEXCHANGE) ||
+          hasWorkingAbility(:PURIFYINGSALT) ||
          (hasWorkingAbility(:FLOWERVEIL) && pbHasType?(:GRASS)) ||
          (hasWorkingAbility(:LEAFGUARD) && (@battle.pbWeather==PBWeather::SUNNYDAY ||
                                             @battle.pbWeather==PBWeather::HARSHSUN) &&
@@ -330,6 +336,8 @@ class PokeBattle_Battler
        return false
     end   
     if hasWorkingAbility(:WATERVEIL) || hasWorkingAbility(:WATERBUBBLE) ||
+       hasWorkingAbility(:THERMALEXCHANGE) ||
+       hasWorkingAbility(:PURIFYINGSALT) ||
        (hasWorkingAbility(:FLOWERVEIL) && pbHasType?(:GRASS)) ||
        (hasWorkingAbility(:LEAFGUARD) && (@battle.pbWeather==PBWeather::SUNNYDAY ||
                                           @battle.pbWeather==PBWeather::HARSHSUN) &&
@@ -401,6 +409,7 @@ class PokeBattle_Battler
     end
     if !attacker || !attacker.hasMoldBreaker
       if hasWorkingAbility(:LIMBER) ||
+         hasWorkingAbility(:PURIFYINGSALT) ||
          (hasWorkingAbility(:FLOWERVEIL) && pbHasType?(:GRASS)) ||
          (hasWorkingAbility(:LEAFGUARD) && (@battle.pbWeather==PBWeather::SUNNYDAY ||
                                             @battle.pbWeather==PBWeather::HARSHSUN) &&
@@ -430,7 +439,8 @@ class PokeBattle_Battler
     return false if @battle.field.effects[PBEffects::MistyTerrain]>0 && !self.isAirborne?
     return false if (pbHasType?(:ELECTRIC) || pbHasType?(:BOLT)) && !(hasWorkingItem(:RINGTARGET)) && $USENEWBATTLEMECHANICS
     if hasWorkingAbility(:LIMBER) ||
-       (hasWorkingAbility(:FLOWERVEIL) && pbHasType?(:GRASS)) ||
+       hasWorkingAbility(:PURIFYINGSALT) ||
+      (hasWorkingAbility(:FLOWERVEIL) && pbHasType?(:GRASS)) ||
        (hasWorkingAbility(:LEAFGUARD) && (@battle.pbWeather==PBWeather::SUNNYDAY ||
                                           @battle.pbWeather==PBWeather::HARSHSUN) &&
                                           !hasWorkingItem(:UTILITYUMBRELLA))
@@ -503,6 +513,7 @@ class PokeBattle_Battler
     end
     if !attacker || !attacker.hasMoldBreaker
       if hasWorkingAbility(:MAGMAARMOR) ||
+         hasWorkingAbility(:PURIFYINGSALT) ||
          (hasWorkingAbility(:FLOWERVEIL) && pbHasType?(:GRASS)) ||
          (hasWorkingAbility(:LEAFGUARD) && (@battle.pbWeather==PBWeather::SUNNYDAY ||
                                             @battle.pbWeather==PBWeather::HARSHSUN) &&
@@ -736,7 +747,7 @@ class PokeBattle_Battler
     return @stages[stat]>=6
   end
 
-  def pbCanIncreaseStatStage?(stat,attacker=nil,showMessages=false,move=nil,moldbreaker=false,ignoreContrary=false,ignoremirror=false)
+  def pbCanIncreaseStatStage?(stat,attacker=nil,showMessages=false,move=nil,moldbreaker=false,ignoreContrary=false,ignoremirror=false,ignoreopportunist=false)
     if !moldbreaker
       if !attacker || attacker.index==self.index || !attacker.hasMoldBreaker
         if hasWorkingAbility(:CONTRARY) && !ignoreContrary
@@ -754,7 +765,7 @@ class PokeBattle_Battler
     return true
   end
 
-  def pbIncreaseStatBasic(stat,increment,attacker=nil,moldbreaker=false,ignoreContrary=false,ignoremirror=false)
+  def pbIncreaseStatBasic(stat,increment,attacker=nil,moldbreaker=false,ignoreContrary=false,ignoremirror=false,ignoreopportunist=false)
     if !moldbreaker
       if !attacker || attacker.index==self.index || !attacker.hasMoldBreaker
         if hasWorkingAbility(:CONTRARY) && !ignoreContrary
@@ -769,7 +780,7 @@ class PokeBattle_Battler
     return increment
   end
 
-  def pbIncreaseStat(stat,increment,attacker,showMessages,move=nil,upanim=true,moldbreaker=false,ignoreContrary=false,ignoremirror=false)
+  def pbIncreaseStat(stat,increment,attacker,showMessages,move=nil,upanim=true,moldbreaker=false,ignoreContrary=false,ignoremirror=false,ignoreopportunist=false)
     if !moldbreaker
       if !attacker || attacker.index==self.index || !attacker.hasMoldBreaker
         if hasWorkingAbility(:CONTRARY) && !ignoreContrary
@@ -807,6 +818,15 @@ class PokeBattle_Battler
            _INTL("{1}'s {2} rose sharply!",pbThis,PBStats.getName(stat)),
            _INTL("{1}'s {2} rose drastically!",pbThis,PBStats.getName(stat))]
         @battle.pbDisplay(arrStatTexts[[increment-1,2].min])
+        # Opportunist
+        if !ignoreopportunist
+          for i in [self.pbPartner,self.pbOpposing1,self.pbOpposing2]
+            next if !i || i.isFainted?
+            next if !i.hasWorkingAbility(:OPPORTUNIST)
+#            next if !i.pbCanIncreaseStatStage?(stat,i,false)
+            i.pbIncreaseStatWithCause(stat,increment,i,PBAbilities.getName(i.ability),upanim,true,moldbreaker,ignoreContrary,ignoremirror,true)
+          end
+        end
         @effects[PBEffects::BurningJelousy] = true
         return true
       end
@@ -814,7 +834,7 @@ class PokeBattle_Battler
     return false
   end
 
-  def pbIncreaseStatWithCause(stat,increment,attacker,cause,showanim=true,showmessage=true,moldbreaker=false,ignoreContrary=false,ignoremirror=false)
+  def pbIncreaseStatWithCause(stat,increment,attacker,cause,showanim=true,showmessage=true,moldbreaker=false,ignoreContrary=false,ignoremirror=false,ignoreopportunist=false)
     if !moldbreaker
       if !attacker || attacker.index==self.index || !attacker.hasMoldBreaker
         if hasWorkingAbility(:CONTRARY) && !ignoreContrary
@@ -859,6 +879,15 @@ class PokeBattle_Battler
              _INTL("{1}'s {2} drastically raised {3}'s {4}!",attacker.pbThis,cause,pbThis(true),PBStats.getName(stat))]
         end
         @battle.pbDisplay(arrStatTexts[[increment-1,2].min]) if showmessage
+        # Opportunist
+        if !ignoreopportunist
+          for i in [self.pbPartner,self.pbOpposing1,self.pbOpposing2]
+            next if !i || i.isFainted? || !i.hasWorkingAbility(:OPPORTUNIST)
+            next if !i.hasWorkingAbility(:OPPORTUNIST)
+#            next if !i.pbCanIncreaseStatStage?(stat,self,false)
+            i.pbIncreaseStatWithCause(stat,increment,i,PBAbilities.getName(i.ability),showanim,true,moldbreaker,ignoreContrary,ignoremirror,true)
+          end
+        end
         @effects[PBEffects::BurningJelousy] = true
         return true
       end
@@ -1151,6 +1180,10 @@ class PokeBattle_Battler
          pbThis,opponent.pbThis(true),PBAbilities.getName(opponent.ability)))
       return false
     end
+    if hasWorkingAbility(:GUARDDOG)
+      @battle.pbDisplay(_INTL("{1}'s {2} activated!",pbThis,PBAbilities.getName(ability)))
+      return pbIncreaseStatWithCause(PBStats::ATTACK,1,opponent,PBAbilities.getName(opponent.ability))
+    end
     if !hasWorkingAbility(:CONTRARY)
       if pbOwnSide.effects[PBEffects::Mist]>0
         pbSEPlay("protection")
@@ -1202,6 +1235,10 @@ class PokeBattle_Battler
          pbThis,opponent.pbThis(true),PBAbilities.getName(opponent.ability)))
       return false
     end
+    if hasWorkingAbility(:GUARDDOG)
+      @battle.pbDisplay(_INTL("{1}'s {2} activated!",pbThis,PBAbilities.getName(ability)))
+      return pbIncreaseStatWithCause(PBStats::SPATK,1,opponent,PBAbilities.getName(opponent.ability))
+    end
     if !hasWorkingAbility(:CONTRARY)
       if pbOwnSide.effects[PBEffects::Mist]>0
         pbSEPlay("protection")
@@ -1251,6 +1288,10 @@ class PokeBattle_Battler
       @battle.pbDisplay(_INTL("{1}'s substitute protected it from {2}'s {3}!",
          pbThis,opponent.pbThis(true),PBAbilities.getName(opponent.ability)))
       return false
+    end
+    if hasWorkingAbility(:GUARDDOG)
+      @battle.pbDisplay(_INTL("{1}'s {2} activated!",pbThis,PBAbilities.getName(ability)))
+      return pbIncreaseStatWithCause(PBStats::SPEED,1,opponent,PBAbilities.getName(opponent.ability))
     end
     if !hasWorkingAbility(:CONTRARY)
       if pbOwnSide.effects[PBEffects::Mist]>0

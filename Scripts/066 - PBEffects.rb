@@ -145,6 +145,10 @@ begin
     Mimicry            = 141
     NeutralTrap        = 142
     Brainymedia        = 143
+    CudChew            = 144
+    SilkTrap           = 145
+    GlaiveRush         = 146
+    GlaiveRushPos      = 147
     
     ############################################################################
     # These effects apply to a side

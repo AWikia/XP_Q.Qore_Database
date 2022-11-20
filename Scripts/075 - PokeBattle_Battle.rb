@@ -1201,6 +1201,7 @@ class PokeBattle_Battle
         end
         if !quickclaw[i] &&  !quickdraw[i] &&
            (@battlers[i].hasWorkingAbility(:STALL) ||
+           (@battlers[i].hasWorkingAbility(:MYCELIUMMIGHT) && @choices[i][2].pbIsStatus?) ||
            @battlers[i].hasWorkingItem(:LAGGINGTAIL) ||
            @battlers[i].hasWorkingItem(:FULLINCENSE))
           lagging[i]=true
@@ -1464,6 +1465,15 @@ class PokeBattle_Battle
       return true if pbCanSwitchLax?(index,i,false)
     end
     return false
+  end
+
+  def pbAmountOfFaintedAllies(index)
+    party=pbParty(index)
+    num = 0
+    for i in 0...party.length
+      num+=1 if !pbCanSwitchLax?(index,i,false)
+    end
+    return num
   end
 
   def pbSwitch(favorDraws=false)
@@ -3236,6 +3246,7 @@ class PokeBattle_Battle
       @battlers[i].effects[PBEffects::SpikyShield]=false
       @battlers[i].effects[PBEffects::BanefulBunker]=false
       @battlers[i].effects[PBEffects::Obstruct]=false
+      @battlers[i].effects[PBEffects::SilkTrap]=false
       @battlers[i].temperature2= [2,1,-2][rand(3)] if rand(100) < 38
     end
     @usepriority=false  # recalculate priority
@@ -3880,6 +3891,7 @@ class PokeBattle_Battle
       if i.effects[PBEffects::MultiTurn]>0
         i.effects[PBEffects::MultiTurn]-=1
         movename=PBMoves.getName(i.effects[PBEffects::MultiTurnAttack])
+        saltcure=false
         if i.effects[PBEffects::MultiTurn]==0
           PBDebug.log("[End of effect] Trapping move #{movename} affecting #{i.pbThis} ended")
           pbDisplay(_INTL("{1} was freed from {2}!",i.pbThis,movename))
@@ -3904,15 +3916,20 @@ class PokeBattle_Battle
             pbCommonAnimation("StoneAxe",i,nil)
           elsif isConst?(i.effects[PBEffects::MultiTurnAttack],PBMoves,:GALINSPOISON)
             pbCommonAnimation("GalinsPoison",i,nil)
+          elsif isConst?(i.effects[PBEffects::MultiTurnAttack],PBMoves,:SALTCURE)
+            saltcure=true
+            pbCommonAnimation("Warp",i,nil)
           else
             pbCommonAnimation("Wrap",i,nil)
           end
+          additionalhalf = 1
+          additionalhalf = 2 if saltcure && (i.pbHasType?(:WATER) || i.pbHasType?(:STEEL))
           if !i.hasWorkingAbility(:MAGICGUARD) && !i.hasWorkingAbility(:SUPERCLEARBODY)
             PBDebug.log("[Lingering effect triggered] #{i.pbThis} took damage from trapping move #{movename}")
             @scene.pbDamageAnimation(i,0)
-            amt=($USENEWBATTLEMECHANICS) ? (i.totalhp/8).floor : (i.totalhp/16).floor
+            amt=($USENEWBATTLEMECHANICS) ? ((i.totalhp/8) / additionalhalf).floor : ((i.totalhp/16) / additionalhalf).floor
             if @battlers[i.effects[PBEffects::MultiTurnUser]].hasWorkingItem(:BINDINGBAND)
-              amt=($USENEWBATTLEMECHANICS) ? (i.totalhp/6).floor : (i.totalhp/8).floor
+              amt=($USENEWBATTLEMECHANICS) ? ((i.totalhp/6) / additionalhalf).floor : ((i.totalhp/8) / additionalhalf).floor
             end
             i.pbReduceHP(amt)
             pbDisplay(_INTL("{1} is hurt by {2}!",i.pbThis,movename))
@@ -4709,6 +4726,10 @@ class PokeBattle_Battle
         @battlers[i].effects[PBEffects::LockOn]-=1
         @battlers[i].effects[PBEffects::LockOnPos]=-1 if @battlers[i].effects[PBEffects::LockOn]==0
       end
+      if @battlers[i].effects[PBEffects::GlaiveRush]>0
+        @battlers[i].effects[PBEffects::GlaiveRush]-=1
+        @battlers[i].effects[PBEffects::GlaiveRushPos]=-1 if @battlers[i].effects[PBEffects::GlaiveRush]==0
+      end
       if @battlers[i].effects[PBEffects::LaserFocus]>0
         @battlers[i].effects[PBEffects::LaserFocus]-=1
       end
@@ -4732,6 +4753,7 @@ class PokeBattle_Battle
       end
       @battlers[i].effects[PBEffects::MagicDelta]=false
       @battlers[i].effects[PBEffects::ShellTrap]=false # changed
+      @battlers[i].effects[PBEffects::TemporaryMoldBreaker]=false # Required for Mycellius Might
       @battlers[i].effects[PBEffects::LashOut] = false
       @battlers[i].effects[PBEffects::BurningJelousy] = false
       @battlers[i].effects[PBEffects::Flinch]=false

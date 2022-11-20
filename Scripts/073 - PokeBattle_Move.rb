@@ -288,6 +288,81 @@ class PokeBattle_Move
     return (@flags&0x2000)!=0 # flag n: Is bomb move
   end
 
+  # Wind and sliciong moves will be for now a hardcoded list
+  def isWindMove?
+    return isConst?(@id,PBMoves,:GUST) ||
+           isConst?(@id,PBMoves,:WHIRLWIND) ||
+           isConst?(@id,PBMoves,:BLIZZARD) ||
+           isConst?(@id,PBMoves,:ICYWIND) ||
+           isConst?(@id,PBMoves,:SANDSTORM) ||
+           isConst?(@id,PBMoves,:TWISTER) ||
+           isConst?(@id,PBMoves,:HEATWAVE) ||
+           isConst?(@id,PBMoves,:AIRCUTTER) ||
+           isConst?(@id,PBMoves,:TAILWIND) ||
+           isConst?(@id,PBMoves,:HURRICANE) ||
+           isConst?(@id,PBMoves,:PETALBLIZZARD) ||
+           isConst?(@id,PBMoves,:FAIRYWIND) ||
+           isConst?(@id,PBMoves,:SPRINGTIDESTORM) ||
+           isConst?(@id,PBMoves,:BLEAKWINDSTORM) ||
+           isConst?(@id,PBMoves,:WILDBOLTSTORM) ||
+           isConst?(@id,PBMoves,:SANDSEARSTORM) ||
+           isConst?(@id,PBMoves,:SILVERWIND) ||
+           # FLINT
+           isConst?(@id,PBMoves,:AERO) ||
+           isConst?(@id,PBMoves,:MAGICHURRICANE) ||
+           isConst?(@id,PBMoves,:AEROSHOCK) ||
+           isConst?(@id,PBMoves,:GOLDWIND) ||
+           isConst?(@id,PBMoves,:FAIRYFORCE) ||
+           isConst?(@id,PBMoves,:MAGICSCOOP) ||
+           isConst?(@id,PBMoves,:MAGICSTORM) ||
+           isConst?(@id,PBMoves,:SANDSEARSOTM) ||
+           isConst?(@id,PBMoves,:TITANUMBLIZZARD) ||
+           isConst?(@id,PBMoves,:ELDERGLIMMYWAVE)
+  end
+
+  def isSlicingMove?
+    return isConst?(@id,PBMoves,:CUT) ||
+           isConst?(@id,PBMoves,:RAZORLEAF) ||
+           isConst?(@id,PBMoves,:SLASH) ||
+           isConst?(@id,PBMoves,:FURYCUTTER) ||
+           isConst?(@id,PBMoves,:AIRCUTTER) ||
+           isConst?(@id,PBMoves,:AERIALACE) ||
+           isConst?(@id,PBMoves,:LEAFBLADE) ||
+           isConst?(@id,PBMoves,:NIGHTSLASH) ||
+           isConst?(@id,PBMoves,:AIRSLASH) ||
+           isConst?(@id,PBMoves,:XSCISSOR) ||
+           isConst?(@id,PBMoves,:PSYCHOCUT) ||
+           isConst?(@id,PBMoves,:CROSSPOISON) ||
+           isConst?(@id,PBMoves,:SACREDSWPRD) ||
+           isConst?(@id,PBMoves,:RAZORSHELL) ||
+           isConst?(@id,PBMoves,:SOLARBLADE) ||
+           isConst?(@id,PBMoves,:BEHEMOTHBLADE) ||
+           isConst?(@id,PBMoves,:STONEAXE) ||
+           isConst?(@id,PBMoves,:CEASELESSEDGE) ||
+           isConst?(@id,PBMoves,:POPULATIONBOMB) ||
+           isConst?(@id,PBMoves,:KOWTOWCLEAVE) ||
+           isConst?(@id,PBMoves,:BITTERBLADE) ||
+           isConst?(@id,PBMoves,:AQUACUTTER) ||
+           # FLINT
+           isConst?(@id,PBMoves,:TOSTI) ||
+           isConst?(@id,PBMoves,:DIZZYSLASH) ||
+           isConst?(@id,PBMoves,:STYLUS) ||
+           isConst?(@id,PBMoves,:AERO) ||
+           isConst?(@id,PBMoves,:BUGBLAST) ||
+           isConst?(@id,PBMoves,:SPEEDYKICK) ||
+           isConst?(@id,PBMoves,:PSYCHOSLASH) ||
+           isConst?(@id,PBMoves,:DOUBLECLAWS) ||
+           isConst?(@id,PBMoves,:DOOMCLAW) ||
+           isConst?(@id,PBMoves,:DOOMGRILL) ||
+           isConst?(@id,PBMoves,:JELLYSWEEP) ||
+           isConst?(@id,PBMoves,:WINDSLASH) ||
+           isConst?(@id,PBMoves,:SIAXIS) ||
+           isConst?(@id,PBMoves,:KLEOPOTRIA) ||
+           isConst?(@id,PBMoves,:PYROCLAW) ||
+           isConst?(@id,PBMoves,:GLIMSEATTACK)
+  end
+
+  
   def tramplesMinimize?(param=1) # Causes perfect accuracy and double damage
     return false if !$USENEWBATTLEMECHANICS
     return isConst?(@id,PBMoves,:BODYSLAM) ||
@@ -328,6 +403,28 @@ class PokeBattle_Move
       end
       return true
     end
+    if opponent.hasWorkingAbility(:WELLBAKEDBODY) && isConst?(type,PBTypes,:FIRE)
+      PBDebug.log("[Ability triggered] #{opponent.pbThis}'s Well-Baked Body (made #{@name} ineffective)")
+      if opponent.pbCanIncreaseStatStage?(PBStats::DEFENSE,opponent)
+        opponent.pbIncreaseStatWithCause(PBStats::DEFENSE,2,opponent,PBAbilities.getName(opponent.ability))
+      else
+        pbSEPlay("protection")
+        @battle.pbDisplay(_INTL("{1}'s {2} made {3} ineffective!",
+           opponent.pbThis,PBAbilities.getName(opponent.ability),self.name))
+      end
+      return true
+    end
+    if opponent.hasWorkingAbility(:WINDRIDER) && isWindMove?
+      PBDebug.log("[Ability triggered] #{opponent.pbThis}'s Wind Rider (made #{@name} ineffective)")
+      if opponent.pbCanIncreaseStatStage?(PBStats::ATTACK,opponent)
+        opponent.pbIncreaseStatWithCause(PBStats::ATTACK,1,opponent,PBAbilities.getName(opponent.ability))
+      else
+        pbSEPlay("protection")
+        @battle.pbDisplay(_INTL("{1}'s {2} made {3} ineffective!",
+           opponent.pbThis,PBAbilities.getName(opponent.ability),self.name))
+      end
+      return true
+    end
     if (opponent.hasWorkingAbility(:STORMDRAIN) && isConst?(type,PBTypes,:WATER) && @function!=0x259) ||
        (opponent.hasWorkingAbility(:LIGHTNINGROD) && isConst?(type,PBTypes,:ELECTRIC)) && !(attacker.hasWorkingAbility(:STALWART) || user.hasWorkingAbility(:PROPELLERTAIL))
       PBDebug.log("[Ability triggered] #{opponent.pbThis}'s #{PBAbilities.getName(opponent.ability)} (made #{@name} ineffective)")
@@ -355,6 +452,7 @@ class PokeBattle_Move
        (opponent.hasWorkingAbility(:VOLTABSORB) && isConst?(type,PBTypes,:ELECTRIC)) ||
        (opponent.hasWorkingAbility(:DOOMYABSORB) && isConst?(type,PBTypes,:DOOM)) ||
        (opponent.hasWorkingAbility(:DOOMYTREVOR) && isConst?(type,PBTypes,:DOOM) && !(attacker.hasWorkingAbility(:STALWART) || user.hasWorkingAbility(:PROPELLERTAIL))) ||
+       (opponent.hasWorkingAbility(:EARTHEATER) && isConst?(type,PBTypes,:GROUND)) ||
        (opponent.hasWorkingAbility(:WATERABSORB) && isConst?(type,PBTypes,:WATER))
       PBDebug.log("[Ability triggered] #{opponent.pbThis}'s #{PBAbilities.getName(opponent.ability)} (made #{@name} ineffective)")
       if opponent.effects[PBEffects::HealBlock]==0
@@ -737,6 +835,12 @@ class PokeBattle_Move
     if attacker.hasWorkingAbility(:STEELWORKER) && isConst?(type,PBTypes,:STEEL) # changed
       damagemult=(damagemult*1.5).round
     end
+    if attacker.hasWorkingAbility(:ROCKYPAYLOAD) && isConst?(type,PBTypes,:ROCK) # changed
+      damagemult=(damagemult*1.5).round
+    end
+    if attacker.hasWorkingAbility(:SHARPNESS) && isSlicingMove? # changed
+      damagemult=(damagemult*1.5).round
+    end
     if attacker.hasWorkingAbility(:WATERSPLASH) && isConst?(type,PBTypes,:WATER) # changed
       damagemult=(damagemult*2).round
     end
@@ -825,6 +929,9 @@ class PokeBattle_Move
         damagemult=(damagemult*0.5).round
       end
       if opponent.hasWorkingAbility(:BRIDINI) && isConst?(type,PBTypes,:FLYING)
+        damagemult=(damagemult*0.5).round
+      end
+      if opponent.hasWorkingAbility(:PURIFYINGSALT) && isConst?(type,PBTypes,:GHOST)
         damagemult=(damagemult*0.5).round
       end
       if opponent.hasWorkingAbility(:HIRALINA) && isConst?(type,PBTypes,:HEART)
@@ -1135,6 +1242,9 @@ class PokeBattle_Move
     if opponent.effects[PBEffects::Minimize] && tramplesMinimize?(2)
       damagemult=(damagemult*2.0).round
     end
+    if opponent.effects[PBEffects::GlaiveRush]>0 && opponent.effects[PBEffects::GlaiveRushPos]==attacker.index
+      damagemult=(damagemult*2.0).round
+    end
     basedmg=(basedmg*damagemult*1.0/0x1000).round
     ##### Calculate attacker's attack stat #####
     atk=attacker.attack
@@ -1260,8 +1370,46 @@ class PokeBattle_Move
         atkmult=(atkmult*1.5).round
       end
     end
+    # Orichalcum Pulse
+    if (@battle.pbWeather==PBWeather::SUNNYDAY ||
+       @battle.pbWeather==PBWeather::HARSHSUN) && pbIsPhysical?(type)
+      if (attacker.hasWorkingAbility(:ORICHALCUMPULSE) && 
+         !attacker.hasWorkingItem(:UTILITYUMBRELLA))
+        atkmult=(atkmult*1.3).round
+      end
+    end
+    # Hardon Engine
+    if @battle.field.effects[PBEffects::ElectricTerrain]>0 && pbIsSpecial?(type)
+      if attacker.hasWorkingAbility(:HARDONENGINE)
+        atkmult=(atkmult*1.3).round
+      end
+    end
+    # Protosynthesis/Quark Drive
+    if ((@battle.pbWeather==PBWeather::SUNNYDAY ||
+       @battle.pbWeather==PBWeather::HARSHSUN) && 
+       attacker.hasWorkingAbility(:PROTOSYNTHESIS)) ||
+      (@battle.field.effects[PBEffects::ElectricTerrain]>0 && 
+       attacker.hasWorkingAbility(:QUARKDRIVE))
+       if (pbIsPhysical?(type) && attacker.profstat == PBStats::ATTACK) || 
+          (pbIsSpecial?(type) && attacker.profstat == PBStats::SPATK )
+        atkmult=(atkmult*1.5).round
+      end
+    end
     if attacker.pbPartner.hasWorkingAbility(:POWERSPOT)
       atkmult=(atkmult*1.3).round
+    end
+    if @battle.pbCheckGlobalAbility(:VESSELOFRUIN) && 
+      !attacker.hasWorkingAbility(:VESSELOFRUIN) &&  pbIsSpecial?(type)
+        atkmult=(atkmult/1.25).round
+    end
+    if @battle.pbCheckGlobalAbility(:TABLETSOFRUIN) && 
+      !attacker.hasWorkingAbility(:TABLETSOFRUIN) &&  pbIsPhysical?(type)
+        atkmult=(atkmult/1.25).round
+    end
+    # Supreme Overlord
+    fntallies = @battle.pbAmountOfFaintedAllies(attacker.index)
+    if attacker.hasWorkingAbility(:SUPREMEOVERLORD) && fntallies > 0
+      atkmult=(atkmult*(1.2 + ((fntallies - 1)*0.1) )).round
     end
     if attacker.hasWorkingItem(:THICKCLUB) &&
        (isConst?(attacker.species,PBSpecies,:CUBONE) ||
@@ -1352,6 +1500,25 @@ class PokeBattle_Move
           defmult=(defmult*1.5).round
         end
       end
+    end
+    # Protosynthesis/Quark Drive
+    if ((@battle.pbWeather==PBWeather::SUNNYDAY ||
+       @battle.pbWeather==PBWeather::HARSHSUN) && 
+       opponent.hasWorkingAbility(:PROTOSYNTHESIS)) ||
+      (@battle.field.effects[PBEffects::ElectricTerrain]>0 && 
+       opponent.hasWorkingAbility(:QUARKDRIVE))
+       if  (pbIsPhysical?(type) && opponent.profstat == PBStats::DEFENSE) || 
+          (pbIsSpecial?(type) && opponent.profstat == PBStats::SPDEF )
+        defmult=(defmult*1.5).round
+      end
+    end
+    if @battle.pbCheckGlobalAbility(:BREADSOFRUIN) && 
+      !opponent.hasWorkingAbility(:BREADSOFRUIN) &&  pbIsSpecial?(type)
+        defmult=(defmult/1.25).round
+    end
+    if @battle.pbCheckGlobalAbility(:SWORDOFRUIN) && 
+      !opponent.hasWorkingAbility(:SWORDOFRUIN) &&  pbIsPhysical?(type)
+        defmult=(defmult/1.25).round
     end
     if opponent.hasWorkingItem(:ASSAULTVEST) && pbIsSpecial?(type)
       defmult=(defmult*1.5).round

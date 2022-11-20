@@ -554,6 +554,7 @@ class PokeBattle_Battler
     end
     @effects[PBEffects::Imprison]         = false
     @effects[PBEffects::KingsShield]      = false
+    @effects[PBEffects::SilkTrap]         = false
     @effects[PBEffects::LifeOrb]          = false
     @effects[PBEffects::MagicCoat]        = false
     @effects[PBEffects::MeanLook]         = -1
@@ -638,6 +639,17 @@ class PokeBattle_Battler
     @effects[PBEffects::Mimicry]        = false
     @effects[PBEffects::NeutralTrap]        = 0
     @effects[PBEffects::Brainymedia]        = false
+    @effects[PBEffects::CudChew]        = false
+    @effects[PBEffects::GlaiveRush]      = 0
+    @effects[PBEffects::GlaiveRushPos]   = -1
+    for i in 0...4
+      next if !@battle.battlers[i]
+      if @battle.battlers[i].effects[PBEffects::GlaiveRushPos]==@index &&
+         @battle.battlers[i].effects[PBEffects::GlaiveRush]>0
+        @battle.battlers[i].effects[PBEffects::GlaiveRush]=0
+        @battle.battlers[i].effects[PBEffects::GlaiveRushPos]=-1
+      end
+    end
     # Disguise causes the ability-suppressing effect to fade
     # if it was passed on through Baton Pass
     if self.hasWorkingAbility(:DISGUISE) && isConst?(self.species,PBSpecies,:MIMIKYU)
@@ -828,16 +840,6 @@ class PokeBattle_Battler
     return isConst?(@ability,PBAbilities,ability)
   end
 
-  def hasWorkingBarrier(ignorefainted=false) # only used for Dragon Darts
-    return false if self.isFainted? && !ignorefainted
-    return false if @effects[PBEffects::ProtectNegation]    
-    return true if (@effects[PBEffects::Protect] ||
-                    @effects[PBEffects::KingsShield] ||
-                    @effects[PBEffects::SpikyShield] ||
-                    @effects[PBEffects::BanefulBunker] ||
-                    @effects[PBEffects::Obstruct])
-  end
-
   def hasWorkingItem(item,ignorefainted=false)
     return false if self.isFainted? && !ignorefainted
     return false if @effects[PBEffects::Embargo]>0
@@ -948,6 +950,14 @@ class PokeBattle_Battler
     end
     if self.hasWorkingAbility(:SLOWSTART) && self.turncount<=5
       speedmult=(speedmult/2).round
+    end
+    # Protosynthesis/Quark Drive
+    if ((@battle.pbWeather==PBWeather::SUNNYDAY ||
+       @battle.pbWeather==PBWeather::HARSHSUN) && 
+       self.hasWorkingAbility(:PROTOSYNTHESIS)) ||
+      (@battle.field.effects[PBEffects::ElectricTerrain]>0 && 
+       self.hasWorkingAbility(:QUARKDRIVE)) && self.profstat == PBStats::SPEED
+       speedmult=(speedmult*1.5).round
     end
     if self.hasWorkingItem(:MACHOBRACE) ||
        self.hasWorkingItem(:POWERWEIGHT) ||
@@ -1609,6 +1619,20 @@ class PokeBattle_Battler
         self.checkMimicryAll
         # The Electric Seed raised Hawlucha's Defense!
       end
+      if self.hasWorkingAbility(:HARDONENGINE) && @battle.field.effects[PBEffects::ElectricTerrain]<=0
+        @battle.field.effects[PBEffects::GrassyTerrain]=0
+        @battle.field.effects[PBEffects::MistyTerrain]=0
+        @battle.field.effects[PBEffects::PsychicTerrain]=0
+        @battle.field.effects[PBEffects::ElectricTerrain]=5
+        @battle.field.effects[PBEffects::ElectricTerrain]=8 if self.hasWorkingItem(:TERRAINEXTENDER)
+        @battle.field.effects[PBEffects::Cinament]=0
+        @battle.field.effects[PBEffects::VolcanicTerrain]=0
+        @battle.field.effects[PBEffects::LovelyTerrain]=0
+        @battle.pbDisplay(_INTL("An electric current runs across the battlefield!"))
+        PBDebug.log("[#{pbThis}: Hardon Engine made Electric Terrain]") # Kept Japanese name in Debug log
+        self.checkMimicryAll
+        # The Electric Seed raised Hawlucha's Defense!
+      end
       if self.hasWorkingAbility(:PSYCHICSURGE) && @battle.field.effects[PBEffects::PsychicTerrain]<=0
         @battle.field.effects[PBEffects::ElectricTerrain]=0
         @battle.field.effects[PBEffects::GrassyTerrain]=0
@@ -1756,6 +1780,21 @@ class PokeBattle_Battler
           @battle.pbCommonAnimation("Sunny",nil,nil)
           @battle.pbDisplay(_INTL("{1}'s {2} intensified the sun's rays!",pbThis,PBAbilities.getName(self.ability)))
           PBDebug.log("[Ability triggered] #{pbThis}'s Drought made it sunny")
+        end
+        if self.hasWorkingAbility(:ORICHALCUMPULSE) && (@battle.weather!=PBWeather::SUNNYDAY || @battle.weatherduration!=-1)
+          for i in 0...4
+            @battle.battlers[i].addTemp = 25
+          end
+          @battle.weather=PBWeather::SUNNYDAY
+          if $USENEWBATTLEMECHANICS
+            @battle.weatherduration=5
+            @battle.weatherduration=8 if hasWorkingItem(:HEATROCK)
+          else
+            @battle.weatherduration=-1
+          end
+          @battle.pbCommonAnimation("Sunny",nil,nil)
+          @battle.pbDisplay(_INTL("{1}'s {2} intensified the sun's rays!",pbThis,PBAbilities.getName(self.ability)))
+          PBDebug.log("[Ability triggered] #{pbThis}'s Orichalcum Pulse made it sunny")
         end
         if self.hasWorkingAbility(:SANDSTREAM) && (@battle.weather!=PBWeather::SANDSTORM || @battle.weatherduration!=-1)
           for i in 0...4
@@ -2085,6 +2124,14 @@ class PokeBattle_Battler
     if self.hasWorkingAbility(:PASTELVEIL) && self.pbPartner.status==PBStatuses::POISON && onactive
       self.pbPartner.pbCureStatus(false)
       pbDisplay(_INTL("{1}'s {2} cured its partner's poison problem!",self.pbThis,PBAbilities.getName(self.ability)))
+    end
+    # Costar
+    if self.hasWorkingAbility(:COSTAR) && self.pbPartner && onactive
+      for i in [PBStats::ATTACK,PBStats::DEFENSE,PBStats::SPEED,
+                PBStats::SPATK,PBStats::SPDEF,PBStats::ACCURACY,PBStats::EVASION]
+        self.stages[i]=self.pbPartner.stages[i]
+      end
+      @battle.pbDisplay(_INTL("{1}'s {2} copied {3}'s stat changes!",pbThis,PBAbilities.getName(self.ability),pbThis(true)))
     end
     # Curious Medicine
     if self.hasWorkingAbility(:CURIOUSMEDICINE) && onactive
@@ -2579,6 +2626,34 @@ class PokeBattle_Battler
                user.pbThis,target.pbThis(true)))
           end
         end
+        # Lingering Aroma
+        if target.hasWorkingAbility(:LINGERINGAROMA,true) && !user.isFainted?
+          if !isConst?(user.ability,PBAbilities,:BATTLEBOND) &&
+             !isConst?(user.ability,PBAbilities,:COMATOSE) &&
+             !isConst?(user.ability,PBAbilities,:DISGUISE) &&
+             !isConst?(user.ability,PBAbilities,:GULPMISSILE) &&
+             !isConst?(user.ability,PBAbilities,:HUNGERSWITCH) &&
+             !isConst?(user.ability,PBAbilities,:ICEFACE) &&
+             !isConst?(user.ability,PBAbilities,:MULTITYPE) &&
+             !isConst?(user.ability,PBAbilities,:LINGERINGAROMA) &&
+             !isConst?(user.ability,PBAbilities,:NEUTRALIZINGGAS) &&
+             !isConst?(user.ability,PBAbilities,:POWERCONSTRUCT) &&
+             !isConst?(user.ability,PBAbilities,:RKSSYSTEM) &&
+             !isConst?(user.ability,PBAbilities,:SCHOOLING) &&
+             !isConst?(user.ability,PBAbilities,:STANCECHANGE) &&
+             !isConst?(user.ability,PBAbilities,:MAXTHIN) &&
+             !isConst?(user.ability,PBAbilities,:KOULUNDIN) &&
+             !isConst?(user.ability,PBAbilities,:CHIKOLINI) &&
+             !isConst?(user.ability,PBAbilities,:ABILITOPIA) ||
+             !isConst?(user.ability,PBAbilities,:MORFAT)
+             PBDebug.log("[Ability triggered] #{target.pbThis}'s Mummy copied onto #{user.pbThis(true)}")
+            user.ability=getConst(PBAbilities,:LINGERINGAROMA) || 0
+            @battle.pbDisplay(_INTL("{1} was lingered by {2}!",
+               user.pbThis,target.pbThis(true)))
+          end
+        end
+
+        
         if target.hasWorkingAbility(:POISONPOINT,true) && @battle.pbRandom(10)<5 &&
            user.pbCanPoison?(nil,false)
           PBDebug.log("[Ability triggered] #{target.pbThis}'s Poison Point")
@@ -2804,6 +2879,12 @@ class PokeBattle_Battler
             PBDebug.log("[Ability triggered] #{target.pbThis}'s Baikari")
           end
         end
+        # Thermal Exchange
+        if target.hasWorkingAbility(:THERMALEXCHANGE) && isConst?(movetype,PBTypes,:FIRE)
+          if target.pbIncreaseStatWithCause(PBStats::ATTACK,1,target,PBAbilities.getName(target.ability))
+            PBDebug.log("[Ability triggered] #{target.pbThis}'s Termal Exchange")
+          end
+        end
         if target.hasWorkingAbility(:JUSTIFIED) && isConst?(movetype,PBTypes,:DARK)
           if target.pbIncreaseStatWithCause(PBStats::ATTACK,1,target,PBAbilities.getName(target.ability))
             PBDebug.log("[Ability triggered] #{target.pbThis}'s Justified")
@@ -2819,6 +2900,7 @@ class PokeBattle_Battler
             PBDebug.log("[Ability triggered] #{target.pbThis}'s Stamina")
           end
         end
+        # Sand Spit
         if target.hasWorkingAbility(:SANDSPIT) && (@battle.weather!=PBWeather::SANDSTORM || @battle.weatherduration!=-1)
           @battle.weather=PBWeather::SANDSTORM
           if $USENEWBATTLEMECHANICS
@@ -2830,6 +2912,40 @@ class PokeBattle_Battler
           @battle.pbCommonAnimation("Sandstorm",nil,nil)
           @battle.pbDisplay(_INTL("{1}'s {2} whipped up a sandstorm!",target.pbThis,PBAbilities.getName(target.ability)))
           PBDebug.log("[Ability triggered] #{target.pbThis}'s Sand Spit made it sandstorm")
+        end
+        # Toxic Derbis
+        if target.hasWorkingAbility(:TOXICDERBIS) && 
+           move.pbIsPhysical?(movetype) &&
+           target.pbOpposingSide.effects[PBEffects::ToxicSpikes]<2
+          target.pbOpposingSide.effects[PBEffects::ToxicSpikes]+=1
+          if !@battle.pbIsOpposing?(target.index)
+            @battle.pbDisplay(_INTL("{1}'s {2} scattered poison spikes all around the opposing team's feet!",target.pbThis,PBAbilities.getName(target.ability)))
+            PBDebug.log("[Ability triggered] #{target.pbThis}'s Toxic Derbis scattered poison spikes all around the opposing team's feet!")
+          else
+            @battle.pbDisplay(_INTL("{1}'s {2} scattered poison spikes all around your team's feet!",target.pbThis,PBAbilities.getName(target.ability)))
+            PBDebug.log("[Ability triggered] #{target.pbThis}'s Toxic Derbis scattered poison spikes all around your team's feet!")
+          end
+        end
+        # Wind Power & Electromorphosis
+        if (target.hasWorkingAbility(:WINDPOWER) && move.isWindMove?) ||
+           (target.hasWorkingAbility(:ELECTROMORPHOSIS) && isConst?(movetype,PBTypes,:ELECTRIC))
+          target.effects[PBEffects::Charge]=2
+          @battle.pbDisplay(_INTL("{1} began charging power!",target.pbThis))
+          PBDebug.log("[Ability triggered] #{target.pbThis}'s #{PBAbilities.getName(target.ability)}")
+        end
+        # Seed Sower
+        if target.hasWorkingAbility(:SEEDSOWER) && @battle.field.effects[PBEffects::GrassyTerrain]<=0
+          @battle.field.effects[PBEffects::ElectricTerrain]=0
+          @battle.field.effects[PBEffects::MistyTerrain]=0
+          @battle.field.effects[PBEffects::PsychicTerrain]=0
+          @battle.field.effects[PBEffects::GrassyTerrain]=5
+          @battle.field.effects[PBEffects::GrassyTerrain]=8 if self.hasWorkingItem(:TERRAINEXTENDER)
+          @battle.field.effects[PBEffects::Cinament]=0
+          @battle.field.effects[PBEffects::VolcanicTerrain]=0
+          @battle.field.effects[PBEffects::LovelyTerrain]=0
+          @battle.pbDisplay(_INTL("Grass grew to cover the battlefield!"))
+          PBDebug.log("[#{pbThis}: Sand Sower made Grassy Terrain]")
+          self.checkMimicryAll
         end
         if target.hasWorkingAbility(:COTTONDOWN)
           PBDebug.log("[Ability triggered] #{target.pbThis}'s Cotton Down")
@@ -2930,7 +3046,7 @@ class PokeBattle_Battler
             showanim=false
           end
           user.pbConsumeItem if !showanim
-        elsif target.hasWorkingItem(:ENIGMABERRY) && target.damagestate.typemod>8
+        elsif target.hasWorkingItem(:ENIGMABERRY) && (target.damagestate.typemod>8 || target.effects[PBEffects::CudChew])
           target.pbActivateBerryEffect
         elsif (target.hasWorkingItem(:JABOCABERRY) && move.pbIsPhysical?(movetype)) ||
               (target.hasWorkingItem(:ROWAPBERRY) && move.pbIsSpecial?(movetype))
@@ -2942,9 +3058,9 @@ class PokeBattle_Battler
                PBItems.getName(target.item),user.pbThis(true)))
             target.pbConsumeItem
           end
-        elsif target.hasWorkingItem(:KEEBERRY) && move.pbIsPhysical?(movetype)
+        elsif target.hasWorkingItem(:KEEBERRY) && (move.pbIsPhysical?(movetype) || target.effects[PBEffects::CudChew])
           target.pbActivateBerryEffect
-        elsif target.hasWorkingItem(:MARANGABERRY) && move.pbIsSpecial?(movetype)
+        elsif target.hasWorkingItem(:MARANGABERRY) && (move.pbIsSpecial?(movetype) || target.effects[PBEffects::CudChew])
           target.pbActivateBerryEffect
         end
         # changed added
@@ -3096,6 +3212,38 @@ class PokeBattle_Battler
         PBDebug.log("[Ability triggered] #{target.pbThis}'s Berserk")
       end
     end
+
+    # Anger Shell
+    if target.hasWorkingAbility(:ANGERSHELL) && target.hp+turneffects[PBEffects::TotalDamage]>target.totalhp/2 && # changed added
+        target.hp<target.totalhp/2 && !target.isFainted?
+      showanim='mix' # Was true
+      if target.pbCanReduceStatStage?(PBStats::DEFENSE,target,false,self)
+        target.pbReduceStat(PBStats::DEFENSE,1,target,false,self,showanim)
+        showanim=false
+        PBDebug.log("[Ability triggered] #{target.pbThis}'s Anger Shell (Lowering Defense)")
+      end
+      if target.pbCanReduceStatStage?(PBStats::SPDEF,target,false,self)
+        target.pbReduceStat(PBStats::SPDEF,1,target,false,self,showanim)
+        showanim=false
+        PBDebug.log("[Ability triggered] #{target.pbThis}'s Anger Shell (Lowering Special Defense)")
+      end
+      showanim='mix' # Was true
+      if target.pbCanIncreaseStatStage?(PBStats::ATTACK,target,false,self)
+        target.pbIncreaseStat(PBStats::ATTACK,2,target,false,self,showanim)
+        showanim=false
+        PBDebug.log("[Ability triggered] #{target.pbThis}'s Anger Shell (Raising Attack)")
+      end
+      if target.pbCanIncreaseStatStage?(PBStats::SPATK,target,false,self)
+        target.pbIncreaseStat(PBStats::SPATK,2,target,false,self,showanim)
+        showanim=false
+        PBDebug.log("[Ability triggered] #{target.pbThis}'s Anger Shell (Raising Special Attack)")
+      end
+      if target.pbCanIncreaseStatStage?(PBStats::SPEED,target,false,self)
+        target.pbIncreaseStat(PBStats::SPEED,2,target,false,self,showanim)
+        showanim=false
+        PBDebug.log("[Ability triggered] #{target.pbThis}'s Anger Shell (Raising Speed)")
+      end
+    end
     # Magician
     if user.hasWorkingAbility(:MAGICIAN)
       if target.item>0 && user.item==0 &&
@@ -3156,31 +3304,33 @@ class PokeBattle_Battler
     return if self.isFainted?
     case self.status
     when PBStatuses::SLEEP
-      if self.hasWorkingAbility(:VITALSPIRIT) || self.hasWorkingAbility(:INSOMNIA)
+      if self.hasWorkingAbility(:VITALSPIRIT) || self.hasWorkingAbility(:INSOMNIA) ||
+         self.hasWorkingAbility(:PURIFYINGSALT)
         PBDebug.log("[Ability triggered] #{pbThis}'s #{PBAbilities.getName(@ability)}")
         pbCureStatus(false)
         @battle.pbDisplay(_INTL("{1}'s {2} woke it up!",pbThis,PBAbilities.getName(@ability)))
       end
     when PBStatuses::POISON
-      if self.hasWorkingAbility(:IMMUNITY)
+      if self.hasWorkingAbility(:IMMUNITY) || self.hasWorkingAbility(:PURIFYINGSALT)
         PBDebug.log("[Ability triggered] #{pbThis}'s #{PBAbilities.getName(@ability)}")
         pbCureStatus(false)
         @battle.pbDisplay(_INTL("{1}'s {2} cured its poisoning!",pbThis,PBAbilities.getName(@ability)))
       end
     when PBStatuses::BURN
-      if self.hasWorkingAbility(:WATERVEIL) || self.hasWorkingAbility(:WATERBUBBLE)
+      if self.hasWorkingAbility(:WATERVEIL) || self.hasWorkingAbility(:WATERBUBBLE) ||
+         self.hasWorkingAbility(:THERMALEXCHANGE) || self.hasWorkingAbility(:PURIFYINGSALT)
         PBDebug.log("[Ability triggered] #{pbThis}'s #{PBAbilities.getName(@ability)}")
         pbCureStatus(false)
         @battle.pbDisplay(_INTL("{1}'s {2} healed its burn!",pbThis,PBAbilities.getName(@ability)))
       end
     when PBStatuses::PARALYSIS
-      if self.hasWorkingAbility(:LIMBER)
+      if self.hasWorkingAbility(:LIMBER) || self.hasWorkingAbility(:PURIFYINGSALT)
         PBDebug.log("[Ability triggered] #{pbThis}'s #{PBAbilities.getName(@ability)}")
         pbCureStatus(false)
         @battle.pbDisplay(_INTL("{1}'s {2} cured its paralysis!",pbThis,PBAbilities.getName(@ability)))
       end
     when PBStatuses::FROZEN
-      if self.hasWorkingAbility(:MAGMAARMOR)
+      if self.hasWorkingAbility(:MAGMAARMOR) || self.hasWorkingAbility(:PURIFYINGSALT)
         PBDebug.log("[Ability triggered] #{pbThis}'s #{PBAbilities.getName(@ability)}")
         pbCureStatus(false)
         @battle.pbDisplay(_INTL("{1}'s {2} defrosted it!",pbThis,PBAbilities.getName(@ability)))
@@ -3271,6 +3421,9 @@ class PokeBattle_Battler
     berryname=(berry==0) ? "" : PBItems.getName(berry)
     PBDebug.log("[Item triggered] #{pbThis}'s #{berryname}")
     consumed=false
+    if @effects[PBEffects::CudChew]
+      @battle.pbDisplay(_INTL("{1}'s {2} activated!",pbThis,PBAbilities.getName(ability)))
+    end
     if isConst?(berry,PBItems,:ORANBERRY)
       if hasWorkingAbility(:RIPEN)
         amt=self.pbRecoverHP(20,true)
@@ -3484,7 +3637,8 @@ class PokeBattle_Battler
              pbThis,PBAbilities.getName(ability)))
         end
       end
-      pbConsumeItem if consume
+      @effects[PBEffects::CudChew]=!@effects[PBEffects::CudChew] if hasWorkingAbility(:CUDCHEW)
+      pbConsumeItem if consume && !@effects[PBEffects::CudChew]
       self.pokemon.belch=true if self.pokemon
     end
   end
@@ -3511,7 +3665,7 @@ class PokeBattle_Battler
     end
     if !unnerver
       if hpcure 
-        if self.hp<=(self.totalhp/2).floor
+        if self.hp<=(self.totalhp/2).floor || self.effects[PBEffects::CudChew]
           if self.hasWorkingItem(:ORANBERRY) ||
              self.hasWorkingItem(:SITRUSBERRY)
             pbActivateBerryEffect
@@ -3528,7 +3682,7 @@ class PokeBattle_Battler
         end
       end
         if (self.hasWorkingAbility(:GLUTTONY) && self.hp<=(self.totalhp/2).floor) ||
-           self.hp<=(self.totalhp/4).floor
+           self.hp<=(self.totalhp/4).floor || self.effects[PBEffects::CudChew]
           if self.hasWorkingItem(:LIECHIBERRY) ||
              self.hasWorkingItem(:GANLONBERRY) ||
              self.hasWorkingItem(:SALACBERRY) ||
@@ -4116,13 +4270,15 @@ class PokeBattle_Battler
     # Added
     if (target.hasWorkingAbility(:DAZZLING) ||
        target.hasWorkingAbility(:QUEENLYMAJESTY) ||
+       target.hasWorkingAbility(:ARMORTAIL) ||
        target.pbPartner.hasWorkingAbility(:DAZZLING) ||
-       target.pbPartner.hasWorkingAbility(:QUEENLYMAJESTY)) &&
+       target.pbPartner.hasWorkingAbility(:QUEENLYMAJESTY) ||
+       target.pbPartner.hasWorkingAbility(:ARMORTAIL)) &&
        !user.hasMoldBreaker && p>0 &&
        target!=user && target!=user.pbPartner
 			pbSEPlay("protection")
       @battle.pbDisplay(_INTL("{1} cannot use {2}!",user.pbThis,thismove.name))
-      PBDebug.log("[Move failed] The opposing side's Dazzling/Queenly Majesty stopped the attack")
+      PBDebug.log("[Move failed] The opposing side's Dazzling/Queenly Majesty/Armor Tail stopped the attack")
       return false
     end
     # Changed end
@@ -4167,6 +4323,19 @@ class PokeBattle_Battler
       PBDebug.log("[Move failed] #{target.pbThis}'s King's Shield stopped the attack")
       if thismove.isContactMove? && !user.hasWorkingAbility(:LONGREACH) # changed
         user.pbReduceStat(PBStats::ATTACK,1,nil,false) # Was 2
+      end
+      return false
+    end
+    # Silk Trap (purposely after pbMoveFailed)
+    if target.effects[PBEffects::SilkTrap] && unseenfistOff && 
+      !thismove.pbIsStatus? && thismove.canProtectAgainst? && 
+      !target.effects[PBEffects::ProtectNegation]
+			pbSEPlay("protection")
+      @battle.pbDisplay(_INTL("{1} protected itself!",target.pbThis))
+      @battle.successStates[user.index].protected=true
+      PBDebug.log("[Move failed] #{target.pbThis}'s Silk Trap stopped the attack")
+      if thismove.isContactMove? && !user.hasWorkingAbility(:LONGREACH) # changed
+        user.pbReduceStat(PBStats::SPEED,1,nil,false) # Was 2
       end
       return false
     end
@@ -4274,6 +4443,14 @@ class PokeBattle_Battler
           return false
         end
       end
+      if thismove.pbIsStatus? # Mindy Glops
+        if !user.hasMoldBreaker && target.hasWorkingAbility(:GOODASGOLD)
+					pbSEPlay("protection")
+          @battle.pbDisplay(_INTL("{1} makes Status moves miss with Good as Gold",target.pbThis))
+          PBDebug.log("[Ability triggered] #{target.pbThis}'s Good as Gold made the Status move miss")
+          return false
+        end
+      end
       if thismove.pbIsElderSpecial? # Mindy Glops
         if target.hasWorkingAbility(:ELDERPROJECTOR)
 					pbSEPlay("protection")
@@ -4306,6 +4483,10 @@ class PokeBattle_Battler
     if accuracy
       if target.effects[PBEffects::LockOn]>0 && target.effects[PBEffects::LockOnPos]==user.index
         PBDebug.log("[Lingering effect triggered] #{target.pbThis}'s Lock-On")
+        return true
+      end
+      if target.effects[PBEffects::GlaiveRush]>0 && target.effects[PBEffects::GlaiveRushPos]==user.index
+        PBDebug.log("[Lingering effect triggered] #{target.pbThis}'s Glaive Rush")
         return true
       end
       miss=false; override=false
@@ -4721,6 +4902,7 @@ class PokeBattle_Battler
            (originalTarget.effects[PBEffects::Protect] || 
            (originalTarget.pbOwnSide.effects[PBEffects::QuickGuard] && thismove.priority>0) ||
            originalTarget.effects[PBEffects::KingsShield] ||
+           originalTarget.effects[PBEffects::SilkTrap] ||
            originalTarget.effects[PBEffects::SpikyShield] ||
            originalTarget.effects[PBEffects::BanefulBunker] ||
            originalTarget.effects[PBEffects::Obstruct]) ||             
@@ -4734,7 +4916,8 @@ class PokeBattle_Battler
          !pbSuccessCheck(thismove,user,target,turneffects,i==0 || thismove.successCheckPerHit?)
         if thismove.function==0xBF && realnumhits>0   # Triple Kick
           break   # Considered a success if Triple Kick hits at least once
-        elsif thismove.function==0x10B   # Hi Jump Kick, Jump Kick
+        elsif thismove.function==0x10B ||
+              thismove.function==0x355 # Hi Jump Kick, Jump Kick, Axe Kick
           if !(user.hasWorkingAbility(:MAGICGUARD) || user.hasWorkingAbility(:SUPERCLEARBODY))
             PBDebug.log("[Move effect triggered] #{user.pbThis} took crash damage")
             #TODO: Not shown if message is "It doesn't affect XXX..."
@@ -5199,6 +5382,10 @@ class PokeBattle_Battler
         PBDebug.log("[Form changed] #{pbThis} changed forme")
       end      
     end
+    # Mycelium Might (Mold Breaker)
+    if hasWorkingAbility(:MYCELIUMMIGHT) && thismove.pbIsStatus?
+      @effects[PBEffects::TemporaryMoldBreaker]=true
+    end
     # Roomba
     if isConst?(species,PBSpecies,:ROOMBA) &&  !@effects[PBEffects::Transform]
       if (isConst?(thismove.id,PBMoves,:MINDBOX)) && !isUltraBlue?(self)
@@ -5237,7 +5424,6 @@ class PokeBattle_Battler
         @battle.scene.pbChangePokemon(self,@pokemon)
     end
     # Eternatus
-    # TODO: Enable on player once backsprite appears on Eternatus
     if !@effects[PBEffects::Transform] && (self.form==0) &&
         isConst?(self.species,PBSpecies,:ETERNATUS) && 
         isConst?(thismove.id,PBMoves,:ETERNABEAM)

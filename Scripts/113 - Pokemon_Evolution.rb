@@ -53,6 +53,7 @@ module PBEvolution
   TrainedH          = 51 # Trained for Hisuian Forms
   DayHoldItemH      = 52 # DauHoldItem for Hisuian Forms
   NightHoldItemK    = 53 # NightHoldItem for base forms
+  LevelPl           = 54 # Levelf or Palean Forms
   
   EVONAMES=["Unknown",
      "Happiness","HappinessDay","HappinessNight","Level","Trade",
@@ -64,7 +65,8 @@ module PBEvolution
      "Trained","TypeInParty","HappinessMale","HappinessFemale","LevelK",
      "LevelA","ItemK","ItemA","HappinessA","ItemSilcoon","ItemCascoon","LevelG",
      "ItemG","TradeItemK","LevelDayK","LevelP","TradeItemM","HasMoveK",
-     "HappinessItem","ItemH","TrainedH","DayHoldItemH","NightHoldItemK"
+     "HappinessItem","ItemH","TrainedH","DayHoldItemH","NightHoldItemK",
+     "LevelPl"
   ]
 
   # 0 = no parameter
@@ -84,7 +86,7 @@ module PBEvolution
      1,2,2,0,2,
      2,1,2,2,1,
      1,2,3,2,2,
-     1,2,2
+     1,2,2,1
   ]
 end
 
@@ -756,7 +758,7 @@ class PokemonEvolutionScene
     @msgviewport.z=99999
     @pokemon=pokemon
     @newspecies=newspecies
-    if isHisuian?(@pokemon)
+    if isHisuian?(@pokemon) || isPaldean?(@pokemon)
       background="evolutionbg_hisui"
     elsif isGalarian?(@pokemon) || isMysterical?(@pokemon)
       background="evolutionbg_galar"
@@ -1039,6 +1041,8 @@ def pbMiniCheckEvolution(pokemon,evonib,level,poke)
     return poke if pokemon.item==level && PBDayNight.isDay? && isHisuian?(pokemon)
   when PBEvolution::NightHoldItemK
     return poke if pokemon.item==level && PBDayNight.isNight? && !isRegionalForme?(pokemon)
+  when PBEvolution::LevelPl
+    return poke if pokemon.level>=level && isPaldean?(pokemon)
   end
   return -1
 end

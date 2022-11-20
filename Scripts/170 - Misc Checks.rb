@@ -111,6 +111,7 @@ def isRegionalForme?(species)
     return true if isGalarian?(species)
     return true if isMysterical?(species)
     return true if isYorkbook?(species)
+    return true if isPaldean?(species)
     return false
 end
 
@@ -142,6 +143,8 @@ def isPhonetic?(species)
     return true if isConst?(species.species,PBSpecies,:GRAPPLOCT) && species.form==1
     return true if isConst?(species.species,PBSpecies,:CUFANT) && species.form==1
     return true if isConst?(species.species,PBSpecies,:COPPERAJAH) && species.form==1
+    return true if isConst?(species.species,PBSpecies,:SHROODLE) && species.form==1
+    return true if isConst?(species.species,PBSpecies,:GRAFAIAI) && species.form==1
     return false
 end
 
@@ -263,6 +266,17 @@ def isHisuian?(pokemon)
          (isConst?(pokemon.species,PBSpecies,:ROWLET) && pokemon.form==1) ||
          (isConst?(pokemon.species,PBSpecies,:DARTRIX) && pokemon.form==1) ||
          (isConst?(pokemon.species,PBSpecies,:DECIDUEYE) && pokemon.form==1)
+
+end
+
+def isPaldean(pokemon)
+  # NOTE: Also includes their evolutions exclusive to Paldean forms
+  # (Closire)
+  return (isConst?(pokemon.species,PBSpecies,:WOOPER) && pokemon.form==1) ||
+         (isConst?(pokemon.species,PBSpecies,:TAUROS) && pokemon.form==1) ||
+         (isConst?(pokemon.species,PBSpecies,:TAUROS) && pokemon.form==2) ||
+         (isConst?(pokemon.species,PBSpecies,:TAUROS) && pokemon.form==3) ||
+         (isConst?(pokemon.species,PBSpecies,:CLODSIRE) && pokemon.form==1)
 
 end
 

@@ -21,6 +21,7 @@ begin
     Alola       = 18 # Alola Forms
     Galar       = 19 # Galarian Forms
     Hisui       = 20 # Hisuian Forms
+    Paldea       = 21 # Paldean Forms
   end
 
   def PBEnvironment.maxValue; 20; end

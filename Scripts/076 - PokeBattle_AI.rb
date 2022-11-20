@@ -2220,7 +2220,7 @@ class PokeBattle_Battle
       score+=20 if attacker.pbOpposingSide.effects[PBEffects::LightScreen]>0
       score+=20 if attacker.pbOpposingSide.effects[PBEffects::AuroraVeil]>0 && !attacker.pbOpposingSide.effects[PBEffects::Reflect]>0 # changed added
       score+=20 if attacker.pbOpposingSide.effects[PBEffects::AuroraVeil]>0 && !attacker.pbOpposingSide.effects[PBEffects::LightScreen]>0 # changed added
-    when 0x10B
+    when 0x10B,0x354
       score+=10*(attacker.stages[PBStats::ACCURACY]-opponent.stages[PBStats::EVASION])
     when 0x10C
       if attacker.effects[PBEffects::Substitute]>0
@@ -3148,23 +3148,23 @@ class PokeBattle_Battle
 =begin
       changeside=false
       for i in 0...2
-        next if @battle.sides[i].effects[PBEffects::Reflect]==0 && 
-                @battle.sides[i].effects[PBEffects::LightScreen]==0 && 
-                @battle.sides[i].effects[PBEffects::AuroraVeil]==0 &&
-                @battle.sides[i].effects[PBEffects::SeaOfFire]==0 && # Fire Pledge
-                @battle.sides[i].effects[PBEffects::Swamp]==0 &&     # Grass Pledge
-                @battle.sides[i].effects[PBEffects::Rainbow]==0 &&   # Water Pledge
-                @battle.sides[i].effects[PBEffects::Mist]==0 && 
-                @battle.sides[i].effects[PBEffects::Safeguard]==0 && 
-               !@battle.sides[i].effects[PBEffects::StealthRock] && 
-                @battle.sides[i].effects[PBEffects::Spikes]==0 && 
-               !@battle.sides[i].effects[PBEffects::StickyWeb] && 
-                @battle.sides[i].effects[PBEffects::ToxicSpikes]==0 && 
-                @battle.sides[i].effects[PBEffects::Tailwind]==0 &&
-                @battle.sides[i].effects[PBEffects::Electromania]==0 && 
-                @battle.sides[i].effects[PBEffects::Fierymania]==0 && 
-                @battle.sides[i].effects[PBEffects::ToxicSwamp]==0 && 
-                @battle.sides[i].effects[PBEffects::Brainologic]==0
+        next if @sides[i].effects[PBEffects::Reflect]==0 && 
+                @sides[i].effects[PBEffects::LightScreen]==0 && 
+                @sides[i].effects[PBEffects::AuroraVeil]==0 &&
+                @sides[i].effects[PBEffects::SeaOfFire]==0 && # Fire Pledge
+                @sides[i].effects[PBEffects::Swamp]==0 &&     # Grass Pledge
+                @sides[i].effects[PBEffects::Rainbow]==0 &&   # Water Pledge
+                @sides[i].effects[PBEffects::Mist]==0 && 
+                @sides[i].effects[PBEffects::Safeguard]==0 && 
+               !@sides[i].effects[PBEffects::StealthRock] && 
+                @sides[i].effects[PBEffects::Spikes]==0 && 
+               !@sides[i].effects[PBEffects::StickyWeb] && 
+                @sides[i].effects[PBEffects::ToxicSpikes]==0 && 
+                @sides[i].effects[PBEffects::Tailwind]==0 &&
+                @sides[i].effects[PBEffects::Electromania]==0 && 
+                @sides[i].effects[PBEffects::Fierymania]==0 && 
+                @sides[i].effects[PBEffects::ToxicSwamp]==0 && 
+                @sides[i].effects[PBEffects::Brainologic]==0
         changeside=true
       end
       if !changeside
@@ -3230,19 +3230,19 @@ class PokeBattle_Battle
     when 0x290
       score-=90 if attacker.pbOwnSide.effects[PBEffects::ToxicSwamp]>0
     when 0x294
-#      score-=90 if !@battle.switching
-#      score+=40 if  @battle.switching
+#      score-=90 if !@switching
+#      score+=40 if  @switching
     when 0x295
       score+=50 if opponent.effects[PBEffects::LongGrass]
     when 0x306
-      if @battle.field.effects[PBEffects::GrassyTerrain]==0 &&
-           @battle.field.effects[PBEffects::ElectricTerrain]==0 &&
-           @battle.field.effects[PBEffects::MistyTerrain]==0 &&
-           @battle.field.effects[PBEffects::PsychicTerrain]==0 &&
-           @battle.field.effects[PBEffects::VolcanicTerrain]==0 &&
-           @battle.field.effects[PBEffects::LovelyTerrain]==0 &&
-           @battle.field.effects[PBEffects::Cinament]==0 &&
-           @battle.field.effects[PBEffects::GlimmyGalaxy]==0
+      if @field.effects[PBEffects::GrassyTerrain]==0 &&
+           @field.effects[PBEffects::ElectricTerrain]==0 &&
+           @field.effects[PBEffects::MistyTerrain]==0 &&
+           @field.effects[PBEffects::PsychicTerrain]==0 &&
+           @field.effects[PBEffects::VolcanicTerrain]==0 &&
+           @field.effects[PBEffects::LovelyTerrain]==0 &&
+           @field.effects[PBEffects::Cinament]==0 &&
+           @field.effects[PBEffects::GlimmyGalaxy]==0
         score-=90
       end
     when 0x322
@@ -3434,6 +3434,7 @@ class PokeBattle_Battle
         score=0
       elsif skill>=PBTrainerAI.mediumSkill && isConst?(move.type,PBTypes,:GROUND) &&
             (opponent.hasWorkingAbility(:LEVITATE) ||
+             opponent.hasWorkingAbility(:EARTHEATER) ||
             opponent.effects[PBEffects::MagnetRise]>0)
         score=0
       elsif skill>=PBTrainerAI.mediumSkill && isConst?(move.type,PBTypes,:FIRE) &&
@@ -3452,6 +3453,12 @@ class PokeBattle_Battle
         score=0
       elsif skill>=PBTrainerAI.mediumSkill && isConst?(move.type,PBTypes,:GRASS) &&
             opponent.hasWorkingAbility(:SAPSIPPER)
+        score=0
+      elsif skill>=PBTrainerAI.mediumSkill && isConst?(move.type,PBTypes,:FIRE) &&
+            opponent.hasWorkingAbility(:WELLBAKEDBODY)
+        score=0
+      elsif skill>=PBTrainerAI.mediumSkill && move.isWindMove? &&
+            opponent.hasWorkingAbility(:WINDRIDER)
         score=0
       elsif skill>=PBTrainerAI.mediumSkill && isConst?(move.type,PBTypes,:ELECTRIC) &&
             (opponent.hasWorkingAbility(:VOLTABSORB) ||
@@ -3899,6 +3906,13 @@ class PokeBattle_Battle
         basedamage=(basedamage*0.5).round
       end
     end
+    # Purifying Salt
+    if skill>=PBTrainerAI.bestSkill
+      if opponent.hasWorkingAbility(:PURIFYINGSALT) &&
+         isConst?(type,PBTypes,:GHOST)
+        basedamage=(basedamage*0.5).round
+      end
+    end
     # Dry Skin
     if skill>=PBTrainerAI.bestSkill
       if opponent.hasWorkingAbility(:DRYSKIN) &&
@@ -4244,6 +4258,58 @@ class PokeBattle_Battle
         end
       end
     end
+    # Orichalcum Pulse
+    if skill>=PBTrainerAI.highSkill
+      if pbWeather==PBWeather::SUNNYDAY && move.pbIsPhysical?(type)
+        if attacker.hasWorkingAbility(:ORICHALCUMPULSE)
+          atk=(atk*1.3).round
+        end
+      end
+    end
+    # Hardon Engine
+    if skill>=PBTrainerAI.highSkill
+      if @field.effects[PBEffects::ElectricTerrain]>0 && move.pbIsSpecial?(type)
+        if attacker.hasWorkingAbility(:HARDONENGINE)
+          atk=(atk*1.3).round
+        end
+      end
+    end
+    # Protosynthesis
+    if skill>=PBTrainerAI.highSkill
+      if pbWeather==PBWeather::SUNNYDAY
+        if attacker.hasWorkingAbility(:PROTOSYNTHESIS) &&
+           ((move.pbIsPhysical?(type) && attacker.profstat== PBStats::ATTACK) ||
+            (move.pbIsSpecial?(type) && attacker.profstat== PBStats::SPATK))
+          atk=(atk*1.5).round
+        end
+      end
+    end
+    # Quark Drive
+    if skill>=PBTrainerAI.highSkill
+      if @field.effects[PBEffects::ElectricTerrain]>0
+        if attacker.hasWorkingAbility(:QUARKDRIVE) &&
+           ((move.pbIsPhysical?(type) && attacker.profstat== PBStats::ATTACK) ||
+            (move.pbIsSpecial?(type) && attacker.profstat== PBStats::SPATK))
+          atk=(atk*1.5).round
+        end
+      end
+    end    
+    # Vessel of Ruin
+    if skill>=PBTrainerAI.highSkill
+      if pbCheckGlobalAbility(:VESSELOFRUIN)
+        if !attacker.hasWorkingAbility(:VESSELOFRUIN) && move.pbIsSpecial?(type)
+          atk=(atk/1.25).round
+        end
+      end
+    end    
+    # Tablets of Ruin
+    if skill>=PBTrainerAI.highSkill
+      if pbCheckGlobalAbility(:TABLETSOFRUIN)
+        if !attacker.hasWorkingAbility(:TABLETSOFRUIN) && move.pbIsPhysical?(type)
+          atk=(atk/1.25).round
+        end
+      end
+    end
     # Attack-boosting items
     if attacker.hasWorkingItem(:THICKCLUB) &&
        (isConst?(attacker.species,PBSpecies,:CUBONE) ||
@@ -4316,6 +4382,42 @@ class PokeBattle_Battle
         if opponent.pbPartner.hasWorkingAbility(:FLOWERGIFT) &&
            isConst?(opponent.pbPartner.species,PBSpecies,:CHERRIM)
           defense=(defense*1.5).round
+        end
+      end
+    end
+    # Protosynthesis
+    if skill>=PBTrainerAI.highSkill
+      if pbWeather==PBWeather::SUNNYDAY
+        if opponent.hasWorkingAbility(:PROTOSYNTHESIS) &&
+           ((move.pbIsPhysical?(type) && opponent.profstat== PBStats::DEFENSE) ||
+            (move.pbIsSpecial?(type) && opponent.profstat== PBStats::SPDEF))
+          defense=(defense*1.5).round
+        end
+      end
+    end
+    # Quark Drive
+    if skill>=PBTrainerAI.highSkill
+      if @field.effects[PBEffects::ElectricTerrain]>0
+        if opponent.hasWorkingAbility(:QUARKFRIVE) &&
+           ((move.pbIsPhysical?(type) && opponent.profstat== PBStats::DEFENSE) ||
+            (move.pbIsSpecial?(type) && opponent.profstat== PBStats::SPDEF))
+          defense=(defense*1.5).round
+        end
+      end
+    end    
+    # Breads of Ruin
+    if skill>=PBTrainerAI.highSkill
+      if pbCheckGlobalAbility(:BREADSOFRUIN)
+        if !opponent.hasWorkingAbility(:BREADSOFRUIN) && move.pbIsSpecial?(type)
+          defense=(defense/1.25).round
+        end
+      end
+    end    
+    # Sword of Ruin
+    if skill>=PBTrainerAI.highSkill
+      if pbCheckGlobalAbility(:SWORDOFRUIN)
+        if !attacker.hasWorkingAbility(:SWORDOFRUIN) && move.pbIsPhysical?(type)
+          defense=(defense/1.25).round
         end
       end
     end

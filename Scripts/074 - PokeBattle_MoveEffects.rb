@@ -4997,7 +4997,8 @@ class PokeBattle_Move_0AA < PokeBattle_Move
        0x14B,  # King's Shield
        0x14C,  # Spiky Shield
        0x221,  # Baneful Bunker
-       0x262   # Obstruct
+       0x262,  # Obstruct
+       0x354   # Silk Trap
     ]
     if !ratesharers.include?(PBMoveData.new(attacker.lastMoveUsed).function)
       attacker.effects[PBEffects::ProtectRate]=1
@@ -5046,7 +5047,8 @@ class PokeBattle_Move_0AB < PokeBattle_Move
        0x14B,  # King's Shield
        0x14C,  # Spiky Shield
        0x221,  # Baneful Bunker
-       0x262   # Obstruct
+       0x262,  # Obstruct
+       0x354   # Silk Trap
     ]
     if !ratesharers.include?(PBMoveData.new(attacker.lastMoveUsed).function)
       attacker.effects[PBEffects::ProtectRate]=1
@@ -5100,7 +5102,8 @@ class PokeBattle_Move_0AC < PokeBattle_Move
        0x14B,  # King's Shield
        0x14C,  # Spiky Shield
        0x221,  # Baneful Bunker
-       0x262   # Obstruct
+       0x262,  # Obstruct
+       0x354   # Silk Trap
     ]
     if !ratesharers.include?(PBMoveData.new(attacker.lastMoveUsed).function)
       attacker.effects[PBEffects::ProtectRate]=1
@@ -7302,7 +7305,8 @@ class PokeBattle_Move_0E8 < PokeBattle_Move
        0x14B,  # King's Shield
        0x14C,  # Spiky Shield
        0x221,  # Baneful Bunker
-       0x262   # Obstruct
+       0x262,  # Obstruct
+       0x354   # Silk Trap
     ]
     if !ratesharers.include?(PBMoveData.new(attacker.lastMoveUsed).function)
       attacker.effects[PBEffects::ProtectRate]=1
@@ -7376,7 +7380,8 @@ end
 class PokeBattle_Move_0EB < PokeBattle_Move
   def pbEffect(attacker,opponent,hitnum=0,alltargets=nil,showanimation=true)
     if !attacker.hasMoldBreaker && ( opponent.hasWorkingAbility(:SUCTIONCUPS) ||
-                                     opponent.hasWorkingAbility(:ENIGMATACTICS))
+                                     opponent.hasWorkingAbility(:ENIGMATACTICS) ||
+                                     opponent.hasWorkingAbility(:GUARDDOG))
 			pbSEPlay("protection")
       @battle.pbDisplay(_INTL("{1} anchored itself with {2}!",opponent.pbThis,PBAbilities.getName(opponent.ability)))  
       return -1
@@ -7436,7 +7441,8 @@ class PokeBattle_Move_0EC < PokeBattle_Move
     if !attacker.isFainted? && !opponent.isFainted? &&
        opponent.damagestate.calcdamage>0 && !opponent.damagestate.substitute && 
        (attacker.hasMoldBreaker || !opponent.hasWorkingAbility(:SUCTIONCUPS) || 
-        !opponent.hasWorkingAbility(:ENIGMATACTICS)) &&
+        !opponent.hasWorkingAbility(:ENIGMATACTICS) ||
+        !opponent.hasWorkingAbility(:GUARDDOG)) &&
        !opponent.effects[PBEffects::Ingrain] &&
        !opponent.hasWorkingItem(:ASPEARVEST)
       if !@battle.opponent
@@ -8902,13 +8908,20 @@ end
 ################################################################################
 # Removes trapping moves, entry hazards and Leech Seed on user/user's side.
 # Gen8+: Also increases user's speed by 1 stage. (Rapid Spin)
+# Mortal Spin: Poisons the target instead of increasing user's speed by 1 stage
 ################################################################################
 class PokeBattle_Move_110 < PokeBattle_Move
   def pbEffectAfterHit(attacker,opponent,turneffects)
     if !attacker.isFainted? && turneffects[PBEffects::TotalDamage]>0
-      if attacker.pbCanIncreaseStatStage?(PBStats::SPEED,attacker,false,self) &&
-        $USENEWBATTLEMECHANICS
-        attacker.pbIncreaseStat(PBStats::SPEED,1,attacker,false,self)
+      if isConst?(@id,PBMoves,:MORTALSPIN)
+        if opponent.pbCanPoison?(attacker,false,self)
+          opponent.pbPoison(attacker)
+        end
+      else
+        if attacker.pbCanIncreaseStatStage?(PBStats::SPEED,attacker,false,self) &&
+          $USENEWBATTLEMECHANICS
+          attacker.pbIncreaseStat(PBStats::SPEED,1,attacker,false,self)
+        end
       end
       if attacker.effects[PBEffects::MultiTurn]>0
         mtattack=PBMoves.getName(attacker.effects[PBEffects::MultiTurnAttack])
@@ -10107,7 +10120,8 @@ class PokeBattle_Move_14B < PokeBattle_Move
        0x14B,  # King's Shield
        0x14C,  # Spiky Shield
        0x221,  # Baneful Bunker
-       0x262   # Obstruct
+       0x262,  # Obstruct
+       0x354   # Silk Trap
     ]
     if !ratesharers.include?(PBMoveData.new(attacker.lastMoveUsed).function)
       attacker.effects[PBEffects::ProtectRate]=1
@@ -10157,7 +10171,8 @@ class PokeBattle_Move_14C < PokeBattle_Move
        0x14B,  # King's Shield
        0x14C,  # Spiky Shield
        0x221,  # Baneful Bunker
-       0x262   # Obstruct
+       0x262,  # Obstruct
+       0x354   # Silk Trap
     ]
     if !ratesharers.include?(PBMoveData.new(attacker.lastMoveUsed).function)
       attacker.effects[PBEffects::ProtectRate]=1
@@ -14985,7 +15000,8 @@ class PokeBattle_Move_221 < PokeBattle_Move
        0x14B,  # King's Shield
        0x14C,  # Spiky Shield
        0x221,  # Baneful Bunker
-       0x262   # Obstruct
+       0x262,  # Obstruct
+       0x354   # Silk Trap
     ]
     if !ratesharers.include?(PBMoveData.new(attacker.lastMoveUsed).function)
       attacker.effects[PBEffects::ProtectRate]=1
@@ -15533,7 +15549,8 @@ class PokeBattle_Move_262 < PokeBattle_Move
        0x14B,  # King's Shield
        0x14C,  # Spiky Shield
        0x221,  # Baneful Bunker
-       0x262   # Obstruct
+       0x262,  # Obstruct
+       0x354   # Silk Trap
     ]
     if !ratesharers.include?(PBMoveData.new(attacker.lastMoveUsed).function)
       attacker.effects[PBEffects::ProtectRate]=1
@@ -16437,6 +16454,572 @@ class PokeBattle_Move_331 < PokeBattle_Move
     @battle.pbDisplay(_INTL("{1} switched its Offsense and Defense!",attacker.pbThis))
     return 0
   end
+end
+
+################################################################################
+################################################################################
+# Generation IX Move Effects
+################################################################################
+################################################################################
+
+################################################################################
+# Move type changes based on user's primary type
+# Becomes physical if Atk > Sp. Atk. Ignores abilities (Tera Blast)
+################################################################################
+class PokeBattle_Move_353 < PokeBattle_Move
+  def pbOnStartUse(attacker)
+    stagemul=[10,10,10,10,10,10,10,15,20,25,30,35,40]
+    stagediv=[40,35,30,25,20,15,10,10,10,10,10,10,10]
+    calcattackstage=attacker.stages[PBStats::ATTACK]+6
+    calcattack=(attacker.attack*1.0*stagemul[calcattackstage]/stagediv[calcattackstage]).floor
+    calcspatkstage=attacker.stages[PBStats::SPATK]+6
+    calcspatk=(attacker.spatk*1.0*stagemul[calcspatkstage]/stagediv[calcspatkstage]).floor
+    @category=(calcattack>calcspatk) ? 0 : 1
+    return true
+  end
+
+  def pbModifyType(type,attacker,opponent)
+    type=attacker.type1
+    if !attacker.effects[PBEffects::Roost]
+      type=attacker.type2 if type==getConst(PBTypes,:QMARKS)
+      type=attacker.effects[PBEffects::Type3] if type==getConst(PBTypes,:QMARKS)
+    else
+      type=attacker.type2 if type==getConst(PBTypes,:QMARKS)
+      type=getConst(PBTypes,:NORMAL) if type==getConst(PBTypes,:QMARKS)
+    end
+    return type
+  end
+
+end
+
+################################################################################
+# User is protected against damaging moves this round. Decreases the Speed of
+# the user of a stopped contact move by 1 stage. (Silk Trap)
+################################################################################
+class PokeBattle_Move_354 < PokeBattle_Move
+  def pbEffect(attacker,opponent,hitnum=0,alltargets=nil,showanimation=true)
+    if attacker.effects[PBEffects::KingsShield]
+			pbSEPlay("protection")
+      @battle.pbDisplay(_INTL("But it failed!"))
+      return -1
+    end
+    ratesharers=[
+       0xAA,   # Detect, Protect
+       0xAB,   # Quick Guard
+       0xAC,   # Wide Guard
+       0xE8,   # Endure
+       0x14B,  # King's Shield
+       0x14C,  # Spiky Shield
+       0x221,  # Baneful Bunker
+       0x262,  # Obstruct
+       0x354   # Silk Trap
+    ]
+    if !ratesharers.include?(PBMoveData.new(attacker.lastMoveUsed).function)
+      attacker.effects[PBEffects::ProtectRate]=1
+    end
+    unmoved=false
+    for poke in @battle.battlers
+      next if poke.index==attacker.index
+      if @battle.choices[poke.index][0]==1 && # Chose a move
+         !poke.hasMovedThisRound?
+        unmoved=true; break
+      end
+    end
+    if !unmoved ||
+       (!$USENEWBATTLEMECHANICS &&
+       @battle.pbRandom(65536)>=(65536/attacker.effects[PBEffects::ProtectRate]).floor)
+      attacker.effects[PBEffects::ProtectRate]=1
+			pbSEPlay("protection")
+      @battle.pbDisplay(_INTL("But it failed!"))
+      return -1
+    end
+    pbShowAnimation(@id,attacker,nil,hitnum,alltargets,showanimation)
+    attacker.effects[PBEffects::SilkTrap]=true
+    attacker.effects[PBEffects::ProtectRate]*=2
+    @battle.pbDisplay(_INTL("{1} protected itself!",attacker.pbThis))
+    return 0
+  end
+end
+
+################################################################################
+# Confuses the target. If attack misses, user takes crash damage of 1/2 of max 
+# HP. (Axe Kick)
+################################################################################
+class PokeBattle_Move_355 < PokeBattle_Move_013
+ 
+  def isRecoilMove?
+    return true
+  end
+
+  def unusableInGravity?
+    return true
+  end
+  
+end
+
+################################################################################
+# Power increases the more fainted allies are in the party. (Last Respects)
+################################################################################
+class PokeBattle_Move_356 < PokeBattle_Move
+  def pbModifyDamage(damagemult,attacker,opponent)
+    mult = @battle.pbAmountOfFaintedAllies(attacker.index)+1
+    return damagemult*mult
+  end
+end
+
+################################################################################
+# Increases the user's Speed, Attack OR Defense by 1 stage (Order Up)
+################################################################################
+class PokeBattle_Move_357 < PokeBattle_Move
+  
+  def pbEffect(attacker,opponent,hitnum=0,alltargets=nil,showanimation=true)
+    return super(attacker,opponent,hitnum,alltargets,showanimation) if pbIsDamaging?
+    if !isConst?(attacker.pbPartner.species,PBSpecies,:TATSUGIRI)
+			pbSEPlay("protection") if !pbIsDamaging?
+      @battle.pbDisplay(_INTL("But it failed!")) if !pbIsDamaging?
+      return -1
+    else
+      stat = [PBStats::SPEED,PBStats::ATTACK,PBStats::DEFENSE][attacker.pbPartner.form]
+    end
+    return -1 if !attacker.pbCanIncreaseStatStage?(stat,attacker,true,self)
+    pbShowAnimation(@id,attacker,opponent,hitnum,alltargets,showanimation)
+    ret=attacker.pbIncreaseStat(stat,1,attacker,false,self)
+    return ret ? 0 : -1
+  end
+
+  def pbAdditionalEffect(attacker,opponent)
+    if isConst?(attacker.pbPartner.species,PBSpecies,:TATSUGIRI)
+      stat = [PBStats::SPEED,PBStats::ATTACK,PBStats::DEFENSE][attacker.pbPartner.form]
+      if attacker.pbCanIncreaseStatStage?(stat,attacker,false,self)
+        attacker.pbIncreaseStat(stat,1,attacker,false,self)
+      end
+    end
+  end
+end
+
+################################################################################
+# Decreases the target's Defense by 2 stage each. (Spicy Extract)
+# Increases the target's Attack by 2 stages each.
+################################################################################
+class PokeBattle_Move_358 < PokeBattle_Move
+  def pbEffect(attacker,opponent,hitnum=0,alltargets=nil,showanimation=true)
+    if !opponent.pbCanIncreaseStatStage?(PBStats::DEFENSE,attacker,false,self) &&
+       !opponent.pbCanReduceStatStage?(PBStats::ATTACK,attacker,false,self)
+			pbSEPlay("protection")
+       @battle.pbDisplay(_INTL("{1}'s stats won't go any higher or lower!",attacker.pbThis))
+      return -1
+    end
+    pbShowAnimation(@id,attacker,opponent,hitnum,alltargets,showanimation)
+    if opponent.pbCanIncreaseStatStage?(PBStats::ATTACK,attacker,false,self)
+      opponent.pbIncreaseStat(PBStats::ATTACK,2,attacker,false,self,true)
+    end
+    if opponent.pbCanReduceStatStage?(PBStats::DEFENSE,attacker,false,self)
+      opponent.pbReduceStat(PBStats::DEFENSE,2,attacker,false,self,true)
+    end
+    return 0
+  end
+end
+
+################################################################################
+# Hits 10 times. Power is multiplied by the hit number. (Population Bomb)
+# An accuracy check is performed for each hit.
+################################################################################
+class PokeBattle_Move_359 < PokeBattle_Move
+  def pbIsMultiHit
+    return true
+  end
+
+  def pbNumHits(attacker)
+    return 10
+  end
+
+  def successCheckPerHit?
+    return @checks
+  end
+
+  def pbOnStartUse(attacker)
+    @calcbasedmg=@basedamage
+    @checks=!attacker.hasWorkingAbility(:SKILLLINK)
+    return true
+  end
+
+  def pbBaseDamage(basedmg,attacker,opponent)
+    ret=@calcbasedmg
+    @calcbasedmg+=basedmg
+    return ret
+  end
+end
+
+################################################################################
+# Ends all Terrains. (Ice Spinner)
+################################################################################
+class PokeBattle_Move_360 < PokeBattle_Move
+  def pbEffect(attacker,opponent,hitnum=0,alltargets=nil,showanimation=true)
+    return super(attacker,opponent,hitnum,alltargets,showanimation) if pbIsDamaging?
+    pbShowAnimation(@id,attacker,opponent,hitnum,alltargets,showanimation)
+      @battle.field.effects[PBEffects::GrassyTerrain]=0
+      @battle.field.effects[PBEffects::MistyTerrain]=0
+      @battle.field.effects[PBEffects::PsychicTerrain]=0
+      @battle.field.effects[PBEffects::VolcanicTerrain]=0
+      @battle.field.effects[PBEffects::GlimmyGalaxy]=0
+      @battle.field.effects[PBEffects::LovelyTerrain]=0
+      @battle.field.effects[PBEffects::Cinament]=0
+      @battle.field.effects[PBEffects::ElectricTerrain]=0
+    return 0
+  end
+
+  def pbAdditionalEffect(attacker,opponent)
+      @battle.field.effects[PBEffects::GrassyTerrain]=0
+      @battle.field.effects[PBEffects::MistyTerrain]=0
+      @battle.field.effects[PBEffects::PsychicTerrain]=0
+      @battle.field.effects[PBEffects::VolcanicTerrain]=0
+      @battle.field.effects[PBEffects::LovelyTerrain]=0
+      @battle.field.effects[PBEffects::Cinament]=0
+      @battle.field.effects[PBEffects::ElectricTerrain]=0
+  end
+end
+
+################################################################################
+# Target's attack next round against the user will definitely hit and have double
+# damage (Glaive Rush)
+################################################################################
+class PokeBattle_Move_361 < PokeBattle_Move
+  def pbEffect(attacker,opponent,hitnum=0,alltargets=nil,showanimation=true)
+    ret=super(attacker,opponent,hitnum,alltargets,showanimation)
+    if opponent.damagestate.calcdamage>0 && !opponent.damagestate.substitute &&
+       !opponent.isFainted?
+        attacker.effects[PBEffects::GlaiveRush]=2
+        attacker.effects[PBEffects::GlaiveRushPos]=attacker.index
+    end
+    return ret
+  end
+end
+
+################################################################################
+# Revives a random Pokemon (Revival Blessing)
+# Not yet added but will one day
+################################################################################
+class PokeBattle_Move_362 < PokeBattle_UnimplementedMove
+end
+
+################################################################################
+# User and its ally copies target's ability. (Doodle)
+################################################################################
+class PokeBattle_Move_363 < PokeBattle_Move
+  def pbEffect(attacker,opponent,hitnum=0,alltargets=nil,showanimation=true)
+    if opponent.pbOwnSide.effects[PBEffects::CraftyShield]
+			pbSEPlay("protection")
+      @battle.pbDisplay(_INTL("But it failed!"))
+      return -1
+    end
+    didsomething=false
+    for i in [attacker,attacker.pbPartner]
+      next if !i || i.isFainted?
+      next if opponent.ability==0 ||
+              i.ability==opponent.ability ||
+              isConst?(opponent.ability,PBAbilities,:ABILITOPIA) ||
+              isConst?(opponent.ability,PBAbilities,:MORFAT)
+      if !attacker.hasAbilityPowers(opponent)
+        next if isConst?(i.ability,PBAbilities,:BATTLEBOND) ||
+                isConst?(i.ability,PBAbilities,:COMATOSE) ||
+                isConst?(i.ability,PBAbilities,:DISGUISE) ||
+                isConst?(i.ability,PBAbilities,:GULPMISSILE) ||
+                isConst?(i.ability,PBAbilities,:ICEFACE) ||
+                isConst?(i.ability,PBAbilities,:MULTITYPE) ||
+                isConst?(i.ability,PBAbilities,:NEUTRALIZINGGAS) ||
+                isConst?(i.ability,PBAbilities,:POWERCONSTRUCT) ||
+                isConst?(i.ability,PBAbilities,:RKSSYSTEM) ||
+                isConst?(i.ability,PBAbilities,:SCHOOLING) ||
+                isConst?(i.ability,PBAbilities,:SHIELDSDOWN) ||
+                isConst?(i.ability,PBAbilities,:STANCECHANGE) ||
+                isConst?(i.ability,PBAbilities,:MAXTHIN) ||
+                isConst?(i.ability,PBAbilities,:KOULUNDIN) ||
+                isConst?(i.ability,PBAbilities,:CHIKOLINI) ||
+                isConst?(opponent.ability,PBAbilities,:BATTLEBOND) ||
+                isConst?(opponent.ability,PBAbilities,:COMATOSE) ||
+                isConst?(opponent.ability,PBAbilities,:DISGUISE) ||
+                isConst?(opponent.ability,PBAbilities,:FLOWERGIFT) ||
+                isConst?(opponent.ability,PBAbilities,:FORECAST) ||
+                isConst?(opponent.ability,PBAbilities,:GULPMISSILE) ||
+                isConst?(opponent.ability,PBAbilities,:ICEFACE) ||
+                isConst?(opponent.ability,PBAbilities,:ILLUSION) ||
+                isConst?(opponent.ability,PBAbilities,:IMPOSTER) ||
+                isConst?(opponent.ability,PBAbilities,:MULTITYPE) ||
+                isConst?(opponent.ability,PBAbilities,:NEUTRALIZINGGAS) ||
+                isConst?(opponent.ability,PBAbilities,:POWERCONSTRUCT) ||
+                isConst?(opponent.ability,PBAbilities,:POWEROFALCHEMY) ||
+                isConst?(opponent.ability,PBAbilities,:RECEIVER) ||
+                isConst?(opponent.ability,PBAbilities,:RKSSYSTEM) ||
+                isConst?(opponent.ability,PBAbilities,:SCHOOLING) ||
+                isConst?(opponent.ability,PBAbilities,:SHIELDSDOWN) ||
+                isConst?(opponent.ability,PBAbilities,:STANCECHANGE) ||
+                isConst?(opponent.ability,PBAbilities,:TRACE) ||
+                isConst?(opponent.ability,PBAbilities,:WONDERGUARD) ||
+                isConst?(opponent.ability,PBAbilities,:ZENMODE) ||
+                isConst?(opponent.ability,PBAbilities,:PHONYPREDATOR) ||
+                isConst?(opponent.ability,PBAbilities,:KOULUNDIN) ||
+                isConst?(opponent.ability,PBAbilities,:HERALINA) ||
+                isConst?(opponent.ability,PBAbilities,:CHIKOLINI) ||
+                isConst?(opponent.ability,PBAbilities,:DOLPHININO)
+      end
+      pbShowAnimation(@id,attacker,opponent,hitnum,alltargets,showanimation) if !didsomething
+      didsomething=true
+      oldabil=i.ability
+      i.ability=opponent.ability
+      abilityname=PBAbilities.getName(opponent.ability)
+      @battle.pbDisplay(_INTL("{1} copied {2}'s {3}!",i.pbThis,opponent.pbThis(true),abilityname))
+      if i.effects[PBEffects::Imprison] && isConst?(oldabil,PBAbilities,:IMPRISIN) && $USENEWBATTLEMECHANICS
+        PBDebug.log("[Ability triggered] #{i.pbThis}'s Imprisin ended")    
+        attacker.effects[PBEffects::Imprison]=false
+        @battle.pbDisplay(_INTL("{1}'s {2} finally bought back the sealed move(s) to the opposing Pokémon!",attacker.pbThis,PBAbilities.getName(oldabil)))
+      end
+      if isConst?(i.species,PBSpecies,:ETV) && i.form>1
+        i.form-=2
+        i.pbUpdate(true)
+        @battle.scene.pbChangePokemon(i,i.pokemon)
+        @battle.pbDisplay(_INTL("{1}'s parent child faded!",i.pbThis))
+      end
+      if i.effects[PBEffects::Illusion] && isConst?(oldabil,PBAbilities,:ILLUSION)
+        PBDebug.log("[Ability triggered] #{i.pbThis}'s Illusion ended")    
+        i.effects[PBEffects::Illusion]=nil
+        @battle.scene.pbChangePokemon(i,i.pokemon)
+        @battle.pbDisplay(_INTL("{1}'s {2} wore off!",i.pbThis,PBAbilities.getName(oldabil)))
+      end
+    end
+    if !didsomething
+			pbSEPlay("protection")
+      @battle.pbDisplay(_INTL("But it failed!"))
+      return -1
+    end
+    return 0
+  end
+end
+
+################################################################################
+# Increases the user's Attack, Special Attack and Speed stats by 2 stage and
+# loses some HP or switching out (Fillet Away)
+################################################################################
+class PokeBattle_Move_364 < PokeBattle_Move
+  def pbEffect(attacker,opponent,hitnum=0,alltargets=nil,showanimation=true)
+    pbShowAnimation(@id,attacker,opponent,hitnum,alltargets,showanimation)
+    ret=-1; showanim='mix' # Was true
+      sublife=[(attacker.totalhp/2).floor,1].max
+    if attacker.hp<=sublife
+			pbSEPlay("protection")
+      @battle.pbDisplay(_INTL("It was too weak to raise its stats!"))
+      return -1  
+    end
+    attacker.pbReduceHP(sublife)
+    if attacker.pbCanIncreaseStatStage?(PBStats::ATTACK,attacker,false,self)
+      attacker.pbIncreaseStat(PBStats::ATTACK,2,attacker,false,self,showanim)
+      showanim=false
+      ret=0
+    end
+    if attacker.pbCanIncreaseStatStage?(PBStats::SPATK,attacker,false,self)
+      attacker.pbIncreaseStat(PBStats::SPATK,2,attacker,false,self,showanim)
+      showanim=false
+      ret=0
+    end
+    if attacker.pbCanIncreaseStatStage?(PBStats::SPEED,attacker,false,self)
+      attacker.pbIncreaseStat(PBStats::SPEED,2,attacker,false,self,showanim)
+      showanim=false
+      ret=0
+    end
+    if ret==-1
+			pbSEPlay("protection")
+      @battle.pbDisplay(_INTL("But it failed!"))
+      return -1
+    end
+    return ret
+  end
+end
+
+################################################################################
+# Decreases the user's Special Attack by 1 stage. (Make it Rain)
+################################################################################
+class PokeBattle_Move_365 < PokeBattle_Move
+  def pbEffect(attacker,opponent,hitnum=0,alltargets=nil,showanimation=true)
+    ret=super(attacker,opponent,hitnum,alltargets,showanimation)
+    if opponent.damagestate.calcdamage>0
+      if attacker.pbCanReduceStatStage?(PBStats::SPATK,attacker,false,self)
+        attacker.pbReduceStat(PBStats::SPATK,1,attacker,false,self)
+      end
+    end
+    return ret
+  end
+end
+
+################################################################################
+# Switches out the user. (Shed Tail)
+# TODO: Halve HP and create a substitute
+################################################################################
+class PokeBattle_Move_366 < PokeBattle_Move
+  def pbEffect(attacker,opponent,hitnum=0,alltargets=nil,showanimation=true)
+    if !attacker.isFainted? &&
+       @battle.pbCanChooseNonActive?(attacker.index) &&
+       !@battle.pbAllFainted?(@battle.pbParty(opponent.index))
+        pbShowAnimation(@id,attacker,nil,hitnum,alltargets,showanimation)
+         attacker.effects[PBEffects::Uturn]=true
+        return 0
+     else
+			pbSEPlay("protection")
+      @battle.pbDisplay(_INTL("But it failed!"))
+      return -1
+    end
+  end
+end
+
+################################################################################
+# Switches out the user. (Chilly Reception)
+# Also makes hail if it can be created
+################################################################################
+class PokeBattle_Move_367 < PokeBattle_Move
+  def pbEffect(attacker,opponent,hitnum=0,alltargets=nil,showanimation=true)
+    if !attacker.isFainted? &&
+       @battle.pbCanChooseNonActive?(attacker.index) &&
+       !@battle.pbAllFainted?(@battle.pbParty(opponent.index))
+        pbShowAnimation(@id,attacker,nil,hitnum,alltargets,showanimation)
+          if @battle.weather != PBWeather::HEAVYRAIN || 
+             @battle.weather != PBWeather::HARSHSUN ||
+             @battle.weather != PBWeather::STRONGWINDS ||
+             @battle.weather != PBWeather::HAIL
+            @battle.weather=PBWeather::HAIL
+            @battle.weatherduration=5
+            @battle.weatherduration=8 if attacker.hasWorkingItem(:ICYROCK)
+            @battle.pbCommonAnimation("Hail",nil,nil)
+            @battle.pbDisplay(_INTL("It started to hail!"))
+          end
+         attacker.effects[PBEffects::Uturn]=true
+        return 0
+     else
+			pbSEPlay("protection")
+      @battle.pbDisplay(_INTL("But it failed!"))
+      return -1
+    end
+  end
+end
+
+################################################################################
+# Increases the user's Attack and Spped by 1 stage each.
+# Ends Spikes, Stealth Rock, Sticky Web and Toxic Spikes as well (Tidy Up)
+################################################################################
+class PokeBattle_Move_368 < PokeBattle_Move
+  def pbEffect(attacker,opponent,hitnum=0,alltargets=nil,showanimation=true)
+    if !attacker.pbCanIncreaseStatStage?(PBStats::ATTACK,attacker,false,self) &&
+       !attacker.pbCanIncreaseStatStage?(PBStats::DEFENSE,attacker,false,self)
+      @battle.pbDisplay(_INTL("{1}'s stats won't go any higher!",attacker.pbThis))
+      return -1
+    end
+    pbShowAnimation(@id,attacker,opponent,hitnum,alltargets,showanimation)
+    showanim='mix' # Was true
+    if attacker.pbCanIncreaseStatStage?(PBStats::ATTACK,attacker,false,self)
+      attacker.pbIncreaseStat(PBStats::ATTACK,1,attacker,false,self,showanim)
+      showanim=false
+    end
+    if attacker.pbCanIncreaseStatStage?(PBStats::SPEED,attacker,false,self)
+      attacker.pbIncreaseStat(PBStats::SPEED,1,attacker,false,self,showanim)
+      showanim=false
+    end
+    for i in [attacker,opponent]
+      if i.pbOwnSide.effects[PBEffects::StealthRock]
+        i.pbOwnSide.effects[PBEffects::StealthRock]=false
+        @battle.pbDisplay(_INTL("{1} blew away stealth rocks!",attacker.pbThis))     
+      end
+      if i.pbOwnSide.effects[PBEffects::Spikes]>0
+        i.pbOwnSide.effects[PBEffects::Spikes]=0
+        @battle.pbDisplay(_INTL("{1} blew away Spikes!",attacker.pbThis))     
+      end
+      if i.pbOwnSide.effects[PBEffects::ToxicSpikes]>0
+        i.pbOwnSide.effects[PBEffects::ToxicSpikes]=0
+        @battle.pbDisplay(_INTL("{1} blew away poison spikes!",attacker.pbThis))     
+      end
+      if i.pbOwnSide.effects[PBEffects::StickyWeb]
+        i.pbOwnSide.effects[PBEffects::StickyWeb]=false
+        @battle.pbDisplay(_INTL("{1} blew away sticky webs!",attacker.pbThis))     
+      end
+    end
+    return 0
+  end
+end
+
+################################################################################
+# Power increases the more hits it took on the battle while active (Rage Fist)
+# Not yet added but will one day
+################################################################################
+class PokeBattle_Move_369 < PokeBattle_UnimplementedMove
+end
+
+################################################################################
+# After attacking, the user removes this move's type from their own typing
+# This move cannot be used for a Pokemon for which the move isn't STAB (Double Shock)
+# Can work on Bolt Type Pokemon. Move will be Bolt-type if used by Bolt
+# Bolt-Electric Pokemon will have this move working as dual-type move
+################################################################################
+class PokeBattle_Move_370 < PokeBattle_Move
+  def pbEffect(attacker,opponent,hitnum=0,alltargets=nil,showanimation=true)
+    type=@type
+    if !(attacker.pbHasType?(:ELECTRIC) || attacker.pbHasType?(:BOLT))
+      pbSEPlay("protection")
+      @battle.pbDisplay(_INTL("But it failed!"))
+      return -1
+    end
+    if !(type==getConst(PBTypes,:ELECTRIC) || type==getConst(PBTypes,:BOLT))
+        pbSEPlay("protection")
+      @battle.pbDisplay(_INTL("But it failed!"))
+      return -1
+    end
+    ret=super(attacker,opponent,hitnum,alltargets,showanimation)
+    # Electric Case
+    type=getConst(PBTypes,:ELECTRIC)
+    if attacker.effects[PBEffects::Type3]==type
+      attacker.effects[PBEffects::Type3]=-1
+    end
+    if attacker.type1==type && attacker.type2==type
+      attacker.type1=getConst(PBTypes,:QMARKS)
+      attacker.type2=getConst(PBTypes,:QMARKS)
+    elsif attacker.type1==type  
+      attacker.type1=attacker.type2
+    elsif attacker.type2==type
+      attacker.type2=attacker.type1
+    end
+    # Bolt Case
+    type=getConst(PBTypes,:BOLT)
+    if attacker.effects[PBEffects::Type3]==type
+      attacker.effects[PBEffects::Type3]=-1
+    end
+    if attacker.type1==type && attacker.type2==type
+      attacker.type1=getConst(PBTypes,:QMARKS)
+      attacker.type2=getConst(PBTypes,:QMARKS)
+    elsif attacker.type1==type  
+      attacker.type1=attacker.type2
+    elsif attacker.type2==type
+      attacker.type2=attacker.type1
+    end
+    attacker.effects[PBEffects::Mimicry] = false
+    @battle.pbDisplay(_INTL("{1} burned itself out!",attacker.pbThis))
+    return ret
+  end
+  def pbModifyDamage(damagemult,attacker,opponent)
+    type=getConst(PBTypes,:ELECTRIC) || -1
+    if type>=0 && attacker.pbHasType?(:ELECTRIC) && attacker.pbHasType?(:BOLT)
+      mult=PBTypes.getCombinedEffectiveness(type,
+         opponent.type1,opponent.type2,opponent.effects[PBEffects::Type3])
+      return ((damagemult*mult)/8).round
+    end
+    return damagemult
+  end
+  def pbModifyType(type,attacker,opponent)
+    type=getConst(PBTypes,:BOLT) if attacker.pbHasType?(:BOLT)
+    type=getConst(PBTypes,:ELECTRIC)
+    return type
+  end
+end
+
+################################################################################
+# (handled elsewhere) This move cannot be used twice in a row 
+# (Gigaton Hammer)
+################################################################################
+class PokeBattle_Move_371 < PokeBattle_Move
 end
 
 

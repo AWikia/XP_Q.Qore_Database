@@ -17,7 +17,7 @@ class PokemonEggHatchScene
     @viewport=Viewport.new(0,0,Graphics.width,Graphics.height)
     @viewport.z=99999
     isbox = @pokemon.remoteBox==1
-    if isHisuian?(@pokemon)
+    if isHisuian?(@pokemon) || isPaldean?(@pokemon)
       background="hatchbg_hisui"
     elsif isGalarian?(@pokemon) || isMysterical?(@pokemon)
       background="hatchbg_galar"

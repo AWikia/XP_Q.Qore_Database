@@ -425,8 +425,8 @@ class PokeBattle_Move
       end
       return true
     end
-    if (opponent.hasWorkingAbility(:STORMDRAIN) && isConst?(type,PBTypes,:WATER) && @function!=0x259) ||
-       (opponent.hasWorkingAbility(:LIGHTNINGROD) && isConst?(type,PBTypes,:ELECTRIC)) && !(attacker.hasWorkingAbility(:STALWART) || user.hasWorkingAbility(:PROPELLERTAIL))
+    if (opponent.hasWorkingAbility(:STORMDRAIN) && isConst?(type,PBTypes,:WATER)) ||
+       (opponent.hasWorkingAbility(:LIGHTNINGROD) && isConst?(type,PBTypes,:ELECTRIC))
       PBDebug.log("[Ability triggered] #{opponent.pbThis}'s #{PBAbilities.getName(opponent.ability)} (made #{@name} ineffective)")
       if opponent.pbCanIncreaseStatStage?(PBStats::SPATK,opponent)
         opponent.pbIncreaseStatWithCause(PBStats::SPATK,1,opponent,PBAbilities.getName(opponent.ability))
@@ -451,7 +451,7 @@ class PokeBattle_Move
     if (opponent.hasWorkingAbility(:DRYSKIN) && isConst?(type,PBTypes,:WATER)) ||
        (opponent.hasWorkingAbility(:VOLTABSORB) && isConst?(type,PBTypes,:ELECTRIC)) ||
        (opponent.hasWorkingAbility(:DOOMYABSORB) && isConst?(type,PBTypes,:DOOM)) ||
-       (opponent.hasWorkingAbility(:DOOMYTREVOR) && isConst?(type,PBTypes,:DOOM) && !(attacker.hasWorkingAbility(:STALWART) || user.hasWorkingAbility(:PROPELLERTAIL))) ||
+       (opponent.hasWorkingAbility(:DOOMYTREVOR) && isConst?(type,PBTypes,:DOOM)) ||
        (opponent.hasWorkingAbility(:EARTHEATER) && isConst?(type,PBTypes,:GROUND)) ||
        (opponent.hasWorkingAbility(:WATERABSORB) && isConst?(type,PBTypes,:WATER))
       PBDebug.log("[Ability triggered] #{opponent.pbThis}'s #{PBAbilities.getName(opponent.ability)} (made #{@name} ineffective)")

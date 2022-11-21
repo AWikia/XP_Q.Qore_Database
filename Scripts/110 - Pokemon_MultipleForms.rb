@@ -8190,10 +8190,27 @@ MultipleForms.register(:DEERLING,{
 "getForm"=>proc{|pokemon|
    time=pbGetTimeNow
    next (time.month-1)%4
+},
+"dexEntry"=>proc{|pokemon|
+   next if pokemon.form==0
+   next _INTL("To prevent Deerling from entering their fields, many farmers will have several Lycanroc stand guard, as they are the natural enemy of Deerling.") if pokemon.form==1
+   next _INTL("These Pokémon are not shy—they will behave as they please, even in front of people. If you feed one of them, it will quickly take a liking to you.") if pokemon.form==2
+   next _INTL("Deerling’s scent changes with the seasons, but when the Pokémon is in its Winter Form, it has hardly any scent at all.") if pokemon.form==3
 }
 })
 
-MultipleForms.copy(:DEERLING,:SAWSBUCK)
+MultipleForms.register(:SAWSBUCK,{
+"getForm"=>proc{|pokemon|
+   time=pbGetTimeNow
+   next (time.month-1)%4
+},
+"dexEntry"=>proc{|pokemon|
+   next if pokemon.form==0
+   next _INTL("There are many Sawsbuck enthusiasts. The thicker and larger the branches and leaves on its antlers, the more majestic the Sawsbuck is thought to be.") if pokemon.form==1
+   next _INTL("There are many Sawsbuck enthusiasts. The darker the red of the foliage that hangs from its antlers, the more stylish the Sawsbuck is thought to be.") if pokemon.form==2
+   next _INTL("It’s said that Sawsbuck are calm and easy to tame during the season when they take on this form, so it’s the perfect time to make one your partner.") if pokemon.form==3
+}
+})
 
 MultipleForms.register(:TORNADUS,{
 "getBaseStats"=>proc{|pokemon|
@@ -8387,9 +8404,15 @@ MultipleForms.register(:FLABEBE,{
 "getFormOnCreation"=>proc{|pokemon|
    next rand(6)
 },
+"dexEntry"=>proc{|pokemon|
+   next if pokemon.form==0 
+   next _INTL("This Flabébé rides a yellow flower. The Pokémon is defenseless and vulnerable before it has found and received power from a flower.") if pokemon.form==1
+   next _INTL("This Flabébé rides an orange flower. On its head, it wears a crown of pollen that has healing properties.") if pokemon.form==2
+   next _INTL("Once it finds a flower it likes, this Pokémon will spend the rest of its life taking care of its flower. This Flabébé rides a blue flower.") if pokemon.form==3
+   next _INTL("This Flabébé rides a white flower. The wind blows this Pokémon around as it drifts in search of flower gardens.") if pokemon.form==4
+   next _INTL("This Flabébé rides a pink flower. On its head, it wears a crown of pollen that has loving properties.") if pokemon.form==5
+}
 })
-
-MultipleForms.copy(:FLABEBE,:FLORGES)
 
 
 MultipleForms.register(:FLOETTE,{
@@ -8419,7 +8442,30 @@ MultipleForms.register(:FLOETTE,{
    maps=[92,398]  # Maps for Eternal Flower
    next ($game_map && maps.include?($game_map.map_id)) ? 6 : rand(6)
 },
+"dexEntry"=>proc{|pokemon|
+   next if pokemon.form==0 
+   next _INTL("This Pokémon can draw forth the power hidden within yellow flowers. This power then becomes the moves Floette uses to protect itself.") if pokemon.form==1
+   next _INTL("This Pokémon can draw forth the most power when in sync with orange flowers, compared to flowers of other colors.") if pokemon.form==2
+   next _INTL("Whenever this Pokémon finds flowering plants that are withering, it will bring them back to its territory and care for them until they are healthy.") if pokemon.form==3
+   next _INTL("Floette that are fond of white flowers can also easily sync with flowers of other colors.") if pokemon.form==4
+   next _INTL("This Pokémon can draw forth the most power when in sync with pink flowers, compared to flowers of other colors..") if pokemon.form==5
+}
 })
+
+MultipleForms.register(:FLORGES,{
+"getFormOnCreation"=>proc{|pokemon|
+   next rand(6)
+},
+"dexEntry"=>proc{|pokemon|
+   next if pokemon.form==0 
+   next _INTL("It is said that there was once a Florges that protected the garden of a castle for over 300 years.") if pokemon.form==1
+   next _INTL("Its orange flowers fire off powerful beams, attacking as if they were a battery of artillery.") if pokemon.form==2
+   next _INTL("Though usually compassionate, Florges will hunt down anyone who vandalizes its flower garden, showing no mercy even if they beg for their lives.") if pokemon.form==3
+   next _INTL("A flower garden made by a white-flowered Florges will be beautifully decorated with flowering plants of many different colors.") if pokemon.form==4
+   next _INTL("Its pink flowers fire off powerful loving beams, attacking as if they were a battery of artillery.") if pokemon.form==5
+}
+})
+
 
 =begin
 MultipleForms.register(:FURFROU,{
@@ -8472,6 +8518,10 @@ MultipleForms.register(:AEGISLASH,{
 "getBaseStats"=>proc{|pokemon|
    next if pokemon.form==0      # Shield Forme
    next [60,140,50,60,140,50]   # Blade Forme
+},
+"dexEntry"=>proc{|pokemon|
+   next if pokemon.form==0 
+   next _INTL("This stance is dedicated to offense. It can cleave any opponent with the strength and weight of its steel blade.") if pokemon.form==1
 }
 })
 

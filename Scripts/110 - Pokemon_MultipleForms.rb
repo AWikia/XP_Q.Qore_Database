@@ -8398,7 +8398,46 @@ MultipleForms.register(:SCATTERBUG,{
 },
 })
 
-MultipleForms.copy(:SCATTERBUG,:SPEWPA,:VIVILLON)
+MultipleForms.copy(:SCATTERBUG,:SPEWPA)
+
+MultipleForms.register(:VIVILLON,{
+"getFormOnCreation"=>proc{|pokemon|
+#  ret=$Trainer.secretID%18
+   ret=pokemon.personalID&3
+   ret|=((pokemon.personalID>>8)&3)<<2
+   ret|=((pokemon.personalID>>16)&3)<<4
+   ret|=((pokemon.personalID>>24)&3)<<6
+   ret%=18
+   r=rand(1000)
+   if r < 30
+     ret=[18,19][rand(2)] # 3% chance of having Fancy or PokeBall Pattern
+   end
+   next ret
+},
+"dexEntry"=>proc{|pokemon|
+   next                                                                                                                                                           if pokemon.form==0 
+   next _INTL("The patterns on this Pokémon depend on the climate and topography of the land it was born in. This form is from snowy lands.")                     if pokemon.form==1
+   next _INTL("The patterns on this Pokémon depend on the climate and topography of the land it was born in. This form is from lands of severe cold.")            if pokemon.form==2
+   next _INTL("The patterns on this Pokémon depend on the climate and topography of the land it was born in. This form is from lands of vast space.")             if pokemon.form==3
+   next _INTL("The patterns on this Pokémon depend on the climate and topography of the land it was born in. This form is from verdant lands.")                   if pokemon.form==4
+   next _INTL("The patterns on this Pokémon depend on the climate and topography of the land it was born in. This form is from lands with distinct seasons.")     if pokemon.form==5
+   next _INTL("The patterns on this Pokémon depend on the climate and topography of the land it was born in. This form is from lands where flowers bloom.")       if pokemon.form==6
+   next _INTL("The patterns on this Pokémon depend on the climate and topography of the land it was born in. This form is from sun-drenched lands.")              if pokemon.form==7
+   next _INTL("The patterns on this Pokémon depend on the climate and topography of the land it was born in. This form is from lands with ocean breezes.")        if pokemon.form==8
+   next _INTL("The patterns on this Pokémon depend on the climate and topography of the land it was born in. This form is from places with many islands.")        if pokemon.form==9
+   next _INTL("The patterns on this Pokémon depend on the climate and topography of the land it was born in. This form is from lands with little rain.")          if pokemon.form==10
+   next _INTL("The patterns on this Pokémon depend on the climate and topography of the land it was born in. This form is from parched lands.")                   if pokemon.form==11
+   next _INTL("The patterns on this Pokémon depend on the climate and topography of the land it was born in. This form is from lands where large rivers flow.")   if pokemon.form==12
+   next _INTL("The patterns on this Pokémon depend on the climate and topography of the land it was born in. This form is from lands with intense rainfall.")     if pokemon.form==13
+   next _INTL("The patterns on this Pokémon depend on the climate and topography of the land it was born in. This form is from lands with a tropical climate.")   if pokemon.form==14
+   next _INTL("The patterns on this Pokémon depend on the climate and topography of the land it was born in. This form is from lands bathed in light.")           if pokemon.form==15
+   next _INTL("The patterns on this Pokémon depend on the climate and topography of the land it was born in. This form is from lands of perpetual summer.")       if pokemon.form==16
+   next _INTL("The patterns on this Pokémon depend on the climate and topography of the land it was born in. This form is from lands of tropical rain forests.")  if pokemon.form==17
+   next _INTL("The patterns on this Pokémon depend on the climate and topography of the land it was born in. This form is from a mysterious land.")               if pokemon.form==18
+   next _INTL("The patterns on this Pokémon depend on the climate and topography of the land it was born in. This form is from a special land.")                  if pokemon.form==19
+}
+})
+
 
 MultipleForms.register(:FLABEBE,{
 "getFormOnCreation"=>proc{|pokemon|

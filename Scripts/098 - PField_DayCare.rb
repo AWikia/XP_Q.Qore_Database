@@ -246,6 +246,8 @@ end
      isConst?(babyspecies,PBSpecies,:FLABEBE) ||
      isConst?(babyspecies,PBSpecies,:PUMPKABOO) ||
      isConst?(babyspecies,PBSpecies,:ORICORIO) ||
+     isConst?(babyspecies,PBSpecies,:SQUAWKABILLY) ||
+     isConst?(babyspecies,PBSpecies,:TATSUGIRI) ||
      isConst?(babyspecies,PBSpecies,:OK) || 
      isConst?(babyspecies,PBSpecies,:VODAFONE) || 
      isConst?(babyspecies,PBSpecies,:FOURE) || # MS Office Breds to 4E should be able to evolve to different Office forms
@@ -298,6 +300,9 @@ end
      isConst?(babyspecies,PBSpecies,:GOOMY) ||
      isConst?(babyspecies,PBSpecies,:BERGMITE) ||
      isConst?(babyspecies,PBSpecies,:ROWLET) ||
+     # Paldean Forms
+     isConst?(babyspecies,PBSpecies,:TAUROS) ||
+     isConst?(babyspecies,PBSpecies,:WOOPER) ||
      # Misc Forms (Phonetic, Yorkbook and Mysterican)
      isConst?(babyspecies,PBSpecies,:EKANS) ||
      isConst?(babyspecies,PBSpecies,:SPRITZEE) ||
@@ -311,7 +316,8 @@ end
      isConst?(babyspecies,PBSpecies,:GOSSIFLEUR) ||
      isConst?(babyspecies,PBSpecies,:CLOBBOPUS) ||
      isConst?(babyspecies,PBSpecies,:PINCURCHIN) ||
-     isConst?(babyspecies,PBSpecies,:CUFANT)
+     isConst?(babyspecies,PBSpecies,:CUFANT) ||
+     isConst?(babyspecies,PBSpecies,:SHROODLE)
      egg.form=(ditto0) ? father.form : mother.form
   end
   # Inheriting Moves

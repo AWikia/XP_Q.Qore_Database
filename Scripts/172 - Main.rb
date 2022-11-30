@@ -62,7 +62,8 @@ def getBorders # Edit this along with getBorderNames to add more borders
         getDarkModeFolder+"/border_5",
         getDarkModeFolder+"/border_6",
         "border_7",
-        getDarkModeFolder+"/border_8"
+        getDarkModeFolder+"/border_8",
+        "border_9"
       ]
 end
 
@@ -76,7 +77,8 @@ def getBorderNames # Edit this along with getBorders to add more borders
         "Green Theme-Aware",
         "Purple Theme-Aware",
         "Pride",
-        "Old Script"
+        "Old Script",
+        "Pokémon Scarlet"
       ]
 end
 

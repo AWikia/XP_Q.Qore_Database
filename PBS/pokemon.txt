@@ -36580,6 +36580,7 @@ Color=Brown
 Habitat=Grassland
 Kind=Coin Chest
 Pokedex=This Pokémon was born inside a treasure chest about 1,500 years ago. It sucks the life-force out of scoundrels who try to steal the treasure.
+FormNames=Chest Form,Roaming Form
 BattlerPlayerY=15
 BattlerEnemyY=19
 BattlerAltitude=0

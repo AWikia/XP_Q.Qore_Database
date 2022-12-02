@@ -8026,10 +8026,10 @@ MultipleForms.register(:GIRATINA,{
 },
 "getBaseStats"=>proc{|pokemon|
    next if pokemon.form==0       # Altered Forme
-   next [150,120,100,90,120,100,420,412,413,414,415,416,417,418,445,446] # Origin Forme
+   next [150,120,100,90,120,100] # Origin Forme
 },
 "getForm"=>proc{|pokemon|
-   maps=[49,50,51,72,73]   # Map IDs for Origin Forme
+   maps=[49,50,51,72,73,420,412,413,414,415,416,417,418,445,446]   # Map IDs for Origin Forme
    if isConst?(pokemon.item,PBItems,:GRISEOUSORB) ||
       ($game_map && maps.include?($game_map.map_id))
      next 1
@@ -9782,6 +9782,42 @@ MultipleForms.register(:DUDUNSPARCE,{
    next 474
 }
 })
+
+MultipleForms.register(:GIMMIGHOUL,{
+"getFormOnCreation"=>proc{|pokemon|
+   maps=[131,132,133,374,375,376]   # Map IDs for Roaming Forme
+   if $game_map && maps.include?($game_map.map_id)
+     next 1 # Eternal
+   else
+     next 0 
+   end
+},
+"color"=>proc{|pokemon|
+   next if pokemon.form==0
+   next 1 if pokemon.form==1
+},
+"getAbilityList"=>proc{|pokemon|
+   next if pokemon.form==0
+   next [[getID(PBAbilities,:RUNAWAY),0]] if pokemon.form==1
+},
+"height"=>proc{|pokemon|
+   next if pokemon.form==0
+   next 1
+},
+"weight"=>proc{|pokemon|
+   next if pokemon.form==0
+   next 1
+},
+"getBaseStats"=>proc{|pokemon|
+   next if pokemon.form==0  # Chest Forme
+   next [45,30,25,80,75,45] # Roaming Forme
+},
+"dexEntry"=>proc{|pokemon|
+   next if pokemon.form==0
+   next _INTL("This Pokémon was born from passion that seeped into a coin. It wanders, apparently seeking to return to the treasure chest it once inhabited.") if pokemon.form==1
+}
+})
+
 
 
 ################################################################################

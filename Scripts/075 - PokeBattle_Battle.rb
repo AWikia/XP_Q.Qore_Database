@@ -1074,6 +1074,14 @@ class PokeBattle_Battle
       end
       return false
     end
+    if thismove.function==0x371 # Gigaton Hammer
+      if thismove.id==thispkmn.lastMoveUsed
+        if showMessages
+          pbDisplayPaused(_INTL("{1} can't use this move twice in a row!",thispkmn.pbThis))
+        end
+        return false
+      end
+    end
     if thispkmn.effects[PBEffects::Encore]>0 && idxMove!=thispkmn.effects[PBEffects::EncoreIndex]
       return false
     end

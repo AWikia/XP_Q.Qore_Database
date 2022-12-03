@@ -4722,6 +4722,15 @@ class PokeBattle_Battler
         return false
       end
     end
+    # Gigaton Hammer
+    if thismove.function==0x371 && 
+      thismove.id==@lastMoveUsed && thismove.id!=@battle.struggle.id &&
+      @effects[PBEffects::TwoTurnAttack]==0
+			pbSEPlay("protection")
+      @battle.pbDisplayPaused(_INTL("{1} can't use that move in a row!",pbThis))
+      PBDebug.log("[Move failed] #{pbThis} can't use #{thismove.name}")
+      return false
+    end
     if pbOpposing1.effects[PBEffects::Imprison] && !pbOpposing1.isFainted?
       if thismove.id==pbOpposing1.moves[0].id ||
          thismove.id==pbOpposing1.moves[1].id ||
@@ -4905,7 +4914,8 @@ class PokeBattle_Battler
            originalTarget.effects[PBEffects::SilkTrap] ||
            originalTarget.effects[PBEffects::SpikyShield] ||
            originalTarget.effects[PBEffects::BanefulBunker] ||
-           originalTarget.effects[PBEffects::Obstruct]) ||             
+           originalTarget.effects[PBEffects::Obstruct] ||
+           riginalTarget.effects[PBEffects::SilkTrap]) ||             
            originalTarget.effects[PBEffects::TwoTurnAttack]>0 ||
            !thismove.pbAccuracyCheck(user,originalTarget)) && !changetarget
           target=originalTarget.pbPartner
@@ -4968,7 +4978,8 @@ class PokeBattle_Battler
            (secondTarget.pbOwnSide.effects[PBEffects::QuickGuard] && thismove.priority>0) ||
            secondTarget.effects[PBEffects::SpikyShield] ||
            secondTarget.effects[PBEffects::BanefulBunker] ||
-           secondTarget.effects[PBEffects::Obstruct]) ||             
+           secondTarget.effects[PBEffects::Obstruct] ||
+           secondTarget.effects[PBEffects::SilkTrap]) ||             
            secondTarget.effects[PBEffects::TwoTurnAttack]>0 ||
            !thismove.pbAccuracyCheck(user,secondTarget)) && !changetarget
           target=secondTarget.pbPartner if secondTarget.pbPartner!=user.pbPartner

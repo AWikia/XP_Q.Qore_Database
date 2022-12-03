@@ -1835,6 +1835,8 @@ def pbCryFile(pokemon)
     end
     filename=sprintf("%03dCry",pokemon.species,(pokemon.form rescue 0)) if !pbResolveAudioSE(filename)
     return filename if pbResolveAudioSE(filename)
+    filename=sprintf("000Cry") if !pbResolveAudioSE(filename)
+    return filename if pbResolveAudioSE(filename)
   end
   return nil
 end

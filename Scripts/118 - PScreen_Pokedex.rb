@@ -328,7 +328,8 @@ class PokemonPokedexScene
   def setIconBitmap(species)
     gender=($Trainer.formlastseen[species][0] rescue 0)
     form=($Trainer.formlastseen[species][1] rescue 0)
-    @sprites["icon"].setSpeciesBitmapDex(species,(gender==1),form)
+    color=($Trainer.formlastseen[species][2] rescue 0)
+    @sprites["icon"].setSpeciesBitmapDex(species,(gender==1),form,false,false,false,false,false,color)
     pbPositionPokemonSprite(@sprites["icon"],116-32,164-64+7)
   end
 
@@ -866,6 +867,8 @@ class PokemonPokedexScene
     indexNumber-=1 if DEXINDEXOFFSETS.include?(pbGetPokedexRegion)
     gender=($Trainer.formlastseen[species][0] rescue 0)
     form=($Trainer.formlastseen[species][1] rescue 0)
+    color=($Trainer.formlastseen[species][2] rescue 0)  
+
     @dummypokemon.species=species
     @dummypokemon.setGender(gender)
     @dummypokemon.forceForm(form)
@@ -946,7 +949,7 @@ class PokemonPokedexScene
       end
     end
     pbDrawTextPositions(@sprites["overlay"].bitmap,textpos)
-    @sprites["entryicon"].setSpeciesBitmapDex(species,(gender==1),form)
+    @sprites["entryicon"].setSpeciesBitmapDex(species,(gender==1),form,false,false,false,false,false,color)
     pbPositionPokemonSpriteMirr(@sprites["entryicon"],104,70)
   end
   

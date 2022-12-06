@@ -31,7 +31,7 @@ class PokemonEggHatchScene
     @sprites["pokemon"]=PokemonSprite.new(@viewport)
     @sprites["pokemon"].setSpeciesBitmap(@pokemon.species,@pokemon.isFemale?,
                                          (@pokemon.form rescue 0),@pokemon.isShiny?,
-                                         false,false,true,isbox) # Egg sprite
+                                         false,false,true,isbox,(@pokemon.color rescue 0)) # Egg sprite
     @sprites["pokemon"].x=Graphics.width/2-@sprites["pokemon"].bitmap.width/2
     @sprites["pokemon"].y=48+(Graphics.height-@sprites["pokemon"].bitmap.height)/2
     @sprites["hatch"]=BitmapSprite.new(Graphics.width,Graphics.height,@viewport)
@@ -45,7 +45,7 @@ class PokemonEggHatchScene
   end
 
   def pbMain
-    crackfilename = pbCheckPokemonBitmapFiles([@pokemon.species,false,@pokemon.isFemale?,@pokemon.isShiny?,(@pokemon.form rescue 0),false],'eggCracks')
+    crackfilename = pbCheckPokemonBitmapFiles([@pokemon.species,false,@pokemon.isFemale?,@pokemon.isShiny?,(@pokemon.form rescue 0),false,(@pokemon.color rescue 0)],'eggCracks')
     crackfilename=pbResolveBitmap(crackfilename)
     hatchSheet=AnimatedBitmap.new(crackfilename)
     if isGalarian?(@pokemon)

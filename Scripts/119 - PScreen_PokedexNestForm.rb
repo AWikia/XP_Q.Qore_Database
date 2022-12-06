@@ -228,6 +228,10 @@ class PokedexFormScene
     @species=species
     @gender=$Trainer.formlastseen[species][0]
     @form=$Trainer.formlastseen[species][1]
+    @color=$Trainer.formlastseen[species][2]
+    @dummypokemon2=PokeBattle_Pokemon.new(1,1)
+    @dummypokemon2.species=species
+    @dummypokemon2.forceForm(@form)
     @available=pbGetAvailable # [name, gender, form]
     @sprites={}
     @sprites["background"]=IconSprite.new(0,0,@viewport)
@@ -261,8 +265,8 @@ class PokedexFormScene
 
   def pbUpdate
     pbUpdateSpriteHash(@sprites)
-      @sprites["front"].setSpeciesBitmap(@species,(@gender==1),@form,@shinyform,false,false)
-      @sprites["back"].setSpeciesBitmap(@species,(@gender==1),@form,@shinyform,false,true)
+      @sprites["front"].setSpeciesBitmap(@species,(@gender==1),@form,@shinyform,false,false,false,false,@color)
+      @sprites["back"].setSpeciesBitmap(@species,(@gender==1),@form,@shinyform,false,true,false,false,@color)
   end
 
   def pbRefresh
@@ -310,9 +314,9 @@ class PokedexFormScene
     ]
 
     pbDrawTextPositions(@sprites["info"].bitmap,text)
-      @sprites["front"].setSpeciesBitmap(@species,(@gender==1),@form,@shinyform,false,false)
+    @sprites["front"].setSpeciesBitmap(@species,(@gender==1),@form,@shinyform,false,false,false,false,@color)
     pbPositionPokemonSprite(@sprites["front"],74,96)
-      @sprites["back"].setSpeciesBitmap(@species,(@gender==1),@form,@shinyform,false,true)
+    @sprites["back"].setSpeciesBitmap(@species,(@gender==1),@form,@shinyform,false,true,false,false,@color)
     metrics=load_data("Data/metrics.dat")
     backMetric=metrics[0][@species]
     backMetric2=getBattleSpriteMetricOffset(@species,0)
@@ -321,11 +325,17 @@ class PokedexFormScene
   end
 
   def pbGetAvailable
-    available=[] # [name, gender, form]
+    available=[] # [name, gender, form, color]
     dexdata=pbOpenDexData
     pbDexDataOffset(dexdata,@species,18)
     genderbyte=dexdata.fgetb
     dexdata.close
+    
+    dexdata=pbOpenDexData
+    pbDexDataOffset(dexdata,@species,6)
+    @color=dexdata.fgetb
+    dexdata.close
+    
     formnames=pbGetMessage(MessageTypes::FormNames,@species)
     if !formnames || formnames==""
       formnames=[""]
@@ -340,11 +350,11 @@ class PokedexFormScene
         if $Trainer.formseen[@species][j][0] || ALWAYSSHOWALLFORMS # That gender/form has been seen
           if pbResolveBitmap(sprintf("Graphics/Battlers/%sf",getConstantName(PBSpecies,@species))) ||
              pbResolveBitmap(sprintf("Graphics/Battlers/%03df",@species))
-            available.push([_INTL("{1} Male",formnames[0]),j,0]) if j==0
-            available.push([_INTL("{1} Female",formnames[0]),j,0]) if j==1
+            available.push([_INTL("{1} Male",formnames[0]),j,0,@color]) if j==0
+            available.push([_INTL("{1} Female",formnames[0]),j,0,@color]) if j==1
           else
             gendertopush=(genderbyte==254) ? 1 : 0
-            available.push([formnames[0],gendertopush,0])
+            available.push([formnames[0],gendertopush,0,@color])
             break
           end
         end
@@ -352,39 +362,43 @@ class PokedexFormScene
     else
       if $Trainer.formseen[@species][0][0] || ALWAYSSHOWALLFORMS # Male/form 0 has been seen
         if genderbyte!=254 && genderbyte!=255 # Not always female & not genderless
-          available.push([_INTL("Male"),0,0])
+          available.push([_INTL("Male"),0,0,@color])
         end
       end
       if $Trainer.formseen[@species][1][0] || ALWAYSSHOWALLFORMS # Female/form 0 has been seen
         if genderbyte!=0 && genderbyte!=255 # Not always male & not genderless
-          available.push([_INTL("Female"),1,0])
+          available.push([_INTL("Female"),1,0,@color])
         end
       end
       if $Trainer.formseen[@species][0][0] || ALWAYSSHOWALLFORMS # Genderless/form 0 has been seen
         if genderbyte==255 # Genderless
           if formnames && formnames.length>1
-            available.push([_INTL("One Form"),0,0])
+            available.push([_INTL("One Form"),0,0,@color])
           else
-            available.push([_INTL("Genderless"),0,0])
+            available.push([_INTL("Genderless"),0,0,@color])
           end
         end
       end
     end
     for i in 1...formnames.length
+      @dummypokemon2.forceForm(i)
+      @color=@dummypokemon2.color
       for j in 0...2
         if $Trainer.formseen[@species][j][i] || ALWAYSSHOWALLFORMS # That gender/form has been seen
           if pbResolveBitmap(sprintf("Graphics/Battlers/%sf_%d",getConstantName(PBSpecies,@species),i)) ||
              pbResolveBitmap(sprintf("Graphics/Battlers/%03df_%d",@species,i))
-            available.push([_INTL("{1} Male",formnames[i]),j,i]) if j==0
-            available.push([_INTL("{1} Female",formnames[i]),j,i]) if j==1
+            available.push([_INTL("{1} Male",formnames[i]),j,i,@color]) if j==0
+            available.push([_INTL("{1} Female",formnames[i]),j,i,@color]) if j==1
           else
             gendertopush=(genderbyte==254) ? 1 : 0
-            available.push([formnames[i],gendertopush,i])
+            available.push([formnames[i],gendertopush,i,@color])
             break
           end
         end
       end
     end
+    @dummypokemon2.forceForm(@form)
+    @color=@dummypokemon2.color
     return available
   end
 
@@ -400,9 +414,10 @@ class PokedexFormScene
     pbPlayDecisionSE
     oldgender=@gender
     oldform=@form
+    oldcolor=@color
     commands=pbGetCommands
     using(cmdwindow=Window_CommandPokemon.new(commands)) {
-       cmdwindow.height=128 if cmdwindow.height>128
+       cmdwindow.height=32 if cmdwindow.height>32
        cmdwindow.z=@viewport.z+1
        cmdwindow.visible=false
        pbBottomRight(cmdwindow)
@@ -423,12 +438,14 @@ class PokedexFormScene
          if cmdwindow.index!=oldindex
            @gender=@available[cmdwindow.index][1]
            @form=@available[cmdwindow.index][2]
+           @color=@available[cmdwindow.index][3]
            pbRefresh
          end
          if Input.trigger?(Input::B)
            pbPlayCancelSE()
            @gender=oldgender
            @form=oldform
+           @color=oldcolor
            pbRefresh
            break
          end
@@ -472,6 +489,7 @@ class PokedexFormScene
     end
     $Trainer.formlastseen[@species][0]=@gender
     $Trainer.formlastseen[@species][1]=@form
+    $Trainer.formlastseen[@species][2]=@color
     return ret
   end
 

@@ -1449,8 +1449,7 @@ def pbCheckPokemonBitmapFiles(params,extra='')
   tshiny=false
   tform=""
   tcolor=""
-  @color=""
-  @shiny=false
+  # Regular Sprites
   for i in 0...2**factors.length
     for j in 0...factors.length
       case factors[j][0]
@@ -1466,8 +1465,6 @@ def pbCheckPokemonBitmapFiles(params,extra='')
         tcolor=((i/(2**j))%2==0) ? factors[j][1] : factors[j][2]
       end
     end
-        @color=tcolor if @color==""
-        @shiny=tshiny if !@shiny
 #TEMP
    if ($PokemonSystem.newsix==1 rescue false) 
       bitmapFileName=sprintf("Graphics/Battlers/New6/%s%s%s%s%s%s%s",
@@ -1513,15 +1510,32 @@ def pbCheckPokemonBitmapFiles(params,extra='')
     ret=pbResolveBitmap(bitmapFileName)
     return ret if ret
   end
+  # Fallback Sprites
+  for i in 0...2**factors.length
+    for j in 0...factors.length
+      case factors[j][0]
+      when 2   # gender
+        tgender=((i/(2**j))%2==0) ? factors[j][1] : factors[j][2]
+      when 3   # shiny
+        tshiny=((i/(2**j))%2==0) ? factors[j][1] : factors[j][2]
+      when 4   # form
+        tform=((i/(2**j))%2==0) ? factors[j][1] : factors[j][2]
+      when 5   # shadow
+        tshadow=((i/(2**j))%2==0) ? factors[j][1] : factors[j][2]
+      when 6   # color
+        tcolor=((i/(2**j))%2==0) ? factors[j][1] : factors[j][2]
+      end
+    end
     bitmapFileName=sprintf("Graphics/Battlers/000%s%s%s%s%s%s",
        extra,
        tgender ? "f" : "",
-       @shiny ? "s" : "",
+       tshiny ? "s" : "",
        back ? "b" : "",
-       (@color!="" ? "_"+@color : ""),
+       (tcolor!="" ? "_"+tcolor : ""),
        tshadow ? "_shadow" : "") rescue nil
     ret=pbResolveBitmap(bitmapFileName)
     return ret if ret
+  end
   return nil
 end
 

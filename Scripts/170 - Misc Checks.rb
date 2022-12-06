@@ -269,7 +269,7 @@ def isHisuian?(pokemon)
 
 end
 
-def isPaldean(pokemon)
+def isPaldean?(pokemon)
   # NOTE: Also includes their evolutions exclusive to Paldean forms
   # (Closire)
   return (isConst?(pokemon.species,PBSpecies,:WOOPER) && pokemon.form==1) ||

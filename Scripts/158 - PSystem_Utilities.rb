@@ -189,7 +189,12 @@ def qorePartyMemorize
   $Trainer.party=[]
 end
 
-
+# Returns the Adjusted National Pokedex Ordering done in Q.Qore (With Q.Qore
+# Pokemon to the top and the Regular Species after them
+def getQoreDexList(dexlist)
+  return dexlist[649..848] | dexlist[921..940] | dexlist[1029..1048] | dexlist[1130..1139] | dexlist[1148..1247] | dexlist[0..648] | dexlist[849..920] | dexlist[941..1028] | dexlist[1049..1129] | dexlist[1140..1147] | dexlist[1248..1999]
+end
+  
 def getDexNumber(indexNumber=0)
     fdexno = indexNumber.to_s
     if indexNumber > 649 and indexNumber < 850 # Κορα Κορε Generation I
@@ -261,40 +266,6 @@ def getDexNumber(indexNumber=0)
     end
     return fdexno
 end
-
-# Used on Storage System (Not for use)
-=begin
-def getDexNumber2(i=0)
-    fdexno = i
-    if i > 649 and i < 850 # Κορα Κορε Generation I (891 - 1090)
-      fnum = (i + 241 + addspc)
-      fdexno = fnum
-    elsif i > 921 and i < 942 # Κορα Κορε Generation II (1091 - 1110)
-      fnum = (i + 169 + addspc)
-      fdexno = fnum
-    elsif i > 1029 and i < 1050  # Κορα Κορε Generation III (1111 - 1130)
-      fnum = (i + 81 + addspc)
-      fdexno = fnum
-    elsif i > 1130 and i < 1141 # Κορα Κορε Generation IV
-      fnum = (i + addspc)
-      fdexno = fnum
-    elsif i <= 649 # Generation I-V
-      fdexno = fdexno
-    elsif i > 941 and i < 1030 # Generation VII
-      fdexno = (i - 220)
-      fdexno = fdexno
-    elsif i > 1049 and i < 1131 # Generation VIII A
-      fdexno = (i - 240)
-      fdexno = fdexno
-    elsif i > 1140 # Generation VIII B
-      fdexno = (i - 250) # TODO: Should be 250
-      fdexno = fdexno
-    else # Generation VI
-      fdexno = (i - 200)
-    end
-    return fdexno
-end
-=end
 
 # Used on Pokemon Chosen (Non alphabet, for proper cursor position)
 

@@ -603,11 +603,16 @@ class PokemonPokedexScene
     case $PokemonGlobal.pokedexMode
     when 0 # Numerical mode
       # Remove species not seen from the list
+      if pbGetPokedexRegion == -1
+          dexlist = getQoreDexList(dexlist)
+      end
+=begin
       i=0; loop do break unless i<dexlist.length
         break if $Trainer.seen[dexlist[i][0]]
         dexlist[i]=nil
         i+=1
       end
+=end
       i=dexlist.length-1; loop do break unless i>=0
         break if !dexlist[i] || $Trainer.seen[dexlist[i][0]]
         dexlist[i]=nil
@@ -615,30 +620,9 @@ class PokemonPokedexScene
       end
       dexlist.compact!
       # Sort species in ascending order by index number, not national species
-      dexlist.sort!{|a,b| a[4]<=>b[4]}
-        if dexlist[1248..1999]      !=nil    # Q.Qore Pokemon E
-          dexlist=dexlist[649..848] | dexlist[921..940] | dexlist[1029..1048] | dexlist[1130..1139] | dexlist[1148..1247] | dexlist[0..648] | dexlist[849..920] | dexlist[941..1028] | dexlist[1049..1129] | dexlist[1140..1147] | dexlist[1248..1999]
-        elsif dexlist[1148..1247]   !=nil    # Q.Qore Pokemon E
-          dexlist=dexlist[649..848] | dexlist[921..940] | dexlist[1029..1048] | dexlist[1130..1139] | dexlist[1148..1247] | dexlist[0..648] | dexlist[849..920] | dexlist[941..1028] | dexlist[1049..1129] | dexlist[1140..1147]
-        elsif dexlist[1140..1999]   !=nil    # Generation VIII Pokemon B
-          dexlist=dexlist[649..848] | dexlist[921..940] | dexlist[1029..1048] | dexlist[1130..1139] | dexlist[0..648] | dexlist[849..920] | dexlist[941..1028] | dexlist[1049..1129] | dexlist[1140..1999]
-        elsif dexlist[1132..1139]   !=nil # Q.Qore Pokemon D
-          dexlist=dexlist[649..848] | dexlist[921..940] | dexlist[1029..1048] | dexlist[1130..1139] | dexlist[0..648] | dexlist[849..920] | dexlist[941..1028] | dexlist[1049..1129]
-        elsif dexlist[1049..1129]   !=nil # Generation VIII Pokemon A
-          dexlist=dexlist[649..848] | dexlist[921..940] | dexlist[1029..1048] | dexlist[0..648] | dexlist[849..920] | dexlist[941..1028] | dexlist[1049..1129]
-        elsif dexlist[1029..1048]   !=nil # Q.Qore Pokemon C
-          dexlist=dexlist[649..848] | dexlist[921..940] | dexlist[1029..1048] | dexlist[0..648] | dexlist[849..920] | dexlist[941..1028]
-        elsif dexlist[941..1028] != nil # Generation VII Pokemon
-          dexlist=dexlist[649..848] | dexlist[921..940] | dexlist[0..648] | dexlist[849..920] | dexlist[941..1028]
-        elsif dexlist[921..940] != nil # Q.Qore Pokemon B
-          dexlist=dexlist[649..848] | dexlist[921..940] | dexlist[0..648] | dexlist[849..920]
-        elsif dexlist[848..920] != nil # Generation VI Pokemon
-          dexlist=dexlist[649..848] | dexlist[0..648] | dexlist[849..920]
-        elsif dexlist[649..848] != nil # Q Qore Pokemon A
-          dexlist=dexlist[649..840] | dexlist[0..648]
-        else
-          dexlist=dexlist[0..648]
-        end
+      if pbGetPokedexRegion != -1 # Not in National Mode
+        dexlist.sort!{|a,b| a[4]<=>b[4]}
+      end
     when 1 # Alphabetical mode
       dexlist.sort!{|a,b| a[1]==b[1] ? a[4]<=>b[4] : a[1]<=>b[1]}
     when 2 # Heaviest mode

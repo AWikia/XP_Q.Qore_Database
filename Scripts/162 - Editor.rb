@@ -969,18 +969,21 @@ end
 def pbChooseSpecies(default)
   cmdwin=pbListWindow([],200)
   commands=[]
+  commands2=[]
   for j in 1..PBSpecies.maxValue
 # QQC Edit
     fdexno = getDexNumber(j)
 # QQC End (PBSpecies.getName(j))
     cname=getConstantName(PBSpecies,j) rescue nil
     commands.push(_ISPRINTF("{1:s} {2:s}",fdexno,PBSpecies.getName(j))) if cname
+    commands2.push(j)
   end
   commands=commands[649..848] | commands[921..940] | commands[1029..1048] | commands[1130..1139] | commands[1148..1247] | commands[0..648] | commands[849..920] | commands[941..1028] | commands[1049..1129] | commands[1140..1147] | commands[1248..1999]
+  commands2=commands2[649..848] | commands2[921..940] | commands2[1029..1048] | commands2[1130..1139] | commands2[1148..1247] | commands2[0..648] | commands2[849..920] | commands2[941..1028] | commands2[1049..1129] | commands2[1140..1147] | commands2[1248..1999]
   ret=pbCommands2(cmdwin,commands,-1,getDexNumber3(default)-1,true)
   cmdwin.dispose
-  value=getDexNumber4(ret)
-  return ret>=0 ? value+1 : 0
+  value=commands2[ret]
+  return ret>=0 ? value : 0
 end
 
 def pbChooseSpeciesOrdered(default)

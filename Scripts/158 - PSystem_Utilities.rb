@@ -224,38 +224,38 @@ def getDexNumber(indexNumber=0)
       fdexno = "Q" + fnum
 
     elsif indexNumber <= 649 # Generation I-V
-      while (fdexno.length < 3)
+      while (fdexno.length < 4)
         fdexno = "0" + fdexno
       end
       fdexno = fdexno + ""
     elsif indexNumber > 941 and indexNumber < 1030 # Generation VII
       fdexno = (indexNumber - 220).to_s
-      while (fdexno.length < 3)
+      while (fdexno.length < 4)
         fdexno = "0" + fdexno
       end
       fdexno = fdexno + ""
     elsif indexNumber > 1049 and indexNumber < 1131 # Generation VIII A
       fdexno = (indexNumber - 240).to_s
-      while (fdexno.length < 3)
+      while (fdexno.length < 4)
         fdexno = "0" + fdexno
       end
       fdexno = fdexno + ""
     elsif indexNumber > 1140 and indexNumber < 1149 # Generation VIII B
       fdexno = (indexNumber - 250).to_s
-      while (fdexno.length < 3)
+      while (fdexno.length < 4)
         fdexno = "0" + fdexno
       end
       fdexno = fdexno + ""
     elsif indexNumber > 1248 # Generation VIII C
       fdexno = (indexNumber - 350).to_s
-      while (fdexno.length < 3)
+      while (fdexno.length < 4)
         fdexno = "0" + fdexno
       end
       fdexno = fdexno + ""
 
       else # Generation VI
       fdexno = (indexNumber - 200).to_s
-      while (fdexno.length < 3)
+      while (fdexno.length < 4)
         fdexno = "0" + fdexno
       end      
     end
@@ -331,45 +331,6 @@ def getDexNumber3(i=0)
       fdexno = fdexno
     else # Generation VI
       fdexno = (i + 150)
-    end
-    return fdexno
-end
-
-# Also used on Pokemon Chosen (Non alphabet, for proper Pokemon result)
-
-def getDexNumber4(i=0)
-    fdexno = i
-    if i > -1 and i < 200 # Κορα Κορε Generation I (891 - 1090)
-      fnum = (i + 649)
-      fdexno = fnum
-    elsif i > 199 and i < 220 # Κορα Κορε Generation II (1091 - 1110)
-      fnum = (i + 721)
-      fdexno = fnum
-    elsif i > 219 and i < 240  # Κορα Κορε Generation III (1111 - 1130)
-      fnum = (i + 809)
-      fdexno = fnum
-    elsif i > 239 and i < 250 # Κορα Κορε Generation IV
-      fnum = (i + 890)
-      fdexno = fnum
-    elsif i > 249 and i < 350 # Κορα Κορε Generation V
-      fnum = (i + 898)
-      fdexno = fnum
-    elsif i <= 649+349 # Generation I-V (i <= 898)
-      fdexno = (i - 350)
-    elsif i > 941+129 and i < 1030+129 # Generation VII (i > 970 and i < 1059)
-      fdexno = (i - 130)
-      fdexno = fdexno
-    elsif i > 1049+109 and i < 1131+109 # Generation VIII A (1058 and i < 1140)
-      fdexno = (i - 110)
-      fdexno = fdexno
-    elsif i > 1140+99 and i < 1149+99 # Generation VIII B
-      fdexno = (i - 100)
-      fdexno = i
-    elsif i > 1248-1 # Generation VIII C
-      fdexno = (i - 0)
-      fdexno = i
-    elsif i > 849+149 and i < 922+149 # Generation VI
-      fdexno = (i - 150)
     end
     return fdexno
 end

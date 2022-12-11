@@ -9662,7 +9662,7 @@ MultipleForms.register(:OINKOLOGNE,{
    next [[getID(PBAbilities,:AROMAVEIL),0],
          [getID(PBAbilities,:GLUTTONY),1],
          [getID(PBAbilities,:THICKFAT),2],
-         [getID(PBAbilities,:TRAMPOLINE),3]] if pokemon.form==1 # Eternal
+         [getID(PBAbilities,:LENSINTIMIDATE),3]] if pokemon.form==1 # Eternal
 },
 "getForm"=>proc{|pokemon|
    next 1  if pokemon.isFemale?    # Fire

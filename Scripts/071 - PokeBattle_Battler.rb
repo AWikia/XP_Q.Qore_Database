@@ -1928,7 +1928,16 @@ class PokeBattle_Battler
         end
       end
     end
-      # Corrosive Gas (Curing)
+    # Lens Intimidate
+    if self.hasWorkingAbility(:LENSINTIMIDATE) && onactive
+      PBDebug.log("[Ability triggered] #{pbThis}'s Lens Intimidate")
+      for i in 0...4
+        if pbIsOpposing?(i) && !@battle.battlers[i].isFainted?
+          @battle.battlers[i].pbReduceProficientStatLensIntimidate(self)
+        end
+      end
+    end
+    # Corrosive Gas (Curing)
       if self.pbHasType?(:GAS) && self.pokemon.corrosiveGas
         self.pokemon.corrosiveGas=false
         @battle.pbDisplay(_INTL("{1}'s {2} is no longer corroded!",self.pbThis,PBItems.getName(self.item)))
@@ -1942,7 +1951,7 @@ class PokeBattle_Battler
       end
       if pbOpposing2 && !pbOpposing2.isFainted?
         odef+=pbOpposing2.defense
-        ospdef+=pbOpposing1.spdef
+        ospdef+=pbOpposing2.spdef
       end
       if ospdef>odef
         if pbIncreaseStatWithCause(PBStats::ATTACK,1,self,PBAbilities.getName(ability))
@@ -1963,7 +1972,7 @@ class PokeBattle_Battler
       end
       if pbOpposing2 && !pbOpposing2.isFainted?
         oatk+=pbOpposing2.attack
-        ospatk+=pbOpposing1.spatk
+        ospatk+=pbOpposing2.spatk
       end
       if ospatk>oatk
         if pbIncreaseStatWithCause(PBStats::DEFENSE,1,self,PBAbilities.getName(ability))
@@ -1984,7 +1993,7 @@ class PokeBattle_Battler
       end
       if pbOpposing2 && !pbOpposing2.isFainted?
         oatk+=pbOpposing2.attack
-        ospatk+=pbOpposing1.spatk
+        ospatk+=pbOpposing2.spatk
       end
       if ospatk>oatk
         if pbIncreaseStatWithCause(PBStats::DEFENSE,1,self,PBAbilities.getName(ability))
@@ -1996,6 +2005,77 @@ class PokeBattle_Battler
         end
       end
     end
+    # Battle Booster
+    if self.hasWorkingAbility(:BATTLEBOOSTER) && onactive
+      oatk=odef=ospeed=ospatk=ospdef=0
+      if pbOpposing1 && !pbOpposing1.isFainted?
+        oatk+=pbOpposing1.attack
+        odef+=pbOpposing1.defense
+        ospeed+=pbOpposing1.speed
+        ospatk+=pbOpposing1.spatk
+        ospdef+=pbOpposing1.spdef
+      end
+      if pbOpposing2 && !pbOpposing2.isFainted?
+        oatk+=pbOpposing2.attack
+        odef+=pbOpposing2.defense
+        ospeed+=pbOpposing2.speed
+        ospatk+=pbOpposing2.spatk
+        ospdef+=pbOpposing2.spdef
+      end
+      showanim='mix'
+      if oatk >= odef &&
+          oatk >= ospatk &&
+          oatk >= ospdef &&
+          oatk >= ospeed
+        if pbIncreaseStatWithCause(PBStats::DEFENSE,3,self,PBAbilities.getName(ability),showanim)
+          PBDebug.log("[Ability triggered] #{pbThis}'s Battle Booster (raising Defense)")
+          showanim=false
+        end
+        if pbIncreaseStatWithCause(PBStats::EVASION,3,self,PBAbilities.getName(ability),showanim)
+          PBDebug.log("[Ability triggered] #{pbThis}'s Battle Booster (raising Evasion)")
+        end
+      elsif odef >= ospatk &&
+          odef >= ospdef &&
+          odef >= ospeed
+        if pbIncreaseStatWithCause(PBStats::ATTACK,3,self,PBAbilities.getName(ability),showanim)
+          PBDebug.log("[Ability triggered] #{pbThis}'s Battle Booster (raising Attack)")
+          showanim=false
+        end
+        if pbIncreaseStatWithCause(PBStats::ACCURACY,3,self,PBAbilities.getName(ability),showanim)
+          PBDebug.log("[Ability triggered] #{pbThis}'s Battle Booster (raising Accuracy)")
+        end
+      elsif ospatk >= ospdef &&
+          ospatk >= ospeed
+        if pbIncreaseStatWithCause(PBStats::SPDEF,3,self,PBAbilities.getName(ability),showanim)
+          PBDebug.log("[Ability triggered] #{pbThis}'s Battle Booster (raising Special Defense)")
+          showanim=false
+        end
+        if pbIncreaseStatWithCause(PBStats::EVASION,3,self,PBAbilities.getName(ability),showanim)
+          PBDebug.log("[Ability triggered] #{pbThis}'s Battle Booster (raising Evasion)")
+        end
+      elsif ospdef >= ospeed
+        if pbIncreaseStatWithCause(PBStats::SPATK,3,self,PBAbilities.getName(ability),showanim)
+          PBDebug.log("[Ability triggered] #{pbThis}'s Battle Booster (raising Special Attack)")
+          showanim=false
+        end
+        if pbIncreaseStatWithCause(PBStats::ACCURACY,3,self,PBAbilities.getName(ability),showanim)
+          PBDebug.log("[Ability triggered] #{pbThis}'s Battle Booster (raising Accuracy)")
+        end
+      else
+        if pbIncreaseStatWithCause(PBStats::SPEED,3,self,PBAbilities.getName(ability),showanim)
+          PBDebug.log("[Ability triggered] #{pbThis}'s Battle Booster (raising Speed)")
+          showanim=false
+        end
+        if pbIncreaseStatWithCause(PBStats::ACCURACY,3,self,PBAbilities.getName(ability),showanim)
+          PBDebug.log("[Ability triggered] #{pbThis}'s Battle Booster (raising Accuracy)")
+          showanim=false
+        end
+        if pbIncreaseStatWithCause(PBStats::EVASION,3,self,PBAbilities.getName(ability),showanim)
+          PBDebug.log("[Ability triggered] #{pbThis}'s Battle Booster (raising Evasion)")
+        end
+      end
+    end
+
     # Emergence Policy
     if self.hasWorkingItem(:EMERGENCEPOLICY) && onactive
       oatk=ospatk=0
@@ -3012,7 +3092,7 @@ class PokeBattle_Battler
             target.pbConsumeItem
           end
         elsif target.hasWorkingItem(:WEAKNESSPOLICY) && target.damagestate.typemod>8
-          showanim=true
+          showanim='mix'
           if target.pbIncreaseStatWithCause(PBStats::ATTACK,2,target,PBItems.getName(target.item),showanim)
             PBDebug.log("[Item triggered] #{target.pbThis}'s Weakness Policy (Attack)")
             showanim=false
@@ -3029,7 +3109,7 @@ class PokeBattle_Battler
           end
         elsif target.hasWorkingItem(:ULTRASONICPOLICY) && 
              (isConst?(movetype,PBTypes,:ELECTRIC) || isConst?(movetype,PBTypes,:BOLT))
-          showanim=true
+          showanim='mix'
           if target.pbIncreaseStatWithCause(PBStats::DEFENSE,2,target,PBItems.getName(target.item),showanim)
             PBDebug.log("[Item triggered] #{target.pbThis}'s Ultrasonic Policy (Defense)")
             showanim=false

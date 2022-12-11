@@ -393,3 +393,6 @@
 355,MAGICBLOCK,Magic Block,"The Pokémon receives full immunity to all Magic-type moves by blocking magical signals."
 356,ILLUSIVEBILITY,Illusive Bility,"May infatuate a target when the Pokémon makes contact."
 388,TRAMPOLINE,Trampoline,"The Pokémon bounces damaging moves that do not make direct contact instead of getting hit by them."
+389,LENSINTIMIDATE,"Lens Intimidate","When the Pokémon enters a battle, it sends out a wild intimidate to opposing Pokémon and makes them cower, lowering their most proficient stats."
+390,SUPERLENS,"Super Lens","Its super lens prevents other Pokémon from lowering its most proficient stat."
+391,BATTLEBOOSTER,"Battle Booster","The Pokémon compares an opposing Pokémon's stats before raising its own offensive or defensive stats drastically—whichever will be more effective."

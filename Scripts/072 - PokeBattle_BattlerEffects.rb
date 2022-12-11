@@ -985,6 +985,12 @@ class PokeBattle_Battler
           @battle.pbDisplay(_INTL("{1}'s {2} prevents accuracy loss!",pbThis,abilityname)) if showMessages
           return false
         end
+        if stat==profstat && hasWorkingAbility(:SUPERLENS)
+          abilityname=PBAbilities.getName(self.ability)
+          pbSEPlay("protection") if showMessages
+          @battle.pbDisplay(_INTL("{1}'s {2} prevents {3} loss!",pbThis,abilityname,PBStats.getName(user.profstat))) if showMessages
+          return false
+        end
       end
     end
     if pbTooLow?(stat)
@@ -1206,7 +1212,8 @@ class PokeBattle_Battler
          (hasWorkingAbility(:SCRAPPY) && $USENEWBATTLEMECHANICS) ||
          (hasWorkingAbility(:OBLIVIOUS) && $USENEWBATTLEMECHANICS) ||
          (hasWorkingAbility(:OWNTEMPO) && $USENEWBATTLEMECHANICS) ||
-          hasWorkingAbility(:PROTEINCROTELINE)
+          hasWorkingAbility(:PROTEINCROTELINE) ||
+         (hasWorkingAbility(:SUPERLENS) && profstat==PBStats::ATTACK)
          abilityname=PBAbilities.getName(self.ability)
         oppabilityname=PBAbilities.getName(opponent.ability)
         pbSEPlay("protection")
@@ -1261,7 +1268,8 @@ class PokeBattle_Battler
          (hasWorkingAbility(:OBLIVIOUS) && $USENEWBATTLEMECHANICS) ||
          (hasWorkingAbility(:INNERFOCUS) && $USENEWBATTLEMECHANICS) ||
          (hasWorkingAbility(:OWNTEMPO) && $USENEWBATTLEMECHANICS) ||
-          hasWorkingAbility(:PROTEINCROTELINE)
+          hasWorkingAbility(:PROTEINCROTELINE) ||
+         (hasWorkingAbility(:SUPERLENS) && profstat==PBStats::SPATK)
          abilityname=PBAbilities.getName(self.ability)
         oppabilityname=PBAbilities.getName(opponent.ability)
         pbSEPlay("protection")
@@ -1315,7 +1323,8 @@ class PokeBattle_Battler
          (hasWorkingAbility(:SCRAPPY) && $USENEWBATTLEMECHANICS) ||
          (hasWorkingAbility(:OBLIVIOUS) && $USENEWBATTLEMECHANICS) ||
          (hasWorkingAbility(:OWNTEMPO) && $USENEWBATTLEMECHANICS) ||
-          hasWorkingAbility(:PROTEINCROTELINE)
+          hasWorkingAbility(:PROTEINCROTELINE) ||
+         (hasWorkingAbility(:SUPERLENS) && profstat==PBStats::SPEED)
          abilityname=PBAbilities.getName(self.ability)
         oppabilityname=PBAbilities.getName(opponent.ability)
         pbSEPlay("protection")
@@ -1334,6 +1343,65 @@ class PokeBattle_Battler
     end
     return pbReduceStatWithCause(PBStats::SPEED,1,opponent,PBAbilities.getName(opponent.ability))
   end
+
   
+  def pbReduceProficientStatLensIntimidate(opponent)
+    return false if isFainted?
+    proficient=profstat
+    if effects[PBEffects::Substitute]>0
+      pbSEPlay("protection")
+      @battle.pbDisplay(_INTL("{1}'s substitute protected it from {2}'s {3}!",
+         pbThis,opponent.pbThis(true),PBAbilities.getName(opponent.ability)))
+      return false
+    end
+    if hasWorkingAbility(:GUARDDOG)
+      @battle.pbDisplay(_INTL("{1}'s {2} activated!",pbThis,PBAbilities.getName(ability)))
+      return pbIncreaseStatWithCause(proficient,1,opponent,PBAbilities.getName(opponent.ability))
+    end
+    if !hasWorkingAbility(:CONTRARY)
+      if pbOwnSide.effects[PBEffects::Mist]>0
+        pbSEPlay("protection")
+        @battle.pbDisplay(_INTL("{1} is protected from {2}'s {3} by Mist!",
+           pbThis,opponent.pbThis(true),PBAbilities.getName(opponent.ability)))
+        return false
+      end
+      # Cinament
+      if @battle.field.effects[PBEffects::Cinament]>0 &&
+        (!opponent || !opponent.hasWorkingItem(:RODOFSPARROW))
+        oppabilityname=PBAbilities.getName(opponent.ability)
+        pbSEPlay("protection")
+        @battle.pbDisplay(_INTL("The Cinament prevented {1}'s {2} from working!",opponent.pbThis(true),oppabilityname))
+        return false
+      end
+      if hasWorkingAbility(:CLEARBODY) || hasWorkingAbility(:WHITESMOKE) ||
+         hasWorkingAbility(:FULLMETALBODY) || hasWorkingAbility(:SUPERCLEARBODY) ||
+         (hasWorkingAbility(:FLOWERVEIL) && pbHasType?(:GRASS)) ||
+         (hasWorkingAbility(:INNERFOCUS) && $USENEWBATTLEMECHANICS) ||
+         (hasWorkingAbility(:SCRAPPY) && $USENEWBATTLEMECHANICS) ||
+         (hasWorkingAbility(:OBLIVIOUS) && $USENEWBATTLEMECHANICS) ||
+         (hasWorkingAbility(:OWNTEMPO) && $USENEWBATTLEMECHANICS) ||
+          hasWorkingAbility(:PROTEINCROTELINE) ||
+          hasWorkingAbility(:SUPERLENS) ||
+         (hasWorkingAbility(:HYPERCUTTER) && proficient==PBStats::ATTACK) ||
+         (hasWorkingAbility(:BIGPECKS) && proficient==PBStats::DEFENSE)
+         abilityname=PBAbilities.getName(self.ability)
+        oppabilityname=PBAbilities.getName(opponent.ability)
+        pbSEPlay("protection")
+        @battle.pbDisplay(_INTL("{1}'s {2} prevented {3}'s {4} from working!",
+           pbThis,abilityname,opponent.pbThis(true),oppabilityname))
+        return false
+      end
+      if pbPartner.hasWorkingAbility(:FLOWERVEIL) && pbHasType?(:GRASS)
+        abilityname=PBAbilities.getName(pbPartner.ability)
+        oppabilityname=PBAbilities.getName(opponent.ability)
+        pbSEPlay("protection")
+        @battle.pbDisplay(_INTL("{1}'s {2} prevented {3}'s {4} from working!",
+           pbPartner.pbThis,abilityname,opponent.pbThis(true),oppabilityname))
+        return false
+      end
+    end
+    return pbReduceStatWithCause(proficient,1,opponent,PBAbilities.getName(opponent.ability))
+  end
+
   
 end

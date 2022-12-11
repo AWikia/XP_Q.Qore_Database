@@ -3089,3 +3089,9 @@ BattleBack=Cave
 Bicycle=true
 MapPosition=14,9,9
 ShowArea=true
+[540]
+# Astra Junction Path
+BattleBack=Cave
+MapPosition=13,27,18
+ShowArea=true
+Environment=Cave

@@ -239,16 +239,17 @@ def pbDebugMenu(fromgame=true)
   sprites={}
       addBackgroundOrColoredPlane(sprites,"title",getDarkModeFolder+"/settingsbg",
          Color.new(0,0,0),viewport)
-    title="Debug Mode"    
+    title="Debug Menu"    
     sprites["header"]=Window_UnformattedTextPokemon.newWithSize(_INTL(title),
        2,-18,576,64,viewport)      
     sprites["header"].baseColor=(isDarkMode?) ? Color.new(248,248,248) : Color.new(0,0,0)
     sprites["header"].shadowColor=nil #(!isDarkMode?) ? Color.new(248,248,248) : Color.new(0,0,0)
     sprites["header"].windowskin=nil
   commands=CommandList.new
-  commands.add("corendo",_INTL("Game ROM Memory Check")) # For Compatibility with Corendo
+  commands.add("corendo",_INTL("Game ROM Initialization Check")) # For Compatibility with Corendo
   commands.add("corendo2",_INTL("Control Configuration Check")) # For Compatibility with Corendo
-  commands.add("corendo3",_INTL("Game RAM Memory Check")) # For Compatibility with Corendo
+  commands.add("corendo3",_INTL("Game RAM Initialization Check")) # For Compatibility with Corendo
+  commands.add("corendo4",_INTL("Audio Initialization Check")) # For Compatibility with Corendo
   commands.add("switches",_INTL("Switches")) if fromgame
   commands.add("variables",_INTL("Variables")) if fromgame
   commands.add("refreshmap",_INTL("Refresh Map")) if fromgame
@@ -330,11 +331,13 @@ def pbDebugMenu(fromgame=true)
     break if ret==-1
     cmd=commands.getCommand(ret)
     if cmd=="corendo" # Compat mode with Corendo
-      worksOnCorendo(['VR Corendo'])
+      pbFadeOutIn(99999) { pbDebugScreen2(0) }
     elsif cmd=="corendo2" # Compat mode with Corendo
-      worksOnCorendo(['VR Corendo','Bsibsina Clients'])
+      pbFadeOutIn(99999) { pbDebugScreen2(1) }
     elsif cmd=="corendo3" # Compat mode with Corendo
-      worksOnCorendo(['VR Corendo','Jinnybell HSPA'])
+      pbFadeOutIn(99999) { pbDebugScreen2(2) }
+    elsif cmd=="corendo4" # Compat mode with Corendo
+      pbFadeOutIn(99999) { pbDebugScreen2(3) }
     elsif cmd=="switches"
       pbFadeOutIn(99999) { pbDebugScreen(0) }
     elsif cmd=="variables"
@@ -1036,6 +1039,36 @@ def pbDebugScreen(mode)
         right_window.refresh
       end
     end
+  end
+  pbFadeOutAndHide(sprites)
+  pbDisposeSpriteHash(sprites)
+  viewport.dispose
+end
+
+
+def pbDebugScreen2(mode)
+  viewport=Viewport.new(0,0,Graphics.width,Graphics.height)
+  viewport.z=99999
+  sprites={}
+      addBackgroundOrColoredPlane(sprites,"title",getDarkModeFolder+"/settingsbg_4",
+         Color.new(0,0,0),viewport)
+    title=["Game ROM Initialization Check", "Control Configuration Check", "Game RAM Initialization Check", "Audio Initialization Check"][mode]    
+    sprites["header"]=Window_UnformattedTextPokemon.newWithSize(_INTL(title),
+       2,-18,576,64,viewport)      
+    sprites["header"].baseColor=(isDarkMode?) ? Color.new(248,248,248) : Color.new(0,0,0)
+    sprites["header"].shadowColor=nil #(!isDarkMode?) ? Color.new(248,248,248) : Color.new(0,0,0)
+    sprites["header"].windowskin=nil
+  pbFadeInAndShow(sprites)
+  if (mode == 0)
+      worksOnCorendo(['VR Corendo'])
+  elsif (mode == 1)
+      worksOnCorendo(['VR Corendo','Bsibsina Clients'])
+  elsif (mode == 2)
+      worksOnCorendo(['VR Corendo','Jinnybell HSPA'])
+  elsif (mode == 3)
+      worksOnCorendo(['VR Corendo', 'Bsibsina Action Player', 'Yorkbook Digital Professional', 'Jinnybell HSPA', 'ΣΟΥΒΛ Crystal'])
+  else
+      worksOnCorendo
   end
   pbFadeOutAndHide(sprites)
   pbDisposeSpriteHash(sprites)

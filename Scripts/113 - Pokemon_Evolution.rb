@@ -97,8 +97,8 @@ end
 #===============================================================================
 def pbGetEvolvedFormData(species)
   ret=[]
-  _EVOTYPEMASK=0x3F
-  _EVODATAMASK=0xC0
+  _EVOTYPEMASK=0x7F
+  _EVODATAMASK=0x80
   _EVONEXTFORM=0x00
   pbRgssOpen("Data/evolutions.dat","rb"){|f|
      f.pos=(species-1)*8
@@ -122,8 +122,8 @@ def pbGetEvolvedFormData(species)
 end
 
 def pbEvoDebug()
-  _EVOTYPEMASK=0x3F
-  _EVODATAMASK=0xC0
+  _EVOTYPEMASK=0x7F
+  _EVODATAMASK=0x80
   pbRgssOpen("Data/evolutions.dat","rb"){|f|
      for species in 1..PBSpecies.maxValue
        f.pos=(species-1)*8
@@ -152,9 +152,9 @@ end
 
 
 def pbGetPreviousForm(species)
-  _EVOTYPEMASK=0x3F
-  _EVODATAMASK=0xC0
-  _EVOPREVFORM=0x40
+  _EVOTYPEMASK=0x7F
+  _EVODATAMASK=0x80
+  _EVOPREVFORM=0x80
   pbRgssOpen("Data/evolutions.dat","rb"){|f|
      f.pos=(species-1)*8
      offset=f.fgetdw
@@ -178,9 +178,9 @@ end
 
 def pbGetMinimumLevel(species)
   ret=-1
-  _EVOTYPEMASK=0x3F
-  _EVODATAMASK=0xC0
-  _EVOPREVFORM=0x40
+  _EVOTYPEMASK=0x7F
+  _EVODATAMASK=0x80
+  _EVOPREVFORM=0x80
   pbRgssOpen("Data/evolutions.dat","rb"){|f|
     f.pos=(species-1)*8
     offset=f.fgetdw
@@ -213,9 +213,9 @@ end
 
 def pbGetBabySpecies(species,item1=-1,item2=-1)
   ret=species
-  _EVOTYPEMASK=0x3F
-  _EVODATAMASK=0xC0
-  _EVOPREVFORM=0x40
+  _EVOTYPEMASK=0x7F
+  _EVODATAMASK=0x80
+  _EVOPREVFORM=0x80
   pbRgssOpen("Data/evolutions.dat","rb"){|f|
      f.pos=(species-1)*8
      offset=f.fgetdw

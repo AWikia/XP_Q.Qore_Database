@@ -3095,3 +3095,23 @@ BattleBack=Cave
 MapPosition=13,27,18
 ShowArea=true
 Environment=Cave
+[541]
+# Marrine Corridor Path
+BattleBack=CaveDark
+Bicycle=true
+MapPosition=9,2,8
+ShowArea=true
+PastMap=542
+FutureMap=543
+[542]
+# Past Marrine Corridor Path
+BattleBack=CaveDark
+Bicycle=true
+MapPosition=9,2,8
+ShowArea=true
+[543]
+# Future Marrine Corridor Path
+BattleBack=CaveDark
+Bicycle=true
+MapPosition=9,2,8
+ShowArea=true

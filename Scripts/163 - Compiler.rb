@@ -1900,9 +1900,9 @@ def pbCompilePokemonData
       evolist[i][3]=0
     end
   end
-  _EVODATAMASK=0xC0
+  _EVODATAMASK=0x80
   _EVONEXTFORM=0x00
-  _EVOPREVFORM=0x40
+  _EVOPREVFORM=0x80
   for e in 0...evolutions.length
     evolist=evolutions[e]
     next if !evolist

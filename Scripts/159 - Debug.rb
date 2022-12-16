@@ -200,7 +200,7 @@ def pbDefaultMap()
 end
 
 def pbWarpToMap()
-  mapid=pbListScreen(_INTL("WARP TO MAP"),MapLister.new(pbDefaultMap()))
+  mapid=pbListScreen(_INTL("Warp to Map"),MapLister.new(pbDefaultMap()))
   if mapid>0
     map=Game_Map.new
     map.setup(mapid)
@@ -375,7 +375,7 @@ def pbDebugMenu(fromgame=true)
       end
       Kernel.pbMessage(_INTL("Your Pokémon were healed."))
     elsif cmd=="additem"
-      item=pbListScreen(_INTL("ADD ITEM"),ItemLister.new(0))
+      item=pbListScreen(_INTL("Add Item"),ItemLister.new(0))
       if item && item>0
         params=ChooseNumberParams.new
         params.setRange(1,BAGMAXPERSLOT)
@@ -785,7 +785,7 @@ def pbDebugMenu(fromgame=true)
       mapedited=false
       map=pbDefaultMap()
       loop do
-        map=pbListScreen(_INTL("SET ENCOUNTERS"),MapLister.new(map))
+        map=pbListScreen(_INTL("Set Encounters"),MapLister.new(map))
         break if map<=0
         mapedited=true if map==pbDefaultMap()
         pbEncounterEditorMap(encdata,map)
@@ -853,15 +853,15 @@ def pbDebugMenu(fromgame=true)
         end
       end
     elsif cmd=="testtrainerbattle"
-      battle=pbListScreen(_INTL("SINGLE TRAINER"),TrainerBattleLister.new(0,false))
+      battle=pbListScreen(_INTL("Single Trainer"),TrainerBattleLister.new(0,false))
       if battle
         trainerdata=battle[1]
         pbTrainerBattle(trainerdata[0],trainerdata[1],"...",false,trainerdata[4],true)
       end
     elsif cmd=="testdoubletrainerbattle"
-      battle1=pbListScreen(_INTL("DOUBLE TRAINER 1"),TrainerBattleLister.new(0,false))
+      battle1=pbListScreen(_INTL("Double Trainer 1"),TrainerBattleLister.new(0,false))
       if battle1
-        battle2=pbListScreen(_INTL("DOUBLE TRAINER 2"),TrainerBattleLister.new(0,false))
+        battle2=pbListScreen(_INTL("Double Trainer 2"),TrainerBattleLister.new(0,false))
         if battle2
           trainerdata1=battle1[1]
           trainerdata2=battle2[1]

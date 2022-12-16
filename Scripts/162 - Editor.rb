@@ -957,8 +957,8 @@ end
 ################################################################################
 # Lists
 ################################################################################
-def pbListWindow(cmds,width=256)
-  list=Window_CommandPokemon.newWithSize(cmds,0,0,width,Graphics.height)
+def pbListWindow(cmds,width=256,y=0)
+  list=Window_CommandPokemon.newWithSize(cmds,0,y,width,Graphics.height-y)
   list.index=0
   list.rowHeight=24
   pbSetSmallFont(list.contents)
@@ -1245,18 +1245,20 @@ end
 ################################################################################
 # Core lister script
 ################################################################################
-def pbListScreen(title,lister)
+def pbListScreen(title,lister,planebg="partybg")
   viewport=Viewport.new(0,0,Graphics.width,Graphics.height)
   viewport.z=99999
-  list=pbListWindow([],256)
+  list=pbListWindow([],256,32)
   list.viewport=viewport
   list.z=2
-  title=Window_UnformattedTextPokemon.new(title)
-  title.x=256
-  title.y=0
-  title.width=Graphics.width-256
-  title.height=64
-  title.viewport=viewport
+  plane = AnimatedPlane.new(viewport)
+  plane.bitmap=AnimatedBitmap.new("Graphics/Pictures/"+getDarkModeFolder+"/"+planebg).deanimate
+  plane.z=2
+  title=Window_UnformattedTextPokemon.newWithSize(_INTL(title),
+      2,-18,576,64,viewport)      
+  title.baseColor=(isDarkMode?) ? Color.new(248,248,248) : Color.new(0,0,0)
+  title.shadowColor=nil #(!isDarkMode?) ? Color.new(248,248,248) : Color.new(0,0,0)
+  title.windowskin=nil
   title.z=2
   lister.setViewport(viewport)
   selectedmap=-1
@@ -1287,6 +1289,7 @@ def pbListScreen(title,lister)
   value=lister.value(selectedmap)
   lister.dispose
   title.dispose
+  plane.dispose
   list.dispose
   Input.update
   return value
@@ -1295,15 +1298,17 @@ end
 def pbListScreenBlock(title,lister)
   viewport=Viewport.new(0,0,Graphics.width,Graphics.height)
   viewport.z=99999
-  list=pbListWindow([],256)
+  list=pbListWindow([],256,32)
   list.viewport=viewport
-  list.z=2
-  title=Window_UnformattedTextPokemon.new(title)
-  title.x=256
-  title.y=0
-  title.width=Graphics.width-256
-  title.height=64
-  title.viewport=viewport
+  list.z=3
+  plane = AnimatedPlane.new(viewport)
+  plane.bitmap=AnimatedBitmap.new("Graphics/Pictures/"+getDarkModeFolder+"/settingsbg").deanimate
+  plane.z=2
+  title=Window_UnformattedTextPokemon.newWithSize(_INTL(title),
+      2,-18,576,64,viewport)      
+  title.baseColor=(isDarkMode?) ? Color.new(248,248,248) : Color.new(0,0,0)
+  title.shadowColor=nil #(!isDarkMode?) ? Color.new(248,248,248) : Color.new(0,0,0)
+  title.windowskin=nil
   title.z=2
   lister.setViewport(viewport)
   selectedmap=-1
@@ -1344,6 +1349,7 @@ def pbListScreenBlock(title,lister)
   end
   lister.dispose
   title.dispose
+  plane.dispose
   list.dispose
   Input.update
 end
@@ -3253,7 +3259,7 @@ def pbMetadataScreen(defaultMapId=nil)
   metadata=load_data("Data/metadata.dat")
   map=defaultMapId ? defaultMapId : 0
   loop do
-    map=pbListScreen(_INTL("SET METADATA"),MapLister.new(map,true))
+    map=pbListScreen(_INTL("Set Metadata"),MapLister.new(map,true))
     break if map<0
     mapname=(map==0) ? _INTL("Global Metadata") : mapinfos[map].name
     data=[]
@@ -3987,7 +3993,7 @@ GLOBALMETADATA=[
   end
 
   def chooseMapScreen(title,currentmap)
-    return pbListScreen(title,MapLister.new(currentmap))
+    return pbListScreen(title,MapLister.new(currentmap),"mysteryGiftbg2")
   end
 
   def update

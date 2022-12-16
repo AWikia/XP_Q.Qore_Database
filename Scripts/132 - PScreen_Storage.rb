@@ -2146,7 +2146,7 @@ class PokemonStorageScene
       addBackgroundPlane(@sprites,"background",getDarkModeFolder+"/boxbg2",@bgviewport)
     end
       addBackgroundOrColoredPlane(@sprites,"partybg_title",getDarkModeFolder+"/partybg",Color.new(0,0,0),@bgviewport)
-    @sprites["header"]=Window_UnformattedTextPokemon.newWithSize(_INTL("Storage System"),2,-18,400,64,@bgviewport)
+    @sprites["header"]=Window_UnformattedTextPokemon.newWithSize(_INTL("Storage System"),2,-18,512,64,@bgviewport)
     @sprites["header"].baseColor=(isDarkMode?) ? Color.new(248,248,248) : Color.new(0,0,0)
     @sprites["header"].shadowColor=nil #(!isDarkMode?) ? Color.new(248,248,248) : Color.new(0,0,0)
     @sprites["header"].windowskin=nil

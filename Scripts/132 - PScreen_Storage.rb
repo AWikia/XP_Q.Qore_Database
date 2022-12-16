@@ -230,6 +230,7 @@ class PokemonStorageScreen
     @scene=scene
     @storage=storage
     @pbHeldPokemon=nil
+    @orange=false
   end
 
   def pbConfirm(str)
@@ -454,6 +455,11 @@ class PokemonStorageScreen
     end
   end
 
+  def updateAndShowOrange
+    @orange=!@orange
+    return @orange
+  end
+  
   def pbHeldPokemon
     return @heldpkmn
   end
@@ -487,8 +493,12 @@ class PokemonStorageScreen
        _INTL("Name"),
        _INTL("Cancel"),
     ]
-    command=pbShowCommands(
-       _INTL("What do you want to do?"),commands)
+    if @orange
+      command=0 
+    else
+      command=pbShowCommands(
+         _INTL("What do you want to do?"),commands)
+    end
     case command
     when 0
       destbox=@scene.pbChooseBox(_INTL("Jump to which Box?"))
@@ -643,9 +653,13 @@ class PokemonStorageScreen
         else
           pokemon=@storage[selected[0],selected[1]]
           next if !pokemon
-          command=pbShowCommands(
-             _INTL("{1} is selected.",pokemon.name),[_INTL("Withdraw"),
-             _INTL("Summary"),_INTL("Mark"),_INTL("Release"),_INTL("Cancel")])
+          if @orange
+            command=0 
+          else
+            command=pbShowCommands(
+               _INTL("{1} is selected.",pokemon.name),[_INTL("Withdraw"),
+               _INTL("Summary"),_INTL("Mark"),_INTL("Release"),_INTL("Cancel")])
+          end
           case command
           when 0 # Withdraw
             pbWithdraw(selected,nil)
@@ -680,9 +694,13 @@ class PokemonStorageScreen
         else
           pokemon=@storage[-1,selected]
           next if !pokemon
-          command=pbShowCommands(
-             _INTL("{1} is selected.",pokemon.name),[_INTL("Store"),
-             _INTL("Summary"),_INTL("Mark"),_INTL("Release"),_INTL("Cancel")])
+          if @orange
+            command=0 
+          else
+            command=pbShowCommands(
+               _INTL("{1} is selected.",pokemon.name),[_INTL("Store"),
+               _INTL("Summary"),_INTL("Mark"),_INTL("Release"),_INTL("Cancel")])
+          end
           case command
           when 0 # Store
             pbStore([-1,selected],nil)
@@ -751,7 +769,12 @@ class PokemonStorageScreen
           commands[cmdRelease=commands.length]  = _INTL("Release")
           commands[cmdDebug=commands.length]    = _INTL("Debug") if ($DEBUG || $TEST)
           commands[cmdCancel=commands.length]   = _INTL("Cancel")
-          command=pbShowCommands(helptext,commands)
+          if @orange
+            command=0 
+          else
+            command=pbShowCommands(helptext,commands)
+          end
+#          command=pbShowCommands(helptext,commands)
           if cmdMove>=0 && command==cmdMove   # Move/Shift/Place
             if @heldpkmn
               (pokemon) ? pbSwap(selected) : pbPlace(selected)
@@ -1574,6 +1597,16 @@ class PokemonBoxArrow < SpriteWrapper
     self.bitmap=@currentBitmap.bitmap
   end
 
+  def changeOrange(orangehand)
+    pbPlayDecisionSE()
+    s=""
+    s="_q" if orangehand
+    @fist=AnimatedBitmap.new("Graphics/Pictures/boxfist"+s)
+    @point1=AnimatedBitmap.new("Graphics/Pictures/boxpoint1"+s)
+    @point2=AnimatedBitmap.new("Graphics/Pictures/boxpoint2"+s)
+    @grab=AnimatedBitmap.new("Graphics/Pictures/boxgrab"+s)
+  end  
+
   def heldPokemon
     @heldpkmn=nil if @heldpkmn && @heldpkmn.disposed?
     @holding=false if !@heldpkmn
@@ -2300,6 +2333,9 @@ class PokemonStorageScene
         @selection=selection
         return -1
       end
+      if Input.trigger?(Input::A)
+        @sprites["arrow"].changeOrange(@screen.updateAndShowOrange)
+      end
     end
   end
 
@@ -2586,6 +2622,9 @@ class PokemonStorageScene
       if Input.trigger?(Input::B)
         @selection=selection
         return nil
+      end
+      if Input.trigger?(Input::A)
+        @sprites["arrow"].changeOrange(@screen.updateAndShowOrange)
       end
     end
   end

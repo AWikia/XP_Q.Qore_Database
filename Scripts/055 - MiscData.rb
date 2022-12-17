@@ -74,6 +74,7 @@ MetadataMapSize             = 18
 MetadataPastMap             = 19
 MetadataEnvironment         = 20
 MetadataFutureMap           = 21
+MetadataPseudoDarkMap       = 22
 
 
 
@@ -116,7 +117,8 @@ module PokemonMetadata
      "WildVictoryME"=>[MetadataMapWildVictoryME,"s"],
      "TrainerVictoryME"=>[MetadataMapTrainerVictoryME,"s"],
      "MapSize"=>[MetadataMapSize,"us"],
-     "Environment"=>[MetadataEnvironment,"e",:PBEnvironment]
+     "Environment"=>[MetadataEnvironment,"e",:PBEnvironment],
+     "PseudoDarkMap"=>[MetadataPseudoDarkMap,"b"],
   }
 end
 

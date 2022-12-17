@@ -1791,6 +1791,7 @@ MapPosition=6,12,12
 WildBattleBGM=112 - Vs. Wild Johto
 ShowArea=true
 Environment=Space
+PseudoDarkMap=true
 [320]
 # Victory 6
 BattleBack=CaveDark
@@ -1800,6 +1801,7 @@ MapPosition=11,5,13
 WildBattleBGM=112 - Vs. Wild Johto
 ShowArea=true
 Environment=Space
+PseudoDarkMap=true
 [323]
 # Bot Boyend Path
 BattleBack=CaveDarker
@@ -1808,31 +1810,40 @@ Bicycle=true
 MapPosition=4,15,5
 ShowArea=true
 Environment=Boardwalk
+PseudoDarkMap=true
 [324]
 # Jelly Queen
 BattleBack=EliteA
 Weather=Rain,40
 MapPosition=4,15,5
+PseudoDarkMap=true
 [325]
 # Cupcake Carl
 BattleBack=EliteB
 Weather=Rain,40
 MapPosition=4,15,5
+PseudoDarkMap=true
 [326]
 # Tiffi
 BattleBack=EliteC
 Weather=Rain,40
 MapPosition=4,15,5
+PseudoDarkMap=true
 [327]
 # Kimmy
 BattleBack=EliteD
 Weather=Rain,40
 MapPosition=4,15,5
+PseudoDarkMap=true
 [328]
 # Liquorice Larry
 BattleBack=Champion
 Weather=Rain,40
 MapPosition=4,15,5
+PseudoDarkMap=true
+[329]
+# Hall of Fame
+PseudoDarkMap=true
 [330]
 # Ice Path
 SnapEdges=true
@@ -1862,6 +1873,7 @@ MapPosition=10,20,7
 WildBattleBGM=112 - Vs. Wild Johto.mp3
 ShowArea=true
 Environment=Snow
+PseudoDarkMap=true
 [334]
 # Scuba Duba Minigame
 MapSize=2,1111
@@ -2165,6 +2177,7 @@ Bicycle=true
 MapPosition=5,1,4
 DarkMap=true
 ShowArea=true
+PseudoDarkMap=true
 [378]
 # Pikimon Institute
 BattleBack=IndoorA
@@ -2212,6 +2225,7 @@ TrainerBattleBGM=113 - Vs. Hoenn Trainer.mp3
 MapPosition=11,1,11
 WildBattleBGM=112 - Vs. Wild Hoenn.mp3
 ShowArea=true
+PseudoDarkMap=true
 [385]
 # Granite Cave
 Bicycle=true
@@ -2219,6 +2233,7 @@ TrainerBattleBGM=113 - Vs. Hoenn Trainer.mp3
 MapPosition=11,1,10
 WildBattleBGM=112 - Vs. Wild Hoenn.mp3
 ShowArea=true
+PseudoDarkMap=true
 [386]
 # Episodio XR
 BattleBack=Jarol
@@ -2278,6 +2293,7 @@ MapPosition=10,7,10
 DarkMap=true
 WildBattleBGM=112 - Vs. Wild Johto.mp3
 ShowArea=true
+PseudoDarkMap=true
 [398]
 # Eternal Carven
 Bicycle=true

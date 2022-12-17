@@ -357,16 +357,6 @@ end
 
 
 def pbDayNightTint(object)
-  darkmaps=[319,320,323,324,325,326,327,328,329,332,377,384,385,397] # Map IDs for Pseudo-dark maps, mostly being in use for Victory 6
-=begin
-319 to 320 = Victory 6
-323 = Bot Boyend
-324 to 328 = Bot Boyend Elite 4 and Champion rooms (Mewtwo caught required)
-329 = Bot Boyend HoF room (Mewtwo caught also obligatory)
-332 = Ice River Run
-377 = Fission Cave Basement (Along with Dark Map)
-397 = Zapdos Cave (Along with Dark Map)
-=end
   if !$scene.is_a?(Scene_Map)
     return
   else
@@ -374,28 +364,33 @@ def pbDayNightTint(object)
     g = 0
     b = 0
     w = 0
-    if ($PokemonGlobal.inFuture rescue false) 
+    if ($PokemonGlobal.inFuture rescue false) # Future Maps
       r = 34
       g = 34
       b = 68
       w = 42
     end
-    if ($PokemonGlobal.inPast rescue false) 
+    if ($PokemonGlobal.inPast rescue false) #  Past Maps
       r = -34
       g = -34
       b = -68
       w = 170
     end
-    if ($PokemonSystem.enableshading==1 rescue false) && $game_map && pbGetMetadata($game_map.map_id,MetadataOutdoor) # Outdoor maps with Outdoor Map Shading setting set to "On"
+    if $game_map && pbGetMetadata($game_map.map_id,MetadataPseudoDarkMap) # Pseudo-dark Maps
+      r+= -110
+      g+= -114
+      b+= -118
+      w+= 60
+    end
+    if ($PokemonSystem.enableshading==1 rescue false) && $game_map && pbGetMetadata($game_map.map_id,MetadataOutdoor)
       tone=PBDayNight.getTone()
       object.tone.set(tone.red+r,tone.green+g,tone.blue+b,tone.gray+w)
-    elsif $game_map && darkmaps.include?($game_map.map_id) # Pseudo-dark maps
-      object.tone.set(-110+r,-114+g,-118+b,60+w)  # In order to avoid glitches
-    else # Non outdoor maps or Outdoor Map Shading setting set to "Off"
+    else
       object.tone.set(r,g,b,w)  
     end
   end  
 end
+
 
 
 

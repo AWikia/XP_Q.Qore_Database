@@ -3569,6 +3569,8 @@ LOCALMAPS=[
        _INTL("The width of the map in Town Map squares, and a string indicating which squares are part of this map.")],
    ["Environment",EnvironmentProperty,
        _INTL("The default battle environment for battles on this map")],
+   ["PseudoDarkMap",BooleanProperty,
+       _INTL("If true, this map has a dark tint applied on top of the current tinting.")],
 ]
 GLOBALMETADATA=[
    ["Home",MapCoordsFacingProperty,

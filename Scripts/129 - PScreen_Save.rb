@@ -14,17 +14,27 @@ class PokemonSaveScene
       textColor=["78B8E8,0070F8","F8A8B8,E82010","A3CFEF,005AC7"][$Trainer.gender]
       loccolor = '4bd20664'
     end
-    loctext=_INTL("<ac><c2={1}>{2}</c2></ac>",loccolor,mapname)
+#    loctext=_INTL("<ac><c2={1}>{2}</c2></ac>",loccolor,mapname)
+    loctext=""
     loctext+=_INTL("Player<r><c3={1}>{2}</c3><br>",textColor,$Trainer.name)
     loctext+=_ISPRINTF("Time<r><c3={1:s}>{2:02d}:{3:02d}</c3><br>",textColor,hour,min)
     loctext+=_INTL("Badges<r><c3={1}>{2}</c3><br>",textColor,$Trainer.numbadges)
     if $Trainer.pokedex
       loctext+=_INTL("Pokédex<r><c3={1}>{2}/{3}</c3>",textColor,$Trainer.pokedexOwned,$Trainer.pokedexSeen)
     end
+    @sprites["plane"] = AnimatedPlane.new(@viewport)
+    @sprites["plane"].bitmap=AnimatedBitmap.new("Graphics/Pictures/"+getDarkModeFolder+"/partybg").deanimate
+    @sprites["plane"].z=2
+    @sprites["header"]=Window_UnformattedTextPokemon.newWithSize(_INTL("Save Game - {1}",mapname),
+        2,-18,576,64,@viewport)      
+    @sprites["header"].baseColor=(isDarkMode?) ? Color.new(248,248,248) : Color.new(0,0,0)
+    @sprites["header"].shadowColor=nil #(!isDarkMode?) ? Color.new(248,248,248) : Color.new(0,0,0)
+    @sprites["header"].windowskin=nil
+    @sprites["header"].z=2
     @sprites["locwindow"]=Window_AdvancedTextPokemon.new(loctext)
     @sprites["locwindow"].viewport=@viewport
     @sprites["locwindow"].x=0
-    @sprites["locwindow"].y=0
+    @sprites["locwindow"].y=32
     @sprites["locwindow"].width=228 if @sprites["locwindow"].width<228
     @sprites["locwindow"].visible=true
   end

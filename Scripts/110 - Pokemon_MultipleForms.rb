@@ -7739,6 +7739,11 @@ MultipleForms.register(:BURMY,{
      next 0 # Plant Cloak
    end
 },
+"color"=>proc{|pokemon|
+   next if pokemon.form==0
+   next 5 if pokemon.form==1
+   next 0 if pokemon.form==2
+},
 "dexEntry"=>proc{|pokemon|
    next if pokemon.form==0 
    next _INTL("It creates a cloak by weaving together sand, mud, and silk it has spat out. This earthen cloak is ruined by wind and rain, so the Pokémon hides away in caves and other such places.") if pokemon.form==1
@@ -8191,6 +8196,12 @@ MultipleForms.register(:DEERLING,{
    time=pbGetTimeNow
    next (time.month-1)%4
 },
+"color"=>proc{|pokemon|
+   next if pokemon.form==0
+   next 3 if pokemon.form==1
+   next 0 if pokemon.form==2
+   next 5 if pokemon.form==3
+},
 "dexEntry"=>proc{|pokemon|
    next if pokemon.form==0
    next _INTL("To prevent Deerling from entering their fields, many farmers will have several Lycanroc stand guard, as they are the natural enemy of Deerling.") if pokemon.form==1
@@ -8413,6 +8424,11 @@ MultipleForms.register(:VIVILLON,{
      ret=[18,19][rand(2)] # 3% chance of having Fancy or PokeBall Pattern
    end
    next ret
+},
+"color"=>proc{|pokemon|
+   next if pokemon.form==0
+   colors=[1,1,2,3,6,9,0,1,5,5,5,5,7,3,0,0,3,9,0]
+   next colors[pokemon.form-1]
 },
 "dexEntry"=>proc{|pokemon|
    next                                                                                                                                                           if pokemon.form==0 

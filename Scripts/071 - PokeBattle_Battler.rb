@@ -2211,7 +2211,7 @@ class PokeBattle_Battler
                 PBStats::SPATK,PBStats::SPDEF,PBStats::ACCURACY,PBStats::EVASION]
         self.stages[i]=self.pbPartner.stages[i]
       end
-      @battle.pbDisplay(_INTL("{1}'s {2} copied {3}'s stat changes!",pbThis,PBAbilities.getName(self.ability),pbThis(true)))
+      @battle.pbDisplay(_INTL("{1}'s {2} copied {3}'s stat changes!",pbThis,PBAbilities.getName(self.ability),pbPartner.pbThis(true)))
     end
     # Curious Medicine
     if self.hasWorkingAbility(:CURIOUSMEDICINE) && onactive

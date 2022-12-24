@@ -3931,7 +3931,7 @@ class PokeBattle_Battle
             pbCommonAnimation("Wrap",i,nil)
           end
           additionalhalf = 1
-          additionalhalf = 2 if saltcure && (i.pbHasType?(:WATER) || i.pbHasType?(:STEEL))
+          additionalhalf = 0.5 if saltcure && (i.pbHasType?(:WATER) || i.pbHasType?(:STEEL))
           if !i.hasWorkingAbility(:MAGICGUARD) && !i.hasWorkingAbility(:SUPERCLEARBODY)
             PBDebug.log("[Lingering effect triggered] #{i.pbThis} took damage from trapping move #{movename}")
             @scene.pbDamageAnimation(i,0)

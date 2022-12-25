@@ -309,7 +309,12 @@ end
   "Skin23",
   "Skin24",
   "Skin25",
-  ['Skin26','Skin26_1','Skin26_2','Skin26_3','Skin26_4'][QQORECHANNEL]
+  ['Skin26','Skin26_1','Skin26_2','Skin26_3','Skin26_4'][QQORECHANNEL],
+  "Skin27",
+  "Skin28",
+  "Skin29",
+  ['Skin30','Skin30_1','Skin30_2','Skin30_3'][pbGetSeason]
+
 ]
 # 2 more colors
 =begin
@@ -420,7 +425,11 @@ $TextFrames=[
   "Skin23",
   "Skin24",
   "Skin25",
-  ['Choice26','Choice26_1','Choice26_2','Choice26_3','Choice26_4'][QQORECHANNEL]
+  ['Choice26','Choice26_1','Choice26_2','Choice26_3','Choice26_4'][QQORECHANNEL],
+  "Choice27",
+  "Choice28",
+  "Choice29",
+  ['Choice30','Choice30_1','Choice30_2','Choice30_3'][pbGetSeason]
 ]
 
   $SpeechFramesNames=[
@@ -456,7 +465,11 @@ $TextFrames=[
   "RPG Maker VX Ace",
   "RPG Maker MV",
   "RPG Maker MZ",
-  "Channel-Aware"
+  "Channel-Aware",
+  "Green-Gray",
+  "Pink",
+  "Turquise",
+  "Season-Aware"
 ]
 
 

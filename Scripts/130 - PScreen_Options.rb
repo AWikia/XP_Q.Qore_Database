@@ -468,7 +468,7 @@ $TextFrames=[
   "Channel-Aware",
   "Green-Gray",
   "Pink",
-  "Turquise",
+  "Turquoise",
   "Season-Aware"
 ]
 

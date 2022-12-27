@@ -795,7 +795,7 @@
 1177,AQUASTEP,Aqua Step,01F,80,WATER,Physical,100,10,100,00,0,abef,"The user toys with the target and attacks it using light and fluid dance steps. This also boosts the user's Speed stat."
 1178,RAGINGBULL,Raing Bull,10A,90,FIGHTING,Physical,100,10,0,00,0,abef,"The user performs a tackle like a raging bull. It can also break barriers, such as Light Screen and Reflect."
 1179,MAKEITRAIN,Make it Rain,365,120,STEEL,Physical,100,5,0,04,0,abef,"The user attacks by throwing out a mass of coins. This also lowers the user’s Sp. Atk stat."
-1180,RUINATION,Ruination,06C,1,NORMAL,Special,90,10,0,00,0,bef,"The user summons a ruinous disaster. This cuts the target’s HP in half."
+1180,RUINATION,Ruination,06C,1,DARK,Special,90,10,0,00,0,bef,"The user summons a ruinous disaster. This cuts the target’s HP in half."
 1181,COLLISIONCOURSE,Collision Course,000,100,FIGHTING,Physical,100,5,0,00,0,abef,"The user transforms and crashes to the ground, causing a massive prehistoric explosion. This move's power is boosted more than usual if it's a super-effective hit."
 1182,ELECTRODRIFT,Electro Drift,000,100,ELECTRIC,Special,100,5,0,00,0,abef,"The user races forward at ultrafast speeds, piercing its target with futuristic electricity. This move’s power is boosted more than usual if it’s a supereffective hit."
 1183,SHEDTAIL,Shed Tail,366,0,NORMAL,Status,0,10,0,10,0,,"The user creates a substitute for itself using its own HP before switching places with a party Pokémon in waiting."

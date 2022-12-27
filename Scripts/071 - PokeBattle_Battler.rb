@@ -2085,7 +2085,7 @@ class PokeBattle_Battler
       end
       if pbOpposing2 && !pbOpposing2.isFainted?
         oatk+=pbOpposing2.attack
-        ospatk+=pbOpposing1.spatk
+        ospatk+=pbOpposing2.spatk
       end
       if ospatk>oatk
         if pbIncreaseStatWithCause(PBStats::DEFENSE,2,self,PBItems.getName(item))

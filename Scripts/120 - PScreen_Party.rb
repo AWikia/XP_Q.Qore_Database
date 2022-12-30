@@ -63,7 +63,8 @@ class PokeSelectionConfirmCancelSprite < SpriteWrapper
   def initialize(text,x,y,narrowbox=false,viewport=nil)
     super(viewport)
     @refreshBitmap=true
-    @bgsprite=ChangelingSprite.new(0,0,viewport)
+    @bgsprite=ChangelingSprite.new(0,0,viewport) # Base Button
+    @bgsprite2=ChangelingSprite.new(0,0,viewport) # Selection
 =begin
     if $Trainer.isFemale?
       if narrowbox
@@ -85,12 +86,17 @@ class PokeSelectionConfirmCancelSprite < SpriteWrapper
 =end
     if narrowbox
       @bgsprite.addBitmap("deselbitmap","Graphics/Pictures/partyCancelNarrow3")
-      @bgsprite.addBitmap("selbitmap","Graphics/Pictures/"+getAccentFolder+"/partyCancelSelNarrow3")
+      @bgsprite.addBitmap("selbitmap","Graphics/Pictures/partyCancelSelNarrow3")
+      @bgsprite2.addBitmap("deselbitmap","Graphics/Pictures/partyCancelNarrow3_empty")
+      @bgsprite2.addBitmap("selbitmap","Graphics/Pictures/"+getAccentFolder+"/partyCancelSelNarrow3_selection")
     else
       @bgsprite.addBitmap("deselbitmap","Graphics/Pictures/partyCancel3")
-      @bgsprite.addBitmap("selbitmap","Graphics/Pictures/"+getAccentFolder+"/partyCancelSel3")
+      @bgsprite.addBitmap("selbitmap","Graphics/Pictures/partyCancelSel3")
+      @bgsprite2.addBitmap("deselbitmap","Graphics/Pictures/partyCancel3_empty")
+      @bgsprite2.addBitmap("selbitmap","Graphics/Pictures/"+getAccentFolder+"/partyCancelSel3_selection")
     end
     @bgsprite.changeBitmap("deselbitmap")
+    @bgsprite2.changeBitmap("deselbitmap")
     @overlaysprite=BitmapSprite.new(@bgsprite.bitmap.width,@bgsprite.bitmap.height,viewport)
     @yoffset=8
     ynarrow=narrowbox ? -6 : 0
@@ -106,6 +112,7 @@ class PokeSelectionConfirmCancelSprite < SpriteWrapper
     @overlaysprite.bitmap.dispose
     @overlaysprite.dispose
     @bgsprite.dispose
+    @bgsprite2.dispose
     super
   end
 
@@ -154,6 +161,12 @@ class PokeSelectionConfirmCancelSprite < SpriteWrapper
       @bgsprite.x=self.x
       @bgsprite.y=self.y
       @bgsprite.color=self.color
+    end
+    if @bgsprite2 && !@bgsprite2.disposed?
+      @bgsprite2.changeBitmap((@selected) ? "selbitmap" : "deselbitmap")
+      @bgsprite2.x=self.x
+      @bgsprite2.y=self.y
+      @bgsprite2.color=self.color
     end
     if @overlaysprite && !@overlaysprite.disposed?
       @overlaysprite.x=self.x

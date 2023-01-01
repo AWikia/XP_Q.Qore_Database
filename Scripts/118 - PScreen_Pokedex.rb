@@ -683,6 +683,9 @@ class PokemonPokedexScene
   def pbSearchDexList(params)
     $PokemonGlobal.pokedexMode=params[4]
     dexlist=pbGetDexList()
+    if pbGetPokedexRegion == -1 && params[4] == 0
+      dexlist = getQoreDexList(dexlist)
+    end
     dexdata=pbOpenDexData()
     if params[0]!=0 # Filter by name
       nameCommands=[
@@ -738,7 +741,9 @@ class PokemonPokedexScene
     case params[4]
     when 0 # Numerical mode
       # Sort by index number, not national number
-      dexlist.sort!{|a,b| a[4]<=>b[4]}
+      if pbGetPokedexRegion != -1 # Not in National Mode
+        dexlist.sort!{|a,b| a[4]<=>b[4]}
+      end
     when 1 # Alphabetical mode
       dexlist.sort!{|a,b| a[1]<=>b[1]}
     when 2 # Heaviest mode

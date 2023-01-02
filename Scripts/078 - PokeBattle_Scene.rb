@@ -726,13 +726,25 @@ class PokemonDataBox < SpriteWrapper
     case @battler.displayGender
     when 0 # Male
  #     textpos.push([_INTL("♂"),genderX,6,false,outline,Color.new(48,96,216),1])
-    imagepos.push(["Graphics/Pictures/gender_male",genderX,14,0,0,-1,-1])
+      if @dark
+        imagepos.push(["Graphics/Pictures/Dark Mode/gender_male",genderX,14,0,0,-1,-1])
+      else
+        imagepos.push(["Graphics/Pictures/gender_male",genderX,14,0,0,-1,-1])
+      end
     when 1 # Female
  #     textpos.push([_INTL("♀"),genderX,6,false,outline,Color.new(248,88,40),1])
-    imagepos.push(["Graphics/Pictures/gender_female",genderX,14,0,0,-1,-1])
+      if @dark
+        imagepos.push(["Graphics/Pictures/Dark Mode/gender_female",genderX,14,0,0,-1,-1])
+      else
+        imagepos.push(["Graphics/Pictures/gender_female",genderX,14,0,0,-1,-1])
+      end
     when 2 # Genderless
  #     textpos.push([_INTL("♀"),genderX,6,false,outline,Color.new(248,88,40),1])
-    imagepos.push(["Graphics/Pictures/gender_transgender",genderX,14,0,0,-1,-1])
+      if @dark
+        imagepos.push(["Graphics/Pictures/Dark Mode/gender_transgender",genderX,14,0,0,-1,-1])
+      else
+        imagepos.push(["Graphics/Pictures/gender_transgender",genderX,14,0,0,-1,-1])
+      end
     end
     pbDrawTextPositions(self.bitmap,textpos)
     pbSetSmallFont(self.bitmap)

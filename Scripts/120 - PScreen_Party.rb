@@ -608,12 +608,12 @@ class PokeSelectionSprite < SpriteWrapper
         end
         if @pokemon.isMale?
 #          textpos.push([_INTL("♂"),@genderX,@genderY,0,Color.new(0,112,248),Color.new(120,184,232)])
-          imagepos.push(["Graphics/Pictures/gender_male",224,24,0,0,-1,-1])
+          imagepos.push(["Graphics/Pictures/"+getDarkModeFolder+"/gender_male",224,24,0,0,-1,-1])
         elsif @pokemon.isFemale?
-          imagepos.push(["Graphics/Pictures/gender_female",224,24,0,0,-1,-1])
+          imagepos.push(["Graphics/Pictures/"+getDarkModeFolder+"/gender_female",224,24,0,0,-1,-1])
 #          textpos.push([_INTL("♀"),@genderX,@genderY,0,Color.new(232,32,16),Color.new(248,168,184)])
         elsif @pokemon.isGenderless?
-          imagepos.push(["Graphics/Pictures/gender_transgender",224,24,0,0,-1,-1])
+          imagepos.push(["Graphics/Pictures/"+getDarkModeFolder+"/gender_transgender",224,24,0,0,-1,-1])
 #          textpos.push([_INTL("♀"),@genderX,@genderY,0,Color.new(232,32,16),Color.new(248,168,184)])
 
         end

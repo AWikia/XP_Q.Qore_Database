@@ -314,13 +314,13 @@ class PokemonSummaryScene
     gendericon=[]
     if pokemon.isMale?
 #      textpos.push([_INTL("♂"),178,62,0,Color.new(24,112,216),Color.new(136,168,208)])
-      gendericon.push(["Graphics/Pictures/gender_male",270,68,0,0,-1,-1])
+      gendericon.push(["Graphics/Pictures/"+getDarkModeFolder+"/gender_male",270,68,0,0,-1,-1])
     elsif pokemon.isFemale?
 #      textpos.push([_INTL("♀"),178,62,0,Color.new(248,56,32),Color.new(224,152,144)])
-      gendericon.push(["Graphics/Pictures/gender_female",270,68,0,0,-1,-1])
+      gendericon.push(["Graphics/Pictures/"+getDarkModeFolder+"/gender_female",270,68,0,0,-1,-1])
     elsif pokemon.isGenderless?
 #      textpos.push([_INTL("♀"),178,62,0,Color.new(248,56,32),Color.new(224,152,144)])
-      gendericon.push(["Graphics/Pictures/gender_transgender",270,68,0,0,-1,-1])
+      gendericon.push(["Graphics/Pictures/"+getDarkModeFolder+"/gender_transgender",270,68,0,0,-1,-1])
     end
     pbDrawImagePositions(overlay,gendericon)
     pbDrawTextPositions(overlay,textpos)
@@ -488,13 +488,13 @@ class PokemonSummaryScene
     gendericon=[]
     if pokemon.isMale?
 #      textpos.push([_INTL("♂"),178,62,0,Color.new(24,112,216),Color.new(136,168,208)])
-      gendericon.push(["Graphics/Pictures/gender_male",270,68,0,0,-1,-1])
+      gendericon.push(["Graphics/Pictures/"+getDarkModeFolder+"/gender_male",270,68,0,0,-1,-1])
     elsif pokemon.isFemale?
 #      textpos.push([_INTL("♀"),178,62,0,Color.new(248,56,32),Color.new(224,152,144)])
-      gendericon.push(["Graphics/Pictures/gender_female",270,68,0,0,-1,-1])
+      gendericon.push(["Graphics/Pictures/"+getDarkModeFolder+"/gender_female",270,68,0,0,-1,-1])
     elsif pokemon.isGenderless?
 #      textpos.push([_INTL("♀"),178,62,0,Color.new(248,56,32),Color.new(224,152,144)])
-      gendericon.push(["Graphics/Pictures/gender_transgender",270,68,0,0,-1,-1])
+      gendericon.push(["Graphics/Pictures/"+getDarkModeFolder+"/gender_transgender",270,68,0,0,-1,-1])
     end
     pbDrawImagePositions(overlay,gendericon)
     pbDrawTextPositions(overlay,textpos)
@@ -699,13 +699,13 @@ class PokemonSummaryScene
     gendericon=[]
     if pokemon.isMale?
 #      textpos.push([_INTL("♂"),178,62,0,Color.new(24,112,216),Color.new(136,168,208)])
-      gendericon.push(["Graphics/Pictures/gender_male",270,68,0,0,-1,-1])
+      gendericon.push(["Graphics/Pictures/"+getDarkModeFolder+"/gender_male",270,68,0,0,-1,-1])
     elsif pokemon.isFemale?
 #      textpos.push([_INTL("♀"),178,62,0,Color.new(248,56,32),Color.new(224,152,144)])
-      gendericon.push(["Graphics/Pictures/gender_female",270,68,0,0,-1,-1])
+      gendericon.push(["Graphics/Pictures/"+getDarkModeFolder+"/gender_female",270,68,0,0,-1,-1])
     elsif pokemon.isGenderless?
 #      textpos.push([_INTL("♀"),178,62,0,Color.new(248,56,32),Color.new(224,152,144)])
-      gendericon.push(["Graphics/Pictures/gender_transgender",270,68,0,0,-1,-1])
+      gendericon.push(["Graphics/Pictures/"+getDarkModeFolder+"/gender_transgender",270,68,0,0,-1,-1])
     end
     pbDrawImagePositions(overlay,gendericon)
     pbDrawTextPositions(overlay,textpos)
@@ -793,7 +793,7 @@ def drawPageFour(pokemon)
     #   [_INTL("Effort Values"),26,8,0,base,shadow,1],
        [pokename,46,62,0,base,shadow],
        [pokemon.level.to_s,46,92,0,base,shadow],
-       [_INTL("HP"),420,76-64,2,base,nil,0],
+       [_INTL("HP"),420,76-64,2,base2,nil,0],
        [sprintf("%d",pokemon.ev[0]),548,76-64,2,base,shadow],
        [_INTL("Attack"),376,120-64,0,shadow2,statshadows[0],0],
        [sprintf("%d",pokemon.ev[1]),548,120-64,2,base,shadow],
@@ -811,13 +811,13 @@ def drawPageFour(pokemon)
     gendericon=[]
     if pokemon.isMale?
 #      textpos.push([_INTL("♂"),178,62,0,Color.new(24,112,216),Color.new(136,168,208)])
-      gendericon.push(["Graphics/Pictures/gender_male",270,68,0,0,-1,-1])
+      gendericon.push(["Graphics/Pictures/"+getDarkModeFolder+"/gender_male",270,68,0,0,-1,-1])
     elsif pokemon.isFemale?
 #      textpos.push([_INTL("♀"),178,62,0,Color.new(248,56,32),Color.new(224,152,144)])
-      gendericon.push(["Graphics/Pictures/gender_female",270,68,0,0,-1,-1])
+      gendericon.push(["Graphics/Pictures/"+getDarkModeFolder+"/gender_female",270,68,0,0,-1,-1])
     elsif pokemon.isGenderless?
 #      textpos.push([_INTL("♀"),178,62,0,Color.new(248,56,32),Color.new(224,152,144)])
-      gendericon.push(["Graphics/Pictures/gender_transgender",270,68,0,0,-1,-1])
+      gendericon.push(["Graphics/Pictures/"+getDarkModeFolder+"/gender_transgender",270,68,0,0,-1,-1])
     end
     pbDrawImagePositions(overlay,gendericon)
     pbDrawTextPositions(overlay,textpos)
@@ -923,13 +923,13 @@ def drawPageFive(pokemon)
     gendericon=[]
     if pokemon.isMale?
 #      textpos.push([_INTL("♂"),178,62,0,Color.new(24,112,216),Color.new(136,168,208)])
-      gendericon.push(["Graphics/Pictures/gender_male",270,68,0,0,-1,-1])
+      gendericon.push(["Graphics/Pictures/"+getDarkModeFolder+"/gender_male",270,68,0,0,-1,-1])
     elsif pokemon.isFemale?
 #      textpos.push([_INTL("♀"),178,62,0,Color.new(248,56,32),Color.new(224,152,144)])
-      gendericon.push(["Graphics/Pictures/gender_female",270,68,0,0,-1,-1])
+      gendericon.push(["Graphics/Pictures/"+getDarkModeFolder+"/gender_female",270,68,0,0,-1,-1])
     elsif pokemon.isGenderless?
 #      textpos.push([_INTL("♀"),178,62,0,Color.new(248,56,32),Color.new(224,152,144)])
-      gendericon.push(["Graphics/Pictures/gender_transgender",270,68,0,0,-1,-1])
+      gendericon.push(["Graphics/Pictures/"+getDarkModeFolder+"/gender_transgender",270,68,0,0,-1,-1])
     end
     pbDrawImagePositions(overlay,gendericon)
     pbDrawTextPositions(overlay,textpos)
@@ -1005,13 +1005,13 @@ def drawPageFive(pokemon)
     gendericon=[]
     if pokemon.isMale?
 #      textpos.push([_INTL("♂"),178,62,0,Color.new(24,112,216),Color.new(136,168,208)])
-      gendericon.push(["Graphics/Pictures/gender_male",270,68,0,0,-1,-1])
+      gendericon.push(["Graphics/Pictures/"+getDarkModeFolder+"/gender_male",270,68,0,0,-1,-1])
     elsif pokemon.isFemale?
 #      textpos.push([_INTL("♀"),178,62,0,Color.new(248,56,32),Color.new(224,152,144)])
-      gendericon.push(["Graphics/Pictures/gender_female",270,68,0,0,-1,-1])
+      gendericon.push(["Graphics/Pictures/"+getDarkModeFolder+"/gender_female",270,68,0,0,-1,-1])
     elsif pokemon.isGenderless?
 #      textpos.push([_INTL("♀"),178,62,0,Color.new(248,56,32),Color.new(224,152,144)])
-      gendericon.push(["Graphics/Pictures/gender_transgender",270,68,0,0,-1,-1])
+      gendericon.push(["Graphics/Pictures/"+getDarkModeFolder+"/gender_transgender",270,68,0,0,-1,-1])
     end
     pbDrawImagePositions(overlay,gendericon)
     pbDrawTextPositions(overlay,textpos)
@@ -1220,13 +1220,13 @@ def drawPageFive(pokemon)
     gendericon=[]
     if pokemon.isMale?
 #      textpos.push([_INTL("♂"),178,62,0,Color.new(24,112,216),Color.new(136,168,208)])
-      gendericon.push(["Graphics/Pictures/gender_male",270,68,0,0,-1,-1])
+      gendericon.push(["Graphics/Pictures/"+getDarkModeFolder+"/gender_male",270,68,0,0,-1,-1])
     elsif pokemon.isFemale?
 #      textpos.push([_INTL("♀"),178,62,0,Color.new(248,56,32),Color.new(224,152,144)])
-      gendericon.push(["Graphics/Pictures/gender_female",270,68,0,0,-1,-1])
+      gendericon.push(["Graphics/Pictures/"+getDarkModeFolder+"/gender_female",270,68,0,0,-1,-1])
     elsif pokemon.isGenderless?
 #      textpos.push([_INTL("♀"),178,62,0,Color.new(248,56,32),Color.new(224,152,144)])
-      gendericon.push(["Graphics/Pictures/gender_transgender",270,68,0,0,-1,-1])
+      gendericon.push(["Graphics/Pictures/"+getDarkModeFolder+"/gender_transgender",270,68,0,0,-1,-1])
     end
     pbDrawImagePositions(overlay,gendericon)
     pbDrawTextPositions(overlay,textpos)
@@ -1338,13 +1338,13 @@ def drawPageFive(pokemon)
     gendericon=[]
     if pokemon.isMale?
 #      textpos.push([_INTL("♂"),178,62,0,Color.new(24,112,216),Color.new(136,168,208)])
-      gendericon.push(["Graphics/Pictures/gender_male",270,68,0,0,-1,-1])
+      gendericon.push(["Graphics/Pictures/"+getDarkModeFolder+"/gender_male",270,68,0,0,-1,-1])
     elsif pokemon.isFemale?
 #      textpos.push([_INTL("♀"),178,62,0,Color.new(248,56,32),Color.new(224,152,144)])
-      gendericon.push(["Graphics/Pictures/gender_female",270,68,0,0,-1,-1])
+      gendericon.push(["Graphics/Pictures/"+getDarkModeFolder+"/gender_female",270,68,0,0,-1,-1])
     elsif pokemon.isGenderless?
 #      textpos.push([_INTL("♀"),178,62,0,Color.new(248,56,32),Color.new(224,152,144)])
-      gendericon.push(["Graphics/Pictures/gender_transgender",270,68,0,0,-1,-1])
+      gendericon.push(["Graphics/Pictures/"+getDarkModeFolder+"/gender_transgender",270,68,0,0,-1,-1])
     end
     pbDrawImagePositions(overlay,gendericon)
     pbDrawTextPositions(overlay,textpos)

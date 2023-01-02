@@ -2485,13 +2485,13 @@ class PokemonStorageScene
       imagepos = []
       if pokemon.isMale?
 #        textstrings.push([_INTL("♂"),148,8,false,Color.new(24,112,216),Color.new(136,168,208)])
-        imagepos.push(["Graphics/Pictures/gender_male_b",8,40,0,0,-1,-1])
+        imagepos.push(["Graphics/Pictures/"+getDarkModeFolder+"/gender_male_b",8,40,0,0,-1,-1])
       elsif pokemon.isFemale?
 #        textstrings.push([_INTL("♀"),148,8,false,Color.new(248,56,32),Color.new(224,152,144)])
-        imagepos.push(["Graphics/Pictures/gender_female_b",8,40,0,0,-1,-1])
+        imagepos.push(["Graphics/Pictures/"+getDarkModeFolder+"/gender_female_b",8,40,0,0,-1,-1])
       elsif pokemon.isGenderless?
 #        textstrings.push([_INTL("♀"),148,8,false,Color.new(248,56,32),Color.new(224,152,144)])
-        imagepos.push(["Graphics/Pictures/gender_transgender_b",8,40,0,0,-1,-1])
+        imagepos.push(["Graphics/Pictures/"+getDarkModeFolder+"/gender_transgender_b",8,40,0,0,-1,-1])
       end
       if (!isDarkMode?)
         imagepos.push(["Graphics/Pictures/storage_lv",6,246,0,0,-1,-1])

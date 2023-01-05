@@ -1323,6 +1323,44 @@ MultipleForms.register(:GIRAFARIG,{
 }
 })
 
+MultipleForms.register(:ANT1,{
+"getMegaForm"=>proc{|pokemon|
+   natures=[PBNatures::LONELY,PBNatures::BOLD,PBNatures::RELAXED,
+            PBNatures::TIMID,PBNatures::SERIOUS,PBNatures::MODEST,
+            PBNatures::MILD,PBNatures::QUIET,PBNatures::BASHFUL,
+            PBNatures::CALM,PBNatures::GENTLE,
+            PBNatures::CAREFUL] # Natures for 2nd form
+   next (natures.include?(pokemon.nature)) ? 2 : 1 if isConst?(pokemon.item,PBItems,:ANT1ITE)
+   next
+},
+"type2"=>proc{|pokemon|
+   next getID(PBTypes,:ELECTRIC) if pokemon.form==1
+   next getID(PBTypes,:ICE) if pokemon.form==2
+   next
+},
+"getBaseStats"=>proc{|pokemon|
+   next [100,139,203,58,90,110] if pokemon.form==1
+   next [100,124,188,68,100,120] if pokemon.form==2
+   next
+},
+"getAbilityList"=>proc{|pokemon|
+   next [[getID(PBAbilities,:STATIC),0]] if pokemon.form==1
+   next [[getID(PBAbilities,:FROZENBODY),0]] if pokemon.form==2
+   next
+},
+"color"=>proc{|pokemon|
+   next if pokemon.form==0
+   next 3 if pokemon.form==1
+   next 1 if pokemon.form==2
+},
+"dexEntry"=>proc{|pokemon|
+   next if pokemon.form==0
+   next _INTL("Once ANT1 gets mega-evolved, it became full yellow body with the ability to Paralyze almost any target once one makes contact with it.") if pokemon.form==1
+   next _INTL("This ANT1 has the ability to freeze targets if one makes contact with it, something other Mega Evolved Pokémon don't have at the moment.") if pokemon.form==2
+}
+})
+
+
 MultipleForms.register(:HEARTBRAND,{
 "getMegaForm"=>proc{|pokemon|
    next 1 if isConst?(pokemon.item,PBItems,:HEARTBRANDITE)

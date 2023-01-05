@@ -983,3 +983,4 @@
 971,GALAXIANBOX,Galaxian Box,Galaxian Boxes,2,5000,Q.Qore's famous sweet box. It can be used once to revive a fainted Pokémon and fully restore its HP,1,1,0,
 972,BELLBOX,Bell Box,Bell Boxes,2,2000,Q.Qore's famous sweet box. It can be used once to charge a Remote Box's battery by one quarter,1,0,0,
 973,KEYBOX,Key Box,Key Boxes,2,15000,Q.Qore's famous sweet box. It can be used once to halve the egg cycles of a Pokémon Egg,1,0,0,
+975,ANT1ITE,ANT1ite,ANT1ites,1,10000,"One of the mysterious Mega Stones. Have ANT1 hold it, and this stone will enable it to Mega Evolve in battle.",0,0,12,

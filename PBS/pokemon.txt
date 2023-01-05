@@ -21442,8 +21442,9 @@ Color=White
 Habitat=Grassland
 Kind=Antenna
 Pokedex=An ANT1 was found by a Mr. Mime on a secret forset. Since then, it has been exploring the entire Pokémon world along with Macdonia TV.
-BattlerPlayerY=2
-BattlerEnemyY=6
+FormNames=,Mega ANT1 Amped,Mega ANT1 Low Key
+BattlerPlayerY=7
+BattlerEnemyY=11
 BattlerAltitude=0
 Evolutions=
 [785]

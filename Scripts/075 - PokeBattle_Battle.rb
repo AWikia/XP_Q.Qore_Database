@@ -911,6 +911,7 @@ class PokeBattle_Battle
     return false if thispkmn.effects[PBEffects::Outrage]>0
     return false if thispkmn.effects[PBEffects::Uproar]>0
     return false if thispkmn.effects[PBEffects::Bide]>0
+    return false if thispkmn.effects[PBEffects::Commander]
     return true
   end
 
@@ -1404,6 +1405,10 @@ class PokeBattle_Battle
       return false
     end
     if @field.effects[PBEffects::FairyLock]>0
+      pbDisplayPaused(_INTL("{1} can't be switched out!",thispkmn.pbThis)) if showMessages
+      return false
+    end
+    if thispkmn.effects[PBEffects::CommanderAlly]
       pbDisplayPaused(_INTL("{1} can't be switched out!",thispkmn.pbThis)) if showMessages
       return false
     end

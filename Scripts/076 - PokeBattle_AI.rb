@@ -1973,7 +1973,9 @@ class PokeBattle_Battle
       score-=100 if @opponent
     when 0xEB
       if opponent.effects[PBEffects::Ingrain] ||
-         (skill>=PBTrainerAI.highSkill && opponent.hasWorkingAbility(:SUCTIONCUPS))
+         opponent.effects[PBEffects::CommanderAlly] ||
+         (skill>=PBTrainerAI.highSkill && opponent.hasWorkingAbility(:SUCTIONCUPS)) ||
+         (skill>=PBTrainerAI.highSkill && opponent.hasWorkingAbility(:GUARDDOG))
         score-=90 
       else
         party=pbParty(opponent.index)
@@ -1990,7 +1992,9 @@ class PokeBattle_Battle
       end
     when 0xEC
       if !opponent.effects[PBEffects::Ingrain] &&
-         !(skill>=PBTrainerAI.highSkill && opponent.hasWorkingAbility(:SUCTIONCUPS))
+         !opponent.effects[PBEffects::CommanderAlly] &&
+         !(skill>=PBTrainerAI.highSkill && opponent.hasWorkingAbility(:SUCTIONCUPS)) &&
+         !(skill>=PBTrainerAI.highSkill && opponent.hasWorkingAbility(:GUARDDOG))
         score+=40 if opponent.pbOwnSide.effects[PBEffects::Spikes]>0
         score+=40 if opponent.pbOwnSide.effects[PBEffects::ToxicSpikes]>0
         score+=40 if opponent.pbOwnSide.effects[PBEffects::StealthRock]

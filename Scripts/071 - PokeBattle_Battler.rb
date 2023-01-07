@@ -833,7 +833,8 @@ class PokeBattle_Battler
     if @battle.field.effects[PBEffects::NeutralizingGas] && !self.pbHasType?(:GAS)
       return false if @effects[PBEffects::NeutralTrap]>0
       return false if @effects[PBEffects::GastroAcid]
-      return false if !isConst?(@ability,PBAbilities,:STANCECHANGE) ||
+      return false if !isConst?(@ability,PBAbilities,:COMMANDER) ||
+                      !isConst?(@ability,PBAbilities,:STANCECHANGE) ||
                       !isConst?(@ability,PBAbilities,:SCHOOLING) ||
                       !isConst?(@ability,PBAbilities,:DOLPHININO) ||
                       !isConst?(@ability,PBAbilities,:ABILITOPIA) ||
@@ -1155,6 +1156,13 @@ class PokeBattle_Battler
         @battle.pbDisplay(_INTL("{1} transformed into {2}!",self.pbPartner.pbThis,choice.pbThis(true)))
         PBDebug.log("[Pokémon transformed] #{self.pbPartner.pbThis} transformed into #{choice.pbThis(true)}")
       end
+    end
+    # Commander (When Dondozo faints, user of Commander gets back to Normal)
+    if self.pbPartner.effects[PBEffects::Commander] &&
+      self.effects[PBEffects::CommanderAlly]
+        PBDebug.log("[Ability triggered] #{pbPartner.pbThis}'s Commander")
+      self.effects[PBEffects::CommanderAlly]=false
+      self.pbPartner.effects[PBEffects::Commander]=false
     end
     neutralizinggas=false
     @battle.scene.pbFainted(self)
@@ -2217,6 +2225,31 @@ class PokeBattle_Battler
     if self.hasWorkingAbility(:PASTELVEIL) && self.pbPartner.status==PBStatuses::POISON && onactive
       self.pbPartner.pbCureStatus(false)
       pbDisplay(_INTL("{1}'s {2} cured its partner's poison problem!",self.pbThis,PBAbilities.getName(self.ability)))
+    end
+    # Commander
+    if self.hasWorkingAbility(:COMMANDER) && 
+       isConst?(self.pbPartner.species,PBSpecies,:DONDOZO) && 
+        !self.pbPartner.isFainted? && self.pbPartner &&
+       !self.pbPartner.effects[PBEffects::CommanderAlly]
+        PBDebug.log("[Ability triggered] #{pbThis}'s Commander")
+      self.effects[PBEffects::Commander]=true
+      self.pbPartner.effects[PBEffects::CommanderAlly]=true
+      showanim='mix'
+      if self.pbPartner.pbIncreaseStatWithCause(PBStats::ATTACK,2,self,PBAbilities.getName(self.ability),showanim)
+        showanim=false
+      end
+      if self.pbPartner.pbIncreaseStatWithCause(PBStats::DEFENSE,2,self,PBAbilities.getName(self.ability),showanim)
+        showanim=false
+      end
+      if self.pbPartner.pbIncreaseStatWithCause(PBStats::SPATK,2,self,PBAbilities.getName(self.ability),showanim)
+        showanim=false
+      end
+      if self.pbPartner.pbIncreaseStatWithCause(PBStats::SPDEF,2,self,PBAbilities.getName(self.ability),showanim)
+        showanim=false
+      end
+      if self.pbPartner.pbIncreaseStatWithCause(PBStats::SPEED,2,self,PBAbilities.getName(self.ability),showanim)
+        showanim=false
+      end
     end
     # Costar
     if self.hasWorkingAbility(:COSTAR) && self.pbPartner && onactive
@@ -4584,6 +4617,11 @@ class PokeBattle_Battler
         PBDebug.log("[Move failed] Type immunity")
         return false 
       end
+      if target.effects[PBEffects::Commander]
+        pbSEPlay("protection")
+        @battle.pbDisplay(_INTL("{1} avoided the attack!",target.pbThis))
+        return false
+      end
     end
     if accuracy
       if target.effects[PBEffects::LockOn]>0 && target.effects[PBEffects::LockOnPos]==user.index
@@ -4761,6 +4799,7 @@ class PokeBattle_Battler
   end
 
   def pbTryUseMove(choice,thismove,turneffects)
+    return false if @effects[PBEffects::Commander]
     return true if turneffects[PBEffects::PassedTrying]
     # TODO: Return true if attack has been Mirror Coated once already
     if !turneffects[PBEffects::SkipAccuracyCheck]

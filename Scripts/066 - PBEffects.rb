@@ -149,6 +149,8 @@ begin
     SilkTrap           = 145
     GlaiveRush         = 146
     GlaiveRushPos      = 147
+    Commander          = 148 # Used only on a species with Commander
+    CommanderAlly      = 149 # Used only on Dondozo currently
     
     ############################################################################
     # These effects apply to a side

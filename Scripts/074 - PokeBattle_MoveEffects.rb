@@ -7433,7 +7433,8 @@ class PokeBattle_Move_0EB < PokeBattle_Move
       return -1
     end
     if !@battle.opponent
-      if opponent.level>attacker.level
+      if opponent.level>attacker.level || 
+         opponent.effects[PBEffects::CommanderAlly]
 			pbSEPlay("protection")
         @battle.pbDisplay(_INTL("But it failed!"))
         return -1
@@ -7480,6 +7481,7 @@ class PokeBattle_Move_0EC < PokeBattle_Move
         !opponent.hasWorkingAbility(:ENIGMATACTICS) ||
         !opponent.hasWorkingAbility(:GUARDDOG)) &&
        !opponent.effects[PBEffects::Ingrain] &&
+       !opponent.effects[PBEffects::CommanderAlly] &&
        !opponent.hasWorkingItem(:ASPEARVEST)
       if !@battle.opponent
         if opponent.level<=attacker.level

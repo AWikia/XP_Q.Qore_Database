@@ -1046,6 +1046,7 @@ class PokeBattle_Battler
         (self.pbPartner.hasWorkingAbility(:POWEROFALCHEMY) ||
         self.pbPartner.hasWorkingAbility(:RECEIVER))
       if !(isConst?(self.ability,PBAbilities,:BATTLEBOND) ||
+          isConst?(self.ability,PBAbilities,:COMMANDER) ||
           isConst?(self.ability,PBAbilities,:COMATOSE) ||
           isConst?(self.ability,PBAbilities,:DISGUISE) ||
           isConst?(self.ability,PBAbilities,:FLOWERGIFT) ||
@@ -1058,6 +1059,8 @@ class PokeBattle_Battler
           isConst?(self.ability,PBAbilities,:NEUTRALIZINGGAS) ||
           isConst?(self.ability,PBAbilities,:POWERCONSTRUCT) ||
           isConst?(self.ability,PBAbilities,:POWEROFALCHEMY) ||
+          isConst?(self.ability,PBAbilities,:PROTOSYNTHESIS) ||
+          isConst?(self.ability,PBAbilities,:QUARKDRIVE) ||
           isConst?(self.ability,PBAbilities,:RECEIVER) ||
           isConst?(self.ability,PBAbilities,:RKSSYSTEM) ||
           isConst?(self.ability,PBAbilities,:SCHOOLING) ||
@@ -1066,6 +1069,7 @@ class PokeBattle_Battler
           isConst?(self.ability,PBAbilities,:TRACE) ||
           isConst?(self.ability,PBAbilities,:WONDERGUARD) ||
           isConst?(self.ability,PBAbilities,:ZENMODE) ||
+          isConst?(self.ability,PBAbilities,:ZEROTOHERO) ||
           isConst?(self.ability,PBAbilities,:PHONYPREDATOR) ||
           isConst?(self.ability,PBAbilities,:KOULUNDIN) ||
           isConst?(self.ability,PBAbilities,:CHIKOLINI) ||
@@ -1420,7 +1424,7 @@ class PokeBattle_Battler
     end
     # Dolphin Emulator
     if isConst?(self.species,PBSpecies,:DOLPHIN) && !self.isFainted?
-      if isConst?(self.ability,PBAbilities,:DOLPHININO)
+      if self.hasWorkingAbility(:DOLPHININO)
         if self.form==0
           self.form=1; transformed=true
         end
@@ -1623,7 +1627,7 @@ class PokeBattle_Battler
         self.checkMimicryAll
         # The Electric Seed raised Hawlucha's Defense!
       end
-      if self.hasWorkingAbility(:HARDONENGINE) && @battle.field.effects[PBEffects::ElectricTerrain]<=0
+      if self.hasWorkingAbility(:HADRONENGINE) && @battle.field.effects[PBEffects::ElectricTerrain]<=0
         @battle.field.effects[PBEffects::GrassyTerrain]=0
         @battle.field.effects[PBEffects::MistyTerrain]=0
         @battle.field.effects[PBEffects::PsychicTerrain]=0
@@ -1633,7 +1637,7 @@ class PokeBattle_Battler
         @battle.field.effects[PBEffects::VolcanicTerrain]=0
         @battle.field.effects[PBEffects::LovelyTerrain]=0
         @battle.pbDisplay(_INTL("An electric current runs across the battlefield!"))
-        PBDebug.log("[#{pbThis}: Hardon Engine made Electric Terrain]") # Kept Japanese name in Debug log
+        PBDebug.log("[#{pbThis}: Hadron Engine made Electric Terrain]") # Kept Japanese name in Debug log
         self.checkMimicryAll
         # The Electric Seed raised Hawlucha's Defense!
       end
@@ -1869,6 +1873,7 @@ class PokeBattle_Battler
           abil=foe.ability
           if abil>0 &&
              !isConst?(abil,PBAbilities,:BATTLEBOND) &&
+             !isConst?(abil,PBAbilities,:COMMANDER) &&
              !isConst?(abil,PBAbilities,:COMATOSE) &&
              !isConst?(abil,PBAbilities,:DISGUISE) &&
              !isConst?(abil,PBAbilities,:FLOWERGIFT) &&
@@ -1880,14 +1885,18 @@ class PokeBattle_Battler
              !isConst?(abil,PBAbilities,:MULTITYPE) &&
              !isConst?(abil,PBAbilities,:NEUTRALIZINGGAS) &&
              !isConst?(abil,PBAbilities,:POWERCONSTRUCT) &&
+             !isConst?(abil,PBAbilities,:PROTOSYNTHESIS) &&
+             !isConst?(abil,PBAbilities,:QUARKDRIVE) &&
              !isConst?(abil,PBAbilities,:RECEIVER) &&
              !isConst?(abil,PBAbilities,:RKSSYSTEM) &&
              !isConst?(abil,PBAbilities,:SCHOOLING) &&
              !isConst?(abil,PBAbilities,:SHIELDSDOWN) &&
              !isConst?(abil,PBAbilities,:STANCECHANGE) &&
              !isConst?(abil,PBAbilities,:TRACE) &&
+             !isConst?(abil,PBAbilities,:ZEROTOHERO) &&
              !isConst?(abil,PBAbilities,:KOULUNDIN) &&
              !isConst?(abil,PBAbilities,:CHIKOLINI) &&
+             !isConst?(abil,PBAbilities,:DOLPHININO) &&
              !isConst?(abil,PBAbilities,:HERALINA) &&
              !isConst?(abil,PBAbilities,:ABILITOPIA) &&
              !isConst?(abil,PBAbilities,:MORFAT)
@@ -2505,6 +2514,7 @@ class PokeBattle_Battler
           if (taregt.ability==0) ||
              (user.ability==target.ability && !$USENEWBATTLEMECHANICS) ||
              isConst?(target.ability,PBAbilities,:BATTLEBOND) ||
+             isConst?(target.ability,PBAbilities,:COMMANDER) ||
              isConst?(target.ability,PBAbilities,:COMATOSE) ||
              isConst?(target.ability,PBAbilities,:DISGUISE) ||
              isConst?(target.ability,PBAbilities,:GULPMISSILE) ||
@@ -2513,11 +2523,14 @@ class PokeBattle_Battler
              isConst?(target.ability,PBAbilities,:MULTITYPE) ||
              isConst?(target.ability,PBAbilities,:NEUTRALIZINGGAS) ||
              isConst?(target.ability,PBAbilities,:POWERCONSTRUCT) ||
+             isConst?(target.ability,PBAbilities,:PROTOSYNTHESIS) ||
+             isConst?(target.ability,PBAbilities,:QUARKDRIVE) ||
              isConst?(target.ability,PBAbilities,:RKSSYSTEM) ||
              isConst?(target.ability,PBAbilities,:SCHOOLING) ||
              isConst?(target.ability,PBAbilities,:SHIELDSDOWN) ||
              isConst?(target.ability,PBAbilities,:STANCECHANGE) ||
              isConst?(target.ability,PBAbilities,:WONDERGUARD) ||
+             isConst?(target.ability,PBAbilities,:ZEROTOHERO) ||
              isConst?(target.ability,PBAbilities,:KOULUNDIN) ||
              isConst?(target.ability,PBAbilities,:CHIKOLINI) ||
              isConst?(target.ability,PBAbilities,:MAXTHIN) ||
@@ -2687,6 +2700,7 @@ class PokeBattle_Battler
         end
         if target.hasWorkingAbility(:MUMMY,true) && !user.isFainted?
           if !isConst?(user.ability,PBAbilities,:BATTLEBOND) &&
+             !isConst?(user.ability,PBAbilities,:COMMANDER) &&
              !isConst?(user.ability,PBAbilities,:COMATOSE) &&
              !isConst?(user.ability,PBAbilities,:DISGUISE) &&
              !isConst?(user.ability,PBAbilities,:GULPMISSILE) &&
@@ -2696,9 +2710,12 @@ class PokeBattle_Battler
              !isConst?(user.ability,PBAbilities,:MUMMY) &&
              !isConst?(user.ability,PBAbilities,:NEUTRALIZINGGAS) &&
              !isConst?(user.ability,PBAbilities,:POWERCONSTRUCT) &&
+             !isConst?(user.ability,PBAbilities,:PROTOSYNTHESIS) &&
+             !isConst?(user.ability,PBAbilities,:QUARKDRIVE) &&
              !isConst?(user.ability,PBAbilities,:RKSSYSTEM) &&
              !isConst?(user.ability,PBAbilities,:SCHOOLING) &&
              !isConst?(user.ability,PBAbilities,:STANCECHANGE) &&
+             !isConst?(user.ability,PBAbilities,:ZEROTOHERO) &&
              !isConst?(user.ability,PBAbilities,:MAXTHIN) &&
              !isConst?(user.ability,PBAbilities,:KOULUNDIN) &&
              !isConst?(user.ability,PBAbilities,:CHIKOLINI) &&
@@ -2713,6 +2730,7 @@ class PokeBattle_Battler
         # Lingering Aroma
         if target.hasWorkingAbility(:LINGERINGAROMA,true) && !user.isFainted?
           if !isConst?(user.ability,PBAbilities,:BATTLEBOND) &&
+             !isConst?(user.ability,PBAbilities,:COMMANDER) &&
              !isConst?(user.ability,PBAbilities,:COMATOSE) &&
              !isConst?(user.ability,PBAbilities,:DISGUISE) &&
              !isConst?(user.ability,PBAbilities,:GULPMISSILE) &&
@@ -2722,9 +2740,12 @@ class PokeBattle_Battler
              !isConst?(user.ability,PBAbilities,:LINGERINGAROMA) &&
              !isConst?(user.ability,PBAbilities,:NEUTRALIZINGGAS) &&
              !isConst?(user.ability,PBAbilities,:POWERCONSTRUCT) &&
+             !isConst?(user.ability,PBAbilities,:PROTOSYNTHESIS) &&
+             !isConst?(user.ability,PBAbilities,:QUARKDRIVE) &&
              !isConst?(user.ability,PBAbilities,:RKSSYSTEM) &&
              !isConst?(user.ability,PBAbilities,:SCHOOLING) &&
              !isConst?(user.ability,PBAbilities,:STANCECHANGE) &&
+             !isConst?(user.ability,PBAbilities,:ZEROTOHERO) &&
              !isConst?(user.ability,PBAbilities,:MAXTHIN) &&
              !isConst?(user.ability,PBAbilities,:KOULUNDIN) &&
              !isConst?(user.ability,PBAbilities,:CHIKOLINI) &&

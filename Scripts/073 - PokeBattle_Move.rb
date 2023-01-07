@@ -1378,9 +1378,9 @@ class PokeBattle_Move
         atkmult=(atkmult*1.3).round
       end
     end
-    # Hardon Engine
+    # Hadron Engine
     if @battle.field.effects[PBEffects::ElectricTerrain]>0 && pbIsSpecial?(type)
-      if attacker.hasWorkingAbility(:HARDONENGINE)
+      if attacker.hasWorkingAbility(:HADRONENGINE)
         atkmult=(atkmult*1.3).round
       end
     end

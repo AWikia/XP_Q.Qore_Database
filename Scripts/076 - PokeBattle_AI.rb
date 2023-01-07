@@ -4266,10 +4266,10 @@ class PokeBattle_Battle
         end
       end
     end
-    # Hardon Engine
+    # Hadron Engine
     if skill>=PBTrainerAI.highSkill
       if @field.effects[PBEffects::ElectricTerrain]>0 && move.pbIsSpecial?(type)
-        if attacker.hasWorkingAbility(:HARDONENGINE)
+        if attacker.hasWorkingAbility(:HADRONENGINE)
           atk=(atk*1.3).round
         end
       end

@@ -2860,17 +2860,21 @@ class PokeBattle_Move_063 < PokeBattle_Move
     if !attacker.hasAbilityPowers(opponent)
       if isConst?(opponent.ability,PBAbilities,:BATTLEBOND) ||
          isConst?(opponent.ability,PBAbilities,:COMATOSE) ||
+         isConst?(opponent.ability,PBAbilities,:COMMANDER) ||
          isConst?(opponent.ability,PBAbilities,:DISGUISE) ||
          isConst?(opponent.ability,PBAbilities,:GULPMISSILE) ||
          isConst?(opponent.ability,PBAbilities,:ICEFACE) ||
          isConst?(opponent.ability,PBAbilities,:MULTITYPE) ||
          isConst?(opponent.ability,PBAbilities,:NEUTRALIZINGGAS) ||
          isConst?(opponent.ability,PBAbilities,:POWERCONSTRUCT) ||
+         isConst?(opponent.ability,PBAbilities,:PROTOSYNTHESIS) ||
+         isConst?(opponent.ability,PBAbilities,:QUARKDRIVE) ||
          isConst?(opponent.ability,PBAbilities,:RKSSYSTEM) ||
          isConst?(opponent.ability,PBAbilities,:SCHOOLING) ||
          isConst?(opponent.ability,PBAbilities,:SHIELDSDOWN) ||
          isConst?(opponent.ability,PBAbilities,:STANCECHANGE) ||
          isConst?(opponent.ability,PBAbilities,:TRUANT) ||
+         isConst?(opponent.ability,PBAbilities,:ZEROTOHERO) ||
          isConst?(opponent.ability,PBAbilities,:KOULUNDIN) ||
          isConst?(opponent.ability,PBAbilities,:CHIKOLINI) ||
          isConst?(opponent.ability,PBAbilities,:MAXTHIN)
@@ -2928,17 +2932,21 @@ class PokeBattle_Move_064 < PokeBattle_Move
     if !attacker.hasAbilityPowers(opponent)
       if isConst?(opponent.ability,PBAbilities,:BATTLEBOND) ||
          isConst?(opponent.ability,PBAbilities,:COMATOSE) ||
+         isConst?(opponent.ability,PBAbilities,:COMMANDER) ||
          isConst?(opponent.ability,PBAbilities,:DISGUISE) ||
          isConst?(opponent.ability,PBAbilities,:GULPMISSILE) ||
          isConst?(opponent.ability,PBAbilities,:ICEFACE) ||
          isConst?(opponent.ability,PBAbilities,:MULTITYPE) ||
          isConst?(opponent.ability,PBAbilities,:NEUTRALIZINGGAS) ||
          isConst?(opponent.ability,PBAbilities,:POWERCONSTRUCT) ||
+         isConst?(opponent.ability,PBAbilities,:PROTOSYNTHESIS) ||
+         isConst?(opponent.ability,PBAbilities,:QUARKDRIVE) ||
          isConst?(opponent.ability,PBAbilities,:RKSSYSTEM) ||
          isConst?(opponent.ability,PBAbilities,:SCHOOLING) ||
          isConst?(opponent.ability,PBAbilities,:SHIELDSDOWN) ||
          isConst?(opponent.ability,PBAbilities,:STANCECHANGE) ||
          isConst?(opponent.ability,PBAbilities,:TRUANT) ||
+         isConst?(opponent.ability,PBAbilities,:ZEROTOHERO) ||
          isConst?(opponent.ability,PBAbilities,:KOULUNDIN) ||
          isConst?(opponent.ability,PBAbilities,:CHIKOLINI) ||
          isConst?(opponent.ability,PBAbilities,:MAXTHIN)
@@ -2995,21 +3003,26 @@ class PokeBattle_Move_065 < PokeBattle_Move
     if !attacker.hasAbilityPowers(opponent)
       if isConst?(attacker.ability,PBAbilities,:BATTLEBOND) ||
          isConst?(attacker.ability,PBAbilities,:COMATOSE) ||
+         isConst?(attacker.ability,PBAbilities,:COMMANDER) ||
          isConst?(attacker.ability,PBAbilities,:DISGUISE) ||
          isConst?(attacker.ability,PBAbilities,:GULPMISSILE) ||
          isConst?(attacker.ability,PBAbilities,:ICEFACE) ||
          isConst?(attacker.ability,PBAbilities,:MULTITYPE) ||
          isConst?(attacker.ability,PBAbilities,:NEUTRALIZINGGAS) ||
          isConst?(attacker.ability,PBAbilities,:POWERCONSTRUCT) ||
+         isConst?(attacker.ability,PBAbilities,:PROTOSYNTHESIS) ||
+         isConst?(attacker.ability,PBAbilities,:QUARKDRIVE) ||
          isConst?(attacker.ability,PBAbilities,:RKSSYSTEM) ||
          isConst?(attacker.ability,PBAbilities,:SCHOOLING) ||
          isConst?(attacker.ability,PBAbilities,:SHIELDSDOWN) ||
          isConst?(attacker.ability,PBAbilities,:STANCECHANGE) ||
+         isConst?(attacker.ability,PBAbilities,:ZEROTOHERO) ||
          isConst?(attacker.ability,PBAbilities,:MAXTHIN) ||
          isConst?(attacker.ability,PBAbilities,:KOULUNDIN) ||
          isConst?(attacker.ability,PBAbilities,:CHIKOLINI) ||
          isConst?(opponent.ability,PBAbilities,:BATTLEBOND) ||
          isConst?(opponent.ability,PBAbilities,:COMATOSE) ||
+         isConst?(opponent.ability,PBAbilities,:COMMANDER) ||
          isConst?(opponent.ability,PBAbilities,:DISGUISE) ||
          isConst?(opponent.ability,PBAbilities,:FLOWERGIFT) ||
          isConst?(opponent.ability,PBAbilities,:FORECAST) ||
@@ -3021,6 +3034,8 @@ class PokeBattle_Move_065 < PokeBattle_Move
          isConst?(opponent.ability,PBAbilities,:NEUTRALIZINGGAS) ||
          isConst?(opponent.ability,PBAbilities,:POWERCONSTRUCT) ||
          isConst?(opponent.ability,PBAbilities,:POWEROFALCHEMY) ||
+         isConst?(opponent.ability,PBAbilities,:PROTOSYNTHESIS) ||
+         isConst?(opponent.ability,PBAbilities,:QUARKDRIVE) ||
          isConst?(opponent.ability,PBAbilities,:RECEIVER) ||
          isConst?(opponent.ability,PBAbilities,:RKSSYSTEM) ||
          isConst?(opponent.ability,PBAbilities,:SCHOOLING) ||
@@ -3029,6 +3044,7 @@ class PokeBattle_Move_065 < PokeBattle_Move
          isConst?(opponent.ability,PBAbilities,:TRACE) ||
          isConst?(opponent.ability,PBAbilities,:WONDERGUARD) ||
          isConst?(opponent.ability,PBAbilities,:ZENMODE) ||
+         isConst?(opponent.ability,PBAbilities,:ZEROTOHERO) ||
          isConst?(opponent.ability,PBAbilities,:PHONYPREDATOR) ||
          isConst?(opponent.ability,PBAbilities,:KOULUNDIN) ||
          isConst?(opponent.ability,PBAbilities,:HERALINA) ||
@@ -3092,18 +3108,22 @@ class PokeBattle_Move_066 < PokeBattle_Move
        attacker.ability==opponent.ability ||
        isConst?(opponent.ability,PBAbilities,:BATTLEBOND) ||
        isConst?(opponent.ability,PBAbilities,:COMATOSE) ||
+       isConst?(opponent.ability,PBAbilities,:COMMANDER) ||
        isConst?(opponent.ability,PBAbilities,:DISGUISE) ||
        isConst?(opponent.ability,PBAbilities,:GULPMISSILE) ||
        isConst?(opponent.ability,PBAbilities,:ICEFACE) ||
        isConst?(opponent.ability,PBAbilities,:MULTITYPE) ||
        isConst?(opponent.ability,PBAbilities,:NEUTRALIZINGGAS) ||
        isConst?(opponent.ability,PBAbilities,:POWERCONSTRUCT) ||
+       isConst?(opponent.ability,PBAbilities,:PROTOSYNTHESIS) ||
+       isConst?(opponent.ability,PBAbilities,:QUARKDRIVE) ||
        isConst?(opponent.ability,PBAbilities,:RKSSYSTEM) ||
        isConst?(opponent.ability,PBAbilities,:SCHOOLING) ||
        isConst?(opponent.ability,PBAbilities,:SHIELDSDOWN) ||
        isConst?(opponent.ability,PBAbilities,:STANCECHANGE) ||
        isConst?(opponent.ability,PBAbilities,:TRUANT) ||
        isConst?(opponent.ability,PBAbilities,:ZENMODE) ||
+       isConst?(opponent.ability,PBAbilities,:ZEROTOHERO) ||
        isConst?(opponent.ability,PBAbilities,:PHONYPREDATOR) ||
        isConst?(opponent.ability,PBAbilities,:MAXTHIN) ||
        isConst?(opponent.ability,PBAbilities,:KOULUNDIN) ||
@@ -3112,6 +3132,7 @@ class PokeBattle_Move_066 < PokeBattle_Move
        isConst?(opponent.ability,PBAbilities,:MORFAT) ||
        isConst?(attacker.ability,PBAbilities,:BATTLEBOND) ||
        isConst?(attacker.ability,PBAbilities,:COMATOSE) ||
+       isConst?(attacker.ability,PBAbilities,:COMMANDER) ||
        isConst?(attacker.ability,PBAbilities,:DISGUISE) ||
        isConst?(attacker.ability,PBAbilities,:FLOWERGIFT) ||
        isConst?(attacker.ability,PBAbilities,:FORECAST) ||
@@ -3124,6 +3145,8 @@ class PokeBattle_Move_066 < PokeBattle_Move
        isConst?(attacker.ability,PBAbilities,:NEUTRALIZINGGAS) ||
        isConst?(attacker.ability,PBAbilities,:POWERCONSTRUCT) ||
        isConst?(attacker.ability,PBAbilities,:POWEROFALCHEMY) ||
+       isConst?(attacker.ability,PBAbilities,:PROTOSYNTHESIS) ||
+       isConst?(attacker.ability,PBAbilities,:QUARKDRIVE) ||
        isConst?(attacker.ability,PBAbilities,:RECEIVER) ||
        isConst?(attacker.ability,PBAbilities,:RKSSYSTEM) ||
        isConst?(attacker.ability,PBAbilities,:SCHOOLING) ||
@@ -3131,6 +3154,7 @@ class PokeBattle_Move_066 < PokeBattle_Move
        isConst?(attacker.ability,PBAbilities,:STANCECHANGE) ||
        isConst?(attacker.ability,PBAbilities,:TRACE) ||
        isConst?(attacker.ability,PBAbilities,:ZENMODE) ||
+       isConst?(attacker.ability,PBAbilities,:ZEROTOHERO) ||
        isConst?(attacker.ability,PBAbilities,:PHONYPREDATOR) ||
        isConst?(attacker.ability,PBAbilities,:KOULUNDIN) ||
        isConst?(attacker.ability,PBAbilities,:CHIKOLINI) ||
@@ -3179,6 +3203,8 @@ class PokeBattle_Move_067 < PokeBattle_Move
        isConst?(opponent.ability,PBAbilities,:BATTLEBOND) ||
        isConst?(attacker.ability,PBAbilities,:COMATOSE) ||
        isConst?(opponent.ability,PBAbilities,:COMATOSE) ||
+       isConst?(attacker.ability,PBAbilities,:COMMANDER) ||
+       isConst?(opponent.ability,PBAbilities,:COMMANDER) ||
        isConst?(attacker.ability,PBAbilities,:DISGUISE) ||
        isConst?(opponent.ability,PBAbilities,:DISGUISE) ||
        isConst?(attacker.ability,PBAbilities,:GULPMISSILE) ||
@@ -3193,6 +3219,10 @@ class PokeBattle_Move_067 < PokeBattle_Move
        isConst?(opponent.ability,PBAbilities,:NEUTRALIZINGGAS) ||       
        isConst?(attacker.ability,PBAbilities,:POWERCONSTRUCT) ||
        isConst?(opponent.ability,PBAbilities,:POWERCONSTRUCT) ||
+       isConst?(attacker.ability,PBAbilities,:PROTOSYNTHESIS) ||
+       isConst?(opponent.ability,PBAbilities,:PROTOSYNTHESIS) ||
+       isConst?(attacker.ability,PBAbilities,:QUARKDRIVE) ||
+       isConst?(opponent.ability,PBAbilities,:QUARKDRIVE) ||
        isConst?(attacker.ability,PBAbilities,:RKSSYSTEM) ||
        isConst?(opponent.ability,PBAbilities,:RKSSYSTEM) ||
        isConst?(attacker.ability,PBAbilities,:SCHOOLING) ||
@@ -3203,6 +3233,8 @@ class PokeBattle_Move_067 < PokeBattle_Move
        isConst?(opponent.ability,PBAbilities,:STANCECHANGE) ||
        isConst?(attacker.ability,PBAbilities,:WONDERGUARD) ||
        isConst?(opponent.ability,PBAbilities,:WONDERGUARD) ||
+       isConst?(attacker.ability,PBAbilities,:ZEROTOHERO) ||
+       isConst?(opponent.ability,PBAbilities,:ZEROTOHERO) ||
        isConst?(attacker.ability,PBAbilities,:KOULUNDIN) ||
        isConst?(opponent.ability,PBAbilities,:KOULUNDIN) ||
        isConst?(attacker.ability,PBAbilities,:CHIKOLINI) ||
@@ -3256,17 +3288,21 @@ class PokeBattle_Move_068 < PokeBattle_Move
     if !attacker.hasAbilityPowers(opponent)
       if isConst?(opponent.ability,PBAbilities,:BATTLEBOND) || # Changed
          isConst?(opponent.ability,PBAbilities,:COMATOSE) ||
+         isConst?(opponent.ability,PBAbilities,:COMMANDER) ||
          isConst?(opponent.ability,PBAbilities,:DISGUISE) ||
          isConst?(opponent.ability,PBAbilities,:GULPMISSILE) ||
          isConst?(opponent.ability,PBAbilities,:ICEFACE) ||
          isConst?(opponent.ability,PBAbilities,:MULTITYPE) ||
          isConst?(opponent.ability,PBAbilities,:NEUTRALIZINGGAS) ||
          isConst?(opponent.ability,PBAbilities,:POWERCONSTRUCT) ||
+         isConst?(opponent.ability,PBAbilities,:PROTOSYNTHESIS) ||
+         isConst?(opponent.ability,PBAbilities,:QUARKDRIVE) ||
          isConst?(opponent.ability,PBAbilities,:RKSSYSTEM) ||
          isConst?(opponent.ability,PBAbilities,:SCHOOLING) || 
          isConst?(opponent.ability,PBAbilities,:SHIELDSDOWN) ||
          isConst?(opponent.ability,PBAbilities,:STANCECHANGE) ||
          isConst?(opponent.ability,PBAbilities,:ZENMODE) ||
+         isConst?(opponent.ability,PBAbilities,:ZEROTOHERO) ||
          isConst?(opponent.ability,PBAbilities,:PHONYPREDATOR) ||
          isConst?(opponent.ability,PBAbilities,:KOULUNDIN) ||
          isConst?(opponent.ability,PBAbilities,:CHIKOLINI) ||
@@ -11330,17 +11366,21 @@ class PokeBattle_Move_184 < PokeBattle_Move
     if !attacker.hasAbilityPowers(opponent)
       if isConst?(opponent.ability,PBAbilities,:BATTLEBOND) || 
          isConst?(opponent.ability,PBAbilities,:COMATOSE) ||
+         isConst?(opponent.ability,PBAbilities,:COMMANDER) ||
          isConst?(opponent.ability,PBAbilities,:DISGUISE) ||
          isConst?(opponent.ability,PBAbilities,:GULPMISSILE) ||
          isConst?(opponent.ability,PBAbilities,:ICEFACE) ||
          isConst?(opponent.ability,PBAbilities,:MULTITYPE) ||
          isConst?(opponent.ability,PBAbilities,:NEUTRALIZINGGAS) ||
          isConst?(opponent.ability,PBAbilities,:POWERCONSTRUCT) ||
+         isConst?(opponent.ability,PBAbilities,:PROTOSYNTHESIS) ||
+         isConst?(opponent.ability,PBAbilities,:QUARKDRIVE) ||
          isConst?(opponent.ability,PBAbilities,:RKSSYSTEM) ||
          isConst?(opponent.ability,PBAbilities,:SCHOOLING) ||
          isConst?(opponent.ability,PBAbilities,:SHIELDSDOWN) ||
          isConst?(opponent.ability,PBAbilities,:STANCECHANGE) ||
          isConst?(opponent.ability,PBAbilities,:TRUANT) ||
+         isConst?(opponent.ability,PBAbilities,:ZEROTOHERO) ||
          isConst?(opponent.ability,PBAbilities,:KOULUNDIN) ||
          isConst?(opponent.ability,PBAbilities,:MAXTHIN) ||
          isConst?(opponent.ability,PBAbilities,:CHIKOLINI)
@@ -12305,21 +12345,26 @@ class PokeBattle_Move_206 < PokeBattle_Move
          attacker.ability==opponent.ability ||
          isConst?(attacker.ability,PBAbilities,:BATTLEBOND) ||
          isConst?(attacker.ability,PBAbilities,:COMATOSE) ||
+         isConst?(attacker.ability,PBAbilities,:COMMANDER) ||
          isConst?(attacker.ability,PBAbilities,:DISGUISE) ||
          isConst?(attacker.ability,PBAbilities,:GULPMISSILE) ||
          isConst?(attacker.ability,PBAbilities,:ICEFACE) ||
          isConst?(attacker.ability,PBAbilities,:MULTITYPE) ||
          isConst?(attacker.ability,PBAbilities,:NEUTRALIZINGGAS) ||
          isConst?(attacker.ability,PBAbilities,:POWERCONSTRUCT) ||
+         isConst?(attacker.ability,PBAbilities,:PROTOSYNTHESIS) ||
+         isConst?(attacker.ability,PBAbilities,:QUARKDRIVE) ||
          isConst?(attacker.ability,PBAbilities,:RKSSYSTEM) ||
          isConst?(attacker.ability,PBAbilities,:SCHOOLING) ||
          isConst?(attacker.ability,PBAbilities,:SHIELDSDOWN) ||
          isConst?(attacker.ability,PBAbilities,:STANCECHANGE) ||
+         isConst?(attacker.ability,PBAbilities,:ZEROTOHERO) ||
          isConst?(attacker.ability,PBAbilities,:MAXTHIN) ||
          isConst?(attacker.ability,PBAbilities,:KOULUNDIN) ||
          isConst?(attacker.ability,PBAbilities,:CHIKOLINI) ||
          isConst?(opponent.ability,PBAbilities,:BATTLEBOND) ||
          isConst?(opponent.ability,PBAbilities,:COMATOSE) ||
+         isConst?(opponent.ability,PBAbilities,:COMMANDER) ||
          isConst?(opponent.ability,PBAbilities,:DISGUISE) ||
          isConst?(opponent.ability,PBAbilities,:FLOWERGIFT) ||
          isConst?(opponent.ability,PBAbilities,:FORECAST) ||
@@ -12331,6 +12376,8 @@ class PokeBattle_Move_206 < PokeBattle_Move
          isConst?(opponent.ability,PBAbilities,:NEUTRALIZINGGAS) ||
          isConst?(opponent.ability,PBAbilities,:POWERCONSTRUCT) ||
          isConst?(opponent.ability,PBAbilities,:POWEROFALCHEMY) ||
+         isConst?(opponent.ability,PBAbilities,:PROTOSYNTHESIS) ||
+         isConst?(opponent.ability,PBAbilities,:QUARKDRIVE) ||
          isConst?(opponent.ability,PBAbilities,:RECEIVER) ||
          isConst?(opponent.ability,PBAbilities,:RKSSYSTEM) ||
          isConst?(opponent.ability,PBAbilities,:SCHOOLING) ||
@@ -12339,6 +12386,7 @@ class PokeBattle_Move_206 < PokeBattle_Move
          isConst?(opponent.ability,PBAbilities,:TRACE) ||
          isConst?(opponent.ability,PBAbilities,:WONDERGUARD) ||
          isConst?(opponent.ability,PBAbilities,:ZENMODE) ||
+         isConst?(opponent.ability,PBAbilities,:ZEROTOHERO) ||
          isConst?(opponent.ability,PBAbilities,:PHONYPREDATOR) ||
          isConst?(opponent.ability,PBAbilities,:KOULUNDIN) ||
          isConst?(opponent.ability,PBAbilities,:CHIKOLINI) ||
@@ -12810,17 +12858,21 @@ class PokeBattle_Move_247 < PokeBattle_Move
     suppress=true
     if isConst?(opponent.ability,PBAbilities,:BATTLEBOND) || # Changed
        isConst?(opponent.ability,PBAbilities,:COMATOSE) ||
+       isConst?(opponent.ability,PBAbilities,:COMMANDER) ||
        isConst?(opponent.ability,PBAbilities,:DISGUISE) ||
        isConst?(opponent.ability,PBAbilities,:GULPMISSILE) ||
        isConst?(opponent.ability,PBAbilities,:ICEFACE) ||
        isConst?(opponent.ability,PBAbilities,:MULTITYPE) ||
        isConst?(opponent.ability,PBAbilities,:NEUTRALIZINGGAS) ||
        isConst?(opponent.ability,PBAbilities,:POWERCONSTRUCT) ||
+       isConst?(opponent.ability,PBAbilities,:PROTOSYNTHESIS) ||
+       isConst?(opponent.ability,PBAbilities,:QUARKDRIVE) ||
        isConst?(opponent.ability,PBAbilities,:RKSSYSTEM) ||
        isConst?(opponent.ability,PBAbilities,:SCHOOLING) || 
        isConst?(opponent.ability,PBAbilities,:SHIELDSDOWN) ||
        isConst?(opponent.ability,PBAbilities,:STANCECHANGE) ||
        isConst?(opponent.ability,PBAbilities,:ZENMODE) ||
+       isConst?(opponent.ability,PBAbilities,:ZEROTOHERO) ||
        isConst?(opponent.ability,PBAbilities,:PHONYPREDATOR) ||
        isConst?(opponent.ability,PBAbilities,:KOULUNDIN) ||
        isConst?(opponent.ability,PBAbilities,:MAXTHIN) ||
@@ -14113,17 +14165,21 @@ class PokeBattle_Move_327 < PokeBattle_Move
     if !attacker.hasAbilityPowers(opponent)
       if isConst?(opponent.ability,PBAbilities,:BATTLEBOND) || 
          isConst?(opponent.ability,PBAbilities,:COMATOSE) ||
+         isConst?(opponent.ability,PBAbilities,:COMMANDER) ||
          isConst?(opponent.ability,PBAbilities,:DISGUISE) ||
          isConst?(opponent.ability,PBAbilities,:GULPMISSILE) ||
          isConst?(opponent.ability,PBAbilities,:ICEFACE) ||
          isConst?(opponent.ability,PBAbilities,:MULTITYPE) ||
          isConst?(opponent.ability,PBAbilities,:NEUTRALIZINGGAS) ||
          isConst?(opponent.ability,PBAbilities,:POWERCONSTRUCT) ||
+         isConst?(opponent.ability,PBAbilities,:PROTOSYNTHESIS) ||
+         isConst?(opponent.ability,PBAbilities,:QUARKDRIVE) ||
          isConst?(opponent.ability,PBAbilities,:RKSSYSTEM) ||
          isConst?(opponent.ability,PBAbilities,:SCHOOLING) ||
          isConst?(opponent.ability,PBAbilities,:SHIELDSDOWN) ||
          isConst?(opponent.ability,PBAbilities,:STANCECHANGE) ||
          isConst?(opponent.ability,PBAbilities,:TRUANT) ||
+         isConst?(opponent.ability,PBAbilities,:ZEROTOHERO) ||
          isConst?(opponent.ability,PBAbilities,:KOULUNDIN) ||
          isConst?(opponent.ability,PBAbilities,:MAXTHIN) ||
          isConst?(opponent.ability,PBAbilities,:CHIKOLINI)
@@ -14439,17 +14495,21 @@ class PokeBattle_Move_343 < PokeBattle_Move
     if !attacker.hasAbilityPowers(opponent)
       if isConst?(opponent.ability,PBAbilities,:BATTLEBOND) || # Changed
          isConst?(opponent.ability,PBAbilities,:COMATOSE) ||
+         isConst?(opponent.ability,PBAbilities,:COMMANDER) ||
          isConst?(opponent.ability,PBAbilities,:DISGUISE) ||
          isConst?(opponent.ability,PBAbilities,:GULPMISSILE) ||
          isConst?(opponent.ability,PBAbilities,:ICEFACE) ||
          isConst?(opponent.ability,PBAbilities,:MULTITYPE) ||
          isConst?(opponent.ability,PBAbilities,:NEUTRALIZINGGAS) ||
          isConst?(opponent.ability,PBAbilities,:POWERCONSTRUCT) ||
+         isConst?(opponent.ability,PBAbilities,:PROTOSYNTHESIS) ||
+         isConst?(opponent.ability,PBAbilities,:QUARKDRIVE) ||
          isConst?(opponent.ability,PBAbilities,:RKSSYSTEM) ||
          isConst?(opponent.ability,PBAbilities,:SCHOOLING) || 
          isConst?(opponent.ability,PBAbilities,:SHIELDSDOWN) ||
          isConst?(opponent.ability,PBAbilities,:STANCECHANGE) ||
          isConst?(opponent.ability,PBAbilities,:ZENMODE) ||
+         isConst?(opponent.ability,PBAbilities,:ZEROTOHERO) ||
          isConst?(opponent.ability,PBAbilities,:PHONYPREDATOR) ||
          isConst?(opponent.ability,PBAbilities,:KOULUNDIN) ||
          isConst?(opponent.ability,PBAbilities,:CHIKOLINI) ||
@@ -15061,6 +15121,7 @@ class PokeBattle_Move_223 < PokeBattle_Move
             isConst?(opponent.ability,PBAbilities,:RKSSYSTEM) || # Added from here
             isConst?(opponent.ability,PBAbilities,:SCHOOLING) || 
             isConst?(opponent.ability,PBAbilities,:COMATOSE) ||
+            isConst?(opponent.ability,PBAbilities,:COMMANDER) ||
             isConst?(opponent.ability,PBAbilities,:SHIELDSDOWN) ||
             isConst?(opponent.ability,PBAbilities,:DISGUISE) ||
             isConst?(opponent.ability,PBAbilities,:BATTLEBOND) ||
@@ -15068,8 +15129,11 @@ class PokeBattle_Move_223 < PokeBattle_Move
             isConst?(opponent.ability,PBAbilities,:MAXTHIN) ||
             isConst?(opponent.ability,PBAbilities,:CHIKOLINI) ||
             isConst?(opponent.ability,PBAbilities,:POWERCONSTRUCT) ||
+            isConst?(opponent.ability,PBAbilities,:PROTOSYNTHESIS) ||
+            isConst?(opponent.ability,PBAbilities,:QUARKDRIVE) ||
             isConst?(opponent.ability,PBAbilities,:GULPMISSILE) ||
             isConst?(opponent.ability,PBAbilities,:ICEFACE) ||
+            isConst?(opponent.ability,PBAbilities,:ZEROTOHERO) ||
             isConst?(opponent.ability,PBAbilities,:NEUTRALIZINGGAS) ||
             isConst?(opponent.ability,PBAbilities,:MORFAT) ||
             isConst?(opponent.ability,PBAbilities,:ABILITOPIA) ||
@@ -16722,21 +16786,26 @@ class PokeBattle_Move_363 < PokeBattle_Move
       if !attacker.hasAbilityPowers(opponent)
         next if isConst?(i.ability,PBAbilities,:BATTLEBOND) ||
                 isConst?(i.ability,PBAbilities,:COMATOSE) ||
+                isConst?(i.ability,PBAbilities,:COMMANDER) ||
                 isConst?(i.ability,PBAbilities,:DISGUISE) ||
                 isConst?(i.ability,PBAbilities,:GULPMISSILE) ||
                 isConst?(i.ability,PBAbilities,:ICEFACE) ||
                 isConst?(i.ability,PBAbilities,:MULTITYPE) ||
                 isConst?(i.ability,PBAbilities,:NEUTRALIZINGGAS) ||
                 isConst?(i.ability,PBAbilities,:POWERCONSTRUCT) ||
+                isConst?(i.ability,PBAbilities,:PROTOSYNTHESIS) ||
+                isConst?(i.ability,PBAbilities,:QUARKDRIVE) ||
                 isConst?(i.ability,PBAbilities,:RKSSYSTEM) ||
                 isConst?(i.ability,PBAbilities,:SCHOOLING) ||
                 isConst?(i.ability,PBAbilities,:SHIELDSDOWN) ||
                 isConst?(i.ability,PBAbilities,:STANCECHANGE) ||
+                isConst?(i.ability,PBAbilities,:ZEROTOHERO) ||
                 isConst?(i.ability,PBAbilities,:MAXTHIN) ||
                 isConst?(i.ability,PBAbilities,:KOULUNDIN) ||
                 isConst?(i.ability,PBAbilities,:CHIKOLINI) ||
                 isConst?(opponent.ability,PBAbilities,:BATTLEBOND) ||
                 isConst?(opponent.ability,PBAbilities,:COMATOSE) ||
+                isConst?(opponent.ability,PBAbilities,:COMMANDER) ||
                 isConst?(opponent.ability,PBAbilities,:DISGUISE) ||
                 isConst?(opponent.ability,PBAbilities,:FLOWERGIFT) ||
                 isConst?(opponent.ability,PBAbilities,:FORECAST) ||
@@ -16748,6 +16817,8 @@ class PokeBattle_Move_363 < PokeBattle_Move
                 isConst?(opponent.ability,PBAbilities,:NEUTRALIZINGGAS) ||
                 isConst?(opponent.ability,PBAbilities,:POWERCONSTRUCT) ||
                 isConst?(opponent.ability,PBAbilities,:POWEROFALCHEMY) ||
+                isConst?(opponent.ability,PBAbilities,:PROTOSYNTHESIS) ||
+                isConst?(opponent.ability,PBAbilities,:QUARKDRIVE) ||
                 isConst?(opponent.ability,PBAbilities,:RECEIVER) ||
                 isConst?(opponent.ability,PBAbilities,:RKSSYSTEM) ||
                 isConst?(opponent.ability,PBAbilities,:SCHOOLING) ||
@@ -16756,6 +16827,7 @@ class PokeBattle_Move_363 < PokeBattle_Move
                 isConst?(opponent.ability,PBAbilities,:TRACE) ||
                 isConst?(opponent.ability,PBAbilities,:WONDERGUARD) ||
                 isConst?(opponent.ability,PBAbilities,:ZENMODE) ||
+                isConst?(opponent.ability,PBAbilities,:ZEROTOHERO) ||
                 isConst?(opponent.ability,PBAbilities,:PHONYPREDATOR) ||
                 isConst?(opponent.ability,PBAbilities,:KOULUNDIN) ||
                 isConst?(opponent.ability,PBAbilities,:HERALINA) ||

@@ -292,7 +292,7 @@
 375,TABLETSOFRUIN,Tablets of Ruin,"The power of the Pokémon’s ruinous wooden tablets lowers the Attack stats of all Pokémon except itself."
 376,BREADSOFRUIN,Breads of Ruin,"The power of the Pokémon’s ruinous beads lowers the Sp. Def stats of all Pokémon except itself."
 377,ORICHALCUMPULSE,Orichalcum Pulse,"Turns the sunlight harsh when the Pokémon enters a battle. The ancient pulse thrumming through the Pokémon also boosts its Attack stat in harsh sunlight."
-378,HARDONENGINE,Hardon Engine,"Turns the ground into Electric Terrain when the Pokémon enters a battle. The futuristic engine within the Pokémon also boosts its Sp. Atk stat on Electric Terrain."
+378,HADRONENGINE,Hadron Engine,"Turns the ground into Electric Terrain when the Pokémon enters a battle. The futuristic engine within the Pokémon also boosts its Sp. Atk stat on Electric Terrain."
 379,OPPORTUNIST,Opportunist,"If an opponent’s stat is boosted, the Pokémon seizes the opportunity to boost the same stat for itself."
 380,CUDCHEW,Cud Chew,"When the Pokémon eats a Berry, it will regurgitate that Berry at the end of the next turn and eat it one more time."
 381,SHARPNESS,Sharpness,"Powers up slicing moves."

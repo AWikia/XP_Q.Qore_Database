@@ -1184,6 +1184,11 @@ Events.onStartBattle+=proc {|sender,e|
 Events.onEndBattle+=proc {|sender,e|
   decision=e[0]
   canlose=e[1]
+  for pkmn in $Trainer.party
+    if isConst?(pkmn.ability,PBAbilities,:ZEROTOHERO) && isConst?(pkmn.species,PBSpecies,:PALAFIN) && pkmn.form==1
+      pkmn.form=0
+    end
+  end
   if $USENEWBATTLEMECHANICS || (decision!=2 && decision!=5) # not a loss or a draw
     if $PokemonTemp.evolutionLevels
       pbEvolutionCheck($PokemonTemp.evolutionLevels)

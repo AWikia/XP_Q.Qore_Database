@@ -689,6 +689,10 @@ class PokeBattle_Battler
     if self.hasWorkingAbility(:REGENERATOR)
       self.pbRecoverHP((totalhp/3).floor)
     end
+    if self.hasWorkingAbility(:ZEROTOHERO) && 
+        isConst?(self.species,PBSpecies,:PALAFIN) 
+      self.form=1
+    end
     self.resetTemperature
     pbInitPokemon(pkmn,index)
     pbInitEffects(batonpass)

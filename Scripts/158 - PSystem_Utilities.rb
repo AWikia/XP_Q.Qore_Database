@@ -1374,8 +1374,7 @@ def pbCheckPokemonBitmapFiles(params,extra='')
   factors.push([3,params[3],false]) if params[3] && params[3]!=false     # shiny
   factors.push([4,params[4].to_s,""]) if params[4] && params[4].to_s!="" &&
                                                       params[4].to_s!="0" # form
-  factors.push([6,params[6].to_s,""]) if params[6] && params[6].to_s!="" &&
-                                                      params[6].to_s!="0" # color
+  factors.push([6,params[6].to_s,""]) if params[6] && params[6].to_s!=""  # color
   tshadow=false
   tgender=false
   tshiny=false
@@ -1419,7 +1418,7 @@ def pbCheckPokemonBitmapFiles(params,extra='')
          tshadow ? "_shadow" : "")
       ret=pbResolveBitmap(bitmapFileName)
       return ret if ret
-    end
+   end
 #TEMP
     bitmapFileName=sprintf("Graphics/Battlers/%s%s%s%s%s%s%s",
        getConstantName(PBSpecies,species),
@@ -1464,6 +1463,14 @@ def pbCheckPokemonBitmapFiles(params,extra='')
        tshiny ? "s" : "",
        back ? "b" : "",
        (tcolor!="" ? "_"+tcolor : ""),
+       tshadow ? "_shadow" : "") rescue nil
+    ret=pbResolveBitmap(bitmapFileName)
+    return ret if ret
+    bitmapFileName=sprintf("Graphics/Battlers/000%s%s%s%s%s",
+       extra,
+       tgender ? "f" : "",
+       tshiny ? "s" : "",
+       back ? "b" : "",
        tshadow ? "_shadow" : "") rescue nil
     ret=pbResolveBitmap(bitmapFileName)
     return ret if ret

@@ -11838,6 +11838,14 @@ MultipleForms.register(:GEOMETRYDASH,{
 }
 })
 
+MultipleForms.register(:DOFFICE,{
+"color"=>proc{|pokemon|
+   next if pokemon.isMale?
+   next 6
+}
+})
+
+
 MultipleForms.register(:META,{
 "getFormOnCreation"=>proc{|pokemon|
    next rand(5)

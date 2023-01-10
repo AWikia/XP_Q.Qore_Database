@@ -14,6 +14,16 @@ def pbAutoPositionAll()
     Graphics.update if i%50==0
     bitmap1=AnimatedBitmap.new(sprintf("Graphics/Battlers/%03db",i))
     bitmap2=AnimatedBitmap.new(sprintf("Graphics/Battlers/%03d",i))
+    # TMP
+    if !pbResolveBitmap(sprintf("Graphics/Battlers/%03db",i))
+      bitmap1.dispose if bitmap1
+      bitmap1=AnimatedBitmap.new(sprintf("Graphics/Battlers/TMP Gen9/%03db",i))
+    end
+    if !pbResolveBitmap(sprintf("Graphics/Battlers/%03d",i))
+      bitmap2.dispose if bitmap2
+      bitmap2=AnimatedBitmap.new(sprintf("Graphics/Battlers/TMP Gen9/%03d",i))
+    end
+    # TMP END
     if bitmap1 && bitmap1.bitmap
       metrics[0][i]=(bitmap1.height-(findBottom(bitmap1.bitmap)+1))/2
     end

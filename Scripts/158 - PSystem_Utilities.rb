@@ -1401,6 +1401,28 @@ def pbCheckPokemonBitmapFiles(params,extra='')
        tshadow ? "_shadow" : "")
     ret=pbResolveBitmap(bitmapFileName)
     return ret if ret
+#TEMP
+      bitmapFileName=sprintf("Graphics/Battlers/TMP Gen9/%s%s%s%s%s%s%s",
+         getConstantName(PBSpecies,species),
+         extra,
+         tgender ? "f" : "",
+         tshiny ? "s" : "",
+         back ? "b" : "",
+         (tform!="" ? "_"+tform : ""),
+         tshadow ? "_shadow" : "") rescue nil
+      ret=pbResolveBitmap(bitmapFileName)
+      return ret if ret
+      bitmapFileName=sprintf("Graphics/Battlers/TMP Gen9/%03d%s%s%s%s%s%s",
+         species,
+         extra,
+         tgender ? "f" : "",
+         tshiny ? "s" : "",
+         back ? "b" : "",
+         (tform!="" ? "_"+tform : ""),
+         tshadow ? "_shadow" : "")
+      ret=pbResolveBitmap(bitmapFileName)
+      return ret if ret
+#TEMP
   end
   # Fallback Sprites
   for i in 0...2**factors.length

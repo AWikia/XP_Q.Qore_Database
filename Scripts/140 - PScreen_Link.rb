@@ -293,22 +293,25 @@ class Scene_LinkBattleScene
                 break
               else
                 if itemname == 'RB'
-                  species = [PBSpecies::DITTO,PBSpecies::BASCULIN,PBSpecies::DISCORD,PBSpecies::BLUEGHOST]
+                  species = [PBSpecies::DITTO,PBSpecies::BASCULIN,PBSpecies::DISCORD,PBSpecies::BLUEGHOST,PBSpecies::LUVDISC,PBSpecies::SQUAWKABILLY,PBSpecies::PLUNUM]
 # Unlockables
                   if $game_switches && $game_switches[67]
-                    species.push(PBSpecies::UNOWN)
+                    species+=[PBSpecies::UNOWN]
                   end
                   if completedTrophies
-                    species.push(PBSpecies::MICROSOFT)
+                    species+=[PBSpecies::MICROSOFT]
                   end
                   if completedTechnicalDiscs
-                    species.push(PBSpecies::ROTOM)
+                    species+=[PBSpecies::ROTOM]
+                  end
+                  if Kernel.pbTechnicalDiscScore >= 49
+                    species+=[PBSpecies::FRIKIPAIDEIA,PBSpecies::SINISTEA,PBSpecies::POLTEAGEIST]
                   end
                   if $game_switches && $game_variables &&
                      $game_switches[12] && $game_switches[70] && 
                      $game_switches[76] && completedTrophies &&
                      completedTechnicalDiscs && $game_variables[13]>99
-                    species.push(PBSpecies::ALCREMIE)
+                    species+=[PBSpecies::ALCREMIE]
                   end
 # End Unlockables
                   pokemon = species[rand(species.length)]

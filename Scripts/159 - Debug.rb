@@ -432,6 +432,11 @@ def pbDebugMenu(fromgame=true)
       $Trainer.formseen=[] if !$Trainer.formseen
       $Trainer.formlastseen=[] if !$Trainer.formlastseen
       added=0; completed=true
+      commands2=[]
+      for j in 1..PBSpecies.maxValue
+        commands2.push(j)
+      end
+      commands2=getQoreDexList(commands2)
       for i in 1..PBSpecies.maxValue
         if added>=STORAGEBOXES*30
           completed=false; break
@@ -440,11 +445,10 @@ def pbDebugMenu(fromgame=true)
         next if !cname
         pkmn=PokeBattle_Pokemon.new(i,50,$Trainer)
 # QQC Edit
-	# TODO: Increasal of Expected Number in Q.Qore Species (After the next batch of Regular Species added)
-    fdexno = getDexNumber3(i)
+    fdexno = commands2.index(i)
 # QQC End
-        $PokemonStorage[(fdexno-1)/$PokemonStorage.maxPokemon(0),
-                        (fdexno-1)%$PokemonStorage.maxPokemon(0)]=pkmn
+        $PokemonStorage[(fdexno)/$PokemonStorage.maxPokemon(0),
+                        (fdexno)%$PokemonStorage.maxPokemon(0)]=pkmn
         $Trainer.seen[i]=true
         $Trainer.owned[i]=true
         $Trainer.formlastseen[i]=[] if !$Trainer.formlastseen[i]

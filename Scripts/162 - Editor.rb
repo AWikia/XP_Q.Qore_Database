@@ -980,7 +980,7 @@ def pbChooseSpecies(default)
   end
   commands=getQoreDexList(commands)
   commands2=getQoreDexList(commands2)
-  ret=pbCommands2(cmdwin,commands,-1,getDexNumber3(default)-1,true)
+  ret=pbCommands2(cmdwin,commands,-1,commands2.index(default),true)
   cmdwin.dispose
   value=commands2[ret]
   return ret>=0 ? value : 0

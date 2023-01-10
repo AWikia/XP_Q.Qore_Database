@@ -267,45 +267,6 @@ def getDexNumber(indexNumber=0)
     return fdexno
 end
 
-# Used on Pokemon Chosen (Non alphabet, for proper cursor position)
-
-def getDexNumber3(i=0)
-    fdexno = i
-    if i > 649 and i < 850 # Κορα Κορε Generation I (891 - 1090)
-      fnum = (i - 649)
-      fdexno = fnum
-    elsif i > 921 and i < 942 # Κορα Κορε Generation II (1091 - 1110)
-      fnum = (i - 721)
-      fdexno = fnum
-    elsif i > 1029 and i < 1050  # Κορα Κορε Generation III (1111 - 1130)
-      fnum = (i - 809)
-      fdexno = fnum
-    elsif i > 1130 and i < 1141 # Κορα Κορε Generation IV
-      fnum = (i - 890)
-      fdexno = fnum
-    elsif i > 1148 and i < 1249 # Κορα Κορε Generation V
-      fnum = (i - 898)
-      fdexno = fnum
-    elsif i <= 649 # Generation I-V
-      fdexno = (i + 350)
-    elsif i > 941 and i < 1030 # Generation VII
-      fdexno = (i + 130)
-      fdexno = fdexno
-    elsif i > 1049 and i < 1131 # Generation VIII A
-      fdexno = (i + 110)
-      fdexno = fdexno
-    elsif i > 1140 and i < 1149 # Generation VIII B
-      fdexno = (i + 100)
-      fdexno = fdexno
-    elsif i > 1248 # Generation VIII C
-      fdexno = i
-      fdexno = fdexno
-    else # Generation VI
-      fdexno = (i + 150)
-    end
-    return fdexno
-end
-
 # Returns if Dark Mode is active
 def isDarkMode?
   if $PokemonSystem

@@ -33706,7 +33706,7 @@ Pokedex=Known as the Knight of the Q.Qore era
 BattlerPlayerY=2
 BattlerEnemyY=13
 BattlerAltitude=0
-Evolutions=RESALAZZ,Trade
+Evolutions=RESALAZZ,Trade,
 [1241]
 Name=Atari
 InternalName=ATARI
@@ -36924,8 +36924,8 @@ Color=White
 Habitat=Grassland
 Kind=Letter
 Pokedex=An orphaned Attica TV was found by certain Tandemaus and Maushold. Nowadys, he wants to be always alone as usual and hides in places where others can't find him.
-BattlerPlayerY=33
-BattlerEnemyY=37
+BattlerPlayerY=7
+BattlerEnemyY=11
 BattlerAltitude=0
 Evolutions=
 [1363]
@@ -36975,8 +36975,8 @@ Color=Brown
 Habitat=Grassland
 Kind=Boomerang
 Pokedex=This Pokémon works 365 days a year
-BattlerPlayerY=33
-BattlerEnemyY=37
+BattlerPlayerY=17
+BattlerEnemyY=21
 BattlerAltitude=0
 Evolutions=BOOMERAN,Trained,365
 [1365]
@@ -37000,8 +37000,8 @@ Color=Brown
 Habitat=Grassland
 Kind=Boomerang
 Pokedex=This Pokémon works 365 days a year
-BattlerPlayerY=33
-BattlerEnemyY=37
+BattlerPlayerY=19
+BattlerEnemyY=23
 BattlerAltitude=0
 Evolutions=
 [1366]
@@ -37026,8 +37026,8 @@ Color=Red
 Habitat=Grassland
 Kind=Letter
 Pokedex=Nothing found yet.
-BattlerPlayerY=33
-BattlerEnemyY=37
+BattlerPlayerY=8
+BattlerEnemyY=12
 BattlerAltitude=0
 Evolutions=TELEMOBIL,Level,20
 [1367]
@@ -37052,8 +37052,8 @@ Color=Pink
 Habitat=Grassland
 Kind=Letter
 Pokedex=Nothing found yet.
-BattlerPlayerY=33
-BattlerEnemyY=37
+BattlerPlayerY=4
+BattlerEnemyY=8
 BattlerAltitude=0
 Evolutions=TELEMOBILEGION,Trained,365,TELEMOBILEGION,Trade,
 [1368]
@@ -37079,11 +37079,10 @@ Color=Yellow
 Habitat=Grassland
 Kind=Letter
 Pokedex=Nothing found yet.
-BattlerPlayerY=33
-BattlerEnemyY=37
+BattlerPlayerY=0
+BattlerEnemyY=4
 BattlerAltitude=0
 Evolutions=
-
 [1369]
 Name=Paradox Suicune
 InternalName=PKMN1369
@@ -37106,7 +37105,7 @@ Habitat=Grassland
 Kind=Paradox
 Pokedex=This Paradox Pokémon has not been uncovered yet. Stay tuned for more info
 BattlerPlayerY=15
-BattlerEnemyY=11
+BattlerEnemyY=19
 BattlerAltitude=0
 Evolutions=
 [1370]
@@ -37131,6 +37130,6 @@ Habitat=Grassland
 Kind=Paradox
 Pokedex=This Paradox Pokémon has not been uncovered yet. Stay tuned for more info
 BattlerPlayerY=15
-BattlerEnemyY=11
+BattlerEnemyY=19
 BattlerAltitude=0
 Evolutions=

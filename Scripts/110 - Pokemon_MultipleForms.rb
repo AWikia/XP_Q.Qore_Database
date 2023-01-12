@@ -12061,15 +12061,15 @@ MultipleForms.register(:SATTICATV,{
 },
 "height"=>proc{|pokemon|
    next if pokemon.form==0     # Small Size
-   next 13 if pokemon.form==1   # Average Size
-   next 17 if pokemon.form==2   # Large Size
-   next 20 if pokemon.form==3   # Super Size
+   next 17 if pokemon.form==1   # Average Size
+   next 24 if pokemon.form==2   # Large Size
+   next 30 if pokemon.form==3   # Super Size
 },
 "weight"=>proc{|pokemon|
    next if pokemon.form==0       # Small Size
-   next 50 if pokemon.form==1    # Average Size
-   next 100 if pokemon.form==2   # Large Size
-   next 150 if pokemon.form==3   # Super Size
+   next 250 if pokemon.form==1   # Average Size
+   next 500 if pokemon.form==2   # Large Size
+   next 1000 if pokemon.form==3  # Super Size
 },
 "getBaseStats"=>proc{|pokemon|
    next if pokemon.form==0                       # Small Size

@@ -12037,3 +12037,57 @@ MultipleForms.register(:DELIABANDAIPLUS,{
    pbSeenForm(pokemon)
 }
 })
+
+MultipleForms.register(:SATTICATV,{
+"getFormOnCreation"=>proc{|pokemon|
+   r = rand(20)
+   if r==0;    next 3   # Super Size (5%)
+   elsif r<4;  next 2   # Large (15%)
+   elsif r<13; next 1   # Average (45%)
+   end
+   next 0               # Small (35%)
+},
+"getAbilityList"=>proc{|pokemon|
+   next if pokemon.form==0                                          # Small Size
+   next [[getID(PBAbilities,:BALLOONIST),0],
+         [getID(PBAbilities,:LOVELYSURGE),2],
+         [getID(PBAbilities,:LOVINGCLUSTER),3]] if pokemon.form==1 # Average Size
+   next [[getID(PBAbilities,:BALLOONIST),0],
+         [getID(PBAbilities,:LOVELYSURGE),2],
+         [getID(PBAbilities,:LOVINGCLUSTER),3]] if pokemon.form==2 # Large Size
+   next [[getID(PBAbilities,:OPPORTUNIST),0],
+         [getID(PBAbilities,:LOVELYSURGE),2],
+         [getID(PBAbilities,:LOVINGCLUSTER),3]] if pokemon.form==3 # Super Size
+},
+"height"=>proc{|pokemon|
+   next if pokemon.form==0     # Small Size
+   next 13 if pokemon.form==1   # Average Size
+   next 17 if pokemon.form==2   # Large Size
+   next 20 if pokemon.form==3   # Super Size
+},
+"weight"=>proc{|pokemon|
+   next if pokemon.form==0       # Small Size
+   next 50 if pokemon.form==1    # Average Size
+   next 100 if pokemon.form==2   # Large Size
+   next 150 if pokemon.form==3   # Super Size
+},
+"getBaseStats"=>proc{|pokemon|
+   next if pokemon.form==0                       # Small Size
+   next [70,45,60,65,65,50] if pokemon.form==1   # Average Size
+   next [75,50,65,40,70,55] if pokemon.form==2   # Large Size
+   next [80,55,70,15,75,60] if pokemon.form==3   # Super Size
+},
+"wildHoldItems"=>proc{|pokemon|
+   next [getID(PBItems,:PROTECTIVEPADS),
+         getID(PBItems,:PROTECTIVEPADS),
+         getID(PBItems,:PROTECTIVEPADS)] if pokemon.form==3 # Super Size
+   next
+},
+"dexEntry"=>proc{|pokemon|
+   next if pokemon.form==0 
+   next _INTL("After a few moments, Attica TVs start to become less shy, often playing with other Tandemaus and Maushold. Still has the opportunity to grow more.") if pokemon.form==1
+   next _INTL("As Attica TVs became more bigger, they seem to take less time to damage other opponents found in a battle.") if pokemon.form==2
+   next _INTL("Supersized Attica TVs can sense anyone so that he can get the same stat boost the opponent did.") if pokemon.form==3
+}
+})
+

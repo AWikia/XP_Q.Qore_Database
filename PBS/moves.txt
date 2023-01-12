@@ -1200,7 +1200,7 @@
 836,MINDBOX,Mind Box,253,0,MIND,Status,0,20,0,20,0,,"By crafting and opening up a Mind Box, this will increase Accuracy of all Pokémon in the battle. It boosts more accuracy for Mind ones"
 904,BRAINOLOGIC,Brainologic,286,0,MIND,Status,0,10,0,40,0,,"For five turns, user and target are underswapped in a brainy storm."
 1018,SNOOZE,Snooze,299,50,MIND,Physical,100,15,30,00,0,bek,This attack can be used only if the user is asleep. The harsh noise may also harsly lower the target's defense.
-1019,MINDIA,Mindia,013,0,MIND,Staus,50,10,0,04,0,bce,"Opposing Pokémon are scattered by user's mind that confuses them"
+1019,MINDIA,Mindia,013,0,MIND,Status,50,10,0,04,0,bce,"Opposing Pokémon are scattered by user's mind that confuses them"
 1020,MINDYGLOPS,Mindy Glops,300,30,MIND,Special,99,20,0,04,0,bf,"This move ignores the other Brainologic and Mindy Glops, allowing this move to properly hit the targets"
 1140,BRAINYMEDIA,Brainymedia,344,0,MIND,Status,0,5,0,10,0,,"When this move is used, if the user faints, the foe that landed the knockout will have its stat stages reduced to minimum."
 1148,BRAINDAMAGE,Brain Damage,344,175,MIND,Special,55,5,0,00,0,abef,"Deals massive damage. If this move succeeds, once the user faints, the foe that landed the knockout hit will have its stat stages reduced to minimum."

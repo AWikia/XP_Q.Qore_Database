@@ -192,7 +192,7 @@ end
 # Returns the Adjusted National Pokedex Ordering done in Q.Qore (With Q.Qore
 # Pokemon to the top and the Regular Species after them
 def getQoreDexList(dexlist)
-  return dexlist[649..848] | dexlist[921..940] | dexlist[1029..1048] | dexlist[1130..1139] | dexlist[1148..1247] | dexlist[0..648] | dexlist[849..920] | dexlist[941..1028] | dexlist[1049..1129] | dexlist[1140..1147] | dexlist[1248..1999]
+  return dexlist[649..848] | dexlist[921..940] | dexlist[1029..1048] | dexlist[1130..1139] | dexlist[1148..1247] | dexlist[1358..1367] | dexlist[0..648] | dexlist[849..920] | dexlist[941..1028] | dexlist[1049..1129] | dexlist[1140..1147] | dexlist[1248..1357] | dexlist[1368..2999]
 end
   
 def getDexNumber(indexNumber=0)
@@ -227,8 +227,20 @@ def getDexNumber(indexNumber=0)
         fnum = "0" + fnum
       end
       fdexno = "Q" + fnum
+    elsif indexNumber > 1358 and indexNumber < 1369 # Κορα Κορε Generation VI
+      fnum = (indexNumber - 1008).to_s
+      while (fnum.length < 3)
+        fnum = "0" + fnum
+      end
+      fdexno = "Q" + fnum
 
-    elsif indexNumber <= 649 # Generation I-V
+    elsif indexNumber < 650 # Generation I-V
+      while (fdexno.length < 4)
+        fdexno = "0" + fdexno
+      end
+      fdexno = fdexno + ""
+    elsif indexNumber > 849 and indexNumber < 922 # Generation VI
+      fdexno = (indexNumber - 200).to_s
       while (fdexno.length < 4)
         fdexno = "0" + fdexno
       end
@@ -251,18 +263,18 @@ def getDexNumber(indexNumber=0)
         fdexno = "0" + fdexno
       end
       fdexno = fdexno + ""
-    elsif indexNumber > 1248 # Generation VIII C
+    elsif indexNumber > 1248 and indexNumber < 1359 # Generation VIII C + IX A
       fdexno = (indexNumber - 350).to_s
       while (fdexno.length < 4)
         fdexno = "0" + fdexno
       end
       fdexno = fdexno + ""
-
-      else # Generation VI
-      fdexno = (indexNumber - 200).to_s
+    elsif indexNumber > 1368 # Generation IX B
+      fdexno = (indexNumber - 360).to_s
       while (fdexno.length < 4)
         fdexno = "0" + fdexno
-      end      
+      end
+      fdexno = fdexno + ""
     end
     return fdexno
 end

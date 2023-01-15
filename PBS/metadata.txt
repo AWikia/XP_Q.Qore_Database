@@ -3131,3 +3131,15 @@ BattleBack=CaveDark
 Bicycle=true
 MapPosition=9,2,8
 ShowArea=true
+[544]
+# Quora Eins
+BattleBack=Cave
+MapPosition=6,11,3
+ShowArea=true
+[545]
+# Episodio DR
+BattleBack=Jarol
+MapPosition=6,11,3
+Outdoor=true
+ShowArea=true
+Environment=Forest

@@ -16924,15 +16924,19 @@ class PokeBattle_Move_365 < PokeBattle_Move
 end
 
 ################################################################################
-# Switches out the user. (Shed Tail)
-# TODO: Halve HP and create a substitute
+# Halves the user's HP. Switches out the user. (Shed Tail)
+# TODO: Create a substitute
 ################################################################################
 class PokeBattle_Move_366 < PokeBattle_Move
   def pbEffect(attacker,opponent,hitnum=0,alltargets=nil,showanimation=true)
+    sublife=[(attacker.totalhp/2).floor,1].max
     if !attacker.isFainted? &&
+        attacker.effects[PBEffects::Substitute]==0 &&
+        attacker.hp>sublife &&
        @battle.pbCanChooseNonActive?(attacker.index) &&
        !@battle.pbAllFainted?(@battle.pbParty(opponent.index))
         pbShowAnimation(@id,attacker,nil,hitnum,alltargets,showanimation)
+         attacker.pbReduceHP(sublife,false,false)
          attacker.effects[PBEffects::Uturn]=true
         return 0
      else

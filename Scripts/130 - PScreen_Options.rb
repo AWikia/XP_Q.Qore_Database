@@ -619,7 +619,7 @@ class PokemonSystem
     @darkmodestart    = 19  # Scheduled Dark Mode Start
     @darkmodeend      = 7   # Scheduled Dark Mode End
     @threecolorbar    = 0   # Three Color Progress Bar
-    @enableshading    = 0   # Outdoor Map Shading
+    @enableshading    = 1   # Outdoor Map Shading
     @textskincolors   = 0   # Text Skin Color Scheme (0=Standard, 1=Colors, 2=CMYK, 3=Vintage)
 end
   

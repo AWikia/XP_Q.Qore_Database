@@ -621,7 +621,7 @@ class PokemonDataBox < SpriteWrapper
     if @dark
       @numberbitmap=AnimatedBitmap.new(_INTL("Graphics/Pictures/icon_numbers_white2"))
     else
-      @numberbitmap=AnimatedBitmap.new(_INTL("Graphics/Pictures/icon_numbers"))
+      @numberbitmap=AnimatedBitmap.new(_INTL("Graphics/Pictures/icon_numbers_2"))
     end
     self.bitmap=@contents
     self.visible=false

@@ -847,7 +847,7 @@ class PokeBattle_Move_01B < PokeBattle_Move
       @battle.pbDisplay(_INTL("But it failed!"))
       return -1
     end
-    cancureslef=!isConst?(@id,PBMoves,:HERBLOBBY) || $USENEWBATTLEMECHANICS
+    cancureself=!isConst?(@id,PBMoves,:HERBLOBBY) || $USENEWBATTLEMECHANICS
     pbShowAnimation(@id,attacker,opponent,hitnum,alltargets,showanimation)
     case attacker.status
     when PBStatuses::PARALYSIS

@@ -145,8 +145,8 @@ class Window_Pokedex < Window_DrawableCommand
     @commands=[]
     super(x,y,width,height)
     self.windowskin=nil
-#    self.baseColor=Color.new(88,88,80)
-#    self.shadowColor=Color.new(168,184,184)
+#    self.baseColor=MessageConfig::DARKTEXTBASE
+#    self.shadowColor=MessageConfig::DARKTEXTSHADOW
 #    self.baseColor=Color.new(77,38,115)
 
     if (!isDarkMode?)
@@ -428,8 +428,8 @@ class PokemonPokedexScene
     @sprites["header"].windowskin=nil
     @sprites["seen"]=Window_AdvancedTextPokemon.newWithSize("",34,299,164,64,@viewport)
     @sprites["seen"].windowskin=nil
-#    @sprites["seen"].baseColor=Color.new(88,88,80)
-#    @sprites["seen"].shadowColor=Color.new(168,184,184)
+#    @sprites["seen"].baseColor=MessageConfig::DARKTEXTBASE
+#    @sprites["seen"].shadowColor=MessageConfig::DARKTEXTSHADOW
 #    @sprites["seen"].baseColor=Color.new(77,38,115)
     if (!isDarkMode?)
       @sprites["seen"].baseColor=Color.new(20,20,20)
@@ -440,8 +440,8 @@ class PokemonPokedexScene
     end
     @sprites["owned"]=Window_AdvancedTextPokemon.newWithSize("",34,329,164,64,@viewport)
     @sprites["owned"].windowskin=nil
-#    @sprites["owned"].baseColor=Color.new(88,88,80)
-#    @sprites["owned"].shadowColor=Color.new(168,184,184)
+#    @sprites["owned"].baseColor=MessageConfig::DARKTEXTBASE
+#    @sprites["owned"].shadowColor=MessageConfig::DARKTEXTSHADOW
 #    @sprites["owned"].baseColor=Color.new(77,38,115)
     if (!isDarkMode?)
       @sprites["owned"].baseColor=Color.new(20,20,20)
@@ -839,13 +839,13 @@ class PokemonPokedexScene
     @sprites["overlay"].bitmap.clear
 
     if (!isDarkMode?)
-      basecolor=Color.new(88,88,80)
-      shadowcolor=Color.new(168,184,184)
+      basecolor=MessageConfig::DARKTEXTBASE
+      shadowcolor=MessageConfig::DARKTEXTSHADOW
       basecolor2=Color.new(20,20,20)
       basecolor3=Color.new(248,248,248)
     else
-      basecolor=Color.new(248,248,240)
-      shadowcolor=Color.new(72,88,88)
+      basecolor=MessageConfig::LIGHTTEXTBASE
+      shadowcolor=MessageConfig::LIGHTTEXTSHADOW
       basecolor2=Color.new(248,248,248)
       basecolor3=Color.new(248,248,248)
     end

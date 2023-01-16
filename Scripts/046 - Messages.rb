@@ -938,7 +938,7 @@ def Kernel.pbShowCommandsLB(msgwindow,commands=nil,cmdIfCancel=0,defaultCmd=0)
     cmdwindow.z=99999
     cmdwindow.visible=true
     cmdwindow.setSkin("Graphics/Windowskins/"+getDarkModeFolder+"/"+"TrophyWindow")
-    cmdwindow.baseColor=Color.new(248,248,240)
+    cmdwindow.baseColor=Color.new(248,248,248)
     cmdwindow.shadowColor=Color.new(182,182,182)
     cmdwindow.resizeToFit(cmdwindow.commands)
     pbPositionNearMsgWindow(cmdwindow,msgwindow,:right)
@@ -1038,7 +1038,6 @@ def pbGetMapNameFromId(id)
 end
 
 def Kernel.pbMessage(message,commands=nil,cmdIfCancel=0,skin=nil,defaultCmd=0,&block)
-  # Dark Mode
   # Dark Mode
   if (($PokemonSystem.darkmode==2 rescue false) || 
      ($PokemonSystem.darkmode==3 rescue false)) &&
@@ -1365,11 +1364,11 @@ def pbDisplayGoldWindow(msgwindow)
   goldwindow=Window_AdvancedTextPokemon.new(_INTL("Money:\n<ar>{1}</ar>",moneyString))
   goldwindow.setSkin("Graphics/Windowskins/"+getDarkModeFolder+"/"+"goldskin")
   if (!isDarkMode?)
-    goldwindow.baseColor=Color.new(88,88,80)
-    goldwindow.shadowColor=Color.new(168,184,184)
+    goldwindow.baseColor=MessageConfig::DARKTEXTBASE
+    goldwindow.shadowColor=MessageConfig::DARKTEXTSHADOW
   else
-    goldwindow.baseColor=Color.new(248,248,240)
-    goldwindow.shadowColor=Color.new(72,88,88)
+    goldwindow.baseColor=MessageConfig::LIGHTTEXTBASE
+    goldwindow.shadowColor=MessageConfig::LIGHTTEXTSHADOW
   end
   goldwindow.resizeToFit(goldwindow.text,Graphics.width)
   goldwindow.width=160 if goldwindow.width<=160
@@ -1408,11 +1407,11 @@ def pbDisplayCoinsWindow(msgwindow,goldwindow)
   coinwindow=Window_AdvancedTextPokemon.new(_INTL("Coins:\n<ar>{1}</ar>",coinString))
   coinwindow.setSkin("Graphics/Windowskins/"+getDarkModeFolder+"/"+"goldskin")
   if (!isDarkMode?)
-    coinwindow.baseColor=Color.new(88,88,80)
-    coinwindow.shadowColor=Color.new(168,184,184)
+    coinwindow.baseColor=MessageConfig::DARKTEXTBASE
+    coinwindow.shadowColor=MessageConfig::DARKTEXTSHADOW
   else
-    coinwindow.baseColor=Color.new(248,248,240)
-    coinwindow.shadowColor=Color.new(72,88,88)
+    coinwindow.baseColor=MessageConfig::LIGHTTEXTBASE
+    coinwindow.shadowColor=MessageConfig::LIGHTTEXTSHADOW
   end  
   coinwindow.resizeToFit(coinwindow.text,Graphics.width)
   coinwindow.width=160 if coinwindow.width<=160

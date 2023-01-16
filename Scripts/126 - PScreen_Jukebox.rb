@@ -44,11 +44,11 @@ class Scene_JukeboxScene
     @sprites["command_window"] = Window_CommandPokemon.new(@choices,324)
     @sprites["command_window"].windowskin=nil
     if (!isDarkMode?)
-      @sprites["command_window"].baseColor=Color.new(88,88,80)
-      @sprites["command_window"].shadowColor=Color.new(168,184,184)
+      @sprites["command_window"].baseColor=MessageConfig::DARKTEXTBASE
+      @sprites["command_window"].shadowColor=MessageConfig::DARKTEXTSHADOW
     else
-      @sprites["command_window"].baseColor=Color.new(248,248,240)
-      @sprites["command_window"].shadowColor=Color.new(72,88,88)
+      @sprites["command_window"].baseColor=MessageConfig::LIGHTTEXTBASE
+      @sprites["command_window"].shadowColor=MessageConfig::LIGHTTEXTSHADOW
     end
     @sprites["command_window"].index = @menu_index
     @sprites["command_window"].height = 224

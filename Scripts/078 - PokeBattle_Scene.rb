@@ -619,9 +619,9 @@ class PokemonDataBox < SpriteWrapper
     @statuses=AnimatedBitmap.new(_INTL("Graphics/Global Pictures/battleStatuses"))
     @contents=BitmapWrapper.new(@databox.width,@databox.height)
     if @dark
-      @numberbitmap=AnimatedBitmap.new(_INTL("Graphics/Pictures/icon_numbers_white2"))
+      @numberbitmap=AnimatedBitmap.new(_INTL("Graphics/Pictures/icon_numbers_white"))
     else
-      @numberbitmap=AnimatedBitmap.new(_INTL("Graphics/Pictures/icon_numbers_2"))
+      @numberbitmap=AnimatedBitmap.new(_INTL("Graphics/Pictures/icon_numbers"))
     end
     self.bitmap=@contents
     self.visible=false
@@ -751,9 +751,9 @@ class PokemonDataBox < SpriteWrapper
     @extra1 = 138
 #    @extra1 = 120 if (@battler.index&1)==0 # If player's Pokémon
     if @dark
-    imagepos.push(["Graphics/Pictures/white_lv2",@spritebaseX+@extra1,16,0,0,-1,-1]) # -self.bitmap.text_size(@battler.level.to_s).width
+    imagepos.push(["Graphics/Pictures/white_lv",@spritebaseX+@extra1,16,0,0,-1,-1]) # -self.bitmap.text_size(@battler.level.to_s).width
     else
-    imagepos.push(["Graphics/Pictures/storage_lv2",@spritebaseX+@extra1,16,0,0,-1,-1]) #
+    imagepos.push(["Graphics/Pictures/storage_lv",@spritebaseX+@extra1,16,0,0,-1,-1]) #
     end
     textpos=[
    #    [_INTL("{1}",@battler.level),@spritebaseX+202,8,true,base,shadow]

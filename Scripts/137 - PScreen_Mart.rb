@@ -273,11 +273,11 @@ class Window_PokemonMart < Window_DrawableCommand
     super(x,y,width,height,viewport)
     @selarrow=AnimatedBitmap.new("Graphics/Pictures/"+getAccentFolder+"/martSel")
     if (!isDarkMode?)
-      @baseColor=Color.new(88,88,80)
-      @shadowColor=Color.new(168,184,184)
+      @baseColor=MessageConfig::DARKTEXTBASE
+      @shadowColor=MessageConfig::DARKTEXTSHADOW
     else
-      @baseColor=Color.new(248,248,280)
-      @shadowColor=Color.new(72,88,88)
+      @baseColor=MessageConfig::LIGHTTEXTBASE
+      @shadowColor=MessageConfig::LIGHTTEXTSHADOW
     end
     self.windowskin=nil
   end
@@ -380,11 +380,11 @@ class PokemonMartScene
     @sprites["moneywindow"].width=190
     @sprites["moneywindow"].height=96
     if (!isDarkMode?)
-      @sprites["moneywindow"].baseColor=Color.new(88,88,80)
-      @sprites["moneywindow"].shadowColor=Color.new(168,184,184)
+      @sprites["moneywindow"].baseColor=MessageConfig::DARKTEXTBASE
+      @sprites["moneywindow"].shadowColor=MessageConfig::DARKTEXTSHADOW
     else
       @sprites["moneywindow"].baseColor=Color.new(248,248,240)
-      @sprites["moneywindow"].shadowColor=Color.new(72,88,88)
+      @sprites["moneywindow"].shadowColor=MessageConfig::LIGHTTEXTSHADOW
     end  
     pbDeactivateWindows(@sprites)
     @buying=buying
@@ -434,11 +434,11 @@ class PokemonMartScene
     @sprites["moneywindow"].width=186
     @sprites["moneywindow"].height=96
     if (!isDarkMode?)
-      @sprites["moneywindow"].baseColor=Color.new(88,88,80)
-      @sprites["moneywindow"].shadowColor=Color.new(168,184,184)
+      @sprites["moneywindow"].baseColor=MessageConfig::DARKTEXTBASE
+      @sprites["moneywindow"].shadowColor=MessageConfig::DARKTEXTSHADOW
     else
       @sprites["moneywindow"].baseColor=Color.new(248,248,240)
-      @sprites["moneywindow"].shadowColor=Color.new(72,88,88)
+      @sprites["moneywindow"].shadowColor=MessageConfig::LIGHTTEXTSHADOW
     end  
     pbDeactivateWindows(@sprites)
     @buying=false
@@ -586,14 +586,14 @@ class PokemonMartScene
           numwindow.viewport=@viewport
           numwindow.width=224
           numwindow.height=64
-          #numwindow.baseColor=Color.new(88,88,80)
-          #numwindow.shadowColor=Color.new(168,184,184)
+          #numwindow.baseColor=MessageConfig::DARKTEXTBASE
+          #numwindow.shadowColor=MessageConfig::DARKTEXTSHADOW
           inbagwindow.visible=@buying
           inbagwindow.viewport=@viewport
           inbagwindow.width=190
           inbagwindow.height=64
-          #inbagwindow.baseColor=Color.new(88,88,80)
-          #inbagwindow.shadowColor=Color.new(168,184,184)
+          #inbagwindow.baseColor=MessageConfig::DARKTEXTBASE
+          #inbagwindow.shadowColor=MessageConfig::DARKTEXTSHADOW
           inbagwindow.text=_ISPRINTF("In Bag:<r>{1:d}  ",qty)
           numwindow.text=_INTL("x{1}<r>$ {2}",curnumber,(curnumber*itemprice).to_s_formatted)
           pbBottomRight(numwindow)

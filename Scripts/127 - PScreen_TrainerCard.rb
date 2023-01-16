@@ -70,11 +70,11 @@ class PokemonTrainerCardScene
        $PokemonGlobal.startTime.year)
     pubid=sprintf("%05d",$Trainer.publicID($Trainer.id))
     if (!isDarkMode?)
-      baseColor=Color.new(88,88,80)
-      shadowColor=Color.new(168,184,184)
+      baseColor=MessageConfig::DARKTEXTBASE
+      shadowColor=MessageConfig::DARKTEXTSHADOW
     else
-      baseColor=Color.new(248,248,240)
-      shadowColor=Color.new(72,88,88)
+      baseColor=MessageConfig::LIGHTTEXTBASE
+      shadowColor=MessageConfig::LIGHTTEXTSHADOW
     end
     textPositions=[
        [_INTL("Name"),34+64,64,0,baseColor,shadowColor],

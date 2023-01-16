@@ -101,8 +101,8 @@ class PokeSelectionConfirmCancelSprite < SpriteWrapper
     @yoffset=8
     ynarrow=narrowbox ? -6 : 0
     pbSetSystemFont(@overlaysprite.bitmap)
-    base=(isDarkMode?) ? Color.new(248,248,248) : Color.new(40,40,40)
-    shadow=(!isDarkMode?) ? Color.new(248,248,248) : Color.new(40,40,40)
+    base=(isDarkMode?) ? MessageConfig::LIGHTTEXTBASE : MessageConfig::DARKTEXTBASE
+    shadow=(isDarkMode?) ? MessageConfig::LIGHTTEXTSHADOW : MessageConfig::DARKTEXTSHADOW
     textpos=[[text,56,8+ynarrow,2,base,shadow]]
     pbDrawTextPositions(@overlaysprite.bitmap,textpos)
     @overlaysprite.z=self.z+1 # For compatibility with RGSS2
@@ -546,28 +546,28 @@ class PokeSelectionSprite < SpriteWrapper
           self.bitmap.blt(0,0,@deselbitmap.bitmap,Rect.new(0,0,@deselbitmap.width,@deselbitmap.height))
         end
       end
-      base=Color.new(88,88,80)
-      shadow=Color.new(168,184,184) 
-      base=Color.new(248,248,248) if (@pokemon.hp<=0 && !@pokemon.isEgg?) || 
-                                     (@pokemon.tooHighTemp? && !@pokemon.isEgg?) || 
-                                     (@pokemon.highTemp? && !@pokemon.isEgg?) || 
-                                     (@pokemon.somewhatlowTemp? && !@pokemon.isEgg?) || 
-                                     (@pokemon.lowTemp? && !@pokemon.isEgg?) || 
-                                     (@pokemon.tooLowTemp? && !@pokemon.isEgg?) || 
-                                     self.preselected ||
-                                      (self.selected && (self.preselected || 
-                                       @switching)) || 
-                                       isDarkMode?
-      shadow=Color.new(40,40,40)  if (@pokemon.hp<=0 && !@pokemon.isEgg?) ||
-                                      self.preselected ||
-                                     (@pokemon.tooHighTemp? && !@pokemon.isEgg?) || 
-                                     (@pokemon.highTemp? && !@pokemon.isEgg?) || 
-                                     (@pokemon.somewhatlowTemp? && !@pokemon.isEgg?) || 
-                                     (@pokemon.lowTemp? && !@pokemon.isEgg?) || 
-                                     (@pokemon.tooLowTemp? && !@pokemon.isEgg?) || 
-                                      (self.selected && (self.preselected || 
-                                       @switching)) || 
-                                       isDarkMode?
+      base=MessageConfig::DARKTEXTBASE
+      shadow=MessageConfig::DARKTEXTSHADOW
+      base=MessageConfig::LIGHTTEXTBASE if (@pokemon.hp<=0 && !@pokemon.isEgg?) || 
+                                           (@pokemon.tooHighTemp? && !@pokemon.isEgg?) || 
+                                           (@pokemon.highTemp? && !@pokemon.isEgg?) || 
+                                           (@pokemon.somewhatlowTemp? && !@pokemon.isEgg?) || 
+                                           (@pokemon.lowTemp? && !@pokemon.isEgg?) || 
+                                           (@pokemon.tooLowTemp? && !@pokemon.isEgg?) || 
+                                           self.preselected ||
+                                            (self.selected && (self.preselected || 
+                                             @switching)) || 
+                                             isDarkMode?
+      shadow=MessageConfig::LIGHTTEXTSHADOW  if (@pokemon.hp<=0 && !@pokemon.isEgg?) ||
+                                            self.preselected ||
+                                           (@pokemon.tooHighTemp? && !@pokemon.isEgg?) || 
+                                           (@pokemon.highTemp? && !@pokemon.isEgg?) || 
+                                           (@pokemon.somewhatlowTemp? && !@pokemon.isEgg?) || 
+                                           (@pokemon.lowTemp? && !@pokemon.isEgg?) || 
+                                           (@pokemon.tooLowTemp? && !@pokemon.isEgg?) || 
+                                            (self.selected && (self.preselected || 
+                                             @switching)) || 
+                                             isDarkMode?
                                       
       pbSetSystemFont(self.bitmap)
       pokename=@pokemon.name

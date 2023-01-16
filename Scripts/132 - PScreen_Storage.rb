@@ -2460,15 +2460,15 @@ class PokemonStorageScene
     @sprites["pokemon"].visible=true
 
     if (!isDarkMode?)
-      base=Color.new(88,88,80)
-      shadow=Color.new(168,184,184)
+      base=MessageConfig::DARKTEXTBASE
+      shadow=MessageConfig::DARKTEXTSHADOW
  #     nonbase=Color.new(208,200,184)
  #     nonshadow=Color.new(224,216,200)
       nonbase=Color.new(88,88,80,128)
       nonshadow=Color.new(168,184,184,128)
     else
-      base=Color.new(248,248,240)
-      shadow=Color.new(72,88,88)
+      base=MessageConfig::LIGHTTEXTBASE
+      shadow=MessageConfig::LIGHTTEXTSHADOW
  #     nonbase=Color.new(208,200,184)
  #     nonshadow=Color.new(224,216,200)
       nonbase=Color.new(248,248,240,128)

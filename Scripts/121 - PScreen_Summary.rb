@@ -235,13 +235,13 @@ class PokemonSummaryScene
     end
     pbDrawImagePositions(overlay,imagepos)
     if (!isDarkMode?)
-      base=Color.new(88,88,80)
-      shadow=Color.new(168,184,184)
+      base=MessageConfig::DARKTEXTBASE
+      shadow=MessageConfig::DARKTEXTSHADOW
       base2=Color.new(230,230,230)
       shadow2=Color.new(58,58,58)
     else
-      base=Color.new(248,248,240)
-      shadow=Color.new(72,88,88)
+      base=MessageConfig::LIGHTTEXTBASE
+      shadow=MessageConfig::LIGHTTEXTSHADOW
       base2=Color.new(230,230,230)
       shadow2=Color.new(230,230,230)
     end
@@ -377,13 +377,13 @@ class PokemonSummaryScene
     # Egg Steps End
     pbDrawImagePositions(overlay,imagepos)
     if (!isDarkMode?)
-      base=Color.new(88,88,80)
-      shadow=Color.new(168,184,184)
+      base=MessageConfig::DARKTEXTBASE
+      shadow=MessageConfig::DARKTEXTSHADOW
       base2=Color.new(230,230,230)
       shadow2=Color.new(58,58,58)
     else
-      base=Color.new(248,248,240)
-      shadow=Color.new(72,88,88)
+      base=MessageConfig::LIGHTTEXTBASE
+      shadow=MessageConfig::LIGHTTEXTSHADOW
       base2=Color.new(230,230,230)
       shadow2=Color.new(230,230,230)
     end
@@ -467,13 +467,13 @@ class PokemonSummaryScene
     imagepos.push([ballimage,14,60,0,0,-1,-1])
     pbDrawImagePositions(overlay,imagepos)
     if (!isDarkMode?)
-      base=Color.new(88,88,80)
-      shadow=Color.new(168,184,184)
+      base=MessageConfig::DARKTEXTBASE
+      shadow=MessageConfig::DARKTEXTSHADOW
       base2=Color.new(230,230,230)
       shadow2=Color.new(58,58,58)
     else
-      base=Color.new(248,248,240)
-      shadow=Color.new(72,88,88)
+      base=MessageConfig::LIGHTTEXTBASE
+      shadow=MessageConfig::LIGHTTEXTSHADOW
       base2=Color.new(230,230,230)
       shadow2=Color.new(230,230,230)
     end
@@ -639,13 +639,13 @@ class PokemonSummaryScene
     imagepos.push([ballimage,14,60,0,0,-1,-1])
     pbDrawImagePositions(overlay,imagepos)
     if (!isDarkMode?)
-      base=Color.new(88,88,80)
-      shadow=Color.new(168,184,184)
+      base=MessageConfig::DARKTEXTBASE
+      shadow=MessageConfig::DARKTEXTSHADOW
       base2=Color.new(230,230,230)
       shadow2=Color.new(58,58,58)
     else
-      base=Color.new(248,248,240)
-      shadow=Color.new(72,88,88)
+      base=MessageConfig::LIGHTTEXTBASE
+      shadow=MessageConfig::LIGHTTEXTSHADOW
       base2=Color.new(230,230,230)
       shadow2=Color.new(230,230,230)
     end
@@ -751,13 +751,13 @@ def drawPageFour(pokemon)
     imagepos.push([ballimage,14,60,0,0,-1,-1])
     pbDrawImagePositions(overlay,imagepos)
     if (!isDarkMode?)
-      base=Color.new(88,88,80)
-      shadow=Color.new(168,184,184)
+      base=MessageConfig::DARKTEXTBASE
+      shadow=MessageConfig::DARKTEXTSHADOW
       base2=Color.new(230,230,230)
       shadow2=Color.new(58,58,58)
     else
-      base=Color.new(248,248,240)
-      shadow=Color.new(72,88,88)
+      base=MessageConfig::LIGHTTEXTBASE
+      shadow=MessageConfig::LIGHTTEXTSHADOW
       base2=Color.new(230,230,230)
       shadow2=Color.new(230,230,230)
     end
@@ -863,13 +863,13 @@ def drawPageFive(pokemon)
     imagepos.push([ballimage,14,60,0,0,-1,-1])
     pbDrawImagePositions(overlay,imagepos)
     if (!isDarkMode?)
-      base=Color.new(88,88,80)
-      shadow=Color.new(168,184,184)
+      base=MessageConfig::DARKTEXTBASE
+      shadow=MessageConfig::DARKTEXTSHADOW
       base2=Color.new(230,230,230)
       shadow2=Color.new(58,58,58)
     else
-      base=Color.new(248,248,240)
-      shadow=Color.new(72,88,88)
+      base=MessageConfig::LIGHTTEXTBASE
+      shadow=MessageConfig::LIGHTTEXTSHADOW
       base2=Color.new(230,230,230)
       shadow2=Color.new(230,230,230)
     end
@@ -977,13 +977,13 @@ def drawPageFive(pokemon)
     imagepos.push([ballimage,14,60,0,0,-1,-1])
     pbDrawImagePositions(overlay,imagepos)
     if (!isDarkMode?)
-      base=Color.new(88,88,80)
-      shadow=Color.new(168,184,184)
+      base=MessageConfig::DARKTEXTBASE
+      shadow=MessageConfig::DARKTEXTSHADOW
       base2=Color.new(230,230,230)
       shadow2=Color.new(58,58,58)
     else
-      base=Color.new(248,248,240)
-      shadow=Color.new(72,88,88)
+      base=MessageConfig::LIGHTTEXTBASE
+      shadow=MessageConfig::LIGHTTEXTSHADOW
       base2=Color.new(230,230,230)
       shadow2=Color.new(230,230,230)
     end   
@@ -1063,13 +1063,13 @@ def drawPageFive(pokemon)
     pbSetSystemFont(overlay)
     move=moveid
     if (!isDarkMode?)
-      base=Color.new(88,88,80)
-      shadow=Color.new(168,184,184)
+      base=MessageConfig::DARKTEXTBASE
+      shadow=MessageConfig::DARKTEXTSHADOW
       base2=Color.new(230,230,230)
       shadow2=Color.new(58,58,58)
     else
-      base=Color.new(248,248,240)
-      shadow=Color.new(72,88,88)
+      base=MessageConfig::LIGHTTEXTBASE
+      shadow=MessageConfig::LIGHTTEXTSHADOW
       base2=Color.new(230,230,230)
       shadow2=Color.new(230,230,230)
     end
@@ -1091,13 +1091,13 @@ def drawPageFive(pokemon)
     overlay=@sprites["overlay"].bitmap
     overlay.clear
     if (!isDarkMode?)
-      base=Color.new(88,88,80)
-      shadow=Color.new(168,184,184)
+      base=MessageConfig::DARKTEXTBASE
+      shadow=MessageConfig::DARKTEXTSHADOW
       base2=Color.new(58,58,58)
       shadow2=Color.new(230,230,230)
     else
-      base=Color.new(248,248,240)
-      shadow=Color.new(72,88,88)
+      base=MessageConfig::LIGHTTEXTBASE
+      shadow=MessageConfig::LIGHTTEXTSHADOW
       base2=Color.new(230,230,230)
       shadow2=Color.new(58,58,58)
     end   
@@ -1198,13 +1198,13 @@ def drawPageFive(pokemon)
     imagepos.push([ballimage,14,60,0,0,-1,-1])
     pbDrawImagePositions(overlay,imagepos)
     if (!isDarkMode?)
-      base=Color.new(88,88,80)
-      shadow=Color.new(168,184,184)
+      base=MessageConfig::DARKTEXTBASE
+      shadow=MessageConfig::DARKTEXTSHADOW
       base2=Color.new(230,230,230)
       shadow2=Color.new(58,58,58)
     else
-      base=Color.new(248,248,240)
-      shadow=Color.new(72,88,88)
+      base=MessageConfig::LIGHTTEXTBASE
+      shadow=MessageConfig::LIGHTTEXTSHADOW
       base2=Color.new(230,230,230)
       shadow2=Color.new(230,230,230)
     end
@@ -1271,13 +1271,13 @@ def drawPageFive(pokemon)
     imagepos.push([ballimage,14,60,0,0,-1,-1])
     pbDrawImagePositions(overlay,imagepos)
     if (!isDarkMode?)
-      base=Color.new(88,88,80)
-      shadow=Color.new(168,184,184)
+      base=MessageConfig::DARKTEXTBASE
+      shadow=MessageConfig::DARKTEXTSHADOW
       base2=Color.new(230,230,230)
       shadow2=Color.new(58,58,58)
     else
-      base=Color.new(248,248,240)
-      shadow=Color.new(72,88,88)
+      base=MessageConfig::LIGHTTEXTBASE
+      shadow=MessageConfig::LIGHTTEXTSHADOW
       base2=Color.new(230,230,230)
       shadow2=Color.new(230,230,230)
     end

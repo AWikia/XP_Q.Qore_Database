@@ -33,11 +33,11 @@ class PokemonAboutScreenScene
     overlay=@sprites["overlay"].bitmap
     overlay.clear
     if (!isDarkMode?)
-      baseColor=Color.new(88,88,80)
-      shadowColor=Color.new(168,184,184)
+      baseColor=MessageConfig::DARKTEXTBASE
+      shadowColor=MessageConfig::DARKTEXTSHADOW
     else
-      baseColor=Color.new(248,248,240)
-      shadowColor=Color.new(72,88,88)
+      baseColor=MessageConfig::LIGHTTEXTBASE
+      shadowColor=MessageConfig::LIGHTTEXTSHADOW
     end
     textPositions=[
        [_INTL("Qora Qore " + RTP2.getGameIniValue("Qortex", "Channel")),0,0,0,baseColor,shadowColor],

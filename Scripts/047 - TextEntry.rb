@@ -267,9 +267,9 @@ class Window_TextEntry < SpriteWindow_Base
     width=self.width-self.borderX
     height=self.height-self.borderY
     if (!isDarkMode?)
-      cursorcolor=Color.new(88,88,80)
+      cursorcolor=MessageConfig::DARKTEXTBASE
     else
-      cursorcolor=Color.new(248,248,240)
+      cursorcolor=MessageConfig::LIGHTTEXTBASE
     end
     textscan=self.text.scan(/./m)
     scanlength=textscan.length
@@ -961,11 +961,11 @@ class PokemonEntryScene
     @sprites["helpwindow"].viewport=@viewport
     @sprites["helpwindow"].visible=USEKEYBOARD
     if (!isDarkMode?)
-      @sprites["helpwindow"].baseColor=Color.new(88,88,80)
-      @sprites["helpwindow"].shadowColor=Color.new(168,184,184)
+      @sprites["helpwindow"].baseColor=MessageConfig::DARKTEXTBASE
+      @sprites["helpwindow"].shadowColor=MessageConfig::DARKTEXTSHADOW
     else
-      @sprites["helpwindow"].baseColor=Color.new(248,248,240)
-      @sprites["helpwindow"].shadowColor=Color.new(72,88,88)
+      @sprites["helpwindow"].baseColor=MessageConfig::LIGHTTEXTBASE
+      @sprites["helpwindow"].shadowColor=MessageConfig::LIGHTTEXTSHADOW
     end
     addBackgroundPlane(@sprites,"background",getDarkModeFolder+"/naming2bg",@viewport)
     case subject
@@ -1266,11 +1266,11 @@ class PokemonEntryScene2
     @bitmaps[6]=@bitmaps[2].bitmap.clone
     @bitmaps[7]=@bitmaps[3].bitmap.clone
     if (!isDarkMode?)
-      baseColor=Color.new(88,88,80)
-      shadowColor=Color.new(168,184,184)
+      baseColor=MessageConfig::DARKTEXTBASE
+      shadowColor=MessageConfig::DARKTEXTSHADOW
     else
-      baseColor=Color.new(248,248,240)
-      shadowColor=Color.new(72,88,88)
+      baseColor=MessageConfig::LIGHTTEXTBASE
+      shadowColor=MessageConfig::LIGHTTEXTSHADOW
     end
     for i in 0...4
       pos=0
@@ -1397,11 +1397,11 @@ class PokemonEntryScene2
     return if !@refreshOverlay
     @refreshOverlay=false
     if (!isDarkMode?)
-      baseColor=Color.new(88,88,80)
-      shadowColor=Color.new(168,184,184)
+      baseColor=MessageConfig::DARKTEXTBASE
+      shadowColor=MessageConfig::DARKTEXTSHADOW
     else
-      baseColor=Color.new(248,248,240)
-      shadowColor=Color.new(72,88,88)
+      baseColor=MessageConfig::LIGHTTEXTBASE
+      shadowColor=MessageConfig::LIGHTTEXTSHADOW
     end
     bgoverlay=@sprites["bgoverlay"].bitmap
     bgoverlay.clear

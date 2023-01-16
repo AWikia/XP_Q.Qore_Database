@@ -1,4 +1,4 @@
-module MessageConfig
+﻿module MessageConfig
 # in Graphics/Windowskins/ (specify empty string to use the default windowskin)
   WindowOpacity = 255
   TextSkinName    = "Skin0"
@@ -7,8 +7,8 @@ module MessageConfig
   FontName        = "Didact Gothic"
   TextSpeed       = nil # can be positive to wait frames or negative to
                         # show multiple characters in a single frame
-  LIGHTTEXTBASE   = Color.new(248,248,240) # Was 248,248,248
-  LIGHTTEXTSHADOW = Color.new(72,88,88) # Was 72,80,88
+  LIGHTTEXTBASE   = Color.new(248,248,248) # Was 248,248,240
+  LIGHTTEXTSHADOW = Color.new(72,80,88) # Was 72,88,88
   DARKTEXTBASE    = Color.new(88,88,80)
   DARKTEXTSHADOW  = Color.new(168,184,184)
   # 0 = Pause cursor is displayed at end of text

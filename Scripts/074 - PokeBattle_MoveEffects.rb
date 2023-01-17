@@ -3099,7 +3099,7 @@ class PokeBattle_Move_066 < PokeBattle_Move
       return -1
     end
     if attacker.ability==0 ||
-       attacker.ability==opponent.ability ||
+       attacker.ability==opponent.ability
        pbSEPlay("protection")
        @battle.pbDisplay(_INTL("But it failed!"))
       return -1

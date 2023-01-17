@@ -1017,7 +1017,7 @@ def drawPageFive(pokemon)
     pbDrawTextPositions(overlay,textpos)
     imagepos=[]
     yPos=98
-    dark = (isDarkMode?) ? [2,0] : [0,1]
+    dark = (isDarkMode?) ? [2,0] : [1,0]
     for i in 0...pokemon.moves.length
       if pokemon.moves[i].id>0
         imagepos.push(["Graphics/Global Pictures/types",376,yPos+2,64*$PokemonSystem.colortige,
@@ -1143,7 +1143,7 @@ def drawPageFive(pokemon)
       else
         moveobject=pokemon.moves[i]
       end
-      dark = (isDarkMode?) ? [2,0] : [0,1]
+      dark = (isDarkMode?) ? [2,0] : [1,0]
       if moveobject
         if moveobject.id!=0
           imagepos.push(["Graphics/Global Pictures/types",376,yPos+2,64*$PokemonSystem.colortige,

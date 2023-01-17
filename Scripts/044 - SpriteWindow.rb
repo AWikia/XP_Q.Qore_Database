@@ -8,9 +8,9 @@
   TextSpeed       = nil # can be positive to wait frames or negative to
                         # show multiple characters in a single frame
   LIGHTTEXTBASE   = Color.new(248,248,248) # Was 248,248,240
-  LIGHTTEXTSHADOW = Color.new(72,80,88) # Was 72,88,88
-  DARKTEXTBASE    = Color.new(88,88,80)
-  DARKTEXTSHADOW  = Color.new(168,184,184)
+  LIGHTTEXTSHADOW = Color.new(72,80,88)    # Was 72,88,88
+  DARKTEXTBASE    = Color.new(56,56,48)    # Was 88,88,80    
+  DARKTEXTSHADOW  = Color.new(152,168,168) # Was 168,184,184 
   # 0 = Pause cursor is displayed at end of text
   # 1 = Pause cursor is displayed at bottom right
   # 2 = Pause cursor is displayed at lower middle side

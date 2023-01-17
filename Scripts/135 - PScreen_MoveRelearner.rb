@@ -110,7 +110,7 @@ class MoveRelearnerScene
     ]
 
     yPos=82
-    dark = (isDarkMode?) ? [2,0] : [0,1]
+    dark = (isDarkMode?) ? [2,0] : [1,0]
     for i in 0...VISIBLEMOVES
       moveobject=@moves[@sprites["commands"].top_item+i]
       if moveobject

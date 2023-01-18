@@ -867,7 +867,7 @@
 ## FLINT Moves = Fighting
 846,LEGSWIDTH,Leg's Width,020,120,FIGHTING,Special,100,5,100,00,0,bfm,"Being widthful, it shoots a leg. This raises the user's Sp. Atk stat."
 887,LEGSHEIGHT,Leg's Height,01C,120,FIGHTING,Physical,100,5,100,00,0,bfm,"Being heightful, it shoots a leg. This raises the user's Attack stat."
-1105,DOUBLELEG,Leg's Height,027,240,FIGHTING,Physical,100,5,100,00,0,bfm,"Being heightful, it shoots two legs. This raises the user's Attack and Special Attack stats."
+1105,DOUBLELEG,Double Leg,027,240,FIGHTING,Physical,100,5,100,00,0,bfm,"Being heightful, it shoots two legs. This raises the user's Attack and Special Attack stats."
 ## FLINT Moves = Flying
 686,AEROBICS,Aerobics,007,85,FLYING,Physical,100,15,30,04,0,abef,The user drops onto the other side with aerobics. It may leave the target(s) with paralysis.
 840,BRAVEBONE,Brave Bone,017,120,FLYING,Physical,90,10,25,00,-1,bef,"The user hurls a huge bone to the target. This may also paralyze, burn, or freeze the target."

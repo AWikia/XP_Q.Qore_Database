@@ -1150,6 +1150,7 @@ end
 ################################################################################
 class PokeBattle_Move_027 < PokeBattle_Move
   def pbEffect(attacker,opponent,hitnum=0,alltargets=nil,showanimation=true)
+    return super(attacker,opponent,hitnum,alltargets,showanimation) if pbIsDamaging?
     if !attacker.pbCanIncreaseStatStage?(PBStats::ATTACK,attacker,false,self) &&
        !attacker.pbCanIncreaseStatStage?(PBStats::SPATK,attacker,false,self)
       @battle.pbDisplay(_INTL("{1}'s stats won't go any higher!",attacker.pbThis))

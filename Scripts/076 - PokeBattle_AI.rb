@@ -4762,7 +4762,7 @@ class PokeBattle_Battle
           thisScore=scoresAndTargets[i][2]
           if thisScore>0
             if scores[idx]==0 || ((scores[idx]==thisScore && pbAIRandom(10)<5) ||
-               (scores[idx]!=thisScore && pbAIRandom(10)<5))
+               (scores[idx]!=thisScore && pbAIRandom(10)<3))
               scores[idx]=thisScore
               targets[idx]=scoresAndTargets[i][3]
             end
@@ -4958,10 +4958,10 @@ class PokeBattle_Battle
       next if pbEnemyItemAlreadyUsed?(index,i,items)
       if isConst?(i,PBItems,:FULLRESTORE)
         return i if battler.hp<=battler.totalhp/4
-        return i if battler.hp<=battler.totalhp/2 && pbAIRandom(10)<5
+        return i if battler.hp<=battler.totalhp/2 && pbAIRandom(10)<3
         return i if battler.hp<=battler.totalhp*2/3 &&
                     (battler.status>0 || battler.effects[PBEffects::Confusion]>0) &&
-                    pbAIRandom(10)<5
+                    pbAIRandom(10)<3
       elsif isConst?(i,PBItems,:POTION) || 
          isConst?(i,PBItems,:SUPERPOTION) || 
          isConst?(i,PBItems,:HYPERPOTION) || 
@@ -4971,7 +4971,7 @@ class PokeBattle_Battle
          isConst?(i,PBItems,:SOURCANDY) ||
          isConst?(i,PBItems,:SPICYCANDY)
         return i if battler.hp<=battler.totalhp/4
-        return i if battler.hp<=battler.totalhp/2 && pbAIRandom(10)<5
+        return i if battler.hp<=battler.totalhp/2 && pbAIRandom(10)<3
       elsif isConst?(i,PBItems,:FULLHEAL)
         return i if !hashpitem &&
                     (battler.status>0 || battler.effects[PBEffects::Confusion]>0)
@@ -4989,7 +4989,7 @@ class PokeBattle_Battle
         stat=PBStats::SPDEF if isConst?(i,PBItems,:XSPDEF)
         stat=PBStats::ACCURACY if isConst?(i,PBItems,:XACCURACY)
         if stat>0 && !battler.pbTooHigh?(stat)
-          return i if pbAIRandom(10)<5-battler.stages[stat]
+          return i if pbAIRandom(10)<3-battler.stages[stat]
         end
       end
     end
@@ -5091,7 +5091,7 @@ class PokeBattle_Battle
       end
     end
     if @rules["suddendeath"]
-      if @battlers[index].hp<=(@battlers[index].totalhp/4) && pbAIRandom(10)<5 && 
+      if @battlers[index].hp<=(@battlers[index].totalhp/4) && pbAIRandom(10)<3 && 
          @battlers[index].turncount>0
         shouldswitch=true
       elsif @battlers[index].hp<=(@battlers[index].totalhp/2) && pbAIRandom(10)<8 && 

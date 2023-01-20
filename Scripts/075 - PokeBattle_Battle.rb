@@ -3627,7 +3627,7 @@ class PokeBattle_Battle
     for i in priority
       next if i.isFainted?
       # Shed Skin, Hydration, Botanotherapy
-      if (i.hasWorkingAbility(:SHEDSKIN) && pbRandom(10)<5) ||
+      if (i.hasWorkingAbility(:SHEDSKIN) && pbRandom(10)<3) ||
          (i.hasWorkingAbility(:BOTANOTHERAPY) && pbRandom(10)<5) ||
          (i.hasWorkingAbility(:LOVINGCLUSTER) && 
           @field.effects[PBEffects::LovelyTerrain]>0) ||
@@ -3653,7 +3653,7 @@ class PokeBattle_Battle
         end
       end
       # Healer, Botanotherapy
-      if (i.hasWorkingAbility(:HEALER) && pbRandom(10)<5) ||
+      if (i.hasWorkingAbility(:HEALER) && pbRandom(10)<3) ||
          (i.hasWorkingAbility(:BOTANOTHERAPY) && pbRandom(10)<5)
         partner=i.pbPartner
         if partner && partner.status>0

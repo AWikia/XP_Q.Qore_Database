@@ -2495,14 +2495,14 @@ class PokeBattle_Battler
             @battle.pbDisplay(_INTL("{1} was caught in the aftermath!",user.pbThis))
           end
         end
-        if target.hasWorkingAbility(:CUTECHARM) && @battle.pbRandom(10)<5 && !user.pbHasType?(:SHARPENER)
+        if target.hasWorkingAbility(:CUTECHARM) && @battle.pbRandom(10)<3 && !user.pbHasType?(:SHARPENER)
           if !user.isFainted? && user.pbCanAttract?(target,false)
             PBDebug.log("[Ability triggered] #{target.pbThis}'s Cute Charm")
             user.pbAttract(target,_INTL("{1}'s {2} made {3} fall in love!",target.pbThis,
                PBAbilities.getName(target.ability),user.pbThis(true)))
           end
         end
-        if target.hasWorkingAbility(:EFFECTSPORE,true) && @battle.pbRandom(10)<5
+        if target.hasWorkingAbility(:EFFECTSPORE,true) && @battle.pbRandom(10)<3
           if $USENEWBATTLEMECHANICS &&
              (user.pbHasType?(:GRASS) || user.pbHasType?(:CHLOROPHYLL) ||
              user.pbHasType?(:GAS) || user.hasWorkingAbility(:OVERCOAT) ||
@@ -2582,7 +2582,7 @@ class PokeBattle_Battler
           end
         end
         # Heralina
-        if target.hasWorkingAbility(:HERALINA) && @battle.pbRandom(10)<5 &&
+        if target.hasWorkingAbility(:HERALINA) && @battle.pbRandom(10)<3 &&
         !target.isFainted?
         choice=user
         blacklist=[
@@ -2651,7 +2651,7 @@ class PokeBattle_Battler
         end
       end
       # Ferfatina
-      if user.hasWorkingAbility(:FERFATINA) && @battle.pbRandom(10)<5 &&
+      if user.hasWorkingAbility(:FERFATINA) && @battle.pbRandom(10)<3 &&
         !user.isFainted?
         choice=target
         blacklist=[
@@ -2719,13 +2719,13 @@ class PokeBattle_Battler
           PBDebug.log("[Pokémon transformed] #{user.pbThis} transformed into #{choice.pbThis(true)}")
         end
       end
-        if target.hasWorkingAbility(:FLAMEBODY,true) && @battle.pbRandom(10)<5 &&
+        if target.hasWorkingAbility(:FLAMEBODY,true) && @battle.pbRandom(10)<3 &&
            user.pbCanBurn?(nil,false)
           PBDebug.log("[Ability triggered] #{target.pbThis}'s Flame Body")
           user.pbBurn(target,_INTL("{1}'s {2} burned {3}!",target.pbThis,
              PBAbilities.getName(target.ability),user.pbThis(true)))
         end
-        if target.hasWorkingAbility(:FROZENBODY,true) && @battle.pbRandom(10)<5 &&
+        if target.hasWorkingAbility(:FROZENBODY,true) && @battle.pbRandom(10)<3 &&
            user.pbCanFreeze?(nil,false)
           PBDebug.log("[Ability triggered] #{target.pbThis}'s Flame Body")
           user.pbFreeze(_INTL("{1}'s {2} made {3} frozen solid!",target.pbThis,
@@ -2792,7 +2792,7 @@ class PokeBattle_Battler
         end
 
         
-        if target.hasWorkingAbility(:POISONPOINT,true) && @battle.pbRandom(10)<5 &&
+        if target.hasWorkingAbility(:POISONPOINT,true) && @battle.pbRandom(10)<3 &&
            user.pbCanPoison?(nil,false)
           PBDebug.log("[Ability triggered] #{target.pbThis}'s Poison Point")
           user.pbPoison(target,_INTL("{1}'s {2} poisoned {3}!",target.pbThis,
@@ -2808,13 +2808,13 @@ class PokeBattle_Battler
                PBAbilities.getName(target.ability),user.pbThis(true)))
           end
         end
-        if target.hasWorkingAbility(:STATIC,true) && @battle.pbRandom(10)<5 &&
+        if target.hasWorkingAbility(:STATIC,true) && @battle.pbRandom(10)<3 &&
            user.pbCanParalyze?(nil,false)
           PBDebug.log("[Ability triggered] #{target.pbThis}'s Static")
           user.pbParalyze(target,_INTL("{1}'s {2} paralyzed {3}! It may be unable to move!",
              target.pbThis,PBAbilities.getName(target.ability),user.pbThis(true)))
         end
-        if target.hasWorkingAbility(:SOUFLAZ,true) && @battle.pbRandom(10)<5 &&
+        if target.hasWorkingAbility(:SOUFLAZ,true) && @battle.pbRandom(10)<3 &&
             target.status !=0 && user.status ==0 &&
             ((target.status==PBStatuses::PARALYSIS && user.pbCanParalyze?(target,false,self)) ||
              (target.status==PBStatuses::SLEEP && user.pbCanSleep?(target,false,self)) ||
@@ -2884,12 +2884,12 @@ class PokeBattle_Battler
           end
         end
         if user.hasWorkingAbility(:POISONTOUCH,true) &&
-           target.pbCanPoison?(nil,false) && @battle.pbRandom(10)<5
+           target.pbCanPoison?(nil,false) && @battle.pbRandom(10)<3
           PBDebug.log("[Ability triggered] #{user.pbThis}'s Poison Touch")
           target.pbPoison(user,_INTL("{1}'s {2} poisoned {3}!",user.pbThis,
              PBAbilities.getName(user.ability),target.pbThis(true)))
         end
-        if user.hasWorkingAbility(:ILLUSIVEBILITY) && @battle.pbRandom(10)<5 && !target.pbHasType?(:SHARPENER)
+        if user.hasWorkingAbility(:ILLUSIVEBILITY) && @battle.pbRandom(10)<3 && !target.pbHasType?(:SHARPENER)
           if !target.isFainted? && target.pbCanAttract?(target,false)
             PBDebug.log("[Ability triggered] #{target.pbThis}'s Illusive Bility")
             target.pbAttract(user,_INTL("{1}'s {2} made {3} fall in love!",user.pbThis,
@@ -2938,7 +2938,7 @@ class PokeBattle_Battler
           @battle.pbDisplay(_INTL("{1} changed forme",target.pbThis))
           PBDebug.log("[Form changed] #{target.pbThis} changed forme")
         end
-        if target.hasWorkingAbility(:CURSEDBODY,true) && @battle.pbRandom(10)<5
+        if target.hasWorkingAbility(:CURSEDBODY,true) && @battle.pbRandom(10)<3
           if user.effects[PBEffects::Disable]<=0 && move.pp>0 && !user.isFainted?
             user.effects[PBEffects::Disable]=3
             user.effects[PBEffects::DisableMove]=move.id
@@ -2947,7 +2947,7 @@ class PokeBattle_Battler
             PBDebug.log("[Ability triggered] #{target.pbThis}'s Cursed Body disabled #{user.pbThis(true)}")
           end
         end
-        if target.hasWorkingAbility(:MAXTHIN,true) && @battle.pbRandom(10)<5
+        if target.hasWorkingAbility(:MAXTHIN,true) && @battle.pbRandom(10)<3
           if user.effects[PBEffects::Taunt]<=0 && user.effects[PBEffects::Khleri]<=0 && move.pp>0 && !user.isFainted?
             case @battle.pbRandom(2)
               when 0
@@ -2963,7 +2963,7 @@ class PokeBattle_Battler
             end
           end
         end
-        if target.hasWorkingAbility(:ANTIHEALER,true) && @battle.pbRandom(10)<5
+        if target.hasWorkingAbility(:ANTIHEALER,true) && @battle.pbRandom(10)<3
           if user.effects[PBEffects::HealBlock]<=0 && move.pp>0 && !user.isFainted?
             user.effects[PBEffects::HealBlock]=5
             @battle.pbDisplay(_INTL("{1}'s {2} prevented {3} from healing!",target.pbThis,

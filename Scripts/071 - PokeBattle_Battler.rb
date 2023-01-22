@@ -4526,6 +4526,14 @@ class PokeBattle_Battler
       PBDebug.log("[Move failed] #{target.pbThis} is immune to powder-based moves somehow")
       return false
     end
+    if thismove.pbIsStatus? # Mindy Glops
+      if !user.hasMoldBreaker && target.hasWorkingAbility(:GOODASGOLD)
+        pbSEPlay("protection")
+        @battle.pbDisplay(_INTL("{1} makes Status moves miss with Good as Gold",target.pbThis))
+        PBDebug.log("[Ability triggered] #{target.pbThis}'s Good as Gold made the Status move miss")
+        return false
+      end
+    end
     if thismove.basedamage>0 && thismove.function!=0x02 && # Struggle
        thismove.function!=0x111 # Future Sight
       type=thismove.pbType(thismove.type,user,target)
@@ -4578,14 +4586,6 @@ class PokeBattle_Battler
 					pbSEPlay("protection")
           @battle.pbDisplay(_INTL("{1} makes Mind moves miss with Mindy Glops",target.pbThis))
           PBDebug.log("[Ability triggered] #{target.pbThis}'s Mindy Glops made the Mind-type move miss")
-          return false
-        end
-      end
-      if thismove.pbIsStatus? # Mindy Glops
-        if !user.hasMoldBreaker && target.hasWorkingAbility(:GOODASGOLD)
-					pbSEPlay("protection")
-          @battle.pbDisplay(_INTL("{1} makes Status moves miss with Good as Gold",target.pbThis))
-          PBDebug.log("[Ability triggered] #{target.pbThis}'s Good as Gold made the Status move miss")
           return false
         end
       end

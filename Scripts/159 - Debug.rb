@@ -512,7 +512,7 @@ def pbDebugMenu(fromgame=true)
       $Trainer.id|=rand(256)<<8
       $Trainer.id|=rand(256)<<16
       $Trainer.id|=rand(256)<<24
-      Kernel.pbMessage(_INTL("The player's ID was changed to {1} (2).",$Trainer.publicID,$Trainer.id))
+      Kernel.pbMessage(_INTL("The player's ID was changed to {1} ({2}).",$Trainer.publicID,$Trainer.id))
     elsif cmd=="changeoutfit"
       oldoutfit=$Trainer.outfit
       params=ChooseNumberParams.new

@@ -1394,6 +1394,36 @@ Events.onStepTaken+=proc{
   # Dark Mode End
 }
 
+Events.onStepTaken+=proc{
+  secretid = rand(200)
+  # Past
+  if $PokemonGlobal.inPast && rand(secretid)<1 &&
+     $PokemonGlobal.stepcount % 4 == 0
+     newlevel=pbBalancedLevel($Trainer.party) - 4 + rand(5)   # For variety
+     newlevel=rand(newlevel)
+     newlevel=1 if newlevel<1
+     newlevel=PBExperience::MAXLEVEL if newlevel>PBExperience::MAXLEVEL
+     species=:BOOMERIN
+     species=:BOOMERAN if newlevel>50 && rand(20)<10
+     pbWildBattle(species,newlevel,1)
+  end
+  # Past End
+  # Future
+  if $PokemonGlobal.inFuture && rand(secretid)<1 &&
+     $PokemonGlobal.stepcount % 4 == 0
+     newlevel=pbBalancedLevel($Trainer.party) - 4 + rand(5)   # For variety
+     newlevel=rand(newlevel)
+     newlevel=1 if newlevel<1
+     newlevel=PBExperience::MAXLEVEL if newlevel>PBExperience::MAXLEVEL
+     species=:TELEKOM
+     species=:TELEMOBIL if newlevel>20 && rand(20)<15
+     species=:TELEMOBILEGION if newlevel>60 && rand(10)<10
+     pbWildBattle(species,newlevel,1)
+  end
+  # Future End
+}
+
+
 
 Events.onStepTaken+=proc{
   for pkmn in $Trainer.party

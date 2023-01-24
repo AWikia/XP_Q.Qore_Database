@@ -2356,7 +2356,7 @@ Weather=Sandstorm,100
 MapPosition=8,9,3
 ShowArea=true
 PastMap=520
-FututeMap=537
+FutureMap=537
 [408]
 # Liberty Corridor Path
 BattleBack=CaveDarker

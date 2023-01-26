@@ -354,7 +354,7 @@
 307,FIERYSPIRIT,Fiery Spirit,"Powers up the Fire-type moves of the Pokémon and its allies."
 308,ANTIFOGGER,Anti-Fogger,"Doubles the power of Dragon-type moves in Misty Terrain."
 309,PHANTOMSPIRIT,Phantom Spirit,"Boosts the power of Ghost-, Moon- and Glimse- type moves but its ally Pokémon’s moves are unimpeded by the Ability of the target."
-310,SOLBEYU,Solbeyu,"The Pokémon’s HP can hurt a random opponent when it eats any Berry, in addition to the Berry’s usual effect"
+310,SOLBEYU,Solbeyu,"The Pokémon can hurt a random opponent when it eats any Berry, in addition to the Berry’s usual effect"
 311,DOOMYSLUSH,Doomy Slush,"The Pokémon maxes its stats if it is hit by a Doom-type move or a critical hit."
 312,DOLPHININO,Dolphinino,The Pokémon changes its form to Stealth Forme when it uses a physical move and changes to Octum Forme when it uses Octum Shield.
 313,MINDYGLOPS,Mindy Glops,"The Pokémon bounces damaging moves that do not make direct contact instead of getting hit by them. This also gives full immunity to Mind-type moves."

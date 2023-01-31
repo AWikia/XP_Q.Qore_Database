@@ -10443,6 +10443,18 @@ MultipleForms.register(:PLAYSTORE,{
 }
 })
 
+MultipleForms.register(:NEWPLAYSTORE,{
+"getFormOnCreation"=>proc{|pokemon|
+   d=pokemon.personalID&3
+   d|=((pokemon.personalID>>8)&3)<<2
+   d|=((pokemon.personalID>>16)&3)<<4
+   d|=((pokemon.personalID>>24)&3)<<6
+   d%=3
+   next d
+}
+})
+
+
 MultipleForms.register(:VODAFONE,{
 "type1"=>proc{|pokemon|
    next if pokemon.form==0 

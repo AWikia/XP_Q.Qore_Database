@@ -18502,6 +18502,7 @@ Color=Black
 Habitat=Grassland
 Kind=Android Market
 Pokedex=Android Play Store was owned by Google to let users to download apps
+FormNames=Standard Bag,Material Bag,Original Bag
 BattlerPlayerY=7
 BattlerEnemyY=11
 BattlerAltitude=0

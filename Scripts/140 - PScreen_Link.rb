@@ -304,7 +304,7 @@ class Scene_LinkBattleScene
                   if completedTechnicalDiscs
                     species+=[PBSpecies::ROTOM]
                   end
-                  if Kernel.pbTechnicalDiscScore >= 49
+                  if Kernel.pbTechnicalDiscScore > 49
                     species+=[PBSpecies::FRIKIPAIDEIA,PBSpecies::SINISTEA,PBSpecies::POLTEAGEIST]
                   end
                   if $game_switches && $game_variables &&
@@ -312,6 +312,9 @@ class Scene_LinkBattleScene
                      $game_switches[76] && completedTrophies &&
                      completedTechnicalDiscs && $game_variables[13]>99
                     species+=[PBSpecies::ALCREMIE]
+                  end
+                  if $game_variables && $game_variables[1001] > 99
+                    species+=[PBSpecies::BASCULEGION]
                   end
 # End Unlockables
                   pokemon = species[rand(species.length)]

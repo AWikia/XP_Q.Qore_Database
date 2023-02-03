@@ -13,7 +13,7 @@
 13,LEECHLIFE,Leech Life,0DD,80,BUG,Physical,100,10,0,00,0,abef,The user drains the target's blood. The user's HP is restored by half the damage taken by the target.
 14,PINMISSILE,Pin Missile,0C0,25,BUG,Physical,95,20,0,00,0,bef,Sharp spikes are shot at the target in rapid succession. They hit two to five times in a row.
 15,DEFENDORDER,Defend Order,02A,0,BUG,Status,0,10,0,10,0,d,"The user calls out its underlings to shield its body, raising its Defense and Sp. Def stats."
-16,HEALORDER,Heal Order,0D5,0,BUG,Status,0,10,0,10,0,d,The user calls out its underlings to heal it. The user regains up to half of its max HP.
+16,HEALORDER,Heal Order,0D5,0,BUG,Status,0,5,0,10,0,d,The user calls out its underlings to heal it. The user regains up to half of its max HP.
 17,QUIVERDANCE,Quiver Dance,02B,0,BUG,Status,0,20,0,10,0,d,"The user performs a beautiful dance. It boosts the user's Sp. Atk, Sp. Def, and Speed stats."
 18,RAGEPOWDER,Rage Powder,117,0,BUG,Status,0,20,0,10,3,l,The user scatters irritating powder to draw attention to itself. Opponents aim only at the user.
 19,SPIDERWEB,Spider Web,0EF,0,BUG,Status,0,10,0,00,0,bce,"The user ensnares the target with thin, gooey silk so it can't flee from battle."
@@ -169,7 +169,7 @@
 169,DEFOG,Defog,049,0,FLYING,Status,0,15,0,00,0,bce,A strong wind blows away the foe's obstacles such as Light Screen. It also lowers their evasion.
 170,FEATHERDANCE,Feather Dance,04B,0,FLYING,Status,100,15,0,00,0,bce,The user covers the target's body with a mass of down that harshly lowers its Attack stat.
 171,MIRRORMOVE,Mirror Move,0AE,0,FLYING,Status,0,20,0,00,0,,The user counters the target by mimicking the target's last move.
-172,ROOST,Roost,0D6,0,FLYING,Status,0,10,0,10,0,d,The user lands and rests its body. It restores the user's HP by up to half of its max HP.
+172,ROOST,Roost,0D6,0,FLYING,Status,0,5,0,10,0,d,The user lands and rests its body. It restores the user's HP by up to half of its max HP.
 173,TAILWIND,Tailwind,05B,0,GUST,Status,0,15,0,40,0,d,The user whips up a turbulent whirlwind that ups the Speed of all party Pokémon for four turns.
 174,SHADOWFORCE,Shadow Force,0CD,120,GHOST,Physical,100,5,0,00,0,aef,"The user disappears, then strikes the foe on the second turn. It hits even if the foe protects itself."
 175,SHADOWBALL,Shadow Ball,046,80,GHOST,Special,100,15,20,00,0,befn,The user hurls a shadowy blob at the target. It may also lower the target's Sp. Def stat.
@@ -378,7 +378,7 @@
 378,MEFIRST,Me First,0B0,0,NORMAL,Status,0,20,0,400,0,b,The user tries to cut ahead of the foe to steal and use the foe's intended move with greater power.
 379,MEANLOOK,Mean Look,0EF,0,NORMAL,Status,0,5,0,00,0,bce,"The user pins the target with a dark, arresting look. The target becomes unable to flee."
 380,METRONOME,Metronome,0B6,0,MAGIC,Status,0,10,0,10,0,,The user waggles a finger and stimulates its brain into randomly using nearly any move.
-381,MILKDRINK,Milk Drink,0D5,0,NORMAL,Status,0,10,0,10,0,d,The user restores its own HP by up to half of its maximum HP. May also be used in the field to heal HP.
+381,MILKDRINK,Milk Drink,0D5,0,NORMAL,Status,0,5,0,10,0,d,The user restores its own HP by up to half of its maximum HP. May also be used in the field to heal HP.
 382,MIMIC,Mimic,05C,0,NORMAL,Status,0,10,0,00,0,b,The user copies the move last used by the foe. The move can be used until the user is switched out.
 383,MINDREADER,Mind Reader,0A6,0,MIND,Status,0,5,0,00,0,be,The user senses the foe's movements with its mind to ensure its next attack does not miss the foe.
 384,MINIMIZE,Minimize,034,0,NORMAL,Status,0,10,0,10,0,d,"The user compresses its body to make itself look smaller, which sharply raises its evasiveness."
@@ -390,7 +390,7 @@
 390,PERISHSONG,Perish Song,0E5,0,NORMAL,Status,0,5,0,20,0,k,"Any Pokémon that hears this song faints in three turns, unless it switches out of battle."
 391,PROTECT,Protect,0AA,0,NORMAL,Status,0,10,0,10,4,,It enables the user to evade all attacks. Its chance of failing rises if it is used in succession.
 392,PSYCHUP,Psych Up,055,0,NORMAL,Status,0,10,0,00,0,e,The user hypnotizes itself into copying any stat change made by the target.
-393,RECOVER,Recover,0D5,0,NORMAL,Status,0,10,0,10,0,d,"Restoring its own cells, the user restores its own HP by half of its max HP."
+393,RECOVER,Recover,0D5,0,NORMAL,Status,0,5,0,10,0,d,"Restoring its own cells, the user restores its own HP by half of its max HP."
 394,RECYCLE,Recycle,0F6,0,NORMAL,Status,0,10,0,10,0,d,The user recycles a held item that has been used in battle so it can be used again.
 395,REFLECTTYPE,Reflect Type,062,0,NORMAL,Status,0,15,0,00,0,bd,"The user reflects the target's type, making it the same type as the target."
 396,REFRESH,Refresh,018,0,NORMAL,Status,0,20,0,10,0,d,"The user rests to cure itself of a poisoning, burn, or paralysis."
@@ -403,10 +403,10 @@
 403,SIMPLEBEAM,Simple Beam,063,0,NORMAL,Status,100,15,0,00,0,bce,The user's mysterious psychic wave changes the target's Ability to Simple.
 404,SING,Sing,003,0,NORMAL,Status,55,15,0,00,0,bcek,A soothing lullaby is sung in a calming voice that puts the target into a deep slumber.
 405,SKETCH,Sketch,05D,0,NORMAL,Status,0,1,0,00,0,,"It enables the user to permanently learn the move last used by the foe. Once used, Sketch disappears."
-406,SLACKOFF,Slack Off,0D5,0,NORMAL,Status,0,10,0,10,0,d,"The user slacks off, restoring its own HP by up to half of its maximum HP."
+406,SLACKOFF,Slack Off,0D5,0,NORMAL,Status,0,5,0,10,0,d,"The user slacks off, restoring its own HP by up to half of its maximum HP."
 407,SLEEPTALK,Sleep Talk,0B4,0,NORMAL,Status,0,10,0,10,0,,"While it is asleep, the user randomly uses one of the moves it knows."
 408,SMOKESCREEN,Smokescreen,047,0,NORMAL,Status,100,20,0,00,0,bce,The user releases an obscuring cloud of smoke or ink. It reduces the target's accuracy.
-409,SOFTBOILED,Soft-Boiled,0D5,0,NORMAL,Status,0,10,0,10,0,d,The user restores its own HP by up to half of its maximum HP. May also be used in the field to heal HP.
+409,SOFTBOILED,Soft-Boiled,0D5,0,NORMAL,Status,0,5,0,10,0,d,The user restores its own HP by up to half of its maximum HP. May also be used in the field to heal HP.
 410,SPLASH,Splash,001,0,NORMAL,Status,0,40,0,10,0,,The user just flops and splashes around to no effect at all...
 411,STOCKPILE,Stockpile,112,0,NORMAL,Status,0,20,0,10,0,d,The user charges up power and raises both its Defense and Sp. Def. The move can be used three times.
 412,SUBSTITUTE,Substitute,10C,0,NORMAL,Status,0,10,0,10,0,d,The user makes a copy of itself using some of its HP. The copy serves as the user's decoy.
@@ -490,7 +490,7 @@
 490,POWERTRICK,Power Trick,057,0,PSYCHIC,Status,0,10,0,10,0,d,The user employs its psychic power to switch its Attack with its Defense stat.
 491,PSYCHOSHIFT,Psycho Shift,01B,0,PSYCHIC,Status,100,10,0,00,0,be,"Using its psychic power of suggestion, the user transfers its status problems to the target."
 492,REFLECT,Reflect,0A2,0,PSYCHIC,Status,0,20,0,40,0,d,A wondrous wall of light is put up to suppress damage from physical attacks for five turns.
-493,REST,Rest,0D9,0,MIND,Status,0,10,0,10,0,d,The user goes to sleep for two turns. It fully restores the user's HP and heals any status problem.
+493,REST,Rest,0D9,0,MIND,Status,0,5,0,10,0,d,The user goes to sleep for two turns. It fully restores the user's HP and heals any status problem.
 494,ROLEPLAY,Role Play,065,0,PSYCHIC,Status,0,10,0,00,0,,"The user mimics the target completely, copying the target's natural Ability."
 495,SKILLSWAP,Skill Swap,067,0,PSYCHIC,Status,0,10,0,00,0,be,The user employs its psychic power to exchange Abilities with the target.
 496,TELEKINESIS,Telekinesis,11A,0,PSYCHIC,Status,0,15,0,00,0,bce,"The user makes the target float with its psychic power. The target is easier to hit for three turns."
@@ -640,10 +640,10 @@
 772,BRUTALSWING,Brutal Swing,000,60,DARK,Physical,100,20,0,08,0,abef,The user swings its body around violently to inflict damage on everything in its vicinity.
 773,STOMPINGTANTRUM,Stomping Tantrum,230,75,GROUND,Physical,100,10,0,00,0,bef,"Driven by frustration, the user attacks the target. If the user's move has failed, the power of this move doubles."
 774,TROPKICK,Trop Kick,042,70,GRASS,Physical,100,15,0,00,0,abef,The user lands an intense kick of tropical origins on the target. This also lowers the target's Attack stat.
-775,FLORALHEALING,Floral Healing,0D5,0,FAIRY,Status,0,10,0,00,0,bc,The user restores the target's HP by up to half of its max HP.
+775,FLORALHEALING,Floral Healing,0D5,0,FAIRY,Status,0,5,0,00,0,bc,The user restores the target's HP by up to half of its max HP.
 776,INSTRUCT,Instruct,212,0,MIND,Status,0,15,0,00,0,b,The user instructs the target to use the target's last move again.
 777,FIRSTIMPRESSION,First Impression,224,90,BUG,Physical,100,10,0,00,2,abef,"Although this move has great power, it only works the first turn the user is in battle."
-778,SHOREUP,Shore Up,207,0,GROUND,Status,0,10,0,10,0,d,The user regains up to half of its HP. It restores more Hp in a sandstorm.
+778,SHOREUP,Shore Up,207,0,GROUND,Status,0,5,0,10,0,d,The user regains up to half of its HP. It restores more Hp in a sandstorm.
 779,PURIFY,Purify,219,0,POISON,Status,0,20,0,00,0,bc,"The user heals the target's status condition. If the move succeeds, it also restores the users own HP."
 780,MULTIATTACK,Multi-Attack,09F,120,NORMAL,Physical,100,10,0,00,0,abef,"Cloaking itself in high energy, the user slams into the target. The memory held determines the move's type."
 781,SHELLTRAP,Shell Trap,211,50,FIRE,Physical,100,20,0,04,-3,bf,The user sets a trap. If the user is hit by a physical move the Trap will explode and inflict damage on the opposing pokemon.
@@ -720,7 +720,7 @@
 1038,METEORBEAM,Meteor Beam,308,120,ROCK,Special,90,10,0,00,0,bef,"In this two-turn attack, the user gathers space power and boosts its Sp. Atk stat, then attacks the target on the next turn."
 1039,SHELLSIDEARM,Shell Side Arm,309,90,POISON,Special,100,10,25,00,0,bef,"This move inflicts physical or special damage, whichever will be more effective. This may also poison the target."
 1057,MISTYEXPLOSION,Misty Explosion,0E0,100,FAIRY,Special,100,5,0,08,0,bef,"The user attacks everything around it and faints upon using this move. This move's power is increased on Misty Terrain."
-1041,GRASSYGLIDE,Grassy Glide,310,70,GRASS,Physical,100,20,0,00,0,abef,"Gliding on the ground, the user attacks the target. This move always goes first on Grassy Terrain."
+1041,GRASSYGLIDE,Grassy Glide,310,60,GRASS,Physical,100,20,0,00,0,abef,"Gliding on the ground, the user attacks the target. This move always goes first on Grassy Terrain."
 1042,RISINGVOLTAGE,Rising Voltage,311,70,ELECTRIC,Special,100,20,0,00,0,bef,"The user attacks with electric voltage rising from the ground. This move's power doubles when the target is on Electric Terrain."
 1043,TERRAINPULSE,Terrain Pulse,312,50,NORMAL,Special,100,10,0,00,0,bef,"The user utilizes the power of the terrain to attack. This move's type and power changes depending on the terrain when it's used."
 1044,SKITTERSMACK,Skitter Smack,045,70,BUG,Physical,90,10,100,00,0,abef,"The user skitters behind the target to attack. This also lowers the target's Sp. Atk stat."
@@ -734,7 +734,7 @@
 1052,DUALWINGBEAT,Dual Wingbeat,0BD,40,FLYING,Physical,90,10,0,00,0,abef,"The user slams the target with its wings. The target is hit twice in a row."
 1053,SCORCHINGSANDS,Scorching Sands,00A,70,GROUND,Special,100,10,30,00,0,abef,"The user throws scorching sand at the target to attack. This may also leave the target with a burn."
 1054,JUNGLEHEALING,Jungle Healing,318,0,CHLOROPHYLL,Status,0,10,0,10,0,,"The user becomes one with the jungle, restoring HP and healing any status conditions of itself and its ally Pokémon in battle."
-1055,WICKEDBLOW,Wicked Blow,0A0,80,DARK,Physcial,100,5,0,00,0,,"The user, having mastered the Dark style, strikes the target with a fierce blow. This attack always results in a critical hit."
+1055,WICKEDBLOW,Wicked Blow,0A0,75,DARK,Physcial,100,5,0,00,0,,"The user, having mastered the Dark style, strikes the target with a fierce blow. This attack always results in a critical hit."
 1056,SURGINGSTRIKES,Surging Strikes,319,25,WATER,Physcial,100,5,0,00,0,,"The user, having mastered the Water style, strikes the target with a flowing motion three times in a row. This attack always results in a critical hit."
 # Generation VIII TCT Moves
 929,THUNDERCAGE,Thunder Cage,0CF,80,ELECTRIC,Special,90,15,0,00,0,bef,"The user traps the target in a cage of sparking electricity for four to five turns."
@@ -742,34 +742,34 @@
 931,FREEZINGGLARE,Freezing Glare,00C,90,PSYCHIC,Special,100,10,10,00,0,bef,"The user shoots its psychic power from its eyes to attack. This may also leave the target frozen."
 932,FIERYWRATH,Fiery Wrath,00F,90,DARK,Special,100,10,20,00,0,bef,"The user transforms its wrath into a fire-like aura to attack. This may also make opposing Pokémon flinch."
 933,THUNDEROUSKICK,Thunderous Kick,043,90,FIGHTING,Physical,100,10,100,00,0,abef,"The user overwhelms the target with lightning-like movement before delivering a kick. This also lowers the target's Defense stat."
-934,GLACIALLANCE,Glacial Lance,000,130,ICE,Physical,100,5,0,00,0,abef,"The user attacks by hurling a blizzard-cloaked icicle lance at opposing Pokémon."
+934,GLACIALLANCE,Glacial Lance,000,120,ICE,Physical,100,5,0,00,0,abef,"The user attacks by hurling a blizzard-cloaked icicle lance at opposing Pokémon."
 935,ASTRALBARRAGE,Astral Barrage,000,120,GHOST,Special,100,5,0,00,0,bef,"The user attacks by sending a frightful amount of small ghosts at opposing Pokémon."
 936,EERIESPELL,Eerie Spell,320,80,PSYCHIC,Special,100,5,0,00,0,bef,"The user attacks with its tremendous psychic power. This also removes 3 PP from the target's last move."
 # Generation VIII Pokémon Legends: Arceus Moves
-1079,BARBBARRAGE,Barb Barrage,005,60,POISON,Physical,100,15,0,00,0,abef,"The user launches countless toxic barbs to inflict damage. This may also poison the target. This move’s power is doubled if the target has a status condition."
-1080,BITTERMALICE,Bitter Malice,00C,60,GHOST,Special,100,15,0,00,0,bef,"The user attacks its target with spine-chilling resentment. This may also leave the target frozen solid. This move’s power is doubled if the target has a status condition."
-1081,BLEAKWINDSTORM,Bleakwind Storm,00C,95,FLYING,Special,80,5,0,00,0,bef,"The user attacks with savagely cold winds that cause both body and spirit to tremble. This may also leave the target frozen solid."
+1079,BARBBARRAGE,Barb Barrage,005,60,POISON,Physical,100,10,0,00,0,abef,"The user launches countless toxic barbs to inflict damage. This may also poison the target. This move’s power is doubled if the target has a status condition."
+1080,BITTERMALICE,Bitter Malice,00C,75,GHOST,Special,100,10,0,00,0,bef,"The user attacks its target with spine-chilling resentment. This may also leave the target frozen solid. This move’s power is doubled if the target has a status condition."
+1081,BLEAKWINDSTORM,Bleakwind Storm,00C,100,FLYING,Special,80,10,0,04,0,bef,"The user attacks with savagely cold winds that cause both body and spirit to tremble. This may also leave the target frozen solid."
 1082,CEASELESSEDGE,Ceaseless Edge,0CF,65,DARK,Physical,90,15,0,00,0,abef,"The user slashes its shell blade at the target, aiming to land a critical hit. Shell splinters left behind by this attack will continue to damage the target for several turns."
-1083,CHLOROBLAST,Chloroblast,0FB,120,CHLOROHYLL,Special,95,5,0,00,5,abef,"The user launches its amassed chlorophyll to inflict damage on the target. This also damages the user."
-1084,DIRECLAW,Dire Claw,328,60,POISON,Special,100,15,50,00,0,bef,"The user lashes out at the target with ruinous claws, aiming to land a critical hit. This may also leave the target poisoned, paralyzed or asleep."
-1085,ESPERWING,Esper Wing,000,75,ELECTRIC,Physical,90,10,0,00,-4,befh,"The user slashes the target with aura-enriched wings. Critical hits land more easily."
-1086,HEADLONGRUSH,Headlong Rush,03C,100,FIGHTING,Physical,100,5,0,00,0,abef,"The user smashes into the target in a full-body tackle. This also lowers the user's Defense and Sp. Def. stats."
+1083,CHLOROBLAST,Chloroblast,0FB,150,CHLOROHYLL,Special,95,5,0,00,5,abef,"The user launches its amassed chlorophyll to inflict damage on the target. This also damages the user."
+1084,DIRECLAW,Dire Claw,328,80,POISON,Special,100,15,50,00,0,bef,"The user lashes out at the target with ruinous claws, aiming to land a critical hit. This may also leave the target poisoned, paralyzed or asleep."
+1085,ESPERWING,Esper Wing,000,80,ELECTRIC,Physical,100,10,0,00,-4,befh,"The user slashes the target with aura-enriched wings. Critical hits land more easily."
+1086,HEADLONGRUSH,Headlong Rush,03C,120,FIGHTING,Physical,100,5,0,00,0,abef,"The user smashes into the target in a full-body tackle. This also lowers the user's Defense and Sp. Def. stats."
 1087,INFERNALPARADE,Infernal Parade,00A,60,POISON,Physical,100,15,0,00,0,abef,"The user launches countless toxic barbs to inflict damage. This may also poison the target. This move’s power is doubled if the target has a status condition."
-1088,LUNARBLESSING,Lunar Blessing,330,0,PSYCHIC,Status,0,10,0,10,0,d,"The user heals its own status conditions and restores its HP."
-1089,MOUNTAINGALE,Mountain Gale,000,100,ICE,Special,85,5,0,00,5,bef,"The user hurls giant chunks of ice at the target to inflict damage."
+1088,LUNARBLESSING,Lunar Blessing,330,0,PSYCHIC,Status,0,5,0,10,0,d,"The user heals its own status conditions and restores its HP."
+1089,MOUNTAINGALE,Mountain Gale,000,100,ICE,Special,85,10,0,00,5,bef,"The user hurls giant chunks of ice at the target to inflict damage."
 1090,MYSTICALPOWER,Mystical Power,02D,70,PSYCHIC,Special,90,10,10,00,0,bef,The user strengthens itself with a mysterious power. This may also raise all the user's stats at once.
 1091,POWERSHIFT,Power Shift,331,0,NORMAL,Status,0,10,0,10,0,d,The user swaps its offensive and defensive stats.
 1092,PSYSHIELDBASH,Psyshield Bash,02A,70,PSYCHIC,Physical,90,10,30,00,0,bef,"Cloaking itself in psychic energy, the user slams into the target. This may also raise the user's Defense and Sp. Def. stats."
-1093,RAGINGFURY,Raging Fury,02D,90,FIRE,Physical,85,10,0,00,0,befh,"The user rampages and spews vicious flames to inflict damage on the target, then becomes fixated on using this move."
-1094,SANDSEARSTORM,Sandsear Storm,00A,95,GROUND,Special,80,5,100,00,0,abef,"The user attacks by wrapping the target in fierce winds and searingly hot sand. This also leaves the target with a burn."
+1093,RAGINGFURY,Raging Fury,02D,120,FIRE,Physical,100,10,0,02,0,befh,"The user rampages and spews vicious flames to inflict damage on the target, then becomes fixated on using this move."
+1094,SANDSEARSTORM,Sandsear Storm,00A,100,GROUND,Special,80,10,100,04,0,abef,"The user attacks by wrapping the target in fierce winds and searingly hot sand. This also leaves the target with a burn."
 1095,SHELTER,Shelter,02A,0,STEEL,Status,0,20,0,10,0,d,"The user makes its skin as hard as an iron shield, raising its Defense and Sp. Def stats."
-1096,SPRINGTIDESTORM,Springtide Storm,02D,95,FAIRY,Special,80,5,30,00,0,bef,The user attacks by wrapping the target in fierce winds brimming with love and hate. This may also raise all the user's stats at once.
+1096,SPRINGTIDESTORM,Springtide Storm,02D,100,FAIRY,Special,80,5,30,04,0,bef,The user attacks by wrapping the target in fierce winds brimming with love and hate. This may also raise all the user's stats at once.
 1097,STONEAXE,Stone Axe,0CF,65,ROCK,Physical,90,15,0,00,0,abef,"The user swings its stone axes at the target, aiming to land a critical hit. Stone splinters left behind by this attack continue to damage the target for several turns."
 1098,TAKEHEART,Take Heart,02D,0,HEART,Status,0,10,0,10,0,d,"The user makes its skin as hard as an iron shield, raising all the user's stats at once."
-1099,TRIPLEARROWS,Triple Arrows,000,50,FIGHTING,Physical,100,15,0,00,0,befh,"The user delivers an axe kick, then fires three arrows."
+1099,TRIPLEARROWS,Triple Arrows,000,90,FIGHTING,Physical,100,10,0,00,0,befh,"The user delivers an axe kick, then fires three arrows."
 1100,VICTORYDANCE,Victory Dance,02D,0,FIGHTING,Status,0,10,0,10,0,d,"The user performs a dance to usher in victory, raising all the user's stats at once."
-1101,WAVECRASH,Wave Crash,0FB,75,WATER,Physical,100,10,0,00,-4,abef,"The user shrouds itself in water and slams into the target with its whole body to inflict damage. This also damages the user."
-1102,WILDBOLTSTORM,Wildbolt Storm,007,95,BOLT,Special,80,5,100,00,0,abef,"The user summons a thunderous tempest and savagely attacks with lightning and wind. This may also leave the target with paralysis."
+1101,WAVECRASH,Wave Crash,0FB,120,WATER,Physical,100,10,0,00,-4,abef,"The user shrouds itself in water and slams into the target with its whole body to inflict damage. This also damages the user."
+1102,WILDBOLTSTORM,Wildbolt Storm,007,100,BOLT,Special,80,10,100,04,0,abef,"The user summons a thunderous tempest and savagely attacks with lightning and wind. This may also leave the target with paralysis."
 # Generation IX Moves
 1156,TERABLAST,Tera Blast,353,80,NORMAL,Special,100,10,0,00,0,bef,"It unleashes energy of its Type. This move inflicts damage using the Attack or Sp. Atk stat—whichever is higher for the user."
 1157,SILKTRAP,Silk Trap,354,0,BUG,Status,0,10,0,10,0,d,"The user spins a silken trap, protecting itself from damage while lowering the Speed stat of any attacker that makes direct contact."
@@ -854,9 +854,9 @@
 817,INTIMILOW,Intimilow,243,0,NORMAL,Status,100,40,0,00,0,bce,The user steals one stage from the foe's Speed stat and brings it to the user. User's Speed won't increase if it does nothing
 825,UNDERFLECTTYPE,Underflect Type,248,0,NORMAL,Status,0,15,0,00,0,bd,"The user underflects its's type, making target's the same type as the user."
 826,CASTERFLAGE,Casterflage,249,0,NORMAL,Status,0,20,0,00,0,d,"The target's type is changed depending on its environment, such as at water's edge, in grass, or in a cave."
-847,MASCUGLASS,Mascu Glass,186,60,NORMAL,Special,100,20,30,00,0,befghmn,The user spits up a glassy Mascu. This may also steal one stage from target's Attack stat.
-848,MESCUGLESS,Mescu Gless,189,60,NORMAL,Special,100,20,30,00,0,befghmn,The user spits up a glessy Mescu. This may also steal one stage from target's Sp. Attack stat.
-849,MOSCUGLOSS,Moscu Gloss,243,60,NORMAL,Special,100,20,30,00,0,befghmn,The user spits up a glossy Moscu. This may also steal one stage from target's Speed stat.
+847,MASCUGLASS,Mascu Glass,186,65,NORMAL,Special,100,20,30,00,0,befghmn,The user spits up a glassy Mascu. This may also steal one stage from target's Attack stat.
+848,MESCUGLESS,Mescu Gless,189,65,NORMAL,Special,100,20,30,00,0,befghmn,The user spits up a glessy Mescu. This may also steal one stage from target's Sp. Attack stat.
+849,MOSCUGLOSS,Moscu Gloss,243,65,NORMAL,Special,100,20,30,00,0,befghmn,The user spits up a glossy Moscu. This may also steal one stage from target's Speed stat.
 906,DIZZYSLASH,Dizzy Slash,013,70,NORMAL,Special,100,10,20,00,0,abef,The target is hit by a slash made by dizzing scratches. This may also confuse the target.
 907,SLAP,Slap,000,40,NORMAL,Physical,100,35,0,00,0,abef,"The target is physically slapped at all without any additional effects."
 908,POUNDWHIP,Pound Whip,000,90,NORMAL,Special,70,10,0,00,0,abefh,"The user hurls a whip at the target, which is pounded as well with incredible damage."
@@ -976,10 +976,10 @@
 903,ELECTROMANIA,Electromania,285,0,ELECTRIC,Status,0,10,0,40,0,,"For five turns, all contact moves done by the user and allies as well as contact moves done by the opponents can cause paralysis."
 971,BOLTYSNIPE,Bolty Snipe,259,85,ELECTRIC,Special,100,15,0,00,0,bef,"The user ignores the effects of opposing Pokémon's moves and Abilities that draw in moves, allowing this move to hit the chosen target."
 1032,ELECTRONICTOXIC,Electronic Toxic,303,100,ELECTRIC,Physical,50,5,100,00,0,bef,The user hits with electric and toxic tackles. This move either poisons or paralyzes the target
-1058,TRANSISTOR,Transistor,007,55,ELECTRIC,Special,95,15,20,00,0,bef,"The user attacks an opposing Pokémon with massive electricity. This move may also paralyze the target and power is doubled if a Pokémon has the corresponding ability."
+1058,TRANSISTOR,Transistor,007,50,ELECTRIC,Special,95,15,20,00,0,bef,"The user attacks an opposing Pokémon with massive electricity. This move may also paralyze the target and power is doubled if a Pokémon has the corresponding ability."
 1068,VOLTENERGY,Volt Energy,324,0,ELECTRIC,Status,0,15,0,20,-1,,"A electic energy is being done at the battle. This increases accuracy of Electric Pokémon and decreases accuracy for other types."
 1120,CENTROVOLT,Centro Volt,338,250,ELECTRIC,Physical,30,5,100,00,4,abef,"The user soars some dramatic lightning bolt and electricity to the target. If this move hits, its partner will be paralyzed as well. This move works as both Electric and Bolt move."
-1145,ELECTRICGLIDE,Electric Glide,345,70,ELECTRIC,Physical,100,20,0,00,0,abef,"Gliding on the ground, the user attacks the target. This move always goes first on Electric Terrain."
+1145,ELECTRICGLIDE,Electric Glide,345,60,ELECTRIC,Physical,100,20,0,00,0,abef,"Gliding on the ground, the user attacks the target. This move always goes first on Electric Terrain."
 ## FLINT Moves = Psychic
 744,PSYCHOTRACK,Psycho Track,170,200,PSYCHIC,Special,100,5,30,04,0,bef,The user inflicts damage on all opposing Pokémon. The user faints upon using this move and may also severely cut down Defense.
 897,PSYCHOSLASH,Psycho Slash,009,80,PSYCHIC,Physical,100,10,0,00,0,abe,The users does a Psycho Slash at the target. This may also make the target flinch.
@@ -989,7 +989,7 @@
 1076,COLORATURA,Coloratura,326,120,PSYCHIC,Special,100,10,0,08,0,bef,"Using an odd shock wave, the user damages any Pokémon of the same color as the user."
 1078,FORBIDDENSPELL,Forbidden Spell,327,0,PSYCHIC,Status,100,10,0,00,0,bce,The user blocks the target from using items any longer to the target by making its Ability Klutz.
 1121,KINECTSPIRIT,Kinect Spirit,066,0,PSYCHIC,Status,100,15,0,100,0,bce,"The user inserts a Kinect to its partner, changing its Ability to the same as the user's."
-1150,PSYCHICGLIDE,Psychic Glide,347,70,PSYCHIC,Physical,100,20,0,00,0,abef,"Gliding on the ground, the user attacks the target. This move always goes first on Psychic Terrain."
+1150,PSYCHICGLIDE,Psychic Glide,347,60,PSYCHIC,Physical,100,20,0,00,0,abef,"Gliding on the ground, the user attacks the target. This move always goes first on Psychic Terrain."
 ## FLINT Moves = Ice
 753,COLDWATER,Cold Water,000,40,ICE,Special,100,30,0,00,1,bef,The user shoot a lot of cold water to the target. This move always goes first.
 974,FROZENYOGHURT,Frozen Yoghurt,293,55,ICE,Physical,100,10,100,00,0,abef,"If the user moves before the target, this attack's power will be doubled and freeze the target as well."
@@ -1001,7 +1001,7 @@
 977,DOUBLECLAWS,Double Claws,0BD,60,DRAGON,Physical,90,10,0,00,0,abef,The user attacks its target by hitting it with brutal strikes. The target is hit twice in a row.©
 978,DRAGONBONE,Dragon Bone,0C0,20,DRAGON,Physical,84,20,0,00,0,bef,"The user uses its power to hurl dragon bones to the target for two to five turns."
 979,DRAGONBEAM,Dragon Beam,0C2,150,DRAGON,Special,90,5,0,00,0,bef,The user blasts the target with its higher power. The user must rest on the next turn.
-937,DRAGONSMAW,Dragon's Maw,00A,55,DRAGON,Special,95,15,20,00,0,bef,"The user attacks an opposing Pokémon with greater fire. This move may also burn the target and power is doubled if a Pokémon has the corresponding ability."
+937,DRAGONSMAW,Dragon's Maw,00A,50,DRAGON,Special,95,15,20,00,0,bef,"The user attacks an opposing Pokémon with greater fire. This move may also burn the target and power is doubled if a Pokémon has the corresponding ability."
 1123,DUELDUADINE,Duel Duadine,339,0,DRAGON,Status,0,10,0,00,0,d,"This move, when used will sharply increase the best stat of the user and its partner."
 ## FLINT Moves = Dark
 667,SUPERMEMENTO,Super Memento,163,0,DARK,Status,100,10,0,00,0,be,"The user faints when using this move. In return, it severely lowers the target's Attack and Sp. Atk."
@@ -1025,7 +1025,7 @@
 985,FAIRYEYE,Fairy Eye,0EF,0,FAIRY,Status,0,5,0,00,0,bce,"The user pins the target with a dark, arresting look. The target becomes unable to flee."
 986,VIBRATION,Vibration,046,90,FAIRY,Special,100,10,10,00,0,befk,The user vibrates its wings to generate a damaging sound wave. This may also lower the target's Sp. Def stat.
 1126,FLANGE,Flange,341,40,FAIRY,Physical,100,35,0,00,0,abef,Using its fairy tackling power, it damages the target. This move's power doubles when the target is on Misty Terrain.
-1149,MISTYGLIDE,Misty Glide,346,70,FAIRY,Physical,100,20,0,00,0,abef,"Gliding on the ground, the user attacks the target. This move always goes first on Misty Terrain."
+1149,MISTYGLIDE,Misty Glide,346,60,FAIRY,Physical,100,20,0,00,0,abef,"Gliding on the ground, the user attacks the target. This move always goes first on Misty Terrain."
 1155,TACTIECREAM,Tactie Cream,352,60,FAIRY,Physical,95,10,0,00,1,abef,"The user hurls a soft cream to the target. The more rooms there are active in the battlefield, the greater the move's power."
 ## FLINT Moves = Magic
 627,MAGICHAND,Magic Hand,000,55,MAGIC,Special,100,30,0,00,0,abeg,A hand that does magic attack. User thraws out before using this move
@@ -1081,7 +1081,7 @@
 896,TRIFFINTO,Triffinto,322,40,SHARPENER,Physical,0,50,50,800,-1,abef,"The user throws a gray triffinto into a target. When this move is used, it may also increase user's Sp. Defense."
 992,FOUANTRE,Fouantre,000,80,SHARPENER,Physical,80,10,0,04,0,abefn,"The user casts a slivery fouantre bomb at the target without any additional effects."
 993,SILVERLIGHT,Silverlight,0AA,0,SHARPENER,Status,0,10,0,10,4,,It enables the user to evade all attacks. Its chance of failing rises if it is used in succession.
-994,SHARPENDECOY,Sharpen Decoy,0D5,0,SHARPENER,Status,0,10,0,10,0,d,"A semi-transparent decoy is built in order to recover some of its HP."
+994,SHARPENDECOY,Sharpen Decoy,0D5,0,SHARPENER,Status,0,5,0,10,0,d,"A semi-transparent decoy is built in order to recover some of its HP."
 1059,SPINJITZUAEROBICS,Spinjitzu Aerobics,007,85,SHARPENER,Physical,100,15,30,08,0,abef,The user drops onto the other pokémons with sharpen aerobics. It may leave the target(s) with paralysis.
 1065,SHERLOCK,Sherlock,0CF,15,SHARPENER,Special,90,20,0,00,0,abef,A long body or vines are used to wrap and squeeze the target for four to five turns.
 1130,NEUTRALTRAP,Neutral Trap,343,0,SHARPENER,Status,100,10,0,00,0,bce,"For five turns, the target is encased into a trap that negates its ability."
@@ -1096,7 +1096,7 @@
 844,LAVACRAYON,Lava Crayon,254,40,LAVA,Physical,90,20,0,00,0,ab,"By using its crayon power of lava, if your and the opposing last move has failed, this move deals massive damage."
 1077,LAVEROCK,Laverock,000,100,LAVA,Physical,0,15,0,00,0,bef,The user unleases its power to hurl a big volcanic fire to the target.
 1131,EXTREMEMAGMA,Extreme Magma,00A,110,LAVA,Special,85,5,10,00,0,bef,The foe is attacked with an extreme lava. This may also leave the target with a burn.
-1151,VOLCANICGLIDE,Volcanic Glide,348,70,LAVA,Physical,100,20,0,00,0,abef,"Gliding on the ground, the user attacks the target. This move always goes first on Volcanic Terrain."
+1151,VOLCANICGLIDE,Volcanic Glide,348,60,LAVA,Physical,100,20,0,00,0,abef,"Gliding on the ground, the user attacks the target. This move always goes first on Volcanic Terrain."
 ## FLINT Moves = Wind
 623,DAMADON,Damadon,022,70,WIND,Special,90,40,45,04,0,beh,The user danks all the foes with an adition of grass. May raise the user's evasion
 683,WINDATTACK,Wind Attack,000,60,WIND,Physical,100,30,0,00,0,abef,"The target is struck with large, imposing wings spread wide to inflict damage."
@@ -1132,7 +1132,7 @@
 1004,PIXELBOLT,Pixel Bolt,298,30,BOLT,Physical,100,20,30,00,0,bf,"The user damages the target twice. This may also paralyze the target on each hit."
 1005,BOLTBLOW,Bolt Blow,298,30,BOLT,Special,100,20,30,00,0,bf,"The user damages the target twice. This may also paralyze the target on each hit."
 1134,BOLTSOUNDS,Bolt Sounds,000,80,BOLT,Special,100,10,0,04,0,befk,"The user attacks opposing Pokémon by twanging a guitar or bass guitar, causing a huge echo and strong vibration."
-1153,CINEMATICGLIDE,Cinematic Glide,348,70,BOLD,Special,100,20,0,00,0,abef,"Gliding on the ground, the user attacks the target. This move always goes first on Cinament."
+1153,CINEMATICGLIDE,Cinematic Glide,348,60,BOLT,Special,100,20,0,00,0,abef,"Gliding on the ground, the user attacks the target. This move always goes first on Cinament."
 ## FLINT Moves = Herb
 637,DAZZLINGLICK,Dazzling Lick,159,90,HERB,Physical,0,5,40,08,1,abj,The user inficts Dazzle damage to all enemies in the battle. May Lower all stats.
 695,HERBLEAF,Herb Leaf,0E0,250,HERB,Physical,100,5,0,08,0,b,"User Hurls leafs accross the Pokémon. The user however, will also faint"
@@ -1159,7 +1159,7 @@
 1009,CHLOROPUNCH,Chloro Punch,007,70,CHLOROPHYLL,Special,50,20,20,00,0,befj,The user stinks some chlorophyll punches to the target. It may also leave the target with paralysis.
 1010,ALOEVERA,Aloe Vera,219,0,CHLOROPHYLL,Status,0,20,0,100,0,bc,"The user heals the ally's status condition. If the move succeeds, it also restores the users own HP."
 1069,SUPERCHLOROPHYLL,Super Chlorophyll,078,80,CHLOROPHYLL,Special,100,35,0,00,0,bef,A bunch of chlorophyll is whipped up by vines and launched at the target to inflict damage.
-1136,AROMATICRECOVERY,Aromatic Recovery,0D5,0,CHLOROPHYLL,Status,0,10,0,10,0,d,"Restoring its own cells, the user restores its own HP by half of its max HP."
+1136,AROMATICRECOVERY,Aromatic Recovery,0D5,0,CHLOROPHYLL,Status,0,5,0,10,0,d,"Restoring its own cells, the user restores its own HP by half of its max HP."
 ## FLINT Moves = Gust
 705,GUSTINGPOND,Gusting Pond,033,0,GUST,Status,0,20,0,10,0,d,The user creates itself a pond of gusts that will increase Special Defense by 2 stages.
 707,GIERYFIST,Giery Fist,000,100,GUST,Physical,75,20,0,00,0,abef,The target inflicts damage using Fists made by Gust
@@ -1194,7 +1194,7 @@
 ## FLINT Moves = Mind
 724,MINDBLOW,Mind Blow,013,50,MIND,Physical,100,25,10,00,0,abef,The target is hit by a weak telekinetic force. It may also leave the target confused.
 725,MINDCONTROL,Mind Control,184,0,MIND,Status,100,10,0,00,0,bce,The user begins ferrying out controlling capacibilites to the target by making its Ability Ferfatina.
-732,MINDRECOVERCY,Mind Recovercy,190,1,MIND,Physical,0,50,0,00,2,abce,"The user uses his mind to craft some damage to the foe in order to regain health. The more trained the user is, the greater will be the damage"
+732,MINDRECOVERCY,Mind Recovercy,190,1,MIND,Physical,0,25,0,00,2,abce,"The user uses his mind to craft some damage to the foe in order to regain health. The more trained the user is, the greater will be the damage"
 755,SUPERMIND,Super Mind,048,0,MIND,Status,100,20,0,04,4,c,"The user uses it super mind to harsly lower the evasion of the other side by 2 stages. Move goes a lot earlier than others, bypassing detect as well"
 822,MINDITOPIA,Minditopia,159,15,MIND,Physical,0,20,100,08,1,abj,"Using his mind power, it inflicts power into the other side. This move will always lower the target's stats"
 836,MINDBOX,Mind Box,253,0,MIND,Status,0,20,0,20,0,,"By crafting and opening up a Mind Box, this will increase Accuracy of all Pokémon in the battle. It boosts more accuracy for Mind ones"
@@ -1205,7 +1205,7 @@
 1140,BRAINYMEDIA,Brainymedia,344,0,MIND,Status,0,5,0,10,0,,"When this move is used, if the user faints, the foe that landed the knockout will have its stat stages reduced to minimum."
 1148,BRAINDAMAGE,Brain Damage,344,175,MIND,Special,55,5,0,00,0,abef,"Deals massive damage. If this move succeeds, once the user faints, the foe that landed the knockout hit will have its stat stages reduced to minimum."
 ## FLINT Moves = Heart
-743,SMORESMIRI,S'More S'Miri,198,0,HEART,Status,0,20,0,10,0,d,A move created for Love Crystal Ball. This move will restore HP depending on user's Happiness
+743,SMORESMIRI,S'More S'Miri,198,0,HEART,Status,0,10,0,10,0,d,A move created for Love Crystal Ball. This move will restore HP depending on user's Happiness
 751,HEARTGLOW,Heart Glow,00F,50,HEART,Physical,0,20,25,00,0,abeg,.A glowing heart that will do damage. User thraws out before using this move. Target may be flinched as well.
 752,SWEETHEART,Sweet Heart,178,15,HEART,Special,100,40,0,00,0,abef,A blinky heart is thrown. The user's HP is restored by over half of the damage taken by the target. Move never fails.
 823,LOLOLOVE,LoLo Love,170,200,HEART,Physical,100,5,30,04,0,bef,The user inflicts damage on all opposing Pokémon. The user faints upon using this move and may also severely cut down Defense.
@@ -1215,7 +1215,7 @@
 1022,LOVEGOODAEROBICS,Lovegood Aerobics,013,85,HEART,Physical,100,15,30,04,0,abef,The user drops onto the other side with aerobics. It may leave the target(s) with confusion.
 1034,TREBLE,Treble,304,50,HEART,Physical,100,15,30,00,0,bek,This attack can be used only if the user is asleep. The harsh noise may also confuse the target.
 1141,ILLUSIVELOVE,Illusive Love,046,70,HEART,Special,100,15,10,00,0,bef,The target is hit by loveness. This may also reduce the target's Sp. Def stat.
-1152,LOVELYGLIDE,Lovely Glide,348,70,HEART,Physical,100,20,0,00,0,abef,"Gliding on the ground, the user attacks the target. This move always goes first on Lovely Terrain."
+1152,LOVELYGLIDE,Lovely Glide,348,60,HEART,Physical,100,20,0,00,0,abef,"Gliding on the ground, the user attacks the target. This move always goes first on Lovely Terrain."
 ## FLINT Moves = Blizzard
 750,TITANUMBLIZZARD,Titanum Blizzard,205,110,BLIZZARD,Special,70,5,10,04,0,bef,A howling blizzard is summoned to strike the opposing team. It may also freeze them solid. Move also works as a Steel-type move stimulationaly
 754,BLIZZARDOUSOCEAN,Blizzardous Ocean,206,0,BLIZZARD,Status,0,10,0,00,0,,The user ponds the target into a blizzardous ocean. This not only the user gains target's ability but also suppresses it.

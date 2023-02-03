@@ -3931,7 +3931,7 @@ class PokeBattle_Battle
             pbCommonAnimation("GalinsPoison",i,nil)
           elsif isConst?(i.effects[PBEffects::MultiTurnAttack],PBMoves,:SALTCURE)
             saltcure=true
-            pbCommonAnimation("Warp",i,nil)
+            pbCommonAnimation("SaltCure",i,nil)
           else
             pbCommonAnimation("Wrap",i,nil)
           end

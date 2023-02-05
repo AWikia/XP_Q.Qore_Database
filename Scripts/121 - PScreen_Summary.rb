@@ -237,8 +237,8 @@ class PokemonSummaryScene
     if (!isDarkMode?)
       base=MessageConfig::DARKTEXTBASE
       shadow=MessageConfig::DARKTEXTSHADOW
-      base2=Color.new(230,230,230)
-      shadow2=Color.new(58,58,58)
+      base2=Color.new(43,43,43)
+      shadow2=Color.new(43,43,43)
     else
       base=MessageConfig::LIGHTTEXTBASE
       shadow=MessageConfig::LIGHTTEXTSHADOW
@@ -379,8 +379,8 @@ class PokemonSummaryScene
     if (!isDarkMode?)
       base=MessageConfig::DARKTEXTBASE
       shadow=MessageConfig::DARKTEXTSHADOW
-      base2=Color.new(230,230,230)
-      shadow2=Color.new(58,58,58)
+      base2=Color.new(43,43,43)
+      shadow2=Color.new(43,43,43)
     else
       base=MessageConfig::LIGHTTEXTBASE
       shadow=MessageConfig::LIGHTTEXTSHADOW
@@ -469,8 +469,8 @@ class PokemonSummaryScene
     if (!isDarkMode?)
       base=MessageConfig::DARKTEXTBASE
       shadow=MessageConfig::DARKTEXTSHADOW
-      base2=Color.new(230,230,230)
-      shadow2=Color.new(58,58,58)
+      base2=Color.new(43,43,43)
+      shadow2=Color.new(43,43,43)
     else
       base=MessageConfig::LIGHTTEXTBASE
       shadow=MessageConfig::LIGHTTEXTSHADOW
@@ -641,8 +641,8 @@ class PokemonSummaryScene
     if (!isDarkMode?)
       base=MessageConfig::DARKTEXTBASE
       shadow=MessageConfig::DARKTEXTSHADOW
-      base2=Color.new(230,230,230)
-      shadow2=Color.new(58,58,58)
+      base2=Color.new(43,43,43)
+      shadow2=Color.new(43,43,43)
     else
       base=MessageConfig::LIGHTTEXTBASE
       shadow=MessageConfig::LIGHTTEXTSHADOW
@@ -753,8 +753,8 @@ def drawPageFour(pokemon)
     if (!isDarkMode?)
       base=MessageConfig::DARKTEXTBASE
       shadow=MessageConfig::DARKTEXTSHADOW
-      base2=Color.new(230,230,230)
-      shadow2=Color.new(58,58,58)
+      base2=Color.new(43,43,43)
+      shadow2=Color.new(43,43,43)
     else
       base=MessageConfig::LIGHTTEXTBASE
       shadow=MessageConfig::LIGHTTEXTSHADOW
@@ -865,8 +865,8 @@ def drawPageFive(pokemon)
     if (!isDarkMode?)
       base=MessageConfig::DARKTEXTBASE
       shadow=MessageConfig::DARKTEXTSHADOW
-      base2=Color.new(230,230,230)
-      shadow2=Color.new(58,58,58)
+      base2=Color.new(43,43,43)
+      shadow2=Color.new(43,43,43)
     else
       base=MessageConfig::LIGHTTEXTBASE
       shadow=MessageConfig::LIGHTTEXTSHADOW
@@ -979,8 +979,8 @@ def drawPageFive(pokemon)
     if (!isDarkMode?)
       base=MessageConfig::DARKTEXTBASE
       shadow=MessageConfig::DARKTEXTSHADOW
-      base2=Color.new(230,230,230)
-      shadow2=Color.new(58,58,58)
+      base2=Color.new(43,43,43)
+      shadow2=Color.new(43,43,43)
     else
       base=MessageConfig::LIGHTTEXTBASE
       shadow=MessageConfig::LIGHTTEXTSHADOW
@@ -1065,8 +1065,8 @@ def drawPageFive(pokemon)
     if (!isDarkMode?)
       base=MessageConfig::DARKTEXTBASE
       shadow=MessageConfig::DARKTEXTSHADOW
-      base2=Color.new(230,230,230)
-      shadow2=Color.new(58,58,58)
+      base2=Color.new(43,43,43)
+      shadow2=Color.new(43,43,43)
     else
       base=MessageConfig::LIGHTTEXTBASE
       shadow=MessageConfig::LIGHTTEXTSHADOW
@@ -1093,13 +1093,13 @@ def drawPageFive(pokemon)
     if (!isDarkMode?)
       base=MessageConfig::DARKTEXTBASE
       shadow=MessageConfig::DARKTEXTSHADOW
-      base2=Color.new(58,58,58)
+      base2=Color.new(43,43,43)
       shadow2=Color.new(230,230,230)
     else
       base=MessageConfig::LIGHTTEXTBASE
       shadow=MessageConfig::LIGHTTEXTSHADOW
       base2=Color.new(230,230,230)
-      shadow2=Color.new(58,58,58)
+      shadow2=Color.new(43,43,43)
     end   
       ppBase   = [base,                   # More than 1/2 of total PP
                   Color.new(248,192,0),   # 1/2 of total PP or less
@@ -1200,8 +1200,8 @@ def drawPageFive(pokemon)
     if (!isDarkMode?)
       base=MessageConfig::DARKTEXTBASE
       shadow=MessageConfig::DARKTEXTSHADOW
-      base2=Color.new(230,230,230)
-      shadow2=Color.new(58,58,58)
+      base2=Color.new(43,43,43)
+      shadow2=Color.new(43,43,43)
     else
       base=MessageConfig::LIGHTTEXTBASE
       shadow=MessageConfig::LIGHTTEXTSHADOW
@@ -1273,8 +1273,8 @@ def drawPageFive(pokemon)
     if (!isDarkMode?)
       base=MessageConfig::DARKTEXTBASE
       shadow=MessageConfig::DARKTEXTSHADOW
-      base2=Color.new(230,230,230)
-      shadow2=Color.new(58,58,58)
+      base2=Color.new(43,43,43)
+      shadow2=Color.new(43,43,43)
     else
       base=MessageConfig::LIGHTTEXTBASE
       shadow=MessageConfig::LIGHTTEXTSHADOW

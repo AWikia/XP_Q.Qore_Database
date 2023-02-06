@@ -1244,8 +1244,161 @@ def drawPageFive(pokemon)
     pbDrawImagePositions(overlay,imagepos)
     drawMarkings(overlay,0,363,72,20,pokemon.markings)
   end
-
+  
+  
+  SHOWFAMILYEGG = true # when true, family tree is also showed in egg screen.
+  
   def drawPageEight(pokemon)
+    $summarysizex = 80
+    @sprites["itemicon2"].visible = false
+    overlay=@sprites["overlay"].bitmap
+    overlay.clear
+    @sprites["background"].setBitmap(@pokemon.egg? ? 
+          "Graphics/Pictures/"+getDarkModeFolder+"/summaryEgg6" : "Graphics/Pictures/"+getDarkModeFolder+"/summary6")
+#    @sprites["header-bg"].setBitmap("Graphics/Pictures/header-global")      
+#    @sprites["header"].setBitmap(@pokemon.egg? ? 
+#          "Graphics/Pictures/headerB6" : "Graphics/Pictures/header6")
+    imagepos=[]    
+    if !@pokemon.egg?
+		if pbPokerus(pokemon)==1 || pokemon.hp==0 || @pokemon.status>0
+		  status=6 if pbPokerus(pokemon)==1
+		  status=@pokemon.status-1 if @pokemon.status>0
+		  status=5 if pokemon.hp==0
+		  imagepos.push(["Graphics/Pictures/statuses",124,100,0,16*status,44,16])
+		end
+		if pokemon.isShiny?
+		  imagepos.push([sprintf("Graphics/Pictures/shiny"),2,134,0,0,-1,-1])
+		end
+		if pbPokerus(pokemon)==2
+		  imagepos.push([
+			  sprintf("Graphics/Pictures/summaryPokerus"),176,100,0,0,-1,-1])
+		end
+	end
+    ballused=@pokemon.ballused ? @pokemon.ballused : 0
+    ballimage=sprintf("Graphics/Pictures/summaryball%02d",@pokemon.ballused)
+    imagepos.push([ballimage,14,60,0,0,-1,-1])
+    pbDrawImagePositions(overlay,imagepos)
+    
+    
+    
+    if (!isDarkMode?)
+      base=MessageConfig::DARKTEXTBASE
+      shadow=MessageConfig::DARKTEXTSHADOW
+      base2=Color.new(43,43,43)
+      shadow2=Color.new(43,43,43)
+    else
+      base=MessageConfig::LIGHTTEXTBASE
+      shadow=MessageConfig::LIGHTTEXTSHADOW
+      base2=Color.new(230,230,230)
+      shadow2=Color.new(230,230,230)
+    end
+    pbSetSystemFont(overlay)
+    pokename=@pokemon.name
+#    itemname=pokemon.item==0 ? _INTL("None") : PBItems.getName(pokemon.item)
+
+   if !@pokemon.egg?
+    textpos=[
+  #     [_INTL("Family Tree"),26,8,0,base,shadow,1],
+       [pokename,46,62,0,base,shadow],
+       [pokemon.level.to_s,46,92,0,base,shadow],
+    ]
+   else
+    textpos=[
+  #     [_INTL("Family Tree"),26,8,0,base,shadow,1],
+       [pokename,46,62,0,base,shadow],
+    ]
+   end
+    gendericon2=[]
+   if !@pokemon.egg?
+      gendericon=[]
+      if pokemon.isMale?
+    #      textpos.push([_INTL("?"),178,62,0,Color.new(24,112,216),Color.new(136,168,208)])
+        gendericon.push(["Graphics/Pictures/"+getDarkModeFolder+"/gender_male",270,68,0,0,-1,-1])
+      elsif pokemon.isFemale?
+    #      textpos.push([_INTL("?"),178,62,0,Color.new(248,56,32),Color.new(224,152,144)])
+        gendericon.push(["Graphics/Pictures/"+getDarkModeFolder+"/gender_female",270,68,0,0,-1,-1])
+      elsif pokemon.isGenderless?
+    #      textpos.push([_INTL("?"),178,62,0,Color.new(248,56,32),Color.new(224,152,144)])
+        gendericon.push(["Graphics/Pictures/"+getDarkModeFolder+"/gender_transgender",270,68,0,0,-1,-1])
+      end
+      pbDrawImagePositions(overlay,gendericon)
+    end    
+    # Draw parents
+    parentsY=[78,234]
+    for i in 0...2
+      parent = @pokemon.family && @pokemon.family[i] ? @pokemon.family[i] : nil
+      iconParentParam = parent ? [parent.species,
+          parent.gender==1,false,parent.form,false] : [0,0,false,0,false]
+      iconParent=AnimatedBitmap.new(pbCheckPokemonIconFiles(iconParentParam))
+      overlay.blt(362,parentsY[i],iconParent.bitmap,Rect.new(0,0,64,64))
+      textpos.push([parent ? parent.name : _INTL("???"),
+          448,parentsY[i],0,base,shadow])
+      parentSpecieName=parent ? PBSpecies.getName(parent.species) : _INTL("???")
+      textpos.push([parentSpecieName,448,32+parentsY[i],0,base,shadow])     
+      if parent
+        if parent.gender==0
+#          textpos.push([_INTL("?"),628,32+parentsY[i],1,
+#              Color.new(24,112,216),Color.new(136,168,208)])
+		  gendericon2.push(["Graphics/Pictures/"+getDarkModeFolder+"/gender_male",614,40+parentsY[i],0,0,-1,-1])
+        elsif parent.gender==1
+#          textpos.push([_INTL("?"),628,32+parentsY[i],1,
+#              Color.new(248,56,32),Color.new(224,152,144)])
+		  gendericon2.push(["Graphics/Pictures/"+getDarkModeFolder+"/gender_female",614,40+parentsY[i],0,0,-1,-1])
+        else
+#          textpos.push([_INTL("?"),628,32+parentsY[i],1,
+#              Color.new(248,56,32),Color.new(224,152,144)])
+		  gendericon2.push(["Graphics/Pictures/"+getDarkModeFolder+"/gender_transgender",614,40+parentsY[i],0,0,-1,-1])
+        end
+      end    
+      grandX = [508,576]
+      for j in 0...2
+        iconGrandParam = parent && parent[j] ? [parent[j].species,
+            parent[j].gender==1,false,parent[j].form,false] : 
+            [0,0,false,0,false]
+        iconGrand=AnimatedBitmap.new(pbCheckPokemonIconFiles(iconGrandParam))
+        overlay.blt(
+            grandX[j],68+parentsY[i],iconGrand.bitmap,Rect.new(0,0,64,64))
+      end
+    end
+		pbDrawImagePositions(overlay,gendericon2)
+    pbDrawTextPositions(overlay,textpos)
+    drawMarkings(overlay,0,363,72,20,pokemon.markings)
+  end
+  
+  def handleInputsEgg
+    if SHOWFAMILYEGG && @pokemon.egg?
+      if Input.trigger?(Input::LEFT) && (@page==0 || @page==7)
+        if @page==0
+          @page=7
+        elsif @page==7
+          @page=0
+        end
+        pbPlayCursorSE()
+        pbSEPlay("SumCursor")
+        dorefresh=true
+      end
+      if Input.trigger?(Input::RIGHT) && (@page==0 || @page==7)
+        if @page==0
+          @page=7
+        elsif @page==7
+          @page=0
+        end
+        pbPlayCursorSE()
+        pbSEPlay("SumCursor")
+        dorefresh=true
+      end
+    end
+    if dorefresh
+      case @page
+        when 0
+          drawPageOne(@pokemon)
+        when 7
+          drawPageEight(@pokemon)
+      end
+    end
+  end
+
+  def drawPageNine(pokemon)
     $summarysizex = 40
     @sprites["itemicon2"].visible = true
     overlay=@sprites["overlay"].bitmap
@@ -1482,7 +1635,7 @@ def drawPageFive(pokemon)
 
   def pbGoToPrevious
     stopped=false
-    if @page!=0 
+    if @page!=0 && !(SHOWFAMILYEGG && @page==7)
       newindex=@partyindex
       while newindex>0
         newindex-=1
@@ -1530,7 +1683,7 @@ def drawPageFive(pokemon)
 
   def pbGoToNext
     stopped=false
-    if @page!=0
+    if @page!=0 && !(SHOWFAMILYEGG && @page==7)
       newindex=@partyindex
       while newindex<@party.length-1
         newindex+=1
@@ -1601,6 +1754,7 @@ def drawPageFive(pokemon)
           drawPageSix(@pokemon)
         end
       end
+      handleInputsEgg
       if Input.trigger?(Input::UP) # && @partyindex>0
         oldindex=@partyindex
         pbGoToPrevious
@@ -1634,8 +1788,8 @@ def drawPageFive(pokemon)
       if Input.trigger?(Input::LEFT) && !@pokemon.isEgg?
         oldpage=@page
         @page-=1
-        @page=7 if @page<0
-        @page=0 if @page>7
+        @page=8 if @page<0
+        @page=0 if @page>8
         dorefresh=true
         if @page!=oldpage # Move to next page
           pbPlayCursorSE()
@@ -1646,8 +1800,8 @@ def drawPageFive(pokemon)
       if Input.trigger?(Input::RIGHT) && !@pokemon.isEgg?
         oldpage=@page
         @page+=1
-        @page=7 if @page<0
-        @page=0 if @page>7
+        @page=8 if @page<0
+        @page=0 if @page>8
         if @page!=oldpage # Move to next page
           pbPlayCursorSE()
           pbSEPlay("SumCursor")
@@ -1672,7 +1826,9 @@ def drawPageFive(pokemon)
         when 6
           drawPageSeven (@pokemon) # Ribbons
         when 7
-          drawPageEight (@pokemon) # Advanced Information
+          drawPageEight (@pokemon) # Family Tree
+        when 8
+          drawPageNine (@pokemon) # Advanced Information
         end
         pbPositionPokemonSprite(@sprites["pokemon"],$summarysizex,180)
       end

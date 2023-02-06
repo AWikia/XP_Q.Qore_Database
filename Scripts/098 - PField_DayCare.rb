@@ -1,3 +1,105 @@
+#===============================================================================
+# * Family Tree - by FL (Credits will be apreciated)
+#===============================================================================
+#
+# This script is for Pok?mon Essentials. It displays a sixth page at pok?mon
+# summary showing a little info about the pok?mon mother, father, grandmothers
+# and grandfathers if the pok?mon has any.
+#
+#===============================================================================
+#
+# To this script works, put it above main, put a 512x384 background for this
+# screen in "Graphics/Pictures/summary6" and in "Graphics/Pictures/summaryEgg6".
+# This last one is only necessary if SHOWFAMILYEGG is true. You also need to
+# update the below pictures in order to reflect the summary icon change:
+# - summary1
+# - summary2
+# - summary3
+# - summary4
+# - summary4details
+# - summary5
+#
+# -At PokemonDayCare, before line '$Trainer.party[$Trainer.party.length]=egg'
+# add line 'egg.family = PokemonFamily.new(egg, father, mother)'
+#
+# -At PokemonSummary, change both lines '@page=4 if @page>4'
+# to '@page=5 if @page>5'
+#
+# -Before line 'if Input.trigger?(Input::UP) && @partyindex>0'
+# add line 'handleInputsEgg'
+#
+# -Change line 'if @page!=0' to 'if @page!=0 && !(SHOWFAMILYEGG && @page==5)'
+#
+# -After line 'drawPageFive(@pokemon)' add
+#
+# when 5
+#  drawPageSix(@pokemon)
+#
+#===============================================================================
+class PokeBattle_Pokemon
+  attr_accessor :family
+end
+
+class PokemonFamily
+  MAXGENERATIONS = 3 # Tree stored generation limit
+  
+  attr_reader :mother # PokemonFamily object
+  attr_reader :father # PokemonFamily object
+  
+  attr_reader :species
+  attr_reader :gender
+  attr_reader :form
+  attr_reader :name # nickname
+  # You can add more data here and on initialize class. Just 
+  # don't store the entire pok?mon object.
+  
+  def initialize(pokemon, father=nil,mother=nil)
+    initializedAsParent = !father || !mother
+    if pokemon.family && pokemon.family.father
+      @father = pokemon.family.father
+    elsif father 
+      @father = PokemonFamily.new(father)
+    end
+    if pokemon.family && pokemon.family.mother
+      @mother = pokemon.family.mother
+    elsif mother
+      @mother = PokemonFamily.new(mother)
+    end
+    
+    # This data is only initialized as a parent in a cub.
+    if initializedAsParent 
+      @species=pokemon.species
+      @gender=pokemon.gender
+      @name=pokemon.name
+      @form=pokemon.form
+    end
+    
+    applyGenerationLimit(MAXGENERATIONS)
+  end
+  
+  def applyGenerationLimit(generation)
+    if generation>1
+      father.applyGenerationLimit(generation-1) if @father
+      mother.applyGenerationLimit(generation-1) if @mother
+    else
+      father=nil
+      mother=nil
+    end  
+  end 
+  
+  def [](value) # [0] = father, [1] = mother
+    if value==0
+    return @father
+    elsif value==1
+    return @mother
+    end
+    return nil
+  end
+end  
+
+#===============================================================================
+# * Day Care
+#===============================================================================
 def pbEggGenerated?
   return false if pbDayCareDeposited!=2
   return $PokemonGlobal.daycareEgg==1
@@ -537,6 +639,7 @@ end
   if rand(65536)<POKERUSCHANCE
     egg.givePokerus
   end
+  egg.family = PokemonFamily.new(egg, father, mother)
   $Trainer.party[$Trainer.party.length]=egg
 end
 

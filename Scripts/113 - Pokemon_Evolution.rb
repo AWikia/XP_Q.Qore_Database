@@ -1086,7 +1086,6 @@ def pbCheckEvolutionEx(pokemon)
   return -1 if isConst?(pokemon.species,PBSpecies,:FLOETTE) && pokemon.form==5      # Eternal Flower Floette
   return -1 if isConst?(pokemon.species,PBSpecies,:MEDIAWIKI) && pokemon.form==1    # Collectors forme 
   return -1 if isConst?(pokemon.species,PBSpecies,:PIKACHU) && pokemon.form>1       # Cosplay Pikachu
-  return -1 if isConst?(pokemon.species,PBSpecies,:GIMMIGHOUL) && pokemon.form==1       # Roaming Form Gimmighoul
   return -1 if isConst?(pokemon.item,PBItems,:GIRAFARIGITE) &&
                isConst?(pokemon.species,PBSpecies,:GIRAFARIG)                       # Girafarig that can Mega Evolve
   return -1 if isConst?(pokemon.item,PBItems,:EVERSTONE) &&

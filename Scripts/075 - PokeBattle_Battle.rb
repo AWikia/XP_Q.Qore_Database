@@ -1910,7 +1910,16 @@ class PokeBattle_Battle
           return 1
         end
       elsif @internalbattle
-        pbDisplayPaused(_INTL("No! There's no running from a Trainer battle!"))
+        if $USENEWBATTLEMECHANICS
+          if pbDisplayConfirm(_INTL("Would you like to forfeit the battle and quit now?"))
+            $dbattle=false
+            $inbattle=false
+            @decision=2
+            return 1
+          end
+        else
+          pbDisplayPaused(_INTL("No! There's no running from a Trainer battle!"))
+        end
       elsif pbDisplayConfirm(_INTL("Would you like to forfeit the match and quit now?"))
         pbDisplay(_INTL("{1} forfeited the match!",self.pbPlayer.name))
       $dbattle=false

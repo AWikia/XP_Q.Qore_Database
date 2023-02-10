@@ -1473,8 +1473,8 @@ def drawPageFive(pokemon)
   #     [_INTL("Advanced Information"),26,8,0,base,shadow,1],
        [pokename,46,62,0,base,shadow],
        [pokemon.level.to_s,46,92,0,base,shadow],
-       [_INTL("Best Stat"),420,76-64,2,base2,nil,0],
-       [_INTL("{1}",beststat),548,76-64,2,base,shadow],
+       [_INTL("Best Stat"),376,88-64,0,base2,nil,0],
+       [_INTL("{1}",beststat),548,88-64,2,base,shadow],
        [_INTL("Happiness"),376,120-64,0,shadow2,nil,0],
        [sprintf("%d",pokemon.happiness),548,120-64,2,base,shadow],
        [_INTL("Temperature"),376,152-64,0,base2,nil,0], # Was Physical
@@ -1503,18 +1503,6 @@ def drawPageFive(pokemon)
     pbDrawTextPositions(overlay,textpos)
     drawTextEx(overlay,224,316-64,410,4,itemdesc,base,shadow)
     drawMarkings(overlay,0,363,72,20,pokemon.markings)
-    if pokemon.hp>0
-      hpcolors=[
-         Color.new(24,192,32),Color.new(0,144,0),     # Green
-         Color.new(248,184,0),Color.new(184,112,0),   # Orange
-         Color.new(240,80,32),Color.new(168,48,56)    # Red
-      ]
-      hpzone=0
-      hpzone=1 if pokemon.hp<=(@pokemon.totalhp/2).floor
-      hpzone=2 if pokemon.hp<=(@pokemon.totalhp/4).floor
-      overlay.fill_rect(488,110-64,pokemon.hp*96/pokemon.totalhp,2,hpcolors[hpzone*2+1])
-      overlay.fill_rect(488,112-64,pokemon.hp*96/pokemon.totalhp,4,hpcolors[hpzone*2])
-    end
   end
 
   

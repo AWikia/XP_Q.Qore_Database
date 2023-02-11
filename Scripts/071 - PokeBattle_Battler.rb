@@ -38,6 +38,10 @@ class PokeBattle_Battler
   attr_accessor :captured
   attr_accessor :temperature
   attr_accessor :addTemp
+  attr_accessor :recoildamage
+  attr_accessor :favcolor
+  attr_accessor :criticalhits
+  attr_accessor :favtype
 
   def inHyperMode?; return false; end
   def isShadow?; return false; end
@@ -112,7 +116,54 @@ class PokeBattle_Battler
     return self.temperatureD < 0
   end
 
+################################################################################
+# Recoil Damage
+################################################################################
+def recoildamage
+    return (@pokemon) ? @pokemon.recoildamage : 0 # modification done by ATechno in order to avoid crashes
+  end
+    
+  def recoildamage=(value)
+    @recoildamage=value
+    @pokemon.recoildamage = value if @pokemon 
+  end
 
+  def resetRecoilDamage
+    @recoildamage=0
+    @pokemon.recoildamage = 0 if @pokemon 
+  end
+
+  def changeRecoilDamage(value)
+    resetRecoilDamage if !@recoildamage
+    @recoildamage+=value
+    @pokemon.recoildamage+= value if @pokemon 
+  end
+
+
+################################################################################
+# Critical Hits
+################################################################################
+def criticalhits
+    return (@pokemon) ? @pokemon.criticalhits : 0 # modification done by ATechno in order to avoid crashes
+  end
+    
+  def criticalhits=(value)
+    @criticalhits=value
+    @pokemon.criticalhits = value if @pokemon 
+  end
+
+  def resetCriticalHits
+    @criticalhits=0
+    @pokemon.criticalhits = 0 if @pokemon 
+  end
+
+  def changeCriticalHits(value)
+    resetCriticalHits if !@criticalhits
+    @criticalhits+=value
+    @pokemon.criticalhits+= value if @pokemon 
+  end
+
+  
 ################################################################################
 # Complex accessors
 ################################################################################
@@ -1170,6 +1221,8 @@ class PokeBattle_Battler
     # Reset status
     self.status=0
     self.statusCount=0
+    self.resetRecoilDamage # Reset Recoil Damage back to 0
+    self.resetCriticalHits # Reset Critical Hits back to 0
     if @pokemon && @battle.internalbattle
       @pokemon.changeHappiness("faint")
     end

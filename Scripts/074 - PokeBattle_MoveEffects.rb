@@ -96,6 +96,7 @@ class PokeBattle_Struggle < PokeBattle_Move
   def pbEffectAfterHit(attacker,opponent,turneffects)
     if !attacker.isFainted? && turneffects[PBEffects::TotalDamage]>0
       attacker.pbReduceHP((attacker.totalhp/4.0).round)
+      attacker.changeRecoilDamage((attacker.totalhp/4.0).round)
       @battle.pbDisplay(_INTL("{1} is damaged by recoil!",attacker.pbThis))
     end
   end
@@ -8118,6 +8119,7 @@ class PokeBattle_Move_0FA < PokeBattle_Move
       if !attacker.hasWorkingAbility(:ROCKHEAD) &&
          !attacker.hasWorkingAbility(:MAGICGUARD) && !attacker.hasWorkingAbility(:SUPERCLEARBODY)
         attacker.pbReduceHP((turneffects[PBEffects::TotalDamage]/4.0).round)
+        attacker.changeRecoilDamage((turneffects[PBEffects::TotalDamage]/4.0).round)
         @battle.pbDisplay(_INTL("{1} is damaged by recoil!",attacker.pbThis))
       end
     end
@@ -8139,6 +8141,7 @@ class PokeBattle_Move_0FB < PokeBattle_Move
       if !attacker.hasWorkingAbility(:ROCKHEAD) &&
          !attacker.hasWorkingAbility(:MAGICGUARD) && !attacker.hasWorkingAbility(:SUPERCLEARBODY)
         attacker.pbReduceHP((turneffects[PBEffects::TotalDamage]/3.0).round)
+        attacker.changeRecoilDamage((turneffects[PBEffects::TotalDamage]/3.0).round)
         @battle.pbDisplay(_INTL("{1} is damaged by recoil!",attacker.pbThis))
       end
     end
@@ -8161,6 +8164,7 @@ class PokeBattle_Move_0FC < PokeBattle_Move
       if !attacker.hasWorkingAbility(:ROCKHEAD) &&
          !attacker.hasWorkingAbility(:MAGICGUARD) && !attacker.hasWorkingAbility(:SUPERCLEARBODY)
         attacker.pbReduceHP((turneffects[PBEffects::TotalDamage]/2.0).round)
+        attacker.changeRecoilDamage((turneffects[PBEffects::TotalDamage]/2.0).round)
         @battle.pbDisplay(_INTL("{1} is damaged by recoil!",attacker.pbThis))
       end
     end
@@ -8183,6 +8187,7 @@ class PokeBattle_Move_0FD < PokeBattle_Move
       if !attacker.hasWorkingAbility(:ROCKHEAD) &&
          !attacker.hasWorkingAbility(:MAGICGUARD) && !attacker.hasWorkingAbility(:SUPERCLEARBODY)
         attacker.pbReduceHP((turneffects[PBEffects::TotalDamage]/3.0).round)
+        attacker.changeRecoilDamage((turneffects[PBEffects::TotalDamage]/3.0).round)
         @battle.pbDisplay(_INTL("{1} is damaged by recoil!",attacker.pbThis))
       end
     end
@@ -8212,6 +8217,7 @@ class PokeBattle_Move_0FE < PokeBattle_Move
       if !attacker.hasWorkingAbility(:ROCKHEAD) &&
          !attacker.hasWorkingAbility(:MAGICGUARD) && !attacker.hasWorkingAbility(:SUPERCLEARBODY)
         attacker.pbReduceHP((turneffects[PBEffects::TotalDamage]/3.0).round)
+        attacker.changeRecoilDamage((turneffects[PBEffects::TotalDamage]/3.0).round)
         @battle.pbDisplay(_INTL("{1} is damaged by recoil!",attacker.pbThis))
       end
     end

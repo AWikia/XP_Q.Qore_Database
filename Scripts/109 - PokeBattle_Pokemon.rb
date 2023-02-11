@@ -51,12 +51,15 @@ class PokeBattle_Pokemon
   attr_accessor(:natureflag)  # Forces a particular nature
   attr_accessor(:shinyflag)   # Forces the shininess (true/false)
   attr_accessor(:ribbons)     # Array of ribbons
-  attr_accessor(:migrated)
+  attr_accessor(:migrated)    # Migrated or not
   attr_accessor :cool,:beauty,:cute,:smart,:tough,:sheen # Contest stats
-  attr_accessor(:mint)
-  attr_accessor(:temperature)
-  attr_accessor(:addTemp)
-  attr_accessor(:remoteBox)
+  attr_accessor(:mint)        # Mint
+  attr_accessor(:temperature) # Base Temperature
+  attr_accessor(:addTemp)     # Additional Temperature
+  attr_accessor(:remoteBox)   # Whether egg is also a Remote Box
+  attr_accessor(:recoildamage)# Recoil Damage the user took, resets when fainted
+  attr_accessor(:criticalhits)# Critical Hits the user did, resets when fainted
+
   
   EVLIMIT     = 1512  # Max total EVs and was 510
   EVSTATLIMIT = 252   # Max EVs that a single stat can have
@@ -433,6 +436,20 @@ class PokeBattle_Pokemon
     return ret
   end
 
+# Returns favorite type (Similar to Joicon Flavors but diverges from Fire onward)
+  def favtype
+   types=[:NORMAL,:FIGHTING,:FLYING,:POISON,:GROUND,
+          :ROCK,:BUG,:GHOST,:STEEL,
+          :FIRE,:WATER,:GRASS,:ELECTRIC,:PSYCHIC,
+          :ICE,:DRAGON,:DARK,:FAIRY,:MAGIC,:DOOM,:JELLY,
+          :SHARPENER,:LAVA,:WIND,:LICK,:BOLT,:HERB,:CHLOROPHYLL,
+          :GUST,:SUN,:MOON,:MIND,:HEART,:BLIZZARD,:GAS,:GLIMSE]
+     d=@iv[0]+@iv[1]+@iv[2]+@iv[3]+@iv[4]+@iv[5]
+     d%=36
+     return getID(PBTypes,types[d])
+  end
+  
+  
 ################################################################################
 # Compatibilities (Also Egg Groups)
 ################################################################################
@@ -866,6 +883,21 @@ TooLowTemp = 5- for Cold Species or 10-
     dexdata.close
     return ret
   end
+  
+# Returns this Pokémon's favorite color
+  def favcolor
+    dexdata=pbOpenDexData
+    pbDexDataOffset(dexdata,@species,6)
+    color=dexdata.fgetb
+    dexdata.close
+   ret=@personalID&3
+   ret|=((@personalID>>8)&3)<<2
+   ret|=((@personalID>>16)&3)<<4
+   ret|=((@personalID>>24)&3)<<6
+   ret+=color
+   ret%=PBColors.getCount
+   return ret
+  end
 
 # Returns this Pokémon's maximum egg steps
   def maxsteps
@@ -896,6 +928,42 @@ TooLowTemp = 5- for Cold Species or 10-
 
   def dexEntry
     return pbGetMessage(MessageTypes::Entries,@species)
+  end
+
+# Recoil Damage
+  def recoildamage
+    return @recoildamage ||= 0 # modification done by ATechno in order to avoid crashes
+  end
+    
+  def recoildamage=(value)
+    @recoildamage=value
+  end
+
+  def resetRecoilDamage
+    @recoildamage=0
+  end
+
+  def changeRecoilDamage(value)
+    resetRecoilDamage if !@recoildamage
+    @recoildamage+=value
+  end
+
+# Critical Hits
+  def criticalhits
+    return @criticalhits ||= 0 # modification done by ATechno in order to avoid crashes
+  end
+    
+  def criticalhits=(value)
+    @criticalhits=value
+  end
+
+  def resetCriticalHits
+    @criticalhits=0
+  end
+
+  def changeCriticalHirs(value)
+    resetCriticalHits if !@criticalhits
+    @criticalhits+=value
   end
 
 # Sets this Pokémon's HP.
@@ -1074,6 +1142,8 @@ TooLowTemp = 5- for Cold Species or 10-
     time=pbGetTimeNow
     @timeReceived=time.getgm.to_i # Use GMT
     @mint = -1
+    @recoildamage = 0
+    @criticalhits = 0
     @addTemp = 0
     @species=species
     # Individual Values

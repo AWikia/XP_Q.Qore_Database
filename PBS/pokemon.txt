@@ -15212,7 +15212,7 @@ WildItemUncommon=DEEPSEATOOTH
 BattlerPlayerY=30
 BattlerEnemyY=35
 BattlerAltitude=7
-Evolutions=BASCULEGION,TrainedH,512
+Evolutions=BASCULEGION,RecoilDamageH,294
 [551]
 Name=Sandile
 InternalName=SANDILE
@@ -20098,7 +20098,7 @@ Pokedex=RIK Sat
 BattlerPlayerY=6
 BattlerEnemyY=10
 BattlerAltitude=0
-Evolutions=DRIK,Happiness,
+Evolutions=DRIK,Happiness,,DRIK,RecoilDamage,320
 [735]
 Name=Candy Crush Plus
 InternalName=CANDYCRUSHPLUS

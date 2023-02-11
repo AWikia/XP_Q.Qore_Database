@@ -1143,6 +1143,10 @@ class PokeBattle_Move
         damagemult=(damagemult*0.5).round
       end
     end
+    if attacker.hasWorkingItem(:COLORCATCHER) && 
+      opponent.color == attacker.favcolor
+      damagemult=(damagemult*2.0).round
+    end
     if attacker.hasWorkingItem(:LUSTROUSORB) &&
        isConst?(attacker.species,PBSpecies,:PALKIA) &&
        (isConst?(type,PBTypes,:DRAGON) || isConst?(type,PBTypes,:WATER))
@@ -1851,6 +1855,7 @@ class PokeBattle_Move
   def pbEffectMessages(attacker,opponent,ignoretype=false,alltargets=nil)
     if opponent.damagestate.critical
 			pbSEPlay("superful")
+      attacker.changeCriticalHits(1)
       if alltargets && alltargets.length>1
         @battle.pbDisplay(_INTL("A critical hit on {1}!",opponent.pbThis(true)))
       else

@@ -790,21 +790,27 @@ def drawPageFour(pokemon)
     abilitydesc=pbGetMessage(MessageTypes::AbilityDescs,pokemon.ability)
     pokename=@pokemon.name
     textpos=[
-    #   [_INTL("Effort Values"),26,8,0,base,shadow,1],
+    #   [_INTL("Personal Values"),26,8,0,base,shadow,1],
        [pokename,46,62,0,base,shadow],
        [pokemon.level.to_s,46,92,0,base,shadow],
-       [_INTL("HP"),420,76-64,2,base2,nil,0],
-       [sprintf("%d",pokemon.ev[0]),548,76-64,2,base,shadow],
+       [_INTL("HP"),376,88-64,0,base2,nil,0],
+       [sprintf("%d",pokemon.ev[0]),516,88-64,2,base,shadow],
+       [sprintf("%d",pokemon.iv[0]),580,88-64,2,base,shadow],
        [_INTL("Attack"),376,120-64,0,shadow2,statshadows[0],0],
-       [sprintf("%d",pokemon.ev[1]),548,120-64,2,base,shadow],
+       [sprintf("%d",pokemon.ev[1]),516,120-64,2,base,shadow],
+       [sprintf("%d",pokemon.iv[1]),580,120-64,2,base,shadow],
        [_INTL("Defense"),376,152-64,0,base2,statshadows[1],0],
-       [sprintf("%d",pokemon.ev[2]),548,152-64,2,base,shadow],
+       [sprintf("%d",pokemon.ev[2]),516,152-64,2,base,shadow],
+       [sprintf("%d",pokemon.iv[2]),580,152-64,2,base,shadow],
        [_INTL("Sp. Atk"),376,184-64,0,shadow2,statshadows[3],0],
-       [sprintf("%d",pokemon.ev[4]),548,184-64,2,base,shadow],
+       [sprintf("%d",pokemon.ev[4]),516,184-64,2,base,shadow],
+       [sprintf("%d",pokemon.iv[4]),580,184-64,2,base,shadow],
        [_INTL("Sp. Def"),376,216-64,0,base2,statshadows[4],0],
-       [sprintf("%d",pokemon.ev[5]),548,216-64,2,base,shadow],
+       [sprintf("%d",pokemon.ev[5]),516,216-64,2,base,shadow],
+       [sprintf("%d",pokemon.iv[5]),580,216-64,2,base,shadow],
        [_INTL("Speed"),376,248-64,0,shadow2,statshadows[2],0],
-       [sprintf("%d",pokemon.ev[3]),548,248-64,2,base,shadow],
+       [sprintf("%d",pokemon.ev[3]),516,248-64,2,base,shadow],
+       [sprintf("%d",pokemon.iv[3]),580,248-64,2,base,shadow],
        [_INTL("Ability"),288-64,284-64,0,shadow2,nil,0],
        [abilityname,426-64,284-64,0,base,shadow],
       ]
@@ -823,18 +829,6 @@ def drawPageFour(pokemon)
     pbDrawTextPositions(overlay,textpos)
     drawTextEx(overlay,224,316-64,410,4,abilitydesc,base,shadow)
     drawMarkings(overlay,0,363,72,20,pokemon.markings)
-    if pokemon.hp>0
-      hpcolors=[
-         Color.new(24,192,32),Color.new(0,144,0),     # Green
-         Color.new(248,184,0),Color.new(184,112,0),   # Orange
-         Color.new(240,80,32),Color.new(168,48,56)    # Red
-      ]
-      hpzone=0
-      hpzone=1 if pokemon.hp<=(@pokemon.totalhp/2).floor
-      hpzone=2 if pokemon.hp<=(@pokemon.totalhp/4).floor
-      overlay.fill_rect(488,110-64,pokemon.hp*96/pokemon.totalhp,2,hpcolors[hpzone*2+1])
-      overlay.fill_rect(488,112-64,pokemon.hp*96/pokemon.totalhp,4,hpcolors[hpzone*2])
-    end
   end
 
 def drawPageFive(pokemon)
@@ -873,50 +867,31 @@ def drawPageFive(pokemon)
       base2=Color.new(230,230,230)
       shadow2=Color.new(230,230,230)
     end
-    nat = (pokemon.mint!=-1) ? pokemon.mint : pokemon.nature
-    statshadows=[]
-    for i in 0...5; statshadows[i]=nil; end
-      if !(pokemon.isShadow? rescue false) || pokemon.heartStage<=3
-#      natup=(pokemon.nature/5).floor
-#      natdn=(pokemon.nature%5).floor
-      natup=(nat/5).floor
-      natdn=(nat%5).floor
-      if (!isDarkMode?)
-        if (natup == 1 || natup == 4)
-          statshadows[natup]=Color.new(183,143,119) if natup!=natdn
-        else
-          statshadows[natup]=Color.new(136,96,72) if natup!=natdn
-        end
-        if (natdn == 1 || natdn == 4)
-          statshadows[natdn]=Color.new(103,159,191) if natup!=natdn
-        else
-          statshadows[natdn]=Color.new(64,120,152) if natup!=natdn
-        end
-      else
-        statshadows[natup]=Color.new(183,143,119) if natup!=natdn
-        statshadows[natdn]=Color.new(103,159,191) if natup!=natdn
-      end
-    end
+    hiddenpower=pbHiddenPower(@pokemon.iv)
+    colourd=pokemon.favcolor
+    colorrect=Rect.new(64*$PokemonSystem.colortige,colourd*28,64,28)
+    type1rect=Rect.new(64*$PokemonSystem.colortige,hiddenpower[0]*28,64,28)
+    type2rect=Rect.new(64*$PokemonSystem.colortige,pokemon.favtype*28,64,28)
+    overlay.blt(548,120-64,@typebitmap.bitmap,type1rect)
+    overlay.blt(548,152-64,@colorbitmap.bitmap,colorrect)
+    overlay.blt(548,184-64,@typebitmap.bitmap,type2rect)
     pbSetSystemFont(overlay)
     abilityname=PBAbilities.getName(pokemon.ability)
     abilitydesc=pbGetMessage(MessageTypes::AbilityDescs,pokemon.ability)
     pokename=@pokemon.name
     textpos=[
-  #     [_INTL("Individual Values"),26,8,0,base,shadow,1],
+  #     [_INTL("Battle Information"),26,8,0,base,shadow,1],
        [pokename,46,62,0,base,shadow],
        [pokemon.level.to_s,46,92,0,base,shadow],
-       [_INTL("HP"),420,76-64,2,base2,nil,0],
-       [sprintf("%d",pokemon.iv[0]),548,76-64,2,base,shadow],
-       [_INTL("Attack"),376,120-64,0,shadow2,statshadows[0],0],
-       [sprintf("%d",pokemon.iv[1]),548,120-64,2,base,shadow],
-       [_INTL("Defense"),376,152-64,0,base2,statshadows[1],0],
-       [sprintf("%d",pokemon.iv[2]),548,152-64,2,base,shadow],
-       [_INTL("Sp. Atk"),376,184-64,0,shadow2,statshadows[3],0],
-       [sprintf("%d",pokemon.iv[4]),548,184-64,2,base,shadow],
-       [_INTL("Sp. Def"),376,216-64,0,base2,statshadows[4],0],
-       [sprintf("%d",pokemon.iv[5]),548,216-64,2,base,shadow],
-       [_INTL("Speed"),376,248-64,0,shadow2,statshadows[2],0],
-       [sprintf("%d",pokemon.iv[3]),548,248-64,2,base,shadow],
+       [_INTL("H.P. Dmg"),376,88-64,0,base2,nil,0],
+       [sprintf("%d",hiddenpower[1]),548,88-64,2,base,shadow],
+       [_INTL("H.P. Type"),376,120-64,0,shadow2,nil,0],
+       [_INTL("Fav. Color"),376,152-64,0,base2,nil,0],
+       [_INTL("Fav. Type"),376,184-64,0,shadow2,nil,0],
+       [_INTL("Rec. Dmg"),376,216-64,0,base2,nil,0],
+       [sprintf("%d",pokemon.recoildamage),548,216-64,2,base,shadow],
+       [_INTL("Criticals"),376,248-64,0,shadow2,nil,0],
+       [sprintf("%d",pokemon.criticalhits),548,248-64,2,base,shadow],
        [_INTL("Ability"),288-64,284-64,0,shadow2,nil,0],
        [abilityname,426-64,284-64,0,base,shadow],
       ]
@@ -935,18 +910,6 @@ def drawPageFive(pokemon)
     pbDrawTextPositions(overlay,textpos)
     drawTextEx(overlay,224,316-64,410,4,abilitydesc,base,shadow)
     drawMarkings(overlay,0,363,72,20,pokemon.markings)
-    if pokemon.hp>0
-      hpcolors=[
-         Color.new(24,192,32),Color.new(0,144,0),     # Green
-         Color.new(248,184,0),Color.new(184,112,0),   # Orange
-         Color.new(240,80,32),Color.new(168,48,56)    # Red
-      ]
-      hpzone=0
-      hpzone=1 if pokemon.hp<=(@pokemon.totalhp/2).floor
-      hpzone=2 if pokemon.hp<=(@pokemon.totalhp/4).floor
-      overlay.fill_rect(488,110-64,pokemon.hp*96/pokemon.totalhp,2,hpcolors[hpzone*2+1])
-      overlay.fill_rect(488,112-64,pokemon.hp*96/pokemon.totalhp,4,hpcolors[hpzone*2])
-    end
   end
   
   def drawPageSix(pokemon)
@@ -1806,9 +1769,9 @@ def drawPageFive(pokemon)
         when 2
           drawPageThree(@pokemon) # Pokemon Statistics
         when 3
-          drawPageFour(@pokemon) # Effort Values
+          drawPageFour(@pokemon) # Personal Values
         when 4
-          drawPageFive(@pokemon) # Individual Values
+          drawPageFive(@pokemon) # Battle Information
         when 5
           drawPageSix (@pokemon) # Pokemon Moves
         when 6

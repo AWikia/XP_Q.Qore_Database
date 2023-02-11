@@ -53,7 +53,9 @@ module PBEvolution
   TrainedH          = 51 # Trained for Hisuian Forms
   DayHoldItemH      = 52 # DauHoldItem for Hisuian Forms
   NightHoldItemK    = 53 # NightHoldItem for base forms
-  LevelPl           = 54 # Levelf or Palean Forms
+  LevelPl           = 54 # Level for Palean Forms
+  RecoilDamage      = 55 
+  RecoilDamageH     = 56 # RecoilDamage for Hisuian Forms
   
   EVONAMES=["Unknown",
      "Happiness","HappinessDay","HappinessNight","Level","Trade",
@@ -66,7 +68,7 @@ module PBEvolution
      "LevelA","ItemK","ItemA","HappinessA","ItemSilcoon","ItemCascoon","LevelG",
      "ItemG","TradeItemK","LevelDayK","LevelP","TradeItemM","HasMoveK",
      "HappinessItem","ItemH","TrainedH","DayHoldItemH","NightHoldItemK",
-     "LevelPl"
+     "LevelPl","RecoilDamage","RecoilDamageH"
   ]
 
   # 0 = no parameter
@@ -86,7 +88,8 @@ module PBEvolution
      1,2,2,0,2,
      2,1,2,2,1,
      1,2,3,2,2,
-     1,2,2,1
+     1,2,2,1,1,
+     1
   ]
 end
 
@@ -1043,6 +1046,10 @@ def pbMiniCheckEvolution(pokemon,evonib,level,poke)
     return poke if pokemon.item==level && PBDayNight.isNight? && !isRegionalForme?(pokemon)
   when PBEvolution::LevelPl
     return poke if pokemon.level>=level && isPaldean?(pokemon)
+  when PBEvolution::RecoilDamage
+    return poke if pokemon.recoildamage>=level
+  when PBEvolution::RecoilDamageH
+    return poke if pokemon.recoildamage>=level && isHisuian?(pokemon)
   end
   return -1
 end

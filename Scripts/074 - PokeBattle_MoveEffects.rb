@@ -9504,6 +9504,7 @@ end
 
 ################################################################################
 # Only damages Pokémon that share a type with the user. (Synchronoise)
+# Gen9 FLINT+: Power is doubled on Pokémon that share the user's favorite type. 
 ################################################################################
 class PokeBattle_Move_123 < PokeBattle_Move
   def pbEffect(attacker,opponent,hitnum=0,alltargets=nil,showanimation=true)
@@ -9515,6 +9516,13 @@ class PokeBattle_Move_123 < PokeBattle_Move
       return -1
     end
     return super(attacker,opponent,hitnum,alltargets,showanimation)
+  end
+
+  def pbModifyDamage(damagemult,attacker,opponent)
+    if opponent.pbHasType?(attacker.favtype)
+      return (damagemult*2.0).round
+    end
+    return damagemult
   end
 end
 
@@ -14134,7 +14142,8 @@ end
 
 
 ################################################################################
-# Only damages Pokémon that share the color of the user. (Coloratura)
+# Only damages Pokémon that share the color of the user. 
+# Power is doubled on Pokémon that share the user's favorite color. (Coloratura)
 ################################################################################
 class PokeBattle_Move_326 < PokeBattle_Move
   def pbEffect(attacker,opponent,hitnum=0,alltargets=nil,showanimation=true)
@@ -14145,14 +14154,19 @@ class PokeBattle_Move_326 < PokeBattle_Move
     end
     return super(attacker,opponent,attacker.color,alltargets,showanimation)
   end
-end
+
+  def pbModifyDamage(damagemult,attacker,opponent)
+    if opponent.color == attacker.favcolor
+      return (damagemult*2.0).round
+    end
+    return damagemult
+  end
 
   def pbShowAnimation(id,attacker,opponent,hitnum=0,alltargets=nil,showanimation=true)
     anim=attacker.color
     return super(id,attacker,opponent,anim,alltargets,showanimation) # Weather-specific anim
   end
-
-
+end
 ################################################################################
 # Target's ability becomes Klutz. (Forbidden Spell).
 ################################################################################

@@ -1147,6 +1147,10 @@ class PokeBattle_Move
       opponent.color == attacker.favcolor
       damagemult=(damagemult*2.0).round
     end
+    if attacker.hasWorkingItem(:GRAYSACHET) && 
+      opponent.pbHasType?(attacker.favtype)
+      damagemult=(damagemult*2.0).round
+    end
     if attacker.hasWorkingItem(:LUSTROUSORB) &&
        isConst?(attacker.species,PBSpecies,:PALKIA) &&
        (isConst?(type,PBTypes,:DRAGON) || isConst?(type,PBTypes,:WATER))

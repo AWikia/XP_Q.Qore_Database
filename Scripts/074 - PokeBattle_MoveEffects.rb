@@ -14671,6 +14671,43 @@ class PokeBattle_Move_352 < PokeBattle_Move
   end
 end
 
+################################################################################
+# Target becomes the user's favorite type. (Favorite Present)
+################################################################################
+class PokeBattle_Move_372 < PokeBattle_Move
+  def pbEffect(attacker,opponent,hitnum=0,alltargets=nil,showanimation=true)
+    if opponent.effects[PBEffects::Substitute]>0 && !ignoresSubstitute?(attacker)
+			pbSEPlay("protection")
+      @battle.pbDisplay(_INTL("But it failed!"))  
+      return -1
+    end
+    return -1 if pbTypeImmunityByAbility(pbType(@type,attacker,opponent),attacker,opponent)
+    if isConst?(opponent.ability,PBAbilities,:MULTITYPE) ||
+       isConst?(opponent.ability,PBAbilities,:RKSSYSTEM)
+			pbSEPlay("protection")
+      @battle.pbDisplay(_INTL("But it failed!"))
+      return -1
+    end
+    pbShowAnimation(@id,attacker,opponent,hitnum,alltargets,showanimation)
+    if opponent.type1==attacker.favtype &&
+       opponent.type2==attacker.favtype &&
+       (opponent.effects[PBEffects::Type3]<0 ||
+       opponent.effects[PBEffects::Type3]==attacker.favtype)
+			pbSEPlay("protection")
+       @battle.pbDisplay(_INTL("But it failed!"))
+      return -1
+    end
+    opponent.effects[PBEffects::Mimicry] = false
+    opponent.type1=attacker.favtype
+    opponent.type2=attacker.favtype
+    opponent.effects[PBEffects::Type3]=-1
+    typename=PBTypes.getName(attacker.favtype)
+    @battle.pbDisplay(_INTL("{1} transformed into the {2} type!",opponent.pbThis,typename))
+    return 0
+  end
+end
+
+
 
 
 ################################################################################

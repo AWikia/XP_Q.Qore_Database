@@ -1216,6 +1216,7 @@
 1034,TREBLE,Treble,304,50,HEART,Physical,100,15,30,00,0,bek,This attack can be used only if the user is asleep. The harsh noise may also confuse the target.
 1141,ILLUSIVELOVE,Illusive Love,046,70,HEART,Special,100,15,10,00,0,bef,The target is hit by loveness. This may also reduce the target's Sp. Def stat.
 1152,LOVELYGLIDE,Lovely Glide,348,60,HEART,Physical,100,20,0,00,0,abef,"Gliding on the ground, the user attacks the target. This move always goes first on Lovely Terrain."
+1204,FAVORITEPRESENT,Favorite Present,372,0,HEART,Status,100,20,0,00,0,bce,The user shoots a lovely present at the target and changes the target's type to the user's favorite one.
 ## FLINT Moves = Blizzard
 750,TITANUMBLIZZARD,Titanum Blizzard,205,110,BLIZZARD,Special,70,5,10,04,0,bef,A howling blizzard is summoned to strike the opposing team. It may also freeze them solid. Move also works as a Steel-type move stimulationaly
 754,BLIZZARDOUSOCEAN,Blizzardous Ocean,206,0,BLIZZARD,Status,0,10,0,00,0,,The user ponds the target into a blizzardous ocean. This not only the user gains target's ability but also suppresses it.

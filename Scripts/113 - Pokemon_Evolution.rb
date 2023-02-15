@@ -56,6 +56,9 @@ module PBEvolution
   LevelPl           = 54 # Level for Palean Forms
   RecoilDamage      = 55 
   RecoilDamageH     = 56 # RecoilDamage for Hisuian Forms
+  CriticalHits      = 57 
+  CriticalHitsG     = 58 # CriticalHits for Galarian Forms
+
   
   EVONAMES=["Unknown",
      "Happiness","HappinessDay","HappinessNight","Level","Trade",
@@ -68,7 +71,7 @@ module PBEvolution
      "LevelA","ItemK","ItemA","HappinessA","ItemSilcoon","ItemCascoon","LevelG",
      "ItemG","TradeItemK","LevelDayK","LevelP","TradeItemM","HasMoveK",
      "HappinessItem","ItemH","TrainedH","DayHoldItemH","NightHoldItemK",
-     "LevelPl","RecoilDamage","RecoilDamageH"
+     "LevelPl","RecoilDamage","RecoilDamageH","CriticalHits","CriticalHitsG"
   ]
 
   # 0 = no parameter
@@ -89,7 +92,7 @@ module PBEvolution
      2,1,2,2,1,
      1,2,3,2,2,
      1,2,2,1,1,
-     1
+     1,1,1
   ]
 end
 
@@ -1050,6 +1053,10 @@ def pbMiniCheckEvolution(pokemon,evonib,level,poke)
     return poke if pokemon.recoildamage>=level
   when PBEvolution::RecoilDamageH
     return poke if pokemon.recoildamage>=level && isHisuian?(pokemon)
+  when PBEvolution::CriticalHits
+    return poke if pokemon.criticalhits>=level
+  when PBEvolution::CriticalHitsG
+    return poke if pokemon.criticalhits>=level && isGalarian?(pokemon)
   end
   return -1
 end

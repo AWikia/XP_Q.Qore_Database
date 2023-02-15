@@ -2378,7 +2378,7 @@ WildItemUncommon=STICK
 BattlerPlayerY=22
 BattlerEnemyY=26
 BattlerAltitude=0
-Evolutions=SIRFETCHD,LevelG,30
+Evolutions=SIRFETCHD,CriticalHitsG,3
 [84]
 Name=Doduo
 InternalName=DODUO
@@ -18451,7 +18451,7 @@ FormNames=Windows 10,Primal Windows 10
 BattlerPlayerY=0
 BattlerEnemyY=4
 BattlerAltitude=0
-Evolutions=WINDOWS11,HasInParty,MICROSOFT
+Evolutions=WINDOWS11,HasInParty,MICROSOFT,WINDOWS11,CriticalHits,11
 [674]
 Name=Steelymax
 InternalName=STEELYMAX
@@ -20786,7 +20786,7 @@ Pokedex=Text
 BattlerPlayerY=23
 BattlerEnemyY=27
 BattlerAltitude=20
-Evolutions=MPRINGI,TradeSpecies,SEMANTIC
+Evolutions=MPRINGI,TradeSpecies,SEMANTIC,MPRINGI,CriticalHits,6
 [761]
 Name=MpringI
 InternalName=MPRINGI

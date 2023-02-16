@@ -18503,8 +18503,8 @@ Habitat=Grassland
 Kind=Android Market
 Pokedex=Android Play Store was owned by Google to let users to download apps
 FormNames=Standard Bag,Material Bag,Original Bag
-BattlerPlayerY=7
-BattlerEnemyY=11
+BattlerPlayerY=0
+BattlerEnemyY=4
 BattlerAltitude=0
 Evolutions=NEWJERONIMOGROOVY,Level,15,MAIA,TradeSpecies,PLAYSTORE
 [676]
@@ -32347,8 +32347,8 @@ Color=Black
 Habitat=Grassland
 Kind=Nova
 Pokedex=More details are being found
-BattlerPlayerY=0
-BattlerEnemyY=4
+BattlerPlayerY=2
+BattlerEnemyY=6
 BattlerAltitude=0
 Evolutions=
 [1189]
@@ -34377,7 +34377,7 @@ Habitat=Grassland
 Kind=Hog
 Pokedex=It searches for food all day. It possesses a keen sense of smell but doesn’t use it for anything other than foraging.
 BattlerPlayerY=15
-BattlerEnemyY=36
+BattlerEnemyY=34
 BattlerAltitude=0
 Evolutions=OINKOLOGNE,Level,18
 [1266]
@@ -34405,7 +34405,7 @@ Kind=Hog
 Pokedex=Oinkologne is proud of its fine, glossy skin. It emits a concentrated scent from the tip of its tail.
 FormNames=Male,Female
 BattlerPlayerY=15
-BattlerEnemyY=28
+BattlerEnemyY=30
 BattlerAltitude=0
 Evolutions=
 [1267]
@@ -34624,7 +34624,7 @@ Habitat=Grassland
 Kind=Couple
 Pokedex=Exhibiting great teamwork, they use their incisors to cut pieces out of any material that might be useful for a nest, then make off with them.
 BattlerPlayerY=15
-BattlerEnemyY=31
+BattlerEnemyY=30
 BattlerAltitude=0
 Evolutions=MAUSHOLD,Level,25
 [1275]
@@ -34652,7 +34652,7 @@ Kind=Family
 Pokedex=They build huge nests with many rooms that are used for different purposes, such as eating and sleeping.
 FormNames=Family of Three, Family of Four
 BattlerPlayerY=15
-BattlerEnemyY=31
+BattlerEnemyY=30
 BattlerAltitude=0
 Evolutions=
 [1276]
@@ -34734,7 +34734,7 @@ Habitat=Grassland
 Kind=Olive
 Pokedex=It protects itself from enemies by emitting oil from the fruit on its head. This oil is bitter and astringent enough to make someone flinch.
 BattlerPlayerY=15
-BattlerEnemyY=35
+BattlerEnemyY=33
 BattlerAltitude=0
 Evolutions=DOLLIV,Level,25
 [1279]
@@ -36112,7 +36112,7 @@ Kind=Mimicry
 Pokedex=This is a small dragon Pokémon. It lives inside the mouth of Dondozo to protect itself from enemies on the outside.
 FormNames=Curly Form,Droopy Form,Stretchy Form
 BattlerPlayerY=15
-BattlerEnemyY=33
+BattlerEnemyY=36
 BattlerAltitude=0
 Evolutions=
 [1329]
@@ -36140,7 +36140,7 @@ Habitat=Grassland
 Kind=Rage Monkey
 Pokedex=When its anger rose beyond a critical point, this Pokémon gained power that is unfettered by the limits of its physical body.
 BattlerPlayerY=15
-BattlerEnemyY=18
+BattlerEnemyY=14
 BattlerAltitude=0
 Evolutions=
 [1330]
@@ -36168,7 +36168,7 @@ Habitat=Grassland
 Kind=Spiny Fish
 Pokedex=When attacked, this Pokémon will retaliate by sticking thick spines out from its body. It’s a risky move that puts everything on the line.
 BattlerPlayerY=15
-BattlerEnemyY=34
+BattlerEnemyY=27
 BattlerAltitude=0
 Evolutions=
 [1331]
@@ -36252,7 +36252,7 @@ Habitat=Grassland
 Kind=Big Blade
 Pokedex=Only a Bisharp that stands above all others in its vast army can evolve into Kingambit.
 BattlerPlayerY=15
-BattlerEnemyY=7
+BattlerEnemyY=9
 BattlerAltitude=0
 Evolutions=
 [1334]
@@ -36486,7 +36486,7 @@ Habitat=Grassland
 Kind=Paradox
 Pokedex=It is very similar to a cyborg covered exclusively by a paranormal magazine. The cyborg was said to be the modified form of a certain athlete.
 BattlerPlayerY=15
-BattlerEnemyY=17
+BattlerEnemyY=11
 BattlerAltitude=0
 Evolutions=
 [1343]
@@ -36908,7 +36908,7 @@ Habitat=Grassland
 Kind=Paradox
 Pokedex=Much remains unknown about this creature. It resembles Cyclizar, but it is far more ruthless and powerful.
 BattlerPlayerY=2
-BattlerEnemyY=7
+BattlerEnemyY=11
 BattlerAltitude=0
 Evolutions=
 [1359]

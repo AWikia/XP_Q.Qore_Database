@@ -88,6 +88,12 @@ Involuntary Twitch<s>mjco
 French-Cynda<s>Z-nogyroP
 RadicalCharizard<s>WolfPP
 
+"Generation 9 Sprite Credits:"
+leparagon<s>G.E.Z.
+KingOfThe-X-Roads<s>Banana Toast
+Travis<s>Katten
+Blaquaza<s>Sphex
+
 "Icon Sprites Credits"
 Pikafan2000<s>Nintendo
 leparagon<s>RadicalCharizard

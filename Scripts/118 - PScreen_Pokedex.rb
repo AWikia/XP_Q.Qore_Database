@@ -423,7 +423,7 @@ class PokemonPokedexScene
 #    @sprites["dexname"].shadowColor=Color.new(0,0,0)
     @sprites["header"]=Window_UnformattedTextPokemon.newWithSize(_INTL("Pokédex"),
        2,-18,384,64,@viewport)
-    @sprites["header"].baseColor=Color.new(248,248,248)
+    @sprites["header"].baseColor=(isDarkMode?) ? Color.new(248,248,248) : Color.new(0,0,0)
     @sprites["header"].shadowColor=nil #Color.new(0,0,0)
     @sprites["header"].windowskin=nil
     @sprites["seen"]=Window_AdvancedTextPokemon.newWithSize("",34,299,164,64,@viewport)
@@ -433,10 +433,10 @@ class PokemonPokedexScene
 #    @sprites["seen"].baseColor=Color.new(77,38,115)
     if (!isDarkMode?)
       @sprites["seen"].baseColor=Color.new(20,20,20)
-      @sprites["seen"].shadowColor=Color.new(172,115,229)
+      @sprites["seen"].shadowColor=Color.new(192,168,240)
     else
       @sprites["seen"].baseColor=Color.new(248,248,248)
-      @sprites["seen"].shadowColor=Color.new(143,51,235)
+      @sprites["seen"].shadowColor=Color.new(119,65,221)
     end
     @sprites["owned"]=Window_AdvancedTextPokemon.newWithSize("",34,329,164,64,@viewport)
     @sprites["owned"].windowskin=nil
@@ -445,10 +445,10 @@ class PokemonPokedexScene
 #    @sprites["owned"].baseColor=Color.new(77,38,115)
     if (!isDarkMode?)
       @sprites["owned"].baseColor=Color.new(20,20,20)
-      @sprites["owned"].shadowColor=Color.new(172,115,229)
+      @sprites["owned"].shadowColor=Color.new(192,168,240)
     else
       @sprites["owned"].baseColor=Color.new(248,248,248)
-      @sprites["owned"].shadowColor=Color.new(143,51,235)
+      @sprites["owned"].shadowColor=Color.new(119,65,221)
     end
     if pbGetPokedexRegion==-1 # Using national Pokédex
       addBackgroundPlane(@sprites,"searchbg",_INTL(getDarkModeFolder+"/pokedexSearchbg"),@viewport)

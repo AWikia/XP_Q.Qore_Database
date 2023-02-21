@@ -113,8 +113,10 @@ class PokemonBag_Scene
   ITEMLISTSHADOWCOLOR   = MessageConfig::DARKTEXTSHADOW
   DARKITEMLISTBASECOLOR     =  MessageConfig::LIGHTTEXTBASE
   DARKITEMLISTSHADOWCOLOR   = MessageConfig::LIGHTTEXTSHADOW
-  ITEMTEXTBASECOLOR     = Color.new(248,248,248)
-  ITEMTEXTSHADOWCOLOR   = Color.new(0,0,0)
+  ITEMTEXTBASECOLOR     = Color.new(0,0,0)
+  ITEMTEXTSHADOWCOLOR   = Color.new(160,160,160)
+  DARKITEMTEXTBASECOLOR     = Color.new(248,248,248)
+  DARKITEMTEXTSHADOWCOLOR   = Color.new(0,0,0)
   POCKETNAMEBASECOLOR   = MessageConfig::DARKTEXTBASE
   POCKETNAMESHADOWCOLOR = MessageConfig::DARKTEXTSHADOW
   DARKPOCKETNAMEBASECOLOR     =  MessageConfig::LIGHTTEXTBASE
@@ -153,7 +155,7 @@ class PokemonBag_Scene
     end
     @sprites["itemwindow"].refresh
     @sprites["header"]=Window_UnformattedTextPokemon.newWithSize(_INTL("{1}",PokemonBag.pocketNames()[@bag.lastpocket]),2,-18,500,64,@viewport)
-    @sprites["header"].baseColor=Color.new(248,248,248)
+    @sprites["header"].baseColor=(isDarkMode?) ? Color.new(248,248,248) : Color.new(0,0,0)
     @sprites["header"].shadowColor=nil #Color.new(0,0,0)
     @sprites["header"].windowskin=nil
     @sprites["slider"]=IconSprite.new(Graphics.width-40,78,@viewport)
@@ -165,8 +167,13 @@ class PokemonBag_Scene
     @sprites["itemtextwindow"].y=270
     @sprites["itemtextwindow"].width=Graphics.width-72
     @sprites["itemtextwindow"].height=128
-    @sprites["itemtextwindow"].baseColor=ITEMTEXTBASECOLOR
-    @sprites["itemtextwindow"].shadowColor=ITEMTEXTSHADOWCOLOR
+    if (!isDarkMode?)
+      @sprites["itemtextwindow"].baseColor=ITEMTEXTBASECOLOR
+      @sprites["itemtextwindow"].shadowColor=ITEMTEXTSHADOWCOLOR
+    else
+      @sprites["itemtextwindow"].baseColor=DARKITEMTEXTBASECOLOR
+      @sprites["itemtextwindow"].shadowColor=DARKITEMTEXTSHADOWCOLOR
+    end
     @sprites["itemtextwindow"].visible=true
     @sprites["itemtextwindow"].viewport=@viewport
     @sprites["itemtextwindow"].windowskin=nil

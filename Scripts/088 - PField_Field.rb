@@ -1188,6 +1188,7 @@ Events.onEndBattle+=proc {|sender,e|
     if isConst?(pkmn.ability,PBAbilities,:ZEROTOHERO) && isConst?(pkmn.species,PBSpecies,:PALAFIN) && pkmn.form==1
       pkmn.form=0
     end
+    pkmn.resetRageFist
   end
   if $USENEWBATTLEMECHANICS || (decision!=2 && decision!=5) # not a loss or a draw
     if $PokemonTemp.evolutionLevels

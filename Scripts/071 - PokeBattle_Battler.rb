@@ -42,6 +42,7 @@ class PokeBattle_Battler
   attr_accessor :favcolor
   attr_accessor :criticalhits
   attr_accessor :favtype
+  attr_accessor :ragefist
 
   def inHyperMode?; return false; end
   def isShadow?; return false; end
@@ -161,6 +162,30 @@ def criticalhits
     resetCriticalHits if !@criticalhits
     @criticalhits+=value
     @pokemon.criticalhits+= value if @pokemon 
+  end
+
+  
+################################################################################
+# Rage Fist
+################################################################################
+def ragefist
+    return (@pokemon) ? @pokemon.ragefist : 0 # modification done by ATechno in order to avoid crashes
+  end
+    
+  def ragefist=(value)
+    @ragefist=value
+    @pokemon.ragefist = value if @pokemon 
+  end
+
+  def resetRageFist
+    @ragefist=0
+    @pokemon.ragefist = 0 if @pokemon 
+  end
+
+  def increaseRageFist
+    resetRageFist if !@ragefist
+    @ragefist+=1
+    @pokemon.ragefist+= 1 if @pokemon 
   end
 
   
@@ -373,10 +398,13 @@ def criticalhits
     @spdef        = pkmn.spdef
     @status       = pkmn.status
     @statusCount  = pkmn.statusCount
-    @pokemon      = pkmn
-    @pokemonIndex = pkmnIndex
     @temperature  = pkmn.temperature - pkmn.addTemp
     @addTemp      = pkmn.addTemp
+    @ragefist     = pkmn.ragefist
+    @criticalhits = pkmn.criticalhits
+    @recoildamage = pkmn.recoildamage
+    @pokemon      = pkmn
+    @pokemonIndex = pkmnIndex
     @participants = [] # Participants will earn Exp. Points if this battler is defeated
     @moves        = [
        PokeBattle_Move.pbFromPBMove(@battle,pkmn.moves[0]),
@@ -426,6 +454,9 @@ def criticalhits
     @statusCount  = pkmn.statusCount
     @temperature  = pkmn.temperature - pkmn.addTemp
     @addTemp      = pkmn.addTemp
+    @ragefist     = pkmn.ragefist
+    @criticalhits = pkmn.criticalhits
+    @recoildamage = pkmn.recoildamage
     @pokemon      = pkmn
     @pokemonIndex = pkmnIndex
     @participants = []
@@ -463,6 +494,11 @@ def criticalhits
     @spdef        = 0
     @status       = 0
     @statusCount  = 0
+    @temperature  = 30
+    @addTemp      = 0
+    @ragefist     = 0
+    @criticalhits = 0
+    @recoildamage = 0
     @pokemon      = nil
     @pokemonIndex = -1
     @participants = []
@@ -2960,6 +2996,7 @@ def criticalhits
     end
     if damage>0
       if !target.damagestate.substitute
+        target.increaseRageFist
         if target.hasWorkingAbility(:INNARDSOUT,true) && target.isFainted? && # changed added
            !user.isFainted?
           if !(user.hasWorkingAbility(:MAGICGUARD) || user.hasWorkingAbility(:SUPERCLEARBODY))

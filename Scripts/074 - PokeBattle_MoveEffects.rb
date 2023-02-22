@@ -17079,9 +17079,16 @@ end
 
 ################################################################################
 # Power increases the more hits it took on the battle while active (Rage Fist)
-# Not yet added but will one day
+# Counter is kept even if fainted
 ################################################################################
-class PokeBattle_Move_369 < PokeBattle_UnimplementedMove
+class PokeBattle_Move_369 < PokeBattle_Move
+
+  def pbModifyDamage(damagemult,attacker,opponent)
+    mult = met=1+1*[attacker.ragefist,6].min
+    return damagemult*mult
+  end
+
+
 end
 
 ################################################################################

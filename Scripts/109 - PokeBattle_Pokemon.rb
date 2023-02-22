@@ -59,6 +59,7 @@ class PokeBattle_Pokemon
   attr_accessor(:remoteBox)   # Whether egg is also a Remote Box
   attr_accessor(:recoildamage)# Recoil Damage the user took, resets when fainted
   attr_accessor(:criticalhits)# Critical Hits the user did, resets when fainted
+  attr_accessor(:ragefist)    # Rage Fist
 
   
   EVLIMIT     = 1512  # Max total EVs and was 510
@@ -966,6 +967,25 @@ TooLowTemp = 5- for Cold Species or 10-
     @criticalhits+=value
   end
 
+# Rage Fist
+  def ragefist
+    return @ragefist ||= 0 # modification done by ATechno in order to avoid crashes
+  end
+    
+  def ragefist=(value)
+    @ragefist=value
+  end
+
+  def resetRageFist
+    @ragefist=0
+  end
+
+  def increaseRageFist
+    resetRageFist if !@ragefist
+    @ragefist+=1
+  end
+
+  
 # Sets this Pokémon's HP.
   def hp=(value)
     value=0 if value<0
@@ -1144,6 +1164,7 @@ TooLowTemp = 5- for Cold Species or 10-
     @mint = -1
     @recoildamage = 0
     @criticalhits = 0
+    @ragefist = 0
     @addTemp = 0
     @species=species
     # Individual Values

@@ -16769,7 +16769,6 @@ class PokeBattle_Move_359 < PokeBattle_Move
 
   def pbBaseDamage(basedmg,attacker,opponent)
     ret=@calcbasedmg
-    @calcbasedmg+=basedmg
     return ret
   end
 end

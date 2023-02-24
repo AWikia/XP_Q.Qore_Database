@@ -5158,7 +5158,7 @@ def ragefist
       # Check success (accuracy/evasion calculation)
       if !nocheck &&
          !pbSuccessCheck(thismove,user,target,turneffects,i==0 || thismove.successCheckPerHit?)
-        if thismove.function==0xBF && realnumhits>0   # Triple Kick
+        if (thismove.function==0xBF || thismove.function==0x359) && realnumhits>0   # Triple Kick
           break   # Considered a success if Triple Kick hits at least once
         elsif thismove.function==0x10B ||
               thismove.function==0x355 # Hi Jump Kick, Jump Kick, Axe Kick

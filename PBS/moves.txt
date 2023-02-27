@@ -819,6 +819,8 @@
 1201,NOXIOUSTORQUE,Noxious Torque,005,100,POISON,Physical,100,10,30,00,0,bef,"A Torque move that has 30% chance of poisoning the target."
 1202,COMBATTORQUE,Noxious Torque,007,100,FIGHTING,Physical,100,10,30,00,0,bef,"A Torque move that has 30% chance of paralyzing the target."
 1203,MAGICALTORQUE,Magical Torque,007,100,FAIRY,Physical,100,10,30,00,0,bef,"A Torque move that has 30% chance of confusing the target."
+1205,HYDROSTEAM,Hydro Steam,373,80,WATER,Special,100,15,0,00,0,bef,"The user blasts the target with boiling-hot water. This move's power is not lowered in harsh sunlight but rather boosted by 50 percent."
+1206,PSYBLADE,Psyblade,374,80,PSYCHIC,Physical,100,15,0,00,0,abef,"The user rends the target with an ethereal blade. This move's power is boosted by 50 percent if the user is on Electric Terrain."
 # Shadow Moves
 648,SHADOWEND,Shadow End,130,120,SHADOW,Special,60,0,0,00,0,abf,A shadowy aura ram attack that also rebounds on the user.
 649,SHADOWSTORM,Shadow Storm,12D,95,SHADOW,Special,100,0,0,04,0,b,A shadowy aura is used to whip up a vicious tornado.

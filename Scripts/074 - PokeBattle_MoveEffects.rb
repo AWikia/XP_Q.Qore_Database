@@ -7110,8 +7110,8 @@ class PokeBattle_Move_0E0 < PokeBattle_Move
     end
     if (isConst?(@id,PBMoves,:HERBLEAF) &&
         attacker.status>0 && 
-       (@battle.field.effects[PBEffects::ElectricTerrain]==0 || 
-        @battle.field.effects[PBEffects::VolcanicTerrain]==0)) ||
+        @battle.field.effects[PBEffects::ElectricTerrain]==0 && 
+        @battle.field.effects[PBEffects::VolcanicTerrain]==0) ||
         (isConst?(@id,PBMoves,:LICKSTART) && @battle.pbCheckGlobalAbility(:DAMP)) ||
         (isConst?(@id,PBMoves,:GUSTOPIA) && attacker.pbHasType?(:GUST)) ||
         (isConst?(@id,PBMoves,:CHLOROPIA) && attacker.pbHasType?(:CHLOROPHYLL)) ||
@@ -17162,6 +17162,35 @@ end
 # (Gigaton Hammer)
 ################################################################################
 class PokeBattle_Move_371 < PokeBattle_Move
+end
+
+################################################################################
+# Power is increased by 1.5x in Harsh Sunlight (Hydro Steam)
+################################################################################
+class PokeBattle_Move_373 < PokeBattle_Move
+  def pbModifyDamage(damagemult,attacker,opponent)
+    if !attacker.hasWorkingItem(:UTILITYUMBRELLA)
+      case @battle.pbWeather
+      when PBWeather::SUNNYDAY, PBWeather::HARSHSUN
+        return (damagemult*3).round # 50% actually but power is reduced as well
+      end
+      return damagemult
+    else
+      return damagemult
+    end
+  end
+end
+
+################################################################################
+# Power is increased by 1.5x in Electric Terrain (Psyblade)
+################################################################################
+class PokeBattle_Move_374 < PokeBattle_Move
+  def pbModifyDamage(damagemult,attacker,opponent)
+    if  @battle.field.effects[PBEffects::ElectricTerrain]>0
+      return (damagemult*1.5).round
+    end
+    return damagemult
+  end
 end
 
 

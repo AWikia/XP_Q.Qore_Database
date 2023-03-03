@@ -95,11 +95,17 @@ Travis<s>Katten
 Blaquaza<s>Sphex
 
 "Icon Sprites Credits"
-Pikafan2000<s>Nintendo
+Pikafan2000/MBCMechanchu<s>Nintendo
 leparagon<s>RadicalCharizard
 MultiDiegoDani<s>Megax Rocker
 Kalaloki<s>Ivy
-AztecCroc
+AztecCroc<s>Woollii
+Zerudez<s>acpeters
+ezart<s>JadedArts
+CarmaNekko<s>Cesare_CBass
+Banana Toast<s>Katten
+sphexdecimal/sphexidecimal<s>Alxndre~◇
+HexeChroma<s>uppababy
 
 "Rest of Sprite Creidts:"
 Wikimedia Commons<s>Wikimedia

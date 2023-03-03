@@ -370,17 +370,15 @@ class PokemonPhoneScene
     @sprites["info"]=Window_AdvancedTextPokemon.newWithSize("",
        -8 + 64,224,180,160,@viewport)
     femback=pbResolveBitmap(sprintf("Graphics/Pictures/"+getDarkModeFolder+"/phonebgf"))
-    forcedark = true
     if $Trainer.isFemale? && femback
       addBackgroundPlane(@sprites,"bg",getDarkModeFolder+"/phonebgf",@viewport)
-      forcedark = false
     else
       addBackgroundPlane(@sprites,"bg",getDarkModeFolder+"/phonebg",@viewport)
     end
     @sprites["header"]=Window_UnformattedTextPokemon.newWithSize(_INTL("Phone"),
        2,-18,128,64,@viewport)
-    @sprites["header"].baseColor=(isDarkMode? || forcedark) ? Color.new(248,248,248) : Color.new(0,0,0)
-    @sprites["header"].shadowColor=nil #(isDarkMode? || forcedark) ? Color.new(248,248,248) : Color.new(0,0,0)
+    @sprites["header"].baseColor=(isDarkMode?) ? Color.new(248,248,248) : Color.new(0,0,0)
+    @sprites["header"].shadowColor=nil #(isDarkMode?) ? Color.new(248,248,248) : Color.new(0,0,0)
     @sprites["header"].windowskin=nil
     @sprites["icon"]=IconSprite.new(70+64,102,@viewport)
     if @trainers[0].length==4

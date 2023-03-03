@@ -62,12 +62,7 @@ class MapBottomSprite < SpriteWrapper
 =end
 
 
-    forcedark = true
-    if $Trainer.isFemale? || @frommap
-      forcedark = false
-    end
-
-    if (!isDarkMode? && !forcedark)
+    if (!isDarkMode?)
       color=Color.new(0,0,0)
     else
       color=Color.new(248,248,248)
@@ -147,10 +142,8 @@ class PokemonRegionMapScene
       Kernel.pbMessage(_INTL("The map data cannot be found."))
       return false
     end
-    forcedark = true
     if $Trainer.isFemale?
       addBackgroundOrColoredPlane(@sprites,"background",getDarkModeFolder+"/mapbgf",Color.new(255,255,255),@viewport)
-      forcedark = false
     else
       addBackgroundOrColoredPlane(@sprites,"background",getDarkModeFolder+"/mapbg",Color.new(255,255,255),@viewport)
     end

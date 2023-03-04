@@ -24,7 +24,6 @@ class PokemonTrainerCardScene
       if $game_variables && $game_variables[13]>99    # Found every TD and Trophy
           level+=1
       end
-
     end
       addBackgroundPlane(@sprites,"bg",getDarkModeFolder+"/trainercardbg_"+level.to_s,@viewport)
     cardexists=pbResolveBitmap(sprintf("Graphics/Pictures/"+getDarkModeFolder+"/trainercardf"))

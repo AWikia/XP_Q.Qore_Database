@@ -316,6 +316,33 @@ class Scene_LinkBattleScene
                   if $game_variables && $game_variables[1001] > 99
                     species+=[PBSpecies::BASCULEGION]
                   end
+                  if $game_variables && $game_variables[1001] > 199
+                    species+=[PBSpecies::MEOWSTIC]
+                  end
+                  if $game_variables && $game_variables[1001] > 299
+                    species+=[PBSpecies::TATSUGIRI]
+                  end
+                  if $game_variables && $game_variables[1001] > 399
+                    species+=[PBSpecies::HUNTAIL,PBSpecies::GOREBYSS]
+                  end
+                  if $game_variables && $game_variables[1001] > 499
+                    species+=[PBSpecies::DFADOM]
+                  end
+                  if $game_variables && $game_variables[1001] > 599
+                    species+=[PBSpecies::WISHIWASHI]
+                  end
+                  if $game_variables && $game_variables[1001] > 699
+                    species+=[PBSpecies::MORPEKO]
+                  end
+                  if $game_variables && $game_variables[1001] > 799
+                    species+=[PBSpecies::MAGEARNA]
+                  end
+                  if $game_variables && $game_variables[1001] > 899
+                    species+=[PBSpecies::BOOMERAN]
+                  end
+                  if $game_variables && $game_variables[1001] > 999
+                    species+=[PBSpecies::TELEMOBILEGION]
+                  end
 # End Unlockables
                   pokemon = species[rand(species.length)]
                   if pbGenerateRemoteBox(pokemon,_I("Link Battle Marketplace"))

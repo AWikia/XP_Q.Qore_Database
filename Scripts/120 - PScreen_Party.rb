@@ -729,15 +729,15 @@ class PokemonScreen_Scene
       end
     end
 =end
-    title=['loadbg','loadbg_beta','loadbg_dev','loadbg_canary','loadbg_internal'][QQORECHANNEL]
-    if pbResolveBitmap(_INTL("Graphics/Global Pictures/{1}",title))
-      addBackgroundOrColoredPlaneGlobal(@sprites,"partybg",title,
+    title=['/loadbg','/loadbg_beta','/loadbg_dev','/loadbg_canary','/loadbg_internal'][QQORECHANNEL]
+    if pbResolveBitmap(_INTL("Graphics/Global Pictures/"+getDarkModeFolder+"{1}",title))
+      addBackgroundOrColoredPlaneGlobal(@sprites,"partybg",getDarkModeFolder+title,
          Color.new(0,0,0),@viewport)
-    elsif pbResolveBitmap(sprintf("Graphics/Global Pictures/loadbg"))
-      addBackgroundOrColoredPlaneGlobal(@sprites,"partybg","loadbg",
+    elsif pbResolveBitmap(sprintf("Graphics/Global Pictures/"+getDarkModeFolder+"/loadbg"))
+      addBackgroundOrColoredPlaneGlobal(@sprites,"partybg",getDarkModeFolder+"/loadbg",
          Color.new(0,0,0),@viewport)
     else  # Hotfixing Prograda
-      addBackgroundOrColoredPlaneGlobal(@sprites,"partybg","loadbg_empty",
+      addBackgroundOrColoredPlaneGlobal(@sprites,"partybg",getDarkModeFolder+"/loadbg_empty",
          Color.new(0,0,0),@viewport)
     end
       addBackgroundOrColoredPlane(@sprites,"partybg_title",getDarkModeFolder+"/partybg",

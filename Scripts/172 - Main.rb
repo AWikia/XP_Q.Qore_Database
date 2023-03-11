@@ -91,14 +91,14 @@ end
 
 def pbCallTitle #:nodoc:
   qoreInitials
-  title=['/QoreTitle','/QoreTitle_1','/QoreTitle_2','/QoreTitle_3','/QoreTitle_4'][QQORECHANNEL]
-  title='/QoreTitle' if !pbResolveBitmap(_INTL("Graphics/Titles/"+getDarkModeFolder+"{1}", title))
+  title=['QoreTitle','QoreTitle_1','QoreTitle_2','QoreTitle_3','QoreTitle_4'][QQORECHANNEL]
+  title='QoreTitle' if !pbResolveBitmap(_INTL("Graphics/Titles/{1}", title))
 #  Win32API.SyncTitle
   if ($DEBUG || $TEST)
     if QQORECHANNEL == 3
-      return Scene_Intro.new(['canary_disclaimer','intro1'], getDarkModeFolder+title) 
+      return Scene_Intro.new(['canary_disclaimer','intro1'], title) 
     else
-      return Scene_Intro.new(['intro1'], getDarkModeFolder+title) 
+      return Scene_Intro.new(['intro1'], title) 
     end  
 #    return Scene_DebugIntro.new
   else

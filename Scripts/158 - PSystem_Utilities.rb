@@ -1766,18 +1766,18 @@ def pbCryFile(pokemon)
   return nil if !pokemon
   return pbCryFileClassic(pokemon) if ($PokemonSystem.cryclassic==0 rescue false)
   if pokemon.is_a?(Numeric)
-    filename=sprintf("%sCry",getConstantName(PBSpecies,pokemon,(pokemon.form rescue 0))) rescue nil
-    filename=sprintf("%03dCry",pokemon, (pokemon.form rescue 0)) if !pbResolveAudioSE(filename)
+    filename=sprintf("Cries/%s",getConstantName(PBSpecies,pokemon,(pokemon.form rescue 0))) rescue nil
+    filename=sprintf("Cries/%03d",pokemon, (pokemon.form rescue 0)) if !pbResolveAudioSE(filename)
     return filename if pbResolveAudioSE(filename)
   elsif !pokemon.isEgg?
-    filename=sprintf("%sCry_%d",getConstantName(PBSpecies,pokemon.species,(pokemon.form rescue 0))) rescue nil
-    filename=sprintf("%03dCry_%d",pokemon.species,(pokemon.form rescue 0)) if !pbResolveAudioSE(filename)
+    filename=sprintf("Cries/%s_%d",getConstantName(PBSpecies,pokemon.species,(pokemon.form rescue 0))) rescue nil
+    filename=sprintf("Cries/%03d_%d",pokemon.species,(pokemon.form rescue 0)) if !pbResolveAudioSE(filename)
     if !pbResolveAudioSE(filename)
-      filename=sprintf("%sCry",getConstantName(PBSpecies,pokemon.species,(pokemon.form rescue 0))) rescue nil
+      filename=sprintf("Cries/%s",getConstantName(PBSpecies,pokemon.species,(pokemon.form rescue 0))) rescue nil
     end
-    filename=sprintf("%03dCry",pokemon.species,(pokemon.form rescue 0)) if !pbResolveAudioSE(filename)
+    filename=sprintf("Cries/%03d",pokemon.species,(pokemon.form rescue 0)) if !pbResolveAudioSE(filename)
     return filename if pbResolveAudioSE(filename)
-    filename=sprintf("000Cry") if !pbResolveAudioSE(filename)
+    filename=sprintf("Cries/000") if !pbResolveAudioSE(filename)
     return filename if pbResolveAudioSE(filename)
   end
   return nil
@@ -1788,16 +1788,16 @@ def pbCryFileClassic(pokemon)
 =begin
   return nil if !pokemon
   if pokemon.is_a?(Numeric)
-    filename=sprintf("Classic Cries/%sCry",getConstantName(PBSpecies,pokemon,(pokemon.form rescue 0))) rescue nil
-    filename=sprintf("Classic Cries/%03dCry",pokemon, (pokemon.form rescue 0)) if !pbResolveAudioSE(filename)
+    filename=sprintf("Classic Cries/%s",getConstantName(PBSpecies,pokemon,(pokemon.form rescue 0))) rescue nil
+    filename=sprintf("Classic Cries/%03d",pokemon, (pokemon.form rescue 0)) if !pbResolveAudioSE(filename)
     return filename if pbResolveAudioSE(filename)
   elsif !pokemon.isEgg?
-    filename=sprintf("Classic Cries/%sCry_%d",getConstantName(PBSpecies,pokemon.species,(pokemon.form rescue 0))) rescue nil
-    filename=sprintf("Classic Cries/%03dCry_%d",pokemon.species,(pokemon.form rescue 0)) if !pbResolveAudioSE(filename)
+    filename=sprintf("Classic Cries/%s_%d",getConstantName(PBSpecies,pokemon.species,(pokemon.form rescue 0))) rescue nil
+    filename=sprintf("Classic Cries/%03d_%d",pokemon.species,(pokemon.form rescue 0)) if !pbResolveAudioSE(filename)
     if !pbResolveAudioSE(filename)
-      filename=sprintf("Classic Cries/%sCry",getConstantName(PBSpecies,pokemon.species,(pokemon.form rescue 0))) rescue nil
+      filename=sprintf("Classic Cries/%s",getConstantName(PBSpecies,pokemon.species,(pokemon.form rescue 0))) rescue nil
     end
-    filename=sprintf("Classic Cries/%03dCry",pokemon.species,(pokemon.form rescue 0)) if !pbResolveAudioSE(filename)
+    filename=sprintf("Classic Cries/%03d",pokemon.species,(pokemon.form rescue 0)) if !pbResolveAudioSE(filename)
     return filename if pbResolveAudioSE(filename)
   end
 =end

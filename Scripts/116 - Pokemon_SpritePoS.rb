@@ -12,16 +12,16 @@ def pbAutoPositionAll()
   metrics=load_data("Data/metrics.dat")
   for i in 1..PBSpecies.maxValue
     Graphics.update if i%50==0
-    bitmap1=AnimatedBitmap.new(sprintf("Graphics/Battlers/%03db",i))
-    bitmap2=AnimatedBitmap.new(sprintf("Graphics/Battlers/%03d",i))
+    bitmap1=AnimatedBitmap.new(sprintf("Graphics/Pokemon/Back/%03d",i))
+    bitmap2=AnimatedBitmap.new(sprintf("Graphics/Pokemon/Front/%03d",i))
     # TMP
-    if !pbResolveBitmap(sprintf("Graphics/Battlers/%03db",i))
+    if !pbResolveBitmap(sprintf("Graphics/Pokemon/Back/%03d",i))
       bitmap1.dispose if bitmap1
-      bitmap1=AnimatedBitmap.new(sprintf("Graphics/Battlers/TMP Gen9/%03db",i))
+      bitmap1=AnimatedBitmap.new(sprintf("Graphics/Pokemon/_TMP Gen9/Back/%03d",i))
     end
-    if !pbResolveBitmap(sprintf("Graphics/Battlers/%03d",i))
+    if !pbResolveBitmap(sprintf("Graphics/Pokemon/Front/%03d",i))
       bitmap2.dispose if bitmap2
-      bitmap2=AnimatedBitmap.new(sprintf("Graphics/Battlers/TMP Gen9/%03d",i))
+      bitmap2=AnimatedBitmap.new(sprintf("Graphics/Pokemon/)TMP Gen9/Front/%03d",i))
     end
     # TMP END
     if bitmap1 && bitmap1.bitmap

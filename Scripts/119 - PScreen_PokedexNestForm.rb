@@ -348,8 +348,8 @@ class PokedexFormScene
     if formnames && formnames[0]!=""
       for j in 0...2
         if $Trainer.formseen[@species][j][0] || ALWAYSSHOWALLFORMS # That gender/form has been seen
-          if pbResolveBitmap(sprintf("Graphics/Battlers/%sf",getConstantName(PBSpecies,@species))) ||
-             pbResolveBitmap(sprintf("Graphics/Battlers/%03df",@species))
+          if pbResolveBitmap(sprintf("Graphics/Pokemon/Front/%s_female",getConstantName(PBSpecies,@species))) ||
+             pbResolveBitmap(sprintf("Graphics/Pokemon/Front/%03d_female",@species))
             available.push([_INTL("{1} Male",formnames[0]),j,0,@color]) if j==0
             available.push([_INTL("{1} Female",formnames[0]),j,0,@color]) if j==1
           else
@@ -385,8 +385,8 @@ class PokedexFormScene
       @color=@dummypokemon2.color
       for j in 0...2
         if $Trainer.formseen[@species][j][i] || ALWAYSSHOWALLFORMS # That gender/form has been seen
-          if pbResolveBitmap(sprintf("Graphics/Battlers/%sf_%d",getConstantName(PBSpecies,@species),i)) ||
-             pbResolveBitmap(sprintf("Graphics/Battlers/%03df_%d",@species,i))
+          if pbResolveBitmap(sprintf("Graphics/Pokemon/Front/%s_%d_female",getConstantName(PBSpecies,@species),i)) ||
+             pbResolveBitmap(sprintf("Graphics/Pokemon/Front/%03d_%d_female",@species,i))
             available.push([_INTL("{1} Male",formnames[i]),j,i,@color]) if j==0
             available.push([_INTL("{1} Female",formnames[i]),j,i,@color]) if j==1
           else

@@ -27,7 +27,7 @@
 #  if $game_switches[38] # So used everywhere apart from PiXie Cave
     $Trainer.seen[specie]=true
 #   end
-    battlername=sprintf("Graphics/Battlers/%03d%s",specie,complement)
+    battlername=sprintf("Graphics/Pokemon/Front/%03d%s",specie,complement)
     bitmap=pbResolveBitmap(battlername)
     pbPlayCry(specie)
     if bitmap # to prevent crashes

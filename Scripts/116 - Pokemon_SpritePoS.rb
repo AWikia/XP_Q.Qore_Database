@@ -21,7 +21,7 @@ def pbAutoPositionAll()
     end
     if !pbResolveBitmap(sprintf("Graphics/Pokemon/Front/%03d",i))
       bitmap2.dispose if bitmap2
-      bitmap2=AnimatedBitmap.new(sprintf("Graphics/Pokemon/)TMP Gen9/Front/%03d",i))
+      bitmap2=AnimatedBitmap.new(sprintf("Graphics/Pokemon/_TMP Gen9/Front/%03d",i))
     end
     # TMP END
     if bitmap1 && bitmap1.bitmap

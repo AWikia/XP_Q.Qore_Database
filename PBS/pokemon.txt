@@ -36674,7 +36674,7 @@ Kind=Coin Chest
 Pokedex=This Pokémon was born inside a treasure chest about 1,500 years ago. It sucks the life-force out of scoundrels who try to steal the treasure.
 FormNames=Chest Form,Roaming Form
 BattlerPlayerY=13
-BattlerEnemyY=15
+BattlerEnemyY=17
 BattlerAltitude=0
 Evolutions=GHOLDENGO,Trained,999
 [1350]
@@ -37195,7 +37195,7 @@ Habitat=Grassland
 Kind=Paradox
 Pokedex=This Paradox Pokémon has no known info yet. Stay tuned for more info
 BattlerPlayerY=15
-BattlerEnemyY=19
+BattlerEnemyY=13
 BattlerAltitude=0
 Evolutions=
 [1370]
@@ -37221,6 +37221,6 @@ Habitat=Grassland
 Kind=Paradox
 Pokedex=This Paradox Pokémon has no known info yet. Stay tuned for more info
 BattlerPlayerY=15
-BattlerEnemyY=19
+BattlerEnemyY=16
 BattlerAltitude=0
 Evolutions=

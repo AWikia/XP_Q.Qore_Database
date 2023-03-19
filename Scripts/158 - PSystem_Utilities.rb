@@ -301,7 +301,7 @@ def getAccentFolder
     if (($PokemonSystem.accentcolor!=24 rescue false)) # Accent Color 19 is hardcoded to be the channel-aware ones
       return "Accents/Accent Color " + $PokemonSystem.accentcolor.to_s
     else
-      return "Accents/Accent Color " + $PokemonSystem.accentcolor.to_s + ["/Stable","/Beta","/Dev","/Canary","/Internal"][QQORECHANNEL]
+      return "Accents/Accent Color " + $PokemonSystem.accentcolor.to_s + ["/Stable","/Beta","/Dev","/Canary","/Internal","/Upgrade Wizard"][QQORECHANNEL]
     end
   else
     return "Accents/Accent Color " + "0"
@@ -1576,7 +1576,7 @@ def pbItemIconFile(item)
   bitmapFileName = nil
   if item==0
     bitmapFileName = sprintf("Graphics/Icons/itemBack")
-  elsif item==827 && QQORECHANNEL>0 && QQORECHANNEL<5 # Qora Qore Master
+  elsif item==827 && QQORECHANNEL>0 && QQORECHANNEL<6 # Qora Qore Master
     bitmapFileName = _INTL("Graphics/Icons/item827_{1}",QQORECHANNEL)
   else
     bitmapFileName = sprintf("Graphics/Icons/item%s",getConstantName(PBItems,item)) rescue nil

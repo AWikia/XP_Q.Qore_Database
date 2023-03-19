@@ -1,5 +1,5 @@
 # Backgrounds to show in credits. Found in Graphics/Titles/ folder
-CreditsBackgroundList = ["credits1","credits2","credits3","credits4","credits5"]
+CreditsBackgroundList = ["credits1","credits2","credits3","credits4","credits5","credits6"]
 CreditsMusic          = "credits"
 CreditsScrollSpeed    = 1             # At least 1; keep below 5 for legibility.
 CreditsFrequency      = 8             # Number of seconds per credits slide.

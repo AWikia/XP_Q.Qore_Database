@@ -2087,6 +2087,7 @@ class SpriteWindow < Window
     @flash=0
     @pauseopacity=0
     @skinformat=0
+    @skinmode=0
     @skinrect=Rect.new(0,0,0,0)
     @trim=[16,16,16,16]
     privRefresh(true)
@@ -2311,6 +2312,7 @@ class SpriteWindow < Window
 
   #############
   attr_reader :skinformat
+  attr_reader :skinmode # Used for the Quad-Colored Skin Color
   attr_reader :skinrect
 
   def loadSkinFile(file)
@@ -2365,6 +2367,13 @@ class SpriteWindow < Window
     end
   end
 
+  def skinmode=(value)
+    if @skinmode!=value
+      @skinmode=value  
+      privRefresh(true)
+    end
+  end
+  
   def borderX
     return 32 if !@trim || skinformat==0
     if @_windowskin && !@_windowskin.disposed?
@@ -2740,8 +2749,13 @@ class SpriteWindow < Window
             @sidebitmaps[i].stretch_blt(@sprites["side#{i}"].src_rect,
                @_windowskin,sideRects[i])
           else
-            tileBitmap(@sidebitmaps[i],@sprites["side#{i}"].src_rect,
-               @_windowskin,sideRects[i])
+            if @skinmode==1
+              @sidebitmaps[i].stretch_blt(@sprites["side#{i}"].src_rect,
+                 @_windowskin,sideRects[i])
+            else
+              tileBitmap(@sidebitmaps[i],@sprites["side#{i}"].src_rect,
+                 @_windowskin,sideRects[i])
+            end
           end
         end
       end
@@ -2832,6 +2846,7 @@ class SpriteWindow_Base < SpriteWindow
     if skin && (skin.width==192 && skin.height==128) ||  # RPGXP Windowskin
                (skin.width==128 && skin.height==128)     # RPGVX Windowskin
       self.skinformat=0
+      self.skinmode=0
     else
       self.skinformat=1
     end
@@ -2842,6 +2857,10 @@ class SpriteWindow_Base < SpriteWindow
     if self.skinformat==1
       if !@resolvedFrame
         @resolvedFrame=MessageConfig.pbGetSystemFrame()
+        # Skin Mode
+        skinname=@resolvedFrame.sub(/^[\!]./,"")
+        self.skinmode= skinname && skinname.include?("!") ? 1 : 0
+        # Skin Mode End
         @resolvedFrame.sub!(/\.[^\.\/\\]+$/,"")
       end
       self.loadSkinFile("#{@resolvedFrame}.txt") if @resolvedFrame!=""
@@ -2856,6 +2875,10 @@ class SpriteWindow_Base < SpriteWindow
     @customskin=AnimatedBitmap.new(resolvedName)
     __setWindowskin(@customskin.bitmap)
     if self.skinformat==1
+      # Skin Mode
+      skinname=resolvedName.sub(/^[\!]./,"") if skin
+      self.skinmode= skinname && skinname.include?("!") ? 1 : 0
+      # Skin Mode End
       skinbase=resolvedName.sub(/\.[^\.\/\\]+$/,"")
       self.loadSkinFile("#{skinbase}.txt")
     end

@@ -8,7 +8,12 @@ class LinkBattleButton < SpriteWrapper
     @index=index
     @name=name
     @selected=false
-    @button=AnimatedBitmap.new("Graphics/Pictures/"+getDarkModeFolder+"/linkButton")
+    fembutton=pbResolveBitmap(sprintf("Graphics/Pictures/"+getDarkModeFolder+"/pokegearButtonf"))
+    if $Trainer.isFemale? && fembutton
+      @button=AnimatedBitmap.new("Graphics/Pictures/"+getDarkModeFolder+"/pokegearButtonf")
+    else
+      @button=AnimatedBitmap.new("Graphics/Pictures/"+getDarkModeFolder+"/pokegearButton")
+    end
     @button2=AnimatedBitmap.new("Graphics/Pictures/"+getAccentFolder+"/linkgearSelection")
     @contents=BitmapWrapper.new(@button.width,@button.height)
     self.bitmap=@contents
@@ -79,26 +84,45 @@ class Scene_LinkBattleScene
     @cmdLinkG=-1
     @cmdLinkP=-1
     @cmdLinkS=-1
+    @cmdLinkHelp=-1
+    @cmdLinkLB=-1
     commands[@cmdLink=commands.length]=_INTL("Local Battle")
     commands[@cmdLinkG=commands.length]=_INTL("Versus Q.Qore")
     commands[@cmdLinkP=commands.length]=_INTL("Versus Prograda")
     commands[@cmdLinkS=commands.length]=_INTL("Marketplace")
+    commands[@cmdLinkHelp=commands.length]=_INTL("Help")
+    commands[@cmdLinkLB=commands.length]=_INTL("Leaderboard")
     
     @viewport=Viewport.new(0,0,Graphics.width,Graphics.height)
     @viewport.z=99999
-    @button=AnimatedBitmap.new("Graphics/Pictures/"+getDarkModeFolder+"/linkButton")
-    addBackgroundPlane(@sprites,"background",getDarkModeFolder+"/linkbg",@viewport)
+    @button=AnimatedBitmap.new("Graphics/Pictures/"+getDarkModeFolder+"/pokegearButton")
+    femback=pbResolveBitmap(sprintf("Graphics/Pictures/"+getDarkModeFolder+"/aboutbg"))
+    if $Trainer && $Trainer.isFemale? && femback
+      addBackgroundPlane(@sprites,"background",getDarkModeFolder+"/linkbgf",@viewport)
+    else
+      addBackgroundPlane(@sprites,"background",getDarkModeFolder+"/linkbg",@viewport)
+    end
+
+    @sprites["overlay"]=BitmapSprite.new(Graphics.width,Graphics.height,@viewport)    
+    pbSetSystemFont(@sprites["overlay"].bitmap)
     @sprites["header"]=Window_UnformattedTextPokemon.newWithSize(_INTL("Link Battle"),
        2,-18,256,64,@viewport)
-    @sprites["header"].baseColor=Color.new(248,248,248)
-    @sprites["header"].shadowColor=nil #Color.new(0,0,0)
+    @sprites["header"].baseColor=(isDarkMode?) ? Color.new(248,248,248) : Color.new(0,0,0)
+    @sprites["header"].shadowColor=nil #(!isDarkMode?) ? Color.new(248,248,248) : Color.new(0,0,0)
     @sprites["header"].windowskin=nil
+# Bottom
+    textpos=[
+       [_INTL("Balance: {1} Points",$game_variables[1002]),18,354,0,@sprites["header"].baseColor],
+       [_INTL("Won Link Battles: {1}",$game_variables[1001]),Graphics.width-16,354,1,@sprites["header"].baseColor]
+    ]
+    pbDrawTextPositions(@sprites["overlay"].bitmap,textpos)
+# Bottom End
     @sprites["command_window"] = Window_CommandPokemon.new(commands,160)
     @sprites["command_window"].visible = false
     @sprites["command_window"].index = @menu_index
     for i in 0...commands.length
       x=118+64
-      y=196 - (commands.length*24) + (i*48)
+      y=190 - (commands.length*24) + (i*48)
       @sprites["button#{i}"]=LinkBattleButton.new(x,y,commands[i],i,@viewport)
       @sprites["button#{i}"].selected=(i==@sprites["command_window"].index)
       @sprites["button#{i}"].update
@@ -113,6 +137,17 @@ class Scene_LinkBattleScene
         break
       end
     end
+  end
+  
+  def update_stats
+# Bottom
+    @sprites["overlay"].bitmap.clear
+    textpos=[
+       [_INTL("Balance: {1} Points",$game_variables[1002]),18,354,0,@sprites["header"].baseColor],
+       [_INTL("Won Link Battles: {1}",$game_variables[1001]),Graphics.width-16,354,1,@sprites["header"].baseColor]
+    ]
+    pbDrawTextPositions(@sprites["overlay"].bitmap,textpos)
+# Bottom End
   end
   #-----------------------------------------------------------------------------
   # update the scene
@@ -133,31 +168,14 @@ class Scene_LinkBattleScene
   # update the command window
   #-----------------------------------------------------------------------------
   def update_command
-    if Input.trigger?(Input::X) # Help
-      @QQSR="\\l[9]\\c[8]\\w[TrophyWindow]"
-      @QQSR+="Choose any of the three modes present. Local Battles is you vs. an opponent with random Pokemon while the other uses communication with another player."
-      @QQSR+="\\nFor local play, you can select the difficulty you want to use."
-      @QQSR+="\\nThere's no time limit and no Pokemon limitations in any of the game modes"
-      @QQSR+="\\nPokemon levels for local play depends on your Pokemon's levels."
-      @QQSR+="\\nThe winner will be awarded with Battle Link points. Winning your first Link Battle will award the Battle Linker trophy."
-      Kernel.pbMessage(@QQSR)
-    end
-    if Input.trigger?(Input::Y) # Local Statistics
-      @QQSR="\\c[8]\\w[TrophyWindow]Current Link Battle Balance: \\v[1002] Points"
-      @QQSR+="\\nNumber of won Link Battles: \\v[1001]"
-      Kernel.pbMessage(@QQSR)
-    end
-    if Input.trigger?(Input::Z) # Global Leaderboard warn for non-corendo
-      worksOnCorendo2(['VR Corendo','Bsisbina Clients','Jinnybell HSPA','Emerald Emulator','Yorkbook Digital Professional','Yorkbook Xe'])
-    end
     if Input.trigger?(Input::C)
       if @cmdLink>=0 && @sprites["command_window"].index==@cmdLink
         if $game_player.pbHasDependentEvents?
-          Kernel.pbMessage(_INTL("\\c[8]\\w[TrophyWindow]It can't be used when you have someone with you."))
+          Kernel.pbMessage(_INTL("It can't be used when you have someone with you."))
           return false
         end
         if $game_switches[172]
-          Kernel.pbMessage(_INTL("\\c[8]\\w[TrophyWindow]It can't be used during a Museum Mission!"))
+          Kernel.pbMessage(_INTL("It can't be used during a Museum Mission!"))
           return false
         end
         # Actual Event
@@ -167,8 +185,8 @@ class Scene_LinkBattleScene
                   _INTL("Hard (200 Points)"),
                   _INTL("Nightmare (300 Points)"),
                   _INTL("Cancel")]
-        command=Kernel.pbMessageLB(
-            _INTL("\\c[8]\\w[TrophyWindow]Choose a difficulty you want to use on your battle."),commands,-1)
+        command=Kernel.pbMessage(
+            _INTL("Choose a difficulty you want to use on your battle."),commands,-1)
         if command>=0 && command < 5
           # Begin Battle
           $game_variables[1003] = command+1
@@ -179,19 +197,20 @@ class Scene_LinkBattleScene
                     "What else should I say",
                     "I can't stand this death"][rand(5)]
           point=[50,100,150,200,300][command]
-          double= Kernel.pbConfirmMessageLB(_INTL("\\c[8]\\w[TrophyWindow]The battle is normally single. However, you can do a double battle. Do you want to do it so?"))
+          double= Kernel.pbConfirmMessage(_INTL("The battle is normally single. However, you can do a double battle. Do you want to do it so?"))
           $PokemonGlobal.nextBattleBack="000"
           cpuname = ['Nic','Karla','Jimmy','Britney','Duncan','Kelli','Todd','Nina','Ross','Heidi','Steven','Miriam','Darrell','Teresa','Reed','Aubrey','Chris','Kelly','Brad','Naomi','Dwight','Abby','Randy','Denise','Andy','Tamara','Joey','Linda','Eric','Faith','Mark','Mari','Maggie','Ash','Dion','Jude','Terell','Kris','Talon','Lonny','Jess','Chase','Keili','Lindy','Turdy','Krissa','Dodie','Flora'][rand(48)]
           pbSet(1004,cpuname)
           if pbTrainerBattle(:LINKER,trainer,_I(trainer2),double,0,true,0)
-            Kernel.pbMessage(_INTL("\\c[8]\\w[TrophyWindow]You won against {1} as you seem to be a strong player. Get your prize.",cpuname))
+            Kernel.pbMessage(_INTL("You won against {1} as you seem to be a strong player. Get your prize.",cpuname))
             $game_variables[1001] += 1
             $game_variables[1002] += point
-            Kernel.pbMessage(_INTL("\\c[8]\\w[TrophyWindow]\\me[EvolutionSuccess_1]Obtained {1} Link Points!\\wtnp[30]",point)) if $PokemonSystem.vrtrophynotif==0 rescue false
+            update_stats
+            Kernel.pbMessage(_INTL("\\me[EvolutionSuccess_1]Obtained {1} Link Points!\\wtnp[30]",point)) if $PokemonSystem.vrtrophynotif==0 rescue false
             Kernel.pbReceiveTrophy(:TLINKER)
-            Kernel.pbMessage(_INTL("\\c[8]\\w[TrophyWindow]You can use these to purchase various items."))
+            Kernel.pbMessage(_INTL("You can use these to purchase various items."))
           else
-            Kernel.pbMessage(_INTL("\\c[8]\\w[TrophyWindow]You lost against {1} as you seem to have weaker species. Better luck next time",cpuname))
+            Kernel.pbMessage(_INTL("You lost against {1} as you seem to have weaker species. Better luck next time",cpuname))
             end
           # End Battle
           $game_variables[1003] = 0
@@ -199,10 +218,10 @@ class Scene_LinkBattleScene
     
       end
       if @cmdLinkG>=0 && @sprites["command_window"].index==@cmdLinkG
-      worksOnCorendo2(['VR Corendo','Bsisbina Clients','Jinnybell HSPA','Emerald Emulator','Yorkbook Digital Professional','Yorkbook Xe'])
+      worksOnCorendo(['VR Corendo','Bsisbina Clients','Jinnybell HSPA','Emerald Emulator','Yorkbook Digital Professional','Yorkbook Xe'])
       end
       if @cmdLinkP>=0 && @sprites["command_window"].index==@cmdLinkP
-      worksOnCorendo2(['VR Corendo','Bsisbina Clients','Jinnybell HSPA'])
+      worksOnCorendo(['VR Corendo','Bsisbina Clients','Jinnybell HSPA'])
       end
       if @cmdLinkS>=0 && @sprites["command_window"].index==@cmdLinkS
           items=[PBItems::POKEBALL,
@@ -274,8 +293,8 @@ class Scene_LinkBattleScene
                   _INTL("Sacred Ash (7000 Points)"),
                   _INTL("Remote Box (8000 Points)"),
                   _INTL("Cancel")]
-          command=Kernel.pbMessageLB(
-              _INTL("\\g[1]\\c[8]\\w[TrophyWindow]Which item would you like to buy?"),commands,-1)
+          command=Kernel.pbMessage(
+              _INTL("\\g[1]Which item would you like to buy?"),commands,-1)
           if command < 0 || command>=commands.length-1
             pbPlayCancelSE()
             break
@@ -287,9 +306,9 @@ class Scene_LinkBattleScene
               itemname2= PBItems.getName(itemname)
             end
             itemprice= prices[command]
-            if Kernel.pbConfirmMessageLB(_INTL("\\g[1]\\c[8]\\w[TrophyWindow]Would you like to buy {1} {2}? It will cost {3} Link Points", (command==4) ? "an" : "a" ,itemname2,itemprice))
+            if Kernel.pbConfirmMessage(_INTL("\\g[1]Would you like to buy {1} {2}? It will cost {3} Link Points", (command==4) ? "an" : "a" ,itemname2,itemprice))
               if $game_variables[1002] < itemprice
-                Kernel.pbMessage(_INTL("\\g[1]\\c[8]\\w[TrophyWindow]You don't have enough points to buy that."))
+                Kernel.pbMessage(_INTL("\\g[1]You don't have enough points to buy that."))
                 break
               else
                 if itemname == 'RB'
@@ -347,15 +366,17 @@ class Scene_LinkBattleScene
                   pokemon = species[rand(species.length)]
                   if pbGenerateRemoteBox(pokemon,_I("Link Battle Marketplace"))
                     $game_variables[1002] -= itemprice
+                    update_stats
                   else
-                    Kernel.pbMessage(_INTL("\\g[1]\\c[8]\\w[TrophyWindow]You don't have enough space to store the box. Make room and come again."))
+                    Kernel.pbMessage(_INTL("\\g[1]You don't have enough space to store the box. Make room and come again."))
                     break
                   end
                 else
                   $game_variables[1002] -= itemprice
+                  update_stats
                   $PokemonBag.pbStoreItem(itemname)
                 end
-                Kernel.pbMessage(_INTL("\\g[1]\\c[8]\\w[TrophyWindow]\\me[EvolutionSuccess_1]Spent {1} Link Points and earned one {2}",itemprice,itemname2))
+                Kernel.pbMessage(_INTL("\\g[1]\\me[EvolutionSuccess_1]Spent {1} Link Points and earned one {2}",itemprice,itemname2))
                 break
               end
             else
@@ -363,6 +384,18 @@ class Scene_LinkBattleScene
             end
           end
         end
+      end
+      if @cmdLink>=0 && @sprites["command_window"].index==@cmdLinkHelp
+        @QQSR="\\l[10]"
+        @QQSR+="Choose any of the three modes present. Local Battles is you vs. an opponent with random Pokemon while the other uses communication with another player."
+        @QQSR+="\\nFor local play, you can select the difficulty you want to use."
+        @QQSR+="\\nThere's no time limit and no Pokemon limitations in any of the game modes"
+        @QQSR+="\\nPokemon levels for local play depends on your Pokemon's levels."
+        @QQSR+="\\nThe winner will be awarded with Battle Link points. Winning your first Link Battle will award the Battle Linker trophy."
+        Kernel.pbMessage(@QQSR)
+      end
+      if @cmdLink>=0 && @sprites["command_window"].index==@cmdLinkLB
+        worksOnCorendo(['VR Corendo','Bsisbina Clients','Jinnybell HSPA','Emerald Emulator','Yorkbook Digital Professional','Yorkbook Xe'])
       end
       return
     end

@@ -929,49 +929,6 @@ def Kernel.pbShowCommands(msgwindow,commands=nil,cmdIfCancel=0,defaultCmd=0)
   return ret
 end
 
-# Used on link battles only
-
-def Kernel.pbShowCommandsLB(msgwindow,commands=nil,cmdIfCancel=0,defaultCmd=0)
-  ret=0
-  if commands
-    cmdwindow=Window_CommandPokemonEx.new(commands)
-    cmdwindow.z=99999
-    cmdwindow.visible=true
-    cmdwindow.setSkin("Graphics/Windowskins/"+getDarkModeFolder+"/"+"TrophyWindow")
-    cmdwindow.baseColor=Color.new(248,248,248)
-    cmdwindow.shadowColor=Color.new(182,182,182)
-    cmdwindow.resizeToFit(cmdwindow.commands)
-    pbPositionNearMsgWindow(cmdwindow,msgwindow,:right)
-    cmdwindow.index=defaultCmd
-    command=0
-    loop do
-      Graphics.update
-      Input.update
-      cmdwindow.update
-      msgwindow.update if msgwindow
-      yield if block_given?
-      if Input.trigger?(Input::B)
-        if cmdIfCancel>0
-          command=cmdIfCancel-1
-          break
-        elsif cmdIfCancel<0
-          command=cmdIfCancel
-          break
-        end
-      end
-      if Input.trigger?(Input::C)
-        command=cmdwindow.index
-        break
-      end
-      pbUpdateSceneMap
-    end
-    ret=command
-    cmdwindow.dispose
-    Input.update
-  end
-  return ret
-end
-
 def pbPositionFaceWindow(facewindow,msgwindow)
   return if !facewindow
   if msgwindow
@@ -1063,24 +1020,6 @@ def Kernel.pbMessage(message,commands=nil,cmdIfCancel=0,skin=nil,defaultCmd=0,&b
   return ret
 end
 
-# Used by some parts of the Link Battle (Has different skin for choicebox)
-def Kernel.pbMessageLB(message,commands=nil,cmdIfCancel=0,skin=nil,defaultCmd=0,&block)
-  ret=0
-  msgwindow=Kernel.pbCreateMessageWindow(nil,skin)
-  if commands
-    ret=Kernel.pbMessageDisplay(msgwindow,message,true,
-       proc {|msgwindow|
-          next Kernel.pbShowCommandsLB(msgwindow,commands,cmdIfCancel,defaultCmd,&block)
-    },&block)
-  else
-    Kernel.pbMessageDisplay(msgwindow,message,&block)
-  end
-  Kernel.pbDisposeMessageWindow(msgwindow)
-  Input.update
-  return ret
-end
-
-
 def Kernel.pbMessageChooseNumber(message,params,&block)
   msgwindow=Kernel.pbCreateMessageWindow(nil,params.messageSkin)
   ret=Kernel.pbMessageDisplay(msgwindow,message,true,
@@ -1094,12 +1033,6 @@ end
 def Kernel.pbConfirmMessage(message,&block)
   return (Kernel.pbMessage(message,[_INTL("Yes"),_INTL("No")],2,&block)==0)
 end
-
-# Link Battle Exclusive
-def Kernel.pbConfirmMessageLB(message,&block)
-  return (Kernel.pbMessageLB(message,[_INTL("Yes"),_INTL("No")],2,&block)==0)
-end
-
 
 def Kernel.pbConfirmMessageSerious(message,&block)
   return (Kernel.pbMessage(message,[_INTL("No"),_INTL("Yes")],1,&block)==1)
@@ -1386,9 +1319,14 @@ end
 def pbDisplayLinkBalanceWindow(msgwindow)
   moneyString=$game_variables[1002]
   goldwindow=Window_AdvancedTextPokemon.new(_INTL("Balance:\n<ar>{1} Points</ar>",moneyString))
-  goldwindow.setSkin("Graphics/Windowskins/"+getDarkModeFolder+"/"+"TrophyWindow")
-  goldwindow.baseColor=Color.new(248,248,240)
-  goldwindow.shadowColor=Color.new(182,182,182)
+  goldwindow.setSkin("Graphics/Windowskins/"+getDarkModeFolder+"/"+"goldskin")
+  if (!isDarkMode?)
+    goldwindow.baseColor=Color.new(88,88,80)
+    goldwindow.shadowColor=Color.new(168,184,184)
+  else
+    goldwindow.baseColor=Color.new(248,248,240)
+    goldwindow.shadowColor=Color.new(72,88,88)
+  end
   goldwindow.resizeToFit(goldwindow.text,Graphics.width)
   goldwindow.width=160 if goldwindow.width<=160
   if msgwindow.y==0

@@ -2485,7 +2485,7 @@ def pbTrainerTypeEditorNew(trconst)
     pbConvertTrainerData
     Kernel.pbMessage(_INTL("The Trainer type was created (ID: {1}).",record[0]))
     Kernel.pbMessage(
-       _ISPRINTF("Put the Trainer's graphic (trainer{1:03d}.png or trainer{2:s}.png) in Graphics/Characters, or it will be blank.",
+       _ISPRINTF("Put the Trainer's graphic ({1:03d}.png or {2:s}.png) in Graphics/Trainers, or it will be blank.",
        record[0],getConstantName(PBTrainers,record[0])))
     return record[0]
   end

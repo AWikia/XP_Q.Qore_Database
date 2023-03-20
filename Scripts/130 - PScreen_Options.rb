@@ -271,51 +271,9 @@ class SliderOption
   end
 end
 
-#####################
+
+####################
 #
-# Stores game options
-# Default options are at the top of script section SpriteWindow.
-
-  $SpeechFrames=[
-  # Q.Qore
-  MessageConfig::TextSkinName, # Default: speech hgss 1
-  "Skin1",
-  "Skin2",
-  "Skin3",
-  "Skin4",
-  "Skin5",
-  "Skin6",
-  "Skin7",
-  # Blandy Blush Sada
-  "Skin8",
-  # GSC Style
-  "Skin9",
-  # HGSS Style
-  "Skin10",
-  "Skin11",
-  "Skin12",
-  "Skin13",
-  "Skin14",
-  "Skin15",
-  "Skin16",
-  "Skin17",
-  "Skin18",
-  # DP Style
-  "Skin19",
-  "Skin20",
-  # Other
-  "Skin21",
-  "Skin22",
-  "Skin23",
-  "Skin24",
-  "Skin25",
-  ['Skin26','Skin26_1','Skin26_2','Skin26_3','Skin26_4','!Skin26_5'][QQORECHANNEL],
-  "Skin27",
-  "Skin28",
-  "Skin29",
-  ['Skin30','Skin30_1','Skin30_2','Skin30_3'][pbGetSeason]
-
-]
 # 2 more colors
 =begin
   "color25",
@@ -392,6 +350,57 @@ end
 
 =end
 
+#####################
+#
+# Stores game options
+# Default options are at the top of script section SpriteWindow.
+
+  $SpeechFrames=[
+  # Q.Qore
+  MessageConfig::TextSkinName, # Default: speech hgss 1
+  "Skin1",
+  "Skin2",
+  "Skin3",
+  "Skin4",
+  "Skin5",
+  "Skin6",
+  "Skin7",
+  # Blandy Blush Sada
+  "Skin8",
+  # GSC Style
+  "Skin9",
+  # HGSS Style
+  "Skin10",
+  "Skin11",
+  "Skin12",
+  "Skin13",
+  "Skin14",
+  "Skin15",
+  "Skin16",
+  "Skin17",
+  "Skin18",
+  # DP Style
+  "Skin19",
+  "Skin20",
+  # Other
+  "Skin21",
+  "Skin22",
+  "Skin23",
+  "Skin24",
+  "Skin25",
+  ['Skin26','Skin26_1','Skin26_2','Skin26_3','Skin26_4','!Skin26_5'][QQORECHANNEL],
+  "Skin27",
+  "Skin28",
+  "Skin29",
+  ['Skin30','Skin30_1','Skin30_2','Skin30_3'][pbGetSeason],
+  "!Skin31",
+  "!Skin32",
+  (pbGetCountry() == 0x7A rescue nil) ? "!Skin33" : "!Skin33_1",
+  "!Skin34",
+  "!Skin35"
+
+]
+
 $TextFrames=[
   # Q.Qore
   MessageConfig::ChoiceSkinName, # Default: choice 1
@@ -429,7 +438,12 @@ $TextFrames=[
   "Choice27",
   "Choice28",
   "Choice29",
-  ['Choice30','Choice30_1','Choice30_2','Choice30_3'][pbGetSeason]
+  ['Choice30','Choice30_1','Choice30_2','Choice30_3'][pbGetSeason],
+  "!Choice31",
+  "!Choice32",
+  (pbGetCountry() == 0x7A rescue nil) ? "!Choice33" : "!Choice33_1",
+  "!Choice34",
+  "!Choice35"
 ]
 
   $SpeechFramesNames=[
@@ -469,7 +483,12 @@ $TextFrames=[
   "Green-Gray",
   "Pink",
   "Turquoise",
-  "Season-Aware"
+  "Season-Aware",
+  "Pikachu and Eevee",
+  "Blue-mix",
+  (pbGetCountry() == 0x7A rescue nil) ? "Light Red and Green" : "Light Red and Blue",
+  "Four Seasons",
+  "Pokémon Quadruplet"
 ]
 
 

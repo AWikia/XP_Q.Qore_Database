@@ -1512,6 +1512,22 @@ def ragefist
         @battle.scene.pbChangePokemon(self,@pokemon)
       end
     end
+    # Koraidon
+    if isConst?(self.species,PBSpecies,:KORAIDON)
+      if self.form!=@pokemon.form
+        self.form=@pokemon.form
+        pbUpdate(true)
+        @battle.scene.pbChangePokemon(self,@pokemon)
+      end
+    end
+    # Miraidon
+    if isConst?(self.species,PBSpecies,:MIRAIDON)
+      if self.form!=@pokemon.form
+        self.form=@pokemon.form
+        pbUpdate(true)
+        @battle.scene.pbChangePokemon(self,@pokemon)
+      end
+    end
     # Sunny Channel
     if isConst?(self.species,PBSpecies,:SUNNYCHANNEL)
       if self.form!=@pokemon.form

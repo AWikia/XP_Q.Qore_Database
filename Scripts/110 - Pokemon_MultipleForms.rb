@@ -9774,7 +9774,7 @@ MultipleForms.register(:TATSUGIRI,{
 
 MultipleForms.register(:CLODSIRE,{
 "getForm"=>proc{|pokemon|
-   next 1 # Required in order for Paldean Wooper form of Basculin to work
+   next 1 # Required in order for Paldean form of Wooper to work
 }
 })
 
@@ -9834,6 +9834,27 @@ MultipleForms.register(:GIMMIGHOUL,{
 }
 })
 
+MultipleForms.register(:KORAIDON,{
+"getForm"=>proc{|pokemon|
+   next 1  if !$inbattle  # Crowned Sword
+   next 0                 # Hero of many battles
+},
+"dexEntry"=>proc{|pokemon|
+   next if pokemon.form==0
+   next _INTL("The ecology and other data about this Pokémon are unknown. It was named Koraidon by the professor who discovered it.") if pokemon.form==1
+}
+})
+
+MultipleForms.register(:MIRAIDON,{
+"getForm"=>proc{|pokemon|
+   next 1  if !$inbattle  # Crowned Sword
+   next 0                 # Hero of many battles
+},
+"dexEntry"=>proc{|pokemon|
+   next if pokemon.form==0
+   next _INTL("Its characteristics match those of a mysterious object recorded in an old expedition journal as the Iron Serpent.") if pokemon.form==1
+}
+})
 
 
 ################################################################################

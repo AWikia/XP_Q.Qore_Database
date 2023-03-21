@@ -39,17 +39,7 @@ def qoreInitials
     $inbattle=false # Initialization
     $JBIndex0= 0
     $JBIndex1= 1
-    value=$PokemonSystem.textspeed
-    # All FPS Values must be multiple of 8 or else Jinnybell HSPA will filcker
-    if value==3 
-      Graphics.frame_rate=50
-    elsif value==2
-      Graphics.frame_rate=40
-    elsif value==1
-      Graphics.frame_rate=30
-    else
-      Graphics.frame_rate=24
-    end
+    Graphics.frame_rate=40
 end
 
 def getBorders # Edit this along with getBorderNames to add more borders

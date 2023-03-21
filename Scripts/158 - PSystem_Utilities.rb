@@ -1561,11 +1561,11 @@ def pbItemIconFile(item)
   return nil if !item
   bitmapFileName=nil
   if item==0
-    bitmapFileName=sprintf("Graphics/Icons/itemBack")
+    bitmapFileName=sprintf("Graphics/Items/back")
   else
-    bitmapFileName=sprintf("Graphics/Icons/item%s",getConstantName(PBItems,item)) rescue nil
+    bitmapFileName=sprintf("Graphics/Items/%s",getConstantName(PBItems,item)) rescue nil
     if !pbResolveBitmap(bitmapFileName)
-      bitmapFileName=sprintf("Graphics/Icons/item%03d",item)
+      bitmapFileName=sprintf("Graphics/Items/%03d",item)
     end
   end
   return bitmapFileName
@@ -1575,22 +1575,22 @@ def pbItemIconFile(item)
   return nil if !item
   bitmapFileName = nil
   if item==0
-    bitmapFileName = sprintf("Graphics/Icons/itemBack")
+    bitmapFileName = sprintf("Graphics/Items/back")
   elsif item==827 && QQORECHANNEL>0 && QQORECHANNEL<6 # Qora Qore Master
-    bitmapFileName = _INTL("Graphics/Icons/item827_{1}",QQORECHANNEL)
+    bitmapFileName = _INTL("Graphics/Items/827_{1}",QQORECHANNEL)
   else
-    bitmapFileName = sprintf("Graphics/Icons/item%s",getConstantName(PBItems,item)) rescue nil
+    bitmapFileName = sprintf("Graphics/Items/%s",getConstantName(PBItems,item)) rescue nil
     if !pbResolveBitmap(bitmapFileName)
-      bitmapFileName = sprintf("Graphics/Icons/item%03d",item)
+      bitmapFileName = sprintf("Graphics/Items/%03d",item)
       if !pbResolveBitmap(bitmapFileName) && pbIsMachine?(item)
         move = pbGetMachine(item)
         type = PBMoveData.new(move).type
-        bitmapFileName = sprintf("Graphics/Icons/itemMachine%s",getConstantName(PBTypes,type)) rescue nil
+        bitmapFileName = sprintf("Graphics/Items/machine_%s",getConstantName(PBTypes,type)) rescue nil
         if !pbResolveBitmap(bitmapFileName)
-          bitmapFileName = sprintf("Graphics/Icons/itemMachine%03d",type)
+          bitmapFileName = sprintf("Graphics/Items/machine_%03d",type)
         end
       end
-      bitmapFileName = "Graphics/Icons/item000" if !pbResolveBitmap(bitmapFileName)
+      bitmapFileName = "Graphics/Icons/000" if !pbResolveBitmap(bitmapFileName)
     end
   end
   return bitmapFileName

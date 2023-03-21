@@ -4,15 +4,15 @@ class Window_PokemonOption < Window_DrawableCommand
   def initialize(options,x,y,width,height)
     @options=options
     if (!isDarkMode?)  # Light Mode
-      @nameBaseColor=Color.new(24*8,15*8,0)
-      @nameShadowColor=Color.new(31*8,22*8,10*8)
-      @selBaseColor=Color.new(31*8,6*8,3*8)
-      @selShadowColor=Color.new(31*8,17*8,16*8)
+      @nameBaseColor=Color.new(176,104,0)
+      @nameShadowColor=Color.new(240,168,72)
+      @selBaseColor=Color.new(232,32,8)
+      @selShadowColor=Color.new(240,128,140)
     else                                          # Dark mode
-      @nameBaseColor=Color.new(29*8,22*8,9*8)
-      @nameShadowColor=Color.new(15*8,9*8,0)
-      @selBaseColor=Color.new(31*8,18*8,17*8)
-      @selShadowColor=Color.new(24*8,3*8,1*8)
+      @nameBaseColor=Color.new(248,192,88)
+      @nameShadowColor=Color.new(128,80,8)
+      @selBaseColor=Color.new(255,160,152)
+      @selShadowColor=Color.new(200,32,16)
     end
     @optvalues=[]
     @mustUpdateOptions=false
@@ -40,7 +40,7 @@ class Window_PokemonOption < Window_DrawableCommand
     optionname=(index==@options.length) ? _INTL("Cancel") : @options[index].name
     optionwidth=(rect.width*9/20)
     pbDrawShadowText(self.contents,rect.x,rect.y,optionwidth,rect.height,optionname,
-       @nameBaseColor,@nameShadowColor)
+       (index == self.index) ? @nameBaseColor : self.baseColor,(index == self.index) ? @nameShadowColor : self.shadowColor)
 #    self.contents.draw_text(rect.x,rect.y,optionwidth,rect.height,optionname)
     return if index==@options.length
     if @options[index].is_a?(EnumOption)

@@ -1480,11 +1480,11 @@ end
 def pbCheckPokemonIconFiles(params,egg=false)
   species=params[0]
   if egg
-    bitmapFileName=sprintf("Graphics/Pokemon/Icons/%segg",getConstantName(PBSpecies,species)) rescue nil
+    bitmapFileName=sprintf("Graphics/Pokemon/Icons/%s_egg",getConstantName(PBSpecies,species)) rescue nil
     if !pbResolveBitmap(bitmapFileName)
-      bitmapFileName=sprintf("Graphics/Pokemon/Icons/%03degg",species) 
+      bitmapFileName=sprintf("Graphics/Pokemon/Icons/%03d_egg",species) 
       if !pbResolveBitmap(bitmapFileName)
-        bitmapFileName=sprintf("Graphics/Pokemon/Icons/000egg")
+        bitmapFileName=sprintf("Graphics/Pokemon/Icons/000_egg")
       end
     end
     return pbResolveBitmap(bitmapFileName)

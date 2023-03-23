@@ -600,10 +600,11 @@ class PokemonSystem
   attr_accessor :threecolorbar
   attr_accessor :enableshading
   attr_accessor :textskincolors
+  attr_accessor :highlightcolor
   
   def initialize
-    @textspeed        = 2   # Frames Per Second (0=24, 1=30, 2=40, 3=50)
-    @debugmode        = 0   # Text speed (0=slow, 1=normal, 2=fast)
+    @textspeed        = 1   # Text speed (0=slow, 1=normal, 2=fast)
+    @debugmode        = 0   # Debug Mode
     @battlescene      = 0   # Battle effects (animations) (0=on, 1=off)
     @battlestyle      = 0   # Battle style (0=switch, 1=set)
     @battlemode       = 1   # Battle style (0=switch, 1=set)
@@ -640,6 +641,7 @@ class PokemonSystem
     @threecolorbar    = 0   # Three Color Progress Bar
     @enableshading    = 1   # Outdoor Map Shading
     @textskincolors   = 0   # Text Skin Color Scheme (0=Standard, 1=Colors, 2=CMYK, 3=Vintage)
+    @highlightcolor   = 0   # Highlight Color (0=Disabled, 1=Accent Color 1, 2=Accent Color 2, 3=Accent Color 3, 4=Accent Color 4)
 end
   
   def language
@@ -703,7 +705,7 @@ end
     return (!@colortige) ? 0 : @colortige
   end
 
-  def outfit
+  def outfit # Unused
     return (!@outfit) ? 0 : @outfit
   end
 
@@ -711,7 +713,7 @@ end
     return (!@bordergraphic) ? 4 : @bordergraphic
   end
 
-  def charset2
+  def charset2 # Unused
     return (!@charset2) ? 0 : @charset2
   end
 
@@ -767,6 +769,10 @@ end
   
   def textskincolors
     return (!@textskincolors) ? 0 : @textskincolors
+  end
+
+  def highlightcolor
+    return (!@highlightcolor) ? 0 : @highlightcolor
   end
 
   
@@ -1107,9 +1113,18 @@ There are different modes:
              $PokemonSystem.accentcolor = value 
              $BORDERS=getBorders
              setScreenBorderName($BORDERS[$PokemonSystem.bordergraphic]) # Accented Border
+             refreshAccentTextColors # Refresh Accent Color Parts
            },
            getAccentNames,
           "Sets the color of all accent-aware elements. Forty-Eight options exist. More than one color may be used to constuct an accent color. Blue is the default color."
+         ),
+         NumberOption.new(_INTL("Highlight Color"),1,5,
+           proc { $PokemonSystem.highlightcolor },
+           proc {|value| 
+             $PokemonSystem.highlightcolor = value 
+           },
+           ["Disabled", "Color 1", "Color 2", "Color 3", "Color 4"],
+          "Sets the color of highlighted menu items. Disabled picks the text color while the rest select pick a sub-color of the Accent (Up to 4 colors)."
          ),
          NumberOption.new(_INTL("Pokémon Type Icon Style"),1,5,
            proc { $PokemonSystem.colortige },

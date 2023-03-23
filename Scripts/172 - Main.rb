@@ -40,6 +40,7 @@ def qoreInitials
     $JBIndex0= 0
     $JBIndex1= 1
     Graphics.frame_rate=40
+    refreshAccentTextColors
 end
 
 def getBorders # Edit this along with getBorderNames to add more borders

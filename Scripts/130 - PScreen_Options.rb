@@ -1113,18 +1113,16 @@ There are different modes:
              $PokemonSystem.accentcolor = value 
              $BORDERS=getBorders
              setScreenBorderName($BORDERS[$PokemonSystem.bordergraphic]) # Accented Border
-             refreshAccentTextColors # Refresh Accent Color Parts
            },
            getAccentNames,
           "Sets the color of all accent-aware elements. Forty-Eight options exist. More than one color may be used to constuct an accent color. Blue is the default color."
          ),
-         NumberOption.new(_INTL("Highlight Color"),1,5,
+        EnumOption.new(_INTL("Highlight Color"),[_INTL("Off"),_INTL("On")],
            proc { $PokemonSystem.highlightcolor },
            proc {|value| 
              $PokemonSystem.highlightcolor = value 
            },
-           ["Disabled", "Color 1", "Color 2", "Color 3", "Color 4"],
-          "Sets the color of highlighted menu items. Disabled picks the text color while the rest select pick a sub-color of the Accent (Up to 4 colors)."
+          "Sets the color of highlighted menu items.."
          ),
          NumberOption.new(_INTL("Pokémon Type Icon Style"),1,5,
            proc { $PokemonSystem.colortige },

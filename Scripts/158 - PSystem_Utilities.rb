@@ -322,34 +322,14 @@ def getAccentName
   end
 end
 
-# Refreshes the Accent Text Colors
-def refreshAccentTextColors
-  bmp = AnimatedBitmap.new(_INTL("Graphics/Pictures/"+getAccentFolder+"/border_4"))
-  bmp2=bmp.bitmap
-  $AccentBase=[
-                bmp2.get_pixel(0,0),      # Color 1
-                bmp2.get_pixel(799,0),    # Color 2
-                bmp2.get_pixel(0,479),    # Color 3
-                bmp2.get_pixel(799,479)   # Color 4
-              ]
-  $AccentShadow=[
-                  bmp2.get_pixel(18,39),  # Color 1
-                  bmp2.get_pixel(783,39), # Color 2
-                  bmp2.get_pixel(18,440), # Color 3
-                  bmp2.get_pixel(783,440) # Color 4
-                ]
-  bmp.dispose
-end
-
-def getAccentTextColors
+# Returns the Highlight Color
+def getHighlightColor
   if ($PokemonSystem.highlightcolor==0 rescue false)
     return [$AEditorTextBase,$AEditorTextShadow]
   elsif isDarkMode?
-    return [$AccentShadow[($PokemonSystem.highlightcolor rescue 1)-1],
-            $AccentBase[($PokemonSystem.highlightcolor rescue 1)-1]]
+    return [Color.new(255,160,152),Color.new(200,32,16)]
   else
-    return [$AccentBase[($PokemonSystem.highlightcolor rescue 1)-1],
-            $AccentShadow[($PokemonSystem.highlightcolor rescue 1)-1]]
+    return [Color.new(232,32,8),Color.new(240,128,140)]
   end
 end
 

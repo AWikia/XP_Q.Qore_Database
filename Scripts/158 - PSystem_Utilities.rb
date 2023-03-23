@@ -322,17 +322,6 @@ def getAccentName
   end
 end
 
-# Returns the Highlight Color
-def getHighlightColor
-  if ($PokemonSystem.highlightcolor==0 rescue false)
-    return [$AEditorTextBase,$AEditorTextShadow]
-  elsif isDarkMode?
-    return [Color.new(255,160,152),Color.new(200,32,16)]
-  else
-    return [Color.new(232,32,8),Color.new(240,128,140)]
-  end
-end
-
 ################################################################################
 # Linear congruential random number generator
 ################################################################################

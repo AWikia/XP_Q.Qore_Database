@@ -600,7 +600,6 @@ class PokemonSystem
   attr_accessor :threecolorbar
   attr_accessor :enableshading
   attr_accessor :textskincolors
-  attr_accessor :highlightcolor
   
   def initialize
     @textspeed        = 1   # Text speed (0=slow, 1=normal, 2=fast)
@@ -641,7 +640,6 @@ class PokemonSystem
     @threecolorbar    = 0   # Three Color Progress Bar
     @enableshading    = 1   # Outdoor Map Shading
     @textskincolors   = 0   # Text Skin Color Scheme (0=Standard, 1=Colors, 2=CMYK, 3=Vintage)
-    @highlightcolor   = 0   # Highlight Color (0=Disabled, 1=Accent Color 1, 2=Accent Color 2, 3=Accent Color 3, 4=Accent Color 4)
 end
   
   def language
@@ -769,10 +767,6 @@ end
   
   def textskincolors
     return (!@textskincolors) ? 0 : @textskincolors
-  end
-
-  def highlightcolor
-    return (!@highlightcolor) ? 0 : @highlightcolor
   end
 
   
@@ -1116,13 +1110,6 @@ There are different modes:
            },
            getAccentNames,
           "Sets the color of all accent-aware elements. Forty-Eight options exist. More than one color may be used to constuct an accent color. Blue is the default color."
-         ),
-        EnumOption.new(_INTL("Highlight Color"),[_INTL("Off"),_INTL("On")],
-           proc { $PokemonSystem.highlightcolor },
-           proc {|value| 
-             $PokemonSystem.highlightcolor = value 
-           },
-          "Sets the color of highlighted menu items.."
          ),
          NumberOption.new(_INTL("Pokémon Type Icon Style"),1,5,
            proc { $PokemonSystem.colortige },

@@ -1353,6 +1353,15 @@ MultipleForms.register(:ANT1,{
    next 3 if pokemon.form==1
    next 1 if pokemon.form==2
 },
+"height"=>proc{|pokemon|
+   next if pokemon.form==0
+   next 10
+},
+"weight"=>proc{|pokemon|
+   next     if pokemon.form==0
+   next 500 if pokemon.form==1
+   next 515 if pokemon.form==2
+},
 "dexEntry"=>proc{|pokemon|
    next if pokemon.form==0
    next _INTL("Once ANT1 gets mega-evolved, it became full yellow body with the ability to Paralyze almost any target once one makes contact with it.") if pokemon.form==1

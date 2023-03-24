@@ -10475,6 +10475,28 @@ MultipleForms.register(:NEWPLAYSTORE,{
 }
 })
 
+MultipleForms.register(:OFFICE,{
+"getFormOnCreation"=>proc{|pokemon|
+   d=pokemon.personalID&3
+   d|=((pokemon.personalID>>8)&3)<<2
+   d|=((pokemon.personalID>>16)&3)<<4
+   d|=((pokemon.personalID>>24)&3)<<6
+   d%=4
+   formrations=[[0,0,0,0,1,1,1,2,2,3],[3,3,3,3,2,2,2,1,1,0],[0,0,0,0,2,2,2,3,3,1],[1,1,1,1,3,3,3,0,0,2]] # This variable is set into an array list of four sub-arrays with ten values in each one
+   formrations=formrations[d] # Which array will pick will depend on personalID
+   next formrations[rand(10)] # Then one of the ten random numbers of the chosen sub-array will set 4E's and Microsoft Office's form. Bred Office will give a 4E egg into the form it was
+},
+"height"=>proc{|pokemon|
+   next if pokemon.form!=3                         # XP. 2007, 2010
+   next 14                                         # 2013
+},
+"weight"=>proc{|pokemon|
+   next     if pokemon.form==0 || pokemon.form==1 # XP, 2007
+   next 220 if pokemon.form==2                    # 2010
+   next 300 if pokemon.form==3                    # 2013
+}
+})
+
 
 MultipleForms.register(:VODAFONE,{
 "type1"=>proc{|pokemon|
@@ -10858,12 +10880,15 @@ MultipleForms.register(:FADOM,{
      else;   next 
    end
 },
-
+"weight"=>proc{|pokemon|
+   next if pokemon.form==0
+   next 600
+},
 "getForm"=>proc{|pokemon|
    next 1  if isConst?(pokemon.item,PBItems,:METRONOME)    # Super Fandom
    next 0
 },
-   
+
 "getBaseStats"=>proc{|pokemon|
    next if pokemon.form==0
    case pokemon.form
@@ -11107,6 +11132,22 @@ MultipleForms.register(:DOLPHIN,{
    next 1 if pokemon.form==1
    next 5 if pokemon.form==2
 },
+"height"=>proc{|pokemon|
+   next if pokemon.form==0
+   case pokemon.form
+     when 1; next  10
+     when 2; next  10
+     else;   next
+   end
+},
+"weight"=>proc{|pokemon|
+   next if pokemon.form==0
+   case pokemon.form
+     when 1; next  75
+     when 2; next  300
+     else;   next
+   end
+}
 })
 
 MultipleForms.register(:FLAMENGO,{
@@ -11313,6 +11354,14 @@ MultipleForms.register(:ETV,{
 "getAbilityList"=>proc{|pokemon|
    next if pokemon.form<2
    next [[getID(PBAbilities,:PARENTALBOND),0]]
+},
+"height"=>proc{|pokemon|
+   next if pokemon.form<2
+   next 2
+},
+"weight"=>proc{|pokemon|
+   next if pokemon.form<2
+   next 30
 }
 })
 
@@ -11331,9 +11380,6 @@ MultipleForms.register(:FOURE,{
    next formrations[rand(10)] # Then one of the ten random numbers of the chosen sub-array will set 4E's and Microsoft Office's form. Bred Office will give a 4E egg into the form it was
 }
 })
-
-MultipleForms.copy(:FOURE,:OFFICE)
-
 
 MultipleForms.register(:SALLONN,{
  "type2"=>proc{|pokemon|
@@ -11393,6 +11439,14 @@ MultipleForms.register(:ROOMBA,{
    next if pokemon.form==0 || pokemon.form==3               # Fairist
    next [0,3,0,0,0,0] if pokemon.form==1 || pokemon.form==4 # Electrist
    next [0,0,0,3,0,0] if pokemon.form==2 || pokemon.form==5 # Chlorophyllist
+},
+"height"=>proc{|pokemon|
+   next if !(pokemon.form==2 || pokemon.form==5)
+   next 20
+},
+"weight"=>proc{|pokemon|
+   next if pokemon.form<3        # Classiko
+   next 900                      # Ultra Blue formes
 },
 "wildHoldItems"=>proc{|pokemon|
    next [getID(PBItems,:PERSIMBERRY),
@@ -11875,6 +11929,10 @@ MultipleForms.register(:DOFFICE,{
 "color"=>proc{|pokemon|
    next if pokemon.isMale?
    next 6
+},
+"weight"=>proc{|pokemon|
+   next if pokemon.isMale?
+   next 575
 }
 })
 
@@ -11908,6 +11966,10 @@ MultipleForms.register(:MICROSOFT,{
    next [[getID(PBAbilities,:SIAXIS),0]] if pokemon.form==2
    next [[getID(PBAbilities,:WATERBUBBLE),0]] if pokemon.form==3
    next [[getID(PBAbilities,:VERGINI),0]] if pokemon.form==4
+},
+"weight"=>proc{|pokemon|
+   next if pokemon.form==0       # Unfused
+   next 500                      # Fused
 },
 "onSetForm"=>proc{|pokemon,form|
    moves=[
@@ -12070,6 +12132,14 @@ MultipleForms.register(:DELIABANDAIPLUS,{
    pbSeenForm(pokemon)
 }
 })
+
+MultipleForms.register(:DOFFPLUS,{
+"weight"=>proc{|pokemon|
+   next if pokemon.isMale?
+   next 862
+}
+})
+
 
 MultipleForms.register(:SATTICATV,{
 "getFormOnCreation"=>proc{|pokemon|

@@ -9703,7 +9703,7 @@ MultipleForms.register(:MAUSHOLD,{
    d|=((pokemon.personalID>>16)&3)<<4
    d|=((pokemon.personalID>>24)&3)<<6
    d%=25
-   next [0,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1][d]
+   next (d==0) ? 0 : 1
 },
 
 "weight"=>proc{|pokemon|
@@ -9787,7 +9787,7 @@ MultipleForms.register(:DUDUNSPARCE,{
    d|=((pokemon.personalID>>16)&3)<<4
    d|=((pokemon.personalID>>24)&3)<<6
    d%=25
-   next [1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0][d]
+   next (d==0) ? 1 : 0
 },
 "height"=>proc{|pokemon|
    next if pokemon.form==0
@@ -11935,6 +11935,39 @@ MultipleForms.register(:DOFFICE,{
    next 575
 }
 })
+
+# Used to define Microsoft Edge
+MultipleForms.register(:IEXPLORE,{
+"getForm"=>proc{|pokemon|
+   d=pokemon.personalID&3
+   d|=((pokemon.personalID>>8)&3)<<2
+   d|=((pokemon.personalID>>16)&3)<<4
+   d|=((pokemon.personalID>>24)&3)<<6
+   d%=25
+   next (d==0) ? 1 : 0
+}
+})
+
+# Form 0 is Microsoft-colored (Blue) while Form 1 is Canary-colored (Orange) 
+MultipleForms.register(:MSEDGE,{
+"getForm"=>proc{|pokemon|
+   d=pokemon.personalID&3
+   d|=((pokemon.personalID>>8)&3)<<2
+   d|=((pokemon.personalID>>16)&3)<<4
+   d|=((pokemon.personalID>>24)&3)<<6
+   d%=25
+   next (d==0) ? 1 : 0
+},
+"type1"=>proc{|pokemon|
+   types=[:CHLOROPHYLL,:HERB]
+   next getID(PBTypes,types[pokemon.form])
+},
+"color"=>proc{|pokemon|
+   next   if pokemon.form==0
+   next 2 if pokemon.form==1
+}
+})
+
 
 
 MultipleForms.register(:META,{

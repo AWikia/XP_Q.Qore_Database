@@ -138,6 +138,16 @@ end
 ################################################################################
 # Qortex Essentials utilities
 ################################################################################
+# Returns the build number. For Evelution, it should return 22621
+def pbGetVersion()
+  ver=MiniRegistry.get(MiniRegistry::HKEY_LOCAL_MACHINE,
+     "SOFTWARE\\Microsoft\\Windows NT\\CurrentVersion",
+"CurrentBuild","") rescue nil
+  if ver
+    return ver.to_i
+  end
+  return 9200
+end
 
 # Used only on some cases
 def worksOnCorendo(clients=[])
@@ -763,12 +773,12 @@ end
 def pbSuggestTrainerName(gender)
   userName=pbGetUserName()
   userName=userName.gsub(/\s+.*$/,"")
-  if userName.length>0 && userName.length<7
+  if userName.length>0 && userName.length<12
     userName[0,1]=userName[0,1].upcase
     return userName
   end
   userName=userName.gsub(/\d+$/,"")
-  if userName.length>0 && userName.length<7
+  if userName.length>0 && userName.length<12
     userName[0,1]=userName[0,1].upcase
     return userName
   end
@@ -776,7 +786,7 @@ def pbSuggestTrainerName(gender)
      "SOFTWARE\\Microsoft\\Windows NT\\CurrentVersion",
      "RegisteredOwner","")
   owner=owner.gsub(/\s+.*$/,"")
-  if owner.length>0 && owner.length<7
+  if owner.length>0 && owner.length<12
     owner[0,1]=owner[0,1].upcase
     return owner
   end

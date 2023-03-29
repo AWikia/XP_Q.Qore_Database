@@ -127,6 +127,15 @@ def mainFunctionDebug #:nodoc:
     $oldAccent   = $PokemonSystem.accentcolor
     $BORDERS=getBorders
     setScreenBorderName($BORDERS[$PokemonSystem.bordergraphic]) # Sets image file for the border
+# Don't load Q.Qore in Windows 8.1 and below
+    if pbGetVersion() < 10240
+        scene=PokemonOutdatedSystemScreenScene.new
+        screen=PokemonOutdatedSystemScreen.new(scene)
+        pbFadeOutIn(99999) { 
+           screen.pbStartScreen
+        }
+      return
+    end
     Graphics.update
     Graphics.freeze
     $scene = pbCallTitle

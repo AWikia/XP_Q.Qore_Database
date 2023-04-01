@@ -35,9 +35,11 @@ class PokegearButton < SpriteWrapper
     self.bitmap.blt(0,0,@button.bitmap,Rect.new(0,0,@button.width,@button.height))
     self.bitmap.blt(0,0,@button2.bitmap,Rect.new(0,0,@button2.width,@button2.height))
     pbSetSystemFont(self.bitmap)
+    base=(isDarkMode?) ? Color.new(248,248,248) : Color.new(0,0,0)
+    shadow=(isDarkMode?) ? Color.new(40,40,40) : Color.new(160,160,160,160)
     textpos=[          # Name is written on both unselected and selected buttons
-       [@name,self.bitmap.width/2,10,2,Color.new(248,248,248),Color.new(40,40,40)],
-       [@name,self.bitmap.width/2,62,2,Color.new(248,248,248),Color.new(40,40,40)]
+       [@name,self.bitmap.width/2,10,2,base,shadow],
+       [@name,self.bitmap.width/2,62,2,base,shadow]
     ]
     pbDrawTextPositions(self.bitmap,textpos)
     icon=sprintf("Graphics/Pictures/pokegear"+@name)

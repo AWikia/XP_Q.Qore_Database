@@ -16928,7 +16928,7 @@ end
 
 ################################################################################
 # Increases the user's Attack, Special Attack and Speed stats by 2 stage and
-# loses some HP or switching out (Fillet Away)
+# loses some HP (Fillet Away)
 ################################################################################
 class PokeBattle_Move_364 < PokeBattle_Move
   def pbEffect(attacker,opponent,hitnum=0,alltargets=nil,showanimation=true)
@@ -16981,22 +16981,23 @@ class PokeBattle_Move_365 < PokeBattle_Move
 end
 
 ################################################################################
-# Halves the user's HP. Switches out the user. (Shed Tail)
-# TODO: Create a substitute
+# Halves the user's HP and turns 1/4 of max HP into a substitute Switches out 
+# the user and passes the substitute to the switched Pokemon. (Shed Tail)
 ################################################################################
 class PokeBattle_Move_366 < PokeBattle_Move
   def pbEffect(attacker,opponent,hitnum=0,alltargets=nil,showanimation=true)
     sublife=[(attacker.totalhp/2).floor,1].max
+    sublife2=[(attacker.totalhp/4).floor,1].max
     if !attacker.isFainted? &&
         attacker.effects[PBEffects::Substitute]==0 &&
         attacker.hp>sublife &&
-       @battle.pbCanChooseNonActive?(attacker.index) &&
-       !@battle.pbAllFainted?(@battle.pbParty(opponent.index))
+       @battle.pbCanChooseNonActive?(attacker.index)
         pbShowAnimation(@id,attacker,nil,hitnum,alltargets,showanimation)
          attacker.pbReduceHP(sublife,false,false)
          attacker.effects[PBEffects::Uturn]=true
+         attacker.effects[PBEffects::ShedTail]=sublife2
         return 0
-     else
+    else
 			pbSEPlay("protection")
       @battle.pbDisplay(_INTL("But it failed!"))
       return -1
@@ -17011,8 +17012,7 @@ end
 class PokeBattle_Move_367 < PokeBattle_Move
   def pbEffect(attacker,opponent,hitnum=0,alltargets=nil,showanimation=true)
     if !attacker.isFainted? &&
-       @battle.pbCanChooseNonActive?(attacker.index) &&
-       !@battle.pbAllFainted?(@battle.pbParty(opponent.index))
+       @battle.pbCanChooseNonActive?(attacker.index)
         pbShowAnimation(@id,attacker,nil,hitnum,alltargets,showanimation)
           if @battle.weather != PBWeather::HEAVYRAIN || 
              @battle.weather != PBWeather::HARSHSUN ||

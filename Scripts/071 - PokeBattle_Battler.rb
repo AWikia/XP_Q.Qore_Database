@@ -521,6 +521,7 @@ def ragefist
     @effects[PBEffects::Wish]               = 0
     @effects[PBEffects::WishAmount]         = 0
     @effects[PBEffects::WishMaker]          = -1
+    @effects[PBEffects::ShedTail]           = 0
   end
 
   def pbInitEffects(batonpass)

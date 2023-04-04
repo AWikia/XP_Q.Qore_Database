@@ -2466,6 +2466,13 @@ class PokeBattle_Battle
         pkmn.pbCureStatus(false)
         pkmn.effects[PBEffects::Sixtopia]=false
       end
+      # Shed Tail
+      if pkmn.effects[PBEffects::ShedTail]>0
+        PBDebug.log("[Lingering effect triggered] #{pkmn.pbThis}'s Shed Tail")
+        pkmn.effects[PBEffects::Substitute]=pkmn.effects[PBEffects::ShedTail]
+        pbDisplayPaused(_INTL("{1} put in a substitute!",pkmn.pbThis))
+        pkmn.effects[PBEffects::ShedTail]=0
+      end
       # Lunar Dance
       if pkmn.effects[PBEffects::LunarDance]
         PBDebug.log("[Lingering effect triggered] #{pkmn.pbThis}'s Lunar Dance")

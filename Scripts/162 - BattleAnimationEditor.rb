@@ -2289,7 +2289,7 @@ def pbSelectSE(canvas,audio)
   animfiles=[]
   animfiles[cmdNone=animfiles.length]=_INTL("[Play user's cry]")
   ret=false
-  pbRgssChdir(".\\Audio\\SE\\") {
+  pbrgsschdir(".\\audio\\se\\") {
      animfiles.concat(Dir.glob("*.wav"))
      animfiles.concat(Dir.glob("*.mp3"))
      animfiles.concat(Dir.glob("*.ogg"))
@@ -2931,7 +2931,7 @@ def pbExportAnim(animations)
   if filename!=""
     begin
       filename+=".anm"
-      File.open(filename,"wb"){|f|
+      File.open("Animations/#{filename}.anm","wb"){|f|
          f.write(dumpBase64Anim(animations[animations.selected]))
       }
       failed=false
@@ -2940,7 +2940,7 @@ def pbExportAnim(animations)
       failed=true
     end
     if !failed
-      Kernel.pbMessage(_INTL("Animation was saved to {1} in the game folder.",filename))
+      Kernel.pbMessage(_INTL("Animation was saved to {1} in the Animations folder.",filename))
       Kernel.pbMessage(_INTL("It's a text file, so it can be transferred to others easily."))
     end
   end
@@ -2948,7 +2948,7 @@ end
 
 def pbImportAnim(animations,canvas,animwin)
   animfiles=[]
-  pbRgssChdir(".") {
+  pbRgssChdir(".\\Animations\\") {
      animfiles.concat(Dir.glob("*.anm"))
   }
   cmdwin=pbListWindow(animfiles,320)
@@ -2961,7 +2961,7 @@ def pbImportAnim(animations,canvas,animwin)
     cmdwin.update
     if ((Input.trigger?(Input::C) && !Input.triggerex?(Input::LeftMouseKey)) || (cmdwin.doubleclick? rescue false)) && animfiles.length>0
       begin
-        textdata=loadBase64Anim(IO.read(animfiles[cmdwin.index]))
+        textdata=loadBase64Anim(IO.read("Animations/"+animfiles[cmdwin.index]))
         throw "Bad data" if !textdata.is_a?(PBAnimation)
         textdata.id=-1 # this is not an RPG Maker XP animation
         pbConvertAnimToNewFormat(textdata)

@@ -9,7 +9,7 @@ class ButtonEventScene < EventScene
   def initialize(viewport=nil)
     super
     Graphics.freeze
-    addImage(0,0,"Graphics/Pictures/helpbg")
+    addImage(0,0,"Graphics/Pictures/"+getDarkModeFolder+"/helpbg")
     @labels=[
        addLabel(52*2,13*2,Graphics.width*3/4,_INTL("Moves the main character. Also used to scroll through list entries.")),
        addLabel(52*2,53*2,Graphics.width*3/4,_INTL("Used to confirm a choice, check things, and talk to people.")),

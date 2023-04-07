@@ -1425,8 +1425,14 @@ class Interpreter
       x = $game_variables[@parameters[4]]
       y = $game_variables[@parameters[5]]
     end
+    # Get Picture Name
+    if pbResolveBitmap("Graphics/Pictures/"+getDarkModeFolder+"/"+@parameters[1])
+      filename=getDarkModeFolder+"/"+@parameters[1]
+    else
+      filename=@parameters[1]
+    end
     # Show picture
-    $game_screen.pictures[number].show(@parameters[1], @parameters[2],
+    $game_screen.pictures[number].show(filename, @parameters[2],
        x, y, @parameters[6], @parameters[7], @parameters[8], @parameters[9])
     # Continue
     return true

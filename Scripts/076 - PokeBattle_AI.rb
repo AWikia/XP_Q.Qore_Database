@@ -3098,7 +3098,7 @@ class PokeBattle_Battle
       end
     when 0x250
     when 0x252
-      score-=90 if opponent.hasWorkingAbility(:STURDY) || opponent.pbHasType(:MAGIC)
+      score-=90 if opponent.hasWorkingAbility(:STURDY) || opponent.pbHasType?(:MAGIC)
       score-=90 if opponent.level>attacker.level
     when 0x253
       count=0
@@ -3199,7 +3199,7 @@ class PokeBattle_Battle
       score-=90 if opponent.hasWorkingAbility(:STURDY) || 
                    opponent.hasWorkingAbility(:HERBALILITY) || 
                    opponent.hasWorkingAbility(:MASKEDHERB) || 
-                   opponent.pbHasType(:HERB) || opponent.pbHasType(:GLIMSE) ||
+                   opponent.pbHasType?(:HERB) || opponent.pbHasType?(:GLIMSE) ||
                    opponent.hasWorkingItem(:BOTANICSMOKE)
       score-=90 if opponent.level>attacker.level
     when 0x279

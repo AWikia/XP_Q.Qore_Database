@@ -2238,17 +2238,19 @@ class PokeBattle_Battle
       end
     end
     # Gain experience
+# NOSPLITEXP is deprecated in 23H1
     ispartic=0
     ispartic=1 if defeated.participants.include?(index)
     haveexpshare=(isConst?(thispoke.item,PBItems,:EXPSHARE) ||
                   isConst?(thispoke.itemInitial,PBItems,:EXPSHARE)) ? 1 : 0
     exp=0
+    nosplit=($PokemonSystem.battledif<2 rescue false)
     if expshare>0
       if partic==0 # No participants, all Exp goes to Exp Share holders
         exp=(level*baseexp).floor
-        exp=(exp/(NOSPLITEXP ? 1 : expshare)).floor*haveexpshare
+        exp=(exp/(nosplit ? 1 : expshare)).floor*haveexpshare
       else
-        if NOSPLITEXP
+        if nosplit
           exp=(level*baseexp).floor*ispartic
           exp=(level*baseexp/2).floor*haveexpshare if ispartic==0
         else
@@ -2257,21 +2259,24 @@ class PokeBattle_Battle
         end
       end
     elsif ispartic==1
-      exp=(level*baseexp/(NOSPLITEXP ? 1 : partic)).floor
+      exp=(level*baseexp/(nosplit ? 1 : partic)).floor
     elsif haveexpall
       exp=(level*baseexp/2).floor
     end
     return if exp<=0
     exp=(exp*3/2).floor if @opponent
-    if USESCALEDEXPFORMULA
-      exp=(exp/5).floor
+# USESCALEDEXPFORMULA is deprecated in 23H1
+    if ($PokemonSystem.battledif>1 rescue false)
+      diff=[5,7][$PokemonSystem.battledif-2]
+      exp=(exp/diff).floor
       leveladjust=(2*level+10.0)/(level+thispoke.level+10.0)
       leveladjust=leveladjust**5
       leveladjust=Math.sqrt(leveladjust)
       exp=(exp*leveladjust).floor
       exp+=1 if ispartic>0 || haveexpshare>0
     else
-      exp=(exp/5).floor
+      diff=[5,7][$PokemonSystem.battledif]
+      exp=(exp/diff).floor
     end
     isOutsider=(thispoke.trainerID!=self.pbPlayer.id ||
                (thispoke.language!=0 && thispoke.language!=self.pbPlayer.language))

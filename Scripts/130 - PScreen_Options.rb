@@ -600,6 +600,7 @@ class PokemonSystem
   attr_accessor :threecolorbar
   attr_accessor :enableshading
   attr_accessor :textskincolors
+  attr_accessor :battledif
   
   def initialize
     @textspeed        = 1   # Text speed (0=slow, 1=normal, 2=fast)
@@ -640,6 +641,7 @@ class PokemonSystem
     @threecolorbar    = 0   # Three Color Progress Bar
     @enableshading    = 1   # Outdoor Map Shading
     @textskincolors   = 0   # Text Skin Color Scheme (0=Standard, 1=Colors, 2=CMYK, 3=Vintage)
+    @battledif        = 0   # Battle Difficulty
 end
   
   def language
@@ -768,6 +770,10 @@ end
   def textskincolors
     return (!@textskincolors) ? 0 : @textskincolors
   end
+
+  def battledif
+    return (!@battledif) ? 0 : @battledif
+  end    
 
   
   def tilemap; return MAPVIEWMODE; end
@@ -973,6 +979,12 @@ There are different modes:
            proc {|value| $PokemonSystem.battlescene=value },
            "When set to Off, no battle animations will be shown"
         ),
+         NumberOption.new(_INTL("Battle Difficulty"),1,4,
+           proc { $PokemonSystem.battledif },
+           proc {|value| $PokemonSystem.battledif = value },
+           ["Easy", "Normal", "Hard", "Challenging"],
+           "Sets battle difficulty. In Easy and Normal difficulties, EXP will not be divided equally between each participant. In Hard and Challenging difficulties, a scaled EXP formula is applied."
+         ),
         EnumOption.new(_INTL("Wild Pokémon Battle Style"),[_INTL("Single"),_INTL("Double")],
         # During join with stat trainers, all wild battles are in double battle regardless of this setting
         # If the user has only one Pokemon, all wild battles are in single battle regardless of this setting

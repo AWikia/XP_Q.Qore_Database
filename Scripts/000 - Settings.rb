@@ -115,8 +115,8 @@ NOSIGNPOSTS = [110,111]
 #===============================================================================
 USEMOVECATEGORY       = true
 # USENEWBATTLEMECHANICS = true
-USESCALEDEXPFORMULA   = false
-NOSPLITEXP            = true
+USESCALEDEXPFORMULA   = false #
+NOSPLITEXP            = true #
 USECRITICALCAPTURE    = true
 GAINEXPFORCAPTURE     = true
 

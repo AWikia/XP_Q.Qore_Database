@@ -5035,6 +5035,11 @@ def ragefist
       PBDebug.log("[Ability triggered] #{pbThis}'s Truant")
       return false
     end
+    if (!self.hasWorkingAbility(:TRUANT) && ($PokemonSystem.battledif==4 rescue false) ) && @effects[PBEffects::Truant]
+      pbSEPlay("protection")
+			@battle.pbDisplay(_INTL("{1} is loafing around!",pbThis))
+      return false
+    end
     if !turneffects[PBEffects::SkipAccuracyCheck]
       if self.status==PBStatuses::SLEEP
         self.statusCount-=1

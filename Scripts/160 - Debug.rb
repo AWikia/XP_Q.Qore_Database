@@ -302,6 +302,7 @@ def pbDebugMenu(fromgame=true)
   commands.add("animeditor",_INTL("Animation Editor"))
   commands.add("debugconsole",_INTL("Debug Console"))
   commands.add("togglelogging",_INTL("Toggle Battle Logging"))
+  commands.add("godhandmode",_INTL("Use Intensive Battle Difficulty"))
   sprites["cmdwindow"]=Window_CommandPokemonEx.new(commands.list)
   cmdwindow=sprites["cmdwindow"]
   cmdwindow.viewport=viewport
@@ -909,6 +910,9 @@ def pbDebugMenu(fromgame=true)
       $INTERNAL=!$INTERNAL
       Kernel.pbMessage(_INTL("Debug logs for battles will be made in the Data folder and the debug console.")) if $INTERNAL
       Kernel.pbMessage(_INTL("Debug logs for battles will not be made.")) if !$INTERNAL
+    elsif cmd=="godhandmode"
+      $PokemonSystem.battledif=4
+      Kernel.pbMessage(_INTL("Battle difficulty has been set to Intensive."))
     end
   end
   pbFadeOutAndHide(sprites)

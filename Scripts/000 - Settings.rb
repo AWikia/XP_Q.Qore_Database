@@ -118,7 +118,7 @@ USEMOVECATEGORY       = true
 USESCALEDEXPFORMULA   = false #
 NOSPLITEXP            = true #
 USECRITICALCAPTURE    = true
-GAINEXPFORCAPTURE     = true
+GAINEXPFORCAPTURE     = true #
 
 #===============================================================================
 # * The minimum number of badges required to boost each stat of a player's

@@ -178,7 +178,9 @@ module PokeBattle_BattleCommon
         pokemon.makeUnprimal rescue nil
         pokemon.pbRecordFirstMoves
         pokemon.pbResetForm  rescue nil # Edit
-        if GAINEXPFORCAPTURE
+# GAINEXPFORCAPTURE is deprecated in 23H1
+        expgain=($PokemonSystem.battledif<4 rescue false)
+        if expgain
           battler.captured=true
           pbGainEXP
           battler.captured=false
@@ -2267,7 +2269,7 @@ class PokeBattle_Battle
     exp=(exp*3/2).floor if @opponent
 # USESCALEDEXPFORMULA is deprecated in 23H1
     if ($PokemonSystem.battledif>1 rescue false)
-      diff=[5,7][$PokemonSystem.battledif-2]
+      diff=[5,7,20][$PokemonSystem.battledif-2]
       exp=(exp/diff).floor
       leveladjust=(2*level+10.0)/(level+thispoke.level+10.0)
       leveladjust=leveladjust**5
@@ -4755,6 +4757,11 @@ class PokeBattle_Battle
     for i in 0...4
       if @battlers[i].turncount>0 && @battlers[i].hasWorkingAbility(:TRUANT)
         @battlers[i].effects[PBEffects::Truant]=!@battlers[i].effects[PBEffects::Truant]
+      end
+      if ($PokemonSystem.battledif==4 rescue false) && 
+         (i%2)==0 &&
+         !@battlers[i].hasWorkingAbility(:TRUANT)
+           @battlers[i].effects[PBEffects::Truant]=!@battlers[i].effects[PBEffects::Truant]
       end
       if @battlers[i].effects[PBEffects::LockOn]>0   # Also Mind Reader
         @battlers[i].effects[PBEffects::LockOn]-=1

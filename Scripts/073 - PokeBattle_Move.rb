@@ -1303,6 +1303,13 @@ class PokeBattle_Move
         atkmult=(atkmult*1.1).round
       end
     end
+    if ($PokemonSystem.battledif==4 rescue false) 
+      if @battle.pbIsOpposing?(attacker.index)
+        atkmult=(atkmult*2.0).round
+      else
+        atkmult=(atkmult*0.5).round
+      end
+    end
     # changed - Water Bubble on attack
     if attacker.hasWorkingAbility(:WATERBUBBLE) && isConst?(type,PBTypes,:WATER)
       atkmult=(atkmult*2.0).round

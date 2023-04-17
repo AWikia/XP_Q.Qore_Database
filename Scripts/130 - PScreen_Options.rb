@@ -980,9 +980,11 @@ There are different modes:
            "When set to Off, no battle animations will be shown"
         ),
          NumberOption.new(_INTL("Battle Difficulty"),1,4,
+         # Intensive can't be chosen from the settings screen and must be enabled
+         # from Debug Menu for balancing reasons
            proc { $PokemonSystem.battledif },
            proc {|value| $PokemonSystem.battledif = value },
-           ["Easy", "Normal", "Hard", "Challenging"],
+           ["Easy", "Normal", "Hard", "Challenging","Intensive"],
            "Sets battle difficulty. In Easy and Normal difficulties, EXP will not be divided equally between each participant. In Hard and Challenging difficulties, a scaled EXP formula is applied."
          ),
         EnumOption.new(_INTL("Wild Pokémon Battle Style"),[_INTL("Single"),_INTL("Double")],

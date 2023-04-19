@@ -45,9 +45,9 @@ class PokemonNestMapScene
     end
     @sprites["background"]=IconSprite.new(0,0,@viewport)
   if pbGetPokedexRegion==-1 # Using national Pokédex
-    @sprites["background"].setBitmap(_INTL("Graphics/Pictures/"+getDarkModeFolder+"/pokedexNest"))
+    @sprites["background"].setBitmap(_INTL("Graphics/Pictures/"+getDarkModeFolder+"/Pokedex/bg_area"))
   else
-    @sprites["background"].setBitmap(_INTL("Graphics/Pictures/"+getDarkModeFolder+"/pokedexNest"))
+    @sprites["background"].setBitmap(_INTL("Graphics/Pictures/"+getDarkModeFolder+"/Pokedex/bg_area"))
 #    @sprites["background"].setBitmap(_INTL("Graphics/Pictures/pokedexNestREGION"))
   end  
     @sprites["map"]=IconSprite.new(0,0,@viewport)
@@ -246,9 +246,9 @@ class PokedexFormScene
     @sprites["downarrow"].play
     @sprites["downarrow"].visible = false
   if pbGetPokedexRegion==-1 # Using national Pokédex
-    @sprites["background"].setBitmap(_INTL("Graphics/Pictures/"+getDarkModeFolder+"/pokedexForm"))
+    @sprites["background"].setBitmap(_INTL("Graphics/Pictures/"+getDarkModeFolder+"/Pokedex/bg_form"))
   else
-    @sprites["background"].setBitmap(_INTL("Graphics/Pictures/"+getDarkModeFolder+"/pokedexForm"))
+    @sprites["background"].setBitmap(_INTL("Graphics/Pictures/"+getDarkModeFolder+"/Pokedex/bg_form"))
 #    @sprites["background"].setBitmap(_INTL("Graphics/Pictures/pokedexFormREGION"))
   end
     @sprites["info"]=BitmapSprite.new(Graphics.width,Graphics.height,@viewport)

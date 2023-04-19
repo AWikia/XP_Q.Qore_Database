@@ -864,7 +864,7 @@ There are different modes:
     title=["General Settings", "Sound Settings", "Battle Settings", "Display Settings","Personalization Settings"]
     @viewport=Viewport.new(0,0,Graphics.width,Graphics.height)
     @viewport.z=99999
-      addBackgroundOrColoredPlane(@sprites,"title",getDarkModeFolder+"/settingsbg_1",
+      addBackgroundOrColoredPlane(@sprites,"title",getDarkModeFolder+"/Settings/bg_1",
          Color.new(0,0,0),@viewport)
     @sprites["header"]=Window_UnformattedTextPokemon.newWithSize(_INTL(title[mode]),
        2,-18,576,64,@viewport)      

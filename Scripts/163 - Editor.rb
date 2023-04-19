@@ -1302,7 +1302,7 @@ def pbListScreenBlock(title,lister)
   list.viewport=viewport
   list.z=3
   plane = AnimatedPlane.new(viewport)
-  plane.bitmap=AnimatedBitmap.new("Graphics/Pictures/"+getDarkModeFolder+"/settingsbg").deanimate
+  plane.bitmap=AnimatedBitmap.new("Graphics/Pictures/"+getDarkModeFolder+"/Settings/bg").deanimate
   plane.z=2
   title=Window_UnformattedTextPokemon.newWithSize(_INTL(title),
       2,-18,576,64,viewport)      

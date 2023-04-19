@@ -135,7 +135,7 @@ class PokemonBag_Scene
     lastpocket=@bag.lastpocket
     lastitem=@bag.getChoice(lastpocket)
     @sprites["background"]=IconSprite.new(0,0,@viewport)
-    @sprites["background"].setBitmap(sprintf("Graphics/Pictures/"+getDarkModeFolder+"/bagbg#{lastpocket}"))
+    @sprites["background"].setBitmap(sprintf("Graphics/Pictures/"+getDarkModeFolder+"/Bag/bg_#{lastpocket}"))
     @sprites["leftarrow"]=AnimatedSprite.new("Graphics/Pictures/"+getAccentFolder+"/leftarrow",8,40,28,2,@viewport)
     @sprites["rightarrow"]=AnimatedSprite.new("Graphics/Pictures/"+getAccentFolder+"/rightarrow",8,40,28,2,@viewport)
     @sprites["leftarrow"].play
@@ -159,7 +159,7 @@ class PokemonBag_Scene
     @sprites["header"].shadowColor=nil #Color.new(0,0,0)
     @sprites["header"].windowskin=nil
     @sprites["slider"]=IconSprite.new(Graphics.width-40,78,@viewport)
-    @sprites["slider"].setBitmap(sprintf("Graphics/Pictures/"+getDarkModeFolder+"/bagSlider"))
+    @sprites["slider"].setBitmap(sprintf("Graphics/Pictures/"+getDarkModeFolder+"/Bag/icon_slider"))
     @sprites["pocketwindow"]=BitmapSprite.new(186,228,@viewport)
     pbSetSystemFont(@sprites["pocketwindow"].bitmap)
     @sprites["itemtextwindow"]=Window_UnformattedTextPokemon.new("")
@@ -217,13 +217,13 @@ class PokemonBag_Scene
     bm=@sprites["pocketwindow"].bitmap
     bm.clear
     # Set the background bitmap for the currently selected pocket
-    @sprites["background"].setBitmap(sprintf("Graphics/Pictures/"+getDarkModeFolder+"/bagbg#{@bag.lastpocket}"))
+    @sprites["background"].setBitmap(sprintf("Graphics/Pictures/"+getDarkModeFolder+"/Bag/bg_#{@bag.lastpocket}"))
     # Set the bag picture for the currently selected pocket
-    fbagexists=pbResolveBitmap(sprintf("Graphics/Pictures/bag#{@bag.lastpocket}f"))
+    fbagexists=pbResolveBitmap(sprintf("Graphics/Pictures/Bag/bag_#{@bag.lastpocket}_f"))
     if $Trainer.isFemale? && fbagexists
-      @sprites["bag"].setBitmap("Graphics/Pictures/bag#{@bag.lastpocket}f")
+      @sprites["bag"].setBitmap("Graphics/Pictures/Bag/bag_#{@bag.lastpocket}_f")
     else
-      @sprites["bag"].setBitmap("Graphics/Pictures/bag#{@bag.lastpocket}")
+      @sprites["bag"].setBitmap("Graphics/Pictures/Bag/bag_#{@bag.lastpocket}")
     end
     # Draw the pocket name
     itemwindow=@sprites["itemwindow"]

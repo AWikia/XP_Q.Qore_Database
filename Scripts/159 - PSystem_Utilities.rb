@@ -1609,9 +1609,9 @@ end
 
 def pbMailBackFile(item)
   return nil if !item
-  bitmapFileName=sprintf("Graphics/Pictures/mail%s",getConstantName(PBItems,item)) rescue nil
+  bitmapFileName=sprintf("Graphics/Pictures/Mail/mail_%s",getConstantName(PBItems,item)) rescue nil
   if !pbResolveBitmap(bitmapFileName)
-    bitmapFileName=sprintf("Graphics/Pictures/mail%03d",item)
+    bitmapFileName=sprintf("Graphics/Pictures/Mail/mail_%03d",item)
   end
   return bitmapFileName
 end

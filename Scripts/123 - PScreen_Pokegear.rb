@@ -42,7 +42,7 @@ class PokegearButton < SpriteWrapper
        [@name,self.bitmap.width/2,62,2,base,shadow]
     ]
     pbDrawTextPositions(self.bitmap,textpos)
-    icon=sprintf("Graphics/Pictures/pokegear"+@name)
+    icon=sprintf("Graphics/Pictures/Pokegear/icon_"+@name)
     imagepos=[         # Icon is put on both unselected and selected buttons
        [icon,18,10,0,0,-1,-1],
        [icon,18,62,0,0,-1,-1]
@@ -98,11 +98,11 @@ class Scene_PokegearScene
     @viewport=Viewport.new(0,0,Graphics.width,Graphics.height)
     @viewport.z=99999
     @button=AnimatedBitmap.new("Graphics/Pictures/"+getDarkModeFolder+"/pokegearButton")
-    femback=pbResolveBitmap(sprintf("Graphics/Pictures/"+getDarkModeFolder+"/pokegearbgf"))
+    femback=pbResolveBitmap(sprintf("Graphics/Pictures/"+getDarkModeFolder+"/Pokegear/bg_f"))
     if $Trainer && $Trainer.isFemale? && femback
-      addBackgroundPlane(@sprites,"background",getDarkModeFolder+"/pokegearbgf",@viewport)
+      addBackgroundPlane(@sprites,"background",getDarkModeFolder+"/Pokegear/bg_f",@viewport)
     else
-      addBackgroundPlane(@sprites,"background",getDarkModeFolder+"/pokegearbg",@viewport)
+      addBackgroundPlane(@sprites,"background",getDarkModeFolder+"/Pokegear/bg",@viewport)
     end
     @sprites["header"]=Window_UnformattedTextPokemon.newWithSize(_INTL("Pokégear"),
        2,-18,128,64,@viewport)

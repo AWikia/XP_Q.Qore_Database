@@ -237,7 +237,7 @@ def pbDebugMenu(fromgame=true)
   viewport=Viewport.new(0,0,Graphics.width,Graphics.height)
   viewport.z=99999
   sprites={}
-      addBackgroundOrColoredPlane(sprites,"title",getDarkModeFolder+"/settingsbg",
+      addBackgroundOrColoredPlane(sprites,"title",getDarkModeFolder+"/Settings/bg",
          Color.new(0,0,0),viewport)
     title="Debug Menu"    
     sprites["header"]=Window_UnformattedTextPokemon.newWithSize(_INTL(title),
@@ -1003,7 +1003,7 @@ def pbDebugScreen(mode)
   viewport=Viewport.new(0,0,Graphics.width,Graphics.height)
   viewport.z=99999
   sprites={}
-      addBackgroundOrColoredPlane(sprites,"title",getDarkModeFolder+"/settingsbg_"+["2","3"][mode],
+      addBackgroundOrColoredPlane(sprites,"title",getDarkModeFolder+"/Settings/bg_"+["2","3"][mode],
          Color.new(0,0,0),viewport)
     title=["Switches", "Variables"][mode]    
     sprites["header"]=Window_UnformattedTextPokemon.newWithSize(_INTL(title),
@@ -1058,7 +1058,7 @@ def pbDebugScreen2(mode)
   viewport=Viewport.new(0,0,Graphics.width,Graphics.height)
   viewport.z=99999
   sprites={}
-      addBackgroundOrColoredPlane(sprites,"title",getDarkModeFolder+"/settingsbg_4",
+      addBackgroundOrColoredPlane(sprites,"title",getDarkModeFolder+"/Settings/bg_4",
          Color.new(0,0,0),viewport)
     title=["Game ROM Initialization Check", "Control Configuration Check", "Game RAM Initialization Check", "Audio Initialization Check"][mode]    
     sprites["header"]=Window_UnformattedTextPokemon.newWithSize(_INTL(title),

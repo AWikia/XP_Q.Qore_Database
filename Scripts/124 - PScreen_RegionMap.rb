@@ -50,7 +50,7 @@ class MapBottomSprite < SpriteWrapper
   def refresh
     self.bitmap.clear
     if @nonests
-      imagepos=[[sprintf("Graphics/Pictures/"+getDarkModeFolder+"/pokedexNestUnknown"),172,172,0,0,-1,-1]]
+      imagepos=[[sprintf("Graphics/Pictures/"+getDarkModeFolder+"/Pokedex/overlay_areanone"),172,172,0,0,-1,-1]]
       pbDrawImagePositions(self.bitmap,imagepos)
     end
 =begin

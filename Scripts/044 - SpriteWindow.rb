@@ -1452,29 +1452,6 @@ def addBackgroundPlane(sprites,planename,background,viewport=nil)
   end
 end
 
-# Adds a background to the sprite hash.
-# _planename_ is the hash key of the background.
-# _background_ is a filename within the Graphics/Pictures/ folder and can be
-#       an animated image.
-# _color_ is the color to use if the background can't be found.
-# _viewport_ is a viewport to place the background in.
-def addBackgroundOrColoredPlaneGlobal(sprites,planename,background,color,viewport=nil)
-  bitmapName=pbResolveBitmap("Graphics/Global Pictures/#{background}")
-  if bitmapName==nil
-    # Plane should exist in any case
-    sprites[planename]=ColoredPlane.new(color,@viewport)
-  else
-    sprites[planename]=AnimatedPlane.new(viewport)
-    sprites[planename].setBitmap(bitmapName)
-    for spr in sprites.values
-      if spr.is_a?(Window)
-        spr.windowskin=nil
-      end
-    end
-  end
-end
-
-
 def addBackgroundOrColoredPlane(sprites,planename,background,color,viewport=nil)
   bitmapName=pbResolveBitmap("Graphics/Pictures/#{background}")
   if bitmapName==nil

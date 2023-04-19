@@ -84,7 +84,7 @@ class PokemonTilesetScene
     @tilehelper=TileDrawingHelper.fromTileset(@tileset)
     @sprites={}
 
-      addBackgroundOrColoredPlane(@sprites,"title",getDarkModeFolder+"/settingsbg_5",
+      addBackgroundOrColoredPlane(@sprites,"title",getDarkModeFolder+"/Settings/bg_5",
          Color.new(0,0,0),@viewport)
     title="Tileset Editor"    
     @sprites["header"]=Window_UnformattedTextPokemon.newWithSize(_INTL(title),

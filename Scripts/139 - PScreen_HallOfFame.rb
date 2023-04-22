@@ -30,7 +30,7 @@ class HallOfFameScene
   # If a player exceed this limit, the first one will be removed
   HALLLIMIT = -1
   # The entry music name. Put "" to doesn't play anything
-  ENTRYMUSIC = "Screen" # Hall of Fame
+  ENTRYMUSIC = "Hall of Fame" # Hall of Fame
   # Allow eggs to be show and saved in hall
   ALLOWEGGS = false
   # Remove the hallbars when the trainer sprite appears

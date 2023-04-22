@@ -2061,6 +2061,7 @@ MapPosition=14,24,6
 Outdoor=true
 ShowArea=true
 Environment=Sky
+WildBattleBGM=Battler_Nebula Cave.mp3
 [359]
 # Sanuora Sechs
 MapSize=3,111101111111101
@@ -2071,12 +2072,14 @@ MapPosition=14,1,15
 Outdoor=true
 ShowArea=true
 Environment=Galaxy
+WildBattleBGM=Battler_Nebula Cave.mp3
 [360]
 # Understairs Sanuora Sechs
 MapSize=3,111101111111101
 BattleBack=Underwater
 MapPosition=14,1,15
 ShowArea=true
+WildBattleBGM=Battler_Nebula Cave.mp3
 [361]
 # Sanuora Sieben
 MapSize=3,111101111101
@@ -2086,36 +2089,43 @@ MapPosition=14,25,13
 Outdoor=true
 ShowArea=true
 Environment=Galaxy
+WildBattleBGM=Battler_Nebula Cave.mp3
 [362]
 # Saniora Eins
 BattleBack=Saniora
 Outdoor=true
 ShowArea=true
+WildBattleBGM=Battler_Nebula Cave.mp3
 [363]
 # Saniora Zwei
 BattleBack=Saniora
 Outdoor=true
 ShowArea=true
+WildBattleBGM=Battler_Nebula Cave.mp3
 [364]
 # Saniora Drei
 BattleBack=Saniora
 Outdoor=true
 ShowArea=true
+WildBattleBGM=Battler_Nebula Cave.mp3
 [365]
 # Saniora Vier
 BattleBack=Saniora
 Outdoor=true
 ShowArea=true
+WildBattleBGM=Battler_Nebula Cave.mp3
 [366]
 # Saniora Funf
 BattleBack=Saniora
 Outdoor=true
 ShowArea=true
+WildBattleBGM=Battler_Nebula Cave.mp3
 [367]
 # Saniora Sechs
 BattleBack=Saniora
 Outdoor=true
 ShowArea=true
+WildBattleBGM=Battler_Nebula Cave.mp3
 [369]
 # Corni Carven
 BattleBack=IndoorF

@@ -57,7 +57,7 @@
 55,YOUNGCOUPLE,Young Couple,60,,,Eye_TWINS.mp3,Mixed,32,
 56,TEAMROCKET_M,Team Rocket,32,sfxBattler_TEAMROCKETS,Victory - Special Trainer,Eye_TEAMFLARE.mp3,Male,,
 57,TEAMROCKET_F,Team Rocket,32,sfxBattler_TEAMROCKETS,Victory - Special Trainer,Eye_TEAMFLARE.mp3,Female,,
-58,ROCKETBOSS,Rocket Boss,100,Boss Battle 1.mp3,Victory - Special Trainer,Eye_TEAMFLARE.mp3,Male,,
+58,ROCKETBOSS,Rocket Boss,100,Battler_TEAMROCKETS,Victory - Special Trainer,Eye_TEAMFLARE.mp3,Male,,
 59,LEADER_Brock,Gym Leader,100,gymleader,Victory - Gym Pokemon.mp3,Eye_LEADER.mp3,Male,,
 60,LEADER_Misty,Gym Leader,100,gymleader,Victory - Gym Pokemon.mp3,Eye_LEADER.mp3,Female,,
 61,LEADER_Surge,Gym Leader,100,gymleader,Victory - Gym Pokemon.mp3,Eye_LEADER.mp3,Male,,
@@ -74,8 +74,8 @@
 72,POKEMONTRAINER_Lyrithya,Pokémon Trainer,60,Battler_TRAINERS_Lyrithya,Victory - Rival,Eye_RIVAL.mp3,Female,,
 73,SIX,6 Battler,85,6Battle,Victory - Special Trainer,Eye_TEAMFLARE.mp3,Male,,
 74,POKEMONTRAINER_Cheryl,Pokémon Trainer,60,,Victory - Rival,Eye_RIVAL.mp3,Female,,
-75,PRECALLER,Precaller,190,Precaller.mp3,Victory - Special Trainer,Eye_FURISODEGIRL.mp3,Mixed,,
-76,ROCKETBOSSjenny,Rocket Boss,100,Boss Battle 2.mp3,Victory - Special Trainer,Eye_TEAMFLARE.mp3,Male,,
+75,PRECALLER,Precaller,190,6Battle,Victory - Special Trainer,Eye_FURISODEGIRL.mp3,Mixed,,
+76,ROCKETBOSSjenny,Rocket Boss,100,Battler_TEAMROCKETS,Victory - Special Trainer,Eye_TEAMFLARE.mp3,Male,,
 77,HIKER2,Hiker,50,Battler_TEAMROCKETS,,Eye_HIKER.mp3,Male,, ## Must be removed when using own game
 78,SIX2,6 Battler,85,6Battle,Victory - Special Trainer,Eye_TEAMFLARE.mp3,Male,, ## Must be removed when using own game
 79,YOUNGSTER2,Youngster,50,Battler_TEAMROCKETS,,Eye_YOUNGSTER.mp3,Male,, ## Must be removed when using own game

@@ -3030,12 +3030,14 @@ end
 # This method is called when the player wins a wild Pokémon battle.
 # This method can change the battle's music for example.
   def pbWildBattleSuccess
+    pbBGSStop()
     pbBGMPlay(pbGetWildVictoryME())
   end
 
 # This method is called when the player wins a Trainer battle.
 # This method can change the battle's music for example.
   def pbTrainerBattleSuccess
+    pbBGSStop()
     pbBGMPlay(pbGetTrainerVictoryME(@battle.opponent))
   end
 
@@ -3369,6 +3371,7 @@ end
   def pbThrowSuccess
     if !@battle.opponent
       @briefmessage=false
+      pbBGSStop()
       pbMEPlay("CaptureSuccess")
       pbBGMPlay("CaptureSuccess2")
       frames=(3.5*Graphics.frame_rate).to_i

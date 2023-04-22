@@ -1642,6 +1642,7 @@ class PokeBattle_Battle
     end
     pbMessagesOnReplace(index,newpoke,newpokename)
     pbReplace(index,newpoke,batonpass)
+    pbCheckDanger
     return pbOnActiveOne(@battlers[index],false,moldbreaker)
   end
 
@@ -2343,6 +2344,7 @@ class PokeBattle_Battle
             battler.pokemon.changeHappiness("level up")
           end
           thispoke.calcStats
+          pbCheckDanger
           battler.pbUpdate(false) if battler
           @scene.pbRefresh
           pbDisplayPaused(_INTL("{1} grew to Level {2}!",thispoke.name,curlevel))
@@ -2410,6 +2412,29 @@ class PokeBattle_Battle
 ################################################################################
 # Abilities.
 ################################################################################
+  def pbCheckDanger
+    dhp=0
+    dhp2=0
+    for i in 0...4
+    # Updates Danger
+      if !pbIsOpposing?(i)
+        if !@battlers[i].isFainted?
+          dhp+=@battlers[i].totalhp
+          dhp2+=@battlers[i].hp
+        end
+      end
+    # Updates Danger
+    end
+    mode= (dhp2<=(dhp/8).floor) ? 1 : 0
+    if dhp2<=(dhp/4).floor
+      pbBGMPlay($BATTLEBGM,0)
+      pbBGSPlay(pbGetDangerBattleBGM(0,mode),100)
+    else
+      pbBGMPlay($BATTLEBGM,100)
+      pbBGSPlay(pbGetDangerBattleBGM(0,mode),0)
+    end
+  end
+
   def pbOnActiveAll
     for i in 0...4 # Currently unfainted participants will earn EXP even if they faint afterwards
       @battlers[i].pbUpdateParticipants if pbIsOpposing?(i)
@@ -2914,6 +2939,7 @@ class PokeBattle_Battle
       pbDisplay(_INTL("The wind is strong."))
     end
     pbOnActiveAll   # Abilities
+    pbCheckDanger
     @turncount=0
     loop do   # Now begin the battle loop
       PBDebug.log("")

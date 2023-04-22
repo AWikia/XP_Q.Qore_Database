@@ -498,9 +498,12 @@ def pbBattleAnimation(bgm=nil,trainerid=-1,trainername="")
   pbMEStop
   if bgm
     pbBGMPlay(bgm)
+    $BATTLEBGM=bgm
   else
     pbBGMPlay(pbGetWildBattleBGM(0))
+    $BATTLEBGM=pbGetWildBattleBGM(0)
   end
+  pbBGSPlay(pbGetDangerBattleBGM(0,0),0)
   viewport=Viewport.new(0,0,Graphics.width,Graphics.height)
   viewport.z=99999
 # Fade to gray a few times.

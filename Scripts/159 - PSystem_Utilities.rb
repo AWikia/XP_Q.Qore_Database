@@ -1801,7 +1801,13 @@ def pbCryFileClassic(pokemon)
   return nil
 end
 
-
+def pbGetDangerBattleBGM(species,mode=0)
+  if ($PokemonSystem.battledif>1 rescue false)
+    return ["DangerHard","DangerHard_2"][mode]
+  else
+    return "Danger"
+  end
+end
 
 def pbGetWildBattleBGM(species)
   if $PokemonGlobal.nextBattleBGM

@@ -320,7 +320,7 @@ end
 
 # Returns the Accent Colors
 def getAccentNames
-  return ["Light Yellow", "Yellow", "Dark Yellow", "Light Orange", "Orange", "Dark Orange", "Light Red", "Red", "Dark Red", "Light Pink", "Pink", "Dark Pink", "Light Purple", "Purple", "Dark Purple", "Light Blue", "Blue", "Dark Blue", "Light Green", "Green", "Dark Green", "Light Gray", "Gray", "Dark Gray", "Channel-Aware", "Multi-Colored", "Black and White", "Pokémon Quadruplet", "Bronze Medal", "Silver Medal", "Gold Medal", "Platinum Medal", "White 2 and Black 2", "X and Y", "Sun and Moon", "Pikachu and Eevee", "Sword and Shield", "Scarlet and Violet", "Brilliant Diamond and Shining Pearl", "Omega Ruby and Alpha Sapphire", "HeartGold and SoulSilver", "Expansion Pass", "FireRed and LeafGreen", "Light Eevee and Pikachu", "Inverted Multi-Colored", "Crystal", "Emerald", "Legends: Arceus"]
+  return ["Light Yellow", "Yellow", "Dark Yellow", "Light Orange", "Orange", "Dark Orange", "Light Red", "Red", "Dark Red", "Light Pink", "Pink", "Dark Pink", "Light Purple", "Purple", "Dark Purple", "Light Blue", "Blue", "Dark Blue", "Light Green", "Green", "Dark Green", "Light Gray", "Gray", "Dark Gray", "Channel-Aware", "Multi-Colored", "Black and White", "Pokémon Quadruplet", "Bronze Medal", "Silver Medal", "Gold Medal", "Platinum Medal", "White 2 and Black 2", "X and Y", "Sun and Moon", "Pikachu and Eevee", "Sword and Shield", "Scarlet and Violet", "Brilliant Diamond and Shining Pearl", "Omega Ruby and Alpha Sapphire", "HeartGold and SoulSilver", "Expansion Pass", "FireRed and LeafGreen", "Light Eevee and Pikachu", "Inverted Multi-Colored", "Crystal", "Emerald", "Legends: Arceus", "The Hidden Treassure of Area Zero"]
 end
 
 # Returns the Active Accent Color

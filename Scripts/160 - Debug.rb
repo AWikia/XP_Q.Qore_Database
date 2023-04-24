@@ -453,7 +453,7 @@ def pbDebugMenu(fromgame=true)
         $Trainer.seen[i]=true
         $Trainer.owned[i]=true
         $Trainer.formlastseen[i]=[] if !$Trainer.formlastseen[i]
-        $Trainer.formlastseen[i]=[0,0,pkmn.color] if $Trainer.formlastseen[i]==[]
+        $Trainer.formlastseen[i]=[0,0] if $Trainer.formlastseen[i]==[]
         $Trainer.formseen[i]=[[],[]] if !$Trainer.formseen[i]
         for j in 0..63
           $Trainer.formseen[i][0][j]=true

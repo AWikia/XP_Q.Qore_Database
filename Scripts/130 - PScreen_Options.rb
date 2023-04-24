@@ -574,6 +574,7 @@ class PokemonSystem
   attr_accessor :enableshading
   attr_accessor :textskincolors
   attr_accessor :battledif
+  attr_accessor :customshiny
   
   def initialize
     @textspeed        = 1   # Unused Text Speed
@@ -616,6 +617,7 @@ class PokemonSystem
     @enableshading    = 1   # Outdoor Map Shading
     @textskincolors   = 0   # Text Skin Color Scheme (0=Standard, 1=Colors, 2=CMYK, 3=Vintage)
     @battledif        = 0   # Battle Difficulty
+    @customshiny      = 0   # Customized Shinies
 end
 
   def textspeed2
@@ -751,6 +753,10 @@ end
 
   def battledif
     return (!@battledif) ? 0 : @battledif
+  end    
+
+  def customshiny
+    return (!@customshiny) ? 0 : @customshiny
   end    
 
   
@@ -1111,6 +1117,11 @@ There are different modes:
            getAccentNames,
           "Sets the color of all accent-aware elements. Forty-Eight options exist. More than one color may be used to constuct an accent color. Blue is the default color."
          ),
+        EnumOption.new(_INTL("Custom Shiny Pokémon Sprites"),[_INTL("Off"),_INTL("On")],
+          proc { $PokemonSystem.customshiny },
+          proc {|value| $PokemonSystem.customshiny = value },
+        "If this is set to on, certain Pokémon will have distinct customized shiny sprites between forms instead of sharing the same shiny sprite."
+        ),
          NumberOption.new(_INTL("Pokémon Type Icon Style"),1,5,
            proc { $PokemonSystem.colortige },
            proc {|value| $PokemonSystem.colortige = value },

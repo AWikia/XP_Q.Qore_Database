@@ -3,11 +3,11 @@ PlayerA=POKEMONTRAINER_Raptor,boy2_walk,boy2_bike,boy2_surf_offset,boy2_run,boy2
 PlayerB=POKEMONTRAINER_Renko,boy_walk,boy_bike,boy_surf_offset,boy_run,boy_dive_offset,boy_fish_offset,boy_fishsurf_offset
 TrainerVictoryME=Victory - Trainer.mp3
 WildVictoryME=Victory - Wild Pokemon.mp3
-TrainerBattleBGM=sfxBattler_Alt.mp3
+TrainerBattleBGM=Battler_Alt.mp3
 SurfBGM=Ship.mp3
 BicycleBGM=Airship.mp3
 Home=3,7,5,8
-WildBattleBGM=sfxBattler.mp3
+WildBattleBGM=Battler.mp3
 [001]
 # Intro
 BattleBack=Intro
@@ -1405,7 +1405,7 @@ WildBattleBGM=112 - Vs. Wild Johto.mp3
 [256]
 # Lineel Eins
 Bicycle=true
-TrainerBattleBGM=sfxBattler_TEAMROCKETS
+TrainerBattleBGM=Battler_TEAMROCKET
 MapPosition=12,0,0
 Outdoor=true
 ShowArea=true
@@ -1413,13 +1413,13 @@ ShowArea=true
 # Lineel Zwei
 BattleBack=CaveDark
 Bicycle=true
-TrainerBattleBGM=sfxBattler_TEAMROCKETS
+TrainerBattleBGM=Battler_TEAMROCKET
 MapPosition=12,1,1
 ShowArea=true
 [258]
 # Lineel Drei
 Bicycle=true
-TrainerBattleBGM=sfxBattler_TEAMROCKETS
+TrainerBattleBGM=Battler_TEAMROCKET
 MapPosition=12,2,2
 Outdoor=true
 ShowArea=true
@@ -1427,14 +1427,14 @@ ShowArea=true
 # Lineel Vier
 BattleBack=CaveDark
 Bicycle=true
-TrainerBattleBGM=sfxBattler_TEAMROCKETS
+TrainerBattleBGM=Battler_TEAMROCKET
 MapPosition=12,3,3
 ShowArea=true
 [260]
 # Lineel Funf
 BattleBack=Forest
 Bicycle=true
-TrainerBattleBGM=sfxBattler_TEAMROCKETS
+TrainerBattleBGM=Battler_TEAMROCKET
 MapPosition=12,4,4
 Outdoor=true
 ShowArea=true
@@ -1442,14 +1442,14 @@ ShowArea=true
 # Lineel Sechs
 BattleBack=CaveDark
 Bicycle=true
-TrainerBattleBGM=sfxBattler_TEAMROCKETS
+TrainerBattleBGM=Battler_TEAMROCKET
 MapPosition=12,5,5
 ShowArea=true
 [262]
 # Lineel Sieben
 BattleBack=Forest
 Bicycle=true
-TrainerBattleBGM=sfxBattler_TEAMROCKETS
+TrainerBattleBGM=Battler_TEAMROCKET
 MapPosition=12,6,6
 Outdoor=true
 ShowArea=true
@@ -1457,13 +1457,13 @@ ShowArea=true
 # Lineel Acht
 BattleBack=CaveDark
 Bicycle=true
-TrainerBattleBGM=sfxBattler_TEAMROCKETS
+TrainerBattleBGM=Battler_TEAMROCKET
 MapPosition=12,7,7
 ShowArea=true
 [264]
 # Lineel Neun
 Bicycle=true
-TrainerBattleBGM=sfxBattler_TEAMROCKETS
+TrainerBattleBGM=Battler_TEAMROCKET
 MapPosition=12,8,8
 Outdoor=true
 ShowArea=true
@@ -1471,13 +1471,13 @@ ShowArea=true
 # Lineel Zehn
 BattleBack=CaveDark
 Bicycle=true
-TrainerBattleBGM=sfxBattler_TEAMROCKETS
+TrainerBattleBGM=Battler_TEAMROCKET
 MapPosition=12,9,9
 ShowArea=true
 [266]
 # Lineel Elf
 Bicycle=true
-TrainerBattleBGM=sfxBattler_TEAMROCKETS
+TrainerBattleBGM=Battler_TEAMROCKET
 MapPosition=12,10,10
 Outdoor=true
 ShowArea=true
@@ -1485,13 +1485,13 @@ ShowArea=true
 # Lineel Zwolf
 BattleBack=CaveDarker
 Bicycle=true
-TrainerBattleBGM=sfxBattler_TEAMROCKETS
+TrainerBattleBGM=Battler_TEAMROCKET
 MapPosition=12,11,11
 ShowArea=true
 [268]
 # Lineel Dreizehn
 Bicycle=true
-TrainerBattleBGM=sfxBattler_TEAMROCKETS
+TrainerBattleBGM=Battler_TEAMROCKET
 MapPosition=12,12,12
 Outdoor=true
 ShowArea=true
@@ -1499,13 +1499,13 @@ ShowArea=true
 # Lineel Vierzehn
 BattleBack=CaveDarker
 Bicycle=true
-TrainerBattleBGM=sfxBattler_TEAMROCKETS
+TrainerBattleBGM=Battler_TEAMROCKET
 MapPosition=12,13,13
 ShowArea=true
 [270]
 # Lineel Funfzehn
 Bicycle=true
-TrainerBattleBGM=sfxBattler_TEAMROCKETS
+TrainerBattleBGM=Battler_TEAMROCKET
 MapPosition=12,14,14
 Outdoor=true
 ShowArea=true
@@ -1513,13 +1513,13 @@ ShowArea=true
 # Lineel Sechszehn
 BattleBack=CaveDarker
 Bicycle=true
-TrainerBattleBGM=sfxBattler_TEAMROCKETS
+TrainerBattleBGM=Battler_TEAMROCKET
 MapPosition=12,15,15
 ShowArea=true
 [272]
 # Lineel Siebenzehn
 Bicycle=true
-TrainerBattleBGM=sfxBattler_TEAMROCKETS
+TrainerBattleBGM=Battler_TEAMROCKET
 MapPosition=12,16,16
 Outdoor=true
 ShowArea=true
@@ -1527,14 +1527,14 @@ ShowArea=true
 # Lineel Achtzehn
 BattleBack=CaveDarker
 Bicycle=true
-TrainerBattleBGM=sfxBattler_TEAMROCKETS
+TrainerBattleBGM=Battler_TEAMROCKET
 MapPosition=12,17,17
 WildBattleBGM=112 - Vs. Wild Johto.mp3
 ShowArea=true
 [274]
 # Lineel Neunzehn
 Bicycle=true
-TrainerBattleBGM=sfxBattler_TEAMROCKETS
+TrainerBattleBGM=Battler_TEAMROCKET
 MapPosition=12,18,18
 Outdoor=true
 ShowArea=true
@@ -1542,7 +1542,7 @@ ShowArea=true
 # Lineel Zwanzig
 BattleBack=IndoorG
 Bicycle=true
-TrainerBattleBGM=sfxBattler_TEAMROCKETS
+TrainerBattleBGM=Battler_TEAMROCKET
 MapPosition=12,19,19
 ShowArea=true
 Environment=Graveyard
@@ -1550,7 +1550,7 @@ Environment=Graveyard
 # Understairs Kenuora Eins
 BattleBack=IndoorB
 Bicycle=true
-TrainerBattleBGM=sfxBattler_TEAMROCKETS
+TrainerBattleBGM=Battler_TEAMROCKET
 MapPosition=5,1,4
 WildBattleBGM=112 - Vs. Wild Johto.mp3
 ShowArea=true
@@ -1558,14 +1558,14 @@ ShowArea=true
 # Understairs Pallet Town
 BattleBack=Cave
 Bicycle=true
-TrainerBattleBGM=sfxBattler_TEAMROCKETS
+TrainerBattleBGM=Battler_TEAMROCKET
 WildBattleBGM=112 - Vs. Wild Johto.mp3
 ShowArea=true
 [278]
 # Pallet Town
 BattleBack=IndoorB
 Bicycle=true
-TrainerBattleBGM=sfxBattler_TEAMROCKETS
+TrainerBattleBGM=Battler_TEAMROCKET
 Outdoor=true
 WildBattleBGM=112 - Vs. Wild Johto.mp3
 ShowArea=true
@@ -1573,21 +1573,21 @@ ShowArea=true
 # Understairs Vermilion City
 BattleBack=Cave
 Bicycle=true
-TrainerBattleBGM=sfxBattler_TEAMROCKETS
+TrainerBattleBGM=Battler_TEAMROCKET
 WildBattleBGM=112 - Vs. Wild Johto.mp3
 ShowArea=true
 [280]
 # Understairs Virdian Forest
 BattleBack=Cave
 Bicycle=true
-TrainerBattleBGM=sfxBattler_TEAMROCKETS
+TrainerBattleBGM=Battler_TEAMROCKET
 WildBattleBGM=112 - Vs. Wild Johto.mp3
 ShowArea=true
 [281]
 # Understairs Route 43
 BattleBack=Cave
 Bicycle=true
-TrainerBattleBGM=sfxBattler_TEAMROCKETS
+TrainerBattleBGM=Battler_TEAMROCKET
 MapPosition=10,17,6
 WildBattleBGM=112 - Vs. Wild Johto.mp3
 ShowArea=true
@@ -1595,7 +1595,7 @@ ShowArea=true
 # Understairs Magohany Town
 BattleBack=Cave
 Bicycle=true
-TrainerBattleBGM=sfxBattler_TEAMROCKETS
+TrainerBattleBGM=Battler_TEAMROCKET
 MapPosition=10,17,7
 WildBattleBGM=112 - Vs. Wild Johto.mp3
 ShowArea=true
@@ -1603,7 +1603,7 @@ ShowArea=true
 # Understairs Lake of Rage
 BattleBack=Cave
 Bicycle=true
-TrainerBattleBGM=sfxBattler_TEAMROCKETS
+TrainerBattleBGM=Battler_TEAMROCKET
 MapPosition=10,17,3
 WildBattleBGM=112 - Vs. Wild Hoenn.mp3
 ShowArea=true
@@ -1611,7 +1611,7 @@ ShowArea=true
 # Vermilion City
 BattleBack=IndoorB
 Bicycle=true
-TrainerBattleBGM=sfxBattler_TEAMROCKETS
+TrainerBattleBGM=Battler_TEAMROCKET
 Outdoor=true
 WildBattleBGM=112 - Vs. Wild Johto.mp3
 ShowArea=true
@@ -1628,14 +1628,14 @@ ShowArea=true
 # Understairs Saffron City
 BattleBack=Cave
 Bicycle=true
-TrainerBattleBGM=sfxBattler_TEAMROCKETS
+TrainerBattleBGM=Battler_TEAMROCKET
 WildBattleBGM=112 - Vs. Wild Johto.mp3
 ShowArea=true
 [287]
 # Understairs Swuora Eins
 BattleBack=Cave
 Bicycle=true
-TrainerBattleBGM=sfxBattler_TEAMROCKETS
+TrainerBattleBGM=Battler_TEAMROCKET
 MapPosition=3,1,2
 WildBattleBGM=112 - Vs. Wild Johto.mp3
 ShowArea=true
@@ -1643,7 +1643,7 @@ ShowArea=true
 # Saffron City
 BattleBack=IndoorB
 Bicycle=true
-TrainerBattleBGM=sfxBattler_TEAMROCKETS
+TrainerBattleBGM=Battler_TEAMROCKET
 Outdoor=true
 WildBattleBGM=112 - Vs. Wild Johto.mp3
 ShowArea=true
@@ -1651,14 +1651,14 @@ ShowArea=true
 # Understairs Cerulean City
 BattleBack=Cave
 Bicycle=true
-TrainerBattleBGM=sfxBattler_TEAMROCKETS
+TrainerBattleBGM=Battler_TEAMROCKET
 WildBattleBGM=112 - Vs. Wild Johto.mp3
 ShowArea=true
 [290]
 # Understairs Keniora Zwei
 BattleBack=Cave
 Bicycle=true
-TrainerBattleBGM=sfxBattler_TEAMROCKETS
+TrainerBattleBGM=Battler_TEAMROCKET
 MapPosition=8,5,9
 WildBattleBGM=112 - Vs. Wild Johto.mp3
 ShowArea=true
@@ -1666,7 +1666,7 @@ ShowArea=true
 # Cerulean City
 BattleBack=IndoorB
 Bicycle=true
-TrainerBattleBGM=sfxBattler_TEAMROCKETS
+TrainerBattleBGM=Battler_TEAMROCKET
 Outdoor=true
 WildBattleBGM=112 - Vs. Wild Johto.mp3
 ShowArea=true
@@ -1674,7 +1674,7 @@ ShowArea=true
 # Cerulean Cave
 BattleBack=Cave
 Bicycle=true
-TrainerBattleBGM=sfxBattler_TEAMROCKETS
+TrainerBattleBGM=Battler_TEAMROCKET
 WildBattleBGM=112 - Vs. Wild Johto.mp3
 ShowArea=true
 [293]

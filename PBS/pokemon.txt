@@ -32033,8 +32033,8 @@ Color=Blue
 Habitat=Grassland
 Kind=Microsoft
 Pokedex=This Pokémon has not been uncovered yet. Stay tuned for more info
-BattlerPlayerY=0
-BattlerEnemyY=4
+BattlerPlayerY=4
+BattlerEnemyY=8
 BattlerAltitude=0
 Evolutions=MSEDGE,Level,40
 [1177]

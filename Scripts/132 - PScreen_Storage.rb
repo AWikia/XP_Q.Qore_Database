@@ -1587,10 +1587,10 @@ class PokemonBoxArrow < SpriteWrapper
     @placingState=0
     @heldpkmn=nil
     @swapsprite=nil
-    @fist=AnimatedBitmap.new("Graphics/Pictures/boxfist")
-    @point1=AnimatedBitmap.new("Graphics/Pictures/boxpoint1")
-    @point2=AnimatedBitmap.new("Graphics/Pictures/boxpoint2")
-    @grab=AnimatedBitmap.new("Graphics/Pictures/boxgrab")
+    @fist=AnimatedBitmap.new("Graphics/Pictures/Storage/cursor_fist")
+    @point1=AnimatedBitmap.new("Graphics/Pictures/Storage/cursor_point_1")
+    @point2=AnimatedBitmap.new("Graphics/Pictures/Storage/cursor_point_2")
+    @grab=AnimatedBitmap.new("Graphics/Pictures/Storage/cursor_grab")
     @currentBitmap=@fist
     @spriteX=self.x
     @spriteY=self.y
@@ -1601,10 +1601,10 @@ class PokemonBoxArrow < SpriteWrapper
     pbPlayDecisionSE()
     s=""
     s="_q" if orangehand
-    @fist=AnimatedBitmap.new("Graphics/Pictures/boxfist"+s)
-    @point1=AnimatedBitmap.new("Graphics/Pictures/boxpoint1"+s)
-    @point2=AnimatedBitmap.new("Graphics/Pictures/boxpoint2"+s)
-    @grab=AnimatedBitmap.new("Graphics/Pictures/boxgrab"+s)
+    @fist=AnimatedBitmap.new("Graphics/Pictures/Storage/cursor_fist"+s)
+    @point1=AnimatedBitmap.new("Graphics/Pictures/Storage/cursor_point_1"+s)
+    @point2=AnimatedBitmap.new("Graphics/Pictures/Storage/cursor_point_2"+s)
+    @grab=AnimatedBitmap.new("Graphics/Pictures/Storage/cursor_grab"+s)
   end  
 
   def heldPokemon
@@ -1819,7 +1819,7 @@ class PokemonBoxPartySprite < SpriteWrapper
 
   def initialize(party,viewport=nil)
     super(viewport)
-    @boxbitmap=AnimatedBitmap.new("Graphics/Pictures/"+getDarkModeFolder+"/boxpartytab")
+    @boxbitmap=AnimatedBitmap.new("Graphics/Pictures/"+getDarkModeFolder+"/Storage/overlay_party")
     @pokemonsprites=[]
     @party=party
     for i in 0...6
@@ -2031,7 +2031,7 @@ class PokemonBoxSprite < SpriteWrapper
         @bg="#{curbg}"
       end
       @boxbitmap.dispose if @boxbitmap
-      @boxbitmap=AnimatedBitmap.new("Graphics/Pictures/#{@bg}")
+      @boxbitmap=AnimatedBitmap.new("Graphics/Pictures/Storage/#{@bg}")
     end
   end
 
@@ -2141,9 +2141,9 @@ class PokemonStorageScene
     @choseFromParty=false
     @command=command
     if $Trainer.isFemale?
-      addBackgroundPlane(@sprites,"background",getDarkModeFolder+"/boxbg2",@bgviewport)
+      addBackgroundPlane(@sprites,"background",getDarkModeFolder+"/Storage/bg",@bgviewport)
     else
-      addBackgroundPlane(@sprites,"background",getDarkModeFolder+"/boxbg2",@bgviewport)
+      addBackgroundPlane(@sprites,"background",getDarkModeFolder+"/Storage/bg",@bgviewport)
     end
       addBackgroundOrColoredPlane(@sprites,"partybg_title",getDarkModeFolder+"/partybg",Color.new(0,0,0),@bgviewport)
     @sprites["header"]=Window_UnformattedTextPokemon.newWithSize(_INTL("Storage System"),2,-18,512,64,@bgviewport)
@@ -2152,7 +2152,7 @@ class PokemonStorageScene
     @sprites["header"].windowskin=nil
     @sprites["box"]=PokemonBoxSprite.new(@storage,@storage.currentBox,@boxviewport)
     @sprites["boxsides"]=IconSprite.new(0,0,@boxsidesviewport)
-    @sprites["boxsides"].setBitmap("Graphics/Pictures/"+getDarkModeFolder+"/boxsides")
+    @sprites["boxsides"].setBitmap("Graphics/Pictures/"+getDarkModeFolder+"/Storage/overlay_main")
     @sprites["overlay"]=BitmapSprite.new(Graphics.width-64,Graphics.height,@boxsidesviewport)
     @sprites["pokemon"]=AutoMosaicPokemonSprite.new(@viewport2)
     pbSetSystemFont(@sprites["overlay"].bitmap)
@@ -2494,9 +2494,9 @@ class PokemonStorageScene
         imagepos.push(["Graphics/Pictures/"+getDarkModeFolder+"/gender_transgender_b",8,40,0,0,-1,-1])
       end
       if (!isDarkMode?)
-        imagepos.push(["Graphics/Pictures/storage_lv",6,246,0,0,-1,-1])
+        imagepos.push(["Graphics/Pictures/overlay_lv",6,246,0,0,-1,-1])
       else
-        imagepos.push(["Graphics/Pictures/white_lv",6,246,0,0,-1,-1])
+        imagepos.push(["Graphics/Pictures/overlay_lv_white",6,246,0,0,-1,-1])
       end
       textstrings.push([pokemon.level.to_s,28,234,false,base,shadow])
       if pokemon.ability>0
@@ -2512,7 +2512,7 @@ class PokemonStorageScene
       if pokemon.isShiny?
         imagepos.push(["Graphics/Pictures/shiny",156,198,0,0,-1,-1])
       end
-      typebitmap=AnimatedBitmap.new("Graphics/Global Pictures/types")
+      typebitmap=AnimatedBitmap.new("Graphics/Pictures/Types")
       type1rect=Rect.new(64*$PokemonSystem.colortige,pokemon.type1*28,64,28)
       type2rect=Rect.new(64*$PokemonSystem.colortige,pokemon.type2*28,64,28)
       if pokemon.type1==pokemon.type2

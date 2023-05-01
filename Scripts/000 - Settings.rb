@@ -280,7 +280,7 @@ RoamingSpecies = [
        69 => [21,31]
        }],
    [:ENTEI, 40, 55, 1, nil],
-   [:KYODON, 134, 74, 0, "Boss Battle 3", {
+   [:KYODON, 134, 74, 0, "Battler_Nebula Cave", {
        186  => [187],
        187  => [186],
        189  => [191,194,196],
@@ -290,7 +290,7 @@ RoamingSpecies = [
        215  => [216,217],
        217  => [215,216]
        }],
-   [:REGIDRAGO, 256, 151, 0, "Boss Battle 3", {
+   [:REGIDRAGO, 256, 151, 0, "Battler_Nebula Cave", {
        22  => [22],
        32  => [32],
        400 => [400],
@@ -301,7 +301,7 @@ RoamingSpecies = [
        108 => [108],
        109 => [109]
        }],
-   [:REGIELEKI, 256, 152, 0, "Boss Battle 3", {
+   [:REGIELEKI, 256, 152, 0, "Battler_Nebula Cave", {
        22  => [22],
        32  => [32],
        400 => [400],
@@ -312,7 +312,7 @@ RoamingSpecies = [
        108 => [108],
        109 => [109]
        }],
-   [:GLASTRIER, 400, 175, 0, "Boss Battle 3", {
+   [:GLASTRIER, 400, 175, 0, "Battler_Nebula Cave", {
        42  => [42],
        43  => [43],
        76  => [76],
@@ -323,7 +323,7 @@ RoamingSpecies = [
        343 => [343],
        344 => [344]
        }],
-   [:SPECTRIER, 400, 176, 0, "Boss Battle 3", {
+   [:SPECTRIER, 400, 176, 0, "Battler_Nebula Cave", {
        42  => [42],
        43  => [43],
        76  => [76],

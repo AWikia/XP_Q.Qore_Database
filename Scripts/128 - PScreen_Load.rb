@@ -127,14 +127,14 @@ class PokemonLoadScene
     @viewport=Viewport.new(0,0,Graphics.width,Graphics.height)
     @viewport.z=99998
     title=['/loadbg','/loadbg_beta','/loadbg_dev','/loadbg_canary','/loadbg_internal','/loadbg_upgradewizard'][QQORECHANNEL]
-    if pbResolveBitmap(_INTL("Graphics/Global Pictures/"+getDarkModeFolder+"{1}",title))
-      addBackgroundOrColoredPlaneGlobal(@sprites,"background",getDarkModeFolder+title,
+    if pbResolveBitmap(_INTL("Graphics/Pictures/"+getDarkModeFolder+"{1}",title))
+      addBackgroundOrColoredPlane(@sprites,"background",getDarkModeFolder+title,
          Color.new(248,248,248),@viewport)
-    elsif pbResolveBitmap(sprintf("Graphics/Global Pictures/"+getDarkModeFolder+"/loadbg"))
-      addBackgroundOrColoredPlaneGlobal(@sprites,"background",getDarkModeFolder+"/loadbg",
+    elsif pbResolveBitmap(sprintf("Graphics/Pictures/"+getDarkModeFolder+"/loadbg"))
+      addBackgroundOrColoredPlane(@sprites,"background",getDarkModeFolder+"/loadbg",
          Color.new(248,248,248),@viewport)
     else  # Hotfixing Prograda
-      addBackgroundOrColoredPlaneGlobal(@sprites,"background",getDarkModeFolder+"/loadbg_empty",
+      addBackgroundOrColoredPlane(@sprites,"background",getDarkModeFolder+"/loadbg_empty",
          Color.new(248,248,248),@viewport)
     end
       addBackgroundOrColoredPlane(@sprites,"partybg_title",getDarkModeFolder+"/partybg_1",
@@ -175,7 +175,7 @@ class PokemonLoadScene
     @sprites={}
     @viewport=Viewport.new(0,0,Graphics.width,Graphics.height)
     @viewport.z=99998
-    addBackgroundOrColoredPlaneGlobal(@sprites,"background",getDarkModeFolder+"/loadbg_empty",
+    addBackgroundOrColoredPlane(@sprites,"background",getDarkModeFolder+"/loadbg_empty",
        Color.new(248,248,248),@viewport)
   end
 

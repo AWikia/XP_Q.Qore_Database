@@ -2481,6 +2481,7 @@ class PokeBattle_Move_05A < PokeBattle_Move
     opponent.hp=[avhp,opponent.totalhp].min
     @battle.scene.pbHPChanged(attacker,olda)
     @battle.scene.pbHPChanged(opponent,oldo)
+    @battle.pbCheckDanger
     @battle.pbDisplay(_INTL("The battlers shared their pain!"))
     return 0
   end

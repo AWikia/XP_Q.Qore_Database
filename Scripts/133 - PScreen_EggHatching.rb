@@ -7,7 +7,7 @@
 #===============================================================================
 # To this script works, put it above Main and put a picture (a 5 frames
 # sprite sheet) with egg sprite height and 5 times the egg sprite width at
-# Graphics/Pokemon/Egg Cracks/000.
+# Graphics/Pokemon/Eggs/000_cracks.
 #===============================================================================
 class PokemonEggHatchScene
   def pbStartScene(pokemon)
@@ -31,7 +31,7 @@ class PokemonEggHatchScene
     @sprites["pokemon"]=PokemonSprite.new(@viewport)
     @sprites["pokemon"].setSpeciesBitmap(@pokemon.species,@pokemon.isFemale?,
                                          (@pokemon.form rescue 0),@pokemon.isShiny?,
-                                         false,false,true,isbox,(@pokemon.color rescue 0)) # Egg sprite
+                                         false,false,true,isbox) # Egg sprite
     @sprites["pokemon"].x=Graphics.width/2-@sprites["pokemon"].bitmap.width/2
     @sprites["pokemon"].y=48+(Graphics.height-@sprites["pokemon"].bitmap.height)/2
     @sprites["hatch"]=BitmapSprite.new(Graphics.width,Graphics.height,@viewport)
@@ -45,7 +45,7 @@ class PokemonEggHatchScene
   end
 
   def pbMain
-    crackfilename = pbCheckPokemonBitmapFiles([@pokemon.species,false,@pokemon.isFemale?,@pokemon.isShiny?,(@pokemon.form rescue 0),false,(@pokemon.color rescue 0)],'Egg Cracks')
+    crackfilename = pbCheckPokemonBitmapFiles([@pokemon.species,false,@pokemon.isFemale?,@pokemon.isShiny?,(@pokemon.form rescue 0),false],'Eggs','cracks')
     crackfilename=pbResolveBitmap(crackfilename)
     hatchSheet=AnimatedBitmap.new(crackfilename)
     if isGalarian?(@pokemon)

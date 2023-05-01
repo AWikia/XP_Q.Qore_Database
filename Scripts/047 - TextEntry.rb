@@ -967,14 +967,14 @@ class PokemonEntryScene
       @sprites["helpwindow"].baseColor=MessageConfig::LIGHTTEXTBASE
       @sprites["helpwindow"].shadowColor=MessageConfig::LIGHTTEXTSHADOW
     end
-    addBackgroundPlane(@sprites,"background",getDarkModeFolder+"/naming2bg",@viewport)
+    addBackgroundPlane(@sprites,"background",getDarkModeFolder+"/Naming/bg_2",@viewport)
     case subject
     when 1   # Player
       if $PokemonGlobal
         meta=pbGetMetadata(0,MetadataPlayerA+$PokemonGlobal.playerID)
         if meta
           @sprites["shadow"]=IconSprite.new(0,0,@viewport)
-          @sprites["shadow"].setBitmap("Graphics/Pictures/"+getDarkModeFolder+"/namingShadow")
+          @sprites["shadow"].setBitmap("Graphics/Pictures/"+getDarkModeFolder+"/Naming/icon_shadow")
           @sprites["shadow"].x=33*2+64
           @sprites["shadow"].y=32*2+16
           filename=pbGetPlayerCharset(meta,1)
@@ -988,7 +988,7 @@ class PokemonEntryScene
     when 2   # Pokémon
       if pokemon
         @sprites["shadow"]=IconSprite.new(0,0,@viewport)
-        @sprites["shadow"].setBitmap("Graphics/Pictures/"+getDarkModeFolder+"/namingShadow")
+        @sprites["shadow"].setBitmap("Graphics/Pictures/"+getDarkModeFolder+"/Naming/icon_shadow")
         @sprites["shadow"].x=33*2+64
         @sprites["shadow"].y=32*2+16
         @sprites["subject"]=PokemonIconSprite.new(pokemon,@viewport)
@@ -1009,12 +1009,12 @@ class PokemonEntryScene
       end
     when 3   # Storage box
       @sprites["subject"]=IconSprite.new(0,0,@viewport)
-      @sprites["subject"].setBitmap("Graphics/Pictures/"+getDarkModeFolder+"/namingStorage")
+      @sprites["subject"].setBitmap("Graphics/Pictures/"+getDarkModeFolder+"/Naming/icon_storage")
       @sprites["subject"].x=68+64
       @sprites["subject"].y=32+16
     when 4   # NPC
       @sprites["shadow"]=IconSprite.new(0,0,@viewport)
-      @sprites["shadow"].setBitmap("Graphics/Pictures/"+getDarkModeFolder+"/namingShadow")
+      @sprites["shadow"].setBitmap("Graphics/Pictures/"+getDarkModeFolder+"/Naming/icon_shadow")
       @sprites["shadow"].x=33*2+64
       @sprites["shadow"].y=32*2+16
       @sprites["subject"]=TrainerWalkingCharSprite.new(pokemon.to_s,@viewport)
@@ -1256,10 +1256,10 @@ class PokemonEntryScene2
     @sprites["header"].windowskin=nil
 
     @bitmaps=[
-       AnimatedBitmap.new("Graphics/Pictures/"+getDarkModeFolder+"/namingTab1"),
-       AnimatedBitmap.new("Graphics/Pictures/"+getDarkModeFolder+"/namingTab2"),
-       AnimatedBitmap.new("Graphics/Pictures/"+getDarkModeFolder+"/namingTab3"),
-       AnimatedBitmap.new("Graphics/Pictures/"+getDarkModeFolder+"/namingTab4")
+       AnimatedBitmap.new("Graphics/Pictures/"+getDarkModeFolder+"/Naming/overlay_tab_1"),
+       AnimatedBitmap.new("Graphics/Pictures/"+getDarkModeFolder+"/Naming/overlay_tab_2"),
+       AnimatedBitmap.new("Graphics/Pictures/"+getDarkModeFolder+"/Naming/overlay_tab_3"),
+       AnimatedBitmap.new("Graphics/Pictures/"+getDarkModeFolder+"/Naming/overlay_tab_4")
     ]
     @bitmaps[4]=@bitmaps[0].bitmap.clone
     @bitmaps[5]=@bitmaps[1].bitmap.clone
@@ -1289,14 +1289,14 @@ class PokemonEntryScene2
     @bitmaps[8].fill_rect(2,2,22,4,shadowColor)
     @bitmaps[8].fill_rect(0,0,22,4,baseColor)
     @sprites["bg"]=IconSprite.new(0,0,@viewport)
-    @sprites["bg"].setBitmap("Graphics/Pictures/"+getDarkModeFolder+"/namingbg")
+    @sprites["bg"].setBitmap("Graphics/Pictures/"+getDarkModeFolder+"/Naming/bg")
     case subject
     when 1   # Player
       if $PokemonGlobal
         meta=pbGetMetadata(0,MetadataPlayerA+$PokemonGlobal.playerID)
         if meta
           @sprites["shadow"]=IconSprite.new(0,0,@viewport)
-          @sprites["shadow"].setBitmap("Graphics/Pictures/"+getDarkModeFolder+"/namingShadow")
+          @sprites["shadow"].setBitmap("Graphics/Pictures/"+getDarkModeFolder+"/Naming/icon_shadow")
           @sprites["shadow"].x=33*2+64
           @sprites["shadow"].y=32*2+16
           filename=pbGetPlayerCharset(meta,1)
@@ -1310,7 +1310,7 @@ class PokemonEntryScene2
     when 2   # Pokémon
       if pokemon
         @sprites["shadow"]=IconSprite.new(0,0,@viewport)
-        @sprites["shadow"].setBitmap("Graphics/Pictures/"+getDarkModeFolder+"/namingShadow")
+        @sprites["shadow"].setBitmap("Graphics/Pictures/"+getDarkModeFolder+"/Naming/icon_shadow")
         @sprites["shadow"].x=33*2+64
         @sprites["shadow"].y=32*2+16
         @sprites["subject"]=PokemonIconSprite.new(pokemon,@viewport)
@@ -1331,7 +1331,7 @@ class PokemonEntryScene2
       end
     when 3   # Storage box
       @sprites["subject"]=TrainerWalkingCharSprite.new(nil,@viewport)
-      @sprites["subject"].altcharset="Graphics/Pictures/"+getDarkModeFolder+"/namingStorage"
+      @sprites["subject"].altcharset="Graphics/Pictures/"+getDarkModeFolder+"/Naming/icon_storage"
       @sprites["subject"].animspeed=4
       charwidth=@sprites["subject"].bitmap.width
       charheight=@sprites["subject"].bitmap.height
@@ -1339,7 +1339,7 @@ class PokemonEntryScene2
       @sprites["subject"].y = 26*2 - charheight/2+16
     when 4   # NPC
       @sprites["shadow"]=IconSprite.new(0,0,@viewport)
-      @sprites["shadow"].setBitmap("Graphics/Pictures/"+getDarkModeFolder+"/namingShadow")
+      @sprites["shadow"].setBitmap("Graphics/Pictures/"+getDarkModeFolder+"/Naming/icon_shadow")
       @sprites["shadow"].x=33*2+64
       @sprites["shadow"].y=32*2+16
       @sprites["subject"]=TrainerWalkingCharSprite.new(pokemon.to_s,@viewport)
@@ -1369,7 +1369,7 @@ class PokemonEntryScene2
     @sprites["toptab"].y=162
     @sprites["toptab"].bitmap=@bitmaps[1+4]
     @sprites["controls"]=IconSprite.new(0,0,@viewport)
-    @sprites["controls"].setBitmap("Graphics/Pictures/"+getDarkModeFolder+"/namingControls")
+    @sprites["controls"].setBitmap("Graphics/Pictures/"+getDarkModeFolder+"/Naming/overlay_controls")
     @sprites["controls"].x=16+64
     @sprites["controls"].y=96
     @init=true
@@ -1389,7 +1389,7 @@ class PokemonEntryScene2
   def pbDoUpdateOverlay2
     overlay=@sprites["overlay"].bitmap
     overlay.clear
-    modeIcon=[["Graphics/Pictures/"+getDarkModeFolder+"/namingMode",44+@mode*62+64,120,@mode*60,0,60,44]]
+    modeIcon=[["Graphics/Pictures/"+getDarkModeFolder+"/Naming/icon_mode",44+@mode*62+64,120,@mode*60,0,60,44]]
     pbDrawImagePositions(overlay,modeIcon)
   end
 

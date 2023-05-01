@@ -1084,7 +1084,6 @@ class FaceWindowVX < SpriteWindow_Base
     super(0,0,128,128)
     faceinfo=face.split(",")
     facefile=pbResolveBitmap("Graphics/Faces/"+faceinfo[0])
-    facefile=pbResolveBitmap("Graphics/Pictures/"+faceinfo[0]) if !facefile
     self.contents.dispose if self.contents
     @faceIndex=faceinfo[1].to_i
     @facebitmaptmp=AnimatedBitmap.new(facefile)
@@ -1496,7 +1495,7 @@ def Kernel.pbMessageDisplay(msgwindow,message,letterbyletter=true,commandProc=ni
     param=controls[i][1]
     if control=="f"
       facewindow.dispose if facewindow
-      facewindow=PictureWindow.new("Graphics/Pictures/#{param}")
+      facewindow=PictureWindow.new("Graphics/Faces/#{param}")
     elsif control=="op"
       signWaitCount=21
     elsif control=="cl"
@@ -1558,7 +1557,7 @@ def Kernel.pbMessageDisplay(msgwindow,message,letterbyletter=true,commandProc=ni
         case control
         when "f"
           facewindow.dispose if facewindow
-          facewindow=PictureWindow.new("Graphics/Pictures/#{param}")
+          facewindow=PictureWindow.new("Graphics/Faces/#{param}")
           pbPositionNearMsgWindow(facewindow,msgwindow,:left)
           facewindow.viewport=msgwindow.viewport
           facewindow.z=msgwindow.z

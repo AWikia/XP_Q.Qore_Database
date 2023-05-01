@@ -265,7 +265,7 @@ class SpritePositioner
     @sprites["shadow1"]=IconSprite.new(
        PokeBattle_SceneConstants::FOEBATTLER_X,
        PokeBattle_SceneConstants::FOEBATTLER_Y,@viewport)
-    @sprites["shadow1"].setBitmap("Graphics/Pictures/battleShadow")
+    @sprites["shadow1"].setBitmap("Graphics/Pictures/Battle/battler_shadow")
     @sprites["shadow1"].x-=@sprites["shadow1"].bitmap.width/2 if @sprites["shadow1"].bitmap!=nil
     @sprites["shadow1"].y-=@sprites["shadow1"].bitmap.height/2 if @sprites["shadow1"].bitmap!=nil
     @sprites["shadow1"].z=3

@@ -87,9 +87,9 @@ class PokemonSummaryScene
     @pokemon=@party[@partyindex]
     typescart=
     @sprites={}
-    @typebitmap=AnimatedBitmap.new("Graphics/Global Pictures/types")
-    @compatbitmap=AnimatedBitmap.new("Graphics/Global Pictures/compatibilities")
-    @colorbitmap=AnimatedBitmap.new("Graphics/Global Pictures/colors")
+    @typebitmap=AnimatedBitmap.new("Graphics/Pictures/Types")
+    @compatbitmap=AnimatedBitmap.new("Graphics/Pictures/compatibilities")
+    @colorbitmap=AnimatedBitmap.new("Graphics/Pictures/colors")
     @sprites["background"]=IconSprite.new(0,0,@viewport)
     @sprites["header-bg"]=IconSprite.new(0,0,@viewport)
     @sprites["header"]=IconSprite.new(0,0,@viewport)
@@ -126,9 +126,9 @@ class PokemonSummaryScene
     @pokemon=@party[@partyindex]
     @sprites={}
     @page=3
-    @typebitmap=AnimatedBitmap.new("Graphics/Global Pictures/types")
-    @compatbitmap=AnimatedBitmap.new("Graphics/Global Pictures/compatibilities")
-    @colorbitmap=AnimatedBitmap.new("Graphics/Global Pictures/colors")
+    @typebitmap=AnimatedBitmap.new("Graphics/Pictures/Types")
+    @compatbitmap=AnimatedBitmap.new("Graphics/Pictures/compatibilities")
+    @colorbitmap=AnimatedBitmap.new("Graphics/Pictures/colors")
     @sprites["background"]=IconSprite.new(0,0,@viewport)
     @sprites["header-bg"]=IconSprite.new(0,0,@viewport)
     @sprites["header"]=IconSprite.new(0,0,@viewport)
@@ -188,7 +188,7 @@ class PokemonSummaryScene
     @sprites["itemicon2"].visible = false
     overlay=@sprites["overlay"].bitmap
     overlay.clear
-    @sprites["background"].setBitmap("Graphics/Pictures/"+getDarkModeFolder+"/summary1")
+    @sprites["background"].setBitmap("Graphics/Pictures/"+getDarkModeFolder+"/Summary/bg_1")
 #    @sprites["header-bg"].setBitmap("Graphics/Pictures/header-global")
 #    @sprites["header"].setBitmap("Graphics/Pictures/header1")
     imagepos=[]
@@ -202,22 +202,22 @@ class PokemonSummaryScene
       imagepos.push([sprintf("Graphics/Pictures/shiny"),2,134,0,0,-1,-1])
     end
     if pbPokerus(pokemon)==2
-      imagepos.push([sprintf("Graphics/Pictures/summaryPokerus"),176,100,0,0,-1,-1])
+      imagepos.push([sprintf("Graphics/Pictures/Summary/icon_pokerus"),176,100,0,0,-1,-1])
     end
     ballused=@pokemon.ballused ? @pokemon.ballused : 0
-    ballimage=sprintf("Graphics/Pictures/summaryball%02d",@pokemon.ballused)
+    ballimage=sprintf("Graphics/Pictures/Summary/icon_ball_%02d",@pokemon.ballused)
     imagepos.push([ballimage,14,60,0,0,-1,-1])
     growthrate=pokemon.growthrate
     startexp=PBExperience.pbGetStartExperience(pokemon.level,growthrate)
     endexp=PBExperience.pbGetStartExperience(pokemon.level+1,growthrate)
     finexp=PBExperience.pbGetStartExperience(PBExperience::MAXLEVEL,growthrate)
     if (pokemon.isShadow? rescue false)
-      imagepos.push(["Graphics/Pictures/"+getDarkModeFolder+"/summaryShadow",352,240,0,0,-1,-1])
+      imagepos.push(["Graphics/Pictures/"+getDarkModeFolder+"/Summary/overlay_shadow",352,240,0,0,-1,-1])
       shadowfract=pokemon.heartgauge*1.0/PokeBattle_Pokemon::HEARTGAUGESIZE
       if ($PokemonSystem.threecolorbar==1 rescue false)
-        imagepos.push(["Graphics/Pictures/summaryShadowBar_threecolorbar",370,280,0,0,(shadowfract*248).floor,-1])
+        imagepos.push(["Graphics/Pictures/Summary/overlay_shadowbar_threecolorbar",370,280,0,0,(shadowfract*248).floor,-1])
       else
-        imagepos.push(["Graphics/Pictures/summaryShadowBar",370,280,0,0,(shadowfract*248).floor,-1])
+        imagepos.push(["Graphics/Pictures/Summary/overlay_shadowbar",370,280,0,0,(shadowfract*248).floor,-1])
       end
     elsif pokemon.level<PBExperience::MAXLEVEL
       shadowfract1=(finexp-pokemon.exp)*100/(finexp)
@@ -356,12 +356,12 @@ class PokemonSummaryScene
     @sprites["itemicon2"].item = @pokemon.item
     overlay=@sprites["overlay"].bitmap
     overlay.clear
-    @sprites["background"].setBitmap("Graphics/Pictures/"+getDarkModeFolder+"/summaryEgg")
+    @sprites["background"].setBitmap("Graphics/Pictures/"+getDarkModeFolder+"/Summary/bg_egg")
 #    @sprites["header-bg"].setBitmap("Graphics/Pictures/header-global")
 #    @sprites["header"].setBitmap("Graphics/Pictures/headerB1")
     imagepos=[]
     ballused=@pokemon.ballused ? @pokemon.ballused : 0
-    ballimage=sprintf("Graphics/Pictures/summaryball%02d",@pokemon.ballused)
+    ballimage=sprintf("Graphics/Pictures/Summary/icon_ball_%02d",@pokemon.ballused)
     imagepos.push([ballimage,14,60,0,0,-1,-1])
     # Egg Steps Start
      dexdata=pbOpenDexData
@@ -446,7 +446,7 @@ class PokemonSummaryScene
     @sprites["itemicon2"].visible = false
     overlay=@sprites["overlay"].bitmap
     overlay.clear
-    @sprites["background"].setBitmap("Graphics/Pictures/"+getDarkModeFolder+"/summary2")
+    @sprites["background"].setBitmap("Graphics/Pictures/"+getDarkModeFolder+"/Summary/bg_2")
 #    @sprites["header-bg"].setBitmap("Graphics/Pictures/header-global")      
 #    @sprites["header"].setBitmap("Graphics/Pictures/header2")
     imagepos=[]
@@ -460,10 +460,10 @@ class PokemonSummaryScene
       imagepos.push([sprintf("Graphics/Pictures/shiny"),2,134,0,0,-1,-1])
     end
     if pbPokerus(pokemon)==2
-      imagepos.push([sprintf("Graphics/Pictures/summaryPokerus"),176,100,0,0,-1,-1])
+      imagepos.push([sprintf("Graphics/Pictures/Summary/icon_pokerus"),176,100,0,0,-1,-1])
     end
     ballused=@pokemon.ballused ? @pokemon.ballused : 0
-    ballimage=sprintf("Graphics/Pictures/summaryball%02d",@pokemon.ballused)
+    ballimage=sprintf("Graphics/Pictures/Summary/icon_ball_%02d",@pokemon.ballused)
     imagepos.push([ballimage,14,60,0,0,-1,-1])
     pbDrawImagePositions(overlay,imagepos)
     if (!isDarkMode?)
@@ -618,7 +618,7 @@ class PokemonSummaryScene
     @sprites["itemicon2"].visible = false
     overlay=@sprites["overlay"].bitmap
     overlay.clear
-    @sprites["background"].setBitmap("Graphics/Pictures/"+getDarkModeFolder+"/summary3")
+    @sprites["background"].setBitmap("Graphics/Pictures/"+getDarkModeFolder+"/Summary/bg_3")
 #      @sprites["header-bg"].setBitmap("Graphics/Pictures/header-global")      
 #      @sprites["header"].setBitmap("Graphics/Pictures/header3")
     imagepos=[]
@@ -632,10 +632,10 @@ class PokemonSummaryScene
       imagepos.push([sprintf("Graphics/Pictures/shiny"),2,134,0,0,-1,-1])
     end
     if pbPokerus(pokemon)==2
-      imagepos.push([sprintf("Graphics/Pictures/summaryPokerus"),176,100,0,0,-1,-1])
+      imagepos.push([sprintf("Graphics/Pictures/Summary/icon_pokerus"),176,100,0,0,-1,-1])
     end
     ballused=@pokemon.ballused ? @pokemon.ballused : 0
-    ballimage=sprintf("Graphics/Pictures/summaryball%02d",@pokemon.ballused)
+    ballimage=sprintf("Graphics/Pictures/Summary/icon_ball_%02d",@pokemon.ballused)
     imagepos.push([ballimage,14,60,0,0,-1,-1])
     pbDrawImagePositions(overlay,imagepos)
     if (!isDarkMode?)
@@ -730,7 +730,7 @@ def drawPageFour(pokemon)
     @sprites["itemicon2"].visible = false
     overlay=@sprites["overlay"].bitmap
     overlay.clear
-    @sprites["background"].setBitmap("Graphics/Pictures/"+getDarkModeFolder+"/summary3_1")
+    @sprites["background"].setBitmap("Graphics/Pictures/"+getDarkModeFolder+"/Summary/bg_4")
 #    @sprites["header-bg"].setBitmap("Graphics/Pictures/header-global")      
 #    @sprites["header"].setBitmap("Graphics/Pictures/header3_1")
     imagepos=[]
@@ -744,10 +744,10 @@ def drawPageFour(pokemon)
       imagepos.push([sprintf("Graphics/Pictures/shiny"),2,134,0,0,-1,-1])
     end
     if pbPokerus(pokemon)==2
-      imagepos.push([sprintf("Graphics/Pictures/summaryPokerus"),176,100,0,0,-1,-1])
+      imagepos.push([sprintf("Graphics/Pictures/Summary/icon_pokerus"),176,100,0,0,-1,-1])
     end
     ballused=@pokemon.ballused ? @pokemon.ballused : 0
-    ballimage=sprintf("Graphics/Pictures/summaryball%02d",@pokemon.ballused)
+    ballimage=sprintf("Graphics/Pictures/Summary/icon_ball_%02d",@pokemon.ballused)
     imagepos.push([ballimage,14,60,0,0,-1,-1])
     pbDrawImagePositions(overlay,imagepos)
     if (!isDarkMode?)
@@ -836,7 +836,7 @@ def drawPageFive(pokemon)
     @sprites["itemicon2"].visible = false
     overlay=@sprites["overlay"].bitmap
     overlay.clear
-    @sprites["background"].setBitmap("Graphics/Pictures/"+getDarkModeFolder+"/summary3_2")
+    @sprites["background"].setBitmap("Graphics/Pictures/"+getDarkModeFolder+"/Summary/bg_5")
 #    @sprites["header-bg"].setBitmap("Graphics/Pictures/header-global")      
 #    @sprites["header"].setBitmap("Graphics/Pictures/header3_2")
     imagepos=[]
@@ -850,10 +850,10 @@ def drawPageFive(pokemon)
       imagepos.push([sprintf("Graphics/Pictures/shiny"),2,134,0,0,-1,-1])
     end
     if pbPokerus(pokemon)==2
-      imagepos.push([sprintf("Graphics/Pictures/summaryPokerus"),176,100,0,0,-1,-1])
+      imagepos.push([sprintf("Graphics/Pictures/Summary/icon_pokerus"),176,100,0,0,-1,-1])
     end
     ballused=@pokemon.ballused ? @pokemon.ballused : 0
-    ballimage=sprintf("Graphics/Pictures/summaryball%02d",@pokemon.ballused)
+    ballimage=sprintf("Graphics/Pictures/Summary/icon_ball_%02d",@pokemon.ballused)
     imagepos.push([ballimage,14,60,0,0,-1,-1])
     pbDrawImagePositions(overlay,imagepos)
     if (!isDarkMode?)
@@ -872,9 +872,9 @@ def drawPageFive(pokemon)
     colorrect=Rect.new(64*$PokemonSystem.colortige,colourd*28,64,28)
     type1rect=Rect.new(64*$PokemonSystem.colortige,hiddenpower[0]*28,64,28)
     type2rect=Rect.new(64*$PokemonSystem.colortige,pokemon.favtype*28,64,28)
-    overlay.blt(548,120-64,@typebitmap.bitmap,type1rect)
-    overlay.blt(548,152-64,@colorbitmap.bitmap,colorrect)
-    overlay.blt(548,184-64,@typebitmap.bitmap,type2rect)
+    overlay.blt(516,120-64,@typebitmap.bitmap,type1rect)
+    overlay.blt(516,152-64,@colorbitmap.bitmap,colorrect)
+    overlay.blt(516,184-64,@typebitmap.bitmap,type2rect)
     pbSetSystemFont(overlay)
     abilityname=PBAbilities.getName(pokemon.ability)
     abilitydesc=pbGetMessage(MessageTypes::AbilityDescs,pokemon.ability)
@@ -917,7 +917,7 @@ def drawPageFive(pokemon)
     @sprites["itemicon2"].visible = false
     overlay=@sprites["overlay"].bitmap
     overlay.clear
-    @sprites["background"].setBitmap("Graphics/Pictures/"+getDarkModeFolder+"/summary4")
+    @sprites["background"].setBitmap("Graphics/Pictures/"+getDarkModeFolder+"/Summary/bg_6")
 #    @sprites["header-bg"].setBitmap("Graphics/Pictures/header-global")      
 #    @sprites["header"].setBitmap("Graphics/Pictures/header4")
     @sprites["pokemon"].visible=true
@@ -933,10 +933,10 @@ def drawPageFive(pokemon)
       imagepos.push([sprintf("Graphics/Pictures/shiny"),2,134,0,0,-1,-1])
     end
     if pbPokerus(pokemon)==2
-      imagepos.push([sprintf("Graphics/Pictures/summaryPokerus"),176,100,0,0,-1,-1])
+      imagepos.push([sprintf("Graphics/Pictures/Summary/icon_pokerus"),176,100,0,0,-1,-1])
     end
     ballused=@pokemon.ballused ? @pokemon.ballused : 0
-    ballimage=sprintf("Graphics/Pictures/summaryball%02d",@pokemon.ballused)
+    ballimage=sprintf("Graphics/Pictures/Summary/icon_ball_%02d",@pokemon.ballused)
     imagepos.push([ballimage,14,60,0,0,-1,-1])
     pbDrawImagePositions(overlay,imagepos)
     if (!isDarkMode?)
@@ -983,7 +983,7 @@ def drawPageFive(pokemon)
     dark = (isDarkMode?) ? [2,0] : [1,0]
     for i in 0...pokemon.moves.length
       if pokemon.moves[i].id>0
-        imagepos.push(["Graphics/Global Pictures/types",376,yPos+2,64*$PokemonSystem.colortige,
+        imagepos.push(["Graphics/Pictures/Types",376,yPos+2,64*$PokemonSystem.colortige,
            pokemon.moves[i].type*28,64,28])
         textpos.push([PBMoves.getName(pokemon.moves[i].id),444,yPos,0,
            typeColors[pokemon.moves[i].type][dark[0]],typeColors[pokemon.moves[i].type][dark[1]]])
@@ -1073,12 +1073,12 @@ def drawPageFive(pokemon)
                   Color.new(144,72,24),   # 1/4 of total PP or less
                   Color.new(136,48,48)]   # Zero PP
     if moveToLearn==0
-      @sprites["background"].setBitmap("Graphics/Pictures/"+getDarkModeFolder+"/summary4details")
+      @sprites["background"].setBitmap("Graphics/Pictures/"+getDarkModeFolder+"/Summary/bg_movedetail")
 #      @sprites["header-bg"].setBitmap("Graphics/Pictures/header-global")      
 #      @sprites["header"].setBitmap("Graphics/Pictures/header4")
     end
     if moveToLearn!=0
-      @sprites["background"].setBitmap("Graphics/Pictures/"+getDarkModeFolder+"/summary4learning")
+      @sprites["background"].setBitmap("Graphics/Pictures/"+getDarkModeFolder+"/Summary/bg_learnmove")
     end
     pbSetSystemFont(overlay)
     textpos=[
@@ -1109,7 +1109,7 @@ def drawPageFive(pokemon)
       dark = (isDarkMode?) ? [2,0] : [1,0]
       if moveobject
         if moveobject.id!=0
-          imagepos.push(["Graphics/Global Pictures/types",376,yPos+2,64*$PokemonSystem.colortige,
+          imagepos.push(["Graphics/Pictures/Types",376,yPos+2,64*$PokemonSystem.colortige,
              moveobject.type*28,64,28])
           textpos.push([PBMoves.getName(moveobject.id),444,yPos,0,
              typeColors[moveobject.type][dark[0]],typeColors[moveobject.type][dark[1]]])
@@ -1140,7 +1140,7 @@ def drawPageFive(pokemon)
     @sprites["itemicon2"].visible = false
     overlay=@sprites["overlay"].bitmap
     overlay.clear
-    @sprites["background"].setBitmap("Graphics/Pictures/"+getDarkModeFolder+"/summary5")
+    @sprites["background"].setBitmap("Graphics/Pictures/"+getDarkModeFolder+"/Summary/bg_7")
 #    @sprites["header-bg"].setBitmap("Graphics/Pictures/header-global")      
 #    @sprites["header"].setBitmap("Graphics/Pictures/header5")
     imagepos=[]
@@ -1154,10 +1154,10 @@ def drawPageFive(pokemon)
       imagepos.push([sprintf("Graphics/Pictures/shiny"),2,134,0,0,-1,-1])
     end
     if pbPokerus(pokemon)==2
-      imagepos.push([sprintf("Graphics/Pictures/summaryPokerus"),176,100,0,0,-1,-1])
+      imagepos.push([sprintf("Graphics/Pictures/Summary/icon_pokerus"),176,100,0,0,-1,-1])
     end
     ballused=@pokemon.ballused ? @pokemon.ballused : 0
-    ballimage=sprintf("Graphics/Pictures/summaryball%02d",@pokemon.ballused)
+    ballimage=sprintf("Graphics/Pictures/Summary/icon_ball_%02d",@pokemon.ballused)
     imagepos.push([ballimage,14,60,0,0,-1,-1])
     pbDrawImagePositions(overlay,imagepos)
     if (!isDarkMode?)
@@ -1217,7 +1217,7 @@ def drawPageFive(pokemon)
     overlay=@sprites["overlay"].bitmap
     overlay.clear
     @sprites["background"].setBitmap(@pokemon.egg? ? 
-          "Graphics/Pictures/"+getDarkModeFolder+"/summaryEgg6" : "Graphics/Pictures/"+getDarkModeFolder+"/summary6")
+          "Graphics/Pictures/"+getDarkModeFolder+"/Summary/bg_8_egg" : "Graphics/Pictures/"+getDarkModeFolder+"/Summary/bg_8")
 #    @sprites["header-bg"].setBitmap("Graphics/Pictures/header-global")      
 #    @sprites["header"].setBitmap(@pokemon.egg? ? 
 #          "Graphics/Pictures/headerB6" : "Graphics/Pictures/header6")
@@ -1234,11 +1234,11 @@ def drawPageFive(pokemon)
 		end
 		if pbPokerus(pokemon)==2
 		  imagepos.push([
-			  sprintf("Graphics/Pictures/summaryPokerus"),176,100,0,0,-1,-1])
+			  sprintf("Graphics/Pictures/Summary/icon_pokerus"),176,100,0,0,-1,-1])
 		end
 	end
     ballused=@pokemon.ballused ? @pokemon.ballused : 0
-    ballimage=sprintf("Graphics/Pictures/summaryball%02d",@pokemon.ballused)
+    ballimage=sprintf("Graphics/Pictures/Summary/icon_ball_%02d",@pokemon.ballused)
     imagepos.push([ballimage,14,60,0,0,-1,-1])
     pbDrawImagePositions(overlay,imagepos)
     
@@ -1366,7 +1366,7 @@ def drawPageFive(pokemon)
     @sprites["itemicon2"].visible = true
     overlay=@sprites["overlay"].bitmap
     overlay.clear
-    @sprites["background"].setBitmap("Graphics/Pictures/"+getDarkModeFolder+"/summary6_1")
+    @sprites["background"].setBitmap("Graphics/Pictures/"+getDarkModeFolder+"/Summary/bg_9")
 #    @sprites["header-bg"].setBitmap("Graphics/Pictures/header-global")      
 #    @sprites["header"].setBitmap("Graphics/Pictures/header6")
     imagepos=[]
@@ -1380,10 +1380,10 @@ def drawPageFive(pokemon)
       imagepos.push([sprintf("Graphics/Pictures/shiny"),2,134,0,0,-1,-1])
     end
     if pbPokerus(pokemon)==2
-      imagepos.push([sprintf("Graphics/Pictures/summaryPokerus"),176,100,0,0,-1,-1])
+      imagepos.push([sprintf("Graphics/Pictures/Summary/icon_pokerus"),176,100,0,0,-1,-1])
     end
     ballused=@pokemon.ballused ? @pokemon.ballused : 0
-    ballimage=sprintf("Graphics/Pictures/summaryball%02d",@pokemon.ballused)
+    ballimage=sprintf("Graphics/Pictures/Summary/icon_ball_%02d",@pokemon.ballused)
     imagepos.push([ballimage,14,60,0,0,-1,-1])
     pbDrawImagePositions(overlay,imagepos)
     if (!isDarkMode?)

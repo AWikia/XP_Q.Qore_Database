@@ -1103,6 +1103,7 @@ def ragefist
     raise _INTL("HP greater than total HP") if self.hp>@totalhp
     @battle.scene.pbHPChanged(self,oldhp,anim) if amt>0
     @tookDamage=true if amt>0 && registerDamage
+    @battle.pbCheckDanger
     return amt
   end
 
@@ -1117,6 +1118,7 @@ def ragefist
     raise _INTL("HP less than 0") if self.hp<0
     raise _INTL("HP greater than total HP") if self.hp>@totalhp
     @battle.scene.pbHPChanged(self,oldhp,anim) if amt>0
+    @battle.pbCheckDanger
     return amt
   end
 

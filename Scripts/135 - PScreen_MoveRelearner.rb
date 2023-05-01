@@ -78,7 +78,7 @@ class MoveRelearnerScene
     @sprites["msgwindow"]=Window_AdvancedTextPokemon.new("")
     @sprites["msgwindow"].visible=false
     @sprites["msgwindow"].viewport=@viewport
-    @typebitmap=AnimatedBitmap.new("Graphics/Global Pictures/types")
+    @typebitmap=AnimatedBitmap.new("Graphics/Pictures/Types")
     pbDrawMoveList
     pbDeactivateWindows(@sprites)
     # Fade in all sprites
@@ -116,7 +116,7 @@ class MoveRelearnerScene
       if moveobject
         movedata=PBMoveData.new(moveobject)
         if movedata
-          imagepos.push(["Graphics/Global Pictures/types",12,yPos+2,64*$PokemonSystem.colortige,
+          imagepos.push(["Graphics/Pictures/Types",12,yPos+2,64*$PokemonSystem.colortige,
           movedata.type*28,64,28])
           textpos.push([PBMoves.getName(moveobject),80,yPos,0,
              typeColors[movedata.type][dark[0]],typeColors[movedata.type][dark[1]]])

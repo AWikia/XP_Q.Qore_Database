@@ -3,10 +3,10 @@ class Scene_OptionSectionScene
     @viewport=Viewport.new(0,0,Graphics.width,Graphics.height)
     @viewport.z=99999
     @sprites={}
-	# Dark Mode
-	if (($PokemonSystem.darkmode==2 rescue false) || 
-		($PokemonSystem.darkmode==3 rescue false)) &&
-		($BORDERS!=getBorders)
+    # Dark Mode
+    if (($PokemonSystem.darkmode==2 rescue false) || 
+       ($PokemonSystem.darkmode==3 rescue false)) &&
+       ($BORDERS!=getBorders)
       MessageConfig.pbSetSpeechFrame("Graphics/Windowskins/"+getDarkModeFolder+"/"+$SpeechFrames[$PokemonSystem.textskin])
       MessageConfig.pbSetSystemFrame("Graphics/Windowskins/"+getDarkModeFolder+"/"+$TextFrames[$PokemonSystem.textskin])
       $BORDERS=getBorders
@@ -14,7 +14,7 @@ class Scene_OptionSectionScene
     end
     # Dark Mode End
     commands=CommandList.new
-        addBackgroundOrColoredPlane(@sprites,"title",getDarkModeFolder+"/settingsbg",
+        addBackgroundOrColoredPlane(@sprites,"title",getDarkModeFolder+"/Settings/bg",
            Color.new(0,0,0),@viewport)
       title="Settings"    
       @sprites["header"]=Window_UnformattedTextPokemon.newWithSize(_INTL(title),

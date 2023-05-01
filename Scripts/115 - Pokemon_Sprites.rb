@@ -41,15 +41,15 @@ class PokemonSprite < SpriteWrapper
     self.bitmap=@_iconbitmap ? @_iconbitmap.bitmap : nil
   end
 
-  def setSpeciesBitmap(species,female=false,form=0,shiny=false,shadow=false,back=false,egg=false,box=false,color=0)
+  def setSpeciesBitmap(species,female=false,form=0,shiny=false,shadow=false,back=false,egg=false,box=false)
     @_iconbitmap.dispose if @_iconbitmap
-    @_iconbitmap=pbLoadSpeciesBitmap(species,female,form,shiny,shadow,back,egg,box,color)
+    @_iconbitmap=pbLoadSpeciesBitmap(species,female,form,shiny,shadow,back,egg,box)
     self.bitmap=@_iconbitmap ? @_iconbitmap.bitmap : nil
   end
   
-  def setSpeciesBitmapDex(species,female=false,form=0,shiny=false,shadow=false,back=false,egg=false,box=false,color=0)
+  def setSpeciesBitmapDex(species,female=false,form=0,shiny=false,shadow=false,back=false,egg=false,box=false)
     @_iconbitmap.dispose if @_iconbitmap
-    @_iconbitmap=pbLoadSpeciesBitmap(species,female,form,shiny,shadow,back,egg,box,color)
+    @_iconbitmap=pbLoadSpeciesBitmap(species,female,form,shiny,shadow,back,egg,box)
     self.bitmap=@_iconbitmap ? @_iconbitmap.bitmap : nil
   end
 end

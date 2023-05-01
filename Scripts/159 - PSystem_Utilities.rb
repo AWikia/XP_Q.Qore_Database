@@ -320,7 +320,7 @@ end
 
 # Returns the Accent Colors
 def getAccentNames
-  return ["Light Yellow", "Yellow", "Dark Yellow", "Light Orange", "Orange", "Dark Orange", "Light Red", "Red", "Dark Red", "Light Pink", "Pink", "Dark Pink", "Light Purple", "Purple", "Dark Purple", "Light Blue", "Blue", "Dark Blue", "Light Green", "Green", "Dark Green", "Light Gray", "Gray", "Dark Gray", "Channel-Aware", "Multi-Colored", "Black and White", "Pokémon Quadruplet", "Bronze Medal", "Silver Medal", "Gold Medal", "Platinum Medal", "White 2 and Black 2", "X and Y", "Sun and Moon", "Pikachu and Eevee", "Sword and Shield", "Scarlet and Violet", "Brilliant Diamond and Shining Pearl", "Omega Ruby and Alpha Sapphire", "HeartGold and SoulSilver", "Expansion Pass", "FireRed and LeafGreen", "Light Eevee and Pikachu", "Inverted Multi-Colored", "Crystal", "Emerald", "Legends: Arceus"]
+  return ["Light Yellow", "Yellow", "Dark Yellow", "Light Orange", "Orange", "Dark Orange", "Light Red", "Red", "Dark Red", "Light Pink", "Pink", "Dark Pink", "Light Purple", "Purple", "Dark Purple", "Light Blue", "Blue", "Dark Blue", "Light Green", "Green", "Dark Green", "Light Gray", "Gray", "Dark Gray", "Channel-Aware", "Multi-Colored", "Black and White", "Pokémon Quadruplet", "Bronze Medal", "Silver Medal", "Gold Medal", "Platinum Medal", "White 2 and Black 2", "X and Y", "Sun and Moon", "Pikachu and Eevee", "Sword and Shield", "Scarlet and Violet", "Brilliant Diamond and Shining Pearl", "Omega Ruby and Alpha Sapphire", "HeartGold and SoulSilver", "Expansion Pass", "FireRed and LeafGreen", "Light Eevee and Pikachu", "Inverted Multi-Colored", "Crystal", "Emerald", "Legends: Arceus", "The Hidden Treassure of Area Zero"]
 end
 
 # Returns the Active Accent Color
@@ -1290,13 +1290,11 @@ def pbLoadPokemonBitmapSpecies(pokemon,species,back=false)
   ret = nil
   if pokemon.isRB?
     bitmapFileName = pbCheckPokemonBitmapFiles([species,back,(pokemon.isFemale?),
-       pokemon.isShiny?,(pokemon.form rescue 0),(pokemon.isShadow? rescue false),
-       (pokemon.color rescue 0)],
+       pokemon.isShiny?,(pokemon.form rescue 0),(pokemon.isShadow? rescue false)],
        'Remote Boxes')
   elsif pokemon.isEgg?
     bitmapFileName = pbCheckPokemonBitmapFiles([species,back,(pokemon.isFemale?),
-       pokemon.isShiny?,(pokemon.form rescue 0),(pokemon.isShadow? rescue false),
-       (pokemon.color rescue 0)],
+       pokemon.isShiny?,(pokemon.form rescue 0),(pokemon.isShadow? rescue false)],
        'Eggs')
   else
     bitmapFileName = pbCheckPokemonBitmapFiles([species,back,(pokemon.isFemale?),
@@ -1318,14 +1316,14 @@ def pbLoadPokemonBitmapSpecies(pokemon,species,back=false)
 end
 
 # Note: Returns an AnimatedBitmap, not a Bitmap
-def pbLoadSpeciesBitmap(species,female=false,form=0,shiny=false,shadow=false,back=false,egg=false,box=false,color=0)
+def pbLoadSpeciesBitmap(species,female=false,form=0,shiny=false,shadow=false,back=false,egg=false,box=false)
   ret = nil
   if box
-    bitmapFileName = pbCheckPokemonBitmapFiles([species,back,female,shiny,form,shadow,color],'remotebox')
+    bitmapFileName = pbCheckPokemonBitmapFiles([species,back,female,shiny,form,shadow],'Remote Boxes')
   elsif egg
-    bitmapFileName = pbCheckPokemonBitmapFiles([species,back,female,shiny,form,shadow,color],'egg')
+    bitmapFileName = pbCheckPokemonBitmapFiles([species,back,female,shiny,form,shadow],'Eggs')
   else
-    bitmapFileName = pbCheckPokemonBitmapFiles([species,back,female,shiny,form,shadow,color])
+    bitmapFileName = pbCheckPokemonBitmapFiles([species,back,female,shiny,form,shadow])
   end
   if bitmapFileName
     ret = AnimatedBitmap.new(bitmapFileName)
@@ -1335,8 +1333,10 @@ end
 
 # Color of the Pokemon is only used to determine which Unknown Pokemon Sprite will
 # used if no sprite has been added yet. It serves no purpose otherwise
-def pbCheckPokemonBitmapFiles(params,extra='')
-  species=params[0]
+# The following are not available for Icon Sprites:
+# * New6, TMP Gen9, Color-awareness
+def pbCheckPokemonBitmapFiles(params,extra='',suffix='',iconsprite=false)
+  species=0
   back=params[1]
   factors=[]
   factors.push([5,params[5],false]) if params[5] && params[5]!=false     # shadow
@@ -1344,7 +1344,7 @@ def pbCheckPokemonBitmapFiles(params,extra='')
   factors.push([3,params[3],false]) if params[3] && params[3]!=false     # shiny
   factors.push([4,params[4].to_s,""]) if params[4] && params[4].to_s!="" &&
                                                       params[4].to_s!="0" # form
-  factors.push([6,params[6].to_s,""]) if params[6] && params[6].to_s!=""  # color
+  factors.push([0,params[0],0])                                        # species
   tshadow=false
   tgender=false
   tshiny=false
@@ -1353,119 +1353,78 @@ def pbCheckPokemonBitmapFiles(params,extra='')
   # Regular Sprites
   for i in 0...2**factors.length
     for j in 0...factors.length
+      newval=((i/(2**j))%2==0) ? factors[j][1] : factors[j][2]
       case factors[j][0]
+      when 0   # gender
+        species=newval
       when 2   # gender
-        tgender=((i/(2**j))%2==0) ? factors[j][1] : factors[j][2]
+        tgender=newval
       when 3   # shiny
-        tshiny=((i/(2**j))%2==0) ? factors[j][1] : factors[j][2]
+        tshiny=newval
       when 4   # form
-        tform=((i/(2**j))%2==0) ? factors[j][1] : factors[j][2]
+        tform=newval
       when 5   # shadow
-        tshadow=((i/(2**j))%2==0) ? factors[j][1] : factors[j][2]
-      when 6   # color
-        tcolor=((i/(2**j))%2==0) ? factors[j][1] : factors[j][2]
+        tshadow=newval
       end
     end
+    for j in 0...2   # Try using the species' internal name and then its ID number
+      next if species==0 && j==0
+      speciesText = (j==0) ? getConstantName(PBSpecies,species) : sprintf("%03d",species)
 #TEMP
-   if ($PokemonSystem.newsix==1 rescue false) 
-      bitmapFileName=sprintf("Graphics/Pokemon/_New6/%s%s%s/%s%s%s%s",
+     if ($PokemonSystem.newsix==1 rescue false) && !iconsprite
+        bitmapFileName=sprintf("Graphics/Pokemon/_New6/%s%s%s/%s%s%s%s%s",
+           extra,
+           back ? (extra !="" ? " Back" : "Back") : (extra !="" ? "" : "Front"),
+           tshiny ? " Shiny" : "",
+           speciesText,
+           (tform!="" ? "_"+tform : ""),
+           tgender ? "_female" : "",
+           tshadow ? "_shadow" : "",
+           suffix !="" ? "_"+suffix : "") rescue nil
+        ret=pbResolveBitmap(bitmapFileName)
+        return ret if ret
+     end
+  #TEMP
+     if ($PokemonSystem.customshiny==1 rescue false) && !iconsprite
+        bitmapFileName=sprintf("Graphics/Pokemon/_Customized Shinies/%s%s%s/%s%s%s%s%s",
+           extra,
+           back ? (extra !="" ? " Back" : "Back") : (extra !="" ? "" : "Front"),
+           tshiny ? " Shiny" : "",
+           speciesText,
+           (tform!="" ? "_"+tform : ""),
+           tgender ? "_female" : "",
+           tshadow ? "_shadow" : "",
+           suffix !="" ? "_"+suffix : "") rescue nil
+        ret=pbResolveBitmap(bitmapFileName)
+        return ret if ret
+     end
+      bitmapFileName=sprintf("Graphics/Pokemon/%s%s%s/%s%s%s%s%s",
          extra,
          back ? (extra !="" ? " Back" : "Back") : (extra !="" ? "" : "Front"),
          tshiny ? " Shiny" : "",
-         getConstantName(PBSpecies,species),
+         speciesText,
          (tform!="" ? "_"+tform : ""),
          tgender ? "_female" : "",
-         tshadow ? "_shadow" : "") rescue nil
+         tshadow ? "_shadow" : "",
+         suffix !="" ? "_"+suffix : "") rescue nil
       ret=pbResolveBitmap(bitmapFileName)
       return ret if ret
-      bitmapFileName=sprintf("Graphics/Pokemon/_New6/%s%s%s/%03d%s%s%s",
-         extra,
-         back ? (extra !="" ? " Back" : "Back") : (extra !="" ? "" : "Front"),
-         tshiny ? " Shiny" : "",
-         species,
-         (tform!="" ? "_"+tform : ""),
-         tgender ? "_female" : "",
-         tshadow ? "_shadow" : "")
-      ret=pbResolveBitmap(bitmapFileName)
-      return ret if ret
-   end
-#TEMP
-    bitmapFileName=sprintf("Graphics/Pokemon/%s%s%s/%s%s%s%s",
-       extra,
-       back ? (extra !="" ? " Back" : "Back") : (extra !="" ? "" : "Front"),
-       tshiny ? " Shiny" : "",
-       getConstantName(PBSpecies,species),
-       (tform!="" ? "_"+tform : ""),
-       tgender ? "_female" : "",
-       tshadow ? "_shadow" : "") rescue nil
-    ret=pbResolveBitmap(bitmapFileName)
-    return ret if ret
-    bitmapFileName=sprintf("Graphics/Pokemon/%s%s%s/%03d%s%s%s",
-       extra,
-       back ? (extra !="" ? " Back" : "Back") : (extra !="" ? "" : "Front"),
-       tshiny ? " Shiny" : "",
-       species,
-       (tform!="" ? "_"+tform : ""),
-       tgender ? "_female" : "",
-       tshadow ? "_shadow" : "")
-    ret=pbResolveBitmap(bitmapFileName)
-    return ret if ret
-#TEMP
-      bitmapFileName=sprintf("Graphics/Pokemon/_TMP Gen9/%s%s%s/%s%s%s%s",
-         extra,
-         back ? (extra !="" ? " Back" : "Back") : (extra !="" ? "" : "Front"),
-         tshiny ? " Shiny" : "",
-         getConstantName(PBSpecies,species),
-         (tform!="" ? "_"+tform : ""),
-         tgender ? "_female" : "",
-         tshadow ? "_shadow" : "") rescue nil
-      ret=pbResolveBitmap(bitmapFileName)
-      return ret if ret
-      bitmapFileName=sprintf("Graphics/Pokemon/_TMP Gen9/%s%s%s/%03d%s%s%s",
-         extra,
-         back ? (extra !="" ? " Back" : "Back") : (extra !="" ? "" : "Front"),
-         tshiny ? " Shiny" : "",
-         species,
-         (tform!="" ? "_"+tform : ""),
-         tgender ? "_female" : "",
-         tshadow ? "_shadow" : "")
-      ret=pbResolveBitmap(bitmapFileName)
-      return ret if ret
-#TEMP
-  end
-  # Fallback Sprites
-  for i in 0...2**factors.length
-    for j in 0...factors.length
-      case factors[j][0]
-      when 2   # gender
-        tgender=((i/(2**j))%2==0) ? factors[j][1] : factors[j][2]
-      when 3   # shiny
-        tshiny=((i/(2**j))%2==0) ? factors[j][1] : factors[j][2]
-      when 4   # form
-        tform=((i/(2**j))%2==0) ? factors[j][1] : factors[j][2]
-      when 5   # shadow
-        tshadow=((i/(2**j))%2==0) ? factors[j][1] : factors[j][2]
-      when 6   # color
-        tcolor=((i/(2**j))%2==0) ? factors[j][1] : factors[j][2]
+  #TEMP
+      if !iconsprite
+        bitmapFileName=sprintf("Graphics/Pokemon/_TMP Gen9/%s%s%s/%s%s%s%s%s",
+           extra,
+           back ? (extra !="" ? " Back" : "Back") : (extra !="" ? "" : "Front"),
+           tshiny ? " Shiny" : "",
+           speciesText,
+           (tform!="" ? "_"+tform : ""),
+           tgender ? "_female" : "",
+           tshadow ? "_shadow" : "",
+           suffix !="" ? "_"+suffix : "") rescue nil
+        ret=pbResolveBitmap(bitmapFileName)
+        return ret if ret
       end
+  #TEMP
     end
-    bitmapFileName=sprintf("Graphics/Pokemon/%s%s%s/000%s%s%s",
-       extra,
-       back ? (extra !="" ? " Back" : "Back") : (extra !="" ? "" : "Front"),
-       tshiny ? " Shiny" : "",
-       (tcolor!="" ? "_"+tcolor : ""),
-       tgender ? "_female" : "",
-       tshadow ? "_shadow" : "") rescue nil
-    ret=pbResolveBitmap(bitmapFileName)
-    return ret if ret
-    bitmapFileName=sprintf("Graphics/Pokemon/%s%s%s/000%s%s",
-       extra,
-       back ? (extra !="" ? " Back" : "Back") : (extra !="" ? "" : "Front"),
-       tshiny ? " Shiny" : "",
-       tgender ? "_female" : "",
-       tshadow ? "_shadow" : "") rescue nil
-    ret=pbResolveBitmap(bitmapFileName)
-    return ret if ret
   end
   return nil
 end
@@ -1489,61 +1448,15 @@ end
 
 def pbCheckPokemonIconFiles(params,egg=false)
   species=params[0]
+  tgender=params[1]
+  tshiny=params[2]
+  tform=params[3]
+  tshadow=params[4]
   if egg
-    bitmapFileName=sprintf("Graphics/Pokemon/Icons/%s_egg",getConstantName(PBSpecies,species)) rescue nil
-    if !pbResolveBitmap(bitmapFileName)
-      bitmapFileName=sprintf("Graphics/Pokemon/Icons/%03d_egg",species) 
-      if !pbResolveBitmap(bitmapFileName)
-        bitmapFileName=sprintf("Graphics/Pokemon/Icons/000_egg")
-      end
-    end
-    return pbResolveBitmap(bitmapFileName)
+    return pbCheckPokemonBitmapFiles([species,false,tgender,tshiny,tform,tshadow,0],"Eggs","icon",true)
   else
-    factors=[]
-    factors.push([4,params[4],false]) if params[4] && params[4]!=false     # shadow
-    factors.push([1,params[1],false]) if params[1] && params[1]!=false     # gender
-    factors.push([2,params[2],false]) if params[2] && params[2]!=false     # shiny
-    factors.push([3,params[3].to_s,""]) if params[3] && params[3].to_s!="" &&
-                                                        params[3].to_s!="0" # form
-    tshadow=false
-    tgender=false
-    tshiny=false
-    tform=""
-    for i in 0...2**factors.length
-      for j in 0...factors.length
-        case factors[j][0]
-        when 1   # gender
-          tgender=((i/(2**j))%2==0) ? factors[j][1] : factors[j][2]
-        when 2   # shiny
-          tshiny=((i/(2**j))%2==0) ? factors[j][1] : factors[j][2]
-        when 3   # form
-          tform=((i/(2**j))%2==0) ? factors[j][1] : factors[j][2]
-        when 4   # shadow
-          tshadow=((i/(2**j))%2==0) ? factors[j][1] : factors[j][2]
-        end
-      end
-      bitmapFileName=sprintf("Graphics/Pokemon/Icons%s/%s%s%s%s",
-         tshiny ? " Shiny" : "",
-         getConstantName(PBSpecies,species),
-         (tform!="" ? "_"+tform : ""),
-         tgender ? "_female" : "",
-         tshadow ? "_shadow" : "") rescue nil
-      ret=pbResolveBitmap(bitmapFileName)
-      return ret if ret
-      bitmapFileName=sprintf("Graphics/Pokemon/Icons%s/%03d%s%s%s",
-         tshiny ? " Shiny" : "",
-         species,
-         (tform!="" ? "_"+tform : ""),
-         tgender ? "_female" : "",
-         tshadow ? "_shadow" : "")
-      ret=pbResolveBitmap(bitmapFileName)
-      return ret if ret
-    end
-      bitmapFileName=sprintf("Graphics/Pokemon/Icons/000")
-      ret=pbResolveBitmap(bitmapFileName)
-      return ret if ret
+    return pbCheckPokemonBitmapFiles([species,false,tgender,tshiny,tform,tshadow,0],"Icons","",true)
   end
-  return nil
 end
 
 def pbPokemonFootprintFile(pokemon)   # Used by the Pokédex
@@ -1609,9 +1522,9 @@ end
 
 def pbMailBackFile(item)
   return nil if !item
-  bitmapFileName=sprintf("Graphics/Pictures/mail%s",getConstantName(PBItems,item)) rescue nil
+  bitmapFileName=sprintf("Graphics/Pictures/Mail/mail_%s",getConstantName(PBItems,item)) rescue nil
   if !pbResolveBitmap(bitmapFileName)
-    bitmapFileName=sprintf("Graphics/Pictures/mail%03d",item)
+    bitmapFileName=sprintf("Graphics/Pictures/Mail/mail_%03d",item)
   end
   return bitmapFileName
 end
@@ -1801,7 +1714,13 @@ def pbCryFileClassic(pokemon)
   return nil
 end
 
-
+def pbGetDangerBattleBGM(species,mode=0)
+  if ($PokemonSystem.battledif>1 rescue false)
+    return ["DangerHard","DangerHard_2"][mode]
+  else
+    return "Danger"
+  end
+end
 
 def pbGetWildBattleBGM(species)
   if $PokemonGlobal.nextBattleBGM
@@ -2290,11 +2209,9 @@ def pbSeenForm(poke,gender=0,form=0)
   if poke.is_a?(PokeBattle_Pokemon)
     gender=poke.gender
     form=(poke.form rescue 0)
-    color=(poke.color rescue 0)
     species=poke.species
   else
     species=poke
-    color=(poke.color rescue 0)
   end
   return if !species || species<=0
   gender=0 if gender>1
@@ -2303,7 +2220,7 @@ def pbSeenForm(poke,gender=0,form=0)
   $Trainer.formseen[species]=[[],[]] if !$Trainer.formseen[species]
   $Trainer.formseen[species][gender][form]=true
   $Trainer.formlastseen[species]=[] if !$Trainer.formlastseen[species]
-  $Trainer.formlastseen[species]=[gender,form,color] if $Trainer.formlastseen[species]==[]
+  $Trainer.formlastseen[species]=[gender,form] if $Trainer.formlastseen[species]==[]
 end
 
 

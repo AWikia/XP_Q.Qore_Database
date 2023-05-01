@@ -53,7 +53,7 @@ class Scene_PokedexMenu
     commands.push(_INTL("Exit"))
     @sprites={}
     @sprites["background"] = IconSprite.new(0,0)
-    @sprites["background"].setBitmap("Graphics/Pictures/pokedexMenubg")
+    @sprites["background"].setBitmap("Graphics/Pictures/Pokedex/bg_menu")
     @sprites["commands"] = Window_DexesList.new(commands,Graphics.width,seen,owned)
     @sprites["commands"].index = @menu_index
     @sprites["commands"].x = 42
@@ -133,13 +133,13 @@ end
 class Window_Pokedex < Window_DrawableCommand
   def initialize(x,y,width,height)
     if pbGetPokedexRegion==-1 # Using national Pokédex
-    @pokeballOwned=AnimatedBitmap.new("Graphics/Pictures/"+getDarkModeFolder+"/pokedexOwned")
-    @pokeballSeen=AnimatedBitmap.new("Graphics/Pictures/"+getDarkModeFolder+"/pokedexSeen")
+    @pokeballOwned=AnimatedBitmap.new("Graphics/Pictures/"+getDarkModeFolder+"/Pokedex/icon_own")
+    @pokeballSeen=AnimatedBitmap.new("Graphics/Pictures/"+getDarkModeFolder+"/Pokedex/icon_seen")
     else
 #    @pokeballOwned=AnimatedBitmap.new("Graphics/Pictures/pokedexOwnedREGION")
 #    @pokeballSeen=AnimatedBitmap.new("Graphics/Pictures/pokedexSeenREGION")
-    @pokeballOwned=AnimatedBitmap.new("Graphics/Pictures/"+getDarkModeFolder+"/pokedexOwned")
-    @pokeballSeen=AnimatedBitmap.new("Graphics/Pictures/"+getDarkModeFolder+"/pokedexSeen")
+    @pokeballOwned=AnimatedBitmap.new("Graphics/Pictures/"+getDarkModeFolder+"/Pokedex/icon_own")
+    @pokeballSeen=AnimatedBitmap.new("Graphics/Pictures/"+getDarkModeFolder+"/Pokedex/icon_seen")
     end
 
     @commands=[]
@@ -328,8 +328,7 @@ class PokemonPokedexScene
   def setIconBitmap(species)
     gender=($Trainer.formlastseen[species][0] rescue 0)
     form=($Trainer.formlastseen[species][1] rescue 0)
-    color=($Trainer.formlastseen[species][2] rescue 0)
-    @sprites["icon"].setSpeciesBitmapDex(species,(gender==1),form,false,false,false,false,false,color)
+    @sprites["icon"].setSpeciesBitmapDex(species,(gender==1),form,false,false,false,false,false)
     pbPositionPokemonSprite(@sprites["icon"],116-32,164-64+7)
   end
 
@@ -369,12 +368,12 @@ class PokemonPokedexScene
     @sprites["pokedex"].viewport=@viewport
     @sprites["dexentry"]=IconSprite.new(0,0,@viewport)
     @sprites["dexentry2"]=IconSprite.new(0,0,@viewport)
-    @sprites["dexentry2"].setBitmap(_INTL("Graphics/Pictures/"+getDarkModeFolder+"/pokedexEntry_2"))
+    @sprites["dexentry2"].setBitmap(_INTL("Graphics/Pictures/"+getDarkModeFolder+"/Pokedex/overlay_info_2"))
   if pbGetPokedexRegion==-1 # Using national Pokédex
-    @sprites["dexentry"].setBitmap(_INTL("Graphics/Pictures/"+getDarkModeFolder+"/pokedexEntry"))
+    @sprites["dexentry"].setBitmap(_INTL("Graphics/Pictures/"+getDarkModeFolder+"/Pokedex/bg_info"))
   else
 #    @sprites["dexentry"].setBitmap(_INTL("Graphics/Pictures/pokedexEntryREGION"))
-    @sprites["dexentry"].setBitmap(_INTL("Graphics/Pictures/"+getDarkModeFolder+"/pokedexEntry"))
+    @sprites["dexentry"].setBitmap(_INTL("Graphics/Pictures/"+getDarkModeFolder+"/Pokedex/bg_info"))
   end
     @sprites["dexentry"].visible=false
     @sprites["dexentry2"].visible=false
@@ -451,9 +450,9 @@ class PokemonPokedexScene
       @sprites["owned"].shadowColor=Color.new(119,65,221)
     end
     if pbGetPokedexRegion==-1 # Using national Pokédex
-      addBackgroundPlane(@sprites,"searchbg",_INTL(getDarkModeFolder+"/pokedexSearchbg"),@viewport)
+      addBackgroundPlane(@sprites,"searchbg",_INTL(getDarkModeFolder+"/Pokedex/bg_search"),@viewport)
     else
-      addBackgroundPlane(@sprites,"searchbg",_INTL(getDarkModeFolder+"/pokedexSearchbg"),@viewport)
+      addBackgroundPlane(@sprites,"searchbg",_INTL(getDarkModeFolder+"/Pokedex/bg_search"),@viewport)
 #      addBackgroundPlane(@sprites,"searchbg",_INTL("pokedexSearchbgREGION"),@viewport)
     end
     @sprites["searchbg"].visible=false
@@ -468,16 +467,16 @@ class PokemonPokedexScene
     end
 =end
     if pbGetPokedexRegion==-1 # Using national Pokédex
-      addBackgroundPlane(@sprites,"background",getDarkModeFolder+"/pokedexbg",@viewport)
+      addBackgroundPlane(@sprites,"background",getDarkModeFolder+"/Pokedex/bg_list",@viewport)
     else
-       addBackgroundPlane(@sprites,"background",getDarkModeFolder+"pokedexbg",@viewport)
+       addBackgroundPlane(@sprites,"background",getDarkModeFolder+"/Pokedex/bg_list",@viewport)
 #      addBackgroundPlane(@sprites,"background","pokedexbgREGION",@viewport)
     end
     @sprites["slider"]=IconSprite.new(Graphics.width-40,62,@viewport)
     if pbGetPokedexRegion==-1 # Using national Pokédex
-    @sprites["slider"].setBitmap(sprintf("Graphics/Pictures/"+getDarkModeFolder+"/pokedexSlider"))
+    @sprites["slider"].setBitmap(sprintf("Graphics/Pictures/"+getDarkModeFolder+"/Pokedex/icon_slider"))
     else
-    @sprites["slider"].setBitmap(sprintf("Graphics/Pictures/"+getDarkModeFolder+"/pokedexSlider"))
+    @sprites["slider"].setBitmap(sprintf("Graphics/Pictures/"+getDarkModeFolder+"/Pokedex/icon_slider"))
 #    @sprites["slider"].setBitmap(sprintf("Graphics/Pictures/pokedexSliderREGION"))
     end
     @sprites["icon"]=PokemonSprite.new(@viewport)
@@ -808,8 +807,8 @@ class PokemonPokedexScene
     @viewport.z=99999
     @sprites["dexentry"]=IconSprite.new(0,0,@viewport)
     @sprites["dexentry2"]=IconSprite.new(0,0,@viewport)
-    @sprites["dexentry2"].setBitmap(_INTL("Graphics/Pictures/pokedexentry_2"))
-    @sprites["dexentry"].setBitmap(_INTL("Graphics/Pictures/"+getDarkModeFolder+"/pokedexentry"))
+    @sprites["dexentry2"].setBitmap(_INTL("Graphics/Pictures/"+getDarkModeFolder+"/Pokedex/overlay_info_2"))
+    @sprites["dexentry"].setBitmap(_INTL("Graphics/Pictures/"+getDarkModeFolder+"/Pokedex/bg_info"))
     @sprites["dexentry"].visible=false
     @sprites["overlay"]=BitmapSprite.new(Graphics.width,Graphics.height,@viewport)
     pbSetSystemFont(@sprites["overlay"].bitmap)
@@ -818,7 +817,7 @@ class PokemonPokedexScene
     @sprites["overlay"].visible=false
     @sprites["entryicon"]=PokemonSprite.new(@viewport)
     pbChangeToDexEntry(species)
-    pbDrawImagePositions(@sprites["overlay"].bitmap,[["Graphics/Pictures/"+getDarkModeFolder+"/pokedexBlank",0,0,0,0,-1,-1]])
+    pbDrawImagePositions(@sprites["overlay"].bitmap,[["Graphics/Pictures/"+getDarkModeFolder+"/Pokedex/overlay_info",0,0,0,0,-1,-1]])
     pbFadeInAndShow(@sprites)
   end
 
@@ -856,7 +855,6 @@ class PokemonPokedexScene
     indexNumber-=1 if DEXINDEXOFFSETS.include?(pbGetPokedexRegion)
     gender=($Trainer.formlastseen[species][0] rescue 0)
     form=($Trainer.formlastseen[species][1] rescue 0)
-    color=($Trainer.formlastseen[species][2] rescue 0)  
 
     @dummypokemon.species=species
     @dummypokemon.setGender(gender)
@@ -903,14 +901,14 @@ class PokemonPokedexScene
 #        footprint.dispose
 #      end
     if pbGetPokedexRegion==-1 # Using national Pokédex
-      pbDrawImagePositions(@sprites["overlay"].bitmap,[["Graphics/Pictures/"+getDarkModeFolder+"/pokedexOwned",340,42,0,0,-1,-1]])
+      pbDrawImagePositions(@sprites["overlay"].bitmap,[["Graphics/Pictures/"+getDarkModeFolder+"/Pokedex/icon_own",340,42,0,0,-1,-1]])
     else
-      pbDrawImagePositions(@sprites["overlay"].bitmap,[["Graphics/Pictures/"+getDarkModeFolder+"/pokedexOwned",340,42,0,0,-1,-1]])
+      pbDrawImagePositions(@sprites["overlay"].bitmap,[["Graphics/Pictures/"+getDarkModeFolder+"/Pokedex/icon_own",340,42,0,0,-1,-1]])
 #      pbDrawImagePositions(@sprites["overlay"].bitmap,[["Graphics/Pictures/pokedexOwnedREGION",340,42,0,0,-1,-1]])
     end
-      typebitmap=AnimatedBitmap.new("Graphics/Global Pictures/pokedexTypes")
-      compatbitmap=AnimatedBitmap.new("Graphics/Global Pictures/pokedexCompatibilities")
-      colorbitmap=AnimatedBitmap.new("Graphics/Global Pictures/pokedexColors")
+      typebitmap=AnimatedBitmap.new("Graphics/Pictures/Pokedex/icon_types")
+      compatbitmap=AnimatedBitmap.new("Graphics/Pictures/Pokedex/icon_compatibilities")
+      colorbitmap=AnimatedBitmap.new("Graphics/Pictures/Pokedex/icon_colors")
       comp1rect=Rect.new(96*$PokemonSystem.colortige,(compat1 - 1)*32,96,32)
       comp2rect=Rect.new(96*$PokemonSystem.colortige,(compat2 - 1)*32,96,32)
       type1rect=Rect.new(96*$PokemonSystem.colortige,type1*32,96,32)
@@ -938,7 +936,7 @@ class PokemonPokedexScene
       end
     end
     pbDrawTextPositions(@sprites["overlay"].bitmap,textpos)
-    @sprites["entryicon"].setSpeciesBitmapDex(species,(gender==1),form,false,false,false,false,false,color)
+    @sprites["entryicon"].setSpeciesBitmapDex(species,(gender==1),form,false,false,false,false,false)
     pbPositionPokemonSpriteMirr(@sprites["entryicon"],104,70)
   end
   

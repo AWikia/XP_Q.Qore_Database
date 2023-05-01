@@ -170,34 +170,6 @@ end
 
 
 
-class EnumOption2
-  include PropertyMixin
-  attr_reader :values
-  attr_reader :name
-
-  def initialize(name,options,getProc,setProc,help="No Description")             
-    @values=options
-    @name=name
-    @getProc=getProc
-    @setProc=setProc
-    @help=help
-  end
-
-  def next(current)
-    index=current+1
-    index=@values.length-1 if index>@values.length-1
-    return index
-  end
-
-  def prev(current)
-    index=current-1
-    index=0 if index<0
-    return index
-  end
-end
-
-
-
 class NumberOption
   include PropertyMixin
   attr_reader :name
@@ -516,9 +488,9 @@ $VersionStyles=[
 
 
 def pbSettingToTextSpeed(speed)
-  return 1 if speed==0
+  return 2 if speed==0
   return 1 if speed==1
-  return 1 if speed==2
+  return -2 if speed==2
   return MessageConfig::TextSpeed if MessageConfig::TextSpeed
   return ((Graphics.frame_rate>40) ? -2 : 1)
 end
@@ -551,18 +523,19 @@ module MessageConfig
   end
 
   def self.pbDefaultTextSpeed
-    return pbSettingToTextSpeed($PokemonSystem ? $PokemonSystem.textspeed : nil)
+    return pbSettingToTextSpeed($PokemonSystem ? $PokemonSystem.textspeed2 : nil)
   end
 
   def pbGetSystemTextSpeed
-    return $PokemonSystem ? $PokemonSystem.textspeed : ((Graphics.frame_rate>40) ? 2 :  3)
+    return $PokemonSystem ? $PokemonSystem.textspeed2 : ((Graphics.frame_rate>40) ? 2 :  3)
   end
 end
 
 
 
 class PokemonSystem
-  attr_accessor :textspeed
+  attr_accessor :textspeed  # Unused, replaced by textspeed 
+  attr_accessor :textspeed2 # textspeed will cause conflicts with the older savefiles where textspeed is set to fast
   attr_accessor :debugmode
   attr_accessor :battlescene
   attr_accessor :battlestyle
@@ -601,9 +574,11 @@ class PokemonSystem
   attr_accessor :enableshading
   attr_accessor :textskincolors
   attr_accessor :battledif
+  attr_accessor :customshiny
   
   def initialize
-    @textspeed        = 1   # Text speed (0=slow, 1=normal, 2=fast)
+    @textspeed        = 1   # Unused Text Speed
+    @textspeed2       = 1   # Text speed (0=slow, 1=normal, 2=fast)
     @debugmode        = 0   # Debug Mode
     @battlescene      = 0   # Battle effects (animations) (0=on, 1=off)
     @battlestyle      = 0   # Battle style (0=switch, 1=set)
@@ -642,8 +617,13 @@ class PokemonSystem
     @enableshading    = 1   # Outdoor Map Shading
     @textskincolors   = 0   # Text Skin Color Scheme (0=Standard, 1=Colors, 2=CMYK, 3=Vintage)
     @battledif        = 0   # Battle Difficulty
+    @customshiny      = 0   # Customized Shinies
 end
-  
+
+  def textspeed2
+    return (!@textspeed2) ? 1 : @textspeed2
+  end
+
   def language
     return (!@language) ? 0 : @language
   end
@@ -775,6 +755,10 @@ end
     return (!@battledif) ? 0 : @battledif
   end    
 
+  def customshiny
+    return (!@customshiny) ? 0 : @customshiny
+  end    
+
   
   def tilemap; return MAPVIEWMODE; end
 
@@ -864,7 +848,7 @@ There are different modes:
     title=["General Settings", "Sound Settings", "Battle Settings", "Display Settings","Personalization Settings"]
     @viewport=Viewport.new(0,0,Graphics.width,Graphics.height)
     @viewport.z=99999
-      addBackgroundOrColoredPlane(@sprites,"title",getDarkModeFolder+"/settingsbg_1",
+      addBackgroundOrColoredPlane(@sprites,"title",getDarkModeFolder+"/Settings/bg_1",
          Color.new(0,0,0),@viewport)
     @sprites["header"]=Window_UnformattedTextPokemon.newWithSize(_INTL(title[mode]),
        2,-18,576,64,@viewport)      
@@ -890,6 +874,14 @@ There are different modes:
            },
            "Enables or Disables Debugging features. Requires restart for this to apply."
         ),
+       EnumOption.new(_INTL("Text Speed"),[_INTL("Slow"),_INTL("Normal"),_INTL("Fast")],
+          proc { $PokemonSystem.textspeed2 },
+          proc {|value|
+             $PokemonSystem.textspeed2=value 
+              MessageConfig.pbSetTextSpeed(pbSettingToTextSpeed(value)) 
+          },
+           "Sets the speed of text appearing in various messageboxes. Choice between Slow, Normal and Fast"
+       ),
         EnumOption.new(_INTL("Running Key"),[_INTL("Hold"),_INTL("Toggle")],
            proc { $PokemonSystem.runstyle },
            proc {|value|
@@ -1125,6 +1117,11 @@ There are different modes:
            getAccentNames,
           "Sets the color of all accent-aware elements. Forty-Eight options exist. More than one color may be used to constuct an accent color. Blue is the default color."
          ),
+        EnumOption.new(_INTL("Custom Shiny Pokémon Sprites"),[_INTL("Off"),_INTL("On")],
+          proc { $PokemonSystem.customshiny },
+          proc {|value| $PokemonSystem.customshiny = value },
+        "If this is set to on, certain Pokémon will have distinct customized shiny sprites between forms instead of sharing the same shiny sprite."
+        ),
          NumberOption.new(_INTL("Pokémon Type Icon Style"),1,5,
            proc { $PokemonSystem.colortige },
            proc {|value| $PokemonSystem.colortige = value },

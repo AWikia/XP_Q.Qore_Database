@@ -32,7 +32,7 @@ def pbDisplayMail(mail,bearer=nil)
   sprites={}
   viewport=Viewport.new(0,0,Graphics.width,Graphics.height)
   viewport.z=99999
-  addBackgroundPlane(sprites,"background","mailbg",viewport)
+  addBackgroundPlane(sprites,"background","Mail/bg",viewport)
   sprites["card"]=IconSprite.new(0,0,viewport)
   sprites["card"].setBitmap(pbMailBackFile(mail.item))
   sprites["overlay"]=BitmapSprite.new(Graphics.width,Graphics.height,viewport)

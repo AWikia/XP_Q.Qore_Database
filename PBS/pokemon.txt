@@ -32033,8 +32033,8 @@ Color=Blue
 Habitat=Grassland
 Kind=Microsoft
 Pokedex=This Pokémon has not been uncovered yet. Stay tuned for more info
-BattlerPlayerY=0
-BattlerEnemyY=4
+BattlerPlayerY=4
+BattlerEnemyY=8
 BattlerAltitude=0
 Evolutions=MSEDGE,Level,40
 [1177]
@@ -34271,7 +34271,7 @@ Habitat=Grassland
 Kind=Singer
 Pokedex=The fiery bird changes shape when Skeledirge sings. Rumor has it that the bird was born when the fireball on Skeledirge’s head gained a soul.
 BattlerPlayerY=15
-BattlerEnemyY=24
+BattlerEnemyY=21
 BattlerAltitude=0
 Evolutions=
 [1262]
@@ -34849,7 +34849,7 @@ Habitat=Grassland
 Kind=Rock Salt
 Pokedex=It was born in a layer of rock salt deep under the earth. This species was particularly treasured in the old days, as they would share precious salt.
 BattlerPlayerY=15
-BattlerEnemyY=39
+BattlerEnemyY=33
 BattlerAltitude=0
 Evolutions=NACLSTACK,Level,24
 [1283]
@@ -35096,7 +35096,7 @@ Habitat=Grassland
 Kind=Frigatebird
 Pokedex=Kilowattrel inflates its throat sac to amplify its electricity. By riding the wind, this Pokémon can fly over 430 miles in a day.
 BattlerPlayerY=9
-BattlerEnemyY=26
+BattlerEnemyY=16
 BattlerAltitude=0
 Evolutions=
 [1292]
@@ -35123,7 +35123,7 @@ Habitat=Grassland
 Kind=Rascal
 Pokedex=It always scowls in an attempt to make opponents take it seriously, but even crying children will burst into laughter when they see Maschiff’s face.
 BattlerPlayerY=15
-BattlerEnemyY=35
+BattlerEnemyY=18
 BattlerAltitude=0
 Evolutions=MABOSSTIFF,Level,30
 [1293]
@@ -35150,7 +35150,7 @@ Habitat=Grassland
 Kind=Boss
 Pokedex=This Pokémon can store energy in its large dewlap. Mabosstiff unleashes this energy all at once to blow away enemies.
 BattlerPlayerY=12
-BattlerEnemyY=24
+BattlerEnemyY=14
 BattlerAltitude=0
 Evolutions=
 [1294]
@@ -35675,7 +35675,7 @@ Habitat=Grassland
 Kind=Item Drop
 Pokedex=It gathers things up in an apron made from shed feathers added to the Pokémon’s chest feathers, then drops those things from high places for fun.
 BattlerPlayerY=13
-BattlerEnemyY=18
+BattlerEnemyY=17
 BattlerAltitude=0
 Evolutions=
 [1313]
@@ -35867,7 +35867,7 @@ Habitat=Grassland
 Kind=Ore
 Pokedex=It absorbs nutrients from cave walls. The petals it wears are made of crystallized poison.
 BattlerPlayerY=15
-BattlerEnemyY=33
+BattlerEnemyY=35
 BattlerAltitude=0
 Evolutions=GLIMMORA,Level,35
 [1320]
@@ -36463,7 +36463,7 @@ Habitat=Grassland
 Kind=Paradox
 Pokedex=Its shape is similar to a robot featured in a paranormal magazine article. The robot was said to have been created by an ancient civilization.
 BattlerPlayerY=15
-BattlerEnemyY=23
+BattlerEnemyY=26
 BattlerAltitude=0
 Evolutions=
 [1342]
@@ -36567,7 +36567,7 @@ Habitat=Grassland
 Kind=Paradox
 Pokedex=It has some similarities to a Pokémon introduced in a dubious magazine as a Tyranitar from one billion years into the future.
 BattlerPlayerY=15
-BattlerEnemyY=13
+BattlerEnemyY=14
 BattlerAltitude=0
 Evolutions=
 [1346]
@@ -36595,7 +36595,7 @@ Habitat=Grassland
 Kind=Ice Fin
 Pokedex=Frigibax absorbs heat through its dorsal fin and converts the heat into ice energy. The higher the temperature, the more energy Frigibax stores.
 BattlerPlayerY=15
-BattlerEnemyY=33
+BattlerEnemyY=31
 BattlerAltitude=0
 Evolutions=ARCTIBAX,Level,35
 [1347]
@@ -36886,7 +36886,7 @@ Kind=Paradox
 Pokedex=This seems to be the Winged King mentioned in an old expedition journal. It was said to have split the land with its bare fists.
 FormNames=Apex Build,Limited Build
 BattlerPlayerY=3
-BattlerEnemyY=6
+BattlerEnemyY=5
 BattlerAltitude=0
 Evolutions=
 [1358]

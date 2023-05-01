@@ -843,8 +843,8 @@
 ## FLINT Moves = Normal
 626,EDGE,Edge,042,65,NORMAL,Physical,95,15,40,400,1,abe,A Microsoft Edge is hurled at the target. It may also lower the foe's attack.
 628,NORMALIZE,Normalize,160,0,NORMAL,Status,100,10,0,04,0,b,A helicopt that transforms the other side into normal type
-634,GLASSPUNCH,Glass Punch,159,90,NORMAL,Special,0,15,65,400,2,bj,"A Punch that inverts glassy arrows. Move always starts first, and may lower foe's all stats."
-636,TOSTI,Tosti,159,150,NORMAL,Physical,0,15,70,00,3,abj,The user hurls a nokka that inverts Tosti arrows. This move goes first and may lower the foe's stats
+634,GLASSPUNCH,Glass Punch,159,90,NORMAL,Special,0,15,60,400,2,bj,"A Punch that inverts glassy arrows. Move always starts first, and may lower foe's all stats."
+636,TOSTI,Tosti,159,150,NORMAL,Physical,0,10,70,00,3,abj,The user hurls a nokka that inverts Tosti arrows. This move goes first and may lower the foe's stats
 700,SUPERDISABLE,Super Disable,0B9,0,NORMAL,Status,100,20,0,04,0,bce,"For four turns, this move prevents the other side from using the move it last used."
 706,SUPERACUPRESSURE,Super Acupressure,177,0,NORMAL,Status,0,20,0,200,0,,"The user applies pressure to stress points, drastically boosting one of its stats."
 719,NAXOPRESSURE,Naxopressure,182,0,NORMAL,Status,0,30,0,00,0,,"The user applies pressure to stress points, sharply reducing one of its stats."
@@ -940,7 +940,7 @@
 1031,SILVERRYCRACK,Silvery Crack,121,95,STEEL,Special,100,15,0,00,0,abef,The user turns the foe's power against it. It does more damage the higher the target's Sp.Atk stat.
 1116,STEELFLY,Steel Fly,0C9,90,STEEL,Physical,95,15,0,00,0,abef,"The user soars, then strikes on the second turn. This move also works as a Flying Type move in addition to Steel ones."
 ## FLINT Moves = Fire
-631,MAGMABOMB,Magma Bomb,0E0,200,FIRE,Physical,100,10,0,08,0,bn,A Lava Bomb that affects fire damage. User faints after using this move
+631,MAGMABOMB,Magma Bomb,0E0,200,FIRE,Physical,100,5,0,08,0,bn,A Lava Bomb that affects fire damage. User faints after using this move
 747,MAGMATRIIVERSE,Magma Triiverse,203,5,FIRE,Physical,60,10,100,00,-1,ab,"The user hurls a large magma to the target. For the first turn the user is in battle, it will cause a lot of harm to the target"
 821,FIERYCATAPULT,Fiery Catapult,246,6,FIRE,Physical,95,20,10,00,0,ab,"By hurling catapults into the target, these may lower target's accuracy. This move can hit through Flash Fire"
 956,FIERYMANIA,Fierymania,289,0,FIRE,Status,0,10,0,40,0,,"For five turns, all contact moves done by the user and allies as well as contact moves done by the opponents can burn."
@@ -972,7 +972,7 @@
 1119,SOLARENERGY,Solar Energy,0DC,75,GRASS,Physical,90,10,100,00,0,abef,"The user blasts a bundled beam which plants a seed that steals some HP from the target every turn."
 ## FLINT Moves = Electric
 621,THUNDERWIND,Thunder Wind,008,40,ELECTRIC,Special,100,30,30,00,0,abef,The user stirs up a thunder wind and strikes the target with it. May paralyze the target
-835,ELECTROBOMB,Electro Bomb,0E0,200,ELECTRIC,Physical,100,10,0,08,0,bn,A Elecrtic Bomb that affects electro damage. User faints after using this move
+835,ELECTROBOMB,Electro Bomb,0E0,200,ELECTRIC,Physical,100,5,0,08,0,bn,A Elecrtic Bomb that affects electro damage. User faints after using this move
 845,LIGHTBALL,Light Ball,000,90,ELECTRIC,Physical,100,15,0,00,0,befhn,The user hurls a lighting ball to the target. Critical hits land more easily.
 888,ELECTRODIA,Electrodia,275,0,ELECTRIC,Status,100,10,0,04,0,b,"User hurls an Electro Powder to the opposing Pokémon, which makes them be the Electric type."
 903,ELECTROMANIA,Electromania,285,0,ELECTRIC,Status,0,10,0,40,0,,"For five turns, all contact moves done by the user and allies as well as contact moves done by the opponents can cause paralysis."
@@ -1032,7 +1032,7 @@
 ## FLINT Moves = Magic
 627,MAGICHAND,Magic Hand,000,55,MAGIC,Special,100,30,0,00,0,abeg,A hand that does magic attack. User thraws out before using this move
 629,MAGICCROWN,Magic Crown,02D,95,MAGIC,Special,95,20,50,400,0,abeg,The user stands out a crown of swords at the target. May raise user's all stats
-630,MAGICBOMB,Magic Bomb,0E0,200,MAGIC,Physical,100,10,0,08,0,bn,A Spitural Bomb that affects magic damage. User faints after using this move
+630,MAGICBOMB,Magic Bomb,0E0,200,MAGIC,Physical,100,5,0,08,0,bn,A Spitural Bomb that affects magic damage. User faints after using this move
 632,MAGICSCOOP,Magic Scoop,04D,95,MAGIC,Special,90,35,50,800,0,abm,The user blows up a magical scoop that will have a chance to dip foe's speed as well.
 669,MAGICSTORM,Magic Storm,164,0,MAGIC,Status,0,25,0,20,1,,"The user disperses emagically charged particles, which changes Normal-type moves to Magic-type moves."
 676,MAGICFITINI,Magic Fitini,167,0,MAGIC,Status,0,20,0,00,0,b,The user takes the target fitinized. This adds Magic type to the target's type.
@@ -1052,7 +1052,7 @@
 640,DOOMCLAW,Doom Claw,000,90,DOOM,Physical,100,10,0,00,0,abefh,The user slashes with a loud claw made from dooms. Critical hits land more easily.
 644,DOOMCROKET,Doom Croket,044,130,DOOM,Special,100,15,100,00,0,abef,"The user attacks the target's legs swiftly, reducing the target's Speed stat."
 645,DOOMSLAP,Doom Slap,0C0,20,DOOM,Physical,85,20,0,00,0,abef,"The target is slapped repeatedly, back and forth, two to five times in a row."
-646,DOOMGRILL,Doom Grill,159,180,DOOM,Physical,0,15,70,00,3,ab,The users hurls a nokka that inverts Doomy arrows. May lower the foe's stats
+646,DOOMGRILL,Doom Grill,159,180,DOOM,Physical,0,10,70,00,3,ab,The users hurls a nokka that inverts Doomy arrows. May lower the foe's stats
 682,DOOMCRATE,Doom Crate,170,200,DOOM,Physical,100,5,30,04,0,bef,The user inflicts damage on all opposing Pokémon. The user faints upon using this move and may also severely cut down Defense.
 694,DOOMACENDA,Doom Acenda,0EF,0,DOOM,Status,0,5,0,00,0,bce,The user blocks the target's way with arms spread wide to prevent escape.
 738,DOOMSCART,Doom Scart,012,120,DOOM,Physical,100,5,100,00,4,abe,An attack that hits first and makes the target flinch. It only works the first turn the user is in battle.
@@ -1076,7 +1076,7 @@
 670,SHARPTACKLE,Sharp Tackle,000,90,SHARPENER,Physical,100,15,0,04,0,abef,"The user thows a wrapped bounce, hitting the entire side with large tackles."
 671,SHARPCOIL,Sharp Coil,048,0,SHARPENER,Status,100,20,0,04,0,bce,A sweet scent that lowers the foe's evasiveness.
 673,SHARPSHASHARP,Sharp ShaSharp,166,0,SHARPENER,Status,0,20,0,00,0,b,The user takes the target sharped. This adds Sharpener type to the target's type.
-674,SHARPENBOMB,Sharpen Bomb,0E0,200,SHARPENER,Physical,100,10,0,08,0,b,A Spitural Bomb that affects sharpener damage. User faints after using this move
+674,SHARPENBOMB,Sharpen Bomb,0E0,200,SHARPENER,Physical,100,5,0,08,0,b,A Spitural Bomb that affects sharpener damage. User faints after using this move
 675,DIFFINDO,Diffindo,01D,40,SHARPENER,Special,0,50,50,800,-1,abef,"The user throws a gray diffindo into a target. When this move is used, it may also increase user's Defense."
 737,SALAZIRE,Salazire,194,65,SHARPENER,Special,65,20,0,00,1,befk,"A move made for Salazar. When this move is used, it starts first and will also make the foe incapable of being withdrawn."
 895,SILVERYBLISS,Silvery Bliss,283,0,SHARPENER,Status,90,10,0,00,3,bd,"The user scatters a bliss of Silver, making it unable to move in that turn."
@@ -1222,7 +1222,7 @@
 ## FLINT Moves = Blizzard
 750,TITANUMBLIZZARD,Titanum Blizzard,205,110,BLIZZARD,Special,70,5,10,04,0,bef,A howling blizzard is summoned to strike the opposing team. It may also freeze them solid. Move also works as a Steel-type move stimulationaly
 754,BLIZZARDOUSOCEAN,Blizzardous Ocean,206,0,BLIZZARD,Status,0,10,0,00,0,,The user ponds the target into a blizzardous ocean. This not only the user gains target's ability but also suppresses it.
-1023,BLIZZARDICHASE,Blizzardi Chase,294,90,BLIZZARD,Physical,100,10,0,00,0,abef,"Although this move has great power, it only works if the target tries to switch out."
+1023,BLIZZARDICHASE,Blizzardi Chase,294,100,BLIZZARD,Physical,100,10,0,00,0,abef,"Although this move has great power, it only works if the target tries to switch out."
 1024,BLIZZARDOUSCLOAK,Blizzardous Cloak,169,0,BLIZZARD,Status,0,5,0,10,0,b,The user is cloaked into a heavy blizzard. This will drastactically raise the user's Speed
 1142,COLDMOUNTAIN,Cold Mountain,00C,100,BLIZZARD,Physical,100,10,25,08,0,bef,The user sets up a colder mountain that strikes each Pokémon hit. This may leave the targets frozen solid.
 ## FLINT Moves = Gastro

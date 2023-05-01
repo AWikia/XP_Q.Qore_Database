@@ -1863,6 +1863,7 @@ class PokeBattle_Move
       end
       # changed end
       @battle.scene.pbHPChanged(opponent,oldhp)
+      @battle.pbCheckDanger
       opponent.damagestate.hplost=damage
     end
     return damage

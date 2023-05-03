@@ -89,8 +89,7 @@ class Scene_LinkBattleScene
     @cmdLinkHelp=-1
     @cmdLinkLB=-1
     commands[@cmdLink=commands.length]=_INTL("Local Battle")
-    commands[@cmdLinkG=commands.length]=_INTL("Versus Q.Qore")
-    commands[@cmdLinkP=commands.length]=_INTL("Versus Prograda")
+    commands[@cmdLinkG=commands.length]=_INTL("Remote Battle")
     commands[@cmdLinkS=commands.length]=_INTL("Marketplace")
     commands[@cmdLinkHelp=commands.length]=_INTL("Help")
     commands[@cmdLinkLB=commands.length]=_INTL("Leaderboard")
@@ -221,9 +220,6 @@ class Scene_LinkBattleScene
       end
       if @cmdLinkG>=0 && @sprites["command_window"].index==@cmdLinkG
       worksOnCorendo(['VR Corendo','Bsisbina Clients','Jinnybell HSPA','Emerald Emulator','Yorkbook Digital Professional','Yorkbook Xe'])
-      end
-      if @cmdLinkP>=0 && @sprites["command_window"].index==@cmdLinkP
-      worksOnCorendo(['VR Corendo','Bsisbina Clients','Jinnybell HSPA'])
       end
       if @cmdLinkS>=0 && @sprites["command_window"].index==@cmdLinkS
           items=[PBItems::POKEBALL,

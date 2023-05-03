@@ -369,7 +369,8 @@ end
   "!Skin32",
   (pbGetCountry() == 0x7A rescue nil) ? "!Skin33" : "!Skin33_1",
   "!Skin34",
-  "!Skin35"
+  "!Skin35",
+  ['Skin36','Skin36_1','Skin36_2','Skin36_3','Skin36_4','!Skin36_5'][QQORECHANNEL],
 
 ]
 
@@ -415,7 +416,8 @@ $TextFrames=[
   "!Choice32",
   (pbGetCountry() == 0x7A rescue nil) ? "!Choice33" : "!Choice33_1",
   "!Choice34",
-  "!Choice35"
+  "!Choice35",
+  ['Choice36','Choice36_1','Choice36_2','Choice36_3','Choice36_4','!Choice36_5'][QQORECHANNEL],
 ]
 
   $SpeechFramesNames=[
@@ -460,7 +462,8 @@ $TextFrames=[
   "Blue-mix",
   (pbGetCountry() == 0x7A rescue nil) ? "Light Red and Green" : "Light Red and Blue",
   "Four Seasons",
-  "Pokémon Quadruplet"
+  "Pokémon Quadruplet",
+  "Retro Channel-Aware",
 ]
 
 

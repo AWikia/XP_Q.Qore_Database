@@ -986,17 +986,20 @@ def pbDebugSetVariable(id,diff)
 end
 
 def pbDebugVariableScreen(id)
-  value=0
   if $game_variables[id].is_a?(Numeric)
-    value=$game_variables[id]
+    value = $game_variables[id]
+    params = ChooseNumberParams.new
+    params.setDefaultValue(value)
+    params.setMaxDigits(8)
+    params.setNegativesAllowed(true)
+    value = Kernel.pbMessageChooseNumber(_INTL("Set variable {1}.",id),params)
+    $game_variables[id] = [value,99999999].min
+    $game_variables[id] = [$game_variables[id],-99999999].max
+  elsif $game_variables[id].is_a?(String)
+    value = Kernel.pbMessageFreeText(_INTL("Set variable {1}.",id),
+       $game_variables[id],false,256,Graphics.width)
+    $game_variables[id] = value
   end
-  params=ChooseNumberParams.new
-  params.setDefaultValue(value)
-  params.setMaxDigits(8)
-  params.setNegativesAllowed(true)
-  value=Kernel.pbMessageChooseNumber(_INTL("Set variable {1}.",id),params)
-  $game_variables[id]=[value,99999999].min
-  $game_variables[id]=[$game_variables[id],-99999999].max
 end
 
 def pbDebugScreen(mode)

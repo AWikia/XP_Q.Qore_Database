@@ -1831,6 +1831,7 @@ Events.onMapSceneChange+=proc{|sender,e|
 }
 
 def Kernel.pbStartOver(gameover=false)
+  pbBGSStop()
   if pbInBugContest?
     Kernel.pbBugContestStartOver
     return

@@ -1,4 +1,4 @@
-################################################################################
+﻿################################################################################
 # Controls
 ################################################################################
 class Window_Menu < Window_CommandPokemon
@@ -2289,7 +2289,7 @@ def pbSelectSE(canvas,audio)
   animfiles=[]
   animfiles[cmdNone=animfiles.length]=_INTL("[Play user's cry]")
   ret=false
-  pbrgsschdir(".\\audio\\se\\") {
+  pbRgssChdir(".\\audio\\se\\") {
      animfiles.concat(Dir.glob("*.wav"))
      animfiles.concat(Dir.glob("*.mp3"))
      animfiles.concat(Dir.glob("*.ogg"))
@@ -2931,7 +2931,7 @@ def pbExportAnim(animations)
   if filename!=""
     begin
       filename+=".anm"
-      File.open("Animations/#{filename}.anm","wb"){|f|
+      File.open("Animations/#{filename}","wb"){|f|
          f.write(dumpBase64Anim(animations[animations.selected]))
       }
       failed=false

@@ -1084,6 +1084,13 @@ def ragefist
        @battle.pbPlayer.numbadges>=BADGESBOOSTSPEED
       speedmult=(speedmult*1.1).round
     end
+    if !@battle.pbIsOpposing?(self.index)
+      if ($PokemonSystem.battledif==4 rescue false)
+        speedmult=(speedmult*0.5).round
+      elsif ($PokemonSystem.battledif==3 rescue false)
+        speedmult=(speedmult*0.75).round
+      end
+    end
     speed=(speed*speedmult*1.0/0x1000).round
     return [speed,1].max
   end

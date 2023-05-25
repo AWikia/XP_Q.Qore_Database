@@ -82,74 +82,32 @@ def pbIsKeyItem?(item)
   return $ItemData[item] && ($ItemData[item][ITEMTYPE]==6)
 end
 
+def pbIsEvolutionStone?(item) # Does NOT include Prism Stone/Linking Cord 
+  return $ItemData[item] && $ItemData[item][ITEMTYPE]==7
+end
+
+def pbIsFossil?(item)
+  return $ItemData[item] && $ItemData[item][ITEMTYPE]==8
+end
+
+def pbIsApricorn?(item)
+  return $ItemData[item] && $ItemData[item][ITEMTYPE]==9
+end
+
 def pbIsGem?(item)
-  gems=[:FIREGEM,:WATERGEM,:ELECTRICGEM,:GRASSGEM,:ICEGEM,
-        :FIGHTINGGEM,:POISONGEM,:GROUNDGEM,:FLYINGGEM,:PSYCHICGEM,
-        :BUGGEM,:ROCKGEM,:GHOSTGEM,:DRAGONGEM,:DARKGEM,
-        :STEELGEM,:NORMALGEM,:FAIRYGEM] # Ordianl
-  gems+=[:MAGICGEM,:DOOMGEM,:JELLYGEM,:SHARPENERGEM,:LAVAGEM,
-         :WINDGEM,:LICKLGEM,:BOLTGEM,:HERBGEM,:CHLOROPHYLLGEM,:GUSTGEM,
-         :SUNGEM,:MOONGEM,:MINDGEM,:HEARTGEM,:BLIZZARDGEM,
-         :GASGEM,:GLIMSEGEM] # FLINT
-  for i in gems
-    return true if isConst?(item,PBItems,i)
-  end
-  return false
+  return $ItemData[item] && $ItemData[item][ITEMTYPE]==10
 end
-
-def pbIsEvolutionStone?(item)
-  stones=[:FIRESTONE,:THUNDERSTONE,:WATERSTONE,:LEAFSTONE,:MOONSTONE,
-          :SUNSTONE,:DUSKSTONE,:DAWNSTONE,:SHINYSTONE, :ANGLESTONE, :WIKIMEDIA,
-          :DOOMSTONE, :META,:ICESTONE,:PRISMSTONE,:TARTAPPLE,:SWEETAPPLE,
-          :CRACKEDPOT,:GALARICACUFF,:GALARICAWREATH]
-  for i in stones
-    return true if isConst?(item,PBItems,i)
-  end
-  return false
-end
-
-def pbIsMegaStone?(item)   # Does NOT include Red Orb/Blue Orb
-  stones=[:ABOMASITE,:ABSOLITE,:AERODACTYLITE,:AGGRONITE,:ALAKAZITE,
-          :ALTARIANITE,:AMPHAROSITE,:AUDINITE,:BANETTITE,:BEEDRILLITE,
-          :BLASTOISINITE,:BLAZIKENITE,:CAMERUPTITE,:CHARIZARDITEX,:CHARIZARDITEY,
-          :DIANCITE,:GALLADITE,:GARCHOMPITE,:GARDEVOIRITE,:GENGARITE,
-          :GLALITITE,:GYARADOSITE,:HERACRONITE,:HOUNDOOMINITE,:KANGASKHANITE,
-          :LATIASITE,:LATIOSITE,:LOPUNNITE,:LUCARIONITE,:MANECTITE,
-          :MAWILITE,:MEDICHAMITE,:METAGROSSITE,:MEWTWONITEX,:MEWTWONITEY,
-          :PIDGEOTITE,:PINSIRITE,:SABLENITE,:SALAMENCITE,:SCEPTILITE,
-          :SCIZORITE,:SHARPEDONITE,:SLOWBRONITE,:STEELIXITE,:SWAMPERTITE,
-          :TYRANITARITE,:VENUSAURITE]
-  stones+=[:GIRAFARIGITE] # Q.Qore stones
-  for i in stones
-    return true if isConst?(item,PBItems,i)
-  end
-  return false
-end
-
-def pbIsBox?(item)
-  boxes=[:FIREBOX,:WATERBOX,:ELECTRICBOX,:GRASSBOX,:ICEBOX,
-        :FIGHTINGBOX,:POISONBOX,:GROUNDBOX,:FLYINGBOX,:PSYCHICBOX,
-        :BUGBOX,:ROCKBOX,:GHOSTBOX,:DRAGONBOX,:DARKBOX,
-        :STEELBOX,:NORMALBOX,:FAIRYBOX] # Ordianl
-  boxes+=[:MAGICBOX,:DOOMBOX,:JELLYBOX,:SHARPENERBOX,:LAVABOX,
-         :WINDBOX,:LICKLBOX,:BOLTBOX,:HERBBOX,:CHLOROPHYLLBOX,:GUSTBOX,
-         :SUNBOX,:MOONBOX,:MINDBOX,:HEARTBOX,:BLIZZARDBOX,
-         :GASBOX,:GLIMSEBOX] # FLINT
-  boxes+=[:CHOCOLATEBOX,:VANILLABOX,:CHERRYBOX,:STRAWBERRYBOX,:ORANGEBOX,
-          :APPLEBOX,:MELONBOX,:BANANABOX,:GRAPEBOX]
-  for i in boxes
-    return true if isConst?(item,PBItems,i)
-  end
-  return false
-end
-
 
 def pbIsMulch?(item)
-  mulches=[:GROWTHMULCH,:DAMPMULCH,:STABLEMULCH,:GOOEYMULCH]
-  for i in mulches
-    return true if isConst?(item,PBItems,i)
-  end
-  return false
+  return $ItemData[item] && $ItemData[item][ITEMTYPE]==11
+end
+
+def pbIsMegaStone?(item)   # Does NOT include Red Orb/Blue Orb/Microsoft Orb
+  return $ItemData[item] && $ItemData[item][ITEMTYPE]==12
+end
+
+def pbIsBox?(item)          # Also includes Boxes that don't boost power when held 
+  return $ItemData[item] && $ItemData[item][ITEMTYPE]==13
 end
 
 def pbIsUsableOnRB?(item)

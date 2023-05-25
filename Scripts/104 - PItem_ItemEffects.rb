@@ -337,7 +337,8 @@ ItemHandlers::UseInField.add(:COINCASE,proc{|item|
 # UseOnPokemon handlers
 #===============================================================================
 
-ItemHandlers::UseOnPokemon.add(:FIRESTONE,proc{|item,pokemon,scene|
+ItemHandlers::UseOnPokemon.addIf(proc{|item| pbIsEvolutionStone?(item)},
+   proc{|item,pokemon,scene|
    if (pokemon.isShadow? rescue false)
      scene.pbDisplay(_INTL("It won't have any effect."))
      next false
@@ -360,12 +361,6 @@ ItemHandlers::UseOnPokemon.add(:FIRESTONE,proc{|item,pokemon,scene|
      next true
    end
 })
-
-ItemHandlers::UseOnPokemon.copy(:FIRESTONE,
-   :THUNDERSTONE,:WATERSTONE,:LEAFSTONE,:MOONSTONE,
-   :SUNSTONE,:DUSKSTONE,:DAWNSTONE,:SHINYSTONE,:ANGLESTONE, :WIKIMEDIA,
-          :DOOMSTONE, :META,:ICESTONE,:TARTAPPLE,:SWEETAPPLE,:CRACKEDPOT,
-          :GALARICACUFF,:GALARICAWREATH)
 
 ItemHandlers::UseOnPokemon.add(:PRISMSTONE,proc{|item,pokemon,scene|
    if (pokemon.isShadow? rescue false)

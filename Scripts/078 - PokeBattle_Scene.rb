@@ -2905,6 +2905,44 @@ end
     return ret
   end
 
+  def pbRevive(index)
+    party=@battle.pbParty(index)
+    partypos=@battle.party1order
+    ret=-1
+    # Fade out and hide all sprites
+    visiblesprites=pbFadeOutAndHide(@sprites)
+    pbShowWindow(BLANK)
+    pbSetMessageMode(true,$isDarkMessage)
+    modparty=[]
+    for i in 0...6
+      modparty.push(party[partypos[i]])
+    end
+    scene=PokemonScreen_Scene.new
+    @switchscreen=PokemonScreen.new(scene,modparty)
+    @switchscreen.pbStartScene(_INTL("Choose a Pokémon."),
+       @battle.doublebattle && !@battle.fullparty1)
+    loop do
+      scene.pbSetHelpText(_INTL("Choose a Pokémon."))
+      activecmd=@switchscreen.pbChoosePokemon
+      if activecmd>=0
+        pkmnindex=partypos[activecmd]
+        canswitch=@battle.pbCanRevive?(index,pkmnindex,true)
+        if canswitch
+          ret=pkmnindex
+          break
+        end
+      end
+    end
+    @switchscreen.pbEndScene
+    @switchscreen=nil
+    pbShowWindow(BLANK)
+    pbSetMessageMode(false,$isDarkMessage)
+    # back to main battle screen
+    pbFadeInAndShow(@sprites,visiblesprites)
+    return ret
+  end
+
+  
   def pbDamageAnimation(pkmn,effectiveness)
     pkmnsprite=@sprites["pokemon#{pkmn.index}"]
     shadowsprite=@sprites["shadow#{pkmn.index}"]
@@ -3023,8 +3061,12 @@ end
 
 # Use this method to choose a new Pokémon for the enemy
 # The enemy's party is guaranteed to have at least one choosable member.
-  def pbChooseNewEnemy(index,party)
-    @battle.pbDefaultChooseNewEnemy(index,party)
+  def pbChooseNewEnemy(index,party,faintedonly=false)
+    if faintedonly
+      @battle.pbDefaultChooseNewEnemyToRevive(index,party)
+    else
+      @battle.pbDefaultChooseNewEnemy(index,party)
+    end
   end
 
 # This method is called when the player wins a wild Pokémon battle.

@@ -16820,10 +16820,25 @@ class PokeBattle_Move_361 < PokeBattle_Move
 end
 
 ################################################################################
-# Revives a random Pokemon (Revival Blessing)
-# Not yet added but will one day
+# Revives a random Pokemon by half of its total HP (Revival Blessing)
 ################################################################################
-class PokeBattle_Move_362 < PokeBattle_UnimplementedMove
+class PokeBattle_Move_362 < PokeBattle_Move
+  def pbEffect(attacker,opponent,hitnum=0,alltargets=nil,showanimation=true)
+    if @battle.pbAmountOfFaintedAllies(attacker.index)<1
+			pbSEPlay("protection")
+      @battle.pbDisplay(_INTL("But it failed!"))
+      return -1
+    end
+    pbShowAnimation(@id,attacker,nil,hitnum,alltargets,showanimation)
+    newpoke=0
+    newpoke=@battle.pbSelectFaintedPlayer(attacker.index)
+    pkmn = @battle.pbParty(attacker.index)[newpoke]
+    newpokename=pkmn.name
+		pkmn.hp=(pkmn.totalhp/2).floor
+		pkmn.healStatus
+		@battle.pbDisplay(_INTL("{1}'s HP was restored.",newpokename))
+    return 0
+  end
 end
 
 ################################################################################

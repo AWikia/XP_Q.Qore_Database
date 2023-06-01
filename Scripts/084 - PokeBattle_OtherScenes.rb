@@ -512,8 +512,12 @@ class PokeBattle_DebugScene
 
 # Use this method to choose a new Pokémon for the enemy
 # The enemy's party is guaranteed to have at least one choosable member.
-  def pbChooseNewEnemy(index,party)
-    @battle.pbDefaultChooseNewEnemy(index,party)
+  def pbChooseNewEnemy(index,party,faintedonly=false)
+    if faintedonly
+      @battle.pbDefaultChooseNewEnemyToRevive(index,party)
+    else
+      @battle.pbDefaultChooseNewEnemy(index,party)
+    end
   end
 
 # This method is called when the player wins a wild Pokémon battle.
@@ -615,8 +619,12 @@ class PokeBattle_SceneNonInteractive < PokeBattle_Scene
 
 # Use this method to choose a new Pokémon for the enemy
 # The enemy's party is guaranteed to have at least one choosable member.
-  def pbChooseNewEnemy(index,party)
-    @battle.pbDefaultChooseNewEnemy(index,party)
+  def pbChooseNewEnemy(index,party,faintedonly=false)
+    if faintedonly
+      @battle.pbDefaultChooseNewEnemyToRevive(index,party)
+    else
+      @battle.pbDefaultChooseNewEnemy(index,party)
+    end
   end
 end
 
@@ -736,8 +744,12 @@ class PokeBattle_DebugSceneNoLogging
 
 # Use this method to choose a new Pokémon for the enemy
 # The enemy's party is guaranteed to have at least one choosable member.
-  def pbChooseNewEnemy(index,party)
-    @battle.pbDefaultChooseNewEnemy(index,party)
+  def pbChooseNewEnemy(index,party,faintedonly=false)
+    if faintedonly
+      @battle.pbDefaultChooseNewEnemyToRevive(index,party)
+    else
+      @battle.pbDefaultChooseNewEnemy(index,party)
+    end
   end
 
 # This method is called when the player wins a wild Pokémon battle.
@@ -928,8 +940,12 @@ class PokeBattle_DebugSceneNoGraphics
 
 # Use this method to choose a new Pokémon for the enemy
 # The enemy's party is guaranteed to have at least one choosable member.
-  def pbChooseNewEnemy(index,party)
-    @battle.pbDefaultChooseNewEnemy(index,party)
+  def pbChooseNewEnemy(index,party,faintedonly=false)
+    if faintedonly
+      @battle.pbDefaultChooseNewEnemyToRevive(index,party)
+    else
+      @battle.pbDefaultChooseNewEnemy(index,party)
+    end
   end
 
 # This method is called when the player wins a wild Pokémon battle.

@@ -185,13 +185,14 @@ class Scene_LinkBattleScene
                   _INTL("Medium (150 Points)"),
                   _INTL("Hard (200 Points)"),
                   _INTL("Nightmare (300 Points)"),
+                  _INTL("Intensive (500 Points)"),
                   _INTL("Cancel")]
         command=Kernel.pbMessage(
             _INTL("Choose a difficulty you want to use on your battle."),commands,-1)
-        if command>=0 && command < 5
+        if command>=0 && command < 6
           # Begin Battle
           $game_variables[1003] = command+1
-          trainer=["Very Easy","Easy","Medium","Hard","Nightmare"][command]
+          trainer=["Very Easy","Easy","Medium","Hard","Nightmare","Nightmare"][command]
           trainer2=["Whoa!!! How did you beat me",
                     "You must be a strong trainer",
                     "I must get stronger next time",

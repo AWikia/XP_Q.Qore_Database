@@ -3311,6 +3311,8 @@ class PokeBattle_Battle
            score-=90
         end
       end
+    when 0x362
+      score-=90 if pbAmountOfFaintedAllies(attacker.index)<1
     end
     # A score of 0 here means it should absolutely not be used
     return score if score<=0
@@ -5204,6 +5206,18 @@ class PokeBattle_Battle
     return best
   end
 
+  def pbDefaultChooseNewEnemyToRevive(index,party)
+    enemies=[]
+    for i in 0..party.length-1
+      if party[i].hp<=0
+        enemies.push(i)
+      end
+    end
+    if enemies.length>0
+      return pbChooseBestNewEnemy(index,party,enemies)
+    end
+    return -1
+  end  
 ################################################################################
 # Choose an action.
 ################################################################################

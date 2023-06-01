@@ -1460,6 +1460,31 @@ class PokeBattle_Battle
     end
     return true
   end
+  
+  def pbCanRevive?(idxPokemon,pkmnidxTo,showMessages)
+    if pkmnidxTo>=0
+      party=pbParty(idxPokemon)
+      if pkmnidxTo>=party.length
+        return false
+      end
+      if !party[pkmnidxTo]
+        return false
+      end
+      if party[pkmnidxTo].isRB?
+        pbDisplayPaused(_INTL("A Remote Box can't battle!")) if showMessages 
+        return false
+      end
+      if party[pkmnidxTo].isEgg?
+        pbDisplayPaused(_INTL("An Egg can't battle!")) if showMessages 
+        return false
+      end
+      if party[pkmnidxTo].hp>0
+        pbDisplayPaused(_INTL("{1} has enough energy to battle!",party[pkmnidxTo].name)) if showMessages 
+        return false
+      end
+    end
+    return true
+  end
 
   def pbRegisterSwitch(idxPokemon,idxOther)
     return false if !pbCanSwitch?(idxPokemon,idxOther,false)
@@ -1699,7 +1724,14 @@ class PokeBattle_Battle
       return @scene.pbSwitch(index,lax,cancancel)
     end
   end
-
+  
+  def pbSelectFaintedPlayer(index)
+    if !pbOwnedByPlayer?(index)
+      return @scene.pbChooseNewEnemy(index,pbParty(index),true)
+    else
+      return @scene.pbRevive(index)
+    end
+  end
 ################################################################################
 # Using an item.
 ################################################################################

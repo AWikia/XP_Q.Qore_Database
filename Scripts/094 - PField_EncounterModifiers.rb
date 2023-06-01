@@ -74,9 +74,9 @@ Events.onTrainerPartyLoad+=proc {|sender,e|
        leng=(party.length) - 1
        for i in 0..leng
          # Set Level
-         pok=party[i]
+         pok=party[i]        
          sp=rand(PBSpecies.maxValue) # 1255  
-         newlevel=pbBalancedLevel($Trainer.party) - [20,15,10,5,5][$game_variables[1003]-1] + rand([5,5,10,15,20][$game_variables[1003]-1])   # For variety
+         newlevel=pbBalancedLevel($Trainer.party) - [20,15,10,5,5][[$game_variables[1003]-1,4].min] + rand([5,5,10,15,20][[$game_variables[1003]-1,4].min])   # For variety
          newlevel=1 if newlevel<1
          newlevel=PBExperience::MAXLEVEL if newlevel>PBExperience::MAXLEVEL
        	 pok.species=sp
@@ -85,6 +85,10 @@ Events.onTrainerPartyLoad+=proc {|sender,e|
          pok.level=newlevel
          pok.calcStats
          pok.resetMoves
+         if $game_variables[1003] > 5
+           pok.pbLearnMove(:REVIVALBLESSING)
+           pok.setItem(:PHOTONCLAW)  if rand(100)<25
+         end
          # End
        end
      end

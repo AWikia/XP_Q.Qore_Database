@@ -1513,7 +1513,7 @@ def pbItemIconFile(item)
           bitmapFileName = sprintf("Graphics/Items/machine_%03d",type)
         end
       end
-      bitmapFileName = "Graphics/Icons/000" if !pbResolveBitmap(bitmapFileName)
+      bitmapFileName = "Graphics/Items/000" if !pbResolveBitmap(bitmapFileName)
     end
   end
   return bitmapFileName

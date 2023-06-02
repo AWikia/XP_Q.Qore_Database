@@ -9740,6 +9740,22 @@ MultipleForms.register(:SQUAWKABILLY,{
 }
 })
 
+# Charcadet does not have any forms but can depend on item
+
+MultipleForms.register(:CHARCADET,{
+"getFormOnCreation"=>proc{|pokemon|
+   next ($Trainer.isFemale?) ? 1 : 0  # Form depends on Player Character
+},
+"wildHoldItems"=>proc{|pokemon|
+   next [getID(PBItems,:MALICIOUSARMOR),
+         getID(PBItems,:AUSPICIOUSARMOR),
+         0] if pokemon.form==1 # Female Player Character
+   next                        # Male Player Character
+}
+})
+
+MultipleForms.copy(:CHARCADET,:ARMAROUGE,:CERULEDGE)
+
 MultipleForms.register(:PALAFIN,{
 "height"=>proc{|pokemon|
    next if pokemon.form==0

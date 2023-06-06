@@ -154,6 +154,13 @@ class PokeBattle_RealBattlePeer
       pokemon.form=f
     end
   end
+  def pbOnLeavingBattle(battle,pokemon)
+    f=MultipleForms.call("getFormOnLeavingBattle",pokemon)
+    if f
+      pokemon.form=f
+    end
+  end
+
 end
 
 
@@ -4931,6 +4938,10 @@ MultipleForms.register(:DARMANITAN,{
    next 2 if rand(65536)<$REGIONALCOMBO
    next 0 unless env==PBEnvironment::Galar
    next 2
+},
+"getFormOnLeavingBattle"=>proc{|pokemon|
+   # Even-numbred forms are Standard Mode while Odd-numbered forms are Zen Mode
+   next (pokemon.form - 1) if pokemon.form%2 != 0
 }
 })
 
@@ -7639,6 +7650,9 @@ MultipleForms.register(:SPINDA,{
 })
 
 MultipleForms.register(:CASTFORM,{
+"getFormOnLeavingBattle"=>proc{|pokemon|
+   next 0
+},
 "type1"=>proc{|pokemon|
    next if pokemon.form==0            # Normal Form
    case pokemon.form
@@ -7849,6 +7863,9 @@ MultipleForms.register(:WORMADAM,{
 })
 
 MultipleForms.register(:CHERRIM,{
+"getFormOnLeavingBattle"=>proc{|pokemon|
+   next 0
+},
 "color"=>proc{|pokemon|
    next if pokemon.form==0
    next 9 if pokemon.form==1
@@ -8365,6 +8382,9 @@ MultipleForms.register(:KELDEO,{
 })
 
 MultipleForms.register(:MELOETTA,{
+"getFormOnLeavingBattle"=>proc{|pokemon|
+   next 0
+},
 "getBaseStats"=>proc{|pokemon|
    next if pokemon.form==0     # Aria Forme
    next [100,128,90,128,77,77] # Pirouette Forme
@@ -8570,6 +8590,9 @@ MultipleForms.register(:MEOWSTIC,{
 })
 
 MultipleForms.register(:AEGISLASH,{
+"getFormOnLeavingBattle"=>proc{|pokemon|
+   next 0
+},
 "getBaseStats"=>proc{|pokemon|
    next if pokemon.form==0      # Shield Forme
    next [60,140,50,60,140,50]   # Blade Forme
@@ -8671,6 +8694,9 @@ MultipleForms.register(:GOURGEIST,{
 MultipleForms.register(:XERNEAS,{
 "getFormOnEnteringBattle"=>proc{|pokemon|
    next 1
+},
+"getFormOnLeavingBattle"=>proc{|pokemon|
+   next 0
 }
 })
 
@@ -8880,6 +8906,9 @@ MultipleForms.register(:LYCANROC,{
 })
 
 MultipleForms.register(:WISHIWASHI,{
+"getFormOnLeavingBattle"=>proc{|pokemon|
+   next 0
+},
 "getBaseStats"=>proc{|pokemon|
    next if pokemon.form==0
    case pokemon.form
@@ -8998,6 +9027,13 @@ MultipleForms.register(:SILVALLY,{
 }
 })
 
+MultipleForms.register(:MIMIKYU,{
+"getFormOnLeavingBattle"=>proc{|pokemon|
+   next 0
+}
+})
+
+
 MultipleForms.register(:MINIOR,{
 "getBaseStats"=>proc{|pokemon|
    next if pokemon.form < 7     # Meteor Form
@@ -9022,9 +9058,23 @@ MultipleForms.register(:MINIOR,{
 },
 "getFormOnCreation"=>proc{|pokemon|
    next 7+rand(7)
+},
+"getFormOnLeavingBattle"=>proc{|pokemon|
+   next pokemon.form+7 if pokemon.form < 7
 }
 })
 
+MultipleForms.register(:SOLGALEO,{
+"getFormOnLeavingBattle"=>proc{|pokemon|
+   next 0
+}
+})
+
+MultipleForms.register(:LUNALA,{
+"getFormOnLeavingBattle"=>proc{|pokemon|
+   next 0
+}
+})
 
 # Dusk Mane Necrozma is obtainable by fusing Necrozma with Solgaleo
 # Dawn Wings Necrozma is obtainable by fusing Necrozma with Lunala
@@ -9187,6 +9237,9 @@ MultipleForms.register(:APPLIN,{
 MultipleForms.copy(:APPLIN,:FLAPPLE,:APPLETUN)
 
 MultipleForms.register(:CRAMORANT,{
+"getFormOnLeavingBattle"=>proc{|pokemon|
+   next 0
+},
 "dexEntry"=>proc{|pokemon|
    next if pokemon.form==0
    next _INTL("Cramorant's gluttony led it to try to swallow an Arrokuda whole, which in turn led to Cramorant getting an Arrokuda stuck in its throat.") if pokemon.form==1
@@ -9253,6 +9306,9 @@ MultipleForms.register(:TOXTRICITY,{
 
 
 MultipleForms.register(:POLTEAGEIST,{
+"getFormOnLeavingBattle"=>proc{|pokemon|
+   next 0
+},
 "getBaseStats"=>proc{|pokemon|
    next if pokemon.form==0
    case pokemon.form
@@ -9338,6 +9394,9 @@ MultipleForms.register(:ALCREMIE,{
 
 
 MultipleForms.register(:EISCUE,{
+"getFormOnLeavingBattle"=>proc{|pokemon|
+   next 0
+},
 "getBaseStats"=>proc{|pokemon|
    next if pokemon.form==0
    case pokemon.form
@@ -9389,6 +9448,9 @@ MultipleForms.register(:INDEEDEE,{
 })
 
 MultipleForms.register(:MORPEKO,{
+"getFormOnLeavingBattle"=>proc{|pokemon|
+   next 0
+},
 "color"=>proc{|pokemon|
    next if pokemon.form==0
    next 6 if pokemon.form==1
@@ -9403,6 +9465,9 @@ MultipleForms.register(:ZACIAN,{
 "getFormOnEnteringBattle"=>proc{|pokemon|
    next 1  if isConst?(pokemon.item,PBItems,:RUSTEDSWORD)  # Crowned Sword
    next 0                                                  # Hero of many battles
+},
+"getFormOnLeavingBattle"=>proc{|pokemon|
+   next 0
 },
 "type2"=>proc{|pokemon|
    types=[:FAIRY,:STEEL]
@@ -9434,6 +9499,9 @@ MultipleForms.register(:ZAMAZENTA,{
    next 1  if isConst?(pokemon.item,PBItems,:RUSTEDSHIELD)  # Crowned Shield
    next 0                                                   # Hero of many battles
 },
+"getFormOnLeavingBattle"=>proc{|pokemon|
+   next 0
+},
 "type2"=>proc{|pokemon|
    types=[:FIGHTING,:STEEL]
    next getID(PBTypes,types[pokemon.form])
@@ -9459,6 +9527,9 @@ MultipleForms.register(:ZAMAZENTA,{
 })
 
 MultipleForms.register(:ETERNATUS,{
+"getFormOnLeavingBattle"=>proc{|pokemon|
+   next 0
+},
 "getBaseStats"=>proc{|pokemon|
    next if pokemon.form==0
    case pokemon.form
@@ -10964,6 +11035,9 @@ MultipleForms.register(:ALPHATV,{
 
 # Κουλουνδομόρφοση toggles battler's form
 MultipleForms.register(:KOULUNDIN,{
+"getFormOnLeavingBattle"=>proc{|pokemon|
+   next 0
+},
  "type1"=>proc{|pokemon|
    types=[:SUN,:FLYING]
    next getID(PBTypes,types[pokemon.form])  
@@ -11122,6 +11196,9 @@ MultipleForms.register(:ONE,{
 
 
 MultipleForms.register(:DOLPHIN,{
+"getFormOnLeavingBattle"=>proc{|pokemon|
+   next 0
+},
 "getBaseStats"=>proc{|pokemon|
    next                     if pokemon.form==0      # Field
    next [60,20,60,50,30,90] if pokemon.form==1      # Octum
@@ -11167,6 +11244,9 @@ MultipleForms.register(:DOLPHIN,{
 })
 
 MultipleForms.register(:FLAMENGO,{
+"getFormOnLeavingBattle"=>proc{|pokemon|
+   next 0
+},
 "type2"=>proc{|pokemon|
    types=[:LAVA,:FIRE] # It didn't originally stayed
    next getID(PBTypes,types[pokemon.form])
@@ -11367,6 +11447,9 @@ MultipleForms.register(:ETV,{
    formrations= ($Trainer.isFemale?) ? [0,0,0,0,0,1,1,1,1,1,1,1,1,1,1] : [0,0,0,0,0,0,0,0,0,0,1,1,1,1,1]
    next formrations[rand(15)]
 },
+"getFormOnLeavingBattle"=>proc{|pokemon|
+   next (pokemon.form - 2) if pokemon.form > 1
+},
 "getAbilityList"=>proc{|pokemon|
    next if pokemon.form<2
    next [[getID(PBAbilities,:PARENTALBOND),0]]
@@ -11424,6 +11507,18 @@ MultipleForms.copy(:SALLONN,:SOURLLONN,:SOURLLAXX)
 
 
 MultipleForms.register(:ROOMBA,{
+"getFormOnCreation"=>proc{|pokemon|
+   next [rand(3),rand(3)].min
+},
+"getFormOnLeavingBattle"=>proc{|pokemon|
+   next [rand(3),rand(3)].min
+},
+"getFormOnCroteline"=>proc{|pokemon|
+   next [rand(3),rand(3)].min
+},
+"getFormOnPES"=>proc{|pokemon|
+   next [rand(3),rand(3)].min
+},
  "type1"=>proc{|pokemon|
    types=[:FAIRY,:ELECTRIC,:CHLOROPHYLL,:MIND,:ELECTRIC,:CHLOROPHYLL]
    next getID(PBTypes,types[pokemon.form])  
@@ -11436,20 +11531,11 @@ MultipleForms.register(:ROOMBA,{
    next if pokemon.form<3        # Classiko
    next [60,140,160,0,160,140]   # Ultra Blue formes
 },
-"getFormOnCreation"=>proc{|pokemon|
-   next [rand(3),rand(3)].min
-},
 "color"=>proc{|pokemon|
    next if pokemon.form==0
    next 2 if pokemon.form==1
    next 3 if pokemon.form==2
    next 4 if pokemon.form>2
-},
-"getFormOnCroteline"=>proc{|pokemon|
-   next [rand(3),rand(3)].min
-},
-"getFormOnPES"=>proc{|pokemon|
-   next [rand(3),rand(3)].min
 },
 "evYield"=>proc{|pokemon|
    next if pokemon.form==0 || pokemon.form==3               # Fairist
@@ -11637,6 +11723,9 @@ MultipleForms.register(:CANDYCRUSHSODA,{
 "getFormOnCreation"=>proc{|pokemon|
      next rand(5)
 },
+"getFormOnLeavingBattle"=>proc{|pokemon|
+   next rand(5)
+},
 "getFormOnPES"=>proc{|pokemon|
      next rand(5)
 }
@@ -11646,6 +11735,22 @@ MultipleForms.copy(:CANDYCRUSHSODA,:SODAPLUS)
 
 # Form set for Pac-Man is handled elsewhere
 MultipleForms.register(:PACMAN,{
+"getFormOnLeavingBattle"=>proc{|pokemon|
+   next 0
+},
+"getFormOnCroteline"=>proc{|pokemon|       # Form set on FLINT Minigame Protain Mag
+   next 1
+},
+"getFormOnPES"=>proc{|pokemon|             # Form set on FLINT Pro Evolution Soccer Mag
+   if $flint_pes_life_tisekato <= 25        # $flint_pes_life_tisekato is the amount of life current member has in percentages
+     next 2 # Emergency
+   elsif $flint_pes_condition_tounite      # $flint_pes_condition_tounite is true if the player is playing well
+     next 3 # Cinema
+   elsif $flint_pes_soccering              # $flint_pes_soccering is true if a match happens
+     next 1 # Active
+   end
+   next 0   # Inactive
+},
 "type1"=>proc{|pokemon|
    next if pokemon.form!=3                 # Everything else
    next getID(PBTypes,:BOLT)               # Cinema
@@ -11671,19 +11776,6 @@ MultipleForms.register(:PACMAN,{
    next 2 if pokemon.form==1               # Active
    next 1 if pokemon.form==2               # Emergenncy
    next 0 if pokemon.form==3               # Cinema
-},
-"getFormOnCroteline"=>proc{|pokemon|       # Form set on FLINT Minigame Protain Mag
-   next 1
-},
-"getFormOnPES"=>proc{|pokemon|             # Form set on FLINT Pro Evolution Soccer Mag
-   if $flint_pes_life_tisekato <= 25        # $flint_pes_life_tisekato is the amount of life current member has in percentages
-     next 2 # Emergency
-   elsif $flint_pes_condition_tounite      # $flint_pes_condition_tounite is true if the player is playing well
-     next 3 # Cinema
-   elsif $flint_pes_soccering              # $flint_pes_soccering is true if a match happens
-     next 1 # Active
-   end
-   next 0   # Inactive
 },
 "dexEntry"=>proc{|pokemon|
    next                                                                                                                                                                                                        if pokemon.form==0                       # Inactive
@@ -11725,6 +11817,9 @@ MultipleForms.register(:DIMOSIA,{
 
 
 MultipleForms.register(:NERIT,{
+"getFormOnLeavingBattle"=>proc{|pokemon|
+   next 0
+},
 "type2"=>proc{|pokemon|
    types=[:WATER,:FIRE,:GRASS,:ELECTRIC,:BOLT]
    next getID(PBTypes,types[pokemon.form])
@@ -11810,6 +11905,9 @@ MultipleForms.register(:STARCHANNEL,{
 },
 "getFormOnCreation"=>proc{|pokemon|
      next rand(5)
+},
+"getFormOnLeavingBattle"=>proc{|pokemon|
+   next rand(5)
 },
 "getFormOnPES"=>proc{|pokemon|
      next rand(5)

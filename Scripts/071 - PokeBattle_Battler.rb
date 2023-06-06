@@ -1639,42 +1639,13 @@ def ragefist
 
   def pbResetForm
     if !@effects[PBEffects::Transform]
-      if isConst?(self.species,PBSpecies,:CASTFORM) ||
-         isConst?(self.species,PBSpecies,:CHERRIM) ||
-         isConst?(self.species,PBSpecies,:MELOETTA) ||
-         isConst?(self.species,PBSpecies,:AEGISLASH) ||
-         isConst?(self.species,PBSpecies,:XERNEAS) ||
-         isConst?(self.species,PBSpecies,:WISHIWASHI) ||
-         isConst?(self.species,PBSpecies,:MIMIKYU) ||
-         isConst?(self.species,PBSpecies,:SOLGALEO) ||
-         isConst?(self.species,PBSpecies,:LUNALA) ||
-         isConst?(self.species,PBSpecies,:CRAMORANT) ||
-         isConst?(self.species,PBSpecies,:POLTEAGEIST) ||
-         isConst?(self.species,PBSpecies,:MORPEKO) ||
-         isConst?(self.species,PBSpecies,:EISCUE) ||
-         isConst?(self.species,PBSpecies,:ZACIAN) ||
-         isConst?(self.species,PBSpecies,:ZAMAZENTA) ||
-         isConst?(self.species,PBSpecies,:ETERNATUS) ||
-         isConst?(self.species,PBSpecies,:KOULUNDIN) ||
-         isConst?(self.species,PBSpecies,:FLAMENGO) ||
-         isConst?(self.species,PBSpecies,:PACMAN) ||
-         isConst?(self.species,PBSpecies,:NERIT) ||
-         isConst?(self.species,PBSpecies,:DOLPHIN)
-        self.form=0 if self.form!=0
-      elsif isConst?(self.species,PBSpecies,:DARMANITAN)
-        self.form-=1 if self.form==1 || self.form==3
-      elsif isConst?(self.species,PBSpecies,:MINIOR)
-        self.form+=7 if self.form < 7
-      elsif isConst?(self.species,PBSpecies,:ROOMBA)
-        self.form=[rand(3),rand(3)].min
-      elsif isConst?(self.species,PBSpecies,:CANDYCRUSHSODA) ||
-            isConst?(self.species,PBSpecies,:SODAPLUS)  || 
-            isConst?(self.species,PBSpecies,:STARCHANNEL)
-        self.form=rand(5)
-      elsif isConst?(self.species,PBSpecies,:ETV)
-        self.form-=2 if self.form>1
-      elsif isConst?(self.species,PBSpecies,:NECROZMA)
+      @peer = PokeBattle_BattlePeer.create()
+      if isConst?(self.species,PBSpecies,:NECROZMA)
+        # Necrozma can't be handled with the new way as the form set is a Battle
+        # effect value
         self.form=@effects[PBEffects::UBForm] if self.form==3
+      else
+        @peer.pbOnLeavingBattle(@battle,self)
       end
     end
     pbUpdate(true)

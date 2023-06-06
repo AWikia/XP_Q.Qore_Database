@@ -2,6 +2,9 @@ class PokeBattle_NullBattlePeer
   def pbOnEnteringBattle(battle,pokemon)
   end
 
+  def pbOnLeavingBattle(battle,pokemon)
+  end
+  
   def pbStorePokemon(player,pokemon)
     if player.party.length<6
       player.party[player.party.length]=pokemon

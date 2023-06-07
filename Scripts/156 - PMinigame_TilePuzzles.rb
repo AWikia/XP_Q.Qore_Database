@@ -23,7 +23,7 @@ class TilePuzzleCursor < BitmapSprite
   attr_accessor :holding
 
   def initialize(game,position,tilewidth,tileheight,boardwidth,boardheight)
-    @viewport=Viewport.new(64,0,Graphics.width,Graphics.height)
+    @viewport=Viewport.new(0,0,Graphics.width,Graphics.height)
     @viewport.z=99999
     super(Graphics.width,Graphics.height,@viewport)
     @game=game
@@ -49,6 +49,7 @@ class TilePuzzleCursor < BitmapSprite
       end
     end
     x+=@tilewidth*(@position%@boardwidth)
+#    x-=(Graphics.width-512)/2 # TMP addition
     y=(Graphics.height-(@tileheight*@boardheight))/2-32
     y+=@tileheight*((@position%(@boardwidth*@boardheight))/@boardwidth)
     self.tone=Tone.new(0,(@holding ? 64 : 0),(@holding ? 64 : 0),0)

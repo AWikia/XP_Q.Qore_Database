@@ -36091,8 +36091,8 @@ Color=Blue
 Habitat=Grassland
 Kind=Big Catfish
 Pokedex=This Pokémon is a glutton, but it’s bad at getting food. It teams up with a Tatsugiri to catch prey.
-BattlerPlayerY=15
-BattlerEnemyY=20
+BattlerPlayerY=1
+BattlerEnemyY=13
 BattlerAltitude=0
 Evolutions=
 [1328]

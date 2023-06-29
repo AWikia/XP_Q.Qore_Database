@@ -32,7 +32,7 @@
 32,SERENEGRACE,Serene Grace,"Raises the likelihood of additional effects occurring when the Pokémon uses its moves."
 33,SWIFTSWIM,Swift Swim,Boosts the Pokémon's Speed stat in rain.
 34,CHLOROPHYLL,Chlorophyll,Boosts the Pokémon's Speed stat in harsh sunlight.
-35,ILLUMINATE,Illuminate,Raises the likelihood of meeting wild Pokémon by illuminating the surroundings.
+35,ILLUMINATE,Illuminate,"By illuminating its surroundings, the Pokémon prevents its accuracy from being lowered."
 36,TRACE,Trace,"When it enters a battle, the Pokémon copies an opposing Pokémon's Ability."
 37,HUGEPOWER,Huge Power,Doubles the Pokémon's Attack stat.
 38,POISONPOINT,Poison Point,Contact with the Pokémon may poison the attacker.
@@ -334,7 +334,7 @@
 221,NERVOUSCRACK,Nervous Crack,"The Pokémon beomes very nervous, preventing all Pokémon from using crate-destructing moves such as Doom Crate."
 262,ALONELY,Alonely,"The Pokémon’s lone living prevents others from transforming into it."
 263,BOTANOTHERAPY,Botanotherpy,"The Pokémon assists its allies by curing their own status conditions and protects other Pokémon from being cursed."
-264,SOUPRSOWL,Soupr's Owl,"Raises the likehood of meeting Sharpener-type Pokémon, if any exist."
+264,SOUPRSOWL,Soupr's Owl,"The Pokémon’s sharp owl halves the damage from Sharpener-type moves."
 265,SINISTRO,Sinistro,"Gives priority to the Pokémon’s moves that make direct contact."
 266,SOUNDTRACK,Soundtrack,"Gives priority to the Pokémon’s sound-based moves. The power is boosted a little."
 267,FINITI,Finiti,Boosts the power and additional effects of catapult moves but makes it evade more likely.

@@ -979,7 +979,8 @@ class PokeBattle_Battler
           @battle.pbDisplay(_INTL("{1}'s {2} prevents Defense loss!",pbThis,abilityname)) if showMessages
           return false
         end
-        if stat==PBStats::ACCURACY && hasWorkingAbility(:KEENEYE)
+        if stat==PBStats::ACCURACY && (hasWorkingAbility(:KEENEYE) || 
+                                       hasWorkingAbility(:ILLUMINATE))
           abilityname=PBAbilities.getName(self.ability)
           pbSEPlay("protection") if showMessages
           @battle.pbDisplay(_INTL("{1}'s {2} prevents accuracy loss!",pbThis,abilityname)) if showMessages

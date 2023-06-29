@@ -961,6 +961,9 @@ class PokeBattle_Move
       if opponent.hasWorkingAbility(:FLUFFY) && isConst?(type,PBTypes,:FIRE)
         damagemult=(damagemult*0.5).round
       end
+      if opponent.hasWorkingAbility(:SOUPRSOWL) && isConst?(type,PBTypes,:SHARPENER)
+        damagemult=(damagemult*0.5).round
+      end
     end
     # Gems are the first items to be considered, as Symbiosis can replace a
     # consumed Gem and the replacement item should work immediately.

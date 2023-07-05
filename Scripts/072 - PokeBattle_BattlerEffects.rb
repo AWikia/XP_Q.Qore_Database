@@ -946,6 +946,12 @@ class PokeBattle_Battler
         @battle.pbDisplay(_INTL("{1}'s {2} prevents stat loss!",pbThis,abilityname)) if showMessages
         return false
       end
+      if hasWorkingItem(:CLEARAMULELT)
+        itemname=PBAbilities.getName(self.item)
+        pbSEPlay("protection") if showMessages
+        @battle.pbDisplay(_INTL("{1}'s {2} prevents stat loss!",pbThis,itemname)) if showMessages
+        return false
+      end
       if !moldbreaker && (!attacker || !attacker.hasMoldBreaker)
         if hasWorkingAbility(:CLEARBODY) || hasWorkingAbility(:SUPERCLEARBODY) ||
            hasWorkingAbility(:WHITESMOKE)
@@ -1206,6 +1212,14 @@ class PokeBattle_Battler
         @battle.pbDisplay(_INTL("The Cinament prevented {1}'s {2} from working!",opponent.pbThis(true),oppabilityname))
         return false
       end
+      if hasWorkingItem(:CLEARAMULELT)
+         itemname=PBAbilities.getName(self.item)
+        oppabilityname=PBAbilities.getName(opponent.ability)
+        pbSEPlay("protection")
+        @battle.pbDisplay(_INTL("{1}'s {2} prevented {3}'s {4} from working!",
+           pbThis,itemname,opponent.pbThis(true),oppabilityname))
+        return false
+      end
       if hasWorkingAbility(:CLEARBODY) || hasWorkingAbility(:WHITESMOKE) ||
         hasWorkingAbility(:HYPERCUTTER) || hasWorkingAbility(:FULLMETALBODY) || hasWorkingAbility(:SUPERCLEARBODY) ||
          (hasWorkingAbility(:FLOWERVEIL) && pbHasType?(:GRASS)) ||
@@ -1260,6 +1274,14 @@ class PokeBattle_Battler
         oppabilityname=PBAbilities.getName(opponent.ability)
         pbSEPlay("protection")
         @battle.pbDisplay(_INTL("The Cinament prevented {1}'s {2} from working!",opponent.pbThis(true),oppabilityname))
+        return false
+      end
+      if hasWorkingItem(:CLEARAMULELT)
+         itemname=PBAbilities.getName(self.item)
+        oppabilityname=PBAbilities.getName(opponent.ability)
+        pbSEPlay("protection")
+        @battle.pbDisplay(_INTL("{1}'s {2} prevented {3}'s {4} from working!",
+           pbThis,itemname,opponent.pbThis(true),oppabilityname))
         return false
       end
       if hasWorkingAbility(:CLEARBODY) || hasWorkingAbility(:WHITESMOKE) ||
@@ -1317,6 +1339,14 @@ class PokeBattle_Battler
         @battle.pbDisplay(_INTL("The Cinament prevented {1}'s {2} from working!",opponent.pbThis(true),oppabilityname))
         return false
       end
+      if hasWorkingItem(:CLEARAMULELT)
+         itemname=PBAbilities.getName(self.item)
+        oppabilityname=PBAbilities.getName(opponent.ability)
+        pbSEPlay("protection")
+        @battle.pbDisplay(_INTL("{1}'s {2} prevented {3}'s {4} from working!",
+           pbThis,itemname,opponent.pbThis(true),oppabilityname))
+        return false
+      end
       if hasWorkingAbility(:CLEARBODY) || hasWorkingAbility(:WHITESMOKE) ||
          hasWorkingAbility(:FULLMETALBODY) || hasWorkingAbility(:SUPERCLEARBODY) ||
          (hasWorkingAbility(:FLOWERVEIL) && pbHasType?(:GRASS)) ||
@@ -1372,6 +1402,14 @@ class PokeBattle_Battler
         oppabilityname=PBAbilities.getName(opponent.ability)
         pbSEPlay("protection")
         @battle.pbDisplay(_INTL("The Cinament prevented {1}'s {2} from working!",opponent.pbThis(true),oppabilityname))
+        return false
+      end
+      if hasWorkingItem(:CLEARAMULELT)
+         itemname=PBAbilities.getName(self.item)
+        oppabilityname=PBAbilities.getName(opponent.ability)
+        pbSEPlay("protection")
+        @battle.pbDisplay(_INTL("{1}'s {2} prevented {3}'s {4} from working!",
+           pbThis,itemname,opponent.pbThis(true),oppabilityname))
         return false
       end
       if hasWorkingAbility(:CLEARBODY) || hasWorkingAbility(:WHITESMOKE) ||

@@ -5993,7 +5993,8 @@ class PokeBattle_Move_0BF < PokeBattle_Move
 
   def pbOnStartUse(attacker)
     @calcbasedmg=@basedamage
-    @checks=!attacker.hasWorkingAbility(:SKILLLINK)
+    @checks=!(attacker.hasWorkingAbility(:SKILLLINK) || 
+              attacker.hasWorkingItem(:LOADEDDICE))
     return true
   end
 
@@ -6018,6 +6019,7 @@ class PokeBattle_Move_0C0 < PokeBattle_Move
     hitchances=[2,2,3,3,4,5]
     ret=hitchances[@battle.pbRandom(hitchances.length)]
     ret=5 if attacker.hasWorkingAbility(:SKILLLINK)
+    ret=4 if attacker.hasWorkingItem(:LOADEDDICE) && ret < 4
     return ret
   end
 end
@@ -16145,6 +16147,7 @@ class PokeBattle_Move_307 < PokeBattle_Move
     hitchances=[2,2,3,3,4,5]
     ret=hitchances[@battle.pbRandom(hitchances.length)]
     ret=5 if attacker.hasWorkingAbility(:SKILLLINK)
+    ret=4 if attacker.hasWorkingItem(:LOADEDDICE) && ret < 4
     return ret
   end
   
@@ -16755,6 +16758,7 @@ class PokeBattle_Move_359 < PokeBattle_Move
   end
 
   def pbNumHits(attacker)
+    return [4,5,6,7,8,9,10][rand(7)] if attacker.hasWorkingItem(:LOADEDDICE)
     return 10
   end
 
@@ -16764,7 +16768,8 @@ class PokeBattle_Move_359 < PokeBattle_Move
 
   def pbOnStartUse(attacker)
     @calcbasedmg=@basedamage
-    @checks=!attacker.hasWorkingAbility(:SKILLLINK)
+    @checks=!(attacker.hasWorkingAbility(:SKILLLINK) || 
+              attacker.hasWorkingItem(:LOADEDDICE))
     return true
   end
 

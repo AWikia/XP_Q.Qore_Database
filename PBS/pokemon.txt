@@ -31873,6 +31873,7 @@ Habitat=Grassland
 Kind=Demical
 Pokedex=This Pokémon has been found to be an alternative to the currently usable Smeargle. No further details have been found about this Pokémon.
 WildItemCommon=BOTANICSMOKE
+WildItemRare=CLEARAMULET
 BattlerPlayerY=4
 BattlerEnemyY=8
 BattlerAltitude=0

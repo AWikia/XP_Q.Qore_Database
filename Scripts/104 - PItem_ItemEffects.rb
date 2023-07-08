@@ -2426,7 +2426,7 @@ ItemHandlers::BattleUseOnBattler.addIf(proc{|item|
 
 ItemHandlers::UseInBattle.add(:POKEDOLL,proc{|item,battler,battle|
    battle.decision=3
-   pbSEPlay("flee")
+   pbPlayEscapeSE()
    battle.pbDisplayPaused(_INTL("Got away safely!"))
 })
 

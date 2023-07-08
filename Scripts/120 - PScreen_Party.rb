@@ -964,7 +964,7 @@ class PokemonScreen_Scene
   end
 
   def pbSwitchBegin(oldid,newid)
-    pbSEPlay("GUI party switch")
+    pbPlayEquipSE()
     oldsprite=@sprites["pokemon#{oldid}"]
     newsprite=@sprites["pokemon#{newid}"]
     16.times do
@@ -977,7 +977,7 @@ class PokemonScreen_Scene
   end
   
   def pbSwitchEnd(oldid,newid)
-    pbSEPlay("GUI party switch")
+    pbPlayEquipSE()
     oldsprite=@sprites["pokemon#{oldid}"]
     newsprite=@sprites["pokemon#{newid}"]
     oldsprite.pokemon=@party[oldid]

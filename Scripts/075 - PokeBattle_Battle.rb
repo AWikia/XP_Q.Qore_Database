@@ -1965,7 +1965,7 @@ class PokeBattle_Battle
       return 0
     end
     if ($DEBUG || $TEST) && Input.press?(Input::CTRL)
-      pbSEPlay("flee")
+      pbPlayEscapeSE()
       pbDisplayPaused(_INTL("Got away safely!"))
       $dbattle=false
       $inbattle=false
@@ -1980,7 +1980,7 @@ class PokeBattle_Battle
         thispkmn.pbHasType?(:DOOM) ||
         thispkmn.pbHasType?(:SUN) ||
         thispkmn.pbHasType?(:MOON)) && $USENEWBATTLEMECHANICS
-      pbSEPlay("flee")
+      pbPlayEscapeSE()
       pbDisplayPaused(_INTL("Got away safely!"))
       $inbattle=false
       $dbattle=false
@@ -1988,7 +1988,7 @@ class PokeBattle_Battle
       return 1
     end
     if thispkmn.hasWorkingAbility(:RUNAWAY)
-      pbSEPlay("flee")
+      pbPlayEscapeSE()
       if duringBattle
         pbDisplayPaused(_INTL("Got away safely!"))
       else
@@ -2000,7 +2000,7 @@ class PokeBattle_Battle
       return 1
     end
     if thispkmn.hasWorkingItem(:SMOKEBALL)
-      pbSEPlay("flee")
+      pbPlayEscapeSE()
       if duringBattle
         pbDisplayPaused(_INTL("Got away safely!"))
       else
@@ -2034,7 +2034,7 @@ class PokeBattle_Battle
     end
     ret=1
     if pbAIRandom(256)<rate
-      pbSEPlay("flee")
+      pbPlayEscapeSE()
       pbDisplayPaused(_INTL("Got away safely!"))
       $dbattle=false
       $inbattle=false
@@ -4699,7 +4699,7 @@ class PokeBattle_Battle
         i.form=(i.form+1)%2
         i.pbUpdate(true)
         scene.pbChangePokemon(i,i.pokemon)
-        pbSEPlay("GUI party switch")
+        pbPlayEquipSE()
         pbDisplay(_INTL("{1} transformed!",i.pbThis))
       end
       if i.isFainted?

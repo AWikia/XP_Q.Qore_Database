@@ -1631,7 +1631,7 @@ def ragefist
     if transformed
       pbUpdate(true)
       @battle.scene.pbChangePokemon(self,@pokemon)
-      pbSEPlay("GUI party switch")
+      pbPlayEquipSE()
       @battle.pbDisplay(_INTL("{1} transformed!",pbThis))
       PBDebug.log("[Form changed] #{pbThis} changed to form #{self.form}")
     end
@@ -2623,7 +2623,7 @@ def ragefist
           if oldform != target.form
             target.pbUpdate(true)
             @battle.scene.pbChangePokemon(target,target.pokemon)
-            pbSEPlay("GUI party switch")
+            pbPlayEquipSE()
             @battle.pbDisplay(_INTL("{1} transformed!",target.pbThis))
             PBDebug.log("[Form changed] #{pbThis} changed to form #{self.form}")
           end

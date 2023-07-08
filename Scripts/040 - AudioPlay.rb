@@ -284,3 +284,29 @@ def pbPlayBuzzerSE()
     pbSEPlay("buzzer",100)
   end
 end
+
+# Plays a sound effect that plays when changing between certain things.
+def pbPlayEquipSE()
+  if $data_system && $data_system.respond_to?("equip_se") &&
+     $data_system.equip_se && $data_system.equip_se.name!=""
+    pbSEPlay($data_system.equip_se)
+  elsif $data_system && $data_system.respond_to?("sounds") &&
+     $data_system.sounds && $data_system.sounds[4] && $data_system.sounds[4].name!=""
+    pbSEPlay($data_system.sounds[4])
+  elsif FileTest.audio_exist?("Audio/SE/GUI party switch")
+    pbSEPlay("GUI party switch",100)
+  end
+end
+
+# Plays a sound effect that plays when escaping from a battle.
+def pbPlayEscapeSE()
+  if $data_system && $data_system.respond_to?("escape_se") &&
+     $data_system.escape_se && $data_system.escape_se.name!=""
+    pbSEPlay($data_system.escape_se)
+  elsif $data_system && $data_system.respond_to?("sounds") &&
+     $data_system.sounds && $data_system.sounds[9] && $data_system.sounds[9].name!=""
+    pbSEPlay($data_system.sounds[9])
+  elsif FileTest.audio_exist?("Audio/SE/flee")
+    pbSEPlay("flee",100)
+  end
+end

@@ -11070,7 +11070,7 @@ MultipleForms.register(:KOULUNDIN,{
    next _INTL("A Κουλούνδιν has been seen transforming again and again in the Anime. Who knows the exact cause of this?") if pokemon.form==1
 },
 "onSetForm"=>proc{|pokemon,form|
-   pbSEPlay("GUI party switch") # Not played from the transform script
+   pbPlayEquipSE() # Not played from the transform script
    pbSeenForm(pokemon)
 }
 })

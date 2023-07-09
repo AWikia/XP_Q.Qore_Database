@@ -332,7 +332,10 @@ class Scene_LinkBattleScene
                      $game_switches[12] && $game_switches[70] && 
                      $game_switches[76] && completedTrophies &&
                      completedTechnicalDiscs && $game_variables[13]>99
-                    species+=[PBSpecies::ALCREMIE]
+                    species+=[PBSpecies::ALCREMIE,PBSpecies::TELEMOBIL]
+                  end
+                  if $game_variables && $game_variables[1001] > 0
+                    species+=[PBSpecies::FLABEBE]
                   end
                   if $game_variables && $game_variables[1001] > 99
                     species+=[PBSpecies::BASCULEGION]

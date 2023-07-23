@@ -34190,7 +34190,7 @@ Habitat=Grassland
 Kind=Magician
 Pokedex=This Pokémon uses the reflective fur lining its cape to camouflage the stem of its flower, creating the illusion that the flower is floating.
 BattlerPlayerY=5
-BattlerEnemyY=11
+BattlerEnemyY=10
 BattlerAltitude=0
 Evolutions=
 [1259]
@@ -35020,7 +35020,7 @@ Habitat=Grassland
 Kind=EleTadpole
 Pokedex=Tadbulb shakes its tail to generate electricity. If it senses danger, it will make its head blink on and off to alert its allies.
 BattlerPlayerY=25
-BattlerEnemyY=34
+BattlerEnemyY=33
 BattlerAltitude=0
 Evolutions=BELLIBOLT,Item,THUNDERSTONE
 [1289]
@@ -36038,7 +36038,7 @@ Habitat=Grassland
 Kind=Terra Whale
 Pokedex=This Pokémon wanders around snowy, icy areas. It protects its body with powerful muscles and a thick layer of fat under its skin.
 BattlerPlayerY=9
-BattlerEnemyY=25
+BattlerEnemyY=19
 BattlerAltitude=0
 Evolutions=
 [1326]
@@ -36093,7 +36093,7 @@ Habitat=Grassland
 Kind=Big Catfish
 Pokedex=This Pokémon is a glutton, but it’s bad at getting food. It teams up with a Tatsugiri to catch prey.
 BattlerPlayerY=1
-BattlerEnemyY=13
+BattlerEnemyY=8
 BattlerAltitude=0
 Evolutions=
 [1328]
@@ -36234,7 +36234,7 @@ Kind=Land Snake
 Pokedex=This Pokémon uses its hard tail to make its nest by boring holes into bedrock deep underground. The nest can reach lengths of over six miles.
 FormNames=Two-Segment,Three-Segment
 BattlerPlayerY=15
-BattlerEnemyY=32
+BattlerEnemyY=27
 BattlerAltitude=0
 Evolutions=
 [1333]
@@ -36684,7 +36684,7 @@ Kind=Coin Chest
 Pokedex=This Pokémon was born inside a treasure chest about 1,500 years ago. It sucks the life-force out of scoundrels who try to steal the treasure.
 FormNames=Chest Form,Roaming Form
 BattlerPlayerY=13
-BattlerEnemyY=17
+BattlerEnemyY=21
 BattlerAltitude=0
 Evolutions=GHOLDENGO,Trained,999
 [1350]
@@ -36710,7 +36710,7 @@ Habitat=Grassland
 Kind=Coin Entity
 Pokedex=Its body seems to be made up of 1,000 coins. This Pokémon gets along well with others and is quick to make friends with anybody.
 BattlerPlayerY=15
-BattlerEnemyY=15
+BattlerEnemyY=12
 BattlerAltitude=0
 Evolutions=
 [1351]
@@ -36736,7 +36736,7 @@ Habitat=Grassland
 Kind=Ruinous
 Pokedex=The grudge of a person punished for writing the king’s evil deeds upon wooden tablets has clad itself in dead leaves to become a Pokémon.
 BattlerPlayerY=7
-BattlerEnemyY=15
+BattlerEnemyY=8
 BattlerAltitude=0
 Evolutions=
 [1352]
@@ -36866,7 +36866,7 @@ Habitat=Grassland
 Kind=Paradox
 Pokedex=It has some similarities to a mad scientist’s invention covered in a paranormal magazine.
 BattlerPlayerY=15
-BattlerEnemyY=12
+BattlerEnemyY=14
 BattlerAltitude=0
 Evolutions=
 [1357]

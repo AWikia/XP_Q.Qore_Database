@@ -672,6 +672,8 @@
 978,MALICIOUSARMOR,Malicious Armor,Malicious Armors,1,3000,A peculiar set of armor that can make a certain species of Pokémon evolve. Malicious will lurks within it.,1,0,7,
 979,CLEARAMULET,Clear Amulet,Clear Amulets,1,30000,"An item to be held by a Pokémon. This clear, sparkling amulet protects the holder from having its stats lowered by moves used against it or by other Pokémon's Abilities.",0,0,0,
 980,LOADEDDICE,Loaded Dice,Loaded Dices,1,20000,"An item to be held by a Pokémon. This loaded dice always rolls a good number, and holding one can ensure that the holder's multistrike moves hit more times.",0,0,0,
+981,MIRRORHERB,Mirror Herb,Mirror Herbs,1,30000,"An item to be held by a Pokémon. This herb will allow the holder to mirror an opponent's stat increases to boost its own stats—but only once.",0,0,0,
+982,PUNCHINGGLOVE,Punching Glove,Punching Gloves,1,15000,"An item to be held by a Pokémon. This protective glove boosts the power of the holder's punching moves and prevents direct contact with targets.",0,0,0,
 ## Trophies (28 Total),,,,,,,,,,
 # Platina,,,,,,,,,,
 827,TQOREMASTER,Qora Qore Master,Qora Qore Master,6,0,Awarded for completing all the pregame,2,0,6,

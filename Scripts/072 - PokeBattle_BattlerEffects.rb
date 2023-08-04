@@ -822,9 +822,15 @@ class PokeBattle_Battler
         if !ignoreopportunist
           for i in [self.pbPartner,self.pbOpposing1,self.pbOpposing2]
             next if !i || i.isFainted?
-            next if !i.hasWorkingAbility(:OPPORTUNIST)
+            next if !( i.hasWorkingAbility(:OPPORTUNIST) || 
+                       i.hasWorkingAbility(:MIRRORHERB))
 #            next if !i.pbCanIncreaseStatStage?(stat,i,false)
-            i.pbIncreaseStatWithCause(stat,increment,i,PBAbilities.getName(i.ability),upanim,true,moldbreaker,ignoreContrary,ignoremirror,true)
+            if i.hasWorkingItem(:MIRRORHERB)
+              i.pbIncreaseStatWithCause(stat,increment,i,PBItems.getName(i.item),upanim,true,moldbreaker,ignoreContrary,ignoremirror,true)
+              i.pbConsumeItem
+            else
+              i.pbIncreaseStatWithCause(stat,increment,i,PBAbilities.getName(i.ability),upanim,true,moldbreaker,ignoreContrary,ignoremirror,true)
+            end
           end
         end
         @effects[PBEffects::BurningJelousy] = true
@@ -882,10 +888,16 @@ class PokeBattle_Battler
         # Opportunist
         if !ignoreopportunist
           for i in [self.pbPartner,self.pbOpposing1,self.pbOpposing2]
-            next if !i || i.isFainted? || !i.hasWorkingAbility(:OPPORTUNIST)
-            next if !i.hasWorkingAbility(:OPPORTUNIST)
-#            next if !i.pbCanIncreaseStatStage?(stat,self,false)
-            i.pbIncreaseStatWithCause(stat,increment,i,PBAbilities.getName(i.ability),showanim,true,moldbreaker,ignoreContrary,ignoremirror,true)
+            next if !i || i.isFainted?
+            next if !( i.hasWorkingAbility(:OPPORTUNIST) || 
+                       i.hasWorkingAbility(:MIRRORHERB))
+#            next if !i.pbCanIncreaseStatStage?(stat,i,false)
+            if i.hasWorkingItem(:MIRRORHERB)
+              i.pbIncreaseStatWithCause(stat,increment,i,PBItems.getName(i.item),upanim,true,moldbreaker,ignoreContrary,ignoremirror,true)
+              i.pbConsumeItem
+            else
+              i.pbIncreaseStatWithCause(stat,increment,i,PBAbilities.getName(i.ability),upanim,true,moldbreaker,ignoreContrary,ignoremirror,true)
+            end
           end
         end
         @effects[PBEffects::BurningJelousy] = true
@@ -946,7 +958,7 @@ class PokeBattle_Battler
         @battle.pbDisplay(_INTL("{1}'s {2} prevents stat loss!",pbThis,abilityname)) if showMessages
         return false
       end
-      if hasWorkingItem(:CLEARAMULELT)
+      if hasWorkingItem(:CLEARAMULET)
         itemname=PBAbilities.getName(self.item)
         pbSEPlay("protection") if showMessages
         @battle.pbDisplay(_INTL("{1}'s {2} prevents stat loss!",pbThis,itemname)) if showMessages
@@ -1212,7 +1224,7 @@ class PokeBattle_Battler
         @battle.pbDisplay(_INTL("The Cinament prevented {1}'s {2} from working!",opponent.pbThis(true),oppabilityname))
         return false
       end
-      if hasWorkingItem(:CLEARAMULELT)
+      if hasWorkingItem(:CLEARAMULET)
          itemname=PBAbilities.getName(self.item)
         oppabilityname=PBAbilities.getName(opponent.ability)
         pbSEPlay("protection")
@@ -1276,7 +1288,7 @@ class PokeBattle_Battler
         @battle.pbDisplay(_INTL("The Cinament prevented {1}'s {2} from working!",opponent.pbThis(true),oppabilityname))
         return false
       end
-      if hasWorkingItem(:CLEARAMULELT)
+      if hasWorkingItem(:CLEARAMULET)
          itemname=PBAbilities.getName(self.item)
         oppabilityname=PBAbilities.getName(opponent.ability)
         pbSEPlay("protection")
@@ -1339,7 +1351,7 @@ class PokeBattle_Battler
         @battle.pbDisplay(_INTL("The Cinament prevented {1}'s {2} from working!",opponent.pbThis(true),oppabilityname))
         return false
       end
-      if hasWorkingItem(:CLEARAMULELT)
+      if hasWorkingItem(:CLEARAMULET)
          itemname=PBAbilities.getName(self.item)
         oppabilityname=PBAbilities.getName(opponent.ability)
         pbSEPlay("protection")
@@ -1404,7 +1416,7 @@ class PokeBattle_Battler
         @battle.pbDisplay(_INTL("The Cinament prevented {1}'s {2} from working!",opponent.pbThis(true),oppabilityname))
         return false
       end
-      if hasWorkingItem(:CLEARAMULELT)
+      if hasWorkingItem(:CLEARAMULET)
          itemname=PBAbilities.getName(self.item)
         oppabilityname=PBAbilities.getName(opponent.ability)
         pbSEPlay("protection")

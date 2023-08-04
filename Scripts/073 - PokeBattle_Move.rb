@@ -1127,6 +1127,9 @@ class PokeBattle_Move
     if attacker.hasWorkingItem(:WISEGLASSES) && pbIsSpecial?(type)
       damagemult=(damagemult*1.1).round
     end
+    if attacker.hasWorkingItem(:PUNCHINGGLOVE) && isPunchingMove?
+      damagemult=(damagemult*1.1).round
+    end
     if attacker.hasWorkingItem(:FIERYSTONE) &&
        (isConst?(type,PBTypes,:GRASS) || isConst?(type,PBTypes,:FIRE) ||
         isConst?(type,PBTypes,:WATER))

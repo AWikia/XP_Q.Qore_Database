@@ -3847,6 +3847,9 @@ class PokeBattle_Battle
       if attacker.hasWorkingAbility(:IRONFIST) && move.isPunchingMove?
         basedamage=(basedamage*1.2).round
       end
+      if attacker.hasWorkingItem(:PUNCHINGGLOVE) && move.isPunchingMove?
+        damagemult=(damagemult*1.1).round
+      end
     end
     # Reckless
     if skill>=PBTrainerAI.mediumSkill

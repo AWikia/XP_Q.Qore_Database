@@ -914,8 +914,18 @@ def ragefist
     return true if hasWorkingAbility(:ABILITOPIA)
     return false
   end
-  
 
+  def hasNoContactWithTargets(move,target)
+    if target
+      return true if target.hasWorkingItem(:PROTECTIVEPADS)
+    end
+    if move
+      return true if move.isPunchingMove? && hasWorkingItem(:PUNCHINGGLOVE)
+    end
+    return true if hasWorkingAbility(:LONGREACH) ||
+                   hasWorkingItem(:PROTECTIVEPADS)
+  end
+  
   def hasWorkingAbility(ability,ignorefainted=false)
     return false if self.isFainted? && !ignorefainted
     if @battle.field.effects[PBEffects::NeutralizingGas] && !self.pbHasType?(:GAS)
@@ -2537,8 +2547,7 @@ def ragefist
 
   def pbEffectsOnDealingDamage(move,user,target,damage)
     movetype=move.pbType(move.type,user,target)
-    if damage>0 && move.isContactMove? && !user.hasWorkingAbility(:LONGREACH) && 
-       !(user.hasWorkingItem(:PROTECTIVEPADS) || target.hasWorkingItem(:PROTECTIVEPADS)) # changed
+    if damage>0 && move.isContactMove? && !user.hasNoContactWithTargets(move,target)  # changed
       if !target.damagestate.substitute
         if target.hasWorkingItem(:STICKYBARB,true) && user.item==0 && !user.isFainted?
           user.item=target.item
@@ -4546,7 +4555,7 @@ def ragefist
       @battle.pbDisplay(_INTL("{1} protected itself!",target.pbThis))
       @battle.successStates[user.index].protected=true
       PBDebug.log("[Move failed] #{target.pbThis}'s King's Shield stopped the attack")
-      if thismove.isContactMove? && !user.hasWorkingAbility(:LONGREACH) # changed
+      if thismove.isContactMove? && !user.hasNoContactWithTargets(thismove,nil) # changed
         user.pbReduceStat(PBStats::ATTACK,1,nil,false) # Was 2
       end
       return false
@@ -4559,7 +4568,7 @@ def ragefist
       @battle.pbDisplay(_INTL("{1} protected itself!",target.pbThis))
       @battle.successStates[user.index].protected=true
       PBDebug.log("[Move failed] #{target.pbThis}'s Silk Trap stopped the attack")
-      if thismove.isContactMove? && !user.hasWorkingAbility(:LONGREACH) # changed
+      if thismove.isContactMove? && !user.hasNoContactWithTargets(thismove,nil) # changed
         user.pbReduceStat(PBStats::SPEED,1,nil,false) # Was 2
       end
       return false
@@ -4572,7 +4581,7 @@ def ragefist
       @battle.pbDisplay(_INTL("{1} protected itself!",target.pbThis))
       @battle.successStates[user.index].protected=true
       PBDebug.log("[Move failed] #{target.pbThis}'s Obstruct stopped the attack")
-      if thismove.isContactMove? && !user.hasWorkingAbility(:LONGREACH) # changed
+      if thismove.isContactMove? && !user.hasNoContactWithTargets(thismove,nil) # changed
         user.pbReduceStat(PBStats::DEFENSE,2,nil,false)
       end
       return false
@@ -4584,7 +4593,7 @@ def ragefist
       @battle.pbDisplay(_INTL("{1} protected itself!",target.pbThis))
       @battle.successStates[user.index].protected=true
       PBDebug.log("[Move failed] #{user.pbThis}'s Spiky Shield stopped the attack")
-      if thismove.isContactMove? && !user.isFainted? && !user.hasWorkingAbility(:LONGREACH) # changed
+      if thismove.isContactMove? && !user.isFainted? && !user.hasNoContactWithTargets(thismove,nil) # changed
         @battle.scene.pbDamageAnimation(user,0)
         amt=user.pbReduceHP((user.totalhp/8).floor)
         @battle.pbDisplay(_INTL("{1} was hurt!",user.pbThis)) if amt>0
@@ -4597,7 +4606,7 @@ def ragefist
       @battle.pbDisplay(_INTL("{1} protected itself!",target.pbThis))
       @battle.successStates[user.index].protected=true
       PBDebug.log("[Move failed] #{user.pbThis}'s Baneful Bunker stopped the attack!")
-      if thismove.isContactMove? && !user.isFainted? && user.pbCanPoison?(nil,false) && !user.hasWorkingAbility(:LONGREACH)
+      if thismove.isContactMove? && !user.isFainted? && user.pbCanPoison?(nil,false) && !user.hasNoContactWithTargets(thismove,nil)
         PBDebug.log("#{target.pbThis} poisoned by Baneful Bunker")
         user.pbPoison(target,_INTL("{1} was poisoned!",target.pbThis))
       end

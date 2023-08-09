@@ -739,7 +739,7 @@ def ragefist
       end
     end
     @effects[PBEffects::Commander]        = false
-    @effects[PBEffects::CommandedAlly]    = false
+    @effects[PBEffects::CommanderAlly]    = false
     @effects[PBEffects::DolphininoForm]   = 1
     # Disguise causes the ability-suppressing effect to fade
     # if it was passed on through Baton Pass
@@ -751,7 +751,7 @@ def ragefist
     # changed end
   end
 
-  def pbUpdate(fullchange=false)
+  def pbUpdate(fullchange=false,updateability=true)
     if @pokemon
       @pokemon.calcStats
       @level     = @pokemon.level
@@ -764,7 +764,7 @@ def ragefist
         @spatk     = @pokemon.spatk
         @spdef     = @pokemon.spdef
         if fullchange
-          @ability = @pokemon.ability
+          @ability = @pokemon.ability if updateability
           @type1   = @pokemon.type1
           @type2   = @pokemon.type2
         end
@@ -1397,7 +1397,7 @@ def ragefist
         end
       else
         if self.form!=0
-          self.form=0; transformed=true
+          self.form=0; transformed='partial' # Was true
         end
       end
     end
@@ -1445,7 +1445,7 @@ def ragefist
         end
       else
         if self.form!=0
-          self.form=0; transformed=true
+          self.form=0; transformed='partial' # Was true
         end
       end
     end
@@ -1457,7 +1457,7 @@ def ragefist
         end
       else
         if self.form!=2
-          self.form=2; transformed=true
+          self.form=2; transformed='partial' # Was true
         end
       end
     end
@@ -1477,9 +1477,13 @@ def ragefist
     end
     # Wishiwashi # Changed added
     if isConst?(self.species,PBSpecies,:WISHIWASHI) && !self.isFainted?
-      if isConst?(self.ability,PBAbilities,:SCHOOLING) && @hp<=((@totalhp/4).floor)
+      if self.hasWorkingAbility(:SCHOOLING) && @hp<=((@totalhp/4).floor)
         if self.form!=0
           self.form=0; transformed=true
+        end
+      elsif !self.hasWorkingAbility(:SCHOOLING) 
+        if self.form!=0
+          self.form=0; transformed='partial' # Was true
         end
       else
         if self.form!=1 && @level>=20
@@ -1505,6 +1509,13 @@ def ragefist
             @battle.pbDisplay(_INTL("Shields Down deactivated!"))
           end
         end
+      else
+        if self.form<7
+          self.form+=7
+          pbUpdate(true,false)
+          @battle.scene.pbChangePokemon(self,@pokemon)
+          @battle.pbDisplay(_INTL("Shields Down deactivated!"))
+        end
       end
     end
     # Phony Predator (Polteageist)
@@ -1515,7 +1526,7 @@ def ragefist
         end
       else
         if self.form!=0
-          self.form=0; transformed=true
+          self.form=0; transformed='partial' # Was true
         end
       end
     end
@@ -1566,7 +1577,7 @@ def ragefist
         end
       else
         if self.form!=0
-          self.form=0; transformed=true
+          self.form=0; transformed='partial' # Was true
         end
       end
     end
@@ -1642,7 +1653,7 @@ def ragefist
       end
     end
     if transformed
-      pbUpdate(true)
+      pbUpdate(true,(transformed != 'partial'))
       @battle.scene.pbChangePokemon(self,@pokemon)
       pbPlayEquipSE()
       @battle.pbDisplay(_INTL("{1} transformed!",pbThis))
@@ -5616,18 +5627,19 @@ def ragefist
        !@effects[PBEffects::Transform]
       if thismove.pbIsPhysical?(thismove.type) && self.form!=2
         self.form=2
+        self.effects[PBEffects::DolphininoForm] = 2
         pbUpdate(true)
         @battle.scene.pbChangePokemon(self,@pokemon)
         @battle.pbDisplay(_INTL("{1} changed to Stealth Forme!",pbThis))
         PBDebug.log("[Form changed] #{pbThis} changed to Stealth Forme")
       elsif isConst?(thismove.id,PBMoves,:OCTUMSHIELD) && self.form!=1
         self.form=1
+        self.effects[PBEffects::DolphininoForm] = 1
         pbUpdate(true)
         @battle.scene.pbChangePokemon(self,@pokemon)
         @battle.pbDisplay(_INTL("{1} changed to Octum Forme!",pbThis))
         PBDebug.log("[Form changed] #{pbThis} changed to Octum Forme")
       end
-      self.effects[PBEffects::DolphininoForm] = self.form
     end
     # Gulp Missile
     if hasWorkingAbility(:GULPMISSILE) && isConst?(species,PBSpecies,:CRAMORANT) &&

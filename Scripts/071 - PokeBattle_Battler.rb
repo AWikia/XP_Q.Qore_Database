@@ -712,24 +712,24 @@ def ragefist
     @effects[PBEffects::Yawn]             = 0
     # changed
     @effects[PBEffects::BanefulBunker]    = false
-    @effects[PBEffects::Obstruct]    = false
+    @effects[PBEffects::Obstruct]         = false
     @effects[PBEffects::ShellTrap]        = false
-    @effects[PBEffects::TarShot]        = false
+    @effects[PBEffects::TarShot]          = false
     @effects[PBEffects::TemporaryMoldBreaker] = false
-    @effects[PBEffects::Disguise] = false
-    @effects[PBEffects::IceFace] = false
-    @effects[PBEffects::Octolock] = false
-    @effects[PBEffects::GulpMissile] = false
+    @effects[PBEffects::Disguise]         = false
+    @effects[PBEffects::IceFace]          = false
+    @effects[PBEffects::Octolock]         = false
+    @effects[PBEffects::GulpMissile]      = false
     @effects[PBEffects::NoRetreat]        = false
-    @effects[PBEffects::MagicDelta]        = false
-    @effects[PBEffects::SilveryBliss]        = false
-    @effects[PBEffects::JawLock]        = false
-    @effects[PBEffects::Mimicry]        = false
-    @effects[PBEffects::NeutralTrap]        = 0
-    @effects[PBEffects::Brainymedia]        = false
-    @effects[PBEffects::CudChew]        = false
-    @effects[PBEffects::GlaiveRush]      = 0
-    @effects[PBEffects::GlaiveRushPos]   = -1
+    @effects[PBEffects::MagicDelta]       = false
+    @effects[PBEffects::SilveryBliss]     = false
+    @effects[PBEffects::JawLock]          = false
+    @effects[PBEffects::Mimicry]          = false
+    @effects[PBEffects::NeutralTrap]      = 0
+    @effects[PBEffects::Brainymedia]      = false
+    @effects[PBEffects::CudChew]          = false
+    @effects[PBEffects::GlaiveRush]       = 0
+    @effects[PBEffects::GlaiveRushPos]    = -1
     for i in 0...4
       next if !@battle.battlers[i]
       if @battle.battlers[i].effects[PBEffects::GlaiveRushPos]==@index &&
@@ -738,6 +738,9 @@ def ragefist
         @battle.battlers[i].effects[PBEffects::GlaiveRushPos]=-1
       end
     end
+    @effects[PBEffects::Commander]        = false
+    @effects[PBEffects::CommandedAlly]    = false
+    @effects[PBEffects::DolphininoForm]   = 1
     # Disguise causes the ability-suppressing effect to fade
     # if it was passed on through Baton Pass
     if self.hasWorkingAbility(:DISGUISE) && isConst?(self.species,PBSpecies,:MIMIKYU)
@@ -1559,7 +1562,7 @@ def ragefist
     if isConst?(self.species,PBSpecies,:DOLPHIN) && !self.isFainted?
       if self.hasWorkingAbility(:DOLPHININO)
         if self.form==0
-          self.form=1; transformed=true
+          self.form=@effects[PBEffects::DolphininoForm]; transformed=true
         end
       else
         if self.form!=0
@@ -5623,7 +5626,8 @@ def ragefist
         @battle.scene.pbChangePokemon(self,@pokemon)
         @battle.pbDisplay(_INTL("{1} changed to Octum Forme!",pbThis))
         PBDebug.log("[Form changed] #{pbThis} changed to Octum Forme")
-      end      
+      end
+      self.effects[PBEffects::DolphininoForm] = self.form
     end
     # Gulp Missile
     if hasWorkingAbility(:GULPMISSILE) && isConst?(species,PBSpecies,:CRAMORANT) &&

@@ -152,6 +152,7 @@ begin
     Commander          = 148 # Used only on a species with Commander
     CommanderAlly      = 149 # Used only on Dondozo currently
     ShedTail           = 150
+    DolphininoForm     = 151 # Used omly on Dolphinino
     
     ############################################################################
     # These effects apply to a side

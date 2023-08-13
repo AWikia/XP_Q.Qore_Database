@@ -3035,9 +3035,9 @@ class PokeBattle_Move_067 < PokeBattle_Move
     if (attacker.ability==0 && opponent.ability==0) ||
        (attacker.ability==opponent.ability && !$USENEWBATTLEMECHANICS) ||
 #       attacker.hasUngainableAbility(nil) ||
-       attacker.hasUnstoppableAbility(nil,[:NEUTRALIZINGGAS, :WONDERGUARD, :ABILITOPIA, :IMPRISIN]) ||
+       attacker.hasUnstoppableAbility(nil,[:NEUTRALIZINGGAS, :ILLUSION, :WONDERGUARD, :ABILITOPIA, :IMPRISIN]) ||
 #       opponent.hasUngainableAbility(attacker) ||
-       opponent.hasUnstoppableAbility(attacker,[:NEUTRALIZINGGAS, :WONDERGUARD, :ABILITOPIA, :IMPRISIN])
+       opponent.hasUnstoppableAbility(attacker,[:NEUTRALIZINGGAS, :ILLUSION, :WONDERGUARD, :ABILITOPIA, :IMPRISIN])
 			pbSEPlay("protection")
        @battle.pbDisplay(_INTL("But it failed!"))
       return -1

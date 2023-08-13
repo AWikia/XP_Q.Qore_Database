@@ -2853,38 +2853,10 @@ class PokeBattle_Move_063 < PokeBattle_Move
       @battle.pbDisplay(_INTL("But it failed!"))  
       return -1
     end
-    if isConst?(opponent.ability,PBAbilities,:ABILITOPIA) ||
-       isConst?(opponent.ability,PBAbilities,:SIMPLE) ||
-       isConst?(opponent.ability,PBAbilities,:MORFAT)
+    if opponent.hasUnstoppableAbility(attacker,[:TRUANT],[:SIMPLE])
        pbSEPlay("protection")
        @battle.pbDisplay(_INTL("But it failed!"))
       return -1
-    end
-    if !attacker.hasAbilityPowers(opponent)
-      if isConst?(opponent.ability,PBAbilities,:BATTLEBOND) ||
-         isConst?(opponent.ability,PBAbilities,:COMATOSE) ||
-         isConst?(opponent.ability,PBAbilities,:COMMANDER) ||
-         isConst?(opponent.ability,PBAbilities,:DISGUISE) ||
-         isConst?(opponent.ability,PBAbilities,:GULPMISSILE) ||
-         isConst?(opponent.ability,PBAbilities,:ICEFACE) ||
-         isConst?(opponent.ability,PBAbilities,:MULTITYPE) ||
-         isConst?(opponent.ability,PBAbilities,:NEUTRALIZINGGAS) ||
-         isConst?(opponent.ability,PBAbilities,:POWERCONSTRUCT) ||
-         isConst?(opponent.ability,PBAbilities,:PROTOSYNTHESIS) ||
-         isConst?(opponent.ability,PBAbilities,:QUARKDRIVE) ||
-         isConst?(opponent.ability,PBAbilities,:RKSSYSTEM) ||
-         isConst?(opponent.ability,PBAbilities,:SCHOOLING) ||
-         isConst?(opponent.ability,PBAbilities,:SHIELDSDOWN) ||
-         isConst?(opponent.ability,PBAbilities,:STANCECHANGE) ||
-         isConst?(opponent.ability,PBAbilities,:TRUANT) ||
-         isConst?(opponent.ability,PBAbilities,:ZEROTOHERO) ||
-         isConst?(opponent.ability,PBAbilities,:KOULUNDIN) ||
-         isConst?(opponent.ability,PBAbilities,:CHIKOLINI) ||
-         isConst?(opponent.ability,PBAbilities,:MAXTHIN)
-         pbSEPlay("protection")
-         @battle.pbDisplay(_INTL("But it failed!"))
-        return -1
-      end
     end
     pbShowAnimation(@id,attacker,opponent,hitnum,alltargets,showanimation)
     oldabil=opponent.ability
@@ -2925,37 +2897,10 @@ class PokeBattle_Move_064 < PokeBattle_Move
       return -1
     end
     return -1 if pbTypeImmunityByAbility(pbType(@type,attacker,opponent),attacker,opponent)
-    if isConst?(opponent.ability,PBAbilities,:ABILITOPIA) ||
-       isConst?(opponent.ability,PBAbilities,:INSOMNIA) ||
-       isConst?(opponent.ability,PBAbilities,:MORFAT)
+    if opponent.hasUnstoppableAbility(attacker,[:TRUANT],[:INSOMNIA])
        pbSEPlay("protection")
        @battle.pbDisplay(_INTL("But it failed!"))
       return -1
-    end
-    if !attacker.hasAbilityPowers(opponent)
-      if isConst?(opponent.ability,PBAbilities,:BATTLEBOND) ||
-         isConst?(opponent.ability,PBAbilities,:COMATOSE) ||
-         isConst?(opponent.ability,PBAbilities,:COMMANDER) ||
-         isConst?(opponent.ability,PBAbilities,:DISGUISE) ||
-         isConst?(opponent.ability,PBAbilities,:GULPMISSILE) ||
-         isConst?(opponent.ability,PBAbilities,:ICEFACE) ||
-         isConst?(opponent.ability,PBAbilities,:MULTITYPE) ||
-         isConst?(opponent.ability,PBAbilities,:NEUTRALIZINGGAS) ||
-         isConst?(opponent.ability,PBAbilities,:POWERCONSTRUCT) ||
-         isConst?(opponent.ability,PBAbilities,:PROTOSYNTHESIS) ||
-         isConst?(opponent.ability,PBAbilities,:QUARKDRIVE) ||
-         isConst?(opponent.ability,PBAbilities,:RKSSYSTEM) ||
-         isConst?(opponent.ability,PBAbilities,:SCHOOLING) ||
-         isConst?(opponent.ability,PBAbilities,:SHIELDSDOWN) ||
-         isConst?(opponent.ability,PBAbilities,:STANCECHANGE) ||
-         isConst?(opponent.ability,PBAbilities,:TRUANT) ||
-         isConst?(opponent.ability,PBAbilities,:ZEROTOHERO) ||
-         isConst?(opponent.ability,PBAbilities,:KOULUNDIN) ||
-         isConst?(opponent.ability,PBAbilities,:CHIKOLINI) ||
-         isConst?(opponent.ability,PBAbilities,:MAXTHIN)
-         @battle.pbDisplay(_INTL("But it failed!"))
-        return -1
-      end
     end
     pbShowAnimation(@id,attacker,opponent,hitnum,alltargets,showanimation)
     oldabil=opponent.ability
@@ -2997,66 +2942,11 @@ class PokeBattle_Move_065 < PokeBattle_Move
     end
     if opponent.ability==0 ||
        attacker.ability==opponent.ability ||
-       isConst?(opponent.ability,PBAbilities,:ABILITOPIA) ||
-       isConst?(opponent.ability,PBAbilities,:MORFAT)
+       attacker.hasUnstoppableAbility(nil) ||
+       opponent.hasUngainableAbility(attacker,[:POWEROFALCHEMY, :RECEIVER, :TRACE, :WONDERGUARD])
        pbSEPlay("protection")
        @battle.pbDisplay(_INTL("But it failed!"))
       return -1
-    end
-    if !attacker.hasAbilityPowers(opponent)
-      if isConst?(attacker.ability,PBAbilities,:BATTLEBOND) ||
-         isConst?(attacker.ability,PBAbilities,:COMATOSE) ||
-         isConst?(attacker.ability,PBAbilities,:COMMANDER) ||
-         isConst?(attacker.ability,PBAbilities,:DISGUISE) ||
-         isConst?(attacker.ability,PBAbilities,:GULPMISSILE) ||
-         isConst?(attacker.ability,PBAbilities,:ICEFACE) ||
-         isConst?(attacker.ability,PBAbilities,:MULTITYPE) ||
-         isConst?(attacker.ability,PBAbilities,:NEUTRALIZINGGAS) ||
-         isConst?(attacker.ability,PBAbilities,:POWERCONSTRUCT) ||
-         isConst?(attacker.ability,PBAbilities,:PROTOSYNTHESIS) ||
-         isConst?(attacker.ability,PBAbilities,:QUARKDRIVE) ||
-         isConst?(attacker.ability,PBAbilities,:RKSSYSTEM) ||
-         isConst?(attacker.ability,PBAbilities,:SCHOOLING) ||
-         isConst?(attacker.ability,PBAbilities,:SHIELDSDOWN) ||
-         isConst?(attacker.ability,PBAbilities,:STANCECHANGE) ||
-         isConst?(attacker.ability,PBAbilities,:ZEROTOHERO) ||
-         isConst?(attacker.ability,PBAbilities,:MAXTHIN) ||
-         isConst?(attacker.ability,PBAbilities,:KOULUNDIN) ||
-         isConst?(attacker.ability,PBAbilities,:CHIKOLINI) ||
-         isConst?(opponent.ability,PBAbilities,:BATTLEBOND) ||
-         isConst?(opponent.ability,PBAbilities,:COMATOSE) ||
-         isConst?(opponent.ability,PBAbilities,:COMMANDER) ||
-         isConst?(opponent.ability,PBAbilities,:DISGUISE) ||
-         isConst?(opponent.ability,PBAbilities,:FLOWERGIFT) ||
-         isConst?(opponent.ability,PBAbilities,:FORECAST) ||
-         isConst?(opponent.ability,PBAbilities,:GULPMISSILE) ||
-         isConst?(opponent.ability,PBAbilities,:ICEFACE) ||
-         isConst?(opponent.ability,PBAbilities,:ILLUSION) ||
-         isConst?(opponent.ability,PBAbilities,:IMPOSTER) ||
-         isConst?(opponent.ability,PBAbilities,:MULTITYPE) ||
-         isConst?(opponent.ability,PBAbilities,:NEUTRALIZINGGAS) ||
-         isConst?(opponent.ability,PBAbilities,:POWERCONSTRUCT) ||
-         isConst?(opponent.ability,PBAbilities,:POWEROFALCHEMY) ||
-         isConst?(opponent.ability,PBAbilities,:PROTOSYNTHESIS) ||
-         isConst?(opponent.ability,PBAbilities,:QUARKDRIVE) ||
-         isConst?(opponent.ability,PBAbilities,:RECEIVER) ||
-         isConst?(opponent.ability,PBAbilities,:RKSSYSTEM) ||
-         isConst?(opponent.ability,PBAbilities,:SCHOOLING) ||
-         isConst?(opponent.ability,PBAbilities,:SHIELDSDOWN) ||
-         isConst?(opponent.ability,PBAbilities,:STANCECHANGE) ||
-         isConst?(opponent.ability,PBAbilities,:TRACE) ||
-         isConst?(opponent.ability,PBAbilities,:WONDERGUARD) ||
-         isConst?(opponent.ability,PBAbilities,:ZENMODE) ||
-         isConst?(opponent.ability,PBAbilities,:ZEROTOHERO) ||
-         isConst?(opponent.ability,PBAbilities,:PHONYPREDATOR) ||
-         isConst?(opponent.ability,PBAbilities,:KOULUNDIN) ||
-         isConst?(opponent.ability,PBAbilities,:HERALINA) ||
-         isConst?(opponent.ability,PBAbilities,:CHIKOLINI) ||
-         isConst?(opponent.ability,PBAbilities,:DOLPHININO)
-         pbSEPlay("protection")
-         @battle.pbDisplay(_INTL("But it failed!"))
-        return -1
-      end
     end
     pbShowAnimation(@id,attacker,opponent,hitnum,alltargets,showanimation)
     oldabil=attacker.ability
@@ -3102,67 +2992,9 @@ class PokeBattle_Move_066 < PokeBattle_Move
       return -1
     end
     if attacker.ability==0 ||
-       attacker.ability==opponent.ability
-       pbSEPlay("protection")
-       @battle.pbDisplay(_INTL("But it failed!"))
-      return -1
-    end
-    if attacker.ability==0 ||
        attacker.ability==opponent.ability ||
-       isConst?(opponent.ability,PBAbilities,:BATTLEBOND) ||
-       isConst?(opponent.ability,PBAbilities,:COMATOSE) ||
-       isConst?(opponent.ability,PBAbilities,:COMMANDER) ||
-       isConst?(opponent.ability,PBAbilities,:DISGUISE) ||
-       isConst?(opponent.ability,PBAbilities,:GULPMISSILE) ||
-       isConst?(opponent.ability,PBAbilities,:ICEFACE) ||
-       isConst?(opponent.ability,PBAbilities,:MULTITYPE) ||
-       isConst?(opponent.ability,PBAbilities,:NEUTRALIZINGGAS) ||
-       isConst?(opponent.ability,PBAbilities,:POWERCONSTRUCT) ||
-       isConst?(opponent.ability,PBAbilities,:PROTOSYNTHESIS) ||
-       isConst?(opponent.ability,PBAbilities,:QUARKDRIVE) ||
-       isConst?(opponent.ability,PBAbilities,:RKSSYSTEM) ||
-       isConst?(opponent.ability,PBAbilities,:SCHOOLING) ||
-       isConst?(opponent.ability,PBAbilities,:SHIELDSDOWN) ||
-       isConst?(opponent.ability,PBAbilities,:STANCECHANGE) ||
-       isConst?(opponent.ability,PBAbilities,:TRUANT) ||
-       isConst?(opponent.ability,PBAbilities,:ZENMODE) ||
-       isConst?(opponent.ability,PBAbilities,:ZEROTOHERO) ||
-       isConst?(opponent.ability,PBAbilities,:PHONYPREDATOR) ||
-       isConst?(opponent.ability,PBAbilities,:MAXTHIN) ||
-       isConst?(opponent.ability,PBAbilities,:KOULUNDIN) ||
-       isConst?(opponent.ability,PBAbilities,:CHIKOLINI) ||
-       isConst?(opponent.ability,PBAbilities,:ABILITOPIA) ||
-       isConst?(opponent.ability,PBAbilities,:MORFAT) ||
-       isConst?(attacker.ability,PBAbilities,:BATTLEBOND) ||
-       isConst?(attacker.ability,PBAbilities,:COMATOSE) ||
-       isConst?(attacker.ability,PBAbilities,:COMMANDER) ||
-       isConst?(attacker.ability,PBAbilities,:DISGUISE) ||
-       isConst?(attacker.ability,PBAbilities,:FLOWERGIFT) ||
-       isConst?(attacker.ability,PBAbilities,:FORECAST) ||
-       isConst?(attacker.ability,PBAbilities,:DOLPHININO) ||
-       isConst?(attacker.ability,PBAbilities,:GULPMISSILE) ||
-       isConst?(attacker.ability,PBAbilities,:ICEFACE) ||
-       isConst?(attacker.ability,PBAbilities,:ILLUSION) ||
-       isConst?(attacker.ability,PBAbilities,:IMPOSTER) ||
-       isConst?(attacker.ability,PBAbilities,:MULTITYPE) ||
-       isConst?(attacker.ability,PBAbilities,:NEUTRALIZINGGAS) ||
-       isConst?(attacker.ability,PBAbilities,:POWERCONSTRUCT) ||
-       isConst?(attacker.ability,PBAbilities,:POWEROFALCHEMY) ||
-       isConst?(attacker.ability,PBAbilities,:PROTOSYNTHESIS) ||
-       isConst?(attacker.ability,PBAbilities,:QUARKDRIVE) ||
-       isConst?(attacker.ability,PBAbilities,:RECEIVER) ||
-       isConst?(attacker.ability,PBAbilities,:RKSSYSTEM) ||
-       isConst?(attacker.ability,PBAbilities,:SCHOOLING) ||
-       isConst?(attacker.ability,PBAbilities,:SHIELDSDOWN) ||
-       isConst?(attacker.ability,PBAbilities,:STANCECHANGE) ||
-       isConst?(attacker.ability,PBAbilities,:TRACE) ||
-       isConst?(attacker.ability,PBAbilities,:ZENMODE) ||
-       isConst?(attacker.ability,PBAbilities,:ZEROTOHERO) ||
-       isConst?(attacker.ability,PBAbilities,:PHONYPREDATOR) ||
-       isConst?(attacker.ability,PBAbilities,:KOULUNDIN) ||
-       isConst?(attacker.ability,PBAbilities,:CHIKOLINI) ||
-       isConst?(attacker.ability,PBAbilities,:HERALINA) ||
-       isConst?(attacker.ability,PBAbilities,:ABILITOPIA)
+       opponent.hasUnstoppableAbility(attacker,[:TRUANT]) ||
+       attacker.hasUngainableAbility(nil,[:POWEROFALCHEMY, :RECEIVER, :TRACE])
        pbSEPlay("protection")
        @battle.pbDisplay(_INTL("But it failed!"))
       return -1
@@ -3202,54 +3034,10 @@ class PokeBattle_Move_067 < PokeBattle_Move
   def pbEffect(attacker,opponent,hitnum=0,alltargets=nil,showanimation=true)
     if (attacker.ability==0 && opponent.ability==0) ||
        (attacker.ability==opponent.ability && !$USENEWBATTLEMECHANICS) ||
-       isConst?(attacker.ability,PBAbilities,:BATTLEBOND) ||
-       isConst?(opponent.ability,PBAbilities,:BATTLEBOND) ||
-       isConst?(attacker.ability,PBAbilities,:COMATOSE) ||
-       isConst?(opponent.ability,PBAbilities,:COMATOSE) ||
-       isConst?(attacker.ability,PBAbilities,:COMMANDER) ||
-       isConst?(opponent.ability,PBAbilities,:COMMANDER) ||
-       isConst?(attacker.ability,PBAbilities,:DISGUISE) ||
-       isConst?(opponent.ability,PBAbilities,:DISGUISE) ||
-       isConst?(attacker.ability,PBAbilities,:GULPMISSILE) ||
-       isConst?(opponent.ability,PBAbilities,:GULPMISSILE) ||
-       isConst?(attacker.ability,PBAbilities,:ICEFACE) ||
-       isConst?(opponent.ability,PBAbilities,:ICEFACE) ||
-       isConst?(attacker.ability,PBAbilities,:ILLUSION) ||
-       isConst?(opponent.ability,PBAbilities,:ILLUSION) ||
-       isConst?(attacker.ability,PBAbilities,:MULTITYPE) ||
-       isConst?(opponent.ability,PBAbilities,:MULTITYPE) ||
-       isConst?(attacker.ability,PBAbilities,:NEUTRALIZINGGAS) ||
-       isConst?(opponent.ability,PBAbilities,:NEUTRALIZINGGAS) ||       
-       isConst?(attacker.ability,PBAbilities,:POWERCONSTRUCT) ||
-       isConst?(opponent.ability,PBAbilities,:POWERCONSTRUCT) ||
-       isConst?(attacker.ability,PBAbilities,:PROTOSYNTHESIS) ||
-       isConst?(opponent.ability,PBAbilities,:PROTOSYNTHESIS) ||
-       isConst?(attacker.ability,PBAbilities,:QUARKDRIVE) ||
-       isConst?(opponent.ability,PBAbilities,:QUARKDRIVE) ||
-       isConst?(attacker.ability,PBAbilities,:RKSSYSTEM) ||
-       isConst?(opponent.ability,PBAbilities,:RKSSYSTEM) ||
-       isConst?(attacker.ability,PBAbilities,:SCHOOLING) ||
-       isConst?(opponent.ability,PBAbilities,:SCHOOLING) ||
-       isConst?(attacker.ability,PBAbilities,:SHIELDSDOWN) ||
-       isConst?(opponent.ability,PBAbilities,:SHIELDSDOWN) ||
-       isConst?(attacker.ability,PBAbilities,:STANCECHANGE) ||
-       isConst?(opponent.ability,PBAbilities,:STANCECHANGE) ||
-       isConst?(attacker.ability,PBAbilities,:WONDERGUARD) ||
-       isConst?(opponent.ability,PBAbilities,:WONDERGUARD) ||
-       isConst?(attacker.ability,PBAbilities,:ZEROTOHERO) ||
-       isConst?(opponent.ability,PBAbilities,:ZEROTOHERO) ||
-       isConst?(attacker.ability,PBAbilities,:KOULUNDIN) ||
-       isConst?(opponent.ability,PBAbilities,:KOULUNDIN) ||
-       isConst?(attacker.ability,PBAbilities,:CHIKOLINI) ||
-       isConst?(opponent.ability,PBAbilities,:CHIKOLINI) ||
-       isConst?(attacker.ability,PBAbilities,:MAXTHIN) ||
-       isConst?(opponent.ability,PBAbilities,:MAXTHIN) ||
-       isConst?(attacker.ability,PBAbilities,:IMPRISIN) ||
-       isConst?(opponent.ability,PBAbilities,:IMPRISIN) ||
-       isConst?(attacker.ability,PBAbilities,:ABILITOPIA) ||
-       isConst?(opponent.ability,PBAbilities,:ABILITOPIA) ||
-       isConst?(attacker.ability,PBAbilities,:MORFAT) ||
-       isConst?(opponent.ability,PBAbilities,:MORFAT)
+#       attacker.hasUngainableAbility(nil) ||
+       attacker.hasUnstoppableAbility(nil,[:NEUTRALIZINGGAS, :WONDERGUARD, :ABILITOPIA, :IMPRISIN]) ||
+#       opponent.hasUngainableAbility(attacker) ||
+       opponent.hasUnstoppableAbility(attacker,[:NEUTRALIZINGGAS, :WONDERGUARD, :ABILITOPIA, :IMPRISIN])
 			pbSEPlay("protection")
        @battle.pbDisplay(_INTL("But it failed!"))
       return -1
@@ -3282,38 +3070,10 @@ class PokeBattle_Move_068 < PokeBattle_Move
       @battle.pbDisplay(_INTL("But it failed!"))  
       return -1
     end
-    if isConst?(opponent.ability,PBAbilities,:ABILITOPIA) || # Changed
-       isConst?(opponent.ability,PBAbilities,:MORFAT)
+    if opponent.hasUnstoppableAbility(attacker)
 			pbSEPlay("protection")
        @battle.pbDisplay(_INTL("But it failed!"))
       return -1
-    end
-    if !attacker.hasAbilityPowers(opponent)
-      if isConst?(opponent.ability,PBAbilities,:BATTLEBOND) || # Changed
-         isConst?(opponent.ability,PBAbilities,:COMATOSE) ||
-         isConst?(opponent.ability,PBAbilities,:COMMANDER) ||
-         isConst?(opponent.ability,PBAbilities,:DISGUISE) ||
-         isConst?(opponent.ability,PBAbilities,:GULPMISSILE) ||
-         isConst?(opponent.ability,PBAbilities,:ICEFACE) ||
-         isConst?(opponent.ability,PBAbilities,:MULTITYPE) ||
-         isConst?(opponent.ability,PBAbilities,:NEUTRALIZINGGAS) ||
-         isConst?(opponent.ability,PBAbilities,:POWERCONSTRUCT) ||
-         isConst?(opponent.ability,PBAbilities,:PROTOSYNTHESIS) ||
-         isConst?(opponent.ability,PBAbilities,:QUARKDRIVE) ||
-         isConst?(opponent.ability,PBAbilities,:RKSSYSTEM) ||
-         isConst?(opponent.ability,PBAbilities,:SCHOOLING) || 
-         isConst?(opponent.ability,PBAbilities,:SHIELDSDOWN) ||
-         isConst?(opponent.ability,PBAbilities,:STANCECHANGE) ||
-         isConst?(opponent.ability,PBAbilities,:ZENMODE) ||
-         isConst?(opponent.ability,PBAbilities,:ZEROTOHERO) ||
-         isConst?(opponent.ability,PBAbilities,:PHONYPREDATOR) ||
-         isConst?(opponent.ability,PBAbilities,:KOULUNDIN) ||
-         isConst?(opponent.ability,PBAbilities,:CHIKOLINI) ||
-         isConst?(opponent.ability,PBAbilities,:MAXTHIN)
-        pbSEPlay("protection")
-         @battle.pbDisplay(_INTL("But it failed!"))
-        return -1
-      end
     end
     pbShowAnimation(@id,attacker,opponent,hitnum,alltargets,showanimation)
     oldabil=opponent.ability
@@ -11376,38 +11136,10 @@ class PokeBattle_Move_184 < PokeBattle_Move
       @battle.pbDisplay(_INTL("But it failed!"))
       return -1
     end
-    if isConst?(opponent.ability,PBAbilities,:ABILITOPIA) ||
-       isConst?(opponent.ability,PBAbilities,:FERMATINA) ||
-       isConst?(opponent.ability,PBAbilities,:MORFAT)
+    if opponent.hasUnstoppableAbility(attacker,[:TRUANT],[:FERFATINA])
        pbSEPlay("protection")
        @battle.pbDisplay(_INTL("But it failed!"))
       return -1
-    end
-    if !attacker.hasAbilityPowers(opponent)
-      if isConst?(opponent.ability,PBAbilities,:BATTLEBOND) || 
-         isConst?(opponent.ability,PBAbilities,:COMATOSE) ||
-         isConst?(opponent.ability,PBAbilities,:COMMANDER) ||
-         isConst?(opponent.ability,PBAbilities,:DISGUISE) ||
-         isConst?(opponent.ability,PBAbilities,:GULPMISSILE) ||
-         isConst?(opponent.ability,PBAbilities,:ICEFACE) ||
-         isConst?(opponent.ability,PBAbilities,:MULTITYPE) ||
-         isConst?(opponent.ability,PBAbilities,:NEUTRALIZINGGAS) ||
-         isConst?(opponent.ability,PBAbilities,:POWERCONSTRUCT) ||
-         isConst?(opponent.ability,PBAbilities,:PROTOSYNTHESIS) ||
-         isConst?(opponent.ability,PBAbilities,:QUARKDRIVE) ||
-         isConst?(opponent.ability,PBAbilities,:RKSSYSTEM) ||
-         isConst?(opponent.ability,PBAbilities,:SCHOOLING) ||
-         isConst?(opponent.ability,PBAbilities,:SHIELDSDOWN) ||
-         isConst?(opponent.ability,PBAbilities,:STANCECHANGE) ||
-         isConst?(opponent.ability,PBAbilities,:TRUANT) ||
-         isConst?(opponent.ability,PBAbilities,:ZEROTOHERO) ||
-         isConst?(opponent.ability,PBAbilities,:KOULUNDIN) ||
-         isConst?(opponent.ability,PBAbilities,:MAXTHIN) ||
-         isConst?(opponent.ability,PBAbilities,:CHIKOLINI)
-        pbSEPlay("protection")
-         @battle.pbDisplay(_INTL("But it failed!"))
-        return -1
-      end
     end
     pbShowAnimation(@id,attacker,opponent,hitnum,alltargets,showanimation)
     oldabil=opponent.ability
@@ -12354,68 +12086,11 @@ class PokeBattle_Move_206 < PokeBattle_Move
     end
     if opponent.ability==0 ||
        attacker.ability==opponent.ability ||
-       isConst?(attacker.ability,PBAbilities,:ABILITOPIA) ||
-       isConst?(attacker.ability,PBAbilities,:MORFAT)
+       attacker.hasUnstoppableAbility(nil) ||
+       opponent.hasUngainableAbility(attacker,[:POWEROFALCHEMY, :RECEIVER, :TRACE, :WONDERGUARD])
        pbSEPlay("protection")
        @battle.pbDisplay(_INTL("But it failed!"))
       return -1
-    end
-    if !attacker.hasAbilityPowers(opponent)
-      if opponent.ability==0 ||
-         attacker.ability==opponent.ability ||
-         isConst?(attacker.ability,PBAbilities,:BATTLEBOND) ||
-         isConst?(attacker.ability,PBAbilities,:COMATOSE) ||
-         isConst?(attacker.ability,PBAbilities,:COMMANDER) ||
-         isConst?(attacker.ability,PBAbilities,:DISGUISE) ||
-         isConst?(attacker.ability,PBAbilities,:GULPMISSILE) ||
-         isConst?(attacker.ability,PBAbilities,:ICEFACE) ||
-         isConst?(attacker.ability,PBAbilities,:MULTITYPE) ||
-         isConst?(attacker.ability,PBAbilities,:NEUTRALIZINGGAS) ||
-         isConst?(attacker.ability,PBAbilities,:POWERCONSTRUCT) ||
-         isConst?(attacker.ability,PBAbilities,:PROTOSYNTHESIS) ||
-         isConst?(attacker.ability,PBAbilities,:QUARKDRIVE) ||
-         isConst?(attacker.ability,PBAbilities,:RKSSYSTEM) ||
-         isConst?(attacker.ability,PBAbilities,:SCHOOLING) ||
-         isConst?(attacker.ability,PBAbilities,:SHIELDSDOWN) ||
-         isConst?(attacker.ability,PBAbilities,:STANCECHANGE) ||
-         isConst?(attacker.ability,PBAbilities,:ZEROTOHERO) ||
-         isConst?(attacker.ability,PBAbilities,:MAXTHIN) ||
-         isConst?(attacker.ability,PBAbilities,:KOULUNDIN) ||
-         isConst?(attacker.ability,PBAbilities,:CHIKOLINI) ||
-         isConst?(opponent.ability,PBAbilities,:BATTLEBOND) ||
-         isConst?(opponent.ability,PBAbilities,:COMATOSE) ||
-         isConst?(opponent.ability,PBAbilities,:COMMANDER) ||
-         isConst?(opponent.ability,PBAbilities,:DISGUISE) ||
-         isConst?(opponent.ability,PBAbilities,:FLOWERGIFT) ||
-         isConst?(opponent.ability,PBAbilities,:FORECAST) ||
-         isConst?(opponent.ability,PBAbilities,:GULPMISSILE) ||
-         isConst?(opponent.ability,PBAbilities,:ICEFACE) ||
-         isConst?(opponent.ability,PBAbilities,:ILLUSION) ||
-         isConst?(opponent.ability,PBAbilities,:IMPOSTER) ||
-         isConst?(opponent.ability,PBAbilities,:MULTITYPE) ||
-         isConst?(opponent.ability,PBAbilities,:NEUTRALIZINGGAS) ||
-         isConst?(opponent.ability,PBAbilities,:POWERCONSTRUCT) ||
-         isConst?(opponent.ability,PBAbilities,:POWEROFALCHEMY) ||
-         isConst?(opponent.ability,PBAbilities,:PROTOSYNTHESIS) ||
-         isConst?(opponent.ability,PBAbilities,:QUARKDRIVE) ||
-         isConst?(opponent.ability,PBAbilities,:RECEIVER) ||
-         isConst?(opponent.ability,PBAbilities,:RKSSYSTEM) ||
-         isConst?(opponent.ability,PBAbilities,:SCHOOLING) ||
-         isConst?(opponent.ability,PBAbilities,:SHIELDSDOWN) ||
-         isConst?(opponent.ability,PBAbilities,:STANCECHANGE) ||
-         isConst?(opponent.ability,PBAbilities,:TRACE) ||
-         isConst?(opponent.ability,PBAbilities,:WONDERGUARD) ||
-         isConst?(opponent.ability,PBAbilities,:ZENMODE) ||
-         isConst?(opponent.ability,PBAbilities,:ZEROTOHERO) ||
-         isConst?(opponent.ability,PBAbilities,:PHONYPREDATOR) ||
-         isConst?(opponent.ability,PBAbilities,:KOULUNDIN) ||
-         isConst?(opponent.ability,PBAbilities,:CHIKOLINI) ||
-         isConst?(opponent.ability,PBAbilities,:HERALINA) ||
-         isConst?(opponent.ability,PBAbilities,:DOLPHININO)
-         pbSEPlay("protection")
-         @battle.pbDisplay(_INTL("But it failed!"))
-        return -1
-      end
     end
     # Part A: User Copies target's ability
     pbShowAnimation(@id,attacker,opponent,hitnum,alltargets,showanimation)
@@ -12445,15 +12120,13 @@ class PokeBattle_Move_206 < PokeBattle_Move
     # Also exceptions are all Gust, Moon and Mind Pokemons
     # Last but not least, this test won't trigger if the target has its ability
     # * already suppresed before with Gastro Acid
-    if !attacker.hasAbilityPowers(opponent)
-      if isConst?(opponent.ability,PBAbilities,:MAXTHIN)
-        return 0
-      end
-    end
-    if  !((opponent.effects[PBEffects::Substitute]>0 && ignoresSubstitute?(attacker)) ||
-         (opponent.pbHasType?(:GUST) || opponent.pbHasType?(:MOON) ||
-         opponent.pbHasType?(:MIND) || opponent.effects[PBEffects::GastroAcid]) ||
-         isEternal?(opponent) || opponent.pbHasType?(:GAS))
+
+    if opponent.effects[PBEffects::Substitute]>0 && !ignoresSubstitute?(attacker) ||
+      opponent.pbHasType?(:GUST) || opponent.pbHasType?(:MOON) || 
+      opponent.pbHasType?(:MIND) || opponent.effects[PBEffects::GastroAcid] ||
+      opponent.pbHasType?(:GAS) || isEternal?(opponent) ||
+      opponent.hasUnstoppableAbility(attacker)
+    else
       oldabilB=opponent.ability
       opponent.effects[PBEffects::GastroAcid]=true
       opponent.effects[PBEffects::Truant]=false
@@ -14181,38 +13854,10 @@ class PokeBattle_Move_327 < PokeBattle_Move
       return -1
     end
     return -1 if pbTypeImmunityByAbility(pbType(@type,attacker,opponent),attacker,opponent)
-    if isConst?(opponent.ability,PBAbilities,:ABILITOPIA) ||
-       isConst?(opponent.ability,PBAbilities,:KLUTZ) ||
-       isConst?(opponent.ability,PBAbilities,:MORFAT)
+    if opponent.hasUnstoppableAbility(attacker,[:TRUANT],[:KLUTZ])
        pbSEPlay("protection")
        @battle.pbDisplay(_INTL("But it failed!"))
       return -1
-    end
-    if !attacker.hasAbilityPowers(opponent)
-      if isConst?(opponent.ability,PBAbilities,:BATTLEBOND) || 
-         isConst?(opponent.ability,PBAbilities,:COMATOSE) ||
-         isConst?(opponent.ability,PBAbilities,:COMMANDER) ||
-         isConst?(opponent.ability,PBAbilities,:DISGUISE) ||
-         isConst?(opponent.ability,PBAbilities,:GULPMISSILE) ||
-         isConst?(opponent.ability,PBAbilities,:ICEFACE) ||
-         isConst?(opponent.ability,PBAbilities,:MULTITYPE) ||
-         isConst?(opponent.ability,PBAbilities,:NEUTRALIZINGGAS) ||
-         isConst?(opponent.ability,PBAbilities,:POWERCONSTRUCT) ||
-         isConst?(opponent.ability,PBAbilities,:PROTOSYNTHESIS) ||
-         isConst?(opponent.ability,PBAbilities,:QUARKDRIVE) ||
-         isConst?(opponent.ability,PBAbilities,:RKSSYSTEM) ||
-         isConst?(opponent.ability,PBAbilities,:SCHOOLING) ||
-         isConst?(opponent.ability,PBAbilities,:SHIELDSDOWN) ||
-         isConst?(opponent.ability,PBAbilities,:STANCECHANGE) ||
-         isConst?(opponent.ability,PBAbilities,:TRUANT) ||
-         isConst?(opponent.ability,PBAbilities,:ZEROTOHERO) ||
-         isConst?(opponent.ability,PBAbilities,:KOULUNDIN) ||
-         isConst?(opponent.ability,PBAbilities,:MAXTHIN) ||
-         isConst?(opponent.ability,PBAbilities,:CHIKOLINI)
-        pbSEPlay("protection")
-         @battle.pbDisplay(_INTL("But it failed!"))
-        return -1
-      end
     end
     pbShowAnimation(@id,attacker,opponent,hitnum,alltargets,showanimation)
     oldabil=opponent.ability
@@ -14512,38 +14157,10 @@ class PokeBattle_Move_343 < PokeBattle_Move
       @battle.pbDisplay(_INTL("But it failed!"))  
       return -1
     end
-    if isConst?(opponent.ability,PBAbilities,:ABILITOPIA) || # Changed
-       isConst?(opponent.ability,PBAbilities,:MORFAT)
+    if opponent.hasUnstoppableAbility(attacker)
 			pbSEPlay("protection")
        @battle.pbDisplay(_INTL("But it failed!"))
       return -1
-    end
-    if !attacker.hasAbilityPowers(opponent)
-      if isConst?(opponent.ability,PBAbilities,:BATTLEBOND) || # Changed
-         isConst?(opponent.ability,PBAbilities,:COMATOSE) ||
-         isConst?(opponent.ability,PBAbilities,:COMMANDER) ||
-         isConst?(opponent.ability,PBAbilities,:DISGUISE) ||
-         isConst?(opponent.ability,PBAbilities,:GULPMISSILE) ||
-         isConst?(opponent.ability,PBAbilities,:ICEFACE) ||
-         isConst?(opponent.ability,PBAbilities,:MULTITYPE) ||
-         isConst?(opponent.ability,PBAbilities,:NEUTRALIZINGGAS) ||
-         isConst?(opponent.ability,PBAbilities,:POWERCONSTRUCT) ||
-         isConst?(opponent.ability,PBAbilities,:PROTOSYNTHESIS) ||
-         isConst?(opponent.ability,PBAbilities,:QUARKDRIVE) ||
-         isConst?(opponent.ability,PBAbilities,:RKSSYSTEM) ||
-         isConst?(opponent.ability,PBAbilities,:SCHOOLING) || 
-         isConst?(opponent.ability,PBAbilities,:SHIELDSDOWN) ||
-         isConst?(opponent.ability,PBAbilities,:STANCECHANGE) ||
-         isConst?(opponent.ability,PBAbilities,:ZENMODE) ||
-         isConst?(opponent.ability,PBAbilities,:ZEROTOHERO) ||
-         isConst?(opponent.ability,PBAbilities,:PHONYPREDATOR) ||
-         isConst?(opponent.ability,PBAbilities,:KOULUNDIN) ||
-         isConst?(opponent.ability,PBAbilities,:CHIKOLINI) ||
-         isConst?(opponent.ability,PBAbilities,:MAXTHIN)
-        pbSEPlay("protection")
-         @battle.pbDisplay(_INTL("But it failed!"))
-        return -1
-      end
     end
     pbShowAnimation(@id,attacker,opponent,hitnum,alltargets,showanimation)
     oldabil=opponent.ability
@@ -15179,27 +14796,7 @@ class PokeBattle_Move_223 < PokeBattle_Move
       if opponent.damagestate.calcdamage>0 && !opponent.damagestate.substitute &&
           !opponent.isFainted?
         if opponent.hasMovedThisRound? &&
-            !(isConst?(opponent.ability,PBAbilities,:MULTITYPE) ||
-            isConst?(opponent.ability,PBAbilities,:STANCECHANGE) ||
-            isConst?(opponent.ability,PBAbilities,:RKSSYSTEM) || # Added from here
-            isConst?(opponent.ability,PBAbilities,:SCHOOLING) || 
-            isConst?(opponent.ability,PBAbilities,:COMATOSE) ||
-            isConst?(opponent.ability,PBAbilities,:COMMANDER) ||
-            isConst?(opponent.ability,PBAbilities,:SHIELDSDOWN) ||
-            isConst?(opponent.ability,PBAbilities,:DISGUISE) ||
-            isConst?(opponent.ability,PBAbilities,:BATTLEBOND) ||
-            isConst?(opponent.ability,PBAbilities,:KOULUNDIN) ||
-            isConst?(opponent.ability,PBAbilities,:MAXTHIN) ||
-            isConst?(opponent.ability,PBAbilities,:CHIKOLINI) ||
-            isConst?(opponent.ability,PBAbilities,:POWERCONSTRUCT) ||
-            isConst?(opponent.ability,PBAbilities,:PROTOSYNTHESIS) ||
-            isConst?(opponent.ability,PBAbilities,:QUARKDRIVE) ||
-            isConst?(opponent.ability,PBAbilities,:GULPMISSILE) ||
-            isConst?(opponent.ability,PBAbilities,:ICEFACE) ||
-            isConst?(opponent.ability,PBAbilities,:ZEROTOHERO) ||
-            isConst?(opponent.ability,PBAbilities,:NEUTRALIZINGGAS) ||
-            isConst?(opponent.ability,PBAbilities,:MORFAT) ||
-            isConst?(opponent.ability,PBAbilities,:ABILITOPIA) ||
+            !(opponent.hasUnstoppableAbility(attacker) ||
             isEternal?(opponent))
           oldabil=opponent.ability
           opponent.effects[PBEffects::GastroAcid]=true
@@ -16861,59 +16458,8 @@ class PokeBattle_Move_363 < PokeBattle_Move
       next if !i || i.isFainted?
       next if opponent.ability==0 ||
               i.ability==opponent.ability ||
-              isConst?(opponent.ability,PBAbilities,:ABILITOPIA) ||
-              isConst?(opponent.ability,PBAbilities,:MORFAT)
-      if !attacker.hasAbilityPowers(opponent)
-        next if isConst?(i.ability,PBAbilities,:BATTLEBOND) ||
-                isConst?(i.ability,PBAbilities,:COMATOSE) ||
-                isConst?(i.ability,PBAbilities,:COMMANDER) ||
-                isConst?(i.ability,PBAbilities,:DISGUISE) ||
-                isConst?(i.ability,PBAbilities,:GULPMISSILE) ||
-                isConst?(i.ability,PBAbilities,:ICEFACE) ||
-                isConst?(i.ability,PBAbilities,:MULTITYPE) ||
-                isConst?(i.ability,PBAbilities,:NEUTRALIZINGGAS) ||
-                isConst?(i.ability,PBAbilities,:POWERCONSTRUCT) ||
-                isConst?(i.ability,PBAbilities,:PROTOSYNTHESIS) ||
-                isConst?(i.ability,PBAbilities,:QUARKDRIVE) ||
-                isConst?(i.ability,PBAbilities,:RKSSYSTEM) ||
-                isConst?(i.ability,PBAbilities,:SCHOOLING) ||
-                isConst?(i.ability,PBAbilities,:SHIELDSDOWN) ||
-                isConst?(i.ability,PBAbilities,:STANCECHANGE) ||
-                isConst?(i.ability,PBAbilities,:ZEROTOHERO) ||
-                isConst?(i.ability,PBAbilities,:MAXTHIN) ||
-                isConst?(i.ability,PBAbilities,:KOULUNDIN) ||
-                isConst?(i.ability,PBAbilities,:CHIKOLINI) ||
-                isConst?(opponent.ability,PBAbilities,:BATTLEBOND) ||
-                isConst?(opponent.ability,PBAbilities,:COMATOSE) ||
-                isConst?(opponent.ability,PBAbilities,:COMMANDER) ||
-                isConst?(opponent.ability,PBAbilities,:DISGUISE) ||
-                isConst?(opponent.ability,PBAbilities,:FLOWERGIFT) ||
-                isConst?(opponent.ability,PBAbilities,:FORECAST) ||
-                isConst?(opponent.ability,PBAbilities,:GULPMISSILE) ||
-                isConst?(opponent.ability,PBAbilities,:ICEFACE) ||
-                isConst?(opponent.ability,PBAbilities,:ILLUSION) ||
-                isConst?(opponent.ability,PBAbilities,:IMPOSTER) ||
-                isConst?(opponent.ability,PBAbilities,:MULTITYPE) ||
-                isConst?(opponent.ability,PBAbilities,:NEUTRALIZINGGAS) ||
-                isConst?(opponent.ability,PBAbilities,:POWERCONSTRUCT) ||
-                isConst?(opponent.ability,PBAbilities,:POWEROFALCHEMY) ||
-                isConst?(opponent.ability,PBAbilities,:PROTOSYNTHESIS) ||
-                isConst?(opponent.ability,PBAbilities,:QUARKDRIVE) ||
-                isConst?(opponent.ability,PBAbilities,:RECEIVER) ||
-                isConst?(opponent.ability,PBAbilities,:RKSSYSTEM) ||
-                isConst?(opponent.ability,PBAbilities,:SCHOOLING) ||
-                isConst?(opponent.ability,PBAbilities,:SHIELDSDOWN) ||
-                isConst?(opponent.ability,PBAbilities,:STANCECHANGE) ||
-                isConst?(opponent.ability,PBAbilities,:TRACE) ||
-                isConst?(opponent.ability,PBAbilities,:WONDERGUARD) ||
-                isConst?(opponent.ability,PBAbilities,:ZENMODE) ||
-                isConst?(opponent.ability,PBAbilities,:ZEROTOHERO) ||
-                isConst?(opponent.ability,PBAbilities,:PHONYPREDATOR) ||
-                isConst?(opponent.ability,PBAbilities,:KOULUNDIN) ||
-                isConst?(opponent.ability,PBAbilities,:HERALINA) ||
-                isConst?(opponent.ability,PBAbilities,:CHIKOLINI) ||
-                isConst?(opponent.ability,PBAbilities,:DOLPHININO)
-      end
+               i.hasUnstoppableAbility(nil) ||
+               opponent.hasUngainableAbility(attacker,[:POWEROFALCHEMY, :RECEIVER, :TRACE, :WONDERGUARD])
       pbShowAnimation(@id,attacker,opponent,hitnum,alltargets,showanimation) if !didsomething
       didsomething=true
       oldabil=i.ability

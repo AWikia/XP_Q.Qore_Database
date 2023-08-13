@@ -909,7 +909,7 @@ def ragefist
     return false
   end
 
-  def hasAbilityPowers(target)
+  def hasAbilityPowers(target=nil)
     if target
       return false if target.hasWorkingAbility(:ABILITOPIA) || target.hasWorkingAbility(:MORFAT)
       return false if target.pbHasType?(:GHOST) || target.pbHasType?(:GLIMSE)
@@ -918,7 +918,7 @@ def ragefist
     return false
   end
 
-  def hasNoContactWithTargets(move,target)
+  def hasNoContactWithTargets(move=nil,target=nil)
     if target
       return true if target.hasWorkingItem(:PROTECTIVEPADS)
     end
@@ -946,6 +946,133 @@ def ragefist
     return isConst?(@ability,PBAbilities,ability)
   end
 
+  
+=begin
+  # adtlAblts  = Additional abilities to check. Those can be stopped/gained with
+               * Ability Powers
+  # adtlAblts2 = Additional abilities to check. Those can't be stopped/gained with
+               * Ability Powers
+=end
+  # Applies to both losing self's ability (i.e. being replaced by another) and
+  # having self's ability be negated.
+  def hasUnstoppableAbility(user=nil,adtlAblts=nil,adtlAblts2=nil)
+    abil = self.ability
+    super_ability_blacklist = [
+      # Abilities intended to be inherent properties of a certain species
+      :MORFAT
+    ]
+    super_ability_blacklist += adtlAblts2 if adtlAblts2 &&
+                                            adtlAblts2.is_a?(Array)
+    super_ability_blacklist.each do |a|
+      return true if isConst?(abil, PBAbilities, a)
+    end
+    return false if user && user.hasAbilityPowers(self)
+    ability_blacklist = [
+      # Form-changing abilities
+      :BATTLEBOND,
+      :DISGUISE,
+#      :FLOWERGIFT,                                        # This can be stopped
+#      :FORECAST,                                          # This can be stopped
+      :GULPMISSILE,
+#     :HUNGERSWITCH,                                       # This can be stopped
+      :ICEFACE,
+      :MULTITYPE,
+      :POWERCONSTRUCT,
+      :SCHOOLING,
+      :SHIELDSDOWN,
+      :STANCECHANGE,
+      :ZENMODE,
+      :ZEROTOHERO,
+#     :DOLPHININO,                                         # This can be stopped
+      :PHONYPREDATOR,
+      # Abilities intended to be inherent properties of a certain species
+      :ASONE,
+      :ASONE2,
+      :COMMANDER,
+      :COMATOSE,
+      :HADRONENGINE,
+      :ORICHALCUMPULSE,
+      :PROTOSYNTHESIS,
+      :QUARKDRIVE,
+      :RKSSYSTEM,
+      :KOULUNDIN,
+      :CHIKOLINI,
+      :MAXTHIN
+    ]
+    ability_blacklist += adtlAblts if adtlAblts &&
+                                       adtlAblts.is_a?(Array)
+    ability_blacklist.each do |a|
+      return true if isConst?(abil, PBAbilities, a)
+    end
+    return false
+
+#    return ability_blacklist.include?(self.ability)
+  end
+
+  # Applies to gaining the ability.
+  def hasUngainableAbility(user=nil,adtlAblts=nil,adtlAblts2=nil)
+    abil = self.ability
+    super_ability_blacklist = [
+      # Abilities intended to be inherent properties of a certain species
+      :MORFAT,
+      # Abilities that can't be negated
+      :ABILITOPIA
+    ]
+    super_ability_blacklist += adtlAblts2 if adtlAblts2 &&
+                                            adtlAblts2.is_a?(Array)
+    super_ability_blacklist.each do |a|
+      return true if isConst?(abil, PBAbilities, a)
+    end
+    return false if user && user.hasAbilityPowers(self)
+    ability_blacklist = [
+      # Form-changing abilities
+      :BATTLEBOND,
+      :DISGUISE,
+      :FLOWERGIFT,
+      :FORECAST,
+      :GULPMISSILE,
+      :HUNGERSWITCH,
+      :ICEFACE,
+      :MULTITYPE,
+      :POWERCONSTRUCT,
+      :SCHOOLING,
+      :SHIELDSDOWN,
+      :STANCECHANGE,
+      :ZENMODE,
+      :ZEROTOHERO,
+      :DOLPHININO,
+      :PHONYPREDATOR,
+      # Appearance-changing abilities
+      :ILLUSION,
+      :IMPOSTER,
+      :HERALINA,
+      # Abilities intended to be inherent properties of a certain species
+      :ASONE,
+      :ASONE2,
+      :COMMANDER,
+      :COMATOSE,
+      :HADRONENGINE,
+      :ORICHALCUMPULSE,
+      :PROTOSYNTHESIS,
+      :QUARKDRIVE,
+      :RKSSYSTEM,
+      :KOULUNDIN,
+      :CHIKOLINI,
+      :MAXTHIN,
+      # Abilities that can't be negated
+      :NEUTRALIZINGGAS
+    ]
+    ability_blacklist += adtlAblts if adtlAblts &&
+                                       adtlAblts.is_a?(Array)
+    ability_blacklist.each do |a|
+      return true if isConst?(abil, PBAbilities, a)
+    end
+    return false
+
+#    return ability_blacklist.include?(self.ability)
+  end
+  
+  
   def hasWorkingItem(item,ignorefainted=false)
     return false if self.isFainted? && !ignorefainted
     return false if @effects[PBEffects::Embargo]>0
@@ -1156,38 +1283,7 @@ def ragefist
     if !self.pbPartner.isFainted? &&
         (self.pbPartner.hasWorkingAbility(:POWEROFALCHEMY) ||
         self.pbPartner.hasWorkingAbility(:RECEIVER))
-      if !(isConst?(self.ability,PBAbilities,:BATTLEBOND) ||
-          isConst?(self.ability,PBAbilities,:COMMANDER) ||
-          isConst?(self.ability,PBAbilities,:COMATOSE) ||
-          isConst?(self.ability,PBAbilities,:DISGUISE) ||
-          isConst?(self.ability,PBAbilities,:FLOWERGIFT) ||
-          isConst?(self.ability,PBAbilities,:FORECAST) ||
-          isConst?(self.ability,PBAbilities,:GULPMISSILE) ||
-          isConst?(self.ability,PBAbilities,:ICEFACE) ||
-          isConst?(self.ability,PBAbilities,:ILLUSION) ||
-          isConst?(self.ability,PBAbilities,:IMPOSTER) ||
-          isConst?(self.ability,PBAbilities,:MULTITYPE) ||
-          isConst?(self.ability,PBAbilities,:NEUTRALIZINGGAS) ||
-          isConst?(self.ability,PBAbilities,:POWERCONSTRUCT) ||
-          isConst?(self.ability,PBAbilities,:POWEROFALCHEMY) ||
-          isConst?(self.ability,PBAbilities,:PROTOSYNTHESIS) ||
-          isConst?(self.ability,PBAbilities,:QUARKDRIVE) ||
-          isConst?(self.ability,PBAbilities,:RECEIVER) ||
-          isConst?(self.ability,PBAbilities,:RKSSYSTEM) ||
-          isConst?(self.ability,PBAbilities,:SCHOOLING) ||
-          isConst?(self.ability,PBAbilities,:SHIELDSDOWN) ||
-          isConst?(self.ability,PBAbilities,:STANCECHANGE) ||
-          isConst?(self.ability,PBAbilities,:TRACE) ||
-          isConst?(self.ability,PBAbilities,:WONDERGUARD) ||
-          isConst?(self.ability,PBAbilities,:ZENMODE) ||
-          isConst?(self.ability,PBAbilities,:ZEROTOHERO) ||
-          isConst?(self.ability,PBAbilities,:PHONYPREDATOR) ||
-          isConst?(self.ability,PBAbilities,:KOULUNDIN) ||
-          isConst?(self.ability,PBAbilities,:CHIKOLINI) ||
-          isConst?(self.ability,PBAbilities,:ALONELY) ||
-          isConst?(self.ability,PBAbilities,:DOLPHININO) ||
-          isConst?(self.ability,PBAbilities,:ABILITOPIA) ||
-          isConst?(self.ability,PBAbilities,:MORFAT))
+      if !self.hasUngainableAbility(self.pbPartner,[:TRACE, :WONDERGUARD,:ALONELY],[:POWEROFALCHEMY, :RECEIVER])
      #   @triggermoxieeffects=false
         battlername=self.pbThis(true)
         battlerability=self.ability
@@ -1990,34 +2086,7 @@ def ragefist
         if pbIsOpposing?(i) && !foe.isFainted?
           abil=foe.ability
           if abil>0 &&
-             !isConst?(abil,PBAbilities,:BATTLEBOND) &&
-             !isConst?(abil,PBAbilities,:COMMANDER) &&
-             !isConst?(abil,PBAbilities,:COMATOSE) &&
-             !isConst?(abil,PBAbilities,:DISGUISE) &&
-             !isConst?(abil,PBAbilities,:FLOWERGIFT) &&
-             !isConst?(abil,PBAbilities,:FORECAST) &&
-             !isConst?(abil,PBAbilities,:GULPMISSILE) &&
-             !isConst?(abil,PBAbilities,:ICEFACE) &&
-             !isConst?(abil,PBAbilities,:ILLUSION) &&
-             !isConst?(abil,PBAbilities,:IMPOSTER) &&
-             !isConst?(abil,PBAbilities,:MULTITYPE) &&
-             !isConst?(abil,PBAbilities,:NEUTRALIZINGGAS) &&
-             !isConst?(abil,PBAbilities,:POWERCONSTRUCT) &&
-             !isConst?(abil,PBAbilities,:PROTOSYNTHESIS) &&
-             !isConst?(abil,PBAbilities,:QUARKDRIVE) &&
-             !isConst?(abil,PBAbilities,:RECEIVER) &&
-             !isConst?(abil,PBAbilities,:RKSSYSTEM) &&
-             !isConst?(abil,PBAbilities,:SCHOOLING) &&
-             !isConst?(abil,PBAbilities,:SHIELDSDOWN) &&
-             !isConst?(abil,PBAbilities,:STANCECHANGE) &&
-             !isConst?(abil,PBAbilities,:TRACE) &&
-             !isConst?(abil,PBAbilities,:ZEROTOHERO) &&
-             !isConst?(abil,PBAbilities,:KOULUNDIN) &&
-             !isConst?(abil,PBAbilities,:CHIKOLINI) &&
-             !isConst?(abil,PBAbilities,:DOLPHININO) &&
-             !isConst?(abil,PBAbilities,:HERALINA) &&
-             !isConst?(abil,PBAbilities,:ABILITOPIA) &&
-             !isConst?(abil,PBAbilities,:MORFAT)
+             !foe.hasUngainableAbility(self,[:POWEROFALCHEMY, :RECEIVER],[:TRACE])
              choices.push(i)
           end
         end
@@ -2655,30 +2724,7 @@ def ragefist
         if user.hasWorkingAbility(:WANDERINGSPIRIT)
           if (taregt.ability==0) ||
              (user.ability==target.ability && !$USENEWBATTLEMECHANICS) ||
-             isConst?(target.ability,PBAbilities,:BATTLEBOND) ||
-             isConst?(target.ability,PBAbilities,:COMMANDER) ||
-             isConst?(target.ability,PBAbilities,:COMATOSE) ||
-             isConst?(target.ability,PBAbilities,:DISGUISE) ||
-             isConst?(target.ability,PBAbilities,:GULPMISSILE) ||
-             isConst?(target.ability,PBAbilities,:ICEFACE) ||
-             isConst?(target.ability,PBAbilities,:ILLUSION) ||
-             isConst?(target.ability,PBAbilities,:MULTITYPE) ||
-             isConst?(target.ability,PBAbilities,:NEUTRALIZINGGAS) ||
-             isConst?(target.ability,PBAbilities,:POWERCONSTRUCT) ||
-             isConst?(target.ability,PBAbilities,:PROTOSYNTHESIS) ||
-             isConst?(target.ability,PBAbilities,:QUARKDRIVE) ||
-             isConst?(target.ability,PBAbilities,:RKSSYSTEM) ||
-             isConst?(target.ability,PBAbilities,:SCHOOLING) ||
-             isConst?(target.ability,PBAbilities,:SHIELDSDOWN) ||
-             isConst?(target.ability,PBAbilities,:STANCECHANGE) ||
-             isConst?(target.ability,PBAbilities,:WONDERGUARD) ||
-             isConst?(target.ability,PBAbilities,:ZEROTOHERO) ||
-             isConst?(target.ability,PBAbilities,:KOULUNDIN) ||
-             isConst?(target.ability,PBAbilities,:CHIKOLINI) ||
-             isConst?(target.ability,PBAbilities,:MAXTHIN) ||
-             isConst?(target.ability,PBAbilities,:IMPRISIN) ||
-             isConst?(target.ability,PBAbilities,:ABILITOPIA) ||
-             isConst?(target.ability,PBAbilities,:MORFAT)
+             target.hasUngainableAbility(user,[:POWEROFALCHEMY, :RECEIVER, :WONDERGUARD, :IMPRISIN])
           else
           tmp=user.ability
           user.ability=target.ability
@@ -2841,28 +2887,7 @@ def ragefist
              PBAbilities.getName(target.ability),user.pbThis(true)))
         end
         if target.hasWorkingAbility(:MUMMY,true) && !user.isFainted?
-          if !isConst?(user.ability,PBAbilities,:BATTLEBOND) &&
-             !isConst?(user.ability,PBAbilities,:COMMANDER) &&
-             !isConst?(user.ability,PBAbilities,:COMATOSE) &&
-             !isConst?(user.ability,PBAbilities,:DISGUISE) &&
-             !isConst?(user.ability,PBAbilities,:GULPMISSILE) &&
-             !isConst?(user.ability,PBAbilities,:HUNGERSWITCH) &&
-             !isConst?(user.ability,PBAbilities,:ICEFACE) &&
-             !isConst?(user.ability,PBAbilities,:MULTITYPE) &&
-             !isConst?(user.ability,PBAbilities,:MUMMY) &&
-             !isConst?(user.ability,PBAbilities,:NEUTRALIZINGGAS) &&
-             !isConst?(user.ability,PBAbilities,:POWERCONSTRUCT) &&
-             !isConst?(user.ability,PBAbilities,:PROTOSYNTHESIS) &&
-             !isConst?(user.ability,PBAbilities,:QUARKDRIVE) &&
-             !isConst?(user.ability,PBAbilities,:RKSSYSTEM) &&
-             !isConst?(user.ability,PBAbilities,:SCHOOLING) &&
-             !isConst?(user.ability,PBAbilities,:STANCECHANGE) &&
-             !isConst?(user.ability,PBAbilities,:ZEROTOHERO) &&
-             !isConst?(user.ability,PBAbilities,:MAXTHIN) &&
-             !isConst?(user.ability,PBAbilities,:KOULUNDIN) &&
-             !isConst?(user.ability,PBAbilities,:CHIKOLINI) &&
-             !isConst?(user.ability,PBAbilities,:ABILITOPIA) ||
-             !isConst?(user.ability,PBAbilities,:MORFAT)
+          if !user.hasUnstoppableAbility(target,nil,[:MUMMY])
              PBDebug.log("[Ability triggered] #{target.pbThis}'s Mummy copied onto #{user.pbThis(true)}")
             user.ability=getConst(PBAbilities,:MUMMY) || 0
             @battle.pbDisplay(_INTL("{1} was mummified by {2}!",
@@ -2871,29 +2896,8 @@ def ragefist
         end
         # Lingering Aroma
         if target.hasWorkingAbility(:LINGERINGAROMA,true) && !user.isFainted?
-          if !isConst?(user.ability,PBAbilities,:BATTLEBOND) &&
-             !isConst?(user.ability,PBAbilities,:COMMANDER) &&
-             !isConst?(user.ability,PBAbilities,:COMATOSE) &&
-             !isConst?(user.ability,PBAbilities,:DISGUISE) &&
-             !isConst?(user.ability,PBAbilities,:GULPMISSILE) &&
-             !isConst?(user.ability,PBAbilities,:HUNGERSWITCH) &&
-             !isConst?(user.ability,PBAbilities,:ICEFACE) &&
-             !isConst?(user.ability,PBAbilities,:MULTITYPE) &&
-             !isConst?(user.ability,PBAbilities,:LINGERINGAROMA) &&
-             !isConst?(user.ability,PBAbilities,:NEUTRALIZINGGAS) &&
-             !isConst?(user.ability,PBAbilities,:POWERCONSTRUCT) &&
-             !isConst?(user.ability,PBAbilities,:PROTOSYNTHESIS) &&
-             !isConst?(user.ability,PBAbilities,:QUARKDRIVE) &&
-             !isConst?(user.ability,PBAbilities,:RKSSYSTEM) &&
-             !isConst?(user.ability,PBAbilities,:SCHOOLING) &&
-             !isConst?(user.ability,PBAbilities,:STANCECHANGE) &&
-             !isConst?(user.ability,PBAbilities,:ZEROTOHERO) &&
-             !isConst?(user.ability,PBAbilities,:MAXTHIN) &&
-             !isConst?(user.ability,PBAbilities,:KOULUNDIN) &&
-             !isConst?(user.ability,PBAbilities,:CHIKOLINI) &&
-             !isConst?(user.ability,PBAbilities,:ABILITOPIA) ||
-             !isConst?(user.ability,PBAbilities,:MORFAT)
-             PBDebug.log("[Ability triggered] #{target.pbThis}'s Mummy copied onto #{user.pbThis(true)}")
+          if !user.hasUnstoppableAbility(target,nil,[:LINGERINGAROMA])
+             PBDebug.log("[Ability triggered] #{target.pbThis}'s Lingering Aroma copied onto #{user.pbThis(true)}")
             user.ability=getConst(PBAbilities,:LINGERINGAROMA) || 0
             @battle.pbDisplay(_INTL("{1} was lingered by {2}!",
                user.pbThis,target.pbThis(true)))

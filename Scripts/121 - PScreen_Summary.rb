@@ -975,6 +975,7 @@ def drawPageFive(pokemon)
 #    @sprites["header"].setBitmap("Graphics/Pictures/header4")
     @sprites["pokemon"].visible=true
     @sprites["pokeicon"].visible=false
+    @sprites["itemicon"].visible=true
     imagepos=[]
     if pbPokerus(pokemon)==1 || pokemon.hp==0 || @pokemon.status>0
       status=6 if pbPokerus(pokemon)==1
@@ -1080,6 +1081,7 @@ def drawPageFive(pokemon)
     @sprites["pokeicon"].x=46
     @sprites["pokeicon"].y=54
     @sprites["pokeicon"].visible=true
+    @sprites["itemicon"].visible = false
     movedata=PBMoveData.new(moveid)
     basedamage=movedata.basedamage
     type=movedata.type
@@ -1154,9 +1156,9 @@ def drawPageFive(pokemon)
     pbSetSystemFont(overlay)
     textpos=[
    #    [_INTL("Pokémon Moveset"),26,8,0,base,shadow,1],
-       [_INTL("Category"),20,122,0,base2,shadow2],
-       [_INTL("Power"),20,154,0,base2,shadow2],
-       [_INTL("Accuracy"),20,186,0,base2,shadow2]
+       [_INTL("Category"),20,122,0,base2,shadow],
+       [_INTL("Power"),20,154,0,base2,shadow],
+       [_INTL("Accuracy"),20,186,0,base2,shadow]
     ]
     type1rect=Rect.new(64*$PokemonSystem.colortige,pokemon.type1*28,64,28)
     type2rect=Rect.new(64*$PokemonSystem.colortige,pokemon.type2*28,64,28)

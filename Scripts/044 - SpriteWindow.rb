@@ -1500,8 +1500,8 @@ def pbSetSystemFont(bitmap)
     bitmap.font.size=25
   elsif fontname=="Didact Gothic"
     bitmap.font.size=31
-  elsif fontname=="Level"
-    bitmap.font.size=23
+  elsif fontname=="RGSS Level"
+    bitmap.font.size=29
   elsif fontname=="LevelLegacy"
     bitmap.font.size=23
   else
@@ -1531,8 +1531,8 @@ def pbSetSmallFont2(bitmap) # Variant without any font editions (Uses 26px of fo
   fontname=MessageConfig.pbGetSystemFontName()
   if fontname=="Didact Gothic"
     bitmap.font.size=28
-  elsif fontname=="Level"
-    bitmap.font.size=21
+  elsif fontname=="RGSS Level"
+    bitmap.font.size=26
   elsif fontname=="LevelLegacy"
     bitmap.font.size=21
   else

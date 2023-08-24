@@ -1,0 +1,25 @@
+[1256]
+Name=Pokémon 1256
+InternalName=PKMN1256
+Type1=QMARKS
+BaseStats=100,100,100,100,100,100
+GenderRate=Genderless
+GrowthRate=Parabolic
+BaseEXP=100
+EffortPoints=0,0,0,0,0,0
+Rareness=255
+Happiness=70
+Abilities=
+Moves=1,SPLASH
+Compatibility=Undiscovered
+StepsToHatch=5355
+Height=0.7
+Weight=6.9
+Color=Green
+Habitat=Grassland
+Kind=Unreleased
+Pokedex=This Pokémon has not been uncovered yet. Stay tuned for more info
+BattlerPlayerY=33
+BattlerEnemyY=37
+BattlerAltitude=0
+Evolutions=

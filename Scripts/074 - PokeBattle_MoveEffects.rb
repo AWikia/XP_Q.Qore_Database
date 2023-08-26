@@ -672,7 +672,7 @@ class PokeBattle_Move_016 < PokeBattle_Move
     if !opponent.pbCanAttract?(attacker)
       return -1
     end
-    if !attacker.hasMoldBreaker
+    if !attacker.hasMoldBreaker(opponent)
       if opponent.hasWorkingAbility(:AROMAVEIL)
 			pbSEPlay("protection")
         @battle.pbDisplay(_INTL("But it failed because of {1}'s {2}!",
@@ -2208,7 +2208,7 @@ class PokeBattle_Move_04E < PokeBattle_Move
       @battle.pbDisplay(_INTL("But it failed!"))
       return -1
     end
-    if !attacker.hasMoldBreaker && opponent.hasWorkingAbility(:OBLIVIOUS)
+    if !attacker.hasMoldBreaker(opponent) && opponent.hasWorkingAbility(:OBLIVIOUS)
       @battle.pbDisplay(_INTL("{1}'s {2} prevents romance!",opponent.pbThis,
          PBAbilities.getName(opponent.ability)))
       return -1
@@ -2221,7 +2221,7 @@ class PokeBattle_Move_04E < PokeBattle_Move
   def pbAdditionalEffect(attacker,opponent)
     return if opponent.damagestate.substitute
     if attacker.gender!=2 && opponent.gender!=2 && attacker.gender!=opponent.gender
-      if attacker.hasMoldBreaker || !opponent.hasWorkingAbility(:OBLIVIOUS) ||
+      if attacker.hasMoldBreaker(opponent) || !opponent.hasWorkingAbility(:OBLIVIOUS) ||
       !opponent.pbHasType?(:SHARPENER) || attacker.hasWorkingAbility(:ANTISHARPNESS)
         if opponent.pbCanReduceStatStage?(PBStats::SPATK,attacker,false,self)
           opponent.pbReduceStat(PBStats::SPATK,2,attacker,false,self)
@@ -3129,7 +3129,7 @@ class PokeBattle_Move_069 < PokeBattle_Move
        @battle.pbDisplay(_INTL("But it failed!"))
       return -1
     end
-    if (opponent.hasWorkingAbility(:ALONELY) && !attacker.hasMoldBreaker)
+    if (opponent.hasWorkingAbility(:ALONELY) && !attacker.hasMoldBreaker(opponent))
 			pbSEPlay("protection")
       @battle.pbDisplay(_INTL("{1}'s {2} prevents transforming!",opponent.pbThis,PBAbilities.getName(opponent.ability))) if showMessages
       return -1
@@ -3282,7 +3282,7 @@ end
 ################################################################################
 class PokeBattle_Move_070 < PokeBattle_Move
   def pbAccuracyCheck(attacker,opponent)
-    if !attacker.hasMoldBreaker && opponent.hasWorkingAbility(:STURDY)
+    if !attacker.hasMoldBreaker(opponent) && opponent.hasWorkingAbility(:STURDY)
 			pbSEPlay("protection")
       @battle.pbDisplay(_INTL("{1} was protected by {2}!",opponent.pbThis,PBAbilities.getName(opponent.ability)))  
       return false
@@ -5471,7 +5471,7 @@ class PokeBattle_Move_0B7 < PokeBattle_Move
       @battle.pbDisplay(_INTL("But it failed!"))
       return -1
     end
-    if !attacker.hasMoldBreaker
+    if !attacker.hasMoldBreaker(opponent)
       if opponent.hasWorkingAbility(:AROMAVEIL)
         pbSEPlay("protection")
         @battle.pbDisplay(_INTL("But it failed because of {1}'s {2}!",
@@ -5523,7 +5523,7 @@ class PokeBattle_Move_0B9 < PokeBattle_Move
       @battle.pbDisplay(_INTL("But it failed!"))
       return -1
     end
-    if !attacker.hasMoldBreaker
+    if !attacker.hasMoldBreaker(opponent)
       if opponent.hasWorkingAbility(:AROMAVEIL)
         pbSEPlay("protection")
         @battle.pbDisplay(_INTL("But it failed because of {1}'s {2}!",
@@ -5560,13 +5560,13 @@ class PokeBattle_Move_0BA < PokeBattle_Move
   def pbEffect(attacker,opponent,hitnum=0,alltargets=nil,showanimation=true)
     if opponent.effects[PBEffects::Taunt]>0 ||
        ($USENEWBATTLEMECHANICS &&
-       !attacker.hasMoldBreaker && opponent.hasWorkingAbility(:OBLIVIOUS)) || opponent.pbHasType?(:HERB) ||
+       !attacker.hasMoldBreaker(opponent) && opponent.hasWorkingAbility(:OBLIVIOUS)) || opponent.pbHasType?(:HERB) ||
        opponent.pbHasType?(:MIND) || opponent.pbHasType?(:GLIMSE)
         pbSEPlay("protection")
        @battle.pbDisplay(_INTL("But it failed!"))
       return -1
     end
-    if !attacker.hasMoldBreaker
+    if !attacker.hasMoldBreaker(opponent)
       if opponent.hasWorkingAbility(:AROMAVEIL)
         pbSEPlay("protection")
         @battle.pbDisplay(_INTL("But it failed because of {1}'s {2}!",
@@ -5599,7 +5599,7 @@ class PokeBattle_Move_0BB < PokeBattle_Move
       @battle.pbDisplay(_INTL("But it failed!"))
       return -1
     end
-    if !attacker.hasMoldBreaker
+    if !attacker.hasMoldBreaker(opponent)
       if opponent.hasWorkingAbility(:AROMAVEIL)
 			pbSEPlay("protection")
         @battle.pbDisplay(_INTL("But it failed because of {1}'s {2}!",
@@ -5665,7 +5665,7 @@ class PokeBattle_Move_0BC < PokeBattle_Move
        @battle.pbDisplay(_INTL("But it failed!"))
       return -1
     end
-    if !attacker.hasMoldBreaker
+    if !attacker.hasMoldBreaker(opponent)
       if opponent.hasWorkingAbility(:AROMAVEIL)
 			pbSEPlay("protection")
         @battle.pbDisplay(_INTL("But it failed because of {1}'s {2}!",
@@ -6297,7 +6297,7 @@ class PokeBattle_Move_0CE < PokeBattle_Move
 
   def pbTypeModifier(type,attacker,opponent)
     return 0 if opponent.pbHasType?(:FLYING)
-    return 0 if !attacker.hasMoldBreaker &&
+    return 0 if !attacker.hasMoldBreaker(opponent) &&
        opponent.hasWorkingAbility(:LEVITATE) && !opponent.effects[PBEffects::SmackDown]
     return super
   end
@@ -6848,7 +6848,7 @@ end
 ################################################################################
 class PokeBattle_Move_0E0 < PokeBattle_Move
   def pbOnStartUse(attacker)
-    if !attacker.hasMoldBreaker
+    if !attacker.hasMoldBreaker(opponent)
       bearer=@battle.pbCheckGlobalAbility(:DAMP)
       if bearer!=nil && !attacker.pbHasType?(:HEART) &&
         !isConst?(@id,PBMoves,:LICKSTART)
@@ -7025,7 +7025,7 @@ class PokeBattle_Move_0E5 < PokeBattle_Move
     failed=true
     for i in 0...4
       if @battle.battlers[i].effects[PBEffects::PerishSong]==0 &&
-         (attacker.hasMoldBreaker ||
+         (attacker.hasMoldBreaker(opponent) ||
          !@battle.battlers[i].hasWorkingAbility(:SOUNDPROOF))
         failed=false; break
       end   
@@ -7039,7 +7039,7 @@ class PokeBattle_Move_0E5 < PokeBattle_Move
     @battle.pbDisplay(_INTL("All Pokémon that hear the song will faint in three turns!"))
     for i in 0...4
       if @battle.battlers[i].effects[PBEffects::PerishSong]==0
-        if !attacker.hasMoldBreaker && @battle.battlers[i].hasWorkingAbility(:SOUNDPROOF)
+        if !attacker.hasMoldBreaker(opponent) && @battle.battlers[i].hasWorkingAbility(:SOUNDPROOF)
         pbSEPlay("protection")
           @battle.pbDisplay(_INTL("{1}'s {2} blocks {3}!",@battle.battlers[i].pbThis,
              PBAbilities.getName(@battle.battlers[i].ability),@name))
@@ -7180,7 +7180,7 @@ end
 ################################################################################
 class PokeBattle_Move_0EB < PokeBattle_Move
   def pbEffect(attacker,opponent,hitnum=0,alltargets=nil,showanimation=true)
-    if !attacker.hasMoldBreaker && ( opponent.hasWorkingAbility(:SUCTIONCUPS) ||
+    if !attacker.hasMoldBreaker(opponent) && ( opponent.hasWorkingAbility(:SUCTIONCUPS) ||
                                      opponent.hasWorkingAbility(:ENIGMATACTICS) ||
                                      opponent.hasWorkingAbility(:GUARDDOG))
 			pbSEPlay("protection")
@@ -7242,7 +7242,7 @@ class PokeBattle_Move_0EC < PokeBattle_Move
   def pbEffectAfterHit(attacker,opponent,turneffects)
     if !attacker.isFainted? && !opponent.isFainted? &&
        opponent.damagestate.calcdamage>0 && !opponent.damagestate.substitute && 
-       (attacker.hasMoldBreaker || !opponent.hasWorkingAbility(:SUCTIONCUPS) || 
+       (attacker.hasMoldBreaker(opponent) || !opponent.hasWorkingAbility(:SUCTIONCUPS) || 
         !opponent.hasWorkingAbility(:ENIGMATACTICS) ||
         !opponent.hasWorkingAbility(:GUARDDOG)) &&
        !opponent.effects[PBEffects::Ingrain] &&
@@ -7357,7 +7357,7 @@ class PokeBattle_Move_0F0 < PokeBattle_Move
   def pbEffectAfterHit(attacker,opponent,turneffects)
     if !attacker.isFainted? && !opponent.isFainted? && opponent.item!=0 &&
        opponent.damagestate.calcdamage>0 && !opponent.damagestate.substitute
-      if !attacker.hasMoldBreaker && opponent.hasWorkingAbility(:STICKYHOLD)
+      if !attacker.hasMoldBreaker(opponent) && opponent.hasWorkingAbility(:STICKYHOLD)
         abilityname=PBAbilities.getName(opponent.ability)
         @battle.pbDisplay(_INTL("{1}'s {2} made {3} ineffective!",opponent.pbThis,abilityname,@name))
       elsif !@battle.pbIsUnlosableItem(opponent,opponent.item)
@@ -7391,7 +7391,7 @@ class PokeBattle_Move_0F1 < PokeBattle_Move
   def pbEffectAfterHit(attacker,opponent,turneffects)
     if !attacker.isFainted? && !opponent.isFainted? && opponent.item!=0 &&
        opponent.damagestate.calcdamage>0 && !opponent.damagestate.substitute
-      if !attacker.hasMoldBreaker && opponent.hasWorkingAbility(:STICKYHOLD)
+      if !attacker.hasMoldBreaker(opponent) && opponent.hasWorkingAbility(:STICKYHOLD)
         abilityname=PBAbilities.getName(opponent.ability)
         @battle.pbDisplay(_INTL("{1}'s {2} made {3} ineffective!",opponent.pbThis,abilityname,@name))
       elsif !@battle.pbIsUnlosableItem(opponent,opponent.item) &&
@@ -7442,7 +7442,7 @@ class PokeBattle_Move_0F2 < PokeBattle_Move
        @battle.pbDisplay(_INTL("But it failed!"))
       return -1
     end
-    if !attacker.hasMoldBreaker && opponent.hasWorkingAbility(:STICKYHOLD)
+    if !attacker.hasMoldBreaker(opponent) && opponent.hasWorkingAbility(:STICKYHOLD)
       abilityname=PBAbilities.getName(opponent.ability)
 			pbSEPlay("protection")
       @battle.pbDisplay(_INTL("{1}'s {2} made {3} ineffective!",opponent.pbThis,abilityname,name))
@@ -7529,7 +7529,7 @@ class PokeBattle_Move_0F4 < PokeBattle_Move
   def pbEffectAfterHit(attacker,opponent,turneffects)
     if !attacker.isFainted? && !opponent.isFainted? && pbIsBerry?(opponent.item) &&
        opponent.damagestate.calcdamage>0 && !opponent.damagestate.substitute
-      if attacker.hasMoldBreaker || !opponent.hasWorkingAbility(:STICKYHOLD) &&
+      if attacker.hasMoldBreaker(opponent) || !opponent.hasWorkingAbility(:STICKYHOLD) &&
        !opponent.pokemon.corrosiveGas
         item=opponent.item
         itemname=PBItems.getName(item)
@@ -7753,7 +7753,7 @@ class PokeBattle_Move_0F7 < PokeBattle_Move
     @battle.pbDisplay(_INTL("{1} flung its {2}!",attacker.pbThis,PBItems.getName(attacker.item)))
     ret=super(attacker,opponent,hitnum,alltargets,showanimation)
     if opponent.damagestate.calcdamage>0 && !opponent.damagestate.substitute &&
-       (attacker.hasMoldBreaker || !opponent.hasWorkingAbility(:SHIELDDUST))
+       (attacker.hasMoldBreaker(opponent) || !opponent.hasWorkingAbility(:SHIELDDUST))
       if attacker.hasWorkingBerry
         opponent.pbActivateBerryEffect(attacker.item,false)
       elsif attacker.hasWorkingItem(:FLAMEORB)
@@ -9562,7 +9562,7 @@ class PokeBattle_Move_13E < PokeBattle_Move
     for i in [attacker,attacker.pbPartner,attacker.pbOpposing1,attacker.pbOpposing2]
       next if !i || i.isFainted?
       next if !i.pbHasType?(:GRASS)
-      next if i.isAirborne?(attacker.hasMoldBreaker)
+      next if i.isAirborne?(attacker.hasMoldBreaker(opponent))
       next if !i.pbCanIncreaseStatStage?(PBStats::ATTACK,attacker,false,self) &&
               !i.pbCanIncreaseStatStage?(PBStats::SPATK,attacker,false,self)
       pbShowAnimation(@id,attacker,nil,hitnum,alltargets,showanimation) if !didsomething
@@ -10172,7 +10172,7 @@ class PokeBattle_Move_151 < PokeBattle_Move
     ret=-1
     pbShowAnimation(@id,attacker,opponent,hitnum,alltargets,showanimation)
     if !self.isSoundBased? ||
-       attacker.hasMoldBreaker || !opponent.hasWorkingAbility(:SOUNDPROOF)
+       attacker.hasMoldBreaker(opponent) || !opponent.hasWorkingAbility(:SOUNDPROOF)
       showanim='mix' # Was true
       if opponent.pbReduceStat(PBStats::ATTACK,1,attacker,false,self,showanim)
         showanim=false; ret=0
@@ -10653,7 +10653,7 @@ end
 class PokeBattle_Move_170 < PokeBattle_Move
   def pbOnStartUse(attacker)
     attacker.effects[PBEffects::TemporaryMoldBreaker]=isConst?(@id,PBMoves,:LOLOLOVE)
-    if !attacker.hasMoldBreaker
+    if !attacker.hasMoldBreaker(opponent)
       bearer=@battle.pbCheckGlobalAbility(:NERVOUSCRACK) && $USENEWBATTLEMECHANICS
       if bearer!=nil && !attacker.pbHasType?(:HEART)
         @battle.pbDisplay(_INTL("{1}'s {2} prevents {3} from using {4}!",
@@ -10845,13 +10845,13 @@ class PokeBattle_Move_175 < PokeBattle_Move
   def pbEffect(attacker,opponent,hitnum=0,alltargets=nil,showanimation=true)
     if opponent.effects[PBEffects::Khleri]>0 ||
        ($USENEWBATTLEMECHANICS &&
-       !attacker.hasMoldBreaker && opponent.hasWorkingAbility(:OBLIVIOUS)) || opponent.pbHasType?(:HERB) ||
+       !attacker.hasMoldBreaker(opponent) && opponent.hasWorkingAbility(:OBLIVIOUS)) || opponent.pbHasType?(:HERB) ||
        opponent.pbHasType?(:MIND) || opponent.pbHasType?(:GLIMSE)
         pbSEPlay("protection")
        @battle.pbDisplay(_INTL("But it failed!"))
       return -1
     end
-    if !attacker.hasMoldBreaker
+    if !attacker.hasMoldBreaker(opponent)
       if opponent.hasWorkingAbility(:AROMAVEIL)
         pbSEPlay("protection")
         @battle.pbDisplay(_INTL("But it failed because of {1}'s {2}!",
@@ -11178,7 +11178,7 @@ class PokeBattle_Move_185 < PokeBattle_Move
   def pbEffectAfterHit(attacker,opponent,turneffects)
     if !attacker.isFainted? && !opponent.isFainted? && opponent.item!=0 &&
        opponent.damagestate.calcdamage>0 && !opponent.damagestate.substitute
-      if !attacker.hasMoldBreaker && opponent.hasWorkingAbility(:STICKYHOLD)
+      if !attacker.hasMoldBreaker(opponent) && opponent.hasWorkingAbility(:STICKYHOLD)
         abilityname=PBAbilities.getName(opponent.ability)
         @battle.pbDisplay(_INTL("{1}'s {2} made {3} ineffective!",opponent.pbThis,abilityname,@name))
       elsif !@battle.pbIsUnlosableItem(opponent,opponent.item)
@@ -11435,7 +11435,7 @@ class PokeBattle_Move_193 < PokeBattle_Move
       @battle.pbDisplay(_INTL("But it failed!"))
       return -1
     end
-    if !attacker.hasMoldBreaker && opponent.hasWorkingAbility(:OBLIVIOUS)
+    if !attacker.hasMoldBreaker(opponent) && opponent.hasWorkingAbility(:OBLIVIOUS)
       @battle.pbDisplay(_INTL("{1}'s {2} prevents romance!",opponent.pbThis,
          PBAbilities.getName(opponent.ability)))
       return -1
@@ -11448,7 +11448,7 @@ class PokeBattle_Move_193 < PokeBattle_Move
   def pbAdditionalEffect(attacker,opponent)
     return if opponent.damagestate.substitute
     if attacker.gender!=2 && opponent.gender!=2 && attacker.gender!=opponent.gender
-      if attacker.hasMoldBreaker || !opponent.hasWorkingAbility(:OBLIVIOUS) ||
+      if attacker.hasMoldBreaker(opponent) || !opponent.hasWorkingAbility(:OBLIVIOUS) ||
       !opponent.pbHasType?(:SHARPENER) || attacker.hasWorkingAbility(:ANTISHARPNESS)
         if opponent.pbCanReduceStatStage?(PBStats::SPDEF,attacker,false,self)
           opponent.pbReduceStat(PBStats::SPDEF,2,attacker,false,self)
@@ -11859,7 +11859,7 @@ end
 ################################################################################
 class PokeBattle_Move_202 < PokeBattle_Move
   def pbAccuracyCheck(attacker,opponent)
-    if !attacker.hasMoldBreaker && opponent.hasWorkingAbility(:STURDY)
+    if !attacker.hasMoldBreaker(opponent) && opponent.hasWorkingAbility(:STURDY)
 			pbSEPlay("protection")
       @battle.pbDisplay(_INTL("{1} was protected by {2}!",opponent.pbThis,PBAbilities.getName(opponent.ability)))  
       return false
@@ -11917,7 +11917,7 @@ class PokeBattle_Move_203 < PokeBattle_Move
   
   def pbMoveFailed(attacker,opponent)
     return false if attacker.turncount<2 && !$USENEWBATTLEMECHANICS
-    return true  if opponent.isAirborne?(attacker.hasMoldBreaker)
+    return true  if opponent.isAirborne?(attacker.hasMoldBreaker(opponent))
   end
   
   def pbModifyBaseAccuracy(baseaccuracy,attacker,opponent)
@@ -12548,31 +12548,7 @@ class PokeBattle_Move_247 < PokeBattle_Move
       return -1
     end
     pbShowAnimation(@id,attacker,opponent,hitnum,alltargets,showanimation)
-    suppress=true
-    if isConst?(opponent.ability,PBAbilities,:BATTLEBOND) || # Changed
-       isConst?(opponent.ability,PBAbilities,:COMATOSE) ||
-       isConst?(opponent.ability,PBAbilities,:COMMANDER) ||
-       isConst?(opponent.ability,PBAbilities,:DISGUISE) ||
-       isConst?(opponent.ability,PBAbilities,:GULPMISSILE) ||
-       isConst?(opponent.ability,PBAbilities,:ICEFACE) ||
-       isConst?(opponent.ability,PBAbilities,:MULTITYPE) ||
-       isConst?(opponent.ability,PBAbilities,:NEUTRALIZINGGAS) ||
-       isConst?(opponent.ability,PBAbilities,:POWERCONSTRUCT) ||
-       isConst?(opponent.ability,PBAbilities,:PROTOSYNTHESIS) ||
-       isConst?(opponent.ability,PBAbilities,:QUARKDRIVE) ||
-       isConst?(opponent.ability,PBAbilities,:RKSSYSTEM) ||
-       isConst?(opponent.ability,PBAbilities,:SCHOOLING) || 
-       isConst?(opponent.ability,PBAbilities,:SHIELDSDOWN) ||
-       isConst?(opponent.ability,PBAbilities,:STANCECHANGE) ||
-       isConst?(opponent.ability,PBAbilities,:ZENMODE) ||
-       isConst?(opponent.ability,PBAbilities,:ZEROTOHERO) ||
-       isConst?(opponent.ability,PBAbilities,:PHONYPREDATOR) ||
-       isConst?(opponent.ability,PBAbilities,:KOULUNDIN) ||
-       isConst?(opponent.ability,PBAbilities,:MAXTHIN) ||
-       isConst?(opponent.ability,PBAbilities,:CHIKOLINI)
-      suppress=false
-    end
-    suppress=true if attacker.hasAbilityPowers(opponent)
+    suppress= !opponent.hasUnstoppableAbility(attacker)
     if ((opponent.effects[PBEffects::Substitute]>0 && ignoresSubstitute?(attacker)) ||
          (opponent.pbHasType?(:GUST) || opponent.pbHasType?(:MOON) ||
          opponent.pbHasType?(:MIND) || opponent.effects[PBEffects::GastroAcid]) ||
@@ -12785,7 +12761,7 @@ end
 ################################################################################
 class PokeBattle_Move_252 < PokeBattle_Move
   def pbAccuracyCheck(attacker,opponent)
-    if !attacker.hasMoldBreaker && opponent.hasWorkingAbility(:STURDY)
+    if !attacker.hasMoldBreaker(opponent) && opponent.hasWorkingAbility(:STURDY)
 			pbSEPlay("protection")
       @battle.pbDisplay(_INTL("{1} was protected by {2}!",opponent.pbThis,PBAbilities.getName(opponent.ability)))  
       return false
@@ -12832,7 +12808,7 @@ class PokeBattle_Move_253 < PokeBattle_Move
     didsomething=false
     for i in [attacker,attacker.pbPartner,attacker.pbOpposing1,attacker.pbOpposing2]
       next if !i || i.isFainted?
-      next if i.isAirborne?(attacker.hasMoldBreaker)
+      next if i.isAirborne?(attacker.hasMoldBreaker(opponent))
       next if !i.pbCanIncreaseStatStage?(PBStats::ACCURACY,attacker,false,self)
       pbShowAnimation(@id,attacker,nil,hitnum,alltargets,showanimation) if !didsomething
       didsomething=true
@@ -12894,7 +12870,7 @@ class PokeBattle_Move_274 < PokeBattle_Move
       @battle.pbDisplay(_INTL("{1}'s {2} wore off!",opponent.pbThis,PBAbilities.getName(opponent.ability)))
     end
     if opponent.hasWorkingItem(:GENIEBALL) && 
-      (attacker.hasMoldBreaker || !opponent.hasWorkingAbility(:STICKYHOLD))
+      (attacker.hasMoldBreaker(opponent) || !opponent.hasWorkingAbility(:STICKYHOLD))
       PBDebug.log("[Item triggered] #{opponent.pbThis}'s Genie layed out from its Genie Ball")
       @battle.pbDisplay(_INTL("{1}'s Genie from its {2} layed out!",opponent.pbThis,PBItems.getName(opponent.item)))
       opponent.pbConsumeItem(false,false)
@@ -13006,7 +12982,7 @@ end
 ################################################################################
 class PokeBattle_Move_278 < PokeBattle_Move
   def pbAccuracyCheck(attacker,opponent)
-    if (!attacker.hasMoldBreaker && opponent.hasWorkingAbility(:STURDY) ||
+    if (!attacker.hasMoldBreaker(opponent) && opponent.hasWorkingAbility(:STURDY) ||
         opponent.hasWorkingAbility(:HERBALILITY) || 
         opponent.hasWorkingAbility(:MASKEDHERB))
 			pbSEPlay("protection")
@@ -14840,7 +14816,7 @@ end
 ################################################################################
 class PokeBattle_Move_225 < PokeBattle_Move
   def pbOnStartUse(attacker)
-    if !attacker.hasMoldBreaker
+    if !attacker.hasMoldBreaker(opponent)
       bearer=@battle.pbCheckGlobalAbility(:DAMP)
       if bearer!=nil
         pbSEPlay("protection")

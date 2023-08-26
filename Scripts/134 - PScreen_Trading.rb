@@ -241,6 +241,8 @@ def pbTradeCheckEvolution(pokemon,pokemon2)
       end
     when PBEvolution::TradeSpecies
       next poke if pokemon2.species==level
+    when PBEvolution::TradeLevel
+      next poke if pokemon.level>=level
     end
     next -1
   }

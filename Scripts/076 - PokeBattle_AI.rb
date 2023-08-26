@@ -2972,7 +2972,7 @@ class PokeBattle_Battle
       score-=90 if opponent.hasWorkingAbility(:STURDY) || opponent.pbHasType?(:ICE)
       score-=90 if opponent.level>attacker.level
     when 0x203
-      score-=90 if opponent.isAirborne?(attacker.hasMoldBreaker)
+      score-=90 if opponent.isAirborne?(attacker.hasMoldBreaker(opponent))
       score+=50 if attacker.turncount<2
     when 0x204
       gust=attacker.pbHasType?(:GUST) || attacker.pbHasType?(:FLYING)
@@ -3583,7 +3583,7 @@ class PokeBattle_Battle
       mod3=2 if isConst?(otype3,PBTypes,:FLYING) && PBTypes.isSuperEffective?(atype,otype3)
     end
     # Smack Down makes Ground moves work against fliers
-    if !opponent.isAirborne?((attacker.hasMoldBreaker rescue false)) && isConst?(atype,PBTypes,:GROUND)
+    if !opponent.isAirborne?((attacker.hasMoldBreaker(opponent) rescue false)) && isConst?(atype,PBTypes,:GROUND)
       mod1=2 if isConst?(otype1,PBTypes,:FLYING)
       mod2=2 if isConst?(otype2,PBTypes,:FLYING)
       mod3=2 if isConst?(otype3,PBTypes,:FLYING)

@@ -318,7 +318,7 @@ def ragefist
 
   def weight(attacker=nil)
     w=(@pokemon) ? @pokemon.weight : 500
-    if !attacker || !attacker.hasMoldBreaker
+    if !attacker || !attacker.hasMoldBreaker(self)
       w*=2 if self.hasWorkingAbility(:HEAVYMETAL)
       w/=2 if self.hasWorkingAbility(:LIGHTMETAL)
     end
@@ -896,7 +896,10 @@ def ragefist
     return @hp<=0
   end
 
-  def hasMoldBreaker
+  def hasMoldBreaker(target=nil)
+    if target
+      return false if target.hasWorkingItem(:ABILITYSHIELD) || target.pbPartner.hasWorkingAbility(:ASSAULTSPIRIT)
+    end
     return false if @battle.field.effects[PBEffects::Cinament]>0 && !hasWorkingItem(:RODOFSPARROW)
     return true if hasWorkingAbility(:MOLDBREAKER) ||
                    hasWorkingAbility(:TERAVOLT) ||
@@ -956,6 +959,7 @@ def ragefist
   # Applies to both losing self's ability (i.e. being replaced by another) and
   # having self's ability be negated.
   def hasUnstoppableAbility(user=nil,adtlAblts=nil,adtlAblts2=nil)
+    return true if hasWorkingItem(:ABILITYSHIELD) # Ability shield prevents ability change
     abil = self.ability
     super_ability_blacklist = [
       # Abilities intended to be inherent properties of a certain species
@@ -1011,6 +1015,7 @@ def ragefist
 
   # Applies to gaining the ability.
   def hasUngainableAbility(user=nil,adtlAblts=nil,adtlAblts2=nil)
+    return true if hasWorkingItem(:ABILITYSHIELD) # Ability shield prevents ability change
     abil = self.ability
     super_ability_blacklist = [
       # Abilities intended to be inherent properties of a certain species
@@ -2665,8 +2670,8 @@ def ragefist
         # changed end
         if target.hasWorkingAbility(:AFTERMATH,true) && target.isFainted? &&
            !user.isFainted?
-          if !@battle.pbCheckGlobalAbility(:DAMP) &&
-             !user.hasMoldBreaker && !(user.hasWorkingAbility(:MAGICGUARD) || user.hasWorkingAbility(:SUPERCLEARBODY)) 
+          if (!@battle.pbCheckGlobalAbility(:DAMP) || 
+               user.hasMoldBreaker(target)) && !(user.hasWorkingAbility(:MAGICGUARD) || user.hasWorkingAbility(:SUPERCLEARBODY)) 
             PBDebug.log("[Ability triggered] #{target.pbThis}'s Aftermath")
             @battle.scene.pbDamageAnimation(user,0)
             user.pbReduceHP((user.totalhp/4).floor)
@@ -3234,7 +3239,7 @@ def ragefist
           @battle.pbDisplay(_INTL("{1}'s Air Balloon popped!",target.pbThis))
           target.pbConsumeItem(true,false)
         elsif target.hasWorkingItem(:GENIEBALL) && rand(30)<6 &&
-          (user.hasMoldBreaker || !target.hasWorkingAbility(:STICKYHOLD))
+          (user.hasMoldBreaker(target) || !target.hasWorkingAbility(:STICKYHOLD))
           PBDebug.log("[Item triggered] #{target.pbThis}'s Genie layed out from its Genie Ball")
           @battle.pbDisplay(_INTL("{1}'s Genie from its {2} layed out!",target.pbThis,PBItems.getName(target.item)))
           target.pbConsumeItem(false,false)
@@ -4246,7 +4251,7 @@ def ragefist
       end
     end
     if !thismove.isContactMove? || user.hasWorkingAbility(:LONGREACH)
-      if !(user.hasMoldBreaker || thismove.function==0x300 || thismove.pbIsStatus?) && 
+      if !(user.hasMoldBreaker(target) || thismove.function==0x300 || thismove.pbIsStatus?) && 
             target.hasWorkingAbility(:MINDYGLOPS)
         # switch user and target
         PBDebug.log("[Ability triggered] #{target.pbThis}'s Mindy Glops made it use #{user.pbThis(true)}'s #{thismove.name}")
@@ -4258,7 +4263,7 @@ def ragefist
     end
 # Trampoline (Ability)
     if !thismove.isContactMove? || user.hasWorkingAbility(:LONGREACH)
-      if !(user.hasMoldBreaker || thismove.pbIsStatus?) && 
+      if !(user.hasMoldBreaker(target) || thismove.pbIsStatus?) && 
             target.hasWorkingAbility(:TRAMPOLINE)
         # switch user and target
         PBDebug.log("[Ability triggered] #{target.pbThis}'s Trampoline made it use #{user.pbThis(true)}'s #{thismove.name}")
@@ -4300,7 +4305,7 @@ def ragefist
           pressuremove=user.moves[userchoice]
           pbSetPP(pressuremove,pressuremove.pp-1) if pressuremove.pp>0
         end
-      elsif !user.hasMoldBreaker && target.hasWorkingAbility(:MAGICBOUNCE)
+      elsif !user.hasMoldBreaker(target) && target.hasWorkingAbility(:MAGICBOUNCE)
         # switch user and target
         PBDebug.log("[Ability triggered] #{target.pbThis}'s Magic Bounce made it use #{user.pbThis(true)}'s #{thismove.name}")
         changeeffect=3
@@ -4316,7 +4321,7 @@ def ragefist
     end
     userandtarget[0]=user
     userandtarget[1]=target
-    if !user.hasMoldBreaker && target.hasWorkingAbility(:SOUNDPROOF) &&
+    if !user.hasMoldBreaker(target) && target.hasWorkingAbility(:SOUNDPROOF) &&
        thismove.isSoundBased? &&
        thismove.function!=0xE5 &&   # Perish Song handled elsewhere
        thismove.function!=0x151     # Parting Shot handled elsewhere
@@ -4522,17 +4527,26 @@ def ragefist
     # Added
     if (target.hasWorkingAbility(:DAZZLING) ||
        target.hasWorkingAbility(:QUEENLYMAJESTY) ||
-       target.hasWorkingAbility(:ARMORTAIL) ||
-       target.pbPartner.hasWorkingAbility(:DAZZLING) ||
-       target.pbPartner.hasWorkingAbility(:QUEENLYMAJESTY) ||
-       target.pbPartner.hasWorkingAbility(:ARMORTAIL)) &&
-       !user.hasMoldBreaker && p>0 &&
+       target.hasWorkingAbility(:ARMORTAIL)) &&
+       !user.hasMoldBreaker(target) && p>0 &&
        target!=user && target!=user.pbPartner
 			pbSEPlay("protection")
       @battle.pbDisplay(_INTL("{1} cannot use {2}!",user.pbThis,thismove.name))
       PBDebug.log("[Move failed] The opposing side's Dazzling/Queenly Majesty/Armor Tail stopped the attack")
       return false
     end
+    # Added to compelement Ability Shield
+    if (target.pbPartner.hasWorkingAbility(:DAZZLING) ||
+       target.pbPartner.hasWorkingAbility(:QUEENLYMAJESTY) ||
+       target.pbPartner.hasWorkingAbility(:ARMORTAIL)) &&
+       !user.hasMoldBreaker(target.pbPartner) && p>0 &&
+       target!=user && target!=user.pbPartner
+			pbSEPlay("protection")
+      @battle.pbDisplay(_INTL("{1} cannot use {2}!",user.pbThis,thismove.name))
+      PBDebug.log("[Move failed] The opposing side's Dazzling/Queenly Majesty/Armor Tail stopped the attack")
+      return false
+    end
+
     # Changed end
     if target.pbOwnSide.effects[PBEffects::WideGuard] && unseenfistOff &&
        PBTargets.hasMultipleTargets?(thismove) && !thismove.pbIsStatus? &&
@@ -4633,7 +4647,7 @@ def ragefist
     # Immunity to powder-based moves
     if $USENEWBATTLEMECHANICS && thismove.isPowderMove? &&
        (target.pbHasType?(:GRASS) || target.pbHasType?(:CHLOROPHYLL) ||
-       (!user.hasMoldBreaker && target.hasWorkingAbility(:OVERCOAT)) ||
+       (!user.hasMoldBreaker(target) && target.hasWorkingAbility(:OVERCOAT)) ||
 				target.hasWorkingItem(:SAFETYGOGGLES) || target.pbHasType?(:GAS))
 			pbSEPlay("protection")
       @battle.pbDisplay(_INTL("It doesn't affect\r\n{1}...",target.pbThis(true)))
@@ -4641,7 +4655,7 @@ def ragefist
       return false
     end
     if thismove.pbIsStatus? # Mindy Glops
-      if !user.hasMoldBreaker && target.hasWorkingAbility(:GOODASGOLD)
+      if !user.hasMoldBreaker(target) && target.hasWorkingAbility(:GOODASGOLD)
         pbSEPlay("protection")
         @battle.pbDisplay(_INTL("{1} makes Status moves miss with Good as Gold",target.pbThis))
         PBDebug.log("[Ability triggered] #{target.pbThis}'s Good as Gold made the Status move miss")
@@ -4653,9 +4667,9 @@ def ragefist
       type=thismove.pbType(thismove.type,user,target)
       typemod=thismove.pbTypeModifier(type,user,target)
       # Airborne-based immunity to Ground moves
-      if isConst?(type,PBTypes,:GROUND) && target.isAirborne?(user.hasMoldBreaker) &&
+      if isConst?(type,PBTypes,:GROUND) && target.isAirborne?(user.hasMoldBreaker(target)) &&
          !target.hasWorkingItem(:RINGTARGET) && thismove.function!=0x11C # Smack Down
-        if !user.hasMoldBreaker && target.hasWorkingAbility(:LEVITATE)
+        if !user.hasMoldBreaker(target) && target.hasWorkingAbility(:LEVITATE)
 					pbSEPlay("protection")
           @battle.pbDisplay(_INTL("{1} makes Ground moves miss with Levitate!",target.pbThis))
           PBDebug.log("[Ability triggered] #{target.pbThis}'s Levitate made the Ground-type move miss")
@@ -4687,7 +4701,7 @@ def ragefist
       end
       if isConst?(type,PBTypes,:MAGIC) && !target.hasWorkingItem(:RINGTARGET) &&
          thismove.function!=0x97 # Magic Starfruit
-        if !user.hasMoldBreaker && target.hasWorkingAbility(:MAGICBLOCK)
+        if !user.hasMoldBreaker(target) && target.hasWorkingAbility(:MAGICBLOCK)
 					pbSEPlay("protection")
           @battle.pbDisplay(_INTL("{1} makes Magic moves miss with Magic Block",target.pbThis))
           PBDebug.log("[Ability triggered] #{target.pbThis}'s Magic Block made the Mind-type move miss")
@@ -4696,7 +4710,7 @@ def ragefist
       end
       if isConst?(type,PBTypes,:MIND) && !target.hasWorkingItem(:RINGTARGET) &&
          thismove.function!=0x300 # Mindy Glops
-        if !user.hasMoldBreaker && target.hasWorkingAbility(:MINDYGLOPS)
+        if !user.hasMoldBreaker(target) && target.hasWorkingAbility(:MINDYGLOPS)
 					pbSEPlay("protection")
           @battle.pbDisplay(_INTL("{1} makes Mind moves miss with Mindy Glops",target.pbThis))
           PBDebug.log("[Ability triggered] #{target.pbThis}'s Mindy Glops made the Mind-type move miss")
@@ -4711,14 +4725,14 @@ def ragefist
           return false
         end
       end
-      if !user.hasMoldBreaker && target.hasWorkingAbility(:WONDERGUARD) &&
+      if !user.hasMoldBreaker(target) && target.hasWorkingAbility(:WONDERGUARD) &&
 				type>=0 && typemod<=8
 				pbSEPlay("protection")
         @battle.pbDisplay(_INTL("{1} avoided damage with Wonder Guard!",target.pbThis))
         PBDebug.log("[Ability triggered] #{target.pbThis}'s Wonder Guard")
         return false 
       end
-      if !user.hasMoldBreaker && target.hasWorkingAbility(:HERBLOBBY) &&
+      if !user.hasMoldBreaker(target) && target.hasWorkingAbility(:HERBLOBBY) &&
 				type>=0 && typemod>8
 				pbSEPlay("protection")
         @battle.pbDisplay(_INTL("{1} avoided damage with Herb Lobby!",target.pbThis))
@@ -4963,22 +4977,20 @@ def ragefist
       return false
     end
     # Trummet Spirit
-    if !hasMoldBreaker
-      if pbOpposing1.hasWorkingAbility(:TRUMMETSPIRIT) && !pbOpposing1.isFainted? &&
-        thismove.id==@lastMoveUsed && thismove.id!=@battle.struggle.id &&
-        @effects[PBEffects::TwoTurnAttack]==0
-        pbSEPlay("protection")
-        @battle.pbDisplayPaused(_INTL("{1} can't use the same move in a row due to {2}'s Trummet Spirit!",pbThis(true),pbOpposing1.pbThis(true)))
-        PBDebug.log("[Move failed] #{pbThis} can't use #{thismove.name} because of Torment")
-        return false
-      elsif pbOpposing2.hasWorkingAbility(:TRUMMETSPIRIT) && !pbOpposing2.isFainted? &&
-        thismove.id==@lastMoveUsed && thismove.id!=@battle.struggle.id &&
-        @effects[PBEffects::TwoTurnAttack]==0
-        pbSEPlay("protection")
-        @battle.pbDisplayPaused(_INTL("{1} can't use the same move in a row due to {2}'s Trummet Spirit!",pbThis,pbOpposing2.pbThis(true)))
-        PBDebug.log("[Move failed] #{pbThis} can't use #{thismove.name} because of Torment")
-        return false
-      end
+    if pbOpposing1.hasWorkingAbility(:TRUMMETSPIRIT) && !pbOpposing1.isFainted? &&
+      thismove.id==@lastMoveUsed && thismove.id!=@battle.struggle.id &&
+      @effects[PBEffects::TwoTurnAttack]==0 && !hasMoldBreaker(pbOpposing1)
+      pbSEPlay("protection")
+      @battle.pbDisplayPaused(_INTL("{1} can't use the same move in a row due to {2}'s Trummet Spirit!",pbThis(true),pbOpposing1.pbThis(true)))
+      PBDebug.log("[Move failed] #{pbThis} can't use #{thismove.name} because of Torment")
+      return false
+    elsif pbOpposing2.hasWorkingAbility(:TRUMMETSPIRIT) && !pbOpposing2.isFainted? &&
+      thismove.id==@lastMoveUsed && thismove.id!=@battle.struggle.id &&
+      @effects[PBEffects::TwoTurnAttack]==0 && !hasMoldBreaker(pbOpposing2)
+      pbSEPlay("protection")
+      @battle.pbDisplayPaused(_INTL("{1} can't use the same move in a row due to {2}'s Trummet Spirit!",pbThis,pbOpposing2.pbThis(true)))
+      PBDebug.log("[Move failed] #{pbThis} can't use #{thismove.name} because of Torment")
+      return false
     end
     # Gigaton Hammer
     if thismove.function==0x371 && 
@@ -5294,7 +5306,7 @@ def ragefist
       # Additional effect
       if target.damagestate.calcdamage>0 &&
          !user.hasWorkingAbility(:SHEERFORCE) &&
-         (user.hasMoldBreaker || !target.hasWorkingAbility(:SHIELDDUST))
+         (user.hasMoldBreaker(target) || !target.hasWorkingAbility(:SHIELDDUST))
         addleffect=thismove.addlEffect
         addleffect=0  if user.pbOwnSide.effects[PBEffects::CrateBuster]>0
         addleffect*=2 if (user.hasWorkingAbility(:SERENEGRACE) ||
@@ -5360,7 +5372,7 @@ def ragefist
       break if target.isFainted?
       # Make the target flinch
       if target.damagestate.calcdamage>0 && !target.damagestate.substitute
-        if user.hasMoldBreaker || !target.hasWorkingAbility(:SHIELDDUST)
+        if user.hasMoldBreaker(target) || !target.hasWorkingAbility(:SHIELDDUST)
           canflinch=false
           if (user.hasWorkingItem(:KINGSROCK) || user.hasWorkingItem(:RAZORFANG)) &&
              thismove.canKingsRock?
@@ -5975,7 +5987,7 @@ def ragefist
             end
             switched.push(i)
             @battle.battlers[i].pbResetForm
-            @battle.pbRecallAndReplace(i,newpoke,newpokename,false,user.hasMoldBreaker)
+            @battle.pbRecallAndReplace(i,newpoke,newpokename,false,user.hasMoldBreaker(@battle.battlers[i]))
             @battle.pbDisplay(_INTL("{1} was dragged out!",@battle.battlers[i].pbThis))
             @battle.choices[i]=[0,0,nil,-1]   # Replacement Pokémon does nothing this round
           end

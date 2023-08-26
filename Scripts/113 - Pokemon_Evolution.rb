@@ -58,6 +58,15 @@ module PBEvolution
   RecoilDamageH     = 56 # RecoilDamage for Hisuian Forms
   CriticalHits      = 57 
   CriticalHitsG     = 58 # CriticalHits for Galarian Forms
+  TradeLevel        = 59
+  SilcoonFemale     = 60
+  CascoonFemale     = 61
+  HasInPartyMale    = 62
+  HasInPartyFemale  = 63
+  # Do not work in Vanilla Essentials 16
+  ItemSilcoonFemale = 64
+  ItemCascoonFemale = 65
+
 
   
   EVONAMES=["Unknown",
@@ -68,10 +77,12 @@ module PBEvolution
      "HasInParty","LevelMale","LevelFemale","Location","TradeSpecies",
      "LevelDay","LevelNight","LevelDarkInParty","LevelRain","HappinessMoveType",
      "Trained","TypeInParty","HappinessMale","HappinessFemale","LevelK",
-     "LevelA","ItemK","ItemA","HappinessA","ItemSilcoon","ItemCascoon","LevelG",
-     "ItemG","TradeItemK","LevelDayK","LevelP","TradeItemM","HasMoveK",
-     "HappinessItem","ItemH","TrainedH","DayHoldItemH","NightHoldItemK",
-     "LevelPl","RecoilDamage","RecoilDamageH","CriticalHits","CriticalHitsG"
+     "LevelA","ItemK","ItemA","HappinessA","ItemSilcoon",
+     "ItemCascoon","LevelG","ItemG","TradeItemK","LevelDayK",
+     "LevelP","TradeItemM","HasMoveK","HappinessItem","ItemH",
+     "TrainedH","DayHoldItemH","NightHoldItemK","LevelPl","RecoilDamage",
+     "RecoilDamageH","CriticalHits","CriticalHitsG","TradeLevel","SilcoonFemale",
+     "CascoonFemale","HasInPartyMale","HasInPartyFemale","ItemSilcoonFemale","ItemCascoonFemale"
   ]
 
   # 0 = no parameter
@@ -92,7 +103,8 @@ module PBEvolution
      2,1,2,2,1,
      1,2,3,2,2,
      1,2,2,1,1,
-     1,1,1
+     1,1,1,1,1,
+     1,4,4,2,2
   ]
 end
 
@@ -1005,7 +1017,7 @@ def pbMiniCheckEvolution(pokemon,evonib,level,poke)
     end
   when PBEvolution::Beauty # Feebas
     return poke if pokemon.beauty>=level
-  when PBEvolution::Trade, PBEvolution::TradeItem, PBEvolution::TradeSpecies, PBEvolution::TradeItemK, PBEvolution::TradeItemM
+  when PBEvolution::Trade, PBEvolution::TradeItem, PBEvolution::TradeSpecies, PBEvolution::TradeItemK, PBEvolution::TradeItemM, PBEvolution::TradeLevel
     return -1
   when PBEvolution::Trained
     evtotal=0
@@ -1057,6 +1069,18 @@ def pbMiniCheckEvolution(pokemon,evonib,level,poke)
     return poke if pokemon.criticalhits>=level
   when PBEvolution::CriticalHitsG
     return poke if pokemon.criticalhits>=level && isGalarian?(pokemon)
+  when PBEvolution::SilcoonFemale
+    return poke if pokemon.level>=level && pokemon.isFemale? && (((pokemon.personalID>>16)&0xFFFF)%10)<5
+  when PBEvolution::CascoonFemale
+    return poke if pokemon.level>=level && pokemon.isFemale? && (((pokemon.personalID>>16)&0xFFFF)%10)>=5
+  when PBEvolution::HasInPartyMale
+    for i in $Trainer.party
+      return poke if !i.isEgg? && i.species==level && pokemon.isMale?
+    end
+  when PBEvolution::HasInPartyFemale
+    for i in $Trainer.party
+      return poke if !i.isEgg? && i.species==level && pokemon.isFemale?
+    end
   end
   return -1
 end
@@ -1084,6 +1108,10 @@ def pbMiniCheckEvolutionItem(pokemon,evonib,level,poke,item)
     return poke if level==item && pokemon.happiness>=160
   when PBEvolution::ItemH
     return poke if level==item && isHisuian?(pokemon)
+  when PBEvolution::ItemSilcoon
+    return poke if level==item && pokemon.isFemale? && (((pokemon.personalID>>16)&0xFFFF)%10)<5
+  when PBEvolution::ItemCascoon
+    return poke if level==item && pokemon.isFemale? && (((pokemon.personalID>>16)&0xFFFF)%10)>=5
   end
   return -1
 end

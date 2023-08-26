@@ -26,7 +26,7 @@ class PokeBattle_Battler
         return false
       end
     end
-    if !self.isAirborne?(attacker && attacker.hasMoldBreaker)
+    if !self.isAirborne?(attacker && attacker.hasMoldBreaker(self))
       if @battle.field.effects[PBEffects::ElectricTerrain]>0
         pbSEPlay("protection") if showMessages
         @battle.pbDisplay(_INTL("The Electric Terrain prevented {1} from falling asleep!",pbThis(true))) if showMessages
@@ -37,7 +37,7 @@ class PokeBattle_Battler
         return false
       end
     end
-    if (attacker && attacker.hasMoldBreaker) || !hasWorkingAbility(:SOUNDPROOF)
+    if (attacker && attacker.hasMoldBreaker(self)) || !hasWorkingAbility(:SOUNDPROOF)
       for i in 0...4
         if @battle.battlers[i].effects[PBEffects::Uproar]>0
           pbSEPlay("protection") if showMessages
@@ -46,7 +46,7 @@ class PokeBattle_Battler
         end
       end 
     end
-    if !attacker || attacker.index==self.index || !attacker.hasMoldBreaker
+    if !attacker || attacker.index==self.index || !attacker.hasMoldBreaker(self)
       if hasWorkingAbility(:VITALSPIRIT) ||
          hasWorkingAbility(:INSOMNIA) ||
          hasWorkingAbility(:SWEETVEIL) ||
@@ -153,12 +153,12 @@ class PokeBattle_Battler
       return false
     end
     if @battle.field.effects[PBEffects::MistyTerrain]>0 &&
-       !self.isAirborne?(attacker && attacker.hasMoldBreaker)
+       !self.isAirborne?(attacker && attacker.hasMoldBreaker(self))
       pbSEPlay("protection") if showMessages
        @battle.pbDisplay(_INTL("The Misty Terrain prevented {1} from being poisoned!",pbThis(true))) if showMessages
       return false
     end
-    if !attacker || !attacker.hasMoldBreaker
+    if !attacker || !attacker.hasMoldBreaker(self)
       if hasWorkingAbility(:IMMUNITY) || hasWorkingAbility(:PASTELVEIL) ||
          hasWorkingAbility(:PURIFYINGSALT) ||
          (hasWorkingAbility(:FLOWERVEIL) && pbHasType?(:GRASS)) ||
@@ -288,7 +288,7 @@ class PokeBattle_Battler
       return false
     end
     if @battle.field.effects[PBEffects::MistyTerrain]>0 &&
-       !self.isAirborne?(attacker && attacker.hasMoldBreaker)
+       !self.isAirborne?(attacker && attacker.hasMoldBreaker(self))
         pbSEPlay("protection") if showMessages
        @battle.pbDisplay(_INTL("The Misty Terrain prevented {1} from being burned!",pbThis(true))) if showMessages
       return false
@@ -298,7 +298,7 @@ class PokeBattle_Battler
       @battle.pbDisplay(_INTL("It doesn't affect {1}...",pbThis(true))) if showMessages
       return false
     end
-    if !attacker || !attacker.hasMoldBreaker
+    if !attacker || !attacker.hasMoldBreaker(self)
       if hasWorkingAbility(:WATERVEIL) || hasWorkingAbility(:WATERBUBBLE) ||
           hasWorkingAbility(:THERMALEXCHANGE) ||
           hasWorkingAbility(:PURIFYINGSALT) ||
@@ -397,7 +397,7 @@ class PokeBattle_Battler
       return false
     end
     if @battle.field.effects[PBEffects::MistyTerrain]>0 &&
-       !self.isAirborne?(attacker && attacker.hasMoldBreaker)
+       !self.isAirborne?(attacker && attacker.hasMoldBreaker(self))
       pbSEPlay("protection") if showMessages
       @battle.pbDisplay(_INTL("The Misty Terrain prevented {1} from being paralyzed!",pbThis(true))) if showMessages
       return false
@@ -407,7 +407,7 @@ class PokeBattle_Battler
       @battle.pbDisplay(_INTL("It doesn't affect {1}...",pbThis(true))) if showMessages
       return false
     end
-    if !attacker || !attacker.hasMoldBreaker
+    if !attacker || !attacker.hasMoldBreaker(self)
       if hasWorkingAbility(:LIMBER) ||
          hasWorkingAbility(:PURIFYINGSALT) ||
          (hasWorkingAbility(:FLOWERVEIL) && pbHasType?(:GRASS)) ||
@@ -506,12 +506,12 @@ class PokeBattle_Battler
       return false
     end
     if @battle.field.effects[PBEffects::MistyTerrain]>0 &&
-       !self.isAirborne?(attacker && attacker.hasMoldBreaker)
+       !self.isAirborne?(attacker && attacker.hasMoldBreaker(self))
         pbSEPlay("protection") if showMessages
        @battle.pbDisplay(_INTL("The Misty Terrain prevented {1} from being frozen!",pbThis(true))) if showMessages
       return false
     end
-    if !attacker || !attacker.hasMoldBreaker
+    if !attacker || !attacker.hasMoldBreaker(self)
       if hasWorkingAbility(:MAGMAARMOR) ||
          hasWorkingAbility(:PURIFYINGSALT) ||
          (hasWorkingAbility(:FLOWERVEIL) && pbHasType?(:GRASS)) ||
@@ -610,7 +610,7 @@ class PokeBattle_Battler
       @battle.pbDisplay(_INTL("But it failed!")) if showMessages
       return false
     end
-    if !attacker || !attacker.hasMoldBreaker
+    if !attacker || !attacker.hasMoldBreaker(self)
       if hasWorkingAbility(:OWNTEMPO)
         pbSEPlay("protection") if showMessages
         @battle.pbDisplay(_INTL("{1}'s {2} prevents confusion!",pbThis,PBAbilities.getName(self.ability))) if showMessages
@@ -685,7 +685,7 @@ class PokeBattle_Battler
       @battle.pbDisplay(_INTL("But it failed!")) if showMessages
       return false
     end
-    if (!attacker || !attacker.hasMoldBreaker) && hasWorkingAbility(:OBLIVIOUS)
+    if (!attacker || !attacker.hasMoldBreaker(self)) && hasWorkingAbility(:OBLIVIOUS)
 			pbSEPlay("protection") if showMessages
       @battle.pbDisplay(_INTL("{1}'s {2} prevents romance!",pbThis,
          PBAbilities.getName(self.ability))) if showMessages
@@ -735,7 +735,7 @@ class PokeBattle_Battler
 # Flinching
 #===============================================================================
   def pbFlinch(attacker)
-    return false if (!attacker || !attacker.hasMoldBreaker) && hasWorkingAbility(:INNERFOCUS)
+    return false if (!attacker || !attacker.hasMoldBreaker(self)) && hasWorkingAbility(:INNERFOCUS)
     @effects[PBEffects::Flinch]=true
     return true
   end
@@ -749,7 +749,7 @@ class PokeBattle_Battler
 
   def pbCanIncreaseStatStage?(stat,attacker=nil,showMessages=false,move=nil,moldbreaker=false,ignoreContrary=false,ignoremirror=false,ignoreopportunist=false)
     if !moldbreaker
-      if !attacker || attacker.index==self.index || !attacker.hasMoldBreaker
+      if !attacker || attacker.index==self.index || !attacker.hasMoldBreaker(self)
         if hasWorkingAbility(:CONTRARY) && !ignoreContrary
           return pbCanReduceStatStage?(stat,attacker,showMessages,move,moldbreaker,true,ignoremirror)
         end
@@ -767,7 +767,7 @@ class PokeBattle_Battler
 
   def pbIncreaseStatBasic(stat,increment,attacker=nil,moldbreaker=false,ignoreContrary=false,ignoremirror=false,ignoreopportunist=false)
     if !moldbreaker
-      if !attacker || attacker.index==self.index || !attacker.hasMoldBreaker
+      if !attacker || attacker.index==self.index || !attacker.hasMoldBreaker(self)
         if hasWorkingAbility(:CONTRARY) && !ignoreContrary
           return pbReduceStatBasic(stat,increment,attacker,moldbreaker,true)
         end
@@ -782,7 +782,7 @@ class PokeBattle_Battler
 
   def pbIncreaseStat(stat,increment,attacker,showMessages,move=nil,upanim=true,moldbreaker=false,ignoreContrary=false,ignoremirror=false,ignoreopportunist=false)
     if !moldbreaker
-      if !attacker || attacker.index==self.index || !attacker.hasMoldBreaker
+      if !attacker || attacker.index==self.index || !attacker.hasMoldBreaker(self)
         if hasWorkingAbility(:CONTRARY) && !ignoreContrary
           return pbReduceStat(stat,increment,attacker,showMessages,move,upanim,moldbreaker,true,ignoremirror)
         end
@@ -823,7 +823,7 @@ class PokeBattle_Battler
           for i in [self.pbPartner,self.pbOpposing1,self.pbOpposing2]
             next if !i || i.isFainted?
             next if !( i.hasWorkingAbility(:OPPORTUNIST) || 
-                       i.hasWorkingAbility(:MIRRORHERB))
+                       i.hasWorkingItem(:MIRRORHERB))
 #            next if !i.pbCanIncreaseStatStage?(stat,i,false)
             if i.hasWorkingItem(:MIRRORHERB)
               i.pbIncreaseStatWithCause(stat,increment,i,PBItems.getName(i.item),upanim,true,moldbreaker,ignoreContrary,ignoremirror,true)
@@ -842,7 +842,7 @@ class PokeBattle_Battler
 
   def pbIncreaseStatWithCause(stat,increment,attacker,cause,showanim=true,showmessage=true,moldbreaker=false,ignoreContrary=false,ignoremirror=false,ignoreopportunist=false)
     if !moldbreaker
-      if !attacker || attacker.index==self.index || !attacker.hasMoldBreaker
+      if !attacker || attacker.index==self.index || !attacker.hasMoldBreaker(self)
         if hasWorkingAbility(:CONTRARY) && !ignoreContrary
           return pbReduceStatWithCause(stat,increment,attacker,cause,showanim,showmessage,moldbreaker,true,ignoremirror)
         end
@@ -890,7 +890,7 @@ class PokeBattle_Battler
           for i in [self.pbPartner,self.pbOpposing1,self.pbOpposing2]
             next if !i || i.isFainted?
             next if !( i.hasWorkingAbility(:OPPORTUNIST) || 
-                       i.hasWorkingAbility(:MIRRORHERB))
+                       i.hasWorkingItem(:MIRRORHERB))
 #            next if !i.pbCanIncreaseStatStage?(stat,i,false)
             if i.hasWorkingItem(:MIRRORHERB)
               i.pbIncreaseStatWithCause(stat,increment,i,PBItems.getName(i.item),upanim,true,moldbreaker,ignoreContrary,ignoremirror,true)
@@ -920,7 +920,7 @@ class PokeBattle_Battler
   def pbCanReduceStatStage?(stat,attacker=nil,showMessages=false,move=nil,moldbreaker=false,ignoreContrary=false,ignoremirror=false)
     selfreduce=(attacker && attacker.index==self.index) # Moved to the top for Mirror Armor
     if !moldbreaker
-      if !attacker || attacker.index==self.index || !attacker.hasMoldBreaker
+      if !attacker || attacker.index==self.index || !attacker.hasMoldBreaker(self)
         if hasWorkingAbility(:CONTRARY) && !ignoreContrary
           return pbCanIncreaseStatStage?(stat,attacker,showMessages,move,moldbreaker,true,ignoremirror)
         end
@@ -964,7 +964,7 @@ class PokeBattle_Battler
         @battle.pbDisplay(_INTL("{1}'s {2} prevents stat loss!",pbThis,itemname)) if showMessages
         return false
       end
-      if !moldbreaker && (!attacker || !attacker.hasMoldBreaker)
+      if !moldbreaker && (!attacker || !attacker.hasMoldBreaker(self))
         if hasWorkingAbility(:CLEARBODY) || hasWorkingAbility(:SUPERCLEARBODY) ||
            hasWorkingAbility(:WHITESMOKE)
           abilityname=PBAbilities.getName(self.ability)
@@ -1023,7 +1023,7 @@ class PokeBattle_Battler
 
   def pbReduceStatBasic(stat,increment,attacker=nil,moldbreaker=false,ignoreContrary=false,ignoremirror=false)
     if !moldbreaker # moldbreaker is true only when Roar forces out a Pokémon into Sticky Web
-      if !attacker || attacker.index==self.index || !attacker.hasMoldBreaker
+      if !attacker || attacker.index==self.index || !attacker.hasMoldBreaker(self)
         if hasWorkingAbility(:CONTRARY) && !ignoreContrary
           return pbIncreaseStatBasic(stat,increment,attacker,moldbreaker,true)
         end
@@ -1041,7 +1041,7 @@ class PokeBattle_Battler
 
   def pbReduceStat(stat,increment,attacker,showMessages,move=nil,downanim=true,moldbreaker=false,ignoreContrary=false,ignoremirror=false)
     if !moldbreaker
-      if !attacker || attacker.index==self.index || !attacker.hasMoldBreaker
+      if !attacker || attacker.index==self.index || !attacker.hasMoldBreaker(self)
         if hasWorkingAbility(:CONTRARY) && !ignoreContrary
           return pbIncreaseStat(stat,increment,attacker,showMessages,move,downanim,moldbreaker,true,ignoremirror)
         end
@@ -1114,7 +1114,7 @@ class PokeBattle_Battler
 
   def pbReduceStatWithCause(stat,increment,attacker,cause,showanim=true,showmessage=true,moldbreaker=false,ignoreContrary=false,ignoremirror=false)
     if !moldbreaker
-      if !attacker || attacker.index==self.index || !attacker.hasMoldBreaker
+      if !attacker || attacker.index==self.index || !attacker.hasMoldBreaker(self)
         if hasWorkingAbility(:CONTRARY) && !ignoreContrary
           return pbIncreaseStatWithCause(stat,increment,attacker,cause,showanim,showmessage,moldbreaker,true,ignoremirror)
         end

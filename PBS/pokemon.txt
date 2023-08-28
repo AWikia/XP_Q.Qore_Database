@@ -28165,7 +28165,7 @@ BattlerAltitude=0
 Evolutions=MEGACHANNEL,HappinessFemale,,ALTERCHANNEL,HappinessMale,,SIAXIS,HasMove,SIAXIS
 Incense=REVIVE
 [1034]
-Name=Macedonia TV
+Name=Makedonia TV
 InternalName=MAKTV
 Type1=FAIRY
 BaseStats=100,70,90,48,114,178
@@ -28187,6 +28187,7 @@ Color=Red
 Habitat=Grassland
 Kind=Antenna
 Pokedex=RIK Sat
+FormNames=,Mega Makedonia TV
 BattlerPlayerY=13
 BattlerEnemyY=17
 BattlerAltitude=0

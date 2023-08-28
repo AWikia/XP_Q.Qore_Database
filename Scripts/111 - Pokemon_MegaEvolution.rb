@@ -1370,6 +1370,41 @@ MultipleForms.register(:ANT1,{
 })
 
 
+MultipleForms.register(:MAKTV,{
+"getMegaForm"=>proc{|pokemon|
+   next 1 if isConst?(pokemon.item,PBItems,:MAKITE)
+   next
+},
+"type2"=>proc{|pokemon|
+   next getID(PBTypes,:PSYCHIC) if pokemon.form==1
+   next
+},
+"getBaseStats"=>proc{|pokemon|
+   next [100,105,90,78,149,178] if pokemon.form==1
+   next
+},
+"getAbilityList"=>proc{|pokemon|
+   next [[getID(PBAbilities,:ASSAULTSPIRIT),0]] if pokemon.form==1
+   next
+},
+"color"=>proc{|pokemon|
+   next if pokemon.form==0
+   next 3 if pokemon.form==1
+},
+"height"=>proc{|pokemon|
+   next if pokemon.form==0
+   next 9 if pokemon.form==1
+},
+"weight"=>proc{|pokemon|
+   next     if pokemon.form==0
+   next 100 if pokemon.form==1
+},
+"dexEntry"=>proc{|pokemon|
+   next if pokemon.form==0
+   next _INTL("Once a Mak TV gets mega-evolved, it became a pure pink body with the ability to protect others from Pokémon with dangerous abilities.") if pokemon.form==1
+}
+})
+
 MultipleForms.register(:HEARTBRAND,{
 "getMegaForm"=>proc{|pokemon|
    next 1 if isConst?(pokemon.item,PBItems,:HEARTBRANDITE)

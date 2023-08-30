@@ -12288,6 +12288,23 @@ MultipleForms.register(:DOFFPLUS,{
 }
 })
 
+MultipleForms.register(:TV5MONDE,{
+"getForm"=>proc{|pokemon|
+   d=pokemon.personalID&3
+   d|=((pokemon.personalID>>8)&3)<<2
+   d|=((pokemon.personalID>>16)&3)<<4
+   d|=((pokemon.personalID>>24)&3)<<6
+   d%=12
+   next (d==0) ? 0 : 1
+},
+
+"height"=>proc{|pokemon|
+   next if pokemon.form==0
+   next 10
+}
+})
+
+MultipleForms.copy(:TV5MONDE,:TV5PLUS)
 
 MultipleForms.register(:SATTICATV,{
 "getFormOnCreation"=>proc{|pokemon|

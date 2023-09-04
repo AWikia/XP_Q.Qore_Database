@@ -20418,7 +20418,8 @@ Evolutions=VENURISE,Level,36
 [747]
 Name=Venurise
 InternalName=VENURISE
-Type1=FIRE
+Type1=WATER
+Type2=FIRE
 BaseStats=79,83,87,86,98,96
 GenderRate=FemaleOneEighth
 GrowthRate=Parabolic
@@ -21856,7 +21857,7 @@ Evolutions=
 [800]
 Name=Orain Media
 InternalName=ORAINMEDIA
-Type1=HERB
+Type1=CHLOROPHYLL
 Type2=MAGIC
 BaseStats=97,38,56,50,39,85
 GenderRate=AlwaysMale

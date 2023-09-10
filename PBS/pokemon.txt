@@ -31906,8 +31906,8 @@ Habitat=Grassland
 Kind=Cube
 Pokedex=This Pokémon has not been uncovered yet. Stay tuned for more info
 FormNames=Cube 1,Cube 2,Cube 3,Cube 4
-BattlerPlayerY=2
-BattlerEnemyY=6
+BattlerPlayerY=10
+BattlerEnemyY=14
 BattlerAltitude=0
 Evolutions=
 [1172]

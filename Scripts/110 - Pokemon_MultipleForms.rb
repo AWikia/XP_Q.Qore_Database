@@ -9229,12 +9229,12 @@ MultipleForms.register(:APPLIN,{
 "wildHoldItems"=>proc{|pokemon|
    next [getID(PBItems,:SWEETAPPLE),
          getID(PBItems,:TARTAPPLE),
-         0] if pokemon.form==1 # Female Player Character
-   next                        # Male Player Character
+         getID(PBItems,:SYRUPYAPPLE)] if pokemon.form==1 # Female Player Character
+   next                                                  # Male Player Character
 }
 })
 
-MultipleForms.copy(:APPLIN,:FLAPPLE,:APPLETUN)
+MultipleForms.copy(:APPLIN,:FLAPPLE,:APPLETUN,:DIPPLIN)
 
 MultipleForms.register(:CRAMORANT,{
 "getFormOnLeavingBattle"=>proc{|pokemon|
@@ -9940,6 +9940,34 @@ MultipleForms.register(:MIRAIDON,{
 "dexEntry"=>proc{|pokemon|
    next if pokemon.form==0
    next _INTL("Its characteristics match those of a mysterious object recorded in an old expedition journal as the Iron Serpent.") if pokemon.form==1
+}
+})
+
+MultipleForms.register(:OGERPON,{
+"getForm"=>proc{|pokemon|
+   next 1  if isConst?(pokemon.item,PBItems,:WELLSPRINGMASK)
+   next 2  if isConst?(pokemon.item,PBItems,:HEARTHFLAMEMASK)
+   next 3  if isConst?(pokemon.item,PBItems,:CORNERSTONEMASK)
+   next 0
+},
+"type2"=>proc{|pokemon|
+   types=[:GRASS,:WATER,:FIRE,:ROCK]
+   next getID(PBTypes,types[pokemon.form])
+},
+"getAbilityList"=>proc{|pokemon|
+   next                                         if pokemon.form==0
+   next [[getID(PBAbilities,:WATERABSORB),0],
+         [getID(PBAbilities,:EMBODYASPECT2),2]] if pokemon.form==1
+   next [[getID(PBAbilities,:MOLDBREAKER),0],
+         [getID(PBAbilities,:EMBODYASPECT3),2]] if pokemon.form==2
+   next [[getID(PBAbilities,:MOLDBREAKER),0],
+         [getID(PBAbilities,:EMBODYASPECT4),2]] if pokemon.form==3
+},
+"dexEntry"=>proc{|pokemon|
+   next if pokemon.form==0
+   next _INTL("This form excels in both attack and defense. It ceaselessly unleashes moves like a spring gushes water.") if pokemon.form==1
+   next _INTL("This form is the most aggressive, bombarding enemies with the intensity of flames blazing within a hearth.") if pokemon.form==2
+   next _INTL("This form has excellent defenses, absorbing impacts solidly like the cornerstones that support houses.") if pokemon.form==3
 }
 })
 

@@ -4289,7 +4289,7 @@ class PokeBattle_Battle
         if attacker.hasWorkingAbility(:PROTOSYNTHESIS) &&
            ((move.pbIsPhysical?(type) && attacker.profstat== PBStats::ATTACK) ||
             (move.pbIsSpecial?(type) && attacker.profstat== PBStats::SPATK))
-          atk=(atk*1.5).round
+          atk=(atk*1.3).round
         end
       end
     end
@@ -4299,7 +4299,7 @@ class PokeBattle_Battle
         if attacker.hasWorkingAbility(:QUARKDRIVE) &&
            ((move.pbIsPhysical?(type) && attacker.profstat== PBStats::ATTACK) ||
             (move.pbIsSpecial?(type) && attacker.profstat== PBStats::SPATK))
-          atk=(atk*1.5).round
+          atk=(atk*1.3).round
         end
       end
     end    
@@ -4400,7 +4400,7 @@ class PokeBattle_Battle
         if opponent.hasWorkingAbility(:PROTOSYNTHESIS) &&
            ((move.pbIsPhysical?(type) && opponent.profstat== PBStats::DEFENSE) ||
             (move.pbIsSpecial?(type) && opponent.profstat== PBStats::SPDEF))
-          defense=(defense*1.5).round
+          defense=(defense*1.3).round
         end
       end
     end
@@ -4410,7 +4410,7 @@ class PokeBattle_Battle
         if opponent.hasWorkingAbility(:QUARKFRIVE) &&
            ((move.pbIsPhysical?(type) && opponent.profstat== PBStats::DEFENSE) ||
             (move.pbIsSpecial?(type) && opponent.profstat== PBStats::SPDEF))
-          defense=(defense*1.5).round
+          defense=(defense*1.3).round
         end
       end
     end    

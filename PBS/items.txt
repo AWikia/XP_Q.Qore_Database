@@ -523,7 +523,7 @@
 523,REVEALGLASS,Reveal Glass,Reveal Glasses,8,0,A mysterious looking glass that reveals the truth. It can return a Pokémon to its original shape.,5,0,6,
 524,OVALCHARM,Oval Charm,Oval Charms,8,0,Having one of these mysterious oval charms makes it more likely Pokémon Eggs might be found during at the Day Care.,0,0,6,
 525,SHINYCHARM,Shiny Charm,Shiny Charms,8,0,Having one of these mysterious shining charms makes it more likely you'll encounter Shiny Pokémon in the wild.,0,0,6,
-# Generation VI Items,,,,,,,,,,
+# Generation VI Items
 549,PRISONBOTTLE,Prison Bottle,Prison Bottles,8,0,"A bottle believed to have been used to seal away the power of a certain Pokémon long, long ago.",5,0,6,
 550,WHIPPEDDREAM,Whipped Dream,Whipped Dreams,1,2000,"A soft and sweet treat made of fluffy, puffy, whipped, and whirled cream. It's loved by a certain Pokémon.",0,0,0,
 551,SACHET,Sachet,Sachets,1,2000,A sachet filled with fragrant perfumes that are just slightly too overwhelming. Yet it's loved by a certain Pokémon.,0,0,0,
@@ -542,7 +542,7 @@
 670,ROSELIBERRY,Roseli Berry,Roseli Berries,5,20,"If a Pokémon holding this Berry is hit with a supereffective Fairy-type move, the power of that move will be weakened.",0,0,5,
 671,KEEBERRY,Kee Berry,Kee Berries,5,20,"If a Pokémon holding this Berry is hit with a physical move, the holder’s Defense stat will be boosted.",0,0,5,
 672,MARANGABERRY,Maranga Berry,Maranga Berries,5,20,"If a Pokémon holding this Berry is hit with a special move, the holder’s Sp. Def stat will be boosted.",0,0,5,
-# Generation VI Mega Evolution and Primal Items,,,,,,,,,,
+# Generation VI Mega Evolution and Primal Items
 776,ABSOLITE,Absolite,Absolites,1,10000,"One of the mysterious Mega Stones. Have Absol hold it, and this stone will enable it to Mega Evolve in battle.",0,0,12,
 777,GALLADITE,Galladite,Galladites,1,10000,"One of the mysterious Mega Stones. Have Gallade hold it, and this stone will enable it to Mega Evolve in battle.",0,0,12,
 778,GLALITITE,Glalitite,Glalitites,1,10000,"One of the mysterious Mega Stones. Have Glalie hold it, and this stone will enable it to Mega Evolve in battle.",0,0,12,
@@ -593,7 +593,7 @@
 823,REDORB,Red Orb,Red Orbs,1,0,A shiny red orb that is said to have a legend tied to it. It's known to have a deep connection to the Hoenn Region.,0,0,0,
 824,BLUEORB,Blue Orb,Blue Orbs,1,0,A shiny blue orb that is said to have a legend tied to it. It's known to have a deep connection to the Hoenn Region.,0,0,0,
 825,MEGARING,Mega Ring,Mega Rings,8,0,This ring contains an untold power that somehow enables Pokémon carrying Mega Stones to Mega Evolve in battle.,0,0,6,
-# Generation VII Items,,,,,,,,,,
+# Generation VII Items
 576,ICESTONE,Ice Stone,Ice Stones,1,2100,A peculiar stone that can make certain species of Pokémon evolve. It has a snowflake pattern in it.,1,0,7,
 597,PROTECTIVEPADS,Protective Pads,Protective Pads,1,4000,An item to be held by a Pokémon. These pads protect the holder from effects triggered by making direct contact with another Pokémon.,0,0,0,
 598,BEASTBALL,Beast Ball,Beast Balls,3,0,A somewhat different Poké Ball that is more effective when catching Ultra Beasts.,0,2,4,
@@ -625,7 +625,7 @@
 701,DRAGONMEMORY,Dragon Memory,Dragon Memories,1,1000,A memory disc that contains Dragon-type data. It changes the type of the holder if held by a certain Pokémon.,0,0,0,
 702,DARKMEMORY,Dark Memory,Dark Memories,1,1000,A memory disc that contains Dark-type data. It changes the type of the holder if held by a certain Pokémon.,0,0,0,
 703,FAIRYMEMORY,Fairy Memory,Fairy Memories,1,1000,A memory disc that contains Fairy-type data. It changes the type of the holder if held by a certain Pokémon.,0,0,0,
-# Generation VIII Items,,,,,,,,,,
+# Generation VIII Items
 723,ADAMANTMINT,Adamant Mint,Adamant Mints,1,20,"Having a Pokémon smell this mint can make its Attack stat grow stronger. However, its Sp. Atk stat may suffer.",1,0,0,
 724,BLUNDERPOLICY,Blunder Policy,Blunder Policy,1,4000,"An item to be held by a Pokémon. If the holder misses with a move due to low accuracy, this policy will sharply boost its Speed stat.",0,0,0,
 725,BOLDMINT,Bold Mint,Bold Mints,1,20,"Having a Pokémon smell this mint can make its Defense stat grow stronger. However, its Attack stat may suffer.",1,0,0,
@@ -667,7 +667,7 @@
 862,GALARICAWREATH,Galarica Wreath,Galarica Wreaths,1,6000,A wreath made from woven-together Galarica Twigs. Placing it on the head of a Galarian Slowpoke makes the Pokémon very happy.,1,0,7,
 968,BLANKPLATE,Blank Plate,Blank Plates,1,1000,An item to be held by a Pokémon. This stone tablet is imbued with the essence of normalcy and boosts the power of the holder’s Normal-type moves.,0,0,0,
 974,LINKINGCORD,Linking Cord,Linking Cords,1,1000,A string exuding a mysterious energy that makes you feel a strange sense of connection. It’s loved by certain Pokémon.,1,0,0,
-# Generation IX Items,,,,,,,,,,
+# Generation IX Items
 977,AUSPICIOUSARMOR,Auspicious Armor,Auspicious Armors,1,3000,A peculiar set of armor that can make a certain species of Pokémon evolve. Auspicious wishes live within it.,1,0,7,
 978,MALICIOUSARMOR,Malicious Armor,Malicious Armors,1,3000,A peculiar set of armor that can make a certain species of Pokémon evolve. Malicious will lurks within it.,1,0,7,
 979,CLEARAMULET,Clear Amulet,Clear Amulets,1,30000,"An item to be held by a Pokémon. This clear, sparkling amulet protects the holder from having its stats lowered by moves used against it or by other Pokémon's Abilities.",0,0,0,
@@ -675,10 +675,16 @@
 981,MIRRORHERB,Mirror Herb,Mirror Herbs,1,30000,"An item to be held by a Pokémon. This herb will allow the holder to mirror an opponent's stat increases to boost its own stats—but only once.",0,0,0,
 982,PUNCHINGGLOVE,Punching Glove,Punching Gloves,1,15000,"An item to be held by a Pokémon. This protective glove boosts the power of the holder's punching moves and prevents direct contact with targets.",0,0,0,
 983,ABILITYSHIELD,Ability Shield,Ability Shields,1,20000,"An item to be held by a Pokémon. This cute and rather unique-looking shield protects the holder from having its Ability changed by others.",0,0,0,
-## Trophies (28 Total),,,,,,,,,,
-# Platina,,,,,,,,,,
+# Generation IX TM Items
+986,SYRUPYAPPLE,Syrupy Apple,Syrupy Apples,1,2200,"A peculiar apple that can make a certain species of Pokémon evolve. It's exceptionally syrupy.",1,0,7,
+987,UNREMARKABLETEACUP,Unremarkable Teacup,Unremarkable Teacups,1,1600,"A peculiar teacup that can make a certain species of Pokémon evolve. It may be cracked, but tea drunk from it is delicious.",1,0,7,
+988,WELLSPRINGMASK,Wellspring Mask,Wellspring Masks,1,1000,"An item to be held by Ogerpon. This carved wooden mask is adorned with crystals and allows Ogerpon to wield the Water type during battle.",0,0,0,
+989,HEARTHFLAMEMASK,Hearthflame Mask,Hearthflame Masks,1,1000,"An item to be held by Ogerpon. This carved wooden mask is adorned with crystals and allows Ogerpon to wield the Fire type during battle.",0,0,0,
+990,CORNERSTONEMASK,Cornerstone Mask,Cornerstone Masks,1,1000,"An item to be held by Ogerpon. This carved wooden mask is adorned with crystals and allows Ogerpon to wield the Rock type during battle.",0,0,0,
+## Trophies (28 Total)
+# Platina
 827,TQOREMASTER,Qora Qore Master,Qora Qore Master,6,0,Awarded for completing all the pregame,2,0,6,
-# Xriso,,,,,,,,,,
+# Xriso
 828,TQUORA,Quora Master,Quora Master,6,0,Awarded for completing Quora,2,0,6,
 829,TSWUORA,Swuora Master,Swuora Master,6,0,Awarded for completing Swuora,2,0,6,
 830,TSEMUORA,Semuora Master,Semuora Master,6,0,Awarded for completing Semuora,2,0,6,
@@ -694,7 +700,7 @@
 840,THOENN,Hoenn Master,Hoenn Master,6,0,Awarded for completing Hoenn,2,0,6,
 841,TELITE4,Champion Master,Champion Master,6,0,Awarded for completing Elite Four for first time,2,0,6,
 842,TELITE4B,Champion Lord,Champion Lord,6,0,Awarded for completing Elite Four in their nightmare party,2,0,6,
-# Asimina,,,,,,,,,,
+# Asimina
 843,TEVOLVER,Pokémon Evolver,Pokémon Evolver,6,0,Awarded for evolving your first Pokémon,2,0,6,
 844,TMINER,Perfect Miner,Perfect Miner,6,0,Awarded for digging all items in a single Mining Game,2,0,6,
 845,TLOTTER,Perfect Lotter,Perfect Lotter,6,0,Awarded for earning a Master Ball from the Lottery,2,0,6,
@@ -703,12 +709,12 @@
 848,TCRAFTER,Pokémon Crafter,Pokémon Crafter,6,0,Awarded for crafting your first bobojido egg into a Pokémon,2,0,6,
 849,TBOXFILLER,Box Filler,Box Filler,6,0,Awarded for having a total of more than 30 caught Pokémon in the Storage System,2,0,6,
 850,TWINNER,Tower Winner,Tower Winner,6,0,Awarded for winning your first Battle Tower match,2,0,6,
-# Xaloks,,,,,,,,,,
+# Xaloks
 851,TCATCHER,Pokémon Catcher,Pokémon Catcher,6,0,Awarded for catching your first Pokémon,2,0,6,
 852,TPREMIER,Extra Ball,Extra Ball,6,0,Awarded for getting your first free Premier Ball,2,0,6,
 853,TMIGRATOR,Pokémon Migrator,Pokémon Migrator,6,0,Awarded for getting your first Migrated Pokémon,2,0,6,
 854,TLINKER,Battle Linker,Battle Linker,6,0,Awarded for winning your first Link Battle,2,0,6,
-# Technical Discs (78/100),,,,,,,,,,
+# Technical Discs (78/100)
 865,TD01,TD01,TD01s,4,0,The user blocks the target from using items any longer to the target by making its Ability Klutz.,6,0,0,FORBIDDENSPELL
 866,TD02,TD02,TD02s,4,0,"The user faints when using this move. In return, it severely lowers the target's Attack and Sp. Atk.",6,0,0,SUPERMEMENTO
 867,TD03,TD03,TD03s,4,0,"The user licks and locks 3 times, drastically increasing Evasion but severely decreasing Defense. This attack never goes encored.",6,0,0,LICKLOCK
@@ -809,7 +815,7 @@
 962,TD98,TD98,TD98s,4,0,The user damages the foe with darks. Damage taken increases by how much trained is the user.,6,0,0,TOPSYDAMAGE
 963,TD99,TD99,TD99s,4,0,The user damages the foe with a crayon. Damage taken increases by difference between levels of user and target.,6,0,0,DOUZECRAYON
 964,TD100,TD100,TD100s,4,0,"The user uses his mind to craft some damage to the foe in order to regain health. The more trained the user is, the greater will be the damage.",6,0,0,MINDRECOVERCY
-# FLINT and Κορα Κορε Items,,,,,,,,,,
+# FLINT and Κορα Κορε Items
 526,ANGLESTONE,Angle Stone,Angle Stones,1,2100,A peculiar stone that can make certain species of Pokémon evolve. It is shaped like a head. All Bobojido Pokémon love it.,1,0,7,
 527,FIERYSTONE,Fiery Stone,Fiery Stones,1,900,"An item to be held by a Pokémon. This stone slightly boosts the power of Grass-,Fire- and Water- type moves.",0,0,0,
 528,META,Meta Stone,Meta Stones,1,5000,A peculiar stone that can make certain species of Pokémon evolve. Certain species can evolve into Wikimedia and Uncyclomedia respecitvely.,1,0,7,
@@ -994,4 +1000,5 @@
 975,ANT1ITE,ANT1ite,ANT1ites,1,10000,"One of the mysterious Mega Stones. Have ANT1 hold it, and this stone will enable it to Mega Evolve in battle.",0,0,12,
 976,GRAYSACHET,Gray Sachet,Gray Sachets,1,10000,An item to be held by a Pokémon. This goth sachet doubles the damage dealt to targets that share the user's favorite type.,0,0,0,
 984,MAKITE,Makite,Makites,1,10000,"One of the mysterious Mega Stones. Have Makedonia TV hold it, and this stone will enable it to Mega Evolve in battle.",0,0,12,
+985,FUSIONFINDER,Fusion Finder,Fusion Finder,8,0,A tool that can search out Fusion Pokémon that are hiding in the tall grass. Its battery is recharged as you walk.,2,0,6,
 

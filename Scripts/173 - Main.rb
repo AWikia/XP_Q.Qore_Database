@@ -37,6 +37,7 @@ def qoreInitials
     $REGIONALCOMBO=1050
     $USENEWBATTLEMECHANICS=($newmech==1) ? true : false
     $inbattle=false # Initialization
+    $fusionfinder=false
     $JBIndex0= 0
     $JBIndex1= 1
     Graphics.frame_rate=40

@@ -663,7 +663,8 @@ class PokeBattle_Move
     evastage-=2 if @battle.field.effects[PBEffects::Gravity]>0
     evastage=-6 if evastage<-6
     evastage=0 if evastage>0 && $USENEWBATTLEMECHANICS &&
-                  attacker.hasWorkingAbility(:KEENEYE)
+                  (attacker.hasWorkingAbility(:KEENEYE) ||
+                   attacker.hasWorkingAbility(:MINDSEYE))
     evastage=0 if opponent.effects[PBEffects::Foresight] ||
                   opponent.effects[PBEffects::MiracleEye] ||
                   @function==0xA9 || # Chip Away
@@ -1429,8 +1430,12 @@ class PokeBattle_Move
        attacker.hasWorkingAbility(:QUARKDRIVE))
        if (pbIsPhysical?(type) && attacker.profstat == PBStats::ATTACK) || 
           (pbIsSpecial?(type) && attacker.profstat == PBStats::SPATK )
-        atkmult=(atkmult*1.5).round
+        atkmult=(atkmult*1.3).round
       end
+    end
+    # Embody Aspect (Hearthflame Mask)
+    if attacker.hasWorkingAbility(:EMBODYASPECT3) && pbIsPhysical?(type)
+      atkmult=(atkmult*1.3).round
     end
     if attacker.pbPartner.hasWorkingAbility(:POWERSPOT)
       atkmult=(atkmult*1.3).round
@@ -1546,8 +1551,13 @@ class PokeBattle_Move
        opponent.hasWorkingAbility(:QUARKDRIVE))
        if  (pbIsPhysical?(type) && opponent.profstat == PBStats::DEFENSE) || 
           (pbIsSpecial?(type) && opponent.profstat == PBStats::SPDEF )
-        defmult=(defmult*1.5).round
+        defmult=(defmult*1.3).round
       end
+    end
+    # Embody Aspect (Wellspring and Cornerstone Masks)
+    if (opponent.hasWorkingAbility(:EMBODYASPECT4) && pbIsPhysical?(type)) ||
+       (opponent.hasWorkingAbility(:EMBODYASPECT2) && pbIsSpecial?(type))
+      defmult=(defmult*1.3).round
     end
     if @battle.pbCheckGlobalAbility(:BREADSOFRUIN) && 
       !opponent.hasWorkingAbility(:BREADSOFRUIN) &&  pbIsSpecial?(type)

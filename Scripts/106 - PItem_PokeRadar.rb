@@ -42,6 +42,7 @@ end
 
 def pbUsePokeRadar
   if pbCanUsePokeRadar?
+    $fusionfinder=false # Fusion Finder
     $PokemonTemp.pokeradar=[0,0,0,[]] if !$PokemonTemp.pokeradar
     $PokemonGlobal.pokeradarBattery=50
     pbPokeRadarHighlightGrass
@@ -49,6 +50,18 @@ def pbUsePokeRadar
   end
   return false
 end
+
+def pbUseFusionFinder # Fusion Finder
+  if pbCanUsePokeRadar?
+    $fusionfinder=true
+    $PokemonTemp.pokeradar=[0,0,0,[]] if !$PokemonTemp.pokeradar
+    $PokemonGlobal.pokeradarBattery=50
+    pbPokeRadarHighlightGrass
+    return true
+  end
+  return false
+end
+
 
 def pbPokeRadarHighlightGrass(showmessage=true)
   grasses=[]   # x, y, ring (0-3 inner to outer), rarity
@@ -107,6 +120,7 @@ end
 
 def pbPokeRadarCancel
   $PokemonTemp.pokeradar=nil
+  $fusionfinder=false # Fusion Finder
 end
 
 def pbPokeRadarGetShakingGrass
@@ -124,13 +138,14 @@ def pbPokeRadarOnShakingGrass
   return pbPokeRadarGetShakingGrass>=0
 end
 
-def pbPokeRadarGetEncounter(rarity=0)
+def pbPokeRadarGetEncounter(rarity=0,fusions=false)
   # Poké Radar-exclusive encounters can only be found in vigorously-shaking grass
   if rarity>0
     # Get all Poké Radar-exclusive encounters for this map
     map=$game_map.map_id rescue 0
     array=[]
-    for enc in POKERADAREXCLUSIVES
+    datalist = (fusions) ? FUSIONFINDEREXCLUSIVES : POKERADAREXCLUSIVES
+    for enc in datalist
       array.push(enc) if enc.length>=4 && enc[0]==map && getID(PBSpecies,enc[2])>0
     end
     # If there are any exclusives, first have a chance of encountering those
@@ -181,7 +196,7 @@ EncounterModifier.register(proc {|encounter|
        end
      else
        # Force random wild encounter, vigorous shaking means rarer species
-       encounter=pbPokeRadarGetEncounter(s)
+       encounter=pbPokeRadarGetEncounter(s,$fusionfinder)
      end
    else
      pbPokeRadarCancel if encounter   # Encounter is not in shaking grass
@@ -252,5 +267,13 @@ ItemHandlers.addUseInField(:POKERADAR, proc {
 })
 
 ItemHandlers.addUseFromBag(:POKERADAR, proc {
+   next pbCanUsePokeRadar? ? 2 : 0
+})
+
+ItemHandlers.addUseInField(:FUSIONFINDER, proc {
+   next pbUseFusionFinder
+})
+
+ItemHandlers.addUseFromBag(:FUSIONFINDER, proc {
    next pbCanUsePokeRadar? ? 2 : 0
 })

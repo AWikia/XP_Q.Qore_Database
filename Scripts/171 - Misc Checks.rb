@@ -1,5 +1,5 @@
 #===============================================================================
-# * Ultra Beasts, Legendary and Mythical PokImons
+# * Ultra Beasts, Legendary and Mythical Pokémons
 #===============================================================================
 
 def isUltraBeast?(species)
@@ -93,7 +93,30 @@ def isLegendaryMythicalOrUltra?(species)
      isConst?(species.species,PBSpecies,:MELMETAL) ||
      isConst?(species.species,PBSpecies,:ZACIAN) ||
      isConst?(species.species,PBSpecies,:ZAMAZENTA) ||
+     isConst?(species.species,PBSpecies,:ETERNATUS) ||
+     isConst?(species.species,PBSpecies,:KUBFU) ||
+     isConst?(species.species,PBSpecies,:URSHIFU) ||
+     isConst?(species.species,PBSpecies,:ZARUDE) ||
+     isConst?(species.species,PBSpecies,:REGIELEKI) ||
+     isConst?(species.species,PBSpecies,:REGIDRACO) ||
+     isConst?(species.species,PBSpecies,:GLASTRIER) ||
+     isConst?(species.species,PBSpecies,:SPECTRIER) ||
+     isConst?(species.species,PBSpecies,:CALYREX) ||
+     isConst?(species.species,PBSpecies,:ENAMORUS) ||
+     isConst?(species.species,PBSpecies,:WOCHIEN) ||
+     isConst?(species.species,PBSpecies,:CHIENPAO) ||
+     isConst?(species.species,PBSpecies,:TINGLU) ||
+     isConst?(species.species,PBSpecies,:CHIYU) ||
+     isConst?(species.species,PBSpecies,:KORAIDON) ||
+     isConst?(species.species,PBSpecies,:MIRAIDON) ||
+     isConst?(species.species,PBSpecies,:OKIDOKI) ||
+     isConst?(species.species,PBSpecies,:MUNKIDORI) ||
+     isConst?(species.species,PBSpecies,:FEZANDIPITI) ||
+     isConst?(species.species,PBSpecies,:OGERPON) ||
      isConst?(species.species,PBSpecies,:KYODON) ||
+     isConst?(species.species,PBSpecies,:KOULUNDIN) ||
+     isConst?(species.species,PBSpecies,:COULUNDIN) ||
+     isConst?(species.species,PBSpecies,:CALODIN) ||
      isConst?(species.species,PBSpecies,:SURPLETE)
     return true
   end
@@ -101,17 +124,20 @@ def isLegendaryMythicalOrUltra?(species)
 end
 
 #===============================================================================
-# * Eternal PokImons, Ultra Blue and Regional Forms
+# * Eternal Pokémons, Ultra Blue and Regional Forms
 #===============================================================================
 
 def isRegionalForme?(species)
-    return true if isEternal?(species)
-    return true if isPhonetic?(species)
+    # Standard
     return true if isAlolan?(species)
     return true if isGalarian?(species)
+    return true if isHisuian?(species)
+    return true if isPaldean?(species)
+    # Q.Qore
+    return true if isEternal?(species)
+    return true if isPhonetic?(species)
     return true if isMysterical?(species)
     return true if isYorkbook?(species)
-    return true if isPaldean?(species)
     return false
 end
 
@@ -271,7 +297,7 @@ end
 
 def isPaldean?(pokemon)
   # NOTE: Also includes their evolutions exclusive to Paldean forms
-  # (Closire)
+  # (Closire) but does not include Convergent Species like Wiglett
   return (isConst?(pokemon.species,PBSpecies,:WOOPER) && pokemon.form==1) ||
          (isConst?(pokemon.species,PBSpecies,:TAUROS) && pokemon.form==1) ||
          (isConst?(pokemon.species,PBSpecies,:TAUROS) && pokemon.form==2) ||

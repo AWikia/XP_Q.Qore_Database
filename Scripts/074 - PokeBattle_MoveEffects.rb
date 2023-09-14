@@ -16736,6 +16736,63 @@ class PokeBattle_Move_374 < PokeBattle_Move
   end
 end
 
+################################################################################
+# For the next three turns, opponent's Speed is reduced by 1 stage (Syrup Bomb)
+################################################################################
+class PokeBattle_Move_375 < PokeBattle_Move
+  def pbEffect(attacker,opponent,hitnum=0,alltargets=nil,showanimation=true)
+    ret=0
+    ret=super(attacker,opponent,hitnum,alltargets,showanimation) if pbIsDamaging?
+    pbShowAnimation(@id,attacker,opponent,hitnum,alltargets,showanimation) if !pbIsDamaging?
+    opponent.effects[PBEffects::SyrupBomb]=3
+    @battle.pbDisplay(_INTL("{1} got covered in a sticky candy syrup!",opponent.pbThis))
+    return ret
+  end
+
+  def pbAdditionalEffect(attacker,opponent)
+    opponent.effects[PBEffects::SyrupBomb]=3
+    @battle.pbDisplay(_INTL("{1} got covered in a sticky candy syrup!",opponent.pbThis))
+  end
+end
+
+################################################################################
+# Type changes depending on Ogerpon's form. (Ivy Crudgel)
+################################################################################
+class PokeBattle_Move_376 < PokeBattle_Move
+  def pbModifyType(type,attacker,opponent)
+    type=getConst(PBTypes,:GRASS) || 0
+    if isConst?(attacker.species,PBSpecies,:OGERPON)
+      case attacker.form
+      when 0
+        type=(getConst(PBTypes,:GRASS) || type)
+      when 1
+        type=(getConst(PBTypes,:WATER) || type)
+      when 2
+        type=(getConst(PBTypes,:FIRE) || type)
+      when 3
+        type=(getConst(PBTypes,:ROCK) || type)
+      end
+    end
+    return type
+  end
+end
+
+################################################################################
+# User gains half the HP it inflicts as damage. 
+# May burn the target (Mathca Gotcha)
+################################################################################
+class PokeBattle_Move_377 < PokeBattle_Move_0DD
+  def isHealingMove?
+    return $USENEWBATTLEMECHANICS
+  end
+
+  def pbAdditionalEffect(attacker,opponent)
+    return if opponent.damagestate.substitute
+    if opponent.pbCanBurn?(attacker,false,self)
+      opponent.pbBurn(attacker)
+    end
+  end
+end
 
 #===============================================================================
 # NOTE: If you're inventing new move effects for your own game, use number 162

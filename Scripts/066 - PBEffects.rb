@@ -153,6 +153,7 @@ begin
     CommanderAlly      = 149 # Used only on Dondozo currently
     ShedTail           = 150
     DolphininoForm     = 151 # Used omly on Dolphinino
+    SyrupBomb          = 152
     
     ############################################################################
     # These effects apply to a side

@@ -1081,7 +1081,7 @@ def drawPageFive(pokemon)
     @sprites["pokeicon"].x=46
     @sprites["pokeicon"].y=54
     @sprites["pokeicon"].visible=true
-    @sprites["itemicon"].visible = false
+    @sprites["itemicon"].visible = false if @sprites["itemicon"]
     movedata=PBMoveData.new(moveid)
     basedamage=movedata.basedamage
     type=movedata.type

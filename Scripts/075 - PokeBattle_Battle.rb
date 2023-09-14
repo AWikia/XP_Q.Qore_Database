@@ -4682,6 +4682,13 @@ class PokeBattle_Battle
           PBDebug.log("[Effect triggered] #{i.pbThis}'s Octolock")
         end
       end
+      # Syrup Bomb
+      # A Pokémon's turncount is 0 if it became active after the beginning of a round
+      if i.turncount>0 && i.effects[PBEffects::SyrupBomb]>0
+        if i.pbReduceStat(PBStats::SPEED,1,i,false,self,true)
+          PBDebug.log("[Effect triggered] #{i.pbThis}'s Syrup Bomb")
+        end
+      end
       # Bad Dreams
       if i.status==PBStatuses::SLEEP && !(i.hasWorkingAbility(:MAGICGUARD) || i.hasWorkingAbility(:SUPERCLEARBODY))
         if i.pbOpposing1.hasWorkingAbility(:BADDREAMS) ||
@@ -4847,6 +4854,9 @@ class PokeBattle_Battle
           scene.pbChangePokemon(@battlers[i],@battlers[i].pokemon)
           pbDisplay(_INTL("{1}'s Ultra Burst wore off",@battlers[i].pbThis))
         end
+      end
+      if @battlers[i].effects[PBEffects::SyrupBomb]>0
+        @battlers[i].effects[PBEffects::SyrupBomb]-=1
       end
       @battlers[i].effects[PBEffects::MagicDelta]=false
       @battlers[i].effects[PBEffects::ShellTrap]=false # changed

@@ -821,6 +821,11 @@
 1203,MAGICALTORQUE,Magical Torque,007,100,FAIRY,Physical,100,10,30,00,0,bef,"A Torque move that has 30% chance of confusing the target."
 1205,HYDROSTEAM,Hydro Steam,373,80,WATER,Special,100,15,0,00,0,bef,"The user blasts the target with boiling-hot water. This move's power is not lowered in harsh sunlight but rather boosted by 50 percent."
 1206,PSYBLADE,Psyblade,374,80,PSYCHIC,Physical,100,15,0,00,0,abef,"The user rends the target with an ethereal blade. This move's power is boosted by 50 percent if the user is on Electric Terrain."
+# Generation IX TM Moves
+1207,SYRUPBOMB,Syrup Bomb,375,60,GRASS,Special,85,10,0,00,0,befn,"The user sets off an explosion of sticky candy syrup, which coats the target and causes the target's Speed stat to drop each turn for three turns."
+1208,IVYCRUDGEL,Ivy Crudgel,376,100,GRASS,Physical,100,10,0,00,0,befh,"The user strikes with an ivy-wrapped cudgel. This move's type changes depending on the mask worn by the user, and it has a heightened chance of landing a critical hit."
+1209,MATCHAGOTCHA,Matcha Gotcha,377,80,GRASS,Special,90,15,20,00,0,befh,"The user fires a blast of tea that it mixed. The user's HP is restored by up to half the damage taken by the target. This may also leave the target with a burn."
+1210,BLOODMOON,Blood Moon,371,140,MOON,Special,100,5,0,00,0,abef,"The user unleashes the full brunt of its spirit from a full moon that shines as red as blood. This move can't be used twice in a row."
 # Shadow Moves
 648,SHADOWEND,Shadow End,130,120,SHADOW,Special,60,0,0,00,0,abf,A shadowy aura ram attack that also rebounds on the user.
 649,SHADOWSTORM,Shadow Storm,12D,95,SHADOW,Special,100,0,0,04,0,b,A shadowy aura is used to whip up a vicious tornado.

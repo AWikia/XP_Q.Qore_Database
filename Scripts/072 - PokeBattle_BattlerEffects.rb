@@ -998,6 +998,7 @@ class PokeBattle_Battler
           return false
         end
         if stat==PBStats::ACCURACY && (hasWorkingAbility(:KEENEYE) || 
+                                       hasWorkingAbility(:MINDSEYE) ||
                                        hasWorkingAbility(:ILLUMINATE))
           abilityname=PBAbilities.getName(self.ability)
           pbSEPlay("protection") if showMessages
@@ -1452,6 +1453,59 @@ class PokeBattle_Battler
       end
     end
     return pbReduceStatWithCause(proficient,1,opponent,PBAbilities.getName(opponent.ability))
+  end
+
+  def pbReduceEvasionStatSupersweetSyrup(opponent)
+    return false if isFainted?
+    if effects[PBEffects::Substitute]>0
+			pbSEPlay("protection")
+      @battle.pbDisplay(_INTL("{1}'s substitute protected it from {2}'s {3}!",
+         pbThis,opponent.pbThis(true),PBAbilities.getName(opponent.ability)))
+      return false
+    end
+    if !hasWorkingAbility(:CONTRARY)
+      if pbOwnSide.effects[PBEffects::Mist]>0
+        pbSEPlay("protection")
+        @battle.pbDisplay(_INTL("{1} is protected from {2}'s {3} by Mist!",
+           pbThis,opponent.pbThis(true),PBAbilities.getName(opponent.ability)))
+        return false
+      end
+      # Cinament
+      if @battle.field.effects[PBEffects::Cinament]>0 &&
+        (!opponent || !opponent.hasWorkingItem(:RODOFSPARROW))
+        oppabilityname=PBAbilities.getName(opponent.ability)
+        pbSEPlay("protection")
+        @battle.pbDisplay(_INTL("The Cinament prevented {1}'s {2} from working!",opponent.pbThis(true),oppabilityname))
+        return false
+      end
+      if hasWorkingItem(:CLEARAMULET)
+         itemname=PBAbilities.getName(self.item)
+        oppabilityname=PBAbilities.getName(opponent.ability)
+        pbSEPlay("protection")
+        @battle.pbDisplay(_INTL("{1}'s {2} prevented {3}'s {4} from working!",
+           pbThis,itemname,opponent.pbThis(true),oppabilityname))
+        return false
+      end
+      if hasWorkingAbility(:CLEARBODY) || hasWorkingAbility(:WHITESMOKE) ||
+        hasWorkingAbility(:KEENEYE) || hasWorkingAbility(:ILLUMINATE) ||
+        hasWorkingAbility(:MINDSEYE)
+         abilityname=PBAbilities.getName(self.ability)
+        oppabilityname=PBAbilities.getName(opponent.ability)
+        pbSEPlay("protection")
+        @battle.pbDisplay(_INTL("{1}'s {2} prevented {3}'s {4} from working!",
+           pbThis,abilityname,opponent.pbThis(true),oppabilityname))
+        return false
+      end
+      if pbPartner.hasWorkingAbility(:FLOWERVEIL) && pbHasType?(:GRASS)
+        abilityname=PBAbilities.getName(pbPartner.ability)
+        oppabilityname=PBAbilities.getName(opponent.ability)
+        pbSEPlay("protection")
+        @battle.pbDisplay(_INTL("{1}'s {2} prevented {3}'s {4} from working!",
+           pbPartner.pbThis,abilityname,opponent.pbThis(true),oppabilityname))
+        return false
+      end
+    end
+    return pbReduceStatWithCause(PBStats::EVASION,1,opponent,PBAbilities.getName(opponent.ability))
   end
 
   

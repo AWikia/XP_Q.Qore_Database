@@ -741,6 +741,7 @@ def ragefist
     @effects[PBEffects::Commander]        = false
     @effects[PBEffects::CommanderAlly]    = false
     @effects[PBEffects::DolphininoForm]   = 1
+    @effects[PBEffects::SyrupBomb]         = 0
     # Disguise causes the ability-suppressing effect to fade
     # if it was passed on through Baton Pass
     if self.hasWorkingAbility(:DISGUISE) && isConst?(self.species,PBSpecies,:MIMIKYU)
@@ -994,6 +995,10 @@ def ragefist
       :ASONE2,
       :COMMANDER,
       :COMATOSE,
+      :EMBODYASPECT1,
+      :EMBODYASPECT2,
+      :EMBODYASPECT3,
+      :EMBODYASPECT4,
       :HADRONENGINE,
       :ORICHALCUMPULSE,
       :PROTOSYNTHESIS,
@@ -1056,6 +1061,10 @@ def ragefist
       :ASONE2,
       :COMMANDER,
       :COMATOSE,
+      :EMBODYASPECT1,
+      :EMBODYASPECT2,
+      :EMBODYASPECT3,
+      :EMBODYASPECT4,
       :HADRONENGINE,
       :ORICHALCUMPULSE,
       :PROTOSYNTHESIS,
@@ -1195,6 +1204,10 @@ def ragefist
        self.hasWorkingAbility(:PROTOSYNTHESIS)) ||
       (@battle.field.effects[PBEffects::ElectricTerrain]>0 && 
        self.hasWorkingAbility(:QUARKDRIVE)) && self.profstat == PBStats::SPEED
+       speedmult=(speedmult*1.5).round
+    end
+    # Embody Aspect (Teal Mask)
+    if self.hasWorkingAbility(:EMBODYASPECT1)
        speedmult=(speedmult*1.5).round
     end
     if self.hasWorkingItem(:MACHOBRACE) ||
@@ -2142,6 +2155,15 @@ def ragefist
         end
       end
     end
+    # Superweet Syrup
+    if self.hasWorkingAbility(:SUPERSWEETSYRUP) && onactive
+      PBDebug.log("[Ability triggered] #{pbThis}'s Superweet Syrup")
+      for i in 0...4
+        if pbIsOpposing?(i) && !@battle.battlers[i].isFainted?
+          @battle.battlers[i].pbReduceEvasionStatSupersweetSyrup(self)
+        end
+      end
+    end
     # Corrosive Gas (Curing)
       if self.pbHasType?(:GAS) && self.pokemon.corrosiveGas
         self.pokemon.corrosiveGas=false
@@ -2407,8 +2429,15 @@ def ragefist
     end
     # Pastel Veil (Curing Poisoning)
     if self.hasWorkingAbility(:PASTELVEIL) && self.pbPartner.status==PBStatuses::POISON && onactive
+      PBDebug.log("[Ability triggered] #{pbThis}'s Pastel Veil")
       self.pbPartner.pbCureStatus(false)
-      pbDisplay(_INTL("{1}'s {2} cured its partner's poison problem!",self.pbThis,PBAbilities.getName(self.ability)))
+      @battle.pbDisplay(_INTL("{1}'s {2} cured its partner's poison problem!",self.pbThis,PBAbilities.getName(self.ability)))
+    end
+    if self.hasWorkingAbility(:HOSPITALITY)
+      if self.pbPartner.pbRecoverHP((self.pbPartner.totalhp/4).floor,true)>0
+        PBDebug.log("[Ability triggered] #{pbThis}'s Hospitality")
+        @battle.pbDisplay(_INTL("{1}'s {2} restored its partner's HP using the drink it made",self.pbThis,PBAbilities.getName(self.ability)))
+      end
     end
     # Commander
     if self.hasWorkingAbility(:COMMANDER) && 
@@ -3006,6 +3035,12 @@ def ragefist
           PBDebug.log("[Ability triggered] #{user.pbThis}'s Poison Touch")
           target.pbPoison(user,_INTL("{1}'s {2} poisoned {3}!",user.pbThis,
              PBAbilities.getName(user.ability),target.pbThis(true)))
+        end
+        if user.hasWorkingAbility(:TOXICCHAIN,true) &&
+           target.pbCanPoison?(nil,false) && @battle.pbRandom(10)<3
+          PBDebug.log("[Ability triggered] #{user.pbThis}'s Poison Touch")
+          target.pbPoison(user,_INTL("{1}'s {2} badly poisoned {3}!",user.pbThis,
+             PBAbilities.getName(user.ability),target.pbThis(true)),true)
         end
         if user.hasWorkingAbility(:ILLUSIVEBILITY) && @battle.pbRandom(10)<3 && !target.pbHasType?(:SHARPENER)
           if !target.isFainted? && target.pbCanAttract?(target,false)

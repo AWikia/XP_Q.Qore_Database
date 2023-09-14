@@ -302,6 +302,15 @@
 385,ARMORTAIL,Armor Tail,"The mysterious tail covering the Pokémon’s head makes opponents unable to use priority moves against the Pokémon or its allies."
 386,EARTHEATER,Earth Eater,"If hit by a Ground-type move, the Pokémon has its HP restored instead of taking damage."
 387,MYCELIUMMIGHT,Mycelium Might,"The Pokémon will always act more slowly when using status moves, but these moves will be unimpeded by the Ability of the target."
+# Generation IX TM Abilities
+393,SUPERSWEETSYRUP,"Supersweet Syrup","A sickly sweet scent spreads across the field the first time the Pokémon enters a battle, lowering the evasiveness of opposing Pokémon."
+394,HOSPITALITY,"Hospitality","When the Pokémon enters a battle, it showers its ally with hospitality, restoring a small amount of the ally's HP."
+395,MINDSEYE,"Mind's Eye","The Pokémon ignores changes to opponents' evasiveness, its accuracy can't be lowered, and it can hit Ghost types with Normal- and Fighting-type moves."
+396,TOXICCHAIN,"Toxic Chain","The power of the Pokémon's toxic chain may badly poison any target the Pokémon hits with a move."
+397,EMBODYASPECT1,"Embody Aspect","The Pokémon's heart fills with memories, causing the Teal Mask to shine and the Pokémon's Speed stat to be boosted."
+398,EMBODYASPECT2,"Embody Aspect","The Pokémon's heart fills with memories, causing the Wellspring Mask to shine and the Pokémon's Sp. Def stat to be boosted."
+399,EMBODYASPECT3,"Embody Aspect","The Pokémon's heart fills with memories, causing the Hearthflame Mask to shine and the Pokémon's Attack stat to be boosted."
+400,EMBODYASPECT4,"Embody Aspect","The Pokémon's heart fills with memories, causing the Cornerstone Mask to shine and the Pokémon's Defense stat to be boosted."
 # FLINT Abilities
 192,DOOMER,Doomer,Increases power of Doom Attcaks when the Pokémon's HP is low.
 193,MARIAMARA,Mariamara,"Doubles the power of Dark Attacks when the Pokémon's HP drops to half or less."

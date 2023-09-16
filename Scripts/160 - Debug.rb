@@ -300,6 +300,7 @@ def pbDebugMenu(fromgame=true)
   commands.add("compiledata",_INTL("Compile Data"))
   commands.add("mapconnections",_INTL("Map Connections"))
   commands.add("animeditor",_INTL("Animation Editor"))
+  commands.add("animorganizer",_INTL("Animation Organizer"))
   commands.add("debugconsole",_INTL("Debug Console"))
   commands.add("togglelogging",_INTL("Toggle Battle Logging"))
   commands.add("godhandmode",_INTL("Use Intensive Battle Difficulty"))
@@ -904,6 +905,8 @@ def pbDebugMenu(fromgame=true)
       pbFadeOutIn(99999) { pbEditorScreen }
     elsif cmd=="animeditor"
       pbFadeOutIn(99999) { pbAnimationEditor(fromgame) }
+    elsif cmd="animorganizer"
+      pbFadeOutIn(99999) { pbAnimationsOrganiser }
     elsif cmd=="debugconsole"
       Console::setup_console
     elsif cmd=="togglelogging"

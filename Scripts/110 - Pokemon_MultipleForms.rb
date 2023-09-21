@@ -9954,6 +9954,12 @@ MultipleForms.register(:OGERPON,{
    types=[:GRASS,:WATER,:FIRE,:ROCK]
    next getID(PBTypes,types[pokemon.form])
 },
+"color"=>proc{|pokemon|
+   next if pokemon.form==0
+   next 1 if pokemon.form==1
+   next 0 if pokemon.form==2
+   next 7 if pokemon.form==3
+},
 "getAbilityList"=>proc{|pokemon|
    next                                         if pokemon.form==0
    next [[getID(PBAbilities,:WATERABSORB),0],

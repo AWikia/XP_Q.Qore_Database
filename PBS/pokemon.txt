@@ -532,7 +532,7 @@ FormNames=Kantonian,Alolan
 BattlerPlayerY=30
 BattlerEnemyY=35
 BattlerAltitude=0
-Evolutions=RATICATE,LevelK,20,RATICATE,LevelA,20
+Evolutions=RATICATE,Level,20
 [20]
 Name=Raticate
 InternalName=RATICATE
@@ -763,7 +763,7 @@ WildItemUncommon=QUICKCLAW
 BattlerPlayerY=30
 BattlerEnemyY=34
 BattlerAltitude=0
-Evolutions=SANDSLASH,LevelK,22,SANDSLASH,ItemA,ICESTONE
+Evolutions=SANDSLASH,Level,22
 [28]
 Name=Sandslash
 InternalName=SANDSLASH
@@ -1044,7 +1044,7 @@ WildItemUncommon=CHARCOAL
 BattlerPlayerY=25
 BattlerEnemyY=26
 BattlerAltitude=0
-Evolutions=NINETALES,ItemK,FIRESTONE,NINETALES,ItemA,ICESTONE
+Evolutions=NINETALES,Item,FIRESTONE
 [38]
 Name=Ninetales
 InternalName=NINETALES
@@ -1484,7 +1484,7 @@ WildItemUncommon=QUICKCLAW
 BattlerPlayerY=25
 BattlerEnemyY=28
 BattlerAltitude=0
-Evolutions=PERSIAN,LevelK,28,PERSIAN,HappinessA,,PERRSERKER,LevelG,28
+Evolutions=PERSIAN,Level,28,PERRSERKER,Reserved,
 [53]
 Name=Persian
 InternalName=PERSIAN
@@ -2259,7 +2259,7 @@ WildItemUncommon=LAGGINGTAIL
 BattlerPlayerY=26
 BattlerEnemyY=29
 BattlerAltitude=0
-Evolutions=SLOWBRO,LevelK,37,SLOWKING,TradeItemK,KINGSROCK,SLOWBRO,ItemG,GALARICACUFF,SLOWKING,ItemG,GALARICAWREATH
+Evolutions=SLOWBRO,Level,37,SLOWKING,TradeItem,KINGSROCK
 [80]
 Name=Slowbro
 InternalName=SLOWBRO
@@ -2865,7 +2865,7 @@ FormNames=Kantonian,Hisuian
 BattlerPlayerY=33
 BattlerEnemyY=37
 BattlerAltitude=0
-Evolutions=ELECTRODE,LevelK,30,ELECTRODE,ItemH,LEAFSTONE
+Evolutions=ELECTRODE,Level,30
 [101]
 Name=Electrode
 InternalName=ELECTRODE
@@ -2983,7 +2983,7 @@ WildItemUncommon=THICKCLUB
 BattlerPlayerY=29
 BattlerEnemyY=34
 BattlerAltitude=0
-Evolutions=MAROWAK,LevelK,28,MAROWAK,LevelA,28
+Evolutions=MAROWAK,Level,28
 [105]
 Name=Marowak
 InternalName=MAROWAK
@@ -3500,7 +3500,7 @@ FormNames=Kantonian,,Galarian
 BattlerPlayerY=22
 BattlerEnemyY=26
 BattlerAltitude=0
-Evolutions=MRRIME,LevelG,42
+Evolutions=MRRIME,Reserved,
 [123]
 Name=Scyther
 InternalName=SCYTHER
@@ -5542,7 +5542,7 @@ FormNames=Johtonian,Paldean
 BattlerPlayerY=33
 BattlerEnemyY=35
 BattlerAltitude=0
-Evolutions=QUAGSIRE,LevelK,20,CLODSIRE,LevelPl,20
+Evolutions=QUAGSIRE,Level,20,CLODSIRE,Reserved,
 [195]
 Name=Quagsire
 InternalName=QUAGSIRE
@@ -6023,7 +6023,7 @@ WildItemUncommon=POISONBARB
 BattlerPlayerY=25
 BattlerEnemyY=28
 BattlerAltitude=12
-Evolutions=OVERQWIL,TrainedH,512
+Evolutions=OVERQWIL,Reserved,
 [212]
 Name=Scizor
 InternalName=SCIZOR
@@ -6145,7 +6145,7 @@ WildItemUncommon=QUICKCLAW
 BattlerPlayerY=26
 BattlerEnemyY=28
 BattlerAltitude=0
-Evolutions=WEAVILE,NightHoldItemK,RAZORCLAW,SNEASLER,DayHoldItemH,RAZORCLAW
+Evolutions=WEAVILE,NightHoldItem,RAZORCLAW,SNEASLER,Reserved,
 [216]
 Name=Teddiursa
 InternalName=TEDDIURSA
@@ -6343,7 +6343,7 @@ FormNames=Johtonian,,Galarian
 BattlerPlayerY=27
 BattlerEnemyY=31
 BattlerAltitude=0
-Evolutions=CURSOLA,LevelG,38
+Evolutions=CURSOLA,Reserved,
 [223]
 Name=Remoraid
 InternalName=REMORAID
@@ -7524,7 +7524,7 @@ WildItemUncommon=MAXREVIVE
 BattlerPlayerY=29
 BattlerEnemyY=35
 BattlerAltitude=0
-Evolutions=OBSTAGOON,LevelNight,35
+Evolutions=OBSTAGOON,Reserved,
 [265]
 Name=Wurmple
 InternalName=WURMPLE
@@ -15212,7 +15212,7 @@ WildItemUncommon=DEEPSEATOOTH
 BattlerPlayerY=30
 BattlerEnemyY=35
 BattlerAltitude=7
-Evolutions=BASCULEGION,RecoilDamageH,294
+Evolutions=BASCULEGION,Reserved,
 [551]
 Name=Sandile
 InternalName=SANDILE
@@ -15321,7 +15321,7 @@ FormNames=Unovan,,Galarian
 BattlerPlayerY=31
 BattlerEnemyY=34
 BattlerAltitude=0
-Evolutions=DARMANITAN,LevelK,35,DARMANITAN,ItemG,ICESTONE
+Evolutions=DARMANITAN,Level,35
 [555]
 Name=Darmanitan
 InternalName=DARMANITAN
@@ -15538,7 +15538,7 @@ WildItemUncommon=SPELLTAG
 BattlerPlayerY=30
 BattlerEnemyY=34
 BattlerAltitude=20
-Evolutions=COFAGRIGUS,LevelK,34,RUNERIGUS,LevelG,34
+Evolutions=COFAGRIGUS,Level,34,RUNERIGUS,Reserved,
 [563]
 Name=Cofagrigus
 InternalName=COFAGRIGUS
@@ -24069,7 +24069,7 @@ FormNames=Kalosian,Phonetican
 BattlerPlayerY=30
 BattlerEnemyY=34
 BattlerAltitude=15
-Evolutions=AROMATISSE,TradeItemK,SACHET,AROMATISSE,LevelP,38
+Evolutions=AROMATISSE,TradeItem,SACHET
 [883]
 Name=Aromatisse
 InternalName=AROMATISSE
@@ -24122,7 +24122,7 @@ FormNames=Kalosian,Phonetican,Mysterican
 BattlerPlayerY=31
 BattlerEnemyY=35
 BattlerAltitude=0
-Evolutions=SLURPUFF,TradeItemK,WHIPPEDDREAM,SLURPUFF,LevelP,38,SLURPUFF,TradeItemM,GENIEBALL
+Evolutions=SLURPUFF,TradeItem,WHIPPEDDREAM
 [885]
 Name=Slurpuff
 InternalName=SLURPUFF
@@ -26534,7 +26534,7 @@ WildItemUncommon=MIRACLESEED
 BattlerPlayerY=26
 BattlerEnemyY=30
 BattlerAltitude=0
-Evolutions=LURANTIS,LevelDayK,34,LURANTIS,LevelP,38
+Evolutions=LURANTIS,LevelDay,34
 [974]
 Name=Lurantis
 InternalName=LURANTIS
@@ -29802,7 +29802,7 @@ FormNames=Galarian,Phonetican
 BattlerPlayerY=31
 BattlerEnemyY=34
 BattlerAltitude=0
-Evolutions=GRAPPLOCT,HasMoveK,TAUNT,GRAPPLOCT,LevelP,38
+Evolutions=GRAPPLOCT,HasMove,TAUNT
 [1093]
 Name=Grapploct
 InternalName=GRAPPLOCT
@@ -30512,7 +30512,7 @@ WildItemUncommon=LAGGINGTAIL
 BattlerPlayerY=22
 BattlerEnemyY=25
 BattlerAltitude=0
-Evolutions=COPPERAJAH,LevelK,34,COPPERAJAH,LevelP,38
+Evolutions=COPPERAJAH,Level,34
 [1119]
 Name=Copperajah
 InternalName=COPPERAJAH
@@ -35201,7 +35201,7 @@ FormNames=Paldean,Phonetican
 BattlerPlayerY=15
 BattlerEnemyY=38
 BattlerAltitude=0
-Evolutions=GRAFAIAI,LevelK,28,GRAFAIAI,LevelP,38
+Evolutions=GRAFAIAI,Level,28
 [1295]
 Name=Grafaiai
 InternalName=GRAFAIAI

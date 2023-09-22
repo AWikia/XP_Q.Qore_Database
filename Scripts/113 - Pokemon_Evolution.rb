@@ -34,38 +34,19 @@ module PBEvolution
   TypeInParty       = 32
   HappinessMale     = 33
   HappinessFemale   = 34
-  LevelK            = 35 # Level for base forms
-  LevelA            = 36 # Level for Alolan forms
-  ItemK             = 37 # Item for base forms
-  ItemA             = 38 # Item for Alolan forms
-  HappinessA        = 39 # Happiness for Alolan Forms
-  ItemSilcoon       = 40
-  ItemCascoon       = 41
-  LevelG            = 42 # Level for Galarian Forms
-  ItemG             = 43 # Item for Galarian Forms
-  TradeItemK        = 44 # TradeItem for base forms
-  LevelDayK         = 45 # LevelDay for base forms
-  LevelP            = 46 # Level for Phonetic forms
-  TradeItemM        = 47 # TradeItem for Mysterican forms
-  HasMoveK          = 48 # HasMove for base forms
-  HappinessItem     = 49
-  ItemH             = 50 # Item for Hisuian Forms
-  TrainedH          = 51 # Trained for Hisuian Forms
-  DayHoldItemH      = 52 # DauHoldItem for Hisuian Forms
-  NightHoldItemK    = 53 # NightHoldItem for base forms
-  LevelPl           = 54 # Level for Palean Forms
-  RecoilDamage      = 55 
-  RecoilDamageH     = 56 # RecoilDamage for Hisuian Forms
-  CriticalHits      = 57 
-  CriticalHitsG     = 58 # CriticalHits for Galarian Forms
-  TradeLevel        = 59
-  SilcoonFemale     = 60
-  CascoonFemale     = 61
-  HasInPartyMale    = 62
-  HasInPartyFemale  = 63
-  # Do not work in Vanilla Essentials 16
-  ItemSilcoonFemale = 64
-  ItemCascoonFemale = 65
+  ItemSilcoon       = 35
+  ItemCascoon       = 36
+  HappinessItem     = 37
+  RecoilDamage      = 38 
+  CriticalHits      = 39
+  TradeLevel        = 40
+  SilcoonFemale     = 41
+  CascoonFemale     = 42
+  HasInPartyMale    = 43
+  HasInPartyFemale  = 44
+  ItemSilcoonFemale = 45
+  ItemCascoonFemale = 46
+  Reserved          = 47 # Only use if a Pokemon is part of the family but only an alt form evolves into that species
 
 
   
@@ -76,13 +57,11 @@ module PBEvolution
      "ItemMale","ItemFemale","DayHoldItem","NightHoldItem","HasMove",
      "HasInParty","LevelMale","LevelFemale","Location","TradeSpecies",
      "LevelDay","LevelNight","LevelDarkInParty","LevelRain","HappinessMoveType",
-     "Trained","TypeInParty","HappinessMale","HappinessFemale","LevelK",
-     "LevelA","ItemK","ItemA","HappinessA","ItemSilcoon",
-     "ItemCascoon","LevelG","ItemG","TradeItemK","LevelDayK",
-     "LevelP","TradeItemM","HasMoveK","HappinessItem","ItemH",
-     "TrainedH","DayHoldItemH","NightHoldItemK","LevelPl","RecoilDamage",
-     "RecoilDamageH","CriticalHits","CriticalHitsG","TradeLevel","SilcoonFemale",
-     "CascoonFemale","HasInPartyMale","HasInPartyFemale","ItemSilcoonFemale","ItemCascoonFemale"
+     "Trained","TypeInParty","HappinessMale","HappinessFemale","ItemSilcoon",
+     "ItemCascoon","HappinessItem","RecoilDamage","CriticalHits","TradeLevel",
+     "SilcoonFemale","CascoonFemale","HasInPartyMale","HasInPartyFemale","ItemSilcoonFemale",
+     "ItemCascoonFemale",
+     "Reserved"
   ]
 
   # 0 = no parameter
@@ -98,13 +77,11 @@ module PBEvolution
      2,2,2,2,3,   # ItemMale, ItemFemale, DayHoldItem, NightHoldItem, HasMove
      4,1,1,1,4,   # HasInParty, LevelMale, LevelFemale, Location, TradeSpecies
      1,1,1,1,5,   # LevelDay, LevelNight, LevelDarkInParty, LevelRain, HappinessMoveType
-     1,5,0,0,1,   # Custom 1-5
-     1,2,2,0,2,
-     2,1,2,2,1,
-     1,2,3,2,2,
-     1,2,2,1,1,
-     1,1,1,1,1,
-     1,4,4,2,2
+     1,5,0,0,2,   # Trained, TypeInParty, HappinessMale, HappinessFemale, ItemSilcoon
+     2,2,1,1,1,   # ItemCascoon, HappinesItem, RecoilDamage, CriticalHits, TradeLevel
+     1,1,4,4,2,   # SilcoonFemale, CascoonFemale, HasInPartyMale, HasInPartyFemale, ItemSilcoonFemale
+     2,           # ItemCascoonFemale
+     0            # Reserved
   ]
 end
 
@@ -113,7 +90,7 @@ end
 #===============================================================================
 # Evolution helper functions
 #===============================================================================
-def pbGetEvolvedFormData(species)
+def pbGetEvolvedFormData(species,ignorereserved=false)
   ret=[]
   _EVOTYPEMASK=0x7F
   _EVODATAMASK=0x80
@@ -130,7 +107,8 @@ def pbGetEvolvedFormData(species)
          level=f.fgetw
          poke=f.fgetw
          if (evo&_EVODATAMASK)==_EVONEXTFORM
-           ret.push([evonib,level,poke])
+           ret.push([evonib,level,poke]) if (evonib!=PBEvolution::Reserved || 
+                                             !ignorereserved)
          end
          i+=5
        end
@@ -267,6 +245,17 @@ def pbGetBabySpecies(species,item1=-1,item2=-1)
   return ret
 end
 
+# Like pbGetEvolvedFormData but takes a Pokemon object instead of a species and
+# respects altenrative forms
+def pbGetEvolvedFormData2(pokemon)
+  # Check for evolutions on alt form
+  v=MultipleForms.call("getEvolvedFormData",pokemon)
+  return v if v!=nil
+  # If not present, use the evolutions from the base form
+  # If first Evolution has the Reserved Evolution Method, treat it as if could not
+  # evolve any further
+  return pbGetEvolvedFormData(pokemon.species,true)
+end
 
 
 #===============================================================================
@@ -894,9 +883,7 @@ class PokemonEvolutionScene
            next poke if $PokemonBag.pbQuantity(getConst(PBItems,:POKEBALL))>0
          elsif evonib==PBEvolution::TradeItem ||
                evonib==PBEvolution::DayHoldItem ||
-               evonib==PBEvolution::DayHoldItemH ||
-               evonib==PBEvolution::NightHoldItem ||
-               evonib==PBEvolution::NightHoldItemK
+               evonib==PBEvolution::NightHoldItem
            removeItem=true if poke==@newspecies   # Item is now consumed
          end
          next -1
@@ -1017,7 +1004,7 @@ def pbMiniCheckEvolution(pokemon,evonib,level,poke)
     end
   when PBEvolution::Beauty # Feebas
     return poke if pokemon.beauty>=level
-  when PBEvolution::Trade, PBEvolution::TradeItem, PBEvolution::TradeSpecies, PBEvolution::TradeItemK, PBEvolution::TradeItemM, PBEvolution::TradeLevel
+  when PBEvolution::Trade, PBEvolution::TradeItem, PBEvolution::TradeSpecies, PBEvolution::TradeLevel
     return -1
   when PBEvolution::Trained
     evtotal=0
@@ -1033,42 +1020,10 @@ def pbMiniCheckEvolution(pokemon,evonib,level,poke)
     return poke if pokemon.happiness>=160 && pokemon.isMale?
   when PBEvolution::HappinessFemale
     return poke if pokemon.happiness>=160 && pokemon.isFemale?
-  when PBEvolution::LevelK
-    return poke if pokemon.level>=level && !isRegionalForme?(pokemon)
-  when PBEvolution::LevelA
-    return poke if pokemon.level>=level && PBDayNight.isNight? && isAlolan?(pokemon)
-  when PBEvolution::HappinessA
-    return poke if pokemon.happiness>=160 && isAlolan?(pokemon)
-  when PBEvolution::LevelG
-    return poke if pokemon.level>=level && isGalarian?(pokemon)
-  when PBEvolution::LevelDayK
-    return poke if pokemon.level>=level && PBDayNight.isDay? && !isRegionalForme?(pokemon)
-  when PBEvolution::LevelP
-    return poke if pokemon.level>=level && isPhonetic?(pokemon)
-  when PBEvolution::HasMoveK
-    for i in 0...4
-      return poke if pokemon.moves[i].id==level && !isRegionalForme?(pokemon)
-    end
-  when PBEvolution::TrainedH
-    evtotal=0
-    for i in 0...6
-     evtotal+=pokemon.ev[i]
-    end
-    return poke if evtotal>=level && isHisuian?(pokemon)
-  when PBEvolution::DayHoldItemH
-    return poke if pokemon.item==level && PBDayNight.isDay? && isHisuian?(pokemon)
-  when PBEvolution::NightHoldItemK
-    return poke if pokemon.item==level && PBDayNight.isNight? && !isRegionalForme?(pokemon)
-  when PBEvolution::LevelPl
-    return poke if pokemon.level>=level && isPaldean?(pokemon)
   when PBEvolution::RecoilDamage
     return poke if pokemon.recoildamage>=level
-  when PBEvolution::RecoilDamageH
-    return poke if pokemon.recoildamage>=level && isHisuian?(pokemon)
   when PBEvolution::CriticalHits
     return poke if pokemon.criticalhits>=level
-  when PBEvolution::CriticalHitsG
-    return poke if pokemon.criticalhits>=level && isGalarian?(pokemon)
   when PBEvolution::SilcoonFemale
     return poke if pokemon.level>=level && pokemon.isFemale? && (((pokemon.personalID>>16)&0xFFFF)%10)<5
   when PBEvolution::CascoonFemale
@@ -1081,6 +1036,8 @@ def pbMiniCheckEvolution(pokemon,evonib,level,poke)
     for i in $Trainer.party
       return poke if !i.isEgg? && i.species==level && pokemon.isFemale?
     end
+  when PBEvolution::Reserved
+    return -1
   end
   return -1
 end
@@ -1094,23 +1051,15 @@ def pbMiniCheckEvolutionItem(pokemon,evonib,level,poke,item)
     return poke if level==item && pokemon.isMale?
   when PBEvolution::ItemFemale
     return poke if level==item && pokemon.isFemale?
-  when PBEvolution::ItemK
-    return poke if level==item && !isRegionalForme?(pokemon)
-  when PBEvolution::ItemA
-    return poke if level==item && isAlolan?(pokemon)
   when PBEvolution::ItemSilcoon
     return poke if level==item && (((pokemon.personalID>>16)&0xFFFF)%10)<5
   when PBEvolution::ItemCascoon
     return poke if level==item && (((pokemon.personalID>>16)&0xFFFF)%10)>=5
-  when PBEvolution::ItemG
-    return poke if level==item && isGalarian?(pokemon)
   when PBEvolution::HappinessItem
     return poke if level==item && pokemon.happiness>=160
-  when PBEvolution::ItemH
-    return poke if level==item && isHisuian?(pokemon)
-  when PBEvolution::ItemSilcoon
+  when PBEvolution::ItemSilcoonFemale
     return poke if level==item && pokemon.isFemale? && (((pokemon.personalID>>16)&0xFFFF)%10)<5
-  when PBEvolution::ItemCascoon
+  when PBEvolution::ItemCascoonFemale
     return poke if level==item && pokemon.isFemale? && (((pokemon.personalID>>16)&0xFFFF)%10)>=5
   end
   return -1
@@ -1133,10 +1082,10 @@ def pbCheckEvolutionEx(pokemon)
   return -1 if isConst?(pokemon.item,PBItems,:EVERSTONE) &&
                !isConst?(pokemon.species,PBSpecies,:KADABRA)                        # Everstone
   return -1 if $game_switches[172]                                                  # During a Museum Mission
-  return -1 if (isConst?(pokemon.species,PBSpecies,:LINNONE)) && 
-                !isGalarian?(pokemon)                                               # Regular Linnone
+#  return -1 if (isConst?(pokemon.species,PBSpecies,:LINNONE)) && 
+#                !isGalarian?(pokemon)                                               # Regular Linnone
   ret=-1
-  for form in pbGetEvolvedFormData(pokemon.species)
+  for form in pbGetEvolvedFormData2(pokemon)
     ret=yield pokemon,form[0],form[1],form[2]
     break if ret>0
   end

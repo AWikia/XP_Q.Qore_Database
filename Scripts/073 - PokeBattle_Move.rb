@@ -1572,7 +1572,7 @@ class PokeBattle_Move
       defmult=(defmult*1.5).round
     end
     if opponent.hasWorkingItem(:EVIOLITE)
-      evos=pbGetEvolvedFormData(opponent.species)
+      evos=pbGetEvolvedFormData2(opponent)
       if evos && evos.length>0
         defmult=(defmult*1.5).round
       end

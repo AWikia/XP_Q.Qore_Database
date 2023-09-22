@@ -229,16 +229,6 @@ def pbTradeCheckEvolution(pokemon,pokemon2)
         pokemon.setItem(0)
         next poke
       end
-    when PBEvolution::TradeItemK
-      if pokemon.item==level && !isRegionalForme?(pokemon)
-        pokemon.setItem(0)
-        next poke
-      end
-    when PBEvolution::TradeItemM
-      if pokemon.item==level && isMysterical?(pokemon)
-        pokemon.setItem(0)
-        next poke
-      end
     when PBEvolution::TradeSpecies
       next poke if pokemon2.species==level
     when PBEvolution::TradeLevel

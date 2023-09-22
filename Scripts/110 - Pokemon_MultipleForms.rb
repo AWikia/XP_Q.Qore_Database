@@ -556,6 +556,10 @@ MultipleForms.register(:RATTATA,{
    end
    next movelist
 },
+"getEvolvedFormData"=>proc{|pokemon|
+   next if pokemon.form==0
+   next [[PBEvolution::LevelNight,20,PBSpecies::RATICATE]] if pokemon.form==1
+},
 "getFormOnCreation"=>proc{|pokemon|
    env=pbGetEnvironment()
    next 1 if rand(65536)<$REGIONALCOMBO
@@ -1023,6 +1027,10 @@ MultipleForms.register(:SANDSHREW,{
    end
    next movelist
 },
+"getEvolvedFormData"=>proc{|pokemon|
+   next if pokemon.form==0
+   next [[PBEvolution::Item,PBItems::ICESTONE,PBSpecies::SANDSLASH]] if pokemon.form==1
+},
 "getFormOnCreation"=>proc{|pokemon|
    env=pbGetEnvironment()
    next 1 if rand(65536)<$REGIONALCOMBO
@@ -1181,6 +1189,10 @@ MultipleForms.register(:VULPIX,{
      movelist[i]=getConst(PBMoves,movelist[i])
    end
    next movelist
+},
+"getEvolvedFormData"=>proc{|pokemon|
+   next if pokemon.form==0
+   next [[PBEvolution::Item,PBItems::ICESTONE,PBSpecies::NINETALES]] if pokemon.form==1
 },
 "getFormOnCreation"=>proc{|pokemon|
    env=pbGetEnvironment()
@@ -1670,6 +1682,11 @@ MultipleForms.register(:MEOWTH,{
      movelist[i]=getConst(PBMoves,movelist[i])
    end
    next movelist
+},
+"getEvolvedFormData"=>proc{|pokemon|
+   next if pokemon.form==0
+   next [[PBEvolution::Happiness,nil,PBSpecies::PERSIAN]] if pokemon.form==1
+   next [[PBEvolution::Level,28,PBSpecies::PERRSERKER]] if pokemon.form==2
 },
 "getFormOnCreation"=>proc{|pokemon|
    env=pbGetEnvironment()
@@ -2265,6 +2282,11 @@ MultipleForms.register(:SLOWPOKE,{
    next if pokemon.form==0
    next _INTL("Although this Pokémon is normally zoned out, its expression abruptly sharpens on occasion. The cause for this seems to lie in Slowpoke's diet.") if pokemon.form==2 # Eternal
 },
+"getEvolvedFormData"=>proc{|pokemon|
+   next if pokemon.form==0
+   next [[PBEvolution::Item,PBItems::GALARICACUFF,PBSpecies::SLOWBRO],
+         [PBEvolution::Item,PBItems::GALARICAWREATH,PBSpecies::SLOWKING]] if pokemon.form==2
+},
 "getFormOnCreation"=>proc{|pokemon|
    env=pbGetEnvironment()
    next 2 if rand(65536)<$REGIONALCOMBO
@@ -2343,7 +2365,10 @@ MultipleForms.register(:FARFETCHD,{
    end
    next movelist
 },
-
+"getEvolvedFormData"=>proc{|pokemon|
+   next if pokemon.form==0
+   next [[PBEvolution::CriticalHits,3,PBSpecies::SIRFETCHD]] if pokemon.form==2
+},
 "getFormOnCreation"=>proc{|pokemon|
    env=pbGetEnvironment()
    next 2 if rand(65536)<$REGIONALCOMBO
@@ -2587,6 +2612,10 @@ MultipleForms.register(:VOLTORB,{
 "dexEntry"=>proc{|pokemon|
    next if pokemon.form==0
    next _INTL("An enigmatic Pokémon that happens to bear a resemblance to a Poké Ball. When excited, it discharges the electric current it has stored in its belly, then lets out a great, uproarious laugh.") if pokemon.form==1 # Eternal
+},
+"getEvolvedFormData"=>proc{|pokemon|
+   next if pokemon.form==0
+   next [[PBEvolution::Item,PBItems::LEAFSTONE,PBSpecies::ELECTRODE]] if pokemon.form==1
 },
 "getFormOnCreation"=>proc{|pokemon|
    env=pbGetEnvironment()
@@ -2860,6 +2889,10 @@ MultipleForms.register(:CUBONE,{
      i[1]=getConst(PBMoves,i[1])
    end
    next movelist
+},
+"getEvolvedFormData"=>proc{|pokemon|
+   next if pokemon.form==0
+   next [[PBEvolution::LevelNight,28,PBSpecies::MAROWAK]] if pokemon.form==1
 },
 "getFormOnCreation"=>proc{|pokemon|
    env=pbGetEnvironment()
@@ -3205,6 +3238,10 @@ MultipleForms.register(:MRMIME,{
      movelist[i]=getConst(PBMoves,movelist[i])
    end
    next movelist
+},
+"getEvolvedFormData"=>proc{|pokemon|
+   next if pokemon.form==0
+   next [[PBEvolution::Level,42,PBSpecies::MRRIME]] if pokemon.form==2
 },
 "getFormOnCreation"=>proc{|pokemon|
    env=pbGetEnvironment()
@@ -3971,6 +4008,10 @@ MultipleForms.register(:WOOPER,{
    next if pokemon.form==0
    next _INTL("After losing a territorial struggle, Wooper began living on land. The Pokémon changed over time, developing a poisonous film to protect its body.") if pokemon.form==1 # Eternal
 },
+"getEvolvedFormData"=>proc{|pokemon|
+   next if pokemon.form==0
+   next [[PBEvolution::Level,20,PBSpecies::CLODSIRE]] if pokemon.form==1
+},
 "getFormOnCreation"=>proc{|pokemon|
    env=pbGetEnvironment()
    next 1 if rand(65536)<$REGIONALCOMBO
@@ -4048,6 +4089,10 @@ MultipleForms.register(:QWILFISH,{
    next if pokemon.form==0
    next _INTL("Fishers detest this troublesome Pokémon because it sprays poison from its spines, getting it everywhere. A different form of Qwilfish lives in other regions.") if pokemon.form==1 # Eternal
 },
+"getEvolvedFormData"=>proc{|pokemon|
+   next if pokemon.form==0
+   next [[PBEvolution::Trained,512,PBSpecies::OVERQWIL]] if pokemon.form==1
+},
 "getFormOnCreation"=>proc{|pokemon|
    env=pbGetEnvironment()
    next 1 if rand(65536)<$REGIONALCOMBO
@@ -4116,10 +4161,13 @@ MultipleForms.register(:SNEASEL,{
    next if pokemon.form!=1
    next _INTL("Sharp Claw")
 },
-
 "dexEntry"=>proc{|pokemon|
    next if pokemon.form==0
    next _INTL("Its sturdy, curved claws are ideal for traversing precipitous cliffs. From the tips of these claws drips a venom that infiltrates the nerves of any prey caught in Sneasel’s grasp.") if pokemon.form==1 # Eternal
+},
+"getEvolvedFormData"=>proc{|pokemon|
+   next if pokemon.form==0
+   next [[PBEvolution::DayHoldItem,PBItems::RAZORCLAW,PBSpecies::SNEASLER]] if pokemon.form==1
 },
 "getFormOnCreation"=>proc{|pokemon|
    env=pbGetEnvironment()
@@ -4205,6 +4253,10 @@ MultipleForms.register(:CORSOLA,{
      movelist[i]=getConst(PBMoves,movelist[i])
    end
    next movelist
+},
+"getEvolvedFormData"=>proc{|pokemon|
+   next if pokemon.form==0
+   next [[PBEvolution::Level,38,PBSpecies::CURSOLA]] if pokemon.form==2
 },
 "getFormOnCreation"=>proc{|pokemon|
    env=pbGetEnvironment()
@@ -4330,12 +4382,17 @@ MultipleForms.register(:LINOONE,{
    end
    next movelist
 },
+"getEvolvedFormData"=>proc{|pokemon|
+   next if pokemon.form==0
+   next [[PBEvolution::LevelNight,35,PBSpecies::OBSTAGOON]] if pokemon.form==2
+},
 "getFormOnCreation"=>proc{|pokemon|
    env=pbGetEnvironment()
    next 2 if rand(65536)<$REGIONALCOMBO
    next 0 unless env==PBEnvironment::Galar
    next 2
-}
+},
+
 })
 
 ########################################
@@ -4841,6 +4898,10 @@ MultipleForms.register(:DARUMAKA,{
    end
    next movelist
 },
+"getEvolvedFormData"=>proc{|pokemon|
+   next if pokemon.form==0
+   next [[PBEvolution::Item,PBItems::ICESTONE,PBSpecies::DARMANITAN]] if pokemon.form==2
+},
 "getFormOnCreation"=>proc{|pokemon|
    env=pbGetEnvironment()
    next 2 if rand(65536)<$REGIONALCOMBO
@@ -5129,6 +5190,10 @@ MultipleForms.register(:YAMASK,{
    end
    next movelist
 },
+"getEvolvedFormData"=>proc{|pokemon|
+   next if pokemon.form==0
+   next [[PBEvolution::Level,34,PBSpecies::RUNERIGUS]] if pokemon.form==2
+},
 "getFormOnCreation"=>proc{|pokemon|
    env=pbGetEnvironment()
    next 2 if rand(65536)<$REGIONALCOMBO
@@ -5412,6 +5477,10 @@ MultipleForms.register(:SPRITZEE,{
    next if pokemon.form==0
    next _INTL("When Spritzee was found in the snow, something accidentally happened, leading into this form.") if pokemon.form==1 # Eternal
 },
+"getEvolvedFormData"=>proc{|pokemon|
+   next if pokemon.form==0
+   next [[PBEvolution::Level,38,PBSpecies::AROMATISSE]] if pokemon.form==1
+},
 "getFormOnCreation"=>proc{|pokemon|
    next 1 if rand(65536)<$REGIONALCOMBO
    maps=[391]   # Map IDs for Eternal Forme
@@ -5536,6 +5605,11 @@ MultipleForms.register(:SWIRLIX,{
    next if pokemon.form==0
    next _INTL("This swirlix seems to be fully uncovered with ice. It seems that it lost its tail to transform into a snowball.") if pokemon.form==1 # Eternal
    next _INTL("Scaring other People seems the intention why this Swirlix may give some Glimsery Treats to the others. Why this one happens is unknown.") if pokemon.form==2
+},
+"getEvolvedFormData"=>proc{|pokemon|
+   next if pokemon.form==0
+   next [[PBEvolution::Level,38,PBSpecies::SLURPUFF]] if pokemon.form==1
+   next [[PBEvolution::TradeItem,PBItems::GENIEBALL,PBSpecies::SLURPUFF]] if pokemon.form==2
 },
 "getFormOnCreation"=>proc{|pokemon|
    next [1,2][rand(2)] if rand(65536)<$REGIONALCOMBO
@@ -6362,6 +6436,10 @@ MultipleForms.register(:FOMANTIS,{
    next if pokemon.form==0
    next _INTL("Possesing out in the steely spirit, this Fomantis appears to be snowed under a powder snow.") if pokemon.form==1 # Eternal
 },
+"getEvolvedFormData"=>proc{|pokemon|
+   next if pokemon.form==0
+   next [[PBEvolution::Level,38,PBSpecies::LURANTIS]] if pokemon.form==1
+},
 "getFormOnCreation"=>proc{|pokemon|
    next 1 if rand(65536)<$REGIONALCOMBO
    maps=[391]   # Map IDs for Eternal Forme
@@ -6471,6 +6549,10 @@ MultipleForms.register(:MORELULL,{
 "dexEntry"=>proc{|pokemon|
    next if pokemon.form==0
    next _INTL("This Morelull appears to use the Fire spirit in addition to the Ice spirit. Why that happens is unkwnown.") if pokemon.form==1 # Eternal
+},
+"getEvolvedFormData"=>proc{|pokemon|
+   next if pokemon.form==0
+   next [[PBEvolution::Level,38,PBSpecies::SHIINOTIC]] if pokemon.form==1
 },
 "getFormOnCreation"=>proc{|pokemon|
    next 1 if rand(65536)<$REGIONALCOMBO
@@ -7138,6 +7220,10 @@ MultipleForms.register(:GOSSIFLEUR,{
    next if pokemon.form==0
    next _INTL("In the heart of the ice, Gossifleur was accidentaly got freezed by the Phonetic Spirit. Who knows that fact?.") if pokemon.form==1 # Eternal
 },
+"getEvolvedFormData"=>proc{|pokemon|
+   next if pokemon.form==0
+   next [[PBEvolution::Level,38,PBSpecies::ELDEGOSS]] if pokemon.form==1
+},
 "getFormOnCreation"=>proc{|pokemon|
    next 1 if rand(65536)<$REGIONALCOMBO
    maps=[391]   # Map IDs for Eternal Forme
@@ -7252,6 +7338,10 @@ MultipleForms.register(:CLOBBOPUS,{
 "dexEntry"=>proc{|pokemon|
    next if pokemon.form==0
    next _INTL("This Clobbopus appears to be have covered with snow. However, it still fights with other species despite have known how to snow things.") if pokemon.form==1 # Eternal
+},
+"getEvolvedFormData"=>proc{|pokemon|
+   next if pokemon.form==0
+   next [[PBEvolution::Level,38,PBSpecies::GRAPPLOCT]] if pokemon.form==1
 },
 "getFormOnCreation"=>proc{|pokemon|
    next 1 if rand(65536)<$REGIONALCOMBO
@@ -7423,6 +7513,10 @@ MultipleForms.register(:CUFANT,{
    next if pokemon.form==0
 #   next _INTL("When this Gossifleur evolved into an Eldegoss, its Moon Power was came true. We don't know why this happened?") if pokemon.form==1 # Eternal
 },
+"getEvolvedFormData"=>proc{|pokemon|
+   next if pokemon.form==0
+   next [[PBEvolution::Level,38,PBSpecies::COPPERAJAH]] if pokemon.form==1
+},
 "getFormOnCreation"=>proc{|pokemon|
    next 1 if rand(65536)<$REGIONALCOMBO
    maps=[391]   # Map IDs for Eternal Forme
@@ -7548,6 +7642,10 @@ MultipleForms.register(:SHROODLE,{
 "dexEntry"=>proc{|pokemon|
    next if pokemon.form==0
    next _INTL("This Shroodle appears to be covered in both Ice and Poison. Who know what was the cause of this?") if pokemon.form==1 # Eternal
+},
+"getEvolvedFormData"=>proc{|pokemon|
+   next if pokemon.form==0
+   next [[PBEvolution::Level,38,PBSpecies::GRAFAIAI]] if pokemon.form==1
 },
 "getFormOnCreation"=>proc{|pokemon|
    next 1 if rand(65536)<$REGIONALCOMBO
@@ -8205,7 +8303,11 @@ MultipleForms.register(:BASCULIN,{
    next if pokemon.form==0 
    next _INTL("Even Basculin, which devours everything it can with its huge jaws, is nothing more than food to organisms stronger than itself.") if pokemon.form==1
    next _INTL("Though it differs from other Basculin in several respects, including demeanor—this one is gentle—I have categorized it as a regional form given the vast array of shared qualities.") if pokemon.form==2
-}
+},
+"getEvolvedFormData"=>proc{|pokemon|
+   next if pokemon.form!=2
+   next [[PBEvolution::RecoilDamage,294,PBSpecies::BASCULEGION]]
+},
 })
 
 MultipleForms.register(:DEERLING,{

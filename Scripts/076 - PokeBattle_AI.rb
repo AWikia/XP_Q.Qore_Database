@@ -4433,7 +4433,7 @@ class PokeBattle_Battle
     # Defense-boosting items
     if skill>=PBTrainerAI.highSkill
       if opponent.hasWorkingItem(:EVIOLITE)
-        evos=pbGetEvolvedFormData(opponent.species)
+        evos=pbGetEvolvedFormData2(opponent)
         if evos && evos.length>0
           defense=(defense*1.5).round
         end

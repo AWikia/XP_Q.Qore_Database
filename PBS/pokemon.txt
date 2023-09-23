@@ -2378,7 +2378,7 @@ WildItemUncommon=STICK
 BattlerPlayerY=22
 BattlerEnemyY=26
 BattlerAltitude=0
-Evolutions=SIRFETCHD,CriticalHitsG,3
+Evolutions=SIRFETCHD,Reserved,
 [84]
 Name=Doduo
 InternalName=DODUO

@@ -241,8 +241,8 @@ def pbPlayCursorSE()
   elsif $data_system && $data_system.respond_to?("sounds") &&
      $data_system.sounds && $data_system.sounds[0] && $data_system.sounds[0].name!=""
     pbSEPlay($data_system.sounds[0])
-  elsif FileTest.audio_exist?("Audio/SE/Choose")
-    pbSEPlay("Choose",100)
+  elsif FileTest.audio_exist?("Audio/SE/GUI sel cursor")
+    pbSEPlay("GUI sel cursor",100)
   end
 end
 
@@ -254,8 +254,8 @@ def pbPlayDecisionSE()
   elsif $data_system && $data_system.respond_to?("sounds") &&
      $data_system.sounds && $data_system.sounds[1] && $data_system.sounds[1].name!=""
     pbSEPlay($data_system.sounds[1])
-  elsif FileTest.audio_exist?("Audio/SE/Choose")
-    pbSEPlay("Choose",100)
+  elsif FileTest.audio_exist?("Audio/SE/GUI sel decision")
+    pbSEPlay("GUI sel decision",100)
   end
 end
 
@@ -267,8 +267,8 @@ def pbPlayCancelSE()
   elsif $data_system && $data_system.respond_to?("sounds") &&
      $data_system.sounds && $data_system.sounds[2] && $data_system.sounds[2].name!=""
     pbSEPlay($data_system.sounds[2])
-  elsif FileTest.audio_exist?("Audio/SE/Choose")
-    pbSEPlay("Choose",100)
+  elsif FileTest.audio_exist?("Audio/SE/GUI sel cancel")
+    pbSEPlay("GUI sel cancel",100)
   end
 end
 
@@ -280,8 +280,8 @@ def pbPlayBuzzerSE()
   elsif $data_system && $data_system.respond_to?("sounds") &&
      $data_system.sounds && $data_system.sounds[3] && $data_system.sounds[3].name!=""
     pbSEPlay($data_system.sounds[3])
-  elsif FileTest.audio_exist?("Audio/SE/buzzer")
-    pbSEPlay("buzzer",100)
+  elsif FileTest.audio_exist?("Audio/SE/GUI sel buzzer")
+    pbSEPlay("GUI sel buzzer",100)
   end
 end
 
@@ -308,5 +308,35 @@ def pbPlayEscapeSE()
     pbSEPlay($data_system.sounds[9])
   elsif FileTest.audio_exist?("Audio/SE/flee")
     pbSEPlay("flee",100)
+  end
+end
+
+# Plays a sound effect that plays when an non-opposing Pokemon faints.
+def pbPlayActorCollapseSE()
+  if $data_system && $data_system.respond_to?("actor_collapse_se") &&
+     $data_system.actor_collapse_se && $data_system.actor_collapse_se.name!=""
+    pbSEPlay($data_system.actor_collapse_se)
+  elsif $data_system && $data_system.respond_to?("sounds") &&
+     $data_system.sounds && $data_system.sounds[10] && $data_system.sounds[10].name!=""
+    pbSEPlay($data_system.sounds[10])
+  elsif FileTest.audio_exist?("Audio/SE/faint_atk")
+    pbSEPlay("faint_atk",100)
+  elsif FileTest.audio_exist?("Audio/SE/faint")
+    pbSEPlay("faint",100)
+  end
+end
+
+# Plays a sound effect that plays when an opposing Pokemon faints.
+def pbPlayEnemyCollapseSE()
+  if $data_system && $data_system.respond_to?("enemy_collapse_se") &&
+     $data_system.enemy_collapse_se && $data_system.enemy_collapse_se.name!=""
+    pbSEPlay($data_system.enemy_collapse_se)
+  elsif $data_system && $data_system.respond_to?("sounds") &&
+     $data_system.sounds && $data_system.sounds[11] && $data_system.sounds[11].name!=""
+    pbSEPlay($data_system.sounds[11])
+  elsif FileTest.audio_exist?("Audio/SE/faint_opp")
+    pbSEPlay("faint_opp",100)
+  elsif FileTest.audio_exist?("Audio/SE/faint")
+    pbSEPlay("faint",100)
   end
 end

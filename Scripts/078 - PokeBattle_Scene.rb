@@ -3032,7 +3032,11 @@ end
         ycoord=PokeBattle_SceneConstants::PLAYERBATTLER_Y
       end
     end
-    pbSEPlay("faint",100)
+    if @battle.pbIsOpposing?(pkmn.index)
+      pbPlayEnemyCollapseSE()
+    else
+      pbPlayActorCollapseSE()
+    end
     loop do
       pkmnsprite.y+=8
       if pkmnsprite.y-pkmnsprite.oy+pkmnsprite.src_rect.height>=ycoord

@@ -853,8 +853,7 @@ def pbGenerateWildPokemon(species,level,isroamer=false)
   elsif itemrnd<(chances[0]+chances[1]+chances[2])
     genwildpoke.setItem(items[2])
   end
-  if hasConst?(PBItems,:SHINYCHARM) && $PokemonBag.pbQuantity(:SHINYCHARM)>0 &&
-    !isConst?(firstpoke.ability,PBAbilities,:LIGHTER)
+  if hasConst?(PBItems,:SHINYCHARM) && $PokemonBag.pbQuantity(:SHINYCHARM)>0
     for i in 0...2   # 3 times as likely
       break if genwildpoke.isShiny?
       genwildpoke.personalID=rand(65536)|(rand(65536)<<16)
@@ -862,23 +861,21 @@ def pbGenerateWildPokemon(species,level,isroamer=false)
   end
   if firstpoke && !firstpoke.isEgg? && 
      isConst?(firstpoke.ability,PBAbilities,:KOULUNDIN)
-    for i in 0...4   # 5 times as likely
+    for i in 0...2   # 3 times as likely
       break if genwildpoke.isShiny?
       genwildpoke.personalID=rand(65536)|(rand(65536)<<16)
     end
   end
   if firstpoke && !firstpoke.isEgg? && 
      isConst?(firstpoke.ability,PBAbilities,:LIGHTER)
-     retiry=($USENEWBATTLEMECHANICS) ? 80 : 65
-    for i in 0...retiry   # 81 or 65 times as likely
+    for i in 0...5   # 6 times as likely
       break if genwildpoke.isShiny?
       genwildpoke.personalID=rand(65536)|(rand(65536)<<16)
     end
   end
   if firstpoke && !firstpoke.isEgg? && 
      isConst?(firstpoke.ability,PBAbilities,:SHINYGATHER)
-     retiry=($USENEWBATTLEMECHANICS) ? 180 : 200
-    for i in 0...retiry   # 181 or 201 times as likely
+    for i in 0...15   # 16 times as likely
       break if genwildpoke.isShiny?
       genwildpoke.personalID=rand(65536)|(rand(65536)<<16)
     end

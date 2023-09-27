@@ -1556,8 +1556,9 @@ class PokeBattle_Move
       end
     end
     # Embody Aspect (Wellspring and Cornerstone Masks)
-    if (opponent.hasWorkingAbility(:EMBODYASPECT4) && pbIsPhysical?(type)) ||
-       (opponent.hasWorkingAbility(:EMBODYASPECT2) && pbIsSpecial?(type))
+    if ((opponent.hasWorkingAbility(:EMBODYASPECT4) && pbIsPhysical?(type)) ||
+        (opponent.hasWorkingAbility(:EMBODYASPECT2) && pbIsSpecial?(type))) &&
+       !attacker.hasWorkingItem(:PASTELCHALK)
       defmult=(defmult*1.3).round
     end
     if @battle.pbCheckGlobalAbility(:BREADSOFRUIN) && 

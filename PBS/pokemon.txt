@@ -34011,6 +34011,7 @@ Color=Brown
 Habitat=Grassland
 Kind=Peat
 Pokedex=I believe it was Hisui’s swampy terrain that gave Ursaluna its burly physique and newfound capacity to manipulate peat at will.
+FormNames=,Bloodmoon
 BattlerPlayerY=13
 BattlerEnemyY=16
 BattlerAltitude=0

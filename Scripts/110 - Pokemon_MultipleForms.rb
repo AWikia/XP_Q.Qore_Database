@@ -9779,15 +9779,57 @@ MultipleForms.register(:CALYREX,{
 })
 
 
+MultipleForms.register(:URSALUNA,{
+"getBaseStats"=>proc{|pokemon|
+   next if pokemon.form==0
+   next  [113,70,120,52,65,52]
+},
+"getAbilityList"=>proc{|pokemon|
+   next if pokemon.form==0                    
+   next [[getID(PBAbilities,:MINDSEYE),0]]
+},
+"height"=>proc{|pokemon|
+   next if pokemon.form==0
+   next 27
+},
+"weight"=>proc{|pokemon|
+   next if pokemon.form==0
+   next 333
+},
+"evYield"=>proc{|pokemon|
+   next if pokemon.form==0
+   next [0,0,0,0,3,0]
+},
+"getMoveList"=>proc{|pokemon|
+   next if pokemon.form==0
+   movelist=[[1,:MOONLIGHT],[1,:HEADLONGRUSH],[1,:SCRATCH],[1,:LICK],
+             [1,:LEER],[8,:FURYSWIPES],[13,PAYBACK],[17,:HARDEN],
+             [22,:SLASH],[25,:PLAYNICE],[35,:SCARYFACE],[41,:REST],
+             [41,:SNORE],[48,:EARTHPOWER],[56,:MOONBLAST],
+             [64,:HAMMERARM],[70,:BLOODMOON]] if pokemon.form==1 # Eternal
+   for i in movelist
+     i[1]=getConst(PBMoves,i[1])
+   end
+   next movelist
+},
+"dexEntry"=>proc{|pokemon|
+   next if pokemon.form==0
+   next _INTL("A different guise from its feminine humanoid form. From the clouds, it descends upon those who treat any form of life with disrespect and metes out wrathful, ruthless punishment.") if pokemon.form==1
+}
+})
+
 MultipleForms.register(:BASCULEGION,{
 "getForm"=>proc{|pokemon|
    next 2 # Required in order for White-Striped form of Basculin to work
 },
 "getBaseStats"=>proc{|pokemon|
    next if pokemon.isMale?
-   next  [75,15,60,10,39,45]
+   next  [120,92,65,78,100,75]
 },
-
+"dexEntry"=>proc{|pokemon|
+   next if pokemon.isMale?
+   next _INTL("It crossed the sea and drifted ashore in a new land. Surviving in this place led it to take on a unique appearance and gain special powers.") if pokemon.isFemale?
+}
 })
 
 MultipleForms.register(:SNEASLER,{
@@ -9837,10 +9879,10 @@ MultipleForms.register(:OINKOLOGNE,{
 "getMoveList"=>proc{|pokemon|
    next if pokemon.form==0
    movelist=[[1,:TACKLE],[1,:TAILWHIP],[3,:DISARMINGVOICE],
-			 [6,:ECHOEDVOICE],[9,:MUDSHOT],[12,:COVET],[15,:DIG],
-			 [17,:HEADBUTT],[23,:YAWN],[28,:TAKEDOWN],[30,:WORKUP],
-			 [34,:UPROAR],[39,:DOUBLEEDGE],[45,:EARTHPOWER],
-			 [51,:BELCH]] if pokemon.form==1 # Eternal
+             [6,:ECHOEDVOICE],[9,:MUDSHOT],[12,:COVET],[15,:DIG],
+             [17,:HEADBUTT],[23,:YAWN],[28,:TAKEDOWN],[30,:WORKUP],
+             [34,:UPROAR],[39,:DOUBLEEDGE],[45,:EARTHPOWER],
+             [51,:BELCH]] if pokemon.form==1 # Eternal
    for i in movelist
      i[1]=getConst(PBMoves,i[1])
    end

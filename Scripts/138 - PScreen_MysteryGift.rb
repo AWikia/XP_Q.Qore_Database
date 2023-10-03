@@ -177,6 +177,23 @@ def pbManageMysteryGifts
     if command==-1 || command==commands.length-1
       break
     elsif command==commands.length-2
+      if Kernel.pbConfirmMessage(_INTL("Are you sure you want to export all gifts?"))
+        begin
+          newfile=[]
+          for gift in master
+            newfile.push(gift)
+          end
+          string=pbMysteryGiftEncrypt(newfile)
+          File.open("MysteryGift.txt","wb"){|f|
+             f.write(string)
+          }
+          Kernel.pbMessage(_INTL("The gifts were saved to MysteryGift.txt."))
+          Kernel.pbMessage(_INTL("Upload MysteryGift.txt to the Internet."))
+        rescue
+          Kernel.pbMessage(_INTL("Couldn't save the gifts to MysteryGift.txt."))
+        end
+      end
+    elsif command==commands.length-3
       begin
         newfile=[]
         for gift in master
@@ -191,7 +208,7 @@ def pbManageMysteryGifts
       rescue
         Kernel.pbMessage(_INTL("Couldn't save the gifts to MysteryGift.txt."))
       end
-    elsif command>=0 && command<commands.length-2
+    elsif command>=0 && command<commands.length-3
       cmd=0
       loop do
         commands=pbRefreshMGCommands(master,online)
@@ -250,6 +267,7 @@ def pbRefreshMGCommands(master,online)
     commands.push(_ISPRINTF("{1:s} {2:d}: {3:s} ({4:s})",ontext,gift[0],gift[3],itemname))
   end
   commands.push(_INTL("Export selected to file"))
+  commands.push(_INTL("Export all to file"))
   commands.push(_INTL("Cancel"))
   return commands
 end

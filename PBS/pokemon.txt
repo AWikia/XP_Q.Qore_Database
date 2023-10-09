@@ -36671,8 +36671,8 @@ Color=Gray
 Habitat=Grassland
 Kind=Ice Dragon
 Pokedex=This Pokémon blasts cryogenic air out from its mouth. This air can instantly freeze even liquid-hot lava.
-BattlerPlayerY=15
-BattlerEnemyY=14
+BattlerPlayerY=9
+BattlerEnemyY=12
 BattlerAltitude=0
 Evolutions=
 [1349]

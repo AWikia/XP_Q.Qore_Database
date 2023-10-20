@@ -12,7 +12,7 @@ class MiningGameCounter < BitmapSprite
     @viewport.z=99999
     super(416+128,60,@viewport)
     @hits=0
-    @image=AnimatedBitmap.new(_INTL("Graphics/Pictures/Mining/cracks"))
+    @image=AnimatedBitmap.new(_INTL("Graphics/UI/Mining/cracks"))
     update
   end
 
@@ -42,7 +42,7 @@ class MiningGameTile < BitmapSprite
     @viewport.z=99999
     super(32,32,@viewport)
     @layer=2+rand(5)
-    @image=AnimatedBitmap.new(_INTL("Graphics/Pictures/Mining/tiles"))
+    @image=AnimatedBitmap.new(_INTL("Graphics/UI/Mining/tiles"))
     update
   end
 
@@ -77,9 +77,9 @@ class MiningGameCursor < BitmapSprite
     @mode=mode
     @hit=0   # 0=regular, 1=hit item, 2=hit iron
     @counter=0
-    @cursorbitmap=AnimatedBitmap.new(_INTL("Graphics/Pictures/Mining/cursor"))
-    @toolbitmap=AnimatedBitmap.new(_INTL("Graphics/Pictures/Mining/tools"))
-    @hitsbitmap=AnimatedBitmap.new(_INTL("Graphics/Pictures/Mining/hits"))
+    @cursorbitmap=AnimatedBitmap.new(_INTL("Graphics/UI/Mining/cursor"))
+    @toolbitmap=AnimatedBitmap.new(_INTL("Graphics/UI/Mining/tools"))
+    @hitsbitmap=AnimatedBitmap.new(_INTL("Graphics/UI/Mining/hits"))
     update
   end
 
@@ -217,8 +217,8 @@ class MiningGameScene
     @viewport.z=99999
     addBackgroundPlane(@sprites,"bg","Mining/miningbg",@viewport)
     @sprites["itemlayer"]=BitmapSprite.new(Graphics.width,Graphics.height,@viewport)
-    @itembitmap=AnimatedBitmap.new(_INTL("Graphics/Pictures/Mining/items"))
-    @ironbitmap=AnimatedBitmap.new(_INTL("Graphics/Pictures/Mining/irons"))
+    @itembitmap=AnimatedBitmap.new(_INTL("Graphics/UI/Mining/items"))
+    @ironbitmap=AnimatedBitmap.new(_INTL("Graphics/UI/Mining/irons"))
     @items=[]
     @itemswon=[]
     @iron=[]
@@ -232,7 +232,7 @@ class MiningGameScene
     @sprites["crack"]=MiningGameCounter.new(0,4)
     @sprites["cursor"]=MiningGameCursor.new(58,0) # central position, pick
     @sprites["tool"]=IconSprite.new(434+128,254,@viewport)
-    @sprites["tool"].setBitmap(sprintf("Graphics/Pictures/Mining/toolicons"))
+    @sprites["tool"].setBitmap(sprintf("Graphics/UI/Mining/toolicons"))
     @sprites["tool"].src_rect.set(0,0,68,100)
     update
     pbFadeInAndShow(@sprites)

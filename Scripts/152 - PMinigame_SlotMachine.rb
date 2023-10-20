@@ -33,11 +33,11 @@ class SlotMachineReel < BitmapSprite
     @slipping=0
     @index=rand(@reel.length)
     if $Trainer && $Trainer.isFemale?
-      @images=AnimatedBitmap.new(_INTL("Graphics/Pictures/Slot Machine/imagesf"))
+      @images=AnimatedBitmap.new(_INTL("Graphics/UI/Slot Machine/imagesf"))
     else
-      @images=AnimatedBitmap.new(_INTL("Graphics/Pictures/Slot Machine/images"))
+      @images=AnimatedBitmap.new(_INTL("Graphics/UI/Slot Machine/images"))
     end
-    @shading=AnimatedBitmap.new(_INTL("Graphics/Pictures/Slot Machine/ReelOverlay"))
+    @shading=AnimatedBitmap.new(_INTL("Graphics/UI/Slot Machine/ReelOverlay"))
     update
   end
 
@@ -92,7 +92,7 @@ class SlotMachineScore < BitmapSprite
     @viewport=Viewport.new(x,y,70,22)
     @viewport.z=99999
     super(70,22,@viewport)
-    @numbers=AnimatedBitmap.new(_INTL("Graphics/Pictures/Slot Machine/numbers"))
+    @numbers=AnimatedBitmap.new(_INTL("Graphics/UI/Slot Machine/numbers"))
     self.score=score
   end
 
@@ -203,10 +203,10 @@ class SlotMachineScene
         Input.update
         update
         @sprites["window2"].bitmap.clear if @sprites["window2"].bitmap
-        @sprites["window1"].setBitmap(sprintf("Graphics/Pictures/Slot Machine/win"))
+        @sprites["window1"].setBitmap(sprintf("Graphics/UI/Slot Machine/win"))
         @sprites["window1"].src_rect.set(152*((frame/5)%4),0,152,208)
         if bonus>0
-          @sprites["window2"].setBitmap(sprintf("Graphics/Pictures/Slot Machine/bonus"))
+          @sprites["window2"].setBitmap(sprintf("Graphics/UI/Slot Machine/bonus"))
           @sprites["window2"].src_rect.set(152*(bonus-1),0,152,208)
         end
         @sprites["light1"].visible=true
@@ -251,7 +251,7 @@ class SlotMachineScene
         Input.update
         update
         @sprites["window2"].bitmap.clear if @sprites["window2"].bitmap
-        @sprites["window1"].setBitmap(sprintf("Graphics/Pictures/Slot Machine/lose"))
+        @sprites["window1"].setBitmap(sprintf("Graphics/UI/Slot Machine/lose"))
         @sprites["window1"].src_rect.set(152*((frame/10)%2),0,152,208)
         frame+=1
       end
@@ -279,28 +279,28 @@ class SlotMachineScene
     for i in 1..3
       @sprites["button#{i}"]=IconSprite.new(68+80*(i-1)+64,260,@viewport)
       if $Trainer && $Trainer.isFemale?
-        @sprites["button#{i}"].setBitmap(sprintf("Graphics/Pictures/Slot Machine/buttonf"))
+        @sprites["button#{i}"].setBitmap(sprintf("Graphics/UI/Slot Machine/buttonf"))
       else
-        @sprites["button#{i}"].setBitmap(sprintf("Graphics/Pictures/Slot Machine/button"))        
+        @sprites["button#{i}"].setBitmap(sprintf("Graphics/UI/Slot Machine/button"))        
       end
       @sprites["button#{i}"].visible=false
     end
     for i in 1..5
       y=[170,122,218,82,82][i-1]
       @sprites["row#{i}"]=IconSprite.new(2+64,y,@viewport)
-      @sprites["row#{i}"].setBitmap(sprintf("Graphics/Pictures/Slot Machine/line%1d%s",
+      @sprites["row#{i}"].setBitmap(sprintf("Graphics/UI/Slot Machine/line%1d%s",
          1+i/2,(i>=4) ? ((i==4) ? "a" : "b") : ""))
       @sprites["row#{i}"].visible=false
     end
     @sprites["light1"]=IconSprite.new(16+64,32,@viewport)
-    @sprites["light1"].setBitmap(sprintf("Graphics/Pictures/Slot Machine/lights"))
+    @sprites["light1"].setBitmap(sprintf("Graphics/UI/Slot Machine/lights"))
     @sprites["light1"].visible=false
     @sprites["light2"]=IconSprite.new(240+64,32,@viewport)
-    @sprites["light2"].setBitmap(sprintf("Graphics/Pictures/Slot Machine/lights"))
+    @sprites["light2"].setBitmap(sprintf("Graphics/UI/Slot Machine/lights"))
     @sprites["light2"].mirror=true
     @sprites["light2"].visible=false
     @sprites["window1"]=IconSprite.new(358+64,96,@viewport)
-    @sprites["window1"].setBitmap(sprintf("Graphics/Pictures/Slot Machine/insert"))
+    @sprites["window1"].setBitmap(sprintf("Graphics/UI/Slot Machine/insert"))
     @sprites["window1"].src_rect.set(0,0,152,208)
     @sprites["window2"]=IconSprite.new(358+64,96,@viewport)
     @sprites["credit"]=SlotMachineScore.new(360+64,66,$PokemonGlobal.coins)
@@ -325,7 +325,7 @@ class SlotMachineScene
         Kernel.pbMessage(_INTL("You've run out of Coins.\nGame over!"))
         break
       elsif @gameRunning # Reels are spinning
-        @sprites["window1"].setBitmap(sprintf("Graphics/Pictures/Slot Machine/stop"))
+        @sprites["window1"].setBitmap(sprintf("Graphics/UI/Slot Machine/stop"))
         @sprites["window1"].src_rect.set(152*((frame/10)%4),0,152,208)
         if Input.trigger?(Input::C)
           pbSEPlay("SlotsStop")
@@ -355,10 +355,10 @@ class SlotMachineScene
         end
         @gameEnd=false
       else # Awaiting coins for the next spin
-        @sprites["window1"].setBitmap(sprintf("Graphics/Pictures/Slot Machine/insert"))
+        @sprites["window1"].setBitmap(sprintf("Graphics/UI/Slot Machine/insert"))
         @sprites["window1"].src_rect.set(152*((frame/15)%2),0,152,208)
         if @wager>0
-          @sprites["window2"].setBitmap(sprintf("Graphics/Pictures/Slot Machine/press"))
+          @sprites["window2"].setBitmap(sprintf("Graphics/UI/Slot Machine/press"))
           @sprites["window2"].src_rect.set(152*((frame/15)%2),0,152,208)
         end
         if Input.trigger?(Input::DOWN) && @wager<3 && @sprites["credit"].score>0

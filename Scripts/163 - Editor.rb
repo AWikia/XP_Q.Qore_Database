@@ -1245,14 +1245,14 @@ end
 ################################################################################
 # Core lister script
 ################################################################################
-def pbListScreen(title,lister,planebg="partybg")
+def pbListScreen(title,lister,planebg="party_bg")
   viewport=Viewport.new(0,0,Graphics.width,Graphics.height)
   viewport.z=99999
   list=pbListWindow([],256,32)
   list.viewport=viewport
   list.z=2
   plane = AnimatedPlane.new(viewport)
-  plane.bitmap=AnimatedBitmap.new("Graphics/Pictures/"+getDarkModeFolder+"/"+planebg).deanimate
+  plane.bitmap=AnimatedBitmap.new("Graphics/UI/"+getDarkModeFolder+"/"+planebg).deanimate
   plane.z=2
   title=Window_UnformattedTextPokemon.newWithSize(_INTL(title),
       2,-18,576,64,viewport)      
@@ -1302,7 +1302,7 @@ def pbListScreenBlock(title,lister)
   list.viewport=viewport
   list.z=3
   plane = AnimatedPlane.new(viewport)
-  plane.bitmap=AnimatedBitmap.new("Graphics/Pictures/"+getDarkModeFolder+"/Settings/bg").deanimate
+  plane.bitmap=AnimatedBitmap.new("Graphics/UI/"+getDarkModeFolder+"/Settings/bg").deanimate
   plane.z=2
   title=Window_UnformattedTextPokemon.newWithSize(_INTL(title),
       2,-18,576,64,viewport)      
@@ -3791,8 +3791,8 @@ GLOBALMETADATA=[
     @dragOffsetX=0
     @dragOffsetY=0
     @selmapid=-1
-    addBackgroundPlane(@sprites,"background",getDarkModeFolder+"/mysteryGiftbg",@viewport)
-    addBackgroundPlane(@sprites,"background_2",getDarkModeFolder+"/mysteryGiftbg2",@viewport)
+    addBackgroundPlane(@sprites,"background",getDarkModeFolder+"/mysterygift_bg",@viewport)
+    addBackgroundPlane(@sprites,"background_2",getDarkModeFolder+"/mysterygift_bg_2",@viewport)
       @sprites["background_2"].z=2
       @sprites["header"]=Window_UnformattedTextPokemon.newWithSize(_INTL("Map Connections"),
          2,-18,576,64,@viewport)
@@ -3995,7 +3995,7 @@ GLOBALMETADATA=[
   end
 
   def chooseMapScreen(title,currentmap)
-    return pbListScreen(title,MapLister.new(currentmap),"mysteryGiftbg2")
+    return pbListScreen(title,MapLister.new(currentmap),"mysterygift_bg_2")
   end
 
   def update

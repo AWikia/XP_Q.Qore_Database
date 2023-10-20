@@ -57,12 +57,12 @@ class MoveRelearnerScene
     @viewport=Viewport.new(0,0,Graphics.width,Graphics.height)
     @viewport.z=99999
     @sprites={}
-    addBackgroundPlane(@sprites,"bg",getDarkModeFolder+"/reminderbg",@viewport)
+    addBackgroundPlane(@sprites,"bg",getDarkModeFolder+"/Move Reminder/bg",@viewport)
     @sprites["pokeicon"]=PokemonIconSprite.new(@pokemon,@viewport)
     @sprites["pokeicon"].x=288+64
     @sprites["pokeicon"].y=44
     @sprites["background"]=IconSprite.new(0,0,@viewport)
-    @sprites["background"].setBitmap("Graphics/Pictures/"+getAccentFolder+"/reminderSel")
+    @sprites["background"].setBitmap("Graphics/UI/"+getAccentFolder+"/reminderSel")
     @sprites["background"].y=78
     @sprites["background"].src_rect=Rect.new(0,72,258,72)
     @sprites["header"]=Window_UnformattedTextPokemon.newWithSize(_INTL("Teach which move to {1}?", @pokemon.name),
@@ -78,7 +78,7 @@ class MoveRelearnerScene
     @sprites["msgwindow"]=Window_AdvancedTextPokemon.new("")
     @sprites["msgwindow"].visible=false
     @sprites["msgwindow"].viewport=@viewport
-    @typebitmap=AnimatedBitmap.new("Graphics/Pictures/Types")
+    @typebitmap=AnimatedBitmap.new("Graphics/UI/Types")
     pbDrawMoveList
     pbDeactivateWindows(@sprites)
     # Fade in all sprites
@@ -116,7 +116,7 @@ class MoveRelearnerScene
       if moveobject
         movedata=PBMoveData.new(moveobject)
         if movedata
-          imagepos.push(["Graphics/Pictures/Types",12,yPos+2,64*$PokemonSystem.colortige,
+          imagepos.push(["Graphics/UI/Types",12,yPos+2,64*$PokemonSystem.colortige,
           movedata.type*28,64,28])
           textpos.push([PBMoves.getName(moveobject),80,yPos,0,
              typeColors[movedata.type][dark[0]],typeColors[movedata.type][dark[1]]])
@@ -134,7 +134,7 @@ class MoveRelearnerScene
       end
       yPos+=64
     end
-    imagepos.push(["Graphics/Pictures/"+getAccentFolder+"/reminderSel",
+    imagepos.push(["Graphics/UI/"+getAccentFolder+"/reminderSel",
        0,78+(@sprites["commands"].index-@sprites["commands"].top_item)*64,
        0,0,258,72])
     selmovedata=PBMoveData.new(@moves[@sprites["commands"].index])
@@ -149,12 +149,12 @@ class MoveRelearnerScene
     textpos.push([accuracy==0 ? "---" : sprintf("%d",accuracy),
           468+128,178,2,baseColor,shadowColor])
     pbDrawTextPositions(overlay,textpos)
-    imagepos.push(["Graphics/Pictures/category",436+128,116,64*$PokemonSystem.colortige,category*28,64,28])
+    imagepos.push(["Graphics/UI/category",436+128,116,64*$PokemonSystem.colortige,category*28,64,28])
     if @sprites["commands"].index<@moves.length-1
-      imagepos.push(["Graphics/Pictures/"+getDarkModeFolder+"/reminderButtons",48,350,0,0,76,32])
+      imagepos.push(["Graphics/UI/"+getDarkModeFolder+"/Move Reminder/buttons",48,350,0,0,76,32])
     end
     if @sprites["commands"].index>0
-      imagepos.push(["Graphics/Pictures/"+getDarkModeFolder+"/reminderButtons",134,350,76,0,76,32])
+      imagepos.push(["Graphics/UI/"+getDarkModeFolder+"/Move Reminder/buttons",134,350,76,0,76,32])
     end
     pbDrawImagePositions(overlay,imagepos)
     drawTextEx(overlay,272,210,238+128,5,

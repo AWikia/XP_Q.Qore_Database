@@ -1432,12 +1432,12 @@ end
 
 # Adds a background to the sprite hash.
 # _planename_ is the hash key of the background.
-# _background_ is a filename within the Graphics/Pictures/ folder and can be
+# _background_ is a filename within the Graphics/UI/ folder and can be
 #     an animated image.
 # _viewport_ is a viewport to place the background in.
 def addBackgroundPlane(sprites,planename,background,viewport=nil)
   sprites[planename]=AnimatedPlane.new(viewport)
-  bitmapName=pbResolveBitmap("Graphics/Pictures/#{background}")
+  bitmapName=pbResolveBitmap("Graphics/UI/#{background}")
   if bitmapName==nil
     # Plane should exist in any case
     sprites[planename].bitmap=nil
@@ -1453,7 +1453,7 @@ def addBackgroundPlane(sprites,planename,background,viewport=nil)
 end
 
 def addBackgroundOrColoredPlane(sprites,planename,background,color,viewport=nil)
-  bitmapName=pbResolveBitmap("Graphics/Pictures/#{background}")
+  bitmapName=pbResolveBitmap("Graphics/UI/#{background}")
   if bitmapName==nil
     # Plane should exist in any case
     sprites[planename]=ColoredPlane.new(color,@viewport)
@@ -3157,8 +3157,8 @@ end
 
 module UpDownArrowMixin
   def initUpDownArrow
-    @uparrow=AnimatedSprite.create("Graphics/Pictures/"+getAccentFolder+"/uparrow",8,2,self.viewport)
-    @downarrow=AnimatedSprite.create("Graphics/Pictures/"+getAccentFolder+"/downarrow",8,2,self.viewport)
+    @uparrow=AnimatedSprite.create("Graphics/UI/"+getAccentFolder+"/uparrow",8,2,self.viewport)
+    @downarrow=AnimatedSprite.create("Graphics/UI/"+getAccentFolder+"/downarrow",8,2,self.viewport)
     @uparrow.z=99998
     @downarrow.z=99998
     @uparrow.visible=false
@@ -3267,7 +3267,7 @@ class Window_DrawableCommand < SpriteWindow_SelectableEx
   def initialize(x,y,width,height,viewport=nil)
     super(x,y,width,height)
     self.viewport=viewport if viewport
-    @selarrow=AnimatedBitmap.new("Graphics/Pictures/"+getAccentFolder+"/selarrowaccent")
+    @selarrow=AnimatedBitmap.new("Graphics/UI/"+getAccentFolder+"/selarrowaccent")
     @index=0
     colors=getDefaultTextColors(self.windowskin)
     @baseColor=colors[0]
@@ -4059,7 +4059,7 @@ class Window_AdvancedTextPokemon < SpriteWindow_Base
 
   def allocPause
     if !@pausesprite
-      @pausesprite=AnimatedSprite.create("Graphics/Pictures/pause",4,3)
+      @pausesprite=AnimatedSprite.create("Graphics/UI/pause_arrow",4,3)
       @pausesprite.z=100000
       @pausesprite.visible=false
     end

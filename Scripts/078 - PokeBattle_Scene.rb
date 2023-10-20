@@ -46,7 +46,7 @@ class CommandMenuDisplay
     @display=nil
     if PokeBattle_SceneConstants::USECOMMANDBOX
       @display=IconSprite.new(0,Graphics.height-96,viewport)
-  #    @display.setBitmap("Graphics/Pictures/battleCommand")
+  #    @display.setBitmap("Graphics/UI/battleCommand")
       if pbResolveBitmap(sprintf("Graphics/Battle Backs/Backgrounds/"+bg+"/MessageA.png"))
         @display.setBitmap("Graphics/Battle Backs/Backgrounds/" + bg + "/MessageA")
       else
@@ -179,7 +179,7 @@ class CommandMenuButtons < BitmapSprite
     self.x=Graphics.width-320 # Change
     self.y=Graphics.height-96
     @mode=mode
-    @buttonbitmap=AnimatedBitmap.new(_INTL("Graphics/Pictures/Battle/cursor_command"))
+    @buttonbitmap=AnimatedBitmap.new(_INTL("Graphics/UI/Battle/cursor_command"))
     refresh(index,mode)
   end
 
@@ -233,7 +233,7 @@ class FightMenuDisplay
     @display=nil
     if PokeBattle_SceneConstants::USEFIGHTBOX
       @display=IconSprite.new(0,Graphics.height-96,viewport)
-#      @display.setBitmap("Graphics/Pictures/battleFight")
+#      @display.setBitmap("Graphics/UI/battleFight")
       if pbResolveBitmap(sprintf("Graphics/Battle Backs/Backgrounds/"+bg+"/MessageB.png"))
         @display.setBitmap("Graphics/Battle Backs/Backgrounds/" + bg + "/MessageB")
       else
@@ -392,10 +392,10 @@ class FightMenuButtons < BitmapSprite
     self.x=0
     self.y=Graphics.height-96-UPPERGAP
     pbSetNarrowFont(self.bitmap)
-    @buttonbitmap=AnimatedBitmap.new("Graphics/Pictures/Battle/cursor_fight")
-    @catbitmap=AnimatedBitmap.new("Graphics/Pictures/category")
-    @typebitmap=AnimatedBitmap.new("Graphics/Pictures/types")
-    @megaevobitmap=AnimatedBitmap.new(_INTL("Graphics/Pictures/Battle/cursor_mega"))
+    @buttonbitmap=AnimatedBitmap.new("Graphics/UI/Battle/cursor_fight")
+    @catbitmap=AnimatedBitmap.new("Graphics/UI/category")
+    @typebitmap=AnimatedBitmap.new("Graphics/UI/types")
+    @megaevobitmap=AnimatedBitmap.new(_INTL("Graphics/UI/Battle/cursor_mega"))
     refresh(index,moves,0)
   end
 
@@ -414,7 +414,7 @@ class FightMenuButtons < BitmapSprite
   def refresh(index,moves,megaButton)
     return if !moves
     self.bitmap.clear
-    moveboxes=_INTL("Graphics/Pictures/Battle/cursor_fight")
+    moveboxes=_INTL("Graphics/UI/Battle/cursor_fight")
     textpos=[]
     for i in 0...4
       next if i==index
@@ -496,7 +496,7 @@ class SafariDataBox < SpriteWrapper
     super(viewport)
     @selected=0
     @battle=battle
-    @databox=AnimatedBitmap.new("Graphics/Pictures/Battle/databox_safari")
+    @databox=AnimatedBitmap.new("Graphics/UI/Battle/databox_safari")
     @spriteX=PokeBattle_SceneConstants::SAFARIBOX_X
     @spriteY=PokeBattle_SceneConstants::SAFARIBOX_Y
     @appearing=false
@@ -581,21 +581,21 @@ class PokemonDataBox < SpriteWrapper
       $dbattle=true
       case @battler.index
       when 0
-        @databox=AnimatedBitmap.new("Graphics/Pictures/Battle/databox_thin")
+        @databox=AnimatedBitmap.new("Graphics/UI/Battle/databox_thin")
         @spriteX=PokeBattle_SceneConstants::PLAYERBOXD1_X
         @spriteY=PokeBattle_SceneConstants::PLAYERBOXD1_Y
       when 1 
-        @databox=AnimatedBitmap.new("Graphics/Pictures/Battle/databox_thin_foe")
+        @databox=AnimatedBitmap.new("Graphics/UI/Battle/databox_thin_foe")
         @spriteX=PokeBattle_SceneConstants::FOEBOXD1_X
         @spriteY=PokeBattle_SceneConstants::FOEBOXD1_Y
         @dark=true
       when 2 
-        @databox=AnimatedBitmap.new("Graphics/Pictures/Battle/databox_thin_alt")
+        @databox=AnimatedBitmap.new("Graphics/UI/Battle/databox_thin_alt")
         @spriteX=PokeBattle_SceneConstants::PLAYERBOXD2_X
         @spriteY=PokeBattle_SceneConstants::PLAYERBOXD2_Y
         @dark=true
       when 3 
-        @databox=AnimatedBitmap.new("Graphics/Pictures/Battle/databox_thin_foe_alt")
+        @databox=AnimatedBitmap.new("Graphics/UI/Battle/databox_thin_foe_alt")
         @spriteX=PokeBattle_SceneConstants::FOEBOXD2_X
         @spriteY=PokeBattle_SceneConstants::FOEBOXD2_Y
       end
@@ -603,25 +603,25 @@ class PokemonDataBox < SpriteWrapper
       $dbattle=false
       case @battler.index
       when 0
-        @databox=AnimatedBitmap.new("Graphics/Pictures/Battle/databox_normal")
+        @databox=AnimatedBitmap.new("Graphics/UI/Battle/databox_normal")
         @spriteX=PokeBattle_SceneConstants::PLAYERBOX_X
         @spriteY=PokeBattle_SceneConstants::PLAYERBOX_Y
         @showhp=true
         #@showexp=true Goodbye!!!
       when 1 
-        @databox=AnimatedBitmap.new("Graphics/Pictures/Battle/databox_normal_foe")
+        @databox=AnimatedBitmap.new("Graphics/UI/Battle/databox_normal_foe")
         @spriteX=PokeBattle_SceneConstants::FOEBOX_X
         @spriteY=PokeBattle_SceneConstants::FOEBOX_Y
 				@showhp=true
         @dark=true
       end
     end
-    @statuses=AnimatedBitmap.new(_INTL("Graphics/Pictures/Battle/icon_statuses"))
+    @statuses=AnimatedBitmap.new(_INTL("Graphics/UI/Battle/icon_statuses"))
     @contents=BitmapWrapper.new(@databox.width,@databox.height)
     if @dark
-      @numberbitmap=AnimatedBitmap.new(_INTL("Graphics/Pictures/icon_numbers_white"))
+      @numberbitmap=AnimatedBitmap.new(_INTL("Graphics/UI/icon_numbers_white"))
     else
-      @numberbitmap=AnimatedBitmap.new(_INTL("Graphics/Pictures/icon_numbers"))
+      @numberbitmap=AnimatedBitmap.new(_INTL("Graphics/UI/icon_numbers"))
     end
     self.bitmap=@contents
     self.visible=false
@@ -727,23 +727,23 @@ class PokemonDataBox < SpriteWrapper
     when 0 # Male
  #     textpos.push([_INTL("♂"),genderX,6,false,outline,Color.new(48,96,216),1])
       if @dark
-        imagepos.push(["Graphics/Pictures/Dark Mode/gender_male",genderX,14,0,0,-1,-1])
+        imagepos.push(["Graphics/UI/Dark Mode/gender_male",genderX,14,0,0,-1,-1])
       else
-        imagepos.push(["Graphics/Pictures/gender_male",genderX,14,0,0,-1,-1])
+        imagepos.push(["Graphics/UI/gender_male",genderX,14,0,0,-1,-1])
       end
     when 1 # Female
  #     textpos.push([_INTL("♀"),genderX,6,false,outline,Color.new(248,88,40),1])
       if @dark
-        imagepos.push(["Graphics/Pictures/Dark Mode/gender_female",genderX,14,0,0,-1,-1])
+        imagepos.push(["Graphics/UI/Dark Mode/gender_female",genderX,14,0,0,-1,-1])
       else
-        imagepos.push(["Graphics/Pictures/gender_female",genderX,14,0,0,-1,-1])
+        imagepos.push(["Graphics/UI/gender_female",genderX,14,0,0,-1,-1])
       end
     when 2 # Genderless
  #     textpos.push([_INTL("♀"),genderX,6,false,outline,Color.new(248,88,40),1])
       if @dark
-        imagepos.push(["Graphics/Pictures/Dark Mode/gender_transgender",genderX,14,0,0,-1,-1])
+        imagepos.push(["Graphics/UI/Dark Mode/gender_transgender",genderX,14,0,0,-1,-1])
       else
-        imagepos.push(["Graphics/Pictures/gender_transgender",genderX,14,0,0,-1,-1])
+        imagepos.push(["Graphics/UI/gender_transgender",genderX,14,0,0,-1,-1])
       end
     end
     pbDrawTextPositions(self.bitmap,textpos)
@@ -751,9 +751,9 @@ class PokemonDataBox < SpriteWrapper
     @extra1 = 138
 #    @extra1 = 120 if (@battler.index&1)==0 # If player's Pokémon
     if @dark
-    imagepos.push(["Graphics/Pictures/overlay_lv_white",@spritebaseX+@extra1,16,0,0,-1,-1]) # -self.bitmap.text_size(@battler.level.to_s).width
+    imagepos.push(["Graphics/UI/overlay_lv_white",@spritebaseX+@extra1,16,0,0,-1,-1]) # -self.bitmap.text_size(@battler.level.to_s).width
     else
-    imagepos.push(["Graphics/Pictures/overlay_lv",@spritebaseX+@extra1,16,0,0,-1,-1]) #
+    imagepos.push(["Graphics/UI/overlay_lv",@spritebaseX+@extra1,16,0,0,-1,-1]) #
     end
     textpos=[
    #    [_INTL("{1}",@battler.level),@spritebaseX+202,8,true,base,shadow]
@@ -772,19 +772,19 @@ class PokemonDataBox < SpriteWrapper
     if @battler.isShiny?
       shinyX=206
       shinyX=-6 if (@battler.index&1)==0 # If player's Pokémon
-      imagepos.push(["Graphics/Pictures/shiny.png",@spritebaseX+shinyX,36,0,0,-1,-1])
+      imagepos.push(["Graphics/UI/shiny.png",@spritebaseX+shinyX,36,0,0,-1,-1])
     end
     if @battler.isMega?
-      imagepos.push(["Graphics/Pictures/Battle/icon_mega.png",@spritebaseX+8,34,0,0,-1,-1])
+      imagepos.push(["Graphics/UI/Battle/icon_mega.png",@spritebaseX+8,34,0,0,-1,-1])
     elsif @battler.isPrimal?
       if isConst?(@battler.pokemon.species,PBSpecies,:KYOGRE)
-        imagepos.push(["Graphics/Pictures/Battle/icon_primal_Kyogre.png",@spritebaseX+120,4,0,0,-1,-1])
+        imagepos.push(["Graphics/UI/Battle/icon_primal_Kyogre.png",@spritebaseX+120,4,0,0,-1,-1])
       elsif isConst?(@battler.pokemon.species,PBSpecies,:GROUDON)
-        imagepos.push(["Graphics/Pictures/Battle/icon_primal_Groudon.png",@spritebaseX+120,4,0,0,-1,-1])
+        imagepos.push(["Graphics/UI/Battle/icon_primal_Groudon.png",@spritebaseX+120,4,0,0,-1,-1])
       end
     end
     if @battler.owned && (@battler.index&1)==1
-      imagepos.push(["Graphics/Pictures/Battle/icon_own.png",@spritebaseX+8,36,0,0,-1,-1])
+      imagepos.push(["Graphics/UI/Battle/icon_own.png",@spritebaseX+8,36,0,0,-1,-1])
     end
     pbDrawImagePositions(self.bitmap,imagepos)
     if @battler.status>0
@@ -1849,7 +1849,7 @@ class PokeBattle_Scene
   @doublePreviewTop=doublePreviewTop
   yvalue=114
   yvalue-=72 if doublePreviewTop
-  pbAddSprite("partybarfoe",-400,yvalue,"Graphics/Pictures/Battle/overlay_lineup",@viewport)
+  pbAddSprite("partybarfoe",-400,yvalue,"Graphics/UI/Battle/overlay_lineup",@viewport)
   @sprites["partybarfoe"].visible=true
   @partyAnimPhase=0
 end 
@@ -1902,14 +1902,14 @@ end
       @xposenemy=PokeBattle_SceneConstants::FOEPARTYBALL1_X-counter*ballmovedist
       for i in 0...6
         # Choose the ball's graphic (player's side)
-        ballgraphic="Graphics/Pictures/Battle/icon_ball_empty"
+        ballgraphic="Graphics/UI/Battle/icon_ball_empty"
         if i<@battle.party1.length && @battle.party1[i]
           if @battle.party1[i].hp<=0 || @battle.party1[i].isEgg?
-            ballgraphic="Graphics/Pictures/Battle/icon_ball_faint"
+            ballgraphic="Graphics/UI/Battle/icon_ball_faint"
           elsif @battle.party1[i].status>0
-            ballgraphic="Graphics/Pictures/Battle/icon_ball_status"
+            ballgraphic="Graphics/UI/Battle/icon_ball_status"
           else
-            ballgraphic="Graphics/Pictures/Battle/icon_ball"
+            ballgraphic="Graphics/UI/Battle/icon_ball"
           end
         end
         pbAddSprite("player#{i}",
@@ -1917,18 +1917,18 @@ end
            ballgraphic,@viewport)
         @sprites["player#{i}"].z=41
         # Choose the ball's graphic (opponent's side)
-        ballgraphic="Graphics/Pictures/Battle/icon_ball_empty"
+        ballgraphic="Graphics/UI/Battle/icon_ball_empty"
         enemyindex=i
         if @battle.doublebattle && i>=3
           enemyindex=(i%3)+@battle.pbSecondPartyBegin(1)
         end
         if enemyindex<@battle.party2.length && @battle.party2[enemyindex]
           if @battle.party2[enemyindex].hp<=0 || @battle.party2[enemyindex].isEgg?
-            ballgraphic="Graphics/Pictures/Battle/icon_ball_faint"
+            ballgraphic="Graphics/UI/Battle/icon_ball_faint"
           elsif @battle.party2[enemyindex].status>0
-            ballgraphic="Graphics/Pictures/Battle/icon_ball_status"
+            ballgraphic="Graphics/UI/Battle/icon_ball_status"
           else
-            ballgraphic="Graphics/Pictures/Battle/icon_ball"
+            ballgraphic="Graphics/UI/Battle/icon_ball"
           end
         end
         pbAddSprite("enemy#{i}",
@@ -1973,11 +1973,11 @@ end
     pbAddSprite("partybarfoe",
        PokeBattle_SceneConstants::FOEPARTYBAR_X,
        PokeBattle_SceneConstants::FOEPARTYBAR_Y,
-       "Graphics/Pictures/Battle/overlay_lineup",@viewport)
+       "Graphics/UI/Battle/overlay_lineup",@viewport)
     pbAddSprite("partybarplayer",
        PokeBattle_SceneConstants::PLAYERPARTYBAR_X,
        PokeBattle_SceneConstants::PLAYERPARTYBAR_Y,
-       "Graphics/Pictures/Battle/overlay_lineup",@viewport)
+       "Graphics/UI/Battle/overlay_lineup",@viewport)
     @sprites["partybarfoe"].x-=@sprites["partybarfoe"].bitmap.width
     @sprites["partybarplayer"].mirror=true
     @sprites["partybarfoe"].z=40
@@ -2060,7 +2060,7 @@ end
     end
     @sprites["shadow0"]=IconSprite.new(0,0,@viewport)
     @sprites["shadow0"].z=3
-    pbAddSprite("shadow1",0,0,"Graphics/Pictures/Battle/battler_shadow",@viewport)
+    pbAddSprite("shadow1",0,0,"Graphics/UI/Battle/battler_shadow",@viewport)
     @sprites["shadow1"].z=3
     @sprites["shadow1"].visible=false
     @sprites["pokemon0"]=PokemonBattlerSprite.new(battle.doublebattle,0,@viewport)
@@ -2070,7 +2070,7 @@ end
     if battle.doublebattle
       @sprites["shadow2"]=IconSprite.new(0,0,@viewport)
       @sprites["shadow2"].z=3
-      pbAddSprite("shadow3",0,0,"Graphics/Pictures/Battle/battler_shadow",@viewport)
+      pbAddSprite("shadow3",0,0,"Graphics/UI/Battle/battler_shadow",@viewport)
       @sprites["shadow3"].z=3
       @sprites["shadow3"].visible=false
       @sprites["pokemon2"]=PokemonBattlerSprite.new(battle.doublebattle,2,@viewport)
@@ -2084,7 +2084,7 @@ end
       @sprites["battlebox2"]=PokemonDataBox.new(battle.battlers[2],battle.doublebattle,@viewport)
       @sprites["battlebox3"]=PokemonDataBox.new(battle.battlers[3],battle.doublebattle,@viewport)
     end
-  #  pbAddSprite("messagebox",0,Graphics.height-96,"Graphics/Pictures/battleMessage",@viewport)
+  #  pbAddSprite("messagebox",0,Graphics.height-96,"Graphics/UI/battleMessage",@viewport)
     if pbResolveBitmap(sprintf("Graphics/Battle Backs/Backgrounds/"+pbGetBackdrop+"/MessageC.png"))
       pbAddSprite("messagebox",0,Graphics.height-96,"Graphics/Battle Backs/Backgrounds/" + pbGetBackdrop + "/MessageC",@viewport)
     else

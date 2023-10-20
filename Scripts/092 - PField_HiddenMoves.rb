@@ -154,14 +154,14 @@ def pbHiddenMoveAnimation(pokemon)
   viewport=Viewport.new(0,0,0,0)
   viewport.z=99999
   bg=Sprite.new(viewport)
-  bg.bitmap=BitmapCache.load_bitmap("Graphics/Pictures/hiddenMovebg")
+  bg.bitmap=BitmapCache.load_bitmap("Graphics/UI/Field move/bg")
   sprite=PokemonSprite.new(viewport)
   sprite.setPokemonBitmap(pokemon)
   sprite.z=1
   sprite.ox=sprite.bitmap.width/2
   sprite.oy=sprite.bitmap.height/2
   sprite.visible=false
-  strobebitmap=AnimatedBitmap.new("Graphics/Pictures/hiddenMoveStrobes")
+  strobebitmap=AnimatedBitmap.new("Graphics/UI/Field move/strobes")
   strobes=[]
   15.times do |i|
     strobe=BitmapSprite.new(26*2,8*2,viewport)

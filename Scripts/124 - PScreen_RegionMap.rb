@@ -50,7 +50,7 @@ class MapBottomSprite < SpriteWrapper
   def refresh
     self.bitmap.clear
     if @nonests
-      imagepos=[[sprintf("Graphics/Pictures/"+getDarkModeFolder+"/Pokedex/overlay_areanone"),172,172,0,0,-1,-1]]
+      imagepos=[[sprintf("Graphics/UI/"+getDarkModeFolder+"/Pokedex/overlay_areanone"),172,172,0,0,-1,-1]]
       pbDrawImagePositions(self.bitmap,imagepos)
     end
 =begin
@@ -143,9 +143,9 @@ class PokemonRegionMapScene
       return false
     end
     if $Trainer.isFemale?
-      addBackgroundOrColoredPlane(@sprites,"background",getDarkModeFolder+"/mapbgf",Color.new(255,255,255),@viewport)
+      addBackgroundOrColoredPlane(@sprites,"background",getDarkModeFolder+"/Town Map/bg_f",Color.new(255,255,255),@viewport)
     else
-      addBackgroundOrColoredPlane(@sprites,"background",getDarkModeFolder+"/mapbg",Color.new(255,255,255),@viewport)
+      addBackgroundOrColoredPlane(@sprites,"background",getDarkModeFolder+"/Town Map/bg",Color.new(255,255,255),@viewport)
     end
     @sprites["map"]=IconSprite.new(0,0,@viewport)
     @sprites["map"].setBitmap("Graphics/Regional Maps/#{@map[1]}")
@@ -179,7 +179,7 @@ class PokemonRegionMapScene
         for j in TOP..BOTTOM
           healspot=pbGetHealingSpot(i,j)
           if healspot && $PokemonGlobal.visitedMaps[healspot[0]]
-            @sprites["point#{k}"]=AnimatedSprite.create("Graphics/Pictures/mapFly",2,30)
+            @sprites["point#{k}"]=AnimatedSprite.create("Graphics/UI/Town Map/icon_fly",2,30)
             @sprites["point#{k}"].viewport=@viewport
             @sprites["point#{k}"].x=-SQUAREWIDTH/2+(i*SQUAREWIDTH)+(Graphics.width-@sprites["map"].bitmap.width)/2
             @sprites["point#{k}"].y=-SQUAREHEIGHT/2+(j*SQUAREHEIGHT)+(Graphics.height-@sprites["map"].bitmap.height)/2
@@ -189,7 +189,7 @@ class PokemonRegionMapScene
         end
       end
     end
-    @sprites["cursor"]=AnimatedSprite.create("Graphics/Pictures/"+getAccentFolder+"/mapCursor",2,15)
+    @sprites["cursor"]=AnimatedSprite.create("Graphics/UI/"+getAccentFolder+"/mapCursor",2,15)
     @sprites["cursor"].viewport=@viewport
     @sprites["cursor"].play
     @sprites["cursor"].x=-SQUAREWIDTH/2+(@mapX*SQUAREWIDTH)+(Graphics.width-@sprites["map"].bitmap.width)/2

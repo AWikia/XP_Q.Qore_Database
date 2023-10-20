@@ -642,7 +642,7 @@ class ScreenBorder
     @sprite.bitmap=nil
     if @sprite.visible
       if @bordername!=nil && @bordername!=""
-        setSpriteBitmap("Graphics/Pictures/"+@bordername)
+        setSpriteBitmap("Graphics/UI/"+@bordername)
       else
         setSpriteBitmap(nil)
         @sprite.bitmap=@defaultbitmap

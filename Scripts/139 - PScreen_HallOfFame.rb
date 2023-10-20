@@ -155,12 +155,12 @@ class HallOfFameScene
     @viewport=Viewport.new(0,0,Graphics.width, Graphics.height)
     @viewport.z=99999
     # Comment the below line to doesn't use a background
-    addBackgroundPlane(@sprites,"bg",getDarkModeFolder+"/hallfamebg",@viewport)
+    addBackgroundPlane(@sprites,"bg",getDarkModeFolder+"/Hall of Fame/bg",@viewport)
     @sprites["hallbars"]=IconSprite.new(@viewport)
     if pcscreen
-      @sprites["hallbars"].setBitmap("Graphics/Pictures/"+getDarkModeFolder+"/hallfamebars")
+      @sprites["hallbars"].setBitmap("Graphics/UI/"+getDarkModeFolder+"/Hall of Fame/bars")
     else
-      @sprites["hallbars"].setBitmap("Graphics/Pictures/"+getDarkModeFolder+"/hallfamebars_2")
+      @sprites["hallbars"].setBitmap("Graphics/UI/"+getDarkModeFolder+"/Hall of Fame/bars_2")
     end
     @sprites["overlay"]=BitmapSprite.new(Graphics.width,Graphics.height,@viewport)
     @sprites["overlay"].z=10

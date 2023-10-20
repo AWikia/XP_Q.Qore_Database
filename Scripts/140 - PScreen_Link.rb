@@ -8,13 +8,13 @@ class LinkBattleButton < SpriteWrapper
     @index=index
     @name=name
     @selected=false
-    fembutton=pbResolveBitmap(sprintf("Graphics/Pictures/"+getDarkModeFolder+"/pokegearButtonf"))
+    fembutton=pbResolveBitmap(sprintf("Graphics/UI/"+getDarkModeFolder+"/pokegear_button_f"))
     if $Trainer.isFemale? && fembutton
-      @button=AnimatedBitmap.new("Graphics/Pictures/"+getDarkModeFolder+"/pokegearButtonf")
+      @button=AnimatedBitmap.new("Graphics/UI/"+getDarkModeFolder+"/pokegear_button_f")
     else
-      @button=AnimatedBitmap.new("Graphics/Pictures/"+getDarkModeFolder+"/pokegearButton")
+      @button=AnimatedBitmap.new("Graphics/UI/"+getDarkModeFolder+"/pokegear_button")
     end
-    @button2=AnimatedBitmap.new("Graphics/Pictures/"+getAccentFolder+"/linkgearSelection")
+    @button2=AnimatedBitmap.new("Graphics/UI/"+getAccentFolder+"/linkgearSelection")
     @contents=BitmapWrapper.new(@button.width,@button.height)
     self.bitmap=@contents
     self.x=x
@@ -42,7 +42,7 @@ class LinkBattleButton < SpriteWrapper
        [@name,self.bitmap.width/2,62,2,base,shadow]
     ]
     pbDrawTextPositions(self.bitmap,textpos)
-    icon=sprintf("Graphics/Pictures/Link Battle/icon_"+@name)
+    icon=sprintf("Graphics/UI/Link Battle/icon_"+@name)
     imagepos=[         # Icon is put on both unselected and selected buttons
        [icon,18,10,0,0,-1,-1],
        [icon,18,62,0,0,-1,-1]
@@ -96,8 +96,8 @@ class Scene_LinkBattleScene
     
     @viewport=Viewport.new(0,0,Graphics.width,Graphics.height)
     @viewport.z=99999
-    @button=AnimatedBitmap.new("Graphics/Pictures/"+getDarkModeFolder+"/pokegearButton")
-    femback=pbResolveBitmap(sprintf("Graphics/Pictures/"+getDarkModeFolder+"/Link Battle/bg_f"))
+    @button=AnimatedBitmap.new("Graphics/UI/"+getDarkModeFolder+"/pokegearButton")
+    femback=pbResolveBitmap(sprintf("Graphics/UI/"+getDarkModeFolder+"/Link Battle/bg_f"))
     if $Trainer && $Trainer.isFemale? && femback
       addBackgroundPlane(@sprites,"background",getDarkModeFolder+"/Link Battle/bg_f",@viewport)
     else

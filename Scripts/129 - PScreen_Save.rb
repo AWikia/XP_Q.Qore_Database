@@ -23,7 +23,7 @@ class PokemonSaveScene
       loctext+=_INTL("Pokédex<r><c3={1}>{2}/{3}</c3>",textColor,$Trainer.pokedexOwned,$Trainer.pokedexSeen)
     end
     @sprites["plane"] = AnimatedPlane.new(@viewport)
-    @sprites["plane"].bitmap=AnimatedBitmap.new("Graphics/Pictures/"+getDarkModeFolder+"/partybg").deanimate
+    @sprites["plane"].bitmap=AnimatedBitmap.new("Graphics/UI/"+getDarkModeFolder+"/party_bg").deanimate
     @sprites["plane"].z=2
     @sprites["header"]=Window_UnformattedTextPokemon.newWithSize(_INTL("Save Game - {1}",mapname),
         2,-18,576,64,@viewport)      

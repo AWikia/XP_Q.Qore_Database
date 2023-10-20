@@ -9,9 +9,9 @@
 #===============================================================================
 #
 # To this script works, put it above main, put a 512x288 background for this
-# screen in "Graphics/Pictures/punchBagField" location, a 104x256 punchbag at 
-# "Graphics/Pictures/punchBag", a 262x20 bar at "Graphics/Pictures/punchBagBar",
-# a 48x40 star for display points at "Graphics/Pictures/punchBagStar". May
+# screen in "Graphics/UI/punchBagField" location, a 104x256 punchbag at 
+# "Graphics/UI/punchBag", a 262x20 bar at "Graphics/UI/punchBagBar",
+# a 48x40 star for display points at "Graphics/UI/punchBagStar". May
 # works with other image sizes.
 #  
 # To call this script, use the script command 'pbPunchBag(X, Y, Z)' where X
@@ -49,12 +49,12 @@ class PunchBagScene
     @viewport=Viewport.new(0,0,Graphics.width,Graphics.height)
     @viewport.z=99999
     @sprites["field"]=IconSprite.new(0,0,@viewport)
-    @sprites["field"].setBitmap("Graphics/Pictures/Punch Bag/punchBagField"+diff)
+    @sprites["field"].setBitmap("Graphics/UI/Punch Bag/punchBagField"+diff)
     @sprites["field"].y=-48
     # An extra background. Used because the first one haven't the screen size, 
     # so a small part can be seen below window.
     @sprites["fieldBack"]=IconSprite.new(0,0,@viewport)
-    @sprites["fieldBack"].setBitmap("Graphics/Pictures/Punch Bag/punchBagField"+diff)
+    @sprites["fieldBack"].setBitmap("Graphics/UI/Punch Bag/punchBagField"+diff)
     @sprites["fieldBack"].y=@sprites["field"].bitmap.height
     @sprites["fieldBack"].z=@sprites["field"].z-1 # Under Field.
     @sprites["scorebox"]=Window_AdvancedTextPokemon.new
@@ -74,7 +74,7 @@ class PunchBagScene
     @sprites["starbox"].y=@sprites["scorebox"].y-@sprites["starbox"].height
     @sprites["starbox"].z=2
     @sprites["punchbag"]=IconSprite.new(0,0,@viewport)  
-    @sprites["punchbag"].setBitmap("Graphics/Pictures/Punch Bag/punchBag")
+    @sprites["punchbag"].setBitmap("Graphics/UI/Punch Bag/punchBag")
     @sprites["punchbag"].x=Graphics.width/2
     # The bag center is the rope
     @sprites["punchbag"].ox=@sprites["punchbag"].bitmap.width/2 
@@ -89,11 +89,11 @@ class PunchBagScene
     @sprites["pokemonback"].y+= 228
     @sprites["pokemonback"].z=1
     @sprites["bar"]=IconSprite.new(0,0,@viewport)
-    @sprites["bar"].setBitmap("Graphics/Pictures/Punch Bag/punchBagBar")
+    @sprites["bar"].setBitmap("Graphics/UI/Punch Bag/punchBagBar")
     @sprites["bar"].x=@sprites["barbox"].x+(
         @sprites["barbox"].width-@sprites["bar"].bitmap.width)/2
     @sprites["bar"].y=@sprites["barbox"].y+44
-    arrow=AnimatedBitmap.new("Graphics/Pictures/Arrow")
+    arrow=AnimatedBitmap.new("Graphics/UI/Arrow")
     @sprites["bar"].z=3
     @sprites["arrow"]=BitmapSprite.new(
         arrow.bitmap.width/2,arrow.bitmap.height/2,@viewport)
@@ -107,7 +107,7 @@ class PunchBagScene
     @sprites["arrow"].y = @sprites["bar"].y-28
     for i in 0...5
       @sprites["star#{i}"]=IconSprite.new(0,0,@viewport)
-      @sprites["star#{i}"].setBitmap("Graphics/Pictures/Punch Bag/punchBagStar")
+      @sprites["star#{i}"].setBitmap("Graphics/UI/Punch Bag/punchBagStar")
       @sprites["star#{i}"].x=32+(@sprites["star#{i}"].bitmap.width+52)*i
       @sprites["star#{i}"].y=@sprites["starbox"].y+12
       @sprites["star#{i}"].z=3

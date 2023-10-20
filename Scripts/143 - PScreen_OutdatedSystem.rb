@@ -10,13 +10,13 @@ class PokemonOutdatedSystemScreenScene
     @viewport2=Viewport.new(62,97,Graphics.width-124,Graphics.height-160)
     @viewport2.z=99999
     @sprites["background2"]=IconSprite.new(0,0,@viewport)
-    femback=pbResolveBitmap(sprintf("Graphics/Pictures/"+getDarkModeFolder+"/aboutbg"))
+    femback=pbResolveBitmap(sprintf("Graphics/UI/"+getDarkModeFolder+"/About/bg_f"))
     if $Trainer && $Trainer.isFemale? && femback
-      addBackgroundPlane(@sprites,"bg",getDarkModeFolder+"/aboutbgf",@viewport)
-      @sprites["background2"].setBitmap(_INTL("Graphics/Pictures/"+getDarkModeFolder+"/aboutbgfBlank"))
+      addBackgroundPlane(@sprites,"bg",getDarkModeFolder+"/About/bg_f",@viewport)
+      @sprites["background2"].setBitmap(_INTL("Graphics/UI/"+getDarkModeFolder+"/About/bg_f_blank"))
     else
-      addBackgroundPlane(@sprites,"bg",getDarkModeFolder+"/aboutbg",@viewport)
-      @sprites["background2"].setBitmap(_INTL("Graphics/Pictures/"+getDarkModeFolder+"/aboutbgBlank"))
+      addBackgroundPlane(@sprites,"bg",getDarkModeFolder+"/About/bg",@viewport)
+      @sprites["background2"].setBitmap(_INTL("Graphics/UI/"+getDarkModeFolder+"/About/bg_blank"))
     end
     @sprites["bg"].z = 1
     @sprites["background2"].z = 2

@@ -1522,9 +1522,9 @@ end
 
 def pbMailBackFile(item)
   return nil if !item
-  bitmapFileName=sprintf("Graphics/Pictures/Mail/mail_%s",getConstantName(PBItems,item)) rescue nil
+  bitmapFileName=sprintf("Graphics/UI/Mail/mail_%s",getConstantName(PBItems,item)) rescue nil
   if !pbResolveBitmap(bitmapFileName)
-    bitmapFileName=sprintf("Graphics/Pictures/Mail/mail_%03d",item)
+    bitmapFileName=sprintf("Graphics/UI/Mail/mail_%03d",item)
   end
   return bitmapFileName
 end
@@ -1549,9 +1549,9 @@ end
 
 def pbTrainerHeadFile(type)
   return nil if !type
-  bitmapFileName=sprintf("Graphics/Pictures/mapPlayer%s",getConstantName(PBTrainers,type)) rescue nil
+  bitmapFileName=sprintf("Graphics/UI/Town Map/mapPlayer%s",getConstantName(PBTrainers,type)) rescue nil
   if !pbResolveBitmap(bitmapFileName)
-    bitmapFileName=sprintf("Graphics/Pictures/mapPlayer%03d",type)
+    bitmapFileName=sprintf("Graphics/UI/Town Map/mapPlayer%03d",type)
   end
   return bitmapFileName
 end
@@ -1559,10 +1559,10 @@ end
 def pbPlayerHeadFile(type)
   return nil if !type
   outfit=$Trainer ? $Trainer.outfit : 0
-  bitmapFileName=sprintf("Graphics/Pictures/mapPlayer%s_%d",
+  bitmapFileName=sprintf("Graphics/UI/Town Map/mapPlayer%s_%d",
      getConstantName(PBTrainers,type),outfit) rescue nil
   if !pbResolveBitmap(bitmapFileName)
-    bitmapFileName=sprintf("Graphics/Pictures/mapPlayer%03d_%d",type,outfit)
+    bitmapFileName=sprintf("Graphics/UI/Town Map/mapPlayer%03d_%d",type,outfit)
     if !pbResolveBitmap(bitmapFileName)
       bitmapFileName=pbTrainerHeadFile(type)
     end

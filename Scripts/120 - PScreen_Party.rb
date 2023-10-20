@@ -7,12 +7,12 @@ class PokeSelectionPlaceholderSprite < SpriteWrapper
     yvalues=[32,32,128,128,224,224] # Was [16,0,112,96,208,192]
 =begin
     if $Trainer.isFemale?
-      @pbitmap=AnimatedBitmap.new("Graphics/Pictures/partyPanelBlank")
+      @pbitmap=AnimatedBitmap.new("Graphics/UI/partyPanelBlank")
     else
-      @pbitmap=AnimatedBitmap.new("Graphics/Pictures/partyPanelBlankm")
+      @pbitmap=AnimatedBitmap.new("Graphics/UI/partyPanelBlankm")
     end
 =end
-    @pbitmap=AnimatedBitmap.new("Graphics/Pictures/"+getDarkModeFolder+"/Party/panel_blank")
+    @pbitmap=AnimatedBitmap.new("Graphics/UI/"+getDarkModeFolder+"/Party/panel_blank")
     self.bitmap=@pbitmap.bitmap
     self.x=xvalues[index]
     self.y=yvalues[index]
@@ -68,32 +68,32 @@ class PokeSelectionConfirmCancelSprite < SpriteWrapper
 =begin
     if $Trainer.isFemale?
       if narrowbox
-        @bgsprite.addBitmap("deselbitmap","Graphics/Pictures/partyCancelNarrow")
-        @bgsprite.addBitmap("selbitmap","Graphics/Pictures/partyCancelSelNarrow")
+        @bgsprite.addBitmap("deselbitmap","Graphics/UI/partyCancelNarrow")
+        @bgsprite.addBitmap("selbitmap","Graphics/UI/partyCancelSelNarrow")
       else
-        @bgsprite.addBitmap("deselbitmap","Graphics/Pictures/partyCancel")
-        @bgsprite.addBitmap("selbitmap","Graphics/Pictures/partyCancelSel")
+        @bgsprite.addBitmap("deselbitmap","Graphics/UI/partyCancel")
+        @bgsprite.addBitmap("selbitmap","Graphics/UI/partyCancelSel")
       end
     else
       if narrowbox
-        @bgsprite.addBitmap("deselbitmap","Graphics/Pictures/partyCancelNarrowm")
-        @bgsprite.addBitmap("selbitmap","Graphics/Pictures/partyCancelSelNarrowm")
+        @bgsprite.addBitmap("deselbitmap","Graphics/UI/partyCancelNarrowm")
+        @bgsprite.addBitmap("selbitmap","Graphics/UI/partyCancelSelNarrowm")
       else
-        @bgsprite.addBitmap("deselbitmap","Graphics/Pictures/partyCancelm")
-        @bgsprite.addBitmap("selbitmap","Graphics/Pictures/partyCancelSelm")
+        @bgsprite.addBitmap("deselbitmap","Graphics/UI/partyCancelm")
+        @bgsprite.addBitmap("selbitmap","Graphics/UI/partyCancelSelm")
       end
     end
 =end
     if narrowbox
-      @bgsprite.addBitmap("deselbitmap","Graphics/Pictures/"+getDarkModeFolder+"/Party/icon_cancel_narrow")
-      @bgsprite.addBitmap("selbitmap","Graphics/Pictures/"+getDarkModeFolder+"/Party/icon_cancel_narrow_sel")
-      @bgsprite2.addBitmap("deselbitmap","Graphics/Pictures/Party/icon_cancel_narrow_empty")
-      @bgsprite2.addBitmap("selbitmap","Graphics/Pictures/"+getAccentFolder+"/partyCancelSelNarrow3_selection")
+      @bgsprite.addBitmap("deselbitmap","Graphics/UI/"+getDarkModeFolder+"/Party/icon_cancel_narrow")
+      @bgsprite.addBitmap("selbitmap","Graphics/UI/"+getDarkModeFolder+"/Party/icon_cancel_narrow_sel")
+      @bgsprite2.addBitmap("deselbitmap","Graphics/UI/Party/icon_cancel_narrow_empty")
+      @bgsprite2.addBitmap("selbitmap","Graphics/UI/"+getAccentFolder+"/partyCancelSelNarrow3_selection")
     else
-      @bgsprite.addBitmap("deselbitmap","Graphics/Pictures/"+getDarkModeFolder+"/Party/icon_cancel")
-      @bgsprite.addBitmap("selbitmap","Graphics/Pictures/"+getDarkModeFolder+"/Party/icon_cancel_sel")
-      @bgsprite2.addBitmap("deselbitmap","Graphics/Pictures/Party/icon_cancel_empty")
-      @bgsprite2.addBitmap("selbitmap","Graphics/Pictures/"+getAccentFolder+"/partyCancelSel3_selection")
+      @bgsprite.addBitmap("deselbitmap","Graphics/UI/"+getDarkModeFolder+"/Party/icon_cancel")
+      @bgsprite.addBitmap("selbitmap","Graphics/UI/"+getDarkModeFolder+"/Party/icon_cancel_sel")
+      @bgsprite2.addBitmap("deselbitmap","Graphics/UI/Party/icon_cancel_empty")
+      @bgsprite2.addBitmap("selbitmap","Graphics/UI/"+getAccentFolder+"/partyCancelSel3_selection")
     end
     @bgsprite.changeBitmap("deselbitmap")
     @bgsprite2.changeBitmap("deselbitmap")
@@ -257,70 +257,70 @@ class PokeSelectionSprite < SpriteWrapper
       active=(index==0 || index==1)
     end
     @active=active
-    @numberbitmap=AnimatedBitmap.new(_INTL("Graphics/Pictures/icon_numbers"))
-    @numberbitmap2=AnimatedBitmap.new(_INTL("Graphics/Pictures/icon_numbers_white"))
+    @numberbitmap=AnimatedBitmap.new(_INTL("Graphics/UI/icon_numbers"))
+    @numberbitmap2=AnimatedBitmap.new(_INTL("Graphics/UI/icon_numbers_white"))
     if active # Rounded panel
       # High Temp
-      @deselbitmapO=AnimatedBitmap.new("Graphics/Pictures/"+getDarkModeFolder+"/Party/panel_round_orange")
-      @selbitmapO=AnimatedBitmap.new("Graphics/Pictures/"+getDarkModeFolder+"/Party/panel_round_orange_sel")
+      @deselbitmapO=AnimatedBitmap.new("Graphics/UI/"+getDarkModeFolder+"/Party/panel_round_orange")
+      @selbitmapO=AnimatedBitmap.new("Graphics/UI/"+getDarkModeFolder+"/Party/panel_round_orange_sel")
       # Very High Temp
-      @deselbitmapO2=AnimatedBitmap.new("Graphics/Pictures/"+getDarkModeFolder+"/Party/panel_round_red")
-      @selbitmapO2=AnimatedBitmap.new("Graphics/Pictures/"+getDarkModeFolder+"/Party/panel_round_red_sel")
+      @deselbitmapO2=AnimatedBitmap.new("Graphics/UI/"+getDarkModeFolder+"/Party/panel_round_red")
+      @selbitmapO2=AnimatedBitmap.new("Graphics/UI/"+getDarkModeFolder+"/Party/panel_round_red_sel")
       # Normal Temp
-      @deselbitmapN=AnimatedBitmap.new("Graphics/Pictures/"+getDarkModeFolder+"/Party/panel_round_green")
-      @selbitmapN=AnimatedBitmap.new("Graphics/Pictures/"+getDarkModeFolder+"/Party/panel_round_green_sel")
+      @deselbitmapN=AnimatedBitmap.new("Graphics/UI/"+getDarkModeFolder+"/Party/panel_round_green")
+      @selbitmapN=AnimatedBitmap.new("Graphics/UI/"+getDarkModeFolder+"/Party/panel_round_green_sel")
       # Low Temp
-      @deselbitmapC=AnimatedBitmap.new("Graphics/Pictures/"+getDarkModeFolder+"/Party/panel_round_cyan")
-      @selbitmapC=AnimatedBitmap.new("Graphics/Pictures/"+getDarkModeFolder+"/Party/panel_round_cyan_sel")
+      @deselbitmapC=AnimatedBitmap.new("Graphics/UI/"+getDarkModeFolder+"/Party/panel_round_cyan")
+      @selbitmapC=AnimatedBitmap.new("Graphics/UI/"+getDarkModeFolder+"/Party/panel_round_cyan_sel")
       # Very Low Temp
-      @deselbitmapC2=AnimatedBitmap.new("Graphics/Pictures/"+getDarkModeFolder+"/Party/panel_round_blue")
-      @selbitmapC2=AnimatedBitmap.new("Graphics/Pictures/"+getDarkModeFolder+"/Party/panel_round_blue_sel")
+      @deselbitmapC2=AnimatedBitmap.new("Graphics/UI/"+getDarkModeFolder+"/Party/panel_round_blue")
+      @selbitmapC2=AnimatedBitmap.new("Graphics/UI/"+getDarkModeFolder+"/Party/panel_round_blue_sel")
       # Egg/Remote Boxes
-      @deselbitmapEgg=AnimatedBitmap.new("Graphics/Pictures/"+getDarkModeFolder+"/Party/panel_round")
-      @selbitmapEgg=AnimatedBitmap.new("Graphics/Pictures/"+getDarkModeFolder+"/Party/panel_round_sel")      
+      @deselbitmapEgg=AnimatedBitmap.new("Graphics/UI/"+getDarkModeFolder+"/Party/panel_round")
+      @selbitmapEgg=AnimatedBitmap.new("Graphics/UI/"+getDarkModeFolder+"/Party/panel_round_sel")      
       # Normal Temp
-      @deselbitmap=AnimatedBitmap.new("Graphics/Pictures/"+getDarkModeFolder+"/Party/panel_round_yellow")
-      @selbitmap=AnimatedBitmap.new("Graphics/Pictures/"+getDarkModeFolder+"/Party/panel_round_yellow_sel")
+      @deselbitmap=AnimatedBitmap.new("Graphics/UI/"+getDarkModeFolder+"/Party/panel_round_yellow")
+      @selbitmap=AnimatedBitmap.new("Graphics/UI/"+getDarkModeFolder+"/Party/panel_round_yellow_sel")
       # Fainted
-      @deselfntbitmap=AnimatedBitmap.new("Graphics/Pictures/"+getDarkModeFolder+"/Party/panel_round_faint")
-      @selfntbitmap=AnimatedBitmap.new("Graphics/Pictures/"+getDarkModeFolder+"/Party/panel_round_faint_sel")
+      @deselfntbitmap=AnimatedBitmap.new("Graphics/UI/"+getDarkModeFolder+"/Party/panel_round_faint")
+      @selfntbitmap=AnimatedBitmap.new("Graphics/UI/"+getDarkModeFolder+"/Party/panel_round_faint_sel")
       # Swapping
-      @deselswapbitmap=AnimatedBitmap.new("Graphics/Pictures/"+getDarkModeFolder+"/Party/panel_round_swap")
-      @selswapbitmap=AnimatedBitmap.new("Graphics/Pictures/"+getDarkModeFolder+"/Party/panel_round_swap_sel")
+      @deselswapbitmap=AnimatedBitmap.new("Graphics/UI/"+getDarkModeFolder+"/Party/panel_round_swap")
+      @selswapbitmap=AnimatedBitmap.new("Graphics/UI/"+getDarkModeFolder+"/Party/panel_round_swap_sel")
       # Selections
-      @selbitmap2=AnimatedBitmap.new("Graphics/Pictures/"+getAccentFolder+"/partyPanelRoundSel3_Selection")
-      @selswapbitmap2=AnimatedBitmap.new("Graphics/Pictures/"+getDarkModeFolder+"/Party/panel_round_swap_sel2")
+      @selbitmap2=AnimatedBitmap.new("Graphics/UI/"+getAccentFolder+"/partyPanelRoundSel3_Selection")
+      @selswapbitmap2=AnimatedBitmap.new("Graphics/UI/"+getDarkModeFolder+"/Party/panel_round_swap_sel2")
     else # Rectangular panel
       # High Temp
-      @deselbitmapO=AnimatedBitmap.new("Graphics/Pictures/"+getDarkModeFolder+"/Party/panel_rect_orange")
-      @selbitmapO=AnimatedBitmap.new("Graphics/Pictures/"+getDarkModeFolder+"/Party/panel_rect_orange_sel")
+      @deselbitmapO=AnimatedBitmap.new("Graphics/UI/"+getDarkModeFolder+"/Party/panel_rect_orange")
+      @selbitmapO=AnimatedBitmap.new("Graphics/UI/"+getDarkModeFolder+"/Party/panel_rect_orange_sel")
       # Very High Temp
-      @deselbitmapO2=AnimatedBitmap.new("Graphics/Pictures/"+getDarkModeFolder+"/Party/panel_rect_red")
-      @selbitmapO2=AnimatedBitmap.new("Graphics/Pictures/"+getDarkModeFolder+"/Party/panel_rect_red_sel")
+      @deselbitmapO2=AnimatedBitmap.new("Graphics/UI/"+getDarkModeFolder+"/Party/panel_rect_red")
+      @selbitmapO2=AnimatedBitmap.new("Graphics/UI/"+getDarkModeFolder+"/Party/panel_rect_red_sel")
       # Normal Temp
-      @deselbitmapN=AnimatedBitmap.new("Graphics/Pictures/"+getDarkModeFolder+"/Party/panel_rect_green")
-      @selbitmapN=AnimatedBitmap.new("Graphics/Pictures/"+getDarkModeFolder+"/Party/panel_rect_green_sel")
+      @deselbitmapN=AnimatedBitmap.new("Graphics/UI/"+getDarkModeFolder+"/Party/panel_rect_green")
+      @selbitmapN=AnimatedBitmap.new("Graphics/UI/"+getDarkModeFolder+"/Party/panel_rect_green_sel")
       # Low Temp
-      @deselbitmapC=AnimatedBitmap.new("Graphics/Pictures/"+getDarkModeFolder+"/Party/panel_rect_cyan")
-      @selbitmapC=AnimatedBitmap.new("Graphics/Pictures/"+getDarkModeFolder+"/Party/panel_rect_cyan_sel")
+      @deselbitmapC=AnimatedBitmap.new("Graphics/UI/"+getDarkModeFolder+"/Party/panel_rect_cyan")
+      @selbitmapC=AnimatedBitmap.new("Graphics/UI/"+getDarkModeFolder+"/Party/panel_rect_cyan_sel")
       # Very Low Temp
-      @deselbitmapC2=AnimatedBitmap.new("Graphics/Pictures/"+getDarkModeFolder+"/Party/panel_rect_blue")
-      @selbitmapC2=AnimatedBitmap.new("Graphics/Pictures/"+getDarkModeFolder+"/Party/panel_rect_blue_sel")
+      @deselbitmapC2=AnimatedBitmap.new("Graphics/UI/"+getDarkModeFolder+"/Party/panel_rect_blue")
+      @selbitmapC2=AnimatedBitmap.new("Graphics/UI/"+getDarkModeFolder+"/Party/panel_rect_blue_sel")
       # Egg/Remote Boxes
-      @deselbitmapEgg=AnimatedBitmap.new("Graphics/Pictures/"+getDarkModeFolder+"/Party/panel_rect")
-      @selbitmapEgg=AnimatedBitmap.new("Graphics/Pictures/"+getDarkModeFolder+"/Party/panel_rect_sel")   
+      @deselbitmapEgg=AnimatedBitmap.new("Graphics/UI/"+getDarkModeFolder+"/Party/panel_rect")
+      @selbitmapEgg=AnimatedBitmap.new("Graphics/UI/"+getDarkModeFolder+"/Party/panel_rect_sel")   
       # Normal Temp
-      @deselbitmap=AnimatedBitmap.new("Graphics/Pictures/"+getDarkModeFolder+"/Party/panel_rect_yellow")
-      @selbitmap=AnimatedBitmap.new("Graphics/Pictures/"+getDarkModeFolder+"/Party/panel_rect_yellow_sel")
+      @deselbitmap=AnimatedBitmap.new("Graphics/UI/"+getDarkModeFolder+"/Party/panel_rect_yellow")
+      @selbitmap=AnimatedBitmap.new("Graphics/UI/"+getDarkModeFolder+"/Party/panel_rect_yellow_sel")
       # Fainted
-      @deselfntbitmap=AnimatedBitmap.new("Graphics/Pictures/"+getDarkModeFolder+"/Party/panel_rect_faint")
-      @selfntbitmap=AnimatedBitmap.new("Graphics/Pictures/"+getDarkModeFolder+"/Party/panel_rect_faint_sel")
+      @deselfntbitmap=AnimatedBitmap.new("Graphics/UI/"+getDarkModeFolder+"/Party/panel_rect_faint")
+      @selfntbitmap=AnimatedBitmap.new("Graphics/UI/"+getDarkModeFolder+"/Party/panel_rect_faint_sel")
       # Swapping
-      @deselswapbitmap=AnimatedBitmap.new("Graphics/Pictures/"+getDarkModeFolder+"/Party/panel_rect_swap")
-      @selswapbitmap=AnimatedBitmap.new("Graphics/Pictures/"+getDarkModeFolder+"/Party/panel_rect_swap_sel")
+      @deselswapbitmap=AnimatedBitmap.new("Graphics/UI/"+getDarkModeFolder+"/Party/panel_rect_swap")
+      @selswapbitmap=AnimatedBitmap.new("Graphics/UI/"+getDarkModeFolder+"/Party/panel_rect_swap_sel")
       # Selections
-      @selbitmap2=AnimatedBitmap.new("Graphics/Pictures/"+getAccentFolder+"/partyPanelRectSel3_Selection")
-      @selswapbitmap2=AnimatedBitmap.new("Graphics/Pictures/"+getDarkModeFolder+"/Party/panel_rect_swap_sel2")
+      @selbitmap2=AnimatedBitmap.new("Graphics/UI/"+getAccentFolder+"/partyPanelRectSel3_Selection")
+      @selswapbitmap2=AnimatedBitmap.new("Graphics/UI/"+getDarkModeFolder+"/Party/panel_rect_swap_sel2")
     end
     @spriteXOffset=28
     @spriteYOffset=0
@@ -349,18 +349,18 @@ class PokeSelectionSprite < SpriteWrapper
     xvalues=[32,352,32,352,32,352]
     yvalues=[32,32,128,128,224,224] # Was [16,0,112,96,208,192]
     @text=nil
-    @statuses=AnimatedBitmap.new(_INTL("Graphics/Pictures/statuses"))
-    @hpbar=AnimatedBitmap.new("Graphics/Pictures/Party/overlay_hp_back")
-    @hpbarfnt=AnimatedBitmap.new("Graphics/Pictures/Party/overlay_hp_back_faint")
-    @hpbarswap=AnimatedBitmap.new("Graphics/Pictures/Party/overlay_hp_back_swap")
+    @statuses=AnimatedBitmap.new(_INTL("Graphics/UI/statuses"))
+    @hpbar=AnimatedBitmap.new("Graphics/UI/Party/overlay_hp_back")
+    @hpbarfnt=AnimatedBitmap.new("Graphics/UI/Party/overlay_hp_back_faint")
+    @hpbarswap=AnimatedBitmap.new("Graphics/UI/Party/overlay_hp_back_swap")
     @pokeballsprite=ChangelingSprite.new(0,0,viewport)
-    @pokeballsprite.addBitmap("pokeballdesel","Graphics/Pictures/Party/icon_ball")
-    @pokeballsprite.addBitmap("pokeballsel","Graphics/Pictures/Party/icon_ball_sel")
+    @pokeballsprite.addBitmap("pokeballdesel","Graphics/UI/Party/icon_ball")
+    @pokeballsprite.addBitmap("pokeballsel","Graphics/UI/Party/icon_ball_sel")
     @pkmnsprite=PokemonIconSprite.new(pokemon,viewport)
     @pkmnsprite.active=active
     @itemsprite=ChangelingSprite.new(0,0,viewport)
-    @itemsprite.addBitmap("itembitmap","Graphics/Pictures/Party/icon_item")
-    @itemsprite.addBitmap("mailbitmap","Graphics/Pictures/Party/icon_mail")
+    @itemsprite.addBitmap("itembitmap","Graphics/UI/Party/icon_item")
+    @itemsprite.addBitmap("mailbitmap","Graphics/UI/Party/icon_mail")
     @spriteX=xvalues[index]
     @spriteY=yvalues[index]
     @refreshBitmap=true
@@ -608,12 +608,12 @@ class PokeSelectionSprite < SpriteWrapper
         end
         if @pokemon.isMale?
 #          textpos.push([_INTL("♂"),@genderX,@genderY,0,Color.new(0,112,248),Color.new(120,184,232)])
-          imagepos.push(["Graphics/Pictures/"+getDarkModeFolder+"/gender_male",224,24,0,0,-1,-1])
+          imagepos.push(["Graphics/UI/"+getDarkModeFolder+"/gender_male",224,24,0,0,-1,-1])
         elsif @pokemon.isFemale?
-          imagepos.push(["Graphics/Pictures/"+getDarkModeFolder+"/gender_female",224,24,0,0,-1,-1])
+          imagepos.push(["Graphics/UI/"+getDarkModeFolder+"/gender_female",224,24,0,0,-1,-1])
 #          textpos.push([_INTL("♀"),@genderX,@genderY,0,Color.new(232,32,16),Color.new(248,168,184)])
         elsif @pokemon.isGenderless?
-          imagepos.push(["Graphics/Pictures/"+getDarkModeFolder+"/gender_transgender",224,24,0,0,-1,-1])
+          imagepos.push(["Graphics/UI/"+getDarkModeFolder+"/gender_transgender",224,24,0,0,-1,-1])
 #          textpos.push([_INTL("♀"),@genderX,@genderY,0,Color.new(232,32,16),Color.new(248,168,184)])
 
         end
@@ -632,10 +632,10 @@ class PokeSelectionSprite < SpriteWrapper
           (@pokemon.tooLowTemp? && !@pokemon.isEgg?) || 
           (self.selected && (self.preselected || @switching)) ||
           isDarkMode?
-          levelpic.push(["Graphics/Pictures/overlay_lv_white",20,70,0,0,22,14])
+          levelpic.push(["Graphics/UI/overlay_lv_white",20,70,0,0,22,14])
           pbDrawNumber2(@pokemon.level,self.bitmap,@levelX+2,@levelY+8)
         else
-          levelpic.push(["Graphics/Pictures/overlay_lv",20,70,0,0,22,14])
+          levelpic.push(["Graphics/UI/overlay_lv",20,70,0,0,22,14])
           pbDrawNumber(@pokemon.level,self.bitmap,@levelX+2,@levelY+8)
         end
      #  leveltext=[([_INTL("{1}",@pokemon.level),@levelX,@levelY,0,base,shadow])]
@@ -729,18 +729,18 @@ class PokemonScreen_Scene
       end
     end
 =end
-    title=['/loadbg','/loadbg_beta','/loadbg_dev','/loadbg_canary','/loadbg_internal','/loadbg_upgradewizard'][QQORECHANNEL]
-    if pbResolveBitmap(_INTL("Graphics/Pictures/"+getDarkModeFolder+"{1}",title))
-      addBackgroundOrColoredPlane(@sprites,"partybg",getDarkModeFolder+title,
+    title=['bg','bg_beta','bg_dev','bg_canary','bg_internal','bg_upgradewizard'][QQORECHANNEL]
+    if pbResolveBitmap(_INTL("Graphics/UI/"+getDarkModeFolder+"/Load/{1}",title))
+      addBackgroundOrColoredPlane(@sprites,"partybg",getDarkModeFolder+"/Load/"+title,
          Color.new(0,0,0),@viewport)
-    elsif pbResolveBitmap(sprintf("Graphics/Pictures/"+getDarkModeFolder+"/loadbg"))
-      addBackgroundOrColoredPlane(@sprites,"partybg",getDarkModeFolder+"/loadbg",
+    elsif pbResolveBitmap(sprintf("Graphics/UI/"+getDarkModeFolder+"/Load/bg"))
+      addBackgroundOrColoredPlane(@sprites,"partybg",getDarkModeFolder+"/Load/bg",
          Color.new(0,0,0),@viewport)
     else  # Hotfixing Prograda
-      addBackgroundOrColoredPlane(@sprites,"partybg",getDarkModeFolder+"/loadbg_empty",
+      addBackgroundOrColoredPlane(@sprites,"partybg",getDarkModeFolder+"/Load/bg_empty",
          Color.new(0,0,0),@viewport)
     end
-      addBackgroundOrColoredPlane(@sprites,"partybg_title",getDarkModeFolder+"/partybg",
+      addBackgroundOrColoredPlane(@sprites,"partybg_title",getDarkModeFolder+"/party_bg",
          Color.new(0,0,0),@viewport)
     @sprites["header"]=Window_UnformattedTextPokemon.newWithSize(_INTL("Party Pokémon"),
        2,-18,576,64,@viewport)      

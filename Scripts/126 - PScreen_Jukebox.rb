@@ -27,11 +27,11 @@ class Scene_JukeboxScene
     @sprites["background2"]=IconSprite.new(0,0,@viewport)
     @sprites["background2"].visible=false
     if $Trainer && $Trainer.isFemale?
-      addBackgroundPlane(@sprites,"background",getDarkModeFolder+"/jukeboxbgf",@viewport)
-      @sprites["background2"].setBitmap(_INTL("Graphics/Pictures/"+getDarkModeFolder+"/jukeboxbgf_2"))
+      addBackgroundPlane(@sprites,"background",getDarkModeFolder+"/jukebox_bg_f",@viewport)
+      @sprites["background2"].setBitmap(_INTL("Graphics/UI/"+getDarkModeFolder+"/jukebox_bg_f_2"))
     else
-      addBackgroundPlane(@sprites,"background",getDarkModeFolder+"/jukeboxbg",@viewport)
-      @sprites["background2"].setBitmap(_INTL("Graphics/Pictures/"+getDarkModeFolder+"/jukeboxbg_2"))
+      addBackgroundPlane(@sprites,"background",getDarkModeFolder+"/jukebox_bg",@viewport)
+      @sprites["background2"].setBitmap(_INTL("Graphics/UI/"+getDarkModeFolder+"/jukebox_bg_2"))
     end
     @sprites["background"].z = 1
     @sprites["background2"].z = 2

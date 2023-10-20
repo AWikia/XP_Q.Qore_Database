@@ -18,13 +18,13 @@ class PokemonEggHatchScene
     @viewport.z=99999
     isbox = @pokemon.remoteBox==1
     if isHisuian?(@pokemon) || isPaldean?(@pokemon)
-      background="hatchbg_hisui"
+      background="hatch_bg_hisui"
     elsif isGalarian?(@pokemon) || isMysterical?(@pokemon)
-      background="hatchbg_galar"
+      background="hatch_bg_galar"
     elsif isAlolan?(@pokemon) || isPhonetic?(@pokemon)
-      background="hatchbg_alola"
+      background="hatch_bg_alola"
     else
-      background="hatchbg"
+      background="hatch_bg"
     end
     addBackgroundOrColoredPlane(@sprites,"background",background,
        Color.new(248,248,248),@viewport)

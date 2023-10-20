@@ -10,7 +10,7 @@ class PokemonLoadPanel < SpriteWrapper
     @totalsec=(framecount || 0)/Graphics.frame_rate
     @mapid=mapid
     @selected=(index==0)
-    @bgbitmap=AnimatedBitmap.new("Graphics/Pictures/loadPanels")
+    @bgbitmap=AnimatedBitmap.new("Graphics/UI/Load/panels")
     @refreshBitmap=true
     @refreshing=false 
     refresh
@@ -126,18 +126,18 @@ class PokemonLoadScene
     @sprites={}
     @viewport=Viewport.new(0,0,Graphics.width,Graphics.height)
     @viewport.z=99998
-    title=['/loadbg','/loadbg_beta','/loadbg_dev','/loadbg_canary','/loadbg_internal','/loadbg_upgradewizard'][QQORECHANNEL]
-    if pbResolveBitmap(_INTL("Graphics/Pictures/"+getDarkModeFolder+"{1}",title))
-      addBackgroundOrColoredPlane(@sprites,"background",getDarkModeFolder+title,
+    title=['bg','bg_beta','bg_dev','bg_canary','bg_internal','bg_upgradewizard'][QQORECHANNEL]
+    if pbResolveBitmap(_INTL("Graphics/UI/"+getDarkModeFolder+"/Load/{1}",title))
+      addBackgroundOrColoredPlane(@sprites,"background",getDarkModeFolder+"/Load/"+title,
          Color.new(248,248,248),@viewport)
-    elsif pbResolveBitmap(sprintf("Graphics/Pictures/"+getDarkModeFolder+"/loadbg"))
-      addBackgroundOrColoredPlane(@sprites,"background",getDarkModeFolder+"/loadbg",
+    elsif pbResolveBitmap(sprintf("Graphics/UI/"+getDarkModeFolder+"/Load/bg"))
+      addBackgroundOrColoredPlane(@sprites,"background",getDarkModeFolder+"/Load/bg",
          Color.new(248,248,248),@viewport)
     else  # Hotfixing Prograda
-      addBackgroundOrColoredPlane(@sprites,"background",getDarkModeFolder+"/loadbg_empty",
+      addBackgroundOrColoredPlane(@sprites,"background",getDarkModeFolder+"/Load/bg_empty",
          Color.new(248,248,248),@viewport)
     end
-      addBackgroundOrColoredPlane(@sprites,"partybg_title",getDarkModeFolder+"/partybg_1",
+      addBackgroundOrColoredPlane(@sprites,"partybg_title",getDarkModeFolder+"/party_bg_1",
          Color.new(0,0,0),@viewport)
     title=RTP.getGameIniValue("Game", "Game") # QQC Edit 
     title=RTP.getGameIniValue("Game","Title") if title==""
@@ -175,7 +175,7 @@ class PokemonLoadScene
     @sprites={}
     @viewport=Viewport.new(0,0,Graphics.width,Graphics.height)
     @viewport.z=99998
-    addBackgroundOrColoredPlane(@sprites,"background",getDarkModeFolder+"/loadbg_empty",
+    addBackgroundOrColoredPlane(@sprites,"background",getDarkModeFolder+"/Load/bg_empty",
        Color.new(248,248,248),@viewport)
   end
 

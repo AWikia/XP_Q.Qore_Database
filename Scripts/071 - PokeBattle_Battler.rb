@@ -1635,8 +1635,8 @@ def ragefist
     # Phony Predator (Polteageist)
     if isConst?(self.species,PBSpecies,:POLTEAGEIST)
       if self.hasWorkingAbility(:PHONYPREDATOR) && @hp<=((@totalhp/2).floor)
-        if self.form!=1
-          self.form=1; transformed=true
+        if self.form!=2
+          self.form=2; transformed=true
         end
       else
         if self.form!=0

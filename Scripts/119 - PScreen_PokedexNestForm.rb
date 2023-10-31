@@ -45,10 +45,10 @@ class PokemonNestMapScene
     end
     @sprites["background"]=IconSprite.new(0,0,@viewport)
   if pbGetPokedexRegion==-1 # Using national Pokédex
-    @sprites["background"].setBitmap(_INTL("Graphics/Pictures/"+getDarkModeFolder+"/Pokedex/bg_area"))
+    @sprites["background"].setBitmap(_INTL("Graphics/UI/"+getDarkModeFolder+"/Pokedex/bg_area"))
   else
-    @sprites["background"].setBitmap(_INTL("Graphics/Pictures/"+getDarkModeFolder+"/Pokedex/bg_area"))
-#    @sprites["background"].setBitmap(_INTL("Graphics/Pictures/pokedexNestREGION"))
+    @sprites["background"].setBitmap(_INTL("Graphics/UI/"+getDarkModeFolder+"/Pokedex/bg_area"))
+#    @sprites["background"].setBitmap(_INTL("Graphics/UI/pokedexNestREGION"))
   end  
     @sprites["map"]=IconSprite.new(0,0,@viewport)
     @sprites["map"].setBitmap("Graphics/Regional Maps/#{@mapdata[region][1]}")
@@ -231,21 +231,21 @@ class PokedexFormScene
     @available=pbGetAvailable # [name, gender, form]
     @sprites={}
     @sprites["background"]=IconSprite.new(0,0,@viewport)
-    @sprites["uparrow"] = AnimatedSprite.new("Graphics/Pictures/"+getAccentFolder+"/uparrow",8,28,40,2,@viewport)
+    @sprites["uparrow"] = AnimatedSprite.new("Graphics/UI/"+getAccentFolder+"/uparrow",8,28,40,2,@viewport)
     @sprites["uparrow"].x = 242+64
     @sprites["uparrow"].y = 268
     @sprites["uparrow"].play
     @sprites["uparrow"].visible = false
-    @sprites["downarrow"] = AnimatedSprite.new("Graphics/Pictures/"+getAccentFolder+"/downarrow",8,28,40,2,@viewport)
+    @sprites["downarrow"] = AnimatedSprite.new("Graphics/UI/"+getAccentFolder+"/downarrow",8,28,40,2,@viewport)
     @sprites["downarrow"].x = 242+64
     @sprites["downarrow"].y = 348
     @sprites["downarrow"].play
     @sprites["downarrow"].visible = false
   if pbGetPokedexRegion==-1 # Using national Pokédex
-    @sprites["background"].setBitmap(_INTL("Graphics/Pictures/"+getDarkModeFolder+"/Pokedex/bg_form"))
+    @sprites["background"].setBitmap(_INTL("Graphics/UI/"+getDarkModeFolder+"/Pokedex/bg_form"))
   else
-    @sprites["background"].setBitmap(_INTL("Graphics/Pictures/"+getDarkModeFolder+"/Pokedex/bg_form"))
-#    @sprites["background"].setBitmap(_INTL("Graphics/Pictures/pokedexFormREGION"))
+    @sprites["background"].setBitmap(_INTL("Graphics/UI/"+getDarkModeFolder+"/Pokedex/bg_form"))
+#    @sprites["background"].setBitmap(_INTL("Graphics/UI/pokedexFormREGION"))
   end
     @sprites["info"]=BitmapSprite.new(Graphics.width,Graphics.height,@viewport)
     pbSetSystemFont(@sprites["info"].bitmap)

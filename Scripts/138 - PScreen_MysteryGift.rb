@@ -282,8 +282,8 @@ def pbDownloadMysteryGift(trainer)
   sprites={}
   viewport=Viewport.new(0,0,Graphics.width,Graphics.height)
   viewport.z=99999
-  addBackgroundPlane(sprites,"background",getDarkModeFolder+"/mysteryGiftbg",viewport)
-  addBackgroundPlane(sprites,"background_2",getDarkModeFolder+"/mysteryGiftbg2",viewport)
+  addBackgroundPlane(sprites,"background",getDarkModeFolder+"/mysterygift_bg",viewport)
+  addBackgroundPlane(sprites,"background_2",getDarkModeFolder+"/mysterygift_bg_2",viewport)
     sprites["header"]=Window_UnformattedTextPokemon.newWithSize(_INTL("Mystery Gift"),
        2,-18,576,64,viewport)
     sprites["header"].baseColor=(isDarkMode?) ? Color.new(248,248,248) : Color.new(0,0,0)

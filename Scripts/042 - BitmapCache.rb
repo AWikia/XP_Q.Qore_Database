@@ -259,7 +259,7 @@ module RPG
     def self.windowskin(filename)
       self.load_bitmap("Graphics/Windowskins/"+getDarkModeFolder+"/", filename)
     end
-
+    
     def self.tile(filename, tile_id, hue)
       BitmapCache.tile(filename,tile_id,hue)
     end
@@ -464,6 +464,10 @@ module BitmapCache
     self.load_bitmap("Graphics/Titles/"+ filename)
   end
 
+  def self.ui(filename)
+    self.load_bitmap("Graphics/UI/", filename)
+  end
+  
   def self.windowskin(filename)
     self.load_bitmap("Graphics/Windowskins/"+getDarkModeFolder+"/"+ filename)
   end

@@ -31,7 +31,7 @@ class VoltorbFlip
     @index=[0,0]
     # [x,y,points,selected]
     @squares=[0,0,0,false]
-    @directory="Graphics/Pictures/Voltorb Flip/"
+    @directory="Graphics/UI/Voltorb Flip/"
     squareValues=[]
     total=1
     voltorbs=0

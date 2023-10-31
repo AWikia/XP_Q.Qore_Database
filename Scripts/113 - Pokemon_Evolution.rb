@@ -766,13 +766,13 @@ class PokemonEvolutionScene
     @pokemon=pokemon
     @newspecies=newspecies
     if isHisuian?(@pokemon) || isPaldean?(@pokemon)
-      background="evolutionbg_hisui"
+      background="evolution_bg_hisui"
     elsif isGalarian?(@pokemon) || isMysterical?(@pokemon)
-      background="evolutionbg_galar"
+      background="evolution_bg_galar"
     elsif isAlolan?(@pokemon) || isPhonetic?(@pokemon)
-      background="evolutionbg_alola"
+      background="evolution_bg_alola"
     else
-      background="evolutionbg"
+      background="evolution_bg"
     end
     addBackgroundOrColoredPlane(@sprites,"background",background,
        Color.new(248,248,248),@bgviewport)

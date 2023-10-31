@@ -10,11 +10,11 @@ class PokemonSysReqScreenScene
     @viewport2=Viewport.new(62,97,Graphics.width-124,Graphics.height-160)
     @viewport2.z=99999
 
-    femback=pbResolveBitmap(sprintf("Graphics/Pictures/"+getDarkModeFolder+"/aboutbg"))
+    femback=pbResolveBitmap(sprintf("Graphics/UI/"+getDarkModeFolder+"/About/bg_f"))
     if $Trainer && $Trainer.isFemale? && femback
-      addBackgroundPlane(@sprites,"bg",getDarkModeFolder+"/aboutbgf",@viewport)
+      addBackgroundPlane(@sprites,"bg",getDarkModeFolder+"/About/bg_f",@viewport)
     else
-      addBackgroundPlane(@sprites,"bg",getDarkModeFolder+"/aboutbg",@viewport)
+      addBackgroundPlane(@sprites,"bg",getDarkModeFolder+"/About/bg",@viewport)
     end
     @sprites["header"]=Window_UnformattedTextPokemon.newWithSize(_INTL("System Requirements"),
        2,-18,256,64,@viewport)

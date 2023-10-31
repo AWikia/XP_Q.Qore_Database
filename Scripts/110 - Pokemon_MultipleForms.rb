@@ -9407,20 +9407,65 @@ MultipleForms.register(:TOXTRICITY,{
 })
 
 
+MultipleForms.register(:SINISTEA,{
+"getFormOnCreation"=>proc{|pokemon|
+   d=pokemon.personalID&3
+   d|=((pokemon.personalID>>8)&3)<<2
+   d|=((pokemon.personalID>>16)&3)<<4
+   d|=((pokemon.personalID>>24)&3)<<6
+   d%=25
+   next (d==0) ? 1 : 0
+},
+"wildHoldItems"=>proc{|pokemon|
+   next [0,
+         getID(PBItems,:CHIPPEDPOT),
+         getID(PBItems,:CRACKEDPOT)] if pokemon.form==1 # Female Player Character
+   next                        # Male Player Character
+},
+"dexEntry"=>proc{|pokemon|
+   next if pokemon.form==0
+   next _INTL("The swirl pattern in this Pokémon's body is its weakness. If it gets stirred, the swirl loses its shape, and Sinistea gets dizzy.") if pokemon.form==1
+},
+"getEvolvedFormData"=>proc{|pokemon|
+   next if pokemon.form==0
+   next [[PBEvolution::Item,PBItems::CHIPPEDPOT,PBSpecies::POLTEAGEIST]] if pokemon.form==1
+}
+})
+
 MultipleForms.register(:POLTEAGEIST,{
+"getFormOnCreation"=>proc{|pokemon|
+   d=pokemon.personalID&3
+   d|=((pokemon.personalID>>8)&3)<<2
+   d|=((pokemon.personalID>>16)&3)<<4
+   d|=((pokemon.personalID>>24)&3)<<6
+   d%=25
+   next (d==0) ? 1 : 0
+},
 "getFormOnLeavingBattle"=>proc{|pokemon|
-   next 0
+   next 0 if pokemon.form == 2
+},
+"getAbilityList"=>proc{|pokemon|
+   next if pokemon.form!=1
+   next [[getID(PBAbilities,:WEAKARMOR),0],
+         [getID(PBAbilities,:CURSEDBODY),2]] if pokemon.form==1 # Eternal
 },
 "getBaseStats"=>proc{|pokemon|
    next if pokemon.form==0
    case pokemon.form
-     when 1; next  [60,110,110,70,208,164]
+     when 2; next  [60,110,110,70,208,164]
      else;   next
    end
 },
+"wildHoldItems"=>proc{|pokemon|
+   next [0,
+         getID(PBItems,:CHIPPEDPOT),
+         getID(PBItems,:CRACKEDPOT)] if pokemon.form==1 # Female Player Character
+   next                        # Male Player Character
+},
 "dexEntry"=>proc{|pokemon|
    next if pokemon.form==0
-   next _INTL("After being reunited with four Sinistea, Polteagesit seem to became even stronger than before.") if pokemon.form==1
+   next _INTL("Trainers Polteageist trusts will be allowed to experience its distinctive flavor and aroma firsthand by sampling just a tiny bit of its tea.") if pokemon.form==1
+   next _INTL("After being reunited with four Sinistea, Polteagesit seem to became even stronger than before.") if pokemon.form==2
 }
 })
 
@@ -10086,6 +10131,54 @@ MultipleForms.register(:MIRAIDON,{
    next _INTL("Its characteristics match those of a mysterious object recorded in an old expedition journal as the Iron Serpent.") if pokemon.form==1
 }
 })
+
+
+MultipleForms.register(:POLCHAGEIST,{
+"getFormOnCreation"=>proc{|pokemon|
+   d=pokemon.personalID&3
+   d|=((pokemon.personalID>>8)&3)<<2
+   d|=((pokemon.personalID>>16)&3)<<4
+   d|=((pokemon.personalID>>24)&3)<<6
+   d%=25
+   next (d==0) ? 1 : 0
+},
+"wildHoldItems"=>proc{|pokemon|
+   next [0,
+         getID(PBItems,:MASTERPIECETEACUP),
+         getID(PBItems,:UNREMARKABLETEACUP)] if pokemon.form==1 # Female Player Character
+   next                        # Male Player Character
+},
+"dexEntry"=>proc{|pokemon|
+   next if pokemon.form==0
+   next _INTL("It sprinkles some of its powdery body onto food and drains the life-force from those who so much as lick it.") if pokemon.form==1
+},
+"getEvolvedFormData"=>proc{|pokemon|
+   next if pokemon.form==0
+   next [[PBEvolution::Item,PBItems::MASTERPIECETEACUP,PBSpecies::SINISTCHA]] if pokemon.form==1
+}
+})
+
+MultipleForms.register(:SINISTCHA,{
+"getFormOnCreation"=>proc{|pokemon|
+   d=pokemon.personalID&3
+   d|=((pokemon.personalID>>8)&3)<<2
+   d|=((pokemon.personalID>>16)&3)<<4
+   d|=((pokemon.personalID>>24)&3)<<6
+   d%=25
+   next (d==0) ? 1 : 0
+},
+"wildHoldItems"=>proc{|pokemon|
+   next [0,
+         getID(PBItems,:MASTERPIECETEACUP),
+         getID(PBItems,:UNREMARKABLETEACUP)] if pokemon.form==1 # Female Player Character
+   next                        # Male Player Character
+},
+"dexEntry"=>proc{|pokemon|
+   next if pokemon.form==0
+   next _INTL("It lives inside a superb teacup that was crafted by a potter of great renown. Collectors positively adore this Pokémon.") if pokemon.form==1
+}
+})
+
 
 MultipleForms.register(:OGERPON,{
 "getForm"=>proc{|pokemon|

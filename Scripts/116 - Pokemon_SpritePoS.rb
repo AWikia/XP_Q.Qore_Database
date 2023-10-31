@@ -265,7 +265,7 @@ class SpritePositioner
     @sprites["shadow1"]=IconSprite.new(
        PokeBattle_SceneConstants::FOEBATTLER_X,
        PokeBattle_SceneConstants::FOEBATTLER_Y,@viewport)
-    @sprites["shadow1"].setBitmap("Graphics/Pictures/Battle/battler_shadow")
+    @sprites["shadow1"].setBitmap("Graphics/UI/Battle/battler_shadow")
     @sprites["shadow1"].x-=@sprites["shadow1"].bitmap.width/2 if @sprites["shadow1"].bitmap!=nil
     @sprites["shadow1"].y-=@sprites["shadow1"].bitmap.height/2 if @sprites["shadow1"].bitmap!=nil
     @sprites["shadow1"].z=3
@@ -275,7 +275,7 @@ class SpritePositioner
     @sprites["pokemon1"]=PokemonSprite.new(@viewport)
     @sprites["pokemon1"].z=16
     @sprites["messagebox"]=IconSprite.new(0,Graphics.height-96,@viewport)
-    @sprites["messagebox"].setBitmap("Graphics/Pictures/battleMessage")
+    @sprites["messagebox"].setBitmap("Graphics/UI/Battle/overlay_message")
     @sprites["messagebox"].z=90
     @sprites["messagebox"].visible=true
     @sprites["info"]=Window_UnformattedTextPokemon.new("")

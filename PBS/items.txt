@@ -632,7 +632,7 @@
 726,BRAVEMINT,Brave Mint,Brave Mints,1,20,"Having a Pokémon smell this mint can make its Attack stat grow stronger. However, its Speed stat may suffer.",1,0,0,
 727,CALMMINT,Calm Mint,Calm Mints,1,20,"Having a Pokémon smell this mint can make its Sp. Def stat grow stronger. However, its Attack stat may suffer.",1,0,0,
 728,CAREFULMINT,Careful Mint,Careful Mints,1,20,"Having a Pokémon smell this mint can make its Sp. Def stat grow stronger. However, its Sp. Atk stat may suffer.",1,0,0,
-729,CRACKEDPOT,Cracked Pot,Cracked Pot,1,1600,"A peculiar teapot that can make a certain species of Pokémon evolve. It may be cracked, but tea poured from it is delicious.",1,0,7,
+729,CRACKEDPOT,Cracked Pot,Cracked Pots,1,1600,"A peculiar teapot that can make a certain species of Pokémon evolve. It may be cracked, but tea poured from it is delicious.",1,0,7,
 730,EJECTPACK,Eject Pack,Eject Packs,1,4000,"An item to be held by a Pokémon. If the holder's stats are lowered, it will be switched out of battle.",0,0,0,
 731,EXPCANDYL,Exp. Candy L,Exp. Candies L,1,3000,"A candy that is packed with energy. If consumed, it grants a Pokémon a large number of Exp. Points.",1,0,0,
 732,EXPCANDYM,Exp. Candy M,Exp. Candies M,1,1000,"A candy that is packed with energy. If consumed, it grants a Pokémon a moderate number of Exp. Points.",1,0,0,
@@ -667,6 +667,7 @@
 862,GALARICAWREATH,Galarica Wreath,Galarica Wreaths,1,6000,A wreath made from woven-together Galarica Twigs. Placing it on the head of a Galarian Slowpoke makes the Pokémon very happy.,1,0,7,
 968,BLANKPLATE,Blank Plate,Blank Plates,1,1000,An item to be held by a Pokémon. This stone tablet is imbued with the essence of normalcy and boosts the power of the holder’s Normal-type moves.,0,0,0,
 974,LINKINGCORD,Linking Cord,Linking Cords,1,1000,A string exuding a mysterious energy that makes you feel a strange sense of connection. It’s loved by certain Pokémon.,1,0,0,
+991,CHIPPEDPOT,Chipped Pot,Chipped Pots,1,1600,"A peculiar teapot that can make a certain species of Pokémon evolve. It may be chipped, but tea poured from it is delicious.",1,0,7,
 # Generation IX Items
 977,AUSPICIOUSARMOR,Auspicious Armor,Auspicious Armors,1,3000,A peculiar set of armor that can make a certain species of Pokémon evolve. Auspicious wishes live within it.,1,0,7,
 978,MALICIOUSARMOR,Malicious Armor,Malicious Armors,1,3000,A peculiar set of armor that can make a certain species of Pokémon evolve. Malicious will lurks within it.,1,0,7,
@@ -681,6 +682,7 @@
 988,WELLSPRINGMASK,Wellspring Mask,Wellspring Masks,1,1000,"An item to be held by Ogerpon. This carved wooden mask is adorned with crystals and allows Ogerpon to wield the Water type during battle.",0,0,0,
 989,HEARTHFLAMEMASK,Hearthflame Mask,Hearthflame Masks,1,1000,"An item to be held by Ogerpon. This carved wooden mask is adorned with crystals and allows Ogerpon to wield the Fire type during battle.",0,0,0,
 990,CORNERSTONEMASK,Cornerstone Mask,Cornerstone Masks,1,1000,"An item to be held by Ogerpon. This carved wooden mask is adorned with crystals and allows Ogerpon to wield the Rock type during battle.",0,0,0,
+992,MASTERPIECETEACUP,Masterpiece Teacup,Masterpiece Teacups,1,1600,"A peculiar teacup that can make a certain species of Pokémon evolve. It may be chipped, but tea drunk from it is delicious.",1,0,7,
 ## Trophies (28 Total)
 # Platina
 827,TQOREMASTER,Qora Qore Master,Qora Qore Master,6,0,Awarded for completing all the pregame,2,0,6,

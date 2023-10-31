@@ -11,7 +11,7 @@ class Window_PokemonBag < Window_DrawableCommand
     @sortIndex=-1
     @adapter=PokemonMartAdapter.new
     super(x,y,width,height)
-    @selarrow=AnimatedBitmap.new("Graphics/Pictures/"+getAccentFolder+"/bagSel")
+    @selarrow=AnimatedBitmap.new("Graphics/UI/"+getAccentFolder+"/bagSel")
     self.windowskin=nil
   end
 
@@ -84,7 +84,7 @@ class Window_PokemonBag < Window_DrawableCommand
     if index!=@bag.pockets[self.pocket].length
       if @bag.registeredItem==@bag.pockets[self.pocket][index][0]
         pbDrawImagePositions(self.contents,[
-           ["Graphics/Pictures/"+getAccentFolder+"/bagReg",rect.x+rect.width-58,ypos+4,0,0,-1,-1]
+           ["Graphics/UI/"+getAccentFolder+"/bagReg",rect.x+rect.width-58,ypos+4,0,0,-1,-1]
         ])
       end
     end
@@ -135,9 +135,9 @@ class PokemonBag_Scene
     lastpocket=@bag.lastpocket
     lastitem=@bag.getChoice(lastpocket)
     @sprites["background"]=IconSprite.new(0,0,@viewport)
-    @sprites["background"].setBitmap(sprintf("Graphics/Pictures/"+getDarkModeFolder+"/Bag/bg_#{lastpocket}"))
-    @sprites["leftarrow"]=AnimatedSprite.new("Graphics/Pictures/"+getAccentFolder+"/leftarrow",8,40,28,2,@viewport)
-    @sprites["rightarrow"]=AnimatedSprite.new("Graphics/Pictures/"+getAccentFolder+"/rightarrow",8,40,28,2,@viewport)
+    @sprites["background"].setBitmap(sprintf("Graphics/UI/"+getDarkModeFolder+"/Bag/bg_#{lastpocket}"))
+    @sprites["leftarrow"]=AnimatedSprite.new("Graphics/UI/"+getAccentFolder+"/leftarrow",8,40,28,2,@viewport)
+    @sprites["rightarrow"]=AnimatedSprite.new("Graphics/UI/"+getAccentFolder+"/rightarrow",8,40,28,2,@viewport)
     @sprites["leftarrow"].play
     @sprites["rightarrow"].play
     @sprites["bag"]=IconSprite.new(30,34,@viewport)
@@ -159,7 +159,7 @@ class PokemonBag_Scene
     @sprites["header"].shadowColor=nil #Color.new(0,0,0)
     @sprites["header"].windowskin=nil
     @sprites["slider"]=IconSprite.new(Graphics.width-40,78,@viewport)
-    @sprites["slider"].setBitmap(sprintf("Graphics/Pictures/"+getDarkModeFolder+"/Bag/icon_slider"))
+    @sprites["slider"].setBitmap(sprintf("Graphics/UI/"+getDarkModeFolder+"/Bag/icon_slider"))
     @sprites["pocketwindow"]=BitmapSprite.new(186,228,@viewport)
     pbSetSystemFont(@sprites["pocketwindow"].bitmap)
     @sprites["itemtextwindow"]=Window_UnformattedTextPokemon.new("")
@@ -217,13 +217,13 @@ class PokemonBag_Scene
     bm=@sprites["pocketwindow"].bitmap
     bm.clear
     # Set the background bitmap for the currently selected pocket
-    @sprites["background"].setBitmap(sprintf("Graphics/Pictures/"+getDarkModeFolder+"/Bag/bg_#{@bag.lastpocket}"))
+    @sprites["background"].setBitmap(sprintf("Graphics/UI/"+getDarkModeFolder+"/Bag/bg_#{@bag.lastpocket}"))
     # Set the bag picture for the currently selected pocket
-    fbagexists=pbResolveBitmap(sprintf("Graphics/Pictures/Bag/bag_#{@bag.lastpocket}_f"))
+    fbagexists=pbResolveBitmap(sprintf("Graphics/UI/Bag/bag_#{@bag.lastpocket}_f"))
     if $Trainer.isFemale? && fbagexists
-      @sprites["bag"].setBitmap("Graphics/Pictures/Bag/bag_#{@bag.lastpocket}_f")
+      @sprites["bag"].setBitmap("Graphics/UI/Bag/bag_#{@bag.lastpocket}_f")
     else
-      @sprites["bag"].setBitmap("Graphics/Pictures/Bag/bag_#{@bag.lastpocket}")
+      @sprites["bag"].setBitmap("Graphics/UI/Bag/bag_#{@bag.lastpocket}")
     end
     # Draw the pocket name
     itemwindow=@sprites["itemwindow"]
@@ -932,7 +932,7 @@ class ItemStorageScene
     @bag=bag
     @sprites={}
     @sprites["background"]=IconSprite.new(0,0,@viewport)
-    @sprites["background"].setBitmap("Graphics/Pictures/pcItembg")
+    @sprites["background"].setBitmap("Graphics/UI/itemstorage_bg")
     @sprites["icon"]=ItemIconSprite.new(50,334,-1,@viewport)
     # Item list
     @sprites["itemwindow"]=Window_PokemonItemStorage.new(@bag,98,14,334,32+ITEMSVISIBLE*32)

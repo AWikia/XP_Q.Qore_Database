@@ -39,7 +39,7 @@ class PokemonTrainerCardScene
     @sprites["header"].shadowColor=nil #shadow
     @sprites["header"].windowskin=nil
     @sprites["card"]=IconSprite.new(0,0,@viewport)
-    @sprites["card"].setBitmap("Graphics/Pictures/"+getDarkModeFolder+"/Trainer Card/card_"+level.to_s)
+    @sprites["card"].setBitmap("Graphics/UI/"+getDarkModeFolder+"/Trainer Card/card_"+level.to_s)
     @sprites["overlay"]=BitmapSprite.new(Graphics.width,Graphics.height,@viewport)
     @sprites["trainer"]=IconSprite.new(336,112,@viewport)
     @sprites["trainer"].setBitmap(pbPlayerSpriteFile($Trainer.trainertype))
@@ -94,7 +94,7 @@ class PokemonTrainerCardScene
     imagePositions=[]
     for i in 0...8
       if $Trainer.badges[i+region*8] && false
-        imagePositions.push(["Graphics/Pictures/Trainer Card/icon_badges",x+64,310,i*32,region*32,32,32])
+        imagePositions.push(["Graphics/UI/Trainer Card/icon_badges",x+64,310,i*32,region*32,32,32])
       end
       x+=48
     end

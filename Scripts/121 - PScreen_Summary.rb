@@ -4,7 +4,7 @@ class MoveSelectionSprite < SpriteWrapper
 
   def initialize(viewport=nil,fifthmove=false)
     super(viewport)
-    @movesel=AnimatedBitmap.new("Graphics/Pictures/"+getAccentFolder+"/summarymovesel")
+    @movesel=AnimatedBitmap.new("Graphics/UI/"+getAccentFolder+"/summarymovesel")
     @frame=0
     @index=0
     @fifthmove=fifthmove
@@ -87,9 +87,9 @@ class PokemonSummaryScene
     @pokemon=@party[@partyindex]
     typescart=
     @sprites={}
-    @typebitmap=AnimatedBitmap.new("Graphics/Pictures/Types")
-    @compatbitmap=AnimatedBitmap.new("Graphics/Pictures/compatibilities")
-    @colorbitmap=AnimatedBitmap.new("Graphics/Pictures/colors")
+    @typebitmap=AnimatedBitmap.new("Graphics/UI/Types")
+    @compatbitmap=AnimatedBitmap.new("Graphics/UI/compatibilities")
+    @colorbitmap=AnimatedBitmap.new("Graphics/UI/colors")
     @sprites["background"]=IconSprite.new(0,0,@viewport)
     @sprites["header-bg"]=IconSprite.new(0,0,@viewport)
     @sprites["header"]=IconSprite.new(0,0,@viewport)
@@ -126,9 +126,9 @@ class PokemonSummaryScene
     @pokemon=@party[@partyindex]
     @sprites={}
     @page=3
-    @typebitmap=AnimatedBitmap.new("Graphics/Pictures/Types")
-    @compatbitmap=AnimatedBitmap.new("Graphics/Pictures/compatibilities")
-    @colorbitmap=AnimatedBitmap.new("Graphics/Pictures/colors")
+    @typebitmap=AnimatedBitmap.new("Graphics/UI/Types")
+    @compatbitmap=AnimatedBitmap.new("Graphics/UI/compatibilities")
+    @colorbitmap=AnimatedBitmap.new("Graphics/UI/colors")
     @sprites["background"]=IconSprite.new(0,0,@viewport)
     @sprites["header-bg"]=IconSprite.new(0,0,@viewport)
     @sprites["header"]=IconSprite.new(0,0,@viewport)
@@ -187,49 +187,49 @@ class PokemonSummaryScene
     $summarysizex = 80
     overlay=@sprites["overlay"].bitmap
     overlay.clear
-    @sprites["background"].setBitmap("Graphics/Pictures/"+getDarkModeFolder+"/Summary/bg_1")
-#    @sprites["header-bg"].setBitmap("Graphics/Pictures/header-global")
-#    @sprites["header"].setBitmap("Graphics/Pictures/header1")
+    @sprites["background"].setBitmap("Graphics/UI/"+getDarkModeFolder+"/Summary/bg_1")
+#    @sprites["header-bg"].setBitmap("Graphics/UI/header-global")
+#    @sprites["header"].setBitmap("Graphics/UI/header1")
     imagepos=[]
     if pbPokerus(pokemon)==1 || pokemon.hp==0 || @pokemon.status>0
       status=6 if pbPokerus(pokemon)==1
       status=@pokemon.status-1 if @pokemon.status>0
       status=5 if pokemon.hp==0
-      imagepos.push(["Graphics/Pictures/statuses",216,100,0,16*status,44,16])
+      imagepos.push(["Graphics/UI/statuses",216,100,0,16*status,44,16])
     end
     if pokemon.isShiny?
-      imagepos.push([sprintf("Graphics/Pictures/shiny"),2,134,0,0,-1,-1])
+      imagepos.push([sprintf("Graphics/UI/shiny"),2,134,0,0,-1,-1])
     end
     if pbPokerus(pokemon)==2
-      imagepos.push([sprintf("Graphics/Pictures/Summary/icon_pokerus"),176,100,0,0,-1,-1])
+      imagepos.push([sprintf("Graphics/UI/Summary/icon_pokerus"),176,100,0,0,-1,-1])
     end
     ballused=@pokemon.ballused ? @pokemon.ballused : 0
-    ballimage=sprintf("Graphics/Pictures/Summary/icon_ball_%02d",@pokemon.ballused)
+    ballimage=sprintf("Graphics/UI/Summary/icon_ball_%02d",@pokemon.ballused)
     imagepos.push([ballimage,14,60,0,0,-1,-1])
     growthrate=pokemon.growthrate
     startexp=PBExperience.pbGetStartExperience(pokemon.level,growthrate)
     endexp=PBExperience.pbGetStartExperience(pokemon.level+1,growthrate)
     finexp=PBExperience.pbGetStartExperience(PBExperience::MAXLEVEL,growthrate)
     if (pokemon.isShadow? rescue false)
-      imagepos.push(["Graphics/Pictures/"+getDarkModeFolder+"/Summary/overlay_shadow",352,240,0,0,-1,-1])
+      imagepos.push(["Graphics/UI/"+getDarkModeFolder+"/Summary/overlay_shadow",352,240,0,0,-1,-1])
       shadowfract=pokemon.heartgauge*1.0/PokeBattle_Pokemon::HEARTGAUGESIZE
       if ($PokemonSystem.threecolorbar==1 rescue false)
-        imagepos.push(["Graphics/Pictures/Summary/overlay_shadowbar_threecolorbar",370,280,0,0,(shadowfract*248).floor,-1])
+        imagepos.push(["Graphics/UI/Summary/overlay_shadowbar_threecolorbar",370,280,0,0,(shadowfract*248).floor,-1])
       else
-        imagepos.push(["Graphics/Pictures/Summary/overlay_shadowbar",370,280,0,0,(shadowfract*248).floor,-1])
+        imagepos.push(["Graphics/UI/Summary/overlay_shadowbar",370,280,0,0,(shadowfract*248).floor,-1])
       end
     elsif pokemon.level<PBExperience::MAXLEVEL
       shadowfract1=(finexp-pokemon.exp)*100/(finexp)
       if ($PokemonSystem.threecolorbar==1 rescue false)
-        imagepos.push(["Graphics/Pictures/"+getAccentFolder+"/summaryEggBar_threecolorbar",370,280,0,0,(shadowfract1*2.48).floor,-1])
+        imagepos.push(["Graphics/UI/"+getAccentFolder+"/summaryEggBar_threecolorbar",370,280,0,0,(shadowfract1*2.48).floor,-1])
       else
-        imagepos.push(["Graphics/Pictures/"+getAccentFolder+"/summaryEggBar",370,280,0,0,(shadowfract1*2.48).floor,-1])
+        imagepos.push(["Graphics/UI/"+getAccentFolder+"/summaryEggBar",370,280,0,0,(shadowfract1*2.48).floor,-1])
       end
       shadowfract2=(endexp-pokemon.exp)*100/(endexp - startexp)
       if ($PokemonSystem.threecolorbar==1 rescue false)
-        imagepos.push(["Graphics/Pictures/"+getAccentFolder+"/summaryEggBar_threecolorbar",370,344,0,0,(shadowfract2*2.48).floor,-1])
+        imagepos.push(["Graphics/UI/"+getAccentFolder+"/summaryEggBar_threecolorbar",370,344,0,0,(shadowfract2*2.48).floor,-1])
       else
-        imagepos.push(["Graphics/Pictures/"+getAccentFolder+"/summaryEggBar",370,344,0,0,(shadowfract2*2.48).floor,-1])
+        imagepos.push(["Graphics/UI/"+getAccentFolder+"/summaryEggBar",370,344,0,0,(shadowfract2*2.48).floor,-1])
       end
     end
     pbDrawImagePositions(overlay,imagepos)
@@ -323,13 +323,13 @@ class PokemonSummaryScene
     gendericon=[]
     if pokemon.isMale?
 #      textpos.push([_INTL("♂"),178,62,0,Color.new(24,112,216),Color.new(136,168,208)])
-      gendericon.push(["Graphics/Pictures/"+getDarkModeFolder+"/gender_male",270,68,0,0,-1,-1])
+      gendericon.push(["Graphics/UI/"+getDarkModeFolder+"/gender_male",270,68,0,0,-1,-1])
     elsif pokemon.isFemale?
 #      textpos.push([_INTL("♀"),178,62,0,Color.new(248,56,32),Color.new(224,152,144)])
-      gendericon.push(["Graphics/Pictures/"+getDarkModeFolder+"/gender_female",270,68,0,0,-1,-1])
+      gendericon.push(["Graphics/UI/"+getDarkModeFolder+"/gender_female",270,68,0,0,-1,-1])
     elsif pokemon.isGenderless?
 #      textpos.push([_INTL("♀"),178,62,0,Color.new(248,56,32),Color.new(224,152,144)])
-      gendericon.push(["Graphics/Pictures/"+getDarkModeFolder+"/gender_transgender",270,68,0,0,-1,-1])
+      gendericon.push(["Graphics/UI/"+getDarkModeFolder+"/gender_transgender",270,68,0,0,-1,-1])
     end
     pbDrawImagePositions(overlay,gendericon)
     pbDrawTextPositions(overlay,textpos)
@@ -364,12 +364,12 @@ class PokemonSummaryScene
     @sprites["itemicon"].item = @pokemon.item
     overlay=@sprites["overlay"].bitmap
     overlay.clear
-    @sprites["background"].setBitmap("Graphics/Pictures/"+getDarkModeFolder+"/Summary/bg_egg")
-#    @sprites["header-bg"].setBitmap("Graphics/Pictures/header-global")
-#    @sprites["header"].setBitmap("Graphics/Pictures/headerB1")
+    @sprites["background"].setBitmap("Graphics/UI/"+getDarkModeFolder+"/Summary/bg_egg")
+#    @sprites["header-bg"].setBitmap("Graphics/UI/header-global")
+#    @sprites["header"].setBitmap("Graphics/UI/headerB1")
     imagepos=[]
     ballused=@pokemon.ballused ? @pokemon.ballused : 0
-    ballimage=sprintf("Graphics/Pictures/Summary/icon_ball_%02d",@pokemon.ballused)
+    ballimage=sprintf("Graphics/UI/Summary/icon_ball_%02d",@pokemon.ballused)
     imagepos.push([ballimage,14,60,0,0,-1,-1])
     # Egg Steps Start
      dexdata=pbOpenDexData
@@ -378,9 +378,9 @@ class PokemonSummaryScene
      dexdata.close
     shadowfract=pokemon.eggsteps*1.0/maxesteps # Egg Steps TMP
       if ($PokemonSystem.threecolorbar==1 rescue false)
-        imagepos.push(["Graphics/Pictures/"+getAccentFolder+"/summaryEggBar_threecolorbar",370,244,0,0,(shadowfract*248).floor,-1])
+        imagepos.push(["Graphics/UI/"+getAccentFolder+"/summaryEggBar_threecolorbar",370,244,0,0,(shadowfract*248).floor,-1])
       else
-        imagepos.push(["Graphics/Pictures/"+getAccentFolder+"/summaryEggBar",370,244,0,0,(shadowfract*248).floor,-1])
+        imagepos.push(["Graphics/UI/"+getAccentFolder+"/summaryEggBar",370,244,0,0,(shadowfract*248).floor,-1])
       end
     # Egg Steps End
     pbDrawImagePositions(overlay,imagepos)
@@ -463,24 +463,24 @@ class PokemonSummaryScene
     $summarysizex = 80
     overlay=@sprites["overlay"].bitmap
     overlay.clear
-    @sprites["background"].setBitmap("Graphics/Pictures/"+getDarkModeFolder+"/Summary/bg_2")
-#    @sprites["header-bg"].setBitmap("Graphics/Pictures/header-global")      
-#    @sprites["header"].setBitmap("Graphics/Pictures/header2")
+    @sprites["background"].setBitmap("Graphics/UI/"+getDarkModeFolder+"/Summary/bg_2")
+#    @sprites["header-bg"].setBitmap("Graphics/UI/header-global")      
+#    @sprites["header"].setBitmap("Graphics/UI/header2")
     imagepos=[]
     if pbPokerus(pokemon)==1 || pokemon.hp==0 || @pokemon.status>0
       status=6 if pbPokerus(pokemon)==1
       status=@pokemon.status-1 if @pokemon.status>0
       status=5 if pokemon.hp==0
-      imagepos.push(["Graphics/Pictures/statuses",216,100,0,16*status,44,16])
+      imagepos.push(["Graphics/UI/statuses",216,100,0,16*status,44,16])
     end
     if pokemon.isShiny?
-      imagepos.push([sprintf("Graphics/Pictures/shiny"),2,134,0,0,-1,-1])
+      imagepos.push([sprintf("Graphics/UI/shiny"),2,134,0,0,-1,-1])
     end
     if pbPokerus(pokemon)==2
-      imagepos.push([sprintf("Graphics/Pictures/Summary/icon_pokerus"),176,100,0,0,-1,-1])
+      imagepos.push([sprintf("Graphics/UI/Summary/icon_pokerus"),176,100,0,0,-1,-1])
     end
     ballused=@pokemon.ballused ? @pokemon.ballused : 0
-    ballimage=sprintf("Graphics/Pictures/Summary/icon_ball_%02d",@pokemon.ballused)
+    ballimage=sprintf("Graphics/UI/Summary/icon_ball_%02d",@pokemon.ballused)
     imagepos.push([ballimage,14,60,0,0,-1,-1])
     pbDrawImagePositions(overlay,imagepos)
     if (!isDarkMode?)
@@ -515,13 +515,13 @@ class PokemonSummaryScene
     gendericon=[]
     if pokemon.isMale?
 #      textpos.push([_INTL("♂"),178,62,0,Color.new(24,112,216),Color.new(136,168,208)])
-      gendericon.push(["Graphics/Pictures/"+getDarkModeFolder+"/gender_male",270,68,0,0,-1,-1])
+      gendericon.push(["Graphics/UI/"+getDarkModeFolder+"/gender_male",270,68,0,0,-1,-1])
     elsif pokemon.isFemale?
 #      textpos.push([_INTL("♀"),178,62,0,Color.new(248,56,32),Color.new(224,152,144)])
-      gendericon.push(["Graphics/Pictures/"+getDarkModeFolder+"/gender_female",270,68,0,0,-1,-1])
+      gendericon.push(["Graphics/UI/"+getDarkModeFolder+"/gender_female",270,68,0,0,-1,-1])
     elsif pokemon.isGenderless?
 #      textpos.push([_INTL("♀"),178,62,0,Color.new(248,56,32),Color.new(224,152,144)])
-      gendericon.push(["Graphics/Pictures/"+getDarkModeFolder+"/gender_transgender",270,68,0,0,-1,-1])
+      gendericon.push(["Graphics/UI/"+getDarkModeFolder+"/gender_transgender",270,68,0,0,-1,-1])
     end
     pbDrawImagePositions(overlay,gendericon)
     pbDrawTextPositions(overlay,textpos)
@@ -644,24 +644,24 @@ class PokemonSummaryScene
     $summarysizex = 40
     overlay=@sprites["overlay"].bitmap
     overlay.clear
-    @sprites["background"].setBitmap("Graphics/Pictures/"+getDarkModeFolder+"/Summary/bg_3")
-#      @sprites["header-bg"].setBitmap("Graphics/Pictures/header-global")      
-#      @sprites["header"].setBitmap("Graphics/Pictures/header3")
+    @sprites["background"].setBitmap("Graphics/UI/"+getDarkModeFolder+"/Summary/bg_3")
+#      @sprites["header-bg"].setBitmap("Graphics/UI/header-global")      
+#      @sprites["header"].setBitmap("Graphics/UI/header3")
     imagepos=[]
     if pbPokerus(pokemon)==1 || pokemon.hp==0 || @pokemon.status>0
       status=6 if pbPokerus(pokemon)==1
       status=@pokemon.status-1 if @pokemon.status>0
       status=5 if pokemon.hp==0
-      imagepos.push(["Graphics/Pictures/statuses",216,100,0,16*status,44,16])
+      imagepos.push(["Graphics/UI/statuses",216,100,0,16*status,44,16])
     end
     if pokemon.isShiny?
-      imagepos.push([sprintf("Graphics/Pictures/shiny"),2,134,0,0,-1,-1])
+      imagepos.push([sprintf("Graphics/UI/shiny"),2,134,0,0,-1,-1])
     end
     if pbPokerus(pokemon)==2
-      imagepos.push([sprintf("Graphics/Pictures/Summary/icon_pokerus"),176,100,0,0,-1,-1])
+      imagepos.push([sprintf("Graphics/UI/Summary/icon_pokerus"),176,100,0,0,-1,-1])
     end
     ballused=@pokemon.ballused ? @pokemon.ballused : 0
-    ballimage=sprintf("Graphics/Pictures/Summary/icon_ball_%02d",@pokemon.ballused)
+    ballimage=sprintf("Graphics/UI/Summary/icon_ball_%02d",@pokemon.ballused)
     imagepos.push([ballimage,14,60,0,0,-1,-1])
     pbDrawImagePositions(overlay,imagepos)
     if (!isDarkMode?)
@@ -735,13 +735,13 @@ class PokemonSummaryScene
     gendericon=[]
     if pokemon.isMale?
 #      textpos.push([_INTL("♂"),178,62,0,Color.new(24,112,216),Color.new(136,168,208)])
-      gendericon.push(["Graphics/Pictures/"+getDarkModeFolder+"/gender_male",270,68,0,0,-1,-1])
+      gendericon.push(["Graphics/UI/"+getDarkModeFolder+"/gender_male",270,68,0,0,-1,-1])
     elsif pokemon.isFemale?
 #      textpos.push([_INTL("♀"),178,62,0,Color.new(248,56,32),Color.new(224,152,144)])
-      gendericon.push(["Graphics/Pictures/"+getDarkModeFolder+"/gender_female",270,68,0,0,-1,-1])
+      gendericon.push(["Graphics/UI/"+getDarkModeFolder+"/gender_female",270,68,0,0,-1,-1])
     elsif pokemon.isGenderless?
 #      textpos.push([_INTL("♀"),178,62,0,Color.new(248,56,32),Color.new(224,152,144)])
-      gendericon.push(["Graphics/Pictures/"+getDarkModeFolder+"/gender_transgender",270,68,0,0,-1,-1])
+      gendericon.push(["Graphics/UI/"+getDarkModeFolder+"/gender_transgender",270,68,0,0,-1,-1])
     end
     pbDrawImagePositions(overlay,gendericon)
     pbDrawTextPositions(overlay,textpos)
@@ -765,24 +765,24 @@ def drawPageFour(pokemon)
     $summarysizex = 40
     overlay=@sprites["overlay"].bitmap
     overlay.clear
-    @sprites["background"].setBitmap("Graphics/Pictures/"+getDarkModeFolder+"/Summary/bg_4")
-#    @sprites["header-bg"].setBitmap("Graphics/Pictures/header-global")      
-#    @sprites["header"].setBitmap("Graphics/Pictures/header3_1")
+    @sprites["background"].setBitmap("Graphics/UI/"+getDarkModeFolder+"/Summary/bg_4")
+#    @sprites["header-bg"].setBitmap("Graphics/UI/header-global")      
+#    @sprites["header"].setBitmap("Graphics/UI/header3_1")
     imagepos=[]
     if pbPokerus(pokemon)==1 || pokemon.hp==0 || @pokemon.status>0
       status=6 if pbPokerus(pokemon)==1
       status=@pokemon.status-1 if @pokemon.status>0
       status=5 if pokemon.hp==0
-      imagepos.push(["Graphics/Pictures/statuses",216,100,0,16*status,44,16])
+      imagepos.push(["Graphics/UI/statuses",216,100,0,16*status,44,16])
     end
     if pokemon.isShiny?
-      imagepos.push([sprintf("Graphics/Pictures/shiny"),2,134,0,0,-1,-1])
+      imagepos.push([sprintf("Graphics/UI/shiny"),2,134,0,0,-1,-1])
     end
     if pbPokerus(pokemon)==2
-      imagepos.push([sprintf("Graphics/Pictures/Summary/icon_pokerus"),176,100,0,0,-1,-1])
+      imagepos.push([sprintf("Graphics/UI/Summary/icon_pokerus"),176,100,0,0,-1,-1])
     end
     ballused=@pokemon.ballused ? @pokemon.ballused : 0
-    ballimage=sprintf("Graphics/Pictures/Summary/icon_ball_%02d",@pokemon.ballused)
+    ballimage=sprintf("Graphics/UI/Summary/icon_ball_%02d",@pokemon.ballused)
     imagepos.push([ballimage,14,60,0,0,-1,-1])
     pbDrawImagePositions(overlay,imagepos)
     if (!isDarkMode?)
@@ -862,13 +862,13 @@ def drawPageFour(pokemon)
     gendericon=[]
     if pokemon.isMale?
 #      textpos.push([_INTL("♂"),178,62,0,Color.new(24,112,216),Color.new(136,168,208)])
-      gendericon.push(["Graphics/Pictures/"+getDarkModeFolder+"/gender_male",270,68,0,0,-1,-1])
+      gendericon.push(["Graphics/UI/"+getDarkModeFolder+"/gender_male",270,68,0,0,-1,-1])
     elsif pokemon.isFemale?
 #      textpos.push([_INTL("♀"),178,62,0,Color.new(248,56,32),Color.new(224,152,144)])
-      gendericon.push(["Graphics/Pictures/"+getDarkModeFolder+"/gender_female",270,68,0,0,-1,-1])
+      gendericon.push(["Graphics/UI/"+getDarkModeFolder+"/gender_female",270,68,0,0,-1,-1])
     elsif pokemon.isGenderless?
 #      textpos.push([_INTL("♀"),178,62,0,Color.new(248,56,32),Color.new(224,152,144)])
-      gendericon.push(["Graphics/Pictures/"+getDarkModeFolder+"/gender_transgender",270,68,0,0,-1,-1])
+      gendericon.push(["Graphics/UI/"+getDarkModeFolder+"/gender_transgender",270,68,0,0,-1,-1])
     end
     pbDrawImagePositions(overlay,gendericon)
     pbDrawTextPositions(overlay,textpos)
@@ -880,24 +880,24 @@ def drawPageFive(pokemon)
     $summarysizex = 40
     overlay=@sprites["overlay"].bitmap
     overlay.clear
-    @sprites["background"].setBitmap("Graphics/Pictures/"+getDarkModeFolder+"/Summary/bg_5")
-#    @sprites["header-bg"].setBitmap("Graphics/Pictures/header-global")      
-#    @sprites["header"].setBitmap("Graphics/Pictures/header3_2")
+    @sprites["background"].setBitmap("Graphics/UI/"+getDarkModeFolder+"/Summary/bg_5")
+#    @sprites["header-bg"].setBitmap("Graphics/UI/header-global")      
+#    @sprites["header"].setBitmap("Graphics/UI/header3_2")
     imagepos=[]
     if pbPokerus(pokemon)==1 || pokemon.hp==0 || @pokemon.status>0
       status=6 if pbPokerus(pokemon)==1
       status=@pokemon.status-1 if @pokemon.status>0
       status=5 if pokemon.hp==0
-      imagepos.push(["Graphics/Pictures/statuses",216,100,0,16*status,44,16])
+      imagepos.push(["Graphics/UI/statuses",216,100,0,16*status,44,16])
     end
     if pokemon.isShiny?
-      imagepos.push([sprintf("Graphics/Pictures/shiny"),2,134,0,0,-1,-1])
+      imagepos.push([sprintf("Graphics/UI/shiny"),2,134,0,0,-1,-1])
     end
     if pbPokerus(pokemon)==2
-      imagepos.push([sprintf("Graphics/Pictures/Summary/icon_pokerus"),176,100,0,0,-1,-1])
+      imagepos.push([sprintf("Graphics/UI/Summary/icon_pokerus"),176,100,0,0,-1,-1])
     end
     ballused=@pokemon.ballused ? @pokemon.ballused : 0
-    ballimage=sprintf("Graphics/Pictures/Summary/icon_ball_%02d",@pokemon.ballused)
+    ballimage=sprintf("Graphics/UI/Summary/icon_ball_%02d",@pokemon.ballused)
     imagepos.push([ballimage,14,60,0,0,-1,-1])
     pbDrawImagePositions(overlay,imagepos)
     if (!isDarkMode?)
@@ -952,13 +952,13 @@ def drawPageFive(pokemon)
     gendericon=[]
     if pokemon.isMale?
 #      textpos.push([_INTL("♂"),178,62,0,Color.new(24,112,216),Color.new(136,168,208)])
-      gendericon.push(["Graphics/Pictures/"+getDarkModeFolder+"/gender_male",270,68,0,0,-1,-1])
+      gendericon.push(["Graphics/UI/"+getDarkModeFolder+"/gender_male",270,68,0,0,-1,-1])
     elsif pokemon.isFemale?
 #      textpos.push([_INTL("♀"),178,62,0,Color.new(248,56,32),Color.new(224,152,144)])
-      gendericon.push(["Graphics/Pictures/"+getDarkModeFolder+"/gender_female",270,68,0,0,-1,-1])
+      gendericon.push(["Graphics/UI/"+getDarkModeFolder+"/gender_female",270,68,0,0,-1,-1])
     elsif pokemon.isGenderless?
 #      textpos.push([_INTL("♀"),178,62,0,Color.new(248,56,32),Color.new(224,152,144)])
-      gendericon.push(["Graphics/Pictures/"+getDarkModeFolder+"/gender_transgender",270,68,0,0,-1,-1])
+      gendericon.push(["Graphics/UI/"+getDarkModeFolder+"/gender_transgender",270,68,0,0,-1,-1])
     end
     pbDrawImagePositions(overlay,gendericon)
     pbDrawTextPositions(overlay,textpos)
@@ -970,9 +970,9 @@ def drawPageFive(pokemon)
     $summarysizex = 80
     overlay=@sprites["overlay"].bitmap
     overlay.clear
-    @sprites["background"].setBitmap("Graphics/Pictures/"+getDarkModeFolder+"/Summary/bg_6")
-#    @sprites["header-bg"].setBitmap("Graphics/Pictures/header-global")      
-#    @sprites["header"].setBitmap("Graphics/Pictures/header4")
+    @sprites["background"].setBitmap("Graphics/UI/"+getDarkModeFolder+"/Summary/bg_6")
+#    @sprites["header-bg"].setBitmap("Graphics/UI/header-global")      
+#    @sprites["header"].setBitmap("Graphics/UI/header4")
     @sprites["pokemon"].visible=true
     @sprites["pokeicon"].visible=false
     @sprites["itemicon"].visible=true
@@ -981,16 +981,16 @@ def drawPageFive(pokemon)
       status=6 if pbPokerus(pokemon)==1
       status=@pokemon.status-1 if @pokemon.status>0
       status=5 if pokemon.hp==0
-      imagepos.push(["Graphics/Pictures/statuses",216,100,0,16*status,44,16])
+      imagepos.push(["Graphics/UI/statuses",216,100,0,16*status,44,16])
     end
     if pokemon.isShiny?
-      imagepos.push([sprintf("Graphics/Pictures/shiny"),2,134,0,0,-1,-1])
+      imagepos.push([sprintf("Graphics/UI/shiny"),2,134,0,0,-1,-1])
     end
     if pbPokerus(pokemon)==2
-      imagepos.push([sprintf("Graphics/Pictures/Summary/icon_pokerus"),176,100,0,0,-1,-1])
+      imagepos.push([sprintf("Graphics/UI/Summary/icon_pokerus"),176,100,0,0,-1,-1])
     end
     ballused=@pokemon.ballused ? @pokemon.ballused : 0
-    ballimage=sprintf("Graphics/Pictures/Summary/icon_ball_%02d",@pokemon.ballused)
+    ballimage=sprintf("Graphics/UI/Summary/icon_ball_%02d",@pokemon.ballused)
     imagepos.push([ballimage,14,60,0,0,-1,-1])
     pbDrawImagePositions(overlay,imagepos)
     if (!isDarkMode?)
@@ -1032,13 +1032,13 @@ def drawPageFive(pokemon)
     gendericon=[]
     if pokemon.isMale?
 #      textpos.push([_INTL("♂"),178,62,0,Color.new(24,112,216),Color.new(136,168,208)])
-      gendericon.push(["Graphics/Pictures/"+getDarkModeFolder+"/gender_male",270,68,0,0,-1,-1])
+      gendericon.push(["Graphics/UI/"+getDarkModeFolder+"/gender_male",270,68,0,0,-1,-1])
     elsif pokemon.isFemale?
 #      textpos.push([_INTL("♀"),178,62,0,Color.new(248,56,32),Color.new(224,152,144)])
-      gendericon.push(["Graphics/Pictures/"+getDarkModeFolder+"/gender_female",270,68,0,0,-1,-1])
+      gendericon.push(["Graphics/UI/"+getDarkModeFolder+"/gender_female",270,68,0,0,-1,-1])
     elsif pokemon.isGenderless?
 #      textpos.push([_INTL("♀"),178,62,0,Color.new(248,56,32),Color.new(224,152,144)])
-      gendericon.push(["Graphics/Pictures/"+getDarkModeFolder+"/gender_transgender",270,68,0,0,-1,-1])
+      gendericon.push(["Graphics/UI/"+getDarkModeFolder+"/gender_transgender",270,68,0,0,-1,-1])
     end
     pbDrawImagePositions(overlay,gendericon)
     pbDrawTextPositions(overlay,textpos)
@@ -1047,7 +1047,7 @@ def drawPageFive(pokemon)
     dark = (isDarkMode?) ? [2,0] : [1,0]
     for i in 0...pokemon.moves.length
       if pokemon.moves[i].id>0
-        imagepos.push(["Graphics/Pictures/Types",376,yPos+2,64*$PokemonSystem.colortige,
+        imagepos.push(["Graphics/UI/Types",376,yPos+2,64*$PokemonSystem.colortige,
            pokemon.moves[i].type*28,64,28])
         textpos.push([PBMoves.getName(pokemon.moves[i].id),444,yPos,0,
            typeColors[pokemon.moves[i].type][dark[0]],typeColors[pokemon.moves[i].type][dark[1]]])
@@ -1112,7 +1112,7 @@ def drawPageFive(pokemon)
           340,186,1,base,shadow] # Was 280
     ]
     pbDrawTextPositions(overlay,textpos)
-    imagepos=[["Graphics/Pictures/category",290,124,64*$PokemonSystem.colortige,category*28,64,28]] # Was 230
+    imagepos=[["Graphics/UI/category",290,124,64*$PokemonSystem.colortige,category*28,64,28]] # Was 230
     pbDrawImagePositions(overlay,imagepos)
     drawTextEx(overlay,4,222,366,5,
        pbGetMessage(MessageTypes::MoveDescriptions,moveid),
@@ -1146,12 +1146,12 @@ def drawPageFive(pokemon)
                   Color.new(144,72,24),   # 1/4 of total PP or less
                   Color.new(136,48,48)]   # Zero PP
     if moveToLearn==0
-      @sprites["background"].setBitmap("Graphics/Pictures/"+getDarkModeFolder+"/Summary/bg_movedetail")
-#      @sprites["header-bg"].setBitmap("Graphics/Pictures/header-global")      
-#      @sprites["header"].setBitmap("Graphics/Pictures/header4")
+      @sprites["background"].setBitmap("Graphics/UI/"+getDarkModeFolder+"/Summary/bg_movedetail")
+#      @sprites["header-bg"].setBitmap("Graphics/UI/header-global")      
+#      @sprites["header"].setBitmap("Graphics/UI/header4")
     end
     if moveToLearn!=0
-      @sprites["background"].setBitmap("Graphics/Pictures/"+getDarkModeFolder+"/Summary/bg_learnmove")
+      @sprites["background"].setBitmap("Graphics/UI/"+getDarkModeFolder+"/Summary/bg_learnmove")
     end
     pbSetSystemFont(overlay)
     textpos=[
@@ -1182,7 +1182,7 @@ def drawPageFive(pokemon)
       dark = (isDarkMode?) ? [2,0] : [1,0]
       if moveobject
         if moveobject.id!=0
-          imagepos.push(["Graphics/Pictures/Types",376,yPos+2,64*$PokemonSystem.colortige,
+          imagepos.push(["Graphics/UI/Types",376,yPos+2,64*$PokemonSystem.colortige,
              moveobject.type*28,64,28])
           textpos.push([PBMoves.getName(moveobject.id),444,yPos,0,
              typeColors[moveobject.type][dark[0]],typeColors[moveobject.type][dark[1]]])
@@ -1212,24 +1212,24 @@ def drawPageFive(pokemon)
     $summarysizex = 80
     overlay=@sprites["overlay"].bitmap
     overlay.clear
-    @sprites["background"].setBitmap("Graphics/Pictures/"+getDarkModeFolder+"/Summary/bg_7")
-#    @sprites["header-bg"].setBitmap("Graphics/Pictures/header-global")      
-#    @sprites["header"].setBitmap("Graphics/Pictures/header5")
+    @sprites["background"].setBitmap("Graphics/UI/"+getDarkModeFolder+"/Summary/bg_7")
+#    @sprites["header-bg"].setBitmap("Graphics/UI/header-global")      
+#    @sprites["header"].setBitmap("Graphics/UI/header5")
     imagepos=[]
     if pbPokerus(pokemon)==1 || pokemon.hp==0 || @pokemon.status>0
       status=6 if pbPokerus(pokemon)==1
       status=@pokemon.status-1 if @pokemon.status>0
       status=5 if pokemon.hp==0
-      imagepos.push(["Graphics/Pictures/statuses",216,100,0,16*status,44,16])
+      imagepos.push(["Graphics/UI/statuses",216,100,0,16*status,44,16])
     end
     if pokemon.isShiny?
-      imagepos.push([sprintf("Graphics/Pictures/shiny"),2,134,0,0,-1,-1])
+      imagepos.push([sprintf("Graphics/UI/shiny"),2,134,0,0,-1,-1])
     end
     if pbPokerus(pokemon)==2
-      imagepos.push([sprintf("Graphics/Pictures/Summary/icon_pokerus"),176,100,0,0,-1,-1])
+      imagepos.push([sprintf("Graphics/UI/Summary/icon_pokerus"),176,100,0,0,-1,-1])
     end
     ballused=@pokemon.ballused ? @pokemon.ballused : 0
-    ballimage=sprintf("Graphics/Pictures/Summary/icon_ball_%02d",@pokemon.ballused)
+    ballimage=sprintf("Graphics/UI/Summary/icon_ball_%02d",@pokemon.ballused)
     imagepos.push([ballimage,14,60,0,0,-1,-1])
     pbDrawImagePositions(overlay,imagepos)
     if (!isDarkMode?)
@@ -1265,13 +1265,13 @@ def drawPageFive(pokemon)
     gendericon=[]
     if pokemon.isMale?
 #      textpos.push([_INTL("♂"),178,62,0,Color.new(24,112,216),Color.new(136,168,208)])
-      gendericon.push(["Graphics/Pictures/"+getDarkModeFolder+"/gender_male",270,68,0,0,-1,-1])
+      gendericon.push(["Graphics/UI/"+getDarkModeFolder+"/gender_male",270,68,0,0,-1,-1])
     elsif pokemon.isFemale?
 #      textpos.push([_INTL("♀"),178,62,0,Color.new(248,56,32),Color.new(224,152,144)])
-      gendericon.push(["Graphics/Pictures/"+getDarkModeFolder+"/gender_female",270,68,0,0,-1,-1])
+      gendericon.push(["Graphics/UI/"+getDarkModeFolder+"/gender_female",270,68,0,0,-1,-1])
     elsif pokemon.isGenderless?
 #      textpos.push([_INTL("♀"),178,62,0,Color.new(248,56,32),Color.new(224,152,144)])
-      gendericon.push(["Graphics/Pictures/"+getDarkModeFolder+"/gender_transgender",270,68,0,0,-1,-1])
+      gendericon.push(["Graphics/UI/"+getDarkModeFolder+"/gender_transgender",270,68,0,0,-1,-1])
     end
     pbDrawImagePositions(overlay,gendericon)
     pbDrawTextPositions(overlay,textpos)
@@ -1280,7 +1280,7 @@ def drawPageFive(pokemon)
     if pokemon.ribbons
       for i in pokemon.ribbons
         ribn=i-1
-        imagepos.push(["Graphics/Pictures/ribbons",364+64*(coord%4),86+80*(coord/4).floor,
+        imagepos.push(["Graphics/UI/Summary/ribbons",364+64*(coord%4),86+80*(coord/4).floor,
            64*(ribn%8),64*(ribn/8).floor,64,64])
         coord+=1
         break if coord>=12
@@ -1298,28 +1298,28 @@ def drawPageFive(pokemon)
     overlay=@sprites["overlay"].bitmap
     overlay.clear
     @sprites["background"].setBitmap(@pokemon.egg? ? 
-          "Graphics/Pictures/"+getDarkModeFolder+"/Summary/bg_8_egg" : "Graphics/Pictures/"+getDarkModeFolder+"/Summary/bg_8")
-#    @sprites["header-bg"].setBitmap("Graphics/Pictures/header-global")      
+          "Graphics/UI/"+getDarkModeFolder+"/Summary/bg_8_egg" : "Graphics/UI/"+getDarkModeFolder+"/Summary/bg_8")
+#    @sprites["header-bg"].setBitmap("Graphics/UI/header-global")      
 #    @sprites["header"].setBitmap(@pokemon.egg? ? 
-#          "Graphics/Pictures/headerB6" : "Graphics/Pictures/header6")
+#          "Graphics/UI/headerB6" : "Graphics/UI/header6")
     imagepos=[]    
     if !@pokemon.egg?
 		if pbPokerus(pokemon)==1 || pokemon.hp==0 || @pokemon.status>0
 		  status=6 if pbPokerus(pokemon)==1
 		  status=@pokemon.status-1 if @pokemon.status>0
 		  status=5 if pokemon.hp==0
-		  imagepos.push(["Graphics/Pictures/statuses",124,100,0,16*status,44,16])
+		  imagepos.push(["Graphics/UI/statuses",124,100,0,16*status,44,16])
 		end
 		if pokemon.isShiny?
-		  imagepos.push([sprintf("Graphics/Pictures/shiny"),2,134,0,0,-1,-1])
+		  imagepos.push([sprintf("Graphics/UI/shiny"),2,134,0,0,-1,-1])
 		end
 		if pbPokerus(pokemon)==2
 		  imagepos.push([
-			  sprintf("Graphics/Pictures/Summary/icon_pokerus"),176,100,0,0,-1,-1])
+			  sprintf("Graphics/UI/Summary/icon_pokerus"),176,100,0,0,-1,-1])
 		end
 	end
     ballused=@pokemon.ballused ? @pokemon.ballused : 0
-    ballimage=sprintf("Graphics/Pictures/Summary/icon_ball_%02d",@pokemon.ballused)
+    ballimage=sprintf("Graphics/UI/Summary/icon_ball_%02d",@pokemon.ballused)
     imagepos.push([ballimage,14,60,0,0,-1,-1])
     pbDrawImagePositions(overlay,imagepos)
     
@@ -1368,13 +1368,13 @@ def drawPageFive(pokemon)
       gendericon=[]
       if pokemon.isMale?
     #      textpos.push([_INTL("?"),178,62,0,Color.new(24,112,216),Color.new(136,168,208)])
-        gendericon.push(["Graphics/Pictures/"+getDarkModeFolder+"/gender_male",270,68,0,0,-1,-1])
+        gendericon.push(["Graphics/UI/"+getDarkModeFolder+"/gender_male",270,68,0,0,-1,-1])
       elsif pokemon.isFemale?
     #      textpos.push([_INTL("?"),178,62,0,Color.new(248,56,32),Color.new(224,152,144)])
-        gendericon.push(["Graphics/Pictures/"+getDarkModeFolder+"/gender_female",270,68,0,0,-1,-1])
+        gendericon.push(["Graphics/UI/"+getDarkModeFolder+"/gender_female",270,68,0,0,-1,-1])
       elsif pokemon.isGenderless?
     #      textpos.push([_INTL("?"),178,62,0,Color.new(248,56,32),Color.new(224,152,144)])
-        gendericon.push(["Graphics/Pictures/"+getDarkModeFolder+"/gender_transgender",270,68,0,0,-1,-1])
+        gendericon.push(["Graphics/UI/"+getDarkModeFolder+"/gender_transgender",270,68,0,0,-1,-1])
       end
       pbDrawImagePositions(overlay,gendericon)
     end    
@@ -1394,15 +1394,15 @@ def drawPageFive(pokemon)
         if parent.gender==0
 #          textpos.push([_INTL("?"),628,32+parentsY[i],1,
 #              Color.new(24,112,216),Color.new(136,168,208)])
-		  gendericon2.push(["Graphics/Pictures/"+getDarkModeFolder+"/gender_male",614,40+parentsY[i],0,0,-1,-1])
+		  gendericon2.push(["Graphics/UI/"+getDarkModeFolder+"/gender_male",614,40+parentsY[i],0,0,-1,-1])
         elsif parent.gender==1
 #          textpos.push([_INTL("?"),628,32+parentsY[i],1,
 #              Color.new(248,56,32),Color.new(224,152,144)])
-		  gendericon2.push(["Graphics/Pictures/"+getDarkModeFolder+"/gender_female",614,40+parentsY[i],0,0,-1,-1])
+		  gendericon2.push(["Graphics/UI/"+getDarkModeFolder+"/gender_female",614,40+parentsY[i],0,0,-1,-1])
         else
 #          textpos.push([_INTL("?"),628,32+parentsY[i],1,
 #              Color.new(248,56,32),Color.new(224,152,144)])
-		  gendericon2.push(["Graphics/Pictures/"+getDarkModeFolder+"/gender_transgender",614,40+parentsY[i],0,0,-1,-1])
+		  gendericon2.push(["Graphics/UI/"+getDarkModeFolder+"/gender_transgender",614,40+parentsY[i],0,0,-1,-1])
         end
       end    
       grandX = [508,576]
@@ -1457,24 +1457,24 @@ def drawPageFive(pokemon)
     $summarysizex = 40
     overlay=@sprites["overlay"].bitmap
     overlay.clear
-    @sprites["background"].setBitmap("Graphics/Pictures/"+getDarkModeFolder+"/Summary/bg_9")
-#    @sprites["header-bg"].setBitmap("Graphics/Pictures/header-global")      
-#    @sprites["header"].setBitmap("Graphics/Pictures/header6")
+    @sprites["background"].setBitmap("Graphics/UI/"+getDarkModeFolder+"/Summary/bg_9")
+#    @sprites["header-bg"].setBitmap("Graphics/UI/header-global")      
+#    @sprites["header"].setBitmap("Graphics/UI/header6")
     imagepos=[]
     if pbPokerus(pokemon)==1 || pokemon.hp==0 || @pokemon.status>0
       status=6 if pbPokerus(pokemon)==1
       status=@pokemon.status-1 if @pokemon.status>0
       status=5 if pokemon.hp==0
-      imagepos.push(["Graphics/Pictures/statuses",216,100,0,16*status,44,16])
+      imagepos.push(["Graphics/UI/statuses",216,100,0,16*status,44,16])
     end
     if pokemon.isShiny?
-      imagepos.push([sprintf("Graphics/Pictures/shiny"),2,134,0,0,-1,-1])
+      imagepos.push([sprintf("Graphics/UI/shiny"),2,134,0,0,-1,-1])
     end
     if pbPokerus(pokemon)==2
-      imagepos.push([sprintf("Graphics/Pictures/Summary/icon_pokerus"),176,100,0,0,-1,-1])
+      imagepos.push([sprintf("Graphics/UI/Summary/icon_pokerus"),176,100,0,0,-1,-1])
     end
     ballused=@pokemon.ballused ? @pokemon.ballused : 0
-    ballimage=sprintf("Graphics/Pictures/Summary/icon_ball_%02d",@pokemon.ballused)
+    ballimage=sprintf("Graphics/UI/Summary/icon_ball_%02d",@pokemon.ballused)
     imagepos.push([ballimage,14,60,0,0,-1,-1])
     pbDrawImagePositions(overlay,imagepos)
     if (!isDarkMode?)
@@ -1555,13 +1555,13 @@ def drawPageFive(pokemon)
     gendericon=[]
     if pokemon.isMale?
 #      textpos.push([_INTL("♂"),178,62,0,Color.new(24,112,216),Color.new(136,168,208)])
-      gendericon.push(["Graphics/Pictures/"+getDarkModeFolder+"/gender_male",270,68,0,0,-1,-1])
+      gendericon.push(["Graphics/UI/"+getDarkModeFolder+"/gender_male",270,68,0,0,-1,-1])
     elsif pokemon.isFemale?
 #      textpos.push([_INTL("♀"),178,62,0,Color.new(248,56,32),Color.new(224,152,144)])
-      gendericon.push(["Graphics/Pictures/"+getDarkModeFolder+"/gender_female",270,68,0,0,-1,-1])
+      gendericon.push(["Graphics/UI/"+getDarkModeFolder+"/gender_female",270,68,0,0,-1,-1])
     elsif pokemon.isGenderless?
 #      textpos.push([_INTL("♀"),178,62,0,Color.new(248,56,32),Color.new(224,152,144)])
-      gendericon.push(["Graphics/Pictures/"+getDarkModeFolder+"/gender_transgender",270,68,0,0,-1,-1])
+      gendericon.push(["Graphics/UI/"+getDarkModeFolder+"/gender_transgender",270,68,0,0,-1,-1])
     end
     pbDrawImagePositions(overlay,gendericon)
     pbDrawTextPositions(overlay,textpos)

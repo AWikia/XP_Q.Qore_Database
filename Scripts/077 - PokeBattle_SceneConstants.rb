@@ -1,6 +1,6 @@
 module PokeBattle_SceneConstants
-  USECOMMANDBOX = true # If true, expects the file Graphics/Pictures/battleCommand.png
-  USEFIGHTBOX   = true # If true, expects the file Graphics/Pictures/battleFight.png
+  USECOMMANDBOX = true # If true, expects the file Graphics/UI/battleCommand.png
+  USEFIGHTBOX   = true # If true, expects the file Graphics/UI/battleFight.png
 
   # Text colors
   MESSAGESHADOWCOLORL     = MessageConfig::DARKTEXTSHADOW

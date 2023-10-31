@@ -50,7 +50,7 @@ class PokemonMenu_Scene
     @viewport.z=99999
     @sprites={}
     @sprites["partybg_title"] = IconSprite.new(0,0)        
-    @sprites["partybg_title"].setBitmap("Graphics/Pictures/"+getDarkModeFolder+"/partybg")
+    @sprites["partybg_title"].setBitmap("Graphics/UI/"+getDarkModeFolder+"/party_bg")
     @sprites["partybg_title"].z=99998
     @sprites["partybg_title"].visible=true
 

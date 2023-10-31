@@ -19,7 +19,7 @@
 # To this script works, put it above main. 
 #
 # If you use the scene screen, put pictures of a background at 
-# "Graphics/Pictures/typequizbg" and a "VS" at "Graphics/Pictures/typequizvs".
+# "Graphics/UI/Quiz/typequizbg" and a "VS" at "Graphics/UI/Quiz/typequizvs".
 #
 # To use the quiz in standard text message, calls the script
 # 'TypeQuiz::TypeQuestion.new.messageQuestion' in a conditional branch and
@@ -79,8 +79,8 @@ module TypeQuiz
   end
     
   class TypeQuizScene
-    BGPATH = "Graphics/Pictures/typequizbg"
-    VSPATH = "Graphics/Pictures/typequizvs"
+    BGPATH = "Graphics/UI/Quiz/typequizbg"
+    VSPATH = "Graphics/UI/Quiz/typequizvs"
     SCENEMUSIC = "Quizbgm" # Put "" or nil to don't change the music.
     
     WAITFRAMESQUANTITY=40*1
@@ -99,7 +99,7 @@ module TypeQuiz
       @sprites={} 
       @viewport=Viewport.new(0,0,Graphics.width,Graphics.height)
       @viewport.z=99999
-      @typebitmap=AnimatedBitmap.new(_INTL("Graphics/Pictures/types"))
+      @typebitmap=AnimatedBitmap.new(_INTL("Graphics/UI/types"))
       @sprites["background"]=IconSprite.new(0,0,@viewport)
       @sprites["background"].setBitmap(BGPATH)
       @sprites["background"].x=(
@@ -123,7 +123,7 @@ module TypeQuiz
       return if finished?
       @typeQuestion=TypeQuestion.new
       @answerLabel=""
-      @sprites["arrow"].setBitmap("Graphics/Pictures/"+getAccentFolder+"/selarrow")
+      @sprites["arrow"].setBitmap("Graphics/UI/"+getAccentFolder+"/selarrow")
       refresh
       @index=2 # Normal effective index
       updateCursor
@@ -200,7 +200,7 @@ module TypeQuiz
               pbSEPlay("buzzer") 
               if SHOWRIGHTANSWER
                 @index=@typeQuestion.result
-                @sprites["arrow"].setBitmap("Graphics/Pictures/"+getAccentFolder+"/selarrowwhite")
+                @sprites["arrow"].setBitmap("Graphics/UI/"+getAccentFolder+"/selarrowwhite")
                 updateCursor
                 waitFrames*=2
               end

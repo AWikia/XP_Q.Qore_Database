@@ -1143,7 +1143,7 @@ class AnimationWindow < SpriteWrapper
   def initialize(x,y,width,height,viewport=nil)
     super(viewport)
     @animbitmap=nil
-    @arrows=AnimatedBitmap.new("Graphics/Pictures/arrows")
+    @arrows=AnimatedBitmap.new("Graphics/UI/Debug/anim_editor_arrows")
     self.x=x
     self.y=y
     @start=0
@@ -1359,7 +1359,7 @@ class SpriteFrame < InvalidatableSprite
     @locked=false
     @selected=false
     @contents=Bitmap.new(128,128)
-    @iconbitmap=AnimatedBitmap.new("Graphics/Pictures/animFrameIcon")
+    @iconbitmap=AnimatedBitmap.new("Graphics/UI/Debug/anim_editor_frame_icons")
     self.bitmap=@contents
     self.invalidate
   end
@@ -1445,11 +1445,11 @@ class AnimationCanvas < Sprite
     @playingframe=0
     @player=nil
     @battle=MiniBattle.new
-    @user=AnimatedBitmap.new("Graphics/Pictures/testback").deanimate
-    @target=AnimatedBitmap.new("Graphics/Pictures/testfront").deanimate
-    @testscreen=AnimatedBitmap.new("Graphics/Pictures/"+getDarkModeFolder+"/testscreen")
-    addBackgroundPlane(@sprites,"background2",getDarkModeFolder+"/aebg",viewport)
-    @sprites["background2"].bitmap=AnimatedBitmap.new("Graphics/Pictures/"+getDarkModeFolder+"/aebg").deanimate
+    @user=AnimatedBitmap.new("Graphics/UI/anim_editor_battler_back").deanimate
+    @target=AnimatedBitmap.new("Graphics/UI/anim_editor_battler_front").deanimate
+    @testscreen=AnimatedBitmap.new("Graphics/UI/"+getDarkModeFolder+"/anim_editor_battle_bg")
+    addBackgroundPlane(@sprites,"background2",getDarkModeFolder+"/anim_editor_bg",viewport)
+    @sprites["background2"].bitmap=AnimatedBitmap.new("Graphics/UI/"+getDarkModeFolder+"/anim_editor_bg").deanimate
     @sprites["header"]=Window_UnformattedTextPokemon.newWithSize(_INTL("Animation Editor"),
        2,-18,256,64,viewport)
     @sprites["header"].baseColor=(isDarkMode?) ? Color.new(248,248,248) : Color.new(0,0,0)

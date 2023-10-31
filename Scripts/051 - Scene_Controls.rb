@@ -9,7 +9,7 @@ class ButtonEventScene < EventScene
   def initialize(viewport=nil)
     super
     Graphics.freeze
-    addImage(0,0,"Graphics/Pictures/"+getDarkModeFolder+"/Controls help/help_bg")
+    addImage(0,0,"Graphics/UI/"+getDarkModeFolder+"/Controls help/help_bg")
     @labels=[
        addLabel(52*2,13*2,Graphics.width*3/4,_INTL("Moves the main character. Also used to scroll through list entries.")),
        addLabel(52*2,53*2,Graphics.width*3/4,_INTL("Used to confirm a choice, check things, and talk to people.")),
@@ -18,11 +18,11 @@ class ButtonEventScene < EventScene
        addLabel(52*2,157*2,Graphics.width*3/4,_INTL("Press to use a registered Key Item."))
     ]
     @keys=[
-       addImage(26*2,18*2,"Graphics/Pictures/Controls help/help_arrows"),
-       addImage(26*2,59*2,"Graphics/Pictures/Controls help/help_C"),
-       addImage(26*2,99*2,"Graphics/Pictures/Controls help/help_X"),
-       addImage(26*2,130*2,"Graphics/Pictures/Controls help/help_Z"),
-       addImage(26*2,154*2,"Graphics/Pictures/Controls help/help_F5")
+       addImage(26*2,18*2,"Graphics/UI/Controls help/help_arrows"),
+       addImage(26*2,59*2,"Graphics/UI/Controls help/help_C"),
+       addImage(26*2,99*2,"Graphics/UI/Controls help/help_X"),
+       addImage(26*2,130*2,"Graphics/UI/Controls help/help_Z"),
+       addImage(26*2,154*2,"Graphics/UI/Controls help/help_F5")
     ]
     for key in @keys
       key.origin=PictureOrigin::Top

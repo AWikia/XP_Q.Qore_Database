@@ -324,7 +324,7 @@ end
 
 class Window_PhoneList < Window_CommandPokemon
   def drawCursor(index,rect)
-    selarrow=AnimatedBitmap.new("Graphics/Pictures/"+getAccentFolder+"/phoneSel")
+    selarrow=AnimatedBitmap.new("Graphics/UI/"+getAccentFolder+"/phoneSel")
     if self.index==index
       pbCopyBitmap(self.contents,selarrow.bitmap,rect.x,rect.y)
     end
@@ -369,11 +369,11 @@ class PokemonPhoneScene
     @sprites["bottom"].text="<ac>"+mapname
     @sprites["info"]=Window_AdvancedTextPokemon.newWithSize("",
        -8 + 64,224,180,160,@viewport)
-    femback=pbResolveBitmap(sprintf("Graphics/Pictures/"+getDarkModeFolder+"/phonebgf"))
+    femback=pbResolveBitmap(sprintf("Graphics/UI/"+getDarkModeFolder+"/Phone/bg_f"))
     if $Trainer.isFemale? && femback
-      addBackgroundPlane(@sprites,"bg",getDarkModeFolder+"/phonebgf",@viewport)
+      addBackgroundPlane(@sprites,"bg",getDarkModeFolder+"/Phone/bg_f",@viewport)
     else
-      addBackgroundPlane(@sprites,"bg",getDarkModeFolder+"/phonebg",@viewport)
+      addBackgroundPlane(@sprites,"bg",getDarkModeFolder+"/Phone/bg",@viewport)
     end
     @sprites["header"]=Window_UnformattedTextPokemon.newWithSize(_INTL("Phone"),
        2,-18,128,64,@viewport)
@@ -411,7 +411,7 @@ class PokemonPhoneScene
       trainer=@trainers[j]
       if trainer.length==4
         if trainer[3]
-          @sprites["rematch[#{i}]"].setBitmap("Graphics/Pictures/phoneRematch")
+          @sprites["rematch[#{i}]"].setBitmap("Graphics/UI/Phone/icon_rematch")
         end
       end
     end
@@ -454,7 +454,7 @@ class PokemonPhoneScene
              trainer=@trainers[j]
              if trainer.length==4
                if trainer[3]
-                 @sprites["rematch[#{i}]"].setBitmap("Graphics/Pictures/phoneRematch")
+                 @sprites["rematch[#{i}]"].setBitmap("Graphics/UI/Phone/icon_rematch")
                end
              end
            end

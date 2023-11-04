@@ -113,6 +113,7 @@ class PokemonSummaryScene
     @sprites["movepresel"].preselected=true
     @sprites["movesel"]=MoveSelectionSprite.new(@viewport)
     @sprites["movesel"].visible=false
+    
     @page=0
     drawPageOne(@pokemon)
     pbFadeInAndShow(@sprites) { pbUpdate }
@@ -1146,7 +1147,7 @@ def drawPageFive(pokemon)
                   Color.new(144,72,24),   # 1/4 of total PP or less
                   Color.new(136,48,48)]   # Zero PP
     if moveToLearn==0
-      @sprites["background"].setBitmap("Graphics/UI/"+getDarkModeFolder+"/Summary/bg_movedetail")
+      @sprites["background"].setBitmap("Graphics/UI/"+getDarkModeFolder+"/Summary/bg_6")
 #      @sprites["header-bg"].setBitmap("Graphics/UI/header-global")      
 #      @sprites["header"].setBitmap("Graphics/UI/header4")
     end
@@ -1162,6 +1163,8 @@ def drawPageFive(pokemon)
     ]
     type1rect=Rect.new(64*$PokemonSystem.colortige,pokemon.type1*28,64,28)
     type2rect=Rect.new(64*$PokemonSystem.colortige,pokemon.type2*28,64,28)
+    bgpane=[["Graphics/UI/"+getDarkModeFolder+"/Summary/overlay_movedetail",0,56,0,0,-1,-1]]
+    pbDrawImagePositions(overlay,bgpane)
     if pokemon.type1==pokemon.type2
       overlay.blt(162,80,@typebitmap.bitmap,type1rect)
     else

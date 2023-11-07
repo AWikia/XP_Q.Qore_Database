@@ -194,6 +194,7 @@ end
   
 def getDexNumber(indexNumber=0)
     fdexno = indexNumber.to_s
+    return "????" if fdexno.to_i > PBSpecies.maxValue
     if indexNumber > 649 and indexNumber < 850 # Κορα Κορε Generation I
       fnum = (indexNumber - 649).to_s
       while (fnum.length < 3)

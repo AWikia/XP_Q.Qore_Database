@@ -58,6 +58,7 @@ def getBorders # Edit this along with getBorderNames to add more borders
         getDarkModeFolder+"/Borders/"+['border_10','border_10_1','border_10_2','border_10_3'][pbGetSeason],
         getDarkModeFolder+"/Borders/"+['border_11','border_11_1','border_11_2','border_11_3'][pbGetSeason],
         getDarkModeFolder+"/Borders/border_12",
+        getDarkModeFolder+"/Borders/border_13",
       ]
 end
 
@@ -75,7 +76,8 @@ def getBorderNames # Edit this along with getBorders to add more borders
         "Pokémon Scarlet",
         "Season-Aware",
         "Corporate Season-Aware",
-        "Plain"
+        "Plain",
+        "Retro II",
       ]
 end
 

@@ -371,6 +371,7 @@ end
   "!Skin34",
   "!Skin35",
   ['Skin36','Skin36_1','Skin36_2','Skin36_3','Skin36_4','!Skin36_5'][QQORECHANNEL],
+  ['Skin37','Skin37_1','Skin37_2','Skin37_3','Skin37_4','!Skin37_5'][QQORECHANNEL],
 
 ]
 
@@ -418,11 +419,12 @@ $TextFrames=[
   "!Choice34",
   "!Choice35",
   ['Choice36','Choice36_1','Choice36_2','Choice36_3','Choice36_4','!Choice36_5'][QQORECHANNEL],
+  ['Choice37','Choice37_1','Choice37_2','Choice37_3','Choice37_4','!Choice37_5'][QQORECHANNEL],
 ]
 
   $SpeechFramesNames=[
   # Q.Qore
-  "Purple", # Default: speech hgss 1
+  MessageConfig::TextSkinDisplayName, # Default: speech hgss 1
   "Red",
   "Blue",
   "Orange",
@@ -464,6 +466,7 @@ $TextFrames=[
   "Four Seasons",
   "Pokémon Quadruplet",
   "Retro Channel-Aware",
+  "Light Channel-Aware",
 ]
 
 

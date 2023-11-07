@@ -1,21 +1,23 @@
 ﻿module MessageConfig
 # in Graphics/Windowskins/ (specify empty string to use the default windowskin)
-  WindowOpacity = 255
-  TextSkinName    = "Skin0"
-  ChoiceSkinName  = "Choice0"
-# FontName        = "Mpisto U2019 Condensed Medium"
-  FontName        = "Didact Gothic"
-  TextSpeed       = nil # can be positive to wait frames or negative to
+  WindowOpacity        = 255
+  TextSkinName         = "Skin0"
+  ChoiceSkinName       = "Choice0"
+  # Display name of the first Windowskin
+  TextSkinDisplayName  = "Purple"
+# FontName             = "Mpisto U2019 Condensed Medium"
+  FontName             = "Didact Gothic"
+  TextSpeed            = nil # can be positive to wait frames or negative to
                         # show multiple characters in a single frame
-  LIGHTTEXTBASE   = Color.new(248,248,248) # Was 248,248,240
-  LIGHTTEXTSHADOW = Color.new(72,80,88)    # Was 72,88,88
-  DARKTEXTBASE    = Color.new(56,56,48)    # Was 88,88,80    
-  DARKTEXTSHADOW  = Color.new(152,168,168) # Was 168,184,184 
+  LIGHTTEXTBASE       = Color.new(248,248,248) # Was 248,248,240
+  LIGHTTEXTSHADOW     = Color.new(72,80,88)    # Was 72,88,88
+  DARKTEXTBASE        = Color.new(56,56,48)    # Was 88,88,80    
+  DARKTEXTSHADOW      = Color.new(152,168,168) # Was 168,184,184 
   # 0 = Pause cursor is displayed at end of text
   # 1 = Pause cursor is displayed at bottom right
   # 2 = Pause cursor is displayed at lower middle side
-  CURSORMODE      = 1
-  FontSubstitutes = {
+  CURSORMODE          = 1
+  FontSubstitutes     = {
      "Power Red and Blue"=>"Pokemon RS",
      "Power Red and Green"=>"Pokemon FireLeaf",
      "Power Green"=>"Pokemon Emerald",

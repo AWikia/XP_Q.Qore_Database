@@ -1445,11 +1445,11 @@ class AnimationCanvas < Sprite
     @playingframe=0
     @player=nil
     @battle=MiniBattle.new
-    @user=AnimatedBitmap.new("Graphics/UI/anim_editor_battler_back").deanimate
-    @target=AnimatedBitmap.new("Graphics/UI/anim_editor_battler_front").deanimate
-    @testscreen=AnimatedBitmap.new("Graphics/UI/"+getDarkModeFolder+"/anim_editor_battle_bg")
-    addBackgroundPlane(@sprites,"background2",getDarkModeFolder+"/anim_editor_bg",viewport)
-    @sprites["background2"].bitmap=AnimatedBitmap.new("Graphics/UI/"+getDarkModeFolder+"/anim_editor_bg").deanimate
+    @user=AnimatedBitmap.new("Graphics/UI/Debug/anim_editor_battler_back").deanimate
+    @target=AnimatedBitmap.new("Graphics/UI/Debug/anim_editor_battler_front").deanimate
+    @testscreen=AnimatedBitmap.new("Graphics/UI/"+getDarkModeFolder+"/Debug/anim_editor_battle_bg")
+    addBackgroundPlane(@sprites,"background2",getDarkModeFolder+"/Debug/anim_editor_bg",viewport)
+    @sprites["background2"].bitmap=AnimatedBitmap.new("Graphics/UI/"+getDarkModeFolder+"/Debug/anim_editor_bg").deanimate
     @sprites["header"]=Window_UnformattedTextPokemon.newWithSize(_INTL("Animation Editor"),
        2,-18,256,64,viewport)
     @sprites["header"].baseColor=(isDarkMode?) ? Color.new(248,248,248) : Color.new(0,0,0)

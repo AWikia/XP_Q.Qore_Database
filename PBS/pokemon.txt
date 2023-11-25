@@ -34453,7 +34453,7 @@ Habitat=Grassland
 Kind=String Ball
 Pokedex=The ball of threads wrapped around its body is elastic enough to deflect the scythes of Scyther, this Pokémon’s natural enemy.
 BattlerPlayerY=19
-BattlerEnemyY=27
+BattlerEnemyY=26
 BattlerAltitude=0
 Evolutions=SPIDOPS,Level,16
 [1268]
@@ -34480,7 +34480,7 @@ Habitat=Grassland
 Kind=Trap
 Pokedex=It clings to branches and ceilings using its threads and moves without a sound. It takes out its prey before the prey even notices it.
 BattlerPlayerY=15
-BattlerEnemyY=25
+BattlerEnemyY=19
 BattlerAltitude=0
 Evolutions=
 [1269]
@@ -35671,7 +35671,7 @@ Habitat=Grassland
 Kind=Garden Eel
 Pokedex=It has a vicious temperament, contrary to what its appearance may suggest. It wraps its long bodies around prey, then drags the prey into its den.
 BattlerPlayerY=7
-BattlerEnemyY=24
+BattlerEnemyY=20
 BattlerAltitude=0
 Evolutions=
 [1312]
@@ -35863,7 +35863,7 @@ Habitat=Grassland
 Kind=Earthworm
 Pokedex=When attacked, this Pokémon will wield the tendrils on its body like fists and pelt the opponent with a storm of punches.
 BattlerPlayerY=15
-BattlerEnemyY=30
+BattlerEnemyY=18
 BattlerAltitude=0
 Evolutions=
 [1319]
@@ -36305,7 +36305,7 @@ Habitat=Grassland
 Kind=Paradox
 Pokedex=Sightings of this Pokémon have occurred in recent years. The name Great Tusk was taken from a creature listed in a certain book.
 BattlerPlayerY=9
-BattlerEnemyY=26
+BattlerEnemyY=24
 BattlerAltitude=0
 Evolutions=
 [1335]
@@ -36383,7 +36383,7 @@ Habitat=Grassland
 Kind=Paradox
 Pokedex=This Pokémon has characteristics similar to those of Flutter Mane, a creature mentioned in a certain book.
 BattlerPlayerY=21
-BattlerEnemyY=26
+BattlerEnemyY=23
 BattlerAltitude=0
 Evolutions=
 [1338]
@@ -36461,7 +36461,7 @@ Habitat=Grassland
 Kind=Paradox
 Pokedex=This Pokémon closely resembles a scientific weapon that a paranormal magazine claimed was sent to this planet by aliens.
 BattlerPlayerY=15
-BattlerEnemyY=26
+BattlerEnemyY=18
 BattlerAltitude=0
 Evolutions=
 [1341]
@@ -36647,7 +36647,7 @@ Habitat=Grassland
 Kind=Ice Fin
 Pokedex=Arctibax freezes the air around it, protecting its face with an ice mask and turning its dorsal fin into a blade of ice.
 BattlerPlayerY=15
-BattlerEnemyY=25
+BattlerEnemyY=29
 BattlerAltitude=0
 Evolutions=BAXCALIBUR,Level,54
 [1348]
@@ -36779,7 +36779,7 @@ Habitat=Grassland
 Kind=Ruinous
 Pokedex=This Pokémon can control 100 tons of fallen snow. It plays around innocently by leaping in and out of avalanches it has caused.
 BattlerPlayerY=15
-BattlerEnemyY=24
+BattlerEnemyY=21
 BattlerAltitude=0
 Evolutions=
 [1353]

@@ -905,7 +905,7 @@ def pbDebugMenu(fromgame=true)
       pbFadeOutIn(99999) { pbEditorScreen }
     elsif cmd=="animeditor"
       pbFadeOutIn(99999) { pbAnimationEditor(fromgame) }
-    elsif cmd="animorganizer"
+    elsif cmd=="animorganizer"
       pbFadeOutIn(99999) { pbAnimationsOrganiser }
     elsif cmd=="debugconsole"
       Console::setup_console

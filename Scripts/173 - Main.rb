@@ -59,13 +59,18 @@ def getBorders # Edit this along with getBorderNames to add more borders
         getDarkModeFolder+"/Borders/"+['border_11','border_11_1','border_11_2','border_11_3'][pbGetSeason],
         getDarkModeFolder+"/Borders/border_12",
         getDarkModeFolder+"/Borders/border_13",
+        getDarkModeFolder+"/Borders/border_14",
+        getDarkModeFolder+"/Borders/border_15",
+        getDarkModeFolder+"/Borders/border_16",
+        getDarkModeFolder+"/Borders/border_17",
+        getDarkModeFolder+"/Borders/border_18",
       ]
 end
 
 def getBorderNames # Edit this along with getBorders to add more borders
   return [
         "Classic",
-        "Retro",
+        "Original",
         "Modern",
         "Channel-Aware",
         "Accent-Aware",
@@ -77,7 +82,12 @@ def getBorderNames # Edit this along with getBorders to add more borders
         "Season-Aware",
         "Corporate Season-Aware",
         "Plain",
-        "Retro II",
+        "Retro",
+        "Green",
+        "Blue",
+        "Orange",
+        "Purple",
+        "Yellow",
       ]
 end
 

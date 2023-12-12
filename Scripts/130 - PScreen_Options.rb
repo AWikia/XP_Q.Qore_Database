@@ -982,7 +982,7 @@ There are different modes:
          # from Debug Menu for balancing reasons
            proc { $PokemonSystem.battledif },
            proc {|value| $PokemonSystem.battledif = value },
-           ["Easy", "Normal", "Hard", "Challenging","Intensive"],
+           [_INTL("Easy"), _INTL("Normal"), _INTL("Hard"), _INTL("Challenging"),_INTL("Intensive")],
            "Sets battle difficulty. In Easy and Normal difficulties, EXP will not be divided equally between each participant. In Hard and Challenging difficulties, a scaled EXP formula is applied."
          ),
         EnumOption.new(_INTL("Wild Pokémon Battle Style"),[_INTL("Single"),_INTL("Double")],
@@ -1016,7 +1016,7 @@ There are different modes:
         NumberOption.new(_INTL("Night Style"),1,4,
           proc { $PokemonSystem.night },
           proc {|value| $PokemonSystem.night = value },
-          ["Classic Tint", "Linear Tint", "Lunar Tint", "Cubic Tint"],
+          [_INTL("Classic Tint"), _INTL("Linear Tint"), _INTL("Lunar Tint"), _INTL("Cubic Tint")],
            "Sets the styling of Day/Night tinting. 0 is Classic, 1 is Linear, 2 is Lunar (Default) and 3 is Cubic. Tintings come from Essentials 17."
           ),
          EnumOption.new(_INTL("Outdoor Map Shading"),[_INTL("Off"),_INTL("On")],
@@ -1046,7 +1046,7 @@ There are different modes:
                  ObjectSpace.each_object(TilemapLoader){|o| next if o.disposed?; o.updateClass }
                end
             },
-            ["Normal", "Large", "Xtra Large", "Xtra² Large", "Full-Screen"],
+            [_INTL("Normal"), _INTL("Large"), _INTL("Xtra Large"), _INTL("Xtra² Large"), _INTL("Full-Screen")],
             "Sets screen size. Choice between 4 sizes and Full Screen (The fifth size)"
          ),
          EnumOption.new(_INTL("Full Screen Border Crop"),[_INTL("Off"),_INTL("On")],
@@ -1065,12 +1065,13 @@ There are different modes:
     end
     if mode==4
       @PokemonOptions+=[
-        EnumOption.new(_INTL("System Theme"),[_INTL("Light"),_INTL("Dark"),_INTL("Auto"),_INTL("Custom")],
+        NumberOption.new(_INTL("Game Theme"),1,5,
            proc { $PokemonSystem.darkmode },
            proc {|value|
              $PokemonSystem.darkmode=value
              setScreenBorderName($BORDERS[$PokemonSystem.bordergraphic]) # Accented Border
            },
+           [_INTL("Light"),_INTL("Dark"),_INTL("Automatic"),_INTL("Custom"),_INTL("From System Theme")],
            "Sets the theme of Windowskins, the UI and other elements in the game. By default, it is set to Light but can be set to Dark to make those Dark or to either Auto or Custom."
         ),
        SliderOption.new(_INTL("Scheduled Dark Mode Start"),0,23,1,
@@ -1109,7 +1110,7 @@ There are different modes:
            proc {|value| 
               $PokemonSystem.textskincolors=value
            },
-           ["Standard", "Colors", "CMYK", "Vintage"],
+           [_INTL("Standard"), _INTL("Colors"), _INTL("CMYK"), _INTL("Vintage")],
           "Sets the colors to be used in Windowskins."
          ),
 
@@ -1131,7 +1132,7 @@ There are different modes:
          NumberOption.new(_INTL("Pokémon Type Icon Style"),1,5,
            proc { $PokemonSystem.colortige },
            proc {|value| $PokemonSystem.colortige = value },
-           ["Colored Text", "Light Text", "Dark Text", "Minimal", "Retro"],
+           [_INTL("Colored Text"), _INTL("Light Text"), _INTL("Dark Text"), _INTL("Minimal"), _INTL("Retro")],
            "Sets style of All Icon graphics"
          ),
          NumberOption.new(_INTL("Screen Border Graphic"),1,$BORDERS.length,

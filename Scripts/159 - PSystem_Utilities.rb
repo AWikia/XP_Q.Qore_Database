@@ -149,6 +149,16 @@ def pbGetVersion()
   return 9200
 end
 
+def pbIsDarkSystemTheme?()
+  ver=MiniRegistry.get(MiniRegistry::HKEY_CURRENT_USER,
+     "Software\\Microsoft\\Windows\\CurrentVersion\\Themes\\Personalize",
+"AppsUseLightTheme","") rescue nil
+  if ver
+    return (ver.to_i === 0)
+  end
+  return false
+end
+
 # Used only on some cases
 def worksOnCorendo(clients=[])
   if clients.length==0
@@ -286,8 +296,11 @@ def isDarkMode?
     if (($PokemonSystem.darkmode==2 rescue false))  # Automatic Mode
       return (PBDayNight.isNight? rescue false)
     end
-    if (($PokemonSystem.darkmode==3 rescue false))  # Automatic Mode
+    if (($PokemonSystem.darkmode==3 rescue false))  # Custom Mode
       return (PBDayNight.isDark? rescue false)
+    end
+    if (($PokemonSystem.darkmode==4 rescue false))  # From System Theme Mode
+      return pbIsDarkSystemTheme?
     end
     return false                                    # Light Mode
   else

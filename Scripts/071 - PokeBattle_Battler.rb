@@ -1687,10 +1687,6 @@ def ragefist
         if self.form==0
           self.form=1; transformed=true
         end
-      else
-        if self.form!=0
-          self.form=0; transformed='partial' # Was true
-        end
       end
     end
     # Sunny Channel

@@ -826,6 +826,22 @@
 1208,IVYCRUDGEL,Ivy Crudgel,376,100,GRASS,Physical,100,10,0,00,0,befh,"The user strikes with an ivy-wrapped cudgel. This move's type changes depending on the mask worn by the user, and it has a heightened chance of landing a critical hit."
 1209,MATCHAGOTCHA,Matcha Gotcha,377,80,GRASS,Special,90,15,20,04,0,befh,"The user fires a blast of tea that it mixed. The user's HP is restored by up to half the damage taken by the target. This may also leave the target with a burn."
 1210,BLOODMOON,Blood Moon,371,140,MOON,Special,100,5,0,00,0,abef,"The user unleashes the full brunt of its spirit from a full moon that shines as red as blood. This move can't be used twice in a row."
+# Generation IX ID Moves
+1211,ELECTROSHOT,Electro Shot,378,130,ELECTRIC,Special,100,10,0,00,0,bef,"The user gathers electricity on the first turn, boosting its Sp. Atk stat, then fires a high-voltage shot on the next turn. The shot will be fired immediately in rain."
+1212,TERASTARSTORM,Tera Starstorm,379,120,NORMAL,Special,100,5,0,00,0,bef,"With the power of its crystals, the user bombards and eliminates the target. When used by Terapagos in its Stellar Form, this move damages all opposing Pokémon."
+1213,FICKLEBEAM,Fickle Beam,380,80,DRAGON,Special,100,5,0,00,0,bef,"The user shoots a beam of light to inflict damage. Sometimes all the user's heads shoot beams in unison, doubling the move's power."
+1214,BURNINGBULWARK,Burning Bulwark,381,0,FIRE,Status,0,10,0,10,0,d,"The user’s intensely hot fur protects it from attacks and also burns any attacker that makes direct contact with it."
+1215,THUNDERCLAP,Thunderclap,116,70,ELECTRIC,Special,100,5,0,00,1,abef,"This move enables the user to attack first with a jolt of electricity. This move fails if the target is not readying an attack."
+1216,MIGHTYCLEAVE,Mighty Cleave,0AD,95,ROCK,Physical,100,5,0,00,0,f,"The user wields the light that has accumulated atop its head to cleave the target. This move hits even if the target protects itself."
+1217,TACHYONCUTTER,Tachyon Cutter,0BD,50,STEEL,Special,0,10,0,00,0,abef,"The user attacks by launching particle blades at the target twice in a row. This attack never misses."
+1218,HARDPRESS,Hard Press,08C,1,STEEL,Physical,100,5,0,00,0,abef,"The target is crushed with an arm, a claw, or the like to inflict damage. The more HP the target has left, the greater the move's power."
+1219,DRAGONCHEER,Dragon Cheer,382,0,DRAGON,Status,0,15,0,100,5,,"The user raises its allies’ morale with a draconic cry so that their future attacks have a heightened chance of landing critical hits. This rouses Dragon types more."
+1220,ALLURINGVOICE,Alluring Voice,383,80,FAIRY,Special,100,10,100,00,0,bef,"The user attacks the target using its angelic voice. This also confuses the target if its stats have been boosted during the turn."
+1221,TEMPERFLARE,Temper Flare,230,75,FIRE,Physical,100,10,0,00,0,bef,"Spurred by desperation, the user attacks the target. This move's power is doubled if the user's previous move failed."
+1222,SUPERCELLSLAM,Supercell Slam,10B,100,ELECTRIC,Physical,95,10,0,00,0,abef,"The user electrifies its body and drops onto the target to inflict damage. If this move misses, the user takes damage instead."
+1223,PSYCHICNOISE,Psychic Noise,384,75,PSYCHIC,Special,100,10,100,00,0,bef,"The user attacks the target with unpleasant sound waves. For two turns, the target is prevented from recovering HP through moves, Abilities, or held items."
+1224,UPPERHAND,Upper Hand,012,65,FIGHTING,Physical,100,10,100,00,3,abe,"The user reacts to the target's movement and strikes with the heel of its palm, making the target flinch. This move fails if the target is not readying a priority move."
+1225,MALIGNANTCHAIN,Malignant Chain,006,100,POISON,Physical,100,5,30,00,0,abef,"The user pours toxins into the target by wrapping them in a toxic, corrosive chain. This may also leave the target badly poisoned"
 # Shadow Moves
 648,SHADOWEND,Shadow End,130,120,SHADOW,Special,60,0,0,00,0,abf,A shadowy aura ram attack that also rebounds on the user.
 649,SHADOWSTORM,Shadow Storm,12D,95,SHADOW,Special,100,0,0,04,0,b,A shadowy aura is used to whip up a vicious tornado.

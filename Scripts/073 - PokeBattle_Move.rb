@@ -595,6 +595,12 @@ class PokeBattle_Move
       mod2=2 if isConst?(otype2,PBTypes,:FLYING)
       mod3=2 if isConst?(otype3,PBTypes,:FLYING)
     end
+    # Tera Shell
+    if opponent.hasWorkingAbility(:TERASHELL) && opponent.hp==opponent.totalhp
+      mod1=1 if PBTypes.isNotVeryEffective?(atype,otype1)
+      mod2=1 if PBTypes.isNotVeryEffective?(atype,otype2)
+      mod3=1 if PBTypes.isNotVeryEffective?(atype,otype3)
+    end
     if @function==0x135 && !attacker.effects[PBEffects::Electrify] # Freeze-Dry
       mod1=4 if isConst?(otype1,PBTypes,:WATER)
       if isConst?(otype2,PBTypes,:WATER)
@@ -775,6 +781,9 @@ class PokeBattle_Move
     c+=1 if hasHighCriticalRate?
     if (attacker.inHyperMode? rescue false) && isConst?(self.type,PBTypes,:SHADOW)
       c+=1
+    end
+    if attacker.effects[PBEffects::DragonCheer]
+    c+=(attacker.pbHasType?(:DRAGON)) ? 2 : 1
     end
     c+=1 if attacker.hasWorkingAbility(:SUPERLUCK)
     if attacker.hasWorkingItem(:STICK) &&
@@ -1032,7 +1041,11 @@ class PokeBattle_Move
        (attacker.hasWorkingItem(:TWISTEDSPOON) && isConst?(type,PBTypes,:PSYCHIC)) ||
        (attacker.hasWorkingItem(:NEVERMELTICE) && isConst?(type,PBTypes,:ICE)) ||
        (attacker.hasWorkingItem(:DRAGONFANG) && isConst?(type,PBTypes,:DRAGON)) ||
-       (attacker.hasWorkingItem(:BLACKGLASSES) && isConst?(type,PBTypes,:DARK))
+       (attacker.hasWorkingItem(:BLACKGLASSES) && isConst?(type,PBTypes,:DARK)) ||
+       (attacker.hasWorkingItem(:FAIRYFEATHER) && isConst?(type,PBTypes,:FAIRY)) ||
+       (attacker.hasWorkingItem(:JAM) && isConst?(type,PBTypes,:JELLY)) ||
+       (attacker.hasWorkingItem(:BASIL) && isConst?(type,PBTypes,:HERB)) ||
+       (attacker.hasWorkingItem(:WATERCRESS) && isConst?(type,PBTypes,:CHLOROPHYLL))
       damagemult=(damagemult*1.2).round
     end
     if (attacker.hasWorkingItem(:NORMALBOX) && isConst?(type,PBTypes,:NORMAL)) ||
@@ -1134,6 +1147,9 @@ class PokeBattle_Move
     end
     if attacker.hasWorkingItem(:PUNCHINGGLOVE) && isPunchingMove?
       damagemult=(damagemult*1.1).round
+    end
+    if attacker.hasWorkingItem(:WHITEFLAG)
+      damagemult=(damagemult*1.2).round
     end
     if attacker.hasWorkingItem(:FIERYSTONE) &&
        (isConst?(type,PBTypes,:GRASS) || isConst?(type,PBTypes,:FIRE) ||
@@ -1479,6 +1495,9 @@ class PokeBattle_Move
     if attacker.hasWorkingItem(:CHOICESPECS) && pbIsSpecial?(type)
       atkmult=(atkmult*1.5).round
     end
+    if attacker.hasWorkingItem(:BLACKFLAG) && attacker.turncount%2==0
+      atkmult=(atkmult*2.0).round
+    end
     atk=(atk*atkmult*1.0/0x1000).round
     ##### Calculate opponent's defense stat #####
     defense=opponent.defense
@@ -1592,6 +1611,9 @@ class PokeBattle_Move
        isConst?(opponent.species,PBSpecies,:LATIOS)) && pbIsSpecial?(type) &&
        !@battle.rules["souldewclause"] && !$USENEWBATTLEMECHANICS
       defmult=(defmult*1.5).round
+    end
+    if attacker.hasWorkingItem(:BLACKFLAG) && attacker.turncount%2==0
+      defmult=(defmult*2.0).round
     end
     defense=(defense*defmult*1.0/0x1000).round
     ##### Main damage calculation #####

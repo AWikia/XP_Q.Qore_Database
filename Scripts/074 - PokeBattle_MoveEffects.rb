@@ -4797,7 +4797,8 @@ class PokeBattle_Move_0AA < PokeBattle_Move
        0x14C,  # Spiky Shield
        0x221,  # Baneful Bunker
        0x262,  # Obstruct
-       0x354   # Silk Trap
+       0x354,  # Silk Trap
+       0x381   # Burning Bulwark
     ]
     if !ratesharers.include?(PBMoveData.new(attacker.lastMoveUsed).function)
       attacker.effects[PBEffects::ProtectRate]=1
@@ -4847,7 +4848,8 @@ class PokeBattle_Move_0AB < PokeBattle_Move
        0x14C,  # Spiky Shield
        0x221,  # Baneful Bunker
        0x262,  # Obstruct
-       0x354   # Silk Trap
+       0x354,  # Silk Trap
+       0x381   # Burning Bulwark
     ]
     if !ratesharers.include?(PBMoveData.new(attacker.lastMoveUsed).function)
       attacker.effects[PBEffects::ProtectRate]=1
@@ -4902,7 +4904,8 @@ class PokeBattle_Move_0AC < PokeBattle_Move
        0x14C,  # Spiky Shield
        0x221,  # Baneful Bunker
        0x262,  # Obstruct
-       0x354   # Silk Trap
+       0x354,  # Silk Trap
+       0x381   # Burning Bulwark
     ]
     if !ratesharers.include?(PBMoveData.new(attacker.lastMoveUsed).function)
       attacker.effects[PBEffects::ProtectRate]=1
@@ -5024,7 +5027,8 @@ class PokeBattle_Move_0AF < PokeBattle_Move
          0xCE,    # Sky Drop
          0x14D,   # Phantom Force
          0x14E,   # Geomancy
-         0x336    # Steel Fly
+         0x336,   # Steel Fly
+         0x378    # Electro Shot
       ]
     end
     if battle.lastMoveUsed<=0 ||
@@ -5219,6 +5223,7 @@ class PokeBattle_Move_0B4 < PokeBattle_Move
        0x14D,   # Phantom Force
        0x14E,   # Geomancy
        0x336,   # Steel Fly
+       0x378,   # Electro Shot
 # Dedicated Moves
        0x172,   # Κουλούνδιν
        0x325    # Elder Special Moves
@@ -5315,7 +5320,8 @@ class PokeBattle_Move_0B5 < PokeBattle_Move
          0xCE,    # Sky Drop
          0x14D,   # Phantom Force
          0x14E,   # Geomancy
-         0x336    # Steel Fly
+         0x336,   # Steel Fly
+         0x378    # Electro Shot
       ]
     end
     moves=[]
@@ -5593,6 +5599,7 @@ end
 ################################################################################
 class PokeBattle_Move_0BB < PokeBattle_Move
   def pbEffect(attacker,opponent,hitnum=0,alltargets=nil,showanimation=true)
+    return super(attacker,opponent,hitnum,alltargets,showanimation) if pbIsDamaging?
     if opponent.effects[PBEffects::HealBlock]>0 || opponent.pbHasType?(:HERB) ||
       opponent.pbHasType?(:MIND) || opponent.pbHasType?(:GLIMSE)
 			pbSEPlay("protection")
@@ -5616,6 +5623,19 @@ class PokeBattle_Move_0BB < PokeBattle_Move
     opponent.effects[PBEffects::HealBlock]=5
     @battle.pbDisplay(_INTL("{1} was prevented from healing!",opponent.pbThis))
     return 0
+  end
+
+  def pbAdditionalEffect(attacker,opponent)
+    if opponent.effects[PBEffects::HealBlock]==0 &&
+       !(opponent.pbHasType?(:HERB) || opponent.pbHasType?(:MIND) || 
+         opponent.pbHasType?(:GLIMSE))
+      if !attacker.hasMoldBreaker(opponent)
+        next if opponent.hasWorkingAbility(:AROMAVEIL) ||
+                opponent.pbPartner.hasWorkingAbility(:AROMAVEIL)
+      end
+      opponent.effects[PBEffects::HealBlock]=5
+      @battle.pbDisplay(_INTL("{1} was prevented from healing!",opponent.pbThis))
+    end
   end
 end
 
@@ -7107,7 +7127,8 @@ class PokeBattle_Move_0E8 < PokeBattle_Move
        0x14C,  # Spiky Shield
        0x221,  # Baneful Bunker
        0x262,  # Obstruct
-       0x354   # Silk Trap
+       0x354,  # Silk Trap
+       0x381   # Burning Bulwark
     ]
     if !ratesharers.include?(PBMoveData.new(attacker.lastMoveUsed).function)
       attacker.effects[PBEffects::ProtectRate]=1
@@ -9937,7 +9958,8 @@ class PokeBattle_Move_14B < PokeBattle_Move
        0x14C,  # Spiky Shield
        0x221,  # Baneful Bunker
        0x262,  # Obstruct
-       0x354   # Silk Trap
+       0x354,  # Silk Trap
+       0x381   # Burning Bulwark
     ]
     if !ratesharers.include?(PBMoveData.new(attacker.lastMoveUsed).function)
       attacker.effects[PBEffects::ProtectRate]=1
@@ -9988,7 +10010,8 @@ class PokeBattle_Move_14C < PokeBattle_Move
        0x14C,  # Spiky Shield
        0x221,  # Baneful Bunker
        0x262,  # Obstruct
-       0x354   # Silk Trap
+       0x354,  # Silk Trap
+       0x381   # Burning Bulwark
     ]
     if !ratesharers.include?(PBMoveData.new(attacker.lastMoveUsed).function)
       attacker.effects[PBEffects::ProtectRate]=1
@@ -14458,6 +14481,7 @@ class PokeBattle_Move_212 < PokeBattle_Move
       0xCE,    # Sky Drop
       0xC4,    # Solar Beam, Solar Blade
       0x336,   # Steel Fly
+      0x378,   # Electro Shot
       0x245,   # Doom Catapult
       0x246,   # Fiery Catapult
       0x295,   # Grassy Catapult
@@ -14717,7 +14741,8 @@ class PokeBattle_Move_221 < PokeBattle_Move
        0x14C,  # Spiky Shield
        0x221,  # Baneful Bunker
        0x262,  # Obstruct
-       0x354   # Silk Trap
+       0x354,  # Silk Trap
+       0x381   # Burning Bulwark
     ]
     if !ratesharers.include?(PBMoveData.new(attacker.lastMoveUsed).function)
       attacker.effects[PBEffects::ProtectRate]=1
@@ -15250,7 +15275,8 @@ class PokeBattle_Move_262 < PokeBattle_Move
        0x14C,  # Spiky Shield
        0x221,  # Baneful Bunker
        0x262,  # Obstruct
-       0x354   # Silk Trap
+       0x354,  # Silk Trap
+       0x381   # Burning Bulwark
     ]
     if !ratesharers.include?(PBMoveData.new(attacker.lastMoveUsed).function)
       attacker.effects[PBEffects::ProtectRate]=1
@@ -16213,7 +16239,8 @@ class PokeBattle_Move_354 < PokeBattle_Move
        0x14C,  # Spiky Shield
        0x221,  # Baneful Bunker
        0x262,  # Obstruct
-       0x354   # Silk Trap
+       0x354,  # Silk Trap
+       0x381   # Burning Bulwark
     ]
     if !ratesharers.include?(PBMoveData.new(attacker.lastMoveUsed).function)
       attacker.effects[PBEffects::ProtectRate]=1
@@ -16791,6 +16818,220 @@ class PokeBattle_Move_377 < PokeBattle_Move_0DD
     if opponent.pbCanBurn?(attacker,false,self)
       opponent.pbBurn(attacker)
     end
+  end
+end
+
+################################################################################
+# Two turn attack. Skips first turn, attacks second turn. (Electro Shot)
+# Power halved in all weather except rain. In rain, takes 1 turn instead.
+################################################################################
+class PokeBattle_Move_378 < PokeBattle_Move
+  def pbTwoTurnAttack(attacker)
+    @immediate=false; @rain=false
+    if attacker.effects[PBEffects::TwoTurnAttack]==0
+      if (@battle.pbWeather==PBWeather::RAINDANCE ||
+         @battle.pbWeather==PBWeather::HEAVYRAIN) && !attacker.hasWorkingItem(:UTILITYUMBRELLA)
+        @immediate=true; @rain=true
+      end
+    end
+    if !@immediate && attacker.hasWorkingItem(:POWERHERB)
+      @immediate=true
+    end
+    return false if @immediate
+    return attacker.effects[PBEffects::TwoTurnAttack]==0
+  end
+
+  def pbBaseDamageMultiplier(damagemult,attacker,opponent)
+    if @battle.pbWeather!=0 &&
+       @battle.pbWeather!=PBWeather::RAINDANCE &&
+       @battle.pbWeather!=PBWeather::HEAVYRAIN
+      return (damagemult*0.5).round
+    end
+    return damagemult
+  end
+
+  def pbEffect(attacker,opponent,hitnum=0,alltargets=nil,showanimation=true)
+    if @immediate || attacker.effects[PBEffects::TwoTurnAttack]>0
+      pbShowAnimation(@id,attacker,opponent,1,alltargets,showanimation) # Charging anim
+      @battle.pbDisplay(_INTL("{1} took in rain!",attacker.pbThis))
+    end
+    if @immediate && !@rain
+      @battle.pbCommonAnimation("UseItem",attacker,nil)
+      @battle.pbDisplay(_INTL("{1} became fully charged due to its Power Herb!",attacker.pbThis))
+      attacker.pbConsumeItem
+    end
+    return 0 if attacker.effects[PBEffects::TwoTurnAttack]>0
+    return super(attacker,opponent,hitnum,alltargets,showanimation)
+  end
+end
+
+################################################################################
+# (handled elsewhere) Damages all Pokemon when used by a Stellar Terapagos
+# (Tera Starstorm)
+################################################################################
+class PokeBattle_Move_379 < PokeBattle_Move
+end
+
+################################################################################
+# Power is doubled in some cases (Fickle Beam)
+################################################################################
+class PokeBattle_Move_380 < PokeBattle_Move
+  def pbBaseDamageMultiplier(damagemult,attacker,opponent)
+    if rand(10)<3
+      return (damagemult*2.0).round
+    end
+    return damagemult
+  end
+end
+
+################################################################################
+# User is protected against damaging moves this round. Burns the 
+# user of a stopped contact move. (Burning Bulwark)
+################################################################################
+class PokeBattle_Move_381 < PokeBattle_Move
+  def pbEffect(attacker,opponent,hitnum=0,alltargets=nil,showanimation=true)
+    if attacker.effects[PBEffects::BurningBulwark]
+			pbSEPlay("protection")
+      @battle.pbDisplay(_INTL("But it failed!"))
+      return -1
+    end
+    ratesharers=[
+       0xAA,   # Detect, Protect
+       0xAB,   # Quick Guard
+       0xAC,   # Wide Guard
+       0xE8,   # Endure
+       0x14B,  # King's Shield
+       0x14C,  # Spiky Shield
+       0x221,  # Baneful Bunker
+       0x262,  # Obstruct
+       0x354,  # Silk Trap
+       0x381   # Burning Bulwark
+    ]
+    if !ratesharers.include?(PBMoveData.new(attacker.lastMoveUsed).function)
+      attacker.effects[PBEffects::ProtectRate]=1
+    end
+    unmoved=false
+    for poke in @battle.battlers
+      next if poke.index==attacker.index
+      if @battle.choices[poke.index][0]==1 && # Chose a move
+         !poke.hasMovedThisRound?
+        unmoved=true; break
+      end
+    end
+    if !unmoved ||
+       (!$USENEWBATTLEMECHANICS &&
+       @battle.pbRandom(729)>=(729/attacker.effects[PBEffects::ProtectRate]).floor) # changed to 729 from 65536
+      attacker.effects[PBEffects::ProtectRate]=1
+			pbSEPlay("protection")
+      @battle.pbDisplay(_INTL("But it failed!"))
+      return -1
+    end
+    pbShowAnimation(@id,attacker,nil,hitnum,alltargets,showanimation)
+    attacker.effects[PBEffects::BurningBulwark]=true
+    attacker.effects[PBEffects::ProtectRate]*=2 # changed
+    # attacker.effects[PBEffects::ProtectRate]=[attacker.effects[PBEffects::ProtectRate],729].min # changed added
+    @battle.pbDisplay(_INTL("{1} protected itself!",attacker.pbThis))
+    return 0
+  end
+end
+
+################################################################################
+# Increases the ally's critical hit rate. (Dragon Cheer)
+################################################################################
+class PokeBattle_Move_382 < PokeBattle_Move
+  def pbEffect(attacker,opponent,hitnum=0,alltargets=nil,showanimation=true)
+    return super(attacker,opponent,hitnum,alltargets,showanimation) if pbIsDamaging?
+    if opponent.effects[PBEffects::DragonCheer]
+			pbSEPlay("protection")
+      @battle.pbDisplay(_INTL("But it failed!"))
+      return -1
+    end
+    pbShowAnimation(@id,attacker,opponent,hitnum,alltargets,showanimation)
+    opponent.effects[PBEffects::DragonCheer]=true
+    @battle.pbDisplay(_INTL("{1} is getting pumped!",opponent.pbThis))
+    return 0
+  end
+
+  def pbAdditionalEffect(attacker,opponent)
+    if !opponent.effects[PBEffects::DragonCheer]
+      opponent.effects[PBEffects::DragonCheer]=true
+      @battle.pbDisplay(_INTL("{1} is getting pumped!",opponent.pbThis))
+    end
+  end
+end
+
+################################################################################
+# Confuses the target if it has increased its stats in that turn before the
+# execution of this move (Alluring Voice)
+################################################################################
+class PokeBattle_Move_383 < PokeBattle_Move
+  def pbAdditionalEffect(attacker,opponent)
+    return if opponent.damagestate.substitute
+    if opponent.pbCanConfuse?(attacker,false,self) && 
+       opponent.effects[PBEffects::BurningJelousy]
+      opponent.confuse(attacker)
+    end
+  end
+end
+
+################################################################################
+# For 2 rounds, disables the target's healing moves. (Psychic Noise)
+################################################################################
+class PokeBattle_Move_384 < PokeBattle_Move
+  def pbEffect(attacker,opponent,hitnum=0,alltargets=nil,showanimation=true)
+    return super(attacker,opponent,hitnum,alltargets,showanimation) if pbIsDamaging?
+    if opponent.effects[PBEffects::HealBlock]>0 || opponent.pbHasType?(:HERB) ||
+      opponent.pbHasType?(:MIND) || opponent.pbHasType?(:GLIMSE)
+			pbSEPlay("protection")
+      @battle.pbDisplay(_INTL("But it failed!"))
+      return -1
+    end
+    if !attacker.hasMoldBreaker(opponent)
+      if opponent.hasWorkingAbility(:AROMAVEIL)
+			pbSEPlay("protection")
+        @battle.pbDisplay(_INTL("But it failed because of {1}'s {2}!",
+           opponent.pbThis,PBAbilities.getName(opponent.ability)))
+        return -1
+      elsif opponent.pbPartner.hasWorkingAbility(:AROMAVEIL)
+        pbSEPlay("protection")
+        @battle.pbDisplay(_INTL("But it failed because of {1}'s {2}!",
+           opponent.pbPartner.pbThis,PBAbilities.getName(opponent.pbPartner.ability)))
+        return -1
+      end
+    end
+    pbShowAnimation(@id,attacker,opponent,hitnum,alltargets,showanimation)
+    opponent.effects[PBEffects::HealBlock]=2
+    @battle.pbDisplay(_INTL("{1} was prevented from healing!",opponent.pbThis))
+    return 0
+
+  end
+
+  def pbAdditionalEffect(attacker,opponent)
+    if opponent.effects[PBEffects::HealBlock]==0 &&
+       !(opponent.pbHasType?(:HERB) || opponent.pbHasType?(:MIND) || 
+         opponent.pbHasType?(:GLIMSE))
+      if !attacker.hasMoldBreaker(opponent)
+        next if opponent.hasWorkingAbility(:AROMAVEIL) ||
+                opponent.pbPartner.hasWorkingAbility(:AROMAVEIL)
+      end
+      opponent.effects[PBEffects::HealBlock]=2
+      @battle.pbDisplay(_INTL("{1} was prevented from healing!",opponent.pbThis))
+    end
+  end
+end
+
+################################################################################
+# Causes the target to flinch. Fails if target is not doing a priority move.
+# (Upper Hand)
+################################################################################
+class PokeBattle_Move_385 < PokeBattle_Move
+  def pbMoveFailed(attacker,opponent)
+    return (@battle.choices[opponent.index][2].priority<1)
+  end
+
+  def pbAdditionalEffect(attacker,opponent)
+    return if opponent.damagestate.substitute
+    opponent.pbFlinch(attacker)
   end
 end
 

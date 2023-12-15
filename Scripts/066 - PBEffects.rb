@@ -154,6 +154,8 @@ begin
     ShedTail           = 150
     DolphininoForm     = 151 # Used omly on Dolphinino
     SyrupBomb          = 152
+    BurningBulwark     = 153
+    DragonCheer        = 154
     
     ############################################################################
     # These effects apply to a side

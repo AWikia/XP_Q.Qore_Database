@@ -311,6 +311,11 @@
 398,EMBODYASPECT2,"Embody Aspect","The Pokémon's heart fills with memories, causing the Wellspring Mask to shine and the Pokémon's Sp. Def stat to be boosted."
 399,EMBODYASPECT3,"Embody Aspect","The Pokémon's heart fills with memories, causing the Hearthflame Mask to shine and the Pokémon's Attack stat to be boosted."
 400,EMBODYASPECT4,"Embody Aspect","The Pokémon's heart fills with memories, causing the Cornerstone Mask to shine and the Pokémon's Defense stat to be boosted."
+# Generation IX ID Abilities
+401,TERASHIFT,"Tera Shift","When the Pokémon enters a battle, it absorbs the energy around itself and transforms into its Terastal Form."
+402,TERASHELL,"Tera Shell","The Pokémon's shell contains the powers of each type. All damage-dealing moves that hit the Pokémon when its HP is full will not be very effective."
+403,TERAFORMZERO,"Teraform Zero","When Terapagos changes into its Stellar Form, it uses its hidden powers to eliminate all effects of weather and terrain, reducing them to zero."
+404,POISONPUPPETEER,"Poison Puppeteer","Pokémon poisoned by Pecharunt's moves will also become confused."
 # FLINT Abilities
 192,DOOMER,Doomer,Increases power of Doom Attcaks when the Pokémon's HP is low.
 193,MARIAMARA,Mariamara,"Doubles the power of Dark Attacks when the Pokémon's HP drops to half or less."

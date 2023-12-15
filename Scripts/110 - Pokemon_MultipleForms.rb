@@ -10214,6 +10214,37 @@ MultipleForms.register(:OGERPON,{
 }
 })
 
+MultipleForms.register(:TERAPAGOS,{
+"evYield"=>proc{|pokemon|
+   next if pokemon.form==0               # Normal
+   next [0,0,2,0,0,2] if pokemon.form==1 # Terestral
+   next [3,0,0,0,0,0] if pokemon.form==2 # Stellar
+},
+"height"=>proc{|pokemon|
+   next if pokemon.form==0
+   next 160 if pokemon.form==1
+   next 770 if pokemon.form==2
+},
+"weight"=>proc{|pokemon|
+   next if pokemon.form==0
+   next 3  if pokemon.form==1
+   next 17 if pokemon.form==2
+},
+"getBaseStats"=>proc{|pokemon|
+   next if pokemon.form==0
+   next [95,95,110,85,105,110]   if pokemon.form==1
+   next [160,105,110,85,130,110] if pokemon.form==2
+},
+"dexEntry"=>proc{|pokemon|
+   next if pokemon.form==0
+   next _INTL("Upon sensing danger, it prepares itself for battle by creating a sturdy shell of crystallized Terastal energy..") if pokemon.form==1
+   next _INTL("In this form, Terapagos resembles the world as the ancients saw it, and its Terastal energy is abnormally amplified.") if pokemon.form==2
+},
+"getFormOnLeavingBattle"=>proc{|pokemon|
+   next 0
+}
+})
+
 
 ################################################################################
 # Other Forms (Q.Qore Pokemon)

@@ -418,6 +418,8 @@ class StandardRestriction
     ability1=dexdata.fgetw
     ability2=dexdata.fgetw
     dexdata.close()
+    # Species holding White Flag are not banned
+    return true if isConst?(pokemon.item,PBItems,:WHITEFLAG)
     # Species with disadvantageous abilities are not banned
     if isConst?(ability1,PBAbilities,:TRUANT) ||
        isConst?(ability2,PBAbilities,:SLOWSTART) ||

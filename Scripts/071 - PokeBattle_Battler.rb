@@ -643,6 +643,7 @@ def ragefist
     @effects[PBEffects::Imprison]         = false
     @effects[PBEffects::KingsShield]      = false
     @effects[PBEffects::SilkTrap]         = false
+    @effects[PBEffects::BurningBulwark]   = false
     @effects[PBEffects::LifeOrb]          = false
     @effects[PBEffects::MagicCoat]        = false
     @effects[PBEffects::MeanLook]         = -1
@@ -741,7 +742,8 @@ def ragefist
     @effects[PBEffects::Commander]        = false
     @effects[PBEffects::CommanderAlly]    = false
     @effects[PBEffects::DolphininoForm]   = 1
-    @effects[PBEffects::SyrupBomb]         = 0
+    @effects[PBEffects::SyrupBomb]        = 0
+    @effects[PBEffects::DragonCheer]       = false
     # Disguise causes the ability-suppressing effect to fade
     # if it was passed on through Baton Pass
     if self.hasWorkingAbility(:DISGUISE) && isConst?(self.species,PBSpecies,:MIMIKYU)
@@ -1229,6 +1231,9 @@ def ragefist
        !@effects[PBEffects::Transform]
       speedmult=speedmult*2
     end
+    if self.hasWorkingItem(:BLACKFLAG) && self.turncount%2==0
+      speedmult=speedmult*2
+    end
     if self.pbOwnSide.effects[PBEffects::Tailwind]>0
       speedmult=speedmult*2
     end
@@ -1674,6 +1679,18 @@ def ragefist
         self.form=@pokemon.form
         pbUpdate(true)
         @battle.scene.pbChangePokemon(self,@pokemon)
+      end
+    end
+    # Terapagos
+    if isConst?(self.species,PBSpecies,:TERAPAGOS) && !self.isFainted?
+      if self.hasWorkingAbility(:TERASHIFT)
+        if self.form==0
+          self.form=1; transformed=true
+        end
+      else
+        if self.form!=0
+          self.form=0; transformed='partial' # Was true
+        end
       end
     end
     # Sunny Channel
@@ -4180,6 +4197,10 @@ def ragefist
       @battle.field.effects[PBEffects::PsychicTerrain]>0
       target=PBTargets::AllOpposing
     end
+    if move.function==0x379 && isConst?(self.species,PBSpecies,:TERAPAGOS) &&
+      self.form==3
+      target=PBTargets::AllOpposing
+    end
     return target
   end
 
@@ -4676,6 +4697,18 @@ def ragefist
       if thismove.isContactMove? && !user.isFainted? && user.pbCanPoison?(nil,false) && !user.hasNoContactWithTargets(thismove,nil)
         PBDebug.log("#{target.pbThis} poisoned by Baneful Bunker")
         user.pbPoison(target,_INTL("{1} was poisoned!",target.pbThis))
+      end
+      return false
+    end
+     # Burning Bulwark
+    if target.effects[PBEffects::BurningBulwark] && unseenfistOff &&
+      thismove.canProtectAgainst? && !target.effects[PBEffects::ProtectNegation]
+      @battle.pbDisplay(_INTL("{1} protected itself!",target.pbThis))
+      @battle.successStates[user.index].protected=true
+      PBDebug.log("[Move failed] #{user.pbThis}'s Burning Bulwark stopped the attack!")
+      if thismove.isContactMove? && !user.isFainted? && user.pbCanPoison?(nil,false) && !user.hasNoContactWithTargets(thismove,nil)
+        PBDebug.log("#{target.pbThis} burned by Burning Bulwark")
+        user.pbBurn(target,_INTL("{1} was burned",target.pbThis))
       end
       return false
     end
@@ -5221,11 +5254,11 @@ def ragefist
            (originalTarget.effects[PBEffects::Protect] || 
            (originalTarget.pbOwnSide.effects[PBEffects::QuickGuard] && thismove.priority>0) ||
            originalTarget.effects[PBEffects::KingsShield] ||
-           originalTarget.effects[PBEffects::SilkTrap] ||
+           originalTarget.effects[PBEffects::BurningBulwark] ||
            originalTarget.effects[PBEffects::SpikyShield] ||
            originalTarget.effects[PBEffects::BanefulBunker] ||
            originalTarget.effects[PBEffects::Obstruct] ||
-           riginalTarget.effects[PBEffects::SilkTrap]) ||             
+           originalTarget.effects[PBEffects::SilkTrap]) ||             
            originalTarget.effects[PBEffects::TwoTurnAttack]>0 ||
            !thismove.pbAccuracyCheck(user,originalTarget)) && !changetarget
           target=originalTarget.pbPartner
@@ -5289,7 +5322,8 @@ def ragefist
            secondTarget.effects[PBEffects::SpikyShield] ||
            secondTarget.effects[PBEffects::BanefulBunker] ||
            secondTarget.effects[PBEffects::Obstruct] ||
-           secondTarget.effects[PBEffects::SilkTrap]) ||             
+           secondTarget.effects[PBEffects::SilkTrap] ||             
+           secondTarget.effects[PBEffects::BurningBulwark]) ||             
            secondTarget.effects[PBEffects::TwoTurnAttack]>0 ||
            !thismove.pbAccuracyCheck(user,secondTarget)) && !changetarget
           target=secondTarget.pbPartner if secondTarget.pbPartner!=user.pbPartner

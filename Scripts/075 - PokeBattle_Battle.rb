@@ -3339,6 +3339,7 @@ class PokeBattle_Battle
       @battlers[i].effects[PBEffects::BanefulBunker]=false
       @battlers[i].effects[PBEffects::Obstruct]=false
       @battlers[i].effects[PBEffects::SilkTrap]=false
+      @battlers[i].effects[PBEffects::BurningBulwark]=false
       @battlers[i].temperature2= [2,1,-2][rand(3)] if rand(100) < 38
     end
     @usepriority=false  # recalculate priority

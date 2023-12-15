@@ -228,8 +228,9 @@ end
 Events.onStepTaken+=proc {|sender,e|
    next if !$Trainer
    for egg in $Trainer.party
-     marmor = false
-     crack = false
+     marmor = false # Prevents Multiple Magma Armor, Flame Body and Steam Engine from stacking
+     crack = false  # Prevents Mutliple Nervous Crack from stacking
+     bflag = false  # Prevents Multiple Black Flags from stacking
      if egg.eggsteps>0
        egg.eggsteps-=1 if !egg.isRB? # This is handled elsewhere for remote boxes
        for i in $Trainer.pokemonParty
@@ -240,7 +241,7 @@ Events.onStepTaken+=proc {|sender,e|
              if i.exp<maxexp
                oldlevel=i.level
                expp =  1
-               expp *= 2 if isConst?(i.item,PBItems,:LUCKYEGG)
+               expp *= 2 if isConst?(i.item,PBItems,:LUCKYEGG) || isConst?(i.item,PBItems,:BLACKFLAG)
                expp *= 2 if isConst?(i.ability,PBAbilities,:PROTEINCROTELINE)
                i.exp+=expp
                if i.level!=oldlevel
@@ -262,6 +263,10 @@ Events.onStepTaken+=proc {|sender,e|
            end
            if isConst?(i.ability,PBAbilities,:SIAXIS)
              egg.eggsteps-=1
+           end
+           if isConst?(i.item,PBItems,:BLACKFLAG)
+             egg.eggsteps-=1 if !bflag
+             bflag = true
            end
            if isConst?(i.ability,PBAbilities,:FLAMEBODY) ||
               isConst?(i.ability,PBAbilities,:MAGMAARMOR) ||

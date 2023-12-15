@@ -259,6 +259,14 @@ class PokeBattle_Battler
     else
       PBDebug.log("[Status change] #{pbThis} was poisoned")
     end
+    if attacker && self.index!=attacker.index && 
+       attacker.hasWorkingAbility(:POISONPUPPETEER)
+      if self.pbCanConfuse?(attacker,true)
+        self.pbConfuse
+        @battle.pbDisplay(_INTL("{1} became confused!",self.pbThis))
+        return 0
+      end
+    end
     if attacker && self.index!=attacker.index &&
        self.hasWorkingAbility(:SYNCHRONIZE)
       if attacker.pbCanPoisonSynchronize?(self)

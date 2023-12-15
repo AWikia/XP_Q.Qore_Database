@@ -676,6 +676,9 @@
 981,MIRRORHERB,Mirror Herb,Mirror Herbs,1,30000,"An item to be held by a Pokémon. This herb will allow the holder to mirror an opponent's stat increases to boost its own stats—but only once.",0,0,0,
 982,PUNCHINGGLOVE,Punching Glove,Punching Gloves,1,15000,"An item to be held by a Pokémon. This protective glove boosts the power of the holder's punching moves and prevents direct contact with targets.",0,0,0,
 983,ABILITYSHIELD,Ability Shield,Ability Shields,1,20000,"An item to be held by a Pokémon. This cute and rather unique-looking shield protects the holder from having its Ability changed by others.",0,0,0,
+997,JAM,Jam,Jams,1,750,"An item to be held by a Pokémon. This condiment that's very sweet and likewise very sour, boosts the power of the holder's Jelly-type moves.",0,0,0,
+998,WATERCRESS,Watercress,Watercresses,1,750,"An item to be held by a Pokémon. This very bitter ingredient that stands out among veggies for its quirky flavor, boosts the power of the holder's Chlorophyll-type moves.",0,0,0,
+999,BASIL,Basil,Basils,1,750,"An item to be held by a Pokémon. This very bitter ingredient that's quite versatile, boosts the power of the holder's Herb-type moves.",0,0,0,
 # Generation IX TM Items
 986,SYRUPYAPPLE,Syrupy Apple,Syrupy Apples,1,2200,"A peculiar apple that can make a certain species of Pokémon evolve. It's exceptionally syrupy.",1,0,7,
 987,UNREMARKABLETEACUP,Unremarkable Teacup,Unremarkable Teacups,1,1600,"A peculiar teacup that can make a certain species of Pokémon evolve. It may be cracked, but tea drunk from it is delicious.",1,0,7,
@@ -683,6 +686,9 @@
 989,HEARTHFLAMEMASK,Hearthflame Mask,Hearthflame Masks,1,1000,"An item to be held by Ogerpon. This carved wooden mask is adorned with crystals and allows Ogerpon to wield the Fire type during battle.",0,0,0,
 990,CORNERSTONEMASK,Cornerstone Mask,Cornerstone Masks,1,1000,"An item to be held by Ogerpon. This carved wooden mask is adorned with crystals and allows Ogerpon to wield the Rock type during battle.",0,0,0,
 992,MASTERPIECETEACUP,Masterpiece Teacup,Masterpiece Teacups,1,1600,"A peculiar teacup that can make a certain species of Pokémon evolve. It may be chipped, but tea drunk from it is delicious.",1,0,7,
+996,FAIRYFEATHER,Fairy Feather,Fairy Feathers,1,750,"An item to be held by a Pokémon. This feather, which gleams faintly when hit by light, boosts the power of the holder's Fairy-type moves.",0,0,0,
+# Generation IX ID Items
+995,METALALLOY,Metal Alloy,Metal Alloys,1,6000,"A peculiar metal that can make certain species of Pokémon evolve. It is composed of many layers.",1,0,7,
 ## Trophies (28 Total)
 # Platina
 827,TQOREMASTER,Qora Qore Master,Qora Qore Master,6,0,Awarded for completing all the pregame,2,0,6,
@@ -1003,4 +1009,5 @@
 976,GRAYSACHET,Gray Sachet,Gray Sachets,1,10000,An item to be held by a Pokémon. This goth sachet doubles the damage dealt to targets that share the user's favorite type.,0,0,0,
 984,MAKITE,Makite,Makites,1,10000,"One of the mysterious Mega Stones. Have Makedonia TV hold it, and this stone will enable it to Mega Evolve in battle.",0,0,12,
 985,FUSIONFINDER,Fusion Finder,Fusion Finder,8,0,A tool that can search out Fusion Pokémon that are hiding in the tall grass. Its battery is recharged as you walk.,2,0,6,
-
+993,WHITEFLAG,White Flag,White Flags,1,4000,An item to be held by a Pokémon. This flag makes the Pokémon mostly eligible in facilities and boosts the power of its moves in battle.,0,0,0,
+994,BLACKFLAG,Black Flag,Black Flags,1,4000,An item to be held by a Pokémon. This flag makes the Pokémon help in making eggs hatching faster and doubles its stats every second turn in battle.,0,0,0,

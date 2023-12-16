@@ -2571,8 +2571,11 @@ class PokeBattle_Move_05D < PokeBattle_Move
        0x02,   # Struggle
        0x14,   # Chatter
        0x5D,   # Sketch
+       0x13B,  # Hyperscare Fury
        0x172,  # Κουλούνδιν
-       0x325   # Elder Special Moves
+       0x325,  # Elder Special Moves
+       0x362,  # Revival Blessing
+       0x379   # Tera Starstorm
     ]
     if attacker.effects[PBEffects::Transform] ||
        opponent.lastMoveUsedSketch<=0 ||

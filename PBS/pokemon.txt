@@ -37482,7 +37482,7 @@ Habitat=Forest
 Kind=Alloy
 Pokedex=It gathers static electricity from its surroundings. The beams it launches when down on all fours are tremendously powerful.
 WildItemUncommon=METALALLOY
-BattlerPlayerY=15
+BattlerPlayerY=3
 BattlerEnemyY=8
 BattlerAltitude=0
 Evolutions=
@@ -37513,7 +37513,7 @@ WildItemCommon=TARTAPPLE
 WildItemUncommon=SWEETAPPLE
 WildItemRare=SYRUPYAPPLE
 BattlerPlayerY=15
-BattlerEnemyY=19
+BattlerEnemyY=10
 BattlerAltitude=0
 Evolutions=
 [1380]
@@ -37539,7 +37539,7 @@ Habitat=Grassland
 Kind=Paradox
 Pokedex=There are scant few reports of this creature being sighted. One short video shows it rampaging and spouting pillars of flame.
 BattlerPlayerY=15
-BattlerEnemyY=19
+BattlerEnemyY=9
 BattlerAltitude=0
 Evolutions=
 [1381]
@@ -37591,7 +37591,7 @@ Habitat=Grassland
 Kind=Paradox
 Pokedex=It resembles a Pokémon described in a dubious magazine as a Terrakion that had been modified by an evil organization.
 BattlerPlayerY=15
-BattlerEnemyY=19
+BattlerEnemyY=18
 BattlerAltitude=0
 Evolutions=
 [1383]
@@ -37642,8 +37642,8 @@ Habitat=Grassland
 Kind=Tera
 Pokedex=Terapagos protects itself using its power to transform energy into hard crystals. This Pokémon is the source of the Terastal phenomenon.
 FormNames=Normal Form,Terestral Form,Stellar Form
-BattlerPlayerY=15
-BattlerEnemyY=28
+BattlerPlayerY=20
+BattlerEnemyY=24
 BattlerAltitude=0
 Evolutions=
 [1385]

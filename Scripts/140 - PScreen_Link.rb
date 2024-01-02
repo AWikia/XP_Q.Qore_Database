@@ -239,6 +239,7 @@ class Scene_LinkBattleScene
                  PBItems::BEASTBALL,
                  PBItems::RODOFSPARROW,
                  PBItems::RARECANDY,
+                 PBItems::WHITEFLAG,
                  PBItems::BELLBOX,
                  PBItems::VICIOUSCANDY,
                  PBItems::KEYBOX,
@@ -261,6 +262,7 @@ class Scene_LinkBattleScene
                   1000,
                   1500,
                   2000,
+                  2500,
                   3000,
                   4000,
                   5000,
@@ -285,6 +287,7 @@ class Scene_LinkBattleScene
                   _INTL("Beast Ball (1000 Points)"),
                   _INTL("Rod of Sparrow (1500 Points)"),
                   _INTL("Rare Candy (2000 Points)"),
+                  _INTL("White Flag (2500 Points)"),
                   _INTL("Bell Box (3000 Points)"),
                   _INTL("Vicious Candy (4000 Points)"),
                   _INTL("Key Box (5000 Points)"),
@@ -336,6 +339,9 @@ class Scene_LinkBattleScene
                   end
                   if $game_variables && $game_variables[1001] > 0
                     species+=[PBSpecies::FLABEBE]
+                  end
+                  if $game_variables && $game_variables[1001] > 49
+                    species+=[PBSpecies::DURALUDON]
                   end
                   if $game_variables && $game_variables[1001] > 99
                     species+=[PBSpecies::BASCULEGION]

@@ -2,125 +2,166 @@
 # * Ultra Beasts, Legendary and Mythical Pokémons
 #===============================================================================
 
+# Returns true if the Pokémon is an Ultra Beast
 def isUltraBeast?(species)
-  if isConst?(species.species,PBSpecies,:NIHILEGO) ||
-     isConst?(species.species,PBSpecies,:BUZZWOLE) ||
-     isConst?(species.species,PBSpecies,:PHEROMOSA) ||
-     isConst?(species.species,PBSpecies,:XURKITREE) ||
-     isConst?(species.species,PBSpecies,:CELESTEELA) ||
-     isConst?(species.species,PBSpecies,:KARTANA) ||
-     isConst?(species.species,PBSpecies,:GUZZLORD) ||
-     isConst?(species.species,PBSpecies,:POIPOLE) ||
-     isConst?(species.species,PBSpecies,:NAGANADEL) ||
-     isConst?(species.species,PBSpecies,:STAKATAKA) ||
-     isConst?(species.species,PBSpecies,:BLACEPHALON)
-    return true
-  end
-  return false
+  return isConst?(species.species,PBSpecies,:NIHILEGO) ||
+         isConst?(species.species,PBSpecies,:BUZZWOLE) ||
+         isConst?(species.species,PBSpecies,:PHEROMOSA) ||
+         isConst?(species.species,PBSpecies,:XURKITREE) ||
+         isConst?(species.species,PBSpecies,:CELESTEELA) ||
+         isConst?(species.species,PBSpecies,:KARTANA) ||
+         isConst?(species.species,PBSpecies,:GUZZLORD) ||
+         isConst?(species.species,PBSpecies,:POIPOLE) ||
+         isConst?(species.species,PBSpecies,:NAGANADEL) ||
+         isConst?(species.species,PBSpecies,:STAKATAKA) ||
+         isConst?(species.species,PBSpecies,:BLACEPHALON)
+end
+
+# Returns true if the Pokémon is Legendary
+def isLegendary?(species)
+  return isConst?(species.species,PBSpecies,:ARTICUNO) ||
+         isConst?(species.species,PBSpecies,:ZAPDOS) ||
+         isConst?(species.species,PBSpecies,:MOLTRES) ||
+         isConst?(species.species,PBSpecies,:MEWTWO) ||
+         isConst?(species.species,PBSpecies,:RAIKOU) ||
+         isConst?(species.species,PBSpecies,:ENTEI) ||
+         isConst?(species.species,PBSpecies,:SUICUNE) ||
+         isConst?(species.species,PBSpecies,:LUGIA) ||
+         isConst?(species.species,PBSpecies,:HOOH) ||
+         isConst?(species.species,PBSpecies,:REGIROCK) ||
+         isConst?(species.species,PBSpecies,:REGICE) ||
+         isConst?(species.species,PBSpecies,:REGISTEEL) ||
+         isConst?(species.species,PBSpecies,:LATIAS) ||
+         isConst?(species.species,PBSpecies,:LATIOS) ||
+         isConst?(species.species,PBSpecies,:KYOGRE) ||
+         isConst?(species.species,PBSpecies,:GROUDON) ||
+         isConst?(species.species,PBSpecies,:RAYQUAZA) ||
+         isConst?(species.species,PBSpecies,:UXIE) ||
+         isConst?(species.species,PBSpecies,:MESPRIT) ||
+         isConst?(species.species,PBSpecies,:AZELF) ||
+         isConst?(species.species,PBSpecies,:DIALGA) ||
+         isConst?(species.species,PBSpecies,:PALKIA) ||
+         isConst?(species.species,PBSpecies,:HEATRAN) ||
+         isConst?(species.species,PBSpecies,:REGIGIGAS) ||
+         isConst?(species.species,PBSpecies,:GIRATINA) ||
+         isConst?(species.species,PBSpecies,:CRESSELIA) ||
+         isConst?(species.species,PBSpecies,:COBALION) ||
+         isConst?(species.species,PBSpecies,:TERRAKION) ||
+         isConst?(species.species,PBSpecies,:VIRIZION) ||
+         isConst?(species.species,PBSpecies,:TORNADUS) ||
+         isConst?(species.species,PBSpecies,:THUNDURUS) ||
+         isConst?(species.species,PBSpecies,:RESHIRAM) ||
+         isConst?(species.species,PBSpecies,:ZEKROM) ||
+         isConst?(species.species,PBSpecies,:LANDORUS) ||
+         isConst?(species.species,PBSpecies,:KYUREM) ||
+         isConst?(species.species,PBSpecies,:XERNEAS) ||
+         isConst?(species.species,PBSpecies,:YVELTAL) ||
+         isConst?(species.species,PBSpecies,:ZYGARDE) ||
+         isConst?(species.species,PBSpecies,:TYPENULL) ||
+         isConst?(species.species,PBSpecies,:SILVALLY) ||
+         isConst?(species.species,PBSpecies,:TAPUKOKO) ||
+         isConst?(species.species,PBSpecies,:TAPULELE) ||
+         isConst?(species.species,PBSpecies,:TAPUBULU) ||
+         isConst?(species.species,PBSpecies,:TAPUFINI) ||
+         isConst?(species.species,PBSpecies,:COSMOG) ||
+         isConst?(species.species,PBSpecies,:COSMOEM) ||
+         isConst?(species.species,PBSpecies,:SOLGALEO) ||
+         isConst?(species.species,PBSpecies,:LUNALA) ||
+         isConst?(species.species,PBSpecies,:NECROZMA) ||
+         isConst?(species.species,PBSpecies,:ZACIAN) ||
+         isConst?(species.species,PBSpecies,:ZAMAZENTA) ||
+         isConst?(species.species,PBSpecies,:ETERNATUS) ||
+         isConst?(species.species,PBSpecies,:KUBFU) ||
+         isConst?(species.species,PBSpecies,:URSHIFU) ||
+         isConst?(species.species,PBSpecies,:REGIELEKI) ||
+         isConst?(species.species,PBSpecies,:REGIDRACO) ||
+         isConst?(species.species,PBSpecies,:GLASTRIER) ||
+         isConst?(species.species,PBSpecies,:SPECTRIER) ||
+         isConst?(species.species,PBSpecies,:CALYREX) ||
+         isConst?(species.species,PBSpecies,:ENAMORUS) ||
+         isConst?(species.species,PBSpecies,:WOCHIEN) ||
+         isConst?(species.species,PBSpecies,:CHIENPAO) ||
+         isConst?(species.species,PBSpecies,:TINGLU) ||
+         isConst?(species.species,PBSpecies,:CHIYU) ||
+         isConst?(species.species,PBSpecies,:KORAIDON) ||
+         isConst?(species.species,PBSpecies,:MIRAIDON) ||
+         isConst?(species.species,PBSpecies,:OKIDOKI) ||
+         isConst?(species.species,PBSpecies,:MUNKIDORI) ||
+         isConst?(species.species,PBSpecies,:FEZANDIPITI) ||
+         isConst?(species.species,PBSpecies,:OGERPON) ||
+         isConst?(species.species,PBSpecies,:TERAPAGOS) ||
+         isConst?(species.species,PBSpecies,:KYODON)
+end
+
+# Returns true if the Pokémon is Mythical
+def isMythical?(species)
+  return isConst?(species.species,PBSpecies,:MEW) ||
+         isConst?(species.species,PBSpecies,:CELEBI) ||
+         isConst?(species.species,PBSpecies,:JIRACHI) ||
+         isConst?(species.species,PBSpecies,:DEOXYS) ||
+         isConst?(species.species,PBSpecies,:PHIONE) ||
+         isConst?(species.species,PBSpecies,:MANAPHY) ||
+         isConst?(species.species,PBSpecies,:DARKRAI) ||
+         isConst?(species.species,PBSpecies,:SHAYMIN) ||
+         isConst?(species.species,PBSpecies,:ARCEUS) ||
+         isConst?(species.species,PBSpecies,:VICTINI) ||
+         isConst?(species.species,PBSpecies,:KELDEO) ||
+         isConst?(species.species,PBSpecies,:MELOETTA) ||
+         isConst?(species.species,PBSpecies,:GENESECT) ||
+         isConst?(species.species,PBSpecies,:DIANCIE) ||
+         isConst?(species.species,PBSpecies,:HOOPA) ||
+         isConst?(species.species,PBSpecies,:VOLCANION) ||
+         isConst?(species.species,PBSpecies,:MAGEARNA) ||
+         isConst?(species.species,PBSpecies,:MARSHADOW) ||
+         isConst?(species.species,PBSpecies,:ZERAORA) ||
+         isConst?(species.species,PBSpecies,:MELTAN) ||
+         isConst?(species.species,PBSpecies,:MELMETAL) ||
+         isConst?(species.species,PBSpecies,:ZARUDE) ||
+         isConst?(species.species,PBSpecies,:PECHARUNT) ||
+         isConst?(species.species,PBSpecies,:KOULUNDIN) ||
+         isConst?(species.species,PBSpecies,:COULUNDIN) ||
+         isConst?(species.species,PBSpecies,:CALODIN) ||
+         isConst?(species.species,PBSpecies,:SURPLETE)
+end
+
+def isSpecial?(species)
+  return isMythical?(species)  ||
+         isConst?(species.species,PBSpecies,:MEWTWO) ||
+         isConst?(species.species,PBSpecies,:LUGIA) ||
+         isConst?(species.species,PBSpecies,:HOOH) ||
+         isConst?(species.species,PBSpecies,:KYOGRE) ||
+         isConst?(species.species,PBSpecies,:GROUDON) ||
+         isConst?(species.species,PBSpecies,:RAYQUAZA) ||
+         isConst?(species.species,PBSpecies,:DIALGA) ||
+         isConst?(species.species,PBSpecies,:PALKIA) ||
+         isConst?(species.species,PBSpecies,:HEATRAN) ||
+         isConst?(species.species,PBSpecies,:REGIGIGAS) ||
+         isConst?(species.species,PBSpecies,:RESHIRAM) ||
+         isConst?(species.species,PBSpecies,:ZEKROM) ||
+         isConst?(species.species,PBSpecies,:KYUREM) ||
+         isConst?(species.species,PBSpecies,:XERNEAS) ||
+         isConst?(species.species,PBSpecies,:YVELTAL) ||
+         isConst?(species.species,PBSpecies,:ZYGARDE) ||
+         isConst?(species.species,PBSpecies,:COSMOG) ||
+         isConst?(species.species,PBSpecies,:COSMOEM) ||
+         isConst?(species.species,PBSpecies,:SOLGALEO) ||
+         isConst?(species.species,PBSpecies,:LUNALA) ||
+         isConst?(species.species,PBSpecies,:NECROZMA) ||
+         isConst?(species.species,PBSpecies,:ZACIAN) ||
+         isConst?(species.species,PBSpecies,:ZAMAZENTA) ||
+         isConst?(species.species,PBSpecies,:ETERNATUS) ||
+         isConst?(species.species,PBSpecies,:CALYREX) ||
+         isConst?(species.species,PBSpecies,:KORAIDON) ||
+         isConst?(species.species,PBSpecies,:MIRAIDON) ||
+         isConst?(species.species,PBSpecies,:TERAPAGOS) ||
+         isConst?(species.species,PBSpecies,:KYODON)
+
 end
 
 def isLegendaryMythicalOrUltra?(species)
-  if isUltraBeast?(species) ||
-     isConst?(species.species,PBSpecies,:ZAPDOS) ||
-     isConst?(species.species,PBSpecies,:ARTICUNO) ||
-     isConst?(species.species,PBSpecies,:MOLTRES) ||
-     isConst?(species.species,PBSpecies,:MEWTWO) ||
-     isConst?(species.species,PBSpecies,:MEW) ||
-     isConst?(species.species,PBSpecies,:RAIKOU) ||
-     isConst?(species.species,PBSpecies,:ENTEI) ||
-     isConst?(species.species,PBSpecies,:SUICUNE) ||
-     isConst?(species.species,PBSpecies,:LUGIA) ||
-     isConst?(species.species,PBSpecies,:HOOH) ||
-     isConst?(species.species,PBSpecies,:CELEBI) ||
-     isConst?(species.species,PBSpecies,:REGIROCK) ||
-     isConst?(species.species,PBSpecies,:REGICE) ||
-     isConst?(species.species,PBSpecies,:REGISTEEL) ||
-     isConst?(species.species,PBSpecies,:LATIAS) ||
-     isConst?(species.species,PBSpecies,:LATIOS) ||
-     isConst?(species.species,PBSpecies,:KYOGRE) ||
-     isConst?(species.species,PBSpecies,:GROUDON) ||
-     isConst?(species.species,PBSpecies,:RAYQUAZA) ||
-     isConst?(species.species,PBSpecies,:JIRACHI) ||
-     isConst?(species.species,PBSpecies,:DEOXYS) ||
-     isConst?(species.species,PBSpecies,:UXIE) ||
-     isConst?(species.species,PBSpecies,:MESPRIT) ||
-     isConst?(species.species,PBSpecies,:AZELF) ||
-     isConst?(species.species,PBSpecies,:DIALGA) ||
-     isConst?(species.species,PBSpecies,:PALKIA) ||
-     isConst?(species.species,PBSpecies,:HEATRAN) ||
-     isConst?(species.species,PBSpecies,:REGIGIGAS) ||
-     isConst?(species.species,PBSpecies,:GIRATINA) ||
-     isConst?(species.species,PBSpecies,:CRESSELIA) ||
-     isConst?(species.species,PBSpecies,:PHIONE) ||
-     isConst?(species.species,PBSpecies,:MANAPHY) ||
-     isConst?(species.species,PBSpecies,:DARKRAI) ||
-     isConst?(species.species,PBSpecies,:SHAYMIN) ||
-     isConst?(species.species,PBSpecies,:ARCEUS) ||
-     isConst?(species.species,PBSpecies,:VICTINI) ||
-     isConst?(species.species,PBSpecies,:COBALION) ||
-     isConst?(species.species,PBSpecies,:TERRAKION) ||
-     isConst?(species.species,PBSpecies,:VIRIZION) ||
-     isConst?(species.species,PBSpecies,:TORNADUS) ||
-     isConst?(species.species,PBSpecies,:THUNDURUS) ||
-     isConst?(species.species,PBSpecies,:RESHIRAM) ||
-     isConst?(species.species,PBSpecies,:ZEKROM) ||
-     isConst?(species.species,PBSpecies,:LANDORUS) ||
-     isConst?(species.species,PBSpecies,:KYUREM) ||
-     isConst?(species.species,PBSpecies,:KELDEO) ||
-     isConst?(species.species,PBSpecies,:MELOETTA) ||
-     isConst?(species.species,PBSpecies,:GENESECT) ||
-     isConst?(species.species,PBSpecies,:XERNEAS) ||
-     isConst?(species.species,PBSpecies,:YVELTAL) ||
-     isConst?(species.species,PBSpecies,:ZYGARDE) ||
-     isConst?(species.species,PBSpecies,:DIANCIE) ||
-     isConst?(species.species,PBSpecies,:HOOPA) ||
-     isConst?(species.species,PBSpecies,:VOLCANION) ||
-     isConst?(species.species,PBSpecies,:TYPENULL) ||
-     isConst?(species.species,PBSpecies,:SILVALLY) ||
-     isConst?(species.species,PBSpecies,:TAPUKOKO) ||
-     isConst?(species.species,PBSpecies,:TAPULELE) ||
-     isConst?(species.species,PBSpecies,:TAPUBULU) ||
-     isConst?(species.species,PBSpecies,:TAPUFINI) ||
-     isConst?(species.species,PBSpecies,:COSMOG) ||
-     isConst?(species.species,PBSpecies,:COSMOEM) ||
-     isConst?(species.species,PBSpecies,:SOLGALEO) ||
-     isConst?(species.species,PBSpecies,:LUNALA) ||
-     isConst?(species.species,PBSpecies,:NECROZMA) ||
-     isConst?(species.species,PBSpecies,:MAGEARNA) ||
-     isConst?(species.species,PBSpecies,:MARSHADOW) ||
-     isConst?(species.species,PBSpecies,:ZERAORA) ||
-     isConst?(species.species,PBSpecies,:MELTAN) ||
-     isConst?(species.species,PBSpecies,:MELMETAL) ||
-     isConst?(species.species,PBSpecies,:ZACIAN) ||
-     isConst?(species.species,PBSpecies,:ZAMAZENTA) ||
-     isConst?(species.species,PBSpecies,:ETERNATUS) ||
-     isConst?(species.species,PBSpecies,:KUBFU) ||
-     isConst?(species.species,PBSpecies,:URSHIFU) ||
-     isConst?(species.species,PBSpecies,:ZARUDE) ||
-     isConst?(species.species,PBSpecies,:REGIELEKI) ||
-     isConst?(species.species,PBSpecies,:REGIDRACO) ||
-     isConst?(species.species,PBSpecies,:GLASTRIER) ||
-     isConst?(species.species,PBSpecies,:SPECTRIER) ||
-     isConst?(species.species,PBSpecies,:CALYREX) ||
-     isConst?(species.species,PBSpecies,:ENAMORUS) ||
-     isConst?(species.species,PBSpecies,:WOCHIEN) ||
-     isConst?(species.species,PBSpecies,:CHIENPAO) ||
-     isConst?(species.species,PBSpecies,:TINGLU) ||
-     isConst?(species.species,PBSpecies,:CHIYU) ||
-     isConst?(species.species,PBSpecies,:KORAIDON) ||
-     isConst?(species.species,PBSpecies,:MIRAIDON) ||
-     isConst?(species.species,PBSpecies,:OKIDOKI) ||
-     isConst?(species.species,PBSpecies,:MUNKIDORI) ||
-     isConst?(species.species,PBSpecies,:FEZANDIPITI) ||
-     isConst?(species.species,PBSpecies,:OGERPON) ||
-     isConst?(species.species,PBSpecies,:KYODON) ||
-     isConst?(species.species,PBSpecies,:KOULUNDIN) ||
-     isConst?(species.species,PBSpecies,:COULUNDIN) ||
-     isConst?(species.species,PBSpecies,:CALODIN) ||
-     isConst?(species.species,PBSpecies,:SURPLETE)
-    return true
-  end
-  return false
+  return isLegendary?(species) || 
+         isMythical?(species)  ||
+         isUltraBeast?(species)
 end
 
 #===============================================================================

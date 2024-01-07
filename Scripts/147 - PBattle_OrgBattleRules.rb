@@ -427,15 +427,8 @@ class StandardRestriction
       return true
     end
     # Certain named species are banned
-    blacklist=[:WYNAUT,:WOBBUFFET,:KOULUNDIN,:COULUNDIN,:SALEM,:ANAMARIOBIRD,
+    blacklist=[:WYNAUT,:WOBBUFFET,:BLUEGHOST,:KOULUNDIN,:COULUNDIN,:SALEM,:ANAMARIOBIRD,
                :ANALUIGIBIRD,:SYLVIA]
-    # Special Pokemon
-    blacklist+=[:MEWTWO,:MEW,:LUGIA,:HOOH,:KYOGRE,:GROUDON,:RAYQUAZA,:JIRACHI,
-                :DEOXYS,:DIALGA,:PALKIA,:GIRATINA,:PHIONE,:MANAPHY,:DARKRAI,
-                :SHAYMIN,:ARCEUS,:VICTINI,:RESHIRAM,:ZEKROM,:KYUREM,:KELDEO,
-                :MELOETTA,:GENESECT,:XERNEAS,:YVELTAL,:ZYGARDE,:DIANCIE,:HOOPA,
-                :VOLCANION,:COSMOG,:COSMOEM,:SOLGALEO,:LUNALA,:NECROZMA,:MAGEARNA,
-                :MARSHADOW,:ZERAORA,:ZACIAN,:ZAMAZENTA,:ETERNATUS,:ZARUDE]
     for i in blacklist
       return false if isConst?(pokemon.species,PBSpecies,i)
     end
@@ -451,7 +444,8 @@ class StandardRestriction
       return false
     end
 =end
-    return false if isEternal?(pokemon)
+    # Special species and species originating from MYSTERY ZONE are banned
+    return false if isEternal?(pokemon) || isSpecial?(pokemon)
     return true
   end
 end

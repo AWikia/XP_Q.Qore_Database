@@ -463,15 +463,19 @@ class FightMenuButtons < BitmapSprite
         maccuracy="---"
       end
       y+=UPPERGAP
+      
       self.bitmap.blt(x,y,@buttonbitmap.bitmap,Rect.new(192,moves[i].type*46,192,46))
-      self.bitmap.blt(416+108,20+UPPERGAP,@catbitmap.bitmap,Rect.new(64*$PokemonSystem.colortige,moves[i].category*28,64,28))
-      self.bitmap.blt(416,20+UPPERGAP,@typebitmap.bitmap,Rect.new(64*$PokemonSystem.colortige,moves[i].type*28,64,28))
+      self.bitmap.blt(416+108,20+UPPERGAP,@catbitmap.bitmap,Rect.new(64*0,moves[i].category*28,64,28))
+      self.bitmap.blt(416,20+UPPERGAP,@typebitmap.bitmap,Rect.new(64*0,moves[i].type*28,64,28))
       textpos.push([_INTL("{1}",moves[i].name),x+96,y+4,2,
-         typeColors[moves[i].type][0],typeColors[moves[i].type][1],1])
+         @typebitmap.bitmap.get_pixel(2,(moves[i].type*28)+2),@typebitmap.bitmap.get_pixel(2,(moves[i].type*28)+27),1])
       if moves[i].totalpp>0
         ppfraction=(4.0*moves[i].pp/moves[i].totalpp).ceil
         textpos.push([_INTL("PP: {1}/{2}",moves[i].pp,moves[i].totalpp),
            448,50+UPPERGAP,2,ppcolors[(4-ppfraction)*2],ppcolors[(4-ppfraction)*2+1]])
+        textpos.push([_INTL("P: {1} A: {2}",mbasedmg,maccuracy),
+           448+108,50+UPPERGAP,2,textbase,textshadow])
+      else
         textpos.push([_INTL("P: {1} A: {2}",mbasedmg,maccuracy),
            448+108,50+UPPERGAP,2,textbase,textshadow])
       end

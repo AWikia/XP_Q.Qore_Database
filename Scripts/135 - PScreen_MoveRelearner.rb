@@ -97,8 +97,8 @@ class MoveRelearnerScene
     overlay.clear
     textpos=[]
     imagepos=[]
-    type1rect=Rect.new(64*$PokemonSystem.colortige,@pokemon.type1*28,64,28)
-    type2rect=Rect.new(64*$PokemonSystem.colortige,@pokemon.type2*28,64,28)
+    type1rect=Rect.new(64*0,@pokemon.type1*28,64,28)
+    type2rect=Rect.new(64*0,@pokemon.type2*28,64,28)
     if @pokemon.type1==@pokemon.type2
       overlay.blt(400+64,70,@typebitmap.bitmap,type1rect)
     else
@@ -116,10 +116,10 @@ class MoveRelearnerScene
       if moveobject
         movedata=PBMoveData.new(moveobject)
         if movedata
-          imagepos.push(["Graphics/UI/Types",12,yPos+2,64*$PokemonSystem.colortige,
+          imagepos.push(["Graphics/UI/Types",12,yPos+2,64*0,
           movedata.type*28,64,28])
           textpos.push([PBMoves.getName(moveobject),80,yPos,0,
-             typeColors[movedata.type][dark[0]],typeColors[movedata.type][dark[1]]])
+             baseColor,shadowColor])
           if movedata.totalpp>0
             textpos.push([_INTL("PP"),112,yPos+32,0,
                baseColor,shadowColor])
@@ -149,7 +149,7 @@ class MoveRelearnerScene
     textpos.push([accuracy==0 ? "---" : sprintf("%d",accuracy),
           468+128,178,2,baseColor,shadowColor])
     pbDrawTextPositions(overlay,textpos)
-    imagepos.push(["Graphics/UI/category",436+128,116,64*$PokemonSystem.colortige,category*28,64,28])
+    imagepos.push(["Graphics/UI/category",436+128,116,64*0,category*28,64,28])
     if @sprites["commands"].index<@moves.length-1
       imagepos.push(["Graphics/UI/"+getDarkModeFolder+"/Move Reminder/buttons",48,350,0,0,76,32])
     end

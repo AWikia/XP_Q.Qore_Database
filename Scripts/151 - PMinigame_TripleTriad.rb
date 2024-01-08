@@ -72,7 +72,7 @@ class TriadCard
     end
     if type>=0
       typebitmap=AnimatedBitmap.new("Graphics/UI/Types")
-      typerect=Rect.new(64*$PokemonSystem.colortige,type*28,64,28)
+      typerect=Rect.new(64*0,type*28,64,28)
       bitmap.blt(10,28,typebitmap.bitmap,typerect,192)
       typebitmap.dispose
     end
@@ -87,7 +87,7 @@ class TriadCard
     iconfile=pbCheckPokemonIconFiles([@species,0,false,0,false])
     typebitmap=AnimatedBitmap.new("Graphics/UI/Types")
     icon=AnimatedBitmap.new(iconfile)
-    typerect=Rect.new(64*$PokemonSystem.colortige,@type*28,64,28)
+    typerect=Rect.new(64*0,@type*28,64,28)
     if owner==2
       # opponent
       bitmap.fill_rect(0,0,84,84,Color.new(255,64,64))

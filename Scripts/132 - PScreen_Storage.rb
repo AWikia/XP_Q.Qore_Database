@@ -2513,8 +2513,8 @@ class PokemonStorageScene
         imagepos.push(["Graphics/UI/shiny",156,198,0,0,-1,-1])
       end
       typebitmap=AnimatedBitmap.new("Graphics/UI/Types")
-      type1rect=Rect.new(64*$PokemonSystem.colortige,pokemon.type1*28,64,28)
-      type2rect=Rect.new(64*$PokemonSystem.colortige,pokemon.type2*28,64,28)
+      type1rect=Rect.new(64*0,pokemon.type1*28,64,28)
+      type2rect=Rect.new(64*0,pokemon.type2*28,64,28)
       if pokemon.type1==pokemon.type2
         overlay.blt(52,272,typebitmap.bitmap,type1rect)
       else

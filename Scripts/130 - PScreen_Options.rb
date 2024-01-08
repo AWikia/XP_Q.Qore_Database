@@ -602,7 +602,7 @@ class PokemonSystem
     @sevolume         = 100 # Volume of sound effects
     @textinput        = 0   # Text input mode (0=cursor, 1=keyboard)
     @night            = 2   # Night Style (0=Vanilla, 1=Cool, 2=Warm, 3=Crossover)
-    @colortige        = 1   # Cartidge Style (0=GenIV with Color text, 1=GenIV with Light Text, 2=GenIV with Dark Text, 3=Creamy white with light colored text/based on GenIV style, 4=FRLG Style)
+    @colortige        = 0   # Cartidge Style (0=GenIV with Color text, 1=GenIV with Light Text, 2=GenIV with Dark Text, 3=Creamy white with light colored text/based on GenIV style, 4=FRLG Style)
     @outfit           = 0   # Player's Appearance
     @doublebattles    = 0   # Battle Mode (0=Single Wild Battles, 1=Double Wild Battles) - Ignored while you're with someone
     @mgraphic         = 0   # Mirrored Graphics in some places
@@ -687,7 +687,7 @@ end
     return (!@night) ? 2 : @night
   end
 
-  def colortige
+  def colortige # Unused
     return (!@colortige) ? 0 : @colortige
   end
 
@@ -836,6 +836,12 @@ There are different modes:
          proc { $PokemonSystem.mgraphic },
          proc {|value| $PokemonSystem.mgraphic = value }
        ),
+         NumberOption.new(_INTL("Pokémon Type Icon Style"),1,5,
+           proc { $PokemonSystem.colortige },
+           proc {|value| $PokemonSystem.colortige = value },
+           [_INTL("Colored Text"), _INTL("Light Text"), _INTL("Dark Text"), _INTL("Minimal"), _INTL("Retro")],
+           "Sets style of All Icon graphics"
+         ),
     if $Trainer && false
       @PokemonOptions+=[ # Outfit style (Only when not in title screen)
         NumberOption.new(_INTL("Outfit Style"),1,4,
@@ -1129,12 +1135,6 @@ There are different modes:
           proc {|value| $PokemonSystem.customshiny = value },
         "If this is set to on, certain Pokémon will have distinct customized shiny sprites between forms instead of sharing the same shiny sprite."
         ),
-         NumberOption.new(_INTL("Pokémon Type Icon Style"),1,5,
-           proc { $PokemonSystem.colortige },
-           proc {|value| $PokemonSystem.colortige = value },
-           [_INTL("Colored Text"), _INTL("Light Text"), _INTL("Dark Text"), _INTL("Minimal"), _INTL("Retro")],
-           "Sets style of All Icon graphics"
-         ),
          NumberOption.new(_INTL("Screen Border Graphic"),1,$BORDERS.length,
             proc { $PokemonSystem.bordergraphic },
             proc {|value|

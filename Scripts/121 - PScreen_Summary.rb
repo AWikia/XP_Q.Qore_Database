@@ -335,11 +335,11 @@ class PokemonSummaryScene
     pbDrawImagePositions(overlay,gendericon)
     pbDrawTextPositions(overlay,textpos)
     drawMarkings(overlay,65,291,72,20,pokemon.markings)
-    colorrect=Rect.new(64*$PokemonSystem.colortige,colourd*28,64,28)
-    type1rect=Rect.new(64*$PokemonSystem.colortige,pokemon.type1*28,64,28)
-    type2rect=Rect.new(64*$PokemonSystem.colortige,pokemon.type2*28,64,28)
-    compat1rect=Rect.new(64*$PokemonSystem.colortige,(pokemon.egroup1-1)*28,64,28)
-    compat2rect=Rect.new(64*$PokemonSystem.colortige,(pokemon.egroup2-1)*28,64,28)
+    colorrect=Rect.new(64*0,colourd*28,64,28)
+    type1rect=Rect.new(64*0,pokemon.type1*28,64,28)
+    type2rect=Rect.new(64*0,pokemon.type2*28,64,28)
+    compat1rect=Rect.new(64*0,(pokemon.egroup1-1)*28,64,28)
+    compat2rect=Rect.new(64*0,(pokemon.egroup2-1)*28,64,28)
     overlay.blt(532,82,@colorbitmap.bitmap,colorrect)
     if pokemon.egroup1==pokemon.egroup2
       overlay.blt(532,114,@compatbitmap.bitmap,compat1rect)
@@ -918,9 +918,9 @@ def drawPageFive(pokemon)
     end
     hiddenpower=pbHiddenPower(@pokemon.iv)
     colourd=pokemon.favcolor
-    colorrect=Rect.new(64*$PokemonSystem.colortige,colourd*28,64,28)
-    type1rect=Rect.new(64*$PokemonSystem.colortige,hiddenpower[0]*28,64,28)
-    type2rect=Rect.new(64*$PokemonSystem.colortige,pokemon.favtype*28,64,28)
+    colorrect=Rect.new(64*0,colourd*28,64,28)
+    type1rect=Rect.new(64*0,hiddenpower[0]*28,64,28)
+    type2rect=Rect.new(64*0,pokemon.favtype*28,64,28)
     overlay.blt(516,120-64,@typebitmap.bitmap,type1rect)
     overlay.blt(516,152-64,@colorbitmap.bitmap,colorrect)
     overlay.blt(516,184-64,@typebitmap.bitmap,type2rect)
@@ -1048,10 +1048,10 @@ def drawPageFive(pokemon)
     dark = (isDarkMode?) ? [2,0] : [1,0]
     for i in 0...pokemon.moves.length
       if pokemon.moves[i].id>0
-        imagepos.push(["Graphics/UI/Types",376,yPos+2,64*$PokemonSystem.colortige,
+        imagepos.push(["Graphics/UI/Types",376,yPos+2,64*0,
            pokemon.moves[i].type*28,64,28])
         textpos.push([PBMoves.getName(pokemon.moves[i].id),444,yPos,0,
-           typeColors[pokemon.moves[i].type][dark[0]],typeColors[pokemon.moves[i].type][dark[1]]])
+           base,shadow])
         if pokemon.moves[i].totalpp>0
           textpos.push([_ISPRINTF("PP"),470,yPos+32,0,
              base,shadow])
@@ -1113,7 +1113,7 @@ def drawPageFive(pokemon)
           340,186,1,base,shadow] # Was 280
     ]
     pbDrawTextPositions(overlay,textpos)
-    imagepos=[["Graphics/UI/category",290,124,64*$PokemonSystem.colortige,category*28,64,28]] # Was 230
+    imagepos=[["Graphics/UI/category",290,124,64*0,category*28,64,28]] # Was 230
     pbDrawImagePositions(overlay,imagepos)
     drawTextEx(overlay,4,222,366,5,
        pbGetMessage(MessageTypes::MoveDescriptions,moveid),
@@ -1161,8 +1161,8 @@ def drawPageFive(pokemon)
        [_INTL("Power"),20,154,0,base2,shadow],
        [_INTL("Accuracy"),20,186,0,base2,shadow]
     ]
-    type1rect=Rect.new(64*$PokemonSystem.colortige,pokemon.type1*28,64,28)
-    type2rect=Rect.new(64*$PokemonSystem.colortige,pokemon.type2*28,64,28)
+    type1rect=Rect.new(64*0,pokemon.type1*28,64,28)
+    type2rect=Rect.new(64*0,pokemon.type2*28,64,28)
     bgpane=[["Graphics/UI/"+getDarkModeFolder+"/Summary/overlay_movedetail",0,56,0,0,-1,-1]]
     pbDrawImagePositions(overlay,bgpane)
     if pokemon.type1==pokemon.type2
@@ -1185,10 +1185,10 @@ def drawPageFive(pokemon)
       dark = (isDarkMode?) ? [2,0] : [1,0]
       if moveobject
         if moveobject.id!=0
-          imagepos.push(["Graphics/UI/Types",376,yPos+2,64*$PokemonSystem.colortige,
+          imagepos.push(["Graphics/UI/Types",376,yPos+2,64*0,
              moveobject.type*28,64,28])
           textpos.push([PBMoves.getName(moveobject.id),444,yPos,0,
-             typeColors[moveobject.type][dark[0]],typeColors[moveobject.type][dark[1]]])
+             base,shadow])
           if moveobject.totalpp>0
             textpos.push([_ISPRINTF("PP"),470,yPos+32,0,
                base,shadow])

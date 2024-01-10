@@ -12377,16 +12377,17 @@ MultipleForms.register(:MSEDGE,{
    d|=((pokemon.personalID>>16)&3)<<4
    d|=((pokemon.personalID>>24)&3)<<6
    d%=25
-   next (d<2) ? d+1 : 0
+   next (d<3) ? d+1 : 0
 },
 "type1"=>proc{|pokemon|
-   types=[:CHLOROPHYLL,:HERB,:POISON]
+   types=[:CHLOROPHYLL,:HERB,:POISON,:FIRE]
    next getID(PBTypes,types[pokemon.form])
 },
 "color"=>proc{|pokemon|
    next   if pokemon.form==0
    next 2 if pokemon.form==1
    next 6 if pokemon.form==2
+   next 0 if pokemon.form==3
 }
 })
 

@@ -517,13 +517,13 @@ MapPosition=6,23,11
 MapSize=2,1111
 BattleBack=Xenuora
 Bicycle=false
-MapPosition=6,28,18
+MapPosition=6,27,17
 Outdoor=true
 ShowArea=true
 [098]
 # XenuLeauge
 BattleBack=IndoorC
-MapPosition=6,28,18
+MapPosition=6,27,17
 [099]
 # Jelly Queen
 BattleBack=EliteA
@@ -2377,7 +2377,7 @@ PastMap=524
 [409]
 # XenuLeage
 BattleBack=IndoorB
-MapPosition=6,29,18
+MapPosition=6,28,17
 [410]
 # Upstairs Keniora Sechs
 BattleBack=Keniora

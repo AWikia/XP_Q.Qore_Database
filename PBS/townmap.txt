@@ -131,10 +131,10 @@ Point=22,11,Xenuora4,,,95,22,5,
 Point=23,11,Xenuora4,PkMn Care,95,22,5,
 Point=22,12,Xenuora4,,95,22,5,
 Point=23,12,Xenuora4,,95,22,5,
-Point=28,18,Xenuora5,Gym5 + Xenuleage,97,23,23,
-Point=28,19,Xenuora5,Gym5,97,23,23,
-Point=29,18,Xenuora5,Gym5,97,23,23,
-Point=29,19,Xenuora5,Gym5,97,23,23,
+Point=27,17,Xenuora5,Gym5 + Xenuleage,97,23,23,
+Point=27,17,Xenuora5,Gym5,97,23,23,
+Point=28,18,Xenuora5,Gym5,97,23,23,
+Point=28,18,Xenuora5,Gym5,97,23,23,
 [7]
 Filename=map6.png
 Name=Annuora

@@ -557,7 +557,7 @@ ShowArea=true
 # Annuora Drei
 MapSize=2,1111
 BattleBack=Annuora
-MapPosition=7,17,0
+MapPosition=7,17,1
 Outdoor=true
 ShowArea=true
 [108]
@@ -592,7 +592,7 @@ ShowArea=true
 # Nebula Cave {west}
 BattleBack=CaveDarker
 Bicycle=true
-MapPosition=7,17,0
+MapPosition=7,17,1
 DarkMap=true
 WildBattleBGM=Battler_Nebula Cave.mp3
 ShowArea=true
@@ -2792,7 +2792,7 @@ ShowArea=true
 [486]
 # Quora Eins
 BattleBack=Cave
-MapPosition=7,17,1
+MapPosition=7,17,2
 ShowArea=true
 [487]
 # Quora Eins

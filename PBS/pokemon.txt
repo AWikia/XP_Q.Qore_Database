@@ -37517,8 +37517,8 @@ BattlerEnemyY=10
 BattlerAltitude=0
 Evolutions=
 [1380]
-Name=Gourging Fire
-InternalName=GOURGINGFIRE
+Name=Gouging Fire
+InternalName=GOUGINGFIRE
 Type1=FIRE
 Type2=DRAGON
 BaseStats=105,115,121,91,65,93

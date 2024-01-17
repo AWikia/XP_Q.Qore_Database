@@ -446,8 +446,7 @@ FUSIONFINDEREXCLUSIVES=[
 #===============================================================================
 REGIONMAPEXTRAS = [
    [0,51,16,15,"mapHiddenBerth",false],
-   [0,52,20,14,"mapHiddenFaraday",false],
-   [2,137,7,6,"Navel",false]
+   [0,52,20,14,"mapHiddenFaraday",false]
 ]
 
 #===============================================================================

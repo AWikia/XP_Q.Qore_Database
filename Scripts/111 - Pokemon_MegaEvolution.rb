@@ -1323,6 +1323,8 @@ MultipleForms.register(:GIRAFARIG,{
 }
 })
 
+
+
 MultipleForms.register(:ANT1,{
 "getMegaForm"=>proc{|pokemon|
    natures=[PBNatures::LONELY,PBNatures::BOLD,PBNatures::RELAXED,
@@ -1333,25 +1335,37 @@ MultipleForms.register(:ANT1,{
    next (natures.include?(pokemon.nature)) ? 2 : 1 if isConst?(pokemon.item,PBItems,:ANT1ITE)
    next
 },
+"getPrimalForm"=>proc{|pokemon|
+   next 3 if isConst?(pokemon.item,PBItems,:GOLDORB)
+   next
+},
+"type1"=>proc{|pokemon|
+   next getID(PBTypes,:MAGIC) if pokemon.form==3
+   next
+},
 "type2"=>proc{|pokemon|
    next getID(PBTypes,:ELECTRIC) if pokemon.form==1
    next getID(PBTypes,:ICE) if pokemon.form==2
+   next getID(PBTypes,:HERB) if pokemon.form==3
    next
 },
 "getBaseStats"=>proc{|pokemon|
    next [100,139,203,58,90,110] if pokemon.form==1
    next [100,124,188,68,100,120] if pokemon.form==2
+   next [100,154,208,48,90,100] if pokemon.form==3
    next
 },
 "getAbilityList"=>proc{|pokemon|
    next [[getID(PBAbilities,:STATIC),0]] if pokemon.form==1
    next [[getID(PBAbilities,:FROZENBODY),0]] if pokemon.form==2
+   next [[getID(PBAbilities,:MAGICBLOCK),0]] if pokemon.form==3
    next
 },
 "color"=>proc{|pokemon|
    next if pokemon.form==0
    next 3 if pokemon.form==1
    next 1 if pokemon.form==2
+   next 2 if pokemon.form==3
 },
 "height"=>proc{|pokemon|
    next if pokemon.form==0
@@ -1361,11 +1375,13 @@ MultipleForms.register(:ANT1,{
    next     if pokemon.form==0
    next 500 if pokemon.form==1
    next 515 if pokemon.form==2
+   next 510 if pokemon.form==3
 },
 "dexEntry"=>proc{|pokemon|
    next if pokemon.form==0
    next _INTL("Once ANT1 gets mega-evolved, it became full yellow body with the ability to Paralyze almost any target once one makes contact with it.") if pokemon.form==1
    next _INTL("This ANT1 has the ability to freeze targets if one makes contact with it, something other Mega Evolved Pokémon don't have at the moment.") if pokemon.form==2
+   next _INTL("This ANT1 appears to be dated back to the old ages. Nothing else known yet") if pokemon.form==3
 }
 })
 
@@ -1375,21 +1391,33 @@ MultipleForms.register(:MAKTV,{
    next 1 if isConst?(pokemon.item,PBItems,:MAKITE)
    next
 },
+"getPrimalForm"=>proc{|pokemon|
+   next 2 if isConst?(pokemon.item,PBItems,:SILVERORB)
+   next
+},
+"type1"=>proc{|pokemon|
+   next getID(PBTypes,:STEEL) if pokemon.form==2
+   next
+},
 "type2"=>proc{|pokemon|
    next getID(PBTypes,:PSYCHIC) if pokemon.form==1
+   next getID(PBTypes,:SHARPENER) if pokemon.form==2
    next
 },
 "getBaseStats"=>proc{|pokemon|
    next [100,105,90,78,149,178] if pokemon.form==1
+   next [100,80,100,48,144,218] if pokemon.form==2
    next
 },
 "getAbilityList"=>proc{|pokemon|
    next [[getID(PBAbilities,:ASSAULTSPIRIT),0]] if pokemon.form==1
+   next [[getID(PBAbilities,:SOUPRSOWL),0]] if pokemon.form==2
    next
 },
 "color"=>proc{|pokemon|
    next if pokemon.form==0
    next 3 if pokemon.form==1
+   next 7 if pokemon.form==2
 },
 "height"=>proc{|pokemon|
    next if pokemon.form==0
@@ -1398,10 +1426,12 @@ MultipleForms.register(:MAKTV,{
 "weight"=>proc{|pokemon|
    next     if pokemon.form==0
    next 100 if pokemon.form==1
+   next 70  if pokemon.form==2
 },
 "dexEntry"=>proc{|pokemon|
    next if pokemon.form==0
    next _INTL("Once a Mak TV gets mega-evolved, it became a pure pink body with the ability to protect others from Pokémon with dangerous abilities.") if pokemon.form==1
+   next _INTL("This Makedonia TV appears to be dated back to the old ages. Nothing else known yet") if pokemon.form==2
 }
 })
 

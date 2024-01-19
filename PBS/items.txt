@@ -1011,3 +1011,5 @@
 985,FUSIONFINDER,Fusion Finder,Fusion Finder,8,0,A tool that can search out Fusion Pokémon that are hiding in the tall grass. Its battery is recharged as you walk.,2,0,6,
 993,WHITEFLAG,White Flag,White Flags,1,4000,An item to be held by a Pokémon. This flag makes the Pokémon mostly eligible in facilities and boosts the power of its moves in battle.,0,0,0,
 994,BLACKFLAG,Black Flag,Black Flags,1,4000,An item to be held by a Pokémon. This flag makes the Pokémon help in making eggs hatching faster and doubles its stats every second turn in battle.,0,0,0,
+1000,GOLDORB,Gold Orb,Gold Orbs,1,0,A shiny golden orb that is said to have a legend tied to it. It's known to have a deep connection to ANT1.,0,0,0,
+1001,SILVERORB,Silver Orb,Silver Orbs,1,0,A shiny golden orb that is said to have a legend tied to it. It's known to have a deep connection to Makedonia TV.,0,0,0,

@@ -1035,6 +1035,10 @@ def pbDisposed?(x)
   end
 end
 
+def isDarkColor(clr)
+   return (clr.red*0.299+clr.green*0.587+clr.blue*0.114)<128
+end
+
 def isDarkBackground(background,rect=nil)
   if !background || background.disposed?
     return true
@@ -1088,7 +1092,7 @@ def isDarkWindowskin(windowskin)
     clr=windowskin.get_pixel(windowskin.width/2, windowskin.height/2)
     #return (clr.red+clr.green+clr.blue)/3 < 128
    # return (clr.red*0.290+clr.green*0.600+clr.blue*0.118)<120
-   return (clr.red*0.299+clr.green*0.587+clr.blue*0.114)<128
+   return isDarkColor(clr)
   end
 end
 

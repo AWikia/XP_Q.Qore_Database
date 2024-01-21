@@ -46,12 +46,7 @@ class CommandMenuDisplay
     @display=nil
     if PokeBattle_SceneConstants::USECOMMANDBOX
       @display=IconSprite.new(0,Graphics.height-96,viewport)
-  #    @display.setBitmap("Graphics/UI/battleCommand")
-      if pbResolveBitmap(sprintf("Graphics/Battle Backs/Backgrounds/"+bg+"/MessageA.png"))
-        @display.setBitmap("Graphics/Battle Backs/Backgrounds/" + bg + "/MessageA")
-      else
-        @display.setBitmap("Graphics/Battle Backs/Backgrounds/000/MessageA")
-      end
+      @display.setBitmap("Graphics/UI/Battle/overlay_command")
     end
     @window=Window_CommandPokemon.newWithSize([],
        Graphics.width-240,Graphics.height-96,240,96,viewport)
@@ -233,12 +228,7 @@ class FightMenuDisplay
     @display=nil
     if PokeBattle_SceneConstants::USEFIGHTBOX
       @display=IconSprite.new(0,Graphics.height-96,viewport)
-#      @display.setBitmap("Graphics/UI/battleFight")
-      if pbResolveBitmap(sprintf("Graphics/Battle Backs/Backgrounds/"+bg+"/MessageB.png"))
-        @display.setBitmap("Graphics/Battle Backs/Backgrounds/" + bg + "/MessageB")
-      else
-        @display.setBitmap("Graphics/Battle Backs/Backgrounds/000/MessageB")
-      end
+      @display.setBitmap("Graphics/UI/Battle/overlay_fight")
     end
     @window=Window_CommandPokemon.newWithSize([],0,Graphics.height-96,320,96,viewport)
     @window.columns=2
@@ -1498,8 +1488,8 @@ class PokeBattle_Scene
 
   def pbShowWindow(windowtype)
     @sprites["messagebox"].visible = (windowtype==MESSAGEBOX ||
-                                      windowtype==COMMANDBOX ||
-                                      windowtype==FIGHTBOX ||
+                                  #    windowtype==COMMANDBOX ||
+                                  #    windowtype==FIGHTBOX ||
                                       windowtype==BLANK )
     @sprites["messagewindow"].visible = (windowtype==MESSAGEBOX)
     @sprites["commandwindow"].visible = (windowtype==COMMANDBOX)
@@ -1828,6 +1818,7 @@ class PokeBattle_Scene
     enemybase="Graphics/Battle Backs/Bases/Enemy/"+base
     playerbase="Graphics/Battle Backs/Bases/Player/"+base
     pbAddPlane("battlebg",battlebg,@viewport)
+    pbAddSprite("battlebg2",0,0,battlebg,@viewport) # CLR
     pbAddSprite("playerbase",
        PokeBattle_SceneConstants::PLAYERBASEX,
        PokeBattle_SceneConstants::PLAYERBASEY,playerbase,@viewport)
@@ -1838,6 +1829,7 @@ class PokeBattle_Scene
        PokeBattle_SceneConstants::FOEBASEY,enemybase,@viewport)
     @sprites["enemybase"].x-=@sprites["enemybase"].bitmap.width/2 if @sprites["enemybase"].bitmap!=nil
     @sprites["enemybase"].y-=@sprites["enemybase"].bitmap.height/2 if @sprites["enemybase"].bitmap!=nil
+    @sprites["battlebg2"].visible=false # CLR
     @sprites["battlebg"].z=0
     @sprites["playerbase"].z=1
     @sprites["enemybase"].z=1
@@ -2088,13 +2080,12 @@ end
       @sprites["battlebox2"]=PokemonDataBox.new(battle.battlers[2],battle.doublebattle,@viewport)
       @sprites["battlebox3"]=PokemonDataBox.new(battle.battlers[3],battle.doublebattle,@viewport)
     end
-  #  pbAddSprite("messagebox",0,Graphics.height-96,"Graphics/UI/battleMessage",@viewport)
-    if pbResolveBitmap(sprintf("Graphics/Battle Backs/Backgrounds/"+pbGetBackdrop+"/MessageC.png"))
-      pbAddSprite("messagebox",0,Graphics.height-96,"Graphics/Battle Backs/Backgrounds/" + pbGetBackdrop + "/MessageC",@viewport)
-    else
-      pbAddSprite("messagebox",0,Graphics.height-96,"Graphics/Battle Backs/Backgrounds/000/MessageC",@viewport)
-    end
-     $isDarkMessage=isDarkBackground(@sprites["messagebox"].bitmap)
+    clr = @sprites["battlebg2"].bitmap.get_pixel(@sprites["battlebg2"].bitmap.width/2, @sprites["battlebg2"].bitmap.height/2)
+    pbAddSprite("backgroundbox",0,Graphics.height-96,"Graphics/UI/Battle/overlay_background",@viewport)
+    @sprites["backgroundbox"].z=89
+    @sprites["backgroundbox"].bitmap.fill_rect(0,0,@sprites["backgroundbox"].bitmap.width,@sprites["backgroundbox"].bitmap.height,clr)
+    $isDarkMessage=isDarkColor(clr)
+    pbAddSprite("messagebox",0,Graphics.height-96,"Graphics/UI/Battle/overlay_message",@viewport)
     @sprites["messagebox"].z=90
     @sprites["helpwindow"]=Window_UnformattedTextPokemon.newWithSize("",0,0,32,32,@viewport)
     @sprites["helpwindow"].visible=false

@@ -198,6 +198,8 @@ class CommandMenuButtons < BitmapSprite
       cmdarray=[5,7,6,3] # Safari Zone battle
     when 3
       cmdarray=[0,8,1,3] # Bug Catching Contest
+    when 4
+      cmdarray=[0,2,1,9] # Use "Cancel"
     end
     for i in 0...4
       next if i==index
@@ -2550,14 +2552,16 @@ end
   def pbCommandMenu(index)
     shadowTrainer=(hasConst?(PBTypes,:SHADOW) && @battle.opponent)
     shadowTrainer=false # Comment this out to enable the use of Call
+    cantrun = @battle.choices[0][0] > 0
     ret=pbCommandMenuEx(index,[
        _INTL("What will {1} do?",@battle.battlers[index].name),
        _INTL("Fight"),
        _INTL("Bag"),
        _INTL("Pokémon"),
-       shadowTrainer ? _INTL("Call") : _INTL("Run")
-    ],(shadowTrainer ? 1 : 0))
-    ret=4 if ret==3 && shadowTrainer   # Convert "Run" to "Call"
+       cantrun ? _INTL("Cancel") : shadowTrainer ? _INTL("Call") : _INTL("Run")
+    ],(cantrun ? 4 : shadowTrainer ? 1 : 0))
+    ret=-1 if ret==3 && cantrun         # Convert "Run" to "Cancel"
+    ret=4  if ret==3 && shadowTrainer   # Convert "Run" to "Call"
     return ret
   end
 
@@ -2565,7 +2569,7 @@ end
     pbShowWindow(COMMANDBOX)                   #       1 - Shadow Pokémon battle
     cw=@sprites["commandwindow"]               #       2 - Safari Zone
     cw.setTexts(texts)                         #       3 - Bug Catching Contest
-    cw.index=@lastcmd[index]
+    cw.index=@lastcmd[index]                   #       4 - regular battle - cancel
     cw.mode=mode
     pbSelectBattler(index)
     pbRefresh

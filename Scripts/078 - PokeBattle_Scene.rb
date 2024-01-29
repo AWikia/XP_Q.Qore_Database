@@ -603,7 +603,7 @@ class PokemonDataBox < SpriteWrapper
         @spriteX=PokeBattle_SceneConstants::PLAYERBOX_X
         @spriteY=PokeBattle_SceneConstants::PLAYERBOX_Y
         @showhp=true
-        #@showexp=true Goodbye!!!
+        @showexp=true
       when 1 
         @databox=AnimatedBitmap.new("Graphics/UI/Battle/databox_normal_foe")
         @spriteX=PokeBattle_SceneConstants::FOEBOX_X
@@ -613,6 +613,8 @@ class PokemonDataBox < SpriteWrapper
       end
     end
     @statuses=AnimatedBitmap.new(_INTL("Graphics/UI/Battle/icon_statuses"))
+    @hpbar=AnimatedBitmap.new(_INTL("Graphics/UI/Battle/overlay_hp"))
+    @expbar=AnimatedBitmap.new(_INTL("Graphics/UI/Battle/overlay_exp"))
     @contents=BitmapWrapper.new(@databox.width,@databox.height)
     if @dark
       @numberbitmap=AnimatedBitmap.new(_INTL("Graphics/UI/icon_numbers_white"))
@@ -628,6 +630,8 @@ class PokemonDataBox < SpriteWrapper
 
   def dispose
     @statuses.dispose
+    @hpbar.dispose
+    @expbar.dispose
     @databox.dispose
     @numberbitmap.dispose
     @contents.dispose
@@ -787,38 +791,27 @@ class PokemonDataBox < SpriteWrapper
       self.bitmap.blt(@spritebaseX+24,36,@statuses.bitmap,
          Rect.new(0,(@battler.status-1)*16,44,16))
     end
-    hpGaugeSize=PokeBattle_SceneConstants::HPGAUGESIZE
-    hpgauge=@battler.totalhp==0 ? 0 : (self.hp*hpGaugeSize/@battler.totalhp)
-    hpgauge=2 if hpgauge==0 && self.hp>0
-    hpzone=0
-    hpzone=1 if self.hp<=(@battler.totalhp/2).floor
-    hpzone=2 if self.hp<=(@battler.totalhp/4).floor
-    hpcolors=[
-       PokeBattle_SceneConstants::HPCOLORGREENDARK,
-       PokeBattle_SceneConstants::HPCOLORGREEN,
-       PokeBattle_SceneConstants::HPCOLORYELLOWDARK,
-       PokeBattle_SceneConstants::HPCOLORYELLOW,
-       PokeBattle_SceneConstants::HPCOLORREDDARK,
-       PokeBattle_SceneConstants::HPCOLORRED
-    ]
-    # fill with black (shows what the HP used to be)
+    # Draw HP bar
+    hpgauge = (@battler.totalhp==0) ? 0 : self.hp*@hpbar.bitmap.width/@battler.totalhp
+    hpgauge = 2 if hpgauge<2 && self.hp>0
+    hpzone = 0
+    hpzone = 1 if self.hp<=(@battler.totalhp/2).floor
+    hpzone = 2 if self.hp<=(@battler.totalhp/4).floor
     hpGaugeX=PokeBattle_SceneConstants::HPGAUGE_X
     hpGaugeY=PokeBattle_SceneConstants::HPGAUGE_Y
-    if @animatingHP && self.hp>0
+    if @animatingHP && self.hp>0   # fill with black (shows what the HP used to be)
       self.bitmap.fill_rect(@spritebaseX+hpGaugeX,hpGaugeY,
-         @starthp*hpGaugeSize/@battler.totalhp,6,Color.new(0,0,0))
+         @starthp*@hpbar.bitmap.width/@battler.totalhp,@hpbar.bitmap.height/3,Color.new(0,0,0))
     end
-    # fill with HP color
-    self.bitmap.fill_rect(@spritebaseX+hpGaugeX,hpGaugeY,hpgauge,2,hpcolors[hpzone*2])
-    self.bitmap.fill_rect(@spritebaseX+hpGaugeX,hpGaugeY+2,hpgauge,4,hpcolors[hpzone*2+1])
+    self.bitmap.blt(@spritebaseX+hpGaugeX,hpGaugeY,@hpbar.bitmap,
+       Rect.new(0,hpzone*@hpbar.bitmap.height/3,hpgauge,@hpbar.bitmap.height/3))
+
     if @showexp
       # fill with EXP color
       expGaugeX=PokeBattle_SceneConstants::EXPGAUGE_X
       expGaugeY=PokeBattle_SceneConstants::EXPGAUGE_Y
-      self.bitmap.fill_rect(@spritebaseX+expGaugeX,expGaugeY,self.exp,2,
-         PokeBattle_SceneConstants::EXPCOLORSHADOW)
-      self.bitmap.fill_rect(@spritebaseX+expGaugeX,expGaugeY+2,self.exp,2,
-         PokeBattle_SceneConstants::EXPCOLORBASE)
+      self.bitmap.blt(@spritebaseX+expGaugeX,expGaugeY,@expbar.bitmap,
+         Rect.new(0,0,self.exp,@expbar.bitmap.height))
     end
   end
 

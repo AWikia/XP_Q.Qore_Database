@@ -37293,7 +37293,7 @@ BattlerAltitude=0
 Evolutions=HYDRAPPLE,HasMove,DRAGONCHEER
 [1372]
 Name=Poltchageist
-InternalName=POLCHAGEIST
+InternalName=POLTCHAGEIST
 Type1=GRASS
 Type2=GHOST
 BaseStats=40,45,45,50,74,54

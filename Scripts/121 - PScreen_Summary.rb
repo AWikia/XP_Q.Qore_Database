@@ -748,17 +748,15 @@ class PokemonSummaryScene
     pbDrawTextPositions(overlay,textpos)
     drawTextEx(overlay,224,316-64,410,4,abilitydesc,base,shadow)
     drawMarkings(overlay,65,291,72,20,pokemon.markings)
-    if pokemon.hp>0
-      hpcolors=[
-         Color.new(24,192,32),Color.new(0,144,0),     # Green
-         Color.new(248,184,0),Color.new(184,112,0),   # Orange
-         Color.new(240,80,32),Color.new(168,48,56)    # Red
+    # Draw HP bar
+    if @pokemon.hp>0
+      hpzone = 0
+      hpzone = 1 if @pokemon.hp<=(@pokemon.totalhp/2).floor
+      hpzone = 2 if @pokemon.hp<=(@pokemon.totalhp/4).floor
+      imagepos = [
+         ["Graphics/UI/Summary/overlay_hp",488,110-64,0,hpzone*6,@pokemon.hp*96/@pokemon.totalhp,6]
       ]
-      hpzone=0
-      hpzone=1 if pokemon.hp<=(@pokemon.totalhp/2).floor
-      hpzone=2 if pokemon.hp<=(@pokemon.totalhp/4).floor
-      overlay.fill_rect(488,110-64,pokemon.hp*96/pokemon.totalhp,2,hpcolors[hpzone*2+1])
-      overlay.fill_rect(488,112-64,pokemon.hp*96/pokemon.totalhp,4,hpcolors[hpzone*2])
+      pbDrawImagePositions(overlay,imagepos)
     end
   end
 

@@ -7,13 +7,13 @@ class PokeSelectionPlaceholderSprite < SpriteWrapper
     yvalues=[32,32,128,128,224,224] # Was [16,0,112,96,208,192]
 =begin
     if $Trainer.isFemale?
-      @pbitmap=AnimatedBitmap.new("Graphics/UI/partyPanelBlank")
+      @panelbgsprite=AnimatedBitmap.new("Graphics/UI/partyPanelBlank")
     else
-      @pbitmap=AnimatedBitmap.new("Graphics/UI/partyPanelBlankm")
+      @panelbgsprite=AnimatedBitmap.new("Graphics/UI/partyPanelBlankm")
     end
 =end
-    @pbitmap=AnimatedBitmap.new("Graphics/UI/"+getDarkModeFolder+"/Party/panel_blank")
-    self.bitmap=@pbitmap.bitmap
+    @panelbgsprite=AnimatedBitmap.new("Graphics/UI/"+getDarkModeFolder+"/Party/panel_blank")
+    self.bitmap=@panelbgsprite.bitmap
     self.x=xvalues[index]
     self.y=yvalues[index]
     @text=nil
@@ -21,8 +21,8 @@ class PokeSelectionPlaceholderSprite < SpriteWrapper
 
   def update
     super
-    @pbitmap.update
-    self.bitmap=@pbitmap.bitmap
+    @panelbgsprite.update
+    self.bitmap=@panelbgsprite.bitmap
   end
 
   def selected
@@ -50,7 +50,7 @@ class PokeSelectionPlaceholderSprite < SpriteWrapper
   end
 
   def dispose
-    @pbitmap.dispose
+    @panelbgsprite.dispose
     super
   end
 end
@@ -259,68 +259,70 @@ class PokeSelectionSprite < SpriteWrapper
     @active=active
     @numberbitmap=AnimatedBitmap.new(_INTL("Graphics/UI/icon_numbers"))
     @numberbitmap2=AnimatedBitmap.new(_INTL("Graphics/UI/icon_numbers_white"))
+    @panelbgsprite = ChangelingSprite.new(0,0,viewport)
+    @panelbgsprite.z = self.z+1
     if active # Rounded panel
       # High Temp
-      @deselbitmapO=AnimatedBitmap.new("Graphics/UI/"+getDarkModeFolder+"/Party/panel_round_orange")
-      @selbitmapO=AnimatedBitmap.new("Graphics/UI/"+getDarkModeFolder+"/Party/panel_round_orange_sel")
+      @panelbgsprite.addBitmap("orange","Graphics/UI/"+getDarkModeFolder+"/Party/panel_round_orange")
+      @panelbgsprite.addBitmap("orangesel","Graphics/UI/"+getDarkModeFolder+"/Party/panel_round_orange_sel")
       # Very High Temp
-      @deselbitmapO2=AnimatedBitmap.new("Graphics/UI/"+getDarkModeFolder+"/Party/panel_round_red")
-      @selbitmapO2=AnimatedBitmap.new("Graphics/UI/"+getDarkModeFolder+"/Party/panel_round_red_sel")
+      @panelbgsprite.addBitmap("red","Graphics/UI/"+getDarkModeFolder+"/Party/panel_round_red")
+      @panelbgsprite.addBitmap("redsel","Graphics/UI/"+getDarkModeFolder+"/Party/panel_round_red_sel")
       # Normal Temp
-      @deselbitmapN=AnimatedBitmap.new("Graphics/UI/"+getDarkModeFolder+"/Party/panel_round_green")
-      @selbitmapN=AnimatedBitmap.new("Graphics/UI/"+getDarkModeFolder+"/Party/panel_round_green_sel")
+      @panelbgsprite.addBitmap("green","Graphics/UI/"+getDarkModeFolder+"/Party/panel_round_green")
+      @panelbgsprite.addBitmap("greensel","Graphics/UI/"+getDarkModeFolder+"/Party/panel_round_green_sel")
       # Low Temp
-      @deselbitmapC=AnimatedBitmap.new("Graphics/UI/"+getDarkModeFolder+"/Party/panel_round_cyan")
-      @selbitmapC=AnimatedBitmap.new("Graphics/UI/"+getDarkModeFolder+"/Party/panel_round_cyan_sel")
+      @panelbgsprite.addBitmap("cyan","Graphics/UI/"+getDarkModeFolder+"/Party/panel_round_cyan")
+      @panelbgsprite.addBitmap("cyansel","Graphics/UI/"+getDarkModeFolder+"/Party/panel_round_cyan_sel")
       # Very Low Temp
-      @deselbitmapC2=AnimatedBitmap.new("Graphics/UI/"+getDarkModeFolder+"/Party/panel_round_blue")
-      @selbitmapC2=AnimatedBitmap.new("Graphics/UI/"+getDarkModeFolder+"/Party/panel_round_blue_sel")
+      @panelbgsprite.addBitmap("blue","Graphics/UI/"+getDarkModeFolder+"/Party/panel_round_blue")
+      @panelbgsprite.addBitmap("bluesel","Graphics/UI/"+getDarkModeFolder+"/Party/panel_round_blue_sel")
       # Egg/Remote Boxes
-      @deselbitmapEgg=AnimatedBitmap.new("Graphics/UI/"+getDarkModeFolder+"/Party/panel_round")
-      @selbitmapEgg=AnimatedBitmap.new("Graphics/UI/"+getDarkModeFolder+"/Party/panel_round_sel")      
+      @panelbgsprite.addBitmap("able","Graphics/UI/"+getDarkModeFolder+"/Party/panel_round")
+      @panelbgsprite.addBitmap("ablesel","Graphics/UI/"+getDarkModeFolder+"/Party/panel_round_sel")      
       # Normal Temp
-      @deselbitmap=AnimatedBitmap.new("Graphics/UI/"+getDarkModeFolder+"/Party/panel_round_yellow")
-      @selbitmap=AnimatedBitmap.new("Graphics/UI/"+getDarkModeFolder+"/Party/panel_round_yellow_sel")
+      @panelbgsprite.addBitmap("yellow","Graphics/UI/"+getDarkModeFolder+"/Party/panel_round_yellow")
+      @panelbgsprite.addBitmap("yellowsel","Graphics/UI/"+getDarkModeFolder+"/Party/panel_round_yellow_sel")
       # Fainted
-      @deselfntbitmap=AnimatedBitmap.new("Graphics/UI/"+getDarkModeFolder+"/Party/panel_round_faint")
-      @selfntbitmap=AnimatedBitmap.new("Graphics/UI/"+getDarkModeFolder+"/Party/panel_round_faint_sel")
+      @panelbgsprite.addBitmap("fainted","Graphics/UI/"+getDarkModeFolder+"/Party/panel_round_faint")
+      @panelbgsprite.addBitmap("faintedsel","Graphics/UI/"+getDarkModeFolder+"/Party/panel_round_faint_sel")
       # Swapping
-      @deselswapbitmap=AnimatedBitmap.new("Graphics/UI/"+getDarkModeFolder+"/Party/panel_round_swap")
-      @selswapbitmap=AnimatedBitmap.new("Graphics/UI/"+getDarkModeFolder+"/Party/panel_round_swap_sel")
-      # Selections
-      @selbitmap2=AnimatedBitmap.new("Graphics/UI/"+getAccentFolder+"/partyPanelRoundSel3_Selection")
-      @selswapbitmap2=AnimatedBitmap.new("Graphics/UI/"+getDarkModeFolder+"/Party/panel_round_swap_sel2")
+      @panelbgsprite.addBitmap("swap","Graphics/UI/"+getDarkModeFolder+"/Party/panel_round_swap")
+      @panelbgsprite.addBitmap("swapsel","Graphics/UI/"+getDarkModeFolder+"/Party/panel_round_swap_sel")
+      @panelbgsprite.addBitmap("swapsel2","Graphics/UI/"+getDarkModeFolder+"/Party/panel_round_swap_sel2")
+      # Selection Cursor
+      @panelbgsprite_cursor=AnimatedBitmap.new("Graphics/UI/"+getAccentFolder+"/partyPanelRoundSel3_Selection")
     else # Rectangular panel
       # High Temp
-      @deselbitmapO=AnimatedBitmap.new("Graphics/UI/"+getDarkModeFolder+"/Party/panel_rect_orange")
-      @selbitmapO=AnimatedBitmap.new("Graphics/UI/"+getDarkModeFolder+"/Party/panel_rect_orange_sel")
+      @panelbgsprite.addBitmap("orange","Graphics/UI/"+getDarkModeFolder+"/Party/panel_rect_orange")
+      @panelbgsprite.addBitmap("orangesel","Graphics/UI/"+getDarkModeFolder+"/Party/panel_rect_orange_sel")
       # Very High Temp
-      @deselbitmapO2=AnimatedBitmap.new("Graphics/UI/"+getDarkModeFolder+"/Party/panel_rect_red")
-      @selbitmapO2=AnimatedBitmap.new("Graphics/UI/"+getDarkModeFolder+"/Party/panel_rect_red_sel")
+      @panelbgsprite.addBitmap("red","Graphics/UI/"+getDarkModeFolder+"/Party/panel_rect_red")
+      @panelbgsprite.addBitmap("redsel","Graphics/UI/"+getDarkModeFolder+"/Party/panel_rect_red_sel")
       # Normal Temp
-      @deselbitmapN=AnimatedBitmap.new("Graphics/UI/"+getDarkModeFolder+"/Party/panel_rect_green")
-      @selbitmapN=AnimatedBitmap.new("Graphics/UI/"+getDarkModeFolder+"/Party/panel_rect_green_sel")
+      @panelbgsprite.addBitmap("green","Graphics/UI/"+getDarkModeFolder+"/Party/panel_rect_green")
+      @panelbgsprite.addBitmap("greensel","Graphics/UI/"+getDarkModeFolder+"/Party/panel_rect_green_sel")
       # Low Temp
-      @deselbitmapC=AnimatedBitmap.new("Graphics/UI/"+getDarkModeFolder+"/Party/panel_rect_cyan")
-      @selbitmapC=AnimatedBitmap.new("Graphics/UI/"+getDarkModeFolder+"/Party/panel_rect_cyan_sel")
+      @panelbgsprite.addBitmap("cyan","Graphics/UI/"+getDarkModeFolder+"/Party/panel_rect_cyan")
+      @panelbgsprite.addBitmap("cyansel","Graphics/UI/"+getDarkModeFolder+"/Party/panel_rect_cyan_sel")
       # Very Low Temp
-      @deselbitmapC2=AnimatedBitmap.new("Graphics/UI/"+getDarkModeFolder+"/Party/panel_rect_blue")
-      @selbitmapC2=AnimatedBitmap.new("Graphics/UI/"+getDarkModeFolder+"/Party/panel_rect_blue_sel")
+      @panelbgsprite.addBitmap("blue","Graphics/UI/"+getDarkModeFolder+"/Party/panel_rect_blue")
+      @panelbgsprite.addBitmap("bluesel","Graphics/UI/"+getDarkModeFolder+"/Party/panel_rect_blue_sel")
       # Egg/Remote Boxes
-      @deselbitmapEgg=AnimatedBitmap.new("Graphics/UI/"+getDarkModeFolder+"/Party/panel_rect")
-      @selbitmapEgg=AnimatedBitmap.new("Graphics/UI/"+getDarkModeFolder+"/Party/panel_rect_sel")   
+      @panelbgsprite.addBitmap("able","Graphics/UI/"+getDarkModeFolder+"/Party/panel_rect")
+      @panelbgsprite.addBitmap("ablesel","Graphics/UI/"+getDarkModeFolder+"/Party/panel_rect_sel")   
       # Normal Temp
-      @deselbitmap=AnimatedBitmap.new("Graphics/UI/"+getDarkModeFolder+"/Party/panel_rect_yellow")
-      @selbitmap=AnimatedBitmap.new("Graphics/UI/"+getDarkModeFolder+"/Party/panel_rect_yellow_sel")
+      @panelbgsprite.addBitmap("yellow","Graphics/UI/"+getDarkModeFolder+"/Party/panel_rect_yellow")
+      @panelbgsprite.addBitmap("yellowsel","Graphics/UI/"+getDarkModeFolder+"/Party/panel_rect_yellow_sel")
       # Fainted
-      @deselfntbitmap=AnimatedBitmap.new("Graphics/UI/"+getDarkModeFolder+"/Party/panel_rect_faint")
-      @selfntbitmap=AnimatedBitmap.new("Graphics/UI/"+getDarkModeFolder+"/Party/panel_rect_faint_sel")
+      @panelbgsprite.addBitmap("fainted","Graphics/UI/"+getDarkModeFolder+"/Party/panel_rect_faint")
+      @panelbgsprite.addBitmap("faintedsel","Graphics/UI/"+getDarkModeFolder+"/Party/panel_rect_faint_sel")
       # Swapping
-      @deselswapbitmap=AnimatedBitmap.new("Graphics/UI/"+getDarkModeFolder+"/Party/panel_rect_swap")
-      @selswapbitmap=AnimatedBitmap.new("Graphics/UI/"+getDarkModeFolder+"/Party/panel_rect_swap_sel")
-      # Selections
-      @selbitmap2=AnimatedBitmap.new("Graphics/UI/"+getAccentFolder+"/partyPanelRectSel3_Selection")
-      @selswapbitmap2=AnimatedBitmap.new("Graphics/UI/"+getDarkModeFolder+"/Party/panel_rect_swap_sel2")
+      @panelbgsprite.addBitmap("swap","Graphics/UI/"+getDarkModeFolder+"/Party/panel_rect_swap")
+      @panelbgsprite.addBitmap("swapsel","Graphics/UI/"+getDarkModeFolder+"/Party/panel_rect_swap_sel")
+      @panelbgsprite.addBitmap("swapsel2","Graphics/UI/"+getDarkModeFolder+"/Party/panel_rect_swap_sel2")
+      # Selection Cursor
+      @panelbgsprite_cursor=AnimatedBitmap.new("Graphics/UI/"+getAccentFolder+"/partyPanelRectSel3_Selection")
     end
     @spriteXOffset=28
     @spriteYOffset=0
@@ -349,6 +351,7 @@ class PokeSelectionSprite < SpriteWrapper
     xvalues=[32,352,32,352,32,352]
     yvalues=[32,32,128,128,224,224] # Was [16,0,112,96,208,192]
     @text=nil
+    @hpbar2    = AnimatedBitmap.new("Graphics/UI/Party/overlay_hp")
     @statuses=AnimatedBitmap.new(_INTL("Graphics/UI/statuses"))
     @hpbar=AnimatedBitmap.new("Graphics/UI/Party/overlay_hp_back")
     @hpbarfnt=AnimatedBitmap.new("Graphics/UI/Party/overlay_hp_back_faint")
@@ -367,9 +370,11 @@ class PokeSelectionSprite < SpriteWrapper
     @refreshing=false 
     @preselected=false
     @switching=false
-    @pkmnsprite.z=self.z+2 # For compatibility with RGSS2
-    @itemsprite.z=self.z+3 # For compatibility with RGSS2
-    @pokeballsprite.z=self.z+1 # For compatibility with RGSS2
+    @pkmnsprite.z=self.z+3 # For compatibility with RGSS2
+    @itemsprite.z=self.z+4 # For compatibility with RGSS2
+    @pokeballsprite.z=self.z+2 # For compatibility with RGSS2
+    @selectionsprite = BitmapSprite.new(@panelbgsprite_cursor.width,@panelbgsprite_cursor.bitmap.height,viewport)
+#    @selectionsprite.bitmap = BitmapWrapper.new(@panelbgsprite_cursor.width,@panelbgsprite_cursor.bitmap.height)
     self.selected=false
     self.x=@spriteX
     self.y=@spriteY
@@ -399,17 +404,19 @@ class PokeSelectionSprite < SpriteWrapper
   end
   
   def dispose
-    @selbitmap.dispose
-    @selbitmap2.dispose
+    @panelbgsprite.dispose
+    @panelbgsprite_cursor.dispose
+    @hpbar2.dispose
     @statuses.dispose
     @hpbar.dispose
-    @deselbitmap.dispose
     @itemsprite.dispose
     @pkmnsprite.dispose
     @pokeballsprite.dispose
     @numberbitmap.dispose
     @numberbitmap2.dispose
     self.bitmap.dispose
+    @selectionsprite.dispose
+    @selectionsprite.bitmap.dispose
     super
   end
 
@@ -472,7 +479,38 @@ class PokeSelectionSprite < SpriteWrapper
     return if @refreshing
     @refreshing=true
     if !self.bitmap || self.bitmap.disposed?
-      self.bitmap=BitmapWrapper.new(@selbitmap.width,@selbitmap.height)
+      self.bitmap=BitmapWrapper.new(@panelbgsprite_cursor.width,@panelbgsprite_cursor.bitmap.height)
+    end
+
+    if @panelbgsprite && !@panelbgsprite.disposed?
+      if self.selected
+        if self.preselected;    							               @panelbgsprite.changeBitmap("swapsel2")
+        elsif @switching;      								               @panelbgsprite.changeBitmap("swapsel")
+        elsif @pokemon.hp<=0;							                	 @panelbgsprite.changeBitmap("faintedsel")
+        elsif @pokemon.tooHighTemp? && !@pokemon.isEgg?;		 @panelbgsprite.changeBitmap("redsel")
+        elsif @pokemon.highTemp? && !@pokemon.isEgg?;		     @panelbgsprite.changeBitmap("orangesel")
+        elsif @pokemon.somewhatlowTemp? && !@pokemon.isEgg?; @panelbgsprite.changeBitmap("greensel")
+        elsif @pokemon.lowTemp? && !@pokemon.isEgg?;	  		 @panelbgsprite.changeBitmap("cyansel")
+        elsif @pokemon.tooLowTemp? && !@pokemon.isEgg?;			 @panelbgsprite.changeBitmap("bluesel")
+        elsif @pokemon.isEgg?;									             @panelbgsprite.changeBitmap("ablesel")
+        else;               							 	                 @panelbgsprite.changeBitmap("yellowsel")
+        end
+      else
+        if self.preselected;     								             @panelbgsprite.changeBitmap("swap")
+        elsif @pokemon.hp<=0; 								               @panelbgsprite.changeBitmap("fainted")
+        elsif @pokemon.tooHighTemp? && !@pokemon.isEgg?;		 @panelbgsprite.changeBitmap("red")
+        elsif @pokemon.highTemp? && !@pokemon.isEgg?;			   @panelbgsprite.changeBitmap("orange")
+        elsif @pokemon.somewhatlowTemp? && !@pokemon.isEgg?; @panelbgsprite.changeBitmap("green")
+        elsif @pokemon.lowTemp? && !@pokemon.isEgg?;			   @panelbgsprite.changeBitmap("cyan")
+        elsif @pokemon.tooLowTemp? && !@pokemon.isEgg?;			 @panelbgsprite.changeBitmap("blue")
+        elsif @pokemon.isEgg?;									             @panelbgsprite.changeBitmap("able")
+        else;      								                           @panelbgsprite.changeBitmap("yellow")
+        end
+      end
+
+      @panelbgsprite.x     = self.x
+      @panelbgsprite.y     = self.y
+      @panelbgsprite.color = self.color
     end
     if @pkmnsprite && !@pkmnsprite.disposed?
       @pkmnsprite.x=self.x+@spriteXOffset
@@ -495,56 +533,19 @@ class PokeSelectionSprite < SpriteWrapper
         @itemsprite.color=self.color
       end
     end
+    if @selectionsprite && !@selectionsprite.disposed?
+      @selectionsprite.x     = self.x
+      @selectionsprite.y     = self.y
+      @selectionsprite.color = self.color
+    end
     if @refreshBitmap
       @refreshBitmap=false
       self.bitmap.clear if self.bitmap
+      @selectionsprite.bitmap.clear if @selectionsprite
+      self.z = 5
       if self.selected
-        if self.preselected
-          self.bitmap.blt(0,0,@selbitmap2.bitmap,Rect.new(0,0,@selbitmap2.width,@selbitmap2.height))
-          self.bitmap.blt(0,0,@selswapbitmap2.bitmap,Rect.new(0,0,@selswapbitmap2.width,@selswapbitmap2.height))
-#          self.bitmap.blt(0,0,@deselswapbitmap.bitmap,Rect.new(0,0,@deselswapbitmap.width,@deselswapbitmap.height))
-        elsif @switching
-          self.bitmap.blt(0,0,@selswapbitmap.bitmap,Rect.new(0,0,@selswapbitmap.width,@selswapbitmap.height))
-        elsif @pokemon.hp<=0 && !@pokemon.isEgg?
-          self.bitmap.blt(0,0,@selfntbitmap.bitmap,Rect.new(0,0,@selfntbitmap.width,@selfntbitmap.height))
-        elsif @pokemon.tooHighTemp? && !@pokemon.isEgg?
-          self.bitmap.blt(0,0,@selbitmapO2.bitmap,Rect.new(0,0,@selbitmapO2.width,@selbitmapO2.height))
-        elsif @pokemon.highTemp? && !@pokemon.isEgg?
-          self.bitmap.blt(0,0,@selbitmapO.bitmap,Rect.new(0,0,@selbitmapO.width,@selbitmapO.height))
-        elsif @pokemon.somewhatlowTemp? && !@pokemon.isEgg?
-          self.bitmap.blt(0,0,@selbitmapN.bitmap,Rect.new(0,0,@selbitmapN.width,@selbitmapN.height))
-        elsif @pokemon.lowTemp? && !@pokemon.isEgg?
-          self.bitmap.blt(0,0,@selbitmapC.bitmap,Rect.new(0,0,@selbitmapC.width,@selbitmapC.height))
-        elsif @pokemon.tooLowTemp? && !@pokemon.isEgg?
-          self.bitmap.blt(0,0,@selbitmapC2.bitmap,Rect.new(0,0,@selbitmapC2.width,@selbitmapC2.height))
-        elsif @pokemon.isEgg?
-          self.bitmap.blt(0,0,@selbitmapEgg.bitmap,Rect.new(0,0,@selbitmapEgg.width,@selbitmapEgg.height))
-        else
-          self.bitmap.blt(0,0,@selbitmap.bitmap,Rect.new(0,0,@selbitmap.width,@selbitmap.height))
-        end
-        if !self.preselected
-          self.bitmap.blt(0,0,@selbitmap2.bitmap,Rect.new(0,0,@selbitmap2.width,@selbitmap2.height))
-        end
-      else
-        if self.preselected
-          self.bitmap.blt(0,0,@deselswapbitmap.bitmap,Rect.new(0,0,@deselswapbitmap.width,@deselswapbitmap.height))
-        elsif @pokemon.hp<=0 && !@pokemon.isEgg?
-          self.bitmap.blt(0,0,@deselfntbitmap.bitmap,Rect.new(0,0,@deselfntbitmap.width,@deselfntbitmap.height))
-        elsif @pokemon.tooHighTemp? && !@pokemon.isEgg?
-          self.bitmap.blt(0,0,@deselbitmapO2.bitmap,Rect.new(0,0,@deselbitmapO2.width,@deselbitmapO2.height))
-        elsif @pokemon.highTemp? && !@pokemon.isEgg?
-          self.bitmap.blt(0,0,@deselbitmapO.bitmap,Rect.new(0,0,@deselbitmapO.width,@deselbitmapO.height))
-        elsif @pokemon.somewhatlowTemp? && !@pokemon.isEgg?
-          self.bitmap.blt(0,0,@deselbitmapN.bitmap,Rect.new(0,0,@deselbitmapN.width,@deselbitmapN.height))
-        elsif @pokemon.lowTemp? && !@pokemon.isEgg?
-          self.bitmap.blt(0,0,@deselbitmapC.bitmap,Rect.new(0,0,@deselbitmapC.width,@deselbitmapC.height))
-        elsif @pokemon.tooLowTemp? && !@pokemon.isEgg?
-          self.bitmap.blt(0,0,@deselbitmapC2.bitmap,Rect.new(0,0,@deselbitmapC2.width,@deselbitmapC2.height))
-        elsif @pokemon.isEgg?
-          self.bitmap.blt(0,0,@deselbitmapEgg.bitmap,Rect.new(0,0,@deselbitmapEgg.width,@deselbitmapEgg.height))
-        else
-          self.bitmap.blt(0,0,@deselbitmap.bitmap,Rect.new(0,0,@deselbitmap.width,@deselbitmap.height))
-        end
+          @selectionsprite.bitmap.blt(0,0,@panelbgsprite_cursor.bitmap,Rect.new(0,0,@panelbgsprite_cursor.width,@panelbgsprite_cursor.height))
+          @selectionsprite.z = (!self.preselected) ? 1 : 0
       end
       base=MessageConfig::DARKTEXTBASE
       shadow=MessageConfig::DARKTEXTSHADOW
@@ -586,20 +587,14 @@ class PokeSelectionSprite < SpriteWrapper
           barbg=(@pokemon.hp<=0) ? @hpbarfnt : @hpbar
           barbg=(self.preselected || (self.selected && @switching)) ? @hpbarswap : barbg
           self.bitmap.blt(@hpbarX,@hpbarY,barbg.bitmap,Rect.new(0,0,@hpbar.width,@hpbar.height))
-          hpgauge=@pokemon.totalhp==0 ? 0 : (self.hp*96/@pokemon.totalhp)
-          hpgauge=1 if hpgauge==0 && self.hp>0
-          hpzone=0
-          hpzone=1 if self.hp<=(@pokemon.totalhp/2).floor
-          hpzone=2 if self.hp<=(@pokemon.totalhp/4).floor
-          hpcolors=[
-             Color.new(24,192,32),Color.new(96,248,96),   # Green
-             Color.new(232,168,0),Color.new(248,216,0),   # Orange
-             Color.new(248,72,56),Color.new(248,152,152)  # Red
-          ]
-          # fill with HP color
-          self.bitmap.fill_rect(@gaugeX,@gaugeY,hpgauge,2,hpcolors[hpzone*2])
-          self.bitmap.fill_rect(@gaugeX,@gaugeY+2,hpgauge,4,hpcolors[hpzone*2+1])
-          self.bitmap.fill_rect(@gaugeX,@gaugeY+6,hpgauge,2,hpcolors[hpzone*2])
+          # Draw HP bar
+          if @pokemon.hp>0
+            hpzone = 0
+            hpzone = 1 if @pokemon.hp<=(@pokemon.totalhp/2).floor
+            hpzone = 2 if @pokemon.hp<=(@pokemon.totalhp/4).floor
+            hprect = Rect.new(0,hpzone*8,[@pokemon.hp*96/@pokemon.totalhp,2].max,8)
+            self.bitmap.blt(@gaugeX,@gaugeY,@hpbar2.bitmap,hprect)
+          end
           if @pokemon.hp==0 || @pokemon.status>0
             status=(@pokemon.hp==0) ? 5 : @pokemon.status-1
             statusrect=Rect.new(0,16*status,44,16)

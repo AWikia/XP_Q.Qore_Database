@@ -3200,3 +3200,10 @@ Outdoor=true
 ShowArea=true
 WildBattleBGM=Battler_Nebula Cave.mp3
 MapPosition=15,18,13
+[548]
+# Qora Qore Basement
+BattleBack=IndoorF
+ShowArea=true
+WildBattleBGM=Battler_Nebula Cave.mp3
+MapPosition=15,27,12
+Environment=Graveyard

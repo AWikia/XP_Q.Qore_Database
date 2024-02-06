@@ -2075,7 +2075,26 @@ end
       @sprites["battlebox2"]=PokemonDataBox.new(battle.battlers[2],battle.doublebattle,@viewport)
       @sprites["battlebox3"]=PokemonDataBox.new(battle.battlers[3],battle.doublebattle,@viewport)
     end
-    clr = @sprites["battlebg2"].bitmap.get_pixel(@sprites["battlebg2"].bitmap.width/2, @sprites["battlebg2"].bitmap.height/2)
+    # "cord" variable definition
+    # * Array 0 = Center
+    # * Array 1 = Upper Left
+    # * Array 2 = Upper Right
+    # * Array 3 = Bottom Left
+    # * Array 4 = Bottom Right
+    # * Array Item 0 = X Pos Start
+    # * Array Item 1 = X Pos Offset
+    # * Array Item 2 = Y Pos Start
+    # * Array Item 3 = Y Pos Offset
+    cord = [
+             [2,0,2,0],
+             [4,0,4,0],
+             [4,2,4,0],
+             [4,0,4,2],
+             [4,2,4,2]
+           ][($PokemonSystem.battlecolor rescue 0)]
+    x = (@sprites["battlebg2"].bitmap.width/cord[0]) + (@sprites["battlebg2"].bitmap.width/cord[1] rescue 0)
+    y = (@sprites["battlebg2"].bitmap.height/cord[2]) + (@sprites["battlebg2"].bitmap.height/cord[3] rescue 0)
+    clr = @sprites["battlebg2"].bitmap.get_pixel(x, y)
     pbAddSprite("backgroundbox",0,Graphics.height-96,"Graphics/UI/Battle/overlay_background",@viewport)
     @sprites["backgroundbox"].z=89
     @sprites["backgroundbox"].bitmap.fill_rect(0,0,@sprites["backgroundbox"].bitmap.width,@sprites["backgroundbox"].bitmap.height,clr)

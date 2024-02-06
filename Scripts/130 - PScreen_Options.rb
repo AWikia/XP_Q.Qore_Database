@@ -581,6 +581,7 @@ class PokemonSystem
   attr_accessor :textskincolors
   attr_accessor :battledif
   attr_accessor :customshiny
+  attr_accessor :battlecolor
   
   def initialize
     @textspeed        = 1   # Unused Text Speed
@@ -624,6 +625,7 @@ class PokemonSystem
     @textskincolors   = 0   # Text Skin Color Scheme (0=Standard, 1=Colors, 2=CMYK, 3=Vintage)
     @battledif        = 0   # Battle Difficulty
     @customshiny      = 0   # Customized Shinies
+    @battlecolor      = 0   # Battle Message Box Color (0-4  = Color 1-5)
 end
 
   def textspeed2
@@ -763,6 +765,10 @@ end
 
   def customshiny
     return (!@customshiny) ? 0 : @customshiny
+  end    
+
+  def battlecolor
+    return (!@battlecolor) ? 0 : @battlecolor
   end    
 
   
@@ -1003,6 +1009,12 @@ There are different modes:
            proc {|value| $PokemonSystem.battlestyle=value },
            "When set to Switch, it allows you to switch to another Pokémon on trainer battles when defating a Pokémon. When set to Set, it won’t prompt you to switch to another Pokémon."
         ),
+         NumberOption.new(_INTL("Battle Messagebox Color"),1,5,
+           proc { $PokemonSystem.battlecolor },
+           proc {|value| $PokemonSystem.battlecolor = value },
+           [_INTL("Color 1 (Center)"), _INTL("Color 2 (Upper Left)"), _INTL("Color 3 (Upper Right)"), _INTL("Color 4 (Bottom Left)"),_INTL("Color 5 (Bottom Right)")],
+           "Sets the color used in battle messageboxes. Color 1 is the central and default color while the rest pick the central color of one of the four courners."
+         ),
         EnumOption.new(_INTL("Battle Mechanics (Requires Restart)"),[_INTL("Generation V"),_INTL("NextGen")],
            proc { $PokemonSystem.mechanics },
            proc {|value|

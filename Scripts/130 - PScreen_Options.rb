@@ -1009,10 +1009,10 @@ There are different modes:
            proc {|value| $PokemonSystem.battlestyle=value },
            "When set to Switch, it allows you to switch to another Pokémon on trainer battles when defating a Pokémon. When set to Set, it won’t prompt you to switch to another Pokémon."
         ),
-         NumberOption.new(_INTL("Battle Messagebox Color"),1,5,
+         NumberOption.new(_INTL("Battle Messagebox Color"),1,9,
            proc { $PokemonSystem.battlecolor },
            proc {|value| $PokemonSystem.battlecolor = value },
-           [_INTL("Color 1 (Center)"), _INTL("Color 2 (Upper Left)"), _INTL("Color 3 (Upper Right)"), _INTL("Color 4 (Bottom Left)"),_INTL("Color 5 (Bottom Right)")],
+           [_INTL("Color 1 (Center)"), _INTL("Color 2 (Upper Left)"), _INTL("Color 3 (Upper)"), _INTL("Color 4 (Upper Right)"),_INTL("Color 5 (Right)"),_INTL("Color 6 (Bottom Right)"),_INTL("Color 7 (Bottom)"),_INTL("Color 8 (Bottom Left)"),_INTL("Color 9 (Left)")],
            "Sets the color used in battle messageboxes. Color 1 is the central and default color while the rest pick the central color of one of the four courners."
          ),
         EnumOption.new(_INTL("Battle Mechanics (Requires Restart)"),[_INTL("Generation V"),_INTL("NextGen")],

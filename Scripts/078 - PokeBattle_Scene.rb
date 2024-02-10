@@ -2078,19 +2078,27 @@ end
     # "cord" variable definition
     # * Array 0 = Center
     # * Array 1 = Upper Left
-    # * Array 2 = Upper Right
-    # * Array 3 = Bottom Left
-    # * Array 4 = Bottom Right
+    # * Array 2 = Upper
+    # * Array 3 = Upper Right
+    # * Array 4 = Right
+    # * Array 5 = Bottom Right
+    # * Array 6 = Bottom
+    # * Array 7 = Bottom Left
+    # * Array 8 = Left
     # * Array Item 0 = X Pos Start
     # * Array Item 1 = X Pos Offset
     # * Array Item 2 = Y Pos Start
     # * Array Item 3 = Y Pos Offset
     cord = [
-             [2,0,2,0],
-             [4,0,4,0],
-             [4,2,4,0],
-             [4,0,4,2],
-             [4,2,4,2]
+             [2,0,2,0], # Center
+             [4,0,4,0], # Upper Left
+             [2,0,4,0], # Upper
+             [4,2,4,0], # Upper Right
+             [4,2,2,0], # Right
+             [4,2,4,2], # Bottom Right
+             [2,0,4,2], # Bottom
+             [4,0,4,2], # Bottom Left
+             [4,0,2,0]  # Left
            ][($PokemonSystem.battlecolor rescue 0)]
     x = (@sprites["battlebg2"].bitmap.width/cord[0]) + (@sprites["battlebg2"].bitmap.width/cord[1] rescue 0)
     y = (@sprites["battlebg2"].bitmap.height/cord[2]) + (@sprites["battlebg2"].bitmap.height/cord[3] rescue 0)

@@ -37618,8 +37618,8 @@ Color=Blue
 Habitat=Grassland
 Kind=Paradox
 Pokedex=It resembles a mysterious object introduced in a paranormal magazine as a cutting-edge weapon shaped like a Cobalion.
-BattlerPlayerY=15
-BattlerEnemyY=11
+BattlerPlayerY=4
+BattlerEnemyY=8
 BattlerAltitude=0
 Evolutions=
 [1384]

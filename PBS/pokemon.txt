@@ -34187,7 +34187,7 @@ Habitat=Grassland
 Kind=Grass Cat
 Pokedex=Floragato deftly wields the vine hidden beneath its long fur, slamming the hard flower bud against its opponents.
 BattlerPlayerY=13
-BattlerEnemyY=21
+BattlerEnemyY=22
 BattlerAltitude=0
 Evolutions=MEOWSCARADA,Level,36
 [1258]
@@ -34988,7 +34988,7 @@ Pokedex=Armarouge evolved through the use of a set of armor that belonged to a d
 WildItemCommon=AUSPICIOUSARMOR
 WildItemUncommon=MALICIOUSARMOR
 BattlerPlayerY=8
-BattlerEnemyY=13
+BattlerEnemyY=11
 BattlerAltitude=0
 Evolutions=
 [1287]
@@ -35018,7 +35018,7 @@ Pokedex=The fiery blades on its arms burn fiercely with the lingering resentment
 WildItemCommon=AUSPICIOUSARMOR
 WildItemUncommon=MALICIOUSARMOR
 BattlerPlayerY=15
-BattlerEnemyY=12
+BattlerEnemyY=10
 BattlerAltitude=0
 Evolutions=
 [1288]
@@ -35072,7 +35072,7 @@ Habitat=Grassland
 Kind=EleFrog
 Pokedex=When this Pokémon expands and contracts its wobbly body, the belly-button dynamo in its stomach produces a huge amount of electricity.
 BattlerPlayerY=12
-BattlerEnemyY=26
+BattlerEnemyY=29
 BattlerAltitude=0
 Evolutions=
 [1290]
@@ -35268,7 +35268,7 @@ Habitat=Grassland
 Kind=Tumbleweed
 Pokedex=A soul unable to move on to the afterlife was blown around by the wind until it got tangled up with dried grass and became a Pokémon.
 BattlerPlayerY=22
-BattlerEnemyY=35
+BattlerEnemyY=18
 BattlerAltitude=0
 Evolutions=BRAMBLEGHAST,Trained,512
 [1297]
@@ -35296,7 +35296,7 @@ Habitat=Grassland
 Kind=Tumbleweed
 Pokedex=It will open the branches of its head to envelop its prey. Once it absorbs all the life energy it needs, it expels the prey and discards it.
 BattlerPlayerY=15
-BattlerEnemyY=28
+BattlerEnemyY=17
 BattlerAltitude=0
 Evolutions=
 [1298]
@@ -35733,7 +35733,7 @@ Habitat=Grassland
 Kind=Dolphin
 Pokedex=It likes playing with others of its kind using the water ring on its tail. It uses ultrasonic waves to sense the emotions of other living creatures.
 BattlerPlayerY=15
-BattlerEnemyY=35
+BattlerEnemyY=28
 BattlerAltitude=0
 Evolutions=PALAFIN,TradeLevel,38
 [1314]
@@ -35760,7 +35760,7 @@ Kind=Dolphin
 Pokedex=This Pokémon changes its appearance if it hears its allies calling for help. Palafin will never show anybody its moment of transformation.
 FormNames=Zero Form,Hero Form
 BattlerPlayerY=15
-BattlerEnemyY=35
+BattlerEnemyY=28
 BattlerAltitude=0
 Evolutions=
 [1315]
@@ -35954,7 +35954,7 @@ Habitat=Grassland
 Kind=Ghost Dog
 Pokedex=It is said that a dog Pokémon that died in the wild without ever interacting with a human was reborn as this Pokémon.
 BattlerPlayerY=15
-BattlerEnemyY=22
+BattlerEnemyY=31
 BattlerAltitude=0
 Evolutions=HOUNDSTONE,LevelNight,30
 [1322]
@@ -36813,7 +36813,7 @@ Habitat=Grassland
 Kind=Ruinous
 Pokedex=The fear poured into an ancient ritual vessel has clad itself in rocks and dirt to become a Pokémon.
 BattlerPlayerY=15
-BattlerEnemyY=12
+BattlerEnemyY=13
 BattlerAltitude=0
 Evolutions=
 [1354]
@@ -36839,7 +36839,7 @@ Habitat=Grassland
 Kind=Ruinous
 Pokedex=It controls flames burning at over 5,400 degrees Fahrenheit. It casually swims through the sea of lava it creates by melting rock and sand.
 BattlerPlayerY=26
-BattlerEnemyY=31
+BattlerEnemyY=32
 BattlerAltitude=0
 Evolutions=
 [1355]

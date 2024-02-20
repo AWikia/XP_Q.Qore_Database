@@ -37566,8 +37566,8 @@ Color=Yellow
 Habitat=Grassland
 Kind=Paradox
 Pokedex=It’s said to incinerate everything around it with lightning launched from its fur. Very little is known about this creature.
-BattlerPlayerY=15
-BattlerEnemyY=9
+BattlerPlayerY=4
+BattlerEnemyY=7
 BattlerAltitude=0
 Evolutions=
 [1382]

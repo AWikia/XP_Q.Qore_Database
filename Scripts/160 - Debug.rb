@@ -232,7 +232,8 @@ end
 
 def pbDebugMenu(fromgame=true)
   if !fromgame
-    pbBGMPlay("Screen")
+    data_system = pbLoadRxData("Data/System")
+    pbBGMPlay(data_system.title_bgm)
   end
   viewport=Viewport.new(0,0,Graphics.width,Graphics.height)
   viewport.z=99999

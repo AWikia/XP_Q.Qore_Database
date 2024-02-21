@@ -216,16 +216,12 @@ class PokemonMenu
            @scene.pbRefresh
         }
       elsif cmdPokemon>=0 && command==cmdPokemon
-        sscene=PokemonScreen_Scene.new
-        sscreen=PokemonScreen.new(sscene,$Trainer.party)
         hiddenmove=nil
         pbFadeOutIn(99999) { 
+           sscene=PokemonScreen_Scene.new
+           sscreen=PokemonScreen.new(sscene,$Trainer.party)
            hiddenmove=sscreen.pbPokemonScreen
-           if hiddenmove
-             @scene.pbEndScene
-           else
-             @scene.pbRefresh
-           end
+          (hiddenmove) ? @scene.pbEndScene : @scene.pbRefresh
         }
         if hiddenmove
           Kernel.pbUseHiddenMove(hiddenmove[0],hiddenmove[1])

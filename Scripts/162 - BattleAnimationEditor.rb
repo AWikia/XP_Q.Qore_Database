@@ -3751,7 +3751,8 @@ def animationEditorMain(animation,fromgame=true)
   viewport.dispose
   GC.start
   if !fromgame
-    pbBGMPlay("Screen")
+    data_system = pbLoadRxData("Data/System")
+    pbBGMPlay(data_system.title_bgm)
   end
 
 end

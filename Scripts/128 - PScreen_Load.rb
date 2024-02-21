@@ -276,10 +276,27 @@ class PokemonLoad
   end
 
   def pbStartLoadScreen
-	  pbBGMPlay("Screen")
+    data_system = pbLoadRxData("Data/System")
+    pbBGMPlay(data_system.title_bgm)
     $PokemonTemp   = PokemonTemp.new
     $game_temp     = Game_Temp.new
     $game_system   = Game_System.new
+    # Reset Certain components
+    $Trainer             = nil
+    Graphics.frame_count = 0
+    $game_system         = nil
+    $game_switches       = nil
+    $game_variables      = nil
+    $game_self_switches  = nil
+    $game_screen         = nil
+    $MapFactory          = nil
+    $game_map            = nil
+    $game_player         = nil
+    $PokemonGlobal       = nil
+    metadata             = nil
+    $PokemonBag          = nil
+    $PokemonStorage      = nil
+    # End change
     $PokemonSystem = PokemonSystem.new if !$PokemonSystem
     cmdContinue    = -1
     cmdNewGame     = -1
@@ -294,7 +311,6 @@ class PokemonLoad
     commands       = []
     savefile = RTP.getSaveFileName("Game.rxdata")
     FontInstaller.install
-    data_system = pbLoadRxData("Data/System")
     mapfile=$RPGVX ? sprintf("Data/Map%03d.rvdata",data_system.start_map_id) :
                      sprintf("Data/Map%03d.rxdata",data_system.start_map_id)
     if data_system.start_map_id==0 || !pbRgssExists?(mapfile)

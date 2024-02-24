@@ -2381,6 +2381,11 @@ def pbCompileMetadata
          if sections[currentmap][MetadataPlayerA]==nil
            raise _INTL("The entry PlayerA is required in metadata.txt section [{1}]",sectionname)
          end
+       elsif currentmap>0
+         if sections[currentmap][MetadataDisableAutosaving] && 
+            sections[currentmap][MetadataForbidSaving]
+           raise _INTL("Can't define both DisableAutosaving and ForbidSaving entries in the same area in metadata.txt section [{1}]",sectionname)
+         end
        end
        currentmap=sectionname.to_i
        sections[currentmap]=[]

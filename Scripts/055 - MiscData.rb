@@ -75,6 +75,8 @@ MetadataPastMap             = 19
 MetadataEnvironment         = 20
 MetadataFutureMap           = 21
 MetadataPseudoDarkMap       = 22
+MetadataDisableAutosaving   = 23
+MetadataForbidSaving        = 24
 
 
 
@@ -119,6 +121,8 @@ module PokemonMetadata
      "MapSize"=>[MetadataMapSize,"us"],
      "Environment"=>[MetadataEnvironment,"e",:PBEnvironment],
      "PseudoDarkMap"=>[MetadataPseudoDarkMap,"b"],
+     "DisableAutosaving"=>[MetadataDisableAutosaving,"b"],
+     "ForbidSaving"=>[MetadataForbidSaving,"b"],
   }
 end
 

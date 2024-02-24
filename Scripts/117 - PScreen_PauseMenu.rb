@@ -170,7 +170,7 @@ class PokemonMenu
       commands[cmdQuit=commands.length]=_INTL("Quit Contest")
     else
       @scene.pbShowInfo(_INTL("Trophies: {1}/28 ({2}%)\nTechnical Discs: {3}/100\n",Kernel.pbTrophies, Kernel.pbTrophyScore, Kernel.pbTechnicalDiscScore))
-      commands[cmdSave=commands.length]=_INTL("Save") if !$game_system || !$game_system.save_disabled
+      commands[cmdSave=commands.length]=_INTL("Save") if (!$game_system || !$game_system.save_disabled) && ($game_map && !pbGetMetadata($game_map.map_id,MetadataForbidSaving))
 #      commands[cmdLink=commands.length]=_INTL("Link...") if $game_switches[12]
     end
     commands[cmdOption=commands.length]=_INTL("Settings")
@@ -295,17 +295,27 @@ class PokemonMenu
         }
       elsif cmdEndGame>=0 && command==cmdEndGame
         @scene.pbHideMenu
-        if Kernel.pbConfirmMessage(_INTL("Are you sure you want to quit the game?"))
-          scene=PokemonSaveScene.new
-          screen=PokemonSave.new(scene)
-          if screen.pbSaveScreen
+        if $game_map && !pbGetMetadata($game_map.map_id,MetadataForbidSaving)
+          if Kernel.pbConfirmMessage(_INTL("Are you sure you want to quit the game?"))
+            scene=PokemonSaveScene.new
+            screen=PokemonSave.new(scene)
+            if screen.pbSaveScreen
+              @scene.pbEndScene
+            end
             @scene.pbEndScene
+            $scene=nil
+            return
+          else
+            pbShowMenu
           end
-          @scene.pbEndScene
-          $scene=nil
-          return
         else
-          pbShowMenu
+          if Kernel.pbConfirmMessage(_INTL("Are you sure you want to quit the game? Any progress made since last saving will be lost"))
+            @scene.pbEndScene
+            $scene=nil
+            return
+          else
+            pbShowMenu
+          end
         end
       elsif cmdAbout>=0 && command==cmdAbout
         scene=PokemonAboutScreenScene.new

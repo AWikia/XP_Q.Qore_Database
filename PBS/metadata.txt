@@ -275,6 +275,7 @@ HealingSpot=52,30,10
 BattleBack=EliteA
 TrainerBattleBGM=Radio - Battle.mp3
 MapPosition=10,22,7
+DisableAutosaving=true
 [057]
 # Stadium Cup lobby
 MapPosition=10,22,7
@@ -286,6 +287,7 @@ MapPosition=10,22,7
 BattleBack=EliteD
 TrainerBattleBGM=Radio - Battle.mp3
 MapPosition=10,22,7
+DisableAutosaving=true
 [060]
 # Battle Arena
 MapPosition=10,22,7
@@ -294,25 +296,30 @@ MapPosition=10,22,7
 BattleBack=EliteB
 TrainerBattleBGM=Radio - Battle.mp3
 MapPosition=10,22,7
+DisableAutosaving=true
 [062]
 # Battle Factory
 MapPosition=10,22,7
 [063]
 # Battle Factory intro corridor
 MapPosition=10,22,7
+DisableAutosaving=true
 [064]
 # Battle Factory arena
 BattleBack=EliteC
 TrainerBattleBGM=Radio - Battle.mp3
 MapPosition=10,22,7
+DisableAutosaving=true
 [065]
 # Battle Factory corridor
 MapPosition=10,22,7
+DisableAutosaving=true
 [066]
 # Safari Zone
 MapPosition=0,12,12
 Outdoor=true
 ShowArea=true
+DisableAutosaving=true
 [067]
 # Safari Zone gate
 MapPosition=0,12,12
@@ -323,6 +330,7 @@ MapPosition=0,12,12
 SafariMap=true
 Outdoor=true
 ShowArea=true
+DisableAutosaving=true
 [069]
 # Route 8
 DiveMap=70
@@ -709,18 +717,21 @@ MapPosition=6,12,2
 SafariMap=true
 Outdoor=true
 ShowArea=true
+DisableAutosaving=true
 [132]
 # Safari Zone - Indoor A
 BattleBack=IndoorD
 MapPosition=6,12,2
 SafariMap=true
 ShowArea=true
+DisableAutosaving=true
 [133]
 # Safari Zone - Indoor B
 BattleBack=IndoorD
 MapPosition=6,12,2
 SafariMap=true
 ShowArea=true
+DisableAutosaving=true
 [134]
 # Xeniora Drei
 BattleBack=Xeniora
@@ -1893,6 +1904,7 @@ SnapEdges=true
 BattleBack=Underwater
 MapPosition=18,1,4
 ShowArea=true
+ForbidSaving=true
 [335]
 # Underwater Minigame
 MapSize=2,11111111111111
@@ -1900,6 +1912,7 @@ SnapEdges=true
 BattleBack=Underwater
 MapPosition=18,5,1
 ShowArea=true
+ForbidSaving=true
 [336]
 # Skating Minigame
 MapSize=1,1111
@@ -1909,6 +1922,7 @@ Weather=Snow,100
 MapPosition=18,4,11
 ShowArea=true
 Environment=Snow
+ForbidSaving=true
 [337]
 # Fission Cave
 BattleBack=CaveDarker
@@ -1924,6 +1938,7 @@ BattleBack=IndoorF
 MapPosition=18,7,12
 ShowArea=true
 Environment=Volcano
+ForbidSaving=true
 [339]
 # Rest Area
 MapPosition=3,4,16
@@ -2159,6 +2174,7 @@ BattleBack=Cave
 MapPosition=18,10,10
 ShowArea=true
 Environment=Galaxy
+ForbidSaving=true
 [371]
 # Abandoned Shire
 BattleBack=Cave
@@ -2186,18 +2202,21 @@ BattleBack=Cave
 MapPosition=6,12,2
 SafariMap=true
 ShowArea=true
+DisableAutosaving=true
 [375]
 # Safari Zone - Left Cave
 BattleBack=Cave
 MapPosition=6,12,2
 SafariMap=true
 ShowArea=true
+DisableAutosaving=true
 [376]
 # Safari Zone - Right Cave
 BattleBack=Cave
 MapPosition=6,12,2
 SafariMap=true
 ShowArea=true
+DisableAutosaving=true
 [377]
 # Fission Cave
 BattleBack=CaveDarker
@@ -2305,6 +2324,7 @@ BattleBack=Cave
 MapPosition=18,15,4
 ShowArea=true
 Environment=Boardwalk
+ForbidSaving=true
 [396]
 # Floaroma Meadow
 BattleBack=Forest
@@ -2490,6 +2510,7 @@ MapPosition=18,19,9
 Outdoor=true
 ShowArea=true
 Environment=Boardwalk
+ForbidSaving=true
 [425]
 # Netherworld Cave
 BattleBack=Cave
@@ -2521,6 +2542,7 @@ Bicycle=false
 Outdoor=true
 ShowArea=true
 MapPosition=2,11,17
+DisableAutosaving=true
 [430]
 # Swuora Vier
 BattleBack=Swuora
@@ -2528,6 +2550,7 @@ Bicycle=false
 Outdoor=true
 ShowArea=true
 MapPosition=3,8,10
+DisableAutosaving=true
 [431]
 # Semuora Funf
 BattleBack=Semuora
@@ -2535,11 +2558,13 @@ Bicycle=false
 Outdoor=true
 ShowArea=true
 MapPosition=4,8,1
+DisableAutosaving=true
 [432]
 # Understairs Kenuora Funf
 BattleBack=Cave
 ShowArea=true
 MapPosition=5,15,13
+DisableAutosaving=true
 [433]
 # Kenuora Funf
 BattleBack=Kenuora
@@ -2547,6 +2572,7 @@ Bicycle=false
 Outdoor=true
 ShowArea=true
 MapPosition=5,15,13
+DisableAutosaving=true
 [434]
 # Xenuora Sechs
 BattleBack=Xenuora
@@ -2554,6 +2580,7 @@ Bicycle=false
 Outdoor=true
 ShowArea=true
 MapPosition=6,4,15
+DisableAutosaving=true
 [435]
 # Annuora Sechs
 BattleBack=Annuora
@@ -2561,11 +2588,13 @@ Bicycle=false
 Outdoor=true
 ShowArea=true
 MapPosition=7,16,12
+DisableAutosaving=true
 [436]
 # Understairs Keniora Sieben
 BattleBack=Cave
 ShowArea=true
 MapPosition=8,8,14
+DisableAutosaving=true
 [437]
 # Keniora Sieben
 BattleBack=Keniora
@@ -2573,6 +2602,7 @@ Bicycle=false
 Outdoor=true
 ShowArea=true
 MapPosition=8,8,14
+DisableAutosaving=true
 [438]
 # Xeniora Sieben
 BattleBack=Xeniora
@@ -2580,6 +2610,7 @@ Bicycle=false
 Outdoor=true
 ShowArea=true
 MapPosition=9,17,5
+DisableAutosaving=true
 [439]
 # Cindyora Acht
 BattleBack=Cindyora
@@ -2587,6 +2618,7 @@ Bicycle=false
 Outdoor=true
 ShowArea=true
 MapPosition=13,18,13
+DisableAutosaving=true
 [441]
 # Quadro Cave
 MapSize=2,01
@@ -2602,6 +2634,7 @@ Bicycle=false
 Outdoor=true
 ShowArea=true
 MapPosition=14,13,15
+DisableAutosaving=true
 [445]
 # Fossilized Tunnel
 BattleBack=CaveDark
@@ -2746,166 +2779,199 @@ HealingSpot=134,15,8
 BattleBack=Cave
 MapPosition=2,2,2
 ShowArea=true
+DisableAutosaving=true
 [471]
 # Quora Eins
 BattleBack=Cave
 MapPosition=2,10,9
 ShowArea=true
+DisableAutosaving=true
 [472]
 # Quora Eins
 BattleBack=Cave
 MapPosition=2,26,7
 ShowArea=true
+DisableAutosaving=true
 [473]
 # Quora Eins
 BattleBack=Cave
 MapPosition=3,1,2
 ShowArea=true
+DisableAutosaving=true
 [474]
 # Quora Eins
 BattleBack=Cave
 MapPosition=3,21,4
 ShowArea=true
+DisableAutosaving=true
 [475]
 # Quora Eins
 BattleBack=Cave
 MapPosition=4,4,9
 ShowArea=true
+DisableAutosaving=true
 [476]
 # Quora Eins
 BattleBack=Cave
 MapPosition=4,16,6
 ShowArea=true
+DisableAutosaving=true
 [477]
 # Quora Eins
 BattleBack=Cave
 MapPosition=4,22,17
 ShowArea=true
+DisableAutosaving=true
 [478]
 # Quora Eins
 BattleBack=Cave
 MapPosition=5,1,4
 ShowArea=true
+DisableAutosaving=true
 [479]
 # Quora Eins
 BattleBack=Cave
 MapPosition=5,12,10
 ShowArea=true
+DisableAutosaving=true
 [480]
 # Quora Eins
 BattleBack=Cave
 MapPosition=5,17,5
 ShowArea=true
+DisableAutosaving=true
 [481]
 # Quora Eins
 BattleBack=Cave
 MapPosition=5,26,17
 ShowArea=true
+DisableAutosaving=true
 [482]
 # Quora Eins
 BattleBack=Cave
 MapPosition=6,1,4
 ShowArea=true
+DisableAutosaving=true
 [483]
 # Quora Eins
 BattleBack=Cave
 MapPosition=6,13,13
 ShowArea=true
+DisableAutosaving=true
 [484]
 # Quora Eins
 BattleBack=Cave
 MapPosition=6,23,12
 ShowArea=true
+DisableAutosaving=true
 [485]
 # Quora Eins
 BattleBack=Cave
 MapPosition=7,1,3
 ShowArea=true
+DisableAutosaving=true
 [486]
 # Quora Eins
 BattleBack=Cave
 MapPosition=7,17,2
 ShowArea=true
+DisableAutosaving=true
 [487]
 # Quora Eins
 BattleBack=Cave
 MapPosition=7,23,8
 ShowArea=true
+DisableAutosaving=true
 [488]
 # Quora Eins
 BattleBack=Cave
 MapPosition=7,24,15
 ShowArea=true
+DisableAutosaving=true
 [489]
 # Quora Eins
 BattleBack=Cave
 MapPosition=8,1,3
 ShowArea=true
+DisableAutosaving=true
 [490]
 # Quora Eins
 BattleBack=Cave
 MapPosition=8,5,9
 ShowArea=true
+DisableAutosaving=true
 [491]
 # Quora Eins
 BattleBack=Cave
 MapPosition=8,9,3
 ShowArea=true
+DisableAutosaving=true
 [492]
 # Quora Eins
 BattleBack=Cave
 MapPosition=8,15,5
 ShowArea=true
+DisableAutosaving=true
 [493]
 # Quora Eins
 BattleBack=Cave
 MapPosition=9,2,3
 ShowArea=true
+DisableAutosaving=true
 [494]
 # Quora Eins
 BattleBack=Cave
 MapPosition=9,5,8
 ShowArea=true
+DisableAutosaving=true
 [495]
 # Quora Eins
 BattleBack=Cave
 MapPosition=9,9,10
 ShowArea=true
+DisableAutosaving=true
 [496]
 # Quora Eins
 BattleBack=Cave
 MapPosition=9,18,16
 ShowArea=true
+DisableAutosaving=true
 [497]
 # Quora Eins
 BattleBack=Cave
 MapPosition=13,1,1
 ShowArea=true
+DisableAutosaving=true
 [498]
 # Quora Eins
 BattleBack=Cave
 MapPosition=13,9,5
 ShowArea=true
+DisableAutosaving=true
 [499]
 # Quora Eins
 BattleBack=Cave
 MapPosition=13,16,8
 ShowArea=true
+DisableAutosaving=true
 [500]
 # Quora Eins
 BattleBack=Cave
 MapPosition=13,5,13
 ShowArea=true
+DisableAutosaving=true
 [501]
 # Quora Eins
 BattleBack=Cave
 MapPosition=6,11,3
 ShowArea=true
+DisableAutosaving=true
 [502]
 # Quora Eins
 BattleBack=Cave
 MapPosition=9,18,16
 ShowArea=true
+DisableAutosaving=true
 [503]
 # Jarol Cave
 BattleBack=CaveDarker
@@ -3178,6 +3244,7 @@ ShowArea=true
 BattleBack=Cave
 MapPosition=17,4,6
 ShowArea=true
+DisableAutosaving=true
 [545]
 # Episodio DR
 BattleBack=Jarol

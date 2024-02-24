@@ -3571,6 +3571,10 @@ LOCALMAPS=[
        _INTL("The default battle environment for battles on this map")],
    ["PseudoDarkMap",BooleanProperty,
        _INTL("If true, this map has a dark tint applied on top of the current tinting.")],
+   ["DisableAutosaving",BooleanProperty,
+       _INTL("If true, the game will not autosave if autosaving is enabled upon entry on this map.")],
+   ["ForbidSaving",BooleanProperty,
+       _INTL("If true, no saving can be done on this map, including autosaving upon entry on this map (If enabled).")],
 ]
 GLOBALMETADATA=[
    ["Home",MapCoordsFacingProperty,

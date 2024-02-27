@@ -178,7 +178,7 @@ class PokemonMenu
     commands[cmdEndGame=commands.length]=_INTL("Quit Game")
     commands[cmdAbout=commands.length]=_INTL("About")
     loop do
-      command=@scene.pbShowCommands(commands)
+      command=@scene.pbShowCommands(commands) if endscene
       if cmdPokedex>=0 && command==cmdPokedex
         if DEXDEPENDSONLOCATION
           pbFadeOutIn(99999) {
@@ -271,16 +271,18 @@ class PokemonMenu
           end
         end
       elsif cmdSave>=0 && command==cmdSave
-        @scene.pbHideMenu
+#        @scene.pbHideMenu
         scene=PokemonSaveScene.new
         screen=PokemonSave.new(scene)
-        if screen.pbSaveScreen
-          @scene.pbEndScene
-          endscene=false
-          break
-        else
-          pbShowMenu
-        end
+        pbFadeOutIn(99999) { 
+          if screen.pbSaveScreen
+            @scene.pbEndScene
+            endscene=false
+            break
+          else
+  #          pbShowMenu
+          end
+        }
       elsif cmdDebug>=0 && command==cmdDebug
         pbFadeOutIn(99999) { 
            pbDebugMenu
@@ -297,11 +299,13 @@ class PokemonMenu
         @scene.pbHideMenu
         if $game_map && !pbGetMetadata($game_map.map_id,MetadataForbidSaving)
           if Kernel.pbConfirmMessage(_INTL("Are you sure you want to quit the game?"))
-            scene=PokemonSaveScene.new
-            screen=PokemonSave.new(scene)
-            if screen.pbSaveScreen
-              @scene.pbEndScene
-            end
+              scene=PokemonSaveScene.new
+              screen=PokemonSave.new(scene)
+            pbFadeOutIn(99999) { 
+              if screen.pbSaveScreen
+                @scene.pbEndScene
+              end
+            }
             @scene.pbEndScene
             $scene=nil
             return

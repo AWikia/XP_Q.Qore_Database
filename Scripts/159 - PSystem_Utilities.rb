@@ -2790,7 +2790,9 @@ def pbSaveScreen
   ret=false
   scene=PokemonSaveScene.new
   screen=PokemonSave.new(scene)
-  ret=screen.pbSaveScreen
+  pbFadeOutIn(99999) { 
+    ret=screen.pbSaveScreen
+  }
   return ret
 end
 

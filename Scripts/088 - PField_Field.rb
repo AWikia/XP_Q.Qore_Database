@@ -1789,6 +1789,7 @@ Events.onMapSceneChange+=proc{|sender,e|
     if !noautosave
       pbSave
     end
+    # Autosave
     if pbGetMetadata($game_map.map_id,MetadataShowArea)
       nosignpost=false
       if $PokemonGlobal.mapTrail[1]
@@ -2912,7 +2913,9 @@ module InterpreterFieldMixin
   def command_352
     scene=PokemonSaveScene.new
     screen=PokemonSave.new(scene)
-    screen.pbSaveScreen
+    pbFadeOutIn(99999){
+      screen.pbSaveScreen
+    }
     return true
   end
 

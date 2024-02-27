@@ -1,46 +1,97 @@
 class PokemonSaveScene
+  def update
+    pbUpdateSpriteHash(@sprites)
+  end
+  
   def pbStartScreen
     @viewport=Viewport.new(0,0,Graphics.width,Graphics.height)
     @viewport.z=99999
     @sprites={}
-    totalsec = Graphics.frame_count / Graphics.frame_rate
-    hour = totalsec / 60 / 60
-    min = totalsec / 60 % 60
-    mapname=$game_map.name
-    if (!isDarkMode?)
-      textColor=["0070F8,78B8E8","E82010,F8A8B8","0070F8,78B8E8"][$Trainer.gender]
-      loccolor = '06644bd2'
-    else
-      textColor=["78B8E8,0070F8","F8A8B8,E82010","A3CFEF,005AC7"][$Trainer.gender]
-      loccolor = '4bd20664'
+    @bgbitmap=AnimatedBitmap.new("Graphics/UI/Load/panels")
+    title=['bg','bg_beta','bg_dev','bg_canary','bg_internal','bg_upgradewizard'][QQORECHANNEL]
+    if pbResolveBitmap(_INTL("Graphics/UI/"+getDarkModeFolder+"/Load/{1}",title))
+      addBackgroundOrColoredPlane(@sprites,"background",getDarkModeFolder+"/Load/"+title,
+         Color.new(248,248,248),@viewport)
+    elsif pbResolveBitmap(sprintf("Graphics/UI/"+getDarkModeFolder+"/Load/bg"))
+      addBackgroundOrColoredPlane(@sprites,"background",getDarkModeFolder+"/Load/bg",
+         Color.new(248,248,248),@viewport)
+    else  # Hotfixing Prograda
+      addBackgroundOrColoredPlane(@sprites,"background",getDarkModeFolder+"/Load/bg_empty",
+         Color.new(248,248,248),@viewport)
     end
-#    loctext=_INTL("<ac><c2={1}>{2}</c2></ac>",loccolor,mapname)
-    loctext=""
-    loctext+=_INTL("Player<r><c3={1}>{2}</c3><br>",textColor,$Trainer.name)
-    loctext+=_ISPRINTF("Time<r><c3={1:s}>{2:02d}:{3:02d}</c3><br>",textColor,hour,min)
-    loctext+=_INTL("Badges<r><c3={1}>{2}</c3><br>",textColor,$Trainer.numbadges)
-    if $Trainer.pokedex
-      loctext+=_INTL("Pokédex<r><c3={1}>{2}/{3}</c3>",textColor,$Trainer.pokedexOwned,$Trainer.pokedexSeen)
-    end
-    @sprites["plane"] = AnimatedPlane.new(@viewport)
-    @sprites["plane"].bitmap=AnimatedBitmap.new("Graphics/UI/"+getDarkModeFolder+"/party_bg").deanimate
-    @sprites["plane"].z=2
-    @sprites["header"]=Window_UnformattedTextPokemon.newWithSize(_INTL("Save Game - {1}",mapname),
+      addBackgroundOrColoredPlane(@sprites,"partybg_title",getDarkModeFolder+"/party_bg",
+         Color.new(0,0,0),@viewport)
+    @sprites["overlay"]=BitmapSprite.new(Graphics.width,Graphics.height,@viewport)
+    title=RTP.getGameIniValue("Game", "Game") # QQC Edit 
+    title=RTP.getGameIniValue("Game","Title") if title==""
+    title="RGSS Game" if title==""
+    @sprites["header"]=Window_UnformattedTextPokemon.newWithSize(_INTL("Save Game - {1}",title),
         2,-18,576,64,@viewport)      
     @sprites["header"].baseColor=(isDarkMode?) ? Color.new(248,248,248) : Color.new(0,0,0)
     @sprites["header"].shadowColor=nil #(!isDarkMode?) ? Color.new(248,248,248) : Color.new(0,0,0)
     @sprites["header"].windowskin=nil
     @sprites["header"].z=2
-    @sprites["locwindow"]=Window_AdvancedTextPokemon.new(loctext)
-    @sprites["locwindow"].viewport=@viewport
-    @sprites["locwindow"].x=0
-    @sprites["locwindow"].y=32
-    @sprites["locwindow"].width=228 if @sprites["locwindow"].width<228
-    @sprites["locwindow"].visible=true
+    # Player's Data
+    
+    panelrect=Rect.new(0,0,408,222)
+    x = (24*2)+64
+    y = 50
+    @sprites["overlay"].bitmap.blt(x,y,@bgbitmap.bitmap,panelrect)
+    pbSetSystemFont(@sprites["overlay"].bitmap)
+    textpos=[]
+    textpos.push([_INTL("Save"),(16*2)+x,(5*2)+y,y,Color.new(232,232,232),Color.new(136,136,136)])
+    textpos.push([_INTL("Badges:"),(16*2)+x,(56*2)+y,0,Color.new(232,232,232),Color.new(136,136,136)])
+    textpos.push([$Trainer.numbadges.to_s,(103*2)+x,(56*2)+y,1,Color.new(232,232,232),Color.new(136,136,136)])
+    textpos.push([_INTL("Pokédex:"),(16*2)+x,(72*2)+y,0,Color.new(232,232,232),Color.new(136,136,136)])
+    textpos.push([$Trainer.pokedexOwned.to_s+"/"+$Trainer.pokedexSeen.to_s,(103*2)+x,(72*2)+y,1,Color.new(232,232,232),Color.new(136,136,136)]) if $Trainer.pokedex
+    textpos.push(["-//-",(103*2)+x,(72*2)+y,1,Color.new(232,232,232),Color.new(136,136,136)]) if !$Trainer.pokedex
+    textpos.push([_INTL("Time:"),(16*2)+x,(88*2)+y,0,Color.new(232,232,232),Color.new(136,136,136)])
+    totalsec = Graphics.frame_count / Graphics.frame_rate
+    hour = totalsec / 60 / 60
+    min = totalsec / 60 % 60
+    if hour>0
+      textpos.push([_INTL("{1}h {2}m",hour,min),(103*2)+x,(88*2)+y,1,Color.new(232,232,232),Color.new(136,136,136)])
+    else
+      textpos.push([_INTL("{1}m",min),(103*2)+y,(88*2)+y,1,Color.new(232,232,232),Color.new(136,136,136)])
+    end
+    if $Trainer.isMale?
+      textpos.push([$Trainer.name,(56*2)+x,(32*2)+y,0,Color.new(56,160,248),Color.new(56,104,168)])
+    else
+      textpos.push([$Trainer.name,(56*2)+x,(32*2)+y,0,Color.new(240,72,88),Color.new(160,64,64)])
+    end
+    mapname=$game_map.name
+    mapname.gsub!(/\\PN/,$Trainer.name)
+    textpos.push([mapname,(193*2)+x,(5*2)+y,1,Color.new(232,232,232),Color.new(136,136,136)])
+    
+    pbDrawTextPositions(@sprites["overlay"].bitmap,textpos)
+    
+    # Graphics
+    if !$Trainer || !$Trainer.party
+    else
+      meta=pbGetMetadata(0,MetadataPlayerA+$Trainer.metaID)
+      if meta
+        filename=pbGetPlayerCharset(meta,1,$Trainer)
+        @sprites["player"]=TrainerWalkingCharSprite.new(filename,@viewport)
+        charwidth=@sprites["player"].bitmap.width
+        charheight=@sprites["player"].bitmap.height
+        @sprites["player"].x = (56*2)+64 - charwidth/8
+        @sprites["player"].y = (56*2)+16 - charheight/8 + 4
+        @sprites["player"].src_rect = Rect.new(0,0,charwidth/4,charheight/4)
+      end
+      for i in 0...$Trainer.party.length
+        @sprites["party#{i}"]=PokemonIconSprite.new($Trainer.party[i],@viewport)
+        @sprites["party#{i}"].z=99998
+        @sprites["party#{i}"].x=((151*2)+64)+33*2*(i&1)
+        @sprites["party#{i}"].y=36*2+25*2*(i/2)+4+16
+      end
+    end
+    pbFadeInAndShow(@sprites) { update }
   end
 
   def pbEndScreen
+    pbFadeOutAndHide(@sprites) { update }
     pbDisposeSpriteHash(@sprites)
+    @bgbitmap.dispose
     @viewport.dispose
   end
 end

@@ -1781,6 +1781,14 @@ Events.onMapSceneChange+=proc{|sender,e|
     $PokemonGlobal.mapTrail[0]=$game_map.map_id   # Update map trail
   end
   if mapChanged
+    # Autosave
+    noautosave = $PokemonTemp.begunNewGame || 
+                ($PokemonSystem.autosave==0 rescue false) ||
+                pbGetMetadata($game_map.map_id,MetadataDisableAutosaving) ||
+                pbGetMetadata($game_map.map_id,MetadataForbidSaving)
+    if !noautosave
+      pbSave
+    end
     if pbGetMetadata($game_map.map_id,MetadataShowArea)
       nosignpost=false
       if $PokemonGlobal.mapTrail[1]

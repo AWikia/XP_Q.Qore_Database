@@ -11,6 +11,7 @@ WildBattleBGM=Battler.mp3
 [001]
 # Intro
 BattleBack=Intro
+DisableAutosaving=true
 [002]
 # Lappet Town
 MapPosition=0,13,12

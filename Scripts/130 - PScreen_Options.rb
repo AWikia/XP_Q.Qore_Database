@@ -582,6 +582,7 @@ class PokemonSystem
   attr_accessor :battledif
   attr_accessor :customshiny
   attr_accessor :battlecolor
+  attr_accessor :autosave
   
   def initialize
     @textspeed        = 1   # Unused Text Speed
@@ -626,6 +627,7 @@ class PokemonSystem
     @battledif        = 0   # Battle Difficulty
     @customshiny      = 0   # Customized Shinies
     @battlecolor      = 0   # Battle Message Box Color (0-4  = Color 1-5)
+    @autosave         = 0   # Autosave (0 = Off, 1 = On)
 end
 
   def textspeed2
@@ -771,6 +773,10 @@ end
     return (!@battlecolor) ? 0 : @battlecolor
   end    
 
+  def autosave
+    return (!@autosave) ? 0 : @autosave
+  end    
+
   
   def tilemap; return MAPVIEWMODE; end
 
@@ -892,6 +898,11 @@ There are different modes:
            },
            "Enables or Disables Debugging features. Requires restart for this to apply."
         ),
+       EnumOption.new(_INTL("Autosave"),[_INTL("Off"),_INTL("On")],
+         proc { $PokemonSystem.autosave },
+         proc {|value| $PokemonSystem.autosave = value },
+        "Enables or Disables autosaving. If enabled, game will autosave when moving between certain maps."
+       ),
        EnumOption.new(_INTL("Text Speed"),[_INTL("Slow"),_INTL("Normal"),_INTL("Fast")],
           proc { $PokemonSystem.textspeed2 },
           proc {|value|

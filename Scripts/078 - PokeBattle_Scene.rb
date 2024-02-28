@@ -1527,7 +1527,7 @@ class PokeBattle_Scene
     if @briefmessage
       pbShowWindow(MESSAGEBOX)
       cw=@sprites["messagewindow"]
-      60.times do
+      40.times do
         pbGraphicsUpdate
         pbInputUpdate
         pbFrameUpdate(cw)

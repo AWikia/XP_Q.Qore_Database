@@ -376,8 +376,13 @@ class PokemonLoad
     $ItemData = readItemList("Data/items.dat")
     loop do
       command=@scene.pbChoose(commands)
+      unless cmdContinue>=0 && command==cmdContinue
+        pbPlayDecisionSE() # changed added
+      end
       if cmdContinue>=0 && command==cmdContinue
-        unless safeExists?(savefile)
+        if safeExists?(savefile)
+          pbPlayLoadSE() # changed added
+        else
           pbPlayBuzzerSE()
           next
         end

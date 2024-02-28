@@ -186,7 +186,7 @@ class PokemonSave
           Kernel.pbMessage(_INTL("If you save now, the other file's adventure, including items and Pokémon, will be entirely lost."))
           if !Kernel.pbConfirmMessageSerious(
              _INTL("Are you sure you want to save now and overwrite the other save file?"))
-              pbSEPlay("Save choice")
+              pbPlaySaveSE()
              @scene.pbEndScreen
             return false
           end
@@ -199,7 +199,7 @@ class PokemonSave
         end
       end
       $PokemonTemp.begunNewGame=false
-      pbSEPlay("Save choice")
+      pbPlaySaveSE()
       if pbSave
         Kernel.pbMessage(_INTL("\\me[]{1} saved the game.\\me[Save]\\wtnp[30]",$Trainer.name))
         ret=true
@@ -208,7 +208,7 @@ class PokemonSave
         ret=false
       end
     else
-      pbSEPlay("Save choice")
+      pbPlaySaveSE()
     end
     @scene.pbEndScreen
     return ret

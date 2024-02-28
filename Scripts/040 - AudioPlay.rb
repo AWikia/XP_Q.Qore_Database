@@ -298,6 +298,32 @@ def pbPlayEquipSE()
   end
 end
 
+# Plays a sound effect that plays when saving a save file.
+def pbPlaySaveSE()
+  if $data_system && $data_system.respond_to?("save_se") &&
+     $data_system.save_se && $data_system.save_se.name!=""
+    pbSEPlay($data_system.save_se)
+  elsif $data_system && $data_system.respond_to?("sounds") &&
+     $data_system.sounds && $data_system.sounds[6] && $data_system.sounds[6].name!=""
+    pbSEPlay($data_system.sounds[6])
+  elsif FileTest.audio_exist?("Audio/SE/Save choice")
+    pbSEPlay("Save choice",100)
+  end
+end
+
+# Plays a sound effect that plays when loading a save file.
+def pbPlayLoadSE()
+  if $data_system && $data_system.respond_to?("load_se") &&
+     $data_system.load_se && $data_system.load_se.name!=""
+    pbSEPlay($data_system.load_se)
+  elsif $data_system && $data_system.respond_to?("sounds") &&
+     $data_system.sounds && $data_system.sounds[7] && $data_system.sounds[7].name!=""
+    pbSEPlay($data_system.sounds[7])
+  elsif FileTest.audio_exist?("Audio/SE/Load")
+    pbSEPlay("Load",100)
+  end
+end
+
 # Plays a sound effect that plays when escaping from a battle.
 def pbPlayEscapeSE()
   if $data_system && $data_system.respond_to?("escape_se") &&

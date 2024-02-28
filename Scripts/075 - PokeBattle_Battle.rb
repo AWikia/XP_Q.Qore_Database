@@ -3019,7 +3019,7 @@ class PokeBattle_Battle
 
   def pbCommandPhase
     @scene.pbBeginCommandPhase
-    @scene.pbResetCommandIndices
+#    @scene.pbResetCommandIndices
     for i in 0...4   # Reset choices if commands can be shown
       @battlers[i].effects[PBEffects::SkipTurn]=false
       if pbCanShowCommands?(i) || @battlers[i].isFainted?
@@ -3129,7 +3129,7 @@ class PokeBattle_Battle
                 @megaEvolution[side][owner]=-1
               end
               commandDone=true
-            elsif cmd==-1   # Go back to first battler's choice
+            elsif cmd==-1  # Go back to first battler's choice
               @megaEvolution[0][0]=-1 if @megaEvolution[0][0]>=0
               @megaEvolution[1][0]=-1 if @megaEvolution[1][0]>=0
               # Restore the item the player's first Pokémon was due to use

@@ -3250,7 +3250,7 @@ end
                        [:MAGIC,:MAGICHAND],
                        [:DOOM,:DOOMTACKLE],
                        [:JELLY,:JELLYKICK],
-                       [:SHARPENER,:WRAPPEDTACKLE],
+                       [:SHARPENER,:SHARPTACKLE], # Intiailly as Wrapped Tackle
                        [:LAVA,:LAVACORN],
                        [:WIND,:WINDATTACK],
                        [:LICK,:LICK],

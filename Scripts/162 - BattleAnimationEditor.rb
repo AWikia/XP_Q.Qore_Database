@@ -2318,7 +2318,7 @@ def pbSelectSE(canvas,audio)
       if filename != ""
         pbSEPlay(RPG::AudioFile.new(filename,maxsizewindow.value(1),maxsizewindow.value(2)))
       else
-        pbSEPlay(RPG::AudioFile.new("001cry",maxsizewindow.value(1),maxsizewindow.value(2)))
+        pbSEPlay(RPG::AudioFile.new("Cries/001",maxsizewindow.value(1),maxsizewindow.value(2)))
       end
     end
     if maxsizewindow.changed?(4) && animfiles.length>0 # Stop Sound

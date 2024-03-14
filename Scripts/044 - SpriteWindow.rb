@@ -7,6 +7,7 @@
   TextSkinDisplayName  = "Purple"
 # FontName             = "Mpisto U2019 Condensed Medium"
   FontName             = "Didact Gothic"
+  FontNameBold         = "Didact Gothic 2"
   TextSpeed            = nil # can be positive to wait frames or negative to
                         # show multiple characters in a single frame
   LIGHTTEXTBASE       = Color.new(248,248,248) # Was 248,248,240
@@ -1504,7 +1505,7 @@ def pbSetSystemFont(bitmap)
     bitmap.font.size=29
   elsif fontname=="Pokemon Emerald Small" || fontname=="Power Green Small"
     bitmap.font.size=25
-  elsif fontname=="Didact Gothic"
+  elsif fontname=="Didact Gothic" || fontname=="Didact Gothic 2"
     bitmap.font.size=31
   elsif fontname=="RGSS Level"
     bitmap.font.size=29
@@ -1535,7 +1536,7 @@ end
 
 def pbSetSmallFont2(bitmap) # Variant without any font editions (Uses 26px of font size)
   fontname=MessageConfig.pbGetSystemFontName()
-  if fontname=="Didact Gothic"
+  if fontname=="Didact Gothic" || fontname=="Didact Gothic 2"
     bitmap.font.size=28
   elsif fontname=="RGSS Level"
     bitmap.font.size=26

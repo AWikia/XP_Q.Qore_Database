@@ -489,7 +489,12 @@ $VersionStyles=[
 
 $VersionStyles=[
   [MessageConfig::FontName], # Default font style - Power Green/"Pokemon Emerald"
-  [MessageConfig::FontName]
+  [MessageConfig::FontNameBold]
+]
+
+$VersionStylesNames=[
+  "Standard",
+  "Bold"
 ]
 
 
@@ -833,13 +838,6 @@ There are different modes:
           proc {|value| $PokemonSystem.charset2 = value },
           "Sets the charset in the naming dialog (Cursor Mode). Choice between Latin, Greek and Cyrillic."
         ),
-       NumberOption.new(_INTL("Font Style"),1,$VersionStyles.length,
-          proc { $PokemonSystem.font },
-          proc {|value|
-             $PokemonSystem.font=value
-             MessageConfig.pbSetSystemFontName($VersionStyles[value])
-          }
-       ),
        EnumOption.new(_INTL("Generation VIII Icons"),[_INTL("Original"),_INTL("Downsampled")],
           proc { $PokemonSystem.dsampling },
           proc {|value| $PokemonSystem.dsampling=value }
@@ -1142,7 +1140,15 @@ There are different modes:
            [_INTL("Standard"), _INTL("Colors"), _INTL("CMYK"), _INTL("Vintage")],
           "Sets the colors to be used in Windowskins."
          ),
-
+       NumberOption.new(_INTL("Font Style"),1,$VersionStyles.length,
+          proc { $PokemonSystem.font },
+          proc {|value|
+             $PokemonSystem.font=value
+             MessageConfig.pbSetSystemFontName($VersionStyles[value])
+          },
+          $VersionStylesNames,
+          "Sets the font used in Game."          
+       ),
          NumberOption.new(_INTL("Accent Color"),1,getAccentNames.length,
            proc { $PokemonSystem.accentcolor },
            proc {|value| 

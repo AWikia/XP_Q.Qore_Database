@@ -545,8 +545,7 @@ end
 
 
 class PokemonSystem
-  attr_accessor :textspeed  # Unused, replaced by textspeed 
-  attr_accessor :textspeed2 # textspeed will cause conflicts with the older savefiles where textspeed is set to fast
+  attr_accessor :textspeed2 #  FIXME: Rename me back to textspeed once Qortex Essentials Ennea gets replaced
   attr_accessor :debugmode
   attr_accessor :battlescene
   attr_accessor :battlestyle
@@ -562,16 +561,10 @@ class PokemonSystem
   attr_accessor :sevolume
   attr_accessor :textinput
   attr_accessor :night
-  attr_accessor :colortige
-  attr_accessor :jbvol
   attr_accessor :jbtempo
-  attr_accessor :outfit
   attr_accessor :doublebattles
-  attr_accessor :mgraphic
   attr_accessor :bordercrop
   attr_accessor :bordergraphic
-  attr_accessor :charset2
-  attr_accessor :dsampling
   attr_accessor :cryclassic
   attr_accessor :newsix
   attr_accessor :vrtrophynotif
@@ -590,7 +583,6 @@ class PokemonSystem
   attr_accessor :autosave
   
   def initialize
-    @textspeed        = 1   # Unused Text Speed
     @textspeed2       = 1   # Text speed (0=slow, 1=normal, 2=fast)
     @debugmode        = 0   # Debug Mode
     @battlescene      = 0   # Battle effects (animations) (0=on, 1=off)
@@ -603,20 +595,14 @@ class PokemonSystem
     @border           = 0   # Screen border (0=off, 1=on)
     @language         = 0   # Language (see also LANGUAGES in script PokemonSystem)
     @runstyle         = 0   # Run key functionality (0=hold to run, 1=toggle auto-run)
-    @jbvol            = 100 # Volume of background music and ME
     @jbtempo          = 100 # Volume of sound effects
     @bgmvolume        = 100 # Volume of background music and ME
     @sevolume         = 100 # Volume of sound effects
     @textinput        = 0   # Text input mode (0=cursor, 1=keyboard)
     @night            = 2   # Night Style (0=Vanilla, 1=Cool, 2=Warm, 3=Crossover)
-    @colortige        = 0   # Cartidge Style (0=GenIV with Color text, 1=GenIV with Light Text, 2=GenIV with Dark Text, 3=Creamy white with light colored text/based on GenIV style, 4=FRLG Style)
-    @outfit           = 0   # Player's Appearance
     @doublebattles    = 0   # Battle Mode (0=Single Wild Battles, 1=Double Wild Battles) - Ignored while you're with someone
-    @mgraphic         = 0   # Mirrored Graphics in some places
     @bordercrop       = 1   # Border Cropping in Full Screen Mode
     @bordergraphic    = 4   # Screen Border Graphic (0=Qora Qore, 1=Pokemon Yellow, 2=Qora Qore V2, 3=Qora Qore V3 Channel-Aware, 4=Qora Qore V3 Accent-Aware)
-    @charset2         = 0   # Charset (0 = Latin, 1 = Greek, 2 = Cyrrilic (Not added yet))
-    @dsampling        = 0   # Charset (0 = Latin, 1 = Greek, 2 = Cyrrilic (Not added yet))
     @cryclassic       = 1   # Cry Style (0 = Classic, 1 = Modern)
     @newsix           = 1   # Cry Style (0 = Classic, 1 = Modern)
     @vrtrophynotif    = 0   # Notifications for collected trophy (0 = On, 1 = Off)
@@ -635,7 +621,7 @@ class PokemonSystem
     @autosave         = 0   # Autosave (0 = Off, 1 = On)
 end
 
-  def textspeed2
+  def textspeed2 # FIXME: Rename me back to textspeed once Qortex Essentials Ennea gets replaced
     return (!@textspeed2) ? 1 : @textspeed2
   end
 
@@ -666,10 +652,6 @@ end
   def bgmvolume
     return (!@bgmvolume) ? 100 : @bgmvolume
   end
-
-  def jbvol # Unused
-    return (!@jbvol) ? 100 : @jbvol
-  end
   
   def jbtempo
     return (!@jbtempo) ? 100 : @jbtempo
@@ -687,33 +669,12 @@ end
     return (!@doublebattles) ? 0 : @doublebattles
   end
 
-  
-  def mgraphic # Unused
-    return (!@mgraphic) ? 0 : @mgraphic
-  end
-  
   def night
     return (!@night) ? 2 : @night
   end
 
-  def colortige # Unused
-    return (!@colortige) ? 0 : @colortige
-  end
-
-  def outfit # Unused
-    return (!@outfit) ? 0 : @outfit
-  end
-
   def bordergraphic
     return (!@bordergraphic) ? 4 : @bordergraphic
-  end
-
-  def charset2 # Unused
-    return (!@charset2) ? 0 : @charset2
-  end
-
-  def dsampling # Unused
-    return (!@dsampling) ? 0 : @dsampling
   end
 
   def cryclassic
@@ -804,28 +765,6 @@ There are different modes:
 
 =begin
 # Old Settings
-       SliderOption.new(_INTL("Jukebox BGM Volume"),0,100,5,
-          proc { $PokemonSystem.jbvol },
-          proc {|value|
-               $PokemonSystem.jbvol=value
-          }
-       ),
-       EnumOption.new(_INTL("Frames Per Second"),[_INTL("24"),_INTL("30"),_INTL("40"),_INTL("50")],
-          proc { $PokemonSystem.textspeed },
-          proc {|value|
-             $PokemonSystem.textspeed=value 
-             if value==3 
-                 Graphics.frame_rate=50
-             elsif value==2
-                Graphics.frame_rate=40
-              elsif value==1
-                Graphics.frame_rate=30
-              else
-                Graphics.frame_rate=24
-              end
-              #MessageConfig.pbSetTextSpeed(pbSettingToTextSpeed(value)) 
-          }
-       ),
        NumberOption.new(_INTL("Selects Color"),1,$TextFrames.length,
           proc { $PokemonSystem.frame },
           proc {|value|
@@ -833,36 +772,6 @@ There are different modes:
              MessageConfig.pbSetSystemFrame($TextFrames[value]) 
           }
        ),
-        EnumOption.new(_INTL("Input Language"),[_INTL("Latin"),_INTL("Greek"),_INTL("Cyrillic")],
-          proc { $PokemonSystem.charset2 },
-          proc {|value| $PokemonSystem.charset2 = value },
-          "Sets the charset in the naming dialog (Cursor Mode). Choice between Latin, Greek and Cyrillic."
-        ),
-       EnumOption.new(_INTL("Generation VIII Icons"),[_INTL("Original"),_INTL("Downsampled")],
-          proc { $PokemonSystem.dsampling },
-          proc {|value| $PokemonSystem.dsampling=value }
-       ),
-       EnumOption.new(_INTL("Mirrored Graphics"),[_INTL("On"),_INTL("Off")],
-         proc { $PokemonSystem.mgraphic },
-         proc {|value| $PokemonSystem.mgraphic = value }
-       ),
-         NumberOption.new(_INTL("Pokémon Type Icon Style"),1,5,
-           proc { $PokemonSystem.colortige },
-           proc {|value| $PokemonSystem.colortige = value },
-           [_INTL("Colored Text"), _INTL("Light Text"), _INTL("Dark Text"), _INTL("Minimal"), _INTL("Retro")],
-           "Sets style of All Icon graphics"
-         ),
-    if $Trainer && false
-      @PokemonOptions+=[ # Outfit style (Only when not in title screen)
-        NumberOption.new(_INTL("Outfit Style"),1,4,
-          proc { $PokemonSystem.outfit },
-          proc {|value| 
-             $PokemonSystem.outfit=value
-             $Trainer.outfit=$PokemonSystem.outfit
-          }
-        )
-      ]
-    end
 =end
 
  def pbStartScene(inloadscreen=false,mode=0)

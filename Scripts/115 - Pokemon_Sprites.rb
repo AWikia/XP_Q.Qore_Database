@@ -433,8 +433,7 @@ def pbPositionPokemonSpriteMirr(sprite,left,top)
     sprite.x=left
     sprite.y=top
   end
-  # sprite.mirror=true was in use
-  sprite.mirror=$PokemonSystem.mgraphic==0 rescue false
+  sprite.mirror=true
 end
 
 

@@ -140,7 +140,7 @@ class Scene_JukeboxScene
       else
         $game_system.setDefaultBGM(
            @sprites["command_window"].commands[@sprites["command_window"].index], 
-           $PokemonSystem.jbvol, $PokemonSystem.jbtempo
+           100, $PokemonSystem.jbtempo
         )        
       end
     end

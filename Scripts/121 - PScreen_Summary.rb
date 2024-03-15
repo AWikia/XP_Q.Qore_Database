@@ -96,8 +96,7 @@ class PokemonSummaryScene
     @sprites["overlay"]=BitmapSprite.new(Graphics.width,Graphics.height,@viewport)
     @sprites["pokemon"]=PokemonSprite.new(@viewport)
     @sprites["pokemon"].setPokemonBitmap(@pokemon)
-    # mirror=true in past
-    @sprites["pokemon"].mirror=$PokemonSystem.mgraphic==0 rescue false
+    @sprites["pokemon"].mirror=true
     @sprites["pokemon"].color=Color.new(0,0,0,0)
     pbPositionPokemonSprite(@sprites["pokemon"],$summarysizex,144)
     @sprites["pokeicon"]=PokemonBoxIcon.new(@pokemon,@viewport)

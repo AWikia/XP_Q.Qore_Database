@@ -38,11 +38,11 @@ class PokemonAboutScreenScene
       shadowColor=MessageConfig::LIGHTTEXTSHADOW
     end
     textPositions=[
-       [_INTL("Qora Qore " + RTP2.getGameIniValue("Qortex", "Channel")),0,0,0,baseColor,shadowColor],
-       [_INTL("Version " + RTP2.getGameIniValue("Qortex", "Release") + " (" + RTP2.getGameIniValue("Qortex", "Version") + " Release)"),0,32,0,baseColor,shadowColor],
+       [_INTL("Qora Qore " + RTP.getGameIniValue("Qortex", "Channel")),0,0,0,baseColor,shadowColor],
+       [_INTL("Version " + RTP.getGameIniValue("Qortex", "Release") + " (" + RTP.getGameIniValue("Qortex", "Version") + " Release)"),0,32,0,baseColor,shadowColor],
        [_INTL("The Qora Qore project begun in December 2013 and it is"),0,96,0,baseColor,shadowColor],
        [_INTL("now a community-oriented project as a service."),0,128,0,baseColor,shadowColor],
-       [_INTL("Work is based upon the " + RTP2.getGameIniValue("Qortex", "Semester") + " codebase."),0,192,0,baseColor,shadowColor],
+       [_INTL("Work is based upon the " + RTP.getGameIniValue("Qortex", "Semester") + " codebase."),0,192,0,baseColor,shadowColor],
     ]
     pbDrawTextPositions(overlay,textPositions)
   end
@@ -57,10 +57,10 @@ class PokemonAboutScreenScene
         break
       end
       if Input.press?(Input::CTRL) && Input.press?(Input::C)
-        clip =  _INTL("Qora Qore " + RTP2.getGameIniValue("Qortex", "Channel"))
-        clip += _INTL("\nVersion " + RTP2.getGameIniValue("Qortex", "Release") + " (" + RTP2.getGameIniValue("Qortex", "Version") + " Release)")
+        clip =  _INTL("Qora Qore " + RTP.getGameIniValue("Qortex", "Channel"))
+        clip += _INTL("\nVersion " + RTP.getGameIniValue("Qortex", "Release") + " (" + RTP.getGameIniValue("Qortex", "Version") + " Release)")
         clip += _INTL("\nThe Qora Qore project begun in December 2013 and it is now a community-oriented project as a service.")
-        clip += _INTL("\nWork is based upon the " + RTP2.getGameIniValue("Qortex", "Semester") + " codebase.")
+        clip += _INTL("\nWork is based upon the " + RTP.getGameIniValue("Qortex", "Semester") + " codebase.")
         clipcopy(clip)
         Kernel.pbMessage("Copied About Screen Contents to the clipboard")
       end

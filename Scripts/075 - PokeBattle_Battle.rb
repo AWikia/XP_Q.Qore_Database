@@ -4826,11 +4826,6 @@ class PokeBattle_Battle
       if @battlers[i].turncount>0 && @battlers[i].hasWorkingAbility(:TRUANT)
         @battlers[i].effects[PBEffects::Truant]=!@battlers[i].effects[PBEffects::Truant]
       end
-      if ($PokemonSystem.battledif==4 rescue false) && 
-         (i%2)==0 &&
-         !@battlers[i].hasWorkingAbility(:TRUANT)
-           @battlers[i].effects[PBEffects::Truant]=!@battlers[i].effects[PBEffects::Truant]
-      end
       if @battlers[i].effects[PBEffects::LockOn]>0   # Also Mind Reader
         @battlers[i].effects[PBEffects::LockOn]-=1
         @battlers[i].effects[PBEffects::LockOnPos]=-1 if @battlers[i].effects[PBEffects::LockOn]==0

@@ -13,6 +13,8 @@
 # * Map view mode (0=original, 1=custom, 2=perspective).
 # * The current active channel (0=Stable, 1=Beta, 2=Dev, 3=Canary)
 #     this is managed by the Channel value of Game.ini
+# * The current active channel variant
+#     this is managed by the Channel value of Game.ini
 #===============================================================================
 class RTP2 # <-- Required by something
   def self.getGameIniValue(section,key)
@@ -40,6 +42,12 @@ QQORECHANNEL         = 4 if (RTP2.getGameIniValue("Qortex", "Channel") == "Inter
                              RTP2.getGameIniValue("Qortex", "Channel") == "LTSC")
 QQORECHANNEL         = 5 if (RTP2.getGameIniValue("Qortex", "Channel") == "Upgrade Wizard" ||
                              RTP2.getGameIniValue("Qortex", "Channel") == "Release Preview")
+QQORECHANNELVARIANT  = 0
+QQORECHANNEL         = 1 if (RTP2.getGameIniValue("Qortex", "Channel") == "Internal" ||
+                             RTP2.getGameIniValue("Qortex", "Channel") == "Upgrade Wizard" ||
+                             RTP2.getGameIniValue("Qortex", "Channel") == "RTM")
+
+
 #SHOWHEADER           = true
 # To forbid the player from changing the screen size themselves, quote out or
 # delete the relevant bit of code in the PScreen_Options script section.

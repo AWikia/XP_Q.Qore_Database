@@ -1608,7 +1608,7 @@ class PokeBattle_Battle
        if !$game_switches[36] and pbPokemonCount(@party2)==1 #GymLeader1
          @scene.pbShowOpponent(0)
          # pbBGMPlay("Showtime",80,100)
-         pbDisplayPaused(_INTL("Showtime! Win my last pokemon to procced"))
+         pbDisplayPaused(_INTL("Almost there! Win my last pokemon to procced"))
          @scene.pbHideOpponent
        else
         # pbBGMPlay("Showtime",80,100)

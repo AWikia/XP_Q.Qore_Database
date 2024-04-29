@@ -72,6 +72,7 @@ class PokemonSaveScene
       if meta
         filename=pbGetPlayerCharset(meta,1,$Trainer)
         @sprites["player"]=TrainerWalkingCharSprite.new(filename,@viewport)
+        @sprites["player"].animspeed=101
         charwidth=@sprites["player"].bitmap.width
         charheight=@sprites["player"].bitmap.height
         @sprites["player"].x = (56*2)+64 - charwidth/8
@@ -79,7 +80,7 @@ class PokemonSaveScene
         @sprites["player"].src_rect = Rect.new(0,0,charwidth/4,charheight/4)
       end
       for i in 0...$Trainer.party.length
-        @sprites["party#{i}"]=PokemonIconSprite.new($Trainer.party[i],@viewport)
+        @sprites["party#{i}"]=PokemonBoxIcon.new($Trainer.party[i],@viewport)
         @sprites["party#{i}"].z=99998
         @sprites["party#{i}"].x=((151*2)+64)+33*2*(i&1)
         @sprites["party#{i}"].y=36*2+25*2*(i/2)+4+16

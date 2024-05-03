@@ -3295,12 +3295,38 @@ def pbUpdateDoor(event,mapdata)
      event.pages[event.pages.length-1].graphic.character_name!="" &&
      mapdata.switchName(event.pages[event.pages.length-1].condition.switch1_id)=='s:tsOff?("A")' &&
      event.pages[event.pages.length-1].list[0].code==111
+# QQC Quality Updates Begin
+    # Make sure all door events have a downwards facing direction
+    event.pages[event.pages.length-2].graphic.direction=2
+    # Make sure second page of a door event has the same graphic as the first one
+    event.pages[event.pages.length-1].graphic = event.pages[event.pages.length-2].graphic
+    # Sliding Door Fixes
+    slidingdoorsheets=["doors6", "doors7"]
+    if slidingdoorsheets.include?(event.pages[event.pages.length-2].graphic.character_name) ||
+      (event.pages[event.pages.length-2].graphic.character_name=="doors3" &&
+      [3].include?(event.pages[event.pages.length-2].graphic.pattern)) ||
+      (event.pages[event.pages.length-2].graphic.character_name=="doors8" &&
+      [1,2].include?(event.pages[event.pages.length-2].graphic.pattern))
+      # Use this sound for Slding Doors...
+      sound = "Sliding Door"
+    else
+      # ...but use this sound for most doors
+      sound = "Entering Door"
+    end
+    # Force Regeneration of event if current and expected sounds mismatch
+    if event.pages[event.pages.length-2].list[0].code==209 # Set Move Route
+      route = event.pages[event.pages.length-2].list[0].parameters[1]
+      mustupdate = route.list[0].parameters[0].name != sound
+    else
+      mustupdate = false
+    end
+# QQC Quality Updates End
     list=event.pages[event.pages.length-2].list
     transferCommand=list.find_all {|cmd| cmd.code==201 }
-    if transferCommand.length==1 && !list.any?{|cmd| cmd.code==208 }
+    if transferCommand.length==1 && (!list.any?{|cmd| cmd.code==208 } || mustupdate)
       list.clear
       pbPushMoveRouteAndWait(list,0,[
-         PBMoveRoute::PlaySE,RPG::AudioFile.new("Entering Door"),PBMoveRoute::Wait,2,
+         PBMoveRoute::PlaySE,RPG::AudioFile.new(sound),PBMoveRoute::Wait,2,
          PBMoveRoute::TurnLeft,PBMoveRoute::Wait,2,
          PBMoveRoute::TurnRight,PBMoveRoute::Wait,2,
          PBMoveRoute::TurnUp,PBMoveRoute::Wait,2])
@@ -3322,12 +3348,15 @@ def pbUpdateDoor(event,mapdata)
       pbPushBranch(list,"get_character(0).onEvent?")
       pbPushEvent(list,208,[0],1)
       pbPushMoveRouteAndWait(list,0,[
-         PBMoveRoute::TurnLeft,PBMoveRoute::Wait,6],1)
+         PBMoveRoute::PlaySE,RPG::AudioFile.new(sound),PBMoveRoute::Wait,2,
+         PBMoveRoute::TurnLeft,PBMoveRoute::Wait,2,
+         PBMoveRoute::TurnRight,PBMoveRoute::Wait,2,
+         PBMoveRoute::TurnUp,PBMoveRoute::Wait,2],1)
       pbPushEvent(list,208,[1],1)
       pbPushMoveRouteAndWait(list,-1,[PBMoveRoute::Down],1)
       pbPushMoveRouteAndWait(list,0,[
-         PBMoveRoute::TurnUp,PBMoveRoute::Wait,2,
          PBMoveRoute::TurnRight,PBMoveRoute::Wait,2,
+         PBMoveRoute::TurnLeft,PBMoveRoute::Wait,2,
          PBMoveRoute::TurnDown,PBMoveRoute::Wait,2],1)
       pbPushBranchEnd(list,1)
       pbPushScript(list,"setTempSwitchOn(\"A\")")

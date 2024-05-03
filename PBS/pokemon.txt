@@ -34351,7 +34351,7 @@ Habitat=Grassland
 Kind=Practicing
 Pokedex=These Pokémon constantly run through shallow waters to train their legs, then compete with each other to see which of them kicks most gracefully.
 BattlerPlayerY=15
-BattlerEnemyY=22
+BattlerEnemyY=24
 BattlerAltitude=0
 Evolutions=QUAQUAVAL,Level,36
 [1264]
@@ -34379,7 +34379,7 @@ Habitat=Grassland
 Kind=Dancer
 Pokedex=A single kick from a Quaquaval can send a truck rolling. This Pokémon uses its powerful legs to perform striking dances from far-off lands.
 BattlerPlayerY=15
-BattlerEnemyY=13
+BattlerEnemyY=12
 BattlerAltitude=0
 Evolutions=
 [1265]
@@ -34929,7 +34929,7 @@ Habitat=Grassland
 Kind=Rock Salt
 Pokedex=Garganacl will rub its fingertips together and sprinkle injured Pokémon with salt. Even severe wounds will promptly heal afterward.
 BattlerPlayerY=15
-BattlerEnemyY=18
+BattlerEnemyY=8
 BattlerAltitude=0
 Evolutions=
 [1285]
@@ -35323,7 +35323,7 @@ Habitat=Grassland
 Kind=Woodbear
 Pokedex=Toedscool lives in muggy forests. The flaps that fall from its body are chewy and very delicious.
 BattlerPlayerY=15
-BattlerEnemyY=24
+BattlerEnemyY=13
 BattlerAltitude=0
 Evolutions=TOEDSCRUEL,Level,30
 [1299]
@@ -36009,7 +36009,7 @@ Habitat=Grassland
 Kind=Synchronize
 Pokedex=This Pokémon apparently ties the base of its neck into a knot so that the energy stored in its belly does not escape from its beak.
 BattlerPlayerY=15
-BattlerEnemyY=15
+BattlerEnemyY=18
 BattlerAltitude=0
 Evolutions=
 [1324]
@@ -36339,7 +36339,7 @@ Habitat=Grassland
 Kind=Paradox
 Pokedex=There has been only one reported sighting of this Pokémon. It resembles a mysterious creature depicted in an old expedition journal.
 BattlerPlayerY=15
-BattlerEnemyY=32
+BattlerEnemyY=33
 BattlerAltitude=0
 Evolutions=
 [1336]
@@ -36365,7 +36365,7 @@ Habitat=Grassland
 Kind=Paradox
 Pokedex=It is possible that the creature listed as Brute Bonnet in a certain book could actually be this Pokémon.
 BattlerPlayerY=15
-BattlerEnemyY=25
+BattlerEnemyY=24
 BattlerAltitude=0
 Evolutions=
 [1337]
@@ -36654,7 +36654,7 @@ Color=Gray
 Habitat=Grassland
 Kind=Ice Fin
 Pokedex=Arctibax freezes the air around it, protecting its face with an ice mask and turning its dorsal fin into a blade of ice.
-BattlerPlayerY=15
+BattlerPlayerY=11
 BattlerEnemyY=29
 BattlerAltitude=0
 Evolutions=BAXCALIBUR,Level,54
@@ -36683,7 +36683,7 @@ Habitat=Grassland
 Kind=Ice Dragon
 Pokedex=This Pokémon blasts cryogenic air out from its mouth. This air can instantly freeze even liquid-hot lava.
 BattlerPlayerY=9
-BattlerEnemyY=12
+BattlerEnemyY=10
 BattlerAltitude=0
 Evolutions=
 [1349]
@@ -36865,7 +36865,7 @@ Habitat=Grassland
 Kind=Paradox
 Pokedex=It is possible that this is the creature listed as Roaring Moon in an expedition journal that still holds many mysteries.
 BattlerPlayerY=7
-BattlerEnemyY=11
+BattlerEnemyY=10
 BattlerAltitude=0
 Evolutions=
 [1356]

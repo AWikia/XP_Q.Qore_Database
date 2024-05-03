@@ -1,13 +1,13 @@
 ﻿[000]
 PlayerA=POKEMONTRAINER_Red,boy_walk,boy_bike,boy_surf_offset,boy_run,boy_dive_offset,boy_fish_offset,boy_fishsurf_offset
 PlayerB=POKEMONTRAINER_Leaf,girl_walk,girl_bike,girl_surf_offset,girl_run,girl_dive_offset,girl_fish_offset,girl_fishsurf_offset
-TrainerVictoryME=Victory - Trainer.mp3
-WildVictoryME=Victory - Wild Pokemon.mp3
-TrainerBattleBGM=Battler_Alt.mp3
-SurfBGM=Ship.mp3
-BicycleBGM=Airship.mp3
+TrainerVictoryME=Victory - Trainer
+WildVictoryME=Victory - Wild Pokemon
+TrainerBattleBGM=Battle - Trainer
+SurfBGM=Ship
+BicycleBGM=Airship
 Home=3,7,5,8
-WildBattleBGM=Battler.mp3
+WildBattleBGM=Battle - Wild Pokemon
 [001]
 # Intro
 BattleBack=Intro
@@ -256,7 +256,7 @@ Dungeon=true
 MapPosition=0,16,10
 [052]
 # Blackthorn City
-TrainerBattleBGM=Raido - Battle.mp3
+TrainerBattleBGM=Raido - Battle
 MapPosition=10,22,7
 Outdoor=true
 ShowArea=true
@@ -274,7 +274,7 @@ HealingSpot=52,30,10
 [056]
 # Battle Tower arena
 BattleBack=EliteA
-TrainerBattleBGM=Radio - Battle.mp3
+TrainerBattleBGM=Radio - Battle
 MapPosition=10,22,7
 DisableAutosaving=true
 [057]
@@ -286,7 +286,7 @@ MapPosition=10,22,7
 [059]
 # Battle Palace arena
 BattleBack=EliteD
-TrainerBattleBGM=Radio - Battle.mp3
+TrainerBattleBGM=Radio - Battle
 MapPosition=10,22,7
 DisableAutosaving=true
 [060]
@@ -295,7 +295,7 @@ MapPosition=10,22,7
 [061]
 # Battle Arena arena
 BattleBack=EliteB
-TrainerBattleBGM=Radio - Battle.mp3
+TrainerBattleBGM=Radio - Battle
 MapPosition=10,22,7
 DisableAutosaving=true
 [062]
@@ -308,7 +308,7 @@ DisableAutosaving=true
 [064]
 # Battle Factory arena
 BattleBack=EliteC
-TrainerBattleBGM=Radio - Battle.mp3
+TrainerBattleBGM=Radio - Battle
 MapPosition=10,22,7
 DisableAutosaving=true
 [065]
@@ -595,7 +595,7 @@ BattleBack=CaveDarker
 Bicycle=true
 MapPosition=7,11,5
 DarkMap=true
-WildBattleBGM=Battler_Nebula Cave.mp3
+WildBattleBGM=Battle - Wild Pokemon (Nebula Cave)
 ShowArea=true
 [111]
 # Nebula Cave {west}
@@ -603,7 +603,7 @@ BattleBack=CaveDarker
 Bicycle=true
 MapPosition=7,17,1
 DarkMap=true
-WildBattleBGM=Battler_Nebula Cave.mp3
+WildBattleBGM=Battle - Wild Pokemon (Nebula Cave)
 ShowArea=true
 [112]
 # MYSTERY ZONE
@@ -760,25 +760,25 @@ MapPosition=3,3,16
 ShowArea=true
 [141]
 # New Bark Town
-TrainerBattleBGM=113 - Vs. Johto Trainer
+TrainerBattleBGM=Battle - Trainer (Johto)
 MapPosition=10,23,15
 Outdoor=true
-WildBattleBGM=112 - Vs. Wild Johto
+WildBattleBGM=Battle - Wild Pokemon (Johto)
 ShowArea=true
 [142]
 # Route 29
 MapSize=3,111
-TrainerBattleBGM=113 - Vs. Johto Trainer.mp3
+TrainerBattleBGM=Battle - Trainer (Johto)
 MapPosition=10,20,15
 Outdoor=true
-WildBattleBGM=112 - Vs. Wild Johto.mp3
+WildBattleBGM=Battle - Wild Pokemon (Johto)
 ShowArea=true
 [143]
 # Cherrygrove City
-TrainerBattleBGM=113 - Vs. Johto Trainer.mp3
+TrainerBattleBGM=Battle - Trainer (Johto)
 MapPosition=10,18,15
 Outdoor=true
-WildBattleBGM=112 - Vs. Wild Johto.mp3
+WildBattleBGM=Battle - Wild Pokemon (Johto)
 ShowArea=true
 [144]
 # Rest Area
@@ -788,85 +788,85 @@ HealingSpot=143,14,10
 # Understairs Cherrygrove City
 BattleBack=CaveDark
 Bicycle=true
-TrainerBattleBGM=113 - Vs. Johto Trainer.mp3
+TrainerBattleBGM=Battle - Trainer (Johto)
 MapPosition=10,18,15
-WildBattleBGM=112 - Vs. Wild Johto.mp3
+WildBattleBGM=Battle - Wild Pokemon (Johto)
 ShowArea=true
 [146]
 # Understairs Keniora Sechs
 BattleBack=CaveDark
 Bicycle=true
-TrainerBattleBGM=113 - Vs. Johto Trainer.mp3
+TrainerBattleBGM=Battle - Trainer (Johto)
 MapPosition=8,20,15
-WildBattleBGM=112 - Vs. Wild Johto.mp3
+WildBattleBGM=Battle - Wild Pokemon (Johto)
 ShowArea=true
 [147]
 # Magnet Train
 BattleBack=CaveDarker
 Bicycle=true
-TrainerBattleBGM=113 - Vs. Johto Trainer.mp3
+TrainerBattleBGM=Battle - Trainer (Johto)
 MapPosition=3,3,16
 DarkMap=true
-WildBattleBGM=112 - Vs. Wild Johto.mp3
+WildBattleBGM=Battle - Wild Pokemon (Johto)
 ShowArea=true
 Environment=Graveyard
 [148]
 # Understairs Keniora Funf
 BattleBack=CaveDark
 Bicycle=true
-TrainerBattleBGM=113 - Vs. Johto Trainer.mp3
+TrainerBattleBGM=Battle - Trainer (Johto)
 MapPosition=8,19,4
-WildBattleBGM=112 - Vs. Wild Johto.mp3
+WildBattleBGM=Battle - Wild Pokemon (Johto)
 ShowArea=true
 [149]
 # Understairs Violet City
 BattleBack=CaveDarker
 Bicycle=true
-TrainerBattleBGM=113 - Vs. Johto Trainer.mp3
+TrainerBattleBGM=Battle - Trainer (Johto)
 MapPosition=10,16,10
-WildBattleBGM=112 - Vs. Wild Johto.mp3
+WildBattleBGM=Battle - Wild Pokemon (Johto)
 ShowArea=true
 [150]
 # Azalea Town
-TrainerBattleBGM=113 - Vs. Johto Trainer.mp3
+TrainerBattleBGM=Battle - Trainer (Johto)
 MapPosition=10,13,17
 Outdoor=true
-WildBattleBGM=112 - Vs. Wild Johto.mp3
+WildBattleBGM=Battle - Wild Pokemon (Johto)
 ShowArea=true
 [151]
 # Ethan's House
-TrainerBattleBGM=113 - Vs. Johto Trainer.mp3
+TrainerBattleBGM=Battle - Trainer (Johto)
 MapPosition=10,13,17
-WildBattleBGM=112 - Vs. Wild Johto.mp3
+WildBattleBGM=Battle - Wild Pokemon (Johto)
 [152]
 # Rest Area
-TrainerBattleBGM=113 - Vs. Johto Trainer.mp3
+TrainerBattleBGM=Battle - Trainer (Johto)
 MapPosition=10,13,17
-WildBattleBGM=112 - Vs. Wild Johto.mp3
+WildBattleBGM=Battle - Wild Pokemon (Johto)
 HealingSpot=150,28,14
 [153]
 # Telemarketing Area
-TrainerBattleBGM=113 - Vs. Johto Trainer.mp3
+TrainerBattleBGM=Battle - Trainer (Johto)
 MapPosition=10,13,17
-WildBattleBGM=112 - Vs. Wild Johto.mp3
+WildBattleBGM=Battle - Wild Pokemon (Johto)
 [154]
 # Understairs Azalea Town
 BattleBack=CaveDark
 Bicycle=true
-TrainerBattleBGM=113 - Vs. Johto Trainer.mp3
+TrainerBattleBGM=Battle - Trainer (Johto)
 MapPosition=10,12,17
 DarkMap=true
-WildBattleBGM=112 - Vs. Wild Johto.mp3
+WildBattleBGM=Battle - Wild Pokemon (Johto)
 ShowArea=true
 [155]
 # Ilex Forest
 BattleBack=Ilex
 Bicycle=false
-TrainerBattleBGM=113 - Vs. Johto Trainer.mp3
+TrainerBattleBGM=Battle - Trainer (Johto)
 MapPosition=10,11,17
 DarkMap=true
 Outdoor=true
-WildBattleBGM=112 - Vs. Wild Johto.mp3
+WildBattleBGM=Battle - Wild Pokemon (Johto)
 ShowArea=true
 Environment=Forest
 [156]
@@ -874,132 +874,132 @@ Environment=Forest
 MapSize=1,11
 BattleBack=CaveDark
 Bicycle=true
-TrainerBattleBGM=113 - Vs. Johto Trainer.mp3
+TrainerBattleBGM=Battle - Trainer (Johto)
 MapPosition=10,11,15
 DarkMap=true
-WildBattleBGM=112 - Vs. Wild Johto.mp3
+WildBattleBGM=Battle - Wild Pokemon (Johto)
 ShowArea=true
 [157]
 # Goldenrod City
-TrainerBattleBGM=113 - Vs. Johto Trainer.mp3
+TrainerBattleBGM=Battle - Trainer (Johto)
 MapPosition=10,11,13
 Outdoor=true
-WildBattleBGM=112 - Vs. Wild Johto.mp3
+WildBattleBGM=Battle - Wild Pokemon (Johto)
 ShowArea=true
 [158]
 # Rest Area
-TrainerBattleBGM=113 - Vs. Johto Trainer.mp3
+TrainerBattleBGM=Battle - Trainer (Johto)
 MapPosition=10,11,13
-WildBattleBGM=112 - Vs. Wild Johto.mp3
+WildBattleBGM=Battle - Wild Pokemon (Johto)
 HealingSpot=157,16,28
 [159]
 # Goldenrod City Game Corner
-TrainerBattleBGM=113 - Vs. Johto Trainer.mp3
+TrainerBattleBGM=Battle - Trainer (Johto)
 MapPosition=10,11,13
-WildBattleBGM=112 - Vs. Wild Johto.mp3
+WildBattleBGM=Battle - Wild Pokemon (Johto)
 [160]
 # Route 35
-TrainerBattleBGM=113 - Vs. Johto Trainer
+TrainerBattleBGM=Battle - Trainer (Johto)
 MapPosition=10,11,11
 Outdoor=true
-WildBattleBGM=112 - Vs. Wild Johto
+WildBattleBGM=Battle - Wild Pokemon (Johto)
 ShowArea=true
 [161]
 # Route 36
-TrainerBattleBGM=113 - Vs. Johto Trainer
+TrainerBattleBGM=Battle - Trainer (Johto)
 MapPosition=10,12,9
 Outdoor=true
-WildBattleBGM=112 - Vs. Wild Johto
+WildBattleBGM=Battle - Wild Pokemon (Johto)
 ShowArea=true
 [162]
 # Route 37
-TrainerBattleBGM=113 - Vs. Johto Trainer
+TrainerBattleBGM=Battle - Trainer (Johto)
 MapPosition=10,12,8
 Outdoor=true
-WildBattleBGM=112 - Vs. Wild Johto
+WildBattleBGM=Battle - Wild Pokemon (Johto)
 ShowArea=true
 [163]
 # Understairs Quora Eins
 Bicycle=true
-TrainerBattleBGM=113 - Vs. Johto Trainer.mp3
+TrainerBattleBGM=Battle - Trainer (Johto)
 MapPosition=2,2,3
-WildBattleBGM=112 - Vs. Wild Johto.mp3
+WildBattleBGM=Battle - Wild Pokemon (Johto)
 ShowArea=true
 [164]
 # Understairs Ecruteak City
 Bicycle=true
-TrainerBattleBGM=113 - Vs. Johto Trainer.mp3
+TrainerBattleBGM=Battle - Trainer (Johto)
 MapPosition=10,12,6
-WildBattleBGM=112 - Vs. Wild Johto.mp3
+WildBattleBGM=Battle - Wild Pokemon (Johto)
 ShowArea=true
 [165]
 # Understairs Route 38
 MapSize=2,11
 Bicycle=true
-TrainerBattleBGM=113 - Vs. Johto Trainer.mp3
+TrainerBattleBGM=Battle - Trainer (Johto)
 MapPosition=10,9,7
-WildBattleBGM=112 - Vs. Wild Johto.mp3
+WildBattleBGM=Battle - Wild Pokemon (Johto)
 ShowArea=true
 [166]
 # Route 39
 MapSize=1,11
-TrainerBattleBGM=113 - Vs. Johto Trainer.mp3
+TrainerBattleBGM=Battle - Trainer (Johto)
 MapPosition=10,8,7
 Outdoor=true
-WildBattleBGM=112 - Vs. Wild Johto.mp3
+WildBattleBGM=Battle - Wild Pokemon (Johto)
 ShowArea=true
 [167]
 # Olivine City
-TrainerBattleBGM=113 - Vs. Johto Trainer.mp3
+TrainerBattleBGM=Battle - Trainer (Johto)
 MapPosition=10,8,10
 Outdoor=true
-WildBattleBGM=112 - Vs. Wild Johto.mp3
+WildBattleBGM=Battle - Wild Pokemon (Johto)
 ShowArea=true
 [168]
 # Rest Area
-TrainerBattleBGM=113 - Vs. Johto Trainer.mp3
+TrainerBattleBGM=Battle - Trainer (Johto)
 MapPosition=10,8,10
-WildBattleBGM=112 - Vs. Wild Johto.mp3
+WildBattleBGM=Battle - Wild Pokemon (Johto)
 HealingSpot=167,14,22
 [169]
 # Telemarketing Area
-TrainerBattleBGM=113 - Vs. Johto Trainer.mp3
+TrainerBattleBGM=Battle - Trainer (Johto)
 MapPosition=10,8,10
-WildBattleBGM=112 - Vs. Wild Johto.mp3
+WildBattleBGM=Battle - Wild Pokemon (Johto)
 [170]
 # Understairs Olivine City
 Bicycle=true
-TrainerBattleBGM=113 - Vs. Johto Trainer.mp3
+TrainerBattleBGM=Battle - Trainer (Johto)
 MapPosition=10,8,10
-WildBattleBGM=112 - Vs. Wild Johto.mp3
+WildBattleBGM=Battle - Wild Pokemon (Johto)
 ShowArea=true
 [171]
 # Understairs Route 40
 Bicycle=true
-TrainerBattleBGM=113 - Vs. Johto Trainer.mp3
+TrainerBattleBGM=Battle - Trainer (Johto)
 MapPosition=10,7,10
-WildBattleBGM=112 - Vs. Wild Johto.mp3
+WildBattleBGM=Battle - Wild Pokemon (Johto)
 ShowArea=true
 [172]
 # Understairs Route 42
 Bicycle=true
-TrainerBattleBGM=113 - Vs. Johto Trainer.mp3
+TrainerBattleBGM=Battle - Trainer (Johto)
 MapPosition=10,16,7
-WildBattleBGM=112 - Vs. Wild Johto.mp3
+WildBattleBGM=Battle - Wild Pokemon (Johto)
 ShowArea=true
 [173]
 # Route 42
-TrainerBattleBGM=113 - Vs. Johto Trainer.mp3
+TrainerBattleBGM=Battle - Trainer (Johto)
 MapPosition=10,16,7
 Outdoor=true
-WildBattleBGM=112 - Vs. Wild Johto.mp3
+WildBattleBGM=Battle - Wild Pokemon (Johto)
 ShowArea=true
 [174]
 # Magohany Town
-TrainerBattleBGM=113 - Vs. Johto Trainer.mp3
+TrainerBattleBGM=Battle - Trainer (Johto)
 MapPosition=10,17,7
 Outdoor=true
-WildBattleBGM=112 - Vs. Wild Johto.mp3
+WildBattleBGM=Battle - Wild Pokemon (Johto)
 ShowArea=true
 [175]
 # Rest Area
@@ -1007,71 +1007,71 @@ MapPosition=10,17,7
 HealingSpot=174,12,18
 [176]
 # Route 43 Entrance
-TrainerBattleBGM=113 - Vs. Johto Trainer.mp3
+TrainerBattleBGM=Battle - Trainer (Johto)
 MapPosition=10,17,6
-WildBattleBGM=112 - Vs. Wild Johto.mp3
+WildBattleBGM=Battle - Wild Pokemon (Johto)
 [177]
 # Route 43
 MapSize=1,11
-TrainerBattleBGM=113 - Vs. Johto Trainer.mp3
+TrainerBattleBGM=Battle - Trainer (Johto)
 MapPosition=10,17,5
 Outdoor=true
-WildBattleBGM=112 - Vs. Wild Johto.mp3
+WildBattleBGM=Battle - Wild Pokemon (Johto)
 ShowArea=true
 [178]
 # Route 43 indoor
-TrainerBattleBGM=113 - Vs. Johto Trainer.mp3
+TrainerBattleBGM=Battle - Trainer (Johto)
 MapPosition=10,17,6
-WildBattleBGM=112 - Vs. Wild Johto.mp3
+WildBattleBGM=Battle - Wild Pokemon (Johto)
 [179]
 # Route 44
 MapSize=2,11
-TrainerBattleBGM=113 - Vs. Johto Trainer.mp3
+TrainerBattleBGM=Battle - Trainer (Johto)
 MapPosition=10,19,7
 Outdoor=true
-WildBattleBGM=112 - Vs. Wild Johto.mp3
+WildBattleBGM=Battle - Wild Pokemon (Johto)
 ShowArea=true
 [180]
 # Ice Path
 SnapEdges=true
 BattleBack=IndoorC
-TrainerBattleBGM=113 - Vs. Johto Trainer.mp3
+TrainerBattleBGM=Battle - Trainer (Johto)
 MapPosition=10,20,7
-WildBattleBGM=112 - Vs. Wild Johto.mp3
+WildBattleBGM=Battle - Wild Pokemon (Johto)
 ShowArea=true
 Environment=Snow
 [181]
 # Lake of Rage Entrance
-TrainerBattleBGM=113 - Vs. Johto Trainer.mp3
+TrainerBattleBGM=Battle - Trainer (Johto)
 MapPosition=10,17,3
-WildBattleBGM=112 - Vs. Wild Johto.mp3
+WildBattleBGM=Battle - Wild Pokemon (Johto)
 [182]
 # Lake of Rage
 TrainerBattleBGM=gymleader
 MapPosition=10,17,3
 Outdoor=true
-WildBattleBGM=112 - Vs. Wild Johto.mp3
+WildBattleBGM=Battle - Wild Pokemon (Johto)
 ShowArea=true
 [184]
 # Littleroot Town
-TrainerBattleBGM=113 - Vs. Hoenn Trainer.mp3
+TrainerBattleBGM=Battle - Trainer (Hoenn)
 MapPosition=11,5,13
 Outdoor=true
-WildBattleBGM=112 - Vs. Wild Hoenn.mp3
+WildBattleBGM=Battle - Wild Pokemon (Hoenn)
 ShowArea=true
 [186]
 # Route 101
-TrainerBattleBGM=113 - Vs. Hoenn Trainer.mp3
+TrainerBattleBGM=Battle - Trainer (Hoenn)
 MapPosition=11,5,12
 Outdoor=true
-WildBattleBGM=112 - Vs. Wild Hoenn.mp3
+WildBattleBGM=Battle - Wild Pokemon (Hoenn)
 ShowArea=true
 [187]
 # Oldale Town
-TrainerBattleBGM=113 - Vs. Hoenn Trainer.mp3
+TrainerBattleBGM=Battle - Trainer (Hoenn)
 MapPosition=11,5,11
 Outdoor=true
-WildBattleBGM=112 - Vs. Wild Hoenn.mp3
+WildBattleBGM=Battle - Wild Pokemon (Hoenn)
 ShowArea=true
 [188]
 # Rest Area
@@ -1080,17 +1080,17 @@ HealingSpot=187,6,17
 [189]
 # Route 102
 MapSize=2,11
-TrainerBattleBGM=113 - Vs. Hoenn Trainer.mp3
+TrainerBattleBGM=Battle - Trainer (Hoenn)
 MapPosition=11,3,11
 Outdoor=true
-WildBattleBGM=112 - Vs. Wild Hoenn.mp3
+WildBattleBGM=Battle - Wild Pokemon (Hoenn)
 ShowArea=true
 [191]
 # Petallburg City
-TrainerBattleBGM=113 - Vs. Hoenn Trainer.mp3
+TrainerBattleBGM=Battle - Trainer (Hoenn)
 MapPosition=11,2,11
 Outdoor=true
-WildBattleBGM=112 - Vs. Wild Hoenn.mp3
+WildBattleBGM=Battle - Wild Pokemon (Hoenn)
 ShowArea=true
 [192]
 # Rest Area
@@ -1099,25 +1099,25 @@ HealingSpot=191,20,17
 [194]
 # Route 104
 MapSize=1,111
-TrainerBattleBGM=113 - Vs. Hoenn Trainer.mp3
+TrainerBattleBGM=Battle - Trainer (Hoenn)
 MapPosition=11,1,9
 Outdoor=true
-WildBattleBGM=112 - Vs. Wild Hoenn.mp3
+WildBattleBGM=Battle - Wild Pokemon (Hoenn)
 ShowArea=true
 [195]
 # Understairs Route 104
 Bicycle=true
-TrainerBattleBGM=113 - Vs. Hoenn Trainer.mp3
+TrainerBattleBGM=Battle - Trainer (Hoenn)
 MapPosition=11,1,10
-WildBattleBGM=112 - Vs. Wild Hoenn.mp3
+WildBattleBGM=Battle - Wild Pokemon (Hoenn)
 ShowArea=true
 [196]
 # Rustboro City
 MapSize=1,11
-TrainerBattleBGM=113 - Vs. Hoenn Trainer.mp3
+TrainerBattleBGM=Battle - Trainer (Hoenn)
 MapPosition=11,1,7
 Outdoor=true
-WildBattleBGM=112 - Vs. Wild Hoenn.mp3
+WildBattleBGM=Battle - Wild Pokemon (Hoenn)
 ShowArea=true
 [198]
 # Telecommunities Center
@@ -1128,16 +1128,16 @@ HealingSpot=196,16,14
 SnapEdges=true
 BattleBack=CaveDark
 Bicycle=true
-TrainerBattleBGM=113 - Vs. Hoenn Trainer.mp3
+TrainerBattleBGM=Battle - Trainer (Hoenn)
 MapPosition=11,1,7
-WildBattleBGM=112 - Vs. Wild Hoenn.mp3
+WildBattleBGM=Battle - Wild Pokemon (Hoenn)
 ShowArea=true
 [201]
 # Fallabor Town
-TrainerBattleBGM=113 - Vs. Hoenn Trainer.mp3
+TrainerBattleBGM=Battle - Trainer (Hoenn)
 MapPosition=11,4,2
 Outdoor=true
-WildBattleBGM=112 - Vs. Wild Hoenn.mp3
+WildBattleBGM=Battle - Wild Pokemon (Hoenn)
 ShowArea=true
 [202]
 # Rest Area
@@ -1148,24 +1148,24 @@ HealingSpot=201,14,8
 MapSize=4,1111
 BattleBack=Mountain
 Weather=Sandstorm,100
-TrainerBattleBGM=113 - Vs. Hoenn Trainer.mp3
+TrainerBattleBGM=Battle - Trainer (Hoenn)
 MapPosition=11,5,2
 Outdoor=true
-WildBattleBGM=112 - Vs. Wild Hoenn.mp3
+WildBattleBGM=Battle - Wild Pokemon (Hoenn)
 ShowArea=true
 [207]
 # Understaurs Route 111
-TrainerBattleBGM=113 - Vs. Hoenn Trainer.mp3
+TrainerBattleBGM=Battle - Trainer (Hoenn)
 MapPosition=11,9,2
-WildBattleBGM=112 - Vs. Wild Hoenn.mp3
+WildBattleBGM=Battle - Wild Pokemon (Hoenn)
 ShowArea=true
 [208]
 # Mauville City
 MapSize=2,11
-TrainerBattleBGM=113 - Vs. Hoenn Trainer.mp3
+TrainerBattleBGM=Battle - Trainer (Hoenn)
 MapPosition=11,9,8
 Outdoor=true
-WildBattleBGM=112 - Vs. Wild Hoenn.mp3
+WildBattleBGM=Battle - Wild Pokemon (Hoenn)
 ShowArea=true
 [209]
 # Rest Area
@@ -1175,59 +1175,59 @@ HealingSpot=208,22,6
 # Understairs Route 119
 MapSize=1,111111
 BattleBack=CaveDarker
-TrainerBattleBGM=113 - Vs. Hoenn Trainer.mp3
+TrainerBattleBGM=Battle - Trainer (Hoenn)
 MapPosition=11,12,2
 DarkMap=true
-WildBattleBGM=112 - Vs. Wild Hoenn.mp3
+WildBattleBGM=Battle - Wild Pokemon (Hoenn)
 ShowArea=true
 [212]
 # Understairs Fortree City
 BattleBack=CaveDarker
-TrainerBattleBGM=113 - Vs. Hoenn Trainer.mp3
+TrainerBattleBGM=Battle - Trainer (Hoenn)
 MapPosition=11,13,2
 DarkMap=true
-WildBattleBGM=112 - Vs. Wild Hoenn.mp3
+WildBattleBGM=Battle - Wild Pokemon (Hoenn)
 ShowArea=true
 [213]
 # Understairs Route 120
 MapSize=1,1111
 BattleBack=CaveDarker
-TrainerBattleBGM=113 - Vs. Hoenn Trainer.mp3
+TrainerBattleBGM=Battle - Trainer (Hoenn)
 MapPosition=11,14,2
 DarkMap=true
-WildBattleBGM=112 - Vs. Wild Hoenn.mp3
+WildBattleBGM=Battle - Wild Pokemon (Hoenn)
 ShowArea=true
 [214]
 # Understairs Route 121
 MapSize=4,1111
 BattleBack=CaveDarker
-TrainerBattleBGM=113 - Vs. Hoenn Trainer.mp3
+TrainerBattleBGM=Battle - Trainer (Hoenn)
 MapPosition=11,15,5
 DarkMap=true
-WildBattleBGM=112 - Vs. Wild Hoenn.mp3
+WildBattleBGM=Battle - Wild Pokemon (Hoenn)
 ShowArea=true
 [215]
 # Route 121
-TrainerBattleBGM=113 - Vs. Hoenn Trainer.mp3
+TrainerBattleBGM=Battle - Trainer (Hoenn)
 MapPosition=11,18,5
 Outdoor=true
-WildBattleBGM=112 - Vs. Wild Hoenn.mp3
+WildBattleBGM=Battle - Wild Pokemon (Hoenn)
 ShowArea=true
 [216]
 # Lilycone City
 MapSize=2,11
-TrainerBattleBGM=113 - Vs. Hoenn Trainer.mp3
+TrainerBattleBGM=Battle - Trainer (Hoenn)
 MapPosition=11,19,5
 Outdoor=true
-WildBattleBGM=112 - Vs. Wild Hoenn.mp3
+WildBattleBGM=Battle - Wild Pokemon (Hoenn)
 ShowArea=true
 [217]
 # Route 124
 MapSize=2,11
-TrainerBattleBGM=113 - Vs. Hoenn Trainer.mp3
+TrainerBattleBGM=Battle - Trainer (Hoenn)
 MapPosition=11,21,5
 Outdoor=true
-WildBattleBGM=112 - Vs. Wild Hoenn.mp3
+WildBattleBGM=Battle - Wild Pokemon (Hoenn)
 ShowArea=true
 [218]
 # Rest Area
@@ -1236,188 +1236,188 @@ HealingSpot=216,22,14
 [220]
 # Cave of Origin
 Bicycle=true
-TrainerBattleBGM=113 - Vs. Hoenn Trainer.mp3
+TrainerBattleBGM=Battle - Trainer (Hoenn)
 MapPosition=11,22,5
-WildBattleBGM=112 - Vs. Wild Hoenn.mp3
+WildBattleBGM=Battle - Wild Pokemon (Hoenn)
 ShowArea=true
 [221]
 # Cave of Origin
 BattleBack=CaveDark
 Bicycle=true
-TrainerBattleBGM=113 - Vs. Hoenn Trainer.mp3
+TrainerBattleBGM=Battle - Trainer (Hoenn)
 MapPosition=11,22,5
-WildBattleBGM=112 - Vs. Wild Hoenn.mp3
+WildBattleBGM=Battle - Wild Pokemon (Hoenn)
 ShowArea=true
 [222]
 # Cave of Origin
 BattleBack=CaveDarker
-TrainerBattleBGM=113 - Vs. Hoenn Trainer.mp3
+TrainerBattleBGM=Battle - Trainer (Hoenn)
 MapPosition=11,22,5
-WildBattleBGM=112 - Vs. Wild Hoenn.mp3
+WildBattleBGM=Battle - Wild Pokemon (Hoenn)
 ShowArea=true
 [223]
 # Meteor Falls
 SnapEdges=true
 BattleBack=CaveDarker
 Bicycle=true
-TrainerBattleBGM=113 - Vs. Hoenn Trainer.mp3
+TrainerBattleBGM=Battle - Trainer (Hoenn)
 MapPosition=11,1,7
-WildBattleBGM=112 - Vs. Wild Hoenn.mp3
+WildBattleBGM=Battle - Wild Pokemon (Hoenn)
 ShowArea=true
 [224]
 # Meteor Falls
 BattleBack=CaveDarker
 Bicycle=true
-TrainerBattleBGM=113 - Vs. Hoenn Trainer.mp3
+TrainerBattleBGM=Battle - Trainer (Hoenn)
 MapPosition=11,1,7
-WildBattleBGM=112 - Vs. Wild Hoenn.mp3
+WildBattleBGM=Battle - Wild Pokemon (Hoenn)
 ShowArea=true
 [227]
 # PiXie Cave
 MapSize=2,11
 BattleBack=CaveDark
 Bicycle=true
-TrainerBattleBGM=113 - Vs. Hoenn Trainer.mp3
+TrainerBattleBGM=Battle - Trainer (Hoenn)
 MapPosition=4,10,10
-WildBattleBGM=112 - Vs. Wild Hoenn.mp3
+WildBattleBGM=Battle - Wild Pokemon (Hoenn)
 ShowArea=true
 FutureMap=533
 [228]
 # Twinleaf Town
-TrainerBattleBGM=Shinnoh trainer.mp3
+TrainerBattleBGM=Battle - Trainer (Sinnoh)
 Outdoor=true
-WildBattleBGM=Shinnoh Battle.mp3
+WildBattleBGM=Battle - Wild Pokemon (Sinnoh)
 ShowArea=true
 [232]
 # Route 201
-TrainerBattleBGM=Shinnoh trainer.mp3
+TrainerBattleBGM=Battle - Trainer (Sinnoh)
 Outdoor=true
-WildBattleBGM=Shinnoh Battle.mp3
+WildBattleBGM=Battle - Wild Pokemon (Sinnoh)
 ShowArea=true
 [233]
 # PiXie Cave
 MapSize=2,11
 BattleBack=CaveDarker
 Bicycle=true
-TrainerBattleBGM=113 - Vs. Johto Trainer.mp3
+TrainerBattleBGM=Battle - Trainer (Johto)
 MapPosition=4,10,10
-WildBattleBGM=112 - Vs. Wild Johto.mp3
+WildBattleBGM=Battle - Wild Pokemon (Johto)
 [234]
 # PiXie Cave
 MapSize=2,11
 BattleBack=CaveDarker
 Bicycle=true
-TrainerBattleBGM=113 - Vs. Johto Trainer.mp3
+TrainerBattleBGM=Battle - Trainer (Johto)
 MapPosition=4,10,10
-WildBattleBGM=112 - Vs. Wild Johto.mp3
+WildBattleBGM=Battle - Wild Pokemon (Johto)
 [236]
 # Sandgem Town
-TrainerBattleBGM=Shinnoh trainer.mp3
+TrainerBattleBGM=Battle - Trainer (Sinnoh)
 Outdoor=true
-WildBattleBGM=Shinnoh Battle.mp3
+WildBattleBGM=Battle - Wild Pokemon (Sinnoh)
 ShowArea=true
 [239]
 # Understairs Sandgem Town
 Bicycle=true
-TrainerBattleBGM=Shinnoh trainer.mp3
-WildBattleBGM=Shinnoh Battle.mp3
+TrainerBattleBGM=Battle - Trainer (Sinnoh)
+WildBattleBGM=Battle - Wild Pokemon (Sinnoh)
 ShowArea=true
 [240]
 # Understairs Lilycone City
 Bicycle=true
-TrainerBattleBGM=Shinnoh trainer.mp3
+TrainerBattleBGM=Battle - Trainer (Sinnoh)
 MapPosition=11,19,5
-WildBattleBGM=Shinnoh Battle.mp3
+WildBattleBGM=Battle - Wild Pokemon (Sinnoh)
 ShowArea=true
 [241]
 # Lilycone Basement
 Bicycle=true
-TrainerBattleBGM=Shinnoh trainer.mp3
+TrainerBattleBGM=Battle - Trainer (Sinnoh)
 MapPosition=11,19,5
-WildBattleBGM=Shinnoh Battle.mp3
+WildBattleBGM=Battle - Wild Pokemon (Sinnoh)
 ShowArea=true
 [242]
 # Understairs Route 124
 Bicycle=true
-TrainerBattleBGM=Shinnoh trainer.mp3
+TrainerBattleBGM=Battle - Trainer (Sinnoh)
 MapPosition=11,19,5
-WildBattleBGM=Shinnoh Battle.mp3
+WildBattleBGM=Battle - Wild Pokemon (Sinnoh)
 ShowArea=true
 [243]
 # Sandgem Bridgeway
 Bicycle=true
-TrainerBattleBGM=Shinnoh trainer.mp3
-WildBattleBGM=Shinnoh Battle.mp3
+TrainerBattleBGM=Battle - Trainer (Sinnoh)
+WildBattleBGM=Battle - Wild Pokemon (Sinnoh)
 ShowArea=true
 [244]
 # Understairs Route 202
 Bicycle=true
-TrainerBattleBGM=Shinnoh trainer.mp3
-WildBattleBGM=Shinnoh Battle.mp3
+TrainerBattleBGM=Battle - Trainer (Sinnoh)
+WildBattleBGM=Battle - Wild Pokemon (Sinnoh)
 ShowArea=true
 [245]
 # Understairs Jumbilife City
 Bicycle=true
-TrainerBattleBGM=Shinnoh trainer.mp3
-WildBattleBGM=Shinnoh Battle.mp3
+TrainerBattleBGM=Battle - Trainer (Sinnoh)
+WildBattleBGM=Battle - Wild Pokemon (Sinnoh)
 ShowArea=true
 [246]
 # Jumbilife Basement
 Bicycle=true
-TrainerBattleBGM=Shinnoh trainer.mp3
-WildBattleBGM=Shinnoh Battle.mp3
+TrainerBattleBGM=Battle - Trainer (Sinnoh)
+WildBattleBGM=Battle - Wild Pokemon (Sinnoh)
 ShowArea=true
 [247]
 # Understairs Route 204
 Bicycle=true
-TrainerBattleBGM=Shinnoh trainer.mp3
-WildBattleBGM=Shinnoh Battle.mp3
+TrainerBattleBGM=Battle - Trainer (Sinnoh)
+WildBattleBGM=Battle - Wild Pokemon (Sinnoh)
 ShowArea=true
 [248]
 # Ravaged Path
 Bicycle=true
-TrainerBattleBGM=Shinnoh trainer.mp3
-WildBattleBGM=Shinnoh Battle.mp3
+TrainerBattleBGM=Battle - Trainer (Sinnoh)
+WildBattleBGM=Battle - Wild Pokemon (Sinnoh)
 ShowArea=true
 [249]
 # Understairs Floaroma Town
 Bicycle=true
-TrainerBattleBGM=Shinnoh trainer.mp3
-WildBattleBGM=Shinnoh Battle.mp3
+TrainerBattleBGM=Battle - Trainer (Sinnoh)
+WildBattleBGM=Battle - Wild Pokemon (Sinnoh)
 ShowArea=true
 [250]
 # Understairs Floaroma Meadow
 Bicycle=true
-TrainerBattleBGM=Shinnoh trainer.mp3
-WildBattleBGM=Shinnoh Battle.mp3
+TrainerBattleBGM=Battle - Trainer (Sinnoh)
+WildBattleBGM=Battle - Wild Pokemon (Sinnoh)
 ShowArea=true
 [251]
 # Route 205
 Bicycle=true
-TrainerBattleBGM=Shinnoh trainer.mp3
+TrainerBattleBGM=Battle - Trainer (Sinnoh)
 Outdoor=true
-WildBattleBGM=Shinnoh Battle.mp3
+WildBattleBGM=Battle - Wild Pokemon (Sinnoh)
 ShowArea=true
 [252]
 # Valley Windworks
 Bicycle=true
-TrainerBattleBGM=Shinnoh trainer.mp3
-WildBattleBGM=Shinnoh Battle.mp3
+TrainerBattleBGM=Battle - Trainer (Sinnoh)
+WildBattleBGM=Battle - Wild Pokemon (Sinnoh)
 ShowArea=true
 [254]
 # Dexoys Carven
 Bicycle=true
-TrainerBattleBGM=113 - Vs. Johto Trainer.mp3
-WildBattleBGM=112 - Vs. Wild Johto.mp3
+TrainerBattleBGM=Battle - Trainer (Johto)
+WildBattleBGM=Battle - Wild Pokemon (Johto)
 [255]
 # Jirachi Carven
 Bicycle=true
-TrainerBattleBGM=113 - Vs. Johto Trainer.mp3
-WildBattleBGM=112 - Vs. Wild Johto.mp3
+TrainerBattleBGM=Battle - Trainer (Johto)
+WildBattleBGM=Battle - Wild Pokemon (Johto)
 [256]
 # Maxuora Eins
 Bicycle=true
-TrainerBattleBGM=Battler_TEAMROCKET
+TrainerBattleBGM=Battle - Special Trainer
 MapPosition=12,2,2
 Outdoor=true
 ShowArea=true
@@ -1425,14 +1425,14 @@ ShowArea=true
 # Maxuora Zwei
 BattleBack=CaveDark
 Bicycle=true
-TrainerBattleBGM=Battler_TEAMROCKET
+TrainerBattleBGM=Battle - Special Trainer
 MapSize=1,11
 MapPosition=12,6,3
 ShowArea=true
 [258]
 # Maxuora Drei
 Bicycle=true
-TrainerBattleBGM=Battler_TEAMROCKET
+TrainerBattleBGM=Battle - Special Trainer
 MapSize=1,11
 MapPosition=12,4,8
 Outdoor=true
@@ -1441,7 +1441,7 @@ ShowArea=true
 # Maxuora Vier
 BattleBack=CaveDark
 Bicycle=true
-TrainerBattleBGM=Battler_TEAMROCKET
+TrainerBattleBGM=Battle - Special Trainer
 MapSize=2,1111
 MapPosition=12,10,6
 ShowArea=true
@@ -1449,7 +1449,7 @@ ShowArea=true
 # Maxuora Funf
 BattleBack=Forest
 Bicycle=true
-TrainerBattleBGM=Battler_TEAMROCKET
+TrainerBattleBGM=Battle - Special Trainer
 MapPosition=12,12,11
 Outdoor=true
 ShowArea=true
@@ -1457,7 +1457,7 @@ ShowArea=true
 # Maxuora Sechs
 BattleBack=CaveDark
 Bicycle=true
-TrainerBattleBGM=Battler_TEAMROCKET
+TrainerBattleBGM=Battle - Special Trainer
 MapSize=1,111
 MapPosition=12,16,7
 ShowArea=true
@@ -1465,7 +1465,7 @@ ShowArea=true
 # Maxuora Sieben
 BattleBack=Forest
 Bicycle=true
-TrainerBattleBGM=Battler_TEAMROCKET
+TrainerBattleBGM=Battle - Special Trainer
 MapSize=1,11
 MapPosition=12,18,13
 Outdoor=true
@@ -1474,14 +1474,14 @@ ShowArea=true
 # Maxuora Acht
 BattleBack=CaveDark
 Bicycle=true
-TrainerBattleBGM=Battler_TEAMROCKET
+TrainerBattleBGM=Battle - Special Trainer
 MapSize=1,11
 MapPosition=12,22,10
 ShowArea=true
 [264]
 # Maxuora Neun
 Bicycle=true
-TrainerBattleBGM=Battler_TEAMROCKET
+TrainerBattleBGM=Battle - Special Trainer
 MapPosition=12,26,7
 Outdoor=true
 ShowArea=true
@@ -1489,14 +1489,14 @@ ShowArea=true
 # Maxuora Zehn
 BattleBack=CaveDark
 Bicycle=true
-TrainerBattleBGM=Battler_TEAMROCKET
+TrainerBattleBGM=Battle - Special Trainer
 MapSize=1,11
 MapPosition=12,27,16
 ShowArea=true
 [266]
 # Maxiora Eins
 Bicycle=true
-TrainerBattleBGM=Battler_TEAMROCKET
+TrainerBattleBGM=Battle - Special Trainer
 MapSize=1,11
 MapPosition=16,1,2
 Outdoor=true
@@ -1505,14 +1505,14 @@ ShowArea=true
 # Maxiora Zwei
 BattleBack=CaveDarker
 Bicycle=true
-TrainerBattleBGM=Battler_TEAMROCKET
+TrainerBattleBGM=Battle - Special Trainer
 MapSize=1,11
 MapPosition=16,4,6
 ShowArea=true
 [268]
 # Maxiora Drei
 Bicycle=true
-TrainerBattleBGM=Battler_TEAMROCKET
+TrainerBattleBGM=Battle - Special Trainer
 MapSize=1,11
 MapPosition=16,9,6
 Outdoor=true
@@ -1521,13 +1521,13 @@ ShowArea=true
 # Maxiora Vier
 BattleBack=CaveDarker
 Bicycle=true
-TrainerBattleBGM=Battler_TEAMROCKET
+TrainerBattleBGM=Battle - Special Trainer
 MapPosition=16,11,10
 ShowArea=true
 [270]
 # Maxiora Funf
 Bicycle=true
-TrainerBattleBGM=Battler_TEAMROCKET
+TrainerBattleBGM=Battle - Special Trainer
 MapSize=1,11
 MapPosition=16,14,5
 Outdoor=true
@@ -1536,13 +1536,13 @@ ShowArea=true
 # Maxiora Sechs
 BattleBack=CaveDarker
 Bicycle=true
-TrainerBattleBGM=Battler_TEAMROCKET
+TrainerBattleBGM=Battle - Special Trainer
 MapPosition=16,15,12
 ShowArea=true
 [272]
 # Maxiora Sieben
 Bicycle=true
-TrainerBattleBGM=Battler_TEAMROCKET
+TrainerBattleBGM=Battle - Special Trainer
 MapPosition=16,18,7
 Outdoor=true
 ShowArea=true
@@ -1550,14 +1550,14 @@ ShowArea=true
 # Maxiora Acht
 BattleBack=CaveDarker
 Bicycle=true
-TrainerBattleBGM=Battler_TEAMROCKET
+TrainerBattleBGM=Battle - Special Trainer
 MapPosition=16,19,10
-WildBattleBGM=112 - Vs. Wild Johto.mp3
+WildBattleBGM=Battle - Wild Pokemon (Johto)
 ShowArea=true
 [274]
 # Maxiora Neun
 Bicycle=true
-TrainerBattleBGM=Battler_TEAMROCKET
+TrainerBattleBGM=Battle - Special Trainer
 MapSize=1,11
 MapPosition=16,23,13
 Outdoor=true
@@ -1566,7 +1566,7 @@ ShowArea=true
 # Maxiora Zehn
 BattleBack=IndoorG
 Bicycle=true
-TrainerBattleBGM=Battler_TEAMROCKET
+TrainerBattleBGM=Battle - Special Trainer
 MapPosition=16,28,18
 ShowArea=true
 Environment=Graveyard
@@ -1574,180 +1574,150 @@ Environment=Graveyard
 # Understairs Kenuora Eins
 BattleBack=IndoorB
 Bicycle=true
-TrainerBattleBGM=Battler_TEAMROCKET
+TrainerBattleBGM=Battle - Trainer (Hoenn)
 MapPosition=5,1,4
-WildBattleBGM=112 - Vs. Wild Johto.mp3
+WildBattleBGM=Battle - Wild Pokemon (Hoenn)
 ShowArea=true
 [277]
 # Understairs Pallet Town
 BattleBack=Cave
 Bicycle=true
-TrainerBattleBGM=Battler_TEAMROCKET
-WildBattleBGM=112 - Vs. Wild Johto.mp3
 ShowArea=true
 [278]
 # Pallet Town
 BattleBack=IndoorB
 Bicycle=true
-TrainerBattleBGM=Battler_TEAMROCKET
 Outdoor=true
-WildBattleBGM=112 - Vs. Wild Johto.mp3
 ShowArea=true
 [279]
 # Understairs Vermilion City
 BattleBack=Cave
 Bicycle=true
-TrainerBattleBGM=Battler_TEAMROCKET
-WildBattleBGM=112 - Vs. Wild Johto.mp3
 ShowArea=true
 [280]
 # Understairs Virdian Forest
 BattleBack=Cave
 Bicycle=true
-TrainerBattleBGM=Battler_TEAMROCKET
-WildBattleBGM=112 - Vs. Wild Johto.mp3
 ShowArea=true
 [281]
 # Understairs Route 43
 BattleBack=Cave
 Bicycle=true
-TrainerBattleBGM=Battler_TEAMROCKET
 MapPosition=10,17,6
-WildBattleBGM=112 - Vs. Wild Johto.mp3
 ShowArea=true
 [282]
 # Understairs Magohany Town
 BattleBack=Cave
 Bicycle=true
-TrainerBattleBGM=Battler_TEAMROCKET
 MapPosition=10,17,7
-WildBattleBGM=112 - Vs. Wild Johto.mp3
 ShowArea=true
 [283]
 # Understairs Lake of Rage
 BattleBack=Cave
 Bicycle=true
-TrainerBattleBGM=Battler_TEAMROCKET
 MapPosition=10,17,3
-WildBattleBGM=112 - Vs. Wild Hoenn.mp3
 ShowArea=true
 [284]
 # Vermilion City
 BattleBack=IndoorB
 Bicycle=true
-TrainerBattleBGM=Battler_TEAMROCKET
 Outdoor=true
-WildBattleBGM=112 - Vs. Wild Johto.mp3
 ShowArea=true
 [285]
 # Steven's Cave
 SnapEdges=true
 BattleBack=CaveDarker
 Bicycle=true
-TrainerBattleBGM=113 - Vs. Hoenn Trainer.mp3
+TrainerBattleBGM=Battle - Trainer (Hoenn)
 MapPosition=11,1,7
-WildBattleBGM=112 - Vs. Wild Hoenn.mp3
+WildBattleBGM=Battle - Wild Pokemon (Hoenn)
 ShowArea=true
 [286]
 # Understairs Saffron City
 BattleBack=Cave
 Bicycle=true
-TrainerBattleBGM=Battler_TEAMROCKET
-WildBattleBGM=112 - Vs. Wild Johto.mp3
 ShowArea=true
 [287]
 # Understairs Swuora Eins
 BattleBack=Cave
 Bicycle=true
-TrainerBattleBGM=Battler_TEAMROCKET
 MapPosition=3,1,2
-WildBattleBGM=112 - Vs. Wild Johto.mp3
 ShowArea=true
 [288]
 # Saffron City
 BattleBack=IndoorB
 Bicycle=true
-TrainerBattleBGM=Battler_TEAMROCKET
 Outdoor=true
-WildBattleBGM=112 - Vs. Wild Johto.mp3
 ShowArea=true
 [289]
 # Understairs Cerulean City
 BattleBack=Cave
 Bicycle=true
-TrainerBattleBGM=Battler_TEAMROCKET
-WildBattleBGM=112 - Vs. Wild Johto.mp3
 ShowArea=true
 [290]
 # Understairs Keniora Zwei
 BattleBack=Cave
 Bicycle=true
-TrainerBattleBGM=Battler_TEAMROCKET
 MapPosition=8,5,9
-WildBattleBGM=112 - Vs. Wild Johto.mp3
 ShowArea=true
 [291]
 # Cerulean City
 BattleBack=IndoorB
 Bicycle=true
-TrainerBattleBGM=Battler_TEAMROCKET
 Outdoor=true
-WildBattleBGM=112 - Vs. Wild Johto.mp3
 ShowArea=true
 [292]
 # Cerulean Cave
 BattleBack=Cave
 Bicycle=true
-TrainerBattleBGM=Battler_TEAMROCKET
-WildBattleBGM=112 - Vs. Wild Johto.mp3
 ShowArea=true
 [293]
 # Union Cave
 BattleBack=CaveDarker
 Bicycle=true
-TrainerBattleBGM=113 - Vs. Johto Trainer.mp3
+TrainerBattleBGM=Battle - Trainer (Johto)
 MapPosition=10,13,17
-WildBattleBGM=112 - Vs. Wild Johto.mp3
+WildBattleBGM=Battle - Wild Pokemon (Johto)
 ShowArea=true
 PastMap=527
 [300]
 # Rubstoro Forest
-TrainerBattleBGM=113 - Vs. Hoenn Trainer.mp3
+TrainerBattleBGM=Battle - Trainer (Hoenn)
 MapPosition=11,1,10
 Outdoor=true
-WildBattleBGM=112 - Vs. Wild Hoenn.mp3
+WildBattleBGM=Battle - Wild Pokemon (Hoenn)
 ShowArea=true
 Environment=Forest
 [302]
 # The Staffhouse
 BattleBack=IndoorF
-TrainerBattleBGM=113 - Vs. Johto Trainer.mp3
+TrainerBattleBGM=Battle - Trainer (Johto)
 MapPosition=10,17,7
-WildBattleBGM=112 - Vs. Wild Johto.mp3
+WildBattleBGM=Battle - Wild Pokemon (Johto)
 ShowArea=true
 Environment=Graveyard
 [303]
 # Route 46
-TrainerBattleBGM=113 - Vs. Johto Trainer.mp3
+TrainerBattleBGM=Battle - Trainer (Johto)
 MapPosition=10,21,14
 Outdoor=true
-WildBattleBGM=112 - Vs. Wild Johto.mp3
+WildBattleBGM=Battle - Wild Pokemon (Johto)
 ShowArea=true
 [304]
 # Route 45
 MapSize=1,11111
-TrainerBattleBGM=113 - Vs. Johto Trainer.mp3
+TrainerBattleBGM=Battle - Trainer (Johto)
 MapPosition=10,22,9
 Outdoor=true
-WildBattleBGM=112 - Vs. Wild Johto.mp3
+WildBattleBGM=Battle - Wild Pokemon (Johto)
 ShowArea=true
 [305]
 # Dark Cave
 BattleBack=CaveDarker
-TrainerBattleBGM=113 - Vs. Johto Trainer.mp3
+TrainerBattleBGM=Battle - Trainer (Johto)
 MapPosition=10,21,13
 DarkMap=true
-WildBattleBGM=112 - Vs. Wild Johto.mp3
+WildBattleBGM=Battle - Wild Pokemon (Johto)
 ShowArea=true
 [307]
 # Lost Cave
@@ -1778,26 +1748,26 @@ Environment=Space
 SnapEdges=true
 BattleBack=CaveDarker
 Bicycle=true
-TrainerBattleBGM=113 - Vs. Hoenn Trainer.mp3
+TrainerBattleBGM=Battle - Trainer (Hoenn)
 MapPosition=11,1,7
-WildBattleBGM=112 - Vs. Wild Hoenn.mp3
+WildBattleBGM=Battle - Wild Pokemon (Hoenn)
 ShowArea=true
 [315]
 # Artisan Cave
 BattleBack=Cave
 Bicycle=true
-TrainerBattleBGM=113 - Vs. Hoenn Trainer.mp3
+TrainerBattleBGM=Battle - Trainer (Hoenn)
 MapPosition=11,1,7
-WildBattleBGM=112 - Vs. Wild Hoenn.mp3
+WildBattleBGM=Battle - Wild Pokemon (Hoenn)
 ShowArea=true
 [316]
 # Artisan Cave
 BattleBack=CaveDarker
 Bicycle=true
-TrainerBattleBGM=113 - Vs. Hoenn Trainer.mp3
+TrainerBattleBGM=Battle - Trainer (Hoenn)
 MapPosition=11,1,7
 DarkMap=true
-WildBattleBGM=112 - Vs. Wild Hoenn.mp3
+WildBattleBGM=Battle - Wild Pokemon (Hoenn)
 ShowArea=true
 [318]
 # Fusion Cave
@@ -1810,9 +1780,9 @@ ShowArea=true
 # Victory 6
 BattleBack=CaveDark
 Bicycle=true
-TrainerBattleBGM=113 - Vs. Johto Trainer
+TrainerBattleBGM=Battle - Trainer (Johto)
 MapPosition=6,12,12
-WildBattleBGM=112 - Vs. Wild Johto
+WildBattleBGM=Battle - Wild Pokemon (Johto)
 ShowArea=true
 Environment=Space
 PseudoDarkMap=true
@@ -1820,9 +1790,9 @@ PseudoDarkMap=true
 # Victory 6
 BattleBack=CaveDark
 Bicycle=true
-TrainerBattleBGM=113 - Vs. Johto Trainer
+TrainerBattleBGM=Battle - Trainer (Johto)
 MapPosition=11,5,13
-WildBattleBGM=112 - Vs. Wild Johto
+WildBattleBGM=Battle - Wild Pokemon (Johto)
 ShowArea=true
 Environment=Space
 PseudoDarkMap=true
@@ -1873,18 +1843,18 @@ PseudoDarkMap=true
 SnapEdges=true
 BattleBack=IndoorC
 Weather=Blizzard,100
-TrainerBattleBGM=113 - Vs. Johto Trainer.mp3
+TrainerBattleBGM=Battle - Trainer (Johto)
 MapPosition=10,20,7
-WildBattleBGM=112 - Vs. Wild Johto.mp3
+WildBattleBGM=Battle - Wild Pokemon (Johto)
 ShowArea=true
 Environment=Snow
 [331]
 # Ice Path
 SnapEdges=true
 BattleBack=IndoorC
-TrainerBattleBGM=113 - Vs. Johto Trainer.mp3
+TrainerBattleBGM=Battle - Trainer (Johto)
 MapPosition=10,20,7
-WildBattleBGM=112 - Vs. Wild Johto.mp3
+WildBattleBGM=Battle - Wild Pokemon (Johto)
 ShowArea=true
 Environment=Snow
 [332]
@@ -1892,9 +1862,9 @@ Environment=Snow
 SnapEdges=true
 BattleBack=IndoorC
 Weather=Snow,50
-TrainerBattleBGM=113 - Vs. Johto Trainer.mp3
+TrainerBattleBGM=Battle - Trainer (Johto)
 MapPosition=10,20,7
-WildBattleBGM=112 - Vs. Wild Johto.mp3
+WildBattleBGM=Battle - Wild Pokemon (Johto)
 ShowArea=true
 Environment=Snow
 PseudoDarkMap=true
@@ -2089,7 +2059,7 @@ MapPosition=14,24,6
 Outdoor=true
 ShowArea=true
 Environment=Sky
-WildBattleBGM=Battler_Nebula Cave.mp3
+WildBattleBGM=Battle - Wild Pokemon (Nebula Cave)
 [359]
 # Sanuora Sechs
 MapSize=3,111101111111101
@@ -2100,14 +2070,14 @@ MapPosition=14,1,14
 Outdoor=true
 ShowArea=true
 Environment=Galaxy
-WildBattleBGM=Battler_Nebula Cave.mp3
+WildBattleBGM=Battle - Wild Pokemon (Nebula Cave)
 [360]
 # Understairs Sanuora Sechs
 MapSize=3,111101111111101
 BattleBack=Underwater
 MapPosition=14,1,15
 ShowArea=true
-WildBattleBGM=Battler_Nebula Cave.mp3
+WildBattleBGM=Battle - Wild Pokemon (Nebula Cave)
 [361]
 # Sanuora Sieben
 MapSize=3,111101111101
@@ -2117,48 +2087,48 @@ MapPosition=14,25,13
 Outdoor=true
 ShowArea=true
 Environment=Galaxy
-WildBattleBGM=Battler_Nebula Cave.mp3
+WildBattleBGM=Battle - Wild Pokemon (Nebula Cave)
 [362]
 # Saniora Eins
 BattleBack=Saniora4
 Outdoor=true
 ShowArea=true
-WildBattleBGM=Battler_Nebula Cave.mp3
+WildBattleBGM=Battle - Wild Pokemon (Nebula Cave)
 MapPosition=15,1,1
 [363]
 # Saniora Zwei
 BattleBack=Saniora5
 Outdoor=true
 ShowArea=true
-WildBattleBGM=Battler_Nebula Cave.mp3
+WildBattleBGM=Battle - Wild Pokemon (Nebula Cave)
 MapPosition=15,7,4
 [364]
 # Saniora Drei
 BattleBack=Saniora6
 Outdoor=true
 ShowArea=true
-WildBattleBGM=Battler_Nebula Cave.mp3
+WildBattleBGM=Battle - Wild Pokemon (Nebula Cave)
 MapPosition=15,7,8
 [365]
 # Saniora Vier
 BattleBack=Saniora7
 Outdoor=true
 ShowArea=true
-WildBattleBGM=Battler_Nebula Cave.mp3
+WildBattleBGM=Battle - Wild Pokemon (Nebula Cave)
 MapPosition=15,11,11
 [366]
 # Saniora Sieben
 BattleBack=Semuora
 Outdoor=true
 ShowArea=true
-WildBattleBGM=Battler_Nebula Cave.mp3
+WildBattleBGM=Battle - Wild Pokemon (Nebula Cave)
 MapPosition=15,24,17
 [367]
 # Saniora Acht
 BattleBack=Kenuora
 Outdoor=true
 ShowArea=true
-WildBattleBGM=Battler_Nebula Cave.mp3
+WildBattleBGM=Battle - Wild Pokemon (Nebula Cave)
 MapPosition=15,27,12
 [369]
 # Corni Carven
@@ -2234,52 +2204,52 @@ ShowArea=true
 [379]
 # Cave of Origin
 Bicycle=true
-TrainerBattleBGM=113 - Vs. Hoenn Trainer.mp3
+TrainerBattleBGM=Battle - Trainer (Hoenn)
 MapPosition=11,22,5
-WildBattleBGM=112 - Vs. Wild Hoenn.mp3
+WildBattleBGM=Battle - Wild Pokemon (Hoenn)
 ShowArea=true
 [380]
 # Cave of Origin
 Bicycle=true
-TrainerBattleBGM=113 - Vs. Hoenn Trainer.mp3
+TrainerBattleBGM=Battle - Trainer (Hoenn)
 MapPosition=11,22,5
-WildBattleBGM=112 - Vs. Wild Hoenn.mp3
+WildBattleBGM=Battle - Wild Pokemon (Hoenn)
 ShowArea=true
 [381]
 # Cave of Origin
 Bicycle=true
-TrainerBattleBGM=113 - Vs. Hoenn Trainer.mp3
+TrainerBattleBGM=Battle - Trainer (Hoenn)
 MapPosition=11,22,5
-WildBattleBGM=112 - Vs. Wild Hoenn.mp3
+WildBattleBGM=Battle - Wild Pokemon (Hoenn)
 ShowArea=true
 [382]
 # Granite Cave
 Bicycle=true
-TrainerBattleBGM=113 - Vs. Hoenn Trainer.mp3
+TrainerBattleBGM=Battle - Trainer (Hoenn)
 MapPosition=11,1,11
-WildBattleBGM=112 - Vs. Wild Hoenn.mp3
+WildBattleBGM=Battle - Wild Pokemon (Hoenn)
 ShowArea=true
 [383]
 # Granite Cave
 Bicycle=true
-TrainerBattleBGM=113 - Vs. Hoenn Trainer.mp3
+TrainerBattleBGM=Battle - Trainer (Hoenn)
 MapPosition=11,1,10
-WildBattleBGM=112 - Vs. Wild Hoenn.mp3
+WildBattleBGM=Battle - Wild Pokemon (Hoenn)
 ShowArea=true
 [384]
 # Granite Cave
 Bicycle=true
-TrainerBattleBGM=113 - Vs. Hoenn Trainer.mp3
+TrainerBattleBGM=Battle - Trainer (Hoenn)
 MapPosition=11,1,11
-WildBattleBGM=112 - Vs. Wild Hoenn.mp3
+WildBattleBGM=Battle - Wild Pokemon (Hoenn)
 ShowArea=true
 PseudoDarkMap=true
 [385]
 # Granite Cave
 Bicycle=true
-TrainerBattleBGM=113 - Vs. Hoenn Trainer.mp3
+TrainerBattleBGM=Battle - Trainer (Hoenn)
 MapPosition=11,1,10
-WildBattleBGM=112 - Vs. Wild Hoenn.mp3
+WildBattleBGM=Battle - Wild Pokemon (Hoenn)
 ShowArea=true
 PseudoDarkMap=true
 [386]
@@ -2330,26 +2300,26 @@ ForbidSaving=true
 # Floaroma Meadow
 BattleBack=Forest
 Bicycle=false
-TrainerBattleBGM=Shinnoh trainer.mp3
+TrainerBattleBGM=Battle - Trainer (Sinnoh)
 Outdoor=true
-WildBattleBGM=Shinnoh Battle.mp3
+WildBattleBGM=Battle - Wild Pokemon (Sinnoh)
 ShowArea=true
 [397]
 # Zapdos Cave
 BattleBack=CaveDarker
 Bicycle=true
-TrainerBattleBGM=113 - Vs. Johto Trainer.mp3
+TrainerBattleBGM=Battle - Trainer (Johto)
 MapPosition=10,7,10
 DarkMap=true
-WildBattleBGM=112 - Vs. Wild Johto.mp3
+WildBattleBGM=Battle - Wild Pokemon (Johto)
 ShowArea=true
 PseudoDarkMap=true
 [398]
 # Eternal Carven
 Bicycle=true
-TrainerBattleBGM=113 - Vs. Johto Trainer.mp3
+TrainerBattleBGM=Battle - Trainer (Johto)
 MapPosition=10,16,7
-WildBattleBGM=112 - Vs. Wild Johto.mp3
+WildBattleBGM=Battle - Wild Pokemon (Johto)
 ShowArea=true
 [400]
 # Quora Zwei
@@ -2652,9 +2622,9 @@ ShowArea=true
 # Desert Underpass
 BattleBack=CaveDark
 Bicycle=true
-TrainerBattleBGM=113 - Vs. Hoenn Trainer.mp3
+TrainerBattleBGM=Battle - Trainer (Hoenn)
 MapPosition=11,4,2
-WildBattleBGM=112 - Vs. Wild Hoenn.mp3
+WildBattleBGM=Battle - Wild Pokemon (Hoenn)
 ShowArea=true
 [448]
 # Netherworld Cave Puzzle
@@ -3259,19 +3229,19 @@ Environment=Forest
 BattleBack=Quora
 Outdoor=true
 ShowArea=true
-WildBattleBGM=Battler_Nebula Cave.mp3
+WildBattleBGM=Battle - Wild Pokemon (Nebula Cave)
 MapPosition=15,17,8
 [547]
 # Saniora Sechs
 BattleBack=Swuora
 Outdoor=true
 ShowArea=true
-WildBattleBGM=Battler_Nebula Cave.mp3
+WildBattleBGM=Battle - Wild Pokemon (Nebula Cave)
 MapPosition=15,18,13
 [548]
 # Qora Qore Basement
 BattleBack=IndoorF
 ShowArea=true
-WildBattleBGM=Battler_Nebula Cave.mp3
+WildBattleBGM=Battle - Wild Pokemon (Nebula Cave)
 MapPosition=15,27,12
 Environment=Graveyard

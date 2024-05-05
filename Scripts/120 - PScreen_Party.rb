@@ -679,20 +679,20 @@ class PokemonScreen_Scene
     title=['bg','bg_beta','bg_dev','bg_canary','bg_internal','bg_upgradewizard'][QQORECHANNEL]
     if pbResolveBitmap(_INTL("Graphics/UI/"+getDarkModeFolder+"/Load/{1}",title))
       addBackgroundOrColoredPlane(@sprites,"partybg",getDarkModeFolder+"/Load/"+title,
-         Color.new(0,0,0),@viewport)
+         Color.new(12,12,12),@viewport)
     elsif pbResolveBitmap(sprintf("Graphics/UI/"+getDarkModeFolder+"/Load/bg"))
       addBackgroundOrColoredPlane(@sprites,"partybg",getDarkModeFolder+"/Load/bg",
-         Color.new(0,0,0),@viewport)
+         Color.new(12,12,12),@viewport)
     else  # Hotfixing Prograda
       addBackgroundOrColoredPlane(@sprites,"partybg",getDarkModeFolder+"/Load/bg_empty",
-         Color.new(0,0,0),@viewport)
+         Color.new(12,12,12),@viewport)
     end
       addBackgroundOrColoredPlane(@sprites,"partybg_title",getDarkModeFolder+"/party_bg",
-         Color.new(0,0,0),@viewport)
+         Color.new(12,12,12),@viewport)
     @sprites["header"]=Window_UnformattedTextPokemon.newWithSize(_INTL("Party Pokémon"),
        2,-18,576,64,@viewport)      
-    @sprites["header"].baseColor=(isDarkMode?) ? Color.new(248,248,248) : Color.new(0,0,0)
-    @sprites["header"].shadowColor=nil #(!isDarkMode?) ? Color.new(248,248,248) : Color.new(0,0,0)
+    @sprites["header"].baseColor=(isDarkMode?) ? Color.new(242,242,242) : Color.new(12,12,12)
+    @sprites["header"].shadowColor=nil #(!isDarkMode?) ? Color.new(242,242,242) : Color.new(12,12,12)
     @sprites["header"].windowskin=nil
     @sprites["messagebox"]=Window_AdvancedTextPokemon.new("")
     @sprites["messagebox"].viewport=@viewport

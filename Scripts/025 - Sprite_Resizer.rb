@@ -649,13 +649,13 @@ class ScreenBorder
       end
     end
     @defaultbitmap.clear
-    @defaultbitmap.fill_rect(0,0,@defaultwidth,$ResizeOffsetY,Color.new(0,0,0))
+    @defaultbitmap.fill_rect(0,0,@defaultwidth,$ResizeOffsetY,Color.new(12,12,12))
     @defaultbitmap.fill_rect(0,$ResizeOffsetY,
-       $ResizeOffsetX,@defaultheight-$ResizeOffsetY,Color.new(0,0,0))
+       $ResizeOffsetX,@defaultheight-$ResizeOffsetY,Color.new(12,12,12))
     @defaultbitmap.fill_rect(@defaultwidth-$ResizeOffsetX,$ResizeOffsetY,
-       $ResizeOffsetX,@defaultheight-$ResizeOffsetY,Color.new(0,0,0))
+       $ResizeOffsetX,@defaultheight-$ResizeOffsetY,Color.new(12,12,12))
     @defaultbitmap.fill_rect($ResizeOffsetX,@defaultheight-$ResizeOffsetY,
-       @defaultwidth-$ResizeOffsetX*2,$ResizeOffsetY,Color.new(0,0,0))
+       @defaultwidth-$ResizeOffsetX*2,$ResizeOffsetY,Color.new(12,12,12))
   end
 
   private

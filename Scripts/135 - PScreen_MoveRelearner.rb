@@ -67,8 +67,8 @@ class MoveRelearnerScene
     @sprites["background"].src_rect=Rect.new(0,72,258,72)
     @sprites["header"]=Window_UnformattedTextPokemon.newWithSize(_INTL("Teach which move to {1}?", @pokemon.name),
        2,-18,512,64,@viewport)
-    @sprites["header"].baseColor=(isDarkMode?) ? Color.new(248,248,248) : Color.new(0,0,0)
-    @sprites["header"].shadowColor=nil #(!isDarkMode?) ? Color.new(248,248,248) : Color.new(0,0,0)
+    @sprites["header"].baseColor=(isDarkMode?) ? Color.new(242,242,242) : Color.new(12,12,12)
+    @sprites["header"].shadowColor=nil #(!isDarkMode?) ? Color.new(242,242,242) : Color.new(12,12,12)
     @sprites["header"].windowskin=nil
     @sprites["overlay"]=BitmapSprite.new(Graphics.width,Graphics.height,@viewport)
     pbSetSystemFont(@sprites["overlay"].bitmap)
@@ -141,11 +141,11 @@ class MoveRelearnerScene
     basedamage=selmovedata.basedamage
     category=selmovedata.category
     accuracy=selmovedata.accuracy
-    textpos.push([_INTL("Category"),272,114,0,Color.new(248,248,248),Color.new(0,0,0)])
-    textpos.push([_INTL("Power"),272,146,0,Color.new(248,248,248),Color.new(0,0,0)])
+    textpos.push([_INTL("Category"),272,114,0,Color.new(242,242,242),Color.new(12,12,12)])
+    textpos.push([_INTL("Power"),272,146,0,Color.new(242,242,242),Color.new(12,12,12)])
     textpos.push([basedamage<=1 ? basedamage==1 ? "???" : "---" : sprintf("%d",basedamage),
           468+128,146,2,baseColor,shadowColor])
-    textpos.push([_INTL("Accuracy"),272,178,0,Color.new(248,248,248),Color.new(0,0,0)])
+    textpos.push([_INTL("Accuracy"),272,178,0,Color.new(242,242,242),Color.new(12,12,12)])
     textpos.push([accuracy==0 ? "---" : sprintf("%d",accuracy),
           468+128,178,2,baseColor,shadowColor])
     pbDrawTextPositions(overlay,textpos)

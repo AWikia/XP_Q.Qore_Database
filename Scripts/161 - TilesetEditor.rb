@@ -85,12 +85,12 @@ class PokemonTilesetScene
     @sprites={}
 
       addBackgroundOrColoredPlane(@sprites,"title",getDarkModeFolder+"/Settings/bg_5",
-         Color.new(0,0,0),@viewport)
+         Color.new(12,12,12),@viewport)
     title="Tileset Editor"    
     @sprites["header"]=Window_UnformattedTextPokemon.newWithSize(_INTL(title),
        2,-18,576,64,@viewport)      
-    @sprites["header"].baseColor=(isDarkMode?) ? Color.new(248,248,248) : Color.new(0,0,0)
-    @sprites["header"].shadowColor=nil #(!isDarkMode?) ? Color.new(248,248,248) : Color.new(0,0,0)
+    @sprites["header"].baseColor=(isDarkMode?) ? Color.new(242,242,242) : Color.new(12,12,12)
+    @sprites["header"].shadowColor=nil #(!isDarkMode?) ? Color.new(242,242,242) : Color.new(12,12,12)
     @sprites["header"].windowskin=nil
     @sprites["tileset"]=IconSprite.new(0,32,@viewport)
     @sprites["tileset"].setBitmap("Graphics/Tilesets/#{@tileset.tileset_name}")

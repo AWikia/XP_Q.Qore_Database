@@ -16,7 +16,7 @@ module PokeBattle_SceneConstants
   MENUBASECOLOR           = MESSAGEBASECOLOR
   MENUSHADOWCOLOR         = MESSAGESHADOWCOLOR
   BOXTEXTBASECOLOR        = MessageConfig::LIGHTTEXTBASE   # Was Color.new(255,255,255)
-  BOXTEXTSHADOWCOLOR      = MessageConfig::LIGHTTEXTSHADOW # Was Color.new(0,0,0) 
+  BOXTEXTSHADOWCOLOR      = MessageConfig::LIGHTTEXTSHADOW # Was Color.new(12,12,12) 
   BOXTEXTBASECOLOR2       = MessageConfig::DARKTEXTBASE    # Was Color.new(88,88,80)
   BOXTEXTSHADOWCOLOR2     = MessageConfig::DARKTEXTSHADOW  # Was Color.new(168,184,184)
   PPTEXTBASECOLOR         = MESSAGEBASECOLOR        # More than 1/2 of total PP

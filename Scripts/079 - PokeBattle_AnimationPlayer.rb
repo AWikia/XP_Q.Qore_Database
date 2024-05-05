@@ -733,7 +733,7 @@ class PBAnimationPlayerX
       @animsprites[i].visible=false
     end
     
-    @bgColor=ColoredPlane.new(Color.new(0,0,0),@viewport)
+    @bgColor=ColoredPlane.new(Color.new(12,12,12),@viewport)
     @bgColor.borderX=64 if ineditor
     @bgColor.borderY=64 if ineditor
     @bgColor.z=2
@@ -748,7 +748,7 @@ class PBAnimationPlayerX
     @bgGraphic.refresh
     @oldbg=[]
     
-    @foColor=ColoredPlane.new(Color.new(0,0,0),@viewport)
+    @foColor=ColoredPlane.new(Color.new(12,12,12),@viewport)
     @foColor.borderX=64 if ineditor
     @foColor.borderY=64 if ineditor
     @foColor.z=38

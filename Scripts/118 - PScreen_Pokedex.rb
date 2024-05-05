@@ -61,8 +61,8 @@ class Scene_PokedexMenu
     @sprites["commands"].width = Graphics.width-84
     @sprites["commands"].height = 224
     @sprites["commands"].windowskin=nil
-    @sprites["commands"].baseColor=Color.new(248,248,248)
-    @sprites["commands"].shadowColor=Color.new(0,0,0)
+    @sprites["commands"].baseColor=Color.new(242,242,242)
+    @sprites["commands"].shadowColor=Color.new(12,12,12)
     @sprites["headings"]=Window_AdvancedTextPokemon.newWithSize(
        _INTL("<c3=F8F8F8,C02028>SEEN<r>OBTAINED</c3>"),286,104,208,64,@viewport)
     @sprites["headings"].windowskin=nil
@@ -152,7 +152,7 @@ class Window_Pokedex < Window_DrawableCommand
     if (!isDarkMode?)
       self.baseColor=Color.new(20,20,20)
     else
-      self.baseColor=Color.new(248,248,248)
+      self.baseColor=Color.new(242,242,242)
     end
     self.shadowColor=Color.new(0,0,0,0)
 
@@ -384,8 +384,8 @@ class PokemonPokedexScene
     @sprites["overlay"].visible=false
     @sprites["searchtitle"]=Window_UnformattedTextPokemon.newWithSize("",2,-18,Graphics.width,64,@viewport)
     @sprites["searchtitle"].windowskin=nil
-    @sprites["searchtitle"].baseColor=(isDarkMode?) ? Color.new(248,248,248) : Color.new(0,0,0)
-    @sprites["searchtitle"].shadowColor=nil #(!isDarkMode?) ? Color.new(248,248,248) : Color.new(0,0,0)
+    @sprites["searchtitle"].baseColor=(isDarkMode?) ? Color.new(242,242,242) : Color.new(12,12,12)
+    @sprites["searchtitle"].shadowColor=nil #(!isDarkMode?) ? Color.new(242,242,242) : Color.new(12,12,12)
     @sprites["searchtitle"].text=_ISPRINTF("Search Mode")
     @sprites["searchtitle"].visible=false
     @sprites["searchlist"]=Window_ComplexCommandPokemon.newEmpty(-6,32,284,352,@viewport)
@@ -418,12 +418,12 @@ class PokemonPokedexScene
     @sprites["messagebox"].letterbyletter=false
 #    @sprites["dexname"]=Window_AdvancedTextPokemon.newWithSize("",2,-18,Graphics.width,64,@viewport)
 #    @sprites["dexname"].windowskin=nil
-#    @sprites["dexname"].baseColor=Color.new(248,248,248)
-#    @sprites["dexname"].shadowColor=Color.new(0,0,0)
+#    @sprites["dexname"].baseColor=Color.new(242,242,242)
+#    @sprites["dexname"].shadowColor=Color.new(12,12,12)
     @sprites["header"]=Window_UnformattedTextPokemon.newWithSize(_INTL("Pokédex"),
        2,-18,384,64,@viewport)
-    @sprites["header"].baseColor=(isDarkMode?) ? Color.new(248,248,248) : Color.new(0,0,0)
-    @sprites["header"].shadowColor=nil #Color.new(0,0,0)
+    @sprites["header"].baseColor=(isDarkMode?) ? Color.new(242,242,242) : Color.new(12,12,12)
+    @sprites["header"].shadowColor=nil #Color.new(12,12,12)
     @sprites["header"].windowskin=nil
     @sprites["seen"]=Window_AdvancedTextPokemon.newWithSize("",34,299,164,64,@viewport)
     @sprites["seen"].windowskin=nil
@@ -434,7 +434,7 @@ class PokemonPokedexScene
       @sprites["seen"].baseColor=Color.new(20,20,20)
       @sprites["seen"].shadowColor=Color.new(192,168,240)
     else
-      @sprites["seen"].baseColor=Color.new(248,248,248)
+      @sprites["seen"].baseColor=Color.new(242,242,242)
       @sprites["seen"].shadowColor=Color.new(119,65,221)
     end
     @sprites["owned"]=Window_AdvancedTextPokemon.newWithSize("",34,329,164,64,@viewport)
@@ -446,7 +446,7 @@ class PokemonPokedexScene
       @sprites["owned"].baseColor=Color.new(20,20,20)
       @sprites["owned"].shadowColor=Color.new(192,168,240)
     else
-      @sprites["owned"].baseColor=Color.new(248,248,248)
+      @sprites["owned"].baseColor=Color.new(242,242,242)
       @sprites["owned"].shadowColor=Color.new(119,65,221)
     end
     if pbGetPokedexRegion==-1 # Using national Pokédex
@@ -841,12 +841,12 @@ class PokemonPokedexScene
       basecolor=MessageConfig::DARKTEXTBASE
       shadowcolor=MessageConfig::DARKTEXTSHADOW
       basecolor2=Color.new(20,20,20)
-      basecolor3=Color.new(248,248,248)
+      basecolor3=Color.new(242,242,242)
     else
       basecolor=MessageConfig::LIGHTTEXTBASE
       shadowcolor=MessageConfig::LIGHTTEXTSHADOW
-      basecolor2=Color.new(248,248,248)
-      basecolor3=Color.new(248,248,248)
+      basecolor2=Color.new(242,242,242)
+      basecolor3=Color.new(242,242,242)
     end
 
     
@@ -867,7 +867,7 @@ class PokemonPokedexScene
     # QQC Change End
     textpos=[
        [_INTL("{1}{2} {3}",fdexno," ",PBSpecies.getName(species)),
-  #    372,40,0,Color.new(248,248,248),Color.new(0,0,0),1],
+  #    372,40,0,Color.new(242,242,242),Color.new(12,12,12),1],
        372,40,0,basecolor3],
        [sprintf(_INTL("Height")),436,158,0,basecolor2],
        [sprintf(_INTL("Weight")),436,190,0,basecolor2]

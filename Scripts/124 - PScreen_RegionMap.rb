@@ -55,7 +55,7 @@ class MapBottomSprite < SpriteWrapper
     end
 =begin
     textpos=[
-       [@mapname,18,-2,0,Color.new(248,248,248),Color.new(0,0,0)],
+       [@mapname,18,-2,0,Color.new(242,242,242),Color.new(12,12,12)],
        [@maplocation,18,354,0,Color.new(255,192,77)],
        [@mapdetails,Graphics.width-16,354,1,Color.new(255,192,77)]
     ]
@@ -63,9 +63,9 @@ class MapBottomSprite < SpriteWrapper
 
 
     if (!isDarkMode?)
-      color=Color.new(0,0,0)
+      color=Color.new(12,12,12)
     else
-      color=Color.new(248,248,248)
+      color=Color.new(242,242,242)
     end
 
     

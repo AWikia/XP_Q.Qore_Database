@@ -59,7 +59,7 @@ class Window_Pokemon < SpriteWindow_Base
 
   def refresh
     self.contents.clear
-    self.contents.font.color = Color.new(0,0,0)
+    self.contents.font.color = Color.new(12,12,12)
     str=pbPokemonString(@battler)
     self.contents.draw_text(0, 0, self.width-32, 32, str, 0)  
   end
@@ -88,7 +88,7 @@ class Window_SimpleText < SpriteWindow_Base
 
   def refresh
     self.contents.clear
-    self.contents.font.color = Color.new(0,0,0)
+    self.contents.font.color = Color.new(12,12,12)
     textmsg=@text.clone
     x=y=0
     while ((c = textmsg.slice!(/\S*\s?/m)) != nil)

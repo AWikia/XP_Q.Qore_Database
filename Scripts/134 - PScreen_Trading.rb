@@ -34,7 +34,7 @@ class PokemonTradeScene
     @trader1=trader1
     @trader2=trader2
     addBackgroundOrColoredPlane(@sprites,"background","trade_bg",
-       Color.new(248,248,248),@viewport)
+       Color.new(242,242,242),@viewport)
     rsprite1=PokemonSprite.new(@viewport)
     rsprite1.setPokemonBitmap(@pokemon,false)
     rsprite1.ox=rsprite1.bitmap.width/2

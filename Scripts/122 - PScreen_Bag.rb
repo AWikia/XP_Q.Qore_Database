@@ -113,10 +113,10 @@ class PokemonBag_Scene
   ITEMLISTSHADOWCOLOR   = MessageConfig::DARKTEXTSHADOW
   DARKITEMLISTBASECOLOR     =  MessageConfig::LIGHTTEXTBASE
   DARKITEMLISTSHADOWCOLOR   = MessageConfig::LIGHTTEXTSHADOW
-  ITEMTEXTBASECOLOR     = Color.new(0,0,0)
+  ITEMTEXTBASECOLOR     = Color.new(12,12,12)
   ITEMTEXTSHADOWCOLOR   = Color.new(160,160,160)
-  DARKITEMTEXTBASECOLOR     = Color.new(248,248,248)
-  DARKITEMTEXTSHADOWCOLOR   = Color.new(0,0,0)
+  DARKITEMTEXTBASECOLOR     = Color.new(242,242,242)
+  DARKITEMTEXTSHADOWCOLOR   = Color.new(12,12,12)
   POCKETNAMEBASECOLOR   = MessageConfig::DARKTEXTBASE
   POCKETNAMESHADOWCOLOR = MessageConfig::DARKTEXTSHADOW
   DARKPOCKETNAMEBASECOLOR     =  MessageConfig::LIGHTTEXTBASE
@@ -155,8 +155,8 @@ class PokemonBag_Scene
     end
     @sprites["itemwindow"].refresh
     @sprites["header"]=Window_UnformattedTextPokemon.newWithSize(_INTL("{1}",PokemonBag.pocketNames()[@bag.lastpocket]),2,-18,500,64,@viewport)
-    @sprites["header"].baseColor=(isDarkMode?) ? Color.new(248,248,248) : Color.new(0,0,0)
-    @sprites["header"].shadowColor=nil #Color.new(0,0,0)
+    @sprites["header"].baseColor=(isDarkMode?) ? Color.new(242,242,242) : Color.new(12,12,12)
+    @sprites["header"].shadowColor=nil #Color.new(12,12,12)
     @sprites["header"].windowskin=nil
     @sprites["slider"]=IconSprite.new(Graphics.width-40,78,@viewport)
     @sprites["slider"].setBitmap(sprintf("Graphics/UI/"+getDarkModeFolder+"/Bag/icon_slider"))
@@ -912,10 +912,10 @@ class ItemStorageScene
 ## Configuration
   ITEMLISTBASECOLOR   = MessageConfig::DARKTEXTBASE
   ITEMLISTSHADOWCOLOR = MessageConfig::DARKTEXTSHADOW
-  ITEMTEXTBASECOLOR   = Color.new(248,248,248)
-  ITEMTEXTSHADOWCOLOR = Color.new(0,0,0)
-  TITLEBASECOLOR      = Color.new(248,248,248)
-  TITLESHADOWCOLOR    = Color.new(0,0,0)
+  ITEMTEXTBASECOLOR   = Color.new(242,242,242)
+  ITEMTEXTSHADOWCOLOR = Color.new(12,12,12)
+  TITLEBASECOLOR      = Color.new(242,242,242)
+  TITLESHADOWCOLOR    = Color.new(12,12,12)
   ITEMSVISIBLE        = 7
 
   def initialize(title)

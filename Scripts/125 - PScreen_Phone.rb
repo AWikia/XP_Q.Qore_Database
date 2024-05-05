@@ -377,8 +377,8 @@ class PokemonPhoneScene
     end
     @sprites["header"]=Window_UnformattedTextPokemon.newWithSize(_INTL("Phone"),
        2,-18,128,64,@viewport)
-    @sprites["header"].baseColor=(isDarkMode?) ? Color.new(248,248,248) : Color.new(0,0,0)
-    @sprites["header"].shadowColor=nil #(isDarkMode?) ? Color.new(248,248,248) : Color.new(0,0,0)
+    @sprites["header"].baseColor=(isDarkMode?) ? Color.new(242,242,242) : Color.new(12,12,12)
+    @sprites["header"].shadowColor=nil #(isDarkMode?) ? Color.new(242,242,242) : Color.new(12,12,12)
     @sprites["header"].windowskin=nil
     @sprites["icon"]=IconSprite.new(70+64,102,@viewport)
     if @trainers[0].length==4

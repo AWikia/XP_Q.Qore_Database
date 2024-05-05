@@ -60,8 +60,8 @@ class PokemonMenu_Scene
 
     @sprites["header"]=Window_UnformattedTextPokemon.newWithSize(_INTL(title),
        2,-18,576,64,@viewport)      
-    @sprites["header"].baseColor=(isDarkMode?) ? Color.new(248,248,248) : Color.new(0,0,0)
-    @sprites["header"].shadowColor=nil #(!isDarkMode?) ? Color.new(248,248,248) : Color.new(0,0,0)
+    @sprites["header"].baseColor=(isDarkMode?) ? Color.new(242,242,242) : Color.new(12,12,12)
+    @sprites["header"].shadowColor=nil #(!isDarkMode?) ? Color.new(242,242,242) : Color.new(12,12,12)
     @sprites["header"].windowskin=nil
     @sprites["header"].z=99999
     @sprites["cmdwindow"]=Window_CommandPokemon.new([])
@@ -76,7 +76,7 @@ class PokemonMenu_Scene
     @sprites["curtain"]=BitmapSprite.new(Graphics.width,Graphics.height,@viewport)
     @sprites["curtain"].y=32
     @sprites["curtain"].z=600
-    @sprites["curtain"].bitmap.fill_rect(0,0,Graphics.width,Graphics.height,Color.new(0,0,0))
+    @sprites["curtain"].bitmap.fill_rect(0,0,Graphics.width,Graphics.height,Color.new(12,12,12))
     @sprites["curtain"].opacity=100
     @infostate=false
     @helpstate=false

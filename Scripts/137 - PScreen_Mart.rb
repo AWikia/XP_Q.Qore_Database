@@ -350,8 +350,8 @@ class PokemonMartScene
 
     @sprites["header"]=Window_UnformattedTextPokemon.newWithSize(_INTL("Pokémon Mart"),
        2,-18,512,64,@viewport)
-    @sprites["header"].baseColor=(isDarkMode?) ? Color.new(248,248,248) : Color.new(0,0,0)
-    @sprites["header"].shadowColor=nil #(!isDarkMode?) ? Color.new(248,248,248) : Color.new(0,0,0)
+    @sprites["header"].baseColor=(isDarkMode?) ? Color.new(242,242,242) : Color.new(12,12,12)
+    @sprites["header"].shadowColor=nil #(!isDarkMode?) ? Color.new(242,242,242) : Color.new(12,12,12)
     @sprites["header"].windowskin=nil
     
     @sprites["itemtextwindow"]=Window_UnformattedTextPokemon.new("")
@@ -360,8 +360,8 @@ class PokemonMartScene
     @sprites["itemtextwindow"].y=Graphics.height-96-16
     @sprites["itemtextwindow"].width=Graphics.width-64
     @sprites["itemtextwindow"].height=128
-    @sprites["itemtextwindow"].baseColor=Color.new(248,248,248)
-    @sprites["itemtextwindow"].shadowColor=Color.new(0,0,0)
+    @sprites["itemtextwindow"].baseColor=Color.new(242,242,242)
+    @sprites["itemtextwindow"].shadowColor=Color.new(12,12,12)
     @sprites["itemtextwindow"].visible=true
     @sprites["itemtextwindow"].viewport=@viewport
     @sprites["itemtextwindow"].windowskin=nil

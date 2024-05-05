@@ -506,7 +506,7 @@ class MiningGameScene
         @sprites["collapse"]=BitmapSprite.new(Graphics.width,Graphics.height,collapseviewport)
         for i in 0..32
           @sprites["collapse"].bitmap.fill_rect(0,0,
-             Graphics.width,Graphics.height*i/32,Color.new(0,0,0))
+             Graphics.width,Graphics.height*i/32,Color.new(12,12,12))
           Graphics.update
         end
         Kernel.pbMessage(_INTL("The wall collapsed!"))

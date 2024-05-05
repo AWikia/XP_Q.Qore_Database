@@ -267,7 +267,7 @@ class PokemonSummaryScene
        [_INTL("Species"),366,48,0,shadow2,nil,0],
        [speciesname,563,48,2,base,shadow],
        [_INTL("Color"),366,80,0,base2,nil,0],
-       [_INTL("Compats"),366,112,0,shadow2,nil,0],
+       [_INTL("Egg Groups"),366,112,0,shadow2,nil,0],
        [_INTL("Type"),366,144,0,base2,nil,0],
        [_INTL("OT"),366,176,0,shadow2,nil,0],
        [_INTL("ID No."),366,208,0,base2,nil,0],

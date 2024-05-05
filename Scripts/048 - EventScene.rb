@@ -490,7 +490,7 @@ def pbTextBitmap(text,maxwidth=Graphics.width)
   dims=[]
   tmp=Bitmap.new(maxwidth,Graphics.height)
   pbSetSystemFont(tmp)
-  drawFormattedTextEx(tmp,0,0,maxwidth,text,Color.new(248,248,248),Color.new(168,184,184))
+  drawFormattedTextEx(tmp,0,0,maxwidth,text,Color.new(242,242,242),Color.new(144,144,144))
   return tmp
 end
 

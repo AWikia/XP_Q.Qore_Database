@@ -29,11 +29,11 @@ class PokemonTrainerCardScene
     @sprites["header"]=Window_UnformattedTextPokemon.newWithSize(_INTL("Trainer Card"),
        2,-18,256,64,@viewport)
     if (!isDarkMode?)
-      base=Color.new(0,0,0)
-      shadow=Color.new(248,248,248)
+      base=Color.new(12,12,12)
+      shadow=Color.new(242,242,242)
     else
-      base=Color.new(248,248,248)
-      shadow=Color.new(0,0,0)
+      base=Color.new(242,242,242)
+      shadow=Color.new(12,12,12)
     end
     @sprites["header"].baseColor=base
     @sprites["header"].shadowColor=nil #shadow

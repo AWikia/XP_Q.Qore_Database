@@ -596,7 +596,7 @@ class FadeTransition
     @viewport = Viewport.new(0,0,Graphics.width,Graphics.height)
     @viewport.z = 99999
     @sprite = BitmapSprite.new(Graphics.width,Graphics.height,@viewport)
-    @sprite.bitmap.fill_rect(0,0,Graphics.width,Graphics.height,Color.new(0,0,0))
+    @sprite.bitmap.fill_rect(0,0,Graphics.width,Graphics.height,Color.new(12,12,12))
     @sprite.opacity=0
   end
 

@@ -288,10 +288,10 @@ PokemonPCList.registerPC(PurifyChamberPC.new)
 
 def pbDrawGauge(bitmap,rect,color,value,maxValue)
   return if !bitmap
-  bitmap.fill_rect(rect.x,rect.y,rect.width,rect.height,Color.new(0,0,0))
+  bitmap.fill_rect(rect.x,rect.y,rect.width,rect.height,Color.new(12,12,12))
   width=(maxValue<=0) ? 0 : (rect.width-4)*value/maxValue
   if rect.width>=4 && rect.height>=4
-    bitmap.fill_rect(rect.x+2,rect.y+2,rect.width-4,rect.height-4,Color.new(248,248,248))
+    bitmap.fill_rect(rect.x+2,rect.y+2,rect.width-4,rect.height-4,Color.new(242,242,242))
     bitmap.fill_rect(rect.x+2,rect.y+2,width,rect.height-4,color)
   end
 end
@@ -738,7 +738,7 @@ class DirectFlowDiagram
   def ensurePoint(j)
     if !@points[j] || @points[j].disposed?
       @points[j]=BitmapSprite.new(8,8,@viewport)
-      @points[j].bitmap.fill_rect(0,0,8,8,Color.new(0,0,0))
+      @points[j].bitmap.fill_rect(0,0,8,8,Color.new(12,12,12))
     end
     @points[j].tone=(@strength==2) ? Tone.new(232,232,248) : 
        Tone.new(16,16,232)
@@ -811,7 +811,7 @@ class FlowDiagram
   def ensurePoint(j)
     if !@points[j] || @points[j].disposed?
       @points[j]=BitmapSprite.new(8,8,@viewport)
-      @points[j].bitmap.fill_rect(0,0,8,8,Color.new(0,0,0))
+      @points[j].bitmap.fill_rect(0,0,8,8,Color.new(12,12,12))
     end
     @points[j].tone=(@strength==2) ? Tone.new(232,232,248) : 
        Tone.new(16,16,232)
@@ -973,14 +973,14 @@ class PurifyChamberSetView < SpriteWrapper
     if pkmn
 	    if pkmn.type1==pkmn.type2
         textpos.push([_INTL("{1}  Lv{2}  {3}",pkmn.name,pkmn.level,PBTypes.getName(pkmn.type1)),2,0,0,
-	         Color.new(248,248,248),Color.new(128,128,128)])
+	         Color.new(242,242,242),Color.new(128,128,128)])
       else
         textpos.push([_INTL("{1}  Lv{2}  {3}/{4}",pkmn.name,pkmn.level,PBTypes.getName(pkmn.type1),
 	         PBTypes.getName(pkmn.type2)),2,0,0,
-	         Color.new(248,248,248),Color.new(128,128,128)])
+	         Color.new(242,242,242),Color.new(128,128,128)])
       end
       textpos.push([_INTL("FLOW"),2+@info.bitmap.width/2,24,0,
-	       Color.new(248,248,248),Color.new(128,128,128)])
+	       Color.new(242,242,242),Color.new(128,128,128)])
 		  # draw heart gauge
 	    pbDrawGauge(@info.bitmap,Rect.new(@info.bitmap.width*3/4,8,@info.bitmap.width*1/4,8),
 	       Color.new(192,0,256),pkmn.heartgauge,
@@ -991,7 +991,7 @@ class PurifyChamberSetView < SpriteWrapper
     end
     if @chamber.setCount(@set)>0
       textpos.push([_INTL("TEMPO"),2,24,0,
-	       Color.new(248,248,248),Color.new(128,128,128)])
+	       Color.new(242,242,242),Color.new(128,128,128)])
       # draw tempo gauge
       pbDrawGauge(@info.bitmap,Rect.new(@info.bitmap.width*1/4,24+8,@info.bitmap.width*1/4,8),
 	       Color.new(0,0,248),@chamber[@set].tempo,
@@ -1144,7 +1144,7 @@ class PurifyChamberScene
     @viewportmsg=Viewport.new(0,0,Graphics.width,Graphics.height)
     @viewportmsg.z=99999
     addBackgroundOrColoredPlane(@sprites,"bg","purifychamberbg",
-       Color.new(0,0,0),@viewport)
+       Color.new(12,12,12),@viewport)
     @sprites["setwindow"]=Window_PurifyChamberSets.new(
        @chamber,0,0,112,Graphics.height,@viewport)
     @sprites["setview"]=PurifyChamberSetView.new(@chamber,set,@viewport)

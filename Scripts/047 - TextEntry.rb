@@ -699,9 +699,9 @@ class Window_MultilineTextEntry < SpriteWindow_Base
     width=self.width-self.borderX
     height=self.height-self.borderY
     if (!isDarkMode?)
-      cursorcolor=Color.new(0,0,0)
+      cursorcolor=Color.new(12,12,12)
     else
-      cursorcolor=Color.new(255,255,255)
+      cursorcolor=Color.new(242,242,242)
     end
     textchars=getTextChars()
     scanlength=@helper.length
@@ -922,8 +922,8 @@ class PokemonEntryScene
 
     @sprites["header"]=Window_UnformattedTextPokemon.newWithSize(_INTL("{1}",helptext),
        2,-18,512,64,@viewport)
-    @sprites["header"].baseColor=(isDarkMode?) ? Color.new(248,248,248) : Color.new(0,0,0)
-    @sprites["header"].shadowColor=nil #(!isDarkMode?) ? Color.new(248,248,248) : Color.new(0,0,0)
+    @sprites["header"].baseColor=(isDarkMode?) ? Color.new(242,242,242) : Color.new(12,12,12)
+    @sprites["header"].shadowColor=nil #(!isDarkMode?) ? Color.new(242,242,242) : Color.new(12,12,12)
     @sprites["header"].windowskin=nil
 
     if USEKEYBOARD
@@ -1251,8 +1251,8 @@ class PokemonEntryScene2
 
     @sprites["header"]=Window_UnformattedTextPokemon.newWithSize(_INTL("{1}",helptext),
        2,-18,512,64,@viewport)
-    @sprites["header"].baseColor=(isDarkMode?) ? Color.new(248,248,248) : Color.new(0,0,0)
-    @sprites["header"].shadowColor=nil #(!isDarkMode?) ? Color.new(248,248,248) : Color.new(0,0,0)
+    @sprites["header"].baseColor=(isDarkMode?) ? Color.new(242,242,242) : Color.new(12,12,12)
+    @sprites["header"].shadowColor=nil #(!isDarkMode?) ? Color.new(242,242,242) : Color.new(12,12,12)
     @sprites["header"].windowskin=nil
 
     @bitmaps=[

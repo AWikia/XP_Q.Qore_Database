@@ -294,9 +294,9 @@ class PokedexFormScene
 =end
 
     if (!isDarkMode?)
-      color=Color.new(20,20,20)
+      color=Color.new(12,12,12)
     else
-      color=Color.new(248,248,248)
+      color=Color.new(242,242,242)
     end
 
 

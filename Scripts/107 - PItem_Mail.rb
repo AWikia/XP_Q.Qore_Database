@@ -58,10 +58,10 @@ def pbDisplayMail(mail,bearer=nil)
       sprites["bearer3"].src_rect.set(0,0,64,64)
     end
   end
-  baseForDarkBG=Color.new(248,248,248)
-  shadowForDarkBG=Color.new(72,80,88)
-  baseForLightBG=Color.new(80,80,88)
-  shadowForLightBG=Color.new(168,168,176)
+  baseForDarkBG=Color.new(242,242,242)
+  shadowForDarkBG=Color.new(72,72,72)
+  baseForLightBG=Color.new(12,12,12)
+  shadowForLightBG=Color.new(144,144,144)
   if mail.message && mail.message!=""
     isDark=isDarkBackground(sprites["card"].bitmap,Rect.new(48,48,Graphics.width-96,32*7))
     drawTextEx(overlay,48,48,Graphics.width-96,7,mail.message,

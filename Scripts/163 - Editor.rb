@@ -1256,8 +1256,8 @@ def pbListScreen(title,lister,planebg="party_bg")
   plane.z=2
   title=Window_UnformattedTextPokemon.newWithSize(_INTL(title),
       2,-18,576,64,viewport)      
-  title.baseColor=(isDarkMode?) ? Color.new(248,248,248) : Color.new(0,0,0)
-  title.shadowColor=nil #(!isDarkMode?) ? Color.new(248,248,248) : Color.new(0,0,0)
+  title.baseColor=(isDarkMode?) ? Color.new(242,242,242) : Color.new(12,12,12)
+  title.shadowColor=nil #(!isDarkMode?) ? Color.new(242,242,242) : Color.new(12,12,12)
   title.windowskin=nil
   title.z=2
   lister.setViewport(viewport)
@@ -1306,8 +1306,8 @@ def pbListScreenBlock(title,lister)
   plane.z=2
   title=Window_UnformattedTextPokemon.newWithSize(_INTL(title),
       2,-18,576,64,viewport)      
-  title.baseColor=(isDarkMode?) ? Color.new(248,248,248) : Color.new(0,0,0)
-  title.shadowColor=nil #(!isDarkMode?) ? Color.new(248,248,248) : Color.new(0,0,0)
+  title.baseColor=(isDarkMode?) ? Color.new(242,242,242) : Color.new(12,12,12)
+  title.shadowColor=nil #(!isDarkMode?) ? Color.new(242,242,242) : Color.new(12,12,12)
   title.windowskin=nil
   title.z=2
   lister.setViewport(viewport)
@@ -3434,7 +3434,7 @@ def createMinimap2(mapid)
   map=load_data(sprintf("Data/Map%03d.rxdata",mapid)) rescue nil
   return BitmapWrapper.new(32,32) if !map
   bitmap=BitmapWrapper.new(map.width*4,map.height*4)
-  black=Color.new(0,0,0)
+  black=Color.new(12,12,12)
   bigmap=(map.width>40 && map.height>40)
   tilesets=load_data("Data/Tilesets.rxdata")
   tileset=tilesets[map.tileset_id]
@@ -3463,7 +3463,7 @@ def createMinimap(mapid)
   map=load_data(sprintf("Data/Map%03d.rxdata",mapid)) rescue nil
   return BitmapWrapper.new(32,32) if !map
   bitmap=BitmapWrapper.new(map.width*4,map.height*4)
-  black=Color.new(0,0,0)
+  black=Color.new(12,12,12)
   tilesets=load_data("Data/Tilesets.rxdata")
   tileset=tilesets[map.tileset_id]
   return bitmap if !tileset
@@ -3800,8 +3800,8 @@ GLOBALMETADATA=[
       @sprites["background_2"].z=2
       @sprites["header"]=Window_UnformattedTextPokemon.newWithSize(_INTL("Map Connections"),
          2,-18,576,64,@viewport)
-      @sprites["header"].baseColor=(isDarkMode?) ? Color.new(248,248,248) : Color.new(0,0,0)
-      @sprites["header"].shadowColor=nil #(!isDarkMode?) ? Color.new(248,248,248) : Color.new(0,0,0)
+      @sprites["header"].baseColor=(isDarkMode?) ? Color.new(242,242,242) : Color.new(12,12,12)
+      @sprites["header"].shadowColor=nil #(!isDarkMode?) ? Color.new(242,242,242) : Color.new(12,12,12)
       @sprites["header"].windowskin=nil
       @sprites["header"].z=2
 

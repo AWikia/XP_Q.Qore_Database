@@ -101,10 +101,10 @@ class TriadCard
     bitmap.blt(10,2,icon.bitmap,Rect.new(0,0,64,64))
     pbSetSmallFont(bitmap)
     pbDrawTextPositions(bitmap,[
-       ["0123456789A"[@north,1],84/2,2,2,Color.new(248,248,248),Color.new(96,96,96)],
-       ["0123456789A"[@south,1],84/2,82-25,2,Color.new(248,248,248),Color.new(96,96,96)],
-       ["0123456789A"[@west,1],2,(84/2)-12,0,Color.new(248,248,248),Color.new(96,96,96)],
-       ["0123456789A"[@east,1],82,(84/2)-12,1,Color.new(248,248,248),Color.new(96,96,96)]
+       ["0123456789A"[@north,1],84/2,2,2,Color.new(242,242,242),Color.new(96,96,96)],
+       ["0123456789A"[@south,1],84/2,82-25,2,Color.new(242,242,242),Color.new(96,96,96)],
+       ["0123456789A"[@west,1],2,(84/2)-12,0,Color.new(242,242,242),Color.new(96,96,96)],
+       ["0123456789A"[@east,1],82,(84/2)-12,1,Color.new(242,242,242),Color.new(96,96,96)]
     ])
     icon.dispose
     typebitmap.dispose
@@ -196,8 +196,8 @@ class TriadScene
     @sprites["overlay"].bitmap=BitmapWrapper.new(Graphics.width,Graphics.height)
     pbSetSystemFont(@sprites["overlay"].bitmap)
     pbDrawTextPositions(@sprites["overlay"].bitmap,[
-       [@battle.opponentName,54,0,2,Color.new(248,248,248),Color.new(96,96,96)],
-       [@battle.playerName,Graphics.width-54,0,2,Color.new(248,248,248),Color.new(96,96,96)]
+       [@battle.opponentName,54,0,2,Color.new(242,242,242),Color.new(96,96,96)],
+       [@battle.playerName,Graphics.width-54,0,2,Color.new(242,242,242),Color.new(96,96,96)]
     ])
     @sprites["score"]=Sprite.new(@viewport)
     @sprites["score"].bitmap=BitmapWrapper.new(Graphics.width,Graphics.height)
@@ -223,7 +223,7 @@ class TriadScene
       oppscore+=@opponentCardIndexes.length
     end
     pbDrawTextPositions(bitmap,[
-       [_INTL("{1}-{2}",oppscore,playerscore),Graphics.width/2,0,2,Color.new(248,248,248),Color.new(96,96,96)]
+       [_INTL("{1}-{2}",oppscore,playerscore),Graphics.width/2,0,2,Color.new(242,242,242),Color.new(96,96,96)]
     ])
   end
 

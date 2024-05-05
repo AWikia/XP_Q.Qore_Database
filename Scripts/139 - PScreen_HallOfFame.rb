@@ -166,8 +166,8 @@ class HallOfFameScene
     @sprites["overlay"].z=10
 
     @sprites["header"]=Window_UnformattedTextPokemon.newWithSize(_INTL("Hall of Fame"),2,-18,500,64,@viewport)
-    @sprites["header"].baseColor=(isDarkMode?) ? Color.new(248,248,248) : Color.new(0,0,0)
-    @sprites["header"].shadowColor=nil #(!isDarkMode?) ? Color.new(248,248,248) : Color.new(0,0,0)
+    @sprites["header"].baseColor=(isDarkMode?) ? Color.new(242,242,242) : Color.new(12,12,12)
+    @sprites["header"].shadowColor=nil #(!isDarkMode?) ? Color.new(242,242,242) : Color.new(12,12,12)
     @sprites["header"].windowskin=nil
     
     pbSetSystemFont(@sprites["overlay"].bitmap)
@@ -363,8 +363,8 @@ class HallOfFameScene
         _INTL("League champion!\nCongratulations!\\^"))
   end  
 
-  BASE   = Color.new(0,0,0)
-  SHADOW = Color.new(248,248,248)
+  BASE   = Color.new(12,12,12)
+  SHADOW = Color.new(242,242,242)
   BASEDARK   = SHADOW
   SHADOWDARK = BASE
   

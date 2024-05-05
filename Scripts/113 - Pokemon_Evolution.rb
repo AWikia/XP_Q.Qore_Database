@@ -775,7 +775,7 @@ class PokemonEvolutionScene
       background="evolution_bg"
     end
     addBackgroundOrColoredPlane(@sprites,"background",background,
-       Color.new(248,248,248),@bgviewport)
+       Color.new(242,242,242),@bgviewport)
     rsprite1=PokemonSprite.new(@viewport)
     rsprite2=PokemonSprite.new(@viewport)
     rsprite1.setPokemonBitmap(@pokemon,false)

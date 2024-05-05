@@ -740,9 +740,9 @@ def pbBattleAnimationOverride(viewport,trainerid=-1,trainername="")
       trainer.tone=Tone.new(0,0,0)
       textpos=[
          [_INTL("{1}",$Trainer.name),Graphics.width/4,(Graphics.height/1.5)+10,2,
-            Color.new(248,248,248),Color.new(12*6,12*6,12*6)],
+            Color.new(242,242,242),Color.new(12*6,12*6,12*6)],
          [_INTL("{1}",trainername),(Graphics.width/4)+(Graphics.width/2),(Graphics.height/1.5)+10,2,
-            Color.new(248,248,248),Color.new(12*6,12*6,12*6)]
+            Color.new(242,242,242),Color.new(12*6,12*6,12*6)]
       ]
       pbDrawTextPositions(overlay.bitmap,textpos)
       pbSEPlay("Sword2")

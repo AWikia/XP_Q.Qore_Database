@@ -27,7 +27,7 @@ class PokemonEggHatchScene
       background="hatch_bg"
     end
     addBackgroundOrColoredPlane(@sprites,"background",background,
-       Color.new(248,248,248),@viewport)
+       Color.new(242,242,242),@viewport)
     @sprites["pokemon"]=PokemonSprite.new(@viewport)
     @sprites["pokemon"].setSpeciesBitmap(@pokemon.species,@pokemon.isFemale?,
                                          (@pokemon.form rescue 0),@pokemon.isShiny?,

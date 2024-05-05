@@ -1848,11 +1848,11 @@ class PokemonBoxPartySprite < SpriteWrapper
     @contents.blt(0,0,@boxbitmap.bitmap,Rect.new(0,0,172,352))
     # V17 Backport
     if (!isDarkMode?)
-      color1=Color.new(248,248,248)
+      color1=Color.new(242,242,242)
       color2=Color.new(80,80,80)
     else
       color1=Color.new(85,85,85)
-      color2=Color.new(248,248,248)
+      color2=Color.new(242,242,242)
     end
     pbDrawTextPositions(self.bitmap,[
        [_INTL("Back"),86,242,2,color1,color2,1]
@@ -2083,7 +2083,7 @@ class PokemonBoxSprite < SpriteWrapper
       widthval=@contents.text_size(boxname).width
       xval=162-(widthval/2)
       pbDrawShadowText(@contents,xval,8,widthval,32,boxname,
-         Color.new(248,248,248),Color.new(40,48,48))
+         Color.new(242,242,242),Color.new(40,48,48))
       @refreshBox=false
     end
     yval=self.y+30
@@ -2145,10 +2145,10 @@ class PokemonStorageScene
     else
       addBackgroundPlane(@sprites,"background",getDarkModeFolder+"/Storage/bg",@bgviewport)
     end
-      addBackgroundOrColoredPlane(@sprites,"partybg_title",getDarkModeFolder+"/party_bg",Color.new(0,0,0),@bgviewport)
+      addBackgroundOrColoredPlane(@sprites,"partybg_title",getDarkModeFolder+"/party_bg",Color.new(12,12,12),@bgviewport)
     @sprites["header"]=Window_UnformattedTextPokemon.newWithSize(_INTL("Storage System"),2,-18,512,64,@bgviewport)
-    @sprites["header"].baseColor=(isDarkMode?) ? Color.new(248,248,248) : Color.new(0,0,0)
-    @sprites["header"].shadowColor=nil #(!isDarkMode?) ? Color.new(248,248,248) : Color.new(0,0,0)
+    @sprites["header"].baseColor=(isDarkMode?) ? Color.new(242,242,242) : Color.new(12,12,12)
+    @sprites["header"].shadowColor=nil #(!isDarkMode?) ? Color.new(242,242,242) : Color.new(12,12,12)
     @sprites["header"].windowskin=nil
     @sprites["box"]=PokemonBoxSprite.new(@storage,@storage.currentBox,@boxviewport)
     @sprites["boxsides"]=IconSprite.new(0,0,@boxsidesviewport)
@@ -2433,11 +2433,11 @@ class PokemonStorageScene
     overlay.clear
     # V17 Addition
     if (!isDarkMode?)
-      buttonbase=Color.new(248,248,248)
+      buttonbase=Color.new(242,242,242)
       buttonshadow=Color.new(80,80,80)
     else
       buttonbase=Color.new(85,85,85)
-      buttonshadow=Color.new(248,248,248)
+      buttonshadow=Color.new(242,242,242)
     end
     pbDrawTextPositions(overlay,[
        [_INTL("Party: {1}",(@storage.party.length rescue 0)),270,328+14,2,buttonbase,buttonshadow,1],

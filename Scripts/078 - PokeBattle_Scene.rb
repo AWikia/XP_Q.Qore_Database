@@ -416,7 +416,7 @@ class FightMenuButtons < BitmapSprite
       y+=UPPERGAP
       self.bitmap.blt(x,y,@buttonbitmap.bitmap,Rect.new(0,moves[i].type*46,192,46))
       textpos.push([_INTL("{1}",moves[i].name),x+96,y+4,2,
-         Color.new(248,248,248),Color.new(18,18,18),1])
+         Color.new(242,242,242),Color.new(12,12,12),1])
     end
     if $isDarkMessage
       ppcolors=[
@@ -801,7 +801,7 @@ class PokemonDataBox < SpriteWrapper
     hpGaugeY=PokeBattle_SceneConstants::HPGAUGE_Y
     if @animatingHP && self.hp>0   # fill with black (shows what the HP used to be)
       self.bitmap.fill_rect(@spritebaseX+hpGaugeX,hpGaugeY,
-         @starthp*@hpbar.bitmap.width/@battler.totalhp,@hpbar.bitmap.height/3,Color.new(0,0,0))
+         @starthp*@hpbar.bitmap.width/@battler.totalhp,@hpbar.bitmap.height/3,Color.new(12,12,12))
     end
     self.bitmap.blt(@spritebaseX+hpGaugeX,hpGaugeY,@hpbar.bitmap,
        Rect.new(0,hpzone*@hpbar.bitmap.height/3,hpgauge,@hpbar.bitmap.height/3))

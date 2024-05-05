@@ -239,12 +239,12 @@ def pbDebugMenu(fromgame=true)
   viewport.z=99999
   sprites={}
       addBackgroundOrColoredPlane(sprites,"title",getDarkModeFolder+"/Settings/bg",
-         Color.new(0,0,0),viewport)
+         Color.new(12,12,12),viewport)
     title="Debug Menu"    
     sprites["header"]=Window_UnformattedTextPokemon.newWithSize(_INTL(title),
        2,-18,576,64,viewport)      
-    sprites["header"].baseColor=(isDarkMode?) ? Color.new(248,248,248) : Color.new(0,0,0)
-    sprites["header"].shadowColor=nil #(!isDarkMode?) ? Color.new(248,248,248) : Color.new(0,0,0)
+    sprites["header"].baseColor=(isDarkMode?) ? Color.new(242,242,242) : Color.new(12,12,12)
+    sprites["header"].shadowColor=nil #(!isDarkMode?) ? Color.new(242,242,242) : Color.new(12,12,12)
     sprites["header"].windowskin=nil
   commands=CommandList.new
   commands.add("corendo",_INTL("Game ROM Initialization Check")) # For Compatibility with Corendo
@@ -1011,12 +1011,12 @@ def pbDebugScreen(mode)
   viewport.z=99999
   sprites={}
       addBackgroundOrColoredPlane(sprites,"title",getDarkModeFolder+"/Settings/bg_"+["2","3"][mode],
-         Color.new(0,0,0),viewport)
+         Color.new(12,12,12),viewport)
     title=["Switches", "Variables"][mode]    
     sprites["header"]=Window_UnformattedTextPokemon.newWithSize(_INTL(title),
        2,-18,576,64,viewport)      
-    sprites["header"].baseColor=(isDarkMode?) ? Color.new(248,248,248) : Color.new(0,0,0)
-    sprites["header"].shadowColor=nil #(!isDarkMode?) ? Color.new(248,248,248) : Color.new(0,0,0)
+    sprites["header"].baseColor=(isDarkMode?) ? Color.new(242,242,242) : Color.new(12,12,12)
+    sprites["header"].shadowColor=nil #(!isDarkMode?) ? Color.new(242,242,242) : Color.new(12,12,12)
     sprites["header"].windowskin=nil
 
     
@@ -1066,12 +1066,12 @@ def pbDebugScreen2(mode)
   viewport.z=99999
   sprites={}
       addBackgroundOrColoredPlane(sprites,"title",getDarkModeFolder+"/Settings/bg_4",
-         Color.new(0,0,0),viewport)
+         Color.new(12,12,12),viewport)
     title=["Game ROM Initialization Check", "Control Configuration Check", "Game RAM Initialization Check", "Audio Initialization Check"][mode]    
     sprites["header"]=Window_UnformattedTextPokemon.newWithSize(_INTL(title),
        2,-18,576,64,viewport)      
-    sprites["header"].baseColor=(isDarkMode?) ? Color.new(248,248,248) : Color.new(0,0,0)
-    sprites["header"].shadowColor=nil #(!isDarkMode?) ? Color.new(248,248,248) : Color.new(0,0,0)
+    sprites["header"].baseColor=(isDarkMode?) ? Color.new(242,242,242) : Color.new(12,12,12)
+    sprites["header"].shadowColor=nil #(!isDarkMode?) ? Color.new(242,242,242) : Color.new(12,12,12)
     sprites["header"].windowskin=nil
   pbFadeInAndShow(sprites)
   if (mode == 0)

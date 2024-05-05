@@ -1370,7 +1370,7 @@ class SpriteFrame < InvalidatableSprite
   end
 
   def refresh
-    selcolor=Color.new(0,0,0)
+    selcolor=Color.new(12,12,12)
     unselcolor=Color.new(220,220,220)
     prevcolor=Color.new(64,128,192)
     @contents.clear
@@ -1452,8 +1452,8 @@ class AnimationCanvas < Sprite
     @sprites["background2"].bitmap=AnimatedBitmap.new("Graphics/UI/"+getDarkModeFolder+"/Debug/anim_editor_bg").deanimate
     @sprites["header"]=Window_UnformattedTextPokemon.newWithSize(_INTL("Animation Editor"),
        2,-18,256,64,viewport)
-    @sprites["header"].baseColor=(isDarkMode?) ? Color.new(248,248,248) : Color.new(0,0,0)
-    @sprites["header"].shadowColor=nil #(!isDarkMode?) ? Color.new(248,248,248) : Color.new(0,0,0)
+    @sprites["header"].baseColor=(isDarkMode?) ? Color.new(242,242,242) : Color.new(12,12,12)
+    @sprites["header"].shadowColor=nil #(!isDarkMode?) ? Color.new(242,242,242) : Color.new(12,12,12)
     @sprites["header"].windowskin=nil
 
     self.bitmap=@testscreen.bitmap
@@ -2998,11 +2998,11 @@ class ControlPointSprite < SpriteWrapper
   def initialize(red,viewport=nil)
     super(viewport)
     self.bitmap=Bitmap.new(6,6)
-    self.bitmap.fill_rect(0,0,6,1,Color.new(0,0,0))
-    self.bitmap.fill_rect(0,0,1,6,Color.new(0,0,0))
-    self.bitmap.fill_rect(0,5,6,1,Color.new(0,0,0))
-    self.bitmap.fill_rect(5,0,1,6,Color.new(0,0,0))
-    color=(red) ? Color.new(255,0,0) : Color.new(0,0,0)
+    self.bitmap.fill_rect(0,0,6,1,Color.new(12,12,12))
+    self.bitmap.fill_rect(0,0,1,6,Color.new(12,12,12))
+    self.bitmap.fill_rect(0,5,6,1,Color.new(12,12,12))
+    self.bitmap.fill_rect(5,0,1,6,Color.new(12,12,12))
+    color=(red) ? Color.new(255,0,0) : Color.new(12,12,12)
     self.bitmap.fill_rect(2,2,2,2,color)
     self.x=-6
     self.y=-6
@@ -3043,7 +3043,7 @@ class PointSprite < SpriteWrapper
   def initialize(x,y,viewport=nil)
     super(viewport)
     self.bitmap=Bitmap.new(2,2)
-    self.bitmap.fill_rect(0,0,2,2,Color.new(0,0,0))
+    self.bitmap.fill_rect(0,0,2,2,Color.new(12,12,12))
     self.x=x
     self.y=y
   end

@@ -129,24 +129,24 @@ class PokemonLoadScene
     title=['bg','bg_beta','bg_dev','bg_canary','bg_internal','bg_upgradewizard'][QQORECHANNEL]
     if pbResolveBitmap(_INTL("Graphics/UI/"+getDarkModeFolder+"/Load/{1}",title))
       addBackgroundOrColoredPlane(@sprites,"background",getDarkModeFolder+"/Load/"+title,
-         Color.new(248,248,248),@viewport)
+         Color.new(242,242,242),@viewport)
     elsif pbResolveBitmap(sprintf("Graphics/UI/"+getDarkModeFolder+"/Load/bg"))
       addBackgroundOrColoredPlane(@sprites,"background",getDarkModeFolder+"/Load/bg",
-         Color.new(248,248,248),@viewport)
+         Color.new(242,242,242),@viewport)
     else  # Hotfixing Prograda
       addBackgroundOrColoredPlane(@sprites,"background",getDarkModeFolder+"/Load/bg_empty",
-         Color.new(248,248,248),@viewport)
+         Color.new(242,242,242),@viewport)
     end
       addBackgroundOrColoredPlane(@sprites,"partybg_title",getDarkModeFolder+"/party_bg_1",
-         Color.new(0,0,0),@viewport)
+         Color.new(12,12,12),@viewport)
     title=RTP.getGameIniValue("Game", "Game") # QQC Edit 
     title=RTP.getGameIniValue("Game","Title") if title==""
     title="RGSS Game" if title==""
     
     @sprites["header"]=Window_UnformattedTextPokemon.newWithSize(_INTL(title),
        2,-18,576,64,@viewport)      
-    @sprites["header"].baseColor=(isDarkMode?) ? Color.new(248,248,248) : Color.new(0,0,0)
-    @sprites["header"].shadowColor=nil #(!isDarkMode?) ? Color.new(248,248,248) : Color.new(0,0,0)
+    @sprites["header"].baseColor=(isDarkMode?) ? Color.new(242,242,242) : Color.new(12,12,12)
+    @sprites["header"].shadowColor=nil #(!isDarkMode?) ? Color.new(242,242,242) : Color.new(12,12,12)
     @sprites["header"].windowskin=nil
     @sprites["partybg_title"].z=99999
     @sprites["header"].z=99999
@@ -176,7 +176,7 @@ class PokemonLoadScene
     @viewport=Viewport.new(0,0,Graphics.width,Graphics.height)
     @viewport.z=99998
     addBackgroundOrColoredPlane(@sprites,"background",getDarkModeFolder+"/Load/bg_empty",
-       Color.new(248,248,248),@viewport)
+       Color.new(242,242,242),@viewport)
   end
 
   def pbSetParty(trainer)

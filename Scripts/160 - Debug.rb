@@ -990,7 +990,21 @@ def pbDebugSetVariable(id,diff)
 end
 
 def pbDebugVariableScreen(id)
-  if $game_variables[id].is_a?(Numeric)
+  # Change: Make Rival Variables use naming screen
+  done = false
+  for i in RIVALNAMES
+    if i[1]==id
+      pbSet(id,pbEnterNPCName(
+        _INTL("Set variable {1}.",id),1,12,$game_variables[id].to_s,
+        pbTrainerCharNameFile(getConst(PBTrainers,i[0])))
+      )
+      done = true
+      break
+    end
+  end
+  # End Change
+  if done
+  elsif $game_variables[id].is_a?(Numeric)
     value = $game_variables[id]
     params = ChooseNumberParams.new
     params.setDefaultValue(value)

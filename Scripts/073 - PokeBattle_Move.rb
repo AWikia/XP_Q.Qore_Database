@@ -78,7 +78,8 @@ class PokeBattle_Move
 
   def pbModifyType(type,attacker,opponent)
     if type>=0
-      if attacker.hasWorkingAbility(:NORMALIZE) && hasConst?(PBTypes,:NORMAL)
+      if (attacker.hasWorkingAbility(:NORMALIZE) || 
+          attacker.hasWorkingAbility(:MICROSTAR)) && hasConst?(PBTypes,:NORMAL)
         type=getConst(PBTypes,:NORMAL)
       elsif attacker.hasWorkingAbility(:LIQUIDVOICE) && isSoundBased? && hasConst?(PBTypes,:WATER) # changed
         type=getConst(PBTypes,:WATER)
@@ -194,7 +195,8 @@ class PokeBattle_Move
         exceptions=[0x6E,   # Endeavor
                     0xE0,   # Selfdestruct/Explosion
                     0xE1,   # Final Gambit
-                    0xF7]   # Fling
+                    0xF7,   # Fling
+                    0x387]  # Horatio
         if !exceptions.include?(@function)
           attacker.effects[PBEffects::ParentalBond]=3
           return 2
@@ -662,6 +664,8 @@ class PokeBattle_Move
     return true if opponent.hasWorkingAbility(:DOOMYTREVOR) &&
                    isConst?(pbType(@type,attacker,opponent),PBTypes,:DOOM)
     return true if opponent.effects[PBEffects::Telekinesis]>0
+    return true if attacker.hasWorkingAbility(:RADICALARROW) &&
+                   (attacker.turncount)%2==0
     # One-hit KO accuracy handled elsewhere
     accstage=attacker.stages[PBStats::ACCURACY]
     accstage=0 if !attacker.hasMoldBreaker(opponent) && opponent.hasWorkingAbility(:UNAWARE)
@@ -962,6 +966,10 @@ class PokeBattle_Move
          (pbIsPhysical?(type) || @function==0x122) # Psyshock
         damagemult=(damagemult*0.5).round
       end
+      if opponent.hasWorkingAbility(:MICROSTAR) && opponent.turncount%2==0 &&
+         (pbIsPhysical?(type) || @function==0x122) # Psyshock
+        damagemult=(damagemult*0.5).round
+      end
       if opponent.hasWorkingAbility(:ICESCALES) && pbIsSpecial?(type)
         damagemult=(damagemult*0.5).round
       end
@@ -1147,6 +1155,9 @@ class PokeBattle_Move
     end
     if attacker.hasWorkingItem(:PUNCHINGGLOVE) && isPunchingMove?
       damagemult=(damagemult*1.1).round
+    end
+    if attacker.hasWorkingItem(:MUSICALNOTE) && isSoundBased?
+      damagemult=(damagemult*1.2).round
     end
     if attacker.hasWorkingItem(:WHITEFLAG)
       damagemult=(damagemult*1.2).round

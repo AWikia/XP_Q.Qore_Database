@@ -23155,6 +23155,7 @@ Kind=Battery
 Pokedex=A Salem was discovered by Jay at the MYSTERY ZONE. It always inhabits there and can change its color according to what plate or box it holds
 FormNames=Ghostlymon,Toxicmon,Leafymon,Scalemon,Lightmon,Fiermon
 WildItemCommon=AIRBALLOON
+WildItemUncommon=BLACKFLAG
 WildItemRare=REDCARD
 BattlerPlayerY=32
 BattlerEnemyY=36

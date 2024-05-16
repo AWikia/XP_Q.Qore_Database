@@ -1013,3 +1013,5 @@
 994,BLACKFLAG,Black Flag,Black Flags,1,4000,An item to be held by a Pokémon. This flag makes the Pokémon help in making eggs hatching faster and doubles its stats every second turn in battle.,0,0,0,
 1000,GOLDORB,Gold Orb,Gold Orbs,1,0,A shiny golden orb that is said to have a legend tied to it. It's known to have a deep connection to ANT1.,0,0,0,
 1001,SILVERORB,Silver Orb,Silver Orbs,1,0,A shiny golden orb that is said to have a legend tied to it. It's known to have a deep connection to Makedonia TV.,0,0,0,
+1002,MUSICALNOTE,Musical Note,Musical Notes,1,500,An item to be held by a Pokémon. This note boosts the power of sound-based moves used by the holder.,0,0,0,
+

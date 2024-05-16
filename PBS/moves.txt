@@ -887,6 +887,7 @@
 1060,FOOTPANISH,Footpanish,030,0,NORMAL,Status,0,10,0,10,-1,d,The user polishes out their feets. This sharply boosts the Speed stat.
 1103,SUPERSING,Super Sing,003,0,NORMAL,Status,55,10,0,04,0,bcek,A soothing lullaby is sung in a calming voice that puts each target into a deep slumber.
 1104,STYLUS,Stylus,332,150,NORMAL,Special,90,5,0,00,0,befn,"The user damages the user using a big swirly Stylus. The user then becomes confused and can't move on the next turn."
+1228,LUREPOUND,Lure Pound,0C0,18,NORMAL,Special,80,15,0,00,0,abef,"The target is raked with lure pound for two to five times in quick succession."
 ## FLINT Moves = Fighting
 846,LEGSWIDTH,Leg's Width,020,120,FIGHTING,Special,100,5,100,00,0,bfm,"Being widthful, it shoots a leg. This raises the user's Sp. Atk stat."
 887,LEGSHEIGHT,Leg's Height,01C,120,FIGHTING,Physical,100,5,100,00,0,bfm,"Being heightful, it shoots a leg. This raises the user's Attack stat."
@@ -1085,6 +1086,7 @@
 1064,DOOMARIETTA,Doom Arietta,323,0,DOOM,Status,0,15,0,20,-1,,"A doomy vocal is played at the battle. This increases accuracy of Doom Pokémon and decreases accuracy for other types."
 1128,MARIAMARA,Mariamara,051,0,DOOM,Status,0,30,0,20,0,,The user creates a doomy cloud that eliminates every stat change among all non-Doom Pokémon engaged in battle.
 1147,DOOMLACTA,Doom Lacta,259,85,DOOM,Special,100,15,0,00,0,bef,"The user ignores the effects of opposing Pokémon's moves and Abilities that draw in moves, allowing this move to hit the chosen target."
+1226,DOOMSWASH,Doom Swash,386,70,DOOM,Special,100,10,0,00,0,bef,"A nutrient draining attack. The user's HP is restored by up to half the damage taken by the target. This damages Pokémon of the opposite gender more"
 ## FLINT Moves = Jelly
 641,JELLYKICK,Jelly Kick,09A,1,JELLY,Physical,100,20,0,00,0,abef,A powerful jelly kick that makes the foe fall over. It inflicts greater damage on heavier foes.
 642,JELLYWAVE,Jelly Wave,000,40,JELLY,Special,100,30,0,00,1,bef,The user whirls its fists to send a wave of pure jelly at the target. This move always goes first.
@@ -1227,6 +1229,7 @@
 1020,MINDYGLOPS,Mindy Glops,300,30,MIND,Special,99,20,0,04,0,bf,"This move ignores the other Brainologic and Mindy Glops, allowing this move to properly hit the targets"
 1140,BRAINYMEDIA,Brainymedia,344,0,MIND,Status,0,5,0,10,0,,"When this move is used, if the user faints, the foe that landed the knockout will have its stat stages reduced to minimum."
 1148,BRAINDAMAGE,Brain Damage,344,175,MIND,Special,55,5,0,00,0,abef,"Deals massive damage. If this move succeeds, once the user faints, the foe that landed the knockout hit will have its stat stages reduced to minimum."
+1227,HORATIO,Horatio,387,200,MIND,Physical,55,5,0,00,3,ef,"The fires a large horatio, ignoring protections. If this move hits, then this move will be Mind and Normal type simultaneously. This attack never misses if the target is readying a priority move"
 ## FLINT Moves = Heart
 743,SMORESMIRI,S'More S'Miri,198,0,HEART,Status,0,10,0,10,0,d,A move created for Love Crystal Ball. This move will restore HP depending on user's Happiness
 751,HEARTGLOW,Heart Glow,00F,50,HEART,Physical,0,20,25,00,0,abeg,.A glowing heart that will do damage. User thraws out before using this move. Target may be flinched as well.

@@ -967,7 +967,7 @@ def pbListWindow(cmds,width=256,y=0)
 end
 
 def pbChooseSpecies(default)
-  cmdwin=pbListWindow([],200)
+  cmdwin=pbListWindow([],255)
   commands=[]
   commands2=[]
   for j in 1..PBSpecies.maxValue
@@ -987,7 +987,7 @@ def pbChooseSpecies(default)
 end
 
 def pbChooseSpeciesOrdered(default)
-  cmdwin=pbListWindow([],200)
+  cmdwin=pbListWindow([],255)
   commands=[]
   for i in 1..PBSpecies.maxValue
     cname=getConstantName(PBSpecies,i) rescue nil
@@ -1010,7 +1010,7 @@ end
 # selected or 0 if the selection was canceled.  defaultItemID, if specified,
 # indicates the ID of the species initially shown on the list.
 def pbChooseSpeciesList(defaultItemID=0)
-  cmdwin=pbListWindow([],200)
+  cmdwin=pbListWindow([],255)
   commands=[]
   itemDefault=0
   for c in PBSpecies.constants
@@ -1038,7 +1038,7 @@ end
 # 0 if the selection was canceled.  defaultMoveID, if specified, indicates the
 # ID of the move initially shown on the list.
 def pbChooseMoveList(defaultMoveID=0)
-  cmdwin=pbListWindow([],200)
+  cmdwin=pbListWindow([],255)
   commands=[]
   moveDefault=0
   for i in 1..PBMoves.maxValue
@@ -1061,7 +1061,7 @@ def pbChooseMoveList(defaultMoveID=0)
 end
 
 def pbChooseTypeList(defaultMoveID=0,movetype=false)
-  cmdwin=pbListWindow([],200)
+  cmdwin=pbListWindow([],255)
   commands=[]
   moveDefault=0
   for i in 0..PBTypes.maxValue
@@ -1091,7 +1091,7 @@ end
 # 0 if the selection was canceled.  defaultItemID, if specified, indicates the
 # ID of the item initially shown on the list.
 def pbChooseItemList(defaultItemID=0)
-  cmdwin=pbListWindow([],200)
+  cmdwin=pbListWindow([],255)
   commands=[]
   moveDefault=0
   for c in PBItems.constants
@@ -1119,7 +1119,7 @@ end
 # or 0 if the selection was canceled.  defaultItemID, if specified, indicates the
 # ID of the ability initially shown on the list.
 def pbChooseAbilityList(defaultAbilityID=0)
-  cmdwin=pbListWindow([],200)
+  cmdwin=pbListWindow([],255)
   commands=[]
   abilityDefault=0
   for c in PBAbilities.constants
@@ -2908,7 +2908,7 @@ end
 
 
 def pbChooseBallList(defaultMoveID=-1)
-  cmdwin=pbListWindow([],200)
+  cmdwin=pbListWindow([],255)
   commands=[]
   moveDefault=0
   for key in $BallTypes.keys
@@ -2996,7 +2996,7 @@ def pbGetLegalMoves(species)
 end
 
 def pbChooseMoveListForSpecies(species,defaultMoveID=0)
-  cmdwin=pbListWindow([],200)
+  cmdwin=pbListWindow([],255)
   commands=[]
   moveDefault=0
   legalMoves=pbGetLegalMoves(species)

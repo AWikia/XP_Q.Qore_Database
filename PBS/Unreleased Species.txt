@@ -1,6 +1,6 @@
-[1256]
-Name=Pokémon 1256
-InternalName=PKMN1256
+[1566]
+Name=Pokémon 1566
+InternalName=PKMN1566
 Type1=QMARKS
 BaseStats=100,100,100,100,100,100
 GenderRate=Genderless

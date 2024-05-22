@@ -33,6 +33,56 @@ Events.onWildPokemonCreate+=proc {|sender,e|
 }
 
 
+# Species Alias (Has 50% chance of doing it but only when not using the
+# Test Wild Battle or Test Double Wild Battle Debug options)
+Events.onWildPokemonCreate+=proc {|sender,e|
+   pokemon=e[0]
+   species=pokemon.species
+   pokemons = {
+     # Wikiboos - Unbooks
+     PBSpecies::WIKIBOOKS => PBSpecies::UNBOOKS,
+     PBSpecies::UNBOOKS => PBSpecies::WIKIBOOKS,
+     # Wikipedia - Uncyclopedia
+     PBSpecies::WIKIPEDIA => PBSpecies::UNCYCLOPEDIA,
+     PBSpecies::UNCYCLOPEDIA => PBSpecies::WIKIPEDIA,
+     # Wikinews - Unnews
+     PBSpecies::WIKINEWS => PBSpecies::UNNEWS,
+     PBSpecies::UNNEWS => PBSpecies::WIKINEWS,
+     # Wiktionary - Undictionary
+     PBSpecies::WIKTIONARY => PBSpecies::UNDICTIONARY,
+     PBSpecies::UNDICTIONARY => PBSpecies::WIKTIONARY,
+     # Wikidata - Undata
+     PBSpecies::WIKIDATA => PBSpecies::UNDATA,
+     PBSpecies::UNDATA => PBSpecies::WIKIDATA,
+     # Wikiquote - Unquotable
+     PBSpecies::WIKIQUOTE => PBSpecies::UNQUOTABLE,
+     PBSpecies::UNQUOTABLE => PBSpecies::WIKIQUOTE,
+     # Wikiversity - Uncycloversity
+     PBSpecies::WIKIVERSITY => PBSpecies::UNCYCLOVERSITY,
+     PBSpecies::UNCYCLOVERSITY => PBSpecies::WIKIVERSITY,
+     # Wikivoyage - Unvoyage
+     PBSpecies::WIKIVOYAGE => PBSpecies::UNVOYAGE,
+     PBSpecies::UNVOYAGE => PBSpecies::WIKIVOYAGE,
+     # Wikispecies - Unforum
+     PBSpecies::WIKISPECIES => PBSpecies::UNFORUM,
+     PBSpecies::UNFORUM => PBSpecies::WIKISPECIES,
+     # Frikimania - Fricyclomania
+     PBSpecies::FRIKIMANIA => PBSpecies::FRICYCLOMANIA,
+     PBSpecies::FRICYCLOMANIA => PBSpecies::FRIKIMANIA,
+     # Sharpenix - Rolonix
+     PBSpecies::SHARPENIX => PBSpecies::ROLONIX,
+     PBSpecies::ROLONIX => PBSpecies::SHARPENIX
+   }
+   if pokemons.key?(species) && rand(100)<50 && !$game_switches[40]
+       	 pokemon.species=pokemons[species]
+         pokemon.name=PBSpecies.getName(pokemon.species)
+         pokemon.calcStats
+         pokemon.resetMoves
+   end
+
+}
+
+
 # Make all wild Pokémon have a chance to have their hidden ability.
 Events.onWildPokemonCreate+=proc {|sender,e|
    pokemon=e[0]

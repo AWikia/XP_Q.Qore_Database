@@ -14329,7 +14329,56 @@ class PokeBattle_Move_372 < PokeBattle_Move
   end
 end
 
+################################################################################
+# User gains half the HP it inflicts as damage. 
+# Deals more power to opponents of the opposite gender (Doom Swash)
+################################################################################
+class PokeBattle_Move_386 < PokeBattle_Move_0DD
+  def isHealingMove?
+    return $USENEWBATTLEMECHANICS
+  end
 
+  def pbBaseDamageMultiplier(damagemult,attacker,opponent)
+    if attacker.gender!=2 && opponent.gender!=2 &&
+       attacker.gender!=opponent.gender
+      return (damagemult*1.25).round
+    end
+    return damagemult
+  end  
+end
+
+################################################################################
+# Damage is multiplied by Normal's effectiveness against the target. 
+# Has perfect accuracy if the target is doing a priority move. Fails if the user
+# is not Multidock (Horatio)
+################################################################################
+class PokeBattle_Move_387 < PokeBattle_Move
+  def pbMoveFailed(attacker,opponent)
+    return true if !isConst?(attacker.species,PBSpecies,:MULTIDOCK)
+    return false
+  end
+  
+  def unusableInGravity?
+    return true
+  end
+  
+  def pbModifyDamage(damagemult,attacker,opponent)
+    type=getConst(PBTypes,:NORMAL) || -1
+    if type>=0
+      mult=PBTypes.getCombinedEffectiveness(type,
+         opponent.type1,opponent.type2,opponent.effects[PBEffects::Type3])
+      return ((damagemult*mult)/8).round
+    end
+    return damagemult
+  end
+
+  def pbModifyBaseAccuracy(baseaccuracy,attacker,opponent)
+    if (@battle.choices[opponent.index][2].priority>0)
+      return 0
+    end
+    return baseaccuracy
+  end  
+end
 
 
 ################################################################################
@@ -16809,7 +16858,7 @@ end
 
 ################################################################################
 # User gains half the HP it inflicts as damage. 
-# May burn the target (Mathca Gotcha)
+# May burn the target (Matcha Gotcha)
 ################################################################################
 class PokeBattle_Move_377 < PokeBattle_Move_0DD
   def isHealingMove?

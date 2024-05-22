@@ -108,11 +108,7 @@ MultipleForms.register(:CHARIZARD,{
    next
 },
 "type2"=>proc{|pokemon|
-   if true # Was  IEMODE
-     next getID(PBTypes,:DRAGON) if pokemon.form==1 # Was Dragon
-   else
-     next getID(PBTypes,:GLIMSE) if pokemon.form==1 # Was Dragon
-   end
+   next getID(PBTypes,:DRAGON) if pokemon.form==1 # Was Dragon
    next
 },
 "getAbilityList"=>proc{|pokemon|
@@ -233,11 +229,7 @@ MultipleForms.register(:PINSIR,{
    next
 },
 "type2"=>proc{|pokemon|
-   if true # Was  IEMODE
-     next getID(PBTypes,:FLYING) if pokemon.form==1 # Was Flyiong
-   else
-     next getID(PBTypes,:GUST) if pokemon.form==1 # Was Flyiong
-   end
+   next getID(PBTypes,:FLYING) if pokemon.form==1 # Was Flyiong
    next
 },
 "getAbilityList"=>proc{|pokemon|
@@ -268,11 +260,7 @@ MultipleForms.register(:GYARADOS,{
    next
 },
 "type2"=>proc{|pokemon|
-   if true # Was  IEMODE
-     next getID(PBTypes,:DARK) if pokemon.form==1 # Was Dark
-   else
-     next getID(PBTypes,:MOON) if pokemon.form==1 # Was Dark
-   end
+   next getID(PBTypes,:DARK) if pokemon.form==1 # Was Dark
    next
 },
 "getAbilityList"=>proc{|pokemon|
@@ -333,11 +321,7 @@ MultipleForms.register(:MEWTWO,{
    next
 },
 "type2"=>proc{|pokemon|
-   if true # Was  IEMODE
-     next getID(PBTypes,:FIGHTING) if pokemon.form==1 # Was Fighting
-   else
-     next getID(PBTypes,:JELLY) if pokemon.form==1 # Was Fighting
-   end
+   next getID(PBTypes,:FIGHTING) if pokemon.form==1 # Was Fighting
    next
 },
 "getAbilityList"=>proc{|pokemon|
@@ -372,11 +356,7 @@ MultipleForms.register(:AMPHAROS,{
    next
 },
 "type2"=>proc{|pokemon|
-   if true # Was  IEMODE
-     next getID(PBTypes,:DRAGON) if pokemon.form==1 # Dragon
-   else
-     next getID(PBTypes,:GLIMSE) if pokemon.form==1 # Dragon
-   end
+   next getID(PBTypes,:DRAGON) if pokemon.form==1 # Dragon
    next
 },
 "getAbilityList"=>proc{|pokemon|
@@ -564,7 +544,6 @@ MultipleForms.register(:AGGRON,{
    next
 },
 "type2"=>proc{|pokemon|
-   next if !true # Was  IEMODE
    next getID(PBTypes,:STEEL) if pokemon.form==1
    next
 },
@@ -808,22 +787,15 @@ MultipleForms.register(:SLOWBRO,{
 "type1"=>proc{|pokemon|
    next if pokemon.form==0            # Kanto
    case pokemon.form
-   when 2; next getID(PBTypes,:POISON)  # Alola
-   else;   next 
+     when 2; next getID(PBTypes,:POISON)  # Alola
+     else;   next 
    end
 },
 "type2"=>proc{|pokemon|
    next if pokemon.form==0              # Kanto
-   if true # Was  IEMODE
-     case pokemon.form
+   case pokemon.form
      when 2; next getID(PBTypes,:PSYCHIC)  # Alola
      else;   next 
-     end
-   else
-     case pokemon.form
-     when 2; next getID(PBTypes,:HEART)  # Alola
-     else;   next 
-     end
    end
 },
 "getBaseStats"=>proc{|pokemon|
@@ -909,11 +881,7 @@ MultipleForms.register(:SCEPTILE,{
    next
 },
 "type2"=>proc{|pokemon|
-   if true # Was  IEMODE
-     next getID(PBTypes,:DRAGON) if pokemon.form==1 # Was Dragon
-   else
-     next getID(PBTypes,:GLIMSE) if pokemon.form==1 # Was Dragon
-   end
+   next getID(PBTypes,:DRAGON) if pokemon.form==1 # Was Dragon
    next
 },
 "getAbilityList"=>proc{|pokemon|
@@ -1036,11 +1004,7 @@ MultipleForms.register(:ALTARIA,{
    next
 },
 "type2"=>proc{|pokemon|
-   if true # Was  IEMODE
-     next getID(PBTypes,:FAIRY) if pokemon.form==1 # Was Fairy
-   else
-     next getID(PBTypes,:HEART) if pokemon.form==1 # Was Fairy
-   end
+   next getID(PBTypes,:FAIRY) if pokemon.form==1 # Was Fairy
    next
 },
 "getAbilityList"=>proc{|pokemon|
@@ -1208,11 +1172,7 @@ MultipleForms.register(:LOPUNNY,{
    next
 },
 "type2"=>proc{|pokemon|
-   if true # Was  IEMODE
-     next getID(PBTypes,:FIGHTING) if pokemon.form==1 # Was Fighting
-   else
-     next getID(PBTypes,:MIND) if pokemon.form==1 # Was Fighting
-   end
+   next getID(PBTypes,:FIGHTING) if pokemon.form==1 # Was Fighting
    next
 },
 "getAbilityList"=>proc{|pokemon|
@@ -1511,6 +1471,37 @@ MultipleForms.register(:HEARTPLUS,{
    next _INTL("After having undergo Mega Evolution, a yellow glow started appearing inside Heartbrand's body.") if pokemon.form==1
    next _INTL("Moments after mega-evolving and after a yellow glow started appearing inside Heartbrand's body, its body then became darker and magical.") if pokemon.form==2
    next _INTL("After Mega Evovling into this form, this Pokemon started to block any Magical attack he found.") if pokemon.form==3
+}
+})
+
+MultipleForms.register(:BARNEY,{
+"getMegaForm"=>proc{|pokemon|
+   next 1 if isConst?(pokemon.item,PBItems,:BARNEYITE)
+   next
+},
+"type2"=>proc{|pokemon|
+   next getID(PBTypes,:PSYCHIC) if pokemon.form==1
+   next
+},
+"getBaseStats"=>proc{|pokemon|
+   next [95,110,90,40,130,110] if pokemon.form==1
+   next
+},
+"getAbilityList"=>proc{|pokemon|
+   next [[getID(PBAbilities,:MINDYGLOPS),0]] if pokemon.form==1
+   next
+},
+"height"=>proc{|pokemon|
+   next 14 if pokemon.form==1
+   next
+},
+"weight"=>proc{|pokemon|
+   next 600 if pokemon.form==1
+   next
+},
+"dexEntry"=>proc{|pokemon|
+   next if pokemon.form==0
+   next _INTL("After having undergo Mega Evolution, Barney gains purple and green ovals.") if pokemon.form==1
 }
 })
 

@@ -1,52 +1,55 @@
 module PBEvolution
-  Unknown           = 0 # Do not use
-  Happiness         = 1
-  HappinessDay      = 2
-  HappinessNight    = 3
-  Level             = 4
-  Trade             = 5
-  TradeItem         = 6
-  Item              = 7
-  AttackGreater     = 8
-  AtkDefEqual       = 9
-  DefenseGreater    = 10
-  Silcoon           = 11
-  Cascoon           = 12
-  Ninjask           = 13
-  Shedinja          = 14
-  Beauty            = 15
-  ItemMale          = 16
-  ItemFemale        = 17
-  DayHoldItem       = 18
-  NightHoldItem     = 19
-  HasMove           = 20
-  HasInParty        = 21
-  LevelMale         = 22
-  LevelFemale       = 23
-  Location          = 24
-  TradeSpecies      = 25
-  LevelDay          = 26
-  LevelNight        = 27
-  LevelDarkInParty  = 28
-  LevelRain         = 29
-  HappinessMoveType = 30
-  Trained           = 31
-  TypeInParty       = 32
-  HappinessMale     = 33
-  HappinessFemale   = 34
-  ItemSilcoon       = 35
-  ItemCascoon       = 36
-  HappinessItem     = 37
-  RecoilDamage      = 38 
-  CriticalHits      = 39
-  TradeLevel        = 40
-  SilcoonFemale     = 41
-  CascoonFemale     = 42
-  HasInPartyMale    = 43
-  HasInPartyFemale  = 44
-  ItemSilcoonFemale = 45
-  ItemCascoonFemale = 46
-  Reserved          = 47 # Only use if a Pokemon is part of the family but only an alt form evolves into that species
+  Unknown              = 0 # Do not use
+  Happiness            = 1
+  HappinessDay         = 2
+  HappinessNight       = 3
+  Level                = 4
+  Trade                = 5
+  TradeItem            = 6
+  Item                 = 7
+  AttackGreater        = 8
+  AtkDefEqual          = 9
+  DefenseGreater       = 10
+  Silcoon              = 11
+  Cascoon              = 12
+  Ninjask              = 13
+  Shedinja             = 14
+  Beauty               = 15
+  ItemMale             = 16
+  ItemFemale           = 17
+  DayHoldItem          = 18
+  NightHoldItem        = 19
+  HasMove              = 20
+  HasInParty           = 21
+  LevelMale            = 22
+  LevelFemale          = 23
+  Location             = 24
+  TradeSpecies         = 25
+  LevelDay             = 26
+  LevelNight           = 27
+  LevelDarkInParty     = 28
+  LevelRain            = 29
+  HappinessMoveType    = 30
+  Trained              = 31
+  TypeInParty          = 32
+  HappinessMale        = 33
+  HappinessFemale      = 34
+  ItemSilcoon          = 35
+  ItemCascoon          = 36
+  HappinessItem        = 37
+  RecoilDamage         = 38 
+  CriticalHits         = 39
+  TradeLevel           = 40
+  SilcoonFemale        = 41
+  CascoonFemale        = 42
+  HasInPartyMale       = 43
+  HasInPartyFemale     = 44
+  ItemSilcoonFemale    = 45
+  ItemCascoonFemale    = 46
+  TradeMale            = 47
+  TradeFemale          = 48
+  LevelFightingInParty = 49
+  Reserved             = 50 # Only use if a Pokemon is part of the family but only an alt form evolves into that species
 
 
   
@@ -60,7 +63,7 @@ module PBEvolution
      "Trained","TypeInParty","HappinessMale","HappinessFemale","ItemSilcoon",
      "ItemCascoon","HappinessItem","RecoilDamage","CriticalHits","TradeLevel",
      "SilcoonFemale","CascoonFemale","HasInPartyMale","HasInPartyFemale","ItemSilcoonFemale",
-     "ItemCascoonFemale",
+     "ItemCascoonFemale","TradeMale","TradeFemale","LevelFightingInParty",
      "Reserved"
   ]
 
@@ -80,7 +83,7 @@ module PBEvolution
      1,5,0,0,2,   # Trained, TypeInParty, HappinessMale, HappinessFemale, ItemSilcoon
      2,2,1,1,1,   # ItemCascoon, HappinesItem, RecoilDamage, CriticalHits, TradeLevel
      1,1,4,4,2,   # SilcoonFemale, CascoonFemale, HasInPartyMale, HasInPartyFemale, ItemSilcoonFemale
-     2,           # ItemCascoonFemale
+     2,0,0,1,     # ItemCascoonFemale, TradeMale, TradeFemale
      0            # Reserved
   ]
 end
@@ -196,7 +199,9 @@ def pbGetMinimumLevel(species)
            PBEvolution::Silcoon,PBEvolution::Cascoon,
            PBEvolution::Ninjask,PBEvolution::Shedinja,
            PBEvolution::LevelDay,PBEvolution::LevelNight,
-           PBEvolution::LevelDarkInParty,PBEvolution::LevelRain].include?(evonib)
+           PBEvolution::LevelDarkInParty,PBEvolution::LevelRain,
+           PBEvolution::SilcoonFemale,PBEvolution::CascoonFemale,
+           PBEvolution::LevelFightingInParty].include?(evonib)
           ret=(ret==-1) ? level : [ret,level].min
           break
         end
@@ -1004,7 +1009,7 @@ def pbMiniCheckEvolution(pokemon,evonib,level,poke)
     end
   when PBEvolution::Beauty # Feebas
     return poke if pokemon.beauty>=level
-  when PBEvolution::Trade, PBEvolution::TradeItem, PBEvolution::TradeSpecies, PBEvolution::TradeLevel
+  when PBEvolution::Trade, PBEvolution::TradeItem, PBEvolution::TradeSpecies, PBEvolution::TradeLevel, PBEvolution::TradeMale, PBEvolution::TradeFemale
     return -1
   when PBEvolution::Trained
     evtotal=0
@@ -1035,6 +1040,12 @@ def pbMiniCheckEvolution(pokemon,evonib,level,poke)
   when PBEvolution::HasInPartyFemale
     for i in $Trainer.party
       return poke if !i.isEgg? && i.species==level && pokemon.isFemale?
+    end
+  when PBEvolution::LevelFightingInParty
+    if pokemon.level>=level
+      for i in $Trainer.party
+        return poke if !i.isEgg? && i.hasType?(:FIGHTING)
+      end
     end
   when PBEvolution::Reserved
     return -1

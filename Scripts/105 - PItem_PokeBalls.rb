@@ -247,19 +247,31 @@ BallHandlers::ModifyCatchRate.add(:METABALL,proc{|ball,catchRate,battle,battler|
    if isConst?(battler.species,PBSpecies,:WIKIMEDIA) ||
       isConst?(battler.species,PBSpecies,:WIKIMANIA) ||
       isConst?(battler.species,PBSpecies,:UNCYCLOMEDIA) ||
-      isConst?(battler.species,PBSpecies,:WIKIDATA)
+      isConst?(battler.species,PBSpecies,:WIKIDATA) ||
+      isConst?(battler.species,PBSpecies,:UNDATA)
      catchRate*=8
    elsif isConst?(battler.species,PBSpecies,:WIKISPECIES) ||
+         isConst?(battler.species,PBSpecies,:UNFORUM) ||
+         isConst?(battler.species,PBSpecies,:WIKIFUNCTIONS) ||
          isConst?(battler.species,PBSpecies,:ROOMBA)
      catchRate*=6
    elsif isConst?(battler.species,PBSpecies,:WIKIBOOKS) ||
+         isConst?(battler.species,PBSpecies,:UNBOOKS) ||
          isConst?(battler.species,PBSpecies,:WIKIPEDIA) ||
+         isConst?(battler.species,PBSpecies,:UNCYCLOPEDIA) ||
          isConst?(battler.species,PBSpecies,:WIKINEWS) ||
+         isConst?(battler.species,PBSpecies,:UNNEWS) ||
          isConst?(battler.species,PBSpecies,:WIKTIONARY) ||
+         isConst?(battler.species,PBSpecies,:UNDICTIONARY) ||
          isConst?(battler.species,PBSpecies,:WIKIQUOTE) ||
+         isConst?(battler.species,PBSpecies,:UNQUOTABLE) ||
          isConst?(battler.species,PBSpecies,:WIKIVERSITY) ||
+         isConst?(battler.species,PBSpecies,:UNCYCLOVERSITY) ||
          isConst?(battler.species,PBSpecies,:WIKISOURCE) ||
-         isConst?(battler.species,PBSpecies,:WIKIVOYAGE)
+         isConst?(battler.species,PBSpecies,:UNSCRIPTS) ||
+         isConst?(battler.species,PBSpecies,:UNGAME) ||
+         isConst?(battler.species,PBSpecies,:WIKIVOYAGE) ||
+         isConst?(battler.species,PBSpecies,:UNVOYAGE)
      catchRate*=4
    elsif isConst?(battler.species,PBSpecies,:WIKIMEDIAB) ||
          isConst?(battler.species,PBSpecies,:BOMBOMEDIA)
@@ -269,15 +281,16 @@ BallHandlers::ModifyCatchRate.add(:METABALL,proc{|ball,catchRate,battle,battler|
 })
 
 =begin
-54 Fusions
-3 Fusions with 4 Pkmn
-7 Fusions with 3 Pkmn
-44 Fusions with 2 Pkmn
+81 Fusions
+4 Fusions with 4 Pkmn
+10 Fusions with 3 Pkmn
+67 Fusions with 2 Pkmn
 =end
 BallHandlers::ModifyCatchRate.add(:LAYERBALL,proc{|ball,catchRate,battle,battler|
    if isConst?(battler.species,PBSpecies,:SMNICAKI)  ||
       isConst?(battler.species,PBSpecies,:BULBAMEDIBODIA) ||
-      isConst?(battler.species,PBSpecies,:CATERMEDIBODIA)
+      isConst?(battler.species,PBSpecies,:CATERMEDIBODIA) ||
+      isConst?(battler.species,PBSpecies,:FABPILHOMEDIA)
      catchRate*=6
    elsif isConst?(battler.species,PBSpecies,:BULBAMANTLE) ||
          isConst?(battler.species,PBSpecies,:IVYMELTLE) ||
@@ -285,7 +298,10 @@ BallHandlers::ModifyCatchRate.add(:LAYERBALL,proc{|ball,catchRate,battle,battler
          isConst?(battler.species,PBSpecies,:CHIRPLUP) ||
          isConst?(battler.species,PBSpecies,:MONGLUP) ||
          isConst?(battler.species,PBSpecies,:INTERREON) ||
-         isConst?(battler.species,PBSpecies,:FRIKIMANIA)
+         isConst?(battler.species,PBSpecies,:FRIKIMANIA) ||
+         isConst?(battler.species,PBSpecies,:CROSSMOBILEMEDIA) ||
+         isConst?(battler.species,PBSpecies,:FRICYCLOMANIA) ||
+         isConst?(battler.species,PBSpecies,:FABPILHOME)
          catchRate*=4.5
    elsif isConst?(battler.species,PBSpecies,:FRIKIVEE) ||
          isConst?(battler.species,PBSpecies,:EMOBOOKS) ||
@@ -330,7 +346,30 @@ BallHandlers::ModifyCatchRate.add(:LAYERBALL,proc{|ball,catchRate,battle,battler
          isConst?(battler.species,PBSpecies,:JUMLAMAR) ||
          isConst?(battler.species,PBSpecies,:PIKIPAZ) ||
          isConst?(battler.species,PBSpecies,:GRAYTRUMPAZ) ||
-         isConst?(battler.species,PBSpecies,:OMINETOUPAZ)
+         isConst?(battler.species,PBSpecies,:OMINETOUPAZ) ||
+         isConst?(battler.species,PBSpecies,:EMOCYCLOPEDIA) ||
+         isConst?(battler.species,PBSpecies,:SCORMEDIA) ||
+         isConst?(battler.species,PBSpecies,:RABMEDIA) ||        
+         isConst?(battler.species,PBSpecies,:CINDERMANIA) ||
+         isConst?(battler.species,PBSpecies,:LEDYGON) ||
+         isConst?(battler.species,PBSpecies,:NEOMEDIA) ||
+         isConst?(battler.species,PBSpecies,:MIRAMANIA) ||
+         isConst?(battler.species,PBSpecies,:WEEDSTV) ||
+         isConst?(battler.species,PBSpecies,:KAKU6) ||
+         isConst?(battler.species,PBSpecies,:BEEDRLE) ||
+         isConst?(battler.species,PBSpecies,:TOXICLOPEDIA) ||
+         isConst?(battler.species,PBSpecies,:SOMANIA) ||
+         isConst?(battler.species,PBSpecies,:ZELMEDIA) ||
+         isConst?(battler.species,PBSpecies,:ANDROMANIA) ||
+         isConst?(battler.species,PBSpecies,:ANDROMANPLUS) ||
+         isConst?(battler.species,PBSpecies,:SCORMEDIA) ||
+         isConst?(battler.species,PBSpecies,:GASBUNTU) ||
+         isConst?(battler.species,PBSpecies,:DHAUNTBUNTU) ||
+         isConst?(battler.species,PBSpecies,:BRABUNTU) ||
+         isConst?(battler.species,PBSpecies,:BARNMEDIA) ||
+         isConst?(battler.species,PBSpecies,:GOTHLOSIS) ||
+         isConst?(battler.species,PBSpecies,:YATARYU) ||
+         isConst?(battler.species,PBSpecies,:YATARMIE)
          catchRate*=3
     end
    next (catchRate*3/2).floor

@@ -750,11 +750,11 @@
 1080,BITTERMALICE,Bitter Malice,00C,75,GHOST,Special,100,10,0,00,0,bef,"The user attacks its target with spine-chilling resentment. This may also leave the target frozen solid. This move’s power is doubled if the target has a status condition."
 1081,BLEAKWINDSTORM,Bleakwind Storm,00C,100,FLYING,Special,80,10,0,04,0,bef,"The user attacks with savagely cold winds that cause both body and spirit to tremble. This may also leave the target frozen solid."
 1082,CEASELESSEDGE,Ceaseless Edge,0CF,65,DARK,Physical,90,15,0,00,0,abef,"The user slashes its shell blade at the target, aiming to land a critical hit. Shell splinters left behind by this attack will continue to damage the target for several turns."
-1083,CHLOROBLAST,Chloroblast,0FB,150,CHLOROHYLL,Special,95,5,0,00,5,abef,"The user launches its amassed chlorophyll to inflict damage on the target. This also damages the user."
+1083,CHLOROBLAST,Chloroblast,0FB,150,CHLOROPHYLL,Special,95,5,0,00,5,abef,"The user launches its amassed chlorophyll to inflict damage on the target. This also damages the user."
 1084,DIRECLAW,Dire Claw,328,80,POISON,Special,100,15,50,00,0,bef,"The user lashes out at the target with ruinous claws, aiming to land a critical hit. This may also leave the target poisoned, paralyzed or asleep."
 1085,ESPERWING,Esper Wing,000,80,ELECTRIC,Physical,100,10,0,00,-4,befh,"The user slashes the target with aura-enriched wings. Critical hits land more easily."
 1086,HEADLONGRUSH,Headlong Rush,03C,120,FIGHTING,Physical,100,5,0,00,0,abef,"The user smashes into the target in a full-body tackle. This also lowers the user's Defense and Sp. Def. stats."
-1087,INFERNALPARADE,Infernal Parade,00A,60,POISON,Physical,100,15,0,00,0,abef,"The user launches countless toxic barbs to inflict damage. This may also poison the target. This move’s power is doubled if the target has a status condition."
+1087,INFERNALPARADE,Infernal Parade,00A,60,GHOST,Special,100,15,0,00,0,abef,"The user attacks with myriad fireballs. This may also leave the target with a burn. This move's power is doubled if the target has a status condition."
 1088,LUNARBLESSING,Lunar Blessing,330,0,PSYCHIC,Status,0,5,0,10,0,d,"The user heals its own status conditions and restores its HP."
 1089,MOUNTAINGALE,Mountain Gale,000,100,ICE,Special,85,10,0,00,5,bef,"The user hurls giant chunks of ice at the target to inflict damage."
 1090,MYSTICALPOWER,Mystical Power,02D,70,PSYCHIC,Special,90,10,10,00,0,bef,The user strengthens itself with a mysterious power. This may also raise all the user's stats at once.
@@ -788,7 +788,7 @@
 1170,TRIPLEDIVE,Triple Dive,0BF,30,WATER,Physical,95,10,0,00,0,abef,"The user performs a perfectly timed triple dive, hitting the target with splashes of water three times in a row."
 1171,MORTALSPIN,Mortal Spin,110,30,POISON,Physical,100,15,0,04,0,abef,"The user performs a spin attack that can also eliminate the effects of such moves as Bind, Wrap, and Leech Seed. This also poisons opposing Pokémon."
 1172,DOODLE,Doodle,363,0,NORMAL,Status,0,10,0,00,0,,"The user captures the very essence of the target in a sketch. This changes the Abilities of the user and its ally Pokémon to that of the target."
-1173,FILLETAWAY,Fillet Away,364,40,NORMAL,Physical,0,10,0,10,0,d,"The user sharply boosts its Attack, Sp. Atk, and Speed stats by using its own HP."
+1173,FILLETAWAY,Fillet Away,364,0,NORMAL,Status,0,10,0,10,0,d,"The user sharply boosts its Attack, Sp. Atk, and Speed stats by using its own HP."
 1174,KOWTOWCLEAVE,Kowtow Cleave,000,85,DARK,Physical,0,10,0,00,0,abef,"The user slashes at the target after kowtowing to make the target let down its guard. This attack never misses."
 1175,FLOWERTRICK,Flower Trick,0A0,70,GRASS,Physical,0,10,0,00,0,bef,"The user throws a rigged bouquet of flowers at the target. This attack never misses and always lands a critical hit."
 1176,TORCHSONG,Torch Song,020,80,FIRE,Special,100,10,100,00,0,bef,"The user blows out raging flames as if singing a song, scorching the target. This also boosts the user's Sp. Atk stat."
@@ -813,7 +813,7 @@
 1195,DOUBLESHOCK,Double Shock,370,120,ELECTRIC,Physical,100,5,0,00,0,abef,"The user discharges all the electricity from its body to perform a high-damage attack. After using this move, the user will no longer be Electric type."
 1196,GIGATONHAMMER,Gigaton Hammer,371,160,STEEL,Physical,100,5,0,00,0,abef,"The user swing its whole body around to attack with its huge hammer. This move can't be used twice in a row."
 1197,COMEUPPANCE,Comeuppance,073,1,DARK,Physical,100,10,0,01,0,bf,"The user retaliates with much greater force against the opponent that last inflicted damage on it."
-1198,AQUACUTTER,Aqua Cutter,000,70,NORMAL,Physical,100,20,0,00,0,abefh,"The user expels pressurized water to cut at the target like a blade. This move has a heigtened chance of landing a critical hit."
+1198,AQUACUTTER,Aqua Cutter,000,70,WATER,Physical,100,20,0,00,0,abefh,"The user expels pressurized water to cut at the target like a blade. This move has a heigtened chance of landing a critical hit."
 1199,BLAZINGTORQUE,Blazing Torque,00A,80,FIRE,Physical,100,10,30,00,0,bef,"A Torque move that has 30% chance of burning the target."
 1200,WICKEDTORQUE,Wicked Torque,003,80,DARK,Physical,100,10,30,00,0,bef,"A Torque move that has 30% chance of sleeping the target."
 1201,NOXIOUSTORQUE,Noxious Torque,005,100,POISON,Physical,100,10,30,00,0,bef,"A Torque move that has 30% chance of poisoning the target."
@@ -929,7 +929,7 @@
 ## FLINT Moves = Bug
 926,BUGSLASH,Bug Slash,000,10,BUG,Physical,100,50,0,00,0,abefh,The user attacks using a tiny slash. Critical hits land more easily.
 927,BUGBLAST,Bug Blast,0A4,70,BUG,Special,100,20,30,00,0,be,The uses attacks randomly with insect blasts. Its added effects vary depending on the user's environment.
-938,INSECTPUNCH,Insect Punch,159,150,BUG,Physical,0,5,100,00,-3,abj,"The uses damages with a inseectous punch. This move, however, will alays lower target's stat stages/"
+938,INSECTPUNCH,Insect Punch,159,150,BUG,Physical,0,5,100,00,-3,abj,"The uses damages with a inseectous punch. This move, however, will alays lower target's stat stages"
 939,QUIVERCLONE,Quiver Clone,01D,0,BUG,Status,0,30,0,10,0,d,"The user creates a temporary second clone of itself, increasing its Defense stat"
 940,ELDEMANIA,Eldemania,036,0,BUG,Status,0,30,0,10,0,d,"Using its own Bug power, it increases its speed stat sharply and its attack stat, for its own desicion."
 941,KOCHEN,Kochen,098,1,BUG,Special,100,15,0,00,0,abef,The user flails about aimlessly to attack. It becomes more powerful the less HP the user has.
@@ -1044,7 +1044,7 @@
 672,PELEGOSTO,PeLegosto,165,150,FAIRY,Special,86,15,40,00,0,abef,"When the user knocks out a target with this move, the user's Evasion and Defense stats are risen by 3 stages and 1 stage respectively"
 711,SWEETSODA,Sweet Soda,070,1,FAIRY,Physical,30,5,0,00,0,abe,"The user causes the target to drink some sweet soda. If it hits, the target faints instantly."
 729,DOUZECRAYON,Douze Crayon,187,1,FAIRY,Physical,100,25,0,00,1,abce,The user damages the foe with a crayon. Damage taken increases by difference between levels of user and target.
-983,FAIRYFORCE,Fairy,0EC,130,FAIRY,Physical,100,10,0,00,-2,befk,"The user attacks a target using its fairy force. It switches a pokemon. In the wild, the battle ends."
+983,FAIRYFORCE,Fairy Force,0EC,130,FAIRY,Physical,100,10,0,00,-2,befk,"The user attacks a target using its fairy force. It switches a pokemon. In the wild, the battle ends."
 984,DISARMINGLOOK,Disarming Look,0A6,0,FAIRY,Status,0,5,0,00,0,be,The user takes sure aim at the target. It ensures the next attack does not fail to hit the target.
 985,FAIRYEYE,Fairy Eye,0EF,0,FAIRY,Status,0,5,0,00,0,bce,"The user pins the target with a dark, arresting look. The target becomes unable to flee."
 986,VIBRATION,Vibration,046,90,FAIRY,Special,100,10,10,00,0,befk,The user vibrates its wings to generate a damaging sound wave. This may also lower the target's Sp. Def stat.
@@ -1094,7 +1094,7 @@
 828,JELLYFUNCH,Jelly Funch,161,0,JELLY,Status,100,10,0,04,0,b,A jellytastic helicopt is hurled into the other side to make it Jelly-type
 894,JELLYPLODER,Jelly Ploder,282,150,JELLY,Special,90,5,0,00,0,befn,"The user shoots a huge ploder bomb to the target. This harsly lowers user's accuracy and can't move in the next turn."
 991,JELLYSKARLETT,Jelly Skarlett,297,0,JELLY,Status,0,15,0,20,-1,,"A jellylicious skarlett is thrown at the battle. This increases evasion of Jelly Pokémon and decreases evasion for other types."
-1129,JELLYSESAME,Jelly Sesame,342,60,Jelly,Special,0,20,0,04,0,bef,Sesame is shot at the opposing team. This move's power doubles on every second turn and this attack never misses.
+1129,JELLYSESAME,Jelly Sesame,342,60,JELLY,Special,0,20,0,04,0,bef,Sesame is shot at the opposing team. This move's power doubles on every second turn and this attack never misses.
 ## FLINT Moves = Sharpener
 670,SHARPTACKLE,Sharp Tackle,000,90,SHARPENER,Physical,100,15,0,04,0,abef,"The user thows a wrapped bounce, hitting the entire side with large tackles."
 671,SHARPCOIL,Sharp Coil,048,0,SHARPENER,Status,100,20,0,04,0,bce,A sweet scent that lowers the foe's evasiveness.

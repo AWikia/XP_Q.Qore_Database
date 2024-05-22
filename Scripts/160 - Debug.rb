@@ -830,7 +830,9 @@ def pbDebugMenu(fromgame=true)
         level=Kernel.pbMessageChooseNumber(
            _INTL("Set the Pokémon's level."),params)
         if level>0
+          $game_switches[40]=true
           pbWildBattle(species,level)
+          $game_switches[40]=false
         end
       end
     elsif cmd=="testdoublewildbattle"
@@ -854,7 +856,9 @@ def pbDebugMenu(fromgame=true)
             level2=Kernel.pbMessageChooseNumber(
                _INTL("Set the second Pokémon's level."),params)
             if level2>0
+              $game_switches[40]=true
               pbDoubleWildBattle(species1,level1,species2,level2)
+              $game_switches[40]=false
             end
           end
         end

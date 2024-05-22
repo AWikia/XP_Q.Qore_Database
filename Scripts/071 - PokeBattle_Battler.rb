@@ -1772,6 +1772,22 @@ def ragefist
         transformed=true
       end
     end
+    # Playstation
+    if isConst?(self.species,PBSpecies,:PLAYSTATION) && !self.isFainted?
+      if self.hp<=((self.totalhp/4).floor)
+        if self.form!=2
+          self.form=2; transformed=true
+        end
+      elsif self.hp<=((self.totalhp/2).floor)
+        if self.form!=1
+          self.form=1; transformed=true
+        end
+      else
+        if self.form!=0
+          self.form=0; transformed=true
+        end
+      end
+    end
     # Surplété
     if isConst?(self.species,PBSpecies,:SURPLETE)
       if self.form!=@pokemon.form

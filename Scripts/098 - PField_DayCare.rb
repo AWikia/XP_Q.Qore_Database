@@ -302,6 +302,10 @@ def pbDayCareGenerateEgg
         (isConst?(babyspecies,PBSpecies,:LG) && hasConst?(PBSpecies,:KRISKRIS))
     babyspecies=[getConst(PBSpecies,:KRISKRIS),
                  getConst(PBSpecies,:LG)][rand(2)]
+  elsif (isConst?(babyspecies,PBSpecies,:SHARPENIX) && hasConst?(PBSpecies,:ROLONIX)) ||
+        (isConst?(babyspecies,PBSpecies,:ROLONIX) && hasConst?(PBSpecies,:SHARPENIX))
+    babyspecies=[getConst(PBSpecies,:SHARPENIX),
+                 getConst(PBSpecies,:ROLONIX)][rand(2)]
   elsif (isConst?(babyspecies,PBSpecies,:ALTERCHANNEl) && hasConst?(PBSpecies,:MEGACHANNEL)) ||
         (isConst?(babyspecies,PBSpecies,:MEGACHANNEL) && hasConst?(PBSpecies,:ALTERCHANNEL))
     babyspecies=[getConst(PBSpecies,:ALTERCHANNEL),
@@ -310,18 +314,22 @@ def pbDayCareGenerateEgg
         (isConst?(babyspecies,PBSpecies,:BLOOBLOLOGY) && hasConst?(PBSpecies,:GOOGOLOGY))
     babyspecies=[getConst(PBSpecies,:GOOGOLOGY),
                  getConst(PBSpecies,:BLOOBLOLOGY)][rand(2)]
-  elsif (isConst?(babyspecies,PBSpecies,:XBOX) && (hasConst?(PBSpecies,:BING) || hasConst?(PBSpecies,:AZURE) || hasConst?(PBSpecies,:VISUALSTUDIO)) ) ||
-        (isConst?(babyspecies,PBSpecies,:BING) && (hasConst?(PBSpecies,:XBOX) || hasConst?(PBSpecies,:AZURE) || hasConst?(PBSpecies,:VISUALSTUDIO)) ) ||
-        (isConst?(babyspecies,PBSpecies,:AZURE) && (hasConst?(PBSpecies,:XBOX) || hasConst?(PBSpecies,:BING) || hasConst?(PBSpecies,:VISUALSTUDIO)) ) ||
-        (isConst?(babyspecies,PBSpecies,:VISUALSTUDIO) && (hasConst?(PBSpecies,:XBOX) || hasConst?(PBSpecies,:BING) || hasConst?(PBSpecies,:AZURE)) )
+  elsif (isConst?(babyspecies,PBSpecies,:XBOX) && (hasConst?(PBSpecies,:BING) && hasConst?(PBSpecies,:AZURE) && hasConst?(PBSpecies,:VISUALSTUDIO) && hasConst?(PBSpecies,:VISUALSTUDIOCODE)) ) ||
+        (isConst?(babyspecies,PBSpecies,:BING) && (hasConst?(PBSpecies,:XBOX) && hasConst?(PBSpecies,:AZURE) && hasConst?(PBSpecies,:VISUALSTUDIO) && hasConst?(PBSpecies,:VISUALSTUDIOCODE)) ) ||
+        (isConst?(babyspecies,PBSpecies,:AZURE) && (hasConst?(PBSpecies,:XBOX) && hasConst?(PBSpecies,:BING) && hasConst?(PBSpecies,:VISUALSTUDIO) && hasConst?(PBSpecies,:VISUALSTUDIOCODE)) ) ||
+        (isConst?(babyspecies,PBSpecies,:VISUALSTUDIO) && (hasConst?(PBSpecies,:XBOX) && hasConst?(PBSpecies,:BING) && hasConst?(PBSpecies,:AZURE) && hasConst?(PBSpecies,:VISUALSTUDIOCODE)) ) ||
+        (isConst?(babyspecies,PBSpecies,:VISUALSTUDIOCODE) && (hasConst?(PBSpecies,:XBOX) && hasConst?(PBSpecies,:BING) && hasConst?(PBSpecies,:AZURE) && hasConst?(PBSpecies,:VISUALSTUDIO)) )
     babyspecies=[getConst(PBSpecies,:XBOX),
                  getConst(PBSpecies,:BING),
                  getConst(PBSpecies,:AZURE),
-                 getConst(PBSpecies,:VISUALSTUDIO)][rand(4)]
-  elsif (isConst?(babyspecies,PBSpecies,:VOLKSWAGEN) && hasConst?(PBSpecies,:DEUTSCHEWELLE)) ||
-        (isConst?(babyspecies,PBSpecies,:DEUTSCHEWELLE) && hasConst?(PBSpecies,:VOLKSWAGEN))
+                 getConst(PBSpecies,:VISUALSTUDIO),
+                 getConst(PBSpecies,:VISUALSTUDIOCODE)][rand(5)]
+  elsif (isConst?(babyspecies,PBSpecies,:VOLKSWAGEN) && (hasConst?(PBSpecies,:DEUTSCHEWELLE) && hasConst?(PBSpecies,:BMW)) ) ||
+        (isConst?(babyspecies,PBSpecies,:DEUTSCHEWELLE) && (hasConst?(PBSpecies,:VOLKSWAGEN) && hasConst?(PBSpecies,:BMW)) ) ||
+        (isConst?(babyspecies,PBSpecies,:BMW) && (hasConst?(PBSpecies,:DEUTSCHEWELLE) && hasConst?(PBSpecies,:VOLKSWAGEN)) )
     babyspecies=[getConst(PBSpecies,:VOLKSWAGEN),
-                 getConst(PBSpecies,:DEUTSCHEWELLE)][rand(2)]
+                 getConst(PBSpecies,:DEUTSCHEWELLE),
+                 getConst(PBSpecies,:BMW)][rand(3)]
   elsif (isConst?(babyspecies,PBSpecies,:CARREFOUR) && hasConst?(PBSpecies,:DIA)) ||
         (isConst?(babyspecies,PBSpecies,:DIA) && hasConst?(PBSpecies,:CARREFOUR))
     babyspecies=[getConst(PBSpecies,:CARREFOUR),
@@ -330,6 +338,16 @@ def pbDayCareGenerateEgg
         (isConst?(babyspecies,PBSpecies,:BANDAI) && hasConst?(PBSpecies,:NAMCO))
     babyspecies=[getConst(PBSpecies,:NAMCO),
                  getConst(PBSpecies,:BANDAI)][rand(2)]
+  elsif (isConst?(babyspecies,PBSpecies,:MOTO) && hasConst?(PBSpecies,:MOTO)) ||
+        (isConst?(babyspecies,PBSpecies,:LEGION) && hasConst?(PBSpecies,:LEGION))
+    babyspecies=[getConst(PBSpecies,:MOTO),
+                 getConst(PBSpecies,:LEGION)][rand(2)]
+  elsif (isConst?(babyspecies,PBSpecies,:FABRIC) && (hasConst?(PBSpecies,:COPILOT) && hasConst?(PBSpecies,:DEVHOME)) ) ||
+        (isConst?(babyspecies,PBSpecies,:COPILOT) && (hasConst?(PBSpecies,:FABRIC) && hasConst?(PBSpecies,:DEVHOME)) ) ||
+        (isConst?(babyspecies,PBSpecies,:DEVHOME) && (hasConst?(PBSpecies,:FABRIC) && hasConst?(PBSpecies,:COPILOT)) )
+    babyspecies=[getConst(PBSpecies,:FABRIC),
+                 getConst(PBSpecies,:COPILOT),
+                 getConst(PBSpecies,:DEVHOME)][rand(3)]
 end
   # Generate egg
   egg=PokeBattle_Pokemon.new(babyspecies,EGGINITIALLEVEL,$Trainer)

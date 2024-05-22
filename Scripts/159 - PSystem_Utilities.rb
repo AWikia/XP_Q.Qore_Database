@@ -199,7 +199,7 @@ end
 # Returns the Adjusted National Pokedex Ordering done in Q.Qore (With Q.Qore
 # Pokemon to the top and the Regular Species after them
 def getQoreDexList(dexlist)
-  return dexlist[649..848] | dexlist[921..940] | dexlist[1029..1048] | dexlist[1130..1139] | dexlist[1148..1247] | dexlist[1358..1367] | dexlist[0..648] | dexlist[849..920] | dexlist[941..1028] | dexlist[1049..1129] | dexlist[1140..1147] | dexlist[1248..1357] | dexlist[1368..2999]
+  return dexlist[649..848] | dexlist[921..940] | dexlist[1029..1048] | dexlist[1130..1139] | dexlist[1148..1247] | dexlist[1358..1367] | dexlist[1385..1564] | dexlist[0..648] | dexlist[849..920] | dexlist[941..1028] | dexlist[1049..1129] | dexlist[1140..1147] | dexlist[1248..1357] | dexlist[1368..1384] | dexlist[1565..3999]
 end
   
 def getDexNumber(indexNumber=0)
@@ -211,32 +211,38 @@ def getDexNumber(indexNumber=0)
         fnum = "0" + fnum
       end
       fdexno = "Q" + fnum
-    elsif indexNumber > 921 and indexNumber < 942 # Κορα Κορε Generation II
+    elsif indexNumber > 921 and indexNumber < 942 # Κορα Κορε Generation I (P2)
       fnum = (indexNumber - 721).to_s
       while (fnum.length < 3)
         fnum = "0" + fnum
       end
       fdexno = "Q" + fnum
-    elsif indexNumber > 1029 and indexNumber < 1050  # Κορα Κορε Generation III
+    elsif indexNumber > 1029 and indexNumber < 1050  # Κορα Κορε Generation I (P3)
       fnum = (indexNumber - 809).to_s
       while (fnum.length < 3)
         fnum = "0" + fnum
       end
       fdexno = "Q" + fnum
-    elsif indexNumber > 1130 and indexNumber < 1141 # Κορα Κορε Generation IV
+    elsif indexNumber > 1130 and indexNumber < 1141 # Κορα Κορε Generation I (P4)
       fnum = (indexNumber - 890).to_s
       while (fnum.length < 3)
         fnum = "0" + fnum
       end
       fdexno = "Q" + fnum
-    elsif indexNumber > 1148 and indexNumber < 1249 # Κορα Κορε Generation V
+    elsif indexNumber > 1148 and indexNumber < 1249 # Κορα Κορε Generation I (P5)
       fnum = (indexNumber - 898).to_s
       while (fnum.length < 3)
         fnum = "0" + fnum
       end
       fdexno = "Q" + fnum
-    elsif indexNumber > 1358 and indexNumber < 1369 # Κορα Κορε Generation VI
+    elsif indexNumber > 1358 and indexNumber < 1369 # Κορα Κορε Generation I (P6)
       fnum = (indexNumber - 1008).to_s
+      while (fnum.length < 3)
+        fnum = "0" + fnum
+      end
+      fdexno = "Q" + fnum
+    elsif indexNumber > 1385 and indexNumber < 1566 # Κορα Κορε Generation II
+      fnum = (indexNumber - 1025).to_s
       while (fnum.length < 3)
         fnum = "0" + fnum
       end
@@ -277,8 +283,14 @@ def getDexNumber(indexNumber=0)
         fdexno = "0" + fdexno
       end
       fdexno = fdexno + ""
-    elsif indexNumber > 1368 # Generation IX B
+    elsif indexNumber > 1368 and indexNumber < 1386 # Generation IX B
       fdexno = (indexNumber - 360).to_s
+      while (fdexno.length < 4)
+        fdexno = "0" + fdexno
+      end
+      fdexno = fdexno + ""
+    elsif indexNumber > 1565 # Generation IX C
+      fdexno = (indexNumber - 540).to_s
       while (fdexno.length < 4)
         fdexno = "0" + fdexno
       end

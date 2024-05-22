@@ -493,7 +493,7 @@ end
 
 
 ################################################################################
-# Regional Forms
+# Regional Forms (Ordinal Pokemon)
 ################################################################################
 
 ########################################
@@ -7716,6 +7716,160 @@ MultipleForms.register(:GRAFAIAI,{
 }
 })
 
+################################################################################
+# Regional Forms (Q.Qore Pokemon)
+################################################################################
+
+########################################
+# Generation I
+########################################
+
+MultipleForms.register(:GOLTORB,{
+"type1"=>proc{|pokemon|
+   next if pokemon.form==0            # Kanto
+   case pokemon.form
+   when 1; next getID(PBTypes,:GHOST)  # Alola
+   end
+},
+"type2"=>proc{|pokemon|
+   next if pokemon.form==0              # Kanto
+   case pokemon.form
+   when 1; next getID(PBTypes,:GRASS)  # Alola
+   end
+},
+"height"=>proc{|pokemon|
+   next if pokemon.form==0              # Kanto
+   case pokemon.form
+   when 1; 9                            # Alola
+   end
+},
+"weight"=>proc{|pokemon|
+   next if pokemon.form==0              # Kanto
+   case pokemon.form
+   when 1; 65                          # Alola
+   end
+},
+"color"=>proc{|pokemon|
+   next if pokemon.form==0
+   next 0 if pokemon.form==1
+},
+"getAbilityList"=>proc{|pokemon|
+   next if pokemon.form==0                   
+   next [[getID(PBAbilities,:LEVITATE),0],
+         [getID(PBAbilities,:STATIC),1],
+         [getID(PBAbilities,:AFTERMATH),2]] if pokemon.form==1 # Was SURGESURFER
+},
+"getMoveList"=>proc{|pokemon|
+   next if pokemon.form!=1
+   movelist=[]
+   case pokemon.form
+   when 1; movelist=[[1,:CHARGE],[1,:TACKLE],[4,:SONICBOOM],[6,:EERIEIMPULSE],
+                     [9,:SPARK],[11,:ROLLOUT],[13,:SCREECH],[16,:CHARGEBEAM],
+                     [20,:SWIFT],[22,:ENERGYBALL],[26,:SELFDESTRUCT],
+                     [29,:LIGHTSCREEN],[34,:MAGNETRISE],[37,:DISCHARGE],
+                     [41,:EXPLOSION],[46,:GYROBALL],[48,:MIRRORCOAT],
+                     [1,:HYPNOSIS],[1,:LICK],[5,:SPITE],[8,:MEANLOOK],
+					 [12,:CURSE],[15,:NIGHTSHADE],[19,:CONFUSERAY],
+					 [22,:SUCKERPUNCH],[26,:PAYBACK],[29,:SHADOWBALL],
+					 [33,:DREAMEATER],[36,:DARKPULSE],[40,:DESTINYBOND],
+					 [43,:HEX],[47,:NIGHTMARE]]
+   end
+   for i in movelist
+     i[1]=getConst(PBMoves,i[1])
+   end
+   next movelist
+},
+
+"dexEntry"=>proc{|pokemon|
+   next if pokemon.form==0
+   next _INTL("An enigmatic Pokémon that happens to bear a resemblance to a Poké Ball. When excited, it discharges the electric current it has stored in its belly, then lets out a great, uproarious laugh.") if pokemon.form==1 # Eternal
+},
+"getEvolvedFormData"=>proc{|pokemon|
+   next if pokemon.form==0
+   next [[PBEvolution::Item,PBItems::LEAFSTONE,PBSpecies::HAUNTRODE]] if pokemon.form==1
+},
+"getFormOnCreation"=>proc{|pokemon|
+   env=pbGetEnvironment()
+   next 1 if rand(65536)<$REGIONALCOMBO
+   next 0 unless env==PBEnvironment::Hisui
+   next 1
+}
+})
+
+MultipleForms.register(:HAUNTRODE,{
+"type1"=>proc{|pokemon|
+   next if pokemon.form==0            # Kanto
+   case pokemon.form
+   when 1; next getID(PBTypes,:GHOST)  # Alola
+   end
+},
+"type2"=>proc{|pokemon|
+   next if pokemon.form==0              # Kanto
+   case pokemon.form
+   when 1; next getID(PBTypes,:GRASS)  # Alola
+   end
+},
+"height"=>proc{|pokemon|
+   next if pokemon.form==0              # Kanto
+   case pokemon.form
+   when 1; 12                            # Alola
+   end
+},
+"weight"=>proc{|pokemon|
+   next if pokemon.form==0              # Kanto
+   case pokemon.form
+   when 1; 666                          # Alola
+   end
+},
+"color"=>proc{|pokemon|
+   next if pokemon.form==0
+   next 0 if pokemon.form==1
+},
+"getAbilityList"=>proc{|pokemon|
+   next if pokemon.form==0                   
+   next [[getID(PBAbilities,:LEVITATE),0],
+         [getID(PBAbilities,:STATIC),1],
+         [getID(PBAbilities,:AFTERMATH),2]] if pokemon.form==1 # Was SURGESURFER
+},
+"getMoveList"=>proc{|pokemon|
+   next if pokemon.form!=1
+   movelist=[]
+   case pokemon.form
+   when 1; movelist=[[0,:CHLOROBLAST],[1,:MAGNETICFLUX],[1,:CHARGE],[1,:TACKLE],
+                     [1,:SONICBOOM],[4,:SONICBOOM],[6,:EERIEIMPULSE],
+                     [9,:SPARK],[11,:ROLLOUT],[13,:SCREECH],[16,:CHARGEBEAM],
+                     [20,:SWIFT],[22,:ENERGYBALL],[26,:SELFDESTRUCT],
+                     [29,:LIGHTSCREEN],[36,:MAGNETRISE],[41,:DISCHARGE],
+                     [47,:EXPLOSION],[54,:GYROBALL],[58,:MIRRORCOAT],
+                     [0,:SHADOWPUNCH],[1,:SHADOWPUNCH,],[1,:HYPNOSIS],[1,:LICK],
+					 [1,:SPITE],[5,:SPITE],[8,:MEANLOOK],[12,:CURSE],
+					 [15,:NIGHTSHADE],[19,:CONFUSERAY],[22,:SUCKERPUNCH],
+					 [28,:PAYBACK],[33,:SHADOWBALL],[39,:DREAMEATER],
+					 [44,:DARKPULSE],[50,:DESTINYBOND],[55,:HEX],
+					 [61,:NIGHTMARE]]
+   end
+   for i in movelist
+     i[1]=getConst(PBMoves,i[1])
+   end
+   next movelist
+},
+"kind"=>proc{|pokemon|
+   next if pokemon.form!=1
+   next _INTL("Sphere")
+},
+
+"dexEntry"=>proc{|pokemon|
+   next if pokemon.form==0
+   next _INTL("An enigmatic Pokémon that happens to bear a resemblance to a Poké Ball. When excited, it discharges the electric current it has stored in its belly, then lets out a great, uproarious laugh.") if pokemon.form==1 # Eternal
+},
+"getFormOnCreation"=>proc{|pokemon|
+   env=pbGetEnvironment()
+   next 1 if rand(65536)<$REGIONALCOMBO
+   next 0 unless env==PBEnvironment::Hisui
+   next 1
+}
+})
+
 
 ################################################################################
 # Other Forms (Ordinal Pokemon)
@@ -10594,52 +10748,67 @@ MultipleForms.register(:MEDIAWIKI,{
 
 MultipleForms.register(:WIKIMEDIA,{
 "type1"=>proc{|pokemon|
-   types=[:NORMAL,:HEART,:ELECTRIC,:WATER,:GHOST,:BUG,:FAIRY,:DRAGON,:NORMAL,:GRASS,:DARK,:GHOST,:MIND]
+   types=[:NORMAL,:HEART,:ELECTRIC,:WATER,:GHOST,:BUG,:FAIRY,:DRAGON,:NORMAL,:GRASS,:DARK,:GHOST,:MIND,:SHARPENER,:FIGHTING,:NORMAL,:NORMAL,:FAIRY]
    next getID(PBTypes,types[pokemon.form])
 },  
  "type2"=>proc{|pokemon|
-   types=[:NORMAL,:GLIMSE,:DARK,:WATER,:NORMAL,:BLIZZARD,:MAGIC,:DRAGON,:NORMAL,:FIRE,:SUN,:BOLT,:FIGHTING]
+   types=[:NORMAL,:GLIMSE,:DARK,:WATER,:NORMAL,:BLIZZARD,:MAGIC,:DRAGON,:NORMAL,:FIRE,:SUN,:BOLT,:FIGHTING,:GLIMSE,:FIGHTING,:GASTRO,:NORMAL,:FIGHTING]
    next getID(PBTypes,types[pokemon.form])  
 },
 
 "getAbilityList"=>proc{|pokemon|
-   next if pokemon.form==0                                       # Meta (Normal)
+   next if pokemon.form==0                                           # Meta (Normal)
    next [[getID(PBAbilities,:LEVITATE),0],
          [getID(PBAbilities,:FLOERYGIST),1],
-         [getID(PBAbilities,:FIERYGIST),2]] if pokemon.form==1   # Foundation (Heart/Glimse)
+         [getID(PBAbilities,:FIERYGIST),2]] if pokemon.form==1       # Foundation (Heart/Glimse)
    next [[getID(PBAbilities,:INTIMIDOOM),0],
          [getID(PBAbilities,:INTIMIDATE),1],
-         [getID(PBAbilities,:INTIMILOW),2]] if pokemon.form==2   # Ombudsen (Electric/Dark)
+         [getID(PBAbilities,:INTIMILOW),2]] if pokemon.form==2       # Ombudsen (Electric/Dark)
    next [[getID(PBAbilities,:TRACE),0],
          [getID(PBAbilities,:WATERABSORB),1],
-         [getID(PBAbilities,:WATERSPLASH),2]] if pokemon.form==3 # Commons (Water)
+         [getID(PBAbilities,:WATERSPLASH),2]] if pokemon.form==3     # Commons (Water)
    next [[getID(PBAbilities,:STARPUNNY),0],
          [getID(PBAbilities,:SOLBEYU),1],
-         [getID(PBAbilities,:LONGREACH),2]] if pokemon.form==4   # Otrs (Ghost/Normal)
+         [getID(PBAbilities,:LONGREACH),2]] if pokemon.form==4       # Otrs (Ghost/Normal)
    next [[getID(PBAbilities,:SOUNDTRACK),0],
          [getID(PBAbilities,:MINIMALIST),1],
-         [getID(PBAbilities,:HERBLOBBY),2]] if pokemon.form==5   # Incubator (Bug/Blizzard)
+         [getID(PBAbilities,:HERBLOBBY),2]] if pokemon.form==5       # Incubator (Bug/Blizzard)
    next [[getID(PBAbilities,:PICKUP),0],
          [getID(PBAbilities,:RIPEN),1],
-         [getID(PBAbilities,:MAGICIAN),2]] if pokemon.form==6    # FDC (Fairy/Magic)
+         [getID(PBAbilities,:MAGICIAN),2]] if pokemon.form==6        # FDC (Fairy/Magic)
    next [[getID(PBAbilities,:RUNAWAY),0],
          [getID(PBAbilities,:METRONOME),1],
-         [getID(PBAbilities,:ANTIFOGGER),2]] if pokemon.form==7  # Outreach (Dragon)
+         [getID(PBAbilities,:ANTIFOGGER),2]] if pokemon.form==7      # Outreach (Dragon)
    next [[getID(PBAbilities,:SOUNDPROOF),0],
          [getID(PBAbilities,:PUNKROCK),1],
-         [getID(PBAbilities,:UPLOAD),2]] if pokemon.form==8      # Quality (Normal)
+         [getID(PBAbilities,:UPLOAD),2]] if pokemon.form==8          # Quality (Normal)
    next [[getID(PBAbilities,:SLOWSTART),0],
          [getID(PBAbilities,:SPPEDBOOST),1],
-         [getID(PBAbilities,:GOOEY),2]] if pokemon.form==9       # Strategic Planning (Grass/Fire)
+         [getID(PBAbilities,:GOOEY),2]] if pokemon.form==9           # Strategic Planning (Grass/Fire)
    next [[getID(PBAbilities,:SINISTRO),0],
          [getID(PBAbilities,:LONGGRASS),1],
-         [getID(PBAbilities,:FLASHFIRE),2]] if pokemon.form==10  # Strategic Planning (Grass/Fire)
+         [getID(PBAbilities,:FLASHFIRE),2]] if pokemon.form==10      # Strategic Planning (Grass/Fire)
    next [[getID(PBAbilities,:CURSEDBODY),0],
          [getID(PBAbilities,:CINEMALINTER),1],
-         [getID(PBAbilities,:VERGINI),2]] if pokemon.form==11    # Movement Affiliates (Ghost/Bolt)
+         [getID(PBAbilities,:VERGINI),2]] if pokemon.form==11        # Movement Affiliates (Ghost/Bolt)
    next [[getID(PBAbilities,:SUPERCLEARBODY),0],
          [getID(PBAbilities,:SONIKO),1],
-         [getID(PBAbilities,:MORFAT),2]] if pokemon.form==12     # Community User Group Sri Lanka (Mind/Fighting)
+         [getID(PBAbilities,:MORFAT),2]] if pokemon.form==12         # Community User Group Sri Lanka (Mind/Fighting)
+   next [[getID(PBAbilities,:TRUANT),0],
+         [getID(PBAbilities,:SOUPRSOWL),1],
+         [getID(PBAbilities,:LENSINTIMIDATE),2]] if pokemon.form==13 # Office (Sharpener/Glimse)
+   next [[getID(PBAbilities,:UNSEENFIST),0],
+         [getID(PBAbilities,:NOGUARD),1],
+         [getID(PBAbilities,:TRAMPOLINE),2]] if pokemon.form==14     # Education (Fighting)
+   next [[getID(PBAbilities,:POISONTOUCH),0],
+         [getID(PBAbilities,:POISONPOINT),1],
+         [getID(PBAbilities,:CORROSION),2]] if pokemon.form==15      # Hackathon (Normal/Gastro)
+   next [[getID(PBAbilities,:COLORCHANGE),0],
+         [getID(PBAbilities,:PROTEAN),1],
+         [getID(PBAbilities,:MIMICRY),2]] if pokemon.form==16        # LGBT (Normal)
+   next [[getID(PBAbilities,:KOURTINA),0],
+         [getID(PBAbilities,:MAGICGUARD),1],
+         [getID(PBAbilities,:HOSPITALITY),2]] if pokemon.form==17    # Accessibility (Fairy/Fighting)
 },
 =begin
 "ability"=>proc{|pokemon|
@@ -10688,14 +10857,17 @@ MultipleForms.register(:WIKIMEDIA,{
 =end
 
 "getFormOnCreation"=>proc{|pokemon|
-   formrations=[12,11,10,10,9,9,8,8,8,7,7,7,6,6,6,6,5,5,5,5,4,4,4,4,4,3,3,3,3,3,2,2,2,2,2,2,1,1,1,1,1,1,0,0,0,0,0,0]
-   next formrations[rand(48)]
+   formrations=[17,16,15,14,14,13,13,12,12,11,11,11,10,10,10,9,9,9,8,8,8,8,7,7,7,7,6,6,6,6,5,5,5,5,5,4,4,4,4,4,3,3,3,3,3,2,2,2,2,2,2,1,1,1,1,1,1,0,0,0,0,0,0]
+   next formrations[rand(63)]
 
 },
 "color"=>proc{|pokemon|
-   next if !(pokemon.form==3 || pokemon.form==1)
-   next 4 if pokemon.form==1
+   formswithothercolor=[1,3,13,14,15,16]
+   next if !formswithothercolor.include?(pokemon.form)
+   next 4 if pokemon.form==1 || pokemon.form==13 || pokemon.form==14 ||
+             pokemon.form==15
    next 1 if pokemon.form==3
+   next 2 if pokemon.form==16
 },
 "getBaseStats"=>proc{|pokemon|
    next if pokemon.form==0
@@ -10712,6 +10884,11 @@ MultipleForms.register(:WIKIMEDIA,{
      when 10; next [95,100,90,44,32,24]
      when 11; next [95,95,50,65,120,80]
      when 12; next [95,35,70,10,35,100]
+     when 13; next [95,25,100,5,30,100]
+     when 14; next [95,95,40,45,40,95]
+     when 15; next [95,45,45,70,60,60]
+     when 16; next [95,100,80,20,35,28]
+     when 17; next [95,50,55,30,93,98]
      else;   next
    end
 },
@@ -10748,77 +10925,53 @@ Commons Learnest: movelist=[[0,:MEGADRAIN],[1,:MEGADRAIN],[1,:TACKLE],[8,:GROWL]
                        [30,:SOAK],[30,:FAIRYWIND],[37,:NIGHTSHADE],[40,:SNARL],
                        [45,:PINMISSILE],[47,:QUIVERDANCE],[56, :HEX],
                        [62,:MINDRECOVERCY]]
-Old Learnest:        Form 4/7
+Old Learnest:        Form 4/7/13
 Semi-New Learnest:   Form 8/9/11
 New Learnest:        Form 1/2/6
-Meta/Lanka Learnest: Form 0/12
-Incubator Learnest:  Form 5
-Commons Learnest:    Form 3/10
+Meta/Lanka Learnest: Form 0/12/15
+Incubator Learnest:  Form 5/14/17
+Commons Learnest:    Form 3/10/16
 =end
 "getMoveList"=>proc{|pokemon|
    next if pokemon.form==0
    movelist=[]
    case pokemon.form
-     when 1; movelist=[[0,:MEGADRAIN],[1,:MEGADRAIN],[1,:THIEF],[7,:GROWL],[10,:SLASH],
+    # Old
+     when 4, 7,13; movelist=[[0,:MEGADRAIN],[1,:MEGADRAIN],[1,:FLASH],[7,:GLARE],[10,:SLASH],
+                       [14,:HIDDENPOWER],[17,:NATUREPOWER],[20,:THIEF],
+                       [21,:HEALBLOCK],[25,:ICEFANG],[30,:FAIRYWIND],
+                       [33,:SOAK],[37,:POISONTAIL],[45,:PINMISSILE],[50,:SING],
+                       [58,:SPIDERWEB],[64,:MINDRECOVERCY]]
+    # Semi-New
+     when 8, 9,11; movelist=[[0,:MEGADRAIN],[1,:MEGADRAIN],[1,:THIEF],[7,:GROWL],[10,:SLASH],
+                       [14,:HIDDENPOWER],[14,:NATUREPOWER],[20,:INGRAIN],
+                       [21,:HEALBLOCK],[23,:SANDATTACK],[30,:FAIRYWIND],
+                       [37,:SOAK],[37,:POISONTAIL],[45,:PINMISSILE],[50,:TACKLE],
+                       [58,:SPIDERWEB],[64,:MINDRECOVERCY]]
+    # New
+     when 1, 2, 6; movelist=[[0,:MEGADRAIN],[1,:MEGADRAIN],[1,:THIEF],[7,:GROWL],[10,:SLASH],
                        [14,:HIDDENPOWER],[14,:NATUREPOWER],[20,:INGRAIN],
                        [21,:HEALBLOCK],[23,:SANDATTACK],[30,:FAIRYWIND],
                        [37,:SOAK],[37,:DRAGONTAIL],[45,:PINMISSILE],[50,:TACKLE],
                        [58,:RELICSONG],[64,:MINDRECOVERCY]]
-     when 2; movelist=[[0,:MEGADRAIN],[1,:MEGADRAIN],[1,:THIEF],[7,:GROWL],[10,:SLASH],
+    # Meta/Lanka
+     when 12,15;   movelist=[[0,:MEGADRAIN],[1,:MEGADRAIN],[1,:THIEF],[7,:GROWL],[10,:NEUTRALIZINGGAS],
                        [14,:HIDDENPOWER],[14,:NATUREPOWER],[20,:INGRAIN],
                        [21,:HEALBLOCK],[23,:SANDATTACK],[30,:FAIRYWIND],
                        [37,:SOAK],[37,:DRAGONTAIL],[45,:PINMISSILE],[50,:TACKLE],
-                       [58,:RELICSONG],[64,:MINDRECOVERCY]]                  
-     when 3; movelist=[[0,:MEGADRAIN],[1,:MEGADRAIN],[1,:TACKLE],[8,:GROWL],[13,:HIDDENPOWER],
+                       [58,:RELICSONG],[64,:MINDRECOVERCY]]
+    # Incubator
+     when 5,14,17; movelist=[[0,:MEGADRAIN],[1,:MEGADRAIN],[1,:FLASH],[7,:BLIZZARD],[10,:SLASH],
+                       [14,:HIDDENPOWER],[17,:NATUREPOWER],[20,:THIEF],
+                       [21,:HEALBLOCK],[25,:ICEFANG],[30,:FAIRYWIND],
+                       [33,:SOAK],[37,:POISONTAIL],[45,:PINMISSILE],[50,:SING],
+                       [58,:SPIDERWEB],[64,:MINDRECOVERCY]]
+    # Commons
+     when 3,10,16; movelist=[[0,:MEGADRAIN],[1,:MEGADRAIN],[1,:TACKLE],[8,:GROWL],[13,:HIDDENPOWER],
                        [15,:NATUREPOWER],[20,:HEALBLOCK],[20,:WATERGUN],[23,:STEELWING],
                        [30,:SOAK],[30,:FAIRYWIND],[37,:NIGHTSHADE],[40,:SNARL],
                        [45,:PINMISSILE],[47,:QUIVERDANCE],[56, :HEX],
                        [62,:MINDRECOVERCY]]
-     when 4; movelist=[[0,:MEGADRAIN],[1,:MEGADRAIN],[1,:FLASH],[7,:GLARE],[10,:SLASH],
-                       [14,:HIDDENPOWER],[17,:NATUREPOWER],[20,:THIEF],
-                       [21,:HEALBLOCK],[25,:ICEFANG],[30,:FAIRYWIND],
-                       [33,:SOAK],[37,:POISONTAIL],[45,:PINMISSILE],[50,:SING],
-                       [58,:SPIDERWEB],[64,:MINDRECOVERCY]]
-     when 5; movelist=[[0,:MEGADRAIN],[1,:MEGADRAIN],[1,:FLASH],[7,:BLIZZARD],[10,:SLASH],
-                       [14,:HIDDENPOWER],[17,:NATUREPOWER],[20,:THIEF],
-                       [21,:HEALBLOCK],[25,:ICEFANG],[30,:FAIRYWIND],
-                       [33,:SOAK],[37,:POISONTAIL],[45,:PINMISSILE],[50,:SING],
-                       [58,:SPIDERWEB],[64,:MINDRECOVERCY]]
-     when 6; movelist=[[0,:MEGADRAIN],[1,:MEGADRAIN],[1,:THIEF],[7,:GROWL],[10,:SLASH],
-                       [14,:HIDDENPOWER],[14,:NATUREPOWER],[20,:INGRAIN],
-                       [21,:HEALBLOCK],[23,:SANDATTACK],[30,:FAIRYWIND],
-                       [37,:SOAK],[37,:DRAGONTAIL],[45,:PINMISSILE],[50,:TACKLE],
-                       [58,:RELICSONG],[64,:MINDRECOVERCY]]
-     when 7; movelist=[[0,:MEGADRAIN],[1,:MEGADRAIN],[1,:FLASH],[7,:GLARE],[10,:SLASH],
-                       [14,:HIDDENPOWER],[17,:NATUREPOWER],[20,:THIEF],
-                       [21,:HEALBLOCK],[25,:ICEFANG],[30,:FAIRYWIND],
-                       [33,:SOAK],[37,:POISONTAIL],[45,:PINMISSILE],[50,:SING],
-                       [58,:SPIDERWEB],[64,:MINDRECOVERCY]]     
-     when 8; movelist=[[0,:MEGADRAIN],[1,:MEGADRAIN],[1,:THIEF],[7,:GROWL],[10,:SLASH],
-                       [14,:HIDDENPOWER],[14,:NATUREPOWER],[20,:INGRAIN],
-                       [21,:HEALBLOCK],[23,:SANDATTACK],[30,:FAIRYWIND],
-                       [37,:SOAK],[37,:POISONTAIL],[45,:PINMISSILE],[50,:TACKLE],
-                       [58,:SPIDERWEB],[64,:MINDRECOVERCY]]
-     when 9; movelist=[[0,:MEGADRAIN],[1,:MEGADRAIN],[1,:THIEF],[7,:GROWL],[10,:SLASH],
-                       [14,:HIDDENPOWER],[14,:NATUREPOWER],[20,:INGRAIN],
-                       [21,:HEALBLOCK],[23,:SANDATTACK],[30,:FAIRYWIND],
-                       [37,:SOAK],[37,:POISONTAIL],[45,:PINMISSILE],[50,:TACKLE],
-                       [58,:SPIDERWEB],[64,:MINDRECOVERCY]]                                              
-     when 10; movelist=[[0,:MEGADRAIN],[1,:MEGADRAIN],[1,:TACKLE],[8,:GROWL],[13,:HIDDENPOWER],
-                       [15,:NATUREPOWER],[20,:HEALBLOCK],[20,:WATERGUN],[23,:STEELWING],
-                       [30,:SOAK],[30,:FAIRYWIND],[37,:NIGHTSHADE],[40,:SNARL],
-                       [45,:PINMISSILE],[47,:QUIVERDANCE], [56, :HEX],
-                       [62,:MINDRECOVERCY]]
-     when 11; movelist=[[0,:MEGADRAIN],[1,:MEGADRAIN],[1,:THIEF],[7,:GROWL],[10,:SLASH],
-                       [14,:HIDDENPOWER],[14,:NATUREPOWER],[20,:INGRAIN],
-                       [21,:HEALBLOCK],[23,:SANDATTACK],[30,:FAIRYWIND],
-                       [37,:SOAK],[37,:POISONTAIL],[45,:PINMISSILE],[50,:TACKLE],
-                       [58,:SPIDERWEB],[64,:MINDRECOVERCY]]                                              
-     when 12; movelist=[[0,:MEGADRAIN],[1,:MEGADRAIN],[1,:THIEF],[7,:GROWL],[10,:NEUTRALIZINGGAS],
-                       [14,:HIDDENPOWER],[14,:NATUREPOWER],[20,:INGRAIN],
-                       [21,:HEALBLOCK],[23,:SANDATTACK],[30,:FAIRYWIND],
-                       [37,:SOAK],[37,:DRAGONTAIL],[45,:PINMISSILE],[50,:TACKLE],
-                       [58,:RELICSONG],[64,:MINDRECOVERCY]]
    end
    for i in movelist
      i[1]=getConst(PBMoves,i[1])
@@ -10833,25 +10986,25 @@ MultipleForms.register(:PLAYSTORE,{
    d|=((pokemon.personalID>>8)&3)<<2
    d|=((pokemon.personalID>>16)&3)<<4
    d|=((pokemon.personalID>>24)&3)<<6
-   d%=3
+   d%=4
    next d
 },
 "ability"=>proc{|pokemon|
    case pokemon.form
-     when 3; next getID(PBAbilities,:SOUNDPROOF)
+     when 4; next getID(PBAbilities,:SOUNDPROOF)
      else;   next                                 
    end
 },
 "getBaseStats"=>proc{|pokemon|
    next if pokemon.form==0
    case pokemon.form
-     when 3; next [109,45,70,255,19,70]
+     when 4; next [109,45,70,255,19,70]
      else;   next
    end
 },
 "color"=>proc{|pokemon|
-   next if pokemon.form!=3
-   next 2 if pokemon.form==3
+   next if pokemon.form!=4
+   next 2 if pokemon.form==4
 },
 "onSetForm"=>proc{|pokemon,form|
    pbSeenForm(pokemon)
@@ -10860,11 +11013,11 @@ MultipleForms.register(:PLAYSTORE,{
 
 MultipleForms.register(:NEWPLAYSTORE,{
 "getFormOnCreation"=>proc{|pokemon|
-   d=pokemon.personalID&3
+   d=pokemon.personalID&4
    d|=((pokemon.personalID>>8)&3)<<2
    d|=((pokemon.personalID>>16)&3)<<4
    d|=((pokemon.personalID>>24)&3)<<6
-   d%=3
+   d%=4
    next d
 }
 })
@@ -10962,16 +11115,16 @@ MultipleForms.register(:VODAFONE,{
 MultipleForms.register(:WIKIMEDIAB,{
 # Affects this Pokémon and its evolution (Wikimedia)
 "getFormOnCreation"=>proc{|pokemon|
-   formrations=[12,11,10,10,9,9,8,8,8,7,7,7,6,6,6,6,5,5,5,5,4,4,4,4,4,3,3,3,3,3,2,2,2,2,2,2,1,1,1,1,1,1,0,0,0,0,0,0]
-   next formrations[rand(48)]
+   formrations=[17,16,15,14,14,13,13,12,12,11,11,11,10,10,10,9,9,9,8,8,8,8,7,7,7,7,6,6,6,6,5,5,5,5,5,4,4,4,4,4,3,3,3,3,3,2,2,2,2,2,2,1,1,1,1,1,1,0,0,0,0,0,0]
+   next formrations[rand(63)]
 }
 })
 
 MultipleForms.register(:BOMBOMEDIA,{
 # Affects this Pokémon and its evolution (Uncyclomedia)
 "getFormOnCreation"=>proc{|pokemon|
-   formrations=[3,2,2,1,1,0,0,0,0]
-   next formrations[rand(9)]
+   formrations=[4,3,2,2,1,1,0,0,0,0]
+   next formrations[rand(10)]
 }
 })
 
@@ -11008,11 +11161,11 @@ MultipleForms.register(:WIKIMANIA,{
 
 MultipleForms.register(:UNCYCLOMEDIA,{
 "type1"=>proc{|pokemon|
-   types=[:NORMAL,:NORMAL,:WATER,:DOOM]
+   types=[:NORMAL,:NORMAL,:WATER,:DOOM,:BUG]
    next getID(PBTypes,types[pokemon.form])
 },  
  "type2"=>proc{|pokemon|
-   types=[:NORMAL,:ELECTRIC,:WATER,:GLIMSE]
+   types=[:NORMAL,:ELECTRIC,:WATER,:GLIMSE,:MOON]
    next getID(PBTypes,types[pokemon.form])  
 },
 "getAbilityList"=>proc{|pokemon|
@@ -11022,10 +11175,13 @@ MultipleForms.register(:UNCYCLOMEDIA,{
          [getID(PBAbilities,:GALVANIZE),2]] if pokemon.form==1   # Foundation (Normal/Electric)
    next [[getID(PBAbilities,:CLOUDNINE),0],
          [getID(PBAbilities,:WATERABSORB),1],
-         [getID(PBAbilities,:WATERBUBBLE),2]] if pokemon.form==2   # Commons (Water)
+         [getID(PBAbilities,:WATERBUBBLE),2]] if pokemon.form==2  # Commons (Water)
    next [[getID(PBAbilities,:BRIDINI),0],
          [getID(PBAbilities,:HIRALINA),1],
-         [getID(PBAbilities,:MASKEDHERB),2]] if pokemon.form==3 # World Dimension/WD (Doom/Glimse)
+         [getID(PBAbilities,:MASKEDHERB),2]] if pokemon.form==3   # World Dimension/WD (Doom/Glimse)
+   next [[getID(PBAbilities,:SWARM),0],
+         [getID(PBAbilities,:OPPORTUNIST),1],
+         [getID(PBAbilities,:SLOWSTART),2]] if pokemon.form==4    # Phabricator (Bug/Moon)
 },
 =begin
 "ability"=>proc{|pokemon|
@@ -11040,7 +11196,7 @@ MultipleForms.register(:UNCYCLOMEDIA,{
 "color"=>proc{|pokemon|
    next if pokemon.form==0
    next 4 if pokemon.form == 1  || pokemon.form == 3
-   next 1 if pokemon.form == 2
+   next 1 if pokemon.form == 2  || pokemon.form == 4
 },
 #"getFormOnCreation"=>proc{|pokemon|
 #   d=pokemon.personalID&3
@@ -11068,8 +11224,8 @@ MultipleForms.register(:UNCYCLOMEDIA,{
 #   next [rand(3),d].max
 #},
 "getFormOnCreation"=>proc{|pokemon|
-   formrations=[3,2,2,1,1,0,0,0,0]
-   next formrations[rand(9)]
+   formrations=[4,3,2,2,1,1,0,0,0,0]
+   next formrations[rand(10)]
 },
 "getBaseStats"=>proc{|pokemon|
    next if pokemon.form==0
@@ -12340,9 +12496,59 @@ MultipleForms.register(:SURPLETE,{
 }
 })
 
+# Form of wild Geometry Dash varies between days.
+# There's however, a small chance of having Geometry Dash appearing in either form
 MultipleForms.register(:GEOMETRYDASH,{
 "getFormOnCreation"=>proc{|pokemon|
-   next rand(4)
+    pbSetLotteryNumber(1)
+    time=pbGet(1).to_i%6
+    next (rand(1000) < 30) ? rand(9) : [rand(4),4,5,6,7,8][time]
+},
+ "type1"=>proc{|pokemon|
+   next if pokemon.form<4
+   types=[:FLYING,:GROUND,:GLIMSE,:WIND,:FIGHTING]
+   next getID(PBTypes,types[pokemon.form-4])  
+},
+"height"=>proc{|pokemon|
+   next if (pokemon.form<4 || pokemon.form==8)
+   next 10 if pokemon.form==5
+   next 6  if pokemon.form==4 || pokemon.form==6 || pokemon.form==7
+},
+"weight"=>proc{|pokemon|
+   next if (pokemon.form<4 || pokemon.form==6)
+   next 10 if pokemon.form==4
+   next 14 if pokemon.form==5
+   next 8  if pokemon.form==7
+   next 16 if pokemon.form==8
+},
+"getAbilityList"=>proc{|pokemon|
+   next if pokemon.form<4
+   next [[getID(PBAbilities,:SPEEDBOOST),0],
+         [getID(PBAbilities,:CLEARBODY),1],
+         [getID(PBAbilities,:INTIMIDATE),2],
+         [getID(PBAbilities,:INTIMIDOOM),3],
+         [getID(PBAbilities,:INTIMILOW),4]] if pokemon.form==4
+   next [[getID(PBAbilities,:SPEEDBOOST),0],
+         [getID(PBAbilities,:ROUGHSKIN),1],
+         [getID(PBAbilities,:INTIMIDATE),2],
+         [getID(PBAbilities,:INTIMIDOOM),3],
+         [getID(PBAbilities,:INTIMILOW),4]] if pokemon.form==5
+   next [[getID(PBAbilities,:SPEEDBOOST),0],
+         [getID(PBAbilities,:DARKTUNNEL),1],
+         [getID(PBAbilities,:INTIMIDATE),2],
+         [getID(PBAbilities,:INTIMIDOOM),3],
+         [getID(PBAbilities,:INTIMILOW),4]] if pokemon.form==6
+   next [[getID(PBAbilities,:SPEEDBOOST),0],
+         [getID(PBAbilities,:WINDRIDER),1],
+         [getID(PBAbilities,:INTIMIDATE),2],
+         [getID(PBAbilities,:INTIMIDOOM),3],
+         [getID(PBAbilities,:INTIMILOW),4]] if pokemon.form==7
+   next [[getID(PBAbilities,:SPEEDBOOST),0],
+         [getID(PBAbilities,:SOLBEYU),1],
+         [getID(PBAbilities,:INTIMIDATE),2],
+         [getID(PBAbilities,:INTIMIDOOM),3],
+         [getID(PBAbilities,:INTIMILOW),4]] if pokemon.form==8
+
 }
 })
 
@@ -12422,6 +12628,7 @@ MultipleForms.register(:MICROSOFT,{
    next [[getID(PBAbilities,:SIAXIS),0]] if pokemon.form==2
    next [[getID(PBAbilities,:WATERBUBBLE),0]] if pokemon.form==3
    next [[getID(PBAbilities,:VERGINI),0]] if pokemon.form==4
+   next [[getID(PBAbilities,:SHEERCOLD),0]] if pokemon.form==5
 },
 "weight"=>proc{|pokemon|
    next if pokemon.form==0       # Unfused
@@ -12432,7 +12639,8 @@ MultipleForms.register(:MICROSOFT,{
       :KLEOPOTRIA,
       :GUSTOPIA,    
       :WATERBUBBLE,
-      :BOLTYDREAM
+      :BOLTYDREAM,
+      :ICEBEAM
    ]
    hasoldmove=-1
    for i in 0...4
@@ -12589,6 +12797,30 @@ MultipleForms.register(:DELIABANDAIPLUS,{
 }
 })
 
+# Form set for Pac-Man is handled elsewhere
+MultipleForms.register(:PLAYSTATION,{
+"getFormOnLeavingBattle"=>proc{|pokemon|
+   next 0
+},
+"getFormOnPES"=>proc{|pokemon|             # Form set on FLINT Pro Evolution Soccer Mag
+   if $flint_pes_life_tisekato <= 25       # $flint_pes_life_tisekato is the amount of life current member has in percentages
+     next 2 # Fully Raged
+   elsif $flint_pes_life_tisekato <= 50    # $flint_pes_life_tisekato is the amount of life current member has in percentages
+     next 1 # Semi-Raged
+   end
+   next 0   # Normal
+},
+"getBaseStats"=>proc{|pokemon|
+   next if pokemon.form==0                 # Everything else
+   case pokemon.form
+     when 1; next [100,90,90,20,60,135]     # Semi-Raged
+     when 2; next [100,90,120,20,60,180]  # Fully Raged
+     else;   next
+     end
+}
+
+})
+
 MultipleForms.register(:DOFFPLUS,{
 "weight"=>proc{|pokemon|
    next if pokemon.isMale?
@@ -12612,7 +12844,7 @@ MultipleForms.register(:TV5MONDE,{
 }
 })
 
-MultipleForms.copy(:TV5MONDE,:TV5PLUS)
+MultipleForms.copy(:TV5MONDE,:TV5PLUS,:TIVI5MONDE,:TIVI5PLUS)
 
 MultipleForms.register(:SATTICATV,{
 "getFormOnCreation"=>proc{|pokemon|
@@ -12667,3 +12899,344 @@ MultipleForms.register(:SATTICATV,{
 }
 })
 
+########################################
+# Generation II
+########################################
+
+MultipleForms.register(:MIRAMANIA,{
+"type2"=>proc{|pokemon|
+   types=[:GUST,:DARK]
+   next getID(PBTypes,types[pokemon.form])
+},
+"getAbilityList"=>proc{|pokemon|
+   next [[getID(PBAbilities,:LIGHTER),0],
+         [getID(PBAbilities,:CLEARBODY),1],
+         [getID(PBAbilities,:HERBLOBBY),2],
+         [getID(PBAbilities,:INTIMILOW),3],
+         [getID(PBAbilities,:STENCH),4]] if pokemon.form==1 # Dark Mode
+   next                                                    # Light Mode
+},
+"color"=>proc{|pokemon|
+   next if pokemon.form==0
+   next 5 if pokemon.form==1
+},
+"getForm"=>proc{|pokemon|
+   if pbGetMetadata($game_map.map_id,MetadataDarkMap) || 
+     (PBDayNight.isNight? && pbGetMetadata($game_map.map_id,MetadataOutdoor)) ||
+     isConst?(pokemon.item,PBItems,:DUSKSTONE)
+     next 1 # Dark Colors with White Text
+   else
+     next 0 # Classical Colors with Black Text
+   end
+}
+})
+
+# Bugzilla has its form determined by its personal ID
+# Females are slower
+MultipleForms.register(:BUGZILLA,{
+"getForm"=>proc{|pokemon|
+   d=pokemon.personalID&3
+   d|=((pokemon.personalID>>8)&3)<<2
+   d|=((pokemon.personalID>>16)&3)<<4
+   d|=((pokemon.personalID>>24)&3)<<6
+   d%=4
+   next d
+},
+"getBaseStats"=>proc{|pokemon|
+   next if pokemon.isMale?                       # Small Size
+   next [90,81,72,40,63,54]                      # Average Size
+},
+"color"=>proc{|pokemon|
+   next if pokemon.form==0
+   next 3 if pokemon.form==1
+   next 1 if pokemon.form==2
+   next 2 if pokemon.form==3
+}
+})
+
+MultipleForms.register(:NICKATNITE,{
+"type1"=>proc{|pokemon|
+   next if pokemon.isMale?
+   next getID(PBTypes,:CHLOROPHYLL) # Eternal
+},
+"getMoveList"=>proc{|pokemon|
+   if pokemon.isFemale?
+     movelist=[[1,:LICK],[1,:LEER],[6,:CHLOROPHYLL],[12,:ROLLOUT],[18,:MIMIC],
+               [30,:AROMATHERAPY],[35,:CHLOROSTRENGTH],[45,:LICKINGLICK],
+               [50,:SUPERCHLOROPHYLL],[60,:CASTLEMANIA],[75,:LICKSTART]]
+     for i in movelist
+       i[1]=getConst(PBMoves,i[1])
+     end
+     next movelist
+   end
+   next
+}
+})
+
+# Galaxian and Galaga has no virtual alt forms but Galaga may have other learnest
+MultipleForms.register(:GALAXIAN,{
+"getFormOnCreation"=>proc{|pokemon|
+   d=pokemon.personalID&3
+   d|=((pokemon.personalID>>8)&3)<<2
+   d|=((pokemon.personalID>>16)&3)<<4
+   d|=((pokemon.personalID>>24)&3)<<6
+   d%=2
+   next d
+}
+})
+
+MultipleForms.register(:GALAGA,{
+"getFormOnCreation"=>proc{|pokemon|
+   d=pokemon.personalID&3
+   d|=((pokemon.personalID>>8)&3)<<2
+   d|=((pokemon.personalID>>16)&3)<<4
+   d|=((pokemon.personalID>>24)&3)<<6
+   d%=2
+   next d
+},
+"getMoveList"=>proc{|pokemon|
+   next if pokemon.form==0
+   movelist=[[0,:DOUBLEHIT],[0,:BOUNCE],[1,:CONSTRICT],[100,:GLIMSETREAT]] if pokemon.form==1
+   for i in movelist
+     i[1]=getConst(PBMoves,i[1])
+   end
+   next movelist
+}
+})
+
+MultipleForms.register(:NATIONALGEOGRAPHIC,{
+"type2"=>proc{|pokemon|
+   next if pokemon.isMale? 
+   next getID(PBTypes,:CHLOROPHYLL) # Eternal
+},
+
+"getAbilityList"=>proc{|pokemon|
+   next if pokemon.isMale?
+   next [[getID(PBAbilities,:KEENEYE),0],
+         [getID(PBAbilities,:INTIMIDOOM),1],
+         [getID(PBAbilities,:BALLOONIST),2],
+         [getID(PBAbilities,:MAGICIAN),3],
+         [getID(PBAbilities,:MINIMALIST),4]] # Eternal
+}
+})
+
+MultipleForms.register(:THREADS,{
+"getAbilityList"=>proc{|pokemon|
+   next if pokemon.isMale?
+   next [[getID(PBAbilities,:OWNTEMPO),0],
+         [getID(PBAbilities,:SONIKO),1],
+         [getID(PBAbilities,:DOWNLOAD),2],
+         [getID(PBAbilities,:UPLOAD),3]] # Eternal
+}
+})
+
+MultipleForms.register(:XX,{
+"type2"=>proc{|pokemon|
+   next if pokemon.isMale? 
+   next getID(PBTypes,:HEART) # Eternal
+},
+"weight"=>proc{|pokemon|
+   next if pokemon.isMale? 
+   next 95 # Eternal
+}
+})
+
+MultipleForms.register(:SBING,{
+"getFormOnCreation"=>proc{|pokemon|
+   r = rand(20)
+   if r==0;    next 3   # Super Size (5%)
+   elsif r<4;  next 2   # Large (15%)
+   elsif r<13; next 1   # Average (45%)
+   end
+   next 0               # Small (35%)
+},
+"getAbilityList"=>proc{|pokemon|
+   next if pokemon.form==0                                     # Small Size
+   next [[getID(PBAbilities,:BALLOONIST),0],
+         [getID(PBAbilities,:SNOWWARNING),2],
+         [getID(PBAbilities,:SNOWCLOAK),3]] if pokemon.form==1 # Average Size
+   next [[getID(PBAbilities,:BALLOONIST),0],
+         [getID(PBAbilities,:SNOWWARNING),2],
+         [getID(PBAbilities,:SNOWCLOAK),3]] if pokemon.form==2 # Large Size
+   next [[getID(PBAbilities,:OPPORTUNIST),0],
+         [getID(PBAbilities,:SNOWWARNING),2],
+         [getID(PBAbilities,:SNOWCLOAK),3]] if pokemon.form==3 # Super Size
+},
+"height"=>proc{|pokemon|
+   next if pokemon.form==0     # Small Size
+   next 17 if pokemon.form==1   # Average Size
+   next 24 if pokemon.form==2   # Large Size
+   next 30 if pokemon.form==3   # Super Size
+},
+"weight"=>proc{|pokemon|
+   next if pokemon.form==0       # Small Size
+   next 250 if pokemon.form==1   # Average Size
+   next 500 if pokemon.form==2   # Large Size
+   next 1000 if pokemon.form==3  # Super Size
+},
+"getBaseStats"=>proc{|pokemon|
+   next if pokemon.form==0                       # Small Size
+   next [70,45,60,65,65,50] if pokemon.form==1   # Average Size
+   next [75,50,65,40,70,55] if pokemon.form==2   # Large Size
+   next [80,55,70,15,75,60] if pokemon.form==3   # Super Size
+},
+"wildHoldItems"=>proc{|pokemon|
+   next [getID(PBItems,:PROTECTIVEPADS),
+         getID(PBItems,:PROTECTIVEPADS),
+         getID(PBItems,:PROTECTIVEPADS)] if pokemon.form==3 # Super Size
+   next
+}
+})
+
+MultipleForms.register(:SAZURE,{
+"getFormOnCreation"=>proc{|pokemon|
+   r = rand(20)
+   if r==0;    next 3   # Super Size (5%)
+   elsif r<4;  next 2   # Large (15%)
+   elsif r<13; next 1   # Average (45%)
+   end
+   next 0               # Small (35%)
+},
+"getAbilityList"=>proc{|pokemon|
+   next if pokemon.form==0                                       # Small Size
+   next [[getID(PBAbilities,:BALLOONIST),0],
+         [getID(PBAbilities,:THICKFAT),2],
+         [getID(PBAbilities,:WATERABSORB),3]] if pokemon.form==1 # Average Size
+   next [[getID(PBAbilities,:BALLOONIST),0],
+         [getID(PBAbilities,:THICKFAT),2],
+         [getID(PBAbilities,:WATERABSORB),3]] if pokemon.form==2 # Large Size
+   next [[getID(PBAbilities,:OPPORTUNIST),0],
+         [getID(PBAbilities,:THICKFAT),2],
+         [getID(PBAbilities,:WATERABSORB),3]] if pokemon.form==3 # Super Size
+},
+"height"=>proc{|pokemon|
+   next if pokemon.form==0     # Small Size
+   next 17 if pokemon.form==1   # Average Size
+   next 24 if pokemon.form==2   # Large Size
+   next 30 if pokemon.form==3   # Super Size
+},
+"weight"=>proc{|pokemon|
+   next if pokemon.form==0       # Small Size
+   next 250 if pokemon.form==1   # Average Size
+   next 500 if pokemon.form==2   # Large Size
+   next 1000 if pokemon.form==3  # Super Size
+},
+"getBaseStats"=>proc{|pokemon|
+   next if pokemon.form==0                       # Small Size
+   next [70,45,60,65,65,50] if pokemon.form==1   # Average Size
+   next [75,50,65,40,70,55] if pokemon.form==2   # Large Size
+   next [80,55,70,15,75,60] if pokemon.form==3   # Super Size
+},
+"wildHoldItems"=>proc{|pokemon|
+   next [getID(PBItems,:PROTECTIVEPADS),
+         getID(PBItems,:PROTECTIVEPADS),
+         getID(PBItems,:PROTECTIVEPADS)] if pokemon.form==3 # Super Size
+   next
+}
+})
+
+MultipleForms.register(:SVISUALSTUDIOCODE,{
+"getFormOnCreation"=>proc{|pokemon|
+   r = rand(20)
+   if r==0;    next 3   # Super Size (5%)
+   elsif r<4;  next 2   # Large (15%)
+   elsif r<13; next 1   # Average (45%)
+   end
+   next 0               # Small (35%)
+},
+"getAbilityList"=>proc{|pokemon|
+   next if pokemon.form==0                                       # Small Size
+   next [[getID(PBAbilities,:BALLOONIST),0],
+         [getID(PBAbilities,:POISONPOINT),2],
+         [getID(PBAbilities,:REGENERATOR),3]] if pokemon.form==1 # Average Size
+   next [[getID(PBAbilities,:BALLOONIST),0],
+         [getID(PBAbilities,:POISONPOINT),2],
+         [getID(PBAbilities,:REGENERATOR),3]] if pokemon.form==2 # Large Size
+   next [[getID(PBAbilities,:OPPORTUNIST),0],
+         [getID(PBAbilities,:POISONPOINT),2],
+         [getID(PBAbilities,:REGENERATOR),3]] if pokemon.form==3 # Super Size
+},
+"height"=>proc{|pokemon|
+   next if pokemon.form==0     # Small Size
+   next 17 if pokemon.form==1   # Average Size
+   next 24 if pokemon.form==2   # Large Size
+   next 30 if pokemon.form==3   # Super Size
+},
+"weight"=>proc{|pokemon|
+   next if pokemon.form==0       # Small Size
+   next 250 if pokemon.form==1   # Average Size
+   next 500 if pokemon.form==2   # Large Size
+   next 1000 if pokemon.form==3  # Super Size
+},
+"getBaseStats"=>proc{|pokemon|
+   next if pokemon.form==0                       # Small Size
+   next [70,45,60,65,65,50] if pokemon.form==1   # Average Size
+   next [75,50,65,40,70,55] if pokemon.form==2   # Large Size
+   next [80,55,70,15,75,60] if pokemon.form==3   # Super Size
+},
+"wildHoldItems"=>proc{|pokemon|
+   next [getID(PBItems,:PROTECTIVEPADS),
+         getID(PBItems,:PROTECTIVEPADS),
+         getID(PBItems,:PROTECTIVEPADS)] if pokemon.form==3 # Super Size
+   next
+}
+})
+
+MultipleForms.register(:SVISUALSTUDIO,{
+"getFormOnCreation"=>proc{|pokemon|
+   r = rand(20)
+   if r==0;    next 3   # Super Size (5%)
+   elsif r<4;  next 2   # Large (15%)
+   elsif r<13; next 1   # Average (45%)
+   end
+   next 0               # Small (35%)
+},
+"getAbilityList"=>proc{|pokemon|
+   next if pokemon.form==0                                       # Small Size
+   next [[getID(PBAbilities,:BALLOONIST),0],
+         [getID(PBAbilities,:POISONPOINT),2],
+         [getID(PBAbilities,:POISONTOUCH),3]] if pokemon.form==1 # Average Size
+   next [[getID(PBAbilities,:BALLOONIST),0],
+         [getID(PBAbilities,:POISONPOINT),2],
+         [getID(PBAbilities,:POISONTOUCH),3]] if pokemon.form==2 # Large Size
+   next [[getID(PBAbilities,:OPPORTUNIST),0],
+         [getID(PBAbilities,:POISONPOINT),2],
+         [getID(PBAbilities,:POISONTOUCH),3]] if pokemon.form==3 # Super Size
+},
+"height"=>proc{|pokemon|
+   next if pokemon.form==0     # Small Size
+   next 17 if pokemon.form==1   # Average Size
+   next 24 if pokemon.form==2   # Large Size
+   next 30 if pokemon.form==3   # Super Size
+},
+"weight"=>proc{|pokemon|
+   next if pokemon.form==0       # Small Size
+   next 250 if pokemon.form==1   # Average Size
+   next 500 if pokemon.form==2   # Large Size
+   next 1000 if pokemon.form==3  # Super Size
+},
+"getBaseStats"=>proc{|pokemon|
+   next if pokemon.form==0                       # Small Size
+   next [80,55,70,75,75,60] if pokemon.form==1   # Average Size
+   next [85,60,75,50,80,65] if pokemon.form==2   # Large Size
+   next [90,65,80,25,85,70] if pokemon.form==3   # Super Size
+},
+"wildHoldItems"=>proc{|pokemon|
+   next [getID(PBItems,:PROTECTIVEPADS),
+         getID(PBItems,:PROTECTIVEPADS),
+         getID(PBItems,:PROTECTIVEPADS)] if pokemon.form==3 # Super Size
+   next
+}
+})
+
+MultipleForms.register(:DURPLETE,{
+ "type2"=>proc{|pokemon|
+   types=[:DOOM,:STEEL,:PSYCHIC]
+   next getID(PBTypes,types[pokemon.form])  
+},
+"getForm"=>proc{|pokemon|
+   next 1 if pokemon.knowsMove?(:STEELYSPIRIT) 
+   next 2 if pokemon.knowsMove?(:KINECTSPIRIT) 
+   next 0
+}
+})

@@ -233,6 +233,10 @@ def pbTradeCheckEvolution(pokemon,pokemon2)
       next poke if pokemon2.species==level
     when PBEvolution::TradeLevel
       next poke if pokemon.level>=level
+    when PBEvolution::TradeMale
+      next poke if pokemon.isMale?
+    when PBEvolution::TradeFemale
+      next poke if pokemon.isFemale?
     end
     next -1
   }

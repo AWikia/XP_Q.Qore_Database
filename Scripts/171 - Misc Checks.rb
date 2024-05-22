@@ -90,7 +90,9 @@ def isLegendary?(species)
          isConst?(species.species,PBSpecies,:FEZANDIPITI) ||
          isConst?(species.species,PBSpecies,:OGERPON) ||
          isConst?(species.species,PBSpecies,:TERAPAGOS) ||
-         isConst?(species.species,PBSpecies,:KYODON)
+         isConst?(species.species,PBSpecies,:KYODON) ||
+         isConst?(species.species,PBSpecies,:DURATINO) ||
+         isConst?(species.species,PBSpecies,:AQUOS)
 end
 
 # Returns true if the Pokémon is Mythical
@@ -121,7 +123,10 @@ def isMythical?(species)
          isConst?(species.species,PBSpecies,:KOULUNDIN) ||
          isConst?(species.species,PBSpecies,:COULUNDIN) ||
          isConst?(species.species,PBSpecies,:CALODIN) ||
-         isConst?(species.species,PBSpecies,:SURPLETE)
+         isConst?(species.species,PBSpecies,:SURPLETE) ||
+         isConst?(species.species,PBSpecies,:CALODIN2) ||
+         isConst?(species.species,PBSpecies,:COLUNDIN3) ||
+         isConst?(species.species,PBSpecies,:DURPLETE)
 end
 
 def isSpecial?(species)
@@ -154,7 +159,9 @@ def isSpecial?(species)
          isConst?(species.species,PBSpecies,:KORAIDON) ||
          isConst?(species.species,PBSpecies,:MIRAIDON) ||
          isConst?(species.species,PBSpecies,:TERAPAGOS) ||
-         isConst?(species.species,PBSpecies,:KYODON)
+         isConst?(species.species,PBSpecies,:KYODON) ||
+         isConst?(species.species,PBSpecies,:DURATINO) ||
+         isConst?(species.species,PBSpecies,:AQUOS)
 
 end
 

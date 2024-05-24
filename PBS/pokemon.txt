@@ -22464,7 +22464,7 @@ Pokedex=Yanabloox can weight twice as a Topaz
 BattlerPlayerY=0
 BattlerEnemyY=4
 BattlerAltitude=0
-Evolutions=FENEBLAX,Level,47,WIKIVOYAGE,ItemFemale,WIKIMEDIA
+Evolutions=FENEBLAX,Level,47,WIKIVOYAGE,ItemSilcoonFemale,WIKIMEDIA,UNVOYAGE,ItemCascoonFemale,WIKIMEDIA
 [823]
 Name=Feneblax
 InternalName=FENEBLAX
@@ -38237,7 +38237,7 @@ Rareness=120
 Happiness=70
 Abilities=SHEDSKIN,RIPEN
 Moves=1,TACKLE
-Compatibility=Bug,Fairy
+Compatibility=Undiscovered
 StepsToHatch=4080
 Height=0.3
 Weight=3.6

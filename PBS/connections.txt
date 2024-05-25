@@ -142,10 +142,6 @@
 246,West,0,245,East,0
 # Lilycone Basement (241) - Understairs Lilycone City (240)
 241,East,0,240,West,0
-# Understairs Magohany Town (282) - Understairs Route 43 (281)
-282,West,0,281,East,0
-# Understairs Lake of Rage (283) - Understairs Route 43 (281)
-283,East,0,281,West,0
 # Victory 6 (320) - Victory 6 (319)
 320,North,0,319,South,0
 # Xeniora Drei (134) - Xeniora Vier (342)
@@ -202,3 +198,9 @@
 419,North,0,462,South,0
 # Corni Carven (419) - Corni Carven (369)
 419,East,0,369,West,0
+# Understairs Magohany Town (282) - Understairs Route 43 (281)
+282,North,0,281,South,20
+# Understairs Route 42 (283) - Understairs Route 43 (281)
+283,North,0,281,South,0
+# Understairs Route 42 (283) - Understairs Magohany Town (282)
+283,East,0,282,West,0

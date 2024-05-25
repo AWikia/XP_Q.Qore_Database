@@ -320,7 +320,7 @@ class Scene_LinkBattleScene
                     species+=[PBSpecies::UNOWN]
                   end
                   if completedTrophies
-                    species+=[PBSpecies::MICROSOFT]
+                    species+=[PBSpecies::MICROSOFT,PBSpecies::FABRIC,PBSpecies::COPILOT,PBSpecies::DEVHOME,PBSpecies::FABPILHOME]
                   end
                   if completedTechnicalDiscs
                     species+=[PBSpecies::ROTOM]

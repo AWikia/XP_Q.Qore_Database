@@ -95,8 +95,8 @@ BattleBack=Quora
 Bicycle=false
 MapPosition=2,2,2
 Outdoor=true
-ShowArea=true
 PastMap=504
+ShowArea=true
 [023]
 # Lerucean Town
 MapPosition=0,15,8
@@ -138,10 +138,10 @@ ShowArea=true
 # Quora Zwei
 MapSize=2,11
 BattleBack=Quora
+FutureMap=528
 MapPosition=2,10,8
 Outdoor=true
 ShowArea=true
-FutureMap=528
 [033]
 # Quora Drei
 MapSize=2,1111
@@ -202,11 +202,11 @@ ShowArea=true
 # Swuora Zwei
 MapSize=2,1111
 BattleBack=Swuora
+FutureMap=530
 MapPosition=3,3,16
 Outdoor=true
-ShowArea=true
 PastMap=506
-FutureMap=530
+ShowArea=true
 [044]
 # Route 6
 MapSize=2,11
@@ -237,8 +237,8 @@ DiveMap=135
 BattleBack=CaveDark
 Bicycle=true
 MapPosition=3,3,16
-ShowArea=true
 PastMap=507
+ShowArea=true
 [049]
 # Rock Cave
 Bicycle=true
@@ -319,8 +319,8 @@ DisableAutosaving=true
 # Safari Zone
 MapPosition=0,12,12
 Outdoor=true
-ShowArea=true
 DisableAutosaving=true
+ShowArea=true
 [067]
 # Safari Zone gate
 MapPosition=0,12,12
@@ -330,8 +330,8 @@ BattleBack=Forest
 MapPosition=0,12,12
 SafariMap=true
 Outdoor=true
-ShowArea=true
 DisableAutosaving=true
+ShowArea=true
 [069]
 # Route 8
 DiveMap=70
@@ -393,21 +393,21 @@ MapSize=2,11
 BattleBack=CaveDark
 Bicycle=true
 MapPosition=4,10,10
-ShowArea=true
 PastMap=513
+ShowArea=true
 [080]
 # Marrine Cave
 BattleBack=CaveDark
 Weather=Sandstorm,30
 Bicycle=true
 MapPosition=4,15,5
-ShowArea=true
 PastMap=514
+ShowArea=true
 [081]
 # Semuora Drei
 MapSize=2,1111
 BattleBack=Semuora
-Weather=Sun,35
+Weather=Sunny,35
 Bicycle=false
 MapPosition=4,15,5
 Outdoor=true
@@ -416,7 +416,7 @@ ShowArea=true
 # Semuora Vier
 MapSize=2,1111
 BattleBack=Semuora
-Weather=Sun,10
+Weather=Sunny,10
 Bicycle=false
 MapPosition=4,22,17
 Outdoor=true
@@ -444,12 +444,12 @@ ShowArea=true
 # Kenuora Drei
 MapSize=2,1111
 BattleBack=Kenuora
-Weather=Sun,40
+Weather=Sunny,40
+FutureMap=532
 MapPosition=5,17,5
 Outdoor=true
-ShowArea=true
 PastMap=516
-FutureMap=532
+ShowArea=true
 [087]
 # Kenuora Vier
 MapSize=2,1111
@@ -482,26 +482,26 @@ ShowArea=true
 Bicycle=true
 MapPosition=6,12,3
 DarkMap=true
-ShowArea=true
 PastMap=510
+ShowArea=true
 [092]
 # Jarol Garden
 BattleBack=Jarol
 Bicycle=false
+FutureMap=535
 MapPosition=6,12,12
 Outdoor=true
-ShowArea=true
 Environment=Forest
 PastMap=509
-FutureMap=535
+ShowArea=true
 [093]
 # Jarol Cave
 BattleBack=CaveDark
 Bicycle=true
 MapPosition=6,12,12
 DarkMap=true
-ShowArea=true
 PastMap=511
+ShowArea=true
 [094]
 # Xenuora Drei
 MapSize=2,1111
@@ -554,8 +554,8 @@ MapSize=2,1111
 BattleBack=Annuora
 MapPosition=7,1,2
 Outdoor=true
-ShowArea=true
 PastMap=518
+ShowArea=true
 [106]
 # Annuora Zwei
 BattleBack=Annuora
@@ -575,10 +575,10 @@ MapSize=2,11
 BattleBack=Annuora
 Weather=Sandstorm,100
 Bicycle=false
+FutureMap=536
 MapPosition=7,22,8
 Outdoor=true
 ShowArea=true
-FutureMap=536
 [109]
 # Annuora Funf
 MapSize=2,1111
@@ -636,8 +636,8 @@ MapSize=2,1111
 BattleBack=Keniora
 MapPosition=8,15,5
 Outdoor=true
-ShowArea=true
 PastMap=522
+ShowArea=true
 [118]
 # Keniora Funf
 MapSize=1,111
@@ -646,8 +646,8 @@ Weather=Sandstorm,100
 Bicycle=false
 MapPosition=8,19,3
 Outdoor=true
-ShowArea=true
 Environment=Boardwalk
+ShowArea=true
 [119]
 # Rest Area
 MapPosition=8,19,3
@@ -684,8 +684,8 @@ BattleBack=Xeniora
 Bicycle=false
 MapPosition=9,2,3
 Outdoor=true
-ShowArea=true
 Environment=Graveyard
+ShowArea=true
 [125]
 # Magnet Rail
 BattleBack=Cave
@@ -696,8 +696,8 @@ MapPosition=9,11,4
 Bicycle=false
 MapPosition=9,2,3
 Outdoor=true
-ShowArea=true
 Environment=Sky
+ShowArea=true
 [127]
 # Magnet Rail
 BattleBack=Cave
@@ -717,30 +717,30 @@ MapPosition=6,12,2
 MapPosition=6,12,2
 SafariMap=true
 Outdoor=true
-ShowArea=true
 DisableAutosaving=true
+ShowArea=true
 [132]
 # Safari Zone - Indoor A
 BattleBack=IndoorD
 MapPosition=6,12,2
 SafariMap=true
-ShowArea=true
 DisableAutosaving=true
+ShowArea=true
 [133]
 # Safari Zone - Indoor B
 BattleBack=IndoorD
 MapPosition=6,12,2
 SafariMap=true
-ShowArea=true
 DisableAutosaving=true
+ShowArea=true
 [134]
 # Xeniora Drei
 BattleBack=Xeniora
-Weather=Sun,100
+Weather=Sunny,100
 MapPosition=9,6,5
 Outdoor=true
-ShowArea=true
 Environment=Forest
+ShowArea=true
 [135]
 # Understairs Glitch Cave
 BattleBack=Underwater
@@ -807,9 +807,9 @@ Bicycle=true
 TrainerBattleBGM=Battle - Trainer (Johto)
 MapPosition=3,3,16
 DarkMap=true
+Environment=Graveyard
 WildBattleBGM=Battle - Wild Pokemon (Johto)
 ShowArea=true
-Environment=Graveyard
 [148]
 # Understairs Keniora Funf
 BattleBack=CaveDark
@@ -866,9 +866,9 @@ TrainerBattleBGM=Battle - Trainer (Johto)
 MapPosition=10,11,17
 DarkMap=true
 Outdoor=true
+Environment=Forest
 WildBattleBGM=Battle - Wild Pokemon (Johto)
 ShowArea=true
-Environment=Forest
 [156]
 # Understairs Route 34
 MapSize=1,11
@@ -1037,9 +1037,9 @@ SnapEdges=true
 BattleBack=IndoorC
 TrainerBattleBGM=Battle - Trainer (Johto)
 MapPosition=10,20,7
+Environment=Snow
 WildBattleBGM=Battle - Wild Pokemon (Johto)
 ShowArea=true
-Environment=Snow
 [181]
 # Lake of Rage Entrance
 TrainerBattleBGM=Battle - Trainer (Johto)
@@ -1277,11 +1277,11 @@ ShowArea=true
 MapSize=2,11
 BattleBack=CaveDark
 Bicycle=true
+FutureMap=533
 TrainerBattleBGM=Battle - Trainer (Hoenn)
 MapPosition=4,10,10
 WildBattleBGM=Battle - Wild Pokemon (Hoenn)
 ShowArea=true
-FutureMap=533
 [228]
 # Twinleaf Town
 TrainerBattleBGM=Battle - Trainer (Sinnoh)
@@ -1423,26 +1423,26 @@ Outdoor=true
 ShowArea=true
 [257]
 # Maxuora Zwei
+MapSize=1,11
 BattleBack=CaveDark
 Bicycle=true
 TrainerBattleBGM=Battle - Special Trainer
-MapSize=1,11
 MapPosition=12,6,3
 ShowArea=true
 [258]
 # Maxuora Drei
+MapSize=1,11
 Bicycle=true
 TrainerBattleBGM=Battle - Special Trainer
-MapSize=1,11
 MapPosition=12,4,8
 Outdoor=true
 ShowArea=true
 [259]
 # Maxuora Vier
+MapSize=2,1111
 BattleBack=CaveDark
 Bicycle=true
 TrainerBattleBGM=Battle - Special Trainer
-MapSize=2,1111
 MapPosition=12,10,6
 ShowArea=true
 [260]
@@ -1455,27 +1455,27 @@ Outdoor=true
 ShowArea=true
 [261]
 # Maxuora Sechs
+MapSize=1,111
 BattleBack=CaveDark
 Bicycle=true
 TrainerBattleBGM=Battle - Special Trainer
-MapSize=1,111
 MapPosition=12,16,7
 ShowArea=true
 [262]
 # Maxuora Sieben
+MapSize=1,11
 BattleBack=Forest
 Bicycle=true
 TrainerBattleBGM=Battle - Special Trainer
-MapSize=1,11
 MapPosition=12,18,13
 Outdoor=true
 ShowArea=true
 [263]
 # Maxuora Acht
+MapSize=1,11
 BattleBack=CaveDark
 Bicycle=true
 TrainerBattleBGM=Battle - Special Trainer
-MapSize=1,11
 MapPosition=12,22,10
 ShowArea=true
 [264]
@@ -1487,33 +1487,33 @@ Outdoor=true
 ShowArea=true
 [265]
 # Maxuora Zehn
+MapSize=1,11
 BattleBack=CaveDark
 Bicycle=true
 TrainerBattleBGM=Battle - Special Trainer
-MapSize=1,11
 MapPosition=12,27,16
 ShowArea=true
 [266]
 # Maxiora Eins
+MapSize=1,11
 Bicycle=true
 TrainerBattleBGM=Battle - Special Trainer
-MapSize=1,11
 MapPosition=16,1,2
 Outdoor=true
 ShowArea=true
 [267]
 # Maxiora Zwei
+MapSize=1,11
 BattleBack=CaveDarker
 Bicycle=true
 TrainerBattleBGM=Battle - Special Trainer
-MapSize=1,11
 MapPosition=16,4,6
 ShowArea=true
 [268]
 # Maxiora Drei
+MapSize=1,11
 Bicycle=true
 TrainerBattleBGM=Battle - Special Trainer
-MapSize=1,11
 MapPosition=16,9,6
 Outdoor=true
 ShowArea=true
@@ -1526,9 +1526,9 @@ MapPosition=16,11,10
 ShowArea=true
 [270]
 # Maxiora Funf
+MapSize=1,11
 Bicycle=true
 TrainerBattleBGM=Battle - Special Trainer
-MapSize=1,11
 MapPosition=16,14,5
 Outdoor=true
 ShowArea=true
@@ -1556,9 +1556,9 @@ WildBattleBGM=Battle - Wild Pokemon (Johto)
 ShowArea=true
 [274]
 # Maxiora Neun
+MapSize=1,11
 Bicycle=true
 TrainerBattleBGM=Battle - Special Trainer
-MapSize=1,11
 MapPosition=16,23,13
 Outdoor=true
 ShowArea=true
@@ -1568,8 +1568,8 @@ BattleBack=IndoorG
 Bicycle=true
 TrainerBattleBGM=Battle - Special Trainer
 MapPosition=16,28,18
-ShowArea=true
 Environment=Graveyard
+ShowArea=true
 [276]
 # Understairs Kenuora Eins
 BattleBack=IndoorB
@@ -1598,6 +1598,7 @@ ShowArea=true
 # Understairs Virdian Forest
 BattleBack=Cave
 Bicycle=true
+MapPosition=10,17,3
 ShowArea=true
 [281]
 # Understairs Route 43
@@ -1612,10 +1613,10 @@ Bicycle=true
 MapPosition=10,17,7
 ShowArea=true
 [283]
-# Understairs Lake of Rage
+# Understairs Route 42
 BattleBack=Cave
 Bicycle=true
-MapPosition=10,17,3
+MapPosition=10,16,7
 ShowArea=true
 [284]
 # Vermilion City
@@ -1678,24 +1679,24 @@ Bicycle=true
 TrainerBattleBGM=Battle - Trainer (Johto)
 MapPosition=10,13,17
 WildBattleBGM=Battle - Wild Pokemon (Johto)
-ShowArea=true
 PastMap=527
+ShowArea=true
 [300]
 # Rubstoro Forest
 TrainerBattleBGM=Battle - Trainer (Hoenn)
 MapPosition=11,1,10
 Outdoor=true
+Environment=Forest
 WildBattleBGM=Battle - Wild Pokemon (Hoenn)
 ShowArea=true
-Environment=Forest
 [302]
 # The Staffhouse
 BattleBack=IndoorF
 TrainerBattleBGM=Battle - Trainer (Johto)
 MapPosition=10,17,7
+Environment=Graveyard
 WildBattleBGM=Battle - Wild Pokemon (Johto)
 ShowArea=true
-Environment=Graveyard
 [303]
 # Route 46
 TrainerBattleBGM=Battle - Trainer (Johto)
@@ -1728,8 +1729,8 @@ Bicycle=true
 Dungeon=true
 MapPosition=4,10,10
 DarkMap=true
-ShowArea=true
 Environment=Space
+ShowArea=true
 [308]
 # Jumbo Cave
 SnapEdges=true
@@ -1738,10 +1739,10 @@ Bicycle=true
 Dungeon=true
 MapPosition=8,15,5
 DarkMap=true
-ShowArea=true
 Environment=Space
+ShowArea=true
 [313]
-# Isle of Termor
+# Isle of Tarmor
 Environment=Space
 [314]
 # Meteor Falls
@@ -1778,63 +1779,63 @@ DarkMap=true
 ShowArea=true
 [319]
 # Victory 6
+PseudoDarkMap=true
 BattleBack=CaveDark
 Bicycle=true
 TrainerBattleBGM=Battle - Trainer (Johto)
 MapPosition=6,12,12
+Environment=Space
 WildBattleBGM=Battle - Wild Pokemon (Johto)
 ShowArea=true
-Environment=Space
-PseudoDarkMap=true
 [320]
 # Victory 6
+PseudoDarkMap=true
 BattleBack=CaveDark
 Bicycle=true
 TrainerBattleBGM=Battle - Trainer (Johto)
 MapPosition=11,5,13
+Environment=Space
 WildBattleBGM=Battle - Wild Pokemon (Johto)
 ShowArea=true
-Environment=Space
-PseudoDarkMap=true
 [323]
 # Bot Boyend Path
+PseudoDarkMap=true
 BattleBack=CaveDarker
 Weather=Rain,40
 Bicycle=true
 MapPosition=4,15,5
-ShowArea=true
 Environment=Boardwalk
-PseudoDarkMap=true
+ShowArea=true
 [324]
 # Jelly Queen
+PseudoDarkMap=true
 BattleBack=EliteA
 Weather=Rain,40
 MapPosition=4,15,5
-PseudoDarkMap=true
 [325]
 # Cupcake Carl
+PseudoDarkMap=true
 BattleBack=EliteB
 Weather=Rain,40
 MapPosition=4,15,5
-PseudoDarkMap=true
 [326]
 # Tiffi
+PseudoDarkMap=true
 BattleBack=EliteC
 Weather=Rain,40
 MapPosition=4,15,5
-PseudoDarkMap=true
 [327]
 # Kimmy
+PseudoDarkMap=true
 BattleBack=EliteD
 Weather=Rain,40
 MapPosition=4,15,5
-PseudoDarkMap=true
 [328]
 # Liquorice Larry
+PseudoDarkMap=true
 BattleBack=Champion
 Weather=Rain,40
 MapPosition=4,15,5
-PseudoDarkMap=true
 [329]
 # Hall of Fame
 PseudoDarkMap=true
@@ -1845,45 +1846,45 @@ BattleBack=IndoorC
 Weather=Blizzard,100
 TrainerBattleBGM=Battle - Trainer (Johto)
 MapPosition=10,20,7
+Environment=Snow
 WildBattleBGM=Battle - Wild Pokemon (Johto)
 ShowArea=true
-Environment=Snow
 [331]
 # Ice Path
 SnapEdges=true
 BattleBack=IndoorC
 TrainerBattleBGM=Battle - Trainer (Johto)
 MapPosition=10,20,7
+Environment=Snow
 WildBattleBGM=Battle - Wild Pokemon (Johto)
 ShowArea=true
-Environment=Snow
 [332]
 # Ice River Run Path
+PseudoDarkMap=true
 SnapEdges=true
 BattleBack=IndoorC
 Weather=Snow,50
 TrainerBattleBGM=Battle - Trainer (Johto)
 MapPosition=10,20,7
+Environment=Snow
 WildBattleBGM=Battle - Wild Pokemon (Johto)
 ShowArea=true
-Environment=Snow
-PseudoDarkMap=true
 [334]
 # Scuba Duba Minigame
 MapSize=2,111111
 SnapEdges=true
 BattleBack=Underwater
 MapPosition=18,1,4
-ShowArea=true
 ForbidSaving=true
+ShowArea=true
 [335]
 # Underwater Minigame
 MapSize=2,11111111111111
 SnapEdges=true
 BattleBack=Underwater
 MapPosition=18,5,1
-ShowArea=true
 ForbidSaving=true
+ShowArea=true
 [336]
 # Skating Minigame
 MapSize=1,1111
@@ -1891,9 +1892,9 @@ SnapEdges=true
 BattleBack=Snow
 Weather=Snow,100
 MapPosition=18,4,11
-ShowArea=true
-Environment=Snow
 ForbidSaving=true
+Environment=Snow
+ShowArea=true
 [337]
 # Fission Cave
 BattleBack=CaveDarker
@@ -1907,9 +1908,9 @@ MapSize=2,1111
 SnapEdges=true
 BattleBack=IndoorF
 MapPosition=18,7,12
-ShowArea=true
-Environment=Volcano
 ForbidSaving=true
+Environment=Volcano
+ShowArea=true
 [339]
 # Rest Area
 MapPosition=3,4,16
@@ -1925,11 +1926,11 @@ HealingSpot=128,22,5
 [342]
 # Xeniora Vier
 BattleBack=Xeniora
-Weather=Sun,100
+Weather=Sunny,100
 MapPosition=9,5,8
 Outdoor=true
-ShowArea=true
 Environment=Forest
+ShowArea=true
 [343]
 # Xeniora Funf
 MapSize=2,11
@@ -1938,8 +1939,8 @@ Weather=Sandstorm,100
 Bicycle=false
 MapPosition=9,8,10
 Outdoor=true
-ShowArea=true
 Environment=Boardwalk
+ShowArea=true
 [344]
 # Xeniora Sechs
 MapSize=2,11
@@ -1953,12 +1954,12 @@ ShowArea=true
 # Cindyora Eins
 MapSize=3,110111011
 BattleBack=Cindyora
-Weather=Sun,10
+Weather=Sunny,10
 Bicycle=false
 MapPosition=13,1,1
 Outdoor=true
-ShowArea=true
 PastMap=525
+ShowArea=true
 [346]
 # Cindyora Zwei
 BattleBack=Cindyora
@@ -1982,14 +1983,14 @@ ShowArea=true
 # Cindyora Vier
 MapSize=1,111
 BattleBack=Cindyora
-Weather=Sun,100
+Weather=Sunny,100
 MapPosition=13,14,2
 Outdoor=true
 ShowArea=true
 [350]
 # Cindyora Funf
 BattleBack=Cindyora
-Weather=Sun,100
+Weather=Sunny,100
 MapPosition=13,16,8
 Outdoor=true
 ShowArea=true
@@ -2000,8 +2001,8 @@ BattleBack=Cindyora
 Weather=Blizzard,100
 MapPosition=13,4,13
 Outdoor=true
-ShowArea=true
 Environment=Snow
+ShowArea=true
 [352]
 # Rest Area
 MapPosition=13,4,13
@@ -2013,17 +2014,17 @@ BattleBack=Cindyora
 Weather=Storm,30
 MapPosition=13,27,18
 Outdoor=true
-ShowArea=true
 Environment=Snow
+ShowArea=true
 [354]
 # Sanuora Eins
 MapSize=3,110111011
 BattleBack=Sanuora
-Weather=Sun,30
+Weather=Sunny,30
 MapPosition=14,1,1
 Outdoor=true
-ShowArea=true
 Environment=Space
+ShowArea=true
 [355]
 # Sanuora Zwei
 MapSize=3,111101111101
@@ -2039,27 +2040,27 @@ BattleBack=Sanuora
 Weather=Sandstorm,75
 MapPosition=14,15,5
 Outdoor=true
-ShowArea=true
 Environment=Space
+ShowArea=true
 [357]
 # Sanuora Vier
 MapSize=3,101101111
 BattleBack=Sanuora
-Weather=Sun,100
+Weather=Sunny,100
 MapPosition=14,2,9
 Outdoor=true
-ShowArea=true
 Environment=Space
+ShowArea=true
 [358]
 # Sanuora Funf
 MapSize=3,111111111
 BattleBack=Saniora1
-Weather=Sun,100
+Weather=Sunny,100
 MapPosition=14,24,6
 Outdoor=true
-ShowArea=true
 Environment=Sky
 WildBattleBGM=Battle - Wild Pokemon (Nebula Cave)
+ShowArea=true
 [359]
 # Sanuora Sechs
 MapSize=3,111101111111101
@@ -2068,16 +2069,16 @@ BattleBack=Saniora2
 Weather=Storm,100
 MapPosition=14,1,14
 Outdoor=true
-ShowArea=true
 Environment=Galaxy
 WildBattleBGM=Battle - Wild Pokemon (Nebula Cave)
+ShowArea=true
 [360]
 # Understairs Sanuora Sechs
 MapSize=3,111101111111101
 BattleBack=Underwater
 MapPosition=14,1,15
-ShowArea=true
 WildBattleBGM=Battle - Wild Pokemon (Nebula Cave)
+ShowArea=true
 [361]
 # Sanuora Sieben
 MapSize=3,111101111101
@@ -2085,67 +2086,67 @@ BattleBack=Saniora3
 Weather=Storm,100
 MapPosition=14,25,13
 Outdoor=true
-ShowArea=true
 Environment=Galaxy
 WildBattleBGM=Battle - Wild Pokemon (Nebula Cave)
+ShowArea=true
 [362]
 # Saniora Eins
 BattleBack=Saniora4
-Outdoor=true
-ShowArea=true
-WildBattleBGM=Battle - Wild Pokemon (Nebula Cave)
 MapPosition=15,1,1
+Outdoor=true
+WildBattleBGM=Battle - Wild Pokemon (Nebula Cave)
+ShowArea=true
 [363]
 # Saniora Zwei
 BattleBack=Saniora5
-Outdoor=true
-ShowArea=true
-WildBattleBGM=Battle - Wild Pokemon (Nebula Cave)
 MapPosition=15,7,4
+Outdoor=true
+WildBattleBGM=Battle - Wild Pokemon (Nebula Cave)
+ShowArea=true
 [364]
 # Saniora Drei
 BattleBack=Saniora6
-Outdoor=true
-ShowArea=true
-WildBattleBGM=Battle - Wild Pokemon (Nebula Cave)
 MapPosition=15,7,8
+Outdoor=true
+WildBattleBGM=Battle - Wild Pokemon (Nebula Cave)
+ShowArea=true
 [365]
 # Saniora Vier
 BattleBack=Saniora7
-Outdoor=true
-ShowArea=true
-WildBattleBGM=Battle - Wild Pokemon (Nebula Cave)
 MapPosition=15,11,11
+Outdoor=true
+WildBattleBGM=Battle - Wild Pokemon (Nebula Cave)
+ShowArea=true
 [366]
 # Saniora Sieben
 BattleBack=Semuora
-Outdoor=true
-ShowArea=true
-WildBattleBGM=Battle - Wild Pokemon (Nebula Cave)
 MapPosition=15,24,17
+Outdoor=true
+WildBattleBGM=Battle - Wild Pokemon (Nebula Cave)
+ShowArea=true
 [367]
 # Saniora Acht
 BattleBack=Kenuora
-Outdoor=true
-ShowArea=true
-WildBattleBGM=Battle - Wild Pokemon (Nebula Cave)
 MapPosition=15,27,12
+Outdoor=true
+WildBattleBGM=Battle - Wild Pokemon (Nebula Cave)
+ShowArea=true
 [369]
 # Corni Carven
 BattleBack=IndoorF
 Bicycle=true
 MapPosition=14,17,9
-ShowArea=true
 Environment=Alola
+ShowArea=true
 [370]
 # Lovecorn Minigame
 MapSize=2,11
 SnapEdges=true
 BattleBack=Cave
 MapPosition=18,10,10
-ShowArea=true
-Environment=Galaxy
 ForbidSaving=true
+Environment=Galaxy
+ShowArea=true
 [371]
 # Abandoned Shire
 BattleBack=Cave
@@ -2158,8 +2159,8 @@ MapSize=2,11
 BattleBack=CaveDark
 Bicycle=true
 MapPosition=4,10,10
-ShowArea=true
 PastMap=515
+ShowArea=true
 [373]
 # Ancient Temple
 SnapEdges=true
@@ -2172,30 +2173,30 @@ ShowArea=true
 BattleBack=Cave
 MapPosition=6,12,2
 SafariMap=true
-ShowArea=true
 DisableAutosaving=true
+ShowArea=true
 [375]
 # Safari Zone - Left Cave
 BattleBack=Cave
 MapPosition=6,12,2
 SafariMap=true
-ShowArea=true
 DisableAutosaving=true
+ShowArea=true
 [376]
 # Safari Zone - Right Cave
 BattleBack=Cave
 MapPosition=6,12,2
 SafariMap=true
-ShowArea=true
 DisableAutosaving=true
+ShowArea=true
 [377]
 # Fission Cave
+PseudoDarkMap=true
 BattleBack=CaveDarker
 Bicycle=true
 MapPosition=5,1,4
 DarkMap=true
 ShowArea=true
-PseudoDarkMap=true
 [378]
 # Pikimon Institute
 BattleBack=IndoorA
@@ -2238,28 +2239,28 @@ WildBattleBGM=Battle - Wild Pokemon (Hoenn)
 ShowArea=true
 [384]
 # Granite Cave
+PseudoDarkMap=true
 Bicycle=true
 TrainerBattleBGM=Battle - Trainer (Hoenn)
 MapPosition=11,1,11
 WildBattleBGM=Battle - Wild Pokemon (Hoenn)
 ShowArea=true
-PseudoDarkMap=true
 [385]
 # Granite Cave
+PseudoDarkMap=true
 Bicycle=true
 TrainerBattleBGM=Battle - Trainer (Hoenn)
 MapPosition=11,1,10
 WildBattleBGM=Battle - Wild Pokemon (Hoenn)
 ShowArea=true
-PseudoDarkMap=true
 [386]
 # Episodio XR
-BattleBack=Jarol
 MapSize=2,111111
+BattleBack=Jarol
 MapPosition=17,3,6
 Outdoor=true
-ShowArea=true
 Environment=Forest
+ShowArea=true
 [387]
 # Jarol Garden
 BattleBack=Jarol
@@ -2293,9 +2294,9 @@ MapSize=2,111
 SnapEdges=true
 BattleBack=Cave
 MapPosition=18,15,4
-ShowArea=true
-Environment=Boardwalk
 ForbidSaving=true
+Environment=Boardwalk
+ShowArea=true
 [396]
 # Floaroma Meadow
 BattleBack=Forest
@@ -2306,6 +2307,7 @@ WildBattleBGM=Battle - Wild Pokemon (Sinnoh)
 ShowArea=true
 [397]
 # Zapdos Cave
+PseudoDarkMap=true
 BattleBack=CaveDarker
 Bicycle=true
 TrainerBattleBGM=Battle - Trainer (Johto)
@@ -2313,7 +2315,6 @@ MapPosition=10,7,10
 DarkMap=true
 WildBattleBGM=Battle - Wild Pokemon (Johto)
 ShowArea=true
-PseudoDarkMap=true
 [398]
 # Eternal Carven
 Bicycle=true
@@ -2325,10 +2326,10 @@ ShowArea=true
 # Quora Zwei
 MapSize=2,11
 BattleBack=Quora
+FutureMap=529
 MapPosition=2,10,9
 Outdoor=true
 ShowArea=true
-FutureMap=529
 [401]
 # Understairs Swuora Drei
 MapSize=3,111111111
@@ -2373,17 +2374,17 @@ ShowArea=true
 SnapEdges=true
 BattleBack=CaveDark
 Weather=Sandstorm,100
-MapPosition=8,9,3
-ShowArea=true
-PastMap=520
 FutureMap=537
+MapPosition=8,9,3
+PastMap=520
+ShowArea=true
 [408]
 # Liberty Corridor Path
 BattleBack=CaveDarker
 MapPosition=8,9,3
 DarkMap=true
-ShowArea=true
 PastMap=524
+ShowArea=true
 [409]
 # XenuLeage
 BattleBack=IndoorB
@@ -2394,8 +2395,8 @@ BattleBack=Keniora
 Bicycle=false
 MapPosition=8,20,14
 Outdoor=true
-ShowArea=true
 Environment=Sky
+ShowArea=true
 [411]
 # Ancient Temple
 SnapEdges=true
@@ -2450,13 +2451,13 @@ ShowArea=true
 BattleBack=IndoorF
 Bicycle=true
 MapPosition=14,4,13
-ShowArea=true
 Environment=Galar
+ShowArea=true
 [420]
-# Navel Rock
+# Fusion Path
+MapSize=2,111111
 BattleBack=Navel
 Bicycle=true
-MapSize=2,111111
 MapPosition=19,12,2
 Outdoor=true
 ShowArea=true
@@ -2479,9 +2480,9 @@ MapSize=2,11
 BattleBack=IndoorF
 MapPosition=18,19,9
 Outdoor=true
-ShowArea=true
-Environment=Boardwalk
 ForbidSaving=true
+Environment=Boardwalk
+ShowArea=true
 [425]
 # Netherworld Cave
 BattleBack=Cave
@@ -2510,102 +2511,102 @@ MapPosition=2,3,2
 # Quora Vier
 BattleBack=Quora
 Bicycle=false
-Outdoor=true
-ShowArea=true
 MapPosition=2,11,17
+Outdoor=true
 DisableAutosaving=true
+ShowArea=true
 [430]
 # Swuora Vier
 BattleBack=Swuora
 Bicycle=false
-Outdoor=true
-ShowArea=true
 MapPosition=3,8,10
+Outdoor=true
 DisableAutosaving=true
+ShowArea=true
 [431]
 # Semuora Funf
 BattleBack=Semuora
 Bicycle=false
-Outdoor=true
-ShowArea=true
 MapPosition=4,8,1
+Outdoor=true
 DisableAutosaving=true
-[432]
-# Understairs Kenuora Funf
-BattleBack=Cave
 ShowArea=true
+[432]
+# Understairs Kenuora Fυnf
+BattleBack=Cave
 MapPosition=5,15,13
 DisableAutosaving=true
+ShowArea=true
 [433]
 # Kenuora Funf
 BattleBack=Kenuora
 Bicycle=false
-Outdoor=true
-ShowArea=true
 MapPosition=5,15,13
+Outdoor=true
 DisableAutosaving=true
+ShowArea=true
 [434]
 # Xenuora Sechs
 BattleBack=Xenuora
 Bicycle=false
-Outdoor=true
-ShowArea=true
 MapPosition=6,4,15
+Outdoor=true
 DisableAutosaving=true
+ShowArea=true
 [435]
 # Annuora Sechs
 BattleBack=Annuora
 Bicycle=false
-Outdoor=true
-ShowArea=true
 MapPosition=7,16,12
+Outdoor=true
 DisableAutosaving=true
+ShowArea=true
 [436]
 # Understairs Keniora Sieben
 BattleBack=Cave
-ShowArea=true
 MapPosition=8,8,14
 DisableAutosaving=true
+ShowArea=true
 [437]
 # Keniora Sieben
 BattleBack=Keniora
 Bicycle=false
-Outdoor=true
-ShowArea=true
 MapPosition=8,8,14
+Outdoor=true
 DisableAutosaving=true
+ShowArea=true
 [438]
 # Xeniora Sieben
 BattleBack=Xeniora
 Bicycle=false
-Outdoor=true
-ShowArea=true
 MapPosition=9,17,5
+Outdoor=true
 DisableAutosaving=true
+ShowArea=true
 [439]
 # Cindyora Acht
 BattleBack=Cindyora
 Bicycle=false
-Outdoor=true
-ShowArea=true
 MapPosition=13,18,13
+Outdoor=true
 DisableAutosaving=true
+ShowArea=true
 [441]
 # Quadro Cave
 MapSize=2,01
 BattleBack=Cave
 Bicycle=true
+FutureMap=538
 MapPosition=14,8,9
 ShowArea=true
-FutureMap=538
 [443]
 # Sanuora Acht
 BattleBack=Sanuora
 Bicycle=false
-Outdoor=true
-ShowArea=true
 MapPosition=14,13,15
+Outdoor=true
 DisableAutosaving=true
+ShowArea=true
 [445]
 # Fossilized Tunnel
 BattleBack=CaveDark
@@ -2715,8 +2716,8 @@ ShowArea=true
 BattleBack=IndoorF
 Bicycle=true
 MapPosition=14,17,9
-ShowArea=true
 Environment=Hisui
+ShowArea=true
 [463]
 # Rest Area
 MapPosition=2,11,8
@@ -2746,211 +2747,211 @@ HealingSpot=115,4,9
 MapPosition=9,6,5
 HealingSpot=134,15,8
 [470]
-# Quora Eins
+# Quora Eins-Quora Zwei Intermission Path
 BattleBack=Cave
 MapPosition=2,2,2
-ShowArea=true
 DisableAutosaving=true
+ShowArea=true
 [471]
-# Quora Eins
+# Quora Zwei-Quora Drei Intermission Path
 BattleBack=Cave
 MapPosition=2,10,9
-ShowArea=true
 DisableAutosaving=true
+ShowArea=true
 [472]
-# Quora Eins
+# Quora Drei-Swuora Eins Intermission Path
 BattleBack=Cave
 MapPosition=2,26,7
-ShowArea=true
 DisableAutosaving=true
+ShowArea=true
 [473]
-# Quora Eins
+# Swuora Eins-Swuora Zwei Intermission Path
 BattleBack=Cave
 MapPosition=3,1,2
-ShowArea=true
 DisableAutosaving=true
+ShowArea=true
 [474]
-# Quora Eins
+# Swuora Drei-Semuora Eins Intermission Path
 BattleBack=Cave
 MapPosition=3,21,4
-ShowArea=true
 DisableAutosaving=true
+ShowArea=true
 [475]
-# Quora Eins
+# Semuora Eins-Semuora Zwei Intermission Path
 BattleBack=Cave
 MapPosition=4,4,9
-ShowArea=true
 DisableAutosaving=true
+ShowArea=true
 [476]
-# Quora Eins
+# Semuora Drei-Semuora Vier Intermission Path
 BattleBack=Cave
 MapPosition=4,16,6
-ShowArea=true
 DisableAutosaving=true
+ShowArea=true
 [477]
-# Quora Eins
+# Semuora Vier-Kenuora Eins Intermission Path
 BattleBack=Cave
 MapPosition=4,22,17
-ShowArea=true
 DisableAutosaving=true
+ShowArea=true
 [478]
-# Quora Eins
+# Kenuora Eins-Kenuora Zwei Intermission Path
 BattleBack=Cave
 MapPosition=5,1,4
-ShowArea=true
 DisableAutosaving=true
+ShowArea=true
 [479]
-# Quora Eins
+# Kenuora Zwei-Kenuora Drei Intermission Path
 BattleBack=Cave
 MapPosition=5,12,10
-ShowArea=true
 DisableAutosaving=true
+ShowArea=true
 [480]
-# Quora Eins
+# Kenuora Drei-Kenuora Vier Intermission Path
 BattleBack=Cave
 MapPosition=5,17,5
-ShowArea=true
 DisableAutosaving=true
+ShowArea=true
 [481]
-# Quora Eins
+# Kenuora Vier-Xenuora Eins Intermission Path
 BattleBack=Cave
 MapPosition=5,26,17
-ShowArea=true
 DisableAutosaving=true
+ShowArea=true
 [482]
-# Quora Eins
+# Xenuora Eins-Xenuora Zwei Intermission Path
 BattleBack=Cave
 MapPosition=6,1,4
-ShowArea=true
 DisableAutosaving=true
+ShowArea=true
 [483]
-# Quora Eins
+# Xenuora Drei-Xenuora Vier Intermission Path
 BattleBack=Cave
 MapPosition=6,13,13
-ShowArea=true
 DisableAutosaving=true
+ShowArea=true
 [484]
-# Quora Eins
+# Xenuora Vier-Xenuora Funf Intermission Path
 BattleBack=Cave
 MapPosition=6,23,12
-ShowArea=true
 DisableAutosaving=true
+ShowArea=true
 [485]
-# Quora Eins
+# Annuora Eins-Annuora Zwei Intermission Path
 BattleBack=Cave
 MapPosition=7,1,3
-ShowArea=true
 DisableAutosaving=true
+ShowArea=true
 [486]
-# Quora Eins
+# Annuora Drei-Annuora Vier Intermission Path
 BattleBack=Cave
 MapPosition=7,17,2
-ShowArea=true
 DisableAutosaving=true
+ShowArea=true
 [487]
-# Quora Eins
+# Annuora Vier-Annuora Funf Intermission Path
 BattleBack=Cave
 MapPosition=7,23,8
-ShowArea=true
 DisableAutosaving=true
+ShowArea=true
 [488]
-# Quora Eins
+# Annuora Funf-Keniora Eins Intermission Path
 BattleBack=Cave
 MapPosition=7,24,15
-ShowArea=true
 DisableAutosaving=true
+ShowArea=true
 [489]
-# Quora Eins
+# Keniora Eins-Keniora Zwei Intermission Path
 BattleBack=Cave
 MapPosition=8,1,3
-ShowArea=true
 DisableAutosaving=true
+ShowArea=true
 [490]
-# Quora Eins
+# Keniora Zwei-Keniora Drei Intermission Path
 BattleBack=Cave
 MapPosition=8,5,9
-ShowArea=true
 DisableAutosaving=true
+ShowArea=true
 [491]
-# Quora Eins
+# Keniora Drei-Keniora Vier Intermission Path
 BattleBack=Cave
 MapPosition=8,9,3
-ShowArea=true
 DisableAutosaving=true
+ShowArea=true
 [492]
-# Quora Eins
+# Keniora Vier-Keniora Funf Intermission Path
 BattleBack=Cave
 MapPosition=8,15,5
-ShowArea=true
 DisableAutosaving=true
+ShowArea=true
 [493]
-# Quora Eins
+# Xeniora Eins-Xeniora Zwei Intermission Path
 BattleBack=Cave
 MapPosition=9,2,3
-ShowArea=true
 DisableAutosaving=true
+ShowArea=true
 [494]
-# Quora Eins
+# Xeniora Vier-Xeniora Funf Intermission Path
 BattleBack=Cave
 MapPosition=9,5,8
-ShowArea=true
 DisableAutosaving=true
+ShowArea=true
 [495]
-# Quora Eins
+# Xeniora Funf-Xeniora Sechs Intermission Path
 BattleBack=Cave
 MapPosition=9,9,10
-ShowArea=true
 DisableAutosaving=true
+ShowArea=true
 [496]
-# Quora Eins
+# Xeniora Sechs-Cindyora Eins Intermission Path
 BattleBack=Cave
 MapPosition=9,18,16
-ShowArea=true
 DisableAutosaving=true
+ShowArea=true
 [497]
-# Quora Eins
+# Cindyora Eins-Cindyora Zwei Intermission Path
 BattleBack=Cave
 MapPosition=13,1,1
-ShowArea=true
 DisableAutosaving=true
+ShowArea=true
 [498]
-# Quora Eins
+# Cindyora Drei-Cindyora Vier Intermission Path
 BattleBack=Cave
 MapPosition=13,9,5
-ShowArea=true
 DisableAutosaving=true
+ShowArea=true
 [499]
-# Quora Eins
+# Cindyora Funf-Cindyora Sechs Intermission Path
 BattleBack=Cave
 MapPosition=13,16,8
-ShowArea=true
 DisableAutosaving=true
+ShowArea=true
 [500]
-# Quora Eins
+# Cindyora Sechs-Cindyora Sieben Intermission Path
 BattleBack=Cave
 MapPosition=13,5,13
-ShowArea=true
 DisableAutosaving=true
+ShowArea=true
 [501]
-# Quora Eins
+# Xenuora Zwei-Episodio XR Intermission Path
 BattleBack=Cave
 MapPosition=6,11,3
-ShowArea=true
 DisableAutosaving=true
+ShowArea=true
 [502]
-# Quora Eins
+# Xeniora Sechs-Kenuora Drei Intermission Path
 BattleBack=Cave
 MapPosition=9,18,16
-ShowArea=true
 DisableAutosaving=true
+ShowArea=true
 [503]
 # Jarol Cave
 BattleBack=CaveDarker
 Bicycle=true
 MapPosition=6,12,12
 DarkMap=true
-ShowArea=true
 PastMap=508
+ShowArea=true
 [504]
 # Past Quora Eins
 MapSize=2,1111
@@ -2961,7 +2962,6 @@ Outdoor=true
 ShowArea=true
 [505]
 # Qore Temple
-MapPositoin=2,3,2
 ShowArea=true
 [506]
 # Past Swuora Zwei
@@ -3040,8 +3040,8 @@ MapSize=2,1111
 BattleBack=Annuora
 MapPosition=7,1,2
 Outdoor=true
-ShowArea=true
 Environment=Rock
+ShowArea=true
 [519]
 # Past Understairs Annuora Eins
 MapSize=2,1111
@@ -3080,7 +3080,7 @@ BattleBack=Cave
 MapPosition=8,16,5
 ShowArea=true
 [525]
-# Cindyora Eins
+# Past Cindyora Eins
 MapSize=3,110111011
 BattleBack=Cindyora
 Weather=Rain,80
@@ -3093,15 +3093,15 @@ ShowArea=true
 BattleBack=Cave
 Bicycle=true
 MapPosition=10,13,17
-ShowArea=true
 Environment=Rock
+ShowArea=true
 [527]
 # Past Union Cave
 BattleBack=Cave
 Bicycle=true
 MapPosition=10,13,17
-ShowArea=true
 Environment=Rock
+ShowArea=true
 [528]
 # Future Quora Zwei
 MapSize=2,11
@@ -3129,7 +3129,7 @@ BattleBack=IndoorB
 MapPosition=2,10,9
 ShowArea=true
 [532]
-# Kenuora Drei
+# Future Kenuora Drei
 MapSize=2,1111
 BattleBack=Kenuora
 MapPosition=5,17,5
@@ -3154,8 +3154,8 @@ BattleBack=Jarol
 Bicycle=false
 MapPosition=6,12,12
 Outdoor=true
-ShowArea=true
 Environment=Forest
+ShowArea=true
 [536]
 # Future Annuora Vier
 MapSize=2,11
@@ -3169,8 +3169,8 @@ ShowArea=true
 SnapEdges=true
 BattleBack=CaveDark
 MapPosition=8,9,3
-ShowArea=true
 PastMap=520
+ShowArea=true
 [538]
 # Future Quadro Cave
 MapSize=2,01
@@ -3188,16 +3188,16 @@ ShowArea=true
 # Astra Junction Path
 BattleBack=Cave
 MapPosition=13,27,18
-ShowArea=true
 Environment=Cave
+ShowArea=true
 [541]
 # Marrine Corridor Path
 BattleBack=CaveDark
 Bicycle=true
-MapPosition=9,2,8
-ShowArea=true
-PastMap=542
 FutureMap=543
+MapPosition=9,2,8
+PastMap=542
+ShowArea=true
 [542]
 # Past Marrine Corridor Path
 BattleBack=CaveDark
@@ -3211,37 +3211,37 @@ Bicycle=true
 MapPosition=9,2,8
 ShowArea=true
 [544]
-# Quora Eins
+# Episodio XR-Episodio DR Intermission Path
 BattleBack=Cave
 MapPosition=17,4,6
-ShowArea=true
 DisableAutosaving=true
+ShowArea=true
 [545]
 # Episodio DR
-BattleBack=Jarol
 MapSize=3,111111
+BattleBack=Jarol
 MapPosition=17,11,11
 Outdoor=true
-ShowArea=true
 Environment=Forest
+ShowArea=true
 [546]
 # Saniora Funf
 BattleBack=Quora
-Outdoor=true
-ShowArea=true
-WildBattleBGM=Battle - Wild Pokemon (Nebula Cave)
 MapPosition=15,17,8
+Outdoor=true
+WildBattleBGM=Battle - Wild Pokemon (Nebula Cave)
+ShowArea=true
 [547]
 # Saniora Sechs
 BattleBack=Swuora
-Outdoor=true
-ShowArea=true
-WildBattleBGM=Battle - Wild Pokemon (Nebula Cave)
 MapPosition=15,18,13
+Outdoor=true
+WildBattleBGM=Battle - Wild Pokemon (Nebula Cave)
+ShowArea=true
 [548]
 # Qora Qore Basement
 BattleBack=IndoorF
-ShowArea=true
-WildBattleBGM=Battle - Wild Pokemon (Nebula Cave)
 MapPosition=15,27,12
 Environment=Graveyard
+WildBattleBGM=Battle - Wild Pokemon (Nebula Cave)
+ShowArea=true

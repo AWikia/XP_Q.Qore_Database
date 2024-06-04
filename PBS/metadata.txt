@@ -1047,7 +1047,7 @@ MapPosition=10,17,3
 WildBattleBGM=Battle - Wild Pokemon (Johto)
 [182]
 # Lake of Rage
-TrainerBattleBGM=gymleader
+TrainerBattleBGM=Battle - Gym Leader
 MapPosition=10,17,3
 Outdoor=true
 WildBattleBGM=Battle - Wild Pokemon (Johto)
@@ -1579,23 +1579,26 @@ MapPosition=5,1,4
 WildBattleBGM=Battle - Wild Pokemon (Hoenn)
 ShowArea=true
 [277]
-# Understairs Pallet Town
+# Understairs Saxora Eins
 BattleBack=Cave
 Bicycle=true
+MapPosition=19,1,1
 ShowArea=true
 [278]
-# Pallet Town
-BattleBack=IndoorB
+# Saxora Eins
+BattleBack=Navel
 Bicycle=true
+MapPosition=19,1,1
 Outdoor=true
 ShowArea=true
 [279]
-# Understairs Vermilion City
+# Understairs Saxora Drei
 BattleBack=Cave
 Bicycle=true
+MapPosition=19,12,8
 ShowArea=true
 [280]
-# Understairs Virdian Forest
+# Understairs Lake of Rage
 BattleBack=Cave
 Bicycle=true
 MapPosition=10,17,3
@@ -1619,9 +1622,11 @@ Bicycle=true
 MapPosition=10,16,7
 ShowArea=true
 [284]
-# Vermilion City
-BattleBack=IndoorB
+# Saxora Drei
+MapSize=1,11
+BattleBack=Navel
 Bicycle=true
+MapPosition=19,12,8
 Outdoor=true
 ShowArea=true
 [285]
@@ -1634,9 +1639,10 @@ MapPosition=11,1,7
 WildBattleBGM=Battle - Wild Pokemon (Hoenn)
 ShowArea=true
 [286]
-# Understairs Saffron City
+# Understairs Saxora Vier
 BattleBack=Cave
 Bicycle=true
+MapPosition=19,17,9
 ShowArea=true
 [287]
 # Understairs Swuora Eins
@@ -1645,16 +1651,19 @@ Bicycle=true
 MapPosition=3,1,2
 ShowArea=true
 [288]
-# Saffron City
-BattleBack=IndoorB
+# Saxora Vier
+BattleBack=Navel
+Weather=Sandstorm,100
 Bicycle=true
+MapPosition=19,17,9
 Outdoor=true
 ShowArea=true
 [289]
-# Understairs Cerulean City
+# Understairs Saxora Sechs
 BattleBack=Cave
 Bicycle=true
 ShowArea=true
+MapPosition=19,28,18
 [290]
 # Understairs Keniora Zwei
 BattleBack=Cave
@@ -1662,16 +1671,18 @@ Bicycle=true
 MapPosition=8,5,9
 ShowArea=true
 [291]
-# Cerulean City
-BattleBack=IndoorB
+# Saxora Sechs
+BattleBack=Navel
 Bicycle=true
 Outdoor=true
 ShowArea=true
+MapPosition=19,28,18
 [292]
-# Cerulean Cave
+# Arbeitsbuch Carven
 BattleBack=Cave
 Bicycle=true
 ShowArea=true
+MapPosition=19,28,18
 [293]
 # Union Cave
 BattleBack=CaveDarker
@@ -3244,4 +3255,46 @@ BattleBack=IndoorF
 MapPosition=15,27,12
 Environment=Graveyard
 WildBattleBGM=Battle - Wild Pokemon (Nebula Cave)
+ShowArea=true
+[549]
+# Saxora Zwei
+BattleBack=Navel
+Bicycle=true
+MapPosition=19,5,5
+Outdoor=true
+ShowArea=true
+[550]
+# Saxora Funf
+BattleBack=Navel
+Weather=Sandstorm,100
+Bicycle=true
+MapPosition=19,21,13
+Outdoor=true
+ShowArea=true
+[551]
+# Lake of Rage
+TrainerBattleBGM=Battle - Special Trainer
+MapPosition=10,17,3
+Outdoor=true
+WildBattleBGM=Battle - Wild Pokemon (Johto)
+ShowArea=true
+PastMap=553
+FutureMap=554
+[552]
+# Questrial Castle
+MapSize=2,1111
+BattleBack=IndoorD
+MapPosition=19,7,16
+Environment=Ring
+ShowArea=true
+[553]
+# Cave of Heaven
+MapPosition=10,17,3
+WildBattleBGM=Battle - Wild Pokemon (Johto)
+ShowArea=true
+[554]
+# Future Lake of Rage
+MapPosition=10,17,3
+Outdoor=true
+WildBattleBGM=Battle - Wild Pokemon (Johto)
 ShowArea=true

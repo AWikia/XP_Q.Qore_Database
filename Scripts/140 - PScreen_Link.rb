@@ -314,7 +314,7 @@ class Scene_LinkBattleScene
                 break
               else
                 if itemname == 'RB'
-                  species = [PBSpecies::DITTO,PBSpecies::BASCULIN,PBSpecies::DISCORD,PBSpecies::BLUEGHOST,PBSpecies::LUVDISC,PBSpecies::SQUAWKABILLY,PBSpecies::PLUNUM,PBSpecies::MILCERY]
+                  species = [PBSpecies::DITTO,PBSpecies::BASCULIN,PBSpecies::DISCORD,PBSpecies::LUVDISC,PBSpecies::SQUAWKABILLY,PBSpecies::PLUNUM,PBSpecies::MILCERY]
 # Unlockables
                   if $game_switches && $game_switches[67]
                     species+=[PBSpecies::UNOWN]
@@ -372,6 +372,11 @@ class Scene_LinkBattleScene
                   end
                   if $game_variables && $game_variables[1001] > 999
                     species+=[PBSpecies::TELEMOBILEGION]
+                  end
+                  if (pbGetTimeNow.mon == 4 && pbGetTimeNow.day == 1)
+                    species+=[PBSpecies::BLINKY,PBSpecies::INKY,PBSpecies::CLYDE,PBSpecies::PINKY,PBSpecies::SUE,PBSpecies::FUNKY,PBSpecies::SPUNKY,PBSpecies::ORSON]
+                  else
+                    species+=[PBSpecies::BLUEGHOST]
                   end
 # End Unlockables
                   pokemon = species[rand(species.length)]

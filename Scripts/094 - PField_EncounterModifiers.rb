@@ -33,51 +33,74 @@ Events.onWildPokemonCreate+=proc {|sender,e|
 }
 
 
-# Species Alias (Has 50% chance of doing it but only when not using the
-# Test Wild Battle or Test Double Wild Battle Debug options)
+# Species Alias (Replaces it with another one when a condition is met but only 
+# when not using the Test Wild Battle or Test Double Wild Battle Debug options)
 Events.onWildPokemonCreate+=proc {|sender,e|
    pokemon=e[0]
    species=pokemon.species
+   time=pbGetTimeNow if !time
+   # Some Common Species evolutions
+   ghosts = [PBSpecies::BLINKY,
+             PBSpecies::INKY,
+             PBSpecies::CLYDE,
+             PBSpecies::PINKY,
+             PBSpecies::SUE,
+             PBSpecies::FUNKY,
+             PBSpecies::SPUNKY,
+             PBSpecies::ORSON]
+   # pokemons var is an associative array. Each item has a key, followed by an
+   # arry of two items. The first item includes the species and the second one
+   # includes the condition required to replace the species
    pokemons = {
      # Wikiboos - Unbooks
-     PBSpecies::WIKIBOOKS => PBSpecies::UNBOOKS,
-     PBSpecies::UNBOOKS => PBSpecies::WIKIBOOKS,
+     PBSpecies::WIKIBOOKS => [PBSpecies::UNBOOKS,(rand(100)<50)],
+     PBSpecies::UNBOOKS => [PBSpecies::WIKIBOOKS,(rand(100)<50)],
      # Wikipedia - Uncyclopedia
-     PBSpecies::WIKIPEDIA => PBSpecies::UNCYCLOPEDIA,
-     PBSpecies::UNCYCLOPEDIA => PBSpecies::WIKIPEDIA,
+     PBSpecies::WIKIPEDIA => [PBSpecies::UNCYCLOPEDIA,(rand(100)<50)],
+     PBSpecies::UNCYCLOPEDIA => [PBSpecies::WIKIPEDIA,(rand(100)<50)],
      # Wikinews - Unnews
-     PBSpecies::WIKINEWS => PBSpecies::UNNEWS,
-     PBSpecies::UNNEWS => PBSpecies::WIKINEWS,
+     PBSpecies::WIKINEWS => [PBSpecies::UNNEWS,(rand(100)<50)],
+     PBSpecies::UNNEWS => [PBSpecies::WIKINEWS,(rand(100)<50)],
      # Wiktionary - Undictionary
-     PBSpecies::WIKTIONARY => PBSpecies::UNDICTIONARY,
-     PBSpecies::UNDICTIONARY => PBSpecies::WIKTIONARY,
+     PBSpecies::WIKTIONARY => [PBSpecies::UNDICTIONARY,(rand(100)<50)],
+     PBSpecies::UNDICTIONARY => [PBSpecies::WIKTIONARY,(rand(100)<50)],
      # Wikidata - Undata
-     PBSpecies::WIKIDATA => PBSpecies::UNDATA,
-     PBSpecies::UNDATA => PBSpecies::WIKIDATA,
+     PBSpecies::WIKIDATA => [PBSpecies::UNDATA,(rand(100)<50)],
+     PBSpecies::UNDATA => [PBSpecies::WIKIDATA,(rand(100)<50)],
      # Wikiquote - Unquotable
-     PBSpecies::WIKIQUOTE => PBSpecies::UNQUOTABLE,
-     PBSpecies::UNQUOTABLE => PBSpecies::WIKIQUOTE,
+     PBSpecies::WIKIQUOTE => [PBSpecies::UNQUOTABLE,(rand(100)<50)],
+     PBSpecies::UNQUOTABLE => [PBSpecies::WIKIQUOTE,(rand(100)<50)],
      # Wikiversity - Uncycloversity
-     PBSpecies::WIKIVERSITY => PBSpecies::UNCYCLOVERSITY,
-     PBSpecies::UNCYCLOVERSITY => PBSpecies::WIKIVERSITY,
+     PBSpecies::WIKIVERSITY => [PBSpecies::UNCYCLOVERSITY,(rand(100)<50)],
+     PBSpecies::UNCYCLOVERSITY => [PBSpecies::WIKIVERSITY,(rand(100)<50)],
      # Wikivoyage - Unvoyage
-     PBSpecies::WIKIVOYAGE => PBSpecies::UNVOYAGE,
-     PBSpecies::UNVOYAGE => PBSpecies::WIKIVOYAGE,
+     PBSpecies::WIKIVOYAGE => [PBSpecies::UNVOYAGE,(rand(100)<50)],
+     PBSpecies::UNVOYAGE => [PBSpecies::WIKIVOYAGE,(rand(100)<50)],
      # Wikispecies - Unforum
-     PBSpecies::WIKISPECIES => PBSpecies::UNFORUM,
-     PBSpecies::UNFORUM => PBSpecies::WIKISPECIES,
+     PBSpecies::WIKISPECIES => [PBSpecies::UNFORUM,(rand(100)<50)],
+     PBSpecies::UNFORUM => [PBSpecies::WIKISPECIES,(rand(100)<50)],
      # Frikimania - Fricyclomania
-     PBSpecies::FRIKIMANIA => PBSpecies::FRICYCLOMANIA,
-     PBSpecies::FRICYCLOMANIA => PBSpecies::FRIKIMANIA,
+     PBSpecies::FRIKIMANIA => [PBSpecies::FRICYCLOMANIA,(rand(100)<50)],
+     PBSpecies::FRICYCLOMANIA => [PBSpecies::FRIKIMANIA,(rand(100)<50)],
      # Sharpenix - Rolonix
-     PBSpecies::SHARPENIX => PBSpecies::ROLONIX,
-     PBSpecies::ROLONIX => PBSpecies::SHARPENIX
+     PBSpecies::SHARPENIX => [PBSpecies::ROLONIX,(rand(100)<50)],
+     PBSpecies::ROLONIX => [PBSpecies::SHARPENIX,(rand(100)<50)],
+     # MTV - WTV
+     PBSpecies::MTV => [PBSpecies::WTV, (time.mon == 3 && time.day == 8)],
+     PBSpecies::WTV => [PBSpecies::MTV, (time.mon == 3 && time.day == 8)],
+     # Delia MTV - Delia WTV
+     PBSpecies::DMTV => [PBSpecies::DWTV, (time.mon == 3 && time.day == 8)],
+     PBSpecies::DWTV => [PBSpecies::DMTV, (time.mon == 3 && time.day == 8)],
+     # Blueshost - Any of its evolutions
+     PBSpecies::BLUEGHOST => [ghosts[rand(8)], (time.mon == 4 && time.day == 1)]
    }
-   if pokemons.key?(species) && rand(100)<50 && !$game_switches[40]
-       	 pokemon.species=pokemons[species]
+   if pokemons.key?(species) && !$game_switches[40]
+     if pokemons[species][1]
+       	 pokemon.species=pokemons[species][0]
          pokemon.name=PBSpecies.getName(pokemon.species)
          pokemon.calcStats
          pokemon.resetMoves
+      end
    end
 
 }

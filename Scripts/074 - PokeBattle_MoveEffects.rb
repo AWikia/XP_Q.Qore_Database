@@ -2742,6 +2742,7 @@ class PokeBattle_Move_060 < PokeBattle_Move
     when PBEnvironment::Space;       type=getConst(PBTypes,:DRAGON) || 0
     when PBEnvironment::Galaxy;      type=getConst(PBTypes,:MOON) || 0
     when PBEnvironment::Boardwalk;   type=getConst(PBTypes,:DARK) || 0
+    when PBEnvironment::Ring;        type=getConst(PBTypes,:FIGHTING) || 0
     end
     if @battle.field.effects[PBEffects::ElectricTerrain]>0
       type=getConst(PBTypes,:ELECTRIC) if hasConst?(PBTypes,:ELECTRIC)
@@ -4625,7 +4626,7 @@ class PokeBattle_Move_0A4 < PokeBattle_Move
       if opponent.pbCanReduceStatStage?(PBStats::ATTACK,attacker,false,self)
         opponent.pbReduceStat(PBStats::ATTACK,1,attacker,false,self)
       end
-    when PBEnvironment::StillWater, PBEnvironment::Sky
+    when PBEnvironment::StillWater, PBEnvironment::Sky, PBEnvironment::Ring
       if !opponent.pbCanReduceStatStage?(PBStats::SPEED,attacker,false,self)
         opponent.pbReduceStat(PBStats::SPEED,1,attacker,false,self)
       end
@@ -4683,6 +4684,7 @@ class PokeBattle_Move_0A4 < PokeBattle_Move
     when PBEnvironment::Space;       id=getConst(PBMoves,:SWIFT) || id
     when PBEnvironment::Galaxy;      id=getConst(PBMoves,:MOONCROKET) || id
     when PBEnvironment::Boardwalk;   id=getConst(PBMoves,:PURSUIT) || id
+    when PBEnvironment::Ring;        id=getConst(PBMoves,:BRICKBREAK) || id
     end
     if @battle.field.effects[PBEffects::ElectricTerrain]>0
       id=getConst(PBMoves,:THUNDERSHOCK) || id
@@ -5147,6 +5149,7 @@ class PokeBattle_Move_0B3 < PokeBattle_Move
     when PBEnvironment::Space;       move=getConst(PBMoves,:DRACOMETEOR) || move
     when PBEnvironment::Galaxy;      move=getConst(PBMoves,:MOONBLOVER) || move
     when PBEnvironment::Boardwalk;   move=getConst(PBMoves,:NIGHTSLASH) || move
+    when PBEnvironment::Ring;        move=getConst(PBMoves,:AURASPHERE) || move
     end
     if @battle.field.effects[PBEffects::ElectricTerrain]>0
       move=getConst(PBMoves,:THUNDERBOLT) || move
@@ -6871,7 +6874,7 @@ end
 ################################################################################
 class PokeBattle_Move_0E0 < PokeBattle_Move
   def pbOnStartUse(attacker)
-    if !attacker.hasMoldBreaker(opponent)
+    if !attacker.hasMoldBreaker(nil)
       bearer=@battle.pbCheckGlobalAbility(:DAMP)
       if bearer!=nil && !attacker.pbHasType?(:HEART) &&
         !isConst?(@id,PBMoves,:LICKSTART)
@@ -10679,7 +10682,7 @@ end
 class PokeBattle_Move_170 < PokeBattle_Move
   def pbOnStartUse(attacker)
     attacker.effects[PBEffects::TemporaryMoldBreaker]=isConst?(@id,PBMoves,:LOLOLOVE)
-    if !attacker.hasMoldBreaker(opponent)
+    if !attacker.hasMoldBreaker(nil)
       bearer=@battle.pbCheckGlobalAbility(:NERVOUSCRACK) && $USENEWBATTLEMECHANICS
       if bearer!=nil && !attacker.pbHasType?(:HEART)
         @battle.pbDisplay(_INTL("{1}'s {2} prevents {3} from using {4}!",
@@ -11263,10 +11266,12 @@ end
 ################################################################################
 # Damage taken increases by difference between levels of user and target. 
 # Always starts with at least base damage of 5 (10 in Gen8)
+# Power is doubled if used on Ring maps
 # Gen 8: Has double damage and perfect accuracy against minimized
 # targets
 # Power also gets doubled and also being used while asleep if the opponent 
-# tries to switch out
+# tries to switch out. This stakcs with the aforementioned power double, having
+# x4 power boost if used on opponents that try to switch out on Ring Maps
 # (Handled in Battle's pbAttackPhase): Makes this attack happen before switching.
 # Intended for HellasNet Pokemon and Info+ (Douze Crayon)
 ################################################################################
@@ -11274,6 +11279,9 @@ class PokeBattle_Move_187 < PokeBattle_Move
   def pbBaseDamage(basedmg,attacker,opponent)
     basedmg=(attacker.level-opponent.level)
     basedmg+=10
+    if @battle.environment==PBEnvironment::Ring
+      basedmg=basedmg*2
+    end
     if @battle.switching
       basedmg=basedmg*2
     end
@@ -11300,7 +11308,7 @@ end
 # Damage taken increases by the amount of Effort Values the Pokemon has. 
 # Always starts with at least base damage of 5 (10 in Gen8)
 # Power is doubled if used on Boardwalk maps. Power is halved on Volcano Maps in
-# Generation 7-
+# Generation 7- and on Ring Maps
 # Gen 6+: Has double damage and perfect accuracy against minimized
 # targets (Topsy-Damage)
 ################################################################################
@@ -11311,7 +11319,8 @@ class PokeBattle_Move_188 < PokeBattle_Move
       if @battle.environment==PBEnvironment::Boardwalk
         evtotal=evtotal*2
       end
-      if @battle.environment==PBEnvironment::Volcano && !$USENEWBATTLEMECHANICS
+      if (@battle.environment==PBEnvironment::Volcano && !$USENEWBATTLEMECHANICS) ||
+          @battle.environment==PBEnvironment::Ring
         evtotal=evtotal*0.5
       end
       if evtotal > 0
@@ -12684,6 +12693,7 @@ class PokeBattle_Move_249 < PokeBattle_Move
     when PBEnvironment::Space;       type=getConst(PBTypes,:DRAGON) || 0
     when PBEnvironment::Galaxy;      type=getConst(PBTypes,:MOON) || 0
     when PBEnvironment::Boardwalk;   type=getConst(PBTypes,:DARK) || 0
+    when PBEnvironment::Ring;        type=getConst(PBTypes,:FIGHTING) || 0
     end
     if @battle.field.effects[PBEffects::ElectricTerrain]>0
       type=getConst(PBTypes,:ELECTRIC) if hasConst?(PBTypes,:ELECTRIC)
@@ -14893,7 +14903,7 @@ end
 ################################################################################
 class PokeBattle_Move_225 < PokeBattle_Move
   def pbOnStartUse(attacker)
-    if !attacker.hasMoldBreaker(opponent)
+    if !attacker.hasMoldBreaker(nil)
       bearer=@battle.pbCheckGlobalAbility(:DAMP)
       if bearer!=nil
         pbSEPlay("protection")

@@ -204,3 +204,7 @@
 283,North,0,281,South,0
 # Understairs Route 42 (283) - Understairs Magohany Town (282)
 283,East,0,282,West,0
+# Saxora Zwei (549) - Saxora Eins (278)
+549,West,0,278,East,0
+# Saxora Vier (288) - Saxora Funf (550)
+288,South,0,550,North,0

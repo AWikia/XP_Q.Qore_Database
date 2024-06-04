@@ -10752,7 +10752,7 @@ MultipleForms.register(:WIKIMEDIA,{
    next getID(PBTypes,types[pokemon.form])
 },  
  "type2"=>proc{|pokemon|
-   types=[:NORMAL,:GLIMSE,:DARK,:WATER,:NORMAL,:BLIZZARD,:MAGIC,:DRAGON,:NORMAL,:FIRE,:SUN,:BOLT,:FIGHTING,:GLIMSE,:FIGHTING,:GASTRO,:NORMAL,:FIGHTING]
+   types=[:NORMAL,:GLIMSE,:DARK,:WATER,:NORMAL,:BLIZZARD,:MAGIC,:DRAGON,:NORMAL,:FIRE,:SUN,:BOLT,:FIGHTING,:GLIMSE,:FIGHTING,:GAS,:NORMAL,:FIGHTING]
    next getID(PBTypes,types[pokemon.form])  
 },
 
@@ -11652,6 +11652,7 @@ MultipleForms.register(:ONE,{
     when PBEnvironment::Space;       type=10 # Dragon
     when PBEnvironment::Galaxy;      type=11 # Moon
     when PBEnvironment::Boardwalk;   type=12 # Dark
+    when PBEnvironment::Ring;        type=0  # Fighting
     end
     next type
 }
@@ -11769,6 +11770,7 @@ MultipleForms.register(:SQUIGGLES,{
     when PBEnvironment::Space;       type=10 # Dragon
     when PBEnvironment::Galaxy;      type=11 # Moon
     when PBEnvironment::Boardwalk;   type=12 # Dark
+    when PBEnvironment::Ring;        type=0  # Fighting
     end
     next type
 }
@@ -13037,7 +13039,7 @@ MultipleForms.register(:XX,{
 },
 "weight"=>proc{|pokemon|
    next if pokemon.isMale? 
-   next 95 # Eternal
+   next 950 # Eternal
 }
 })
 

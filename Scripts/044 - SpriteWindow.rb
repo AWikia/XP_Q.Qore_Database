@@ -1499,11 +1499,12 @@ def pbSetSystemFont(bitmap)
   if (fontname=="Pokemon DP" || fontname=="Power Clear") ||
      (fontname=="Pokemon Emerald" || fontname=="Power Green") ||
      (fontname=="Pokemon RS" || fontname=="Power Red and Blue") ||
-     (fontname=="Pokemon Emerald Narrow" || fontname=="Power Green Narrow")
+     (fontname=="Pokemon Emerald Narrow" || fontname=="Power Green Narrow") ||
+     fontname=="Qortex Essentials" || fontname=="Qortex Essentials Narrow"
     bitmap.font.size=31
   elsif fontname=="Pokemon FireLeaf" || fontname=="Power Red and Green"
     bitmap.font.size=29
-  elsif fontname=="Pokemon Emerald Small" || fontname=="Power Green Small"
+  elsif fontname=="Pokemon Emerald Small" || fontname=="Power Green Small" || fontname=="Qortex Essentials Small"
     bitmap.font.size=25
   elsif fontname=="Didact Gothic" || fontname=="Didact Gothic 2"
     bitmap.font.size=31

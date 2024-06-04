@@ -67,8 +67,8 @@ module EncounterTypes
      "CaveMorningXLarge",
      "CaveNightXLarge",
      "LandXLarge",
-     "LandMorningXLarge",
-     "LandNightXLarge"
+     "LandNightXLarge",
+     "LandMorningXLarge"
   ]
   EnctypeChances=[
      [20,20,10,10,10,10,5,5,4,4,1,1],                                    # Land (12)
@@ -103,8 +103,8 @@ module EncounterTypes
      [8,8,8,8,8,5,5,5,5,4,4,4,4,4,4,2,2,2,2,1,1,1,1,1,1,1,1],            # CaveMorningXLarge (27)
      [8,8,8,8,8,5,5,5,5,4,4,4,4,4,4,2,2,2,2,1,1,1,1,1,1,1,1],            # CaveNightXLarge (27)
      [8,8,8,8,8,5,5,5,5,4,4,4,4,4,4,2,2,2,2,1,1,1,1,1,1,1,1],            # LandXLarge (27)
-     [8,8,8,8,8,5,5,5,5,4,4,4,4,4,4,2,2,2,2,1,1,1,1,1,1,1,1],            # LandMorningXLarge (27)
      [8,8,8,8,8,5,5,5,5,4,4,4,4,4,4,2,2,2,2,1,1,1,1,1,1,1,1],            # LandNightXLarge (27)
+     [8,8,8,8,8,5,5,5,5,4,4,4,4,4,4,2,2,2,2,1,1,1,1,1,1,1,1],            # LandMorningXLarge (27)
   ]
   EnctypeDensities=[25,10,10,0,0,0,0,0,0,25,25,25,25,10,10,25,8,8,10,11,10,10,25,25,25,10,10,10,10,10,10,25,25,25]
   EnctypeCompileDens=[1,2,3,0,0,0,0,0,0,1,1,1,1,2,3,1,0,0,2,2,2,2,1,1,1,2,2,2,2,2,2,1,1,1]

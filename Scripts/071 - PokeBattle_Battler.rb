@@ -1985,7 +1985,7 @@ def ragefist
       if self.hasWorkingAbility(:DARKTUNNEL) && @battle.field.effects[PBEffects::GlimmyGalaxy]<=0
         @battle.field.effects[PBEffects::GlimmyGalaxy]=3
         self.effects[PBEffects::DarkTunnel] = true
-        pbCommonAnimation("GlimmyGalaxy",nil,nil)
+        @battle.pbCommonAnimation("GlimmyGalaxy",nil,nil)
         @battle.pbDisplay(_INTL("A Galaxian Tunnel has been emergenced on the battlefield!"))
         PBDebug.log("[#{pbThis}: Dark Tunnel made Glimmy Galaxy]")
       end

@@ -6190,10 +6190,10 @@ class PokeBattle_Move_0CB < PokeBattle_Move
   end
 
   def pbAdditionalEffect(attacker,opponent)
-    if attacker.pbCanReduceStatStage?(PBStats::SPEED,attacker,false,self) && 
+    if opponent.pbCanReduceStatStage?(PBStats::SPEED,attacker,false,self) && 
        attacker.effects[PBEffects::TwoTurnAttack]==0 && 
        isConst?(@id,PBMoves,:WATERSPLASH)
-      attacker.pbReduceStat(PBStats::SPEED,1,attacker,false,self)
+      opponent.pbReduceStat(PBStats::SPEED,1,attacker,false,self)
     end
   end
 
@@ -14087,29 +14087,12 @@ class PokeBattle_Move_339 < PokeBattle_Move
     didsomething=false
     for i in [attacker,attacker.pbPartner]
       next if !i || i.isFainted?
-      stat = PBStats::ATTACK
-      if i.attack >= i.defense &&
-          i.attack >= i.spatk &&
-          i.attack >= i.spdef &&
-          i.attack >= i.speed
-        stat = PBStats::ATTACK
-      elsif i.defense >= i.spatk &&
-          i.defense >= i.spdef &&
-          i.defense >= i.speed
-        stat = PBStats::DEFENSE
-      elsif i.spatk >= i.spdef &&
-          i.spatk >= i.speed
-        stat = PBStats::SPATK
-      elsif i.spdef >= i.speed
-        stat = PBStats::SPDEF
-      else
-        stat = PBStats::SPEED
-      end
+      stat = i.profstat
       next if !i.pbCanIncreaseStatStage?(stat,attacker,false,self)
       pbShowAnimation(@id,attacker,nil,hitnum,alltargets,showanimation) if !didsomething
       didsomething=true
       if i.pbCanIncreaseStatStage?(stat,attacker,false,self)
-        i.pbIncreaseStat(stat,2,attacker,false,self,showanim)
+        i.pbIncreaseStat(stat,2,attacker,false,self,showanimation)
       end
     end
     if !didsomething

@@ -1499,8 +1499,7 @@ def pbSetSystemFont(bitmap)
   if (fontname=="Pokemon DP" || fontname=="Power Clear") ||
      (fontname=="Pokemon Emerald" || fontname=="Power Green") ||
      (fontname=="Pokemon RS" || fontname=="Power Red and Blue") ||
-     (fontname=="Pokemon Emerald Narrow" || fontname=="Power Green Narrow") ||
-     fontname=="Qortex Essentials" || fontname=="Qortex Essentials Narrow"
+     (fontname=="Pokemon Emerald Narrow" || fontname=="Power Green Narrow")
     bitmap.font.size=31
   elsif fontname=="Pokemon FireLeaf" || fontname=="Power Red and Green"
     bitmap.font.size=29
@@ -1552,7 +1551,11 @@ end
 # Sets a bitmap's font to the system narrow font.
 def pbSetNarrowFont(bitmap)
   bitmap.font.name=pbNarrowFontName()
-  bitmap.font.size=31
+  if pbNarrowFontName()=="Qortex Essentials Narrow"
+    bitmap.font.size=29
+  else
+    bitmap.font.size=31
+  end
 end
 
 

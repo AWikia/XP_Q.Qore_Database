@@ -2462,7 +2462,7 @@ def ragefist
       self.pbPartner.pbCureStatus(false)
       @battle.pbDisplay(_INTL("{1}'s {2} cured its partner's poison problem!",self.pbThis,PBAbilities.getName(self.ability)))
     end
-    if self.hasWorkingAbility(:HOSPITALITY)
+    if self.hasWorkingAbility(:HOSPITALITY)  && onactive
       if self.pbPartner.pbRecoverHP((self.pbPartner.totalhp/4).floor,true)>0
         PBDebug.log("[Ability triggered] #{pbThis}'s Hospitality")
         @battle.pbDisplay(_INTL("{1}'s {2} restored its partner's HP using the drink it made",self.pbThis,PBAbilities.getName(self.ability)))

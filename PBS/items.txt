@@ -837,8 +837,8 @@
 536,DOOMSTONE,Doom Stone,Doom Stones,1,6000,A peculiar stone that can make certain species of Pokémon evolve. It behaves like a plus symbol and gains it.,1,0,7,
 537,TM96,TM96,TM96s,4,3000,"The user thows a wrapped bounce, hitting the entire side with large tackles.",3,0,0,WRAPPEDTACKLE
 538,LAYERBALL,Layer Ball,Layer Balls,3,6000,A somewhat different Poké Ball that is more effective at catching Pokémon which are fusions between two to four Pokémon,0,2,3,
-539,TM97,TM97,TM97s,1,3000,A TM that foremerly taught Super Memento.,1,0,0,
-540,TM98,TM98,TM98s,1,3000,A TM that formerly taught Magic Storm,1,0,0,
+539,TM97,TM97,TM97s,4,3000,"The user electrifies its body and drops onto the target to inflict damage. If this move misses, the user takes damage instead.",3,0,0,SUPERCELLSLAM
+540,TM98,TM98,TM98s,4,3000,"The user attacks the target with unpleasant sound waves. For two turns, the target is prevented from recovering HP through moves, Abilities, or held items.",3,0,0,PSYCHICNOISE
 541,OPERALISER,OperaLiser,OperaLiserses,1,3000,An evolutionary stone to be used by Opera Pokemons to evolve to its beta stage,1,0,7,
 542,OPERALISERBETA,OperaLiser Beta,OperaLiserses Beta,1,3500,An evolutionary stone to be used by Opera Pokemons to evolve to its stable stage,1,0,7,
 543,TOUCHLISER,TouchLiser,TouchLiserses,1,5000,An evolutionary stone to be used by the stable Opera Pokemon to evolve to Opera Touch,1,0,7,

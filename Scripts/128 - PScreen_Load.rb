@@ -454,6 +454,9 @@ class PokemonLoad
         $game_map.update
         $PokemonMap.updateMap
         $scene = Scene_Map.new
+          # Map Regions
+          pbCheckPokedexes
+          # Map Regions End
         return
       elsif cmdNewGame>=0 && command==cmdNewGame
       if showContinue

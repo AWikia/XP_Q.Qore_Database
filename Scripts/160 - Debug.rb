@@ -283,12 +283,16 @@ def pbDebugMenu(fromgame=true)
   commands.add("roamerstatus",_INTL("Roaming Pokémon Status")) if fromgame
   commands.add("roam",_INTL("Advance Roaming")) if fromgame
   commands.add("games",_INTL("Mini Games")) if fromgame # Κορα Κορε addition
+  commands.add("edititems",_INTL("Edit Items")) # Taken from Editor 
+  commands.add("editpokemon",_INTL("Edit Pokémon")) # Taken from Editor 
   commands.add("spriteposition",_INTL("Reposition Sprites"))  if fromgame # Taken from Editor 
-  commands.add("spriteposition2",_INTL("Reposition All Sprites")) # Taken from Editor 
+  commands.add("spriteposition2",_INTL("Auto-Position All Sprites")) # Taken from Editor 
+  commands.add("editdexes",_INTL("Edit Regional Dexes")) # Taken from Editor 
   commands.add("setencounters",_INTL("Set Encounters")) 
   commands.add("setmetadata",_INTL("Set Metadata")) 
   commands.add("terraintags",_INTL("Set Terrain Tags"))
   commands.add("trainertypes",_INTL("Edit Trainer Types"))
+  commands.add("edittrainers",_INTL("Edit Trainers")) # Taken from Editor
   commands.add("resettrainers",_INTL("Reset Trainers")) if fromgame
   commands.add("testwildbattle",_INTL("Test Wild Battle")) if fromgame
   commands.add("testdoublewildbattle",_INTL("Test Double Wild Battle")) if fromgame
@@ -773,6 +777,10 @@ def pbDebugMenu(fromgame=true)
           pbMiningGame
         end
       end
+    elsif cmd=="edititems"
+      pbFadeOutIn(99999) { pbItemEditor }
+    elsif cmd=="editpokemon"
+      pbFadeOutIn(99999) { pbPokemonEditor }
     elsif cmd=="spriteposition"
       pbFadeOutIn(99999) {
          sp=SpritePositioner.new
@@ -780,12 +788,16 @@ def pbDebugMenu(fromgame=true)
          sps.pbStart
       }
     elsif cmd=="spriteposition2"
-      msgwindow=Kernel.pbCreateMessageWindow
-      msg=_INTL("Positioning Pokémon, please wait...")
-      Kernel.pbMessageDisplay(msgwindow,msg,false)
-      pbAutoPositionAll()
-      Kernel.pbMessage(_INTL("Pokémon have positioned."))
-      Kernel.pbDisposeMessageWindow(msgwindow)
+      if Kernel.pbConfirmMessage(_INTL("Are you sure you want to reposition all sprites?"))
+        msgwindow=Kernel.pbCreateMessageWindow
+        Kernel.pbMessageDisplay(msgwindow,_INTL("Repositioning all sprites. Please wait."),false)
+        Graphics.update
+        pbAutoPositionAll()
+        Kernel.pbMessage(_INTL("Pokémon have positioned."))
+        Kernel.pbDisposeMessageWindow(msgwindow)
+      end
+    elsif cmd=="editdexes"
+      pbFadeOutIn(99999) { pbRegionalNumbersEditor }
     elsif cmd=="setencounters"
       encdata=load_data("Data/encounters.dat")
       oldencdata=Marshal.dump(encdata)
@@ -807,6 +819,8 @@ def pbDebugMenu(fromgame=true)
       pbFadeOutIn(99999) { pbTilesetScreen }
     elsif cmd=="trainertypes"
       pbFadeOutIn(99999) { pbTrainerTypeEditor }
+    elsif cmd=="edittrainers"
+      pbFadeOutIn(99999) { pbTrainerBattleEditor }
     elsif cmd=="resettrainers"
       if $game_map
         for event in $game_map.events.values

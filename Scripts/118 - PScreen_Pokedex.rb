@@ -27,12 +27,12 @@ end
 
 
 
-class Scene_PokedexMenu
-  def initialize(menu_index = 0)
+class Scene_PokedexMenuScene
+  def pbStartScene(menu_index = 0)
     @menu_index = menu_index
   end
 
-  def main
+  def pbPokedexMenuScreen
     commands=[]; seen=[]; owned=[]
     dexnames=pbDexNames
     for i in 0...$PokemonGlobal.pokedexViable.length
@@ -41,9 +41,9 @@ class Scene_PokedexMenu
         commands.push(_INTL("Pokédex"))
       else
         if dexnames[index].is_a?(Array)
-          commands.push(dexnames[index][0])
+          commands.push(dexnames[index][0] + " " + _INTL("Pokédex"))
         else
-          commands.push(dexnames[index])
+          commands.push(dexnames[index] + " " + _INTL("Pokédex"))
         end
       end
       index=-1 if index>=$PokemonGlobal.pokedexUnlocked.length-1
@@ -52,31 +52,50 @@ class Scene_PokedexMenu
     end
     commands.push(_INTL("Exit"))
     @sprites={}
-    @sprites["background"] = IconSprite.new(0,0)
-    @sprites["background"].setBitmap("Graphics/UI/Pokedex/bg_menu")
+    @viewport=Viewport.new(0,0,Graphics.width,Graphics.height)
+    @viewport.z=99999
+    addBackgroundPlane(@sprites,"background",getDarkModeFolder+"/Pokedex/bg_menu",@viewport)
+    @sprites["header"]=Window_UnformattedTextPokemon.newWithSize(_INTL("Pokédex"),
+       2,-18,384,64,@viewport)
+    @sprites["header"].baseColor=(isDarkMode?) ? Color.new(242,242,242) : Color.new(12,12,12)
+    @sprites["header"].shadowColor=nil #Color.new(12,12,12)
+    @sprites["header"].windowskin=nil
     @sprites["commands"] = Window_DexesList.new(commands,Graphics.width,seen,owned)
     @sprites["commands"].index = @menu_index
-    @sprites["commands"].x = 42
-    @sprites["commands"].y = 160
-    @sprites["commands"].width = Graphics.width-84
-    @sprites["commands"].height = 224
+    @sprites["commands"].x = 106
+    @sprites["commands"].y = 72
+    @sprites["commands"].z = 99999
+    @sprites["commands"].width = Graphics.width-188 # 84
+    @sprites["commands"].height = 320
     @sprites["commands"].windowskin=nil
-    @sprites["commands"].baseColor=Color.new(242,242,242)
-    @sprites["commands"].shadowColor=Color.new(12,12,12)
+    if (!isDarkMode?)
+      @sprites["commands"].baseColor=Color.new(20,20,20)
+      @sprites["commands"].shadowColor=Color.new(239,173,173)
+    else
+      @sprites["commands"].baseColor=Color.new(242,242,242)
+      @sprites["commands"].shadowColor=Color.new(195,49,49)
+    end    
     @sprites["headings"]=Window_AdvancedTextPokemon.newWithSize(
-       _INTL("<c3=F8F8F8,C02028>SEEN<r>OBTAINED</c3>"),286,104,208,64,@viewport)
+       _INTL("SEEN<r>OBTAINED"),350,16,208,64,@viewport)
+    if (!isDarkMode?)
+      @sprites["headings"].baseColor=Color.new(20,20,20)
+      @sprites["headings"].shadowColor=Color.new(228,122,122)
+    else
+      @sprites["headings"].baseColor=Color.new(242,242,242)
+      @sprites["headings"].shadowColor=Color.new(151,39,39)
+    end
     @sprites["headings"].windowskin=nil
-    Graphics.transition
+    pbFadeInAndShow(@sprites)
     loop do
       Graphics.update
       Input.update
       update
-      if $scene != self
+      if Input.trigger?(Input::B) || 
+        (Input.trigger?(Input::C) && @sprites["commands"].index == @sprites["commands"].itemCount-1)
+        pbPlayCancelSE() if Input.trigger?(Input::B)
         break
       end
     end
-    Graphics.freeze
-    pbDisposeSpriteHash(@sprites)
   end
 
   def update
@@ -89,31 +108,45 @@ class Scene_PokedexMenu
 
   def update_command
     if Input.trigger?(Input::B)
-      pbPlayCancelSE()
-      $scene = Scene_Map.new
       return
     end
     if Input.trigger?(Input::C)
       case @sprites["commands"].index
       when @sprites["commands"].itemCount-1
         pbPlayDecisionSE()
-        $scene = Scene_Map.new
+        return
       else
         pbPlayDecisionSE()
         $PokemonGlobal.pokedexDex=$PokemonGlobal.pokedexViable[@sprites["commands"].index]
         $PokemonGlobal.pokedexDex=-1 if $PokemonGlobal.pokedexDex==$PokemonGlobal.pokedexUnlocked.length-1
-        pbFadeOutIn(99999) {
+        oldsprites=pbFadeOutAndHide(@sprites)#
            scene=PokemonPokedexScene.new
            screen=PokemonPokedex.new(scene)
            screen.pbStartScreen
-        }
+        pbFadeInAndShow(@sprites,oldsprites)#
       end
       return
     end
   end
+  
+  def pbEndScene
+    pbFadeOutAndHide(@sprites)
+    pbDisposeSpriteHash(@sprites)
+    @viewport.dispose
+  end
 end
 
+class Scene_PokedexMenu
+  def initialize(scene)
+    @scene=scene
+  end
 
+  def pbStartScreen
+    @scene.pbStartScene
+    @scene.pbPokedexMenuScreen
+    @scene.pbEndScene
+  end
+end
 
 #===============================================================================
 # Pokédex main screen
@@ -195,11 +228,19 @@ class Window_Pokedex < Window_DrawableCommand
     return if index >= self.top_row + self.page_item_max
     rect=drawCursor(index,rect)
     indexNumber=@commands[index][4]
+    indexNumber-=1 if DEXINDEXOFFSETS.include?(pbGetPokedexRegion)
     species=@commands[index][0]
 #    @icon=PokemonSpeciesIconSprite.new(species)
 #    @icon.zoom_x=0.5
 #    @icon.zoom_y=0.5
-    fdexno = getDexNumber(indexNumber)
+    if pbGetPokedexRegion == -1
+      fdexno = getDexNumber(indexNumber)
+    else
+      fdexno = indexNumber.to_s
+      while (fdexno.length < 4)
+        fdexno = "0" + fdexno
+      end
+    end
     rectange=Rect.new(0,0,64,64)
     
     if $Trainer.seen[species]
@@ -588,8 +629,9 @@ class PokemonPokedexScene
         height=dexdata.fgetw
         weight=dexdata.fgetw
         # Pushing national species, name, height, weight, index number
+        shift=DEXINDEXOFFSETS.include?(region)
         dexlist.push([nationalSpecies,
-           PBSpecies.getName(nationalSpecies),height,weight,i,fdexno])
+           PBSpecies.getName(nationalSpecies),height,weight,i,fdexno,shift])
       end
     end
     dexdata.close
@@ -633,21 +675,21 @@ class PokemonPokedexScene
     when 5 # Smallest mode
       dexlist.sort!{|a,b| a[2]==b[2] ? a[4]<=>b[4] : a[2]<=>b[2]}
     end
-    dexname=_INTL("Pokédex")
+    @dexname=_INTL("Pokédex")
     if $PokemonGlobal.pokedexUnlocked.length>1
       thisdex=pbDexNames[pbGetSavePositionIndex]
       if thisdex!=nil
         if thisdex.is_a?(Array)
-          dexname=thisdex[0]
+          @dexname=thisdex[0]
         else
-          dexname=thisdex
+          @dexname=thisdex
         end
       end
     end
     if !@searchResults
       @sprites["seen"].text=_ISPRINTF("Seen:<r>{1:d}",$Trainer.pokedexSeen(pbGetPokedexRegion))
       @sprites["owned"].text=_ISPRINTF("Owned:<r>{1:d}",$Trainer.pokedexOwned(pbGetPokedexRegion))
-    #  @sprites["dexname"].text=_ISPRINTF("{1:s}",dexname)
+    #  @sprites["dexname"].text=_ISPRINTF("{1:s}",@dexname)
     else
       seenno=0
       ownedno=0
@@ -657,7 +699,7 @@ class PokemonPokedexScene
       end
       @sprites["seen"].text=_ISPRINTF("Seen:<r>{1:d}",seenno)
       @sprites["owned"].text=_ISPRINTF("Owned:<r>{1:d}",ownedno)
-   #   @sprites["dexname"].text=_ISPRINTF("{1:s} - Search results",dexname)
+   #   @sprites["dexname"].text=_ISPRINTF("{1:s} - Search results",@dexname)
     end
     @dexlist=dexlist
     @sprites["pokedex"].commands=@dexlist
@@ -673,9 +715,9 @@ class PokemonPokedexScene
     iconspecies=0 if !$Trainer.seen[iconspecies]
     setIconBitmap(iconspecies)
     if iconspecies>0
-      @sprites["header"].text=_INTL("Pokédex - {1}",PBSpecies.getName(iconspecies))
+      @sprites["header"].text=_INTL("{1} - {2}",@dexname,PBSpecies.getName(iconspecies))
     else
-      @sprites["header"].text=_INTL("Pokédex")
+      @sprites["header"].text=_INTL("{1}",@dexname)
     end
   end
 
@@ -862,7 +904,14 @@ class PokemonPokedexScene
 #    @compat=false
     # QQC Change Start (Number Q.Qore Pkmn with Q prefix and force Gen VI PKMN to
     # start from 650 instead of 850 or else FLINT won't load Gen VI Pkmn
-    fdexno = getDexNumber(indexNumber)
+    if pbGetPokedexRegion == -1
+      fdexno = getDexNumber(indexNumber)
+    else
+      fdexno = indexNumber.to_s
+      while (fdexno.length < 4)
+        fdexno = "0" + fdexno
+      end
+    end
 
     # QQC Change End
     textpos=[
@@ -1051,9 +1100,9 @@ class PokemonPokedexScene
     iconspecies=0 if !$Trainer.seen[iconspecies]
     setIconBitmap(iconspecies)
     if iconspecies>0
-      @sprites["header"].text=_INTL("Pokédex - {1}",PBSpecies.getName(iconspecies))
+      @sprites["header"].text=_INTL("{1} - {2}",@dexname,PBSpecies.getName(iconspecies))
     else
-      @sprites["header"].text=_INTL("Pokédex")
+      @sprites["header"].text=_INTL("{1}",@dexname)
     end
     # Update the slider
     ycoord=62
@@ -1188,9 +1237,9 @@ class PokemonPokedexScene
                iconspecies=0 if !$Trainer.seen[iconspecies]
                setIconBitmap(iconspecies)
                if iconspecies>0
-                 @sprites["header"].text=_INTL("Pokédex - {1}",PBSpecies.getName(iconspecies))
+                 @sprites["header"].text=_INTL("{1} - {1}",@dexname,PBSpecies.getName(iconspecies))
                else
-                 @sprites["header"].text=_INTL("Pokédex")
+                 @sprites["header"].text=_INTL("{1}",@dexname)
                end
                seenno=0
                ownedno=0
@@ -1200,18 +1249,18 @@ class PokemonPokedexScene
                end
                @sprites["seen"].text=_ISPRINTF("Seen:<r>{1:d}",seenno)
                @sprites["owned"].text=_ISPRINTF("Owned:<r>{1:d}",ownedno)
-               dexname=_INTL("National Pokédex")
+               @dexname=_INTL("Pokédex")
                if $PokemonGlobal.pokedexUnlocked.length>1
                  thisdex=pbDexNames[pbGetSavePositionIndex]
                  if thisdex!=nil
                    if thisdex.is_a?(Array)
-                     dexname=thisdex[0]
+                     @dexname=thisdex[0]
                    else
-                     dexname=thisdex
+                     @dexname=thisdex
                    end
                  end
                end
-#               @sprites["dexname"].text=_ISPRINTF("<ac>{1:s} - Search results</ac>",dexname)
+#               @sprites["dexname"].text=_ISPRINTF("<ac>{1:s} - Search results</ac>",@dexname)
                # Update the slider
                ycoord=62
                if @sprites["pokedex"].itemCount>1
@@ -1265,9 +1314,9 @@ class PokemonPokedexScene
            iconspecies=0 if !$Trainer.seen[iconspecies]
            setIconBitmap(iconspecies)
            if iconspecies>0
-             @sprites["header"].text=_INTL("Pokédex - {1}",PBSpecies.getName(iconspecies))
+             @sprites["header"].text=_INTL("{1} - {2}",@dexname,PBSpecies.getName(iconspecies))
            else
-             @sprites["header"].text=_INTL("Pokédex")
+             @sprites["header"].text=_INTL("{1}",@dexname)
            end
            # Update the slider
            ycoord=62

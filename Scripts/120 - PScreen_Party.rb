@@ -677,14 +677,14 @@ class PokemonScreen_Scene
     @viewport.z=99999
     @multiselect=multiselect
     title=['bg','bg_beta','bg_dev','bg_canary','bg_internal','bg_upgradewizard'][QQORECHANNEL]
-    if pbResolveBitmap(_INTL("Graphics/UI/"+getDarkModeFolder+"/Load/{1}",title))
-      addBackgroundOrColoredPlane(@sprites,"partybg",getDarkModeFolder+"/Load/"+title,
+    if pbResolveBitmap(_INTL("Graphics/UI/"+getDarkModeFolder+"/Party/{1}",title))
+      addBackgroundOrColoredPlane(@sprites,"partybg",getDarkModeFolder+"/Party/"+title,
          Color.new(12,12,12),@viewport)
-    elsif pbResolveBitmap(sprintf("Graphics/UI/"+getDarkModeFolder+"/Load/bg"))
-      addBackgroundOrColoredPlane(@sprites,"partybg",getDarkModeFolder+"/Load/bg",
+    elsif pbResolveBitmap(sprintf("Graphics/UI/"+getDarkModeFolder+"/Party/bg"))
+      addBackgroundOrColoredPlane(@sprites,"partybg",getDarkModeFolder+"/Party/bg",
          Color.new(12,12,12),@viewport)
     else  # Hotfixing Prograda
-      addBackgroundOrColoredPlane(@sprites,"partybg",getDarkModeFolder+"/Load/bg_empty",
+      addBackgroundOrColoredPlane(@sprites,"partybg",getDarkModeFolder+"/Party/bg_empty",
          Color.new(12,12,12),@viewport)
     end
       addBackgroundOrColoredPlane(@sprites,"partybg_title",getDarkModeFolder+"/party_bg",

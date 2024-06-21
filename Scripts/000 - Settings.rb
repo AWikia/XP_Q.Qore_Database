@@ -43,7 +43,7 @@ QQORECHANNEL         = 4 if (RTP2.getGameIniValue("Qortex", "Channel") == "Inter
 QQORECHANNEL         = 5 if (RTP2.getGameIniValue("Qortex", "Channel") == "Upgrade Wizard" ||
                              RTP2.getGameIniValue("Qortex", "Channel") == "Release Preview")
 QQORECHANNELVARIANT  = 0
-QQORECHANNEL         = 1 if (RTP2.getGameIniValue("Qortex", "Channel") == "Internal" ||
+QQORECHANNELVARIANT  = 1 if (RTP2.getGameIniValue("Qortex", "Channel") == "Internal" ||
                              RTP2.getGameIniValue("Qortex", "Channel") == "Upgrade Wizard" ||
                              RTP2.getGameIniValue("Qortex", "Channel") == "RTM")
 
@@ -216,19 +216,30 @@ STORAGEBOXES = 999
 #===============================================================================
 DEXDEPENDSONLOCATION = false
 def pbDexNames; return [
-   [_INTL("Kanto Pokédex"),0],
-   [_INTL("Johto Pokédex"),1],
-   #[_INTL("Quora Pokédex"),2],
-   #[_INTL("Swuora Pokédex"),3],
-   #[_INTL("Semuora Pokédex"),4],
-   #[_INTL("Kenuora Pokédex"),5],
-   #[_INTL("Xenuora Pokédex"),6],
-   #[_INTL("Annuora Pokédex"),7],
-   #[_INTL("Keniora Pokédex"),8],
-   _INTL("Pokédex")
+   [_INTL("Kanto"),0],
+   [_INTL("Johto"),1],
+   [_INTL("Quora"),2],
+   [_INTL("Swuora"),3],
+   [_INTL("Semuora"),4],
+   [_INTL("Kenuora"),5],
+   [_INTL("Xenuora"),6],
+   [_INTL("Annuora"),7],
+   [_INTL("Keniora"),8],
+   [_INTL("Xeniora"),9],
+   [_INTL("Johto"),10],
+   [_INTL("Hoenn"),11],
+   [_INTL("Maxuora"),12],
+   [_INTL("Cindyora"),13],
+   [_INTL("Sanuora"),14],
+   [_INTL("Saniora"),15],
+   [_INTL("Maxiora"),16],
+   [_INTL("Daxuora"),17],
+   [_INTL("Sannioura"),18],
+   [_INTL("Saxora"),19],
+   _INTL("National") # Pokédex
 ]; end
 ALWAYSSHOWALLFORMS = false
-DEXINDEXOFFSETS    = []
+DEXINDEXOFFSETS    = [2,10]
 
 #===============================================================================
 # * The amount of money the player starts the game with.

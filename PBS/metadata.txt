@@ -1915,7 +1915,7 @@ DarkMap=true
 ShowArea=true
 [338]
 # Volcano Minigame
-MapSize=2,1111
+MapSize=1,1111
 SnapEdges=true
 BattleBack=IndoorF
 MapPosition=18,7,12
@@ -2151,7 +2151,7 @@ Environment=Alola
 ShowArea=true
 [370]
 # Lovecorn Minigame
-MapSize=2,11
+MapSize=1,11
 SnapEdges=true
 BattleBack=Cave
 MapPosition=18,10,10
@@ -2301,7 +2301,7 @@ MapPosition=3,21,5
 ShowArea=true
 [394]
 # Birthday Mystery Minigame
-MapSize=2,111
+MapSize=1,111
 SnapEdges=true
 BattleBack=Cave
 MapPosition=18,15,4
@@ -2487,7 +2487,7 @@ DarkMap=true
 ShowArea=true
 [423]
 # Cindy Mesh Minigame
-MapSize=2,11
+MapSize=1,11
 BattleBack=IndoorF
 MapPosition=18,19,9
 Outdoor=true
@@ -3298,3 +3298,9 @@ MapPosition=10,17,3
 Outdoor=true
 WildBattleBGM=Battle - Wild Pokemon (Johto)
 ShowArea=true
+[555]
+# Artificial Carven
+TrainerBattleBGM=Battle - Trainer (Johto)
+MapPosition=10,17,6
+WildBattleBGM=Battle - Wild Pokemon (Johto)
+Environment=Boardwalk

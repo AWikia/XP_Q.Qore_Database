@@ -2464,15 +2464,15 @@ class PokemonStorageScene
       shadow=MessageConfig::DARKTEXTSHADOW
  #     nonbase=Color.new(208,200,184)
  #     nonshadow=Color.new(224,216,200)
-      nonbase=Color.new(88,88,80,128)
-      nonshadow=Color.new(168,184,184,128)
+      nonbase=MessageConfig::DARKTEXTBASETRANS
+      nonshadow=MessageConfig::DARKTEXTSHADOWTRANS
     else
       base=MessageConfig::LIGHTTEXTBASE
       shadow=MessageConfig::LIGHTTEXTSHADOW
  #     nonbase=Color.new(208,200,184)
  #     nonshadow=Color.new(224,216,200)
-      nonbase=Color.new(248,248,240,128)
-      nonshadow=Color.new(72,88,88,128)
+      nonbase=MessageConfig::LIGHTTEXTBASETRANS
+      nonshadow=MessageConfig::LIGHTTEXTSHADOWTRANS
     end
 
     pokename=pokemon.name

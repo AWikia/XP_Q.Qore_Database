@@ -2259,7 +2259,8 @@ def pbNewEncounterType(enc)
                           enc[1][EncounterTypes::CaveMorningXLarge] ||
                           enc[1][EncounterTypes::CaveNightXLarge] ||
                           enc[1][EncounterTypes::CaveRare] ||
-                          enc[1][EncounterTypes::CaveInter]
+                          enc[1][EncounterTypes::CaveInter] ||
+                          enc[1][EncounterTypes::CaveMorning]
 
       elsif i==1
         dogen=true unless enc[1][EncounterTypes::Land] || 

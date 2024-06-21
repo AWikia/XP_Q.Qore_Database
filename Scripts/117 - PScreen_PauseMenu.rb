@@ -198,7 +198,12 @@ class PokemonMenu
                @scene.pbRefresh
             }
           else
-            pbLoadRpgxpScene(Scene_PokedexMenu.new)
+            scene=Scene_PokedexMenuScene.new
+            screen=Scene_PokedexMenu.new(scene)
+            pbFadeOutIn(99999) {
+               screen.pbStartScreen
+               @scene.pbRefresh
+            }
           end
         end
       elsif cmdPokegear>=0 && command==cmdPokegear

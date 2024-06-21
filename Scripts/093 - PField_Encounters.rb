@@ -33,6 +33,7 @@ module EncounterTypes
   LandXLarge        = 31
   LandNightXLarge   = 32
   LandMorningXLarge = 33
+  CaveMorning       = 34
   
   Names=[
      "Land",
@@ -68,7 +69,8 @@ module EncounterTypes
      "CaveNightXLarge",
      "LandXLarge",
      "LandNightXLarge",
-     "LandMorningXLarge"
+     "LandMorningXLarge",
+     "CaveMorning"
   ]
   EnctypeChances=[
      [20,20,10,10,10,10,5,5,4,4,1,1],                                    # Land (12)
@@ -105,9 +107,10 @@ module EncounterTypes
      [8,8,8,8,8,5,5,5,5,4,4,4,4,4,4,2,2,2,2,1,1,1,1,1,1,1,1],            # LandXLarge (27)
      [8,8,8,8,8,5,5,5,5,4,4,4,4,4,4,2,2,2,2,1,1,1,1,1,1,1,1],            # LandNightXLarge (27)
      [8,8,8,8,8,5,5,5,5,4,4,4,4,4,4,2,2,2,2,1,1,1,1,1,1,1,1],            # LandMorningXLarge (27)
+     [20,20,10,10,10,10,5,5,4,4,1,1],                                    # CaveMorning (12)
   ]
-  EnctypeDensities=[25,10,10,0,0,0,0,0,0,25,25,25,25,10,10,25,8,8,10,11,10,10,25,25,25,10,10,10,10,10,10,25,25,25]
-  EnctypeCompileDens=[1,2,3,0,0,0,0,0,0,1,1,1,1,2,3,1,0,0,2,2,2,2,1,1,1,2,2,2,2,2,2,1,1,1]
+  EnctypeDensities=[25,10,10,0,0,0,0,0,0,25,25,25,25,10,10,25,8,8,10,11,10,10,25,25,25,10,10,10,10,10,10,25,25,25,10]
+  EnctypeCompileDens=[1,2,3,0,0,0,0,0,0,1,1,1,1,2,3,1,0,0,2,2,2,2,1,1,1,2,2,2,2,2,2,1,1,1,2]
 end
 
 
@@ -146,7 +149,8 @@ class PokemonEncounters
             @enctypes[EncounterTypes::CaveXLarge] ||
             @enctypes[EncounterTypes::CaveMorningXLarge] ||
             @enctypes[EncounterTypes::CaveNightXLarge] ||
-            @enctypes[EncounterTypes::CaveInter]) ? true : false
+            @enctypes[EncounterTypes::CaveInter] ||
+            @enctypes[EncounterTypes::CaveMorning]) ? true : false
   end
 
   def isGrass?
@@ -196,6 +200,7 @@ class PokemonEncounters
       time=pbGetTimeNow
       enctype=EncounterTypes::Cave
       enctype=EncounterTypes::CaveNight if self.hasEncounter?(EncounterTypes::CaveNight) && PBDayNight.isNight?(time)
+      enctype=EncounterTypes::CaveMorning if self.hasEncounter?(EncounterTypes::CaveMorning) && PBDayNight.isMorning?(time)
       enctype=EncounterTypes::ScubaDuba if self.hasEncounter?(EncounterTypes::ScubaDuba) && dubamaps.include?($game_map.map_id)
       enctype=EncounterTypes::ScubaDubaRare if self.hasEncounter?(EncounterTypes::ScubaDubaRare) && (rand(15) < 2) && dubamaps.include?($game_map.map_id)
       enctype=EncounterTypes::CaveLarge if self.hasEncounter?(EncounterTypes::CaveLarge)

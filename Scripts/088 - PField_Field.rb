@@ -1404,6 +1404,7 @@ Events.onStepTaken+=proc{
      newlevel=PBExperience::MAXLEVEL if newlevel>PBExperience::MAXLEVEL
      species=:BOOMERIN
      species=:BOOMERAN if newlevel>50 && rand(20)<10
+     species=:BOOMERON if newlevel>90 && rand(10)<5
      pbWildBattle(species,newlevel,1)
   end
   # Past End
@@ -1790,6 +1791,9 @@ Events.onMapSceneChange+=proc{|sender,e|
       pbSave
     end
     # Autosave
+    # Unlock region's dex
+    pbUnlockDex(pbGetCurrentRegion) if pbGetCurrentRegion > 1
+    # Unlock region's dex
     if pbGetMetadata($game_map.map_id,MetadataShowArea)
       nosignpost=false
       if $PokemonGlobal.mapTrail[1]

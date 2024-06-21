@@ -10,10 +10,20 @@
   FontNameBold         = "Power"
   TextSpeed            = nil # can be positive to wait frames or negative to
                         # show multiple characters in a single frame
-  LIGHTTEXTBASE       = Color.new(242,242,242) # Was 248,248,240
-  LIGHTTEXTSHADOW     = Color.new(72,72,72)    # Was 72,88,88
-  DARKTEXTBASE        = Color.new(12,12,12)    # Was 88,88,80    
-  DARKTEXTSHADOW      = Color.new(144,144,144) # Was 168,184,184 
+  LIGHTTEXTBASE        = Color.new(242,242,242) # Was 248,248,240
+  LIGHTTEXTSHADOW      = Color.new(72,72,72)    # Was 72,88,88
+  DARKTEXTBASE         = Color.new(12,12,12)    # Was 88,88,80    
+  DARKTEXTSHADOW       = Color.new(144,144,144) # Was 168,184,184 
+
+  LIGHTTEXTBASETRANS   = LIGHTTEXTBASE.clone
+  LIGHTTEXTBASETRANS.alpha=128
+  LIGHTTEXTSHADOWTRANS = LIGHTTEXTSHADOW.clone
+  LIGHTTEXTSHADOWTRANS.alpha=128
+  DARKTEXTBASETRANS    = DARKTEXTBASE.clone
+  DARKTEXTBASETRANS.alpha=128
+  DARKTEXTSHADOWTRANS  = DARKTEXTSHADOW.clone
+  DARKTEXTSHADOWTRANS.alpha=128
+  
   # 0 = Pause cursor is displayed at end of text
   # 1 = Pause cursor is displayed at bottom right
   # 2 = Pause cursor is displayed at lower middle side

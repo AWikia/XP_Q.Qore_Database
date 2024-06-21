@@ -358,6 +358,38 @@ def getAccentName
   end
 end
 
+# Makes Pokedexes adapt to the current settings
+def pbCheckPokedexes
+  numRegions = 0
+  pbRgssOpen("Data/regionals.dat","rb"){|f| numRegions = f.fgetw }
+  if numRegions+1 > $PokemonGlobal.pokedexUnlocked.length
+    # Lock Dex that was previously National
+    pbLockDex($PokemonGlobal.pokedexUnlocked.length-1)
+    oldindex=$PokemonGlobal.pokedexIndex[$PokemonGlobal.pokedexUnlocked.length-1].to_i
+    $PokemonGlobal.pokedexIndex[$PokemonGlobal.pokedexUnlocked.length-1]    = 0
+    # Update Dexes (Inserts new entries)
+    for i in 0...numRegions+1     # National Dex isn't a region, but is included
+      next if $PokemonGlobal.pokedexIndex[i]
+      $PokemonGlobal.pokedexIndex[i]    = 0
+      $PokemonGlobal.pokedexUnlocked[i] = false
+    end
+    # Unlock National Dex
+    pbUnlockDex(-1)
+    $PokemonGlobal.pokedexIndex[$PokemonGlobal.pokedexUnlocked.length-1] = oldindex
+  elsif numRegions+1 < $PokemonGlobal.pokedexUnlocked.length
+    # Lock Dex that was previously National
+    pbLockDex($PokemonGlobal.pokedexUnlocked.length-1)
+    oldindex=$PokemonGlobal.pokedexIndex[$PokemonGlobal.pokedexUnlocked.length-1]
+    $PokemonGlobal.pokedexIndex[$PokemonGlobal.pokedexUnlocked.length-1]    = 0
+    # Update Dexes
+    $PokemonGlobal.pokedexIndex[numRegions..$PokemonGlobal.pokedexIndex.length-1] = nil
+    $PokemonGlobal.pokedexUnlocked[numRegions+1..$PokemonGlobal.pokedexUnlocked.length-1] = nil
+    # Unlock National Dex
+    pbUnlockDex(-1)
+    $PokemonGlobal.pokedexIndex[$PokemonGlobal.pokedexUnlocked.length-1] = oldindex
+  end
+end
+
 ################################################################################
 # Linear congruential random number generator
 ################################################################################

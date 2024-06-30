@@ -366,7 +366,6 @@ class PokeBattle_Move
 
   
   def tramplesMinimize?(param=1) # Causes perfect accuracy and double damage
-    return false if !$USENEWBATTLEMECHANICS
     return isConst?(@id,PBMoves,:BODYSLAM) ||
            isConst?(@id,PBMoves,:FLYINGPRESS) ||
            isConst?(@id,PBMoves,:PHANTOMFORCE) ||
@@ -381,10 +380,8 @@ class PokeBattle_Move
   end
 
   def ignoresSubstitute?(attacker)
-    if $USENEWBATTLEMECHANICS
-      return true if isSoundBased?
-      return true if attacker && attacker.hasWorkingAbility(:INFILTRATOR)
-    end
+    return true if isSoundBased?
+    return true if attacker && attacker.hasWorkingAbility(:INFILTRATOR)
     return false
   end
 
@@ -543,7 +540,7 @@ class PokeBattle_Move
   def pbTypeModifier(type,attacker,opponent)
     return 8 if type<0
     return 8 if isConst?(type,PBTypes,:GROUND) && opponent.pbHasType?(:FLYING) &&
-                opponent.hasWorkingItem(:IRONBALL) && !$USENEWBATTLEMECHANICS
+                opponent.hasWorkingItem(:IRONBALL)
     atype=type # attack type
     otype1=opponent.type1
     otype2=opponent.type2
@@ -673,14 +670,14 @@ class PokeBattle_Move
     evastage=opponent.stages[PBStats::EVASION]
     evastage-=2 if @battle.field.effects[PBEffects::Gravity]>0
     evastage=-6 if evastage<-6
-    evastage=0 if evastage>0 && $USENEWBATTLEMECHANICS &&
-                  (attacker.hasWorkingAbility(:KEENEYE) ||
-                   attacker.hasWorkingAbility(:MINDSEYE))
+    evastage=0 if evastage>0 && (attacker.hasWorkingAbility(:KEENEYE) ||
+                                 attacker.hasWorkingAbility(:MINDSEYE))
     evastage=0 if opponent.effects[PBEffects::Foresight] ||
                   opponent.effects[PBEffects::MiracleEye] ||
                   @function==0xA9 || # Chip Away
                   attacker.hasWorkingAbility(:UNAWARE)
     evasion=(evastage>=0) ? (evastage+3)*100.0/3 : 300.0/(3-evastage)
+
     if attacker.hasWorkingAbility(:COMPOUNDEYES)
       accuracy*=1.3
     end
@@ -780,7 +777,7 @@ class PokeBattle_Move
     return true if attacker.hasWorkingAbility(:MERCILESS) && opponent.status==PBStatuses::POISON # changed
     return true if attacker.effects[PBEffects::LaserFocus]>0 # changed
     c=0
-    ratios=($USENEWBATTLEMECHANICS) ? [16,8,2,1,1] : [16,8,4,3,2]
+    ratios=[16,8,2,1,1]
     c+=attacker.effects[PBEffects::FocusEnergy]
     c+=1 if hasHighCriticalRate?
     if (attacker.inHyperMode? rescue false) && isConst?(self.type,PBTypes,:SHADOW)
@@ -1026,7 +1023,7 @@ class PokeBattle_Move
          (attacker.hasWorkingItem(:BLIZZARDGEM) && isConst?(type,PBTypes,:BLIZZARD)) ||
          (attacker.hasWorkingItem(:GASGEM) && isConst?(type,PBTypes,:GAS)) ||
          (attacker.hasWorkingItem(:GLIMSEGEM) && isConst?(type,PBTypes,:GLIMSE))
-         damagemult=($USENEWBATTLEMECHANICS) ? (damagemult*1.3).round : (damagemult*1.5).round
+         damagemult=(damagemult*1.3).round
         @battle.pbCommonAnimation("UseItem",attacker,nil)
         @battle.pbDisplayBrief(_INTL("The {1} strengthened {2}'s power!",
            PBItems.getName(attacker.item),@name))
@@ -1210,8 +1207,7 @@ class PokeBattle_Move
     if attacker.hasWorkingItem(:SOULDEW) &&
        (isConst?(attacker.species,PBSpecies,:LATIAS) ||
         isConst?(attacker.species,PBSpecies,:LATIOS)) &&
-       (isConst?(type,PBTypes,:DRAGON) || isConst?(type,PBTypes,:PSYCHIC)) &&
-       $USENEWBATTLEMECHANICS
+       (isConst?(type,PBTypes,:DRAGON) || isConst?(type,PBTypes,:PSYCHIC))
       damagemult=(damagemult*1.2).round
     end
     if attacker.hasWorkingItem(:GRISEOUSORB) &&
@@ -1494,12 +1490,6 @@ class PokeBattle_Move
        isConst?(attacker.species,PBSpecies,:PIKACHU)
       atkmult=(atkmult*2.0).round
     end
-    if attacker.hasWorkingItem(:SOULDEW) &&
-       (isConst?(attacker.species,PBSpecies,:LATIAS) ||
-       isConst?(attacker.species,PBSpecies,:LATIOS)) && pbIsSpecial?(type) &&
-       !@battle.rules["souldewclause"] && !$USENEWBATTLEMECHANICS
-      atkmult=(atkmult*1.5).round
-    end
     if attacker.hasWorkingItem(:CHOICEBAND) && pbIsPhysical?(type)
       atkmult=(atkmult*1.5).round
     end
@@ -1560,8 +1550,7 @@ class PokeBattle_Move
       if opponent.hasWorkingAbility(:FLUFFY) && isContactMove? && !attacker.hasWorkingAbility(:LONGREACH)
         defmult=(defmult*2).round
       end
-      if opponent.hasWorkingAbility(:PENATIVA) && opponent.turncount<=5 &&
-          $USENEWBATTLEMECHANICS
+      if opponent.hasWorkingAbility(:PENATIVA) && opponent.turncount<=5
         defmult=(defmult*2).round
       end
       if (@battle.pbWeather==PBWeather::SUNNYDAY ||
@@ -1617,12 +1606,6 @@ class PokeBattle_Move
        !opponent.effects[PBEffects::Transform]
       defmult=(defmult*1.5).round
     end
-    if opponent.hasWorkingItem(:SOULDEW) &&
-       (isConst?(opponent.species,PBSpecies,:LATIAS) ||
-       isConst?(opponent.species,PBSpecies,:LATIOS)) && pbIsSpecial?(type) &&
-       !@battle.rules["souldewclause"] && !$USENEWBATTLEMECHANICS
-      defmult=(defmult*1.5).round
-    end
     if attacker.hasWorkingItem(:BLACKFLAG) && attacker.turncount%2==0
       defmult=(defmult*2.0).round
     end
@@ -1653,7 +1636,7 @@ class PokeBattle_Move
     end
     # Critical hits
     if opponent.damagestate.critical
-      damage=($USENEWBATTLEMECHANICS) ? (damage*1.5).round : (damage*2.0).round
+      damage=(damage*1.5).round
     end
     # Random variance
     if (options&NOWEIGHTING)==0
@@ -1684,7 +1667,7 @@ class PokeBattle_Move
     # Burn
     if attacker.status==PBStatuses::BURN && pbIsPhysical?(type) &&
        !attacker.hasWorkingAbility(:GUTS) &&
-       !($USENEWBATTLEMECHANICS && @function==0x7E) # Facade
+        @function!=0x7E # Facade
       damage=(damage*0.5).round
     end
     # Make sure damage is at least 1
@@ -1744,13 +1727,9 @@ class PokeBattle_Move
       finaldamagemult=(finaldamagemult*0.75).round
     end
     if (attacker.hasWorkingAbility(:NEUROFORCE) ||
-       (attacker.hasWorkingAbility(:VERGINI) && $USENEWBATTLEMECHANICS)) &&
+        attacker.hasWorkingAbility(:VERGINI)) &&
       opponent.damagestate.typemod>8
       finaldamagemult=(finaldamagemult*1.25).round
-    end
-    if opponent.hasWorkingAbility(:VERGINI) &&
-      attacker.damagestate.typemod>8 && !$USENEWBATTLEMECHANICS
-      finaldamagemult=(finaldamagemult*1.3).round
     end
     if !attacker.hasMoldBreaker(opponent)
       if opponent.hasWorkingAbility(:MULTISCALE) && opponent.hp==opponent.totalhp

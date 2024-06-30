@@ -569,7 +569,6 @@ class PokemonSystem
   attr_accessor :newsix
   attr_accessor :vrtrophynotif
   attr_accessor :temps
-  attr_accessor :mechanics
   attr_accessor :accentcolor
   attr_accessor :darkmode
   attr_accessor :darkmodestart
@@ -607,7 +606,6 @@ class PokemonSystem
     @newsix           = 1   # Cry Style (0 = Classic, 1 = Modern)
     @vrtrophynotif    = 0   # Notifications for collected trophy (0 = On, 1 = Off)
     @temps            = 0   # Temperature Display (0 = Celsius, 1 = Fahrenheit)
-    @mechanics        = 1   # Battle Mechanics
     @accentcolor      = 16  # Accent Color
     @darkmode         = 0   # Theme Mode (0 = Light, 1 = Dark)
     @darkmodestart    = 19  # Scheduled Dark Mode Start
@@ -691,11 +689,7 @@ end
 
   def temps
     return (!@temps) ? 0 : @temps
-  end    
-
-  def mechanics
-    return (!@mechanics) ? 1 : @mechanics
-  end    
+  end 
 
   def accentcolor
     return (!@accentcolor) ? 16 : @accentcolor
@@ -933,13 +927,6 @@ There are different modes:
            [_INTL("Color 1 (Center)"), _INTL("Color 2 (Upper Left)"), _INTL("Color 3 (Upper)"), _INTL("Color 4 (Upper Right)"),_INTL("Color 5 (Right)"),_INTL("Color 6 (Bottom Right)"),_INTL("Color 7 (Bottom)"),_INTL("Color 8 (Bottom Left)"),_INTL("Color 9 (Left)")],
            "Sets the color used in battle messageboxes. Color 1 is the central and default color while the rest pick the central color of one of the four courners."
          ),
-        EnumOption.new(_INTL("Battle Mechanics (Requires Restart)"),[_INTL("Generation V"),_INTL("NextGen")],
-           proc { $PokemonSystem.mechanics },
-           proc {|value|
-             $PokemonSystem.mechanics=value
-           },
-           "When set to Generation V, it uses mechanics found in Generation V games. When set to NextGen, it uses mechanics found in the latest Pokémon Games."
-        ),
         EnumOption.new(_INTL("Generation VI Pokémon Graphic Style"),[_INTL("Classic"),_INTL("Modern")],
           proc { $PokemonSystem.newsix },
           proc {|value| $PokemonSystem.newsix = value },

@@ -1125,7 +1125,7 @@ def ragefist
     return false if @effects[PBEffects::SmackDown]
     return false if @battle.field.effects[PBEffects::Cinament]>0
     return false if @battle.field.effects[PBEffects::Gravity]>0
-    return true if self.pbHasType?(:WIND) && $USENEWBATTLEMECHANICS
+    return true if self.pbHasType?(:WIND)
     return true if self.pbHasType?(:FLYING) && !@effects[PBEffects::Roost]
     return true if self.hasWorkingAbility(:LEVITATE) && !ignoreability
     return true if self.hasWorkingItem(:AIRBALLOON)
@@ -2025,12 +2025,8 @@ def ragefist
             @battle.battlers[i].addTemp = 0
           end
           @battle.weather=PBWeather::RAINDANCE
-          if $USENEWBATTLEMECHANICS
-            @battle.weatherduration=5
-            @battle.weatherduration=8 if hasWorkingItem(:DAMPROCK)
-          else
-            @battle.weatherduration=-1
-          end
+          @battle.weatherduration=5
+          @battle.weatherduration=8 if hasWorkingItem(:DAMPROCK)
           @battle.pbCommonAnimation("Rain",nil,nil)
           @battle.pbDisplay(_INTL("{1}'s {2} made it rain!",pbThis,PBAbilities.getName(self.ability)))
           PBDebug.log("[Ability triggered] #{pbThis}'s Drizzle made it rain")
@@ -2040,12 +2036,8 @@ def ragefist
             @battle.battlers[i].addTemp = 25
           end
           @battle.weather=PBWeather::SUNNYDAY
-          if $USENEWBATTLEMECHANICS
-            @battle.weatherduration=5
-            @battle.weatherduration=8 if hasWorkingItem(:HEATROCK)
-          else
-            @battle.weatherduration=-1
-          end
+          @battle.weatherduration=5
+          @battle.weatherduration=8 if hasWorkingItem(:HEATROCK)
           @battle.pbCommonAnimation("Sunny",nil,nil)
           @battle.pbDisplay(_INTL("{1}'s {2} intensified the sun's rays!",pbThis,PBAbilities.getName(self.ability)))
           PBDebug.log("[Ability triggered] #{pbThis}'s Drought made it sunny")
@@ -2055,12 +2047,8 @@ def ragefist
             @battle.battlers[i].addTemp = 25
           end
           @battle.weather=PBWeather::SUNNYDAY
-          if $USENEWBATTLEMECHANICS
-            @battle.weatherduration=5
-            @battle.weatherduration=8 if hasWorkingItem(:HEATROCK)
-          else
-            @battle.weatherduration=-1
-          end
+          @battle.weatherduration=5
+          @battle.weatherduration=8 if hasWorkingItem(:HEATROCK)
           @battle.pbCommonAnimation("Sunny",nil,nil)
           @battle.pbDisplay(_INTL("{1}'s {2} intensified the sun's rays!",pbThis,PBAbilities.getName(self.ability)))
           PBDebug.log("[Ability triggered] #{pbThis}'s Orichalcum Pulse made it sunny")
@@ -2070,12 +2058,8 @@ def ragefist
             @battle.battlers[i].addTemp = 0
           end
           @battle.weather=PBWeather::SANDSTORM
-          if $USENEWBATTLEMECHANICS
-            @battle.weatherduration=5
-            @battle.weatherduration=8 if hasWorkingItem(:SMOOTHROCK)
-          else
-            @battle.weatherduration=-1
-          end
+          @battle.weatherduration=5
+          @battle.weatherduration=8 if hasWorkingItem(:SMOOTHROCK)
           @battle.pbCommonAnimation("Sandstorm",nil,nil)
           @battle.pbDisplay(_INTL("{1}'s {2} whipped up a sandstorm!",pbThis,PBAbilities.getName(self.ability)))
           PBDebug.log("[Ability triggered] #{pbThis}'s Sand Stream made it sandstorm")
@@ -2085,12 +2069,8 @@ def ragefist
             @battle.battlers[i].addTemp = -20
           end
           @battle.weather=PBWeather::HAIL
-          if $USENEWBATTLEMECHANICS
-            @battle.weatherduration=5
-            @battle.weatherduration=8 if hasWorkingItem(:ICYROCK)
-          else
-            @battle.weatherduration=-1
-          end
+          @battle.weatherduration=5
+          @battle.weatherduration=8 if hasWorkingItem(:ICYROCK)
           @battle.pbCommonAnimation("Hail",nil,nil)
           @battle.pbDisplay(_INTL("{1}'s {2} made it hail!",pbThis,PBAbilities.getName(self.ability)))
           PBDebug.log("[Ability triggered] #{pbThis}'s Snow Warning made it hail")
@@ -2372,17 +2352,10 @@ def ragefist
       foes=[]
       foes.push(pbOpposing1) if pbOpposing1.item>0 && !pbOpposing1.isFainted?
       foes.push(pbOpposing2) if pbOpposing2.item>0 && !pbOpposing2.isFainted?
-      if $USENEWBATTLEMECHANICS
-        PBDebug.log("[Ability triggered] #{pbThis}'s Frisk") if foes.length>0
-        for i in foes
-          itemname=PBItems.getName(i.item)
-          @battle.pbDisplay(_INTL("{1} frisked {2} and found its {3}!",pbThis,i.pbThis(true),itemname))
-        end
-      elsif foes.length>0
-        PBDebug.log("[Ability triggered] #{pbThis}'s Frisk")
-        foe=foes[@battle.pbRandom(foes.length)]
-        itemname=PBItems.getName(foe.item)
-        @battle.pbDisplay(_INTL("{1} frisked the foe and found one {2}!",pbThis,itemname))
+      PBDebug.log("[Ability triggered] #{pbThis}'s Frisk") if foes.length>0
+      for i in foes
+        itemname=PBItems.getName(i.item)
+        @battle.pbDisplay(_INTL("{1} frisked {2} and found its {3}!",pbThis,i.pbThis(true),itemname))
       end
     end
     # Anticipation
@@ -2744,10 +2717,9 @@ def ragefist
           end
         end
         if target.hasWorkingAbility(:EFFECTSPORE,true) && @battle.pbRandom(10)<3
-          if $USENEWBATTLEMECHANICS &&
-             (user.pbHasType?(:GRASS) || user.pbHasType?(:CHLOROPHYLL) ||
+          if user.pbHasType?(:GRASS) || user.pbHasType?(:CHLOROPHYLL) ||
              user.pbHasType?(:GAS) || user.hasWorkingAbility(:OVERCOAT) ||
-             user.hasWorkingItem(:SAFETYGOGGLES))
+             user.hasWorkingItem(:SAFETYGOGGLES)
           else
             PBDebug.log("[Ability triggered] #{target.pbThis}'s Effect Spore")
             case @battle.pbRandom(3)
@@ -2786,7 +2758,6 @@ def ragefist
         # Wandering Spirit
         if user.hasWorkingAbility(:WANDERINGSPIRIT)
           if (taregt.ability==0) ||
-             (user.ability==target.ability && !$USENEWBATTLEMECHANICS) ||
              target.hasUngainableAbility(user,[:POWEROFALCHEMY, :RECEIVER, :WONDERGUARD, :IMPRISIN])
           else
           tmp=user.ability
@@ -3224,12 +3195,8 @@ def ragefist
         # Sand Spit
         if target.hasWorkingAbility(:SANDSPIT) && (@battle.weather!=PBWeather::SANDSTORM || @battle.weatherduration!=-1)
           @battle.weather=PBWeather::SANDSTORM
-          if $USENEWBATTLEMECHANICS
-            @battle.weatherduration=5
-            @battle.weatherduration=8 if hasWorkingItem(:SMOOTHROCK)
-          else
-            @battle.weatherduration=-1
-          end
+          @battle.weatherduration=5
+          @battle.weatherduration=8 if hasWorkingItem(:SMOOTHROCK)
           @battle.pbCommonAnimation("Sandstorm",nil,nil)
           @battle.pbDisplay(_INTL("{1}'s {2} whipped up a sandstorm!",target.pbThis,PBAbilities.getName(target.ability)))
           PBDebug.log("[Ability triggered] #{target.pbThis}'s Sand Spit made it sandstorm")
@@ -3667,12 +3634,12 @@ def ragefist
       pbCureAttract
       @battle.pbDisplay(_INTL("{1}'s {2} cured its infatuation status!",pbThis,PBAbilities.getName(@ability)))
     end
-    if $USENEWBATTLEMECHANICS && @effects[PBEffects::Taunt]>0 && self.hasWorkingAbility(:OBLIVIOUS)
+    if @effects[PBEffects::Taunt]>0 && self.hasWorkingAbility(:OBLIVIOUS)
       PBDebug.log("[Ability triggered] #{pbThis}'s #{PBAbilities.getName(@ability)} (taunt)")
       @effects[PBEffects::Taunt]=0
       @battle.pbDisplay(_INTL("{1}'s {2} made its taunt wear off!",pbThis,PBAbilities.getName(@ability)))
     end
-    if $USENEWBATTLEMECHANICS && @effects[PBEffects::Khleri]>0 && self.hasWorkingAbility(:OBLIVIOUS)
+    if @effects[PBEffects::Khleri]>0 && self.hasWorkingAbility(:OBLIVIOUS)
       PBDebug.log("[Ability triggered] #{pbThis}'s #{PBAbilities.getName(@ability)} (khleri)")
       @effects[PBEffects::Khleri]=0
       @battle.pbDisplay(_INTL("{1}'s {2} made its khleri wear off!",pbThis,PBAbilities.getName(@ability)))
@@ -3911,22 +3878,22 @@ def ragefist
     if consumed
       # Solbeyu
       if hasWorkingAbility(:SOLBEYU)
-        damager=pbOppositeOpposing
-        dodgesol=false
-        if $USENEWBATTLEMECHANICS  # Gen 6 version goes here
+        if @battle.doublebattle
           damager=(rand(100)<50) ? pbOpposing1 : pbOpposing2
-          if pbOpposing1.hasWorkingAbility(:SOLBEYU)
-            damager=pbOpposing2  # If 1st opposing has Solbeyu, use the 2nd
-            dodgesol=true if !@battle.doublebattle
-          elsif pbOpposing2.hasWorkingAbility(:SOLBEYU) && @battle.doublebattle
-            damager=pbOpposing1 # If 2nd opposing has Solbeyu, use the 1st
-            dodgesol=true if !@battle.doublebattle
-          end
-          if pbOpposing1.hasWorkingAbility(:SOLBEYU) && 
-                pbOpposing2.hasWorkingAbility(:SOLBEYU) &&
-                @battle.doublebattle
-            dodgesol=true
-          end
+        else
+          damager=pbOpposing1
+        end
+        dodgesol=false
+        if pbOpposing1.hasWorkingAbility(:SOLBEYU)
+          damager=pbOpposing2  # If 1st opposing has Solbeyu, use the 2nd
+          dodgesol=true if !@battle.doublebattle
+        elsif pbOpposing2.hasWorkingAbility(:SOLBEYU) && @battle.doublebattle
+          damager=pbOpposing1 # If 2nd opposing has Solbeyu, use the 1st
+          dodgesol=true if !@battle.doublebattle
+        end
+        if pbOpposing1.hasWorkingAbility(:SOLBEYU) && 
+           pbOpposing2.hasWorkingAbility(:SOLBEYU) && @battle.doublebattle
+          dodgesol=true
         end
         if !(dodgesol || damager.hasWorkingAbility(:MAGICGUARD) ||
             damager.hasWorkingAbility(:SUPERCLEARBODY))
@@ -4092,8 +4059,7 @@ def ragefist
     end
     if hpcure && self.hasWorkingItem(:BLACKSLUDGE)
       if pbHasType?(:POISON) || pbHasType?(:GAS)
-        if self.hp!=self.totalhp &&
-           (!$USENEWBATTLEMECHANICS || @effects[PBEffects::HealBlock]==0)
+        if self.hp!=self.totalhp && @effects[PBEffects::HealBlock]==0
           PBDebug.log("[Item triggered] #{pbThis}'s Black Sludge (heal)")
           @battle.pbCommonAnimation("UseItem",self,nil)
           pbRecoverHP((self.totalhp/16).floor,true)
@@ -4188,7 +4154,7 @@ def ragefist
             pressuremove=user.moves[userchoice]
             pbSetPP(pressuremove,pressuremove.pp-1) if pressuremove.pp>0
           end
-          break if $USENEWBATTLEMECHANICS
+          break
         end
       end
     end
@@ -4546,22 +4512,20 @@ def ragefist
       return false
     end
     p=thismove.priority
-    if $USENEWBATTLEMECHANICS
-      p+=1 if user.effects[PBEffects::SixtopiaP]
-      p+=1 if user.hasWorkingAbility(:PRANKSTER) && thismove.pbIsStatus?
-      p+=1 if user.hasWorkingAbility(:SONIKO) && !thismove.pbIsStatus?
-      p+=1 if user.hasWorkingAbility(:TRIAGE) && thismove.isHealingMove?
-      p+=1 if user.hasWorkingAbility(:SOUNDTRACK) && thismove.isSoundBased?
-      p+=1 if user.hasWorkingAbility(:SINISTRO) && thismove.isContactMove?
-      p+=1 if user.hasWorkingAbility(:GALEWINGS) && isConst?(thismove.type,PBTypes,:FLYING)
-      p+=1 if @battle.field.effects[PBEffects::GrassyTerrain]>0 && thismove.function==0x310
-      p+=1 if @battle.field.effects[PBEffects::ElectricTerrain]>0 && thismove.function==0x345
-      p+=1 if @battle.field.effects[PBEffects::MistyTerrain]>0 && thismove.function==0x346
-      p+=1 if @battle.field.effects[PBEffects::PsychicTerrain]>0 && thismove.function==0x347
-      p+=1 if @battle.field.effects[PBEffects::VolcanicTerrain]>0 && thismove.function==0x348
-      p+=1 if @battle.field.effects[PBEffects::LovelyTerrain]>0 && thismove.function==0x349
-      p+=1 if @battle.field.effects[PBEffects::Cinament]>0 && thismove.function==0x350
-    end
+    p+=1 if user.effects[PBEffects::SixtopiaP]
+    p+=1 if user.hasWorkingAbility(:PRANKSTER) && thismove.pbIsStatus?
+    p+=1 if user.hasWorkingAbility(:SONIKO) && !thismove.pbIsStatus?
+    p+=1 if user.hasWorkingAbility(:TRIAGE) && thismove.isHealingMove?
+    p+=1 if user.hasWorkingAbility(:SOUNDTRACK) && thismove.isSoundBased?
+    p+=1 if user.hasWorkingAbility(:SINISTRO) && thismove.isContactMove?
+    p+=1 if user.hasWorkingAbility(:GALEWINGS) && isConst?(thismove.type,PBTypes,:FLYING)
+    p+=1 if @battle.field.effects[PBEffects::GrassyTerrain]>0 && thismove.function==0x310
+    p+=1 if @battle.field.effects[PBEffects::ElectricTerrain]>0 && thismove.function==0x345
+    p+=1 if @battle.field.effects[PBEffects::MistyTerrain]>0 && thismove.function==0x346
+    p+=1 if @battle.field.effects[PBEffects::PsychicTerrain]>0 && thismove.function==0x347
+    p+=1 if @battle.field.effects[PBEffects::VolcanicTerrain]>0 && thismove.function==0x348
+    p+=1 if @battle.field.effects[PBEffects::LovelyTerrain]>0 && thismove.function==0x349
+    p+=1 if @battle.field.effects[PBEffects::Cinament]>0 && thismove.function==0x350
     if target.hasWorkingAbility(:PROVENDO) &&  thismove.canProtectAgainst? && 
       p>0 && !target.effects[PBEffects::ProtectNegation]
 			pbSEPlay("protection")
@@ -4725,7 +4689,7 @@ def ragefist
       return false
     end
     # Immunity to powder-based moves
-    if $USENEWBATTLEMECHANICS && thismove.isPowderMove? &&
+    if thismove.isPowderMove? &&
        (target.pbHasType?(:GRASS) || target.pbHasType?(:CHLOROPHYLL) ||
        (!user.hasMoldBreaker(target) && target.hasWorkingAbility(:OVERCOAT)) ||
 				target.hasWorkingItem(:SAFETYGOGGLES) || target.pbHasType?(:GAS))
@@ -4881,9 +4845,9 @@ def ragefist
       miss=false if user.hasWorkingAbility(:NOGUARD) ||
                     target.hasWorkingAbility(:NOGUARD) ||
                     @battle.futuresight
-      override=true if $USENEWBATTLEMECHANICS && thismove.function==0x06 && # Toxic
-                    thismove.basedamage==0 && 
-                    (user.pbHasType?(:POISON) || user.pbHasType?(:GAS))
+      override=true if thismove.function==0x06 && # Toxic
+                       thismove.basedamage==0 && 
+                      (user.pbHasType?(:POISON) || user.pbHasType?(:GAS))
       override=true if !miss && turneffects[PBEffects::SkipAccuracyCheck] # Called by another move
       if !override && (miss || !thismove.pbAccuracyCheck(user,target)) # Includes Counter/Mirror Coat
         PBDebug.log(sprintf("[Move failed] Failed pbAccuracyCheck (function code %02X) or target is semi-invulnerable",thismove.function))
@@ -5172,7 +5136,7 @@ def ragefist
         else
           pbContinueConfusion
           PBDebug.log("[Status] #{pbThis} remained confused (count: #{@effects[PBEffects::Confusion]})")
-          if @battle.pbRandom(($USENEWBATTLEMECHANICS) ? 3 : 2)==0
+          if @battle.pbRandom(3)==0
             pbConfusionDamage
             @battle.pbDisplay(_INTL("It hurt itself in its confusion!")) 
             PBDebug.log("[Status] #{pbThis} hurt itself in its confusion and couldn't move")
@@ -5385,10 +5349,8 @@ def ragefist
          (user.hasMoldBreaker(target) || !target.hasWorkingAbility(:SHIELDDUST))
         addleffect=thismove.addlEffect
         addleffect=0  if user.pbOwnSide.effects[PBEffects::CrateBuster]>0
-        addleffect*=2 if (user.hasWorkingAbility(:SERENEGRACE) ||
-                         user.pbOwnSide.effects[PBEffects::Rainbow]>0) &&
-                         ($USENEWBATTLEMECHANICS || 
-                          thismove.function!=0xA4) # Secret Power
+        addleffect*=2 if user.hasWorkingAbility(:SERENEGRACE)
+        addleffect*=2 if user.pbOwnSide.effects[PBEffects::Rainbow]>0
         addleffect*=1.5 if user.hasWorkingAbility(:FINITI) &&
                          (thismove.function==0x245 || thismove.function==0x246 ||
                           thismove.function==0x295) 
@@ -5476,7 +5438,7 @@ def ragefist
         # Defrost
         if target.status==PBStatuses::FROZEN &&
            (isConst?(thismove.pbType(thismove.type,user,target),PBTypes,:FIRE) ||
-           ($USENEWBATTLEMECHANICS && isConst?(thismove.id,PBMoves,:SCALD)) ||
+            isConst?(thismove.id,PBMoves,:SCALD) || 
             isConst?(thismove.id,PBMoves,:SCORCHINGSANDS))
           target.pbCureStatus
         end

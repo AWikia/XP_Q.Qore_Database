@@ -106,7 +106,6 @@ NOSIGNPOSTS = [110,111]
 #===============================================================================
 # * Whether a move's physical/special category depends on the move itself as in
 #      newer Gens (true), or on its type as in older Gens (false).
-# * Whether the battle mechanics mimic Next-Gen(true) or Gen 5 (false).
 # * Whether the Exp gained from beating a Pokémon should be scaled depending on
 #      the gainer's level as in Gen 5/7 (true), or not as in other Gens (false).
 # * Whether the Exp gained from beating a Pokémon should be divided equally
@@ -122,7 +121,6 @@ NOSIGNPOSTS = [110,111]
 # * Whether Internet Explorer mode is open or not
 #===============================================================================
 USEMOVECATEGORY       = true
-# USENEWBATTLEMECHANICS = true
 USESCALEDEXPFORMULA   = false #
 NOSPLITEXP            = true #
 USECRITICALCAPTURE    = true

@@ -30,12 +30,11 @@ end
 def qoreInitials
     $PokemonSystem = PokemonSystem.new if !$PokemonSystem
     $debugmode=$PokemonSystem.debugmode
-    $newmech= $PokemonSystem.mechanics
     $TEST=($debugmode==1) ? true : false
     $DEBUG=($debugmode==1) ? true : false
     $INTERNAL=($debugmode==1) ? true : false
     $REGIONALCOMBO=1050
-    $USENEWBATTLEMECHANICS=($newmech==1) ? true : false
+    $USENEWBATTLEMECHANICS=true # @FIXME: Remove this line
     $inbattle=false # Initialization
     $fusionfinder=false
     $JBIndex0= 0
@@ -96,7 +95,7 @@ def pbCallTitle #:nodoc:
   qoreInitials
   channelvar= QQORECHANNELVARIANT.to_s
   title=['QoreTitle_0_'+channelvar,'QoreTitle_1_'+channelvar,'QoreTitle_2_'+channelvar,'QoreTitle_3_'+channelvar,'QoreTitle_4_'+channelvar,'QoreTitle_5_'+channelvar][QQORECHANNEL]
-  title=['QoreTitle','QoreTitle_1','QoreTitle_2','QoreTitle_3','QoreTitle_4','QoreTitle_5'][QQORECHANNEL]  if !pbResolveBitmap(_INTL("Graphics/Titles/{1}", title)) || (QQORECHANNELVARIANT.to_i < 1)
+  title=['QoreTitle','QoreTitle_1','QoreTitle_2','QoreTitle_3','QoreTitle_4','QoreTitle_5'][QQORECHANNEL]  if !pbResolveBitmap(_INTL("Graphics/Titles/{1}", title)) || (QQORECHANNELVARIANT < 1)
   title='QoreTitle' if !pbResolveBitmap(_INTL("Graphics/Titles/{1}", title))
 #  Win32API.SyncTitle
   if ($DEBUG || $TEST)

@@ -318,7 +318,7 @@ class PokemonEncounters
     firstpoke=$Trainer.firstParty
     if firstpoke && !firstpoke.isEgg? && rand(2)==0
       if isConst?(firstpoke.ability,PBAbilities,:STATIC) ||
-         (isConst?(firstpoke.ability,PBAbilities,:LIGHTINGROD) && $USENEWBATTLEMECHANICS)
+         isConst?(firstpoke.ability,PBAbilities,:LIGHTINGROD)
         newencs=[]; newchances=[]
         dexdata=pbOpenDexData
         for i in 0...encounters.length
@@ -337,7 +337,7 @@ class PokemonEncounters
         end
       end
       if isConst?(firstpoke.ability,PBAbilities,:DOOMER) ||
-         (isConst?(firstpoke.ability,PBAbilities,:DOOMELIST) && $USENEWBATTLEMECHANICS)
+         isConst?(firstpoke.ability,PBAbilities,:DOOMELIST)
         newencs=[]; newchances=[]
         dexdata=pbOpenDexData
         for i in 0...encounters.length
@@ -355,7 +355,7 @@ class PokemonEncounters
           chances=newchances
         end
       end
-      if isConst?(firstpoke.ability,PBAbilities,:STORMDRAIN) && $USENEWBATTLEMECHANICS
+      if isConst?(firstpoke.ability,PBAbilities,:STORMDRAIN)
         newencs=[]; newchances=[]
         dexdata=pbOpenDexData
         for i in 0...encounters.length
@@ -373,7 +373,7 @@ class PokemonEncounters
           chances=newchances
         end
       end
-      if isConst?(firstpoke.ability,PBAbilities,:FLASHFIRE) && $USENEWBATTLEMECHANICS
+      if isConst?(firstpoke.ability,PBAbilities,:FLASHFIRE)
         newencs=[]; newchances=[]
         dexdata=pbOpenDexData
         for i in 0...encounters.length
@@ -391,8 +391,8 @@ class PokemonEncounters
           chances=newchances
         end
       end
-      if (isConst?(firstpoke.ability,PBAbilities,:HARVEST) && $USENEWBATTLEMECHANICS) ||
-          isConst?(firstpoke.ability,PBAbilities,:LONGGRASS)
+      if isConst?(firstpoke.ability,PBAbilities,:HARVEST) ||
+         isConst?(firstpoke.ability,PBAbilities,:LONGGRASS)
         newencs=[]; newchances=[]
         dexdata=pbOpenDexData
         for i in 0...encounters.length
@@ -554,9 +554,9 @@ class PokemonEncounters
       level2=encounter[1]+rand(1+encounter[2]-encounter[1])
       level=[level,level2].max
     end
-    if $PokemonMap.blackFluteUsed && $USENEWBATTLEMECHANICS
+    if $PokemonMap.blackFluteUsed
       level=[level+1+rand(3),PBExperience::MAXLEVEL].min
-    elsif $PokemonMap.whiteFluteUsed && $USENEWBATTLEMECHANICS
+    elsif $PokemonMap.whiteFluteUsed
       level=[level-1-rand(3),1].max
     end
     return [encounter[0],level]
@@ -586,11 +586,6 @@ class PokemonEncounters
     if $PokemonGlobal.bicycle
       encount=(encount*0.8)
     end
-    if $PokemonMap.blackFluteUsed && !$USENEWBATTLEMECHANICS
-      encount=(encount/2)
-    elsif $PokemonMap.whiteFluteUsed && !$USENEWBATTLEMECHANICS
-      encount=(encount*1.5)
-    end
     firstpoke=$Trainer.firstParty
     if firstpoke && !firstpoke.isEgg?
       if (isConst?(firstpoke.item,PBItems,:CLEANSETAG) || 
@@ -604,7 +599,7 @@ class PokemonEncounters
           encount=(encount/2)
         elsif isConst?(firstpoke.ability,PBAbilities,:WHITESMOKE)
           encount=(encount/2)
-        elsif isConst?(firstpoke.ability,PBAbilities,:ALONELY) && $USENEWBATTLEMECHANICS
+        elsif isConst?(firstpoke.ability,PBAbilities,:ALONELY)
           encount=(encount/10)
         elsif isConst?(firstpoke.ability,PBAbilities,:QUICKFEET)
           encount=(encount/2)

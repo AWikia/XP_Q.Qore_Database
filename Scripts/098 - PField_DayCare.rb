@@ -461,14 +461,12 @@ end
     moves.push(move)
   end
   # Inheriting Machine Moves
-  if !$USENEWBATTLEMECHANICS
-    for i in 0...$ItemData.length
-      next if !$ItemData[i]
-      atk=$ItemData[i][ITEMMACHINE]
-      next if !atk || atk==0
-      if egg.isCompatibleWithMove?(atk)
-        moves.push(atk) if movefather.hasMove?(atk)
-      end
+  for i in 0...$ItemData.length
+    next if !$ItemData[i]
+    atk=$ItemData[i][ITEMMACHINE]
+    next if !atk || atk==0
+    if egg.isCompatibleWithMove?(atk)
+      moves.push(atk) if movefather.hasMove?(atk)
     end
   end
   # Inheriting Egg Moves
@@ -487,21 +485,19 @@ end
        end
     }
   end
-  if $USENEWBATTLEMECHANICS
-    pbRgssOpen("Data/eggEmerald.dat","rb"){|f|
-       f.pos=(babyspecies-1)*8
-       offset=f.fgetdw
-       length=f.fgetdw
-       if length>0
-         f.pos=offset
-         i=0; loop do break unless i<length
-           atk=f.fgetw
-           moves.push(atk) if movemother.hasMove?(atk)
-           i+=1
-         end
+  pbRgssOpen("Data/eggEmerald.dat","rb"){|f|
+     f.pos=(babyspecies-1)*8
+     offset=f.fgetdw
+     length=f.fgetdw
+     if length>0
+       f.pos=offset
+       i=0; loop do break unless i<length
+         atk=f.fgetw
+         moves.push(atk) if movemother.hasMove?(atk)
+         i+=1
        end
-    }
-  end
+     end
+  }
   # Volt Tackle
   lightball=false
   if (isConst?(father.species,PBSpecies,:PIKACHU) || 
@@ -572,8 +568,8 @@ end
   end
   stats=[PBStats::HP,PBStats::ATTACK,PBStats::DEFENSE,
          PBStats::SPEED,PBStats::SPATK,PBStats::SPDEF]
-  limit=($USENEWBATTLEMECHANICS && (isConst?(mother.item,PBItems,:DESTINYKNOT) ||
-         isConst?(father.item,PBItems,:DESTINYKNOT))) ? 5 : 3
+  limit=(isConst?(mother.item,PBItems,:DESTINYKNOT) ||
+         isConst?(father.item,PBItems,:DESTINYKNOT)) ? 5 : 3
   loop do
     freestats=[]
     for i in stats
@@ -622,7 +618,7 @@ end
         egg.setAbility((mother.abilityIndex+1)%2)
       end
     end
-  elsif ((!ditto0 && ditto1) || (!ditto1 && ditto0)) && $USENEWBATTLEMECHANICS
+  elsif ((!ditto0 && ditto1) || (!ditto1 && ditto0))
     parent=(!ditto0) ? mother : father
     if parent.hasHiddenAbility?
       egg.setAbility(parent.abilityIndex) if rand(10)<6
@@ -692,12 +688,12 @@ Events.onStepTaken+=proc {|sender,e|
            isConst?(mother.item,PBItems,:LECTROBALL))
        $PokemonGlobal.daycareEggSteps=0
        compatval=[0,20,50,70][pbDayCareGetCompat]
-       if extraoval || (extraoval2 && $USENEWBATTLEMECHANICS)
+       if extraoval || extraoval2
          compatval=[0,30,60,77][pbDayCareGetCompat]
        end
        if hasConst?(PBItems,:OVALCHARM) && $PokemonBag.pbQuantity(:OVALCHARM)>0
          compatval=[0,40,80,88][pbDayCareGetCompat]
-         if extraoval || (extraoval2 && $USENEWBATTLEMECHANICS)
+         if extraoval || extraoval2
            compatval=[0,50,90,95][pbDayCareGetCompat]
          end
        end

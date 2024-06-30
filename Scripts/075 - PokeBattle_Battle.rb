@@ -1394,9 +1394,8 @@ class PokeBattle_Battle
     if thispkmn.hasWorkingItem(:SHEDSHELL)
       return true
     end
-    if $USENEWBATTLEMECHANICS && 
-      (thispkmn.pbHasType?(:GHOST) ||  thispkmn.pbHasType?(:DOOM) ||
-       thispkmn.pbHasType?(:SUN) ||  thispkmn.pbHasType?(:MOON))
+    if (thispkmn.pbHasType?(:GHOST) ||  thispkmn.pbHasType?(:DOOM) ||
+        thispkmn.pbHasType?(:SUN) ||  thispkmn.pbHasType?(:MOON))
       return true
     end
     if thispkmn.effects[PBEffects::MultiTurn]>0 ||
@@ -1913,8 +1912,7 @@ class PokeBattle_Battle
     return false if @cantescape && !pbIsOpposing?(idsPokemon)
     thispkmn=@battlers[idxPokemon]
     return true if (thispkmn.pbHasType?(:GHOST) || thispkmn.pbHasType?(:DOOM) ||
-                    thispkmn.pbHasType?(:SUN) || thispkmn.pbHasType?(:MOON)) && 
-                    $USENEWBATTLEMECHANICS
+                    thispkmn.pbHasType?(:SUN) || thispkmn.pbHasType?(:MOON))
     return true if thispkmn.hasWorkingItem(:SMOKEBALL)
     return true if thispkmn.hasWorkingAbility(:RUNAWAY)
     return pbCanSwitch?(idxPokemon,-1,false)
@@ -1943,15 +1941,11 @@ class PokeBattle_Battle
           return 1
         end
       elsif @internalbattle
-        if $USENEWBATTLEMECHANICS
-          if pbDisplayConfirm(_INTL("Would you like to forfeit the battle and quit now?"))
-            $dbattle=false
-            $inbattle=false
-            @decision=2
-            return 1
-          end
-        else
-          pbDisplayPaused(_INTL("No! There's no running from a Trainer battle!"))
+        if pbDisplayConfirm(_INTL("Would you like to forfeit the battle and quit now?"))
+          $dbattle=false
+          $inbattle=false
+          @decision=2
+          return 1
         end
       elsif pbDisplayConfirm(_INTL("Would you like to forfeit the match and quit now?"))
         pbDisplay(_INTL("{1} forfeited the match!",self.pbPlayer.name))
@@ -1977,7 +1971,7 @@ class PokeBattle_Battle
     if (thispkmn.pbHasType?(:GHOST) || 
         thispkmn.pbHasType?(:DOOM) ||
         thispkmn.pbHasType?(:SUN) ||
-        thispkmn.pbHasType?(:MOON)) && $USENEWBATTLEMECHANICS
+        thispkmn.pbHasType?(:MOON))
       pbPlayEscapeSE()
       pbDisplayPaused(_INTL("Got away safely!"))
       $inbattle=false
@@ -3934,12 +3928,12 @@ class PokeBattle_Battle
           PBDebug.log("[Status damage] #{i.pbThis} took damage from burn")
                if (i.pbHasType?(:HERB) || i.pbHasType?(:CHLOROPHYLL)) && 
                  (i.hasWorkingAbility(:HEATPROOF))
-                i.pbReduceHP(($USENEWBATTLEMECHANICS) ? (i.totalhp/48).floor : (i.totalhp/16).floor)
+                i.pbReduceHP((i.totalhp/48).floor)
               elsif (i.pbHasType?(:HERB) || i.hasWorkingAbility(:HEATPROOF) ||
                 i.pbHasType?(:CHLOROPHYLL))
-                i.pbReduceHP(($USENEWBATTLEMECHANICS) ? (i.totalhp/32).floor : (i.totalhp/16).floor)
+                i.pbReduceHP((i.totalhp/32).floor)
               else
-                i.pbReduceHP(($USENEWBATTLEMECHANICS) ? (i.totalhp/16).floor : (i.totalhp/8).floor)
+                i.pbReduceHP((i.totalhp/16).floor)
               end 
         i.pbContinueStatus
         end
@@ -4024,9 +4018,9 @@ class PokeBattle_Battle
           if !i.hasWorkingAbility(:MAGICGUARD) && !i.hasWorkingAbility(:SUPERCLEARBODY)
             PBDebug.log("[Lingering effect triggered] #{i.pbThis} took damage from trapping move #{movename}")
             @scene.pbDamageAnimation(i,0)
-            amt=($USENEWBATTLEMECHANICS) ? ((i.totalhp/8) / additionalhalf).floor : ((i.totalhp/16) / additionalhalf).floor
+            amt=((i.totalhp/8) / additionalhalf).floor
             if @battlers[i.effects[PBEffects::MultiTurnUser]].hasWorkingItem(:BINDINGBAND)
-              amt=($USENEWBATTLEMECHANICS) ? ((i.totalhp/6) / additionalhalf).floor : ((i.totalhp/8) / additionalhalf).floor
+              amt=((i.totalhp/6) / additionalhalf).floor
             end
             i.pbReduceHP(amt)
             pbDisplay(_INTL("{1} is hurt by {2}!",i.pbThis,movename))

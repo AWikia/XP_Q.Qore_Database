@@ -3539,7 +3539,7 @@ class PokeBattle_Battle
   def pbTypeModifier(type,attacker,opponent)
     return 8 if type<0
     return 8 if isConst?(type,PBTypes,:GROUND) && opponent.pbHasType?(:FLYING) &&
-                opponent.hasWorkingItem(:IRONBALL) && !$USENEWBATTLEMECHANICS
+                opponent.hasWorkingItem(:IRONBALL)
     atype=type
     otype1=opponent.type1
     otype2=opponent.type2
@@ -4101,8 +4101,7 @@ class PokeBattle_Battle
     if (isConst?(attacker.species,PBSpecies,:LATIAS) || 
         isConst?(attacker.species,PBSpecies,:LATIOS)) &&
        attacker.hasWorkingItem(:SOULDEW) &&
-       (isConst?(type,PBTypes,:DRAGON) || isConst?(type,PBTypes,:PSYCHIC)) &&
-       $USENEWBATTLEMECHANICS
+       (isConst?(type,PBTypes,:DRAGON) || isConst?(type,PBTypes,:PSYCHIC))
       basedamage=(basedamage*1.2).round
     end
     if isConst?(attacker.species,PBSpecies,:DIALGA) &&
@@ -4333,12 +4332,6 @@ class PokeBattle_Battle
        isConst?(attacker.species,PBSpecies,:PIKACHU)
       atk=(atk*2.0).round
     end
-    if attacker.hasWorkingItem(:SOULDEW) &&
-       (isConst?(attacker.species,PBSpecies,:LATIAS) ||
-       isConst?(attacker.species,PBSpecies,:LATIOS)) && move.pbIsSpecial?(type) &&
-       !$USENEWBATTLEMECHANICS
-      atk=(atk*1.5).round
-    end
     if attacker.hasWorkingItem(:CHOICEBAND) && move.pbIsPhysical?(type)
       atk=(atk*1.5).round
     end
@@ -4446,12 +4439,6 @@ class PokeBattle_Battle
          isConst?(opponent.species,PBSpecies,:DITTO) &&
          !opponent.effects[PBEffects::Transform] && move.pbIsPhysical?(type)
         defense=(defense*2.0).round
-      end
-      if opponent.hasWorkingItem(:SOULDEW) &&
-         (isConst?(opponent.species,PBSpecies,:LATIAS) ||
-         isConst?(opponent.species,PBSpecies,:LATIOS)) && move.pbIsSpecial?(type) &&
-         !$USENEWBATTLEMECHANICS
-        defense=(defense*1.5).round
       end
     end
     # Main damage calculation

@@ -844,7 +844,7 @@ def pbGenerateWildPokemon(species,level,isroamer=false)
   chances=[60,20,5] if firstpoke && !firstpoke.isEgg? &&
                        (isConst?(firstpoke.ability,PBAbilities,:COMPOUNDEYES) ||
                         isConst?(firstpoke.ability,PBAbilities,:KOURTINA) ||
-                        (isConst?(firstpoke.ability,PBAbilities,:SUPERLUCK) && $USENEWBATTLEMECHANICS))
+                        isConst?(firstpoke.ability,PBAbilities,:SUPERLUCK))
   itemrnd=rand(100)
   if itemrnd<chances[0] || (items[0]==items[1] && items[1]==items[2])
     genwildpoke.setItem(items[0])
@@ -892,7 +892,7 @@ def pbGenerateWildPokemon(species,level,isroamer=false)
         (rand(3)<2) ? genwildpoke.makeMale : genwildpoke.makeFemale
       end
     elsif isConst?(firstpoke.ability,PBAbilities,:SYNCHRONIZE)
-      genwildpoke.setNature(firstpoke.nature) if !isroamer && (rand(10)<5 || $USENEWBATTLEMECHANICS)
+      genwildpoke.setNature(firstpoke.nature) if !isroamer
     end
   end
   Events.onWildPokemonCreate.trigger(nil,genwildpoke)
@@ -1190,11 +1190,9 @@ Events.onEndBattle+=proc {|sender,e|
     end
     pkmn.resetRageFist
   end
-  if $USENEWBATTLEMECHANICS || (decision!=2 && decision!=5) # not a loss or a draw
-    if $PokemonTemp.evolutionLevels
-      pbEvolutionCheck($PokemonTemp.evolutionLevels)
-      $PokemonTemp.evolutionLevels=nil
-    end
+  if $PokemonTemp.evolutionLevels
+    pbEvolutionCheck($PokemonTemp.evolutionLevels)
+    $PokemonTemp.evolutionLevels=nil
   end
   if decision==1
     for pkmn in $Trainer.party

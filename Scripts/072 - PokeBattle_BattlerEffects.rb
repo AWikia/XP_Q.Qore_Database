@@ -410,7 +410,7 @@ class PokeBattle_Battler
       @battle.pbDisplay(_INTL("The Misty Terrain prevented {1} from being paralyzed!",pbThis(true))) if showMessages
       return false
     end
-    if (pbHasType?(:ELECTRIC) || pbHasType?(:BOLT)) && !(hasWorkingItem(:RINGTARGET) || (attacker && attacker.hasWorkingAbility(:PARAJINDA))) && $USENEWBATTLEMECHANICS
+    if (pbHasType?(:ELECTRIC) || pbHasType?(:BOLT)) && !(hasWorkingItem(:RINGTARGET) || (attacker && attacker.hasWorkingAbility(:PARAJINDA)))
 			pbSEPlay("protection") if showMessages
       @battle.pbDisplay(_INTL("It doesn't affect {1}...",pbThis(true))) if showMessages
       return false
@@ -445,7 +445,7 @@ class PokeBattle_Battler
   def pbCanParalyzeSynchronize?(opponent)
     return false if self.status!=0 || isConst?(ability,PBAbilities,:COMATOSE) || pbShieldsUp?
     return false if @battle.field.effects[PBEffects::MistyTerrain]>0 && !self.isAirborne?
-    return false if (pbHasType?(:ELECTRIC) || pbHasType?(:BOLT)) && !(hasWorkingItem(:RINGTARGET)) && $USENEWBATTLEMECHANICS
+    return false if (pbHasType?(:ELECTRIC) || pbHasType?(:BOLT)) && !(hasWorkingItem(:RINGTARGET))
     if hasWorkingAbility(:LIMBER) ||
        hasWorkingAbility(:PURIFYINGSALT) ||
       (hasWorkingAbility(:FLOWERVEIL) && pbHasType?(:GRASS)) ||
@@ -1244,10 +1244,8 @@ class PokeBattle_Battler
       if hasWorkingAbility(:CLEARBODY) || hasWorkingAbility(:WHITESMOKE) ||
         hasWorkingAbility(:HYPERCUTTER) || hasWorkingAbility(:FULLMETALBODY) || hasWorkingAbility(:SUPERCLEARBODY) ||
          (hasWorkingAbility(:FLOWERVEIL) && pbHasType?(:GRASS)) ||
-         (hasWorkingAbility(:INNERFOCUS) && $USENEWBATTLEMECHANICS) ||
-         (hasWorkingAbility(:SCRAPPY) && $USENEWBATTLEMECHANICS) ||
-         (hasWorkingAbility(:OBLIVIOUS) && $USENEWBATTLEMECHANICS) ||
-         (hasWorkingAbility(:OWNTEMPO) && $USENEWBATTLEMECHANICS) ||
+         hasWorkingAbility(:INNERFOCUS) || hasWorkingAbility(:SCRAPPY) ||
+         hasWorkingAbility(:OBLIVIOUS) || hasWorkingAbility(:OWNTEMPO) ||
           hasWorkingAbility(:PROTEINCROTELINE) ||
          (hasWorkingAbility(:SUPERLENS) && profstat==PBStats::ATTACK)
          abilityname=PBAbilities.getName(self.ability)
@@ -1308,10 +1306,8 @@ class PokeBattle_Battler
       if hasWorkingAbility(:CLEARBODY) || hasWorkingAbility(:WHITESMOKE) ||
          hasWorkingAbility(:FULLMETALBODY) || hasWorkingAbility(:SUPERCLEARBODY) ||
          (hasWorkingAbility(:FLOWERVEIL) && pbHasType?(:GRASS)) ||
-         (hasWorkingAbility(:SCRAPPY) && $USENEWBATTLEMECHANICS) ||
-         (hasWorkingAbility(:OBLIVIOUS) && $USENEWBATTLEMECHANICS) ||
-         (hasWorkingAbility(:INNERFOCUS) && $USENEWBATTLEMECHANICS) ||
-         (hasWorkingAbility(:OWNTEMPO) && $USENEWBATTLEMECHANICS) ||
+         hasWorkingAbility(:SCRAPPY) || hasWorkingAbility(:OBLIVIOUS) ||
+         hasWorkingAbility(:INNERFOCUS) || hasWorkingAbility(:OWNTEMPO) ||
           hasWorkingAbility(:PROTEINCROTELINE) ||
          (hasWorkingAbility(:SUPERLENS) && profstat==PBStats::SPATK)
          abilityname=PBAbilities.getName(self.ability)
@@ -1371,10 +1367,8 @@ class PokeBattle_Battler
       if hasWorkingAbility(:CLEARBODY) || hasWorkingAbility(:WHITESMOKE) ||
          hasWorkingAbility(:FULLMETALBODY) || hasWorkingAbility(:SUPERCLEARBODY) ||
          (hasWorkingAbility(:FLOWERVEIL) && pbHasType?(:GRASS)) ||
-         (hasWorkingAbility(:INNERFOCUS) && $USENEWBATTLEMECHANICS) ||
-         (hasWorkingAbility(:SCRAPPY) && $USENEWBATTLEMECHANICS) ||
-         (hasWorkingAbility(:OBLIVIOUS) && $USENEWBATTLEMECHANICS) ||
-         (hasWorkingAbility(:OWNTEMPO) && $USENEWBATTLEMECHANICS) ||
+         hasWorkingAbility(:INNERFOCUS) || hasWorkingAbility(:SCRAPPY) ||
+         hasWorkingAbility(:OBLIVIOUS) || hasWorkingAbility(:OWNTEMPO) ||
           hasWorkingAbility(:PROTEINCROTELINE) ||
          (hasWorkingAbility(:SUPERLENS) && profstat==PBStats::SPEED)
          abilityname=PBAbilities.getName(self.ability)
@@ -1436,10 +1430,8 @@ class PokeBattle_Battler
       if hasWorkingAbility(:CLEARBODY) || hasWorkingAbility(:WHITESMOKE) ||
          hasWorkingAbility(:FULLMETALBODY) || hasWorkingAbility(:SUPERCLEARBODY) ||
          (hasWorkingAbility(:FLOWERVEIL) && pbHasType?(:GRASS)) ||
-         (hasWorkingAbility(:INNERFOCUS) && $USENEWBATTLEMECHANICS) ||
-         (hasWorkingAbility(:SCRAPPY) && $USENEWBATTLEMECHANICS) ||
-         (hasWorkingAbility(:OBLIVIOUS) && $USENEWBATTLEMECHANICS) ||
-         (hasWorkingAbility(:OWNTEMPO) && $USENEWBATTLEMECHANICS) ||
+         hasWorkingAbility(:INNERFOCUS) || hasWorkingAbility(:SCRAPPY) ||
+         hasWorkingAbility(:OBLIVIOUS) || hasWorkingAbility(:OWNTEMPO) ||
           hasWorkingAbility(:PROTEINCROTELINE) ||
           hasWorkingAbility(:SUPERLENS) ||
          (hasWorkingAbility(:HYPERCUTTER) && proficient==PBStats::ATTACK) ||
@@ -1494,9 +1486,7 @@ class PokeBattle_Battler
            pbThis,itemname,opponent.pbThis(true),oppabilityname))
         return false
       end
-      if hasWorkingAbility(:CLEARBODY) || hasWorkingAbility(:WHITESMOKE) ||
-        hasWorkingAbility(:KEENEYE) || hasWorkingAbility(:ILLUMINATE) ||
-        hasWorkingAbility(:MINDSEYE)
+      if hasWorkingAbility(:CLEARBODY) || hasWorkingAbility(:WHITESMOKE)
          abilityname=PBAbilities.getName(self.ability)
         oppabilityname=PBAbilities.getName(opponent.ability)
         pbSEPlay("protection")

@@ -371,6 +371,7 @@ class PokedexFormScene
       end
     end
     for i in 1...formnames.length
+      next if formnames[i]=="" # Don't show alt forms with no name in the Pokédex
       for j in 0...2
         if $Trainer.formseen[@species][j][i] || ALWAYSSHOWALLFORMS # That gender/form has been seen
           if pbResolveBitmap(sprintf("Graphics/Pokemon/Front/%s_%d_female",getConstantName(PBSpecies,@species),i)) ||

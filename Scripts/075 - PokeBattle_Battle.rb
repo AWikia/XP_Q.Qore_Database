@@ -4007,6 +4007,8 @@ class PokeBattle_Battle
             pbCommonAnimation("StoneAxe",i,nil)
           elsif isConst?(i.effects[PBEffects::MultiTurnAttack],PBMoves,:GALINSPOISON)
             pbCommonAnimation("GalinsPoison",i,nil)
+          elsif isConst?(i.effects[PBEffects::MultiTurnAttack],PBMoves,:DRIMBLIM)
+            pbCommonAnimation("Drimblim",i,nil)
           elsif isConst?(i.effects[PBEffects::MultiTurnAttack],PBMoves,:SALTCURE)
             saltcure=true
             pbCommonAnimation("SaltCure",i,nil)

@@ -94,7 +94,7 @@ class Win32API
     x = [(metrics.call(0)-width)/2,0].max
     y = [(metrics.call(1)-height)/2,0].max
     setWindowLong.call(hWnd, -16, 0x14CA0000)
-    setWindowPos.call(hWnd, 0, x, y, width+6, height+29, 0)
+    setWindowPos.call(hWnd, 0, x, y, width+6, height+metrics.call(31)+7, 0)
     Win32API.focusWindow
     return [width,height]
   end

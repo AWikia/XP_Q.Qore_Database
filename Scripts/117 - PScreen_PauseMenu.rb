@@ -137,7 +137,7 @@ class PokemonMenu
     cmdEndGame  = -1
     cmdAbout    = -1
     if !$Trainer
-      if ($DEBUG || $TEST)
+      if $DEBUG
         Kernel.pbMessage(_INTL("The player trainer was not defined, so the menu can't be displayed."))
         Kernel.pbMessage(_INTL("Please see the documentation to learn how to set up the trainer player."))
       end
@@ -174,7 +174,7 @@ class PokemonMenu
 #      commands[cmdLink=commands.length]=_INTL("Link...") if $game_switches[12]
     end
     commands[cmdOption=commands.length]=_INTL("Settings")
-    commands[cmdDebug=commands.length]=_INTL("Debug") if ($DEBUG || $TEST)
+    commands[cmdDebug=commands.length]=_INTL("Debug") if $DEBUG
     commands[cmdEndGame=commands.length]=_INTL("Quit Game")
     commands[cmdAbout=commands.length]=_INTL("About")
     loop do

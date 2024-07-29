@@ -5354,7 +5354,7 @@ def ragefist
         addleffect*=1.5 if user.hasWorkingAbility(:FINITI) &&
                          (thismove.function==0x245 || thismove.function==0x246 ||
                           thismove.function==0x295) 
-        addleffect=100 if ($DEBUG || $TEST) && Input.press?(Input::CTRL)
+        addleffect=100 if $DEBUG && Input.press?(Input::CTRL)
         addleffect=100 if isConst?(user.species,PBSpecies,:ENCHRISO) && # FLINT Species (Set here for convenience)
                           thismove.function==0x251  # Magic Gold
         if @battle.pbRandom(100)<addleffect

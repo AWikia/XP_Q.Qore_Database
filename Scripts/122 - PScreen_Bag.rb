@@ -588,13 +588,13 @@ class PokemonBagScreen
       commands[cmdRead=commands.length]=_INTL("Read") if pbIsMail?(item)
       commands[cmdUse=commands.length]=_INTL("Use") if ItemHandlers.hasOutHandler(item) || (pbIsMachine?(item) && $Trainer.party.length>0)
       commands[cmdGive=commands.length]=_INTL("Give") if $Trainer.pokemonParty.length>0 && !pbIsImportantItem?(item)
-      commands[cmdToss=commands.length]=_INTL("Toss") if !pbIsImportantItem?(item) || ($DEBUG || $TEST)
+      commands[cmdToss=commands.length]=_INTL("Toss") if !pbIsImportantItem?(item) || $DEBUG
       if @bag.registeredItem==item
         commands[cmdRegister=commands.length]=_INTL("Deselect")
       elsif pbIsKeyItem?(item) && ItemHandlers.hasKeyItemHandler(item)
         commands[cmdRegister=commands.length]=_INTL("Register")
       end
-      commands[cmdMysteryGift=commands.length]=_INTL("Make Mystery Gift") if ($DEBUG || $TEST)
+      commands[cmdMysteryGift=commands.length]=_INTL("Make Mystery Gift") if $DEBUG
       commands[commands.length]=_INTL("Cancel")
       # Show commands generated above
       itemname=PBItems.getName(item) # Get item name

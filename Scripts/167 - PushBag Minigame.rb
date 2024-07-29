@@ -161,7 +161,7 @@ class PunchBagScene
       if @endGame
         return @score if !@animating
       else  
-        if (Input.trigger?(Input::B)) && ($DEBUG || $TEST)
+        if (Input.trigger?(Input::B)) && $DEBUG
           pbSEPlay($data_system.decision_se) 
           break
         end

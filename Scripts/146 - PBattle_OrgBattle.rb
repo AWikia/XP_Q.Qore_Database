@@ -985,7 +985,7 @@ def pbOrganizedBattleEx(opponent,challengedata,endspeech,endspeechwin)
   battle.internalbattle=false
   battle.endspeech=endspeech
   battle.endspeechwin=endspeechwin
-  if Input.press?(Input::CTRL) && ($DEBUG || $TEST)
+  if Input.press?(Input::CTRL) && $DEBUG
     Kernel.pbMessage(_INTL("SKIPPING BATTLE..."))
     Kernel.pbMessage(_INTL("AFTER LOSING..."))
     Kernel.pbMessage(battle.endspeech)

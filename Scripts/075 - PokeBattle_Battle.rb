@@ -91,7 +91,7 @@ module PokeBattle_BattleCommon
     else
       pokemon=battler.pokemon
       species=pokemon.species
-      if ($DEBUG || $TEST) && Input.press?(Input::CTRL)
+      if $DEBUG && Input.press?(Input::CTRL)
         shakes=4
       else
         if !rareness
@@ -1928,7 +1928,7 @@ class PokeBattle_Battle
       return -1
     end
     if @opponent
-      if ($DEBUG || $TEST) && Input.press?(Input::CTRL)
+      if $DEBUG && Input.press?(Input::CTRL)
         if pbDisplayConfirm(_INTL("Treat this battle as a win?"))
           $dbattle=false
           $inbattle=false
@@ -1956,7 +1956,7 @@ class PokeBattle_Battle
       end
       return 0
     end
-    if ($DEBUG || $TEST) && Input.press?(Input::CTRL)
+    if $DEBUG && Input.press?(Input::CTRL)
       pbPlayEscapeSE()
       pbDisplayPaused(_INTL("Got away safely!"))
       $dbattle=false
@@ -2046,7 +2046,7 @@ class PokeBattle_Battle
     return false if $game_switches[NO_MEGA_EVOLUTION]
     return false if !@battlers[index].hasMega?
     return false if pbIsOpposing?(index) && !@opponent
-    return true if ($DEBUG || $TEST) && Input.press?(Input::CTRL)
+    return true  if $DEBUG && Input.press?(Input::CTRL)
     return false if !pbHasMegaRing(index)
     side=(pbIsOpposing?(index)) ? 1 : 0
     owner=pbGetOwnerIndex(index)

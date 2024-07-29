@@ -30,7 +30,7 @@ def pbCanUsePokeRadar?
     return false
   end
   # Debug
-  return true if ($DEBUG || $TEST) && Input.press?(Input::CTRL)
+  return true if $DEBUG && Input.press?(Input::CTRL)
   # Can't use Radar if it isn't fully charged
   if $PokemonGlobal.pokeradarBattery && $PokemonGlobal.pokeradarBattery>0
     Kernel.pbMessage(_INTL("The battery has run dry!\nFor it to recharge, you need to walk another {1} steps.",

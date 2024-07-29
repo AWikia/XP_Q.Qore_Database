@@ -767,7 +767,7 @@ class PokemonStorageScreen
           commands[cmdItem=commands.length]     = _INTL("Item")
           commands[cmdMark=commands.length]     = _INTL("Mark")
           commands[cmdRelease=commands.length]  = _INTL("Release")
-          commands[cmdDebug=commands.length]    = _INTL("Debug") if ($DEBUG || $TEST)
+          commands[cmdDebug=commands.length]    = _INTL("Debug") if $DEBUG
           commands[cmdCancel=commands.length]   = _INTL("Cancel")
           if @orange
             command=0 

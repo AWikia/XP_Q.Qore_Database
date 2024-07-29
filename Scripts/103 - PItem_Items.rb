@@ -578,11 +578,11 @@ end
 def pbLearnMove(pokemon,move,ignoreifknown=false,bymachine=false,&block)
   return false if !pokemon
   movename=PBMoves.getName(move)
-  if pokemon.isRB? && !($DEBUG || $TEST)
+  if pokemon.isRB? && !$DEBUG
     Kernel.pbMessage(_INTL("{1} can't be taught to an Remote Box.",movename),&block)
     return false
   end
-  if pokemon.isEgg? && !($DEBUG || $TEST)
+  if pokemon.isEgg? && !$DEBUG
     Kernel.pbMessage(_INTL("{1} can't be taught to an Egg.",movename),&block)
     return false
   end

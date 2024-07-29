@@ -1,5 +1,5 @@
 #===============================================================================
-# ** Modified Scene_Map class for PokÃ©mon.
+# ** Modified Scene_Map class for Pokémon.
 #-------------------------------------------------------------------------------
 #  
 #===============================================================================
@@ -149,7 +149,7 @@ class Scene_Map
         $PokemonGlobal.runtoggle=!$PokemonGlobal.runtoggle
       end
     end
-    if ($DEBUG || $TEST) and Input.press?(Input::F9)
+    if $DEBUG and Input.press?(Input::F9)
       $game_temp.debug_calling = true
     end
     unless $game_player.moving?

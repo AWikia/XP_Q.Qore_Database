@@ -792,12 +792,12 @@ There are different modes:
     @PokemonOptions=[]
     if mode==0
       @PokemonOptions+=[
-        EnumOption.new(_INTL("Debug Mode (Requires Restart)"),[_INTL("Off"),_INTL("On")],
+        EnumOption.new(_INTL("Debug Mode (Requires Restart)"),[_INTL("Automatic"),_INTL("On")],
            proc { $PokemonSystem.debugmode },
            proc {|value|
              $PokemonSystem.debugmode=value
            },
-           "Enables or Disables Debugging features. Requires restart for this to apply."
+           "Enables or Disables Debugging features. Requires restart for this to apply. Has no effect during playtesting."
         ),
        EnumOption.new(_INTL("Autosave"),[_INTL("Off"),_INTL("On")],
          proc { $PokemonSystem.autosave },

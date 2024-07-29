@@ -3028,7 +3028,7 @@ class TrainerChecker
 
   def pbTrainerTypeCheck(symbol)
     ret=true
-    if ($DEBUG || $TEST)  
+    if $DEBUG  
       return if @dontaskagain
       if !hasConst?(PBTrainers,symbol)
         ret=false
@@ -3054,7 +3054,7 @@ class TrainerChecker
   end
 
   def pbTrainerBattleCheck(trtype,trname,trid)
-    if ($DEBUG || $TEST)
+    if $DEBUG
       return if @dontaskagain
       if trtype.is_a?(String) || trtype.is_a?(Symbol)
         pbTrainerTypeCheck(trtype)
@@ -4177,7 +4177,7 @@ def pbCompileAllData(mustcompile)
 end
 
 begin
-  if ($DEBUG || $TEST)
+  if $DEBUG
     datafiles=["attacksRS.dat",
                "berryplants.dat",
                "connections.dat",

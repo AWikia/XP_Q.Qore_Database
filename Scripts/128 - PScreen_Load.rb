@@ -367,7 +367,7 @@ class PokemonLoad
     commands[cmdLanguage=commands.length]=_INTL("Language") if LANGUAGES.length>=2
     commands[cmdQQSR=commands.length]=_INTL("System Requirements") # Due to a bug in VR Corendo, we need to set it here
     commands[cmdQQRM=commands.length]=_INTL("Reference Manual") # This is handled elsewhere on VR Corendo
-    commands[cmdDebug=commands.length]=_INTL("Debug") if $DEBUG || $TEST
+    commands[cmdDebug=commands.length]=_INTL("Debug") if $DEBUG
     commands[cmdQuit=commands.length]=_INTL("Quit Game")
     commands[cmdAbout=commands.length]=_INTL("About")
     @scene.pbStartScene(commands,showContinue,trainer,framecount,mapid)
@@ -419,7 +419,7 @@ class PokemonLoad
              begin
                $MapFactory.setup($game_map.map_id) # calls setMapChanged
              rescue Errno::ENOENT
-               if ($DEBUG || $TEST)
+               if $DEBUG
                  Kernel.pbMessage(_INTL("Map {1} was not found.",$game_map.map_id))
                  map=pbWarpToMap()
                  if map
@@ -554,7 +554,8 @@ class PokemonLoad
         $scene=pbCallTitle
         return
       elsif cmdQQRM>=0 && command==cmdQQRM
-        worksOnCorendo(['VR Corendo'])
+        Kernel.pbMessage(_INTL("To view all useful information, open the \"Q.Qore Data Information.odf\" file with an ODT viewer of your choice. "))
+        Kernel.pbMessage(_INTL("You can also open the \"Q.Qore Data Information II.ods\" file with an ODS viewer of your choice. "))
       elsif cmdDebug>=0 && command==cmdDebug
         pbFadeOutIn(99999) { 
            pbDebugMenu(false)

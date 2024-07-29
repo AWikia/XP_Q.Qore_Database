@@ -264,10 +264,10 @@ end
 # Cut
 #===============================================================================
 def Kernel.pbCut
-  if ($DEBUG || $TEST) ||
+  if $DEBUG ||
      (HIDDENMOVESCOUNTBADGES ? $Trainer.numbadges>=BADGEFORCUT : $Trainer.badges[BADGEFORCUT])
     movefinder=Kernel.pbCheckMove(:CUT)
-    if ($DEBUG || $TEST) || movefinder
+    if $DEBUG || movefinder
       Kernel.pbMessage(_INTL("This tree looks like it can be cut down!\1"))
       if Kernel.pbConfirmMessage(_INTL("Would you like to cut it?"))
         speciesname=!movefinder ? $Trainer.name : movefinder.name
@@ -285,7 +285,7 @@ def Kernel.pbCut
 end
 
 HiddenMoveHandlers::CanUseMove.add(:CUT,proc{|move,pkmn|
-   if !($DEBUG || $TEST) &&
+   if !$DEBUG &&
       !(HIDDENMOVESCOUNTBADGES ? $Trainer.numbadges>=BADGEFORCUT : $Trainer.badges[BADGEFORCUT])
      Kernel.pbMessage(_INTL("Sorry, a new Badge is required."))
      return false
@@ -335,7 +335,7 @@ end
 
 def Kernel.pbHeadbutt(event)
   movefinder=Kernel.pbCheckMove(:HEADBUTT)
-  if ($DEBUG || $TEST) || movefinder
+  if $DEBUG || movefinder
     if Kernel.pbConfirmMessage(_INTL("A Pokémon could be in this tree. Would you like to use Headbutt?"))
       speciesname=!movefinder ? $Trainer.name : movefinder.name
       Kernel.pbMessage(_INTL("{1} used Headbutt!",speciesname))
@@ -376,10 +376,10 @@ def pbRockSmashRandomEncounter
 end
 
 def Kernel.pbRockSmash
-  if ($DEBUG || $TEST) ||
+  if $DEBUG ||
     (HIDDENMOVESCOUNTBADGES ? $Trainer.numbadges>=BADGEFORROCKSMASH : $Trainer.badges[BADGEFORROCKSMASH])
     movefinder=Kernel.pbCheckMove(:ROCKSMASH)
-    if ($DEBUG || $TEST) || movefinder
+    if $DEBUG || movefinder
       if Kernel.pbConfirmMessage(_INTL("This rock appears to be breakable. Would you like to use Rock Smash?"))
         speciesname=!movefinder ? $Trainer.name : movefinder.name
         Kernel.pbMessage(_INTL("{1} used Rock Smash!",speciesname))
@@ -397,7 +397,7 @@ end
 
 HiddenMoveHandlers::CanUseMove.add(:ROCKSMASH,proc{|move,pkmn|
    terrain=Kernel.pbFacingTerrainTag
-   if !($DEBUG || $TEST) &&
+   if !$DEBUG &&
       !(HIDDENMOVESCOUNTBADGES ? $Trainer.numbadges>=BADGEFORROCKSMASH : $Trainer.badges[BADGEFORROCKSMASH])
      Kernel.pbMessage(_INTL("Sorry, a new Badge is required."))
      return false
@@ -428,10 +428,10 @@ HiddenMoveHandlers::UseMove.add(:ROCKSMASH,proc{|move,pokemon|
 def Kernel.pbStrength
   if $PokemonMap.strengthUsed
     Kernel.pbMessage(_INTL("Strength made it possible to move boulders around."))
-  elsif ($DEBUG || $TEST) ||
+  elsif $DEBUG ||
     (HIDDENMOVESCOUNTBADGES ? $Trainer.numbadges>=BADGEFORSTRENGTH : $Trainer.badges[BADGEFORSTRENGTH])
     movefinder=Kernel.pbCheckMove(:STRENGTH)
-    if ($DEBUG || $TEST) || movefinder
+    if $DEBUG || movefinder
       Kernel.pbMessage(_INTL("It's a big boulder, but a Pokémon may be able to push it aside."))
       if Kernel.pbConfirmMessage(_INTL("Would you like to use Strength?"))
         speciesname=!movefinder ? $Trainer.name : movefinder.name
@@ -461,7 +461,7 @@ Events.onAction+=proc{|sender,e|
 }
 
 HiddenMoveHandlers::CanUseMove.add(:STRENGTH,proc{|move,pkmn|
-   if !($DEBUG || $TEST) &&
+   if !$DEBUG &&
       !(HIDDENMOVESCOUNTBADGES ? $Trainer.numbadges>=BADGEFORSTRENGTH : $Trainer.badges[BADGEFORSTRENGTH])
      Kernel.pbMessage(_INTL("Sorry, a new Badge is required."))
      return false
@@ -489,10 +489,10 @@ def Kernel.pbSurf
   if $game_player.pbHasDependentEvents?
     return false
   end
-  if ($DEBUG || $TEST) ||
+  if $DEBUG ||
     (HIDDENMOVESCOUNTBADGES ? $Trainer.numbadges>=BADGEFORSURF : $Trainer.badges[BADGEFORSURF])
     movefinder=Kernel.pbCheckMove(:SURF)
-    if ($DEBUG || $TEST) || movefinder
+    if $DEBUG || movefinder
       if Kernel.pbConfirmMessage(_INTL("The water is a deep blue...\nWould you like to surf on it?"))
         speciesname=!movefinder ? $Trainer.name : movefinder.name
         Kernel.pbMessage(_INTL("{1} used Surf!",speciesname))
@@ -562,7 +562,7 @@ Events.onAction+=proc{|sender,e|
 }
 
 HiddenMoveHandlers::CanUseMove.add(:SURF,proc{|move,pkmn|
-   if !($DEBUG || $TEST) &&
+   if !$DEBUG &&
       !(HIDDENMOVESCOUNTBADGES ? $Trainer.numbadges>=BADGEFORSURF : $Trainer.badges[BADGEFORSURF])
      Kernel.pbMessage(_INTL("Sorry, a new Badge is required."))
      return false
@@ -641,10 +641,10 @@ def Kernel.pbDescendWaterfall(event=nil)
 end
 
 def Kernel.pbWaterfall
-  if ($DEBUG || $TEST) ||
+  if $DEBUG ||
     (HIDDENMOVESCOUNTBADGES ? $Trainer.numbadges>=BADGEFORWATERFALL : $Trainer.badges[BADGEFORWATERFALL])
     movefinder=Kernel.pbCheckMove(:WATERFALL)
-    if ($DEBUG || $TEST) || movefinder
+    if $DEBUG || movefinder
       if Kernel.pbConfirmMessage(_INTL("It's a large waterfall. Would you like to use Waterfall?"))
         speciesname=!movefinder ? $Trainer.name : movefinder.name
         Kernel.pbMessage(_INTL("{1} used Waterfall!",speciesname))
@@ -674,7 +674,7 @@ Events.onAction+=proc{|sender,e|
 }
 
 HiddenMoveHandlers::CanUseMove.add(:WATERFALL,proc{|move,pkmn|
-   if !($DEBUG || $TEST) &&
+   if !$DEBUG &&
       !(HIDDENMOVESCOUNTBADGES ? $Trainer.numbadges>=BADGEFORWATERFALL : $Trainer.badges[BADGEFORWATERFALL])
      Kernel.pbMessage(_INTL("Sorry, a new Badge is required."))
      return false
@@ -701,7 +701,7 @@ HiddenMoveHandlers::UseMove.add(:WATERFALL,proc{|move,pokemon|
 def Kernel.pbDive
   divemap=pbGetMetadata($game_map.map_id,MetadataDiveMap)
   return false if !divemap
-  if ($DEBUG || $TEST) ||
+  if $DEBUG ||
     (HIDDENMOVESCOUNTBADGES ? $Trainer.numbadges>=BADGEFORDIVE : $Trainer.badges[BADGEFORDIVE])
     movefinder=Kernel.pbCheckMove(:DIVE)
     movename="Dive"
@@ -711,7 +711,7 @@ def Kernel.pbDive
         movename="Water Splash"
       end
     end
-    if ($DEBUG || $TEST) || movefinder
+    if $DEBUG || movefinder
       if Kernel.pbConfirmMessage(_INTL("The sea is deep here. Would you like to use {1}?",movename))
         speciesname=!movefinder ? $Trainer.name : movefinder.name
         Kernel.pbMessage(_INTL("{1} used {2}!",speciesname,movename))
@@ -760,7 +760,7 @@ def Kernel.pbSurfacing
       movename="Water Splash"
     end
   end
-  if ($DEBUG || $TEST) || (movefinder &&
+  if $DEBUG || (movefinder &&
     (HIDDENMOVESCOUNTBADGES ? $Trainer.numbadges>=BADGEFORDIVE : $Trainer.badges[BADGEFORDIVE]) )
     if Kernel.pbConfirmMessage(_INTL("Light is filtering down from above. Would you like to use {1}?",movename))
       speciesname=!movefinder ? $Trainer.name : movefinder.name
@@ -837,7 +837,7 @@ Events.onAction+=proc{|sender,e|
 }
 
 HiddenMoveHandlers::CanUseMove.add(:DIVE,proc{|move,pkmn|
-   if !($DEBUG || $TEST) &&
+   if !$DEBUG &&
       !(HIDDENMOVESCOUNTBADGES ? $Trainer.numbadges>=BADGEFORDIVE : $Trainer.badges[BADGEFORDIVE])
      Kernel.pbMessage(_INTL("Sorry, a new Badge is required."))
      return false
@@ -920,7 +920,7 @@ HiddenMoveHandlers::UseMove.copy(:DIVE,:WATERSPLASH)
 # Fly
 #===============================================================================
 HiddenMoveHandlers::CanUseMove.add(:FLY,proc{|move,pkmn|
-   if !($DEBUG || $TEST) &&
+   if !$DEBUG &&
       !(HIDDENMOVESCOUNTBADGES ? $Trainer.numbadges>=BADGEFORFLY : $Trainer.badges[BADGEFORFLY])
      Kernel.pbMessage(_INTL("Sorry, a new Badge is required."))
      return false
@@ -972,7 +972,7 @@ HiddenMoveHandlers::UseMove.copy(:FLY,:STEELFLY)
 #===============================================================================
 HiddenMoveHandlers::CanUseMove.add(:FLASH,proc{|move,pkmn|
   firstpoke=$Trainer.firstParty
-   if !($DEBUG || $TEST) &&
+   if !$DEBUG &&
       !(HIDDENMOVESCOUNTBADGES ? $Trainer.numbadges>=BADGEFORFLASH : $Trainer.badges[BADGEFORFLASH])
      Kernel.pbMessage(_INTL("Sorry, a new Badge is required."))
      return false

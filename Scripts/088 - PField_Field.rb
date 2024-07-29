@@ -900,7 +900,7 @@ def pbGenerateWildPokemon(species,level,isroamer=false)
 end
 
 def pbWildBattle(species,level,variable=nil,canescape=true,canlose=false)
-  if (Input.press?(Input::CTRL) && ($DEBUG || $TEST )) || $Trainer.pokemonCount==0
+  if (Input.press?(Input::CTRL) && $DEBUG) || $Trainer.pokemonCount==0
     if $Trainer.pokemonCount>0
       Kernel.pbMessage(_INTL("SKIPPING BATTLE..."))
     end
@@ -964,7 +964,7 @@ def pbWildBattle(species,level,variable=nil,canescape=true,canlose=false)
 end
 
 def pbDoubleWildBattle(species1,level1,species2,level2,variable=nil,canescape=true,canlose=false)
-  if (Input.press?(Input::CTRL) && ($DEBUG || $TEST)) || $Trainer.pokemonCount<2
+  if (Input.press?(Input::CTRL) && $DEBUG) || $Trainer.pokemonCount<2
     if $Trainer.pokemonCount>0
       Kernel.pbMessage(_INTL("SKIPPING BATTLE..."))
     end
@@ -1861,7 +1861,7 @@ def Kernel.pbStartOver(gameover=false)
   else
     homedata=pbGetMetadata(0,MetadataHome)
     if (homedata && !pbRxdataExists?(sprintf("Data/Map%03d",homedata[0])) )
-      if ($DEBUG || $TEST)
+      if $DEBUG
         Kernel.pbMessage(_ISPRINTF("Can't find the map 'Map{1:03d}' in the Data folder. The game will resume at the player's position.",homedata[0]))
       end
       pbHealAll()
@@ -2835,7 +2835,7 @@ module InterpreterFieldMixin
   end
 
   def pbTrainerIntro(symbol)
-    if ($DEBUG || $TEST)
+    if $DEBUG
       return if !Kernel.pbTrainerTypeCheck(symbol)
     end
     trtype=PBTrainers.const_get(symbol)

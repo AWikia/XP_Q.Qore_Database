@@ -136,7 +136,7 @@ end
 
 
 def pbDebugF7
-  if ($DEBUG || $TEST)
+  if $DEBUG
     Console::setup_console
     begin
       debugBitmaps

@@ -30,11 +30,11 @@ end
 def qoreInitials
     $PokemonSystem = PokemonSystem.new if !$PokemonSystem
     $debugmode=$PokemonSystem.debugmode
-    $TEST=($debugmode==1) ? true : false
-    $DEBUG=($debugmode==1) ? true : false
-    $INTERNAL=($debugmode==1) ? true : false
-    $REGIONALCOMBO=1050
-    $USENEWBATTLEMECHANICS=true # @FIXME: Remove this line
+    if ($debugmode==1)
+      $DEBUG=true
+    end
+    $INTERNAL=$DEBUG
+    $REGIONALCOMBO=1024
     $inbattle=false # Initialization
     $fusionfinder=false
     $JBIndex0= 0
@@ -98,7 +98,7 @@ def pbCallTitle #:nodoc:
   title=['QoreTitle','QoreTitle_1','QoreTitle_2','QoreTitle_3','QoreTitle_4','QoreTitle_5'][QQORECHANNEL]  if !pbResolveBitmap(_INTL("Graphics/Titles/{1}", title)) || (QQORECHANNELVARIANT < 1)
   title='QoreTitle' if !pbResolveBitmap(_INTL("Graphics/Titles/{1}", title))
 #  Win32API.SyncTitle
-  if ($DEBUG || $TEST)
+  if $DEBUG
     if QQORECHANNEL == 3
       return Scene_Intro.new(['canary_disclaimer','intro1'], title) 
     else
@@ -119,7 +119,7 @@ def pbCallTitle #:nodoc:
 end
 
 def mainFunction #:nodoc:
-  if ($DEBUG || $TEST)
+  if $DEBUG
     pbCriticalCode { mainFunctionDebug }
   else
     mainFunctionDebug

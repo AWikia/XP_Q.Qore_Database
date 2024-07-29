@@ -565,7 +565,7 @@ class PokemonEncounters
   def pbCanEncounter?(encounter)
     return false if $game_system.encounter_disabled
     return false if !encounter || !$Trainer
-    return false if ($DEBUG || $TEST) && Input.press?(Input::CTRL)
+    return false if $DEBUG && Input.press?(Input::CTRL)
     if !pbPokeRadarOnShakingGrass
       return false if $PokemonGlobal.repel>0 && $Trainer.ablePokemonCount>0 &&
                       encounter[1]<=$Trainer.ablePokemonParty[0].level

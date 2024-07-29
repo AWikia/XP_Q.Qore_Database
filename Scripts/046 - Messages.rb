@@ -1630,7 +1630,7 @@ def Kernel.pbMessageDisplay(msgwindow,message,letterbyletter=true,commandProc=ni
     Graphics.update
     Input.update
     facewindow.update if facewindow
-    if ($DEBUG || $TEST) && Input.trigger?(Input::F6)
+    if $DEBUG && Input.trigger?(Input::F6)
       pbRecord(unformattedText)
     end
     if autoresume && msgwindow.waitcount==0

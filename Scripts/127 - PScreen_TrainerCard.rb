@@ -106,7 +106,7 @@ class PokemonTrainerCardScene
       Graphics.update
       Input.update
       self.update
-      if Input.trigger?(Input::X) && ($DEBUG || $TEST)
+      if Input.trigger?(Input::X) && $DEBUG
         if $game_switches[73]
           $game_switches[73]=false
           pbChangePlayer(0)

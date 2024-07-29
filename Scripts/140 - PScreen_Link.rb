@@ -346,6 +346,9 @@ class Scene_LinkBattleScene
                   if $game_variables && $game_variables[1001] > 99
                     species+=[PBSpecies::BASCULEGION]
                   end
+                  if $game_variables && $game_variables[1001] > 149
+                    species+=[PBSpecies::INDEEDEE]
+                  end
                   if $game_variables && $game_variables[1001] > 199
                     species+=[PBSpecies::MEOWSTIC]
                   end

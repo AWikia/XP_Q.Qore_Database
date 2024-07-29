@@ -38,7 +38,7 @@ module Console
   end
 
   def self.setup_console
-    unless $DEBUG || $TEST
+    unless $DEBUG
       return
     end
     @apiAllocConsole = Win32API.new("kernel32","AllocConsole","","l")
@@ -147,7 +147,7 @@ end
 
 module Kernel
   def echo(string)
-    unless $DEBUG || $TEST
+    unless $DEBUG
       return
     end
     Console::WriteConsole(string.is_a?(String) ? string : string.inspect)

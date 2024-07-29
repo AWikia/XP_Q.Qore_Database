@@ -14,7 +14,7 @@ def get_qore_index(index)
     return index
 end
 
-def timecapQV # IE => Q.Qore
+def timecapQV # Esmeralda => Q.Qore
   drive=ENV["HOMEDRIVE"]
   if !drive
     drive="C:\\"
@@ -67,7 +67,7 @@ def timecapQV # IE => Q.Qore
   return true
 end
 
-def timecapQQ # Q.Qore => IE
+def timecapQQ # Q.Qore => Esmeralda
   drive=ENV["HOMEDRIVE"]
   if !drive
     drive="C:\\"

@@ -22,7 +22,7 @@ def migrate # Q-Qore => IE
      f.write(string)
   }
   Kernel.pbReceiveTrophy(:TMIGRATOR)
-  if ($DEBUG || $TEST)
+  if $DEBUG
     pbRemovePokemonAt(pbGet(235))
   else
     pbRemovePokemonAt(pbGet(235))
@@ -54,7 +54,7 @@ def migrate2 # IE => Q-Qore
      f.write(string)
   }
   Kernel.pbReceiveTrophy(:TMIGRATOR)
-  if ($DEBUG || $TEST)
+  if $DEBUG
     pbRemovePokemonAt(pbGet(235))
     else
     pbRemovePokemonAt(pbGet(235))

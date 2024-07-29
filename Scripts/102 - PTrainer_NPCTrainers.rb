@@ -147,7 +147,7 @@ end
 
 def pbTrainerTypeCheck(symbol)
   ret=true
-  if ($DEBUG || $TEST)
+  if $DEBUG
     if !hasConst?(PBTrainers,symbol)
       ret=false
     else
@@ -174,7 +174,7 @@ def pbGetFreeTrainerParty(trainerid,trainername)
 end
 
 def pbTrainerCheck(trainerid,trainername,maxbattles,startBattleId=0)
-  if ($DEBUG || $TEST)
+  if $DEBUG
     if trainerid.is_a?(String) || trainerid.is_a?(Symbol)
       pbTrainerTypeCheck(trainerid)
       return false if !hasConst?(PBTrainers,trainerid)
@@ -204,7 +204,7 @@ def pbMissingTrainer(trainerid, trainername, trainerparty)
   end
   traineridstring="#{trainerid}"
   traineridstring=getConstantName(PBTrainers,trainerid) rescue "-"
-  if ($DEBUG || $TEST)
+  if $DEBUG
 	  message=""
     if trainerparty!=0
       message=(_INTL("Add new trainer ({1}, {2}, ID {3})?",traineridstring,trainername,trainerparty))
@@ -224,7 +224,7 @@ end
 def pbTrainerBattle(trainerid,trainername,endspeech,
                     doublebattle=false,trainerparty=0,canlose=false,variable=nil)
   if $Trainer.pokemonCount==0
-    Kernel.pbMessage(_INTL("SKIPPING BATTLE...")) if ($DEBUG || $TEST)
+    Kernel.pbMessage(_INTL("SKIPPING BATTLE...")) if $DEBUG
     return false
   end
   if !$PokemonTemp.waitingTrainer && $Trainer.ablePokemonCount>1 &&
@@ -323,7 +323,7 @@ def pbTrainerBattle(trainerid,trainername,endspeech,
     battle.items=trainer[1]
     trainerbgm=pbGetTrainerBattleBGM(trainer[0])
   end
-  if Input.press?(Input::CTRL) && ($DEBUG || $TEST)
+  if Input.press?(Input::CTRL) && $DEBUG
     Kernel.pbMessage(_INTL("SKIPPING BATTLE..."))
     Kernel.pbMessage(_INTL("AFTER LOSING..."))
     Kernel.pbMessage(battle.endspeech)
@@ -430,7 +430,7 @@ def pbDoubleTrainerBattle(trainerid1, trainername1, trainerparty1, endspeech1,
   battle.endspeech=endspeech1
   battle.endspeech2=endspeech2
   battle.items=[trainer1[1],trainer2[1]]
-  if Input.press?(Input::CTRL) && ($DEBUG || $TEST)
+  if Input.press?(Input::CTRL) && $DEBUG
     Kernel.pbMessage(_INTL("SKIPPING BATTLE..."))
     Kernel.pbMessage(_INTL("AFTER LOSING..."))
     Kernel.pbMessage(battle.endspeech)

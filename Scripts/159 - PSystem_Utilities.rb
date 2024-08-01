@@ -2542,6 +2542,18 @@ def pbHasSpecForm?(species,form) # Case for Eternal 0-6
   return false
 end
 
+# Returns true if a Pokemon with a Flipnote ball is in the party
+def pbHasFlipnoteSpecies?
+  for pokemon in $Trainer.party
+    next if pokemon.isEgg?
+    return true if pokemon.ballused==pbGetBallType(:FLIPNOTEBALL) ||
+                   pokemon.ballused==pbGetBallType(:GREATFLIPNOTEBALL) ||
+                   pokemon.ballused==pbGetBallType(:ULTRAFLIPNOTEBALL)
+  end
+  return false
+end
+
+# Returns true if all game mascots from Generations VI - VIII are in the party
 def pbHasAllLegends?
   return pbHasSpecies?(:XERNEAS) && pbHasSpecies?(:YVELTAL) &&
          pbHasSpecies?(:SOLGALEO) && pbHasSpecies?(:LUNALA) &&

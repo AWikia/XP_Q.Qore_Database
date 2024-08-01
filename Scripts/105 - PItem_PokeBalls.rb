@@ -83,7 +83,10 @@ $BallTypes={
    30=>:DREAMBALL,
    31=>:GREATDUSKBALL,
    32=>:PRALINEBALL,
-   33=>:GREATNESTBALL
+   33=>:GREATNESTBALL,
+   34=>:FLIPNOTEBALL,
+   35=>:GREATFLIPNOTEBALL,
+   36=>:ULTRAFLIPNOTEBALL
 }
 
 BallHandlers::ModifyCatchRate.add(:GREATBALL,proc{|ball,catchRate,battle,battler|
@@ -432,6 +435,34 @@ BallHandlers::ModifyCatchRate.add(:GREATNESTBALL,proc{|ball,catchRate,battle,bat
   if battler.level<=40
      catchRate*=[(41-battler.level)/10,1].max
    end
+   next catchRate
+})
+
+BallHandlers::ModifyCatchRate.add(:FLIPNOTEBALL,proc{|ball,catchRate,battle,battler|
+   if PBDayNight.isNight?
+     colors = [0,1,8]
+   else
+     colors = [0,1,4]
+   end
+   catchRate*=7/2 if colors.include?(battler.color)
+   next catchRate
+})
+
+BallHandlers::ModifyCatchRate.add(:GREATFLIPNOTEBALL,proc{|ball,catchRate,battle,battler|
+   if PBDayNight.isNight?
+     colors = [0,1,2,3,8]
+   else
+     colors = [0,1,2,3,4]
+   end
+   catchRate=(catchRate*3/2).floor
+   catchRate*=7/2 if colors.include?(battler.color)
+   next catchRate
+})
+
+BallHandlers::ModifyCatchRate.add(:ULTRAFLIPNOTEBALL,proc{|ball,catchRate,battle,battler|
+   colors = [0,1,2,3,4,8]
+   catchRate=(catchRate*2).floor
+   catchRate*=7/2 if colors.include?(battler.color)
    next catchRate
 })
 

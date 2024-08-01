@@ -1015,4 +1015,6 @@
 1001,SILVERORB,Silver Orb,Silver Orbs,1,0,A shiny golden orb that is said to have a legend tied to it. It's known to have a deep connection to Makedonia TV.,0,0,0,
 1002,MUSICALNOTE,Musical Note,Musical Notes,1,500,An item to be held by a Pokémon. This note boosts the power of sound-based moves used by the holder.,0,0,0,
 1003,BARNEYITE,Barneyite,Barneyites,1,10000,"One of the mysterious Mega Stones. Have Barney hold it, and this stone will enable it to Mega Evolve in battle.",0,0,12,
-
+1004,FLIPNOTEBALL,Flipnote Ball,Flipnote Balls,3,2000,"A somewhat different Ball that is more effective on Pokémon of a color that can be used in Flipnotes. It was produced by Flipnote Studio.",0,2,4,
+1005,GREATFLIPNOTEBALL,Great Flipnote Ball,Great Flipnote Balls,3,6000,"A good, high-performance Poké Ball that provides a higher success rate for catching Pokémon than a standard Flipnote Ball. It was produced by Flipnote Studio.",0,2,4,
+1006,ULTRAFLIPNOTEBALL,Ultra Flipnote Ball,Ultra Flipnote Balls,3,12000,"An ultra-high-performance Poké Ball that provides a higher success rate for catching Pokémon than a Great Flipnote Ball. It was produced by Flipnote Studio.",0,2,4,

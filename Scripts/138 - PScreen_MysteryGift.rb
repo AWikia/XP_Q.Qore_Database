@@ -233,6 +233,10 @@ def pbManageMysteryGifts
         elsif cmd==1   # Edit
           newgift=pbEditMysteryGift(gift[1],gift[2],gift[0],gift[3])
           master[command]=newgift if newgift
+          string=pbMysteryGiftEncrypt(master)
+          File.open("MysteryGiftMaster.txt","wb"){|f|
+             f.write(string)
+          }
         elsif cmd==2   # Receive
           replaced=false
           for i in 0...$Trainer.mysterygift.length
@@ -246,6 +250,10 @@ def pbManageMysteryGifts
           if Kernel.pbConfirmMessage(_INTL("Are you sure you want to delete this gift?"))
             master[command]=nil
             master.compact!
+            string=pbMysteryGiftEncrypt(master)
+            File.open("MysteryGiftMaster.txt","wb"){|f|
+               f.write(string)
+            }
           end
           break
         end

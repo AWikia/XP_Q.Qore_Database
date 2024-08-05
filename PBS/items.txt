@@ -711,7 +711,7 @@
 # Asimina
 843,TEVOLVER,Pokémon Evolver,Pokémon Evolver,6,0,Awarded for evolving your first Pokémon,2,0,6,
 844,TMINER,Perfect Miner,Perfect Miner,6,0,Awarded for digging all items in a single Mining Game,2,0,6,
-845,TLOTTER,Perfect Lotter,Perfect Lotter,6,0,Awarded for earning a Master Ball from the Lottery,2,0,6,
+845,TLOTTER,Perfect Lotter,Perfect Lotter,6,0,Awarded for earning a Master Ball from the Lottery or the Quiz Game,2,0,6,
 846,TTRADER,Pokémon Trader,Pokémon Trader,6,0,Awarded for earning a trading a Pokémon to someone else in the game,2,0,6,
 847,THATCHER,Pokémon Hatcher, PokémonHatcher,6,0,Awarded for hatching your first egg,2,0,6,
 848,TCRAFTER,Pokémon Crafter,Pokémon Crafter,6,0,Awarded for crafting your first bobojido egg into a Pokémon,2,0,6,

@@ -51,12 +51,13 @@ module TypeQuiz
     ]
     ANSWERS += SIXANSWERS ? 
         [_INTL("1/4"),_INTL("Immune")] : [_INTL("1/4 or immune")]
-    TYPERESULTS = [ANSWERS.size-1,4,3,nil,2,nil,nil,nil,1,
-        nil,nil,nil,nil,nil,nil,nil,0]  
+    TYPERESULTS = [ANSWERS.size-1,nil,4,nil,3,nil,nil,nil,2,nil,nil,nil,nil,nil,
+                   nil,nil,1,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,
+                   nil,nil,0]
     
     def initialize(answer=-1)
       answer=rand(ANSWERS.size) if(answer==-1)
-      @result=-1#
+      @result=nil
       test=0
       while(@result!=answer)
         @attackType = getID(PBTypes,TYPEAVALIABLE[rand(TYPEAVALIABLE.size)])
@@ -79,9 +80,9 @@ module TypeQuiz
   end
     
   class TypeQuizScene
-    BGPATH = "Graphics/UI/Quiz/typequizbg"
-    VSPATH = "Graphics/UI/Quiz/typequizvs"
-    SCENEMUSIC = "Quizbgm" # Put "" or nil to don't change the music.
+    BGPATH = "typequizbg"
+    VSPATH = "typequizvs"
+    SCENEMUSIC = "Jarol" # Put "" or nil to don't change the music.
     
     WAITFRAMESQUANTITY=40*1
     MARGIN=32
@@ -101,13 +102,13 @@ module TypeQuiz
       @viewport.z=99999
       @typebitmap=AnimatedBitmap.new(_INTL("Graphics/UI/types"))
       @sprites["background"]=IconSprite.new(0,0,@viewport)
-      @sprites["background"].setBitmap(BGPATH)
+      @sprites["background"].setBitmap("Graphics/UI/"+getDarkModeFolder+"/Quiz/"+BGPATH)
       @sprites["background"].x=(
         Graphics.width-@sprites["background"].bitmap.width)/2
       @sprites["background"].y=(
         Graphics.height-@sprites["background"].bitmap.height)/2    
       @sprites["vs"]=IconSprite.new(0,0,@viewport)
-      @sprites["vs"].setBitmap(VSPATH)
+      @sprites["vs"].setBitmap("Graphics/UI/Quiz/"+VSPATH)
       @sprites["vs"].x=Graphics.width*3/4-@sprites["vs"].bitmap.width/2-12
       @sprites["vs"].y=Graphics.height*3/4-@sprites["vs"].bitmap.height/2-32
       @sprites["arrow"]=IconSprite.new(MARGIN+8,0,@viewport)
@@ -123,7 +124,7 @@ module TypeQuiz
       return if finished?
       @typeQuestion=TypeQuestion.new
       @answerLabel=""
-      @sprites["arrow"].setBitmap("Graphics/UI/"+getAccentFolder+"/selarrow")
+      @sprites["arrow"].setBitmap("Graphics/UI/"+getAccentFolder+"/selarrowaccent")
       refresh
       @index=2 # Normal effective index
       updateCursor
@@ -135,8 +136,13 @@ module TypeQuiz
       rightText = ""
       overlay=@sprites["overlay"].bitmap
       overlay.clear 
-      baseColor=Color.new(72,72,72)
-      shadowColor=Color.new(160,160,160)
+      if (!isDarkMode?)
+        baseColor=MessageConfig::DARKTEXTBASE
+        shadowColor=MessageConfig::DARKTEXTSHADOW
+      else
+        baseColor=MessageConfig::LIGHTTEXTBASE
+        shadowColor=MessageConfig::LIGHTTEXTSHADOW
+      end
       leftText = @questionsRight.to_s # Remove to don't show player score
       centerText = @answerLabel # Remove to don't show Correct/Wrong message
       rightText += @questionsCount.to_s # Remove to don't show question count
@@ -193,14 +199,14 @@ module TypeQuiz
             waitFrames = WAITFRAMESQUANTITY
             if @typeQuestion.result==@index 
               @answerLabel=_INTL("Correct!")
-              pbSEPlay("ItemGet") 
+              pbPlaySaveSE()
               @questionsRight+=1
             else
               @answerLabel=_INTL("Wrong!")
-              pbSEPlay("buzzer") 
+              pbPlayBuzzerSE()
               if SHOWRIGHTANSWER
                 @index=@typeQuestion.result
-                @sprites["arrow"].setBitmap("Graphics/UI/"+getAccentFolder+"/selarrowwhite")
+                @sprites["arrow"].setBitmap("Graphics/UI/"+getAccentFolder+"/selarrowaccent")
                 updateCursor
                 waitFrames*=2
               end
@@ -208,15 +214,15 @@ module TypeQuiz
             refresh
           end  
           if Input.trigger?(Input::B)
-            pbSEPlay($data_system.decision_se) 
+            pbPlayCancelSE() 
             return -1
           end
           if Input.repeat?(Input::UP)
-            pbSEPlay($data_system.decision_se) 
+            pbPlayCursorSE() 
             @index = (@index==0 ? TypeQuestion::ANSWERS.size : @index)-1
             updateCursor
           elsif Input.repeat?(Input::DOWN)
-            pbSEPlay($data_system.decision_se) 
+            pbPlayCursorSE() 
             @index = @index==(TypeQuestion::ANSWERS.size-1) ? 0 : @index+1
             updateCursor
           end

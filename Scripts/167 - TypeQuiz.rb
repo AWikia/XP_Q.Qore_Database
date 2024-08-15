@@ -25,9 +25,10 @@
 # 'TypeQuiz::TypeQuestion.new.messageQuestion' in a conditional branch and
 # handle when the player answers correctly and incorrectly, respectively.
 #
-# To use the scene screen, use the script command 'TypeQuiz.scene(X)' 
+# To use the scene screen, use the script command 'TypeQuiz.scene(X,Y)' 
 # where X is the number of total questions. This method will return the number
-# of question answered correctly.
+# of question answered correctly. If Y is set to true, then it will use a Pokemon
+# object instead of two type combinations to find out the right answer
 #
 #===============================================================================
 
@@ -42,10 +43,14 @@ module TypeQuiz
     attr_reader   :defense1Type
     attr_reader   :defense2Type
     attr_reader   :result
+    attr_reader   :hard
+    attr_reader   :dummypokemon
     
     TYPEAVALIABLE = [:NORMAL,:FIGHTING,:FLYING,:POISON,:GROUND,
         :ROCK,:BUG,:GHOST,:STEEL,:FIRE,:WATER,:GRASS,:ELECTRIC,:PSYCHIC,
-        :ICE,:DRAGON,:DARK,:FAIRY]
+        :ICE,:DRAGON,:DARK,:FAIRY,:MAGIC,:DOOM,:JELLY,:SHARPENER,:LAVA,:WIND,
+        :LICK,:BOLT,:HERB,:CHLOROPHYLL,:GUST,:SUN,:MOON,:MIND,:HEART,:BLIZZARD,
+        :GAS,:GLIMSE]
     ANSWERS = [ 
       _INTL("4x"),_INTL("2x"),_INTL("Normal"),_INTL("1/2")
     ]
@@ -55,14 +60,25 @@ module TypeQuiz
                    nil,nil,1,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,
                    nil,nil,0]
     
-    def initialize(answer=-1)
+    def initialize(answer=-1,hard=false)
+      # Hard Mode
+      @dummypokemon=PokeBattle_Pokemon.new(1,1)
+      @dummypokemon.species=rand(PBSpecies.maxValue)
+      # Hard Mode end
       answer=rand(ANSWERS.size) if(answer==-1)
       @result=nil
+      @hard=hard
       test=0
       while(@result!=answer)
         @attackType = getID(PBTypes,TYPEAVALIABLE[rand(TYPEAVALIABLE.size)])
-        @defense1Type = getID(PBTypes,TYPEAVALIABLE[rand(TYPEAVALIABLE.size)])
-        @defense2Type = getID(PBTypes,TYPEAVALIABLE[rand(TYPEAVALIABLE.size)])
+        if hard
+          @defense1Type = getID(PBTypes,@dummypokemon.type1)
+          @defense2Type = getID(PBTypes,@dummypokemon.type2)
+          answer=rand(ANSWERS.size) if hard
+        else
+          @defense1Type = getID(PBTypes,TYPEAVALIABLE[rand(TYPEAVALIABLE.size)])
+          @defense2Type = getID(PBTypes,TYPEAVALIABLE[rand(TYPEAVALIABLE.size)])
+        end
         @result = TYPERESULTS[PBTypes.getCombinedEffectiveness(
           @attackType,@defense1Type,@defense2Type)]
       end  
@@ -73,8 +89,13 @@ module TypeQuiz
       defenseTypeName = PBTypes.getName(@defense1Type)
       defenseTypeName += "/"+PBTypes.getName(@defense2Type) if(
         @defense1Type!=@defense2Type)
-      question=_INTL("What is the damage of an {1} move versus a {2} pokémon?",
-        attackTypeName,defenseTypeName)
+      if @hard
+        questionmessage=_INTL("{1}",PBSpecies.getName(@dummypokemon.species))
+      else
+        questionmessage=_INTL("a {1} pokémon",defenseTypeName)
+      end
+      question=_INTL("What is the damage of an {1} move versus {2}?",
+        attackTypeName,questionmessage)
       return Kernel.pbMessage(question,ANSWERS,0)==result
     end  
   end
@@ -91,7 +112,7 @@ module TypeQuiz
       pbUpdateSpriteHash(@sprites)
     end
     
-    def pbStartScene(questions)
+    def pbStartScene(questions,hard=false)
       @questionsTotal=questions
       @questionsCount=0
       @questionsRight=0
@@ -115,14 +136,14 @@ module TypeQuiz
       @sprites["overlay"]=BitmapSprite.new(
         Graphics.width,Graphics.height,@viewport)
       pbSetSystemFont(@sprites["overlay"].bitmap)
-      nextQuestion
+      nextQuestion(hard)
       pbFadeInAndShow(@sprites) { update }
     end
     
-    def nextQuestion
+    def nextQuestion(hard=false)
       @questionsCount+=1
       return if finished?
-      @typeQuestion=TypeQuestion.new
+      @typeQuestion=TypeQuestion.new(-1,hard)
       @answerLabel=""
       @sprites["arrow"].setBitmap("Graphics/UI/"+getAccentFolder+"/selarrowaccent")
       refresh
@@ -167,7 +188,11 @@ module TypeQuiz
       typeDef1Rect=Rect.new(0,@typeQuestion.defense1Type*28,64,28)
       typeDef2Rect=Rect.new(0,@typeQuestion.defense2Type*28,64,28)
       overlay.blt(typeX,Graphics.height/2-36,@typebitmap.bitmap,typeAtkRect)
-      if @typeQuestion.defense1Type==@typeQuestion.defense2Type
+      if @typeQuestion.hard
+        @sprites["icon"]=PokemonIconSprite.new(@typeQuestion.dummypokemon,@viewport)
+        @sprites["icon"].x=typeX
+        @sprites["icon"].y=typeDefY- 34
+      elsif @typeQuestion.defense1Type==@typeQuestion.defense2Type
         overlay.blt(typeX,typeDefY,@typebitmap.bitmap,typeDef1Rect)
       else
         overlay.blt(typeX-34,typeDefY,@typebitmap.bitmap,typeDef1Rect)
@@ -179,7 +204,7 @@ module TypeQuiz
       @sprites["arrow"].y=Graphics.height/2+@index*40-40
     end  
   
-    def pbMain
+    def pbMain(hard=false)
       waitFrames=0
       loop do
         Graphics.update
@@ -192,7 +217,7 @@ module TypeQuiz
         elsif waitFrames>0 # Waiting
           waitFrames-=1
         elsif @answerLabel!=""
-          nextQuestion
+          nextQuestion(hard)
         else  
           if Input.trigger?(Input::C)
             # Set frames to wait, after the result.
@@ -248,20 +273,20 @@ module TypeQuiz
       @scene=scene
     end
   
-    def pbStartScreen(questions=10)
-      @scene.pbStartScene(questions)
-      ret=@scene.pbMain
+    def pbStartScreen(questions=10,hard=false)
+      @scene.pbStartScene(questions,hard)
+      ret=@scene.pbMain(hard)
       @scene.pbEndScene
       return ret
     end
   end
   
-  def self.scene(questions=10)
+  def self.scene(questions=10,hard=false)
     ret=nil
     pbFadeOutIn(99999){
       scene = TypeQuizScene.new
       screen = TypeQuizScreen.new(scene)
-      ret = screen.pbStartScreen(questions)
+      ret = screen.pbStartScreen(questions,hard)
     }
     return ret
   end

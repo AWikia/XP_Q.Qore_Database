@@ -1603,16 +1603,13 @@ class PokeBattle_Battle
     @peer.pbOnEnteringBattle(self,pokemon)
     if pbIsOpposing?(index)
       @scene.pbTrainerSendOut(index,pokemon)
-     if !$game_switches[36] and pbPokemonCount(@party2)<=3 #GymLeader1
-       if !$game_switches[36] and pbPokemonCount(@party2)==1 #GymLeader1
-         @scene.pbShowOpponent(0)
-         # pbBGMPlay("Showtime",80,100)
-         pbDisplayPaused(_INTL("Almost there! Win my last pokemon to procced"))
-         @scene.pbHideOpponent
-       else
-        # pbBGMPlay("Showtime",80,100)
-       end
-     end
+      if !($game_switches[36] || $game_switches[1047]) # Not when under challenge mod
+        if pbPokemonCount(@party2)==1
+          @scene.pbShowOpponent(0)
+          pbDisplayPaused(_INTL("Almost there! Win my last pokemon to procced"))
+          @scene.pbHideOpponent
+        end
+      end
     else
       @scene.pbSendOut(index,pokemon)
     end
@@ -4919,7 +4916,8 @@ class PokeBattle_Battle
           pbDisplayPaused(@endspeech2.gsub(/\\[Pp][Nn]/,self.pbPlayer.name))
         end
         # Calculate money gained for winning
-        if @internalbattle
+        if @internalbattle && 
+          !($game_switches[1047] || $game_variables[1003] > 0)
           tmoney=0
           if @opponent.is_a?(Array)   # Double battles
             maxlevel1=0; maxlevel2=0; limit=pbSecondPartyBegin(1)

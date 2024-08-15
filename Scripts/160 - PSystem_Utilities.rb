@@ -379,7 +379,7 @@ def pbCheckPokedexes
   elsif numRegions+1 < $PokemonGlobal.pokedexUnlocked.length
     # Lock Dex that was previously National
     pbLockDex($PokemonGlobal.pokedexUnlocked.length-1)
-    oldindex=$PokemonGlobal.pokedexIndex[$PokemonGlobal.pokedexUnlocked.length-1]
+    oldindex=$PokemonGlobal.pokedexIndex[$PokemonGlobal.pokedexUnlocked.length-1].to_i
     $PokemonGlobal.pokedexIndex[$PokemonGlobal.pokedexUnlocked.length-1]    = 0
     # Update Dexes
     $PokemonGlobal.pokedexIndex[numRegions..$PokemonGlobal.pokedexIndex.length-1] = nil

@@ -765,7 +765,8 @@ def pbDebugMenu(fromgame=true)
            _INTL("Slot Machine"),
            _INTL("Voltorb Flip"),
            _INTL("Underground Mining"),
-           _INTL("Type Quiz")
+           _INTL("Type Quiz"),
+           _INTL("Type Quiz (Hard)")
         ]
         gamecmd=Kernel.pbShowCommands(nil,gamecmds,-1,gamecmd)
         break if gamecmd<0
@@ -778,6 +779,9 @@ def pbDebugMenu(fromgame=true)
           pbMiningGame
         when 3 # Type Quiz
           TypeQuiz.scene(25)
+        when 4 # Type Quiz
+          TypeQuiz.scene(25,true)
+
         end
       end
     elsif cmd=="edititems"

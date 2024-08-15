@@ -720,6 +720,7 @@ class TriadScreen
         @countUnplayedCards = true if rule=="countunplayed"
         @trade              = 1    if rule=="direct"
         @trade              = 2    if rule=="winall"
+        @trade              = 3    if rule=="nocardgainloss"
       end
     end
     @triadCards=[]

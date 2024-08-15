@@ -89,11 +89,13 @@ class Scene_PokegearScene
     @cmdPhone=-1
     @cmdJukebox=-1
     @cmdLink=-1
+    @cmdChallenge=-1
     commands[@cmdMap=commands.length]=_INTL("Map")
     commands[@cmdPhone=commands.length]=_INTL("Phone") if $PokemonGlobal.phoneNumbers &&
                                                           $PokemonGlobal.phoneNumbers.length>0
     commands[@cmdJukebox=commands.length]=_INTL("Jukebox")
     commands[@cmdLink=commands.length]=_INTL("Link Battle") if $game_switches[12]
+    commands[@cmdChallenge=commands.length]=_INTL("Challenge") if $game_switches[202]
 
     @viewport=Viewport.new(0,0,Graphics.width,Graphics.height)
     @viewport.z=99999
@@ -177,7 +179,14 @@ class Scene_PokegearScene
            screen.pbStartScreen
         }
       end
-
+      if @cmdChallenge>=0 && @sprites["command_window"].index==@cmdChallenge
+        pbPlayDecisionSE()
+        scene=Scene_ChallengeScene.new
+        screen=Scene_Challenge.new(scene)
+        pbFadeOutIn(99999) {
+           screen.pbStartScreen
+        }
+      end
       return
     end
   end

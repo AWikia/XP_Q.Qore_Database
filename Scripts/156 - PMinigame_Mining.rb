@@ -490,6 +490,7 @@ class MiningGameScene
   end
 
   def pbMain
+    ret=false
     pbSEPlay("MiningPing")
     Kernel.pbMessage(_INTL("Something pinged in the wall!\n{1} confirmed!",@items.length))
     loop do
@@ -523,6 +524,7 @@ class MiningGameScene
         pbWait(30)
         pbSEPlay("MiningAllFound")
         Kernel.pbMessage(_INTL("Everything was dug up!"))
+        ret=true
         break
       end
       # Input
@@ -559,12 +561,16 @@ class MiningGameScene
       end
     end
     pbGiveItems
+    return ret
   end
 
   def pbGiveItems
     if @itemswon.length>0
       for i in @itemswon
-        if $PokemonBag.pbStoreItem(i)
+        if $game_switches[1047]
+          Kernel.pbMessage(_INTL("One {1} was found, but you can't obtain it right now.\\wtnp[30]",
+             PBItems.getName(i)))
+        elsif $PokemonBag.pbStoreItem(i)
           Kernel.pbMessage(_INTL("One {1} was obtained.\\se[MiningItemGet]\\wtnp[30]",
              PBItems.getName(i)))
         else
@@ -591,17 +597,20 @@ class MiningGame
 
   def pbStartScreen
     @scene.pbStartScene
-    @scene.pbMain
+    ret=@scene.pbMain
     @scene.pbEndScene
+    return ret
   end
 end
 
 
 
 def pbMiningGame
+  ret=nil
   scene=MiningGameScene.new
   screen=MiningGame.new(scene)
   pbFadeOutIn(99999) {
-     screen.pbStartScreen
+     ret=screen.pbStartScreen
   }
+  return ret
 end

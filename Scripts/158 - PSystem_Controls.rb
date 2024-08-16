@@ -113,7 +113,7 @@ module Input
     when Input::ALT
       return [0x12] # Alt
     when Input::F5
-      return [0x74] # F5
+      return [0x74,0x46,0x09] # F5, F, Tab
     when Input::F6
       return [0x75] # F6
     when Input::F7

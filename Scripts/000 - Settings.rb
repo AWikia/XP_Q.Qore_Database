@@ -34,18 +34,20 @@ BORDERWIDTH          = 80
 BORDERHEIGHT         = 48 # Was 80
 MAPVIEWMODE          = 1
 QQORECHANNEL         = 0
-QQORECHANNEL         = 1 if RTP2.getGameIniValue("Qortex", "Channel") == "Beta" # IE Mode throttles channel to beta
+QQORECHANNEL         = 1 if  RTP2.getGameIniValue("Qortex", "Channel") == "Beta" # IE Mode throttles channel to beta
 QQORECHANNEL         = 2 if (RTP2.getGameIniValue("Qortex", "Channel") == "Dev" ||
                              RTP2.getGameIniValue("Qortex", "Channel") == "Alpha")
-QQORECHANNEL         = 3 if RTP2.getGameIniValue("Qortex", "Channel") == "Canary"
+QQORECHANNEL         = 3 if  RTP2.getGameIniValue("Qortex", "Channel") == "Canary"
 QQORECHANNEL         = 4 if (RTP2.getGameIniValue("Qortex", "Channel") == "Internal" ||
-                             RTP2.getGameIniValue("Qortex", "Channel") == "LTSC")
+                             RTP2.getGameIniValue("Qortex", "Channel") == "LTSC" ||
+                             RTP2.getGameIniValue("Qortex", "Channel") == "Internal Canary")
 QQORECHANNEL         = 5 if (RTP2.getGameIniValue("Qortex", "Channel") == "Upgrade Wizard" ||
                              RTP2.getGameIniValue("Qortex", "Channel") == "Release Preview")
 QQORECHANNELVARIANT  = 0
 QQORECHANNELVARIANT  = 1 if (RTP2.getGameIniValue("Qortex", "Channel") == "Internal" ||
                              RTP2.getGameIniValue("Qortex", "Channel") == "Upgrade Wizard" ||
                              RTP2.getGameIniValue("Qortex", "Channel") == "RTM")
+QQORECHANNELVARIANT  = 2 if  RTP2.getGameIniValue("Qortex", "Channel") == "Internal Canary"
 
 
 #SHOWHEADER           = true

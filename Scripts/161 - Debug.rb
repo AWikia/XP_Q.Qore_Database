@@ -529,7 +529,7 @@ def pbDebugMenu(fromgame=true)
       Kernel.pbMessage(_INTL("Player's outfit was changed.")) if $Trainer.outfit!=oldoutfit
     elsif cmd=="setmoney"
       params=ChooseNumberParams.new
-      params.setMaxDigits(6)
+      params.setRange(0,MAXMONEY)
       params.setDefaultValue($Trainer.money)
       $Trainer.money=Kernel.pbMessageChooseNumber(
          _INTL("Set the player's money."),params)

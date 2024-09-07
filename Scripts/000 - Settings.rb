@@ -29,7 +29,6 @@ end
 DEFAULTSCREENWIDTH   = 640 # 512
 DEFAULTSCREENHEIGHT  = 384
 DEFAULTSCREENZOOM    = 1.0
-FULLSCREENBORDERCROP = false # DEPRECATED - DO NOT CHANGE
 BORDERWIDTH          = 80
 BORDERHEIGHT         = 48 # Was 80
 MAPVIEWMODE          = 1
@@ -50,7 +49,6 @@ QQORECHANNELVARIANT  = 1 if (RTP2.getGameIniValue("Qortex", "Channel") == "Inter
 QQORECHANNELVARIANT  = 2 if  RTP2.getGameIniValue("Qortex", "Channel") == "Internal Canary"
 
 
-#SHOWHEADER           = true
 # To forbid the player from changing the screen size themselves, quote out or
 # delete the relevant bit of code in the PScreen_Options script section.
 
@@ -91,11 +89,6 @@ NEWBERRYPLANTS        = true
 INFINITETMS           = true
 
 #===============================================================================
-# * Whether outdoor maps should be shaded according to the time of day.
-#===============================================================================
-ENABLESHADING = true # DEPRECATED - DO NOT CHANGE
-
-#===============================================================================
 # * Pairs of map IDs, where the location signpost isn't shown when moving from
 #      one of the maps in a pair to the other (and vice versa). Useful for
 #      single long routes/towns that are spread over multiple maps.
@@ -108,25 +101,13 @@ NOSIGNPOSTS = [110,111]
 #===============================================================================
 # * Whether a move's physical/special category depends on the move itself as in
 #      newer Gens (true), or on its type as in older Gens (false).
-# * Whether the Exp gained from beating a Pokémon should be scaled depending on
-#      the gainer's level as in Gen 5/7 (true), or not as in other Gens (false).
-# * Whether the Exp gained from beating a Pokémon should be divided equally
-#      between each participant (false), or whether each participant should gain
-#      that much Exp. This also applies to Exp gained via the Exp Share (held
-#      item version) being distributed to all Exp Share holders. This is true in
-#      Gen 6 and false otherwise.
 # * Whether the critical capture mechanic applies (true) or not (false). Note
 #      that it is based on a total of 600+ species (i.e. that many species need
 #      to be caught to provide the greatest critical capture chance of 2.5x),
 #      and there may be fewer species in your game.
-# * Whether Pokémon gain Exp for capturing a Pokémon (true) or not (false).
-# * Whether Internet Explorer mode is open or not
 #===============================================================================
 USEMOVECATEGORY       = true
-USESCALEDEXPFORMULA   = false #
-NOSPLITEXP            = true #
 USECRITICALCAPTURE    = true
-GAINEXPFORCAPTURE     = true #
 
 #===============================================================================
 # * The minimum number of badges required to boost each stat of a player's
@@ -539,9 +520,3 @@ LANGUAGES = [
 #  ["English","english.dat"],
 #  ["Deutsch","deutsch.dat"]
 ]
-
-#===============================================================================
-# * Whether names can be typed using the keyboard (true) or chosen letter by
-#      letter as in the official games (false).
-#===============================================================================
-USEKEYBOARDTEXTENTRY = false

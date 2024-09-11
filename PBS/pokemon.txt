@@ -35113,7 +35113,7 @@ RegionalNumbers=0,0,12,0,196,0,387,113,0,0,409
 Kind=Fire Croc
 Pokedex=The combination of Crocalor’s fire energy and overflowing vitality has caused an egg-shaped fireball to appear on the Pokémon’s head.
 BattlerPlayerY=19
-BattlerEnemyY=23
+BattlerEnemyY=22
 BattlerAltitude=0
 Evolutions=SKELEDIRGE,Level,36
 [1261]
@@ -35596,7 +35596,7 @@ RegionalNumbers=0,0,69,0,176,302,0,0,69,181,243
 Kind=Dog
 Pokedex=The pleasant aroma that emanates from this Pokémon’s body helps wheat grow, so Dachsbun has been treasured by farming villages.
 BattlerPlayerY=15
-BattlerEnemyY=26
+BattlerEnemyY=20
 BattlerAltitude=0
 Evolutions=
 [1278]
@@ -35713,7 +35713,7 @@ Kind=Parrot
 Pokedex=These Pokémon prefer to live in cities. They form flocks based on the color of their feathers, and they fight over territory.
 FormNames=Green Plumage,Blue Plumage,Yellow Plumage,White Plumage
 BattlerPlayerY=21
-BattlerEnemyY=25
+BattlerEnemyY=27
 BattlerAltitude=0
 Evolutions=
 [1282]
@@ -36261,7 +36261,7 @@ RegionalNumbers=0,0,0,0,0,0,0,0,0,271,0,0,0,0,0,0,0,40,0,279
 Kind=Ambush
 Pokedex=Klawf hangs upside-down from cliffs, waiting for prey. But Klawf can’t remain in this position for long because its blood rushes to its head.
 BattlerPlayerY=15
-BattlerEnemyY=34
+BattlerEnemyY=27
 BattlerAltitude=0
 Evolutions=
 [1301]
@@ -36831,7 +36831,7 @@ RegionalNumbers=0,0,107,0,0,258,492,0,332,0,0,301,171,174,282,0,0,77
 Kind=Ore
 Pokedex=When this Pokémon detects danger, it will open up its crystalline petals and fire beams from its conical body.
 BattlerPlayerY=15
-BattlerEnemyY=27
+BattlerEnemyY=26
 BattlerAltitude=0
 Evolutions=
 [1321]
@@ -36944,7 +36944,7 @@ RegionalNumbers=0,0,0,234,0,0,475,0,0,0,363,0,0,201
 Kind=Terra Whale
 Pokedex=This species left the ocean and began living on land a very long time ago. It seems to be closely related to Wailmer.
 BattlerPlayerY=15
-BattlerEnemyY=33
+BattlerEnemyY=30
 BattlerAltitude=0
 Evolutions=CETITAN,Item,ICESTONE
 [1325]
@@ -37501,7 +37501,7 @@ RegionalNumbers=0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,198
 Kind=Paradox
 Pokedex=This Pokémon resembles an unknown object described in a paranormal magazine as a UFO sent to observe humanity.
 BattlerPlayerY=7
-BattlerEnemyY=17
+BattlerEnemyY=10
 BattlerAltitude=0
 Evolutions=
 [1345]
@@ -38238,7 +38238,7 @@ WildItemCommon=TARTAPPLE
 WildItemUncommon=SWEETAPPLE
 WildItemRare=SYRUPYAPPLE
 BattlerPlayerY=14
-BattlerEnemyY=18
+BattlerEnemyY=16
 BattlerAltitude=0
 Evolutions=HYDRAPPLE,HasMove,DRAGONCHEER
 [1372]
@@ -38327,7 +38327,7 @@ Habitat=Grassland
 Kind=Retainer
 Pokedex=After all its muscles were stimulated by the toxic chain around its neck, Okidogi transformed and gained a powerful physique.
 BattlerPlayerY=15
-BattlerEnemyY=14
+BattlerEnemyY=10
 BattlerAltitude=0
 Evolutions=
 [1375]
@@ -38354,7 +38354,7 @@ Habitat=Grassland
 Kind=Retainer
 Pokedex=The chain is made from toxins that enhance capabilities. It stimulated Munkidori's brain and caused the Pokémon's psychic powers to bloom.
 BattlerPlayerY=15
-BattlerEnemyY=20
+BattlerEnemyY=21
 BattlerAltitude=0
 Evolutions=
 [1376]
@@ -38381,7 +38381,7 @@ Habitat=Grassland
 Kind=Retainer
 Pokedex=Fezandipiti owes its beautiful looks and lovely voice to the toxic stimulants emanating from the chain wrapped around its body.
 BattlerPlayerY=15
-BattlerEnemyY=12
+BattlerEnemyY=11
 BattlerAltitude=0
 Evolutions=
 [1377]
@@ -38470,7 +38470,7 @@ WildItemCommon=TARTAPPLE
 WildItemUncommon=SWEETAPPLE
 WildItemRare=SYRUPYAPPLE
 BattlerPlayerY=15
-BattlerEnemyY=10
+BattlerEnemyY=11
 BattlerAltitude=0
 Evolutions=
 [1380]
@@ -38497,7 +38497,7 @@ RegionalNumbers=0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,182
 Kind=Paradox
 Pokedex=There are scant few reports of this creature being sighted. One short video shows it rampaging and spouting pillars of flame.
 BattlerPlayerY=7
-BattlerEnemyY=9
+BattlerEnemyY=10
 BattlerAltitude=0
 Evolutions=
 [1381]
@@ -38605,7 +38605,7 @@ Kind=Tera
 Pokedex=Terapagos protects itself using its power to transform energy into hard crystals. This Pokémon is the source of the Terastal phenomenon.
 FormNames=Normal Form,Terestral Form,Stellar Form
 BattlerPlayerY=20
-BattlerEnemyY=24
+BattlerEnemyY=30
 BattlerAltitude=0
 Evolutions=
 [1385]
@@ -38632,7 +38632,7 @@ RegionalNumbers=0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,185
 Kind=Subjugation
 Pokedex=It feeds others toxic mochi that draw out desires and capabilities. Those who eat the mochi fall under Pecharunt’s control, chained to its will.
 BattlerPlayerY=23
-BattlerEnemyY=28
+BattlerEnemyY=27
 BattlerAltitude=0
 Evolutions=
 [1386]

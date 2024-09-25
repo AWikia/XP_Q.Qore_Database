@@ -774,7 +774,15 @@ def pbDebugMenu(fromgame=true)
         when 0 # VoltorbFlip
           pbSlotMachine
         when 1 # Slot Machine
-          pbVoltorbFlip
+          commands=[_INTL("Easy"),
+                    _INTL("Medium"),
+                    _INTL("Hard"),
+                    _INTL("Cancel")]
+          command=Kernel.pbMessage(
+              _INTL("Choose a difficulty."),commands,-1)
+          if command>=0 && command < 3
+            pbVoltorbFlip(command)
+          end
         when 2 # Mining
           pbMiningGame
         when 3 # Type Quiz

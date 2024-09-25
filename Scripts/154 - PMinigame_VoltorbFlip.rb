@@ -9,12 +9,20 @@ class VoltorbFlip
     pbUpdateSpriteHash(@sprites)
   end
 
-  def pbStart
+  def pbStart(difficulty=1)
     # Set initial level
     @level=1
     # Maximum and minimum total point values for each level
-    @levelRanges=[[ 20, 50],[ 50, 100],[ 100, 200],[ 200, 350],
-                  [350,600],[600,1000],[1000,2000],[2000,3500]]
+    @difficulty=difficulty
+    @difficulty=1 if difficulty>2
+    @levelRanges=[
+                  [[ 50, 100],[ 100, 200],[ 200, 350],[ 350, 600],
+                   [600,1000],[1000,2000],[2000,3500],[3500,6000]], # Easy
+                  [[ 20, 50],[ 50, 100],[ 100, 200],[ 200, 350],
+                   [350,600],[600,1000],[1000,2000],[2000,3500]],   # Normal
+                  [[ 10, 20],[ 20, 50],[ 50, 100],[ 100, 200],
+                   [200,350],[350,600],[600,1000],[1000,2000]]      # Hard
+                 ][difficulty]
     @firstRound=true
     pbNewGame
   end
@@ -35,11 +43,12 @@ class VoltorbFlip
     squareValues=[]
     total=1
     voltorbs=0
+    multiplier=[0.5,1,1.5][@difficulty]
     for i in 0...25
       # Sets the value to 1 by default
       squareValues[i]=1
       # Sets the value to 0 (a voltorb) if # for that level hasn't been reached
-      if voltorbs < 5+@level
+      if voltorbs < (5+@level)*multiplier
         squareValues[i]=0
         voltorbs+=1
       # Sets the value randomly to a 2 or 3 if the total is less than the max
@@ -627,8 +636,8 @@ class VoltorbFlipScreen
     @scene=scene
   end
 
-  def pbStartScreen
-    @scene.pbStart
+  def pbStartScreen(difficulty=1)
+    @scene.pbStart(difficulty)
     @scene.pbScene
     @scene.pbEndScene
   end
@@ -636,7 +645,7 @@ end
 
 
 
-def pbVoltorbFlip
+def pbVoltorbFlip(difficulty=1)
   if hasConst?(PBItems,:COINCASE) && $PokemonBag.pbQuantity(:COINCASE)<=0
     Kernel.pbMessage(_INTL("You can't play unless you have a Coin Case."))
   elsif $PokemonGlobal.coins==MAXCOINS
@@ -644,6 +653,6 @@ def pbVoltorbFlip
   else
     scene=VoltorbFlip.new
     screen=VoltorbFlipScreen.new(scene)
-    screen.pbStartScreen
+    screen.pbStartScreen(difficulty)
   end
 end

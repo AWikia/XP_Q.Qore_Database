@@ -31,7 +31,7 @@ class VoltorbFlip
     @index=[0,0]
     # [x,y,points,selected]
     @squares=[0,0,0,false]
-    @directory="Graphics/UI/Voltorb Flip/"
+    @directory="Graphics/UI/"+getDarkModeFolder+"/Voltorb Flip/"
     squareValues=[]
     total=1
     voltorbs=0
@@ -86,13 +86,20 @@ class VoltorbFlip
       pbUpdateRowNumbers(0,0,i)
       pbUpdateColumnNumbers(0,0,i)
     end
+    if (!isDarkMode?)
+      base=Color.new(60,60,60)
+      shadow=Color.new(150,190,170)
+    else
+      base=Color.new(240,250,240)
+      shadow=Color.new(60,90,70)
+    end
     pbDrawShadowText(@sprites["text"].bitmap,8,16,118,26,
-       _INTL("Your coins"),Color.new(60,60,60),Color.new(150,190,170),1)
+       _INTL("Your coins"),base,shadow,1)
     pbDrawShadowText(@sprites["text"].bitmap,8,82,118,26,
-       _INTL("Earned coins"),Color.new(60,60,60),Color.new(150,190,170),1)
+       _INTL("Earned coins"),base,shadow,1)
     # Draw current level
     pbDrawShadowText(@sprites["level"].bitmap,8,150,118,28,
-       _INTL("Level {1}",@level.to_s),Color.new(60,60,60),Color.new(150,190,170),1)
+       _INTL("Level {1}",@level.to_s),base,shadow,1)
     # Displays total and current coins
     pbUpdateCoins
     # Draw curtain effect
@@ -324,8 +331,15 @@ class VoltorbFlip
                 end
               end
               # Update level text
+              if (!isDarkMode?)
+                base=Color.new(60,60,60)
+                shadow=Color.new(150,190,170)
+              else
+                base=Color.new(240,250,240)
+                shadow=Color.new(60,90,70)
+              end
               @sprites["level"].bitmap.clear
-              pbDrawShadowText(@sprites["level"].bitmap,8,150,118,28,"Level "+@level.to_s,Color.new(60,60,60),Color.new(150,190,170),1)
+              pbDrawShadowText(@sprites["level"].bitmap,8,150,118,28,"Level "+@level.to_s,base,shadow,1)
               @points=0
               pbUpdateCoins
               # Revert numbers to 0s
@@ -373,8 +387,15 @@ class VoltorbFlip
 #        Kernel.pbMessage(_INTL("This means you've found all the Coins in this game, so the game is now over."))
         Kernel.pbMessage(_INTL("{1} received {2} Coins!",$Trainer.name,@points.to_s_formatted))
         # Update level text
+        if (!isDarkMode?)
+          base=Color.new(60,60,60)
+          shadow=Color.new(150,190,170)
+        else
+          base=Color.new(240,250,240)
+          shadow=Color.new(60,90,70)
+        end
         @sprites["level"].bitmap.clear
-        pbDrawShadowText(@sprites["level"].bitmap,8,150,118,28,_INTL("Level {1}",@level.to_s),Color.new(60,60,60),Color.new(150,190,170),1)
+        pbDrawShadowText(@sprites["level"].bitmap,8,150,118,28,_INTL("Level {1}",@level.to_s),base,shadow,1)
         $PokemonGlobal.coins+=@points
         @points=0
         pbUpdateCoins

@@ -336,8 +336,10 @@ def getAccentFolder
   if $PokemonSystem
     if (($PokemonSystem.accentcolor!=24 rescue false)) # Accent Color 19 is hardcoded to be the channel-aware ones
       return "Accents/Accent Color " + $PokemonSystem.accentcolor.to_s
-    else
+    elsif ($PokemonSystem.accentcolor<getAccentNames.length rescue false)
       return "Accents/Accent Color " + $PokemonSystem.accentcolor.to_s + ["/Stable","/Beta","/Dev","/Canary","/Internal","/Upgrade Wizard"][QQORECHANNEL]
+    else
+      return "Accents/Accent Color " + "16"
     end
   else
     return "Accents/Accent Color " + "16"
@@ -346,7 +348,7 @@ end
 
 # Returns the Accent Colors
 def getAccentNames
-  return ["Light Yellow", "Yellow", "Dark Yellow", "Light Orange", "Orange", "Dark Orange", "Light Red", "Red", "Dark Red", "Light Pink", "Pink", "Dark Pink", "Light Purple", "Purple", "Dark Purple", "Light Blue", "Blue", "Dark Blue", "Light Green", "Green", "Dark Green", "Light Gray", "Gray", "Dark Gray", "Channel-Aware", "Multi-Colored", "Black and White", "Pokémon Quadruplet", "Bronze Medal", "Silver Medal", "Gold Medal", "Platinum Medal", "White 2 and Black 2", "X and Y", "Sun and Moon", "Pikachu and Eevee", "Sword and Shield", "Scarlet and Violet", "Brilliant Diamond and Shining Pearl", "Omega Ruby and Alpha Sapphire", "HeartGold and SoulSilver", "Expansion Pass", "FireRed and LeafGreen", "Light Eevee and Pikachu", "Inverted Multi-Colored", "Crystal", "Emerald", "Legends: Arceus", "The Hidden Treassure of Area Zero"]
+  return ["Light Yellow", "Yellow", "Dark Yellow", "Light Orange", "Orange", "Dark Orange", "Light Red", "Red", "Dark Red", "Light Pink", "Pink", "Dark Pink", "Light Purple", "Purple", "Dark Purple", "Light Blue", "Blue", "Dark Blue", "Light Green", "Green", "Dark Green", "Light Gray", "Gray", "Dark Gray", "Channel-Aware"]
 end
 
 # Returns the Active Accent Color

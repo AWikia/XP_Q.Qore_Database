@@ -189,6 +189,7 @@ module TypeQuiz
       typeDef2Rect=Rect.new(0,@typeQuestion.defense2Type*28,64,28)
       overlay.blt(typeX,Graphics.height/2-36,@typebitmap.bitmap,typeAtkRect)
       if @typeQuestion.hard
+        @sprites["icon"].dispose if @sprites["icon"]
         @sprites["icon"]=PokemonIconSprite.new(@typeQuestion.dummypokemon,@viewport)
         @sprites["icon"].x=typeX
         @sprites["icon"].y=typeDefY- 34

@@ -47,15 +47,15 @@ def getBorders # Edit this along with getBorderNames to add more borders
         "Borders/border",
         "Borders/border_1",
         "Borders/border_2",
-        getDarkModeFolder+"/Borders/"+['border_3','border_3_beta','border_3_dev','border_3_canary','border_3_internal','border_3_upgradewizard'][QQORECHANNEL],
+        getDarkModeFolder+"/Borders/border_3"+['','_beta','_dev','_canary','_internal','_upgradewizard'][QQORECHANNEL],
         getAccentFolder+"/border_4",
         getDarkModeFolder+"/Borders/border_5",
         getDarkModeFolder+"/Borders/border_6",
         "Borders/border_7",
         getDarkModeFolder+"/Borders/border_8",
         "Borders/border_9",
-        getDarkModeFolder+"/Borders/"+['border_10','border_10_1','border_10_2','border_10_3'][pbGetSeason],
-        getDarkModeFolder+"/Borders/"+['border_11','border_11_1','border_11_2','border_11_3'][pbGetSeason],
+        getDarkModeFolder+"/Borders/border_10"+['','_1','_2','_3'][pbGetSeason],
+        getDarkModeFolder+"/Borders/border_11"+['','_1','_2','_3'][pbGetSeason],
         getDarkModeFolder+"/Borders/border_12",
         getDarkModeFolder+"/Borders/border_13",
         getDarkModeFolder+"/Borders/border_14",
@@ -63,6 +63,7 @@ def getBorders # Edit this along with getBorderNames to add more borders
         getDarkModeFolder+"/Borders/border_16",
         getDarkModeFolder+"/Borders/border_17",
         getDarkModeFolder+"/Borders/border_18",
+        getDarkModeFolder+"/Borders/border_19",
       ]
 end
 
@@ -87,6 +88,7 @@ def getBorderNames # Edit this along with getBorders to add more borders
         "Orange",
         "Purple",
         "Yellow",
+        "Esmeralda",
       ]
 end
 

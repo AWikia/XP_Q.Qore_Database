@@ -23,9 +23,9 @@ def pbSetResizeFactor(factor=0,norecalc=false,border=-1)
   #  factor=[0.5,1.0,1.5,2.0,2.5,3.0][factor] if $PokemonSystem.border==0
   #  factor=[-1,-1,-1,-1,-1,-1][factor] if $PokemonSystem.border==1
      $PokemonSystem.border=border if border!=-1
-     factor=[1.0,2.0,2.5,3.0,-1][factor] if !norecalc
+     factor=[1.0,2.0,2.5,3.0,-1,-2][factor] if !norecalc
    end
-  (factor<0) ? pbConfigureFullScreen : pbConfigureWindowedScreen(factor)
+  (factor<0) ? pbConfigureFullScreen(factor) : pbConfigureWindowedScreen(factor)
 end
 
 def pbSetResizeFactor2(factor,force=false)
@@ -76,7 +76,7 @@ def pbSetResizeFactor2(factor,force=false)
   end
 end
 
-def pbConfigureFullScreen
+def pbConfigureFullScreen(value=-1)
   params = Win32API.fillScreen
   fullgamew = gamew = DEFAULTSCREENWIDTH
   fullgameh = gameh = DEFAULTSCREENHEIGHT
@@ -84,12 +84,14 @@ def pbConfigureFullScreen
     fullgamew += BORDERWIDTH * 2
     fullgameh += BORDERHEIGHT * 2
   end
-  factor_x = ((2*params[0])/fullgamew).floor
-  factor_y = ((2*params[1])/fullgameh).floor
-  factor = [factor_x,factor_y].min/2.0
-#  factor_x = (params[0]/fullgamew).floor
-#  factor_y = (params[1]/fullgameh).floor
-#  factor = [factor_x,factor_y].min
+  if value==-2
+    factor_r = 100.0
+  else
+    factor_r = 1.0
+  end
+  factor_x = ((factor_r*params[0])/fullgamew).floor
+  factor_y = ((factor_r*params[1])/fullgameh).floor
+  factor = [factor_x,factor_y].min/factor_r
   offset_x = (params[0]-gamew*factor)/(2*factor)
   offset_y = (params[1]-gameh*factor)/(2*factor)
   $ResizeOffsetX = offset_x

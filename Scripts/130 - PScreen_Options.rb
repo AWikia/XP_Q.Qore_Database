@@ -959,7 +959,7 @@ There are different modes:
             },
            "When set to on, it shows a decorative border"
           ),
-         NumberOption.new(_INTL("Screen Size"),1,5,
+         NumberOption.new(_INTL("Screen Size"),1,6,
             proc { $PokemonSystem.screensize },
             proc {|value|
                oldvalue=$PokemonSystem.screensize
@@ -969,8 +969,8 @@ There are different modes:
                  ObjectSpace.each_object(TilemapLoader){|o| next if o.disposed?; o.updateClass }
                end
             },
-            [_INTL("Normal"), _INTL("Large"), _INTL("Xtra Large"), _INTL("Xtra² Large"), _INTL("Full-Screen")],
-            "Sets screen size. Choice between 4 sizes and Full Screen (The fifth size)"
+            [_INTL("Normal"), _INTL("Large"), _INTL("Xtra Large"), _INTL("Xtra² Large"), _INTL("Full-Screen"), _INTL("Full-Screen (Bicubic)")],
+            "Sets screen size. Choice between 4 sizes and Full Screen (The fifth and sixth sizes)"
          ),
          EnumOption.new(_INTL("Full Screen Border Crop"),[_INTL("Off"),_INTL("On")],
             proc { $PokemonSystem.bordercrop },

@@ -1784,7 +1784,7 @@ class PokeBattle_Scene
     elsif $PokemonGlobal.surfing || environ==PBEnvironment::Underwater
       trialname="Water"
     end
-    if pbResolveBitmap(sprintf("Graphics/Battle Backs/Bases/Player/" +trialname)) # +backdrop used to be as well
+    if pbResolveBitmap(sprintf("Graphics/Battle Backs/Bases/" +trialname)) # +backdrop used to be as well
       base=trialname
     end
     # Choose time of day
@@ -1793,11 +1793,11 @@ class PokeBattle_Scene
       trialname=""
       timenow=pbGetTimeNow
       if PBDayNight.isNight?(timenow)
-        trialname="_Night"
+        trialname="_night"
       elsif PBDayNight.isEvening?(timenow)
-        trialname="_Eve"
+        trialname="_eve"
       end
-      if pbResolveBitmap(sprintf("Graphics/Battle Backs/Backgrounds/"+backdrop+"/BG"+time))
+      if pbResolveBitmap(sprintf("Graphics/Battle Backs/Backgrounds/"+backdrop+time))
         time=trialname
       end
     end
@@ -1807,11 +1807,11 @@ class PokeBattle_Scene
     enemybase="Graphics/Battle Backs/enemybase"+base#+backdrop+time
     playerbase="Graphics/Battle Backs/playerbase"+base#+backdrop+time
 =end
-    battlebg="Graphics/Battle Backs/Backgrounds/000/BG"
-    battlebg="Graphics/Battle Backs/Backgrounds/"+backdrop+"/BG"      if pbResolveBitmap(sprintf("Graphics/Battle Backs/Backgrounds/"+backdrop+"/BG"))
-    battlebg="Graphics/Battle Backs/Backgrounds/"+backdrop+"/BG"+time if pbResolveBitmap(sprintf("Graphics/Battle Backs/Backgrounds/"+backdrop+"/BG"+time))
-    enemybase="Graphics/Battle Backs/Bases/Enemy/"+base
-    playerbase="Graphics/Battle Backs/Bases/Player/"+base
+    battlebg="Graphics/Battle Backs/Backgrounds/000"
+    battlebg="Graphics/Battle Backs/Backgrounds/"+backdrop      if pbResolveBitmap(sprintf("Graphics/Battle Backs/Backgrounds/"+backdrop))
+    battlebg="Graphics/Battle Backs/Backgrounds/"+backdrop+time if pbResolveBitmap(sprintf("Graphics/Battle Backs/Backgrounds/"+backdrop+time))
+    enemybase="Graphics/Battle Backs/Bases/"+base
+    playerbase="Graphics/Battle Backs/Bases/"+base+"_back"
     pbAddPlane("battlebg",battlebg,@viewport)
     pbAddSprite("battlebg2",0,0,battlebg,@viewport) # CLR
     pbAddSprite("playerbase",

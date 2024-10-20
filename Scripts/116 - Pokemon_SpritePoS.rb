@@ -242,9 +242,9 @@ class SpritePositioner
 #    battlebg="Graphics/Battle Backs/battlebgIndoorA"
 #    enemybase="Graphics/Battle Backs/enemybase"
 #    playerbase="Graphics/Battle Backs/playerbase"
-    battlebg="Graphics/Battle Backs/Backgrounds/000/BG"
-    enemybase="Graphics/Battle Backs/Enemy/Standard"
-    playerbase="Graphics/Battle Backs/Player/Standard"
+    battlebg="Graphics/Battle Backs/Backgrounds/000"
+    enemybase="Graphics/Battle Backs/Bases/Standard"
+    playerbase="Graphics/Battle Backs/Bases/Standard_back"
     @sprites["battlebg"]=AnimatedPlane.new(@viewport)
     @sprites["battlebg"].setBitmap(battlebg)
     @sprites["playerbase"]=IconSprite.new(

@@ -1,4 +1,4 @@
-=begin
+﻿=begin
 BUTTON REFERENCES:
 A = A
 B = X
@@ -64,6 +64,7 @@ def getBorders # Edit this along with getBorderNames to add more borders
         getDarkModeFolder+"/Borders/border_17",
         getDarkModeFolder+"/Borders/border_18",
         getDarkModeFolder+"/Borders/border_19",
+        "Borders/border_20",
       ]
 end
 
@@ -78,7 +79,7 @@ def getBorderNames # Edit this along with getBorders to add more borders
         "Purple Theme-Aware",
         "Pride",
         "Old Script",
-        "Pok�mon Scarlet",
+        "Pokémon Scarlet",
         "Season-Aware",
         "Corporate Season-Aware",
         "Plain",
@@ -89,6 +90,7 @@ def getBorderNames # Edit this along with getBorders to add more borders
         "Purple",
         "Yellow",
         "Esmeralda",
+        "Retro Pokémon Scarlet",
       ]
 end
 

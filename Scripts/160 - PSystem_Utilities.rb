@@ -146,7 +146,7 @@ def pbGetVersion()
   if ver
     return ver.to_i
   end
-  return 9200
+  return 99999
 end
 
 def pbIsDarkSystemTheme?()

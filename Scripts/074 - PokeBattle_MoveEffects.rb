@@ -5589,12 +5589,15 @@ class PokeBattle_Move_0BB < PokeBattle_Move
     if opponent.effects[PBEffects::HealBlock]==0 &&
        !(opponent.pbHasType?(:HERB) || opponent.pbHasType?(:MIND) || 
          opponent.pbHasType?(:GLIMSE))
+      healblock=true
       if !attacker.hasMoldBreaker(opponent)
-        next if opponent.hasWorkingAbility(:AROMAVEIL) ||
-                opponent.pbPartner.hasWorkingAbility(:AROMAVEIL)
+        healblock=false if opponent.hasWorkingAbility(:AROMAVEIL) ||
+                           opponent.pbPartner.hasWorkingAbility(:AROMAVEIL)
       end
-      opponent.effects[PBEffects::HealBlock]=5
-      @battle.pbDisplay(_INTL("{1} was prevented from healing!",opponent.pbThis))
+      if healblock
+        opponent.effects[PBEffects::HealBlock]=5
+        @battle.pbDisplay(_INTL("{1} was prevented from healing!",opponent.pbThis))
+      end
     end
   end
 end
@@ -16975,12 +16978,15 @@ class PokeBattle_Move_384 < PokeBattle_Move
     if opponent.effects[PBEffects::HealBlock]==0 &&
        !(opponent.pbHasType?(:HERB) || opponent.pbHasType?(:MIND) || 
          opponent.pbHasType?(:GLIMSE))
+      healblock=true
       if !attacker.hasMoldBreaker(opponent)
-        next if opponent.hasWorkingAbility(:AROMAVEIL) ||
-                opponent.pbPartner.hasWorkingAbility(:AROMAVEIL)
+        healblock=false if opponent.hasWorkingAbility(:AROMAVEIL) ||
+                           opponent.pbPartner.hasWorkingAbility(:AROMAVEIL)
       end
-      opponent.effects[PBEffects::HealBlock]=2
-      @battle.pbDisplay(_INTL("{1} was prevented from healing!",opponent.pbThis))
+      if healblock
+        opponent.effects[PBEffects::HealBlock]=5
+        @battle.pbDisplay(_INTL("{1} was prevented from healing!",opponent.pbThis))
+      end
     end
   end
 end

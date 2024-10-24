@@ -3399,7 +3399,7 @@ class PokeBattle_Battle
           for i in priority
             next if i.isFainted?
             if !i.pbHasType?(:GROUND) && !i.pbHasType?(:ROCK) && !i.pbHasType?(:STEEL) && 
-               !i.pbHasType? (:DOOM) && !i.pbHasType? (:MOON) &&
+               !i.pbHasType?(:DOOM) && !i.pbHasType?(:MOON) &&
                !i.hasWorkingAbility(:SANDVEIL) &&
                !i.hasWorkingAbility(:SANDRUSH) &&
                !i.hasWorkingAbility(:SANDFORCE) &&
@@ -3445,7 +3445,7 @@ class PokeBattle_Battle
             if !i.pbHasType?(:ICE) && !i.pbHasType?(:MAGIC) && !i.pbHasType?(:DOOM) &&
                !i.pbHasType?(:SHARPENER) &&
                !i.pbHasType?(:CHLOROPHYLL) &&
-               !i.pbHasType? (:MOON) &&
+               !i.pbHasType?(:MOON) &&
                !i.hasWorkingAbility(:ICEBODY) &&
                !i.hasWorkingAbility(:SNOWCLOAK) &&
                !i.hasWorkingAbility(:MAGICGUARD) &&

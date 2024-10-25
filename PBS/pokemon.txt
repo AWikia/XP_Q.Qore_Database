@@ -20023,8 +20023,8 @@ Pokedex=Candy Crush Jelly is a Jelly game that has Jenny and tries to travel to 
 WildItemCommon=JELLYGEM
 WildItemUncommon=JELLYLICIOUSPLATE
 WildItemRare=JELLYBOX
-BattlerPlayerY=0
-BattlerEnemyY=4
+BattlerPlayerY=1
+BattlerEnemyY=5
 BattlerAltitude=0
 Evolutions=JELLYPLUS,Item,DOOMSTONE
 [719]
@@ -20385,8 +20385,8 @@ Habitat=Rare
 RegionalNumbers=0,0,0,0,139,0,0,0,351,140,189,380,0,0,0,0,0,0,0,241
 Kind=King.com
 Pokedex=Candy Crush Jelly is a Jelly game that has Jenny and tries to travel to the entrie world
-BattlerPlayerY=0
-BattlerEnemyY=4
+BattlerPlayerY=1
+BattlerEnemyY=5
 BattlerAltitude=0
 Evolutions=CANDYCRUSHJELLY,Item,PRISMSTONE
 [732]
@@ -28714,8 +28714,8 @@ Pokedex=Candy Crush Soda is a Sodalicius game that has Kimmy and tries to travel
 WildItemCommon=GYROPLATE
 WildItemUncommon=CARBONPLATE
 WildItemRare=TOXICPLATE
-BattlerPlayerY=5
-BattlerEnemyY=9
+BattlerPlayerY=1
+BattlerEnemyY=5
 BattlerAltitude=0
 Evolutions=SODAPLUS,Item,DOOMSTONE
 [1031]
@@ -31689,8 +31689,8 @@ Pokedex=Candy Crush Soda is a Sodalicius game that has Kimmy and tries to travel
 WildItemCommon=GYROPLATE
 WildItemUncommon=CARBONPLATE
 WildItemRare=TOXICPLATE
-BattlerPlayerY=5
-BattlerEnemyY=9
+BattlerPlayerY=1
+BattlerEnemyY=5
 BattlerAltitude=0
 Evolutions=CANDYCRUSHSODA,Item,PRISMSTONE
 [1135]

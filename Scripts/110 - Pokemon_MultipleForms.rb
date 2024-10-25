@@ -12551,6 +12551,14 @@ MultipleForms.register(:GEOMETRYDASH,{
          [getID(PBAbilities,:INTIMIDOOM),3],
          [getID(PBAbilities,:INTIMILOW),4]] if pokemon.form==8
 
+},
+"alterBitmap"=>proc{|pokemon,bitmap|
+   d=pokemon.personalID&3
+   d|=((pokemon.personalID>>8)&3)<<2
+   d|=((pokemon.personalID>>16)&3)<<4
+   d|=((pokemon.personalID>>24)&3)<<6
+   d%=36
+   bitmap.hue_change(d*10)
 }
 })
 
@@ -12930,6 +12938,23 @@ MultipleForms.register(:MIRAMANIA,{
    else
      next 0 # Classical Colors with Black Text
    end
+}
+})
+
+MultipleForms.register(:GEOMETRYCUBE,{
+"getFormOnCreation"=>proc{|pokemon|
+# Affects this Pokémon and its evolution (Geometry Dash)
+    pbSetLotteryNumber(1)
+    time=pbGet(1).to_i%6
+    next (rand(1000) < 30) ? rand(9) : [rand(4),4,5,6,7,8][time]
+},
+"alterBitmap"=>proc{|pokemon,bitmap|
+   d=pokemon.personalID&3
+   d|=((pokemon.personalID>>8)&3)<<2
+   d|=((pokemon.personalID>>16)&3)<<4
+   d|=((pokemon.personalID>>24)&3)<<6
+   d%=36
+   bitmap.hue_change(d*10)
 }
 })
 

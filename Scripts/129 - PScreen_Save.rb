@@ -68,7 +68,7 @@ class PokemonSaveScene
     # Graphics
     if !$Trainer || !$Trainer.party
     else
-      meta=pbGetMetadata(0,MetadataPlayerA+$Trainer.metaID)
+      meta=pbGetMetadata(0,MetadataPlayerA+$PokemonGlobal.playerID)
       if meta
         filename=pbGetPlayerCharset(meta,1,$Trainer)
         @sprites["player"]=TrainerWalkingCharSprite.new(filename,@viewport)

@@ -233,6 +233,8 @@ class PokeBattle_Battle
   attr_accessor(:environment)     # Battle surroundings
   attr_accessor(:weather)         # Current weather, custom methods should use pbWeather instead
   attr_accessor(:weatherduration) # Duration of current weather, or -1 if indefinite
+  attr_accessor(:terrain)         # Current terrain, custom methods should use pbTerrain instead
+  attr_accessor(:terrainduration) # Duration of current terrain, or -1 if indefinite
   attr_reader(:switching)         # True if during the switching phase of the round
   attr_reader(:futuresight)       # True if Future Sight is hitting
   attr_reader(:struggle)          # The Struggle move
@@ -323,6 +325,8 @@ class PokeBattle_Battle
     @environment     = PBEnvironment::None   # e.g. Tall grass, cave, still water
     @weather         = 0
     @weatherduration = 0
+    @terrain         = 0
+    @terrainduration = 0
     @switching       = false
     @futuresight     = false
     @choices         = [ [0,0,nil,-1],[0,0,nil,-1],[0,0,nil,-1],[0,0,nil,-1] ]
@@ -449,6 +453,18 @@ class PokeBattle_Battle
       end
     end
     return @weather
+  end
+
+  def pbTerrain
+=begin
+    for i in 0...4
+      if @battlers[i].hasWorkingAbility(:CLOUDNINE) ||
+         @battlers[i].hasWorkingAbility(:AIRLOCK)
+        return 0
+      end
+    end
+=end
+    return @terrain
   end
 
 ################################################################################
@@ -1236,19 +1252,19 @@ class PokeBattle_Battle
                   !@choices[i][2].pbIsStatus?
         pri+=1 if @battlers[i].hasWorkingAbility(:GALEWINGS) &&
                   isConst?(@choices[i][2].type,PBTypes,:FLYING)
-        pri+=1 if @field.effects[PBEffects::GrassyTerrain]>0 && 
+        pri+=1 if pbTerrain==PBBattleTerrains::GRASSY && 
                   @choices[i][2].function==0x310
-        pri+=1 if @field.effects[PBEffects::ElectricTerrain]>0 && 
+        pri+=1 if pbTerrain==PBBattleTerrains::ELECTRIC && 
                   @choices[i][2].function==0x345
-        pri+=1 if @field.effects[PBEffects::MistyTerrain]>0 && 
+        pri+=1 if pbTerrain==PBBattleTerrains::MISTY && 
                   @choices[i][2].function==0x346
-        pri+=1 if @field.effects[PBEffects::PsychicTerrain]>0 && 
+        pri+=1 if pbTerrain==PBBattleTerrains::PSYCHIC && 
                   @choices[i][2].function==0x347
-        pri+=1 if @field.effects[PBEffects::VolcanicTerrain]>0 && 
+        pri+=1 if pbTerrain==PBBattleTerrains::VOLCANIC && 
                   @choices[i][2].function==0x348
-        pri+=1 if @field.effects[PBEffects::LovelyTerrain]>0 && 
+        pri+=1 if pbTerrain==PBBattleTerrains::LOVELY && 
                   @choices[i][2].function==0x349
-        pri+=1 if @field.effects[PBEffects::Cinament]>0 && 
+        pri+=1 if pbTerrain==PBBattleTerrains::CINAMENT && 
                   @choices[i][2].function==0x350
       end
       priorities[i]=pri
@@ -2963,6 +2979,22 @@ class PokeBattle_Battle
       pbCommonAnimation("StrongWinds",nil,nil)
       pbDisplay(_INTL("The wind is strong."))
     end
+    if @terrain==PBBattleTerrains::ELECTRIC
+      pbDisplay(_INTL("An electric current runs across the battlefield"))
+    elsif @terrain==PBBattleTerrains::GRASSY
+      pbDisplay(_INTL("Grass grew to cover the battlefield!"))
+    elsif @terrain==PBBattleTerrains::MISTY
+      pbDisplay(_INTL("Mist swirled about the battlefield!"))
+    elsif @terrain==PBBattleTerrains::PSYCHIC
+      pbDisplay(_INTL("The battlefield got weird!"))
+    elsif @terrain==PBBattleTerrains::VOLCANIC
+      pbDisplay(_INTL("A heatness has been set up on the battlefield!"))
+    elsif @terrain==PBBattleTerrains::LOVELY
+      pbDisplay(_INTL("A loveness has been set up on the battlefield!"))
+    elsif @terrain==PBBattleTerrains::CINAMENT
+      pbCommonAnimation("Cinament",nil,nil)
+      pbDisplay(_INTL("A bolty cauldron has sweeped the battlefield!"))
+    end
     pbOnActiveAll   # Abilities
     pbCheckDanger
     @turncount=0
@@ -3573,6 +3605,152 @@ class PokeBattle_Battle
         end
       end
     end
+    # Terrain
+    case @terrain
+    when PBBattleTerrains::ELECTRIC
+      for i in priority
+        next if i.isFainted?
+        if i.hasWorkingItem(:ELECTRICSEED)
+          if i.pbCanIncreaseStatStage?(PBStats::DEFENSE,i,false,self)
+            pbCommonAnimation("UseItem",i,nil)
+            i.pbIncreaseStatWithCause(PBStats::DEFENSE,1,i,PBItems.getName(self.item))
+            i.pbConsumeItem
+          end
+        end
+      end
+      @terrainduration=@terrainduration-1 if @terrainduration>0
+      if @terrainduration==0
+        pbDisplay(_INTL("The electric current disappeared from the battlefield."))
+        PBDebug.log("[End of effect] Electric Terrain ended")
+        @terrain=0
+        for i in priority
+          i.removeMimicry
+        end
+      end
+    when PBBattleTerrains::GRASSY
+      for i in priority
+        next if i.isFainted?
+        if i.hasWorkingItem(:GRASSYSEED)
+          if i.pbCanIncreaseStatStage?(PBStats::DEFENSE,i,false,self)
+            pbCommonAnimation("UseItem",i,nil)
+            i.pbIncreaseStatWithCause(PBStats::DEFENSE,1,i,PBItems.getName(i.item))
+            i.pbConsumeItem
+          end
+        end
+      end
+      @terrainduration=@terrainduration-1 if @terrainduration>0
+      if @terrainduration==0
+        pbDisplay(_INTL("The grass disappeared from the battlefield."))
+        PBDebug.log("[End of effect] Grassy Terrain ended")
+        @terrain=0
+        for i in priority
+          i.removeMimicry
+        end
+      end
+    when PBBattleTerrains::MISTY
+      for i in priority
+        next if i.isFainted?
+        if i.hasWorkingItem(:MISTYSEED)
+          if i.pbCanIncreaseStatStage?(PBStats::SPDEF,i,false,self)
+            pbCommonAnimation("UseItem",i,nil)
+            i.pbIncreaseStatWithCause(PBStats::SPDEF,1,i,PBItems.getName(i.item))
+            i.pbConsumeItem
+          end
+        end
+      end
+      @terrainduration=@terrainduration-1 if @terrainduration>0
+      if @terrainduration==0
+        pbDisplay(_INTL("The mist disappeared from the battlefield."))
+        PBDebug.log("[End of effect] Misty Terrain ended")
+        @terrain=0
+        for i in priority
+          i.removeMimicry
+        end
+      end
+    when PBBattleTerrains::PSYCHIC
+      for i in priority
+        next if i.isFainted?
+        if i.hasWorkingItem(:PSYCHICSEED)
+          if i.pbCanIncreaseStatStage?(PBStats::SPDEF,i,false,self)
+            pbCommonAnimation("UseItem",i,nil)
+            i.pbIncreaseStatWithCause(PBStats::SPDEF,1,i,PBItems.getName(i.item))
+            i.pbConsumeItem
+          end
+        end
+      end
+      @terrainduration=@terrainduration-1 if @terrainduration>0
+      if @terrainduration==0
+        pbDisplay(_INTL("The weirdness disappeared from the battlefield!"))
+        PBDebug.log("[End of effect] Psychic Terrain ended")
+        @terrain=0
+        for i in priority
+          i.removeMimicry
+        end
+      end
+    when PBBattleTerrains::VOLCANIC
+      for i in priority
+        next if i.isFainted?
+        if i.hasWorkingItem(:VOLCANICSEED)
+          if i.pbCanIncreaseStatStage?(PBStats::DEFENSE,i,false,self)
+            pbCommonAnimation("UseItem",i,nil)
+            i.pbIncreaseStatWithCause(PBStats::DEFENSE,1,i,PBItems.getName(i.item))
+            i.pbConsumeItem
+          end
+        end
+      end
+      @terrainduration=@terrainduration-1 if @terrainduration>0
+      if @terrainduration==0
+        pbDisplay(_INTL("The heatness disappeared from the battlefield!"))
+        PBDebug.log("[End of effect] Volcanic Terrain ended")
+        @terrain=0
+        for i in priority
+          i.removeMimicry
+        end
+      end    
+    when PBBattleTerrains::LOVELY
+      for i in priority
+        next if i.isFainted?
+        if i.hasWorkingItem(:LOVELYSEED)
+          if i.pbCanIncreaseStatStage?(PBStats::SPDEF,i,false,self)
+            pbCommonAnimation("UseItem",i,nil)
+            i.pbIncreaseStatWithCause(PBStats::SPDEF,1,i,PBItems.getName(i.item))
+            i.pbConsumeItem
+          end
+        end
+      end
+      @terrainduration=@terrainduration-1 if @terrainduration>0
+      if @terrainduration==0
+        pbDisplay(_INTL("The loveness disappeared from the battlefield!"))
+        PBDebug.log("[End of effect] Lovely Terrain ended")
+        @terrain=0
+        for i in priority
+          i.removeMimicry
+        end
+      end
+    when PBBattleTerrains::CINAMENT
+      for i in priority
+        next if i.isFainted?
+        if i.hasWorkingItem(:CINEMAHAZELNUTS)
+          if i.pbCanIncreaseStatStage?(PBStats::ACCURACY,i,false,self)
+            pbCommonAnimation("UseItem",i,nil)
+            i.pbIncreaseStatWithCause(PBStats::ACCURACY,3,i,PBItems.getName(i.item))
+            i.pbConsumeItem
+          end
+        end
+      end
+      @terrainduration=@terrainduration-1 if @terrainduration>0
+      if @terrainduration==0
+        pbDisplay(_INTL("The bolty cauldron disappeared from the battlefield!"))
+        PBDebug.log("[End of effect] Cinament ended")
+        @terrain=0
+        for i in priority
+          i.removeMimicry
+        end
+      else
+         pbCommonAnimation("Cinament",nil,nil)
+#        pbDisplay(_INTL("The bolty cauldron still emergences"))
+      end
+    end
     # Future Sight/Doom Desire
     for i in battlers   # not priority
       next if i.isFainted?
@@ -3705,7 +3883,7 @@ class PokeBattle_Battle
       if (i.hasWorkingAbility(:SHEDSKIN) && pbRandom(10)<3) ||
          (i.hasWorkingAbility(:BOTANOTHERAPY) && pbRandom(10)<5) ||
          (i.hasWorkingAbility(:LOVINGCLUSTER) && 
-          @field.effects[PBEffects::LovelyTerrain]>0) ||
+          pbTerrain==PBBattleTerrains::LOVELY) ||
          (i.hasWorkingAbility(:HYDRATION) && (pbWeather==PBWeather::RAINDANCE ||
                                               pbWeather==PBWeather::HEAVYRAIN) &&
                                               !i.hasWorkingItem(:UTILITYUMBRELLA))
@@ -3759,12 +3937,12 @@ class PokeBattle_Battle
     for i in priority
       next if i.isFainted?
       # Grassy Terrain (healing)
-      if @field.effects[PBEffects::GrassyTerrain]>0 && !i.isAirborne?
+      if pbTerrain==PBBattleTerrains::GRASSY && !i.isAirborne?
         hpgain=i.pbRecoverHP((i.totalhp/16).floor,true)
         pbDisplay(_INTL("{1}'s HP was restored.",i.pbThis)) if hpgain>0
       end
       # Volcanic Terrain (damaging)
-      if @field.effects[PBEffects::VolcanicTerrain]>0 && !i.isAirborne?
+      if pbTerrain==PBBattleTerrains::VOLCANIC && !i.isAirborne?
         @scene.pbDamageAnimation(i,0)
         if i.pbHasType?(:HERB) || i.pbHasType?(:CHLOROPHYLL)
           i.pbReduceHP((i.totalhp/32).floor) if !(i.hasWorkingAbility(:MAGICGUARD) || i.hasWorkingAbility(:SUPERCLEARBODY))
@@ -4433,156 +4611,6 @@ class PokeBattle_Battle
         end
         pbDisplay(_INTL("The Galaxian Tunnel faded from the battlefield."))
         PBDebug.log("[End of effect] Glimmy Galaxy ended")
-      end
-    end
-    # Electric Terrain
-    if @field.effects[PBEffects::ElectricTerrain]>0
-      for i in priority
-        next if i.isFainted?
-        if i.hasWorkingItem(:ELECTRICSEED)
-          if i.pbCanIncreaseStatStage?(PBStats::DEFENSE,i,false,self)
-            pbCommonAnimation("UseItem",i,nil)
-            i.pbIncreaseStatWithCause(PBStats::DEFENSE,1,i,PBItems.getName(self.item))
-            i.pbConsumeItem
-          end
-        end
-      end
-      @field.effects[PBEffects::ElectricTerrain]-=1
-      if @field.effects[PBEffects::ElectricTerrain]==0
-        pbDisplay(_INTL("The electric current disappeared from the battlefield."))
-        PBDebug.log("[End of effect] Electric Terrain ended")
-        for i in priority
-          i.removeMimicry
-        end
-      end
-    end
-    # Grassy Terrain (counting down)
-    if @field.effects[PBEffects::GrassyTerrain]>0
-      for i in priority
-        next if i.isFainted?
-        if i.hasWorkingItem(:GRASSYSEED)
-          if i.pbCanIncreaseStatStage?(PBStats::DEFENSE,i,false,self)
-            pbCommonAnimation("UseItem",i,nil)
-            i.pbIncreaseStatWithCause(PBStats::DEFENSE,1,i,PBItems.getName(i.item))
-            i.pbConsumeItem
-          end
-        end
-      end
-      @field.effects[PBEffects::GrassyTerrain]-=1
-      if @field.effects[PBEffects::GrassyTerrain]==0
-        pbDisplay(_INTL("The grass disappeared from the battlefield."))
-        PBDebug.log("[End of effect] Grassy Terrain ended")
-        for i in priority
-          i.removeMimicry
-        end
-      end
-    end
-    # Misty Terrain
-    if @field.effects[PBEffects::MistyTerrain]>0
-      for i in priority
-        next if i.isFainted?
-        if i.hasWorkingItem(:MISTYSEED)
-          if i.pbCanIncreaseStatStage?(PBStats::SPDEF,i,false,self)
-            pbCommonAnimation("UseItem",i,nil)
-            i.pbIncreaseStatWithCause(PBStats::SPDEF,1,i,PBItems.getName(i.item))
-            i.pbConsumeItem
-          end
-        end
-      end
-      @field.effects[PBEffects::MistyTerrain]-=1
-      if @field.effects[PBEffects::MistyTerrain]==0
-        pbDisplay(_INTL("The mist disappeared from the battlefield."))
-        PBDebug.log("[End of effect] Misty Terrain ended")
-        for i in priority
-          i.removeMimicry
-        end
-      end
-    end
-    # Psychic Terrain
-    if @field.effects[PBEffects::PsychicTerrain]>0
-      for i in priority
-        next if i.isFainted?
-        if i.hasWorkingItem(:PSYCHICSEED)
-          if i.pbCanIncreaseStatStage?(PBStats::SPDEF,i,false,self)
-            pbCommonAnimation("UseItem",i,nil)
-            i.pbIncreaseStatWithCause(PBStats::SPDEF,1,i,PBItems.getName(i.item))
-            i.pbConsumeItem
-          end
-        end
-      end
-      @field.effects[PBEffects::PsychicTerrain]-=1
-      if @field.effects[PBEffects::PsychicTerrain]==0
-        pbDisplay(_INTL("The weirdness disappeared from the battlefield!"))
-        PBDebug.log("[End of effect] Psychic Terrain ended")
-        for i in priority
-          i.removeMimicry
-        end
-      end
-    end
-    # Volcanic Terrain
-    if @field.effects[PBEffects::VolcanicTerrain]>0
-      for i in priority
-        next if i.isFainted?
-        if i.hasWorkingItem(:VOLCANICSEED)
-          if i.pbCanIncreaseStatStage?(PBStats::DEFENSE,i,false,self)
-            pbCommonAnimation("UseItem",i,nil)
-            i.pbIncreaseStatWithCause(PBStats::DEFENSE,1,i,PBItems.getName(i.item))
-            i.pbConsumeItem
-          end
-        end
-      end
-      @field.effects[PBEffects::VolcanicTerrain]-=1
-      if @field.effects[PBEffects::VolcanicTerrain]==0
-        pbDisplay(_INTL("The heatness disappeared from the battlefield!"))
-        PBDebug.log("[End of effect] Volcanic Terrain ended")
-        for i in priority
-          i.removeMimicry
-        end
-      end
-    end
-    # Lovely Terrain
-    if @field.effects[PBEffects::LovelyTerrain]>0
-      for i in priority
-        next if i.isFainted?
-        if i.hasWorkingItem(:LOVELYSEED)
-          if i.pbCanIncreaseStatStage?(PBStats::SPDEF,i,false,self)
-            pbCommonAnimation("UseItem",i,nil)
-            i.pbIncreaseStatWithCause(PBStats::SPDEF,1,i,PBItems.getName(i.item))
-            i.pbConsumeItem
-          end
-        end
-      end
-      @field.effects[PBEffects::LovelyTerrain]-=1
-      if @field.effects[PBEffects::LovelyTerrain]==0
-        pbDisplay(_INTL("The loveness disappeared from the battlefield!"))
-        PBDebug.log("[End of effect] Lovely Terrain ended")
-        for i in priority
-          i.removeMimicry
-        end
-      end
-    end
-    # Cinament
-    if @field.effects[PBEffects::Cinament]>0
-      for i in priority
-        next if i.isFainted?
-        if i.hasWorkingItem(:CINEMAHAZELNUTS)
-          if i.pbCanIncreaseStatStage?(PBStats::ACCURACY,i,false,self)
-            pbCommonAnimation("UseItem",i,nil)
-            i.pbIncreaseStatWithCause(PBStats::ACCURACY,3,i,PBItems.getName(i.item))
-            i.pbConsumeItem
-          end
-        end
-      end
-      @field.effects[PBEffects::Cinament]-=1
-      if @field.effects[PBEffects::Cinament]==0
-        pbDisplay(_INTL("The bolty cauldron disappeared from the battlefield!"))
-        PBDebug.log("[End of effect] Cinament ended")
-        for i in priority
-          i.removeMimicry
-        end
-      else
-         pbCommonAnimation("Cinament",nil,nil)
-#        pbDisplay(_INTL("The bolty cauldron still emergences"))
       end
     end
     # Uproar

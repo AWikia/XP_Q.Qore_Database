@@ -682,7 +682,7 @@ class PokeBattle_Move
       accuracy*=1.3
     end
     if attacker.hasWorkingAbility(:CINEMALINTER) &&
-      @battle.field.effects[PBEffects::Cinament]>0
+      @battle.pbTerrain==PBBattleTerrains::CINAMENT
       accuracy*=2.0
     end
     if attacker.hasWorkingAbility(:HUSTLE) && pbIsDamaging? &&
@@ -739,7 +739,7 @@ class PokeBattle_Move
         evasion*=1.25
       end
       if opponent.hasWorkingAbility(:BIGVOLCANO) &&
-         @battle.field.effects[PBEffects::VolcanicTerrain]>0
+         @battle.pbTerrain==PBBattleTerrains::VOLCANIC
         evasion*=1.2
       end
       if opponent.hasWorkingAbility(:ENIGMATACTICS)
@@ -1247,44 +1247,44 @@ class PokeBattle_Move
         damagemult=(damagemult*0.33).round
       end
     end
-    if @battle.field.effects[PBEffects::ElectricTerrain]>0 &&
+    if @battle.pbTerrain==PBBattleTerrains::ELECTRIC &&
        !attacker.isAirborne? && isConst?(type,PBTypes,:ELECTRIC)
       damagemult=(damagemult*1.3).round
     end
-    if @battle.field.effects[PBEffects::GrassyTerrain]>0 &&
+    if @battle.pbTerrain==PBBattleTerrains::GRASSY &&
        !attacker.isAirborne? && isConst?(type,PBTypes,:GRASS)
       damagemult=(damagemult*1.3).round
     end
-    if @battle.field.effects[PBEffects::MistyTerrain]>0 &&
+    if @battle.pbTerrain==PBBattleTerrains::MISTY &&
       !attacker.hasWorkingAbility(:ANTIFOGGER) &&
        !opponent.isAirborne?(attacker.hasMoldBreaker(opponent)) && isConst?(type,PBTypes,:DRAGON)
       damagemult=(damagemult*0.5).round
     end
-    if @battle.field.effects[PBEffects::PsychicTerrain]>0 &&
+    if @battle.pbTerrain==PBBattleTerrains::PSYCHIC &&
        !attacker.isAirborne? && isConst?(type,PBTypes,:PSYCHIC)
       damagemult=(damagemult*1.3).round
     end
-    if @battle.field.effects[PBEffects::VolcanicTerrain]>0 &&
+    if @battle.pbTerrain==PBBattleTerrains::VOLCANIC &&
        !attacker.isAirborne? && isConst?(type,PBTypes,:LAVA)
       damagemult=(damagemult*1.5).round
     end
-    if @battle.field.effects[PBEffects::VolcanicTerrain]>0 &&
+    if @battle.pbTerrain==PBBattleTerrains::VOLCANIC &&
        !opponent.isAirborne?(attacker.hasMoldBreaker(opponent)) && (isConst?(type,PBTypes,:FIRE) || isConst?(type,PBTypes,:WATER))
       damagemult=(damagemult*0.5).round
     end
-    if @battle.field.effects[PBEffects::LovelyTerrain]>0 &&
+    if @battle.pbTerrain==PBBattleTerrains::LOVELY &&
        !attacker.isAirborne? && isConst?(type,PBTypes,:HEART)
       damagemult=(damagemult*1.5).round
     end
-    if @battle.field.effects[PBEffects::LovelyTerrain]>0 &&
+    if @battle.pbTerrain==PBBattleTerrains::LOVELY &&
        !opponent.isAirborne?(attacker.hasMoldBreaker(opponent)) && (isConst?(type,PBTypes,:PSYCHIC) || isConst?(type,PBTypes,:FAIRY) || isConst?(type,PBTypes,:MIND))
       damagemult=(damagemult*0.5).round
     end
-    if @battle.field.effects[PBEffects::Cinament]>0 &&
+    if @battle.pbTerrain==PBBattleTerrains::CINAMENT &&
        isConst?(type,PBTypes,:BOLT)
       damagemult=(damagemult*1.3).round
     end
-    if @battle.field.effects[PBEffects::Cinament]>0 &&
+    if @battle.pbTerrain==PBBattleTerrains::CINAMENT &&
        (isConst?(type,PBTypes,:ELECTRIC) || isConst?(type,PBTypes,:DOOM) || 
         isConst?(type,PBTypes,:CHLOROPHYLL) ||  isConst?(type,PBTypes,:GLIMSE))
       damagemult=(damagemult*0.5).round
@@ -1441,7 +1441,7 @@ class PokeBattle_Move
       end
     end
     # Hadron Engine
-    if @battle.field.effects[PBEffects::ElectricTerrain]>0 && pbIsSpecial?(type)
+    if @battle.pbTerrain==PBBattleTerrains::ELECTRIC && pbIsSpecial?(type)
       if attacker.hasWorkingAbility(:HADRONENGINE)
         atkmult=(atkmult*1.3).round
       end
@@ -1450,7 +1450,7 @@ class PokeBattle_Move
     if ((@battle.pbWeather==PBWeather::SUNNYDAY ||
        @battle.pbWeather==PBWeather::HARSHSUN) && 
        attacker.hasWorkingAbility(:PROTOSYNTHESIS)) ||
-      (@battle.field.effects[PBEffects::ElectricTerrain]>0 && 
+      (@battle.pbTerrain==PBBattleTerrains::ELECTRIC && 
        attacker.hasWorkingAbility(:QUARKDRIVE))
        if (pbIsPhysical?(type) && attacker.profstat == PBStats::ATTACK) || 
           (pbIsSpecial?(type) && attacker.profstat == PBStats::SPATK )
@@ -1532,7 +1532,7 @@ class PokeBattle_Move
       end
     end
 =begin
-    if @battle.field.effects[PBEffects::GrassyTerrain]>0
+    if @battle.pbTerrain==PBBattleTerrains::GRASSY
       defmult=(defmult*1.5).round
     end
 =end
@@ -1542,7 +1542,7 @@ class PokeBattle_Move
         defmult=(defmult*1.5).round
       end
       if opponent.hasWorkingAbility(:GRASSPELT) &&
-         @battle.field.effects[PBEffects::GrassyTerrain]>0 &&
+         @battle.pbTerrain==PBBattleTerrains::GRASSY &&
          pbIsPhysical?(type)
         defmult=(defmult*1.5).round
       end
@@ -1567,7 +1567,7 @@ class PokeBattle_Move
     if ((@battle.pbWeather==PBWeather::SUNNYDAY ||
        @battle.pbWeather==PBWeather::HARSHSUN) && 
        opponent.hasWorkingAbility(:PROTOSYNTHESIS)) ||
-      (@battle.field.effects[PBEffects::ElectricTerrain]>0 && 
+      (@battle.pbTerrain==PBBattleTerrains::ELECTRIC && 
        opponent.hasWorkingAbility(:QUARKDRIVE))
        if  (pbIsPhysical?(type) && opponent.profstat == PBStats::DEFENSE) || 
           (pbIsSpecial?(type) && opponent.profstat == PBStats::SPDEF )

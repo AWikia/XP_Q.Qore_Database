@@ -43,24 +43,17 @@ begin
 
     def initialize
       @effects = []
-      @effects[PBEffects::ElectricTerrain] = 0
       @effects[PBEffects::FairyLock]       = 0
       @effects[PBEffects::FusionBolt]      = false
       @effects[PBEffects::FusionFlare]     = false
-      @effects[PBEffects::GrassyTerrain]   = 0
       @effects[PBEffects::Gravity]         = 0
       @effects[PBEffects::IonDeluge]       = false
       @effects[PBEffects::MagicStorm]      = false
       @effects[PBEffects::MagicRoom]       = 0
-      @effects[PBEffects::MistyTerrain]    = 0
       @effects[PBEffects::MudSportField]   = 0
       @effects[PBEffects::TrickRoom]       = 0
       @effects[PBEffects::WaterSportField] = 0
       @effects[PBEffects::WonderRoom]      = 0
-      @effects[PBEffects::PsychicTerrain]  = 0
-      @effects[PBEffects::VolcanicTerrain] = 0
-      @effects[PBEffects::LovelyTerrain] = 0
-      @effects[PBEffects::Cinament]        = 0
       @effects[PBEffects::NeutralizingGas] = false
       @effects[PBEffects::GlimmyGalaxy]      = 0
       @effects[PBEffects::Torchwood] = false

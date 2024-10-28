@@ -27,11 +27,11 @@ class PokeBattle_Battler
       end
     end
     if !self.isAirborne?(attacker && attacker.hasMoldBreaker(self))
-      if @battle.field.effects[PBEffects::ElectricTerrain]>0
+      if @battle.pbTerrain==PBBattleTerrains::ELECTRIC
         pbSEPlay("protection") if showMessages
         @battle.pbDisplay(_INTL("The Electric Terrain prevented {1} from falling asleep!",pbThis(true))) if showMessages
         return false
-      elsif @battle.field.effects[PBEffects::MistyTerrain]>0
+      elsif @battle.pbTerrain==PBBattleTerrains::MISTY
         pbSEPlay("protection") if showMessages
         @battle.pbDisplay(_INTL("The Misty Terrain prevented {1} from falling asleep!",pbThis(true))) if showMessages
         return false
@@ -87,8 +87,8 @@ class PokeBattle_Battler
       end
     end
     if !self.isAirborne?
-      return false if @battle.field.effects[PBEffects::ElectricTerrain]>0
-      return false if @battle.field.effects[PBEffects::MistyTerrain]>0
+      return false if @battle.pbTerrain==PBBattleTerrains::ELECTRIC
+      return false if @battle.pbTerrain==PBBattleTerrains::MISTY
     end
     if hasWorkingAbility(:VITALSPIRIT) ||
        hasWorkingAbility(:INSOMNIA) ||
@@ -152,7 +152,7 @@ class PokeBattle_Battler
       @battle.pbDisplay(_INTL("It doesn't affect {1}...",pbThis(true))) if showMessages
       return false
     end
-    if @battle.field.effects[PBEffects::MistyTerrain]>0 &&
+    if @battle.pbTerrain==PBBattleTerrains::MISTY &&
        !self.isAirborne?(attacker && attacker.hasMoldBreaker(self))
       pbSEPlay("protection") if showMessages
        @battle.pbDisplay(_INTL("The Misty Terrain prevented {1} from being poisoned!",pbThis(true))) if showMessages
@@ -295,7 +295,7 @@ class PokeBattle_Battler
        @battle.pbDisplay(_INTL("But it failed!")) if showMessages
       return false
     end
-    if @battle.field.effects[PBEffects::MistyTerrain]>0 &&
+    if @battle.pbTerrain==PBBattleTerrains::MISTY &&
        !self.isAirborne?(attacker && attacker.hasMoldBreaker(self))
         pbSEPlay("protection") if showMessages
        @battle.pbDisplay(_INTL("The Misty Terrain prevented {1} from being burned!",pbThis(true))) if showMessages
@@ -404,7 +404,7 @@ class PokeBattle_Battler
        @battle.pbDisplay(_INTL("But it failed!")) if showMessages
       return false
     end
-    if @battle.field.effects[PBEffects::MistyTerrain]>0 &&
+    if @battle.pbTerrain==PBBattleTerrains::MISTY &&
        !self.isAirborne?(attacker && attacker.hasMoldBreaker(self))
       pbSEPlay("protection") if showMessages
       @battle.pbDisplay(_INTL("The Misty Terrain prevented {1} from being paralyzed!",pbThis(true))) if showMessages
@@ -444,7 +444,7 @@ class PokeBattle_Battler
 
   def pbCanParalyzeSynchronize?(opponent)
     return false if self.status!=0 || isConst?(ability,PBAbilities,:COMATOSE) || pbShieldsUp?
-    return false if @battle.field.effects[PBEffects::MistyTerrain]>0 && !self.isAirborne?
+    return false if @battle.pbTerrain==PBBattleTerrains::MISTY && !self.isAirborne?
     return false if (pbHasType?(:ELECTRIC) || pbHasType?(:BOLT)) && !(hasWorkingItem(:RINGTARGET))
     if hasWorkingAbility(:LIMBER) ||
        hasWorkingAbility(:PURIFYINGSALT) ||
@@ -513,7 +513,7 @@ class PokeBattle_Battler
       @battle.pbDisplay(_INTL("It doesn't affect {1}...",pbThis(true))) if showMessages
       return false
     end
-    if @battle.field.effects[PBEffects::MistyTerrain]>0 &&
+    if @battle.pbTerrain==PBBattleTerrains::MISTY &&
        !self.isAirborne?(attacker && attacker.hasMoldBreaker(self))
         pbSEPlay("protection") if showMessages
        @battle.pbDisplay(_INTL("The Misty Terrain prevented {1} from being frozen!",pbThis(true))) if showMessages
@@ -779,7 +779,7 @@ class PokeBattle_Battler
         if hasWorkingAbility(:CONTRARY) && !ignoreContrary
           return pbReduceStatBasic(stat,increment,attacker,moldbreaker,true)
         end
-        increment*=2 if hasWorkingAbility(:SIMPLE) || @battle.field.effects[PBEffects::LovelyTerrain]>0 
+        increment*=2 if hasWorkingAbility(:SIMPLE) || @battle.pbTerrain==PBBattleTerrains::LOVELY 
       end
     end
     increment=[increment,6-@stages[stat]].min
@@ -951,7 +951,7 @@ class PokeBattle_Battler
         return false
       end
       # Cinament
-      if @battle.field.effects[PBEffects::Cinament]>0 &&
+      if @battle.pbTerrain==PBBattleTerrains::CINAMENT &&
         (!attacker || !attacker.hasWorkingItem(:RODOFSPARROW) ||
           attacker.hasWorkingAbility(:MORFAT))
         abilityname=PBAbilities.getName(self.ability)
@@ -1039,7 +1039,7 @@ class PokeBattle_Battler
         if hasWorkingAbility(:MIRRORARMOR) && !ignoremirror
           return attacker.pbReduceStatBasic(stat,increment,self,moldbreaker,ignoreContrary,true)
         end
-        increment*=2 if hasWorkingAbility(:SIMPLE) || @battle.field.effects[PBEffects::LovelyTerrain]>0 
+        increment*=2 if hasWorkingAbility(:SIMPLE) || @battle.pbTerrain==PBBattleTerrains::LOVELY 
       end
     end
     increment=[increment,6+@stages[stat]].min
@@ -1226,7 +1226,7 @@ class PokeBattle_Battler
         return false
       end
       # Cinament
-      if @battle.field.effects[PBEffects::Cinament]>0 &&
+      if @battle.pbTerrain==PBBattleTerrains::CINAMENT &&
         (!opponent || !opponent.hasWorkingItem(:RODOFSPARROW))
         oppabilityname=PBAbilities.getName(opponent.ability)
         pbSEPlay("protection")
@@ -1288,7 +1288,7 @@ class PokeBattle_Battler
         return false
       end
       # Cinament
-      if @battle.field.effects[PBEffects::Cinament]>0 &&
+      if @battle.pbTerrain==PBBattleTerrains::CINAMENT &&
         (!opponent || !opponent.hasWorkingItem(:RODOFSPARROW))
         oppabilityname=PBAbilities.getName(opponent.ability)
         pbSEPlay("protection")
@@ -1349,7 +1349,7 @@ class PokeBattle_Battler
         return false
       end
       # Cinament
-      if @battle.field.effects[PBEffects::Cinament]>0 &&
+      if @battle.pbTerrain==PBBattleTerrains::CINAMENT &&
         (!opponent || !opponent.hasWorkingItem(:RODOFSPARROW))
         oppabilityname=PBAbilities.getName(opponent.ability)
         pbSEPlay("protection")
@@ -1412,7 +1412,7 @@ class PokeBattle_Battler
         return false
       end
       # Cinament
-      if @battle.field.effects[PBEffects::Cinament]>0 &&
+      if @battle.pbTerrain==PBBattleTerrains::CINAMENT &&
         (!opponent || !opponent.hasWorkingItem(:RODOFSPARROW))
         oppabilityname=PBAbilities.getName(opponent.ability)
         pbSEPlay("protection")
@@ -1471,7 +1471,7 @@ class PokeBattle_Battler
         return false
       end
       # Cinament
-      if @battle.field.effects[PBEffects::Cinament]>0 &&
+      if @battle.pbTerrain==PBBattleTerrains::CINAMENT &&
         (!opponent || !opponent.hasWorkingItem(:RODOFSPARROW))
         oppabilityname=PBAbilities.getName(opponent.ability)
         pbSEPlay("protection")

@@ -791,9 +791,14 @@ end
 
 def pbPrepareBattle(battle)
   case $game_screen.weather_type
-  when PBFieldWeather::Rain, PBFieldWeather::HeavyRain, PBFieldWeather::Storm
+  when PBFieldWeather::Rain, PBFieldWeather::HeavyRain
     battle.weather=PBWeather::RAINDANCE
     battle.weatherduration=-1
+  when PBFieldWeather::Storm
+    battle.weather=PBWeather::RAINDANCE
+    battle.weatherduration=-1
+    battle.terrain=PBBattleTerrains::ELECTRIC
+    battle.terrainduration=-1
   when PBFieldWeather::Snow, PBFieldWeather::Blizzard
     battle.weather=PBWeather::HAIL
     battle.weatherduration=-1

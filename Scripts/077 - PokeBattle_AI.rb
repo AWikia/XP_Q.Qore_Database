@@ -3239,14 +3239,7 @@ class PokeBattle_Battle
     when 0x295
       score+=50 if opponent.effects[PBEffects::LongGrass]
     when 0x306
-      if @field.effects[PBEffects::GrassyTerrain]==0 &&
-           @field.effects[PBEffects::ElectricTerrain]==0 &&
-           @field.effects[PBEffects::MistyTerrain]==0 &&
-           @field.effects[PBEffects::PsychicTerrain]==0 &&
-           @field.effects[PBEffects::VolcanicTerrain]==0 &&
-           @field.effects[PBEffects::LovelyTerrain]==0 &&
-           @field.effects[PBEffects::Cinament]==0 &&
-           @field.effects[PBEffects::GlimmyGalaxy]==0
+      if pbTerrain==0
         score-=90
       end
     when 0x322
@@ -4276,7 +4269,7 @@ class PokeBattle_Battle
     end
     # Hadron Engine
     if skill>=PBTrainerAI.highSkill
-      if @field.effects[PBEffects::ElectricTerrain]>0 && move.pbIsSpecial?(type)
+      if pbTerrain==PBBattleTerrains::ELECTRIC && move.pbIsSpecial?(type)
         if attacker.hasWorkingAbility(:HADRONENGINE)
           atk=(atk*1.3).round
         end
@@ -4294,7 +4287,7 @@ class PokeBattle_Battle
     end
     # Quark Drive
     if skill>=PBTrainerAI.highSkill
-      if @field.effects[PBEffects::ElectricTerrain]>0
+      if pbTerrain==PBBattleTerrains::ELECTRIC
         if attacker.hasWorkingAbility(:QUARKDRIVE) &&
            ((move.pbIsPhysical?(type) && attacker.profstat== PBStats::ATTACK) ||
             (move.pbIsSpecial?(type) && attacker.profstat== PBStats::SPATK))
@@ -4399,7 +4392,7 @@ class PokeBattle_Battle
     end
     # Quark Drive
     if skill>=PBTrainerAI.highSkill
-      if @field.effects[PBEffects::ElectricTerrain]>0
+      if pbTerrain==PBBattleTerrains::ELECTRIC
         if opponent.hasWorkingAbility(:QUARKFRIVE) &&
            ((move.pbIsPhysical?(type) && opponent.profstat== PBStats::DEFENSE) ||
             (move.pbIsSpecial?(type) && opponent.profstat== PBStats::SPDEF))

@@ -903,7 +903,7 @@ def ragefist
     if target
       return false if target.hasWorkingItem(:ABILITYSHIELD) || target.pbPartner.hasWorkingAbility(:ASSAULTSPIRIT)
     end
-    return false if @battle.field.effects[PBEffects::Cinament]>0 && !hasWorkingItem(:RODOFSPARROW)
+    return false if @battle.pbTerrain==PBBattleTerrains::CINAMENT && !hasWorkingItem(:RODOFSPARROW)
     return true if hasWorkingAbility(:MOLDBREAKER) ||
                    hasWorkingAbility(:TERAVOLT) ||
                    hasWorkingAbility(:TURBOBLAZE) |
@@ -1123,7 +1123,7 @@ def ragefist
     return false if self.hasWorkingItem(:IRONBALL)
     return false if @effects[PBEffects::Ingrain]
     return false if @effects[PBEffects::SmackDown]
-    return false if @battle.field.effects[PBEffects::Cinament]>0
+    return false if @battle.pbTerrain==PBBattleTerrains::CINAMENT
     return false if @battle.field.effects[PBEffects::Gravity]>0
     return true if self.pbHasType?(:WIND)
     return true if self.pbHasType?(:FLYING) && !@effects[PBEffects::Roost]
@@ -1137,7 +1137,7 @@ def ragefist
 
   def checkMimicry
     if hasWorkingAbility(:MIMICRY)
-      type= @battle.field.effects[PBEffects::GrassyTerrain]>0 ? getConst(PBTypes,:GRASS) :  @battle.field.effects[PBEffects::MistyTerrain]>0 ? getConst(PBTypes,:FAIRY) :  @battle.field.effects[PBEffects::PsychicTerrain]>0 ? getConst(PBTypes,:PSYCHIC) : @battle.field.effects[PBEffects::VolcanicTerrain]>0 ? getConst(PBTypes,:LAVA) : @battle.field.effects[PBEffects::LovelyTerrain]>0 ? getConst(PBTypes,:FAIRY) : @battle.field.effects[PBEffects::Cinament]>0 ? getConst(PBTypes,:BOLT) : @battle.field.effects[PBEffects::ElectricTerrain]>0 ? getConst(PBTypes,:ELECTRIC) : 0
+      type= @battle.pbTerrain==PBBattleTerrains::GRASSY ? getConst(PBTypes,:GRASS) :  @battle.pbTerrain==PBBattleTerrains::MISTY ? getConst(PBTypes,:FAIRY) :  @battle.pbTerrain==PBBattleTerrains::PSYCHIC ? getConst(PBTypes,:PSYCHIC) : @battle.pbTerrain==PBBattleTerrains::VOLCANIC ? getConst(PBTypes,:LAVA) : @battle.pbTerrain==PBBattleTerrains::LOVELY ? getConst(PBTypes,:FAIRY) : @battle.pbTerrain==PBBattleTerrains::CINAMENT ? getConst(PBTypes,:BOLT) : @battle.pbTerrain==PBBattleTerrains::ELECTRIC ? getConst(PBTypes,:ELECTRIC) : 0
       if (type1==getConst(PBTypes,type) &&
          type2==getConst(PBTypes,type)) || self.isFainted?
       elsif type != 0
@@ -1190,7 +1190,7 @@ def ragefist
     if self.hasWorkingAbility(:QUICKFEET) && self.status>0
       speedmult=(speedmult*1.5).round
     end
-    if self.hasWorkingAbility(:SURGESURFER) && @battle.field.effects[PBEffects::ElectricTerrain]>0
+    if self.hasWorkingAbility(:SURGESURFER) && @battle.pbTerrain==PBBattleTerrains::ELECTRIC
       speedmult=speedmult*2
     end
     if self.hasWorkingAbility(:UNBURDEN) && @effects[PBEffects::Unburden] &&
@@ -1204,7 +1204,7 @@ def ragefist
     if ((@battle.pbWeather==PBWeather::SUNNYDAY ||
        @battle.pbWeather==PBWeather::HARSHSUN) && 
        self.hasWorkingAbility(:PROTOSYNTHESIS)) ||
-      (@battle.field.effects[PBEffects::ElectricTerrain]>0 && 
+      (@battle.pbTerrain==PBBattleTerrains::ELECTRIC && 
        self.hasWorkingAbility(:QUARKDRIVE)) && self.profstat == PBStats::SPEED
        speedmult=(speedmult*1.5).round
     end
@@ -1341,7 +1341,7 @@ def ragefist
           isConst?(choice.ability,PBAbilities,:KOULUNDIN) ||
           isConst?(choice.ability,PBAbilities,:ALONELY) ||
           isUltraBlue?(choice) ||
-          @battle.field.effects[PBEffects::Cinament]>0 && !self.pbPartner.hasWorkingItem(:RODOFSPARROW) ||
+          @battle.pbTerrain==PBBattleTerrains::CINAMENT && !self.pbPartner.hasWorkingItem(:RODOFSPARROW) ||
           self.isAirborne? && !self.pbPartner.isAirborne?
         PBDebug.log("[Ability triggered] #{self.pbPartner.pbThis}'s Chikolini couldn't transform")
       elsif choice.hasWorkingItem(:PASTELCARD,true) 
@@ -1727,7 +1727,7 @@ def ragefist
         if self.form!=2
           self.form=2; transformed=true
         end
-      elsif @battle.field.effects[PBEffects::Cinament]>0
+      elsif @battle.pbTerrain==PBBattleTerrains::CINAMENT
         if self.form!=3
           self.form=3; transformed=true
         end
@@ -1874,108 +1874,68 @@ def ragefist
       # End of Primal weather cancelling regular weather
       # Surges
       # https://www.pokecommunity.com/showthread.php?t=383035&page=2
-      if self.hasWorkingAbility(:ELECTRICSURGE) && @battle.field.effects[PBEffects::ElectricTerrain]<=0
-        @battle.field.effects[PBEffects::GrassyTerrain]=0
-        @battle.field.effects[PBEffects::MistyTerrain]=0
-        @battle.field.effects[PBEffects::PsychicTerrain]=0
-        @battle.field.effects[PBEffects::ElectricTerrain]=5
-        @battle.field.effects[PBEffects::ElectricTerrain]=8 if self.hasWorkingItem(:TERRAINEXTENDER)
-        @battle.field.effects[PBEffects::Cinament]=0
-        @battle.field.effects[PBEffects::VolcanicTerrain]=0
-        @battle.field.effects[PBEffects::LovelyTerrain]=0
+      if self.hasWorkingAbility(:ELECTRICSURGE) && (@battle.terrain!=PBBattleTerrains::ELECTRIC && @battle.terrainduration!=-1)
+        @battle.terrain=PBBattleTerrains::ELECTRIC
+        @battle.terrainduration=5
+        @battle.terrainduration=8 if self.hasWorkingItem(:TERRAINEXTENDER)
         @battle.pbDisplay(_INTL("An electric current runs across the battlefield!"))
         PBDebug.log("[#{pbThis}: Electric Surge made Electric Terrain]") # Kept Japanese name in Debug log
         self.checkMimicryAll
         # The Electric Seed raised Hawlucha's Defense!
       end
-      if self.hasWorkingAbility(:HADRONENGINE) && @battle.field.effects[PBEffects::ElectricTerrain]<=0
-        @battle.field.effects[PBEffects::GrassyTerrain]=0
-        @battle.field.effects[PBEffects::MistyTerrain]=0
-        @battle.field.effects[PBEffects::PsychicTerrain]=0
-        @battle.field.effects[PBEffects::ElectricTerrain]=5
-        @battle.field.effects[PBEffects::ElectricTerrain]=8 if self.hasWorkingItem(:TERRAINEXTENDER)
-        @battle.field.effects[PBEffects::Cinament]=0
-        @battle.field.effects[PBEffects::VolcanicTerrain]=0
-        @battle.field.effects[PBEffects::LovelyTerrain]=0
+      if self.hasWorkingAbility(:HADRONENGINE) && (@battle.terrain!=PBBattleTerrains::ELECTRIC && @battle.terrainduration!=-1)
+        @battle.terrain=PBBattleTerrains::ELECTRIC
+        @battle.terrainduration=5
+        @battle.terrainduration=8 if self.hasWorkingItem(:TERRAINEXTENDER)
         @battle.pbDisplay(_INTL("An electric current runs across the battlefield!"))
         PBDebug.log("[#{pbThis}: Hadron Engine made Electric Terrain]") # Kept Japanese name in Debug log
         self.checkMimicryAll
         # The Electric Seed raised Hawlucha's Defense!
       end
-      if self.hasWorkingAbility(:PSYCHICSURGE) && @battle.field.effects[PBEffects::PsychicTerrain]<=0
-        @battle.field.effects[PBEffects::ElectricTerrain]=0
-        @battle.field.effects[PBEffects::GrassyTerrain]=0
-        @battle.field.effects[PBEffects::MistyTerrain]=0
-        @battle.field.effects[PBEffects::PsychicTerrain]=5
-        @battle.field.effects[PBEffects::PsychicTerrain]=8 if self.hasWorkingItem(:TERRAINEXTENDER)
-        @battle.field.effects[PBEffects::Cinament]=0
-        @battle.field.effects[PBEffects::VolcanicTerrain]=0
-        @battle.field.effects[PBEffects::LovelyTerrain]=0
+      if self.hasWorkingAbility(:PSYCHICSURGE) && (@battle.terrain!=PBBattleTerrains::PSYCHIC && @battle.terrainduration!=-1)
+        @battle.terrain=PBBattleTerrains::PSYCHIC
+        @battle.terrainduration=5
+        @battle.terrainduration=8 if self.hasWorkingItem(:TERRAINEXTENDER)
         @battle.pbDisplay(_INTL("The battlefield got weird!"))
         PBDebug.log("[#{pbThis}: Psychic Surge made Psychic Terrain]")
         self.checkMimicryAll
       end
-      if self.hasWorkingAbility(:GRASSYSURGE) && @battle.field.effects[PBEffects::GrassyTerrain]<=0
-        @battle.field.effects[PBEffects::ElectricTerrain]=0
-        @battle.field.effects[PBEffects::MistyTerrain]=0
-        @battle.field.effects[PBEffects::PsychicTerrain]=0
-        @battle.field.effects[PBEffects::GrassyTerrain]=5
-        @battle.field.effects[PBEffects::GrassyTerrain]=8 if self.hasWorkingItem(:TERRAINEXTENDER)
-        @battle.field.effects[PBEffects::Cinament]=0
-        @battle.field.effects[PBEffects::VolcanicTerrain]=0
-        @battle.field.effects[PBEffects::LovelyTerrain]=0
+      if self.hasWorkingAbility(:GRASSYSURGE) && (@battle.terrain!=PBBattleTerrains::GRASSY && @battle.terrainduration!=-1)
+        @battle.terrain=PBBattleTerrains::GRASSY
+        @battle.terrainduration=5
+        @battle.terrainduration=8 if self.hasWorkingItem(:TERRAINEXTENDER)
         @battle.pbDisplay(_INTL("Grass grew to cover the battlefield!"))
         PBDebug.log("[#{pbThis}: Grassy Surge made Grassy Terrain]")
         self.checkMimicryAll
       end
-      if self.hasWorkingAbility(:MISTYSURGE) && @battle.field.effects[PBEffects::MistyTerrain]<=0
-        @battle.field.effects[PBEffects::ElectricTerrain]=0
-        @battle.field.effects[PBEffects::GrassyTerrain]=0
-        @battle.field.effects[PBEffects::PsychicTerrain]=0
-        @battle.field.effects[PBEffects::MistyTerrain]=5
-        @battle.field.effects[PBEffects::MistyTerrain]=8 if self.hasWorkingItem(:TERRAINEXTENDER)
-        @battle.field.effects[PBEffects::Cinament]=0
-        @battle.field.effects[PBEffects::VolcanicTerrain]=0
-        @battle.field.effects[PBEffects::LovelyTerrain]=0
+      if self.hasWorkingAbility(:MISTYSURGE) && (@battle.terrain!=PBBattleTerrains::MISTY && @battle.terrainduration!=-1)
+        @battle.terrain=PBBattleTerrains::MISTY
+        @battle.terrainduration=5
+        @battle.terrainduration=8 if self.hasWorkingItem(:TERRAINEXTENDER)
         @battle.pbDisplay(_INTL("Mist swirls around the battlefield!"))
         PBDebug.log("[#{pbThis}: Misty Surge made Misty Terrain]")
         self.checkMimicryAll
       end
-      if self.hasWorkingAbility(:VOLCANICSURGE) && @battle.field.effects[PBEffects::VolcanicTerrain]<=0
-        @battle.field.effects[PBEffects::ElectricTerrain]=0
-        @battle.field.effects[PBEffects::GrassyTerrain]=0
-        @battle.field.effects[PBEffects::PsychicTerrain]=0
-        @battle.field.effects[PBEffects::VolcanicTerrain]=5
-        @battle.field.effects[PBEffects::VolcanicTerrain]=8 if self.hasWorkingItem(:TERRAINEXTENDER)
-        @battle.field.effects[PBEffects::Cinament]=0
-        @battle.field.effects[PBEffects::MistyTerrain]=0
-        @battle.field.effects[PBEffects::LovelyTerrain]=0
+      if self.hasWorkingAbility(:VOLCANICSURGE) && (@battle.terrain!=PBBattleTerrains::VOLCANIC && @battle.terrainduration!=-1)
+        @battle.terrain=PBBattleTerrains::VOLCANIC
+        @battle.terrainduration=5
+        @battle.terrainduration=8 if self.hasWorkingItem(:TERRAINEXTENDER)
         @battle.pbDisplay(_INTL("A heatness has been set up on the battlefield!"))
         PBDebug.log("[#{pbThis}: Volcanic Surge made Volcanic Terrain]")
         self.checkMimicryAll
       end
-      if self.hasWorkingAbility(:LOVELYSURGE) && @battle.field.effects[PBEffects::LovelyTerrain]<=0
-        @battle.field.effects[PBEffects::ElectricTerrain]=0
-        @battle.field.effects[PBEffects::GrassyTerrain]=0
-        @battle.field.effects[PBEffects::PsychicTerrain]=0
-        @battle.field.effects[PBEffects::LovelyTerrain]=5
-        @battle.field.effects[PBEffects::LovelyTerrain]=8 if self.hasWorkingItem(:TERRAINEXTENDER)
-        @battle.field.effects[PBEffects::Cinament]=0
-        @battle.field.effects[PBEffects::MistyTerrain]=0
-        @battle.field.effects[PBEffects::VolcanicTerrain]=0
+      if self.hasWorkingAbility(:LOVELYSURGE) && (@battle.terrain!=PBBattleTerrains::LOVELY && @battle.terrainduration!=-1)
+        @battle.terrain=PBBattleTerrains::LOVELY
+        @battle.terrainduration=5
+        @battle.terrainduration=8 if self.hasWorkingItem(:TERRAINEXTENDER)
         @battle.pbDisplay(_INTL("A loveness has been set up on the battlefield!"))
         PBDebug.log("[#{pbThis}: Lovely Surge made Lovely Terrain]")
         self.checkMimicryAll
       end
-      if self.hasWorkingAbility(:CINEMAMAKER) && @battle.field.effects[PBEffects::Cinament]<=0
-        @battle.field.effects[PBEffects::ElectricTerrain]=0
-        @battle.field.effects[PBEffects::GrassyTerrain]=0
-        @battle.field.effects[PBEffects::PsychicTerrain]=0
-        @battle.field.effects[PBEffects::Cinament]=5
-        @battle.field.effects[PBEffects::Cinament]=8 if self.hasWorkingItem(:TERRAINEXTENDER)
-        @battle.field.effects[PBEffects::LovelyTerrain]=0
-        @battle.field.effects[PBEffects::MistyTerrain]=0
-        @battle.field.effects[PBEffects::VolcanicTerrain]=0
+      if self.hasWorkingAbility(:CINEMAMAKER) && (@battle.terrain!=PBBattleTerrains::CINAMENT && @battle.terrainduration!=-1)
+        @battle.terrain=PBBattleTerrains::CINAMENT
+        @battle.terrainduration=5
+        @battle.terrainduration=8 if self.hasWorkingItem(:TERRAINEXTENDER)
         @battle.pbCommonAnimation("Cinament",nil,nil)
         @battle.pbDisplay(_INTL("A bolty cauldron has sweeped the battlefield!"))
         PBDebug.log("[#{pbThis}: Cinema Maker made Cinament]")
@@ -2020,7 +1980,7 @@ def ragefist
       if @battle.weather!=PBWeather::HEAVYRAIN &&
          @battle.weather!=PBWeather::HARSHSUN &&
          @battle.weather!=PBWeather::STRONGWINDS
-        if self.hasWorkingAbility(:DRIZZLE) && (@battle.weather!=PBWeather::RAINDANCE || @battle.weatherduration!=-1)
+        if self.hasWorkingAbility(:DRIZZLE) && (@battle.weather!=PBWeather::RAINDANCE && @battle.weatherduration!=-1)
           for i in 0...4
             @battle.battlers[i].addTemp = 0
           end
@@ -2031,7 +1991,7 @@ def ragefist
           @battle.pbDisplay(_INTL("{1}'s {2} made it rain!",pbThis,PBAbilities.getName(self.ability)))
           PBDebug.log("[Ability triggered] #{pbThis}'s Drizzle made it rain")
         end
-        if self.hasWorkingAbility(:DROUGHT) && (@battle.weather!=PBWeather::SUNNYDAY || @battle.weatherduration!=-1)
+        if self.hasWorkingAbility(:DROUGHT) && (@battle.weather!=PBWeather::SUNNYDAY && @battle.weatherduration!=-1)
           for i in 0...4
             @battle.battlers[i].addTemp = 25
           end
@@ -2042,7 +2002,7 @@ def ragefist
           @battle.pbDisplay(_INTL("{1}'s {2} intensified the sun's rays!",pbThis,PBAbilities.getName(self.ability)))
           PBDebug.log("[Ability triggered] #{pbThis}'s Drought made it sunny")
         end
-        if self.hasWorkingAbility(:ORICHALCUMPULSE) && (@battle.weather!=PBWeather::SUNNYDAY || @battle.weatherduration!=-1)
+        if self.hasWorkingAbility(:ORICHALCUMPULSE) && (@battle.weather!=PBWeather::SUNNYDAY && @battle.weatherduration!=-1)
           for i in 0...4
             @battle.battlers[i].addTemp = 25
           end
@@ -2053,7 +2013,7 @@ def ragefist
           @battle.pbDisplay(_INTL("{1}'s {2} intensified the sun's rays!",pbThis,PBAbilities.getName(self.ability)))
           PBDebug.log("[Ability triggered] #{pbThis}'s Orichalcum Pulse made it sunny")
         end
-        if self.hasWorkingAbility(:SANDSTREAM) && (@battle.weather!=PBWeather::SANDSTORM || @battle.weatherduration!=-1)
+        if self.hasWorkingAbility(:SANDSTREAM) && (@battle.weather!=PBWeather::SANDSTORM && @battle.weatherduration!=-1)
           for i in 0...4
             @battle.battlers[i].addTemp = 0
           end
@@ -2064,7 +2024,7 @@ def ragefist
           @battle.pbDisplay(_INTL("{1}'s {2} whipped up a sandstorm!",pbThis,PBAbilities.getName(self.ability)))
           PBDebug.log("[Ability triggered] #{pbThis}'s Sand Stream made it sandstorm")
         end
-        if self.hasWorkingAbility(:SNOWWARNING) && (@battle.weather!=PBWeather::HAIL || @battle.weatherduration!=-1)
+        if self.hasWorkingAbility(:SNOWWARNING) && (@battle.weather!=PBWeather::HAIL && @battle.weatherduration!=-1)
           for i in 0...4
             @battle.battlers[i].addTemp = -20
           end
@@ -2566,7 +2526,7 @@ def ragefist
          isConst?(choice.ability,PBAbilities,:KOULUNDIN) ||
          isConst?(choice.ability,PBAbilities,:ALONELY) ||
          isUltraBlue?(choice) ||
-         @battle.field.effects[PBEffects::Cinament]>0 && !hasWorkingItem(:RODOFSPARROW)
+         @battle.pbTerrain==PBBattleTerrains::CINAMENT && !hasWorkingItem(:RODOFSPARROW)
         PBDebug.log("[Ability triggered] #{pbThis}'s Imposter couldn't transform")
       elsif choice.hasWorkingItem(:PASTELCARD) 
         if pbReduceStatWithCause(PBStats::DEFENSE,1,choice,PBItems.getName(choice.item))
@@ -2795,7 +2755,7 @@ def ragefist
            isConst?(choice.ability,PBAbilities,:KOULUNDIN) ||
            isConst?(choice.ability,PBAbilities,:ALONELY) ||
            isUltraBlue?(choice) ||
-           @battle.field.effects[PBEffects::Cinament]>0 && !target.hasWorkingItem(:RODOFSPARROW)
+           @battle.pbTerrain==PBBattleTerrains::CINAMENT && !target.hasWorkingItem(:RODOFSPARROW)
           PBDebug.log("[Ability triggered] #{pbThis}'s Heralina couldn't transform")
         elsif choice.hasWorkingItem(:PASTELCARD) 
           if target.pbReduceStatWithCause(PBStats::DEFENSE,1,choice,PBItems.getName(choice.item))
@@ -2864,7 +2824,7 @@ def ragefist
            isConst?(choice.ability,PBAbilities,:KOULUNDIN) ||
            isConst?(choice.ability,PBAbilities,:ALONELY) ||
            isUltraBlue?(choice) ||
-           @battle.field.effects[PBEffects::Cinament]>0 && !user.hasWorkingItem(:RODOFSPARROW)
+           @battle.pbTerrain==PBBattleTerrains::CINAMENT && !user.hasWorkingItem(:RODOFSPARROW)
           PBDebug.log("[Ability triggered] #{pbThis}'s Ferfatina couldn't transform")
         elsif choice.hasWorkingItem(:PASTELCARD) 
           if user.pbReduceStatWithCause(PBStats::DEFENSE,1,choice,PBItems.getName(choice.item))
@@ -3193,7 +3153,7 @@ def ragefist
           end
         end
         # Sand Spit
-        if target.hasWorkingAbility(:SANDSPIT) && (@battle.weather!=PBWeather::SANDSTORM || @battle.weatherduration!=-1)
+        if target.hasWorkingAbility(:SANDSPIT) && (@battle.weather!=PBWeather::SANDSTORM && @battle.weatherduration!=-1)
           @battle.weather=PBWeather::SANDSTORM
           @battle.weatherduration=5
           @battle.weatherduration=8 if hasWorkingItem(:SMOOTHROCK)
@@ -3222,15 +3182,10 @@ def ragefist
           PBDebug.log("[Ability triggered] #{target.pbThis}'s #{PBAbilities.getName(target.ability)}")
         end
         # Seed Sower
-        if target.hasWorkingAbility(:SEEDSOWER) && @battle.field.effects[PBEffects::GrassyTerrain]<=0
-          @battle.field.effects[PBEffects::ElectricTerrain]=0
-          @battle.field.effects[PBEffects::MistyTerrain]=0
-          @battle.field.effects[PBEffects::PsychicTerrain]=0
-          @battle.field.effects[PBEffects::GrassyTerrain]=5
-          @battle.field.effects[PBEffects::GrassyTerrain]=8 if self.hasWorkingItem(:TERRAINEXTENDER)
-          @battle.field.effects[PBEffects::Cinament]=0
-          @battle.field.effects[PBEffects::VolcanicTerrain]=0
-          @battle.field.effects[PBEffects::LovelyTerrain]=0
+        if self.hasWorkingAbility(:SEEDSOWER) && (@battle.terrain!=PBBattleTerrains::GRASSY && @battle.terrainduration!=-1)
+          @battle.terrain=PBBattleTerrains::GRASSY
+          @battle.terrainduration=5
+          @battle.terrainduration=8 if self.hasWorkingItem(:TERRAINEXTENDER)
           @battle.pbDisplay(_INTL("Grass grew to cover the battlefield!"))
           PBDebug.log("[#{pbThis}: Sand Sower made Grassy Terrain]")
           self.checkMimicryAll
@@ -4172,7 +4127,7 @@ def ragefist
     end
     # Changed Expanding Force
     if move.function==0x305 && !self.isAirborne? &&
-      @battle.field.effects[PBEffects::PsychicTerrain]>0
+      @battle.pbTerrain==PBBattleTerrains::PSYCHIC
       target=PBTargets::AllOpposing
     end
     if move.function==0x379 && isConst?(self.species,PBSpecies,:TERAPAGOS) &&
@@ -4519,13 +4474,13 @@ def ragefist
     p+=1 if user.hasWorkingAbility(:SOUNDTRACK) && thismove.isSoundBased?
     p+=1 if user.hasWorkingAbility(:SINISTRO) && thismove.isContactMove?
     p+=1 if user.hasWorkingAbility(:GALEWINGS) && isConst?(thismove.type,PBTypes,:FLYING)
-    p+=1 if @battle.field.effects[PBEffects::GrassyTerrain]>0 && thismove.function==0x310
-    p+=1 if @battle.field.effects[PBEffects::ElectricTerrain]>0 && thismove.function==0x345
-    p+=1 if @battle.field.effects[PBEffects::MistyTerrain]>0 && thismove.function==0x346
-    p+=1 if @battle.field.effects[PBEffects::PsychicTerrain]>0 && thismove.function==0x347
-    p+=1 if @battle.field.effects[PBEffects::VolcanicTerrain]>0 && thismove.function==0x348
-    p+=1 if @battle.field.effects[PBEffects::LovelyTerrain]>0 && thismove.function==0x349
-    p+=1 if @battle.field.effects[PBEffects::Cinament]>0 && thismove.function==0x350
+    p+=1 if @battle.pbTerrain==PBBattleTerrains::GRASSY && thismove.function==0x310
+    p+=1 if @battle.pbTerrain==PBBattleTerrains::ELECTRIC && thismove.function==0x345
+    p+=1 if @battle.pbTerrain==PBBattleTerrains::MISTY && thismove.function==0x346
+    p+=1 if @battle.pbTerrain==PBBattleTerrains::PSYCHIC && thismove.function==0x347
+    p+=1 if @battle.pbTerrain==PBBattleTerrains::VOLCANIC && thismove.function==0x348
+    p+=1 if @battle.pbTerrain==PBBattleTerrains::LOVELY && thismove.function==0x349
+    p+=1 if @battle.pbTerrain==PBBattleTerrains::CINAMENT && thismove.function==0x350
     if target.hasWorkingAbility(:PROVENDO) &&  thismove.canProtectAgainst? && 
       p>0 && !target.effects[PBEffects::ProtectNegation]
 			pbSEPlay("protection")
@@ -4542,7 +4497,7 @@ def ragefist
       return false
     end
     # Changed added Psychic Terrain
-    if @battle.field.effects[PBEffects::PsychicTerrain]>0 && p>0 && !target.isAirborne?
+    if @battle.pbTerrain==PBBattleTerrains::PSYCHIC && p>0 && !target.isAirborne?
 			pbSEPlay("protection")
       @battle.pbDisplay(_INTL("{1} surrounds itself with psychic terrain!",target.pbThis))
       PBDebug.log("[Move failed] Psychic Terrain stopped the attack")
@@ -4906,7 +4861,7 @@ def ragefist
              isConst?(choice.ability,PBAbilities,:KOULUNDIN) ||
              isConst?(choice.ability,PBAbilities,:ALONELY) ||
              isUltraBlue?(choice) ||
-             @battle.field.effects[PBEffects::Cinament]>0 && !user.hasWorkingItem(:RODOFSPARROW)
+             @battle.pbTerrain==PBBattleTerrains::CINAMENT && !user.hasWorkingItem(:RODOFSPARROW)
             PBDebug.log("[Item triggered] #{pbThis}'s Pyro Claw couldn't transform")
           elsif choice.hasWorkingItem(:PASTELCARD) 
             if user.pbReduceStatWithCause(PBStats::DEFENSE,1,choice,PBItems.getName(choice.item))
@@ -5801,7 +5756,7 @@ def ragefist
     targets=[]
     user=pbFindUser(choice,targets)
     # Change to two targets for expanding force with psychic terrain
-    if thismove.function==0x305 && @battle.field.effects[PBEffects::PsychicTerrain]>0 && !user.isAirborne? && @battle.doublebattle 
+    if thismove.function==0x305 && @battle.pbTerrain==PBBattleTerrains::PSYCHIC && !user.isAirborne? && @battle.doublebattle 
       targets = [pbOpposing1, pbOpposing2] if (!pbOpposing1.isFainted? && !pbOpposing2.isFainted?)
     end
     # Battle Arena only - assume failure 

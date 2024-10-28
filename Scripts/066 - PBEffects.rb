@@ -191,27 +191,20 @@ begin
     
     ############################################################################
     # These effects apply to the battle (i.e. both sides)
-    ElectricTerrain = 0
-    FairyLock       = 1
-    FusionBolt      = 2
-    FusionFlare     = 3
-    GrassyTerrain   = 4
-    Gravity         = 5
-    IonDeluge       = 6
-    MagicRoom       = 7
-    MistyTerrain    = 8
-    MudSportField   = 9
-    TrickRoom       = 10
-    WaterSportField = 11
-    WonderRoom      = 12
-    MagicStorm      = 13
-    PsychicTerrain  = 14 # Changed
-    Cinament        = 15
-    VolcanicTerrain = 16
-    NeutralizingGas = 17  # Used for Gen8 Neutralizing Gas ability
-    LovelyTerrain   = 18
-    Torchwood       = 19
-    GlimmyGalaxy     = 20
+    FairyLock       = 0
+    FusionBolt      = 1
+    FusionFlare     = 2
+    Gravity         = 3
+    IonDeluge       = 4
+    MagicRoom       = 5
+    MudSportField   = 6
+    TrickRoom       = 7
+    WaterSportField = 8
+    WonderRoom      = 9
+    MagicStorm      = 10
+    NeutralizingGas = 11  # Used for Gen8 Neutralizing Gas ability
+    Torchwood       = 12
+    GlimmyGalaxy    = 13
     ############################################################################
     # These effects apply to the usage of a move
     SkipAccuracyCheck = 0

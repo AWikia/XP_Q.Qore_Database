@@ -909,12 +909,12 @@ end
 class PokeBattle_Move_01D < PokeBattle_Move
   def pbBaseDamageMultiplier(damagemult,attacker,opponent)
     if isConst?(@id,PBMoves,:DIFFINDO) &&
-        @battle.field.effects[PBEffects::PsychicTerrain]>0 && 
+        @battle.pbTerrain==PBBattleTerrains::PSYCHIC && 
         attacker.happiness<220
       return (damagemult*0.5).round
     end
     if isConst?(@id,PBMoves,:DIFFINDO) &&
-        attacker.happiness>219 && @battle.field.effects[PBEffects::PsychicTerrain]==0
+        attacker.happiness>219 && @battle.pbTerrain!=PBBattleTerrains::PSYCHIC
       return (damagemult*2.0).round
     end
     return damagemult
@@ -1921,7 +1921,7 @@ class PokeBattle_Move_044 < PokeBattle_Move
       return (damagemult*2.0).round
     end
     if (isConst?(@id,PBMoves,:BULLDOZE) || isConst?(@id,PBMoves,:FORTUNETERRAIN)) &&
-       @battle.field.effects[PBEffects::GrassyTerrain]>0
+       @battle.pbTerrain==PBBattleTerrains::GRASSY
       return (damagemult/2.0).round
     end
     return damagemult
@@ -2050,14 +2050,9 @@ class PokeBattle_Move_049 < PokeBattle_Move
     opponent.pbOpposingSide.effects[PBEffects::StickyWeb]   = false
     opponent.pbOpposingSide.effects[PBEffects::ToxicSpikes] = 0
     # Terrains
-    @battle.field.effects[PBEffects::GrassyTerrain]=0
-    @battle.field.effects[PBEffects::MistyTerrain]=0
-    @battle.field.effects[PBEffects::PsychicTerrain]=0
-    @battle.field.effects[PBEffects::VolcanicTerrain]=0
+    @battle.terrain=0
+    @battle.terrainduration=0
     @battle.field.effects[PBEffects::GlimmyGalaxy]=0
-    @battle.field.effects[PBEffects::LovelyTerrain]=0
-    @battle.field.effects[PBEffects::Cinament]=0
-    @battle.field.effects[PBEffects::ElectricTerrain]=0
     return 0
   end
 
@@ -2086,13 +2081,9 @@ class PokeBattle_Move_049 < PokeBattle_Move
     opponent.pbOpposingSide.effects[PBEffects::StickyWeb]   = false
     opponent.pbOpposingSide.effects[PBEffects::ToxicSpikes] = 0
     # Terrains
-    @battle.field.effects[PBEffects::GrassyTerrain]=0
-    @battle.field.effects[PBEffects::MistyTerrain]=0
-    @battle.field.effects[PBEffects::PsychicTerrain]=0
-    @battle.field.effects[PBEffects::VolcanicTerrain]=0
-    @battle.field.effects[PBEffects::LovelyTerrain]=0
-    @battle.field.effects[PBEffects::Cinament]=0
-    @battle.field.effects[PBEffects::ElectricTerrain]=0
+    @battle.terrain=0
+    @battle.terrainduration=0
+    @battle.field.effects[PBEffects::GlimmyGalaxy]=0
   end
 end
 
@@ -2743,19 +2734,19 @@ class PokeBattle_Move_060 < PokeBattle_Move
     when PBEnvironment::Boardwalk;   type=getConst(PBTypes,:DARK) || 0
     when PBEnvironment::Ring;        type=getConst(PBTypes,:FIGHTING) || 0
     end
-    if @battle.field.effects[PBEffects::ElectricTerrain]>0
+    if @battle.pbTerrain==PBBattleTerrains::ELECTRIC
       type=getConst(PBTypes,:ELECTRIC) if hasConst?(PBTypes,:ELECTRIC)
-    elsif @battle.field.effects[PBEffects::GrassyTerrain]>0
+    elsif @battle.pbTerrain==PBBattleTerrains::GRASSY
       type=getConst(PBTypes,:GRASS) if hasConst?(PBTypes,:GRASS)
-    elsif @battle.field.effects[PBEffects::MistyTerrain]>0
+    elsif @battle.pbTerrain==PBBattleTerrains::MISTY
       type=getConst(PBTypes,:FAIRY) if hasConst?(PBTypes,:FAIRY)
-    elsif @battle.field.effects[PBEffects::PsychicTerrain]>0
+    elsif @battle.pbTerrain==PBBattleTerrains::PSYCHIC
       type=getConst(PBTypes,:PSYCHIC) if hasConst?(PBTypes,:PSYCHIC)
-    elsif @battle.field.effects[PBEffects::Cinament]>0
+    elsif @battle.pbTerrain==PBBattleTerrains::CINAMENT
       type=getConst(PBTypes,:BOLT) if hasConst?(PBTypes,:BOLT)
-    elsif @battle.field.effects[PBEffects::VolcanicTerrain]>0
+    elsif @battle.pbTerrain==PBBattleTerrains::VOLCANIC
       type=getConst(PBTypes,:LAVA) if hasConst?(PBTypes,:LAVA)
-    elsif @battle.field.effects[PBEffects::LovelyTerrain]>0
+    elsif @battle.pbTerrain==PBBattleTerrains::LOVELY
       type=getConst(PBTypes,:HEART) if hasConst?(PBTypes,:HEART)
     end
     if attacker.pbHasType?(type)
@@ -3141,7 +3132,7 @@ class PokeBattle_Move_069 < PokeBattle_Move
       @battle.pbDisplay(_INTL("{1} anchored itself with its Ultra Blue!",opponent.pbThis)) if showMessages
       return -1
     end    
-    if @battle.field.effects[PBEffects::Cinament]>0 && !attacker.hasWorkingItem(:RODOFSPARROW)
+    if @battle.pbTerrain==PBBattleTerrains::CINAMENT && !attacker.hasWorkingItem(:RODOFSPARROW)
 			pbSEPlay("protection")
       @battle.pbDisplay(_INTL("The Cinament prevented {1} from transforming into {2}!",attacker.pbThis,opponent.pbThis(true)))
       return -1
@@ -3440,7 +3431,7 @@ class PokeBattle_Move_076 < PokeBattle_Move
     if PBMoveData.new(opponent.effects[PBEffects::TwoTurnAttack]).function==0xCA # Dig
       ret=(damagemult*2.0).round
     end
-    if @battle.field.effects[PBEffects::GrassyTerrain]>0
+    if @battle.pbTerrain==PBBattleTerrains::GRASSY
       ret=(damagemult/2.0).round
     end
     return ret
@@ -3773,7 +3764,7 @@ end
 class PokeBattle_Move_087 < PokeBattle_Move
   def pbBaseDamage(basedmg,attacker,opponent)
     if @battle.pbWeather!=0 || 
-      (@battle.field.effects[PBEffects::Cinament]>0 && @battle.field.effects[PBEffects::GlimmyGalaxy]==0)
+      (@battle.pbTerrain==PBBattleTerrains::CINAMENT && @battle.field.effects[PBEffects::GlimmyGalaxy]==0)
       return basedmg*2 if !attacker.hasWorkingItem(:UTILITYUMBRELLA)
     end
     return basedmg
@@ -3791,7 +3782,7 @@ class PokeBattle_Move_087 < PokeBattle_Move
     when PBWeather::HAIL
       type=(getConst(PBTypes,:ICE) || type)
     end
-    type=(getConst(PBTypes,:BOLT) || type) if @battle.field.effects[PBEffects::Cinament]>0 && 
+    type=(getConst(PBTypes,:BOLT) || type) if @battle.pbTerrain==PBBattleTerrains::CINAMENT && 
                                               @battle.field.effects[PBEffects::GlimmyGalaxy]==0
     return getConst(PBTypes,:NORMAL) if attacker.hasWorkingItem(:UTILITYUMBRELLA)
     return type
@@ -3809,7 +3800,7 @@ class PokeBattle_Move_087 < PokeBattle_Move
     when PBWeather::HAIL
       anim=3
     end
-    anim=5 if @battle.field.effects[PBEffects::Cinament]>0 &&
+    anim=5 if @battle.pbTerrain==PBBattleTerrains::CINAMENT &&
               @battle.field.effects[PBEffects::GlimmyGalaxy]==0
     anim=0 if attacker.hasWorkingItem(:UTILITYUMBRELLA)
     return super(id,attacker,opponent,anim,alltargets,showanimation) # Weather-specific anim
@@ -4090,7 +4081,7 @@ class PokeBattle_Move_095 < PokeBattle_Move
     if PBMoveData.new(opponent.effects[PBEffects::TwoTurnAttack]).function==0xCA # Dig
       ret*=2
     end
-    if @battle.field.effects[PBEffects::GrassyTerrain]>0
+    if @battle.pbTerrain==PBBattleTerrains::GRASSY
       ret=(ret/2.0).round
     end
     return ret
@@ -4543,36 +4534,36 @@ end
 class PokeBattle_Move_0A4 < PokeBattle_Move
   def pbAdditionalEffect(attacker,opponent)
     return if opponent.damagestate.substitute
-    if @battle.field.effects[PBEffects::ElectricTerrain]>0
+    if @battle.pbTerrain==PBBattleTerrains::ELECTRIC
       if opponent.pbCanParalyze?(attacker,false,self)
         opponent.pbParalyze(attacker)
         return
       end
-    elsif @battle.field.effects[PBEffects::GrassyTerrain]>0
+    elsif @battle.pbTerrain==PBBattleTerrains::GRASSY
       if opponent.pbCanSleep?(attacker,false,self)
         opponent.pbSleep
         return
       end
-    elsif @battle.field.effects[PBEffects::MistyTerrain]>0
+    elsif @battle.pbTerrain==PBBattleTerrains::MISTY
       if !opponent.pbCanReduceStatStage?(PBStats::SPATK,attacker,false,self)
         opponent.pbReduceStat(PBStats::SPATK,1,attacker,false,self)
         return
       end
-    elsif @battle.field.effects[PBEffects::VolcanicTerrain]>0
+    elsif @battle.pbTerrain==PBBattleTerrains::VOLCANIC
       if opponent.pbCanBurn?(attacker,false,self)
         opponent.pbBurn(attacker)
       end
-    elsif @battle.field.effects[PBEffects::PsychicTerrain]>0
+    elsif @battle.pbTerrain==PBBattleTerrains::PSYCHIC
       if opponent.pbCanReduceStatStage?(PBStats::SPEED,attacker,false,self)
         opponent.pbReduceStat(PBStats::SPEED,1,attacker,false,self)
         return
       end
-    elsif @battle.field.effects[PBEffects::LovelyTerrain]>0
+    elsif @battle.pbTerrain==PBBattleTerrains::LOVELY
       if opponent.pbCanAttract?(attacker)
         opponent.pbAttract(attacker)
         return
       end
-    elsif @battle.field.effects[PBEffects::Cinament]>0
+    elsif @battle.pbTerrain==PBBattleTerrains::CINAMENT
       if attacker.pbCanIncreaseStatStage?(PBStats::DEFENSE,attacker,false,self)
         attacker.pbIncreaseStat(PBStats::DEFENSE,1,attacker,false,self)
         if opponent.pbCanParalyze?(attacker,false,self)
@@ -4648,19 +4639,19 @@ class PokeBattle_Move_0A4 < PokeBattle_Move
     when PBEnvironment::Boardwalk;   id=getConst(PBMoves,:PURSUIT) || id
     when PBEnvironment::Ring;        id=getConst(PBMoves,:BRICKBREAK) || id
     end
-    if @battle.field.effects[PBEffects::ElectricTerrain]>0
+    if @battle.pbTerrain==PBBattleTerrains::ELECTRIC
       id=getConst(PBMoves,:THUNDERSHOCK) || id
-    elsif @battle.field.effects[PBEffects::GrassyTerrain]>0
+    elsif @battle.pbTerrain==PBBattleTerrains::GRASSY
       id=getConst(PBMoves,:VINEWHIP) || id
-    elsif @battle.field.effects[PBEffects::MistyTerrain]>0
+    elsif @battle.pbTerrain==PBBattleTerrains::MISTY
       id=getConst(PBMoves,:FAIRYWIND) || id
-    elsif @battle.field.effects[PBEffects::PsychicTerrain]>0
+    elsif @battle.pbTerrain==PBBattleTerrains::PSYCHIC
       id=getConst(PBMoves,:CONFUSION) || id
-    elsif @battle.field.effects[PBEffects::Cinament]>0
+    elsif @battle.pbTerrain==PBBattleTerrains::CINAMENT
       id=getConst(PBMoves,:WINDBOLT) || id
-    elsif @battle.field.effects[PBEffects::VolcanicTerrain]>0
+    elsif @battle.pbTerrain==PBBattleTerrains::VOLCANIC
       id=getConst(PBMoves,:LAVACORN) || id
-    elsif @battle.field.effects[PBEffects::LovelyTerrain]>0
+    elsif @battle.pbTerrain==PBBattleTerrains::LOVELY
       id=getConst(PBMoves,:HEARTGLOW) || id
     end
     return super(id,attacker,opponent,hitnum,alltargets,showanimation) # Environment-specific anim
@@ -5107,19 +5098,19 @@ class PokeBattle_Move_0B3 < PokeBattle_Move
     when PBEnvironment::Boardwalk;   move=getConst(PBMoves,:NIGHTSLASH) || move
     when PBEnvironment::Ring;        move=getConst(PBMoves,:AURASPHERE) || move
     end
-    if @battle.field.effects[PBEffects::ElectricTerrain]>0
+    if @battle.pbTerrain==PBBattleTerrains::ELECTRIC
       move=getConst(PBMoves,:THUNDERBOLT) || move
-    elsif @battle.field.effects[PBEffects::GrassyTerrain]>0
+    elsif @battle.pbTerrain==PBBattleTerrains::GRASSY
       move=getConst(PBMoves,:ENERGYBALL) || move
-    elsif @battle.field.effects[PBEffects::MistyTerrain]>0
+    elsif @battle.pbTerrain==PBBattleTerrains::MISTY
       move=getConst(PBMoves,:MOONBLAST) || move
-    elsif @battle.field.effects[PBEffects::PsychicTerrain]>0
+    elsif @battle.pbTerrain==PBBattleTerrains::PSYCHIC
       move=getConst(PBMoves,:PSYCHIC) || move
-    elsif @battle.field.effects[PBEffects::Cinament]>0
+    elsif @battle.pbTerrain==PBBattleTerrains::CINAMENT
       move=getConst(PBMoves,:BOLTOPIA) || move
-    elsif @battle.field.effects[PBEffects::VolcanicTerrain]>0
+    elsif @battle.pbTerrain==PBBattleTerrains::VOLCANIC
       move=getConst(PBMoves,:LAVAOVER) || move
-     elsif @battle.field.effects[PBEffects::LovelyTerrain]>0
+     elsif @battle.pbTerrain==PBBattleTerrains::LOVELY
       move=getConst(PBMoves,:HEARTSTAMP) || move
    end
     if move==0
@@ -5589,12 +5580,15 @@ class PokeBattle_Move_0BB < PokeBattle_Move
     if opponent.effects[PBEffects::HealBlock]==0 &&
        !(opponent.pbHasType?(:HERB) || opponent.pbHasType?(:MIND) || 
          opponent.pbHasType?(:GLIMSE))
+      healblock=true
       if !attacker.hasMoldBreaker(opponent)
-        next if opponent.hasWorkingAbility(:AROMAVEIL) ||
-                opponent.pbPartner.hasWorkingAbility(:AROMAVEIL)
+        healblock=false if opponent.hasWorkingAbility(:AROMAVEIL) ||
+                           opponent.pbPartner.hasWorkingAbility(:AROMAVEIL)
       end
-      opponent.effects[PBEffects::HealBlock]=5
-      @battle.pbDisplay(_INTL("{1} was prevented from healing!",opponent.pbThis))
+      if healblock
+        opponent.effects[PBEffects::HealBlock]=5
+        @battle.pbDisplay(_INTL("{1} was prevented from healing!",opponent.pbThis))
+      end
     end
   end
 end
@@ -6844,20 +6838,20 @@ class PokeBattle_Move_0E0 < PokeBattle_Move
 
   def pbBaseDamageMultiplier(damagemult,attacker,opponent)
     if isConst?(@id,PBMoves,:HERBLEAF) &&
-        (@battle.field.effects[PBEffects::ElectricTerrain]>0 || 
-         @battle.field.effects[PBEffects::VolcanicTerrain]>0) &&
+        (@battle.pbTerrain==PBBattleTerrains::ELECTRIC || 
+         @battle.pbTerrain==PBBattleTerrains::VOLCANIC) &&
         !attacker.status>0
       return (damagemult*0.5).round
     end
     if (isConst?(@id,PBMoves,:HERBLEAF) &&
         attacker.status>0 && 
-        @battle.field.effects[PBEffects::ElectricTerrain]==0 && 
-        @battle.field.effects[PBEffects::VolcanicTerrain]==0) ||
+        @battle.pbTerrain!=PBBattleTerrains::ELECTRIC && 
+        @battle.pbTerrain!=PBBattleTerrains::VOLCANIC) ||
         (isConst?(@id,PBMoves,:LICKSTART) && @battle.pbCheckGlobalAbility(:DAMP)) ||
         (isConst?(@id,PBMoves,:GUSTOPIA) && attacker.pbHasType?(:GUST)) ||
         (isConst?(@id,PBMoves,:CHLOROPIA) && attacker.pbHasType?(:CHLOROPHYLL)) ||
         (isConst?(@id,PBMoves,:MISTYEXPLOSION) && 
-         @battle.field.effects[PBEffects::MistyTerrain]>0)
+         @battle.pbTerrain==PBBattleTerrains::MISTY)
       return (damagemult*2.0).round
     end
     return damagemult
@@ -10216,20 +10210,15 @@ end
 ################################################################################
 class PokeBattle_Move_154 < PokeBattle_Move
   def pbEffect(attacker,opponent,hitnum=0,alltargets=nil,showanimation=true)
-    if @battle.field.effects[PBEffects::ElectricTerrain]>0
+    if @battle.pbTerrain==PBBattleTerrains::ELECTRIC
 			pbSEPlay("protection")
       @battle.pbDisplay(_INTL("But it failed!"))
       return -1
     end
     pbShowAnimation(@id,attacker,nil,hitnum,alltargets,showanimation)
-    @battle.field.effects[PBEffects::GrassyTerrain]=0
-    @battle.field.effects[PBEffects::MistyTerrain]=0
-    @battle.field.effects[PBEffects::PsychicTerrain]=0
-    @battle.field.effects[PBEffects::VolcanicTerrain]=0
-    @battle.field.effects[PBEffects::LovelyTerrain]=0
-    @battle.field.effects[PBEffects::Cinament]=0
-    @battle.field.effects[PBEffects::ElectricTerrain]=5
-    @battle.field.effects[PBEffects::ElectricTerrain]=8 if attacker.hasWorkingItem(:TERRAINEXTENDER)
+    @battle.terrain=PBBattleTerrains::ELECTRIC
+    @battle.terrainduration=5
+    @battle.terrainduration=8 if attacker.hasWorkingItem(:TERRAINEXTENDER)
     @battle.pbDisplay(_INTL("An electric current runs across the battlefield!"))
     attacker.checkMimicryAll
     return 0
@@ -10245,20 +10234,15 @@ end
 ################################################################################
 class PokeBattle_Move_155 < PokeBattle_Move
   def pbEffect(attacker,opponent,hitnum=0,alltargets=nil,showanimation=true)
-    if @battle.field.effects[PBEffects::GrassyTerrain]>0
+    if @battle.pbTerrain==PBBattleTerrains::GRASSY
 			pbSEPlay("protection")
       @battle.pbDisplay(_INTL("But it failed!"))
       return -1
     end
     pbShowAnimation(@id,attacker,nil,hitnum,alltargets,showanimation)
-    @battle.field.effects[PBEffects::ElectricTerrain]=0
-    @battle.field.effects[PBEffects::MistyTerrain]=0
-    @battle.field.effects[PBEffects::Cinament]=0
-    @battle.field.effects[PBEffects::PsychicTerrain]=0
-    @battle.field.effects[PBEffects::VolcanicTerrain]=0
-    @battle.field.effects[PBEffects::LovelyTerrain]=0
-    @battle.field.effects[PBEffects::GrassyTerrain]=5
-    @battle.field.effects[PBEffects::GrassyTerrain]=8 if attacker.hasWorkingItem(:TERRAINEXTENDER)
+    @battle.terrain=PBBattleTerrains::GRASSY
+    @battle.terrainduration=5
+    @battle.terrainduration=8 if attacker.hasWorkingItem(:TERRAINEXTENDER)
     @battle.pbDisplay(_INTL("Grass grew to cover the battlefield!"))
     attacker.checkMimicryAll
     return 0
@@ -10274,20 +10258,15 @@ end
 ################################################################################
 class PokeBattle_Move_156 < PokeBattle_Move
   def pbEffect(attacker,opponent,hitnum=0,alltargets=nil,showanimation=true)
-    if @battle.field.effects[PBEffects::MistyTerrain]>0
+    if @battle.pbTerrain==PBBattleTerrains::MISTY
 			pbSEPlay("protection")
       @battle.pbDisplay(_INTL("But it failed!"))
       return -1
     end
     pbShowAnimation(@id,attacker,nil,hitnum,alltargets,showanimation)
-    @battle.field.effects[PBEffects::ElectricTerrain]=0
-    @battle.field.effects[PBEffects::GrassyTerrain]=0
-    @battle.field.effects[PBEffects::Cinament]=0
-    @battle.field.effects[PBEffects::PsychicTerrain]=0
-    @battle.field.effects[PBEffects::VolcanicTerrain]=0
-    @battle.field.effects[PBEffects::LovelyTerrain]=0
-    @battle.field.effects[PBEffects::MistyTerrain]=5
-    @battle.field.effects[PBEffects::MistyTerrain]=8 if attacker.hasWorkingItem(:TERRAINEXTENDER)
+    @battle.terrain=PBBattleTerrains::MISTY
+    @battle.terrainduration=5
+    @battle.terrainduration=8 if attacker.hasWorkingItem(:TERRAINEXTENDER)
     @battle.pbDisplay(_INTL("Mist swirled about the battlefield!"))
     attacker.checkMimicryAll
     return 0
@@ -10641,7 +10620,7 @@ class PokeBattle_Move_170 < PokeBattle_Move
     return super(attacker,opponent,hitnum,alltargets,showanimation) if pbIsDamaging?
     return -1 if !opponent.pbCanReduceStatStage?(PBStats::DEFENSE,attacker,true,self)
     lowering=3
-    lowering=(attacker.hasWorkingAbility(:CRATECRUSTER)) ? 2 : 1  if !isConst?(@id,PBMoves,:PSYCHOTRACK) && @battle.field.effects[PBEffects::PsychicTerrain]>0
+    lowering=(attacker.hasWorkingAbility(:CRATECRUSTER)) ? 2 : 1  if !isConst?(@id,PBMoves,:PSYCHOTRACK) && @battle.pbTerrain==PBBattleTerrains::PSYCHIC
     pbShowAnimation(@id,attacker,opponent,hitnum,alltargets,showanimation)
     ret=opponent.pbReduceStat(PBStats::DEFENSE,lowering,attacker,false,self)
     return ret ? 0 : -1
@@ -10654,7 +10633,7 @@ class PokeBattle_Move_170 < PokeBattle_Move
         damage=(damage*2.0).round
       end
     if !isConst?(@id,PBMoves,:PSYCHOTRACK) && 
-       @battle.field.effects[PBEffects::PsychicTerrain]>0
+       @battle.pbTerrain==PBBattleTerrains::PSYCHIC
        mult = (attacker.hasWorkingAbility(:CRATECRUSTER)) ? 0.5 : 0.25 
       damage=(damage*mult).round
     end
@@ -10665,7 +10644,7 @@ class PokeBattle_Move_170 < PokeBattle_Move
   def pbAdditionalEffect(attacker,opponent)
     return if opponent.damagestate.substitute
     lowering=3
-    lowering=(attacker.hasWorkingAbility(:CRATECRUSTER)) ? 2 : 1  if !isConst?(@id,PBMoves,:PSYCHOTRACK) && @battle.field.effects[PBEffects::PsychicTerrain]>0
+    lowering=(attacker.hasWorkingAbility(:CRATECRUSTER)) ? 2 : 1  if !isConst?(@id,PBMoves,:PSYCHOTRACK) && @battle.pbTerrain==PBBattleTerrains::PSYCHIC
     if opponent.pbCanReduceStatStage?(PBStats::DEFENSE,attacker,false,self)
       opponent.pbReduceStat(PBStats::DEFENSE,lowering,attacker,false,self)
     end
@@ -10793,7 +10772,7 @@ class PokeBattle_Move_174 < PokeBattle_Move
       return (damagemult*0.5).round
     end
     if (isConst?(@id,PBMoves,:PARKDAMAGE) || isConst?(@id,PBMoves,:GLIMSETREAT)) &&
-       @battle.field.effects[PBEffects::Cinament]>0
+       @battle.pbTerrain==PBBattleTerrains::CINAMENT
       return (damagemult*2.0).round
     end
     return damagemult
@@ -11166,7 +11145,7 @@ class PokeBattle_Move_185 < PokeBattle_Move
   end
 
   def pbCanUseWhileAsleep?
-    return @battle.field.effects[PBEffects::Cinament]>0
+    return @battle.pbTerrain==PBBattleTerrains::CINAMENT
   end
 
   def pbModifyDamage(damagemult,attacker,opponent)
@@ -12225,7 +12204,7 @@ class PokeBattle_Move_240 < PokeBattle_Move
        PBMoveData.new(opponent.effects[PBEffects::TwoTurnAttack]).function==0xCD    # Shadow Force
       ret=(damagemult*2.0).round
     end
-    if @battle.field.effects[PBEffects::Cinament]>0
+    if @battle.pbTerrain==PBBattleTerrains::CINAMENT
       ret=(ret*0.5).round
     end
     return ret
@@ -12262,20 +12241,15 @@ end
 ################################################################################
 class PokeBattle_Move_241 < PokeBattle_Move
   def pbEffect(attacker,opponent,hitnum=0,alltargets=nil,showanimation=true)
-    if @battle.field.effects[PBEffects::Cinament]>0
+    if @battle.pbTerrain==PBBattleTerrains::CINAMENT
 			pbSEPlay("protection")
       @battle.pbDisplay(_INTL("But it failed!"))
       return -1
     end
     pbShowAnimation(@id,attacker,nil,hitnum,alltargets,showanimation)
-    @battle.field.effects[PBEffects::ElectricTerrain]=0
-    @battle.field.effects[PBEffects::MistyTerrain]=0
-    @battle.field.effects[PBEffects::GrassyTerrain]=0
-    @battle.field.effects[PBEffects::PsychicTerrain]=0
-    @battle.field.effects[PBEffects::VolcanicTerrain]=0
-    @battle.field.effects[PBEffects::LovelyTerrain]=0
-    @battle.field.effects[PBEffects::Cinament]=5
-    @battle.field.effects[PBEffects::Cinament]=8 if attacker.hasWorkingItem(:TERRAINEXTENDER)
+    @battle.terrain=PBBattleTerrains::CINAMENT
+    @battle.terrainduration=5
+    @battle.terrainduration=8 if attacker.hasWorkingItem(:TERRAINEXTENDER)
     @battle.pbCommonAnimation("Cinament",nil,nil)
     @battle.pbDisplay(_INTL("A bolty cauldron has sweeped the battlefield!"))
     attacker.checkMimicryAll
@@ -12363,7 +12337,7 @@ class PokeBattle_Move_244 < PokeBattle_Move
          [80,20,40],
          [20,20,20],
          [160,160,160]][rand(20)][rand(3)]
-    if @battle.field.effects[PBEffects::Cinament]>0 &&
+    if @battle.pbTerrain==PBBattleTerrains::CINAMENT &&
        isConst?(@id,PBMoves,:DOOMSTAR) # Double damage on Cinament to ignore halved doom damage
       ret=(ret*2.0).floor
     end
@@ -12379,7 +12353,7 @@ class PokeBattle_Move_244 < PokeBattle_Move
   end
   
   def pbCanUseWhileAsleep?
-    return @battle.field.effects[PBEffects::Cinament]>0
+    return @battle.pbTerrain==PBBattleTerrains::CINAMENT
   end  
 end
 
@@ -12626,19 +12600,19 @@ class PokeBattle_Move_249 < PokeBattle_Move
     when PBEnvironment::Boardwalk;   type=getConst(PBTypes,:DARK) || 0
     when PBEnvironment::Ring;        type=getConst(PBTypes,:FIGHTING) || 0
     end
-    if @battle.field.effects[PBEffects::ElectricTerrain]>0
+    if @battle.pbTerrain==PBBattleTerrains::ELECTRIC
       type=getConst(PBTypes,:ELECTRIC) if hasConst?(PBTypes,:ELECTRIC)
-    elsif @battle.field.effects[PBEffects::GrassyTerrain]>0
+    elsif @battle.pbTerrain==PBBattleTerrains::GRASSY
       type=getConst(PBTypes,:GRASS) if hasConst?(PBTypes,:GRASS)
-    elsif @battle.field.effects[PBEffects::MistyTerrain]>0
+    elsif @battle.pbTerrain==PBBattleTerrains::MISTY
       type=getConst(PBTypes,:FAIRY) if hasConst?(PBTypes,:FAIRY)
-    elsif @battle.field.effects[PBEffects::PsychicTerrain]>0
+    elsif @battle.pbTerrain==PBBattleTerrains::PSYCHIC
       type=getConst(PBTypes,:PSYCHIC) if hasConst?(PBTypes,:PSYCHIC)
-    elsif @battle.field.effects[PBEffects::Cinament]>0
+    elsif @battle.pbTerrain==PBBattleTerrains::CINAMENT
       type=getConst(PBTypes,:BOLT) if hasConst?(PBTypes,:BOLT)
-    elsif @battle.field.effects[PBEffects::VolcanicTerrain]>0
+    elsif @battle.pbTerrain==PBBattleTerrains::VOLCANIC
       type=getConst(PBTypes,:LAVA) if hasConst?(PBTypes,:LAVA)
-    elsif @battle.field.effects[PBEffects::LovelyTerrain]>0
+    elsif @battle.pbTerrain==PBBattleTerrains::LOVELY
       type=getConst(PBTypes,:HEART) if hasConst?(PBTypes,:HEART)
     end
     if opponent.pbHasType?(type)
@@ -12664,20 +12638,15 @@ end
 ################################################################################
 class PokeBattle_Move_250 < PokeBattle_Move
   def pbEffect(attacker,opponent,hitnum=0,alltargets=nil,showanimation=true)
-    if @battle.field.effects[PBEffects::VolcanicTerrain]>0
+    if @battle.pbTerrain==PBBattleTerrains::VOLCANIC
 			pbSEPlay("protection")
       @battle.pbDisplay(_INTL("But it failed!"))
       return -1
     end
     pbShowAnimation(@id,attacker,nil,hitnum,alltargets,showanimation)
-    @battle.field.effects[PBEffects::ElectricTerrain]=0
-    @battle.field.effects[PBEffects::MistyTerrain]=0
-    @battle.field.effects[PBEffects::GrassyTerrain]=0
-    @battle.field.effects[PBEffects::PsychicTerrain]=0
-    @battle.field.effects[PBEffects::Cinament]=0
-    @battle.field.effects[PBEffects::LovelyTerrain]=0
-    @battle.field.effects[PBEffects::VolcanicTerrain]=5
-    @battle.field.effects[PBEffects::VolcanicTerrain]=8 if attacker.hasWorkingItem(:TERRAINEXTENDER)
+    @battle.terrain=PBBattleTerrains::VOLCANIC
+    @battle.terrainduration=5
+    @battle.terrainduration=8 if attacker.hasWorkingItem(:TERRAINEXTENDER)
     @battle.pbDisplay(_INTL("A heatness has been set up on the battlefield!"))
     attacker.checkMimicryAll
     return 0
@@ -12902,20 +12871,15 @@ end
 ################################################################################
 class PokeBattle_Move_276 < PokeBattle_Move
   def pbEffect(attacker,opponent,hitnum=0,alltargets=nil,showanimation=true)
-    if @battle.field.effects[PBEffects::LovelyTerrain]>0
+    if @battle.pbTerrain==PBBattleTerrains::LOVELY
 			pbSEPlay("protection")
       @battle.pbDisplay(_INTL("But it failed!"))
       return -1
     end
     pbShowAnimation(@id,attacker,nil,hitnum,alltargets,showanimation)
-    @battle.field.effects[PBEffects::ElectricTerrain]=0
-    @battle.field.effects[PBEffects::MistyTerrain]=0
-    @battle.field.effects[PBEffects::GrassyTerrain]=0
-    @battle.field.effects[PBEffects::PsychicTerrain]=0
-    @battle.field.effects[PBEffects::Cinament]=0
-    @battle.field.effects[PBEffects::VolcanicTerrain]=0
-    @battle.field.effects[PBEffects::LovelyTerrain]=5
-    @battle.field.effects[PBEffects::LovelyTerrain]=8 if attacker.hasWorkingItem(:TERRAINEXTENDER)
+    @battle.terrain=PBBattleTerrains::LOVELY
+    @battle.terrainduration=5
+    @battle.terrainduration=8 if attacker.hasWorkingItem(:TERRAINEXTENDER)
     @battle.pbDisplay(_INTL("A loveness has been set up on the battlefield!"))
     attacker.checkMimicryAll
     return 0
@@ -13652,12 +13616,12 @@ end
 class PokeBattle_Move_322 < PokeBattle_Move
   def pbBaseDamageMultiplier(damagemult,attacker,opponent)
     if isConst?(@id,PBMoves,:TRIFFINTO) &&
-        @battle.field.effects[PBEffects::PsychicTerrain]>0 && 
+        @battle.pbTerrain==PBBattleTerrains::PSYCHIC && 
         attacker.happiness<220
       return (damagemult*0.5).round
     end
     if isConst?(@id,PBMoves,:TRIFFINTO) &&
-        attacker.happiness>219 && @battle.field.effects[PBEffects::PsychicTerrain]==0
+        attacker.happiness>219 && @battle.pbTerrain!=PBBattleTerrains::PSYCHIC
       return (damagemult*2.0).round
     end
     return damagemult
@@ -14054,7 +14018,7 @@ end
 ################################################################################
 class PokeBattle_Move_341 < PokeBattle_Move
   def pbModifyDamage(damagemult,attacker,opponent)
-    if  @battle.field.effects[PBEffects::MistyTerrain]>0
+    if  @battle.pbTerrain==PBBattleTerrains::MISTY
       return (damagemult*2.0).round
     end
     return damagemult
@@ -14358,20 +14322,15 @@ end
 ################################################################################
 class PokeBattle_Move_209 < PokeBattle_Move
   def pbEffect(attacker,opponent,hitnum=0,alltargets=nil,showanimation=true)
-    if @battle.field.effects[PBEffects::PsychicTerrain]>0
+    if @battle.pbTerrain==PBBattleTerrains::PSYCHIC
 			pbSEPlay("protection")
       @battle.pbDisplay(_INTL("But it failed!"))
       return -1
     end
     pbShowAnimation(@id,attacker,nil,hitnum,alltargets,showanimation)
-    @battle.field.effects[PBEffects::ElectricTerrain]=0
-    @battle.field.effects[PBEffects::MistyTerrain]=0
-    @battle.field.effects[PBEffects::GrassyTerrain]=0
-    @battle.field.effects[PBEffects::VolcanicTerrain]=0
-    @battle.field.effects[PBEffects::LovelyTerrain]=0
-    @battle.field.effects[PBEffects::Cinament]=0
-    @battle.field.effects[PBEffects::PsychicTerrain]=5
-    @battle.field.effects[PBEffects::PsychicTerrain]=8 if attacker.hasWorkingItem(:TERRAINEXTENDER)
+    @battle.terrain=PBBattleTerrains::PSYCHIC
+    @battle.terrainduration=5
+    @battle.terrainduration=8 if attacker.hasWorkingItem(:TERRAINEXTENDER)
     @battle.pbDisplay(_INTL("The battlefield got weird!"))
     attacker.checkMimicryAll
     return 0
@@ -14994,7 +14953,7 @@ class PokeBattle_Move_232 < PokeBattle_Move
       return -1
     end
     hpgain=0
-    if @battle.field.effects[PBEffects::GrassyTerrain]>0
+    if @battle.pbTerrain==PBBattleTerrains::GRASSY
       hpgain=(attacker.totalhp*2/3).floor
     else
       hpgain=(attacker.totalhp/2).floor
@@ -15664,7 +15623,7 @@ end
 ################################################################################
 class PokeBattle_Move_305 < PokeBattle_Move
   def pbModifyDamage(damagemult,attacker,opponent)
-    if  @battle.field.effects[PBEffects::PsychicTerrain]>0
+    if  @battle.pbTerrain==PBBattleTerrains::PSYCHIC
       return (damagemult*1.5).round
     end
     return damagemult
@@ -15678,25 +15637,14 @@ end
 ################################################################################
 class PokeBattle_Move_306 < PokeBattle_Move
   def pbMoveFailed(attacker,opponent)
-    return @battle.field.effects[PBEffects::GrassyTerrain]==0 &&
-           @battle.field.effects[PBEffects::ElectricTerrain]==0 &&
-           @battle.field.effects[PBEffects::MistyTerrain]==0 &&
-           @battle.field.effects[PBEffects::PsychicTerrain]==0 &&
-           @battle.field.effects[PBEffects::VolcanicTerrain]==0 &&
-           @battle.field.effects[PBEffects::LovelyTerrain]==0 &&
-           @battle.field.effects[PBEffects::Cinament]==0
+    return @battle.pbTerrain==0
   end
 
   def pbEffect(attacker,opponent,hitnum=0,alltargets=nil,showanimation=true)
     return super(attacker,opponent,hitnum,alltargets,showanimation) if pbIsDamaging?
     pbShowAnimation(@id,attacker,opponent,hitnum,alltargets,showanimation)
-    @battle.field.effects[PBEffects::GrassyTerrain]=0
-    @battle.field.effects[PBEffects::MistyTerrain]=0
-    @battle.field.effects[PBEffects::PsychicTerrain]=0
-    @battle.field.effects[PBEffects::VolcanicTerrain]=0
-    @battle.field.effects[PBEffects::LovelyTerrain]=0
-    @battle.field.effects[PBEffects::Cinament]=0
-    @battle.field.effects[PBEffects::ElectricTerrain]=0
+    @battle.terrain=0
+    @battle.terrainduration=0
     return 0
   end
 end
@@ -15814,7 +15762,7 @@ end
 ################################################################################
 class PokeBattle_Move_311 < PokeBattle_Move
   def pbModifyDamage(damagemult,attacker,opponent)
-    if  @battle.field.effects[PBEffects::ElectricTerrain]>0
+    if  @battle.pbTerrain==PBBattleTerrains::ELECTRIC
       return (damagemult*2.0).round
     end
     return damagemult
@@ -15828,13 +15776,7 @@ end
 ################################################################################
 class PokeBattle_Move_312 < PokeBattle_Move
   def pbModifyDamage(damagemult,attacker,opponent)
-    if @battle.field.effects[PBEffects::GrassyTerrain]==0 &&
-       @battle.field.effects[PBEffects::ElectricTerrain]==0 &&
-       @battle.field.effects[PBEffects::MistyTerrain]==0 &&
-       @battle.field.effects[PBEffects::PsychicTerrain]==0 &&
-       @battle.field.effects[PBEffects::VolcanicTerrain]==0 &&
-       @battle.field.effects[PBEffects::LovelyTerrain]==0 &&
-       @battle.field.effects[PBEffects::Cinament]==0
+    if @battle.pbTerrain==0
       return damagemult
     end
     return (damagemult*2.0).round
@@ -15842,19 +15784,19 @@ class PokeBattle_Move_312 < PokeBattle_Move
 
   def pbModifyType(type,attacker,opponent)
     type=getConst(PBTypes,:NORMAL) || 0
-    if @battle.field.effects[PBEffects::ElectricTerrain]>0
+    if @battle.pbTerrain==PBBattleTerrains::ELECTRIC
       type=getConst(PBTypes,:ELECTRIC) if hasConst?(PBTypes,:ELECTRIC)
-    elsif @battle.field.effects[PBEffects::GrassyTerrain]>0
+    elsif @battle.pbTerrain==PBBattleTerrains::GRASSY
       type=getConst(PBTypes,:GRASS) if hasConst?(PBTypes,:GRASS)
-    elsif @battle.field.effects[PBEffects::MistyTerrain]>0
+    elsif @battle.pbTerrain==PBBattleTerrains::MISTY
       type=getConst(PBTypes,:FAIRY) if hasConst?(PBTypes,:FAIRY)
-    elsif @battle.field.effects[PBEffects::PsychicTerrain]>0
+    elsif @battle.pbTerrain==PBBattleTerrains::PSYCHIC
       type=getConst(PBTypes,:PSYCHIC) if hasConst?(PBTypes,:PSYCHIC)
-    elsif @battle.field.effects[PBEffects::Cinament]>0
+    elsif @battle.pbTerrain==PBBattleTerrains::CINAMENT
       type=getConst(PBTypes,:BOLT) if hasConst?(PBTypes,:BOLT)
-    elsif @battle.field.effects[PBEffects::VolcanicTerrain]>0
+    elsif @battle.pbTerrain==PBBattleTerrains::VOLCANIC
       type=getConst(PBTypes,:LAVA) if hasConst?(PBTypes,:LAVA)
-    elsif @battle.field.effects[PBEffects::LovelyTerrain]>0
+    elsif @battle.pbTerrain==PBBattleTerrains::LOVELY
       type=getConst(PBTypes,:HEART) if hasConst?(PBTypes,:HEART)
     end
     return type
@@ -16353,25 +16295,14 @@ class PokeBattle_Move_360 < PokeBattle_Move
   def pbEffect(attacker,opponent,hitnum=0,alltargets=nil,showanimation=true)
     return super(attacker,opponent,hitnum,alltargets,showanimation) if pbIsDamaging?
     pbShowAnimation(@id,attacker,opponent,hitnum,alltargets,showanimation)
-      @battle.field.effects[PBEffects::GrassyTerrain]=0
-      @battle.field.effects[PBEffects::MistyTerrain]=0
-      @battle.field.effects[PBEffects::PsychicTerrain]=0
-      @battle.field.effects[PBEffects::VolcanicTerrain]=0
-      @battle.field.effects[PBEffects::GlimmyGalaxy]=0
-      @battle.field.effects[PBEffects::LovelyTerrain]=0
-      @battle.field.effects[PBEffects::Cinament]=0
-      @battle.field.effects[PBEffects::ElectricTerrain]=0
+    @battle.terrain=0
+    @battle.terrainduration=0
     return 0
   end
 
   def pbAdditionalEffect(attacker,opponent)
-      @battle.field.effects[PBEffects::GrassyTerrain]=0
-      @battle.field.effects[PBEffects::MistyTerrain]=0
-      @battle.field.effects[PBEffects::PsychicTerrain]=0
-      @battle.field.effects[PBEffects::VolcanicTerrain]=0
-      @battle.field.effects[PBEffects::LovelyTerrain]=0
-      @battle.field.effects[PBEffects::Cinament]=0
-      @battle.field.effects[PBEffects::ElectricTerrain]=0
+    @battle.terrain=0
+    @battle.terrainduration=0
   end
 end
 
@@ -16723,7 +16654,7 @@ end
 ################################################################################
 class PokeBattle_Move_374 < PokeBattle_Move
   def pbModifyDamage(damagemult,attacker,opponent)
-    if  @battle.field.effects[PBEffects::ElectricTerrain]>0
+    if  @battle.pbTerrain==PBBattleTerrains::ELECTRIC
       return (damagemult*1.5).round
     end
     return damagemult
@@ -16975,12 +16906,15 @@ class PokeBattle_Move_384 < PokeBattle_Move
     if opponent.effects[PBEffects::HealBlock]==0 &&
        !(opponent.pbHasType?(:HERB) || opponent.pbHasType?(:MIND) || 
          opponent.pbHasType?(:GLIMSE))
+      healblock=true
       if !attacker.hasMoldBreaker(opponent)
-        next if opponent.hasWorkingAbility(:AROMAVEIL) ||
-                opponent.pbPartner.hasWorkingAbility(:AROMAVEIL)
+        healblock=false if opponent.hasWorkingAbility(:AROMAVEIL) ||
+                           opponent.pbPartner.hasWorkingAbility(:AROMAVEIL)
       end
-      opponent.effects[PBEffects::HealBlock]=2
-      @battle.pbDisplay(_INTL("{1} was prevented from healing!",opponent.pbThis))
+      if healblock
+        opponent.effects[PBEffects::HealBlock]=5
+        @battle.pbDisplay(_INTL("{1} was prevented from healing!",opponent.pbThis))
+      end
     end
   end
 end

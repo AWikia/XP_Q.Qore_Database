@@ -1053,7 +1053,7 @@ There are different modes:
              setScreenBorderName($BORDERS[$PokemonSystem.bordergraphic]) # Accented Border
            },
            getAccentNames,
-          "Sets the color of all accent-aware elements. Forty-Eight options exist. More than one color may be used to constuct an accent color. Blue is the default color."
+          "Sets the color of all accent-aware elements. Twenty-Five options exist. More than one color may be used to constuct an accent color. Blue is the default color."
          ),
         EnumOption.new(_INTL("Custom Shiny Pokémon Sprites"),[_INTL("Off"),_INTL("On")],
           proc { $PokemonSystem.customshiny },
@@ -1068,7 +1068,7 @@ There are different modes:
                setScreenBorderName($BORDERS[value]) # Sets image file for the border
             },
             getBorderNames,
-           "On RGSS XP, it sets the decorative border graphic. On VR Corendo, it sets the pillarboxed area graphic."
+           "Sets the decorative border graphic when Screen Border is on."
          )
       ]
     end

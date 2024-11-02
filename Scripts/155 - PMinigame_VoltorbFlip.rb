@@ -276,7 +276,7 @@ class VoltorbFlip
       if @cursor[0][3]==64 # If in mark mode
         for i in 0...@squares.length
           if @index[0]*64+128+64==@squares[i][0] && @index[1]*64==@squares[i][1] && @squares[i][3]==false
-            pbSEPlay("VoltorbFlipMark")
+            pbSEPlay("Voltorb Flip Mark")
           end
         end
         for i in 0...@marks.length+1
@@ -300,7 +300,7 @@ class VoltorbFlip
             @squares[i][3]=true
             # If Voltorb (0), display all tiles on the board
             if @squares[i][2]==0
-              pbSEPlay("VoltorbFlipExplosion")
+              pbSEPlay("Voltorb Flip Explosion")
               # Play explosion animation
               # Part1
               animation=[]
@@ -336,7 +336,7 @@ class VoltorbFlip
                 if @level>newLevel
                   @level=newLevel
                   @level=1 if @level<1
-                  Kernel.pbMessage(_INTL("\\se[VoltorbFlipLevelDown]Dropped to Game Lv. {1}!",@level.to_s))
+                  Kernel.pbMessage(_INTL("\\se[Voltorb Flip Level Down]Dropped to Game Lv. {1}!",@level.to_s))
                 end
               end
               # Update level text
@@ -371,10 +371,10 @@ class VoltorbFlip
               end
               if @points==0
                 @points+=@squares[i][2]
-                pbSEPlay("VoltorbFlipPoint")
+                pbSEPlay("Voltorb Flip Point")
               elsif @squares[i][2]>1
                 @points*=@squares[i][2]
-                pbSEPlay("VoltorbFlipPoint")
+                pbSEPlay("Voltorb Flip Point")
               end
               break
             end
@@ -394,7 +394,7 @@ class VoltorbFlip
         Kernel.pbMessage(_INTL("\\me[Voltorb Flip Win]Board clear!\\wtnp[40]"))
 #        Kernel.pbMessage(_INTL("You've found all of the hidden x2 and x3 cards."))
 #        Kernel.pbMessage(_INTL("This means you've found all the Coins in this game, so the game is now over."))
-        Kernel.pbMessage(_INTL("{1} received {2} Coins!",$Trainer.name,@points.to_s_formatted))
+        Kernel.pbMessage(_INTL("\\se[Voltorb Flip Gain Coins]{1} received {2} Coins!",$Trainer.name,@points.to_s_formatted))
         # Update level text
         if (!isDarkMode?)
           base=Color.new(60,60,60)
@@ -419,7 +419,7 @@ class VoltorbFlip
         @sprites["curtain"].opacity=100
         if @level<8
           @level+=1
-          Kernel.pbMessage(_INTL("Advanced to Game Lv. {1}!",@level.to_s))
+          Kernel.pbMessage(_INTL("\\se[Voltorb Flip Level Up]Advanced to Game Lv. {1}!",@level.to_s))
 #          if @firstRound
 #            Kernel.pbMessage(_INTL("Congratulations!"))
 #            Kernel.pbMessage(_INTL("You can receive even more Coins in the next game!"))
@@ -533,7 +533,7 @@ class VoltorbFlip
     end
     icons[3]=[@directory+"tiles",x+64,y,tile*64,0,64,64]
     pbDrawImagePositions(@sprites["icon"].bitmap,icons)
-    pbSEPlay("VoltorbFlipTile")
+    pbSEPlay("Voltorb Flip Tile")
   end
 
   def pbShowAndDispose
@@ -544,7 +544,7 @@ class VoltorbFlip
       @sprites[i].bitmap.clear
       @sprites[i].z=99997
     end
-    pbSEPlay("VoltorbFlipTile")
+    pbSEPlay("Voltorb Flip Tile")
     @sprites[5].visible=true
     @sprites["mark"].bitmap.clear
     pbWait(2)
@@ -558,7 +558,7 @@ class VoltorbFlip
     # "Dispose" of tiles by column
     for i in 0...5
       icons=[]
-      pbSEPlay("VoltorbFlipTile")
+      pbSEPlay("Voltorb Flip Tile")
       for j in 0...5
         icons[j]=[@directory+"tiles",@squares[i+(j*5)][0],@squares[i+(j*5)][1],448+(@squares[i+(j*5)][2]*64),0,64,64]
       end

@@ -916,19 +916,19 @@ end
 
 def toneUS(toneType,duration,volume=95)
   case toneType
-  when 0: # dialtone
+  when 0 # dialtone
     Audio.doubleSine(duration,350,440,volume)
-  when 1: # busy
+  when 1 # busy
     Audio.doubleSine(duration,
        SoundEnvelope.blink(480,500,500,duration),
        SoundEnvelope.blink(620,500,500,duration),
        volume,volume)
-  when 2: # ringback
+  when 2 # ringback
     Audio.doubleSine(duration,
        SoundEnvelope.blink(480,2000,4000,duration),
        SoundEnvelope.blink(440,2000,4000,duration),
        volume,volume)
-  when 3: # callfailed
+  when 3 # callfailed
     Audio.doubleSine(duration,
        SoundEnvelope.blink(480,300,200,duration),
        SoundEnvelope.blink(620,300,200,duration),
@@ -938,37 +938,37 @@ end
 
 def toneDE(toneType,duration,volume=95)
   case toneType
-  when 0: # dialtone
+  when 0 # dialtone
     Audio.sine(duration,425,volume)
-  when 1: # busy
+  when 1 # busy
     Audio.sine(duration,SoundEnvelope.blink(425,480,480,duration),volume)
-  when 2: # ringback
+  when 2 # ringback
     Audio.sine(duration,SoundEnvelope.blink(425,1000,4000,duration),volume)
-  when 3: # callfailed
+  when 3 # callfailed
     Audio.sine(duration,SoundEnvelope.blink(425,240,240,duration),volume)
   end
 end
 
 def toneFR(toneType,duration,volume=95)
   case toneType
-  when 0:
+  when 0
     Audio.sine(duration,440,volume)
-  when 1:
+  when 1
     Audio.sine(duration,SoundEnvelope.blink(440,500,500,duration),volume)
-  when 2:
+  when 2
     Audio.sine(duration,SoundEnvelope.blink(440,1500,3500,duration),volume)
-  when 3:
+  when 3
     Audio.sine(duration,SoundEnvelope.blink(440,250,250,duration),volume)
   end
 end
 
 def toneIsrael(toneType,duration,volume=95)
   case toneType
-  when 0:
+  when 0
     Audio.sine(duration,400,volume)
-  when 1:
+  when 1
     Audio.sine(duration,SoundEnvelope.blink(400,500,500,duration),volume)
-  when 2:
+  when 2
     Audio.sine(duration,SoundEnvelope.blink(400,1000,3000,duration),volume)
   when 3
     Audio.sine(duration,SoundEnvelope.blink(400,250,250,duration),volume)
@@ -977,29 +977,29 @@ end
 
 def toneNL(toneType,duration,volume=95)
   case toneType
-  when 0:
+  when 0
     Audio.sine(duration,425,volume)
-  when 1:
+  when 1
     Audio.sine(duration,SoundEnvelope.blink(425,500,500,duration),volume)
-  when 2:
+  when 2
     Audio.sine(duration,SoundEnvelope.blink(425,1000,4000,duration),volume)
-  when 3:
+  when 3
     Audio.sine(duration,SoundEnvelope.blink(425,250,250,duration),volume)
   end
 end
 
 def toneGB(toneType,duration,volume=95)
   case toneType
-  when 0:
+  when 0
     Audio.sine(duration,350,440,volume)
-  when 1:
+  when 1
     Audio.sine(duration,SoundEnvelope.blink(400,375,375,duration),volume)
-  when 2:
+  when 2
     Audio.doubleSine(duration,
        SoundEnvelope.new.addValueChanges(400,400,0,200,400,400,0,2000).repeat(duration),
        SoundEnvelope.new.addValueChanges(450,400,0,200,450,400,0,2000).repeat(duration),
        volume,volume)
-  when 3:
+  when 3
     Audio.sine(duration,
        SoundEnvelope.new.addValueChanges(400,400,0,350,400,225,0,525).repeat(duration),
        volume)

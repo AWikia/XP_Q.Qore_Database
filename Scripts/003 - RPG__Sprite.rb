@@ -27,11 +27,12 @@ class SpriteAnimation
     dispose_loop_animation
   end
 
-  def animation(animation, hit)
+  def animation(animation, hit, height = 3)
     dispose_animation
     @_animation = animation
     return if @_animation == nil
     @_animation_hit = hit
+    @_animation_height = height
     @_animation_duration = @_animation.frame_max
     animation_name = @_animation.animation_name
     animation_hue = @_animation.animation_hue
@@ -189,14 +190,19 @@ class SpriteAnimation
       end
       sprite.x += cell_data[i, 1]
       sprite.y += cell_data[i, 2]
-      sprite.z = 2000
+      case @_animation_height
+      when 0; sprite.z = 1
+      when 1; sprite.z = sprite.y+32+15
+      when 2; sprite.z = sprite.y+32+32+17
+      else; sprite.z = 2000
+      end
       sprite.ox = 96
       sprite.oy = 96
       sprite.zoom_x = cell_data[i, 3] / 100.0
       sprite.zoom_y = cell_data[i, 3] / 100.0
       sprite.angle = cell_data[i, 4]
       sprite.mirror = (cell_data[i, 5] == 1)
-      sprite.tone=self.tone
+      sprite.tone = self.tone
       sprite.opacity = cell_data[i, 6] * self.opacity / 255.0
       sprite.blend_type = cell_data[i, 7]
     end
@@ -372,9 +378,9 @@ module RPG
       array.push(anim)
     end
 
-    def animation(animation, hit)
+    def animation(animation, hit, height = 3)
       anim=SpriteAnimation.new(self)
-      anim.animation(animation,hit)
+      anim.animation(animation,hit,height)
       pushAnimation(@animations,anim)
     end
 

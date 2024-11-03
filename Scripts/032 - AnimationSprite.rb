@@ -5,7 +5,7 @@ automatically when its animation is finished.
 Used for grass rustling and so forth.
 =end
 class AnimationSprite < RPG::Sprite
-  def initialize(animID,map,tileX,tileY,viewport=nil,tinting=false)
+  def initialize(animID,map,tileX,tileY,viewport=nil,tinting=false,height=3)
     super(viewport)
     @tileX=tileX
     @tileY=tileY
@@ -15,7 +15,7 @@ class AnimationSprite < RPG::Sprite
     self.x=((@tileX*Game_Map.realResX)-@map.display_x+3)/4+(Game_Map::TILEWIDTH/2)
     self.y=((@tileY*Game_Map.realResY)-@map.display_y+3)/4+(Game_Map::TILEHEIGHT)
     pbDayNightTint(self) if tinting
-    self.animation($data_animations[animID],true)
+    self.animation($data_animations[animID],true,height)
   end
 
   def dispose
@@ -45,10 +45,8 @@ class Spriteset_Map
     _animationSprite_initialize(map)
   end
 
-  def addUserAnimation(animID,x,y,tinting=false)
-    viewport=Viewport.new(0,0,Graphics.width,Graphics.height)
-    viewport.z=99999
-    sprite=AnimationSprite.new(animID,$game_map,x,y,viewport,tinting)
+  def addUserAnimation(animID,x,y,tinting=false,height=3)
+    sprite=AnimationSprite.new(animID,$game_map,x,y,@viewport1,tinting,height)
     addUserSprite(sprite)
     return sprite
   end

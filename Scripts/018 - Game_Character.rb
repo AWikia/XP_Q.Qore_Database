@@ -2,29 +2,32 @@ class Game_Character
   attr_reader   :id
   attr_reader   :x
   attr_reader   :y
-  attr_reader   :real_x 
+  attr_reader   :real_x
   attr_reader   :real_y
-  attr_reader   :tile_id  
+  attr_reader   :tile_id
   attr_accessor :character_name
-  attr_accessor :character_hue 
-  attr_reader   :opacity   
-  attr_reader   :blend_type 
-  attr_reader   :direction  
-  attr_reader   :pattern    
-  attr_reader   :move_route_forcing   
-  attr_accessor :through            
-  attr_accessor :animation_id       
-  attr_accessor :transparent        
+  attr_accessor :character_hue
+  attr_reader   :opacity
+  attr_reader   :blend_type
+  attr_reader   :direction
+  attr_accessor :pattern
+  attr_reader   :pattern_surf
+  attr_accessor :lock_pattern
+  attr_reader   :move_route_forcing
+  attr_accessor :through
+  attr_accessor :animation_id
+  attr_accessor :transparent
   attr_reader   :map
   attr_accessor :move_speed
   attr_accessor :walk_anime
+  attr_accessor :bob_height
 
   def map
-    return @map ? @map : $game_map
+    return (@map) ? @map : $game_map
   end
 
   def initialize(map=nil)
-    @map=map
+    @map = map
     @id = 0
     @x = 0
     @y = 0
@@ -37,6 +40,8 @@ class Game_Character
     @blend_type = 0
     @direction = 2
     @pattern = 0
+    @pattern_surf = 0
+    @lock_pattern = false
     @move_route_forcing = false
     @through = false
     @animation_id = 0
@@ -58,6 +63,7 @@ class Game_Character
     @stop_count = 0
     @jump_count = 0
     @jump_peak = 0
+    @bob_height = 0
     @wait_count = 0
     @locked = false
     @prelock_direction = 0
@@ -73,6 +79,11 @@ class Game_Character
 
   def pattern=(value)
     @pattern=value
+  end
+
+  def bob_height
+    @bob_height = 0 if !@bob_height
+    return @bob_height
   end
 
   def straighten
@@ -133,7 +144,7 @@ class Game_Character
 
   def lock
     return if @locked
-    @prelock_direction = 0 # was @direction
+    @prelock_direction = 0 # Was @direction
     turn_toward_player
     @locked = true
   end
@@ -189,30 +200,22 @@ class Game_Character
   end
 
   def screen_z(height = 0)
-    if @always_on_top
-      return 999
-    end
+    return 999 if @always_on_top
     z = (@real_y - self.map.display_y + 3) / 4 + 32
-    if @tile_id > 0
+    if @tile_id>0
       return z + self.map.priorities[@tile_id] * 32
     end
     # Add z if height exceeds 32
-    return z + ((height > 32) ? 31 : 0)
+    return z + ((height>32) ? 31 : 0)
   end
 
   def bush_depth
-    if @tile_id > 0 or @always_on_top
-      return 0
-    end
+    return 0 if @tile_id>0 or @always_on_top
     if @jump_count <= 0
       xbehind=(@direction==4) ? @x+1 : (@direction==6) ? @x-1 : @x
       ybehind=(@direction==8) ? @y+1 : (@direction==2) ? @y-1 : @y
-      if self.map.deepBush?(@x, @y) and self.map.deepBush?(xbehind, ybehind)
-        return 32
-      end
-      if self.map.bush?(@x, @y) and !moving?
-        return 12
-      end
+      return 32 if self.map.deepBush?(@x,@y) and self.map.deepBush?(xbehind,ybehind)
+      return 12 if self.map.bush?(@x,@y) and !moving?
     end
     return 0
   end
@@ -223,30 +226,36 @@ class Game_Character
 
 # Updating stuff ###############################################################
   def update
-    return if $game_temp.in_menu
-    if jumping?; update_jump
-    elsif moving?; update_move
-    else; update_stop
-    end
-    if @wait_count > 0
-      @wait_count -= 1
-    elsif @move_route_forcing
-      move_type_custom
-    elsif !@starting && !lock?
-      if @stop_count > (40 - @move_frequency * 2) * (6 - @move_frequency)
-        case @move_type
-        when 1; move_type_random
-        when 2; move_type_toward_player
-        when 3; move_type_custom
+    if !$game_temp.in_menu
+      if jumping?; update_jump
+      elsif moving?; update_move
+      else; update_stop
+      end
+      if @wait_count>0
+        @wait_count -= 1
+      elsif @move_route_forcing
+        move_type_custom
+      elsif !@starting && !lock?
+        if @stop_count>(40-@move_frequency*2)*(6-@move_frequency)
+          case @move_type
+          when 1; move_type_random
+          when 2; move_type_toward_player
+          when 3; move_type_custom
+          end
         end
       end
     end
-    @anime_count=20 if not @step_anime and @stop_count > 0
-    if @anime_count > 18 - @move_speed * 3 # Was 3
-      if not @step_anime and @stop_count > 0
+    update_pattern
+  end
+
+  def update_pattern
+    return if @lock_pattern
+    @anime_count = 20 if !@step_anime && @stop_count>0
+    if @anime_count > 18-@move_speed*3
+      if !@step_anime && @stop_count>0
         @pattern = @original_pattern
       else
-        @pattern = (@pattern + 1) % 4
+        @pattern = (@pattern+1)%4
       end
       @anime_count = 0
     end
@@ -254,29 +263,21 @@ class Game_Character
 
   def update_jump
     @jump_count -= 1
-    @real_x = (@real_x * @jump_count + @x * Game_Map.realResX) / (@jump_count + 1)
-    @real_y = (@real_y * @jump_count + @y * Game_Map.realResY) / (@jump_count + 1)
+    @real_x = (@real_x*@jump_count+@x*Game_Map.realResX)/(@jump_count+1)
+    @real_y = (@real_y*@jump_count+@y*Game_Map.realResY)/(@jump_count+1)
     if !jumping? && !moving?
       Events.onStepTakenFieldMovement.trigger(self,self)
     end
   end
 
   def update_move
-    distance = 2 ** @move_speed
-    realResX=Game_Map.realResX
-    realResY=Game_Map.realResY
-    if @x * realResX < @real_x
-      @real_x = [@real_x - distance, @x * realResX].max
-    end
-    if @x * realResX > @real_x
-      @real_x = [@real_x + distance, @x * realResX].min
-    end
-    if @y * realResY > @real_y
-      @real_y = [@real_y + distance, @y * realResY].min
-    end
-    if @y * realResY < @real_y
-      @real_y = [@real_y - distance, @y * realResY].max
-    end
+    distance = 2**@move_speed
+    realResX = Game_Map.realResX
+    realResY = Game_Map.realResY
+    @real_x = [@real_x-distance,@x*realResX].max if @x*realResX<@real_x
+    @real_x = [@real_x+distance,@x*realResX].min if @x*realResX>@real_x
+    @real_y = [@real_y+distance,@y*realResY].min if @y*realResY>@real_y
+    @real_y = [@real_y-distance,@y*realResY].max if @y*realResY<@real_y
     if !jumping? && !moving?
       Events.onStepTakenFieldMovement.trigger(self,self)
     end
@@ -288,9 +289,7 @@ class Game_Character
   end
 
   def update_stop
-    if @step_anime
-      @anime_count += 1
-    end
+    @anime_count += 1 if @step_anime
     unless @starting or lock?
       @stop_count += 1
     end
@@ -298,12 +297,9 @@ class Game_Character
 
   def move_type_random
     case rand(6)
-    when 0..3
-      move_random
-    when 4 
-      move_forward
-    when 5
-      @stop_count = 0
+    when 0..3; move_random
+    when 4; move_forward
+    when 5; @stop_count = 0
     end
   end
 
@@ -315,12 +311,9 @@ class Game_Character
       return
     end
     case rand(6)
-    when 0..3 
-      move_toward_player
-    when 4 
-      move_random
-    when 5  
-      move_forward
+    when 0..3; move_toward_player
+    when 4; move_random
+    when 5; move_forward
     end
   end
 
@@ -367,7 +360,7 @@ class Game_Character
         end
         return
       end
-      if command.code == 15
+      if command.code == 15   # Wait
         @wait_count = command.parameters[0] * 2 - 1
         @move_route_index += 1
         return
@@ -439,9 +432,7 @@ class Game_Character
 
 # Movement stuff ###############################################################
   def move_down(turn_enabled = true)
-    if turn_enabled
-      turn_down
-    end
+    turn_down if turn_enabled
     if passable?(@x, @y, 2)
       turn_down
       @y += 1
@@ -452,9 +443,7 @@ class Game_Character
   end
 
   def move_left(turn_enabled = true)
-    if turn_enabled
-      turn_left
-    end
+    turn_left if turn_enabled
     if passable?(@x, @y, 4)
       turn_left
       @x -= 1
@@ -465,9 +454,7 @@ class Game_Character
   end
 
   def move_right(turn_enabled = true)
-    if turn_enabled
-      turn_right
-    end
+    turn_right if turn_enabled
     if passable?(@x, @y, 6)
       turn_right
       @x += 1
@@ -478,9 +465,7 @@ class Game_Character
   end
 
   def move_up(turn_enabled = true)
-    if turn_enabled
-      turn_up
-    end
+    turn_up if turn_enabled
     if passable?(@x, @y, 8)
       turn_up
       @y -= 1
@@ -540,63 +525,49 @@ class Game_Character
 
   def moveLeft90
     case self.direction
-    when 2 # down
-      move_right
-    when 4 # left
-      move_down
-    when 6 # right
-      move_up
-    when 8 # up
-      move_left
+    when 2; move_right # down
+    when 4; move_down  # left
+    when 6; move_up    # right
+    when 8; move_left  # up
     end
   end
 
   def moveRight90
     case self.direction
-    when 2 # down
-      move_left
-    when 4 # left
-      move_up
-    when 6 # right
-      move_down
-    when 8 # up
-      move_right
+    when 2; move_left  # down
+    when 4; move_up    # left
+    when 6; move_down  # right
+    when 8; move_right # up
     end
   end
 
   def move_random
     case rand(4)
-    when 0
-      move_down(false)
-    when 1 
-      move_left(false)
-    when 2 
-      move_right(false)
-    when 3 
-      move_up(false)
+    when 0; move_down(false)
+    when 1; move_left(false)
+    when 2; move_right(false)
+    when 3; move_up(false)
     end
   end
 
   def move_toward_player
     sx = @x - $game_player.x
     sy = @y - $game_player.y
-    if sx == 0 and sy == 0
-      return
-    end
+    return if sx == 0 and sy == 0
     abs_sx = sx.abs
     abs_sy = sy.abs
     if abs_sx == abs_sy
       (rand(2) == 0) ? abs_sx += 1 : abs_sy += 1
     end
     if abs_sx > abs_sy
-      sx > 0 ? move_left : move_right
+      (sx > 0) ? move_left : move_right
       if not moving? and sy != 0
-        sy > 0 ? move_up : move_down
+        (sy > 0) ? move_up : move_down
       end
     else
-      sy > 0 ? move_up : move_down
+      (sy > 0) ? move_up : move_down
       if not moving? and sx != 0
-        sx > 0 ? move_left : move_right
+        (sx > 0) ? move_left : move_right
       end
     end
   end
@@ -604,37 +575,31 @@ class Game_Character
   def move_away_from_player
     sx = @x - $game_player.x
     sy = @y - $game_player.y
-    if sx == 0 and sy == 0
-      return
-    end
+    return if sx == 0 and sy == 0
     abs_sx = sx.abs
     abs_sy = sy.abs
     if abs_sx == abs_sy
       (rand(2) == 0) ? abs_sx += 1 : abs_sy += 1
     end
     if abs_sx > abs_sy
-      sx > 0 ? move_right : move_left
+      (sx > 0) ? move_right : move_left
       if not moving? and sy != 0
-        sy > 0 ? move_down : move_up
+        (sy > 0) ? move_down : move_up
       end
     else
-      sy > 0 ? move_down : move_up
+      (sy > 0) ? move_down : move_up
       if not moving? and sx != 0
-        sx > 0 ? move_right : move_left
+        (sx > 0) ? move_right : move_left
       end
     end
   end
 
   def move_forward
     case @direction
-    when 2
-      move_down(false)
-    when 4
-      move_left(false)
-    when 6
-      move_right(false)
-    when 8
-      move_up(false)
+    when 2; move_down(false)
+    when 4; move_left(false)
+    when 6; move_right(false)
+    when 8; move_up(false)
     end
   end
 
@@ -642,14 +607,10 @@ class Game_Character
     last_direction_fix = @direction_fix
     @direction_fix = true
     case @direction
-    when 2 
-      move_up(false)
-    when 4 
-      move_right(false)
-    when 6 
-      move_left(false)
-    when 8 
-      move_down(false)
+    when 2; move_up(false)
+    when 4; move_right(false)
+    when 6; move_left(false)
+    when 8; move_down(false)
     end
     @direction_fix = last_direction_fix
   end
@@ -657,9 +618,9 @@ class Game_Character
   def jump(x_plus, y_plus)
     if x_plus != 0 or y_plus != 0
       if x_plus.abs > y_plus.abs
-        x_plus < 0 ? turn_left : turn_right
+        (x_plus < 0) ? turn_left : turn_right
       else
-        y_plus < 0 ? turn_up : turn_down
+        (y_plus < 0) ? turn_up : turn_down
       end
     end
     new_x = @x + x_plus
@@ -684,27 +645,19 @@ class Game_Character
 
   def jumpForward
     case self.direction
-    when 2 # down
-      jump(0,1)
-    when 4 # left
-      jump(-1,0)
-    when 6 # right
-      jump(1,0)
-    when 8 # up
-      jump(0,-1)
+    when 2; jump(0,1)  # down
+    when 4; jump(-1,0) # left
+    when 6; jump(1,0)  # right
+    when 8; jump(0,-1) # up
     end
   end
 
   def jumpBackward
     case self.direction
-    when 2 # down
-      jump(0,-1)
-    when 4 # left
-      jump(1,0)
-    when 6 # right
-      jump(-1,0)
-    when 8 # up
-      jump(0,1)
+    when 2; jump(0,-1) # down
+    when 4; jump(1,0)  # left
+    when 6; jump(-1,0) # right
+    when 8; jump(0,1)  # up
     end
   end
 
@@ -729,40 +682,28 @@ class Game_Character
 
   def turn_right_90
     case @direction
-    when 2
-      turn_left
-    when 4
-      turn_up
-    when 6
-      turn_down
-    when 8
-      turn_right
+    when 2; turn_left
+    when 4; turn_up
+    when 6; turn_down
+    when 8; turn_right
     end
   end
 
   def turn_left_90
     case @direction
-    when 2
-      turn_right
-    when 4
-      turn_down
-    when 6
-      turn_up
-    when 8
-      turn_left
+    when 2; turn_right
+    when 4; turn_down
+    when 6; turn_up
+    when 8; turn_left
     end
   end
 
   def turn_180
     case @direction
-    when 2
-      turn_up
-    when 4
-      turn_right
-    when 6
-      turn_left
-    when 8
-      turn_down
+    when 2; turn_up
+    when 4; turn_right
+    when 6; turn_left
+    when 8; turn_down
     end
   end
 
@@ -776,40 +717,32 @@ class Game_Character
 
   def turn_random
     case rand(4)
-    when 0
-      turn_up
-    when 1
-      turn_right
-    when 2
-      turn_left
-    when 3
-      turn_down
+    when 0; turn_up
+    when 1; turn_right
+    when 2; turn_left
+    when 3; turn_down
     end
   end
 
   def turn_toward_player
     sx = @x - $game_player.x
     sy = @y - $game_player.y
-    if sx == 0 and sy == 0
-      return
-    end
+    return if sx == 0 and sy == 0
     if sx.abs > sy.abs
-      sx > 0 ? turn_left : turn_right
+      (sx > 0) ? turn_left : turn_right
     else
-      sy > 0 ? turn_up : turn_down
+      (sy > 0) ? turn_up : turn_down
     end
   end
 
   def turn_away_from_player
     sx = @x - $game_player.x
     sy = @y - $game_player.y
-    if sx == 0 and sy == 0
-      return
-    end
+    return if sx == 0 and sy == 0
     if sx.abs > sy.abs
-      sx > 0 ? turn_right : turn_left
+      (sx > 0) ? turn_right : turn_left
     else
-      sy > 0 ? turn_down : turn_up
+      (sy > 0) ? turn_down : turn_up
     end
   end
 

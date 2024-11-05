@@ -1528,13 +1528,13 @@ end
 
 # Gets the name of the system small font.
 def pbSmallFontName()
-  return MessageConfig.pbTryFonts("Qortex Essentials Small","Power Green Small","Pokemon Emerald Small",
+  return MessageConfig.pbTryFonts("Qortex Essentials Small","Pokemon Emerald Small",
      "Arial Narrow","Arial")
 end
 
 # Gets the name of the system narrow font.
 def pbNarrowFontName()
-  return MessageConfig.pbTryFonts("Qortex Essentials Narrow","Power Green Narrow","Pokemon Emerald Narrow",
+  return MessageConfig.pbTryFonts("Qortex Essentials Narrow","Pokemon Emerald Narrow",
      "Arial Narrow","Arial")
 end
 

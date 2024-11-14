@@ -40982,8 +40982,8 @@ Pokedex=It appears to gather its flames from an unknown source. Can be Sunbird, 
 WildItemCommon=MUSICALNOTE
 WildItemUncommon=PRISMSTONE
 WildItemRare=PRISMSTONE
-BattlerPlayerY=2
-BattlerEnemyY=6
+BattlerPlayerY=6
+BattlerEnemyY=10
 BattlerAltitude=0
 Evolutions=SUNPLUS,Item,DOOMSTONE
 [1470]
@@ -41012,8 +41012,8 @@ Pokedex=It appears to gather its flames from an unknown source. Can be Sunbird, 
 WildItemCommon=MUSICALNOTE
 WildItemUncommon=PRISMSTONE
 WildItemRare=PRISMSTONE
-BattlerPlayerY=2
-BattlerEnemyY=6
+BattlerPlayerY=6
+BattlerEnemyY=10
 BattlerAltitude=0
 Evolutions=SUNBIRD,Item,PRISMSTONE
 [1471]

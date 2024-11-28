@@ -207,6 +207,8 @@ class PokemonTemp
   attr_accessor :pokemonPhoneData
   attr_accessor :lastbattle
   attr_accessor :flydata
+  attr_accessor :surfJump
+  attr_accessor :endSurf
 
   def initialize
     @menuLastChoice         = 0
@@ -221,5 +223,7 @@ class PokemonTemp
     @pokemonPhoneData       = nil
     @lastbattle             = nil
     @flydata                = nil
+    @surfJump               = nil
+    @endSurf                = nil
   end
 end

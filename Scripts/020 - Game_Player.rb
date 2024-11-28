@@ -474,6 +474,11 @@ class Game_Player < Game_Character
     @bump_se-=1 if @bump_se && @bump_se>0
     # If not moving
     unless moving?
+      if $PokemonTemp.endSurf
+        Kernel.pbCancelVehicles
+        $PokemonTemp.surfJump = nil
+        $PokemonTemp.endSurf = false
+      end
       # If player was moving last time
       if last_moving
         $PokemonTemp.dependentEvents.pbTurnDependentEvents

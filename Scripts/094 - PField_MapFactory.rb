@@ -2,12 +2,12 @@
 # Map Factory (allows multiple maps to be loaded at once and connected)
 #===============================================================================
 module MapFactoryHelper
-  @@MapConnections=nil
-  @@MapDims=nil
+  @@MapConnections = nil
+  @@MapDims        = nil
 
   def self.clear
-    @@MapConnections=nil
-    @@MapDims=nil
+    @@MapConnections = nil
+    @@MapDims        = nil
   end
 
 # Returns the X or Y coordinate of an edge on the map with id.
@@ -24,7 +24,7 @@ module MapFactoryHelper
   def self.getMapDims(id)
     # Create cache if doesn't exist
     if !@@MapDims
-      @@MapDims=[]
+      @@MapDims = []
     end
     # Add map to cache if can't be found
     if !@@MapDims[id]
@@ -74,7 +74,7 @@ module MapFactoryHelper
   end
 
   def self.hasConnections?(id)
-    conns=MapFactoryHelper.getMapConnections
+    conns = MapFactoryHelper.getMapConnections
     for conn in conns
       return true if conn[0]==id || conn[3]==id
     end
@@ -82,54 +82,22 @@ module MapFactoryHelper
   end
 
   def self.mapInRange?(map)
-    dispx=map.display_x
-    dispy=map.display_y
-    return false if dispx>=map.width*Game_Map.realResX+768
-    return false if dispy>=map.height*Game_Map.realResY+768
-    return false if dispx<=-(Graphics.width*Game_Map::XSUBPIXEL+768)
-    return false if dispy<=-(Graphics.height*Game_Map::YSUBPIXEL+768)
+    dispx = map.display_x
+    dispy = map.display_y
+    return false if dispx>=(map.width+6)*Game_Map.realResX
+    return false if dispy>=(map.height+6)*Game_Map.realResY
+    return false if dispx<=-(Graphics.width+6*Game_Map::TILEWIDTH)*Game_Map::XSUBPIXEL
+    return false if dispy<=-(Graphics.height+6*Game_Map::TILEHEIGHT)*Game_Map::YSUBPIXEL
     return true
   end
 
   def self.mapInRangeById?(id,dispx,dispy)
-    dims=MapFactoryHelper.getMapDims(id)
-    return false if dispx>=dims[0]*Game_Map.realResX+768
-    return false if dispy>=dims[1]*Game_Map.realResY+768
-    return false if dispx<=-(Graphics.width*Game_Map::XSUBPIXEL+768)
-    return false if dispy<=-(Graphics.height*Game_Map::XSUBPIXEL+768)
+    dims = MapFactoryHelper.getMapDims(id)
+    return false if dispx>=(dims[0]+6)*Game_Map.realResX
+    return false if dispy>=(dims[1]+6)*Game_Map.realResY
+    return false if dispx<=-(Graphics.width+6*Game_Map::TILEWIDTH)*Game_Map::XSUBPIXEL
+    return false if dispy<=-(Graphics.height+6*Game_Map::TILEHEIGHT)*Game_Map::YSUBPIXEL
     return true
-  end
-end
-
-
-
-class Game_Map
-  def updateTileset
-    tileset = $data_tilesets[@map.tileset_id]
-    @tileset_name = tileset.tileset_name
-    @autotile_names = tileset.autotile_names
-    @panorama_name = tileset.panorama_name
-    @panorama_hue = tileset.panorama_hue
-    @fog_name = tileset.fog_name
-    @fog_hue = tileset.fog_hue
-    @fog_opacity = tileset.fog_opacity
-    @fog_blend_type = tileset.fog_blend_type
-    @fog_zoom = tileset.fog_zoom
-    @fog_sx = tileset.fog_sx
-    @fog_sy = tileset.fog_sy
-    @battleback_name = tileset.battleback_name
-    @passages = tileset.passages
-    @priorities = tileset.priorities
-    @terrain_tags = tileset.terrain_tags
-  end
-end
-
-
-
-def updateTilesets
-  maps=$MapFactory.maps
-  for map in maps
-    map.updateTileset if map
   end
 end
 
@@ -143,6 +111,22 @@ class PokemonMapFactory
     @maps=[]
     @mapChanged=false # transient instance variable
     setup(id)
+  end
+
+  # Clears all maps and sets up the current map with id.  This function also sets
+  # the positions of neighboring maps and notifies the game system of a map change.
+  def setup(id)
+    @maps.clear
+    @maps[0]=Game_Map.new
+    @mapIndex=0
+    oldID=($game_map) ? $game_map.map_id : 0
+    if oldID!=0 && oldID!=@maps[0]#.map_id
+      setMapChanging(id,@maps[0])
+    end
+    $game_map=@maps[0]
+    @maps[0].setup(id)
+    setMapsInRange
+    setMapChanged(oldID)
   end
 
   def map
@@ -164,22 +148,6 @@ class PokemonMapFactory
     end
   end
 
-# Clears all maps and sets up the current map with id.  This function also sets
-# the positions of neighboring maps and notifies the game system of a map change.
-  def setup(id)
-    @maps.clear
-    @maps[0]=Game_Map.new
-    @mapIndex=0
-    oldID=(!$game_map) ? 0 : $game_map.map_id
-    if oldID!=0 && oldID!=@maps[0]
-      setMapChanging(id,@maps[0])
-    end
-    $game_map=@maps[0]
-    @maps[0].setup(id)
-    setMapsInRange
-    setMapChanged(oldID)
-  end
-
   def hasMap?(id)
     for map in @maps
       return true if map.map_id==id
@@ -194,138 +162,18 @@ class PokemonMapFactory
     return -1
   end
 
-  def setMapChanging(newID,newMap)
-    Events.onMapChanging.trigger(self,newID,newMap)
-  end
-
-  def setMapChanged(prevMap)
-    Events.onMapChange.trigger(self,prevMap)
-    @mapChanged=true
-  end
-
-  def setSceneStarted(scene)
-    Events.onMapSceneChange.trigger(self,scene,@mapChanged)
-    @mapChanged=false
-  end
-
-# Similar to Game_Player#passable?, but supports map connections
-  def isPassableFromEdge?(x,y)
-    return true if $game_map.valid?(x,y)
-    newmap=getNewMap(x,y)
-    return false if !newmap
-    return isPassable?(newmap[0].map_id,newmap[1],newmap[2])
-  end
-
-  def isPassableStrict?(mapID,x,y,thisEvent=nil)
-    thisEvent=$game_player if !thisEvent
-    map=getMapNoAdd(mapID)
-    return false if !map
-    return false if !map.valid?(x,y)
-    return true if thisEvent.through
-    if thisEvent==$game_player
-      return false unless ($DEBUG && Input.press?(Input::CTRL)) || 
-         map.passableStrict?(x,y,0,thisEvent)
-    else
-      return false unless map.passableStrict?(x,y,0,thisEvent)
-    end
-    for event in map.events.values
-      if event!=thisEvent && event.x == x and event.y == y
-        return false if !event.through && (event.character_name!="")
-      end
-    end
-    return true
-  end
-
-  def isPassable?(mapID,x,y,thisEvent=nil)
-    thisEvent=$game_player if !thisEvent
-    map=getMapNoAdd(mapID)
-    return false if !map
-    return false if !map.valid?(x,y)
-    return true if thisEvent.through
-    if thisEvent==$game_player
-      return false unless ($DEBUG && Input.press?(Input::CTRL)) || 
-         map.passable?(x,y,0,thisEvent)
-    else
-      return false unless map.passable?(x,y,0,thisEvent)
-    end
-    for event in map.events.values
-      if event.x == x and event.y == y
-        return false if !event.through && (event.character_name!="")
-      end
-    end
-    if thisEvent.is_a?(Game_Player)
-      if thisEvent.x == x and thisEvent.y == y
-        return false if !thisEvent.through && thisEvent.character_name != ""
-      end
-    end
-    return true
-  end
-
-  def getMap(id)
+  def getMap(id,add=true)
     for map in @maps
-      if map.map_id==id
-        return map
-      end
+      return map if map.map_id==id
     end
     map=Game_Map.new
     map.setup(id)
-    @maps.push(map)
+    @maps.push(map) if add
     return map
   end
 
   def getMapNoAdd(id)
-    for map in @maps
-      if map.map_id==id
-        return map
-      end
-    end
-    map=Game_Map.new
-    map.setup(id)
-    return map
-  end
-
-  def updateMaps(scene)
-    updateMapsInternal()
-    if @mapChanged
-      $MapFactory.setSceneStarted(scene)
-    end
-  end
-
-  def updateMapsInternal # :internal:
-    return if $game_player.moving?
-    if !MapFactoryHelper.hasConnections?($game_map.map_id)
-      return if @maps.length==1
-      for i in 0...@maps.length
-        @maps[i]=nil if $game_map.map_id!=@maps[i].map_id
-      end
-      @maps.compact!
-      @mapIndex=getMapIndex($game_map.map_id)
-      return
-    end
-    setMapsInRange
-    deleted=false
-    for i in 0...@maps.length
-      if !MapFactoryHelper.mapInRange?(@maps[i])
-        @maps[i]=nil
-        deleted=true 
-      end
-    end
-    if deleted
-      @maps.compact!
-      @mapIndex=getMapIndex($game_map.map_id)
-    end
-  end
-
-  def areConnected?(mapID1,mapID2)
-    return true if mapID1==mapID2
-    conns=MapFactoryHelper.getMapConnections
-    for conn in conns
-      if (conn[0]==mapID1 && conn[3]==mapID2) ||
-         (conn[0]==mapID2 && conn[3]==mapID1)
-        return true
-      end
-    end
-    return false
+    return getMap(id,false)
   end
 
   def getNewMap(playerX,playerY)
@@ -373,6 +221,102 @@ class PokemonMapFactory
     end
   end
 
+  def setMapsInRange
+    return if @fixup
+    @fixup=true
+    id=$game_map.map_id
+    conns=MapFactoryHelper.getMapConnections
+    for conn in conns
+      if conn[0]==id
+        mapA=getMap(conn[0])
+        newdispx=(conn[4]-conn[1]) * Game_Map.realResX + mapA.display_x
+        newdispy=(conn[5]-conn[2]) * Game_Map.realResY + mapA.display_y
+        if hasMap?(conn[3]) || MapFactoryHelper.mapInRangeById?(conn[3],newdispx,newdispy)
+          mapB=getMap(conn[3])
+          mapB.display_x=newdispx if mapB.display_x!=newdispx
+          mapB.display_y=newdispy if mapB.display_y!=newdispy
+        end
+      elsif conn[3]==id
+        mapA=getMap(conn[3])
+        newdispx=(conn[1]-conn[4]) * Game_Map.realResX + mapA.display_x
+        newdispy=(conn[2]-conn[5]) * Game_Map.realResY + mapA.display_y
+        if hasMap?(conn[0]) || MapFactoryHelper.mapInRangeById?(conn[0],newdispx,newdispy)
+          mapB=getMap(conn[0])
+          mapB.display_x=newdispx if mapB.display_x!=newdispx
+          mapB.display_y=newdispy if mapB.display_y!=newdispy
+        end
+      end
+    end
+    @fixup=false
+  end
+
+  def setMapChanging(newID,newMap)
+    Events.onMapChanging.trigger(self,newID,newMap)
+  end
+
+  def setMapChanged(prevMap)
+    Events.onMapChange.trigger(self,prevMap)
+    @mapChanged=true
+  end
+
+  def setSceneStarted(scene)
+    Events.onMapSceneChange.trigger(self,scene,@mapChanged)
+    @mapChanged=false
+  end
+
+# Similar to Game_Player#passable?, but supports map connections
+  def isPassableFromEdge?(x,y)
+    return true if $game_map.valid?(x,y)
+    newmap=getNewMap(x,y)
+    return false if !newmap
+    return isPassable?(newmap[0].map_id,newmap[1],newmap[2])
+  end
+
+  def isPassable?(mapID,x,y,thisEvent=nil)
+    thisEvent=$game_player if !thisEvent
+    map=getMapNoAdd(mapID)
+    return false if !map
+    return false if !map.valid?(x,y)
+    return true if thisEvent.through
+    if thisEvent==$game_player
+      return false unless ($DEBUG && Input.press?(Input::CTRL)) || 
+         map.passable?(x,y,0,thisEvent)
+    else
+      return false unless map.passable?(x,y,0,thisEvent)
+    end
+    for event in map.events.values
+      if event.x == x and event.y == y
+        return false if !event.through && event.character_name!=""
+      end
+    end
+    if thisEvent.is_a?(Game_Player)
+      if thisEvent.x == x and thisEvent.y == y
+        return false if !thisEvent.through && thisEvent.character_name!=""
+      end
+    end
+    return true
+  end
+
+  def isPassableStrict?(mapID,x,y,thisEvent=nil)
+    thisEvent=$game_player if !thisEvent
+    map=getMapNoAdd(mapID)
+    return false if !map
+    return false if !map.valid?(x,y)
+    return true if thisEvent.through
+    if thisEvent==$game_player
+      return false unless ($DEBUG && Input.press?(Input::CTRL)) || 
+         map.passableStrict?(x,y,0,thisEvent)
+    else
+      return false unless map.passableStrict?(x,y,0,thisEvent)
+    end
+    for event in map.events.values
+      if event!=thisEvent && event.x == x and event.y == y
+        return false if !event.through && (event.character_name!="")
+      end
+    end
+    return true
+  end
+
   def getTerrainTag(mapid,x,y,countBridge=false)
     map=getMapNoAdd(mapid)
     return map.terrain_tag(x,y,countBridge)
@@ -382,6 +326,24 @@ class PokemonMapFactory
     tile=getFacingTile(dir,event)
     return 0 if !tile
     return getTerrainTag(tile[0],tile[1],tile[2])
+  end
+
+  def getTerrainTagFromCoords(mapid,x,y,countBridge=false)
+    tile = getRealTilePos(mapid,x,y)
+    return 0 if !tile
+    return getTerrainTag(tile[0],tile[1],tile[2])
+  end
+
+  def areConnected?(mapID1,mapID2)
+    return true if mapID1==mapID2
+    conns=MapFactoryHelper.getMapConnections
+    for conn in conns
+      if (conn[0]==mapID1 && conn[3]==mapID2) ||
+         (conn[0]==mapID2 && conn[3]==mapID1)
+        return true
+      end
+    end
+    return false
   end
 
   def getRelativePos(thisMapID,thisX,thisY,otherMapID,otherX,otherY)
@@ -417,14 +379,39 @@ class PokemonMapFactory
   def getThisAndOtherPosRelativePos(thisEvent,otherMapID,otherX,otherY)
     return [0,0] if !thisEvent
     return getRelativePos(
-       thisEvent.map.map_id,thisEvent.x,thisEvent.y,
-       otherMapID,otherX,otherY)  
+       thisEvent.map.map_id,thisEvent.x,thisEvent.y,otherMapID,otherX,otherY)  
   end
 
   def getOffsetEventPos(event,xOffset,yOffset)
     event=$game_player if !event
     return nil if !event
     return getRealTilePos(event.map.map_id,event.x+xOffset,event.y+yOffset)
+  end
+
+  def getFacingTile(direction=nil,event=nil,steps=1)
+    event=$game_player if event==nil
+    return [0,0,0] if !event
+    x=event.x
+    y=event.y
+    id=event.map.map_id
+    direction=event.direction if direction==nil
+    return getFacingTileFromPos(id,x,y,direction,steps)
+  end
+
+  def getFacingTileFromPos(mapID,x,y,direction=0,steps=1)
+    id=mapID
+    case direction
+    when 1; y+=steps; x-=steps
+    when 2; y+=steps
+    when 3; y+=steps; x+=steps
+    when 4; x-=steps
+    when 6; x+=steps
+    when 7; y-=steps; x-=steps
+    when 8; y-=steps
+    when 9; y-=steps; x+=steps
+    else; return [id,x,y]
+    end
+    return getRealTilePos(mapID,x,y)
   end
 
   def getRealTilePos(mapID,x,y)
@@ -451,8 +438,7 @@ class PokemonMapFactory
     return nil
   end
 
-  def getFacingTileFromPos(mapID,x,y,direction=0,steps=1)
-    id=mapID
+  def getFacingCoords(x,y,direction=0,steps=1)
     case direction
     when 1; y+=steps; x-=steps
     when 2; y+=steps
@@ -462,47 +448,48 @@ class PokemonMapFactory
     when 7; y-=steps; x-=steps
     when 8; y-=steps
     when 9; y-=steps; x+=steps
-    else; return [id,x,y]
     end
-    return getRealTilePos(mapID,x,y)
+    return [x,y]
   end
 
-  def getFacingTile(direction=nil,event=nil,steps=1)
-    event=$game_player if event==nil
-    return [0,0,0] if !event
-    x=event.x
-    y=event.y
-    id=event.map.map_id
-    direction=event.direction if direction==nil
-    return getFacingTileFromPos(id,x,y,direction,steps)
+  def updateMaps(scene)
+    updateMapsInternal
+    if @mapChanged
+      $MapFactory.setSceneStarted(scene)
+    end
   end
 
-  def setMapsInRange
-    return if @fixup
-    @fixup=true
-    id=$game_map.map_id
-    conns=MapFactoryHelper.getMapConnections
-    for conn in conns
-      if conn[0]==id
-        mapA=getMap(conn[0])
-        newdispx=(conn[4]-conn[1]) * Game_Map.realResX + mapA.display_x
-        newdispy=(conn[5]-conn[2]) * Game_Map.realResY + mapA.display_y
-        if hasMap?(conn[3]) || MapFactoryHelper.mapInRangeById?(conn[3],newdispx,newdispy)
-          mapB=getMap(conn[3])
-          mapB.display_x=newdispx if mapB.display_x!=newdispx
-          mapB.display_y=newdispy if mapB.display_y!=newdispy
-        end
-      elsif conn[3]==id
-        mapA=getMap(conn[3])
-        newdispx=(conn[1]-conn[4]) * Game_Map.realResX + mapA.display_x
-        newdispy=(conn[2]-conn[5]) * Game_Map.realResY + mapA.display_y
-        if hasMap?(conn[0]) || MapFactoryHelper.mapInRangeById?(conn[0],newdispx,newdispy)
-          mapB=getMap(conn[0])
-          mapB.display_x=newdispx if mapB.display_x!=newdispx
-          mapB.display_y=newdispy if mapB.display_y!=newdispy
-        end
+  def updateMapsInternal # :internal:
+    return if $game_player.moving?
+    if !MapFactoryHelper.hasConnections?($game_map.map_id)
+      return if @maps.length==1
+      for i in 0...@maps.length
+        @maps[i]=nil if $game_map.map_id!=@maps[i].map_id
+      end
+      @maps.compact!
+      @mapIndex=getMapIndex($game_map.map_id)
+      return
+    end
+    setMapsInRange
+    deleted=false
+    for i in 0...@maps.length
+      if !MapFactoryHelper.mapInRange?(@maps[i])
+        @maps[i]=nil
+        deleted=true 
       end
     end
-    @fixup=false
+    if deleted
+      @maps.compact!
+      @mapIndex=getMapIndex($game_map.map_id)
+    end
+  end
+end
+
+
+
+def updateTilesets
+  maps=$MapFactory.maps
+  for map in maps
+    map.updateTileset if map
   end
 end

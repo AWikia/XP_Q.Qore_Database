@@ -40,7 +40,7 @@ class Sprite_Character < RPG::Sprite
     if !character || character==$game_player || (character.name[/Reflection/] rescue false)
       @reflection = Sprite_Reflection.new(self,character,viewport)
     end
-   # @surfbase = Sprite_SurfBase.new(self,character,viewport) if character==$game_player
+    @surfbase = Sprite_SurfBase.new(self,character,viewport) if character==$game_player
     update
   end
 
@@ -84,8 +84,8 @@ class Sprite_Character < RPG::Sprite
     @charbitmap = nil
     @reflection.dispose if @reflection
     @reflection = nil
-    #@surfbase.dispose if @surfbase
-    #@surfbase = nil
+    @surfbase.dispose if @surfbase
+    @surfbase = nil
     super
   end
 
@@ -163,6 +163,6 @@ class Sprite_Character < RPG::Sprite
       @character.animation_id = 0
     end
     @reflection.update if @reflection
-    #@surfbase.update if @surfbase
+    @surfbase.update if @surfbase
   end
 end

@@ -1,6 +1,6 @@
 ﻿[000]
-PlayerA=POKEMONTRAINER_Red,boy_walk,boy_bike,boy_surf_offset,boy_run,boy_dive_offset,boy_fish_offset,boy_fishsurf_offset
-PlayerB=POKEMONTRAINER_Leaf,girl_walk,girl_bike,girl_surf_offset,girl_run,girl_dive_offset,girl_fish_offset,girl_fishsurf_offset
+PlayerA=POKEMONTRAINER_Red,boy_walk,boy_bike,boy_surf_offset,boy_run,boy_surf_offset,boy_fish_offset,boy_fish_offset
+PlayerB=POKEMONTRAINER_Leaf,girl_walk,girl_bike,girl_surf_offset,girl_run,girl_surf_offset,girl_fish_offset,girl_fish_offset
 TrainerVictoryME=Victory - Trainer
 WildVictoryME=Victory - Wild Pokemon
 TrainerBattleBGM=Battle - Trainer

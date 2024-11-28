@@ -2605,6 +2605,7 @@ def Kernel.pbJumpToward(dist=1,playSound=false,cancelSurf=false)
   if $game_player.x!=x || $game_player.y!=y
 #    pbSEPlay("jump") if playSound
     Kernel.pbCancelVehicles if cancelSurf
+    $PokemonTemp.endSurf = true if cancelSurf
     while $game_player.jumping?
       Graphics.update
       Input.update

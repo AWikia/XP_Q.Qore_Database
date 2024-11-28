@@ -511,8 +511,10 @@ def pbStartSurfing()
   Kernel.pbCancelVehicles
   $PokemonEncounters.clearStepCount
   $PokemonGlobal.surfing=true
+  $PokemonTemp.surfJump = $MapFactory.getFacingCoords($game_player.x,$game_player.y,$game_player.direction)
   Kernel.pbUpdateVehicle
   Kernel.pbJumpToward
+  $PokemonTemp.surfJump = nil
   Kernel.pbUpdateVehicle
   $game_player.check_event_trigger_here([1,2])
 end
@@ -524,6 +526,7 @@ def pbEndSurf(xOffset,yOffset)
   currentTag=$game_map.terrain_tag(x,y)
   facingTag=Kernel.pbFacingTerrainTag
   if PBTerrain.isSurfable?(currentTag) && !PBTerrain.isSurfable?(facingTag)
+    $PokemonTemp.surfJump = [x,y]
     if Kernel.pbJumpToward(1,false,true)
 #      Kernel.pbCancelVehicles
       $game_map.autoplayAsCue
@@ -531,6 +534,7 @@ def pbEndSurf(xOffset,yOffset)
       result=$game_player.check_event_trigger_here([1,2])
       Kernel.pbOnStepTaken(result)
     end
+    $PokemonTemp.surfJump = nil
     return true
   end
   return false

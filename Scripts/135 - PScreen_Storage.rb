@@ -1851,7 +1851,7 @@ class PokemonBoxPartySprite < SpriteWrapper
       color1=Color.new(242,242,242)
       color2=Color.new(80,80,80)
     else
-      color1=Color.new(85,85,85)
+      color1=Color.new(90,90,90)
       color2=Color.new(242,242,242)
     end
     pbDrawTextPositions(self.bitmap,[
@@ -2162,6 +2162,12 @@ class PokemonStorageScene
       @sprites["boxparty"].y=Graphics.height
     end
     @markingbitmap = AnimatedBitmap.new("Graphics/UI/"+getDarkModeFolder+"/Storage/markings")
+    @sprites["markingbg"] = IconSprite.new(292,68,@boxsidesviewport)
+    @sprites["markingbg"].setBitmap("Graphics/UI/"+getDarkModeFolder+"/Storage/overlay_marking")
+    @sprites["markingbg"].visible = false
+    @sprites["markingoverlay"] = BitmapSprite.new(Graphics.width,Graphics.height,@boxsidesviewport)
+    @sprites["markingoverlay"].visible = false
+    pbSetSystemFont(@sprites["markingoverlay"].bitmap)
     @sprites["arrow"]=PokemonBoxArrow.new(@arrowviewport)
     @sprites["arrow"].z+=1
     if command!=1
@@ -2438,7 +2444,7 @@ class PokemonStorageScene
       buttonbase=Color.new(242,242,242)
       buttonshadow=Color.new(80,80,80)
     else
-      buttonbase=Color.new(85,85,85)
+      buttonbase=Color.new(90,90,90)
       buttonshadow=Color.new(242,242,242)
     end
     pbDrawTextPositions(overlay,[
@@ -2792,66 +2798,135 @@ class PokemonStorageScene
     return commands
   end
 
-  def pbMark(selected,heldpoke)
-    ret=0
-    msgwindow=Window_UnformattedTextPokemon.newWithSize("",180,0,Graphics.width-180-64,32)
-    msgwindow.viewport=@viewport2
-    msgwindow.visible=true
-    msgwindow.letterbyletter=false
-    msgwindow.resizeHeightToFit(_INTL("Mark your Pokemon."),Graphics.width-180-64)
-    msgwindow.text=_INTL("Mark your Pokemon.")
-    pokemon=heldpoke
-    if heldpoke
-      pokemon=heldpoke
-    elsif selected[0]==-1
-      pokemon=@storage.party[selected[1]]
-    else
-      pokemon=@storage.boxes[selected[0]][selected[1]]
+  def pbMarkingSetArrow(arrow,selection)
+    if selection>=0
+      xvalues = [162,191,220,162,191,220,184,184]
+      yvalues = [24,24,24,49,49,49,77,109]
+      arrow.angle = 0
+      arrow.mirror = false
+      arrow.ox = 0
+      arrow.oy = 0
+      arrow.x = xvalues[selection]*2
+      arrow.y = yvalues[selection]*2
     end
+  end
+
+  def pbMarkingChangeSelection(key,selection)
+    case key
+    when Input::LEFT
+      if selection<6
+        selection -= 1
+        selection += 3 if selection%3==2
+      end
+    when Input::RIGHT
+      if selection<6
+        selection += 1
+        selection -= 3 if selection%3==0
+      end
+    when Input::UP
+      if selection==7; selection = 6
+      elsif selection==6; selection = 4
+      elsif selection<3; selection = 7
+      else; selection -= 3
+      end
+    when Input::DOWN
+      if selection==7; selection = 1
+      elsif selection==6; selection = 7
+      elsif selection>=3; selection = 6
+      else; selection += 3
+      end
+    end
+    return selection
+  end
+
+  def pbMark(selected,heldpoke)
+    ret = 0
+    @sprites["markingbg"].visible      = true
+    @sprites["markingoverlay"].visible = true
+    msg = _INTL("Mark your Pokémon.")
+    msgwindow = Window_UnformattedTextPokemon.newWithSize("",180,0,Graphics.width-180-64,32)
+    msgwindow.viewport       = @viewport2
+    msgwindow.visible        = true
+    msgwindow.letterbyletter = false
+    msgwindow.text           = msg
+    msgwindow.resizeHeightToFit(msg,Graphics.width-180-64)
     pbBottomRight(msgwindow)
-    selectedtag="<c=505050>"
-    deselectedtag="<c=D0C8B8>"
-    commands=getMarkingCommands(pokemon.markings)
-    cmdwindow=Window_AdvancedCommandPokemon.new(commands)
-    cmdwindow.viewport=@viewport2
-    cmdwindow.visible=true
-    cmdwindow.resizeToFit(cmdwindow.commands)
-    cmdwindow.width=132
-    cmdwindow.height=Graphics.height-msgwindow.height if cmdwindow.height>Graphics.height-msgwindow.height
-    cmdwindow.update
-    pbBottomRight(cmdwindow)
-    markings=pokemon.markings
-    cmdwindow.y-=msgwindow.height
+    # V17 Backport
+    if (!isDarkMode?)
+      base=Color.new(242,242,242)
+      shadow=Color.new(80,80,80)
+    else
+      base=Color.new(90,90,90)
+      shadow=Color.new(242,242,242)
+    end
+    # V17 Backport End
+    pokemon = heldpoke
+    if heldpoke
+      pokemon = heldpoke
+    elsif selected[0]==-1
+      pokemon = @storage.party[selected[1]]
+    else
+      pokemon = @storage.boxes[selected[0]][selected[1]]
+    end
+    markings = pokemon.markings
+    index = 0
+    redraw = true
+    markrect = Rect.new(0,0,16,16)
     loop do
+      # Redraw the markings and text
+      if redraw
+        @sprites["markingoverlay"].bitmap.clear
+        for i in 0...6
+          markrect.x = i*16
+          markrect.y = (markings&(1<<i)!=0) ? 16 : 0
+          @sprites["markingoverlay"].bitmap.blt(336+58*(i%3),106+50*(i/3),@markingbitmap.bitmap,markrect)
+        end
+        textpos = [
+           [_INTL("OK"),402,210,2,base,shadow,1],
+           [_INTL("Cancel"),402,274,2,base,shadow,1]
+        ]
+        pbDrawTextPositions(@sprites["markingoverlay"].bitmap,textpos)
+        pbMarkingSetArrow(@sprites["arrow"],index)
+        redraw = false
+      end
       Graphics.update
       Input.update
-      if Input.trigger?(Input::B)
-        break # cancel
-      end
-      if Input.trigger?(Input::C)
-        if cmdwindow.index==commands.length-1
-          break # cancel
-        elsif cmdwindow.index==commands.length-2
-          pokemon.markings=markings # OK
-          break
-        elsif cmdwindow.index>=0
-          mask=(1<<cmdwindow.index)
-          if (markings&mask)==0
-            markings|=mask
-          else
-            markings&=~mask
-          end
-          commands=getMarkingCommands(markings)
-          cmdwindow.commands=commands
-        end
+      key = -1
+      key = Input::DOWN if Input.repeat?(Input::DOWN)
+      key = Input::RIGHT if Input.repeat?(Input::RIGHT)
+      key = Input::LEFT if Input.repeat?(Input::LEFT)
+      key = Input::UP if Input.repeat?(Input::UP)
+      if key>=0
+        oldindex = index
+        index = pbMarkingChangeSelection(key,index)
+        pbPlayCursorSE if index!=oldindex
+        pbMarkingSetArrow(@sprites["arrow"],index)
       end
       pbUpdateSpriteHash(@sprites)
-      msgwindow.update
-      cmdwindow.update
+      if Input.trigger?(Input::B)
+        pbPlayCancelSE
+        break
+      elsif Input.trigger?(Input::C)
+        pbPlayDecisionSE
+        if index==6 # OK
+          pokemon.markings = markings
+          break
+        elsif index==7 # Cancel
+          break
+        else
+          mask = (1<<index)
+          if (markings&mask)==0
+            markings |= mask
+          else
+            markings &= ~mask
+          end
+          redraw = true
+        end
+      end
     end
+    @sprites["markingbg"].visible      = false
+    @sprites["markingoverlay"].visible = false
     msgwindow.dispose
-    cmdwindow.dispose
-    Input.update
   end
 
   def pbRefresh

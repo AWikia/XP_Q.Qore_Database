@@ -1167,12 +1167,7 @@ def drawPageFive
       end
     end
     if dorefresh
-      case @page
-        when 0
-          drawPageOne
-        when 7
-          drawPageEight
-      end
+      drawPage(@page) if (@page==0 || @page==7)
     end
   end
 

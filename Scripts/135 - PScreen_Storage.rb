@@ -56,7 +56,7 @@ class PokemonStorage
     raise ArgumentError.new("Not supported")
   end
 
-  MARKINGCHARS=["●","■","▲","♥"]
+  MARKINGCHARS=["●","■","▲","♥","★","♦"]
 
   def initialize(maxBoxes=STORAGEBOXES,maxPokemon=30)
     @boxes=[]
@@ -624,7 +624,7 @@ class PokemonStorageScreen
 
   def pbStartScreen(command)
     @heldpkmn=nil
-    if command==1 # Was 0
+    if command==0
 ### WITHDRAW ###################################################################
       @scene.pbStartBox(self,command) # command
       loop do
@@ -673,7 +673,7 @@ class PokemonStorageScreen
         end
       end
       @scene.pbCloseBox
-    elsif command==2 # Was 1
+    elsif command==1
 ### DEPOSIT ####################################################################
       @scene.pbStartBox(self,command) # command
       loop do
@@ -714,7 +714,7 @@ class PokemonStorageScreen
         end
       end
       @scene.pbCloseBox
-    elsif command==3 # was 2
+    elsif command==2
 ### MOVE #######################################################################
       @scene.pbStartBox(self,command) # command
       loop do
@@ -800,8 +800,8 @@ class PokemonStorageScreen
     elsif command==4 # Was 3
       @scene.pbStartBox(self,command)
       @scene.pbCloseBox
-    elsif command==0
-      worksOnCorendo(['VR Corendo','Bsibsina Clients','ΣΟΥΒΛ Crystal','Intensive PCReady'])
+    elsif command==3
+      worksOnCorendo(['VR Corendo','Bsibsina Clients','ΣΟΥΒΛ Crystal','Intensive PCReady','Yorkbook Digital Professional'])
     end
   end
 
@@ -2157,13 +2157,14 @@ class PokemonStorageScene
     @sprites["pokemon"]=AutoMosaicPokemonSprite.new(@viewport2)
     pbSetSystemFont(@sprites["overlay"].bitmap)
     @sprites["boxparty"]=PokemonBoxPartySprite.new(@storage.party,@boxsidesviewport)
-    if command!=2 # Drop down tab only on Deposit (Was 1)
+    if command!=1 # Drop down tab only on Deposit
       @sprites["boxparty"].x=182
       @sprites["boxparty"].y=Graphics.height
     end
+    @markingbitmap = AnimatedBitmap.new("Graphics/UI/"+getDarkModeFolder+"/Storage/markings")
     @sprites["arrow"]=PokemonBoxArrow.new(@arrowviewport)
     @sprites["arrow"].z+=1
-    if command!=2 # (Was 1)
+    if command!=1
       pbSetArrow(@sprites["arrow"],@selection)
       pbUpdateOverlay(@selection)
       pbSetMosaic(@selection)
@@ -2178,6 +2179,7 @@ class PokemonStorageScene
   def pbCloseBox
     pbFadeOutAndHide(@sprites)  
     pbDisposeSpriteHash(@sprites)
+    @markingbitmap.dispose if @markingbitmap
     @boxviewport.dispose
     @boxsidesviewport.dispose
     @arrowviewport.dispose
@@ -2630,7 +2632,7 @@ class PokemonStorageScene
   end
 
   def pbSelectBox(party)
-    if @command==1 # Withdraw  (Was 1)
+    if @command==0 # Withdraw
       return pbSelectBoxInternal(party)
     else
       ret=nil
@@ -2770,28 +2772,12 @@ class PokemonStorageScene
   end
 
   def drawMarkings(bitmap,x,y,width,height,markings)
-    totaltext=""
-    oldfontname=bitmap.font.name
-    oldfontsize=bitmap.font.size
-    oldfontcolor=bitmap.font.color
-    bitmap.font.size=24
-    bitmap.font.name="Arial"
-    PokemonStorage::MARKINGCHARS.each{|item| totaltext+=item }
-    totalsize=bitmap.text_size(totaltext)
-    realX=x+(width/2)-(totalsize.width/2)
-    realY=y+(height/2)-(totalsize.height/2)
-    i=0
-    PokemonStorage::MARKINGCHARS.each{|item|
-       marked=(markings&(1<<i))!=0
-       bitmap.font.color=(marked) ? Color.new(80,80,80) : Color.new(208,200,184)
-       itemwidth=bitmap.text_size(item).width
-       bitmap.draw_text(realX,realY,itemwidth+2,totalsize.height,item)
-       realX+=itemwidth
-       i+=1
-    }
-    bitmap.font.name=oldfontname
-    bitmap.font.size=oldfontsize
-    bitmap.font.color=oldfontcolor
+    markrect = Rect.new(0,0,16,16)
+    for i in 0...8
+      markrect.x = i*16
+      markrect.y = (markings&(1<<i)!=0) ? 16 : 0
+      bitmap.blt(x+i*16,y,@markingbitmap.bitmap,markrect)
+    end
   end
 
   def getMarkingCommands(markings)
@@ -2799,7 +2785,7 @@ class PokemonStorageScene
     deselectedtag="<c=D0C8B8>"
     commands=[]
     for i in 0...PokemonStorage::MARKINGCHARS.length
-      commands.push( ((markings&(1<<i))==0 ? deselectedtag : selectedtag)+"<ac><fn=Arial>"+PokemonStorage::MARKINGCHARS[i])
+      commands.push( ((markings&(1<<i))==0 ? deselectedtag : selectedtag)+"<ac><fn=Arial Unicode MS>"+PokemonStorage::MARKINGCHARS[i])
     end
     commands.push(_INTL("OK"))
     commands.push(_INTL("Cancel"))   
@@ -3278,19 +3264,19 @@ class StorageSystemPC
     Kernel.pbMessage(_INTL("\\se[accesspc]The Pokémon Storage System was opened."))
     loop do
       command=Kernel.pbShowCommandsWithHelp(nil,
-         [_INTL("Deposit from Prograda"),
-         _INTL("Withdraw Pokémon"),
+         [_INTL("Withdraw Pokémon"),
          _INTL("Deposit Pokémon"),
          _INTL("Move Pokémon"),
+          _INTL("Migrate Pokémon"),
          _INTL("See ya!")],
-         [_INTL("Import Pokémon from an inserted Prograda Savefile to your game."),
-         _INTL("Move Pokémon stored in Boxes to your party."),
+         [_INTL("Move Pokémon stored in Boxes to your party."),
          _INTL("Store Pokémon in your party in Boxes."),
          _INTL("Organize the Pokémon in Boxes and in your party."),
+         _INTL("Import Pokémon from an inserted Savefile (Like Esmeralda) to your game."),
          _INTL("Return to the previous menu.")],-1
       )
       if command>=0 && command<4
-        if command==1 && $PokemonStorage.party.length>=6 # Was 0
+        if command==0 && $PokemonStorage.party.length>=6 # Was 0
           Kernel.pbMessage(_INTL("Your party is full!"))
           next
         end
@@ -3298,7 +3284,7 @@ class StorageSystemPC
         for p in $PokemonStorage.party
           count+=1 if p && !p.isEgg? && p.hp>0
         end
-        if command==2 && count<=1 # Was 1
+        if command==1 && count<=1
           Kernel.pbMessage(_INTL("Can't deposit the last Pokémon!"))
           next
         end

@@ -1,22 +1,45 @@
 TPSPECIES   = 0
 TPLEVEL     = 1
 TPITEM      = 2
-TPMOVE1     = 3
-TPMOVE2     = 4
-TPMOVE3     = 5
-TPMOVE4     = 6
-TPABILITY   = 7
-TPGENDER    = 8
-TPFORM      = 9
-TPSHINY     = 10
-TPNATURE    = 11
-TPIV        = 12
-TPHAPPINESS = 13
-TPNAME      = 14
-TPSHADOW    = 15
-TPBALL      = 16
-TPDEFAULTS = [0,10,0,0,0,0,0,nil,nil,0,false,nil,10,70,nil,false,0]
+TPMOVES     = 3
+TPABILITY   = 4
+TPGENDER    = 5
+TPFORM      = 6
+TPSHINY     = 7
+TPNATURE    = 8
+TPIV        = 9
+TPHAPPINESS = 10
+TPNAME      = 11
+TPSHADOW    = 12
+TPBALL      = 13
+TPEV        = 14
+TPDEFAULTS = [0,10,0,[0,0,0,0],nil,nil,0,false,nil,[10],70,nil,false,0,nil]
 
+module TrainersMetadata
+  InfoTypes = {
+    "Items"     => [0,           "eEEEEEEE", :PBItems, :PBItems, :PBItems, :PBItems,
+                                             :PBItems, :PBItems, :PBItems, :PBItems],
+    "Pokemon"   => [TPSPECIES,   "ev", :PBSpecies,nil],   # Species, level
+    "Item"      => [TPITEM,      "e", :PBItems],
+    "Moves"     => [TPMOVES,     "eEEE", :PBMoves, :PBMoves, :PBMoves, :PBMoves],
+    "Ability"   => [TPABILITY,   "u"],
+    "Gender"    => [TPGENDER,    "e", { "M" => 0, "m" => 0, "Male" => 0, "male" => 0, "0" => 0,
+                                        "F" => 1, "f" => 1, "Female" => 1, "female" => 1, "1" => 1 }],
+    "Form"      => [TPFORM,      "u"],
+    "Shiny"     => [TPSHINY,     "b"],
+    "Nature"    => [TPNATURE,    "e", :PBNatures],
+    "IV"        => [TPIV,        "uUUUUU"],
+    "Happiness" => [TPHAPPINESS, "u"],
+    "Name"      => [TPNAME,      "s"],
+    "Shadow"    => [TPSHADOW,    "b"],
+    "Ball"      => [TPBALL,      "u"],
+    "EV"        => [TPEV,        "uUUUUU"]
+  }
+end
+
+#===============================================================================
+#
+#===============================================================================
 def pbLoadTrainer(trainerid,trainername,partyid=0)
   if trainerid.is_a?(String) || trainerid.is_a?(Symbol)
     if !hasConst?(PBTrainers,trainerid)
@@ -50,10 +73,10 @@ def pbLoadTrainer(trainerid,trainername,partyid=0)
       pokemon.formNoCall=poke[TPFORM]
       pokemon.resetMoves
       pokemon.setItem(poke[TPITEM])
-      if poke[TPMOVE1]>0 || poke[TPMOVE2]>0 || poke[TPMOVE3]>0 || poke[TPMOVE4]>0
+      if poke[TPMOVES] && poke[TPMOVES].length>0
         k=0
-        for move in [TPMOVE1,TPMOVE2,TPMOVE3,TPMOVE4]
-          pokemon.moves[k]=PBMove.new(poke[move])
+        for move in poke[TPMOVES]
+          pokemon.moves[k]=PBMove.new(move)
           k+=1
         end
         pokemon.moves.compact!
@@ -67,10 +90,19 @@ def pbLoadTrainer(trainerid,trainername,partyid=0)
       end
       pokemon.setNature(poke[TPNATURE])
       iv=poke[TPIV]
+      ev=poke[TPEV]
       for i in 0...6
-        pokemon.iv[i]=iv&0x1F
-        pokemon.ev[i]=[85,level*3/2].min
-      end
+        if iv
+          pokemon.iv[i]=(i<poke[TPIV].length) ? iv[i]&0x1F : iv[0]&0x1F
+        else
+          pokemon.iv[i]=10
+        end
+        if ev
+          pokemon.ev[i]=(i<poke[TPEV].length) ? ev[i]&0x1F : ev[0]&0x1F
+        else
+          pokemon.ev[i]=[85,level*3/2].min
+        end
+      end      
       pokemon.happiness=poke[TPHAPPINESS]
       pokemon.name=poke[TPNAME] if poke[TPNAME] && poke[TPNAME]!=""
       if poke[TPSHADOW]   # if this is a Shadow Pokémon

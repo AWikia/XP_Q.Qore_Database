@@ -473,33 +473,54 @@ def checkEnumField(ret,enumer)
   raise _INTL("Enumeration not defined\r\n{1}",FileLineData.linereport)
 end
 
+def checkEnumFieldOrNil(ret,enumer)
+  if enumer.is_a?(Module)
+    return nil if ret=="" || !(enumer.const_defined?(ret) rescue false)
+    return enumer.const_get(ret.to_sym)
+  elsif enumer.is_a?(Symbol) || enumer.is_a?(String)
+    enumer = Object.const_get(enumer.to_sym)
+    return nil if ret=="" || !(enumer.const_defined?(ret) rescue false)
+    return enumer.const_get(ret.to_sym)
+  elsif enumer.is_a?(Array)
+    idx = findIndex(enumer) { |item| ret==item }
+    return nil if idx<0
+    return idx
+  elsif enumer.is_a?(Hash)
+    return enumer[ret]
+  end
+  return nil
+end
+
 #===============================================================================
 # Csv record reading/writing
 #===============================================================================
 def pbGetCsvRecord(rec,lineno,schema)
-  record=[]
-  repeat=false
+  record = []
+  repeat = false
+  start = 0
   if schema[1][0,1]=="*"
-    repeat=true
-    start=1
-  else
-    repeat=false
-    start=0
+    repeat = true
+    start = 1
   end
   begin
     for i in start...schema[1].length
-      chr=schema[1][i,1]
+      chr = schema[1][i,1]
       case chr
-      when "u"
-        record.push(csvPosInt!(rec,lineno))
-      when "v"
-        field=csvPosInt!(rec,lineno)
-        raise _INTL("Field '{1}' must be greater than 0\r\n{2}",field,FileLineData.linereport) if field==0
-        record.push(field)
-      when "i"
+      when "i"   # Integer
         record.push(csvInt!(rec,lineno))
-      when "U", "I"
-        field=csvfield!(rec)
+      when "I"   # Optional integer
+        field = csvfield!(rec)
+        if field==""
+          record.push(nil)
+        elsif !field[/^\-?\d+$/]
+          raise _INTL("Field {1} is not an integer\r\n{2}",field,FileLineData.linereport)
+        else
+          record.push(field.to_i)
+        end
+      when "u"   # Positive integer or zero
+        record.push(csvPosInt!(rec,lineno))
+      when "U"   # Optional positive integer or zero
+        field = csvfield!(rec)
         if field==""
           record.push(nil)
         elsif !field[/^\d+$/]
@@ -507,41 +528,105 @@ def pbGetCsvRecord(rec,lineno,schema)
         else
           record.push(field.to_i)
         end
-      when "x"
-        field=csvfield!(rec)     
+      when "v"   # Positive integer
+        field = csvPosInt!(rec,lineno)
+        raise _INTL("Field '{1}' must be greater than 0\r\n{2}",field,FileLineData.linereport) if field==0
+        record.push(field)
+      when "V"   # Optional positive integer
+        field = csvfield!(rec)
+        if field==""
+          record.push(nil)
+        elsif !field[/^\d+$/]
+          raise _INTL("Field '{1}' must be greater than 0\r\n{2}",field,FileLineData.linereport)
+        elsif field.to_i==0
+          raise _INTL("Field '{1}' must be greater than 0\r\n{2}",field,FileLineData.linereport)
+        else
+          record.push(field.to_i)
+        end
+      when "x"   # Hexadecimal number
+        field = csvfield!(rec)
         if !field[/^[A-Fa-f0-9]+$/]
           raise _INTL("Field '{1}' is not a hexadecimal number\r\n{2}",field,FileLineData.linereport)
         end
         record.push(field.hex)
-      when "s"
-        record.push(csvfield!(rec))
-      when "S"
-        field=csvfield!(rec)
+      when "X"   # Optional hexadecimal number
+        field = csvfield!(rec)
         if field==""
           record.push(nil)
+        elsif !field[/^[A-Fa-f0-9]+$/]
+          raise _INTL("Field '{1}' is not a hexadecimal number\r\n{2}",field,FileLineData.linereport)
         else
-          record.push(field)
+          record.push(field.hex)
         end
-      when "n" # Name
-        field=csvfield!(rec)
+      when "f"   # Floating point number
+        record.push(csvFloat!(rec,lineno))
+      when "F"   # Optional floating point number
+        field = csvfield!(rec)
+        if field==""
+          record.push(nil)
+        elsif !field[/^\-?^\d*\.?\d*$/]
+          raise _INTL("Field {1} is not a floating point number\r\n{2}",field,FileLineData.linereport)
+        else
+          record.push(field.to_f)
+        end
+      when "b"   # Boolean
+        record.push(csvBoolean!(rec,lineno))
+      when "B"   # Optional Boolean
+        field = csvfield!(rec)
+        if field==""
+          record.push(nil)
+        elsif field[/^1|[Tt][Rr][Uu][Ee]|[Yy][Ee][Ss]|[Tt]|[Yy]$/]
+          record.push(true)
+        else
+          record.push(false)
+        end
+      when "n"   # Name
+        field = csvfield!(rec)
         if !field[/^(?![0-9])\w+$/]
           raise _INTL("Field '{1}' must contain only letters, digits, and\r\nunderscores and can't begin with a number.\r\n{2}",field,FileLineData.linereport)
         end
         record.push(field)
-      when "N" # Optional name
-        field=csvfield!(rec)
+      when "N"   # Optional name
+        field = csvfield!(rec)
         if field==""
           record.push(nil)
+        elsif !field[/^(?![0-9])\w+$/]
+          raise _INTL("Field '{1}' must contain only letters, digits, and\r\nunderscores and can't begin with a number.\r\n{2}",field,FileLineData.linereport)
         else
-          if !field[/^(?![0-9])\w+$/]
-            raise _INTL("Field '{1}' must contain only letters, digits, and\r\nunderscores and can't begin with a number.\r\n{2}",field,FileLineData.linereport)
-          end
           record.push(field)
         end
-      when "b"
-        record.push(csvBoolean!(rec,lineno))
-      when "e"
+      when "s"   # String
+        record.push(csvfield!(rec))
+      when "S"   # Optional string
+        field = csvfield!(rec)
+        record.push((field=="") ? nil : field)
+      when "q"   # Unformatted text
+        record.push(rec)
+        rec = ""
+      when "Q"   # Optional unformatted text
+        if !rec || rec==""
+          record.push(nil)
+        else
+          record.push(rec)
+          rec = ""
+        end
+      when "e"   # Enumerable
         record.push(csvEnumField!(rec,schema[2+i-start],"",FileLineData.linereport))
+      when "E"   # Optional enumerable
+        field = csvfield!(rec)
+        record.push(checkEnumFieldOrNil(field,schema[2+i-start]))
+      when "y"   # Enumerable or integer
+        field = csvfield!(rec)
+        record.push(csvEnumFieldOrInt!(field,schema[2+i-start],"",FileLineData.linereport))
+      when "Y"   # Optional enumerable or integer
+        field = csvfield!(rec)
+        if field==""
+          record.push(nil)
+        elsif field[/^\-?\d+$/]
+          record.push(field.to_i)
+        else
+          record.push(checkEnumFieldOrNil(field,schema[2+i-start]))
+        end
       end
     end
     break if repeat && rec==""
@@ -568,7 +653,7 @@ def pbWriteCsvRecord(record,file,schema)
       file.write("false")
     elsif rec[i].is_a?(Numeric)
       case chr
-      when "e"
+      when "e", "E"
         enumer=schema[2+i]
         if enumer.is_a?(Array)
           file.write(enumer[rec[i]])
@@ -2164,164 +2249,193 @@ def pbCompileTrainers
      Marshal.dump(records,f)
   }
   # Individual trainers
-  lines=[]
-  linenos=[]
-  lineno=1
-  File.open("PBS/trainers.txt","rb"){|f|
-     FileLineData.file="PBS/trainers.txt"
-     f.each_line {|line|
-        if lineno==1 && line[0]==0xEF && line[1]==0xBB && line[2]==0xBF
-          line=line[3,line.length-3]
+  trainer_info_types = TrainersMetadata::InfoTypes
+  mLevel = PBExperience::MAXLEVEL
+  trainerindex    = -1
+  trainers        = []
+  trainernames    = []
+  pokemonindex    = -2
+  oldcompilerline   = 0
+  oldcompilerlength = 0
+  pbCompilerEachCommentedLine("PBS/trainers.txt") { |line,lineno|
+    if line[/^\s*\[\s*(.+)\s*\]\s*$/]
+      # Section [trainertype,trainername] or [trainertype,trainername,partyid]
+      if oldcompilerline>0
+        raise _INTL("Previous trainer not defined with as many Pokémon as expected.\r\n{1}",FileLineData.linereport)
+      end
+      if pokemonindex==-1
+        raise _INTL("Started new trainer while previous trainer has no Pokémon.\r\n{1}",FileLineData.linereport)
+      end
+      section = pbGetCsvRecord($~[1],lineno,[0,"esU",PBTrainers])
+      trainerindex += 1
+      trainertype = section[0]
+      trainername = section[1]
+      partyid     = section[2] || 0
+      trainers[trainerindex] = [trainertype,trainername,[],[],partyid,nil]
+      trainernames[trainerindex] = trainername
+      pokemonindex = -1
+    elsif line[/^\s*(\w+)\s*=\s*(.*)$/]
+      # XXX=YYY lines
+      if trainerindex<0
+        raise _INTL("Expected a section at the beginning of the file.\r\n{1}",FileLineData.linereport)
+      end
+      if oldcompilerline>0
+        raise _INTL("Previous trainer not defined with as many Pokémon as expected.\r\n{1}",FileLineData.linereport)
+      end
+      settingname = $~[1]
+      schema = trainer_info_types[settingname]
+      next if !schema
+      record = pbGetCsvRecord($~[2],lineno,schema)
+      # Error checking in XXX=YYY lines
+      case settingname
+      when "Pokemon"
+        if record[1]>mLevel
+          raise _INTL("Bad level: {1} (must be 1-{2})\r\n{3}",record[1],mLevel,FileLineData.linereport)
         end
-        line=prepline(line)
-        if line!=""
-          lines.push(line)
-          linenos.push(lineno)
+      when "Moves"
+        record = [record] if record.is_a?(Integer)
+        record.compact!
+      when "Ability"
+        if record>5
+          raise _INTL("Bad ability flag: {1} (must be 0 or 1 or 2-5).\r\n{2}",record,FileLineData.linereport)
         end
-        lineno+=1
-     }
+      when "IV"
+        record = [record] if record.is_a?(Integer)
+        record.compact!
+        for i in record
+          next if i<=31
+          raise _INTL("Bad IV: {1} (must be 0-{2})\r\n{3}",i,31,FileLineData.linereport)
+        end
+      when "EV"
+        record = [record] if record.is_a?(Integer)
+        record.compact!
+        for i in record
+          next if i<=PokeBattle_Pokemon::EVSTATLIMIT
+          raise _INTL("Bad EV: {1} (must be 0-{2})\r\n{3}",i,PokeBattle_Pokemon::EVSTATLIMIT,FileLineData.linereport)
+        end
+        evtotal = 0
+        for i in 0...6
+          evtotal += (i<record.length) ? record[i] : record[0]
+        end
+        if evtotal>PokeBattle_Pokemon::EVLIMIT
+          raise _INTL("Total EVs are greater than allowed ({1})\r\n{2}",PokeBattle_Pokemon::EVLIMIT,FileLineData.linereport)
+        end
+      when "Happiness"
+        if record>255
+          raise _INTL("Bad happiness: {1} (must be 0-255)\r\n{2}",record,FileLineData.linereport)
+        end
+      when "Name"
+        if record.length>12
+          raise _INTL("Bad nickname: {1} (must be 1-{2} characters)\r\n{3}",record,12,FileLineData.linereport)
+        end
+      end
+      # Record XXX=YYY setting
+      case settingname
+      when "Items"   # Items in the trainer's Bag, not the held item
+        record = [record] if record.is_a?(Integer)
+        record.compact!
+        trainers[trainerindex][2] = record
+      when "Pokemon"
+        pokemonindex += 1
+        trainers[trainerindex][3][pokemonindex] = []
+        trainers[trainerindex][3][pokemonindex][TPSPECIES] = record[0]
+        trainers[trainerindex][3][pokemonindex][TPLEVEL]   = record[1]
+      else
+        if pokemonindex<0
+          raise _INTL("Pokémon hasn't been defined yet!\r\n{1}",FileLineData.linereport)
+        end
+        trainers[trainerindex][3][pokemonindex][schema[0]] = record
+      end
+    else
+      # Old compiler - backwards compatibility is SUCH fun!
+      if pokemonindex==-1 && oldcompilerline==0
+        raise _INTL("Unexpected line format, started new trainer while previous trainer has no Pokémon\r\n{1}",FileLineData.linereport)
+      end
+      if oldcompilerline==0   # Started an old trainer section
+        oldcompilerlength = 3
+        oldcompilerline   = 0
+        trainerindex += 1
+        trainers[trainerindex] = [0,"",[],[],0]
+        pokemonindex = -1
+      end
+      oldcompilerline += 1
+      case oldcompilerline
+      when 1   # Trainer type
+        record = pbGetCsvRecord(line,lineno,[0,"e",PBTrainers])
+        trainers[trainerindex][0] = record
+      when 2   # Trainer name, version number
+        record = pbGetCsvRecord(line,lineno,[0,"sU"])
+        record = [record] if record.is_a?(Integer)
+        trainers[trainerindex][1] = record[0]
+        trainernames[trainerindex] = record[0]
+        trainers[trainerindex][4] = record[1] if record[1]
+      when 3   # Number of Pokémon, items
+        record = pbGetCsvRecord(line,lineno,[0,"vEEEEEEEE",nil,PBItems,PBItems,
+                                PBItems,PBItems,PBItems,PBItems,PBItems,PBItems])
+        record = [record] if record.is_a?(Integer)
+        record.compact!
+        oldcompilerlength += record[0]
+        record.shift
+        trainers[trainerindex][2] = record if record
+      else   # Pokémon lines 
+        pokemonindex += 1
+        trainers[trainerindex][3][pokemonindex] = []
+        record = pbGetCsvRecord(line,lineno,
+           [0,"evEEEEEUEUBEUUSBU",PBSpecies,nil,PBItems,PBMoves,PBMoves,PBMoves,
+                                  PBMoves,nil,{"M"=>0,"m"=>0,"Male"=>0,"male"=>0,
+                                  "0"=>0,"F"=>1,"f"=>1,"Female"=>1,"female"=>1,
+                                  "1"=>1},nil,nil,PBNatures,nil,nil,nil,nil,nil])
+        # Error checking (the +3 is for properties after the four moves)
+        for i in 0...record.length
+          next if record[i]==nil
+          case i
+          when TPLEVEL
+            if record[i]>mLevel
+              raise _INTL("Bad level: {1} (must be 1-{2})\r\n{3}",record[i],mLevel,FileLineData.linereport)
+            end
+          when TPABILITY+3
+            if record[i]>5
+              raise _INTL("Bad ability flag: {1} (must be 0 or 1 or 2-5)\r\n{2}",record[i],FileLineData.linereport)
+            end
+          when TPIV+3
+            if record[i]>31
+              raise _INTL("Bad IV: {1} (must be 0-31)\r\n{2}",record[i],FileLineData.linereport)
+            end
+            record[i] = [record[i]]
+          when TPEV+3
+            if record[i]>PokeBattle_Pokemon::EVSTATLIMIT
+              raise _INTL("Bad EV: {1} (must be 0-{2})\r\n{3}",record[i],PokeBattle_Pokemon::EVSTATLIMIT,FileLineData.linereport)
+            end
+            record[i] = [record[i]]
+          when TPHAPPINESS+3
+            if record[i]>255
+              raise _INTL("Bad happiness: {1} (must be 0-255)\r\n{2}",record[i],FileLineData.linereport)
+            end
+          when TPNAME+3
+            if record[i].length>12
+              raise _INTL("Bad nickname: {1} (must be 1-{2} characters)\r\n{3}",record[i],12,FileLineData.linereport)
+            end
+          end
+        end
+        # Write data to trainer array
+        for i in 0...record.length
+          next if record[i]==nil
+          if i>=TPMOVES && i<TPMOVES+4
+            if !trainers[trainerindex][3][pokemonindex][TPMOVES]
+              trainers[trainerindex][3][pokemonindex][TPMOVES] = []
+            end
+            trainers[trainerindex][3][pokemonindex][TPMOVES].push(record[i])
+          else
+            d = (i>=TPMOVES+4) ? i-3 : i
+            trainers[trainerindex][3][pokemonindex][d] = record[i]
+          end
+        end
+      end
+      oldcompilerline = 0 if oldcompilerline>=oldcompilerlength
+    end
   }
-  nameoffset=0
-  trainers=[]
-  trainernames.clear
-  i=0; loop do break unless i<lines.length
-    FileLineData.setLine(lines[i],linenos[i])
-    trainername=parseTrainer(lines[i])
-    FileLineData.setLine(lines[i+1],linenos[i+1])
-    nameline=strsplit(lines[i+1],/\s*,\s*/)
-    name=nameline[0]
-    raise _INTL("Trainer name too long\r\n{1}",FileLineData.linereport) if name.length>=0x10000
-    trainernames.push(name)
-    partyid=0
-    if nameline[1] && nameline[1]!=""
-      raise _INTL("Expected a number for the trainer battle ID\r\n{1}",FileLineData.linereport) if !nameline[1][/^\d+$/]
-      partyid=nameline[1].to_i
-    end
-    FileLineData.setLine(lines[i+2],linenos[i+2])
-    items=strsplit(lines[i+2],/\s*,\s*/)
-    items[0].gsub!(/^\s+/,"")   # Number of Pokémon
-    raise _INTL("Expected a number for the number of Pokémon\r\n{1}",FileLineData.linereport) if !items[0][/^\d+$/]
-    numpoke=items[0].to_i
-    realitems=[]
-    for j in 1...items.length   # Items held by Trainer
-      realitems.push(parseItem(items[j])) if items[j] && items[j]!=""
-    end
-    pkmn=[]
-    for j in 0...numpoke
-      FileLineData.setLine(lines[i+j+3],linenos[i+j+3])
-      poke=strsplit(lines[i+j+3],/\s*,\s*/)
-      begin
-        # Species
-        poke[TPSPECIES]=parseSpecies(poke[TPSPECIES])
-      rescue
-        raise _INTL("Expected a species name: {1}\r\n{2}",poke[0],FileLineData.linereport)
-      end
-      # Level
-      poke[TPLEVEL]=poke[TPLEVEL].to_i
-      raise _INTL("Bad level: {1} (must be from 1-{2})\r\n{3}",poke[TPLEVEL],
-        PBExperience::MAXLEVEL,FileLineData.linereport) if poke[TPLEVEL]<=0 || poke[TPLEVEL]>PBExperience::MAXLEVEL
-      # Held item
-      if !poke[TPITEM] || poke[TPITEM]==""
-        poke[TPITEM]=TPDEFAULTS[TPITEM]
-      else
-        poke[TPITEM]=parseItem(poke[TPITEM])
-      end
-      # Moves
-      moves=[]
-      for j in [TPMOVE1,TPMOVE2,TPMOVE3,TPMOVE4]
-        moves.push(parseMove(poke[j])) if poke[j] && poke[j]!=""
-      end
-      for j in 0...4
-        index=[TPMOVE1,TPMOVE2,TPMOVE3,TPMOVE4][j]
-        if moves[j] && moves[j]!=0
-          poke[index]=moves[j]
-        else
-          poke[index]=TPDEFAULTS[index]
-        end
-      end
-      # Ability
-      if !poke[TPABILITY] || poke[TPABILITY]==""
-        poke[TPABILITY]=TPDEFAULTS[TPABILITY]
-      else
-        poke[TPABILITY]=poke[TPABILITY].to_i
-        raise _INTL("Bad abilityflag: {1} (must be 0 or 1 or 2-5)\r\n{2}",poke[TPABILITY],FileLineData.linereport) if poke[TPABILITY]<0 || poke[TPABILITY]>5
-      end
-      # Gender
-      if !poke[TPGENDER] || poke[TPGENDER]==""
-        poke[TPGENDER]=TPDEFAULTS[TPGENDER]
-      else
-        if poke[TPGENDER]=="M"
-          poke[TPGENDER]=0
-        elsif poke[TPGENDER]=="F"
-          poke[TPGENDER]=1
-        else
-          poke[TPGENDER]=poke[TPGENDER].to_i
-          raise _INTL("Bad genderflag: {1} (must be M or F, or 0 or 1)\r\n{2}",poke[TPGENDER],FileLineData.linereport) if poke[TPGENDER]<0 || poke[TPGENDER]>1
-        end
-      end
-      # Form
-      if !poke[TPFORM] || poke[TPFORM]==""
-        poke[TPFORM]=TPDEFAULTS[TPFORM]
-      else
-        poke[TPFORM]=poke[TPFORM].to_i
-        raise _INTL("Bad form: {1} (must be 0 or greater)\r\n{2}",poke[TPFORM],FileLineData.linereport) if poke[TPFORM]<0
-      end
-      # Shiny
-      if !poke[TPSHINY] || poke[TPSHINY]==""
-        poke[TPSHINY]=TPDEFAULTS[TPSHINY]
-      elsif poke[TPSHINY]=="shiny"
-        poke[TPSHINY]=true
-      else
-        poke[TPSHINY]=csvBoolean!(poke[TPSHINY].clone)
-      end
-      # Nature
-      if !poke[TPNATURE] || poke[TPNATURE]==""
-        poke[TPNATURE]=TPDEFAULTS[TPNATURE]
-      else
-        poke[TPNATURE]=parseNature(poke[TPNATURE])
-      end
-      # IVs
-      if !poke[TPIV] || poke[TPIV]==""
-        poke[TPIV]=TPDEFAULTS[TPIV]
-      else
-        poke[TPIV]=poke[TPIV].to_i
-        raise _INTL("Bad IV: {1} (must be from 0-31)\r\n{2}",poke[TPIV],FileLineData.linereport) if poke[TPIV]<0 || poke[TPIV]>31
-      end
-      # Happiness
-      if !poke[TPHAPPINESS] || poke[TPHAPPINESS]==""
-        poke[TPHAPPINESS]=TPDEFAULTS[TPHAPPINESS]
-      else
-        poke[TPHAPPINESS]=poke[TPHAPPINESS].to_i
-        raise _INTL("Bad happiness: {1} (must be from 0-255)\r\n{2}",poke[TPHAPPINESS],FileLineData.linereport) if poke[TPHAPPINESS]<0 || poke[TPHAPPINESS]>255
-      end
-      # Nickname
-      if !poke[TPNAME] || poke[TPNAME]==""
-        poke[TPNAME]=TPDEFAULTS[TPNAME]
-      else
-        poke[TPNAME]=poke[TPNAME].to_s
-        raise _INTL("Bad nickname: {1} (must be 1-20 characters)\r\n{2}",poke[TPNAME],FileLineData.linereport) if (poke[TPNAME].to_s).length>20
-      end
-      # Shadow
-      if !poke[TPSHADOW] || poke[TPSHADOW]==""
-        poke[TPSHADOW]=TPDEFAULTS[TPSHADOW]
-      else
-        poke[TPSHADOW]=csvBoolean!(poke[TPSHADOW].clone)
-      end
-      # Ball
-      if !poke[TPBALL] || poke[TPBALL]==""
-        poke[TPBALL]=TPDEFAULTS[TPBALL]
-      else
-        poke[TPBALL]=poke[TPBALL].to_i
-        raise _INTL("Bad form: {1} (must be 0 or greater)\r\n{2}",poke[TPBALL],FileLineData.linereport) if poke[TPBALL]<0
-      end
-      pkmn.push(poke)
-    end
-    i+=3+numpoke
-    MessageTypes.setMessagesAsHash(MessageTypes::TrainerNames,trainernames)
-    trainers.push([trainername,name,realitems,pkmn,partyid])
-    nameoffset+=name.length
-  end
   save_data(trainers,"Data/trainers.dat")
+  MessageTypes.setMessagesAsHash(MessageTypes::TrainerNames,trainernames)
 end
 
 #===============================================================================

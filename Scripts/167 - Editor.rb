@@ -585,68 +585,102 @@ def pbSaveTrainerTypes()
 end
 
 def pbSaveTrainerBattles()
-  data=load_data("Data/trainers.dat") rescue nil
+  data = load_data("Data/trainers.dat") rescue nil
   return if !data
-  File.open("PBS/trainers.txt","wb"){|f|
-     f.write(0xEF.chr)
-     f.write(0xBB.chr)
-     f.write(0xBF.chr)
-     f.write("\# "+_INTL("See the documentation on the wiki to learn how to edit this file."))
-     f.write("\r\n")
-     for trainer in data
-       trname=getConstantName(PBTrainers,trainer[0]) rescue pbGetTrainerConst(trainer[0]) rescue nil
-       next if !trname
-       f.write("\#-------------------\r\n")
-       f.write(sprintf("%s\r\n",trname))
-       trainername=trainer[1] ? trainer[1].gsub(/,/,";") : "???"
-       if trainer[4]==0
-         f.write(sprintf("%s\r\n",trainername))
-       else
-         f.write(sprintf("%s,%d\r\n",trainername,trainer[4]))
-       end
-       f.write(sprintf("%d",trainer[3].length))
-       for i in 0...8
-         itemname=getConstantName(PBItems,trainer[2][i]) rescue pbGetItemConst(trainer[2][i]) rescue nil
-         f.write(sprintf(",%s",itemname)) if trainer[2][i]
-       end
-       f.write("\r\n")
-       for poke in trainer[3]
-         maxindex=0
-         towrite=[]
-         thistemp=getConstantName(PBSpecies,poke[TPSPECIES]) rescue pbGetSpeciesConst(poke[TPSPECIES]) rescue ""
-         towrite[TPSPECIES]=thistemp
-         towrite[TPLEVEL]=poke[TPLEVEL].to_s
-         thistemp=getConstantName(PBItems,poke[TPITEM]) rescue pbGetItemConst(poke[TPITEM]) rescue ""
-         towrite[TPITEM]=thistemp
-         thistemp=getConstantName(PBMoves,poke[TPMOVE1]) rescue pbGetMoveConst(poke[TPMOVE1]) rescue ""
-         towrite[TPMOVE1]=thistemp
-         thistemp=getConstantName(PBMoves,poke[TPMOVE2]) rescue pbGetMoveConst(poke[TPMOVE2]) rescue ""
-         towrite[TPMOVE2]=thistemp
-         thistemp=getConstantName(PBMoves,poke[TPMOVE3]) rescue pbGetMoveConst(poke[TPMOVE3]) rescue ""
-         towrite[TPMOVE3]=thistemp
-         thistemp=getConstantName(PBMoves,poke[TPMOVE4]) rescue pbGetMoveConst(poke[TPMOVE4]) rescue ""
-         towrite[TPMOVE4]=thistemp
-         towrite[TPABILITY]=(poke[TPABILITY] ? poke[TPABILITY].to_s : "")
-         towrite[TPGENDER]=(poke[TPGENDER] ? ["M","F"][poke[TPGENDER]] : "")
-         towrite[TPFORM]=(poke[TPFORM] && poke[TPFORM]!=TPDEFAULTS[TPFORM] ? poke[TPFORM].to_s : "")
-         towrite[TPSHINY]=(poke[TPSHINY] ? "shiny" : "")
-         towrite[TPNATURE]=(poke[TPNATURE] ? getConstantName(PBNatures,poke[TPNATURE]) : "")
-         towrite[TPIV]=(poke[TPIV] && poke[TPIV]!=TPDEFAULTS[TPIV] ? poke[TPIV].to_s : "")
-         towrite[TPHAPPINESS]=(poke[TPHAPPINESS] && poke[TPHAPPINESS]!=TPDEFAULTS[TPHAPPINESS] ? poke[TPHAPPINESS].to_s : "")
-         towrite[TPNAME]=(poke[TPNAME] ? poke[TPNAME] : "")
-         towrite[TPSHADOW]=(poke[TPSHADOW] ? "true" : "")
-         towrite[TPBALL]=(poke[TPBALL] && poke[TPBALL]!=TPDEFAULTS[TPBALL] ? poke[TPBALL].to_s : "")
-         for i in 0...towrite.length
-           towrite[i]="" if !towrite[i]
-           maxindex=i if towrite[i] && towrite[i]!=""
-         end
-         for i in 0..maxindex
-           f.write(",") if i>0
-           f.write(towrite[i])
-         end
-         f.write("\r\n")
-       end
-     end
+  File.open("PBS/trainers.txt","wb") { |f|
+    f.write(0xEF.chr)
+    f.write(0xBB.chr)
+    f.write(0xBF.chr)
+    f.write("\# "+_INTL("See the documentation on the wiki to learn how to edit this file."))
+    f.write("\r\n")
+    for trainer in data
+      trtypename = getConstantName(PBTrainers,trainer[0]) rescue pbGetTrainerConst(trainer[0]) rescue nil
+      next if !trtypename
+      f.write("\#-------------------------------\r\n")
+      # Section
+      trainername = trainer[1] ? trainer[1].gsub(/,/,";") : "???"
+      if trainer[4]==0
+        f.write(sprintf("[%s,%s]\r\n",trtypename,trainername))
+      else
+        f.write(sprintf("[%s,%s,%d]\r\n",trtypename,trainername,trainer[4]))
+      end
+      # Trainer's items
+      if trainer[2] && trainer[2].length>0
+        itemstring = ""
+        for i in 0...trainer[2].length
+          itemname = getConstantName(PBItems,trainer[2][i]) rescue pbGetItemConst(trainer[2][i]) rescue nil
+          next if !itemname
+          itemstring.concat(",") if i>0
+          itemstring.concat(itemname)
+        end
+        f.write(sprintf("Items = %s\r\n",itemstring)) if itemstring!=""
+      end
+      # Pokémon
+      for poke in trainer[3]
+        species = getConstantName(PBSpecies,poke[TPSPECIES]) rescue pbGetSpeciesConst(poke[TPSPECIES]) rescue ""
+        f.write(sprintf("Pokemon = %s,%d\r\n",species,poke[TPLEVEL]))
+        if poke[TPNAME] && poke[TPNAME]!=""
+          f.write(sprintf("    Name = %s\r\n",poke[TPNAME]))
+        end
+        if poke[TPFORM]
+          f.write(sprintf("    Form = %d\r\n",poke[TPFORM]))
+        end
+        if poke[TPGENDER]
+          f.write(sprintf("    Gender = %s\r\n",(poke[TPGENDER]==1) ? "female" : "male"))
+        end
+        if poke[TPSHINY]
+          f.write("    Shiny = yes\r\n")
+        end
+        if poke[TPSHADOW]
+          f.write("    Shadow = yes\r\n")
+        end
+        if poke[TPMOVES] && poke[TPMOVES].length>0
+          movestring = ""
+          for i in 0...poke[TPMOVES].length
+            movename = getConstantName(PBMoves,poke[TPMOVES][i]) rescue pbGetMoveConst(poke[TPMOVES][i]) rescue nil
+            next if !movename
+            movestring.concat(",") if i>0
+            movestring.concat(movename)
+          end
+          f.write(sprintf("    Moves = %s\r\n",movestring)) if movestring!=""
+        end
+        if poke[TPABILITY]
+          f.write(sprintf("    Ability = %d\r\n",poke[TPABILITY]))
+        end
+        if poke[TPITEM] && poke[TPITEM]>0
+          item = getConstantName(PBItems,poke[TPITEM]) rescue pbGetItemConst(poke[TPITEM]) rescue nil
+          f.write(sprintf("    Item = %s\r\n",item)) if item
+        end
+        if poke[TPNATURE]
+          nature = getConstantName(PBNatures,poke[TPNATURE]) rescue nil
+          f.write(sprintf("    Nature = %s\r\n",nature)) if nature
+        end
+        if poke[TPIV] && poke[TPIV].length>0
+          f.write(sprintf("    IV = %d",poke[TPIV][0]))
+          if poke[TPIV].length>1
+            for i in 1...6
+              f.write(sprintf(",%d",(i<poke[TPIV].length) ? poke[TPIV][i] : poke[TPIV][0]))
+            end
+          end
+          f.write("\r\n")
+        end
+        if poke[TPEV] && poke[TPEV].length>0
+          f.write(sprintf("    EV = %d",poke[TPEV][0]))
+          if poke[TPEV].length>1
+            for i in 1...6
+              f.write(sprintf(",%d",(i<poke[TPEV].length) ? poke[TPEV][i] : poke[TPEV][0]))
+            end
+          end
+          f.write("\r\n")
+        end
+        if poke[TPHAPPINESS]
+          f.write(sprintf("    Happiness = %d\r\n",poke[TPHAPPINESS]))
+        end
+        if poke[TPBALL]
+          f.write(sprintf("    Ball = %d\r\n",poke[TPBALL]))
+        end
+      end
+    end
   }
 end
 
@@ -1812,7 +1846,29 @@ class LimitProperty
   end
 end
 
+class LimitProperty2
+  def initialize(maxvalue)
+    @maxvalue = maxvalue
+  end
 
+  def set(settingname,oldsetting)
+    oldsetting = 0 if !oldsetting
+    params = ChooseNumberParams.new
+    params.setRange(0,@maxvalue)
+    params.setDefaultValue(oldsetting)
+    params.setCancelValue(-1)
+    ret = Kernel.pbMessageChooseNumber(_INTL("Set the value for {1} (0-#{@maxvalue}).",settingname),params)
+    return (ret>=0) ? ret : nil
+  end
+
+  def defaultValue
+    return nil
+  end
+
+  def format(value)
+    return (value) ? value.inspect : "-"
+  end
+end
 
 class NonzeroLimitProperty
   def initialize(maxvalue)
@@ -2826,8 +2882,18 @@ end
 # Trainer Pokémon editor
 ################################################################################
 module TrainerPokemonProperty
-  def self.set(settingname,oldsetting)
-    oldsetting=TPDEFAULTS.clone if !oldsetting
+  def self.set(settingname,initsetting)
+    initsetting=TPDEFAULTS.clone if !initsetting
+    oldsetting = []
+    for i in 0...initsetting.length
+      if i==TPMOVES
+        for j in 0...4
+          oldsetting.push((initsetting[TPMOVES]) ? initsetting[TPMOVES][j] : nil)
+        end
+      else
+        oldsetting.push(initsetting[i])
+      end
+    end
     properties=[
        [_INTL("Species"),SpeciesProperty,
            _INTL("Species of the Pokémon.")],
@@ -2853,7 +2919,7 @@ module TrainerPokemonProperty
            _INTL("If set to true, the Pokémon is a different-colored Pokémon.")],
        [_INTL("Nature"),NatureProperty,
            _INTL("Nature of the Pokémon.")],
-       [_INTL("IVs"),LimitProperty.new(31),
+       [_INTL("IVs"),IVsProperty.new(31),
            _INTL("Individual values of each of the Pokémon's stats.")],
        [_INTL("Happiness"),LimitProperty.new(255),
            _INTL("Happiness of the Pokémon.")],
@@ -2862,22 +2928,27 @@ module TrainerPokemonProperty
        [_INTL("Shadow"),BooleanProperty,
            _INTL("If set to true, the Pokémon is a Shadow Pokémon.")],
        [_INTL("Ball"),BallProperty.new(oldsetting),
-           _INTL("Number of the Poké Ball the Pokémon is kept in.")]
+           _INTL("Number of the Poké Ball the Pokémon is kept in.")],
+       [_INTL("EVs"),EVsProperty.new(PokeBattle_Pokemon::EVSTATLIMIT),
+           _INTL("Effort values of each of the Pokémon's stats.")],
     ]
     pbPropertyList(settingname,oldsetting,properties,false)
-    for i in 0...TPDEFAULTS.length
-      oldsetting[i]=TPDEFAULTS[i] if !oldsetting[i]
+    return nil if !oldsetting[TPSPECIES] || oldsetting[TPSPECIES]==0
+    ret = []
+    moves = []
+    for i in 0...oldsetting.length
+      if i>=TPMOVES && i<TPMOVES+4
+        ret.push(nil) if i==TPMOVES
+        moves.push(oldsetting[i])
+      else
+        ret.push(oldsetting[i])
+      end
     end
-    moves=[]
-    for i in [TPMOVE1,TPMOVE2,TPMOVE3,TPMOVE4]
-      moves.push(oldsetting[i]) if oldsetting[i]!=0
-    end
-    oldsetting[TPMOVE1]=moves[0] ? moves[0] : TPDEFAULTS[TPMOVE1]
-    oldsetting[TPMOVE2]=moves[1] ? moves[1] : TPDEFAULTS[TPMOVE2]
-    oldsetting[TPMOVE3]=moves[2] ? moves[2] : TPDEFAULTS[TPMOVE3]
-    oldsetting[TPMOVE4]=moves[3] ? moves[3] : TPDEFAULTS[TPMOVE4]
-    oldsetting=nil if !oldsetting[TPSPECIES] || oldsetting[TPSPECIES]==0
-    return oldsetting
+    moves.compact!
+    ret[TPMOVES] = moves if moves.length>0
+    # Remove unnecessarily nils from the end of ret
+    ret.pop while ret.last.nil? && ret.size>0
+    return ret
   end
 
   def self.format(value)
@@ -2885,6 +2956,122 @@ module TrainerPokemonProperty
   end
 end
 
+
+class IVsProperty
+  def initialize(limit)
+    @limit = limit
+  end
+
+  def set(settingname,oldsetting)
+    oldsetting = [nil] if !oldsetting
+    for i in 0...6
+      oldsetting[i] = oldsetting[0] if !oldsetting[i]
+    end
+    properties = [
+       [_INTL("HP"),LimitProperty2.new(@limit),_INTL("Individual values for the Pokémon's HP stat (0-{1}).",@limit)],
+       [_INTL("Attack"),LimitProperty2.new(@limit),_INTL("Individual values for the Pokémon's Attack stat (0-{1}).",@limit)],
+       [_INTL("Defense"),LimitProperty2.new(@limit),_INTL("Individual values for the Pokémon's Defense stat (0-{1}).",@limit)],
+       [_INTL("Speed"),LimitProperty2.new(@limit),_INTL("Individual values for the Pokémon's Speed stat (0-{1}).",@limit)],
+       [_INTL("Sp. Atk"),LimitProperty2.new(@limit),_INTL("Individual values for the Pokémon's Sp. Atk stat (0-{1}).",@limit)],
+       [_INTL("Sp. Def"),LimitProperty2.new(@limit),_INTL("Individual values for the Pokémon's Sp. Def stat (0-{1}).",@limit)]
+    ]
+    pbPropertyList(settingname,oldsetting,properties,false)
+    hasNonNil = false
+    hasAltVal = false
+    firstVal = oldsetting[0] || 0
+    for i in 0...6
+      if oldsetting[i]
+        hasNonNil = true
+        hasAltVal = true if oldsetting[i]!=firstVal
+      else
+        oldsetting[i] = firstVal
+      end
+    end
+    return nil if !hasNonNil   # All IVs are nil
+    return [firstVal] if !hasAltVal   # All IVs are the same, just return 1 value
+    return oldsetting   # 6 IVs defined
+  end
+
+  def defaultValue
+    return nil
+  end
+
+  def format(value)
+    return "-" if !value
+    return value[0].to_s if value.length==1
+    ret = ""
+    for i in 0...6
+      ret.concat(",") if i>0
+      ret.concat((value[i] || 0).to_s)
+    end
+    return ret
+  end
+end
+
+
+
+class EVsProperty
+  def initialize(limit)
+    @limit = limit
+  end
+
+  def set(settingname,oldsetting)
+    oldsetting = [nil] if !oldsetting
+    for i in 0...6
+      oldsetting[i] = oldsetting[0] if !oldsetting[i]
+    end
+    properties = [
+       [_INTL("HP"),LimitProperty2.new(@limit),_INTL("Effort values for the Pokémon's HP stat (0-{1}).",@limit)],
+       [_INTL("Attack"),LimitProperty2.new(@limit),_INTL("Effort values for the Pokémon's Attack stat (0-{1}).",@limit)],
+       [_INTL("Defense"),LimitProperty2.new(@limit),_INTL("Effort values for the Pokémon's Defense stat (0-{1}).",@limit)],
+       [_INTL("Speed"),LimitProperty2.new(@limit),_INTL("Effort values for the Pokémon's Speed stat (0-{1}).",@limit)],
+       [_INTL("Sp. Atk"),LimitProperty2.new(@limit),_INTL("Effort values for the Pokémon's Sp. Atk stat (0-{1}).",@limit)],
+       [_INTL("Sp. Def"),LimitProperty2.new(@limit),_INTL("Effort values for the Pokémon's Sp. Def stat (0-{1}).",@limit)]
+    ]
+    loop do
+      pbPropertyList(settingname,oldsetting,properties,false)
+      evtotal = 0
+      for i in 0...6
+        evtotal += oldsetting[i] if oldsetting[i]
+      end
+      if evtotal>PokeBattle_Pokemon::EVLIMIT
+        pbMessage(_INTL("Total EVs ({1}) are greater than allowed ({2}). Please reduce them.",
+           evtotal,PokeBattle_Pokemon::EVLIMIT))
+      else
+        break
+      end
+    end
+    hasNonNil = false
+    hasAltVal = false
+    firstVal = oldsetting[0] || 0
+    for i in 0...6
+      if oldsetting[i]
+        hasNonNil = true
+        hasAltVal = true if oldsetting[i]!=firstVal
+      else
+        oldsetting[i] = firstVal
+      end
+    end
+    return nil if !hasNonNil   # All EVs are nil
+    return [firstVal] if !hasAltVal   # All EVs are the same, just return 1 value
+    return oldsetting   # 6 EVs defined
+  end
+
+  def defaultValue
+    return nil
+  end
+
+  def format(value)
+    return "-" if !value
+    return value[0].to_s if value.length==1
+    ret = ""
+    for i in 0...6
+      ret.concat(",") if i>0
+      ret.concat((value[i] || 0).to_s)
+    end
+    return ret
+  end
+end
 
 
 class BallProperty

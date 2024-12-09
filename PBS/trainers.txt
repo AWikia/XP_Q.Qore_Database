@@ -6825,6 +6825,7 @@ Pokemon = CHARIZARD,180
 Pokemon = WISHIWASHI,160
     Item = SITRUSBERRY
 Pokemon = SIAXIS,180
+    Gender = male
     Item = SITRUSBERRY
 Pokemon = GASTRODON,170
     Form = 1
@@ -6834,12 +6835,14 @@ Pokemon = BIN10,165
 Pokemon = MAXPLUS,180
     Item = SITRUSBERRY
 Pokemon = XERNEAS,165
+    IV = 31
     Item = SITRUSBERRY
 #-------------------------------
 [LEADER_Koga,Anakin Skywalker]
 Pokemon = WISHIWASHI,160
     Item = SITRUSBERRY
 Pokemon = SIAXIS,180
+    Gender = female
     Item = SITRUSBERRY
 Pokemon = KRISKRIS,170
     Form = 2
@@ -6850,6 +6853,7 @@ Pokemon = LYCANROC,165
 Pokemon = ALTERPLUS,180
     Item = SITRUSBERRY
 Pokemon = YVELTAL,165
+    IV = 31
     Item = SITRUSBERRY
 #-------------------------------
 [SCIENTIST,Jaroler]

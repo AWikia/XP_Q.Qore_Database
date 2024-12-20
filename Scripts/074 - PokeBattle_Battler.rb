@@ -917,10 +917,11 @@ def ragefist
 
   def hasAbilityPowers(target=nil)
     if target
-      return false if target.hasWorkingAbility(:ABILITOPIA) || target.hasWorkingAbility(:MORFAT)
+      return false if target.hasWorkingAbility(:ABILITOPIA) || target.hasWorkingAbility(:MORFAT) ||
+                      target.hasWorkingItem(:ABILITYRING)
       return false if target.pbHasType?(:GHOST) || target.pbHasType?(:GLIMSE)
     end
-    return true if hasWorkingAbility(:ABILITOPIA)
+    return true if hasWorkingAbility(:ABILITOPIA) || hasWorkingItem(:ABILITYRING)
     return false
   end
 
@@ -933,6 +934,7 @@ def ragefist
     end
     return true if hasWorkingAbility(:LONGREACH) ||
                    hasWorkingItem(:PROTECTIVEPADS)
+    return false
   end
   
   def hasWorkingAbility(ability,ignorefainted=false)

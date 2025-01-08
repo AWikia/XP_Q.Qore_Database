@@ -367,7 +367,7 @@
 306,PHOTONFORCE,Photon Force,"Boosts the ally Pokémon’s most proficient stat every time it knocks out a target."
 307,FIERYSPIRIT,Fiery Spirit,"Powers up the Fire-type moves of the Pokémon and its allies."
 308,ANTIFOGGER,Anti-Fogger,"Doubles the power of Dragon-type moves in Misty Terrain."
-309,PHANTOMSPIRIT,Phantom Spirit,"Boosts the power of Ghost-, Moon- and Glimse- type moves but its ally Pokémon’s moves are unimpeded by the Ability of the target."
+309,PHANTOMSPIRIT,Phantom Spirit,"Boosts the power of Ghost-, Moon- and Glimse-type moves but its ally Pokémon’s moves are unimpeded by the Ability of the target."
 310,SOLBEYU,Solbeyu,"The Pokémon can hurt a random opponent when it eats any Berry, in addition to the Berry’s usual effect"
 311,DOOMYSLUSH,Doomy Slush,"The Pokémon maxes its stats if it is hit by a Doom-type move or a critical hit."
 312,DOLPHININO,Dolphinino,The Pokémon changes its form to Stealth Forme when it uses a physical move and changes to Octum Forme when it uses Octum Shield.
@@ -413,3 +413,4 @@
 392,ASSAULTSPIRIT,"Assault Spirit","Doubles the Pokémon's Defense and Sp. Def stats but its partner will be protected from effects that ignore abilities"
 405,RADICALARROW,"Radical Arrow","The Pokémon has a radical arrow that makes it ignore accuracy checks while attacking every second turn"
 406,MICROSTAR,"Micro Star","All the Pokémon moves become the Nomral type. The Pokémon also takes half damage from all moves every second turn."
+407,ANTICYCLONE,"Anti-Cyclone","The Pokémon reflects Water-, Electric- and Bolt-type moves instead of getting hit by them. This also eliminates the effects of Rain and Electric Terrain."

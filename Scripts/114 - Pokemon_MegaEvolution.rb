@@ -1395,6 +1395,68 @@ MultipleForms.register(:MAKTV,{
 }
 })
 
+MultipleForms.register(:ANDROID,{
+"getMegaForm"=>proc{|pokemon|
+   next 1 if isConst?(pokemon.item,PBItems,:ANDROIDITE)
+   next
+},
+"type2"=>proc{|pokemon|
+   next getID(PBTypes,:FIGHTING) if pokemon.form==1
+   next
+},
+"getBaseStats"=>proc{|pokemon|
+   next [95,175,50,0,65,77] if pokemon.form==1
+   next
+},
+"getAbilityList"=>proc{|pokemon|
+   next [[getID(PBAbilities,:ANTICYCLONE),0]] if pokemon.form==1
+   next
+},
+"height"=>proc{|pokemon|
+   next 20 if pokemon.form==1
+   next
+},
+"weight"=>proc{|pokemon|
+   next 1000 if pokemon.form==1
+   next
+},
+"dexEntry"=>proc{|pokemon|
+   next if pokemon.form==0
+   next _INTL("After mega evolving, Android becomes a true 3D human bot with many fighting capabilities. How this happened is unknown.") if pokemon.form==1
+}
+})
+
+MultipleForms.register(:ANDROPLUS,{
+"getMegaForm"=>proc{|pokemon|
+   next 1 if isConst?(pokemon.item,PBItems,:ANDROIDITE)
+   next
+},
+"type2"=>proc{|pokemon|
+   next getID(PBTypes,:FIGHTING) if pokemon.form==1
+   next
+},
+"getBaseStats"=>proc{|pokemon|
+   next [200,255,90,45,120,134] if pokemon.form==1
+   next
+},
+"getAbilityList"=>proc{|pokemon|
+   next [[getID(PBAbilities,:ANTICYCLONE),0]] if pokemon.form==1
+   next
+},
+"height"=>proc{|pokemon|
+   next 20 if pokemon.form==1
+   next
+},
+"weight"=>proc{|pokemon|
+   next 1500 if pokemon.form==1
+   next
+},
+"dexEntry"=>proc{|pokemon|
+   next if pokemon.form==0
+   next _INTL("After mega evolving, Android becomes a true 3D human bot with many fighting capabilities. How this happened is unknown.") if pokemon.form==1
+}
+})
+
 MultipleForms.register(:HEARTBRAND,{
 "getMegaForm"=>proc{|pokemon|
    next 1 if isConst?(pokemon.item,PBItems,:HEARTBRANDITE)
@@ -1505,7 +1567,65 @@ MultipleForms.register(:BARNEY,{
 }
 })
 
-
+MultipleForms.register(:COPILOT,{
+"getMegaForm"=>proc{|pokemon|
+   d=pokemon.personalID&3
+   d|=((pokemon.personalID>>8)&3)<<2
+   d|=((pokemon.personalID>>16)&3)<<4
+   d|=((pokemon.personalID>>24)&3)<<6
+   form = (d%5==0) ? 1 : (d%4==0) ? 2 : (d%3==0) ? 3 : (d%2==0) ? 4 : 5
+   next form if isConst?(pokemon.item,PBItems,:COPILOTITE)
+   next
+},
+"type2"=>proc{|pokemon|
+   next getID(PBTypes,:FIRE)  if pokemon.form==1
+   next getID(PBTypes,:GRASS) if pokemon.form==2
+   next getID(PBTypes,:ICE)   if pokemon.form==3
+   next getID(PBTypes,:BOLT)  if pokemon.form==4
+   next getID(PBTypes,:MAGIC) if pokemon.form==5
+   next
+},
+"getBaseStats"=>proc{|pokemon|
+   next [105,135,95,85,95,95]    if pokemon.form==1
+   next [105,95,135,85,95,95]    if pokemon.form==2
+   next [105,95,95,85,135,95]    if pokemon.form==3
+   next [105,95,95,85,95,135]    if pokemon.form==4
+   next [105,105,105,85,105,105] if pokemon.form==5
+   next
+},
+"color"=>proc{|pokemon|
+   next 0 if pokemon.form==1
+   next 3 if pokemon.form==2
+   next 1 if pokemon.form==3
+   next 6 if pokemon.form==4
+   next 0 if pokemon.form==5
+   next
+},
+"getAbilityList"=>proc{|pokemon|
+   next [[getID(PBAbilities,:FLAMEBODY),0]] if pokemon.form==1
+   next [[getID(PBAbilities,:EFFECTSPORE),0]] if pokemon.form==2
+   next [[getID(PBAbilities,:FROZENBODY),0]] if pokemon.form==3
+   next [[getID(PBAbilities,:STATIC),0]] if pokemon.form==4
+   next [[getID(PBAbilities,:SOUFLAZ),0]] if pokemon.form==5
+   next
+},
+"height"=>proc{|pokemon|
+   next 17 if pokemon.form>0
+   next
+},
+"weight"=>proc{|pokemon|
+   next 4750 if pokemon.form>0
+   next
+},
+"dexEntry"=>proc{|pokemon|
+   next if pokemon.form==0
+   next _INTL("Once Copilot gets mega evolved, it becomes a specialized O shape. The Reds excel in attacking.")                     if pokemon.form==1
+   next _INTL("Once Copilot gets mega evolved, it becomes a specialized O shape. The Greens excel in defensing.")                   if pokemon.form==2
+   next _INTL("Once Copilot gets mega evolved, it becomes a specialized O shape. The Blues excel in magic attacking.")              if pokemon.form==3
+   next _INTL("Once Copilot gets mega evolved, it becomes a specialized O shape. The Purples excel in magic defensing.")            if pokemon.form==4
+   next _INTL("Once Copilot gets mega evolved, it becomes a specialized O shape. The Rainbows do not appear to excel in anything.") if pokemon.form==5
+}
+})
 
 # Primal Reversion #############################################################
 

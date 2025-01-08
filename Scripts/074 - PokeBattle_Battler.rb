@@ -4241,7 +4241,9 @@ def ragefist
         end
       end
     end
+    # Effects that only affect non-contact moves
     if !thismove.isContactMove? || user.hasWorkingAbility(:LONGREACH)
+      # Mindy Glops
       if !(user.hasMoldBreaker(target) || thismove.function==0x300 || thismove.pbIsStatus?) && 
             target.hasWorkingAbility(:MINDYGLOPS)
         # switch user and target
@@ -4251,9 +4253,7 @@ def ragefist
         user=target
         target=tmp
       end
-    end
-# Trampoline (Ability)
-    if !thismove.isContactMove? || user.hasWorkingAbility(:LONGREACH)
+      # Trampoline (Ability)
       if !(user.hasMoldBreaker(target) || thismove.pbIsStatus?) && 
             target.hasWorkingAbility(:TRAMPOLINE)
         # switch user and target
@@ -4263,9 +4263,7 @@ def ragefist
         user=target
         target=tmp
       end
-    end
-# Trampoline (Move)
-    if !thismove.isContactMove? || user.hasWorkingAbility(:LONGREACH)
+      # Trampoline (Move)
       if thismove.pbIsDamaging? && target.pbOwnSide.effects[PBEffects::Trampoline]
         # switch user and target
         PBDebug.log("[Lingering effect triggered] #{target.pbThis}'s Trampoline made it use #{user.pbThis(true)}'s #{thismove.name}")
@@ -4280,6 +4278,19 @@ def ragefist
         !(thismove.function==0x300 || user.hasWorkingAbility(:BALLOONIST)) && 
         user.pbIsOpposing?(target.index)
         target=target.pbPartner
+    end
+# Anti-Cyclone (Bounce-up effect)
+    if isConst?(thismove.type,PBTypes,:WATER) || 
+       isConst?(thismove.type,PBTypes,:ELECTRIC) ||
+       isConst?(thismove.type,PBTypes,:BOLT)
+      if !user.hasMoldBreaker(target) && target.hasWorkingAbility(:ANTICYCLONE)
+        # switch user and target
+        PBDebug.log("[Ability triggered] #{target.pbThis}'s Anti-Cyclone made it use #{user.pbThis(true)}'s #{thismove.name}")
+        changeeffect=3
+        tmp=user
+        user=target
+        target=tmp
+      end
     end
     if thismove.canMagicCoat?
       if target.effects[PBEffects::MagicCoat]

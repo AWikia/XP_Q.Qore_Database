@@ -314,7 +314,7 @@ class Scene_LinkBattleScene
                 break
               else
                 if itemname == 'RB'
-                  species = [PBSpecies::DITTO,PBSpecies::BASCULIN,PBSpecies::DISCORD,PBSpecies::LUVDISC,PBSpecies::SQUAWKABILLY,PBSpecies::PLUNUM,PBSpecies::MILCERY,PBSpecies::SATTICATV,PBSpecies::SBING,PBSpecies::SAZURE,PBSpecies::SVISUALSTUDIOCODE]
+                  species = [PBSpecies::DITTO,PBSpecies::BASCULIN,PBSpecies::DISCORD,PBSpecies::LUVDISC,PBSpecies::SQUAWKABILLY,PBSpecies::PLUNUM,PBSpecies::MILCERY,PBSpecies::SATTICATV,PBSpecies::SBING,PBSpecies::SAZURE,PBSpecies::SVISUALSTUDIOCODE,PBSpecies::BIDOOF]
 # Unlockables
                   if $game_switches && $game_switches[67]
                     species+=[PBSpecies::UNOWN]
@@ -336,7 +336,7 @@ class Scene_LinkBattleScene
                      $game_switches[12] && $game_switches[70] && 
                      $game_switches[76] && completedTrophies &&
                      completedTechnicalDiscs && $game_variables[13]>99
-                    species+=[PBSpecies::ALCREMIE,PBSpecies::TELEMOBIL,PBSpecies::SVISUALSTUDIO]
+                    species+=[PBSpecies::ALCREMIE,PBSpecies::TELEMOBIL,PBSpecies::SVISUALSTUDIO,PBSpecies::MEDIAFIRE]
                   end
                   if $game_variables && $game_variables[1001] > 0
                     species+=[PBSpecies::FLABEBE]

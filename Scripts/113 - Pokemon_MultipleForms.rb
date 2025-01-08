@@ -11237,7 +11237,7 @@ MultipleForms.register(:UNCYCLOMEDIA,{
    end
 },
 "getMoveList"=>proc{|pokemon|
-   next if pokemon.form==0
+   next if pokemon.form==0 || pokemon.form==4
    movelist=[]
    case pokemon.form
     when 1; movelist=[[0,:TACKLE],[1,:TACKLE],[1,:THIEF],[5,:GROWL],[14,:SWIFT],[18,:ICEFANG],
@@ -12816,7 +12816,7 @@ MultipleForms.register(:DELIABANDAIPLUS,{
 }
 })
 
-# Form set for Pac-Man is handled elsewhere
+# Form set for Playstation is handled elsewhere
 MultipleForms.register(:PLAYSTATION,{
 "getFormOnLeavingBattle"=>proc{|pokemon|
    next 0
@@ -12839,6 +12839,71 @@ MultipleForms.register(:PLAYSTATION,{
 }
 
 })
+
+MultipleForms.register(:DISCORD,{
+"getForm"=>proc{|pokemon|
+   d=pokemon.personalID&3
+   d|=((pokemon.personalID>>8)&3)<<2
+   d|=((pokemon.personalID>>16)&3)<<4
+   d|=((pokemon.personalID>>24)&3)<<6
+   d%=25
+   next (d==0) ? 1 : 0
+},
+ "type1"=>proc{|pokemon|
+   next if pokemon.form==0
+   next getID(PBTypes,:HERB) # Eternal
+},
+ "type2"=>proc{|pokemon|
+   next if pokemon.form==0
+   next getID(PBTypes,:HERB) # Eternal
+},
+"color"=>proc{|pokemon|
+   next if pokemon.form==0
+   next 2
+},
+"getMoveList"=>proc{|pokemon|
+   next if pokemon.form==0
+   movelist=[[1,:HERBALPUNCH],[1,:INGRAIN],[4,:LEER],[7,:TACKLE],[13,:MAGICHAND],
+             [16,:CASTLEMANIA],[22,:SNATCH],[25,:SWIFT],[31,:HERBSLAM],
+             [34,:PROTECT],[40,:STOCKPILE],[43,:SPITUP],[43,:SWALLOW],
+             [49,:HERBALLASSO]] if pokemon.form==1 # Eternal
+   for i in movelist
+     i[1]=getConst(PBMoves,i[1])
+   end
+   next movelist
+},
+})
+
+MultipleForms.register(:DDISCORD,{
+"getForm"=>proc{|pokemon|
+   d=pokemon.personalID&3
+   d|=((pokemon.personalID>>8)&3)<<2
+   d|=((pokemon.personalID>>16)&3)<<4
+   d|=((pokemon.personalID>>24)&3)<<6
+   d%=25
+   next (d==0) ? 1 : 0
+},
+ "type1"=>proc{|pokemon|
+   next if pokemon.form==0
+   next getID(PBTypes,:HERB) # Eternal
+},
+"color"=>proc{|pokemon|
+   next if pokemon.form==0
+   next 2
+},
+"getMoveList"=>proc{|pokemon|
+   next if pokemon.form==0
+   movelist=[[1,:HERBALPUNCH],[1,:INGRAIN],[5,:LEER],[9,:TACKLE],[14,:MAGICHAND],
+             [18,:CASTLEMANIA],[23,:SNATCH],[27,:SWIFT],[32,:HERBSLAM],
+             [36,:PROTECT],[41,:STOCKPILE],[45,:SPITUP],[45,:SWALLOW],
+             [50,:HERBALLASSO]] if pokemon.form==1 # Eternal
+   for i in movelist
+     i[1]=getConst(PBMoves,i[1])
+   end
+   next movelist
+}
+})
+
 
 MultipleForms.register(:DOFFPLUS,{
 "weight"=>proc{|pokemon|
@@ -12973,6 +13038,32 @@ MultipleForms.register(:GEOMETRYCUBE,{
    d|=((pokemon.personalID>>24)&3)<<6
    d%=36
    bitmap.hue_change(d*10)
+}
+})
+
+MultipleForms.register(:DDISCPLUS,{
+"getForm"=>proc{|pokemon|
+   d=pokemon.personalID&3
+   d|=((pokemon.personalID>>8)&3)<<2
+   d|=((pokemon.personalID>>16)&3)<<4
+   d|=((pokemon.personalID>>24)&3)<<6
+   d%=25
+   next (d==0) ? 1 : 0
+},
+ "type1"=>proc{|pokemon|
+   next if pokemon.form==0
+   next getID(PBTypes,:HERB) # Eternal
+},
+"getMoveList"=>proc{|pokemon|
+   next if pokemon.form==0
+   movelist=[[0,:DOOMSTAR],[1,:HERBALPUNCH],[1,:INGRAIN],[5,:LEER],[9,:DOOMTACKLE],
+             [14,:MAGICHAND],[18,:CASTLEMANIA],[23,:SNATCH],[27,:SWIFT],
+             [32,:HERBSLAM],[36,:PROTECT],[41,:STOCKPILE],[45,:SPITUP],
+             [45,:SWALLOW],[50,:HERBALLASSO]] if pokemon.form==1 # Eternal
+   for i in movelist
+     i[1]=getConst(PBMoves,i[1])
+   end
+   next movelist
 }
 })
 

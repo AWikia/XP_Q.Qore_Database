@@ -448,7 +448,9 @@ class PokeBattle_Battle
   def pbWeather
     for i in 0...4
       if @battlers[i].hasWorkingAbility(:CLOUDNINE) ||
-         @battlers[i].hasWorkingAbility(:AIRLOCK)
+         @battlers[i].hasWorkingAbility(:AIRLOCK) ||
+         (@battlers[i].hasWorkingAbility(:ANTICYCLONE) && 
+          [PBWeather::RAINDANCE,PBWeather::HEAVYRAIN].include?(@weather) )
         return 0
       end
     end
@@ -456,14 +458,12 @@ class PokeBattle_Battle
   end
 
   def pbTerrain
-=begin
     for i in 0...4
-      if @battlers[i].hasWorkingAbility(:CLOUDNINE) ||
-         @battlers[i].hasWorkingAbility(:AIRLOCK)
+      if (@battlers[i].hasWorkingAbility(:ANTICYCLONE) && 
+          [PBBattleTerrains::ELECTRIC].include?(@terrain) )
         return 0
       end
     end
-=end
     return @terrain
   end
 

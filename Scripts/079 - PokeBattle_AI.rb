@@ -2157,7 +2157,8 @@ class PokeBattle_Battle
       end
     when 0x100
       if pbCheckGlobalAbility(:AIRLOCK) ||
-         pbCheckGlobalAbility(:CLOUDNINE)
+         pbCheckGlobalAbility(:CLOUDNINE) ||
+         pbCheckGlobalAbility(:ANTICYCLONE)
         score-=90
       elsif pbWeather==PBWeather::RAINDANCE
         score-=90
@@ -2703,8 +2704,23 @@ class PokeBattle_Battle
     when 0x153
       score-=95 if opponent.pbOwnSide.effects[PBEffects::StickyWeb]
     when 0x154
+      if pbCheckGlobalAbility(:ANTICYCLONE)
+        score-=90
+      elsif pbTerrain==PBTerrain::ELECTRIC
+        score-=90
+      end
     when 0x155
+      if false
+        score-=90
+      elsif pbTerrain==PBTerrain::GRASSY
+        score-=90
+      end
     when 0x156
+      if false
+        score-=90
+      elsif pbTerrain==PBTerrain::MISTY
+        score-=90
+      end
     when 0x157
       score-=90
     when 0x158
@@ -3044,8 +3060,14 @@ class PokeBattle_Battle
                    PBMoveData.new(opponent.effects[PBEffects::TwoTurnAttack]).function==0xCD
 =end
     when 0x241
-      score+=40 if attacker.hasWorkingAbility(:CINEMALINTER) ||
+      if false
+        score-=90
+      elsif pbTerrain==PBTerrain::CINAMENT
+        score-=90
+      else
+        score+=40 if attacker.hasWorkingAbility(:CINEMALINTER) ||
                    attacker.hasWorkingItem(:RODOFSPARROW)
+      end
     when 0x242
       if opponent.pbHasType?(attacker.type1) ||
          opponent.pbHasType?(attacker.type2)
@@ -3097,6 +3119,11 @@ class PokeBattle_Battle
         score-=90 if opponent.pbHasType?(type)
       end
     when 0x250
+      if false
+        score-=90
+      elsif pbTerrain==PBTerrain::VOLCANIC
+        score-=90
+      end
     when 0x252
       score-=90 if opponent.hasWorkingAbility(:STURDY) || opponent.pbHasType?(:MAGIC)
       score-=90 if opponent.level>attacker.level
@@ -3194,6 +3221,11 @@ class PokeBattle_Battle
         score-=90
       end
     when 0x276
+      if false
+        score-=90
+      elsif pbTerrain==PBTerrain::LOVELY
+        score-=90
+      end
     when 0x277
     when 0x278
       score-=90 if opponent.hasWorkingAbility(:STURDY) || 

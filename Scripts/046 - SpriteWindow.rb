@@ -266,10 +266,16 @@ def pbGetAnimation(name,hue=0)
 end
 
 def pbGetTileset(name,hue=0)
+  if pbGetSeason>0 && pbResolveBitmap("Graphics/Tilesets/"+name+"_" + pbGetSeason.to_s)
+    return AnimatedBitmap.new("Graphics/Tilesets/"+name+"_" + pbGetSeason.to_s,hue).deanimate
+  end
   return AnimatedBitmap.new("Graphics/Tilesets/"+name,hue).deanimate
 end
 
 def pbGetAutotile(name,hue=0)
+  if pbGetSeason>0 && pbResolveBitmap("Graphics/Autotiles/"+name+"_" + pbGetSeason.to_s)
+    return AnimatedBitmap.new("Graphics/Autotiles/"+name+"_" + pbGetSeason.to_s,hue).deanimate
+  end
   return AnimatedBitmap.new("Graphics/Autotiles/"+name,hue).deanimate
 end
 

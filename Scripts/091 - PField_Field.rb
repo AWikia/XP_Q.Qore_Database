@@ -1740,10 +1740,14 @@ Events.onMapChange+=proc {|sender,e|
   if oldid!=0 && oldid!=$game_map.map_id
     mapinfos=$RPGVX ? load_data("Data/MapInfos.rvdata") : load_data("Data/MapInfos.rxdata")
     weather=pbGetMetadata($game_map.map_id,MetadataWeather)
+    seasonweather = pbGetMetadata($game_map.map_id,MetadataOutdoor) && pbGetSeason>0
+    $game_screen.weather(0,0,0) if !(weather || seasonweather)
     if $game_map.name!=mapinfos[oldid].name
+      $game_screen.weather([0,7,1,3][pbGetSeason],8,20)  if seasonweather
       $game_screen.weather(weather[0],8,20) if weather && rand(100)<weather[1]
     else
       oldweather=pbGetMetadata(oldid,MetadataWeather)
+      $game_screen.weather([0,7,1,3][pbGetSeason],8,20)  if seasonweather && !oldweather
       $game_screen.weather(weather[0],8,20) if weather && !oldweather && rand(100)<weather[1]
     end
   end
@@ -1756,11 +1760,12 @@ Events.onMapChanging+=proc {|sender,e|
   mapinfos=$RPGVX ? load_data("Data/MapInfos.rvdata") : load_data("Data/MapInfos.rxdata")
   if newmapID>0
     oldweather=pbGetMetadata($game_map.map_id,MetadataWeather)
+    seasonweather = pbGetMetadata(newmapID,MetadataOutdoor) && pbGetSeason>0
     if $game_map.name!=mapinfos[newmapID].name
-      $game_screen.weather(0,0,0) if oldweather
+      $game_screen.weather(0,0,0) if oldweather && !seasonweather
     else
       newweather=pbGetMetadata(newmapID,MetadataWeather)
-      $game_screen.weather(0,0,0) if oldweather && !newweather
+      $game_screen.weather(0,0,0) if oldweather && !(newweather || seasonweather)
     end
   end
 }

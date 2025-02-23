@@ -866,6 +866,7 @@ TrainerBattleBGM=Battle - Trainer (Johto)
 MapPosition=10,11,17
 DarkMap=true
 Outdoor=true
+Weather=None,100
 Environment=Forest
 WildBattleBGM=Battle - Wild Pokemon (Johto)
 ShowArea=true

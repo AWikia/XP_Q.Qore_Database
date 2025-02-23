@@ -53,7 +53,7 @@ class Sprite_SurfBase
       elsif $PokemonGlobal.diving
         @sprite.bitmap = @divebitmap.bitmap; cw = @cwd; ch = @chd
       end
-      sx = @event.pattern_surf*cw
+      sx = @event.pattern_surf*cw rescue @event.pattern*cw # hack
       sy = ((@event.direction-2)/2)*ch
       @sprite.src_rect.set(sx,sy,cw,ch)
       if $PokemonTemp.surfJump

@@ -256,6 +256,11 @@ end
 
 
 def pbGetTileBitmap(filename, tile_id, hue)
+  if pbGetSeason>0 && pbResolveBitmap("Graphics/Tilesets/"+filename+"_" + pbGetSeason.to_s)
+    return BitmapCache.tileEx(filename, tile_id, hue){|f| 
+       AnimatedBitmap.new("Graphics/Tilesets/"+filename+"_" + pbGetSeason.to_s).deanimate;
+    }
+  end
   return BitmapCache.tileEx(filename, tile_id, hue){|f| 
      AnimatedBitmap.new("Graphics/Tilesets/"+filename).deanimate;
   }

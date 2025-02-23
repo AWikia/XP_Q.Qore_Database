@@ -543,6 +543,9 @@ end
 # Seasons
 #===============================================================================
 def pbGetSeason
+  if (pbIsSouthernHemisphere() rescue false) # If the user is in the Southern Herisphere
+    return [2,3,0,1][(pbGetTimeNow.mon-1)%4]
+  end
   return (pbGetTimeNow.mon-1)%4
 end
 
@@ -563,11 +566,11 @@ def pbIsSeason(seasonVariable,*arg)
   return ret
 end
 
-def pbIsSpring; return pbIsSeason(0,0); end # Jan, May, Sep
-def pbIsSummer; return pbIsSeason(0,1); end # Feb, Jun, Oct
-def pbIsAutumn; return pbIsSeason(0,2); end # Mar, Jul, Nov
+def pbIsSpring; return pbIsSeason(0,0); end # Jan, May, Sep / Mar, Jul, Nov
+def pbIsSummer; return pbIsSeason(0,1); end # Feb, Jun, Oct / Apr, Aug, Dec
+def pbIsAutumn; return pbIsSeason(0,2); end # Mar, Jul, Nov / Jan, May, Sep
 def pbIsFall; return pbIsAutumn; end
-def pbIsWinter; return pbIsSeason(0,3); end # Apr, Aug, Dec
+def pbIsWinter; return pbIsSeason(0,3); end # Apr, Aug, Dec / Feb, Jun, Oct
 
 def pbGetSeasonName(season)
   return [_INTL("Spring"),

@@ -8,242 +8,151 @@ end
 
 
 module PBDayNight
-=begin
-# Old Tones
-  HourlyTones=[ # Lunar
-     Tone.new(-142.5,-142.5,-72.5,78),     # Midnight
-     Tone.new(-135.5,-135.5,-74,  78),
-     Tone.new(-127.5,-127.5,-75.5,78),
-     Tone.new(-127.5,-127.5,-75.5,78),
-     Tone.new(-119,  -96.3, -95.3,55.3),
-     Tone.new(-51,   -73.7, -123.7,32.7),
-     Tone.new(17,    -51,   -152, 10),      # 6AM
-     Tone.new(14.2,  -42.5, -135,  10),
-     Tone.new(11.3,  -34,   -118,  10),
-     Tone.new(8.5,   -25.5, -101,  10),
-     Tone.new(5.7,   -17,   -84,  10),
-     Tone.new(2.8,   -8.5,  -67,  10),
-     Tone.new(0,     0,     -50,    10),      # Noon
-     Tone.new(0,     0,     -50,    10),
-     Tone.new(0,     0,     -50,    10),
-     Tone.new(0,     0,     -50,    10),
-     Tone.new(-3,    -7,    -52,   10),
-     Tone.new(-10,   -18,   -55,   10),
-     Tone.new(-36,   -75,   -63,  10),      # 6PM
-     Tone.new(-72,   -136,  -84,  13),
-     Tone.new(-88.5, -133,  -81,  44),
-     Tone.new(-108.5,-129,  -78,  78),
-     Tone.new(-127.5,-127.5,-75.5,78),
-     Tone.new(-142.5,-142.5,-72.5,78)
-  ]
-HourlyTones2=[ # Linear
-     Tone.new(-132.5,-162.5,8.5,88),     # Midnight
-     Tone.new(-125.5,-155.5,6,  88),
-     Tone.new(-117.5,-147.5,5.5,88),
-     Tone.new(-117.5,-147.5,5.5,88),
-     Tone.new(-109,  -116.3, -15.3,65.3),
-     Tone.new(-41,   -93.7, -43.7,42.7),
-     Tone.new(27,    -71,   -72, 20),      # 6AM
-     Tone.new(24.2,  -62.5, -55,  20),
-     Tone.new(21.3,  -54,   -38,  20),
-     Tone.new(18.5,   -45.5, -21,  20),
-     Tone.new(15.7,   -37,   -4,  20),
-     Tone.new(12.8,   -28.5,  13,  20),
-     Tone.new(10,     -20,     30,    20),      # Noon
-     Tone.new(10,     -20,     30,    20),
-     Tone.new(10,     -20,     30,    20),
-     Tone.new(10,     -20,     30,    20),
-     Tone.new(7,    -27,    28,   20),
-     Tone.new(0,   -38,   25,   20),
-     Tone.new(-26,   -95,   17,  20),      # 6PM
-     Tone.new(-62,   -156,  -4,  23),
-     Tone.new(-78.5, -153,  -1,  54),
-     Tone.new(-98.5,-149,  3,  88),
-     Tone.new(-117.5,-147.5,5.5,88),
-     Tone.new(-132.5,-162.5,8.5,88)
-  ]
-  HourlyTones3=[ # Classic
-     Tone.new(-142.5,-142.5,-22.5,68),     # Midnight
-     Tone.new(-135.5,-135.5,-24,  68),
-     Tone.new(-127.5,-127.5,-25.5,68),
-     Tone.new(-127.5,-127.5,-25.5,68),
-     Tone.new(-119,  -96.3, -45.3,45.3),
-     Tone.new(-51,   -73.7, -73.7,22.7),
-     Tone.new(17,    -51,   -102, 0),      # 6AM
-     Tone.new(14.2,  -42.5, -85,  0),
-     Tone.new(11.3,  -34,   -68,  0),
-     Tone.new(8.5,   -25.5, -51,  0),
-     Tone.new(5.7,   -17,   -34,  0),
-     Tone.new(2.8,   -8.5,  -17,  0),
-     Tone.new(0,     0,     0,    0),      # Noon
-     Tone.new(0,     0,     0,    0),
-     Tone.new(0,     0,     0,    0),
-     Tone.new(0,     0,     0,    0),
-     Tone.new(-3,    -7,    -2,   0),
-     Tone.new(-10,   -18,   -5,   0),
-     Tone.new(-36,   -75,   -13,  0),      # 6PM
-     Tone.new(-72,   -136,  -34,  3),
-     Tone.new(-88.5, -133,  -31,  34),
-     Tone.new(-108.5,-129,  -28,  68),
-     Tone.new(-127.5,-127.5,-25.5,68),
-     Tone.new(-142.5,-142.5,-22.5,68)
-  ]
-  HourlyTones4=[ # Cubic
-     Tone.new(-142.5,-162.5,-72.5,78),     # Midnight
-     Tone.new(-135.5,-155.5,-74,  78),
-     Tone.new(-127.5,-147.5,-75.5,78),
-     Tone.new(-127.5,-147.5,-75.5,78),
-     Tone.new(-119,  -116.3, -95.3,55.3),
-     Tone.new(-51,   -93.7, -123.7,32.7),
-     Tone.new(17,    -71,   -152, 10),      # 6AM
-     Tone.new(14.2,  -62.5, -135,  10),
-     Tone.new(11.3,  -54,   -118,  10),
-     Tone.new(8.5,   -45.5, -101,  10),
-     Tone.new(5.7,   -17,   -84,  10),
-     Tone.new(2.8,   -28.5,  -67,  10),
-     Tone.new(0,     -20,     -50,    10),      # Noon
-     Tone.new(0,     -20,     -50,    10),
-     Tone.new(0,     -20,     -50,    10),
-     Tone.new(0,     -20,     -50,    10),
-     Tone.new(-3,    -27,    -52,   10),
-     Tone.new(-10,   -38,   -55,   10),
-     Tone.new(-36,   -95,   -63,  10),      # 6PM
-     Tone.new(-72,   -156,  -84,  13),
-     Tone.new(-88.5, -153,  -81,  44),
-     Tone.new(-108.5,-149,  -78,  78),
-     Tone.new(-127.5,-147.5,-75.5,78),
-     Tone.new(-142.5,-162.5,-72.5,68)
-  ]
-=end
   HourlyTones=[ # Lunar (0  0  -50 10)
     Tone.new(-70, -90, -45, 65),   # Night           # Midnight
-    Tone.new(-70, -90, -45, 65),   # Night
-    Tone.new(-70, -90, -45, 65),   # Night
-    Tone.new(-70, -90, -45, 65),   # Night
     Tone.new(-60, -70, -55, 60),   # Night
-    Tone.new(-40, -50, -85, 60),   # Day/morning
-    Tone.new(-40, -50, -85, 60),   # Day/morning     # 6AM
-    Tone.new(-40, -50, -85, 60),   # Day/morning
     Tone.new(-40, -50, -85, 60),   # Day/morning
     Tone.new(-20, -25, -65, 30),   # Day/morning
     Tone.new(  0,   0, -50, 10),   # Day
-    Tone.new(  0,   0, -50, 10),   # Day
-    Tone.new(  0,   0, -50, 10),   # Day             # Noon
-    Tone.new(  0,   0, -50, 10),   # Day
-    Tone.new(  0,   0, -50, 10),   # Day/afternoon
-    Tone.new(  0,   0, -50, 10),   # Day/afternoon
-    Tone.new(  0,   0, -50, 10),   # Day/afternoon
-    Tone.new(  0,   0, -50, 10),   # Day/afternoon
     Tone.new( -5, -30, -70, 10),   # Day/evening     # 6PM 
     Tone.new(-15, -60, -60, 30),   # Day/evening
-    Tone.new(-15, -60, -60, 30),   # Day/evening
     Tone.new(-40, -75, -45, 50),   # Night
-    Tone.new(-70, -90, -35, 65),   # Night
-    Tone.new(-70, -90, -35, 65)    # Night
   ]
   HourlyTones2=[ # Linear (10 -20 30 20)
     Tone.new(-60,-110,  45, 75),   # Night           # Midnight
-    Tone.new(-60,-110,  45, 75),   # Night
-    Tone.new(-60,-110,  45, 75),   # Night
-    Tone.new(-60,-110,  45, 75),   # Night
     Tone.new(-50, -90,  25, 70),   # Night
-    Tone.new(-30, -70,  -5, 70),   # Day/morning
-    Tone.new(-30, -70,  -5, 70),   # Day/morning     # 6AM
-    Tone.new(-30, -70,  -5, 70),   # Day/morning
     Tone.new(-30, -70,  -5, 70),   # Day/morning
     Tone.new(-10, -45,  15, 40),   # Day/morning
     Tone.new( 10, -20,  30, 20),   # Day
-    Tone.new( 10, -20,  30, 20),   # Day
-    Tone.new( 10, -20,  30, 20),   # Day             # Noon
-    Tone.new( 10, -20,  30, 20),   # Day
-    Tone.new( 10, -20,  30, 20),   # Day/afternoon
-    Tone.new( 10, -20,  30, 20),   # Day/afternoon
-    Tone.new( 10, -20,  30, 20),   # Day/afternoon
-    Tone.new( 10, -20,  30, 20),   # Day/afternoon
     Tone.new(  5, -50,  10, 20),   # Day/evening     # 6PM 
     Tone.new( -5, -80,  20, 40),   # Day/evening
-    Tone.new( -5, -80,  20, 40),   # Day/evening
     Tone.new(-30, -95,  35, 60),   # Night
-    Tone.new(-60,-110,  45, 75),   # Night
-    Tone.new(-60,-110,  45, 75)    # Night
   ]
   HourlyTones3=[ # Classic
     Tone.new(-70, -90,  15, 55),   # Night           # Midnight
-    Tone.new(-70, -90,  15, 55),   # Night
-    Tone.new(-70, -90,  15, 55),   # Night
-    Tone.new(-70, -90,  15, 55),   # Night
     Tone.new(-60, -70,  -5, 50),   # Night
-    Tone.new(-40, -50, -35, 50),   # Day/morning
-    Tone.new(-40, -50, -35, 50),   # Day/morning     # 6AM
-    Tone.new(-40, -50, -35, 50),   # Day/morning
     Tone.new(-40, -50, -35, 50),   # Day/morning
     Tone.new(-20, -25, -15, 20),   # Day/morning
     Tone.new(  0,   0,   0,  0),   # Day
-    Tone.new(  0,   0,   0,  0),   # Day
-    Tone.new(  0,   0,   0,  0),   # Day             # Noon
-    Tone.new(  0,   0,   0,  0),   # Day
-    Tone.new(  0,   0,   0,  0),   # Day/afternoon
-    Tone.new(  0,   0,   0,  0),   # Day/afternoon
-    Tone.new(  0,   0,   0,  0),   # Day/afternoon
-    Tone.new(  0,   0,   0,  0),   # Day/afternoon
     Tone.new( -5, -30, -20,  0),   # Day/evening     # 6PM 
     Tone.new(-15, -60, -10, 20),   # Day/evening
-    Tone.new(-15, -60, -10, 20),   # Day/evening
     Tone.new(-40, -75,   5, 40),   # Night
-    Tone.new(-70, -90,  15, 55),   # Night
-    Tone.new(-70, -90,  15, 55)    # Night
   ]
   HourlyTones4=[ # Cubic (5 -10 -10 15) - (0 -20 -50 10)
     Tone.new(-65,-100,   5, 70),   # Night           # Midnight
-    Tone.new(-65,-100,   5, 70),   # Night
-    Tone.new(-65,-100,   5, 70),   # Night
-    Tone.new(-65,-100,   5, 70),   # Night
     Tone.new(-55, -80, -15, 65),   # Night
-    Tone.new(-35, -60, -45, 65),   # Day/morning
-    Tone.new(-35, -60, -45, 65),   # Day/morning     # 6AM
-    Tone.new(-35, -60, -45, 65),   # Day/morning
     Tone.new(-35, -60, -45, 65),   # Day/morning
     Tone.new(-15, -35, -25, 35),   # Day/morning
     Tone.new(  5, -10, -10, 15),   # Day
-    Tone.new(  5, -10, -10, 15),   # Day
-    Tone.new(  5, -10, -10, 15),   # Day             # Noon
-    Tone.new(  5, -10, -10, 15),   # Day
-    Tone.new(  5, -10, -10, 15),   # Day/afternoon
-    Tone.new(  5, -10, -10, 15),   # Day/afternoon
-    Tone.new(  5, -10, -10, 15),   # Day/afternoon
-    Tone.new(  5, -10, -10, 15),   # Day/afternoon
     Tone.new(  0, -40, -30, 15),   # Day/evening     # 6PM 
     Tone.new(-10, -70, -20, 35),   # Day/evening
-    Tone.new(-10, -70, -20, 35),   # Day/evening
     Tone.new(-35, -85,  -5, 55),   # Night
-    Tone.new(-65,-100,   5, 70),   # Night
-    Tone.new(-65,-100,   5, 70)    # Night
   ]
-  HourlyTonesIE=[ # Classic
-     Tone.new(-142.5,-142.5,-22.5,68),     # Midnight
-     Tone.new(-135.5,-135.5,-24,  68),
-     Tone.new(-127.5,-127.5,-25.5,68),
-     Tone.new(-127.5,-127.5,-25.5,68),
-     Tone.new(-119,  -96.3, -45.3,45.3),
-     Tone.new(-51,   -73.7, -73.7,22.7),
-     Tone.new(17,    -51,   -102, 0),      # 6AM
-     Tone.new(14.2,  -42.5, -85,  0),
-     Tone.new(11.3,  -34,   -68,  0),
-     Tone.new(8.5,   -25.5, -51,  0),
-     Tone.new(5.7,   -17,   -34,  0),
-     Tone.new(2.8,   -8.5,  -17,  0),
-     Tone.new(0,     0,     0,    0),      # Noon
-     Tone.new(0,     0,     0,    0),
-     Tone.new(0,     0,     0,    0),
-     Tone.new(0,     0,     0,    0),
-     Tone.new(-3,    -7,    -2,   0),
-     Tone.new(-10,   -18,   -5,   0),
-     Tone.new(-36,   -75,   -13,  0),      # 6PM
-     Tone.new(-72,   -136,  -34,  3),
-     Tone.new(-88.5, -133,  -31,  34),
-     Tone.new(-108.5,-129,  -28,  68),
-     Tone.new(-127.5,-127.5,-25.5,68),
-     Tone.new(-142.5,-142.5,-22.5,68)
+  HourlyTonesSeason=[
+    [
+      0,   # Night           # Midnight
+      0,   # Night
+      0,   # Night
+      0,   # Night
+      1,   # Night
+      2,   # Day/morning
+      2,   # Day/morning     # 6AM
+      2,   # Day/morning
+      2,   # Day/morning
+      3,   # Day/morning
+      4,   # Day
+      4,   # Day
+      4,   # Day             # Noon
+      4,   # Day
+      4,   # Day/afternoon
+      4,   # Day/afternoon
+      4,   # Day/afternoon
+      5,   # Day/evening
+      6,   # Day/evening     # 6PM 
+      6,   # Day/evening
+      7,   # Night
+      0,   # Night
+      0,   # Night
+      0    # Night
+    ],  # Spring
+    [
+      0,   # Night           # Midnight
+      0,   # Night
+      0,   # Night
+      1,   # Night
+      2,   # Day/morning
+      2,   # Day/morning
+      2,   # Day/morning     # 6AM
+      2,   # Day/morning
+      3,   # Day/morning
+      4,   # Day
+      4,   # Day
+      4,   # Day
+      4,   # Day             # Noon
+      4,   # Day
+      4,   # Day
+      4,   # Day/afternoon
+      4,   # Day/afternoon
+      4,   # Day/afternoon
+      4,   # Day/afternoon   # 6PM 
+      5,   # Day/evening
+      6,   # Day/evening
+      7,   # Night
+      0,   # Night
+      0    # Night
+    ],  # Summer
+    [
+      0,   # Night           # Midnight
+      0,   # Night
+      0,   # Night
+      0,   # Night
+      0,   # Night
+      1,   # Night
+      2,   # Day/morning     # 6AM
+      2,   # Day/morning
+      2,   # Day/morning
+      3,   # Day/morning
+      4,   # Day
+      4,   # Day
+      4,   # Day             # Noon
+      4,   # Day
+      4,   # Day/afternoon
+      4,   # Day/afternoon
+      4,   # Day/afternoon
+      4,   # Day/afternoon
+      5,   # Day/evening     # 6PM 
+      6,   # Day/evening
+      7,   # Night
+      0,   # Night
+      0,   # Night
+      0    # Night
+    ],  # Autumn/Fall
+    [
+      0,   # Night           # Midnight
+      0,   # Night
+      0,   # Night
+      0,   # Night
+      0,   # Night
+      0,   # Night
+      1,   # Night           # 6AM
+      2,   # Day/morning
+      2,   # Day/morning
+      3,   # Day/morning
+      4,   # Day/Morning
+      4,   # Day
+      4,   # Day             # Noon
+      4,   # Day/afternoon
+      4,   # Day/afternoon
+      4,   # Day/afternoon
+      4,   # Day/afternoon
+      5,   # Day/evening
+      6,   # Day/evening     # 6PM 
+      7,   # Night
+      0,   # Night
+      0,   # Night
+      0,   # Night
+      0    # Night
+    ]   # Winter
   ]
   @cachedTone=nil
   @dayNightToneLastUpdate=nil
@@ -332,18 +241,20 @@ HourlyTones2=[ # Linear
     realMinutes=pbGetDayNightMinutes
     hour=realMinutes/60
     minute=realMinutes%60
+    activetone=PBDayNight::HourlyTonesSeason[pbGetSeason]
     if ($PokemonSystem.night==3 rescue false)
-      tone=PBDayNight::HourlyTones4[hour] # Cubic
-      nexthourtone=PBDayNight::HourlyTones4[(hour+1)%24]
+      tone=PBDayNight::HourlyTones4[activetone[hour]] # Cubic
+      nexthourtone=PBDayNight::HourlyTones4[activetone[(hour+1)%24]]
     elsif ($PokemonSystem.night==2 rescue false)
-      tone=PBDayNight::HourlyTones[hour] # Lunar
-      nexthourtone=PBDayNight::HourlyTones[(hour+1)%24]
+      tone=PBDayNight::HourlyTones[activetone[hour]] # Lunar
+      nexthourtone=PBDayNight::HourlyTones[activetone[(hour+1)%24]]
     elsif ($PokemonSystem.night==1 rescue false)
-        tone=PBDayNight::HourlyTones2[hour] # Linear
-        nexthourtone=PBDayNight::HourlyTones2[(hour+1)%24]
+        tone=PBDayNight::HourlyTones2[activetone[hour]] # Linear
+        nexthourtone=PBDayNight::HourlyTones2[activetone[(hour+1)%24]]
     else
-        tone=PBDayNight::HourlyTones3[hour] # Classic
-        nexthourtone=PBDayNight::HourlyTones3[(hour+1)%24]
+        tone=PBDayNight::HourlyTones3[activetone[hour]] # Classic
+        
+        nexthourtone=PBDayNight::HourlyTones3[activetone[(hour+1)%24]]
     end
     # Calculate current tint according to current and next hour's tint and
     # depending on current minute

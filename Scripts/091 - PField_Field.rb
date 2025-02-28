@@ -1743,12 +1743,18 @@ Events.onMapChange+=proc {|sender,e|
     seasonweather = pbGetMetadata($game_map.map_id,MetadataOutdoor) && pbGetSeason>0
     $game_screen.weather(0,0,0) if !(weather || seasonweather)
     if $game_map.name!=mapinfos[oldid].name
-      $game_screen.weather([0,7,1,3][pbGetSeason],8,20)  if seasonweather
-      $game_screen.weather(weather[0],8,20) if weather && rand(100)<weather[1]
+      if weather && rand(100)<weather[1]
+        $game_screen.weather(weather[0],8,20)
+      else
+        $game_screen.weather([0,7,1,3][pbGetSeason],8,20)  if seasonweather
+      end
     else
       oldweather=pbGetMetadata(oldid,MetadataWeather)
-      $game_screen.weather([0,7,1,3][pbGetSeason],8,20)  if seasonweather && !oldweather
-      $game_screen.weather(weather[0],8,20) if weather && !oldweather && rand(100)<weather[1]
+      if weather && rand(100)<weather[1]
+        $game_screen.weather(weather[0],8,20) if !oldweather
+      else
+        $game_screen.weather([0,7,1,3][pbGetSeason],8,20)  if seasonweather && !oldweather
+      end
     end
   end
 }

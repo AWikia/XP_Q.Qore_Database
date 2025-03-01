@@ -1739,7 +1739,13 @@ Events.onMapChange+=proc {|sender,e|
   $PokemonGlobal.visitedMaps[$game_map.map_id]=true
   if oldid!=0 && oldid!=$game_map.map_id
     mapinfos=$RPGVX ? load_data("Data/MapInfos.rvdata") : load_data("Data/MapInfos.rxdata")
-    weather=pbGetMetadata($game_map.map_id,MetadataWeather)
+    weather=[
+            pbGetMetadata($game_map.map_id,MetadataWeatherSpring),
+            pbGetMetadata($game_map.map_id,MetadataWeatherSummer),
+            pbGetMetadata($game_map.map_id,MetadataWeatherAutumn),
+            pbGetMetadata($game_map.map_id,MetadataWeatherWinter)
+            ][pbGetSeason]
+    weather=pbGetMetadata($game_map.map_id,MetadataWeather) if !weather
     seasonweather = pbGetMetadata($game_map.map_id,MetadataOutdoor) && pbGetSeason>0
     $game_screen.weather(0,0,0) if !(weather || seasonweather)
     if $game_map.name!=mapinfos[oldid].name
@@ -1749,7 +1755,13 @@ Events.onMapChange+=proc {|sender,e|
         $game_screen.weather([0,7,1,3][pbGetSeason],8,20)  if seasonweather
       end
     else
-      oldweather=pbGetMetadata(oldid,MetadataWeather)
+      oldweather=[
+              pbGetMetadata(oldid,MetadataWeatherSpring),
+              pbGetMetadata(oldid,MetadataWeatherSummer),
+              pbGetMetadata(oldid,MetadataWeatherAutumn),
+              pbGetMetadata(oldid,MetadataWeatherWinter)
+              ][pbGetSeason]
+      oldweather=pbGetMetadata(oldid,MetadataWeather) if !oldweather
       if weather && rand(100)<weather[1]
         $game_screen.weather(weather[0],8,20) if !oldweather
       else
@@ -1765,12 +1777,24 @@ Events.onMapChanging+=proc {|sender,e|
   # Undo the weather ($game_map still refers to the old map)
   mapinfos=$RPGVX ? load_data("Data/MapInfos.rvdata") : load_data("Data/MapInfos.rxdata")
   if newmapID>0
-    oldweather=pbGetMetadata($game_map.map_id,MetadataWeather)
+    oldweather=[
+            pbGetMetadata($game_map.map_id,MetadataWeatherSpring),
+            pbGetMetadata($game_map.map_id,MetadataWeatherSummer),
+            pbGetMetadata($game_map.map_id,MetadataWeatherAutumn),
+            pbGetMetadata($game_map.map_id,MetadataWeatherWinter)
+            ][pbGetSeason]
+    oldweather=pbGetMetadata($game_map.map_id,MetadataWeather) if !oldweather
     seasonweather = pbGetMetadata(newmapID,MetadataOutdoor) && pbGetSeason>0
     if $game_map.name!=mapinfos[newmapID].name
       $game_screen.weather(0,0,0) if oldweather && !seasonweather
     else
-      newweather=pbGetMetadata(newmapID,MetadataWeather)
+      newweather=[
+              pbGetMetadata(newmapID,MetadataWeatherSpring),
+              pbGetMetadata(newmapID,MetadataWeatherSummer),
+              pbGetMetadata(newmapID,MetadataWeatherAutumn),
+              pbGetMetadata(newmapID,MetadataWeatherWinter)
+              ][pbGetSeason]
+      newweather=pbGetMetadata(newmapID,MetadataWeather) if !newweather
       $game_screen.weather(0,0,0) if oldweather && !(newweather || seasonweather)
     end
   end

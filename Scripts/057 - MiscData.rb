@@ -77,7 +77,10 @@ MetadataFutureMap           = 21
 MetadataPseudoDarkMap       = 22
 MetadataDisableAutosaving   = 23
 MetadataForbidSaving        = 24
-
+MetadataWeatherSpring       = 25
+MetadataWeatherSummer       = 26
+MetadataWeatherAutumn       = 27
+MetadataWeatherWinter       = 28
 
 
 module PokemonMetadata
@@ -105,6 +108,10 @@ module PokemonMetadata
      "BicycleAlways"=>[MetadataBicycleAlways,"b"],
      "HealingSpot"=>[MetadataHealingSpot,"uuu"],
      "Weather"=>[MetadataWeather,"eu",:PBFieldWeather],
+     "WeatherSpring"=>[MetadataWeatherSpring,"eu",:PBFieldWeather],
+     "WeatherSummer"=>[MetadataWeatherSummer,"eu",:PBFieldWeather],
+     "WeatherAutumn"=>[MetadataWeatherAutumn,"eu",:PBFieldWeather],
+     "WeatherWinter"=>[MetadataWeatherWinter,"eu",:PBFieldWeather],
      "MapPosition"=>[MetadataMapPosition,"uuu"],
      "DiveMap"=>[MetadataDiveMap,"u"],
      "PastMap"=>[MetadataPastMap,"u"],

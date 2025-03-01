@@ -93,6 +93,7 @@ ShowArea=true
 MapSize=2,1111
 BattleBack=Quora
 Bicycle=false
+WeatherWinter=Rain,100
 MapPosition=2,2,2
 Outdoor=true
 PastMap=504
@@ -138,6 +139,7 @@ ShowArea=true
 # Quora Zwei
 MapSize=2,11
 BattleBack=Quora
+WeatherWinter=Rain,50
 FutureMap=528
 MapPosition=2,10,8
 Outdoor=true
@@ -202,6 +204,7 @@ ShowArea=true
 # Swuora Zwei
 MapSize=2,1111
 BattleBack=Swuora
+WeatherSummer=Storm,30
 FutureMap=530
 MapPosition=3,3,16
 Outdoor=true
@@ -376,6 +379,7 @@ ShowArea=true
 # Semuora Eins
 MapSize=2,1111
 BattleBack=Semuora
+WeatherWinter=Rain,100
 Bicycle=false
 MapPosition=4,4,9
 Outdoor=true
@@ -383,6 +387,8 @@ ShowArea=true
 [078]
 # Semuora Zwei
 MapSize=2,1111
+WeatherSpring=Rain,30
+WeatherSummer=HeavyRain,30
 BattleBack=Semuora
 MapPosition=4,10,10
 Outdoor=true
@@ -408,6 +414,8 @@ ShowArea=true
 MapSize=2,1111
 BattleBack=Semuora
 Weather=Sunny,35
+WeatherSummer=HeavyRain,35
+WeatherWinter=Sunny,10
 Bicycle=false
 MapPosition=4,15,5
 Outdoor=true
@@ -445,6 +453,7 @@ ShowArea=true
 MapSize=2,1111
 BattleBack=Kenuora
 Weather=Sunny,40
+WeatherWinter=Sunny,20
 FutureMap=532
 MapPosition=5,17,5
 Outdoor=true
@@ -488,6 +497,7 @@ ShowArea=true
 # Jarol Garden
 BattleBack=Jarol
 Bicycle=false
+WeatherSpring=Rain,15
 FutureMap=535
 MapPosition=6,12,12
 Outdoor=true
@@ -506,6 +516,8 @@ ShowArea=true
 # Xenuora Drei
 MapSize=2,1111
 BattleBack=Xenuora
+WeatherAutumn=Sunny,25
+WeatherWinter=Blizzard,50
 Bicycle=false
 MapPosition=6,12,12
 Outdoor=true
@@ -525,6 +537,7 @@ MapPosition=6,23,11
 # Xenuora Funf
 MapSize=2,1111
 BattleBack=Xenuora
+WeatherSummer=Storm,100
 Bicycle=false
 MapPosition=6,27,17
 Outdoor=true
@@ -552,6 +565,7 @@ BattleBack=Champion
 # Annuora Eins
 MapSize=2,1111
 BattleBack=Annuora
+WeatherWinter=Rain,30
 MapPosition=7,1,2
 Outdoor=true
 PastMap=518
@@ -584,6 +598,7 @@ ShowArea=true
 MapSize=2,1111
 BattleBack=Annuora
 Weather=Sandstorm,30
+WeatherWinter=Sandstorm,20
 Bicycle=false
 MapPosition=7,24,15
 Outdoor=true
@@ -634,6 +649,8 @@ ShowArea=true
 # Keniora Vier
 MapSize=2,1111
 BattleBack=Keniora
+WeatherAutumn=Storm,80
+WeatherWinter=Rain,20
 MapPosition=8,15,5
 Outdoor=true
 PastMap=522
@@ -656,6 +673,7 @@ HealingSpot=118,27,5
 # Keniora Sechs
 MapSize=2,1111
 BattleBack=Keniora
+WeatherAutumn=Sandstorm,10
 Bicycle=false
 MapPosition=8,20,14
 Outdoor=true
@@ -682,6 +700,7 @@ ShowArea=true
 # Xeniora Eins
 BattleBack=Xeniora
 Bicycle=false
+WeatherSummer=None,100
 MapPosition=9,2,3
 Outdoor=true
 Environment=Graveyard
@@ -737,6 +756,7 @@ ShowArea=true
 # Xeniora Drei
 BattleBack=Xeniora
 Weather=Sunny,100
+WeatherWinter=Sunny,50
 MapPosition=9,6,5
 Outdoor=true
 Environment=Forest
@@ -830,6 +850,8 @@ ShowArea=true
 # Azalea Town
 TrainerBattleBGM=Battle - Trainer (Johto)
 MapPosition=10,13,17
+WeatherAutumn=HeavyRain,99
+WeatherWinter=Rain,100
 Outdoor=true
 WildBattleBGM=Battle - Wild Pokemon (Johto)
 ShowArea=true
@@ -901,6 +923,7 @@ WildBattleBGM=Battle - Wild Pokemon (Johto)
 [160]
 # Route 35
 TrainerBattleBGM=Battle - Trainer (Johto)
+WeatherWinter=Blizzard,20
 MapPosition=10,11,11
 Outdoor=true
 WildBattleBGM=Battle - Wild Pokemon (Johto)
@@ -908,6 +931,7 @@ ShowArea=true
 [161]
 # Route 36
 TrainerBattleBGM=Battle - Trainer (Johto)
+WeatherWinter=Blizzard,20
 MapPosition=10,12,9
 Outdoor=true
 WildBattleBGM=Battle - Wild Pokemon (Johto)
@@ -915,6 +939,7 @@ ShowArea=true
 [162]
 # Route 37
 TrainerBattleBGM=Battle - Trainer (Johto)
+WeatherWinter=Blizzard,20
 MapPosition=10,12,8
 Outdoor=true
 WildBattleBGM=Battle - Wild Pokemon (Johto)
@@ -1029,6 +1054,8 @@ WildBattleBGM=Battle - Wild Pokemon (Johto)
 MapSize=2,11
 TrainerBattleBGM=Battle - Trainer (Johto)
 MapPosition=10,19,7
+WeatherAutumn=Snow,25
+WeatherWinter=Blizzard,25
 Outdoor=true
 WildBattleBGM=Battle - Wild Pokemon (Johto)
 ShowArea=true
@@ -1036,6 +1063,7 @@ ShowArea=true
 # Ice Path
 SnapEdges=true
 BattleBack=IndoorC
+WeatherWinter=Snow,10
 TrainerBattleBGM=Battle - Trainer (Johto)
 MapPosition=10,20,7
 Environment=Snow
@@ -1100,6 +1128,8 @@ HealingSpot=191,20,17
 [194]
 # Route 104
 MapSize=1,111
+WeatherAutumn=Storm,60
+WeatherWinter=Rain,100
 TrainerBattleBGM=Battle - Trainer (Hoenn)
 MapPosition=11,1,9
 Outdoor=true
@@ -1115,6 +1145,7 @@ ShowArea=true
 [196]
 # Rustboro City
 MapSize=1,11
+WeatherWinter=Rain,100
 TrainerBattleBGM=Battle - Trainer (Hoenn)
 MapPosition=11,1,7
 Outdoor=true
@@ -1210,6 +1241,8 @@ ShowArea=true
 [215]
 # Route 121
 TrainerBattleBGM=Battle - Trainer (Hoenn)
+WeatherSummer=Rain,50
+WeatherAutumn=Snow,25
 MapPosition=11,18,5
 Outdoor=true
 WildBattleBGM=Battle - Wild Pokemon (Hoenn)
@@ -1218,6 +1251,7 @@ ShowArea=true
 # Lilycone City
 MapSize=2,11
 TrainerBattleBGM=Battle - Trainer (Hoenn)
+WeatherAutumn=Snow,25
 MapPosition=11,19,5
 Outdoor=true
 WildBattleBGM=Battle - Wild Pokemon (Hoenn)
@@ -1226,6 +1260,7 @@ ShowArea=true
 # Route 124
 MapSize=2,11
 TrainerBattleBGM=Battle - Trainer (Hoenn)
+WeatherWinter=Blizzard,25
 MapPosition=11,21,5
 Outdoor=true
 WildBattleBGM=Battle - Wild Pokemon (Hoenn)
@@ -1627,6 +1662,7 @@ ShowArea=true
 MapSize=1,11
 BattleBack=Navel
 Bicycle=true
+WeatherSummer=Rain,25
 MapPosition=19,12,8
 Outdoor=true
 ShowArea=true
@@ -1865,6 +1901,7 @@ ShowArea=true
 # Ice Path
 SnapEdges=true
 BattleBack=IndoorC
+WeatherWinter=Snow,10
 TrainerBattleBGM=Battle - Trainer (Johto)
 MapPosition=10,20,7
 Environment=Snow
@@ -1939,6 +1976,7 @@ HealingSpot=128,22,5
 # Xeniora Vier
 BattleBack=Xeniora
 Weather=Sunny,100
+WeatherWinter=Sunny,50
 MapPosition=9,5,8
 Outdoor=true
 Environment=Forest
@@ -1958,6 +1996,9 @@ ShowArea=true
 MapSize=2,11
 BattleBack=Xeniora
 Weather=Rain,25
+WeatherSummer=Storm,25
+WeatherAutumn=HeavyRain,50
+WeatherWinter=Rain,50
 Bicycle=false
 MapPosition=9,18,16
 Outdoor=true
@@ -1967,6 +2008,7 @@ ShowArea=true
 MapSize=3,110111011
 BattleBack=Cindyora
 Weather=Sunny,10
+WeatherSummer=Rain,10
 Bicycle=false
 MapPosition=13,1,1
 Outdoor=true
@@ -1976,6 +2018,8 @@ ShowArea=true
 # Cindyora Zwei
 BattleBack=Cindyora
 Weather=Rain,100
+WeatherSummer=Storm,100
+WeatherAutumn=Storm,100
 MapPosition=13,4,7
 Outdoor=true
 ShowArea=true
@@ -1988,6 +2032,8 @@ HealingSpot=346,5,6
 MapSize=3,111
 BattleBack=Cindyora
 Weather=Rain,100
+WeatherSummer=Storm,100
+WeatherAutumn=Storm,100
 MapPosition=13,7,5
 Outdoor=true
 ShowArea=true
@@ -2011,6 +2057,8 @@ ShowArea=true
 MapSize=2,111011
 BattleBack=Cindyora
 Weather=Blizzard,100
+WeatherSummer=None,100
+WeatherAutumn=Snow,100
 MapPosition=13,4,13
 Outdoor=true
 Environment=Snow
@@ -2024,6 +2072,7 @@ HealingSpot=351,4,5
 MapSize=2,11
 BattleBack=Cindyora
 Weather=Storm,30
+WeatherAutumn=Storm,90
 MapPosition=13,27,18
 Outdoor=true
 Environment=Snow
@@ -2033,6 +2082,8 @@ ShowArea=true
 MapSize=3,110111011
 BattleBack=Sanuora
 Weather=Sunny,30
+WeatherAutumn=None,30
+WeatherWinter=Rain,30
 MapPosition=14,1,1
 Outdoor=true
 Environment=Space
@@ -2042,6 +2093,9 @@ ShowArea=true
 MapSize=3,111101111101
 BattleBack=Sanuora
 Weather=HeavyRain,100
+WeatherSummer=Storm,50
+WeatherAutumn=Storm,100
+WeatherWinter=Blizzard,100
 MapPosition=14,7,6
 Outdoor=true
 ShowArea=true
@@ -2050,6 +2104,7 @@ ShowArea=true
 MapSize=3,100100111001001
 BattleBack=Sanuora
 Weather=Sandstorm,75
+WeatherAutumn=Sandstorm,100
 MapPosition=14,15,5
 Outdoor=true
 Environment=Space
@@ -2059,6 +2114,7 @@ ShowArea=true
 MapSize=3,101101111
 BattleBack=Sanuora
 Weather=Sunny,100
+WeatherWinter=Rain,50
 MapPosition=14,2,9
 Outdoor=true
 Environment=Space
@@ -2068,6 +2124,7 @@ ShowArea=true
 MapSize=3,111111111
 BattleBack=Saniora1
 Weather=Sunny,100
+WeatherWinter=Rain,50
 MapPosition=14,24,6
 Outdoor=true
 Environment=Sky
@@ -2079,6 +2136,7 @@ MapSize=3,111101111111101
 DiveMap=360
 BattleBack=Saniora2
 Weather=Storm,100
+WeatherWinter=Storm,70
 MapPosition=14,1,14
 Outdoor=true
 Environment=Galaxy
@@ -2096,6 +2154,7 @@ ShowArea=true
 MapSize=3,111101111101
 BattleBack=Saniora3
 Weather=Storm,100
+WeatherWinter=Storm,70
 MapPosition=14,25,13
 Outdoor=true
 Environment=Galaxy
@@ -2104,6 +2163,7 @@ ShowArea=true
 [362]
 # Saniora Eins
 BattleBack=Saniora4
+WeatherSummer=Rain,10
 MapPosition=15,1,1
 Outdoor=true
 WildBattleBGM=Battle - Wild Pokemon (Nebula Cave)
@@ -2111,6 +2171,7 @@ ShowArea=true
 [363]
 # Saniora Zwei
 BattleBack=Saniora5
+WeatherSummer=Rain,10
 MapPosition=15,7,4
 Outdoor=true
 WildBattleBGM=Battle - Wild Pokemon (Nebula Cave)
@@ -2118,6 +2179,7 @@ ShowArea=true
 [364]
 # Saniora Drei
 BattleBack=Saniora6
+WeatherSummer=Rain,10
 MapPosition=15,7,8
 Outdoor=true
 WildBattleBGM=Battle - Wild Pokemon (Nebula Cave)
@@ -2125,6 +2187,7 @@ ShowArea=true
 [365]
 # Saniora Vier
 BattleBack=Saniora7
+WeatherSummer=Rain,10
 MapPosition=15,11,11
 Outdoor=true
 WildBattleBGM=Battle - Wild Pokemon (Nebula Cave)
@@ -2132,6 +2195,7 @@ ShowArea=true
 [366]
 # Saniora Sieben
 BattleBack=Semuora
+WeatherSummer=Rain,10
 MapPosition=15,24,17
 Outdoor=true
 WildBattleBGM=Battle - Wild Pokemon (Nebula Cave)
@@ -2139,6 +2203,7 @@ ShowArea=true
 [367]
 # Saniora Acht
 BattleBack=Kenuora
+WeatherSummer=Rain,10
 MapPosition=15,27,12
 Outdoor=true
 WildBattleBGM=Battle - Wild Pokemon (Nebula Cave)
@@ -2313,6 +2378,9 @@ ShowArea=true
 [396]
 # Floaroma Meadow
 BattleBack=Forest
+WeatherSummer=HeavyRain,100
+WeatherAutumn=None,40
+WeatherWinter=None,40
 Bicycle=false
 TrainerBattleBGM=Battle - Trainer (Sinnoh)
 Outdoor=true
@@ -2339,6 +2407,7 @@ ShowArea=true
 # Quora Zwei
 MapSize=2,11
 BattleBack=Quora
+WeatherWinter=Rain,50
 FutureMap=529
 MapPosition=2,10,9
 Outdoor=true
@@ -2470,6 +2539,9 @@ ShowArea=true
 # Fusion Path
 MapSize=2,111111
 BattleBack=Navel
+WeatherSpring=Snow,5
+WeatherSummer=Rain,60
+WeatherAutumn=Snow,30
 Bicycle=true
 MapPosition=19,12,2
 Outdoor=true
@@ -2493,6 +2565,7 @@ MapSize=1,11
 BattleBack=IndoorF
 MapPosition=18,19,9
 Outdoor=true
+Weather=None,100
 ForbidSaving=true
 Environment=Boardwalk
 ShowArea=true
@@ -2970,6 +3043,7 @@ ShowArea=true
 MapSize=2,1111
 BattleBack=Quora
 Bicycle=false
+WeatherWinter=Rain,100
 MapPosition=2,2,2
 Outdoor=true
 ShowArea=true
@@ -2980,6 +3054,7 @@ ShowArea=true
 # Past Swuora Zwei
 MapSize=2,1111
 BattleBack=Swuora
+WeatherSummer=Rain,30
 MapPosition=3,3,16
 Outdoor=true
 ShowArea=true
@@ -3039,6 +3114,7 @@ ShowArea=true
 MapSize=2,1111
 BattleBack=Kenuora
 Weather=Rain,90
+WeatherSummer=HeavyRain,90
 MapPosition=5,17,5
 Outdoor=true
 ShowArea=true
@@ -3097,6 +3173,8 @@ ShowArea=true
 MapSize=3,110111011
 BattleBack=Cindyora
 Weather=Rain,80
+WeatherSummer=Storm,80
+WeatherWinter=Blizzard,80
 Bicycle=false
 MapPosition=13,1,1
 Outdoor=true
@@ -3119,6 +3197,9 @@ ShowArea=true
 # Future Quora Zwei
 MapSize=2,11
 BattleBack=Quora
+WeatherSummer=Storm,100
+WeatherAutumn=HeavyRain,100
+WeatherWinter=None,30
 MapPosition=2,10,8
 Outdoor=true
 ShowArea=true
@@ -3126,6 +3207,9 @@ ShowArea=true
 # Future Quora Zwei
 MapSize=2,11
 BattleBack=Quora
+WeatherSummer=Storm,100
+WeatherAutumn=HeavyRain,100
+WeatherWinter=None,30
 MapPosition=2,10,9
 Outdoor=true
 ShowArea=true
@@ -3133,6 +3217,9 @@ ShowArea=true
 # Future Swuora Zwei
 MapSize=2,1111
 BattleBack=Swuora
+WeatherSpring=HeavyRain,30
+WeatherSummer=Storm,50
+WeatherAutumn=Storm,30
 MapPosition=3,3,16
 Outdoor=true
 ShowArea=true
@@ -3145,6 +3232,8 @@ ShowArea=true
 # Future Kenuora Drei
 MapSize=2,1111
 BattleBack=Kenuora
+WeatherAutum=None,30
+WeatherWinter=None,30
 MapPosition=5,17,5
 Outdoor=true
 ShowArea=true
@@ -3165,6 +3254,8 @@ ShowArea=true
 # Jarol Playground
 BattleBack=Jarol
 Bicycle=false
+WeatherAutumn=None,50
+WeatherWinter=None,100
 MapPosition=6,12,12
 Outdoor=true
 Environment=Forest
@@ -3241,6 +3332,7 @@ Weather=None,40
 [546]
 # Saniora Funf
 BattleBack=Quora
+WeatherSummer=Rain,10
 MapPosition=15,17,8
 Outdoor=true
 WildBattleBGM=Battle - Wild Pokemon (Nebula Cave)
@@ -3248,6 +3340,7 @@ ShowArea=true
 [547]
 # Saniora Sechs
 BattleBack=Swuora
+WeatherSummer=Rain,10
 MapPosition=15,18,13
 Outdoor=true
 WildBattleBGM=Battle - Wild Pokemon (Nebula Cave)
@@ -3299,6 +3392,9 @@ ShowArea=true
 # Future Lake of Rage
 MapPosition=10,17,3
 Outdoor=true
+WeatherSummer=Storm,100
+WeatherAutumn=Storm,100
+WeatherWinter=None,100
 WildBattleBGM=Battle - Wild Pokemon (Johto)
 ShowArea=true
 [555]

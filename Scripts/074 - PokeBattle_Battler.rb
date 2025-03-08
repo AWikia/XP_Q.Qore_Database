@@ -1797,6 +1797,20 @@ def ragefist
         transformed=true
       end
     end
+    # MediaFire
+    if isConst?(self.species,PBSpecies,:MEDIAFIRE) && !self.hasWorkingItem(:UTILITYUMBRELLA)
+      if self.hp>((self.totalhp/2).floor) &&
+         (@battle.pbWeather==PBWeather::SUNNYDAY ||
+         @battle.pbWeather==PBWeather::HARSHSUN)
+        if self.form!=1
+          self.form=1; transformed=true
+        end
+      else
+        if self.form!=0
+          self.form=0; transformed=true
+        end
+      end
+    end
     if transformed
       pbUpdate(true,(transformed != 'partial'))
       @battle.scene.pbChangePokemon(self,@pokemon)

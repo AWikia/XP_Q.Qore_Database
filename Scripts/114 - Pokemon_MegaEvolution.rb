@@ -1283,6 +1283,95 @@ MultipleForms.register(:GIRAFARIG,{
 }
 })
 
+MultipleForms.register(:NICKELODEON,{
+"getMegaForm"=>proc{|pokemon|
+   next 1 if isConst?(pokemon.item,PBItems,:NICKITE)
+   next
+},
+"getPrimalForm"=>proc{|pokemon|
+   next 2 if isConst?(pokemon.item,PBItems,:CRYSTALORB)
+   next
+},
+"type1"=>proc{|pokemon|
+   next getID(PBTypes,:GROUND) if pokemon.form==2
+   next
+},
+"type2"=>proc{|pokemon|
+   next getID(PBTypes,:FLYING) if pokemon.form==1
+   next getID(PBTypes,:WATER) if pokemon.form==2
+   next
+},
+
+"getBaseStats"=>proc{|pokemon|
+   next [113,29,41,119,127,124] if pokemon.form==1
+   next [113,49,41,99,127,144] if pokemon.form==2
+   next
+},
+"getAbilityList"=>proc{|pokemon|
+   next [[getID(PBAbilities,:ANTICYCLONE),0]] if pokemon.form==1
+   next [[getID(PBAbilities,:PRIMORDIALSEA),0]] if pokemon.form==2
+   next
+},
+"height"=>proc{|pokemon|
+   next 20 if pokemon.form==1
+   next 16 if pokemon.form==2
+   next
+},
+"weight"=>proc{|pokemon|
+   next 700 if pokemon.form==2
+   next
+},
+"color"=>proc{|pokemon|
+   next if pokemon.form==0
+   next 1 if pokemon.form==2
+},
+"dexEntry"=>proc{|pokemon|
+   next if pokemon.form==0
+   next _INTL("When a Nickelodeon becomes Mega Evolved, it gains a splat-like appearance to increase its mind and fly everywhere.") if pokemon.form==1
+   next _INTL("Ancient Nickelodeon can become more durable if they're kept in an extremely safe place and don't battle too much.") if pokemon.form==2
+}
+})
+
+MultipleForms.register(:NICKPLUS,{
+"getMegaForm"=>proc{|pokemon|
+   next 1 if isConst?(pokemon.item,PBItems,:NICKITE)
+   next
+},
+"getPrimalForm"=>proc{|pokemon|
+   next 2 if isConst?(pokemon.item,PBItems,:CRYSTALORB)
+   next
+},
+"type2"=>proc{|pokemon|
+   next getID(PBTypes,:FLYING) if pokemon.form==1
+   next getID(PBTypes,:WATER) if pokemon.form==2
+   next
+},
+
+"getBaseStats"=>proc{|pokemon|
+   next [225,81,82,220,240,237] if pokemon.form==1
+   next [225,101,82,200,240,257] if pokemon.form==2
+   next
+},
+"getAbilityList"=>proc{|pokemon|
+   next [[getID(PBAbilities,:ANTICYCLONE),0]] if pokemon.form==1
+   next [[getID(PBAbilities,:PRIMORDIALSEA),0]] if pokemon.form==2
+   next
+},
+"height"=>proc{|pokemon|
+   next 20 if pokemon.form==1
+   next 16 if pokemon.form==2
+   next
+},
+"weight"=>proc{|pokemon|
+   next 1050 if pokemon.form==2
+   next
+},
+"dexEntry"=>proc{|pokemon|
+   next if pokemon.form==0
+   next _INTL("When a Nickplus becomes Mega Evolved, it gains a splat-like appearance to increase its mind and fly everywhere.") if pokemon.form==1
+   next _INTL("Ancient Nickplus can become more durable if they're kept in an extremely safe place and don't battle too much.") if pokemon.form==2
+}
+})
 
 
 MultipleForms.register(:ANT1,{
@@ -1394,6 +1483,34 @@ MultipleForms.register(:MAKTV,{
    next _INTL("This Makedonia TV appears to be dated back to the old ages. Nothing else known yet") if pokemon.form==2
 }
 })
+
+MultipleForms.register(:NICKJR,{
+"getMegaForm"=>proc{|pokemon|
+   next 1 if isConst?(pokemon.item,PBItems,:NICKITE)
+   next
+},
+"type2"=>proc{|pokemon|
+   next getID(PBTypes,:FLYING) if pokemon.form==1
+   next
+},
+"getBaseStats"=>proc{|pokemon|
+   next [180,55,65,120,65,145] if pokemon.form==1
+   next
+},
+"getAbilityList"=>proc{|pokemon|
+   next [[getID(PBAbilities,:BIGPECKS),0]] if pokemon.form==1
+   next
+},
+"height"=>proc{|pokemon|
+   next 20 if pokemon.form==1
+   next
+},
+"dexEntry"=>proc{|pokemon|
+   next if pokemon.form==0
+   next _INTL("When a Nick Jr. becomes Mega Evolved, it gains a splat-like appearance to increase its mind and fly everywhere.") if pokemon.form==1
+}
+})
+
 
 MultipleForms.register(:ANDROID,{
 "getMegaForm"=>proc{|pokemon|
@@ -1624,6 +1741,134 @@ MultipleForms.register(:COPILOT,{
    next _INTL("Once Copilot gets mega evolved, it becomes a specialized O shape. The Blues excel in magic attacking.")              if pokemon.form==3
    next _INTL("Once Copilot gets mega evolved, it becomes a specialized O shape. The Purples excel in magic defensing.")            if pokemon.form==4
    next _INTL("Once Copilot gets mega evolved, it becomes a specialized O shape. The Rainbows do not appear to excel in anything.") if pokemon.form==5
+}
+})
+
+MultipleForms.register(:TEENNICK,{
+"getMegaForm"=>proc{|pokemon|
+   next 1 if isConst?(pokemon.item,PBItems,:NICKITE)
+   next
+},
+"type1"=>proc{|pokemon|
+   next getID(PBTypes,:FLYING) if pokemon.form==1
+   next
+},
+"getBaseStats"=>proc{|pokemon|
+   next [95,90,90,53,60,60] if pokemon.form==1
+   next
+},
+"getAbilityList"=>proc{|pokemon|
+   next [[getID(PBAbilities,:LOVINGCLUSTER),0]] if pokemon.form==1
+   next
+},
+"height"=>proc{|pokemon|
+   next 20 if pokemon.form==1
+   next
+},
+"dexEntry"=>proc{|pokemon|
+   next if pokemon.form==0
+   next _INTL("When a TeenNick becomes Mega Evolved, it gains a splat-like appearance to increase its mind and fly everywhere.") if pokemon.form==1
+}
+})
+
+MultipleForms.register(:NICKTEEN,{
+"getMegaForm"=>proc{|pokemon|
+   next 1 if isConst?(pokemon.item,PBItems,:NICKITE)
+   next
+},
+"type1"=>proc{|pokemon|
+   next getID(PBTypes,:FLYING) if pokemon.form==1
+   next
+},
+"getBaseStats"=>proc{|pokemon|
+   next [95,60,60,53,90,90] if pokemon.form==1
+   next
+},
+"getAbilityList"=>proc{|pokemon|
+   next [[getID(PBAbilities,:LOVINGCLUSTER),0]] if pokemon.form==1
+   next
+},
+"height"=>proc{|pokemon|
+   next 20 if pokemon.form==1
+   next
+},
+"dexEntry"=>proc{|pokemon|
+   next if pokemon.form==0
+   next _INTL("When a NickTeen becomes Mega Evolved, it gains a splat-like appearance to increase its mind and fly everywhere.") if pokemon.form==1
+}
+})
+
+MultipleForms.register(:NICKATNITE,{
+"getMegaForm"=>proc{|pokemon|
+   next 1 if isConst?(pokemon.item,PBItems,:NICKITE)
+   next
+},
+"type1"=>proc{|pokemon|
+   next if pokemon.isMale?
+   next getID(PBTypes,:CHLOROPHYLL) # Eternal
+},
+"type2"=>proc{|pokemon|
+   next getID(PBTypes,:FLYING) if pokemon.form==1
+   next
+},
+"getBaseStats"=>proc{|pokemon|
+   next [160,85,60,119,97,68] if pokemon.form==1
+   next
+},
+"getAbilityList"=>proc{|pokemon|
+   next [[getID(PBAbilities,:OPPORTUNIST),0]] if pokemon.form==1
+   next
+},
+"height"=>proc{|pokemon|
+   next 20 if pokemon.form==1
+   next
+},
+"getMoveList"=>proc{|pokemon|
+   if pokemon.isFemale?
+     movelist=[[1,:LICK],[1,:LEER],[6,:CHLOROPHYLL],[12,:ROLLOUT],[18,:MIMIC],
+               [30,:AROMATHERAPY],[35,:CHLOROSTRENGTH],[45,:LICKINGLICK],
+               [50,:SUPERCHLOROPHYLL],[60,:CASTLEMANIA],[75,:LICKSTART]]
+     for i in movelist
+       i[1]=getConst(PBMoves,i[1])
+     end
+     next movelist
+   end
+   next
+},
+"dexEntry"=>proc{|pokemon|
+   next if pokemon.form==0
+   next _INTL("When a Nick@Nite becomes Mega Evolved, it gains a splat-like appearance to increase its mind and fly everywhere.") if pokemon.form==1
+}
+})
+
+MultipleForms.register(:NICKMUSIC,{
+"getMegaForm"=>proc{|pokemon|
+   next 1 if isConst?(pokemon.item,PBItems,:NICKITE)
+   next
+},
+"type2"=>proc{|pokemon|
+   next getID(PBTypes,:FLYING) if pokemon.form==1
+   next
+},
+"getBaseStats"=>proc{|pokemon|
+   next [120,85,85,75,145,145] if pokemon.form==1
+   next
+},
+"getAbilityList"=>proc{|pokemon|
+   next [[getID(PBAbilities,:SOUNDPROOF),0]] if pokemon.form==1
+   next
+},
+"height"=>proc{|pokemon|
+   next 14 if pokemon.form==1
+   next
+},
+"weight"=>proc{|pokemon|
+   next 101 if pokemon.form==1
+   next
+},
+"dexEntry"=>proc{|pokemon|
+   next if pokemon.form==0
+   next _INTL("When a NickMusic becomes Mega Evolved, it gains a splat-like appearance to increase its mind and fly everywhere.") if pokemon.form==1
 }
 })
 

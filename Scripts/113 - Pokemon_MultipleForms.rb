@@ -13090,22 +13090,29 @@ MultipleForms.register(:BUGZILLA,{
 }
 })
 
-MultipleForms.register(:NICKATNITE,{
-"type1"=>proc{|pokemon|
-   next if pokemon.isMale?
-   next getID(PBTypes,:CHLOROPHYLL) # Eternal
+
+MultipleForms.register(:MEDIAFIRE,{
+"type2"=>proc{|pokemon|
+   next if pokemon.form==0   # Land Forme
+   next getID(PBTypes,:LAVA) # Sky Forme
 },
-"getMoveList"=>proc{|pokemon|
-   if pokemon.isFemale?
-     movelist=[[1,:LICK],[1,:LEER],[6,:CHLOROPHYLL],[12,:ROLLOUT],[18,:MIMIC],
-               [30,:AROMATHERAPY],[35,:CHLOROSTRENGTH],[45,:LICKINGLICK],
-               [50,:SUPERCHLOROPHYLL],[60,:CASTLEMANIA],[75,:LICKSTART]]
-     for i in movelist
-       i[1]=getConst(PBMoves,i[1])
-     end
-     next movelist
-   end
-   next
+"weight"=>proc{|pokemon|
+   next if pokemon.form==0 # Land Forme
+   next 130                # Sky Forme
+},
+"getBaseStats"=>proc{|pokemon|
+   next if pokemon.form==0  # Land Forme
+   next [72,82,82,27,82,87] # Sky Forme
+},
+"color"=>proc{|pokemon|
+   next if pokemon.form==0
+   next 2 if pokemon.form==1
+},
+"getForm"=>proc{|pokemon|
+   next nil if $inbattle
+   next 0 if pokemon.hp<=50 || $game_screen.weather_type!=PBFieldWeather::Sun ||
+             isConst?(pokemon.item,PBItems,:UTILITYUMBRELLA)
+   next 1
 }
 })
 

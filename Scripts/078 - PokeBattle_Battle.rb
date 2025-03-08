@@ -598,6 +598,10 @@ class PokeBattle_Battle
             [:GROUDON,:REDORB],
             [:WINDOWS10,:MICROSOFTORB],
             [:WINDOWS11,:MICROSOFTORB],
+            [:ANT1,:GOLDORB],
+            [:MAKTV,:SILVERORB],
+            [:NICKELODEON,:CRYSTALORB],
+            [:NICKPLUS,:CRYSTALORB],
             # Elemental Stones for SBC
             [:SBC,:FIRESTONE],
             [:SBC,:LEAFSTONE],

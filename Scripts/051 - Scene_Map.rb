@@ -198,7 +198,11 @@ class Scene_Map
     $game_temp.debug_calling = false
     pbPlayDecisionSE()
     $game_player.straighten
-    $scene = Scene_Debug.new
+    scene=Scene_DebugSectionScene.new
+    screen=Scene_DebugSection.new(scene)
+    pbFadeOutIn(99999) {
+      screen.pbStartScreen
+    }
   end
 
   def autofade(mapid)

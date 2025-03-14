@@ -1,5 +1,5 @@
-class Scene_OptionSectionScene
-  def pbOptionSecMenu(inloadscreen=false)
+class Scene_DebugSectionScene
+  def pbDebugSecMenu(inloadscreen=false)
     @viewport=Viewport.new(0,0,Graphics.width,Graphics.height)
     @viewport.z=99999
     @sprites={}
@@ -14,28 +14,27 @@ class Scene_OptionSectionScene
     commands=CommandList.new
         addBackgroundOrColoredPlane(@sprites,"title",getDarkModeFolder+"/Settings/bg",
            Color.new(12,12,12),@viewport)
-      title="Settings"    
+      title="Debug Menu"    
       @sprites["header"]=Window_UnformattedTextPokemon.newWithSize(_INTL(title),
          2,-18,576,64,@viewport)      
       @sprites["header"].baseColor=(isDarkMode?) ? Color.new(242,242,242) : Color.new(12,12,12)
       @sprites["header"].shadowColor=nil #(!isDarkMode?) ? Color.new(242,242,242) : Color.new(12,12,12)
       @sprites["header"].windowskin=nil
-  
-      @sprites["textbox"]=Kernel.pbCreateMessageWindow
-      @sprites["textbox"].text=_INTL("Use the arrow keys to navigate to the menu. Press C or Space to open the selected settings page")
-      @sprites["textbox"].letterbyletter=false
-    commands.add("general",_INTL("General Settings")) # For settings that do not fit in the below categories
-    commands.add("sound",_INTL("Sound Settings")) # For settings which affect Music and Sound
-    commands.add("battle",_INTL("Battle Settings")) # For settings which affect Battle or Pokemon Battlers
-    commands.add("display",_INTL("Display Settings")) # For settings which affect Screen Display
-    commands.add("personalization",_INTL("Personalization Settings")) # For settings which affect Graphic
-  
+    commands.add("diagnostic",_INTL("Diagnostic tools..."))
+    commands.add("field",_INTL("Field options...")) if !inloadscreen
+    commands.add("battle",_INTL("Battle options...")) if !inloadscreen
+    commands.add("pokemon",_INTL("Pokémon options...")) if !inloadscreen
+    commands.add("item",_INTL("Item options...")) if !inloadscreen
+    commands.add("player",_INTL("Player options...")) if !inloadscreen
+    commands.add("pbs",_INTL("PBS editors..."))
+    commands.add("other",_INTL("Other editors..."))
+    commands.add("files",_INTL("Files options..."))
     @sprites["cmdwindow"]=Window_CommandPokemonEx.new(commands.list)
     cmdwindow=@sprites["cmdwindow"]
     cmdwindow.viewport=@viewport
     cmdwindow.resizeToFit(cmdwindow.commands)
     cmdwindow.width=Graphics.width
-    cmdwindow.height=Graphics.height-32-@sprites["textbox"].height
+    cmdwindow.height=Graphics.height-32
     cmdwindow.x=0
     cmdwindow.y=32
     cmdwindow.visible=true
@@ -60,40 +59,41 @@ class Scene_OptionSectionScene
       end
       break if ret==-1
       cmd=commands.getCommand(ret)
-      if cmd=="general"
-        scene=PokemonOptionScene.new
-        screen=PokemonOption.new(scene)
-        pbFadeOutIn(99999) {
-           screen.pbStartScreen(inloadscreen,0)
-           pbUpdateSceneMap
+      if cmd=="diagnostic"
+        pbFadeOutIn(99999) { 
+           pbDebugMenu(inloadscreen,0)
         }
-      elsif cmd=="sound"
-        scene=PokemonOptionScene.new
-        screen=PokemonOption.new(scene)
-        pbFadeOutIn(99999) {
-           screen.pbStartScreen(inloadscreen,1)
-           pbUpdateSceneMap
+      elsif cmd=="field"
+        pbFadeOutIn(99999) { 
+           pbDebugMenu(inloadscreen,1)
         }
       elsif cmd=="battle"
-        scene=PokemonOptionScene.new
-        screen=PokemonOption.new(scene)
-        pbFadeOutIn(99999) {
-           screen.pbStartScreen(inloadscreen,2)
-           pbUpdateSceneMap
+        pbFadeOutIn(99999) { 
+           pbDebugMenu(inloadscreen,2)
         }
-      elsif cmd=="display"
-        scene=PokemonOptionScene.new
-        screen=PokemonOption.new(scene)
-        pbFadeOutIn(99999) {
-          screen.pbStartScreen(inloadscreen,3)
-          pbUpdateSceneMap
+      elsif cmd=="pokemon"
+        pbFadeOutIn(99999) { 
+           pbDebugMenu(inloadscreen,3)
         }
-      elsif cmd=="personalization"
-        scene=PokemonOptionScene.new
-        screen=PokemonOption.new(scene)
-        pbFadeOutIn(99999) {
-          screen.pbStartScreen(inloadscreen,4)
-          pbUpdateSceneMap
+      elsif cmd=="item"
+        pbFadeOutIn(99999) { 
+           pbDebugMenu(inloadscreen,4)
+        }
+      elsif cmd=="player"
+        pbFadeOutIn(99999) { 
+           pbDebugMenu(inloadscreen,5)
+        }
+      elsif cmd=="pbs"
+        pbFadeOutIn(99999) { 
+           pbDebugMenu(inloadscreen,6)
+        }        
+      elsif cmd=="other"
+        pbFadeOutIn(99999) { 
+           pbDebugMenu(inloadscreen,7)
+        }        
+      elsif cmd=="files"
+        pbFadeOutIn(99999) { 
+           pbDebugMenu(inloadscreen,8)
         }
       end
     end
@@ -101,7 +101,6 @@ class Scene_OptionSectionScene
   
   def pbEndScene
     pbFadeOutAndHide(@sprites)
-    Kernel.pbDisposeMessageWindow(@sprites["textbox"])
     pbDisposeSpriteHash(@sprites)
     @viewport.dispose
   end
@@ -109,13 +108,13 @@ class Scene_OptionSectionScene
 end
 
 
-class Scene_OptionSection
+class Scene_DebugSection
   def initialize(scene)
     @scene=scene
   end
 
   def pbStartScreen(inloadscreen=false)
-    @scene.pbOptionSecMenu(inloadscreen)
+    @scene.pbDebugSecMenu(inloadscreen)
     @scene.pbEndScene
   end
 end

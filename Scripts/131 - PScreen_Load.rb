@@ -532,7 +532,7 @@ class PokemonLoad
         scene=Scene_OptionSectionScene.new
         screen=Scene_OptionSection.new(scene)
         pbFadeOutIn(99999) {
-           screen.pbStartScreen
+           screen.pbStartScreen(true)
         }
       elsif cmdLanguage>=0 && command==cmdLanguage
         @scene.pbEndScene
@@ -557,8 +557,10 @@ class PokemonLoad
         Kernel.pbMessage(_INTL("To view all useful information, open the \"Q.Qore Data Information.odf\" file with an ODT viewer of your choice. "))
         Kernel.pbMessage(_INTL("You can also open the \"Q.Qore Data Information II.ods\" file with an ODS viewer of your choice. "))
       elsif cmdDebug>=0 && command==cmdDebug
-        pbFadeOutIn(99999) { 
-           pbDebugMenu(false)
+        scene=Scene_DebugSectionScene.new
+        screen=Scene_DebugSection.new(scene)
+        pbFadeOutIn(99999) {
+           screen.pbStartScreen(true)
         }
       elsif cmdQuit>=0 && command==cmdQuit
         @scene.pbEndScene

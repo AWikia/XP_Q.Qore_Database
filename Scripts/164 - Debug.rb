@@ -230,8 +230,8 @@ def pbWarpToMap()
   return nil
 end
 
-def pbDebugMenu(fromgame=true)
-  if !fromgame
+def pbDebugMenu(inloadscreen=false,mode=0)
+  if inloadscreen
     data_system = pbLoadRxData("Data/System")
     pbBGMPlay(data_system.title_bgm)
   end
@@ -240,81 +240,99 @@ def pbDebugMenu(fromgame=true)
   sprites={}
       addBackgroundOrColoredPlane(sprites,"title",getDarkModeFolder+"/Settings/bg",
          Color.new(12,12,12),viewport)
-    title="Debug Menu"    
+    title=["Diagnostic Tools","Field Options","Battle Options","Pokémon Options","Item Options","Player Options","PBS Editors","Other Editors","Files Options"][mode]
     sprites["header"]=Window_UnformattedTextPokemon.newWithSize(_INTL(title),
        2,-18,576,64,viewport)      
     sprites["header"].baseColor=(isDarkMode?) ? Color.new(242,242,242) : Color.new(12,12,12)
     sprites["header"].shadowColor=nil #(!isDarkMode?) ? Color.new(242,242,242) : Color.new(12,12,12)
     sprites["header"].windowskin=nil
   commands=CommandList.new
-  commands.add("corendo",_INTL("Game ROM Initialization Check")) # For Compatibility with Corendo
-  commands.add("corendo2",_INTL("Control Configuration Check")) # For Compatibility with Corendo
-  commands.add("corendo3",_INTL("Game RAM Initialization Check")) # For Compatibility with Corendo
-  commands.add("corendo4",_INTL("Audio Initialization Check")) # For Compatibility with Corendo
-  commands.add("switches",_INTL("Switches")) if fromgame
-  commands.add("variables",_INTL("Variables")) if fromgame
-  commands.add("refreshmap",_INTL("Refresh Map")) if fromgame
-  commands.add("warp",_INTL("Warp to Map")) if fromgame
-  commands.add("healparty",_INTL("Heal Party")) if fromgame
-  commands.add("additem",_INTL("Add Item")) if fromgame
-  commands.add("fillbag",_INTL("Fill Bag")) if fromgame
-  commands.add("clearbag",_INTL("Empty Bag")) if fromgame
-  commands.add("addpokemon",_INTL("Add Pokémon")) if fromgame
-  commands.add("fillboxes",_INTL("Fill Storage Boxes")) if fromgame
-  commands.add("clearboxes",_INTL("Clear Storage Boxes")) if fromgame
-  commands.add("usepc",_INTL("Use PC")) if fromgame
-  commands.add("setplayer",_INTL("Set Player Character")) if fromgame
-  commands.add("renameplayer",_INTL("Rename Player")) if fromgame
-  commands.add("randomid",_INTL("Randomise Player's ID")) if fromgame
-#  commands.add("changeoutfit",_INTL("Change Player Outfit")) if fromgame
-  commands.add("setmoney",_INTL("Set Money")) if fromgame
-  commands.add("setcoins",_INTL("Set Coins")) if fromgame
-  commands.add("setbadges",_INTL("Set Badges")) if fromgame
-  commands.add("demoparty",_INTL("Give Demo Party")) if fromgame
-  commands.add("demoparty2",_INTL("Give Joicon Party")) if fromgame
-  commands.add("toggleshoes",_INTL("Toggle Running Shoes Ownership")) if fromgame
-  commands.add("togglepokegear",_INTL("Toggle Pokégear Ownership")) if fromgame
-  commands.add("togglepokedex",_INTL("Toggle Pokédex Ownership")) if fromgame
-  commands.add("dexlists",_INTL("Dex List Accessibility")) if fromgame
-  commands.add("readyrematches",_INTL("Ready Phone Rematches")) if fromgame
-  commands.add("mysterygift",_INTL("Manage Mystery Gifts")) if fromgame
-  commands.add("daycare",_INTL("Day Care Options...")) if fromgame
-  commands.add("quickhatch",_INTL("Quick Hatch")) if fromgame
-  commands.add("roamerstatus",_INTL("Roaming Pokémon Status")) if fromgame
-  commands.add("roam",_INTL("Advance Roaming")) if fromgame
-  commands.add("games",_INTL("Mini Games")) if fromgame # Κορα Κορε addition
-  commands.add("edititems",_INTL("Edit Items")) # Taken from Editor 
-  commands.add("editpokemon",_INTL("Edit Pokémon")) # Taken from Editor 
-  commands.add("spriteposition",_INTL("Reposition Sprites"))  if fromgame # Taken from Editor 
-  commands.add("spriteposition2",_INTL("Auto-Position All Sprites")) # Taken from Editor 
-  commands.add("editdexes",_INTL("Edit Regional Dexes")) # Taken from Editor 
-  commands.add("setencounters",_INTL("Set Encounters")) 
-  commands.add("setmetadata",_INTL("Set Metadata")) 
-  commands.add("terraintags",_INTL("Set Terrain Tags"))
-  commands.add("trainertypes",_INTL("Edit Trainer Types"))
-  commands.add("edittrainers",_INTL("Edit Trainers")) # Taken from Editor
-  commands.add("resettrainers",_INTL("Reset Trainers")) if fromgame
-  commands.add("testwildbattle",_INTL("Test Wild Battle")) if fromgame
-  commands.add("testdoublewildbattle",_INTL("Test Double Wild Battle")) if fromgame
-  commands.add("testtrainerbattle",_INTL("Test Trainer Battle")) if fromgame
-  commands.add("testdoubletrainerbattle",_INTL("Test Double Trainer Battle")) if fromgame
-  commands.add("relicstone",_INTL("Relic Stone")) if fromgame
-  commands.add("purifychamber",_INTL("Purify Chamber")) if fromgame
-  commands.add("extracttext",_INTL("Extract Text"))
-  commands.add("compiletext",_INTL("Compile Text"))
-  commands.add("compiledata",_INTL("Compile Data"))
-  commands.add("mapconnections",_INTL("Map Connections"))
-  commands.add("animeditor",_INTL("Animation Editor"))
-  commands.add("animorganizer",_INTL("Animation Organizer"))
-  commands.add("debugconsole",_INTL("Debug Console"))
-  commands.add("togglelogging",_INTL("Toggle Battle Logging"))
-  commands.add("godhandmode",_INTL("Use Intensive Battle Difficulty"))
+  if mode==0 # Diagnostic Tools
+    commands.add("corendo",_INTL("Game ROM Initialization Check")) # For Compatibility with Corendo
+    commands.add("corendo2",_INTL("Control Configuration Check")) # For Compatibility with Corendo
+    commands.add("corendo3",_INTL("Game RAM Initialization Check")) # For Compatibility with Corendo
+    commands.add("corendo4",_INTL("Audio Initialization Check")) # For Compatibility with Corendo
+  end
+  if mode==1  # Field Options
+    commands.add("warp",_INTL("Warp to Map")) if !inloadscreen
+    commands.add("usepc",_INTL("Use PC")) if !inloadscreen
+    commands.add("switches",_INTL("Switches")) if !inloadscreen
+    commands.add("variables",_INTL("Variables")) if !inloadscreen
+    commands.add("refreshmap",_INTL("Refresh Map")) if !inloadscreen
+    commands.add("daycare",_INTL("Day Care Options...")) if !inloadscreen
+    commands.add("games",_INTL("Mini Games")) if !inloadscreen # Κορα Κορε addition
+  end
+  if mode==2  # Battle Options
+    commands.add("testwildbattle",_INTL("Test Wild Battle")) if !inloadscreen
+    commands.add("testdoublewildbattle",_INTL("Test Double Wild Battle")) if !inloadscreen
+    commands.add("testtrainerbattle",_INTL("Test Trainer Battle")) if !inloadscreen
+    commands.add("testdoubletrainerbattle",_INTL("Test Double Trainer Battle")) if !inloadscreen
+    commands.add("roamerstatus",_INTL("Roaming Pokémon Status")) if !inloadscreen
+    commands.add("roam",_INTL("Advance Roaming")) if !inloadscreen
+    commands.add("resettrainers",_INTL("Reset Trainers")) if !inloadscreen
+    commands.add("togglelogging",_INTL("Toggle Battle Logging"))
+    commands.add("godhandmode",_INTL("Use Intensive Battle Difficulty"))
+  end
+  if mode==3 # Pokémon Options
+    commands.add("healparty",_INTL("Heal Party")) if !inloadscreen
+    commands.add("addpokemon",_INTL("Add Pokémon")) if !inloadscreen
+    commands.add("fillboxes",_INTL("Fill Storage Boxes")) if !inloadscreen
+    commands.add("clearboxes",_INTL("Clear Storage Boxes")) if !inloadscreen
+    commands.add("demoparty",_INTL("Give Demo Party")) if !inloadscreen
+    commands.add("demoparty2",_INTL("Give Joicon Party")) if !inloadscreen
+    commands.add("quickhatch",_INTL("Quick Hatch")) if !inloadscreen
+    commands.add("relicstone",_INTL("Relic Stone")) if !inloadscreen
+    commands.add("purifychamber",_INTL("Purify Chamber")) if !inloadscreen
+  end
+  if mode==4 # Item Options
+    commands.add("additem",_INTL("Add Item")) if !inloadscreen
+    commands.add("fillbag",_INTL("Fill Bag")) if !inloadscreen
+    commands.add("clearbag",_INTL("Empty Bag")) if !inloadscreen
+  end
+  if mode==5 # Player Options
+    commands.add("setmoney",_INTL("Set Money")) if !inloadscreen
+    commands.add("setcoins",_INTL("Set Coins")) if !inloadscreen
+    commands.add("setbadges",_INTL("Set Badges")) if !inloadscreen
+    commands.add("toggleshoes",_INTL("Toggle Running Shoes Ownership")) if !inloadscreen
+    commands.add("togglepokedex",_INTL("Toggle Pokédex Ownership")) if !inloadscreen
+    commands.add("dexlists",_INTL("Dex List Accessibility")) if !inloadscreen
+    commands.add("togglepokegear",_INTL("Toggle Pokégear Ownership")) if !inloadscreen
+    commands.add("readyrematches",_INTL("Ready Phone Rematches")) if !inloadscreen
+    commands.add("setplayer",_INTL("Set Player Character")) if !inloadscreen
+    commands.add("changeoutfit",_INTL("Change Player Outfit")) if !inloadscreen
+    commands.add("renameplayer",_INTL("Rename Player")) if !inloadscreen
+    commands.add("randomid",_INTL("Randomise Player's ID")) if !inloadscreen
+  end
+  if mode==6 # PBS Editors
+    commands.add("mapconnections",_INTL("Map Connections"))
+    commands.add("setencounters",_INTL("Set Encounters")) 
+    commands.add("edittrainers",_INTL("Edit Trainers")) # Taken from Editor
+    commands.add("trainertypes",_INTL("Edit Trainer Types"))
+    commands.add("setmetadata",_INTL("Set Metadata")) 
+    commands.add("edititems",_INTL("Edit Items")) # Taken from Editor 
+    commands.add("editpokemon",_INTL("Edit Pokémon")) # Taken from Editor 
+    commands.add("spriteposition",_INTL("Reposition Sprites"))  if !inloadscreen # Taken from Editor 
+    commands.add("spriteposition2",_INTL("Auto-Position All Sprites")) # Taken from Editor 
+    commands.add("editdexes",_INTL("Edit Regional Dexes")) # Taken from Editor 
+  end
+  if mode==7 # Other Editors
+    commands.add("animeditor",_INTL("Animation Editor"))
+    commands.add("animorganizer",_INTL("Animation Organizer"))
+    commands.add("terraintags",_INTL("Set Terrain Tags"))
+    commands.add("debugconsole",_INTL("Debug Console"))
+  end
+  if mode==8 # Files Options
+    commands.add("compiledata",_INTL("Compile Data"))
+    commands.add("extracttext",_INTL("Extract Text"))
+    commands.add("compiletext",_INTL("Compile Text"))
+    commands.add("mysterygift",_INTL("Manage Mystery Gifts")) if !inloadscreen
+  end
   sprites["cmdwindow"]=Window_CommandPokemonEx.new(commands.list)
   cmdwindow=sprites["cmdwindow"]
   cmdwindow.viewport=viewport
   cmdwindow.resizeToFit(cmdwindow.commands)
   cmdwindow.width=Graphics.width
-  cmdwindow.height=Graphics.height - 32 if cmdwindow.height>(Graphics.height - 32)
+  cmdwindow.height=Graphics.height - 32 # if cmdwindow.height>(Graphics.height - 32)
   cmdwindow.x=0
   cmdwindow.y=32
   cmdwindow.visible=true
@@ -938,7 +956,7 @@ def pbDebugMenu(fromgame=true)
     elsif cmd=="mapconnections"
       pbFadeOutIn(99999) { pbEditorScreen }
     elsif cmd=="animeditor"
-      pbFadeOutIn(99999) { pbAnimationEditor(fromgame) }
+      pbFadeOutIn(99999) { pbAnimationEditor(inloadscreen) }
     elsif cmd=="animorganizer"
       pbFadeOutIn(99999) { pbAnimationsOrganiser }
     elsif cmd=="debugconsole"
@@ -1140,9 +1158,9 @@ end
 
 
 class Scene_Debug
-  def main
+  def main(inloadscreen=false,mode=0)
     Graphics.transition(15)
-    pbDebugMenu
+    pbDebugMenu(inloadscreen,mode)
     $scene=Scene_Map.new
     $game_map.refresh
     Graphics.freeze

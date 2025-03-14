@@ -289,8 +289,10 @@ class PokemonMenu
           end
         }
       elsif cmdDebug>=0 && command==cmdDebug
-        pbFadeOutIn(99999) { 
-           pbDebugMenu
+        scene=Scene_DebugSectionScene.new
+        screen=Scene_DebugSection.new(scene)
+        pbFadeOutIn(99999) {
+           screen.pbStartScreen
            @scene.pbRefresh
         }
       elsif cmdOption>=0 && command==cmdOption

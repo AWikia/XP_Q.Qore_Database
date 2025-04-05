@@ -339,7 +339,7 @@ class Scene_LinkBattleScene
                     species+=[PBSpecies::ALCREMIE,PBSpecies::TELEMOBIL,PBSpecies::SVISUALSTUDIO,PBSpecies::MEDIAFIRE]
                   end
                   if $game_variables && $game_variables[1001] > 0
-                    species+=[PBSpecies::FLABEBE]
+                    species+=[PBSpecies::FLABEBE,PBSpecies::VOLTORB]
                   end
                   if $game_variables && $game_variables[1001] > 49
                     species+=[PBSpecies::DURALUDON]

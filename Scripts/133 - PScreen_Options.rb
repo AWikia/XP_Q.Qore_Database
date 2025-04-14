@@ -372,7 +372,10 @@ end
   "!Skin35",
   ['Skin36','Skin36_1','Skin36_2','Skin36_3','Skin36_4','!Skin36_5'][QQORECHANNEL],
   ['Skin37','Skin37_1','Skin37_2','Skin37_3','Skin37_4','!Skin37_5'][QQORECHANNEL],
-
+  "Skin38",
+  "Skin39",
+  "Skin40",
+  "Skin41",
 ]
 
 $TextFrames=[
@@ -420,6 +423,10 @@ $TextFrames=[
   "!Choice35",
   ['Choice36','Choice36_1','Choice36_2','Choice36_3','Choice36_4','!Choice36_5'][QQORECHANNEL],
   ['Choice37','Choice37_1','Choice37_2','Choice37_3','Choice37_4','!Choice37_5'][QQORECHANNEL],
+  "Choice38",
+  "Choice39",
+  "Choice40",
+  "Choice41",
 ]
 
   $SpeechFramesNames=[
@@ -467,6 +474,10 @@ $TextFrames=[
   "Pokémon Quadruplet",
   "Retro Channel-Aware",
   "Light Channel-Aware",
+  "Translucent Red",
+  "Translucent Green",
+  "Translucent Blue",
+  "Translucent Yellow",
 ]
 
 

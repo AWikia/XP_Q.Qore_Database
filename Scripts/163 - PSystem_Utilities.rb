@@ -363,7 +363,15 @@ end
 
 # Returns the Accent Colors
 def getAccentNames
-  return ["Light Yellow", "Yellow", "Dark Yellow", "Light Orange", "Orange", "Dark Orange", "Light Red", "Red", "Dark Red", "Light Pink", "Pink", "Dark Pink", "Light Purple", "Purple", "Dark Purple", "Light Blue", "Blue", "Dark Blue", "Light Green", "Green", "Dark Green", "Light Gray", "Gray", "Dark Gray", "Channel-Aware"]
+  return [_INTL("Light Yellow"), _INTL("Yellow"), _INTL("Dark Yellow"),
+          _INTL("Light Orange"), _INTL("Orange"), _INTL("Dark Orange"),
+          _INTL("Light Red"), _INTL("Red"), _INTL("Dark Red"),
+          _INTL("Light Pink"), _INTL("Pink"), _INTL("Dark Pink"),
+          _INTL("Light Purple"), _INTL("Purple"), _INTL("Dark Purple"),
+          _INTL("Light Blue"), _INTL("Blue"), _INTL("Dark Blue"), 
+          _INTL("Light Green"), _INTL("Green"), _INTL("Dark Green"), 
+          _INTL("Light Gray"), _INTL("Gray"), _INTL("Dark Gray"),
+          _INTL("Channel-Aware")]
 end
 
 # Returns the Active Accent Color
@@ -371,7 +379,7 @@ def getAccentName
   if $PokemonSystem 
     return getAccentNames[$PokemonSystem.accentcolor]
   else
-    return "Blue"
+    return _INTL("Blue")
   end
 end
 

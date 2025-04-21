@@ -266,7 +266,7 @@ class PokeBattle_Battle
             hasphysicalattack=false
             for thismove in attacker.moves
               if thismove.id!=0 && thismove.basedamage>0 &&
-                 thismove.pbIsPhysical?(thismove.type)
+                 thismove.pbAffectsAttack?(thismove.type)
                 hasphysicalattack=true
               end
             end
@@ -283,7 +283,7 @@ class PokeBattle_Battle
           hasphysicalattack=false
           for thismove in attacker.moves
             if thismove.id!=0 && thismove.basedamage>0 &&
-               thismove.pbIsPhysical?(thismove.type)
+               thismove.pbAffectsAttack?(thismove.type)
               hasphysicalattack=true
             end
           end
@@ -329,7 +329,7 @@ class PokeBattle_Battle
             hasspecicalattack=false
             for thismove in attacker.moves
               if thismove.id!=0 && thismove.basedamage>0 &&
-                 thismove.pbIsSpecial?(thismove.type)
+                 thismove.pbAffectsSpAtk?(thismove.type)
                 hasspecicalattack=true
               end
             end
@@ -346,7 +346,7 @@ class PokeBattle_Battle
           hasspecicalattack=false
           for thismove in attacker.moves
             if thismove.id!=0 && thismove.basedamage>0 &&
-               thismove.pbIsSpecial?(thismove.type)
+               thismove.pbAffectsSpAtk?(thismove.type)
               hasspecicalattack=true
             end
           end
@@ -406,7 +406,7 @@ class PokeBattle_Battle
           hasphysicalattack=false
           for thismove in attacker.moves
             if thismove.id!=0 && thismove.basedamage>0 &&
-               thismove.pbIsPhysical?(thismove.type)
+               thismove.pbAffectsAttack?(thismove.type)
               hasphysicalattack=true
             end
           end
@@ -430,7 +430,7 @@ class PokeBattle_Battle
           hasphysicalattack=false
           for thismove in attacker.moves
             if thismove.id!=0 && thismove.basedamage>0 &&
-               thismove.pbIsPhysical?(thismove.type)
+               thismove.pbAffectsAttack?(thismove.type)
               hasphysicalattack=true
             end
           end
@@ -453,7 +453,7 @@ class PokeBattle_Battle
           hasphysicalattack=false
           for thismove in attacker.moves
             if thismove.id!=0 && thismove.basedamage>0 &&
-               thismove.pbIsPhysical?(thismove.type)
+               thismove.pbAffectsAttack?(thismove.type)
               hasphysicalattack=true
             end
           end
@@ -506,7 +506,7 @@ class PokeBattle_Battle
           hasphysicalattack=false
           for thismove in attacker.moves
             if thismove.id!=0 && thismove.basedamage>0 &&
-               thismove.pbIsPhysical?(thismove.type)
+               thismove.pbAffectsAttack?(thismove.type)
               hasphysicalattack=true
             end
           end
@@ -538,7 +538,7 @@ class PokeBattle_Battle
           hasspecicalattack=false
           for thismove in attacker.moves
             if thismove.id!=0 && thismove.basedamage>0 &&
-               thismove.pbIsSpecial?(thismove.type)
+               thismove.pbAffectsSpAtk?(thismove.type)
               hasspecicalattack=true
             end
           end
@@ -568,7 +568,7 @@ class PokeBattle_Battle
           hasspecicalattack=false
           for thismove in attacker.moves
             if thismove.id!=0 && thismove.basedamage>0 &&
-               thismove.pbIsSpecial?(thismove.type)
+               thismove.pbAffectsSpAtk?(thismove.type)
               hasspecicalattack=true
             end
           end
@@ -607,7 +607,7 @@ class PokeBattle_Battle
             hasphysicalattack=false
             for thismove in attacker.moves
               if thismove.id!=0 && thismove.basedamage>0 &&
-                 thismove.pbIsPhysical?(thismove.type)
+                 thismove.pbAffectsAttack?(thismove.type)
                 hasphysicalattack=true
               end
             end
@@ -625,7 +625,7 @@ class PokeBattle_Battle
           hasphysicalattack=false
           for thismove in attacker.moves
             if thismove.id!=0 && thismove.basedamage>0 &&
-               thismove.pbIsPhysical?(thismove.type)
+               thismove.pbAffectsAttack?(thismove.type)
               hasphysicalattack=true
             end
           end
@@ -676,7 +676,7 @@ class PokeBattle_Battle
             hasspecicalattack=false
             for thismove in attacker.moves
               if thismove.id!=0 && thismove.basedamage>0 &&
-                 thismove.pbIsSpecial?(thismove.type)
+                 thismove.pbAffectsSpAtk?(thismove.type)
                 hasspecicalattack=true
               end
             end
@@ -694,7 +694,7 @@ class PokeBattle_Battle
           hasspecicalattack=false
           for thismove in attacker.moves
             if thismove.id!=0 && thismove.basedamage>0 &&
-               thismove.pbIsSpecial?(thismove.type)
+               thismove.pbAffectsSpAtk?(thismove.type)
               hasspecicalattack=true
             end
           end
@@ -755,7 +755,7 @@ class PokeBattle_Battle
           hasphysicalattack=false
           for thismove in attacker.moves
             if thismove.id!=0 && thismove.basedamage>0 &&
-               thismove.pbIsPhysical?(thismove.type)
+               thismove.pbAffectsAttack?(thismove.type)
               hasphysicalattack=true
             end
           end
@@ -817,7 +817,7 @@ class PokeBattle_Battle
             hasspecicalattack=false
             for thismove in attacker.moves
               if thismove.id!=0 && thismove.basedamage>0 &&
-                 thismove.pbIsSpecial?(thismove.type)
+                 thismove.pbAffectsSpAtk?(thismove.type)
                 hasspecicalattack=true
               end
             end
@@ -835,7 +835,7 @@ class PokeBattle_Battle
           hasspecicalattack=false
           for thismove in attacker.moves
             if thismove.id!=0 && thismove.basedamage>0 &&
-               thismove.pbIsSpecial?(thismove.type)
+               thismove.pbAffectsSpAtk?(thismove.type)
               hasspecicalattack=true
             end
           end
@@ -854,7 +854,7 @@ class PokeBattle_Battle
           hasphysicalattack=false
           for thismove in attacker.moves
             if thismove.id!=0 && thismove.basedamage>0 &&
-               thismove.pbIsPhysical?(thismove.type)
+               thismove.pbAffectsAttack?(thismove.type)
               hasphysicalattack=true
             end
           end
@@ -904,7 +904,7 @@ class PokeBattle_Battle
             hasphysicalattack=false
             for thismove in opponent.moves
               if thismove.id!=0 && thismove.basedamage>0 &&
-                 thismove.pbIsPhysical?(thismove.type)
+                 thismove.pbAffectsAttack?(thismove.type)
                 hasphysicalattack=true
               end
             end
@@ -921,7 +921,7 @@ class PokeBattle_Battle
           hasphysicalattack=false
           for thismove in opponent.moves
             if thismove.id!=0 && thismove.basedamage>0 &&
-               thismove.pbIsPhysical?(thismove.type)
+               thismove.pbAffectsAttack?(thismove.type)
               hasphysicalattack=true
             end
           end
@@ -967,7 +967,7 @@ class PokeBattle_Battle
             hasspecicalattack=false
             for thismove in opponent.moves
               if thismove.id!=0 && thismove.basedamage>0 &&
-                 thismove.pbIsSpecial?(thismove.type)
+                 thismove.pbAffectsSpAtk?(thismove.type)
                 hasspecicalattack=true
               end
             end
@@ -984,7 +984,7 @@ class PokeBattle_Battle
           hasspecicalattack=false
           for thismove in opponent.moves
             if thismove.id!=0 && thismove.basedamage>0 &&
-               thismove.pbIsSpecial?(thismove.type)
+               thismove.pbAffectsSpAtk?(thismove.type)
               hasspecicalattack=true
             end
           end
@@ -1056,7 +1056,7 @@ class PokeBattle_Battle
             hasphysicalattack=false
             for thismove in opponent.moves
               if thismove.id!=0 && thismove.basedamage>0 &&
-                 thismove.pbIsPhysical?(thismove.type)
+                 thismove.pbAffectsAttack?(thismove.type)
                 hasphysicalattack=true
               end
             end
@@ -1074,7 +1074,7 @@ class PokeBattle_Battle
           hasphysicalattack=false
           for thismove in opponent.moves
             if thismove.id!=0 && thismove.basedamage>0 &&
-               thismove.pbIsPhysical?(thismove.type)
+               thismove.pbAffectsAttack?(thismove.type)
               hasphysicalattack=true
             end
           end
@@ -1130,7 +1130,7 @@ class PokeBattle_Battle
             hasspecicalattack=false
             for thismove in opponent.moves
               if thismove.id!=0 && thismove.basedamage>0 &&
-                 thismove.pbIsSpecial?(thismove.type)
+                 thismove.pbAffectsSpAtk?(thismove.type)
                 hasspecicalattack=true
               end
             end
@@ -1148,7 +1148,7 @@ class PokeBattle_Battle
           hasspecicalattack=false
           for thismove in opponent.moves
             if thismove.id!=0 && thismove.basedamage>0 &&
-               thismove.pbIsSpecial?(thismove.type)
+               thismove.pbAffectsSpAtk?(thismove.type)
               hasspecicalattack=true
             end
           end
@@ -2517,7 +2517,7 @@ class PokeBattle_Battle
           hasphysicalattack=false
           for thismove in opponent.moves
             if thismove.id!=0 && thismove.basedamage>0 &&
-               thismove.pbIsPhysical?(thismove.type)
+               thismove.pbAffectsAttack?(thismove.type)
               hasphysicalattack=true
             end
           end
@@ -2670,7 +2670,7 @@ class PokeBattle_Battle
           hasspecialattack=false
           for thismove in attacker.moves
             if thismove.id!=0 && thismove.basedamage>0 &&
-               thismove.pbIsSpecial?(thismove.type)
+               thismove.pbAffectsSpAtk?(thismove.type)
               hasspecialattack=true
             end
           end
@@ -2932,41 +2932,15 @@ class PokeBattle_Battle
          (opponent.pbHasType?(:SHARPENER) && !attacker.hasWorkingAbility(:ANTISHARPNESS))
         score-=90
       elsif move.basedamage==0
-        if !opponent.pbCanReduceStatStage?(PBStats::SPDEF,attacker)
+        if attacker.pbTooHigh?(PBStats::SPDEF)
           score-=90
         else
           score+=40 if attacker.turncount==0
-          score+=opponent.stages[PBStats::SPDEF]*20
-          if skill>=PBTrainerAI.mediumSkill
-            hasspecicalattack=false
-            for thismove in opponent.moves
-              if thismove.id!=0 && thismove.basedamage>0 &&
-                 thismove.pbIsSpecial?(thismove.type)
-                hasspecicalattack=true
-              end
-            end
-            if hasspecicalattack
-              score+=20
-            elsif skill>=PBTrainerAI.highSkill
-              score-=90
-            end
-          end
+          score-=attacker.stages[PBStats::SPDEF]*20
         end
       else
         score+=10 if attacker.turncount==0
-        score+=20 if opponent.stages[PBStats::SPDEF]>0
-        if skill>=PBTrainerAI.mediumSkill
-          hasspecicalattack=false
-          for thismove in opponent.moves
-            if thismove.id!=0 && thismove.basedamage>0 &&
-               thismove.pbIsSpecial?(thismove.type)
-              hasspecicalattack=true
-            end
-          end
-          if hasspecicalattack
-            score+=30
-          end
-        end
+        score+=20 if attacker.stages[PBStats::SPDEF]<0
       end
     when 0x198
       factor=10
@@ -3280,35 +3254,9 @@ class PokeBattle_Battle
           score-=90
         else
           score-=attacker.stages[PBStats::SPDEF]*20
-          if skill>=PBTrainerAI.mediumSkill
-            hasspecicalattack=false
-            for thismove in attacker.moves
-              if thismove.id!=0 && thismove.basedamage>0 &&
-                 thismove.pbIsSpecial?(thismove.type)
-                hasspecicalattack=true
-              end
-            end
-            if hasspecicalattack
-              score+=20
-            elsif skill>=PBTrainerAI.highSkill
-              score-=90
-            end
-          end
         end
       else
         score+=20 if attacker.stages[PBStats::SPDEF]<0
-        if skill>=PBTrainerAI.mediumSkill
-          hasspecicalattack=false
-          for thismove in attacker.moves
-            if thismove.id!=0 && thismove.basedamage>0 &&
-               thismove.pbIsSpecial?(thismove.type)
-              hasspecicalattack=true
-            end
-          end
-          if hasspecicalattack
-            score+=20
-          end
-        end
       end
     when 0x327
       if opponent.effects[PBEffects::Substitute]>0
@@ -3893,14 +3841,14 @@ class PokeBattle_Battle
     # Flare Boost
     if skill>=PBTrainerAI.highSkill
       if attacker.hasWorkingAbility(:FLAREBOOST) &&
-         attacker.status==PBStatuses::BURN && move.pbIsSpecial?(type)
+         attacker.status==PBStatuses::BURN && move.pbAffectsSpAtk?(type)
         basedamage=(basedamage*1.5).round
       end
     end
     # Toxic Boost
     if skill>=PBTrainerAI.highSkill
       if attacker.hasWorkingAbility(:TOXICBOOST) &&
-         attacker.status==PBStatuses::POISON && move.pbIsPhysical?(type)
+         attacker.status==PBStatuses::POISON && move.pbAffectsAttack?(type)
         basedamage=(basedamage*1.5).round
       end
     end
@@ -4173,7 +4121,7 @@ class PokeBattle_Battle
     if move.function==0x121 # Foul Play
       atk=pbRoughStat(opponent,PBStats::ATTACK,skill)
     end
-    if type>=0 && move.pbIsSpecial?(type)
+    if type>=0 && move.pbAffectsSpAtk?(type)
       atk=pbRoughStat(attacker,PBStats::SPATK,skill)
       if move.function==0x121 # Foul Play
         atk=pbRoughStat(opponent,PBStats::SPATK,skill)
@@ -4181,7 +4129,7 @@ class PokeBattle_Battle
     end
     # Hustle
     if skill>=PBTrainerAI.highSkill
-      if attacker.hasWorkingAbility(:HUSTLE) && move.pbIsPhysical?(type)
+      if attacker.hasWorkingAbility(:HUSTLE) && move.pbAffectsAttack?(type)
         atk=(atk*1.5).round
       end
     end
@@ -4215,14 +4163,14 @@ class PokeBattle_Battle
     # Guts
     if skill>=PBTrainerAI.highSkill
       if attacker.hasWorkingAbility(:GUTS) &&
-         attacker.status!=0 && move.pbIsPhysical?(type)
+         attacker.status!=0 && move.pbAffectsAttack?(type)
         atk=(atk*1.5).round
       end
     end
     # Plus, Minus
     if skill>=PBTrainerAI.mediumSkill
       if (attacker.hasWorkingAbility(:PLUS) ||
-         attacker.hasWorkingAbility(:MINUS)) && move.pbIsSpecial?(type)
+         attacker.hasWorkingAbility(:MINUS)) && move.pbAffectsSpAtk?(type)
         partner=attacker.pbPartner
         if partner.hasWorkingAbility(:PLUS) || partner.hasWorkingAbility(:MINUS)
           atk=(atk*1.5).round
@@ -4246,7 +4194,7 @@ class PokeBattle_Battle
     # Solar Power
     if skill>=PBTrainerAI.highSkill
       if attacker.hasWorkingAbility(:SOLARPOWER) &&
-         pbWeather==PBWeather::SUNNYDAY && move.pbIsSpecial?(type)
+         pbWeather==PBWeather::SUNNYDAY && move.pbAffectsSpAtk?(type)
         atk=(atk*1.5).round
       end
     end
@@ -4274,13 +4222,13 @@ class PokeBattle_Battle
     # Slow Start
     if skill>=PBTrainerAI.mediumSkill
       if attacker.hasWorkingAbility(:SLOWSTART) &&
-         attacker.turncount<5 && move.pbIsPhysical?(type)
+         attacker.turncount<5 && move.pbAffectsAttack?(type)
         atk=(atk*0.5).round
       end
     end
     # Flower Gift
     if skill>=PBTrainerAI.highSkill
-      if pbWeather==PBWeather::SUNNYDAY && move.pbIsPhysical?(type)
+      if pbWeather==PBWeather::SUNNYDAY && move.pbAffectsAttack?(type)
         if attacker.hasWorkingAbility(:FLOWERGIFT) &&
            isConst?(attacker.species,PBSpecies,:CHERRIM)
           atk=(atk*1.5).round
@@ -4293,7 +4241,7 @@ class PokeBattle_Battle
     end
     # Orichalcum Pulse
     if skill>=PBTrainerAI.highSkill
-      if pbWeather==PBWeather::SUNNYDAY && move.pbIsPhysical?(type)
+      if pbWeather==PBWeather::SUNNYDAY && move.pbAffectsAttack?(type)
         if attacker.hasWorkingAbility(:ORICHALCUMPULSE)
           atk=(atk*1.3).round
         end
@@ -4301,7 +4249,7 @@ class PokeBattle_Battle
     end
     # Hadron Engine
     if skill>=PBTrainerAI.highSkill
-      if pbTerrain==PBBattleTerrains::ELECTRIC && move.pbIsSpecial?(type)
+      if pbTerrain==PBBattleTerrains::ELECTRIC && move.pbAffectsSpAtk?(type)
         if attacker.hasWorkingAbility(:HADRONENGINE)
           atk=(atk*1.3).round
         end
@@ -4311,8 +4259,8 @@ class PokeBattle_Battle
     if skill>=PBTrainerAI.highSkill
       if pbWeather==PBWeather::SUNNYDAY
         if attacker.hasWorkingAbility(:PROTOSYNTHESIS) &&
-           ((move.pbIsPhysical?(type) && attacker.profstat== PBStats::ATTACK) ||
-            (move.pbIsSpecial?(type) && attacker.profstat== PBStats::SPATK))
+           ((move.pbAffectsAttack?(type) && attacker.profstat== PBStats::ATTACK) ||
+            (move.pbAffectsSpAtk?(type) && attacker.profstat== PBStats::SPATK))
           atk=(atk*1.3).round
         end
       end
@@ -4321,8 +4269,8 @@ class PokeBattle_Battle
     if skill>=PBTrainerAI.highSkill
       if pbTerrain==PBBattleTerrains::ELECTRIC
         if attacker.hasWorkingAbility(:QUARKDRIVE) &&
-           ((move.pbIsPhysical?(type) && attacker.profstat== PBStats::ATTACK) ||
-            (move.pbIsSpecial?(type) && attacker.profstat== PBStats::SPATK))
+           ((move.pbAffectsAttack?(type) && attacker.profstat== PBStats::ATTACK) ||
+            (move.pbAffectsSpAtk?(type) && attacker.profstat== PBStats::SPATK))
           atk=(atk*1.3).round
         end
       end
@@ -4330,7 +4278,7 @@ class PokeBattle_Battle
     # Vessel of Ruin
     if skill>=PBTrainerAI.highSkill
       if pbCheckGlobalAbility(:VESSELOFRUIN)
-        if !attacker.hasWorkingAbility(:VESSELOFRUIN) && move.pbIsSpecial?(type)
+        if !attacker.hasWorkingAbility(:VESSELOFRUIN) && move.pbAffectsSpAtk?(type)
           atk=(atk/1.25).round
         end
       end
@@ -4338,7 +4286,7 @@ class PokeBattle_Battle
     # Tablets of Ruin
     if skill>=PBTrainerAI.highSkill
       if pbCheckGlobalAbility(:TABLETSOFRUIN)
-        if !attacker.hasWorkingAbility(:TABLETSOFRUIN) && move.pbIsPhysical?(type)
+        if !attacker.hasWorkingAbility(:TABLETSOFRUIN) && move.pbAffectsAttack?(type)
           atk=(atk/1.25).round
         end
       end
@@ -4346,27 +4294,27 @@ class PokeBattle_Battle
     # Attack-boosting items
     if attacker.hasWorkingItem(:THICKCLUB) &&
        (isConst?(attacker.species,PBSpecies,:CUBONE) ||
-       isConst?(attacker.species,PBSpecies,:MAROWAK)) && move.pbIsPhysical?(type)
+       isConst?(attacker.species,PBSpecies,:MAROWAK)) && move.pbAffectsAttack?(type)
       atk=(atk*2.0).round
     end
     if attacker.hasWorkingItem(:DEEPSEATOOTH) &&
-       isConst?(attacker.species,PBSpecies,:CLAMPERL) && move.pbIsSpecial?(type)
+       isConst?(attacker.species,PBSpecies,:CLAMPERL) && move.pbAffectsSpAtk?(type)
       atk=(atk*2.0).round
     end
     if attacker.hasWorkingItem(:LIGHTBALL) &&
        isConst?(attacker.species,PBSpecies,:PIKACHU)
       atk=(atk*2.0).round
     end
-    if attacker.hasWorkingItem(:CHOICEBAND) && move.pbIsPhysical?(type)
+    if attacker.hasWorkingItem(:CHOICEBAND) && move.pbAffectsAttack?(type)
       atk=(atk*1.5).round
     end
-    if attacker.hasWorkingItem(:CHOICESPECS) && move.pbIsSpecial?(type)
+    if attacker.hasWorkingItem(:CHOICESPECS) && move.pbAffectsSpAtk?(type)
       atk=(atk*1.5).round
     end
     # Get base defense stat
     defense=pbRoughStat(opponent,PBStats::DEFENSE,skill)
     applysandstorm=false
-    if type>=0 && move.pbIsSpecial?(type)
+    if type>=0 && move.pbAffectsSpDef?(type)
       if move.function!=0x122 # Psyshock
         defense=pbRoughStat(opponent,PBStats::SPDEF,skill)
         applysandstorm=true
@@ -4382,7 +4330,7 @@ class PokeBattle_Battle
     # Marvel Scale
     if skill>=PBTrainerAI.bestSkill
       if opponent.hasWorkingAbility(:MARVELSCALE) &&
-         opponent.status>0 && move.pbIsPhysical?(type)
+         opponent.status>0 && move.pbAffectsDefense?(type)
         defense=(defense*1.5).round
       end
     end
@@ -4401,7 +4349,7 @@ class PokeBattle_Battle
     end
     # Flower Gift
     if skill>=PBTrainerAI.bestSkill
-      if pbWeather==PBWeather::SUNNYDAY && move.pbIsSpecial?(type)
+      if pbWeather==PBWeather::SUNNYDAY && move.pbAffectsSpDef?(type)
         if opponent.hasWorkingAbility(:FLOWERGIFT) &&
            isConst?(opponent.species,PBSpecies,:CHERRIM)
           defense=(defense*1.5).round
@@ -4416,8 +4364,8 @@ class PokeBattle_Battle
     if skill>=PBTrainerAI.highSkill
       if pbWeather==PBWeather::SUNNYDAY
         if opponent.hasWorkingAbility(:PROTOSYNTHESIS) &&
-           ((move.pbIsPhysical?(type) && opponent.profstat== PBStats::DEFENSE) ||
-            (move.pbIsSpecial?(type) && opponent.profstat== PBStats::SPDEF))
+           ((move.pbAffectsDefense?(type) && opponent.profstat== PBStats::DEFENSE) ||
+            (move.pbAffectsSpDef?(type) && opponent.profstat== PBStats::SPDEF))
           defense=(defense*1.3).round
         end
       end
@@ -4426,8 +4374,8 @@ class PokeBattle_Battle
     if skill>=PBTrainerAI.highSkill
       if pbTerrain==PBBattleTerrains::ELECTRIC
         if opponent.hasWorkingAbility(:QUARKFRIVE) &&
-           ((move.pbIsPhysical?(type) && opponent.profstat== PBStats::DEFENSE) ||
-            (move.pbIsSpecial?(type) && opponent.profstat== PBStats::SPDEF))
+           ((move.pbAffectsDefense?(type) && opponent.profstat== PBStats::DEFENSE) ||
+            (move.pbAffectsSpDef?(type) && opponent.profstat== PBStats::SPDEF))
           defense=(defense*1.3).round
         end
       end
@@ -4435,7 +4383,7 @@ class PokeBattle_Battle
     # Breads of Ruin
     if skill>=PBTrainerAI.highSkill
       if pbCheckGlobalAbility(:BREADSOFRUIN)
-        if !opponent.hasWorkingAbility(:BREADSOFRUIN) && move.pbIsSpecial?(type)
+        if !opponent.hasWorkingAbility(:BREADSOFRUIN) && move.pbAffectsSpDef?(type)
           defense=(defense/1.25).round
         end
       end
@@ -4443,7 +4391,7 @@ class PokeBattle_Battle
     # Sword of Ruin
     if skill>=PBTrainerAI.highSkill
       if pbCheckGlobalAbility(:SWORDOFRUIN)
-        if !attacker.hasWorkingAbility(:SWORDOFRUIN) && move.pbIsPhysical?(type)
+        if !attacker.hasWorkingAbility(:SWORDOFRUIN) && move.pbAffectsDefense?(type)
           defense=(defense/1.25).round
         end
       end
@@ -4457,12 +4405,12 @@ class PokeBattle_Battle
         end
       end
       if opponent.hasWorkingItem(:DEEPSEASCALE) &&
-         isConst?(opponent.species,PBSpecies,:CLAMPERL) && move.pbIsSpecial?(type)
+         isConst?(opponent.species,PBSpecies,:CLAMPERL) && move.pbAffectsSpDef?(type)
         defense=(defense*2.0).round
       end
       if opponent.hasWorkingItem(:METALPOWDER) &&
          isConst?(opponent.species,PBSpecies,:DITTO) &&
-         !opponent.effects[PBEffects::Transform] && move.pbIsPhysical?(type)
+         !opponent.effects[PBEffects::Transform] && move.pbAffectsDefense?(type)
         defense=(defense*2.0).round
       end
     end
@@ -4511,7 +4459,7 @@ class PokeBattle_Battle
     end
     # Burn
     if skill>=PBTrainerAI.mediumSkill
-      if attacker.status==PBStatuses::BURN && move.pbIsPhysical?(type) &&
+      if attacker.status==PBStatuses::BURN && move.pbAffectsAttack?(type) &&
          !attacker.hasWorkingAbility(:GUTS)
         damage=(damage*0.5).round
       end

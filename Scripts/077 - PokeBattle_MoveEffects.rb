@@ -52,6 +52,7 @@ class PokeBattle_Confusion < PokeBattle_Move
 
   def pbIsPhysical?(type); return true; end
   def pbIsSpecial?(type); return false; end
+  def pbIsElderSpecial?; return false; end
 
   def pbCalcDamage(attacker,opponent)
     return super(attacker,opponent,

@@ -65,15 +65,15 @@ class PokemonSysReqScreenScene
         break
       end
       if Input.press?(Input::CTRL) && Input.press?(Input::C)
-        clip = "Recommended requirements for Q.Qore:"
-        clip+= "\nOS: Windows 10 Build 10240 or higher"
-        clip+= "\nRAM: 2GB or higher"
-        clip+= "\nCPU: Modern 2.7GHz or higher"
-        clip+= "\nColor Depth: 32 bits per channel"
-        clip+= "\nDisk Space: 4GB or higher"
-        clip+= "\nDots per inch: 96 or higher"
+        clip = _INTL("Recommended requirements for Q.Qore:")
+        clip+= _INTL("\nOS: Windows 10 Build 10240 or higher")
+        clip+= _INTL("\nRAM: 2GB or higher")
+        clip+= _INTL("\nCPU: Modern 2.7GHz or higher")
+        clip+= _INTL("\nColor Depth: 32 bits per channel")
+        clip+= _INTL("\nDisk Space: 4GB or higher")
+        clip+= _INTL("\nDots per inch: 96 or higher")
         clipcopy(clip)
-        Kernel.pbMessage("Copied System Requirements Screen Contents to the clipboard")
+        Kernel.pbMessage(_INTL("Copied System Requirements Screen Contents to the clipboard"))
       end
     end 
   end

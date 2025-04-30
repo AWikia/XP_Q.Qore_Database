@@ -141,69 +141,69 @@ Quests:
     @currentPuzzle = @puzzles[$game_variables[1006].to_i%@puzzles.length]
     @quests = [
       ["Trainer", 
-       "Liquorice Larry Battle", 
+       _INTL("Liquorice Larry Battle"), 
        [:CHAMPION, "Liquorice Larry",5],
-       ["Finish it in under", "2 min 20 sec"],
+       [_INTL("Finish it in under"), _INTL("2 min 20 sec")],
        140],
       ["Triad", 
-       "Mr. Toffee Triad Duel", 
+       _INTL("Mr. Toffee Triad Duel"), 
        ["Mr. Tofee",5,9,[:DEOXYS,:MIRAPLUS,:DURATINO,:AQUOS,:ETERNATUS]],
-       ["Finish it in under", "35 sec"],
+       [_INTL("Finish it in under"), _INTL("35 sec")],
        180],
       ["TypeQuiz", 
-       "Type Quiz x25", 
+       _INTL("Type Quiz x25"), 
        [25,true],
-       ["Answer correctly at least", "20 questions"],
+       [_INTL("Answer correctly at least"), _INTL("20 questions")],
        20],
       ["TypeQuiz", 
-       "Type Quiz x50", 
+       _INTL("Type Quiz x50"), 
        [50,false],
-       ["Answer correctly at least", "40 questions"],
+       [_INTL("Answer correctly at least"), _INTL("40 questions")],
        40],
       ["PushBag", 
-       "Push Bag x4", 
+       _INTL("Push Bag x4"), 
        [4],
-       ["Score at least", "15 points"],
+       [_INTL("Score at least"), _INTL("15 points")],
        15],
       ["PushBag", 
-       "Push Bag x6", 
+       _INTL("Push Bag x6"), 
        [6],
-       ["Score at least", "25 points"],
+       [_INTL("Score at least"), _INTL("25 points")],
        25],
       ["Mining", 
-       "Underground Mining", 
+       _INTL("Underground Mining"), 
        nil,
-       ["Find out", "All the items"],
+       [_INTL("Find out"), _INTL("All the items")],
        nil],
       ["TilePuzzle", 
-       "Tile Puzzle Alph", 
+       _INTL("Tile Puzzle Alph"), 
        [1,@currentPuzzle],
-       ["Finish it in under", "35 secs"],
+       [_INTL("Finish it in under"), _INTL("35 secs")],
        35],
       ["TilePuzzle", 
-       "Tile Puzzle Alph Rotator", 
+       _INTL("Tile Puzzle Alph Rotator"), 
        [2,@currentPuzzle],
-       ["Finish it in under", "1 nin"],
+       [_INTL("Finish it in under"), _INTL("1 nin")],
        60],
       ["TilePuzzle", 
-       "Tile Puzzle Tile Swap", 
+       _INTL("Tile Puzzle Tile Swap"), 
        [4,@currentPuzzle],
-       ["Finish it in under", "35 secs"],
+       [_INTL("Finish it in under"), _INTL("35 secs")],
        35],
       ["TilePuzzle", 
-       "TilePuzzle TileSwap Rotator", 
+       _INTL("TilePuzzle TileSwap Rotator"), 
        [5,@currentPuzzle],
-       ["Finish it in under", "1 min"],
+       [_INTL("Finish it in under"), _INTL("1 min")],
        60],
       ["TilePuzzle", 
-       "Tile Puzzle Star Rotator", 
+       _INTL("Tile Puzzle Star Rotator"), 
        [7,@currentPuzzle],
-       ["Finish it in under", "35 secs"],
+       [_INTL("Finish it in under"), _INTL("35 secs")],
        35],
       ["TilePuzzles", 
-       "Tile Puzzles", 
+       _INTL("Tile Puzzles"), 
        [1,"QoraQore",1,"Evelution"],
-       ["Finish it in under", "1 min 10 secs"],
+       [_INTL("Finish it in under"), _INTL("1 min 10 secs")],
        70]
     ]
     @currentQuest = @quests[$game_variables[1006].to_i%@quests.length]
@@ -367,11 +367,11 @@ Quests:
       end
       if @cmdHelp>=0 && @sprites["command_window"].index==@cmdHelp
         @QQSR="\\l[9]"
-        @QQSR+="Only trainers who have beaten the Elite Four in its nightmare team can use this app."
-        @QQSR+="\\nFor each day, you'll be given a random challenging task to be done in a specific amount of time or progression."
-        @QQSR+="\\nFinishing it on the first try will award you a Vicious Candy while on subsequent ones a weaker candy"
-        @QQSR+="\\nA specific task can be given again on another day so try to practise as much as you want."
-        @QQSR+="\\nGood Luck."
+        @QQSR+=_INTL("Only trainers who have beaten the Elite Four in its nightmare team can use this app.")
+        @QQSR+=_INTL("\\nFor each day, you'll be given a random challenging task to be done in a specific amount of time or progression.")
+        @QQSR+=_INTL("\\nFinishing it on the first try will award you a Vicious Candy while on subsequent ones a weaker candy")
+        @QQSR+=_INTL("\\nA specific task can be given again on another day so try to practise as much as you want.")
+        @QQSR+=_INTL("\\nGood Luck.")
         Kernel.pbMessage(@QQSR)
       end
       return

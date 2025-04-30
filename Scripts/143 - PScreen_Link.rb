@@ -410,11 +410,11 @@ class Scene_LinkBattleScene
       end
       if @cmdLink>=0 && @sprites["command_window"].index==@cmdLinkHelp
         @QQSR="\\l[10]"
-        @QQSR+="Choose any of the three modes present. Local Battles is you vs. an opponent with random Pokemon while the other uses communication with another player."
-        @QQSR+="\\nFor local play, you can select the difficulty you want to use."
-        @QQSR+="\\nThere's no time limit and no Pokemon limitations in any of the game modes"
-        @QQSR+="\\nPokemon levels for local play depends on your Pokemon's levels."
-        @QQSR+="\\nThe winner will be awarded with Battle Link points. Winning your first Link Battle will award the Battle Linker trophy."
+        @QQSR+=_INTL("Choose any of the three modes present. Local Battles is you vs. an opponent with random Pokemon while the other uses communication with another player.")
+        @QQSR+=_INTL("\\nFor local play, you can select the difficulty you want to use.")
+        @QQSR+=_INTL("\\nThere's no time limit and no Pokemon limitations in any of the game modes")
+        @QQSR+=_INTL("\\nPokemon levels for local play depends on your Pokemon's levels.")
+        @QQSR+=_INTL("\\nThe winner will be awarded with Battle Link points. Winning your first Link Battle will award the Battle Linker trophy.")
         Kernel.pbMessage(@QQSR)
       end
       if @cmdLink>=0 && @sprites["command_window"].index==@cmdLinkLB

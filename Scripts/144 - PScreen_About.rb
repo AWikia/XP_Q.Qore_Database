@@ -62,7 +62,7 @@ class PokemonAboutScreenScene
         clip += _INTL("\nThe Qora Qore project begun in December 2013 and it is now a community-oriented project as a service.")
         clip += _INTL("\nWork is based upon the " + RTP.getGameIniValue("Qortex", "Semester") + " codebase.")
         clipcopy(clip)
-        Kernel.pbMessage("Copied About Screen Contents to the clipboard")
+        Kernel.pbMessage(_INTL("Copied About Screen Contents to the clipboard"))
       end
     end 
   end

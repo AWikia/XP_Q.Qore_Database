@@ -290,6 +290,8 @@ def pbDayCareGenerateEgg
     babyspecies=getConst(PBSpecies,:TURTLEWATER)
   elsif isConst?(babyspecies,PBSpecies,:MANAPHY) && hasConst?(PBSpecies,:PHIONE)
     babyspecies=getConst(PBSpecies,:PHIONE)
+  elsif isConst?(babyspecies,PBSpecies,:Q3PO) && hasConst?(PBSpecies,:Q2PO)
+    babyspecies=getConst(PBSpecies,:Q2PO)
   elsif (isConst?(babyspecies,PBSpecies,:NIDORANfE) && hasConst?(PBSpecies,:NIDORANmA)) ||
         (isConst?(babyspecies,PBSpecies,:NIDORANmA) && hasConst?(PBSpecies,:NIDORANfE))
     babyspecies=[getConst(PBSpecies,:NIDORANmA),

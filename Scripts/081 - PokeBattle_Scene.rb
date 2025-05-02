@@ -1771,6 +1771,9 @@ class PokeBattle_Scene
   def pbBackdrop
     # Choose backdrop
     backdrop=pbGetBackdrop
+    if !pbResolveBitmap(sprintf("Graphics/Battle Backs/Backgrounds/" +backdrop))
+      backdrop="000"
+    end
     environ=@battle.environment
     # Choose bases
     base=""
@@ -1797,7 +1800,7 @@ class PokeBattle_Scene
       elsif PBDayNight.isEvening?(timenow)
         trialname="_eve"
       end
-      if pbResolveBitmap(sprintf("Graphics/Battle Backs/Backgrounds/"+backdrop+time))
+      if pbResolveBitmap(sprintf("Graphics/Battle Backs/Backgrounds/"+backdrop+trialname))
         time=trialname
       end
     end
@@ -1807,9 +1810,7 @@ class PokeBattle_Scene
     enemybase="Graphics/Battle Backs/enemybase"+base#+backdrop+time
     playerbase="Graphics/Battle Backs/playerbase"+base#+backdrop+time
 =end
-    battlebg="Graphics/Battle Backs/Backgrounds/000"
-    battlebg="Graphics/Battle Backs/Backgrounds/"+backdrop      if pbResolveBitmap(sprintf("Graphics/Battle Backs/Backgrounds/"+backdrop))
-    battlebg="Graphics/Battle Backs/Backgrounds/"+backdrop+time if pbResolveBitmap(sprintf("Graphics/Battle Backs/Backgrounds/"+backdrop+time))
+    battlebg="Graphics/Battle Backs/Backgrounds/"+backdrop+time
     enemybase="Graphics/Battle Backs/Bases/"+base
     playerbase="Graphics/Battle Backs/Bases/"+base+"_back"
     pbAddPlane("battlebg",battlebg,@viewport)

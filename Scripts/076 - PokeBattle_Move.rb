@@ -155,6 +155,24 @@ class PokeBattle_Move
     return @category==3
   end
   
+  # Condtitions that return true based on wheteher a stat can be altered or not
+  # (Minus speed). Elder Special Uses Sp. Atk for attack but Defense for defense
+  def pbAffectsAttack?(type)
+    return pbIsPhysical?(type)
+  end
+
+  def pbAffectsDefense?(type)
+    return pbIsPhysical?(type) || pbIsElderSpecial?
+  end
+  
+  def pbAffectsSpAtk?(type)
+    return pbIsSpecial?(type) || pbIsElderSpecial?
+  end
+  
+  def pbAffectsSpDef?(type)
+    return pbIsSpecial?(type)
+  end
+  
   def isOHKO?
     return @function==0x70 || @function==0x202 || @function==0x252 || @function==0x278
   end
@@ -879,11 +897,11 @@ class PokeBattle_Move
       damagemult=(damagemult*1.2).round
     end
     if attacker.hasWorkingAbility(:FLAREBOOST) &&
-       attacker.status==PBStatuses::BURN && pbIsSpecial?(type)
+       attacker.status==PBStatuses::BURN && pbAffectsSpAtk?(type)
       damagemult=(damagemult*1.5).round
     end
     if attacker.hasWorkingAbility(:TOXICBOOST) &&
-       attacker.status==PBStatuses::POISON && pbIsPhysical?(type)
+       attacker.status==PBStatuses::POISON && pbAffectsAttack?(type)
       damagemult=(damagemult*1.5).round
     end
     if attacker.hasWorkingAbility(:ANALYTIC) &&
@@ -963,8 +981,7 @@ class PokeBattle_Move
          (pbIsPhysical?(type) || @function==0x122) # Psyshock
         damagemult=(damagemult*0.5).round
       end
-      if opponent.hasWorkingAbility(:MICROSTAR) && opponent.turncount%2==0 &&
-         (pbIsPhysical?(type) || @function==0x122) # Psyshock
+      if opponent.hasWorkingAbility(:MICROSTAR) && opponent.turncount%2==0
         damagemult=(damagemult*0.5).round
       end
       if opponent.hasWorkingAbility(:ICESCALES) && pbIsSpecial?(type)
@@ -1307,7 +1324,7 @@ class PokeBattle_Move
       atk=attacker.defense
       atkstage=attacker.stages[PBStats::DEFENSE]+6
     end
-    if type>=0 && (pbIsSpecial?(type) || pbIsElderSpecial?)
+    if type>=0 && pbAffectsSpAtk?(type)
       atk=attacker.spatk
       atkstage=attacker.stages[PBStats::SPATK]+6
       if @function==0x121 # Foul Play
@@ -1323,16 +1340,16 @@ class PokeBattle_Move
       atkstage=6 if opponent.damagestate.critical && atkstage<6
       atk=(atk*1.0*stagemul[atkstage]/stagediv[atkstage]).floor
     end
-    if attacker.hasWorkingAbility(:HUSTLE) && pbIsPhysical?(type)
+    if attacker.hasWorkingAbility(:HUSTLE) && pbAffectsAttack?(type)
       atk=(atk*1.5).round
     end
     atkmult=0x1000
     if @battle.internalbattle
-      if @battle.pbOwnedByPlayer?(attacker.index) && pbIsPhysical?(type) &&
+      if @battle.pbOwnedByPlayer?(attacker.index) && pbAffectsAttack?(type) &&
          @battle.pbPlayer.numbadges>=BADGESBOOSTATTACK
         atkmult=(atkmult*1.1).round
       end
-      if @battle.pbOwnedByPlayer?(attacker.index) && pbIsSpecial?(type) &&
+      if @battle.pbOwnedByPlayer?(attacker.index) && pbAffectsSpAtk?(type) &&
          @battle.pbPlayer.numbadges>=BADGESBOOSTSPATK
         atkmult=(atkmult*1.1).round
       end
@@ -1387,11 +1404,11 @@ class PokeBattle_Move
       end
     end
     if attacker.hasWorkingAbility(:GUTS) &&
-       attacker.status!=0 && pbIsPhysical?(type)
+       attacker.status!=0 && pbAffectsAttack?(type)
       atkmult=(atkmult*1.5).round
     end
     if (attacker.hasWorkingAbility(:PLUS) || attacker.hasWorkingAbility(:MINUS)) &&
-       pbIsSpecial?(type)
+       pbAffectsSpAtk?(type)
       partner=attacker.pbPartner
       if partner.hasWorkingAbility(:PLUS) || partner.hasWorkingAbility(:MINUS)
         atkmult=(atkmult*1.5).round
@@ -1402,10 +1419,10 @@ class PokeBattle_Move
       atkmult=(atkmult*0.5).round
     end
     if (attacker.hasWorkingAbility(:PUREPOWER) ||
-       attacker.hasWorkingAbility(:HUGEPOWER)) && pbIsPhysical?(type)
+       attacker.hasWorkingAbility(:HUGEPOWER)) && pbAffectsAttack?(type)
       atkmult=(atkmult*2.0).round
     end
-    if attacker.hasWorkingAbility(:SOLARPOWER) && pbIsSpecial?(type) &&
+    if attacker.hasWorkingAbility(:SOLARPOWER) && pbAffectsSpAtk?(type) &&
        (@battle.pbWeather==PBWeather::SUNNYDAY ||
        @battle.pbWeather==PBWeather::HARSHSUN) && 
        !attacker.hasWorkingItem(:UTILITYUMBRELLA)
@@ -1420,11 +1437,11 @@ class PokeBattle_Move
       atkmult=(atkmult*1.5).round
     end
     if attacker.hasWorkingAbility(:SLOWSTART) &&
-       attacker.turncount<=5 && pbIsPhysical?(type)
+       attacker.turncount<=5 && pbAffectsAttack?(type)
       atkmult=(atkmult*0.5).round
     end
     if (@battle.pbWeather==PBWeather::SUNNYDAY ||
-       @battle.pbWeather==PBWeather::HARSHSUN) && pbIsPhysical?(type)
+       @battle.pbWeather==PBWeather::HARSHSUN) && pbAffectsAttack?(type)
       if (attacker.hasWorkingAbility(:FLOWERGIFT) && 
          !attacker.hasWorkingItem(:UTILITYUMBRELLA)) ||
          (attacker.pbPartner.hasWorkingAbility(:FLOWERGIFT) &&
@@ -1434,14 +1451,14 @@ class PokeBattle_Move
     end
     # Orichalcum Pulse
     if (@battle.pbWeather==PBWeather::SUNNYDAY ||
-       @battle.pbWeather==PBWeather::HARSHSUN) && pbIsPhysical?(type)
+       @battle.pbWeather==PBWeather::HARSHSUN) && pbAffectsAttack?(type)
       if (attacker.hasWorkingAbility(:ORICHALCUMPULSE) && 
          !attacker.hasWorkingItem(:UTILITYUMBRELLA))
         atkmult=(atkmult*1.3).round
       end
     end
     # Hadron Engine
-    if @battle.pbTerrain==PBBattleTerrains::ELECTRIC && pbIsSpecial?(type)
+    if @battle.pbTerrain==PBBattleTerrains::ELECTRIC && pbAffectsSpAtk?(type)
       if attacker.hasWorkingAbility(:HADRONENGINE)
         atkmult=(atkmult*1.3).round
       end
@@ -1452,24 +1469,24 @@ class PokeBattle_Move
        attacker.hasWorkingAbility(:PROTOSYNTHESIS)) ||
       (@battle.pbTerrain==PBBattleTerrains::ELECTRIC && 
        attacker.hasWorkingAbility(:QUARKDRIVE))
-       if (pbIsPhysical?(type) && attacker.profstat == PBStats::ATTACK) || 
-          (pbIsSpecial?(type) && attacker.profstat == PBStats::SPATK )
+       if (pbAffectsAttack?(type) && attacker.profstat == PBStats::ATTACK) || 
+          (pbAffectsSpAtk?(type) && attacker.profstat == PBStats::SPATK )
         atkmult=(atkmult*1.3).round
       end
     end
     # Embody Aspect (Hearthflame Mask)
-    if attacker.hasWorkingAbility(:EMBODYASPECT3) && pbIsPhysical?(type)
+    if attacker.hasWorkingAbility(:EMBODYASPECT3) && pbAffectsAttack?(type)
       atkmult=(atkmult*1.3).round
     end
     if attacker.pbPartner.hasWorkingAbility(:POWERSPOT)
       atkmult=(atkmult*1.3).round
     end
     if @battle.pbCheckGlobalAbility(:VESSELOFRUIN) && 
-      !attacker.hasWorkingAbility(:VESSELOFRUIN) &&  pbIsSpecial?(type)
+      !attacker.hasWorkingAbility(:VESSELOFRUIN) &&  pbAffectsSpAtk?(type)
         atkmult=(atkmult/1.25).round
     end
     if @battle.pbCheckGlobalAbility(:TABLETSOFRUIN) && 
-      !attacker.hasWorkingAbility(:TABLETSOFRUIN) &&  pbIsPhysical?(type)
+      !attacker.hasWorkingAbility(:TABLETSOFRUIN) &&  pbAffectsAttack?(type)
         atkmult=(atkmult/1.25).round
     end
     # Supreme Overlord
@@ -1479,21 +1496,21 @@ class PokeBattle_Move
     end
     if attacker.hasWorkingItem(:THICKCLUB) &&
        (isConst?(attacker.species,PBSpecies,:CUBONE) ||
-       isConst?(attacker.species,PBSpecies,:MAROWAK)) && pbIsPhysical?(type)
+       isConst?(attacker.species,PBSpecies,:MAROWAK)) && pbAffectsAttack?(type)
       atkmult=(atkmult*2.0).round
     end
     if attacker.hasWorkingItem(:DEEPSEATOOTH) &&
-       isConst?(attacker.species,PBSpecies,:CLAMPERL) && pbIsSpecial?(type)
+       isConst?(attacker.species,PBSpecies,:CLAMPERL) && pbAffectsSpAtk?(type)
       atkmult=(atkmult*2.0).round
     end
     if attacker.hasWorkingItem(:LIGHTBALL) &&
        isConst?(attacker.species,PBSpecies,:PIKACHU)
       atkmult=(atkmult*2.0).round
     end
-    if attacker.hasWorkingItem(:CHOICEBAND) && pbIsPhysical?(type)
+    if attacker.hasWorkingItem(:CHOICEBAND) && pbAffectsAttack?(type)
       atkmult=(atkmult*1.5).round
     end
-    if attacker.hasWorkingItem(:CHOICESPECS) && pbIsSpecial?(type)
+    if attacker.hasWorkingItem(:CHOICESPECS) && pbAffectsSpAtk?(type)
       atkmult=(atkmult*1.5).round
     end
     if attacker.hasWorkingItem(:BLACKFLAG) && attacker.turncount%2==0
@@ -1505,7 +1522,7 @@ class PokeBattle_Move
     defstage=opponent.stages[PBStats::DEFENSE]+6
     # TODO: Wonder Room should apply around here
     applysandstorm=false
-    if type>=0 && pbIsSpecial?(type) && @function!=0x122 # Psyshock
+    if type>=0 && pbAffectsSpDef?(type) && @function!=0x122 # Psyshock
       defense=opponent.spdef
       defstage=opponent.stages[PBStats::SPDEF]+6
       applysandstorm=true
@@ -1521,11 +1538,11 @@ class PokeBattle_Move
     end
     defmult=0x1000
     if @battle.internalbattle
-      if @battle.pbOwnedByPlayer?(opponent.index) && pbIsPhysical?(type) &&
+      if @battle.pbOwnedByPlayer?(opponent.index) && pbAffectsDefense?(type) &&
          @battle.pbPlayer.numbadges>=BADGESBOOSTDEFENSE
         defmult=(defmult*1.1).round
       end
-      if @battle.pbOwnedByPlayer?(opponent.index) && pbIsSpecial?(type) &&
+      if @battle.pbOwnedByPlayer?(opponent.index) && pbAffectsSpDef?(type) &&
          @battle.pbPlayer.numbadges>=BADGESBOOSTSPDEF
 
          defmult=(defmult*1.1).round
@@ -1538,12 +1555,12 @@ class PokeBattle_Move
 =end
     if !attacker.hasMoldBreaker(opponent)
       if opponent.hasWorkingAbility(:MARVELSCALE) &&
-         opponent.status>0 && pbIsPhysical?(type)
+         opponent.status>0 && pbAffectsDefense?(type)
         defmult=(defmult*1.5).round
       end
       if opponent.hasWorkingAbility(:GRASSPELT) &&
          @battle.pbTerrain==PBBattleTerrains::GRASSY &&
-         pbIsPhysical?(type)
+         pbAffectsDefense?(type)
         defmult=(defmult*1.5).round
       end
       # Fluffy # changed added
@@ -1554,7 +1571,7 @@ class PokeBattle_Move
         defmult=(defmult*2).round
       end
       if (@battle.pbWeather==PBWeather::SUNNYDAY ||
-         @battle.pbWeather==PBWeather::HARSHSUN) && pbIsSpecial?(type)
+         @battle.pbWeather==PBWeather::HARSHSUN) && pbAffectsSpDef?(type)
         if (opponent.hasWorkingAbility(:FLOWERGIFT) && 
            !opponent.hasWorkingItem(:UTILITYUMBRELLA)) ||
            (opponent.pbPartner.hasWorkingAbility(:FLOWERGIFT) &&
@@ -1569,26 +1586,26 @@ class PokeBattle_Move
        opponent.hasWorkingAbility(:PROTOSYNTHESIS)) ||
       (@battle.pbTerrain==PBBattleTerrains::ELECTRIC && 
        opponent.hasWorkingAbility(:QUARKDRIVE))
-       if  (pbIsPhysical?(type) && opponent.profstat == PBStats::DEFENSE) || 
-          (pbIsSpecial?(type) && opponent.profstat == PBStats::SPDEF )
+       if  (pbAffectsDefense?(type) && opponent.profstat == PBStats::DEFENSE) || 
+          (pbAffectsSpDef?(type) && opponent.profstat == PBStats::SPDEF )
         defmult=(defmult*1.3).round
       end
     end
     # Embody Aspect (Wellspring and Cornerstone Masks)
-    if ((opponent.hasWorkingAbility(:EMBODYASPECT4) && pbIsPhysical?(type)) ||
-        (opponent.hasWorkingAbility(:EMBODYASPECT2) && pbIsSpecial?(type))) &&
+    if ((opponent.hasWorkingAbility(:EMBODYASPECT4) && pbAffectsDefense?(type)) ||
+        (opponent.hasWorkingAbility(:EMBODYASPECT2) && pbAffectsSpDef?(type))) &&
        !attacker.hasWorkingItem(:PASTELCHALK)
       defmult=(defmult*1.3).round
     end
     if @battle.pbCheckGlobalAbility(:BREADSOFRUIN) && 
-      !opponent.hasWorkingAbility(:BREADSOFRUIN) &&  pbIsSpecial?(type)
+      !opponent.hasWorkingAbility(:BREADSOFRUIN) &&  pbAffectsSpDef?(type)
         defmult=(defmult/1.25).round
     end
     if @battle.pbCheckGlobalAbility(:SWORDOFRUIN) && 
-      !opponent.hasWorkingAbility(:SWORDOFRUIN) &&  pbIsPhysical?(type)
+      !opponent.hasWorkingAbility(:SWORDOFRUIN) &&  pbAffectsDefense?(type)
         defmult=(defmult/1.25).round
     end
-    if opponent.hasWorkingItem(:ASSAULTVEST) && pbIsSpecial?(type)
+    if opponent.hasWorkingItem(:ASSAULTVEST) && pbAffectsSpDef?(type)
       defmult=(defmult*1.5).round
     end
     if opponent.hasWorkingItem(:EVIOLITE)
@@ -1598,7 +1615,7 @@ class PokeBattle_Move
       end
     end
     if opponent.hasWorkingItem(:DEEPSEASCALE) &&
-       isConst?(opponent.species,PBSpecies,:CLAMPERL) && pbIsSpecial?(type)
+       isConst?(opponent.species,PBSpecies,:CLAMPERL) && pbAffectsSpDef?(type)
       defmult=(defmult*2.0).round
     end
     if opponent.hasWorkingItem(:METALPOWDER) &&
@@ -1665,7 +1682,7 @@ class PokeBattle_Move
       opponent.damagestate.typemod=8
     end
     # Burn
-    if attacker.status==PBStatuses::BURN && pbIsPhysical?(type) &&
+    if attacker.status==PBStatuses::BURN && pbAffectsAttack?(type) &&
        !attacker.hasWorkingAbility(:GUTS) &&
         @function!=0x7E # Facade
       damage=(damage*0.5).round

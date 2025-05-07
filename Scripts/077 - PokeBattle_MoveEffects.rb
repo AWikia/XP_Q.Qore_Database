@@ -13714,7 +13714,7 @@ class PokeBattle_Move_325 < PokeBattle_Move
 
   def pbEffect(attacker,opponent,hitnum=0,alltargets=nil,showanimation=true)
     ret=super(attacker,opponent,hitnum,alltargets,showanimation)
-    if opponent.damagestate.calcdamage>0
+    if opponent.damagestate.calcdamage>0 && !attacker.hasWorkingAbility(:ELDERBANANZA)
       attacker.effects[PBEffects::HyperBeam]=2
       attacker.currentMove=@id
     end

@@ -4501,6 +4501,7 @@ def ragefist
     p+=1 if user.hasWorkingAbility(:SOUNDTRACK) && thismove.isSoundBased?
     p+=1 if user.hasWorkingAbility(:SINISTRO) && thismove.isContactMove?
     p+=1 if user.hasWorkingAbility(:GALEWINGS) && isConst?(thismove.type,PBTypes,:FLYING)
+    p+=2 if user.hasWorkingAbility(:ELDERBANANZA) && thismove.pbIsElderSpecial?
     p+=1 if @battle.pbTerrain==PBBattleTerrains::GRASSY && thismove.function==0x310
     p+=1 if @battle.pbTerrain==PBBattleTerrains::ELECTRIC && thismove.function==0x345
     p+=1 if @battle.pbTerrain==PBBattleTerrains::MISTY && thismove.function==0x346

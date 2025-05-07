@@ -84,7 +84,7 @@ class Window_PokemonBag < Window_DrawableCommand
     if index!=@bag.pockets[self.pocket].length
       if @bag.registeredItem==@bag.pockets[self.pocket][index][0]
         pbDrawImagePositions(self.contents,[
-           ["Graphics/UI/"+getAccentFolder+"/bagReg",rect.x+rect.width-58,ypos+4,0,0,-1,-1]
+           ["Graphics/UI/"+getAccentFolder+"/bagReg",rect.x+rect.width-72,ypos+4,0,0,-1,-1]
         ])
       end
     end

@@ -414,3 +414,4 @@
 405,RADICALARROW,"Radical Arrow","The Pokémon has a radical arrow that makes it ignore accuracy checks while attacking every second turn"
 406,MICROSTAR,"Micro Star","All the Pokémon moves become the Nomral type. The Pokémon also takes half damage from all moves every second turn."
 407,ANTICYCLONE,"Anti-Cyclone","The Pokémon reflects Water-, Electric- and Bolt-type moves instead of getting hit by them. This also eliminates the effects of Rain and Electric Terrain."
+408,ELDERBANANZA,"Elder Bananza","The Pokémon's yellow bananza makes it move normally and not recharge when using Elder Special moves."

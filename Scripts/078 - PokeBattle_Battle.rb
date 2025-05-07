@@ -1256,6 +1256,8 @@ class PokeBattle_Battle
                   !@choices[i][2].pbIsStatus?
         pri+=1 if @battlers[i].hasWorkingAbility(:GALEWINGS) &&
                   isConst?(@choices[i][2].type,PBTypes,:FLYING)
+        pri+=2 if @battlers[i].hasWorkingAbility(:ELDERBANANZA) &&
+                  @choices[i][2].pbIsElderSpecial?
         pri+=1 if pbTerrain==PBBattleTerrains::GRASSY && 
                   @choices[i][2].function==0x310
         pri+=1 if pbTerrain==PBBattleTerrains::ELECTRIC && 

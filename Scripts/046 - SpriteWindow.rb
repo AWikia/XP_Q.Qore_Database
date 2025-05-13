@@ -200,11 +200,19 @@ end
 module GifLibrary
   @@loadlib=Win32API.new("Kernel32.dll","LoadLibrary",'p','')
   if safeExists?("gif.dll")
-    PngDll=@@loadlib.call("gif.dll")
-    GifToPngFiles=Win32API.new("gif.dll","GifToPngFiles",'pp','l')
-    GifToPngFilesInMemory=Win32API.new("gif.dll","GifToPngFilesInMemory",'plp','l')
-    CopyDataString=Win32API.new("gif.dll","CopyDataString",'lpl','l')
-    FreeDataString=Win32API.new("gif.dll","FreeDataString",'l','')
+    begin
+      PngDll=@@loadlib.call("gif.dll")
+      GifToPngFiles=Win32API.new("gif.dll","GifToPngFiles",'pp','l')
+      GifToPngFilesInMemory=Win32API.new("gif.dll","GifToPngFilesInMemory",'plp','l')
+      CopyDataString=Win32API.new("gif.dll","CopyDataString",'lpl','l')
+      FreeDataString=Win32API.new("gif.dll","FreeDataString",'l','')
+      rescue RuntimeError # @FIXME: Remove it once Windows 11 bug gets fixed
+        PngDll=nil
+        GifToPngFiles=nil
+        GifToPngFilesInMemory=nil
+        CopyDataString=nil
+        FreeDataString=nil
+    end
   else
     PngDll=nil
   end

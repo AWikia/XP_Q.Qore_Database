@@ -224,8 +224,11 @@ module Graphics
       end
     end
     if safeExists?("./rubyscreen.dll")
-      takescreen=Win32API.new("rubyscreen.dll","TakeScreenshot","p","i")
-      takescreen.call(tempPath)
+      begin
+        takescreen=Win32API.new("rubyscreen.dll","TakeScreenshot","p","i")
+        takescreen.call(tempPath)
+        rescue RuntimeError # @FIXME: Remove it once Windows 11 bug gets fixed
+      end
     end
     bm=nil
     if safeExists?(tempPath)

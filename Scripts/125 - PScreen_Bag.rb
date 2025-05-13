@@ -86,6 +86,10 @@ class Window_PokemonBag < Window_DrawableCommand
         pbDrawImagePositions(self.contents,[
            ["Graphics/UI/"+getAccentFolder+"/bagReg",rect.x+rect.width-72,ypos+4,0,0,-1,-1]
         ])
+      elsif ItemHandlers.hasKeyItemHandler(item)
+        pbDrawImagePositions(self.contents,[
+           ["Graphics/UI/"+getDarkModeFolder+"/Bag/icon_register_disabled",rect.x+rect.width-72,ypos+4,0,0,-1,-1]
+        ])
       end
     end
   end

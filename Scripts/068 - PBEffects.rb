@@ -156,6 +156,7 @@ begin
     SyrupBomb          = 152
     BurningBulwark     = 153
     DragonCheer        = 154
+    SuperBooster       = 155
     
     ############################################################################
     # These effects apply to a side

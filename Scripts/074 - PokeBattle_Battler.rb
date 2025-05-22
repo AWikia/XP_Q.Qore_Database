@@ -564,6 +564,7 @@ def ragefist
       @effects[PBEffects::Substitute]     = 0
       @effects[PBEffects::Telekinesis]    = 0
       @effects[PBEffects::LaserFocus]     = 0 # changed
+      @effects[PBEffects::SuperBooster]    = 0
     else
       if @effects[PBEffects::LockOn]>0
         @effects[PBEffects::LockOn]=2
@@ -577,6 +578,11 @@ def ragefist
         @effects[PBEffects::LaserFocus]=2
       else
         @effects[PBEffects::LaserFocus]=0
+      end
+      if @effects[PBEffects::SuperBooster]>0
+        @effects[PBEffects::SuperBooster]+=1
+      else
+        @effects[PBEffects::SuperBooster]=0
       end
     end
     @damagestate.reset
@@ -1234,6 +1240,9 @@ def ragefist
       speedmult=speedmult*2
     end
     if self.hasWorkingItem(:BLACKFLAG) && self.turncount%2==0
+      speedmult=speedmult*2
+    end
+    if @effects[PBEffects::SuperBooster]>0
       speedmult=speedmult*2
     end
     if self.pbOwnSide.effects[PBEffects::Tailwind]>0
@@ -2310,6 +2319,12 @@ def ragefist
           PBDebug.log("[Item triggered] #{pbThis}'s Emergence Policy (raising Special Defense)")
         end
       end
+    end
+    if self.hasWorkingItem(:SUPERBOOSTER) && onactive
+      self.effects[PBEffects::SuperBooster]=3
+      pbConsumeItem(false,false)
+      @battle.pbCommonAnimation("StatUp",self,nil)
+      @battle.pbDisplay(_INTL("{1}'s Super Booster made interim double stat changes!",pbThis))
     end
     # Intrepid Sword
     if self.hasWorkingAbility(:INTREPIDSWORD) && onactive

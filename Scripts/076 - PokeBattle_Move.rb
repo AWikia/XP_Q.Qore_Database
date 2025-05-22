@@ -1516,6 +1516,9 @@ class PokeBattle_Move
     if attacker.hasWorkingItem(:BLACKFLAG) && attacker.turncount%2==0
       atkmult=(atkmult*2.0).round
     end
+    if attacker.effects[PBEffects::SuperBooster]>0
+      atkmult=(atkmult*2.0).round
+    end
     atk=(atk*atkmult*1.0/0x1000).round
     ##### Calculate opponent's defense stat #####
     defense=opponent.defense
@@ -1623,7 +1626,10 @@ class PokeBattle_Move
        !opponent.effects[PBEffects::Transform]
       defmult=(defmult*1.5).round
     end
-    if attacker.hasWorkingItem(:BLACKFLAG) && attacker.turncount%2==0
+    if opponent.hasWorkingItem(:BLACKFLAG) && opponent.turncount%2==0
+      defmult=(defmult*2.0).round
+    end
+    if opponent.effects[PBEffects::SuperBooster]>0
       defmult=(defmult*2.0).round
     end
     defense=(defense*defmult*1.0/0x1000).round

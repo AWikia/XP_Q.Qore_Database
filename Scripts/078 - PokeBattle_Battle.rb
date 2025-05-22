@@ -4885,6 +4885,9 @@ class PokeBattle_Battle
       if @battlers[i].effects[PBEffects::SyrupBomb]>0
         @battlers[i].effects[PBEffects::SyrupBomb]-=1
       end
+      if @battlers[i].effects[PBEffects::SuperBooster]>0
+        @battlers[i].effects[PBEffects::SuperBooster]-=1
+      end
       @battlers[i].effects[PBEffects::MagicDelta]=false
       @battlers[i].effects[PBEffects::ShellTrap]=false # changed
       @battlers[i].effects[PBEffects::TemporaryMoldBreaker]=false # Required for Mycellius Might

@@ -103,14 +103,10 @@ def pbScreenCapture
      i+=1
   }
   if capturefile && safeExists?("rubyscreen.dll")
-    begin
-      takescreen=Win32API.new("rubyscreen.dll","TakeScreenshot","%w(p)","i")
-      takescreen.call(capturefile)
-      if safeExists?(capturefile)
-        pbSEPlay("expfull") if FileTest.audio_exist?("Audio/SE/expfull")
-      end
-      rescue RuntimeError # @FIXME: Remove it once Windows 11 bug gets fixed
-      Kernel.pbMessage(_INTL("Failed to save screenshot"))
+    takescreen=Win32API.new("rubyscreen.dll","TakeScreenshot","%w(p)","i")
+    takescreen.call(capturefile)
+    if safeExists?(capturefile)
+      pbSEPlay("expfull") if FileTest.audio_exist?("Audio/SE/expfull")
     end
   elsif !safeExists?("rubyscreen.dll")
       Kernel.pbMessage(_INTL("Unable to find rubyscreen.dll file in the Game folder. Make sure you have extracted every file in the archive"))

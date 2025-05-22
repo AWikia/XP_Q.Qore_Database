@@ -1023,3 +1023,5 @@
 1009,COPILOTITE,Copilotite,Copilotites,1,10000,"One of the mysterious Mega Stones. Have Copilot hold it, and this stone will enable it to Mega Evolve in battle.",0,0,12,
 1010,CRYSTALORB,Crystal Orb,Crystal Orbs,1,0,A shiny crystallious orb that is said to have a legend tied to it. It's known to have a deep connection to Nickelodeon.,0,0,0,
 1011,NICKITE,Nickite,Nickite,1,10000,"One of the mysterious Mega Stones. Have a fully-evolved Nickelodeon species hold it, and this stone will enable it to Mega Evolve in battle.",0,0,12,
+1012,SUPERBOOSTER,Super Booster,Super Boosters,1,10000,An item to be held by a Pokémon. This boosters doubles the stats for three turns. Can only be activated once.,0,0,0,
+

@@ -9,7 +9,7 @@ class IntroEventScene < EventScene
     @pic2.moveOpacity(0,0,0)
     @index=0
     data_system = pbLoadRxData("Data/System")
-    pbBGMPlay(data_system.title_bgm)
+#    pbBGMPlay(data_system.title_bgm)
     openPic(self,nil)
   end
 
@@ -45,6 +45,10 @@ class IntroEventScene < EventScene
   end
 
   def openSplash(scene,args)
+    # Play BGM
+    data_system = pbLoadRxData("Data/System")
+    pbBGMPlay(data_system.title_bgm)
+    # Play BGM End
     onCTrigger.clear
     onUpdate.clear
     @pic.name="Graphics/Titles/"+@splash
@@ -80,7 +84,7 @@ class IntroEventScene < EventScene
     # Fade out
     @pic.moveOpacity(15,0,0)
     @pic2.moveOpacity(15,0,0)
-    pbBGMStop(1.0)
+#    pbBGMStop(1.0) # Not required any longer.
     pictureWait
     scene.dispose # Close the scene
     sscene=PokemonLoadScene.new
@@ -97,7 +101,7 @@ class IntroEventScene < EventScene
     # Fade out
     @pic.moveOpacity(15,0,0)
     @pic2.moveOpacity(15,0,0)
-    pbBGMStop(1.0)
+#    pbBGMStop(1.0) # Not required any longer.
     pictureWait
     scene.dispose # Close the scene
     sscene=PokemonLoadScene.new
@@ -116,7 +120,7 @@ class Scene_Intro
 
   def main
     Graphics.transition(0)
-    @eventscene=IntroEventScene.new(@pics,@splash)
+    @eventscene=IntroEventScene.new(@pics,@splash,nil)
     @eventscene.main
     Graphics.freeze
   end

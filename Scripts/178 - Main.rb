@@ -104,9 +104,9 @@ def pbCallTitle #:nodoc:
 #  Win32API.SyncTitle
   if $DEBUG
     if QQORECHANNEL == 3
-      return Scene_Intro.new(['canary_disclaimer','intro1'], title) 
+      return Scene_Intro.new(['canary_disclaimer','intro1','intro2','intro3'], title) 
     else
-      return Scene_Intro.new(['intro1'], title) 
+      return Scene_Intro.new(['intro1','intro2','intro3'], title) 
     end  
 #    return Scene_DebugIntro.new
   else

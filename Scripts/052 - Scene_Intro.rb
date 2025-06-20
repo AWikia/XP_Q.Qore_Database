@@ -8,9 +8,10 @@ class IntroEventScene < EventScene
     @pic2=addImage(0,322,"") # flashing "Press Enter" picture
     @pic2.moveOpacity(0,0,0)
     @index=0
+    @timer=0 # reset the timer
     data_system = pbLoadRxData("Data/System")
 #    pbBGMPlay(data_system.title_bgm)
-    openPic(self,nil)
+    openPic(self,nil) rescue openSplash(self,nil)
   end
 
   def openPic(scene,args)
@@ -58,6 +59,7 @@ class IntroEventScene < EventScene
     pictureWait
     onUpdate.set(method(:splashUpdate))  # call splashUpdate every frame
     onCTrigger.set(method(:closeSplash)) # call closeSplash when C key is pressed
+    onBTrigger.set(method(:quitGame)) # call closeSplash when C key is pressed
   end
 
   def splashUpdate(scene,args)
@@ -110,7 +112,17 @@ class IntroEventScene < EventScene
   end
 end
 
-
+def quitGame(scene,args)
+  if Kernel.pbConfirmMessage(_INTL("Are you sure you want to quit the game?"))
+    @pic.moveOpacity(15,0,0)
+    @pic2.moveOpacity(15,0,0)
+#    pbBGMStop(1.0) # Not required any longer.
+    pictureWait
+    scene.dispose # Close the scene
+    $scene=nil
+    return
+  end
+end
 
 class Scene_Intro
   def initialize(pics, splash = nil)

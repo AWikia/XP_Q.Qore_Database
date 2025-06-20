@@ -27,17 +27,20 @@ class Scene_DebugIntro
   end
 end
 
-def qoreInitials
-    $PokemonSystem = PokemonSystem.new if !$PokemonSystem
-    $debugmode=$PokemonSystem.debugmode
-    if ($debugmode==1)
-      $DEBUG=true
+def qoreInitials(minimal=false)
+    if !minimal
+      $PokemonSystem = PokemonSystem.new if !$PokemonSystem
+      $debugmode=$PokemonSystem.debugmode
+      if ($debugmode==1)
+        $DEBUG=true
+      end
+      $INTERNAL=$DEBUG
     end
-    $INTERNAL=$DEBUG
     $REGIONALCOMBO=1024
-    $inbattle=false # Initialization
+    # Initialization
+    $inbattle=false # 
     $fusionfinder=false
-    $JBIndex0= 0
+    $JBIndex0= 0 # Jukebox Page one index
     $JBIndex1= 1
     Graphics.frame_rate=40
 end
@@ -95,14 +98,16 @@ def getBorderNames # Edit this along with getBorders to add more borders
 end
 
 
-def pbCallTitle #:nodoc:
-  qoreInitials
+def pbCallTitle(minimal=false) #:nodoc:
+  qoreInitials(minimal)
   channelvar= QQORECHANNELVARIANT.to_s
   title=['QoreTitle_0_'+channelvar,'QoreTitle_1_'+channelvar,'QoreTitle_2_'+channelvar,'QoreTitle_3_'+channelvar,'QoreTitle_4_'+channelvar,'QoreTitle_5_'+channelvar][QQORECHANNEL]
   title=['QoreTitle','QoreTitle_1','QoreTitle_2','QoreTitle_3','QoreTitle_4','QoreTitle_5'][QQORECHANNEL]  if !pbResolveBitmap(_INTL("Graphics/Titles/{1}", title)) || (QQORECHANNELVARIANT < 1)
   title='QoreTitle' if !pbResolveBitmap(_INTL("Graphics/Titles/{1}", title))
 #  Win32API.SyncTitle
-  if $DEBUG
+  if minimal
+    return Scene_Intro.new([],title)
+  elsif $DEBUG
     if QQORECHANNEL == 3
       return Scene_Intro.new(['canary_disclaimer','intro1','intro2','intro3'], title) 
     else
@@ -115,9 +120,9 @@ def pbCallTitle #:nodoc:
     # actual title screen.  Second parameter is the actual
     # title screen filename, also in Titles with no extension.
     if QQORECHANNEL == 3
-      return Scene_Intro.new(['canary_disclaimer','intro1'], title) 
+      return Scene_Intro.new(['canary_disclaimer','intro1','intro2','intro3'], title) 
     else
-      return Scene_Intro.new(['intro1'], title) 
+      return Scene_Intro.new(['intro1','intro2','intro3'], title) 
     end  
   end
 end
@@ -147,6 +152,8 @@ def mainFunctionDebug #:nodoc:
     setScreenBorderName($BORDERS[$PokemonSystem.bordergraphic]) # Sets image file for the border
 # Don't load Q.Qore in Windows 8.1 and below
     if pbGetVersion() < 10240
+        data_system = pbLoadRxData("Data/System")
+        pbBGMPlay(data_system.title_bgm)
         scene=PokemonOutdatedSystemScreenScene.new
         screen=PokemonOutdatedSystemScreen.new(scene)
         pbFadeOutIn(99999) { 

@@ -137,7 +137,7 @@ class PokemonLoadScene
       addBackgroundOrColoredPlane(@sprites,"background",getDarkModeFolder+"/Load/bg_empty",
          Color.new(242,242,242),@viewport)
     end
-      addBackgroundOrColoredPlane(@sprites,"partybg_title",getDarkModeFolder+"/party_bg_1",
+      addBackgroundOrColoredPlane(@sprites,"partybg_title",getDarkModeFolder+"/party_bg",
          Color.new(12,12,12),@viewport)
     title=RTP.getGameIniValue("Game", "Game") # QQC Edit 
     title=RTP.getGameIniValue("Game","Title") if title==""
@@ -207,6 +207,8 @@ class PokemonLoadScene
       pbUpdate
       if Input.trigger?(Input::C)
         return @sprites["cmdwindow"].index
+      elsif Input.trigger?(Input::B)
+        return 'title'
       end
       if @sprites["header"].windowskin!=nil
         @sprites["header"].windowskin=nil
@@ -272,7 +274,7 @@ class PokemonLoad
       Kernel.pbMessage(_INTL("No save file was found."))
     end
     @scene.pbEndScene
-    $scene=pbCallTitle
+    $scene=pbCallTitle(true)
   end
 
   def pbStartLoadScreen
@@ -368,7 +370,7 @@ class PokemonLoad
     commands[cmdQQSR=commands.length]=_INTL("System Requirements") # Due to a bug in VR Corendo, we need to set it here
     commands[cmdQQRM=commands.length]=_INTL("Reference Manual") # This is handled elsewhere on VR Corendo
     commands[cmdDebug=commands.length]=_INTL("Debug") if $DEBUG
-    commands[cmdQuit=commands.length]=_INTL("Quit Game")
+#    commands[cmdQuit=commands.length]=_INTL("Quit Game")
     commands[cmdAbout=commands.length]=_INTL("About")
     @scene.pbStartScene(commands,showContinue,trainer,framecount,mapid)
     @scene.pbSetParty(trainer) if showContinue
@@ -376,6 +378,12 @@ class PokemonLoad
     $ItemData = readItemList("Data/items.dat")
     loop do
       command=@scene.pbChoose(commands)
+      if command=='title'
+        pbPlayCancelSE()
+        @scene.pbEndScene
+        $scene=pbCallTitle(true)
+        return
+      end
       unless cmdContinue>=0 && command==cmdContinue
         pbPlayDecisionSE() # changed added
       end

@@ -114,7 +114,7 @@ class Scene_Map
     end
     updateSpritesets
     if $game_temp.to_title
-      $scene = pbCallTitle
+      $scene = pbCallTitle(true)
       return
     end
     if $game_temp.transition_processing

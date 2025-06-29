@@ -148,31 +148,29 @@ class PokemonMenu
     commands[cmdBag=commands.length]=_INTL("Bag") if !pbInBugContest?
     commands[cmdPokegear=commands.length]=_INTL("Pokégear") if $Trainer.pokegear
     commands[cmdTrainer=commands.length]=$Trainer.name
+    information=_INTL("Trophies: {1}/28 ({2}%)\nTechnical Discs: {3}/100\nWin Streak:{4}\n",Kernel.pbTrophies, Kernel.pbTrophyScore, Kernel.pbTechnicalDiscScore, $game_variables[WIN_STREAK_VARIABLE])
     if pbInSafari?
       if SAFARISTEPS<=0
-        @scene.pbShowInfo(_INTL("Trophies: {1}/28 ({2}%)\nTechnical Discs: {3}/100\nBalls: {4}",Kernel.pbTrophies,Kernel.pbTrophyScore,Kernel.pbTechnicalDiscScore,pbSafariState.ballcount))
+        information+=_INTL("Balls: {1}\n",pbSafariState.ballcount)
       else
-        @scene.pbShowInfo(_INTL("Trophies: {1}/28 ({2}%)\nTechnical Discs: {3}/100\nSteps: {4}/{5}\nBalls: {6}",Kernel.pbTrophies,Kernel.pbTrophyScore,Kernel.pbTechnicalDiscScore,pbSafariState.steps,SAFARISTEPS,pbSafariState.ballcount))
+        information+=_INTL("Steps: {1}/{2}\nBalls: {3}\n",pbSafariState.steps,SAFARISTEPS,pbSafariState.ballcount)
       end
       commands[cmdQuit=commands.length]=_INTL("Quit")
     elsif pbInBugContest?
       if pbBugContestState.lastPokemon
-        @scene.pbShowInfo(_INTL("Trophies: {1}/28 ({2}%)\nTechnical Discs: {3}/100\nCaught: {4}\nLevel: {5}\nBalls: {6}",
-           Kernel.pbTrophies,
-           Kernel.pbTrophyScore,
-           Kernel.pbTechnicalDiscScore,
+        information+=_INTL("Caught: {1}\nLevel: {2}\nBalls: {3}\n",
            PBSpecies.getName(pbBugContestState.lastPokemon.species),
            pbBugContestState.lastPokemon.level,
-           pbBugContestState.ballcount))
+           pbBugContestState.ballcount)
       else
-        @scene.pbShowInfo(_INTL("Trophies: {1}/28 ({2}%)\nTechnical Discs: {3}/100\nCaught: None\nBalls: {4}",Kernel.pbTrophies,Kernel.pbTrophyScore,Kernel.pbTechnicalDiscScore,pbBugContestState.ballcount))
+        information+=_INTL("Caught: None\nBalls: {1}\n",pbBugContestState.ballcount)
       end
       commands[cmdQuit=commands.length]=_INTL("Quit Contest")
     else
-      @scene.pbShowInfo(_INTL("Trophies: {1}/28 ({2}%)\nTechnical Discs: {3}/100\n",Kernel.pbTrophies, Kernel.pbTrophyScore, Kernel.pbTechnicalDiscScore))
       commands[cmdSave=commands.length]=_INTL("Save") if (!$game_system || !$game_system.save_disabled) && ($game_map && !pbGetMetadata($game_map.map_id,MetadataForbidSaving))
 #      commands[cmdLink=commands.length]=_INTL("Link...") if $game_switches[12]
     end
+    @scene.pbShowInfo(information)
     commands[cmdOption=commands.length]=_INTL("Settings")
     commands[cmdDebug=commands.length]=_INTL("Debug") if $DEBUG
     commands[cmdEndGame=commands.length]=_INTL("Quit Game")

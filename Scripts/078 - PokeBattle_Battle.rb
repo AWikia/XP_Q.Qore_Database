@@ -4986,6 +4986,26 @@ class PokeBattle_Battle
           if moneygained>0
             pbDisplayPaused(_INTL("{1} got ${2}\r\nfor winning!",self.pbPlayer.name,tmoney.to_s_formatted))
           end
+          # Win Streak Start
+          $game_variables[WIN_STREAK_VARIABLE]+=1
+          if $game_variables[WIN_STREAK_VARIABLE]==6
+            pbDisplayPaused(_INTL("Congratulations! You've got a Win Streak of 6!"))
+          end
+          if $game_variables[WIN_STREAK_VARIABLE]>0 &&
+             $game_variables[WIN_STREAK_VARIABLE]%9==0
+             item1=getID(PBItems,[:CHERRYBOX,:STRAWBERRYBOX,:ORANGEBOX,:APPLEBOX,:MELONBOX,
+                    :BANANABOX][($game_variables[WIN_STREAK_VARIABLE]-9)%6])
+             item2=getID(PBItems,[:CHOCOLATEBOX,:VANILLABOX,:GALAXIANBOX,:BELLBOX,
+                    :KEYBOX][($game_variables[WIN_STREAK_VARIABLE]-9)%5])
+             item3=getID(PBItems,[:SWEETCANDY,:SOURCANDY,:SPICYCANDY,
+                    :RARECANDY][($game_variables[WIN_STREAK_VARIABLE]-9)%4])
+            $PokemonBag.pbStoreItem(item1,1)
+            $PokemonBag.pbStoreItem(item2,1)
+            $PokemonBag.pbStoreItem(item3,1)
+            pbSEPlay("Item3")
+            pbDisplayPaused(_INTL("You've got a lucky bag! It contains a {1}, a {2} and a {3}!",PBItems.getName(item1), PBItems.getName(item2), PBItems.getName(item3)))
+          end
+          # Win Streak End
         end
       end
       if @internalbattle && @extramoney>0
@@ -5020,6 +5040,7 @@ class PokeBattle_Battle
         self.pbPlayer.money-=moneylost
         lostmoney=oldmoney-self.pbPlayer.money
         if @opponent
+          $game_variables[WIN_STREAK_VARIABLE]=0 if !($game_switches[1047] || $game_variables[1003] > 0)
           if @opponent.is_a?(Array)
             pbDisplayPaused(_INTL("{1} lost against {2} and {3}!",self.pbPlayer.name,@opponent[0].fullname,@opponent[1].fullname))
           else

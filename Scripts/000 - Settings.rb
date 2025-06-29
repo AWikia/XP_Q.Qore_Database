@@ -480,6 +480,7 @@ BUGCONTESTTIME = 9999
 #      they lose a battle (they can still gain money from trainers for winning).
 # * The Global Switch which, while ON, prevents all Pokémon in battle from Mega
 #      Evolving even if they otherwise could.
+# * The Global Variable that is used for the Win Streak Feature
 #===============================================================================
 STARTING_OVER_SWITCH      = 1
 SEEN_POKERUS_SWITCH       = 2
@@ -487,6 +488,7 @@ SHINY_WILD_POKEMON_SWITCH = 31
 FATEFUL_ENCOUNTER_SWITCH  = 32
 NO_MONEY_LOSS             = 33
 NO_MEGA_EVOLUTION         = 34
+WIN_STREAK_VARIABLE       = 1007
 
 #===============================================================================
 # * The ID of the common event that runs when the player starts fishing (runs

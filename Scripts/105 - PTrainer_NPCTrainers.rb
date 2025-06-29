@@ -72,7 +72,7 @@ def pbLoadTrainer(trainerid,trainername,partyid=0)
       pokemon=PokeBattle_Pokemon.new(species,level,opponent)
       pokemon.formNoCall=poke[TPFORM]
       pokemon.resetMoves
-      pokemon.setItem(poke[TPITEM])
+      pokemon.setItem(poke[TPITEM]) if poke[TPITEM]
       if poke[TPMOVES] && poke[TPMOVES].length>0
         k=0
         for move in poke[TPMOVES]
@@ -103,7 +103,7 @@ def pbLoadTrainer(trainerid,trainername,partyid=0)
           pokemon.ev[i]=[85,level*3/2].min
         end
       end      
-      pokemon.happiness=poke[TPHAPPINESS]
+      pokemon.happiness=poke[TPHAPPINESS] if poke[TPHAPPINESS]
       pokemon.name=poke[TPNAME] if poke[TPNAME] && poke[TPNAME]!=""
       if poke[TPSHADOW]   # if this is a Shadow Pokémon
         pokemon.makeShadow rescue nil

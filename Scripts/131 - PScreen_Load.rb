@@ -464,6 +464,7 @@ class PokemonLoad
         $scene = Scene_Map.new
           # Map Regions
           pbCheckPokedexes
+          pbCheckDTM
           # Map Regions End
         return
       elsif cmdNewGame>=0 && command==cmdNewGame

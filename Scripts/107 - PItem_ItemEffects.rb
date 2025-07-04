@@ -137,6 +137,20 @@ ItemHandlers::UseFromBag.add(:PCSTORAGEBOX,proc{|item|
   end
 })
 
+ItemHandlers::UseFromBag.add(:DAILYTREATMACHINE,proc{|item|
+  if $game_variables[DTM_VARIABLE] == [pbGetTimeNow.mon, pbGetTimeNow.day]
+     Kernel.pbMessage(_INTL("Can't use that now."))
+     next 0
+  else
+     scene=DailyTreatMachineScene.new
+     screen=DailyTreatMachine.new(scene)
+     pbFadeOutIn(99999) { 
+        screen.pbStartScreen
+     }
+     next 1
+  end
+})
+
 ItemHandlers::UseFromBag.add(:BICYCLE,proc{|item|
    next pbBikeCheck ? 2 : 0
 })

@@ -481,6 +481,7 @@ BUGCONTESTTIME = 9999
 # * The Global Switch which, while ON, prevents all Pokémon in battle from Mega
 #      Evolving even if they otherwise could.
 # * The Global Variable that is used for the Win Streak Feature
+# * The Global Variable that is used for the Daily Treat Machine Feature
 #===============================================================================
 STARTING_OVER_SWITCH      = 1
 SEEN_POKERUS_SWITCH       = 2
@@ -489,6 +490,7 @@ FATEFUL_ENCOUNTER_SWITCH  = 32
 NO_MONEY_LOSS             = 33
 NO_MEGA_EVOLUTION         = 34
 WIN_STREAK_VARIABLE       = 1007
+DTM_VARIABLE              = 1008
 
 #===============================================================================
 # * The ID of the common event that runs when the player starts fishing (runs

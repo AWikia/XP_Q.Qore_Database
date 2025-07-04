@@ -415,6 +415,51 @@ def pbCheckPokedexes
   end
 end
 
+# Daily Treat Machine
+def pbCheckDTM
+  if $PokemonBag.pbQuantity(:COINCASE)>0 && $PokemonBag.pbQuantity(:DAILYTREATMACHINE)==0
+    $PokemonBag.pbStoreItem(:DAILYTREATMACHINE,1)
+  end
+  if $PokemonBag.pbQuantity(:DAILYTREATMACHINE)>0 && 
+     $game_variables[DTM_VARIABLE]!=[pbGetTimeNow.mon, pbGetTimeNow.day]
+        scene=DailyTreatMachineScene.new
+        screen=DailyTreatMachine.new(scene)
+        pbFadeOutIn(99999) { 
+           screen.pbStartScreen
+        }
+  end
+end
+
+def pbCanAcceptEliteDSM
+  return ((pbGet(1))%99 === 0) ||
+         (pbGet(1) === $Trainer.publicID($Trainer.id)) ||
+         (pbGet(1) === $Trainer.secretID($Trainer.id))
+end
+
+# Returns the Trainer Card Level
+def pbGetCardLevel
+  level = 0
+  if $game_switches
+    if $game_switches[12]                           # E4 defeated
+        level+=1
+    end
+    if $game_switches[70]                           # Johto Done
+        level+=1
+    end
+    if $game_switches[76]                           # Pregame Done
+        level+=1
+    end
+    if completedTrophies && completedTechnicalDiscs # Found every TD and Trophy
+        level+=1
+    end
+    if $game_variables && $game_variables[13]>99    # Found every TD and Trophy
+        level+=1
+    end
+  end
+  return level
+end
+
+
 ################################################################################
 # Linear congruential random number generator
 ################################################################################

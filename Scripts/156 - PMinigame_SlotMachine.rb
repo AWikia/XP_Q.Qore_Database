@@ -33,9 +33,9 @@ class SlotMachineReel < BitmapSprite
     @slipping=0
     @index=rand(@reel.length)
     if $Trainer && $Trainer.isFemale?
-      @images=AnimatedBitmap.new(_INTL("Graphics/UI/Slot Machine/imagesf"))
+      @images=AnimatedBitmap.new(_INTL("Graphics/UI/"+getDarkModeFolder+"/Slot Machine/imagesf"))
     else
-      @images=AnimatedBitmap.new(_INTL("Graphics/UI/Slot Machine/images"))
+      @images=AnimatedBitmap.new(_INTL("Graphics/UI/"+getDarkModeFolder+"/Slot Machine/images"))
     end
     @shading=AnimatedBitmap.new(_INTL("Graphics/UI/Slot Machine/ReelOverlay"))
     update
@@ -264,14 +264,14 @@ class SlotMachineScene
     @viewport=Viewport.new(0,0,Graphics.width,Graphics.height)
     @viewport.z=99999
     if $Trainer && $Trainer.isFemale?
-      addBackgroundPlane(@sprites,"bg","Slot Machine/bgf",@viewport)
+      addBackgroundPlane(@sprites,"bg",getDarkModeFolder+"/Slot Machine/bgf",@viewport)
     else
-      addBackgroundPlane(@sprites,"bg","Slot Machine/bg",@viewport)
+      addBackgroundPlane(@sprites,"bg",getDarkModeFolder+"/Slot Machine/bg",@viewport)
     end
     @sprites["header"]=Window_UnformattedTextPokemon.newWithSize(_INTL("Slot Machine"),
        2,-18,256,64,@viewport)
-    @sprites["header"].baseColor=Color.new(12,12,12)
-    @sprites["header"].shadowColor=nil #Color.new(242,242,242)
+    @sprites["header"].baseColor=(isDarkMode?) ? Color.new(242,242,242) : Color.new(12,12,12)
+    @sprites["header"].shadowColor=nil #(!isDarkMode?) ? Color.new(242,242,242) : Color.new(12,12,12)
     @sprites["header"].windowskin=nil
     @sprites["reel1"]=SlotMachineReel.new(64,112,difficulty)
     @sprites["reel2"]=SlotMachineReel.new(144,112,difficulty)
@@ -279,24 +279,24 @@ class SlotMachineScene
     for i in 1..3
       @sprites["button#{i}"]=IconSprite.new(68+80*(i-1)+64,260,@viewport)
       if $Trainer && $Trainer.isFemale?
-        @sprites["button#{i}"].setBitmap(sprintf("Graphics/UI/Slot Machine/buttonf"))
+        @sprites["button#{i}"].setBitmap(sprintf("Graphics/UI/"+getDarkModeFolder+"/Slot Machine/buttonf"))
       else
-        @sprites["button#{i}"].setBitmap(sprintf("Graphics/UI/Slot Machine/button"))        
+        @sprites["button#{i}"].setBitmap(sprintf("Graphics/UI/"+getDarkModeFolder+"/Slot Machine/button"))        
       end
       @sprites["button#{i}"].visible=false
     end
     for i in 1..5
       y=[170,122,218,82,82][i-1]
       @sprites["row#{i}"]=IconSprite.new(2+64,y,@viewport)
-      @sprites["row#{i}"].setBitmap(sprintf("Graphics/UI/Slot Machine/line%1d%s",
+      @sprites["row#{i}"].setBitmap(sprintf("Graphics/UI/"+getDarkModeFolder+"/Slot Machine/line%1d%s",
          1+i/2,(i>=4) ? ((i==4) ? "a" : "b") : ""))
       @sprites["row#{i}"].visible=false
     end
     @sprites["light1"]=IconSprite.new(16+64,32,@viewport)
-    @sprites["light1"].setBitmap(sprintf("Graphics/UI/Slot Machine/lights"))
+    @sprites["light1"].setBitmap(sprintf("Graphics/UI/"+getDarkModeFolder+"/Slot Machine/lights"))
     @sprites["light1"].visible=false
     @sprites["light2"]=IconSprite.new(240+64,32,@viewport)
-    @sprites["light2"].setBitmap(sprintf("Graphics/UI/Slot Machine/lights"))
+    @sprites["light2"].setBitmap(sprintf("Graphics/UI/"+getDarkModeFolder+"/Slot Machine/lights"))
     @sprites["light2"].mirror=true
     @sprites["light2"].visible=false
     @sprites["window1"]=IconSprite.new(358+64,96,@viewport)

@@ -46,7 +46,7 @@
 46,COMETSHARD,Comet Shard,Comet Shards,1,120000,A shard that fell to the ground when a comet passed nearby. It can be sold at a high price to shops.,0,0,0,
 47,NUGGET,Nugget,Nuggets,1,10000,A nugget of the purest gold that gives off a lustrous gleam in direct light. It can be sold at a high price to shops.,0,0,0,
 48,BIGNUGGET,Big Nugget,Big Nuggets,1,60000,A big nugget of pure gold that gives off a lustrous gleam. It can be sold at a high price to shops.,0,0,0,
-49,HEARTSCALE,Heart Scale,Heart Scales,1,100,"A pretty, heart-shaped scale that is extremely rare. Some people are happy to receive one.",0,0,0,
+49,HEARTSCALE,Heart Scale,Heart Scales,1,100,"A pretty, heart-shaped scale that is extremely rare. Certain parts of the game can use it for extra help.",0,0,0,
 50,SLOWPOKETAIL,Slowpoke Tail,Slowpoke Tails,1,9800,A very tasty tail of something. It can be sold at a high price to shops.,0,0,0,
 51,RAREBONE,Rare Bone,Rare Bones,1,10000,A rare bone that is extremely valuable for the study of Pokémon archeology. It can be sold at a high price to shops.,0,0,0,
 52,RELICCOPPER,Relic Copper,Relic Coppers,1,2000,A copper coin used by an ancient civilization about three thousand years ago.,0,0,0,
@@ -1024,4 +1024,5 @@
 1010,CRYSTALORB,Crystal Orb,Crystal Orbs,1,0,A shiny crystallious orb that is said to have a legend tied to it. It's known to have a deep connection to Nickelodeon.,0,0,0,
 1011,NICKITE,Nickite,Nickite,1,10000,"One of the mysterious Mega Stones. Have a fully-evolved Nickelodeon species hold it, and this stone will enable it to Mega Evolve in battle.",0,0,12,
 1012,SUPERBOOSTER,Super Booster,Super Boosters,1,10000,An item to be held by a Pokémon. This boosters doubles the stats for three turns. Can only be activated once.,0,0,0,
+1013,DAILYTREATMACHINE,Daily Treat Machine,Daily Treat Machines,8,0,"This device activates itself every day to give rewards to the trainer. It can only be used outside of battle.",2,0,6,
 

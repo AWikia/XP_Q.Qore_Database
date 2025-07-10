@@ -10,20 +10,32 @@ class DailyTreatMachineScene
     @sprites={}
     @viewport=Viewport.new(0,0,Graphics.width,Graphics.height)
     @viewport.z=99999
-    @viewport2=Viewport.new(62,37,Graphics.width-124,Graphics.height-160)
+    @viewport2=Viewport.new(Graphics.width/2,40,(Graphics.width / 2),Graphics.height-40)
     @viewport2.z=99999
-    @sprites["background2"]=IconSprite.new(0,0,@viewport)
+    @sprites["machine"]=IconSprite.new((Graphics.width/4)-138,76,@viewport)
     level = pbGetCardLevel
     addBackgroundPlane(@sprites,"bg",getDarkModeFolder+"/Daily Treat Machine/bg_"+level.to_s,@viewport)
-    @sprites["background2"].setBitmap(_INTL("Graphics/UI/"+getDarkModeFolder+"/Daily Treat Machine/bg_machine"))
+    @sprites["machine"].setBitmap(_INTL("Graphics/UI/"+getDarkModeFolder+"/Daily Treat Machine/overlay_machine"))
     @sprites["bg"].z = 1
-    @sprites["background2"].z = 2
+    @sprites["machine"].z = 2
     @sprites["header"]=Window_UnformattedTextPokemon.newWithSize(_INTL("Daily Treat Machine"),
        2,-18,320,64,@viewport)
     @sprites["header"].baseColor=(isDarkMode?) ? Color.new(242,242,242) : Color.new(12,12,12)
     @sprites["header"].shadowColor=nil #(!isDarkMode?) ? Color.new(242,242,242) : Color.new(12,12,12)
     @sprites["header"].windowskin=nil
-    @sprites["overlay"]=BitmapSprite.new(Graphics.width - 104,Graphics.height - 104,@viewport2)
+    @sprites["overlay"]=BitmapSprite.new(Graphics.width/2,Graphics.height - 40,@viewport2)
+    @sprites["overlayStar"]=BitmapSprite.new(Graphics.width/2,Graphics.height - 40,@viewport)
+    @sprites["overlayStar"].z = 2
+    x=(Graphics.width/4)-75
+    imagepos = []
+    @overlaystar=@sprites["overlayStar"].bitmap
+    @overlaystar.clear
+    for i in 0..4
+      iconvariant=(level>i) ? 1 : 0
+      imagepos.push(["Graphics/UI/"+getDarkModeFolder+"/Daily Treat Machine/icon_stars",x,40,28*iconvariant,0,28,28])
+      x+=30
+    end
+    pbDrawImagePositions(@overlaystar,imagepos)
     pbSetSystemFont(@sprites["overlay"].bitmap)
     @items=[
             [:POTION,1],[:SUPERPOTION,1],
@@ -92,8 +104,16 @@ class DailyTreatMachineScene
       shadowColor=MessageConfig::LIGHTTEXTSHADOW
     end
     textPositions=[
-       [_INTL("Amazing! Press \"C\" to start the machine to get a reward"),258,0,2,baseColor,shadowColor],
+       [_INTL("How to use:"),Graphics.width/4,0,2,baseColor,shadowColor],
     ]
+    text = _INTL("Press \"C\" to start the machine and get a reward")
+    text2 = _INTL("Rewards obtained differ each day so come back often")
+    text3 = _INTL("Machine becomes more powerful as you progress")
+    text4 = _INTL("You can use a Heart Scale to get a second reward")
+    drawTextEx(overlay,0,32,Graphics.width/2,2,text,baseColor,shadowColor)
+    drawTextEx(overlay,0,112,Graphics.width/2,2,text2,baseColor,shadowColor)
+    drawTextEx(overlay,0,192,Graphics.width/2,2,text3,baseColor,shadowColor)
+    drawTextEx(overlay,0,272,Graphics.width/2,2,text4,baseColor,shadowColor)
     pbDrawTextPositions(overlay,textPositions)
   end
 
@@ -103,16 +123,16 @@ class DailyTreatMachineScene
     until frame==20 # 60 frames per seconds
       Graphics.update
       Input.update
-      @sprites["background2"].flash(Color.new(222,222,222,frame*12),20)
+      @sprites["machine"].flash(Color.new(222,222,222,frame*12),20)
       frame+=1
     end
     until frame==0 # 60 frames per seconds
       Graphics.update
       Input.update
-      @sprites["background2"].flash(Color.new(222,222,222,frame*12),20)
+      @sprites["machine"].flash(Color.new(222,222,222,frame*12),20)
       frame-=1
     end
-    @sprites["background2"].flash(Color.new(0,0,0,0),40)
+    @sprites["machine"].flash(Color.new(0,0,0,0),40)
     item=@items[@id%@items.length]
     Kernel.pbReceiveItem(item[0],item[1])
   end
@@ -122,14 +142,6 @@ class DailyTreatMachineScene
       Graphics.update
       Input.update
       self.update
-      if Input.trigger?(Input::A)
-        @QQSR="\\l[6]"
-        @QQSR+=_INTL("Press Enter to start the machine. Can only be used once per day so load the game every day.")
-        @QQSR+=_INTL("\\nDifferent rewards are gained each day so come back every day.")
-        @QQSR+=_INTL("\\nMachine upgrades as you progress with your adventure.")
-        @QQSR+=_INTL("\\nShould you have a Heart Scale, use one to get a second reward")
-        Kernel.pbMessage(@QQSR)
-      end
       if Input.trigger?(Input::C)
         heartscale=false
         pbSetLotteryNumber(1)
@@ -150,13 +162,6 @@ class DailyTreatMachineScene
     end 
   end
 
-  def clipcopy(input)
-    str = input.to_s
-    IO.popen('clip', 'w') { |f| f << str }
-    str
-  end
-
-  
   def pbEndScene
     pbFadeOutAndHide(@sprites) { update }
     pbDisposeSpriteHash(@sprites)

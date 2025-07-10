@@ -431,9 +431,12 @@ def pbCheckDTM
 end
 
 def pbCanAcceptEliteDSM
-  return ((pbGet(1))%99 === 0) ||
-         (pbGet(1) === $Trainer.publicID($Trainer.id)) ||
-         (pbGet(1) === $Trainer.secretID($Trainer.id))
+  time=pbGetTimeNow if !time
+  id=pbGet(1).to_i
+  return (id%99 === 0) ||
+         (id === $Trainer.publicID($Trainer.id)) ||
+         (id === $Trainer.secretID($Trainer.id)) ||
+         (time.mon == 12 && time.day == 31)
 end
 
 # Returns the Trainer Card Level

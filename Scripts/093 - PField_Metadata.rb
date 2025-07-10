@@ -55,6 +55,7 @@ class PokemonGlobalMetadata
   attr_accessor :safesave
   attr_accessor :inPast
   attr_accessor :inFuture
+  attr_accessor :adsWatched
 
   def initialize
     @bicycle              = false
@@ -115,11 +116,17 @@ class PokemonGlobalMetadata
     @safesave             = false
     @inPast               = false
     @inFuture             = false
+    @adsWatched           = 0
   end
 
   def bridge
     @bridge=0 if !@bridge
     return @bridge
+  end
+  
+  def adsWatched
+    @adsWatched=0 if !@adsWatched
+    return @adsWatched
   end
 end
 

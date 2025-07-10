@@ -380,6 +380,9 @@ class Scene_LinkBattleScene
                   if $game_variables && $game_variables[1001] > 999
                     species+=[PBSpecies::TELEMOBILEGION]
                   end
+                  if $PokemonGlobal && $PokemonGlobal.adsWatched>59
+                    species+=[PBSpecies::ZORUA]
+                  end
                   if (pbGetTimeNow.mon == 4 && pbGetTimeNow.day == 1)
                     species+=[PBSpecies::BLINKY,PBSpecies::INKY,PBSpecies::CLYDE,PBSpecies::PINKY,PBSpecies::SUE,PBSpecies::FUNKY,PBSpecies::SPUNKY,PBSpecies::ORSON]
                   else

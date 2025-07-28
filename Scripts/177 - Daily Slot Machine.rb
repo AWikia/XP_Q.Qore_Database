@@ -180,16 +180,17 @@ class DailySlotMachineScene
     @sprites["window1"].src_rect.set(0,0,152,208)
     # Pay out
     if bonus>0
-	  items= [
-	  [getID(PBItems,:SUPERPOTION),getID(PBItems,:GREATBALL),getID(PBItems,:ANTIDOTE),getID(PBItems,:REVIVE),getID(PBItems,:RARECANDY),getID(PBItems,:NORMALGEM)],
-	  [getID(PBItems,:SUPERPOTION),getID(PBItems,:GREATBALL),getID(PBItems,:ANTIDOTE),getID(PBItems,:REVIVE),getID(PBItems,:RARECANDY),getID(PBItems,:NORMALGEM)],
-	  [getID(PBItems,:MEGAPOTION),getID(PBItems,:PARKBALL),getID(PBItems,:FULLHEAL),getID(PBItems,:MAXREVIVE),getID(PBItems,:VICIOUSCANDY),getID(PBItems,:NORMALBOX)]
-	    ][difficulty]
-	  for item in items
-	    Kernel.pbReceiveItem(item,bonus)
-	  end
+      items= [
+      [getID(PBItems,:SUPERPOTION),getID(PBItems,:GREATBALL),getID(PBItems,:ANTIDOTE),getID(PBItems,:REVIVE),getID(PBItems,:RARECANDY),getID(PBItems,:NORMALGEM)],
+      [getID(PBItems,:SUPERPOTION),getID(PBItems,:GREATBALL),getID(PBItems,:ANTIDOTE),getID(PBItems,:REVIVE),getID(PBItems,:RARECANDY),getID(PBItems,:NORMALGEM)],
+      [getID(PBItems,:MEGAPOTION),getID(PBItems,:PARKBALL),getID(PBItems,:FULLHEAL),getID(PBItems,:MAXREVIVE),getID(PBItems,:VICIOUSCANDY),getID(PBItems,:NORMALBOX)]
+        ][difficulty]
+      for item in items
+        Kernel.pbReceiveItem(item,bonus)
+      end
+      Kernel.pbReceiveTrophy(:TLOTTER)
     else
-	  Kernel.pbReceiveItem(item)
+      Kernel.pbReceiveItem(item)
     end
     20.times do
       Graphics.update

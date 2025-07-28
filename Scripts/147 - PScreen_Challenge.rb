@@ -295,9 +295,9 @@ Quests:
         $game_switches[1047]=true
         pass=false
         if @currentQuest[4]
-          pbTimeEvent(1007,@currentQuest[4])
+          pbTimeEvent(1011,@currentQuest[4])
         else
-          pbTimeEvent(1007,65536)
+          pbTimeEvent(1011,65536)
         end
         if @currentQuest[0] == "Triad"
           @triadCards=[]
@@ -319,7 +319,7 @@ Quests:
             return false
           end
           pass=pbTriadDuel(@currentQuest[2][0],@currentQuest[2][1],@currentQuest[2][2],["nocardgainloss"],@currentQuest[2][3])==1 &&
-              !pbTimeEventValid(1007)
+              !pbTimeEventValid(1011)
         elsif @currentQuest[0] == "TypeQuiz"
           pass=TypeQuiz.scene(@currentQuest[2][0],@currentQuest[2][1])>=@currentQuest[4]
         elsif @currentQuest[0] == "PushBag"
@@ -328,15 +328,15 @@ Quests:
           pass=pbMiningGame
         elsif @currentQuest[0] == "TilePuzzle"
           pass=pbTilePuzzle(@currentQuest[2][0],@currentQuest[2][1]) &&
-              !pbTimeEventValid(1007)
+              !pbTimeEventValid(1011)
         elsif @currentQuest[0] == "TilePuzzles"
           pass=pbTilePuzzle(@currentQuest[2][0],@currentQuest[2][1]) &&
                pbTilePuzzle(@currentQuest[2][2],@currentQuest[2][3]) && 
-              !pbTimeEventValid(1007)
+              !pbTimeEventValid(1011)
         else # Trainer
           $PokemonGlobal.nextBattleBack="Intro"
           pass=pbTrainerBattle(@currentQuest[2][0],@currentQuest[2][1],_I("Qust Completed!!!"),false,@currentQuest[2][2],true,0) && 
-              !pbTimeEventValid(1007)
+              !pbTimeEventValid(1011)
         end
         # Quest Ending
         if pass

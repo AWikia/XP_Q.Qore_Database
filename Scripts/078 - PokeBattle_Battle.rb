@@ -4954,7 +4954,8 @@ class PokeBattle_Battle
         end
         # Calculate money gained for winning
         if @internalbattle && 
-          !($game_switches[1047] || $game_variables[1003] > 0)
+          !($game_switches[1047] || $game_switches[SEMI_INTERNAL_BATTLE] || 
+            $game_variables[1003] > 0)
           tmoney=0
           if @opponent.is_a?(Array)   # Double battles
             maxlevel1=0; maxlevel2=0; limit=pbSecondPartyBegin(1)
@@ -5007,7 +5008,7 @@ class PokeBattle_Battle
             $PokemonBag.pbStoreItem(item3,1)
             pbSEPlay("Item3")
             pbDisplayPaused(_INTL("You've got a lucky bag! It contains a {1}, a {2} and a {3}!",PBItems.getName(item1), PBItems.getName(item2), PBItems.getName(item3)))
-            if $game_variables[WIN_STREAK_VARIABLE]==11*255 # Win streak of 2805
+            if $game_variables[WIN_STREAK_VARIABLE]==(11*255)-2 # Win streak of 2803
               pbDisplayPaused(_INTL("Congratulations! You've got all available lucky bags! Keep playing!"))
             end
           end
@@ -5046,7 +5047,7 @@ class PokeBattle_Battle
         self.pbPlayer.money-=moneylost
         lostmoney=oldmoney-self.pbPlayer.money
         if @opponent
-          $game_variables[WIN_STREAK_VARIABLE]=0 if !($game_switches[1047] || $game_variables[1003] > 0)
+          $game_variables[WIN_STREAK_VARIABLE]=0 if !($game_switches[1047] || $game_switches[SEMI_INTERNAL_BATTLE] || $game_variables[1003] > 0)
           if @opponent.is_a?(Array)
             pbDisplayPaused(_INTL("{1} lost against {2} and {3}!",self.pbPlayer.name,@opponent[0].fullname,@opponent[1].fullname))
           else

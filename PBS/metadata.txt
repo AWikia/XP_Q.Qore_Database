@@ -3415,3 +3415,10 @@ TrainerBattleBGM=Battle - Trainer (Johto)
 MapPosition=10,17,6
 WildBattleBGM=Battle - Wild Pokemon (Johto)
 Environment=Boardwalk
+[556]
+# Season Mastery
+BattleBack=SeasonMastery
+TrainerBattleBGM=Battle - Season Mastery
+TrainerVictoryME=Victory - Season Mastery
+WildBattleBGM=Battle - Season Mastery
+WildVictoryME=Victory - Season Mastery

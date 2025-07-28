@@ -480,8 +480,8 @@ BUGCONTESTTIME = 9999
 #      they lose a battle (they can still gain money from trainers for winning).
 # * The Global Switch which, while ON, prevents all Pokémon in battle from Mega
 #      Evolving even if they otherwise could.
-# * The Global Variable that is used for the Win Streak Feature
-# * The Global Variable that is used for the Daily Treat Machine Feature
+# * The Global Switch which, while ON prevents Win Streak feature from working
+#      as well as preventing any money gain from battles
 #===============================================================================
 STARTING_OVER_SWITCH      = 1
 SEEN_POKERUS_SWITCH       = 2
@@ -489,8 +489,20 @@ SHINY_WILD_POKEMON_SWITCH = 31
 FATEFUL_ENCOUNTER_SWITCH  = 32
 NO_MONEY_LOSS             = 33
 NO_MEGA_EVOLUTION         = 34
+SEMI_INTERNAL_BATTLE      = 205
+
+#===============================================================================
+# * The Global Variable that is used for the Win Streak Feature
+# * The Global Variables that is used for the Daily Treat Machine Feature
+#      - The Global Variable that is used to record the last date Daily Treat
+#            Machine was used
+#      - The Global Variable that is used to record the amount of days Daily
+#            Treat Machine was used in a row
+#      - The Global Variable that is used to store the timed event that will
+#            reset the login count after two days of inactivity
+#===============================================================================
 WIN_STREAK_VARIABLE       = 1007
-DTM_VARIABLE              = 1008
+DTM_VARIABLES             = [1008,1009,1010]
 
 #===============================================================================
 # * The ID of the common event that runs when the player starts fishing (runs

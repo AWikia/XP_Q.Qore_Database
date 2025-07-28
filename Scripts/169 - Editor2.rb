@@ -149,7 +149,8 @@ def pbItemEditor
          _INTL("Snag Ball"),_INTL("Poké Ball"),_INTL("Plantable Berry"),
          _INTL("Key Item"),_INTL("Evolution Stone"),_INTL("Fossil"),
         _INTL("Apricorn"),_INTL("Type-boosting Gem"),_INTL("Mulch"),
-        _INTL("Mega Stone"),_INTL("Aluminum Box")]),
+        _INTL("Mega Stone"),_INTL("Aluminum Box"),_INTL("Platinum Trophy"),
+        _INTL("Gold Trophy"),_INTL("Silver Trophy"),_INTL("Bronze Trophy")]),
          _INTL("For special kinds of items.")],
      [_INTL("Machine"),MoveProperty,
          _INTL("Move taught by this TM, HM or TD.")]

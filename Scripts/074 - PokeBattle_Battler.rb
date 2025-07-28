@@ -1854,7 +1854,8 @@ def ragefist
     # Win Streak
     if @battle.opponent && @battle.internalbattle && 
        @battle.pbOwnedByPlayer?(@index) && $game_variables[WIN_STREAK_VARIABLE]>0 &&
-       !($game_switches[1047] || $game_variables[1003] > 0) && onactive
+       !($game_switches[1047] || $game_switches[SEMI_INTERNAL_BATTLE] || $game_variables[1003] > 0) && 
+       onactive
         stage=([$game_variables[WIN_STREAK_VARIABLE].to_i,6].min - 1).to_i
         wsanim=["WinStreak1","WinStreak2","WinStreak3","WinStreak4","WinStreak5","WinStreak6"][stage]
         wsstats=["Speed and Defense","Speed, Defense and Accuracy",

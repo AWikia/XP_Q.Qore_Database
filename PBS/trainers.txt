@@ -9353,3 +9353,5 @@ Pokemon = ZAMANPLUS,395
 Pokemon = GRIMMSNARL,400
     Ability = 2
     Item = ORANBERRY
+[YOUNGSTER,Season Mastery]
+Pokemon = UNOWN,50

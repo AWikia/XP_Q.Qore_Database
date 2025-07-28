@@ -10,20 +10,24 @@ class DailyTreatMachineScene
     @sprites={}
     @viewport=Viewport.new(0,0,Graphics.width,Graphics.height)
     @viewport.z=99999
-    @viewport2=Viewport.new(Graphics.width/2,40,(Graphics.width / 2),Graphics.height-40)
+    @viewport2=Viewport.new((Graphics.width/2)+14,40,(Graphics.width / 2)-28,Graphics.height-40)
     @viewport2.z=99999
     @sprites["machine"]=IconSprite.new((Graphics.width/4)-138,76,@viewport)
     level = pbGetCardLevel
+    if pbTimeEventValid(DTM_VARIABLES[2])
+      $game_variables[DTM_VARIABLES[1]]=0
+    end
+    $game_variables[DTM_VARIABLES[1]]+=1
     addBackgroundPlane(@sprites,"bg",getDarkModeFolder+"/Daily Treat Machine/bg_"+level.to_s,@viewport)
     @sprites["machine"].setBitmap(_INTL("Graphics/UI/"+getDarkModeFolder+"/Daily Treat Machine/overlay_machine"))
     @sprites["bg"].z = 1
     @sprites["machine"].z = 2
-    @sprites["header"]=Window_UnformattedTextPokemon.newWithSize(_INTL("Daily Treat Machine"),
-       2,-18,320,64,@viewport)
+    @sprites["header"]=Window_UnformattedTextPokemon.newWithSize(_INTL("Daily Treat Machine - Load Streak: {1}",$game_variables[DTM_VARIABLES[1]]),
+       2,-18,400,64,@viewport)
     @sprites["header"].baseColor=(isDarkMode?) ? Color.new(242,242,242) : Color.new(12,12,12)
     @sprites["header"].shadowColor=nil #(!isDarkMode?) ? Color.new(242,242,242) : Color.new(12,12,12)
     @sprites["header"].windowskin=nil
-    @sprites["overlay"]=BitmapSprite.new(Graphics.width/2,Graphics.height - 40,@viewport2)
+    @sprites["overlay"]=BitmapSprite.new((Graphics.width/2 - 28),Graphics.height - 40,@viewport2)
     @sprites["overlayStar"]=BitmapSprite.new(Graphics.width/2,Graphics.height - 40,@viewport)
     @sprites["overlayStar"].z = 2
     x=(Graphics.width/4)-75
@@ -104,16 +108,16 @@ class DailyTreatMachineScene
       shadowColor=MessageConfig::LIGHTTEXTSHADOW
     end
     textPositions=[
-       [_INTL("How to use:"),Graphics.width/4,0,2,baseColor,shadowColor],
+       [_INTL("How to use:"),(Graphics.width/4)-14,0,2,baseColor,shadowColor],
     ]
     text = _INTL("Press \"C\" to start the machine and get a reward")
     text2 = _INTL("Rewards obtained differ each day so come back often")
     text3 = _INTL("Machine becomes more powerful as you progress")
     text4 = _INTL("You can use a Heart Scale to get a second reward")
-    drawTextEx(overlay,0,32,Graphics.width/2,2,text,baseColor,shadowColor)
-    drawTextEx(overlay,0,112,Graphics.width/2,2,text2,baseColor,shadowColor)
-    drawTextEx(overlay,0,192,Graphics.width/2,2,text3,baseColor,shadowColor)
-    drawTextEx(overlay,0,272,Graphics.width/2,2,text4,baseColor,shadowColor)
+    drawTextEx(overlay,0,32,(Graphics.width/2)-28,2,text,baseColor,shadowColor)
+    drawTextEx(overlay,0,112,(Graphics.width/2)-28,2,text2,baseColor,shadowColor)
+    drawTextEx(overlay,0,192,(Graphics.width/2)-28,2,text3,baseColor,shadowColor)
+    drawTextEx(overlay,0,272,(Graphics.width/2)-28,2,text4,baseColor,shadowColor)
     pbDrawTextPositions(overlay,textPositions)
   end
 
@@ -155,8 +159,14 @@ class DailyTreatMachineScene
             pbDailuMachineStart
           end
         end
+        if $game_variables[DTM_VARIABLES[1]]%7 == 0
+          coins = [($game_variables[DTM_VARIABLES[1]] / 0.7).floor,50].min
+          Kernel.pbMessage(_INTL("As you've made a 7-day load streak, you'll be getting {1} additional coins.",coins))
+          $PokemonGlobal.coins+=coins
+        end
         Kernel.pbMessage(_INTL("Load the game tomorrow for your next reward."))
-        $game_variables[DTM_VARIABLE]=[pbGetTimeNow.mon, pbGetTimeNow.day]
+        $game_variables[DTM_VARIABLES[0]]=[pbGetTimeNow.mon, pbGetTimeNow.day]
+        pbTimeEventDays(DTM_VARIABLES[2],2)
         break
       end
     end 

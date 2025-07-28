@@ -1,4 +1,5 @@
 ################################################################################
+################################################################################
 # This section was created solely for you to put various bits of code that
 # modify various wild Pokémon and trainers immediately prior to battling them.
 # Be sure that any code you use here ONLY applies to the Pokémon/trainers you
@@ -161,6 +162,43 @@ Events.onTrainerPartyLoad+=proc {|sender,e|
          if $game_variables[1003] > 5
            pok.pbLearnMove(:REVIVALBLESSING)
            pok.setItem(:PHOTONCLAW)  if rand(100)<25
+         end
+         # End
+       end
+     end
+   end
+}
+
+# Used For Link Battle
+Events.onTrainerPartyLoad+=proc {|sender,e|
+   if e[0] # Trainer data should exist to be loaded, but may not exist somehow
+     trainer=e[0][0] # A PokeBattle_Trainer object of the loaded trainer
+     items=e[0][1]   # An array of the trainer's items they can use
+     party=e[0][2]   # An array of the trainer's Pokémon
+     if  $game_switches[206]
+       leng=(party.length) - 1
+       for i in 0..leng
+         # Set Level
+         pok=party[i]        
+         sp=rand(PBSpecies.maxValue) # 1255  
+         newlevel=50 + ($game_variables[35] / 10).floor
+         newlevel=1 if newlevel<1
+         newlevel=PBExperience::MAXLEVEL if newlevel>PBExperience::MAXLEVEL
+         pok.species=sp
+         loop do
+           sp=rand(PBSpecies.maxValue) # 1255  
+         	 pok.species=sp
+           break if pok.hasType?([:GRASS,:WATER,:FIRE,:ICE][pbGetSeason]) ||
+                    pok.hasType?([:CHLOROPHYLL,:SUN,:LAVA,:BLIZZARD][pbGetSeason])
+         end
+         pok.name=PBSpecies.getName(sp)
+         pok.calcStats
+         pok.level=newlevel
+         pok.calcStats
+         pok.resetMoves
+         if $game_variables[35] >= 30
+           pok.pbLearnMove(:PROTECT)
+           pok.setItem(:PHOTONCLAW)  if rand(100)< ($game_variables[35] - 5)
          end
          # End
        end

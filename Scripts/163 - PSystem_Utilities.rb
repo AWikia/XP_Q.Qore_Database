@@ -421,7 +421,7 @@ def pbCheckDTM
     $PokemonBag.pbStoreItem(:DAILYTREATMACHINE,1)
   end
   if $PokemonBag.pbQuantity(:DAILYTREATMACHINE)>0 && 
-     $game_variables[DTM_VARIABLE]!=[pbGetTimeNow.mon, pbGetTimeNow.day]
+     $game_variables[DTM_VARIABLES[0]]!=[pbGetTimeNow.mon, pbGetTimeNow.day]
         scene=DailyTreatMachineScene.new
         screen=DailyTreatMachine.new(scene)
         pbFadeOutIn(99999) { 
@@ -462,6 +462,56 @@ def pbGetCardLevel
   return level
 end
 
+def pbAddRentalSMPokemon
+  pbSetLotteryNumber(1)
+  species=[
+          :GENGAR,
+          :ALAKAZAM,
+          :STEELIX,
+          :CLEFABLE,
+          :MISMAGIUS,
+          :FARIGIRAF,
+          :SKARMORY,
+          :GRANBULL,
+          :SABLEYE,
+          :CLAYDOL,
+          :GARDEVOIR,
+          :AGGRON,
+          :DRIFBLIM,
+          :BRONZONG,
+          :LUCARIO,
+          :ROSERADE,
+          :CHANDELURE,
+          :MUSHARNA,
+          :KLINKLANG,
+          :WHIMSICOTT,
+          :TREVENANT,
+          :MEOWSTIC,
+          :AEGISLASH,
+          :FLORGES,
+          :PALOSSAND,
+          :ORANGURU,
+          :TOGEDEMARU,
+          :COMFEY,
+          :POLTEAGEIST,
+          :HATTERENE,
+          :COPPERAJAH,
+          :ALCREMIE,
+          :HOUNDSTONE,
+          :RABSCA,
+          :ORTHWORM,
+          :DACHSBUN,
+          :HAUNTRODE,
+          :WIKINEWS,
+          :PERILMAX,
+          :ZELDA,
+          :DHAUNTBUNTU,
+          :CLIPCHAMP,
+          :MSLAUNCHER,
+          :MEDIACORP
+          ]
+  pbAddToPartySilent(species[pbGet(1).to_i%species.length],50)
+end
 
 ################################################################################
 # Linear congruential random number generator
@@ -1049,8 +1099,8 @@ def pbTimeEventDays(variableNumber,days=0)
       days=0 if days<0
       timenow=pbGetTimeNow
       time=timenow.to_f
-      expiry=(time%86400.0)+(days*86400.0)
-      $game_variables[variableNumber]=[time,expiry-time]
+      expiry=(days*86400.0)-(time%86400.0)
+      $game_variables[variableNumber]=[time,expiry]
       $game_map.refresh if $game_map
     end
   end

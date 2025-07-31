@@ -182,10 +182,10 @@ class Scene_LinkBattleScene
         # Actual Event
         commands=[_INTL("Very Easy (50 Points)"),
                   _INTL("Easy (100 Points)"),
-                  _INTL("Medium (150 Points)"),
+                  _INTL("Normal (150 Points)"),
                   _INTL("Hard (200 Points)"),
                   _INTL("Nightmare (300 Points)"),
-                  _INTL("Intensive (500 Points)"),
+                  _INTL("Elite (500 Points)"),
                   _INTL("Cancel")]
         command=Kernel.pbMessage(
             _INTL("Choose a difficulty you want to use on your battle."),commands,-1)
@@ -421,7 +421,7 @@ class Scene_LinkBattleScene
         Kernel.pbMessage(@QQSR)
       end
       if @cmdLink>=0 && @sprites["command_window"].index==@cmdLinkLB
-        worksOnCorendo(['VR Corendo','Bsisbina Clients','Jinnybell HSPA','Emerald Emulator','Yorkbook Digital Professional','Yorkbook Xe'])
+        worksOnCorendo(['VR Corendo','Bsisbina Clients','Jinnybell HSPA','Emerald Emulator','Yorkbook Digital Professional','Yorkbook Xe','PCReady Emulator'])
       end
       return
     end

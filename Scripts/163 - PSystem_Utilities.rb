@@ -420,6 +420,9 @@ def pbCheckDTM
   if $PokemonBag.pbQuantity(:COINCASE)>0 && $PokemonBag.pbQuantity(:DAILYTREATMACHINE)==0
     $PokemonBag.pbStoreItem(:DAILYTREATMACHINE,1)
   end
+  if $PokemonBag.pbQuantity(:PCSTORAGEBOX)>0 && $PokemonBag.pbQuantity(:POKEMONBOX)==0
+    $PokemonBag.pbStoreItem(:POKEMONBOX,1)
+  end
   if $PokemonBag.pbQuantity(:DAILYTREATMACHINE)>0 && 
      $game_variables[DTM_VARIABLES[0]]!=[pbGetTimeNow.mon, pbGetTimeNow.day]
         scene=DailyTreatMachineScene.new
@@ -427,6 +430,14 @@ def pbCheckDTM
         pbFadeOutIn(99999) { 
            screen.pbStartScreen
         }
+  end
+  expiredbox= pbTimeEventValid(PBOX_VARIABLES[3])
+  if $game_variables[PBOX_VARIABLES[1]] == 0 || expiredbox
+       scene=PokemonBoxScene.new
+       screen=PokemonBox.new(scene)
+       pbFadeOutIn(99999) { 
+          screen.pbStartScreen(expiredbox)
+       }
   end
 end
 
@@ -1099,7 +1110,7 @@ def pbTimeEventDays(variableNumber,days=0)
       days=0 if days<0
       timenow=pbGetTimeNow
       time=timenow.to_f
-      expiry=(days*86400.0)-(time%86400.0)
+      expiry=(days*86400.0)-((time+10800)%86400.0)
       $game_variables[variableNumber]=[time,expiry]
       $game_map.refresh if $game_map
     end
@@ -1115,7 +1126,7 @@ def pbTimeEventValid(variableNumber)
       retval=(timenow.to_f - value[0] > value[1]) # value[1] is age in seconds
       retval=false if value[1]<=0 # zero age
     end
-    if !retval
+    if retval # If event is valid, reset it
       $game_variables[variableNumber]=0
       $game_map.refresh if $game_map
     end

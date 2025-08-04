@@ -2677,6 +2677,7 @@ end
 # The return value is the item chosen, or 0 if the choice was canceled.
   def pbItemMenu(index)
     ret=0
+    pocket=0
     retindex=-1
     pkmnid=-1
     endscene=true
@@ -2711,6 +2712,7 @@ end
           pkmnid=@battle.party1order[activecmd]
           if activecmd>=0 && pkmnid>=0 && ItemHandlers.hasBattleUseOnPokemon(item)
             pkmnlist.pbEndScene
+              pocket=$ItemData[item][ITEMPOCKET]
             ret=item
             retindex=pkmnid
             endscene=false
@@ -2720,6 +2722,7 @@ end
           itemscene.pbStartScene($PokemonBag)
         elsif usetype==2 || usetype==4
           if ItemHandlers.hasBattleUseOnBattler(item)
+              pocket=$ItemData[item][ITEMPOCKET]
             ret=item
             retindex=index
             break
@@ -2728,6 +2731,10 @@ end
       end
     end
     pbConsumeItemInBattle($PokemonBag,ret) if ret>0
+    if ret>0
+      $PokemonGlobal.pokebox[9]+=1 if pocket == 7
+      $PokemonGlobal.pokebox[12]+=1 if pocket == 2
+    end
     itemscene.pbEndScene if endscene
     pbFadeInAndShow(@sprites,oldsprites)
     return [ret,retindex]

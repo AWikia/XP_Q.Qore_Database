@@ -1187,6 +1187,8 @@ Events.onStartBattle+=proc {|sender,e|
 }
 
 Events.onEndBattle+=proc {|sender,e|
+  $dbattle=false
+  $inbattle=false
   decision=e[0]
   canlose=e[1]
   for pkmn in $Trainer.party
@@ -1238,6 +1240,18 @@ Events.onEndBattle+=proc {|sender,e|
     $game_system.bgm_unpause
     $game_system.bgs_unpause
     Kernel.pbStartOver
+  end
+  # Pokemon Box
+  if $PokemonBag.pbQuantity(:POKEMONBOX)>0
+    taskstatus=$PokemonGlobal.pokebox[$game_variables[PBOX_VARIABLES[1]][$game_variables[PBOX_VARIABLES[0]]][0]] - $game_variables[PBOX_VARIABLES[1]][$game_variables[PBOX_VARIABLES[0]]][1]
+    taskstatus2=$game_variables[PBOX_VARIABLES[1]][$game_variables[PBOX_VARIABLES[0]]][2]
+    if taskstatus >= taskstatus2
+       scene=PokemonBoxScene.new
+       screen=PokemonBox.new(scene)
+       pbFadeOutIn(99999) { 
+          screen.pbStartScreen
+       }
+    end
   end
 }
 

@@ -156,6 +156,7 @@ module PokeBattle_BattleCommon
         pbDisplay(_INTL("Gah! It was so close, too!"))
         BallHandlers.onFailCatch(ball,self,battler)
       when 4
+        $PokemonGlobal.pokebox[3]+=1
         pbDisplayBrief(_INTL("Gotcha! {1} was caught!",pokemon.name))
         @scene.pbThrowSuccess
         if pbIsSnagBall?(ball) && @opponent
@@ -165,8 +166,6 @@ module PokeBattle_BattleCommon
         else
           Kernel.pbReceiveTrophy(:TCATCHER)
           @decision=4
-          $dbattle=false
-          $inbattle=false
         end
         if pbIsSnagBall?(ball)
           pokemon.ot=self.pbPlayer.name
@@ -1949,27 +1948,19 @@ class PokeBattle_Battle
     if @opponent
       if $DEBUG && Input.press?(Input::CTRL)
         if pbDisplayConfirm(_INTL("Treat this battle as a win?"))
-          $dbattle=false
-          $inbattle=false
           @decision=1
           return 1
         elsif pbDisplayConfirm(_INTL("Treat this battle as a loss?"))
-          $dbattle=false
-          $inbattle=false
           @decision=2
           return 1
         end
       elsif @internalbattle
         if pbDisplayConfirm(_INTL("Would you like to forfeit the battle and quit now?"))
-          $dbattle=false
-          $inbattle=false
           @decision=2
           return 1
         end
       elsif pbDisplayConfirm(_INTL("Would you like to forfeit the match and quit now?"))
         pbDisplay(_INTL("{1} forfeited the match!",self.pbPlayer.name))
-      $dbattle=false
-      $inbattle=false
       @decision=3
         return 1
       end
@@ -1978,8 +1969,6 @@ class PokeBattle_Battle
     if $DEBUG && Input.press?(Input::CTRL)
       pbPlayEscapeSE()
       pbDisplayPaused(_INTL("Got away safely!"))
-      $dbattle=false
-      $inbattle=false
       @decision=3
       return 1
     end
@@ -1993,8 +1982,6 @@ class PokeBattle_Battle
         thispkmn.pbHasType?(:MOON))
       pbPlayEscapeSE()
       pbDisplayPaused(_INTL("Got away safely!"))
-      $inbattle=false
-      $dbattle=false
       @decision=3
       return 1
     end
@@ -2005,8 +1992,6 @@ class PokeBattle_Battle
       else
         pbDisplayPaused(_INTL("{1} escaped using Run Away!",thispkmn.pbThis))
       end
-      $dbattle=false
-      $inbattle=false
       @decision=3
       return 1
     end
@@ -2017,8 +2002,6 @@ class PokeBattle_Battle
       else
         pbDisplayPaused(_INTL("{1} escaped using its {2}!",thispkmn.pbThis,PBItems.getName(thispkmn.item)))
       end
-      $dbattle=false
-      $inbattle=false
       @decision=3
       return 1
     end
@@ -2047,8 +2030,6 @@ class PokeBattle_Battle
     if pbAIRandom(256)<rate
       pbPlayEscapeSE()
       pbDisplayPaused(_INTL("Got away safely!"))
-      $dbattle=false
-      $inbattle=false
       @decision=3
     else
       pbDisplayPaused(_INTL("Can't escape!"))
@@ -2211,7 +2192,7 @@ class PokeBattle_Battle
             haveexpshare=(isConst?(@party1[j].item,PBItems,:EXPSHARE) ||
                           isConst?(@party1[j].itemInitial,PBItems,:EXPSHARE))
             next if !haveexpshare && !@battlers[i].participants.include?(j)
-            pbGainExpOne(j,@battlers[i],partic,expshare,haveexpall)
+            pbGainExpOne(j,@battlers[i],partic,expshare,haveexpall,true,haveexpshare)
           end
           if haveexpall
             showmessage=true
@@ -2224,7 +2205,7 @@ class PokeBattle_Battle
               pbDisplayPaused(_INTL("The rest of your team gained Exp. Points thanks to the {1}!",
                  PBItems.getName(getConst(PBItems,:EXPALL)))) if showmessage
               showmessage=false
-              pbGainExpOne(j,@battlers[i],partic,expshare,haveexpall,false)
+              pbGainExpOne(j,@battlers[i],partic,expshare,haveexpall,false,false)
             end
           end
         end
@@ -2234,7 +2215,7 @@ class PokeBattle_Battle
     end
   end
 
-  def pbGainExpOne(index,defeated,partic,expshare,haveexpall,showmessages=true)
+  def pbGainExpOne(index,defeated,partic,expshare,haveexpall,showmessages=true,countboxtask=true)
     thispoke=@party1[index]
     # Original species, not current species
     level=defeated.level
@@ -2342,6 +2323,8 @@ class PokeBattle_Battle
     growthrate=thispoke.growthrate
     newexp=PBExperience.pbAddExperience(thispoke.exp,exp,growthrate)
     exp=newexp-thispoke.exp
+    pokeboxexp= ($dbattle && !$PokemonGlobal.partner) ? (exp/2).floor : exp
+    $PokemonGlobal.pokebox[0]+=pokeboxexp if countboxtask
     if exp>0
       if showmessages
         if isOutsider
@@ -2394,6 +2377,7 @@ class PokeBattle_Battle
           pbCheckDanger
           battler.pbUpdate(false) if battler
           @scene.pbRefresh
+          $PokemonGlobal.pokebox[1]+=1
           pbDisplayPaused(_INTL("{1} grew to Level {2}!",thispoke.name,curlevel))
           @scene.pbLevelUp(thispoke,battler,oldtotalhp,oldattack,
                            olddefense,oldspeed,oldspatk,oldspdef)
@@ -2755,14 +2739,10 @@ class PokeBattle_Battle
       return
     end
     if pbAllFainted?(@party1)
-      $dbattle=false
-      $inbattle=false
       @decision=2 # Loss
       return
     end
     if pbAllFainted?(@party2)
-      $dbattle=false
-      $inbattle=false
       @decision=1 # Win
       return
     end
@@ -3026,6 +3006,7 @@ class PokeBattle_Battle
          pbEndOfRoundPhase
       }
       break if @decision>0
+      $PokemonGlobal.pokebox[11]+=1
       @turncount+=1
     end
     return pbEndOfBattle(canlose)
@@ -4939,8 +4920,10 @@ class PokeBattle_Battle
       PBDebug.log("")
       PBDebug.log("***Player won***")
       if @opponent
+        $PokemonGlobal.pokebox[10]+=1
         @scene.pbTrainerBattleSuccess
         if @opponent.is_a?(Array)
+          $PokemonGlobal.pokebox[10]+=1 # Extra won
           pbDisplayPaused(_INTL("{1} defeated {2} and {3}!",self.pbPlayer.name,@opponent[0].fullname,@opponent[1].fullname))
         else
           pbDisplayPaused(_INTL("{1} defeated\r\n{2}!",self.pbPlayer.name,@opponent.fullname))

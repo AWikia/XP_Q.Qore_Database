@@ -151,6 +151,16 @@ ItemHandlers::UseFromBag.add(:DAILYTREATMACHINE,proc{|item|
   end
 })
 
+ItemHandlers::UseFromBag.add(:POKEMONBOX,proc{|item|
+     scene=PokemonBoxScene.new
+     screen=PokemonBox.new(scene)
+     pbFadeOutIn(99999) { 
+        screen.pbStartScreen
+     }
+     next 1
+})
+
+
 ItemHandlers::UseFromBag.add(:BICYCLE,proc{|item|
    next pbBikeCheck ? 2 : 0
 })
@@ -243,6 +253,14 @@ ItemHandlers::UseInField.add(:PCSTORAGEBOX,proc{|item|
      pbPokeCenterPC
      next 1
   end
+})
+
+ItemHandlers::UseInField.add(:POKEMONBOX,proc{|item|
+     scene=PokemonBoxScene.new
+     screen=PokemonBox.new(scene)
+     pbFadeOutIn(99999) { 
+        screen.pbStartScreen
+     }
 })
 
 

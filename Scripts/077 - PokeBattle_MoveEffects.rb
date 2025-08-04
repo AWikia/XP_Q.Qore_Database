@@ -7136,8 +7136,6 @@ class PokeBattle_Move_0EA < PokeBattle_Move
     else
       @battle.pbDisplay(_INTL("{1} fled from battle!",attacker.pbThis))
       @battle.decision=3
-      $dbattle=false
-      $inbattle=false
     end
     return 0
   end
@@ -7179,8 +7177,6 @@ class PokeBattle_Move_0EB < PokeBattle_Move
       end
       pbShowAnimation(@id,attacker,opponent,hitnum,alltargets,showanimation)
       @battle.decision=3 # Set decision to escaped
-      $dbattle=false
-      $inbattle=false
       return 0
     else
       choices=false
@@ -7224,8 +7220,6 @@ class PokeBattle_Move_0EC < PokeBattle_Move
       if !@battle.opponent
         if opponent.level<=attacker.level
           @battle.decision=3 # Set decision to escaped
-          $dbattle=false
-          $inbattle=false
         end
       else
         party=@battle.pbParty(opponent.index)

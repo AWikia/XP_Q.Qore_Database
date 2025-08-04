@@ -56,6 +56,7 @@ class PokemonGlobalMetadata
   attr_accessor :inPast
   attr_accessor :inFuture
   attr_accessor :adsWatched
+  attr_accessor :pokebox
 
   def initialize
     @bicycle              = false
@@ -117,6 +118,7 @@ class PokemonGlobalMetadata
     @inPast               = false
     @inFuture             = false
     @adsWatched           = 0
+    @pokebox              = [0,0,0,0,0,0,0,0,0,0,0,0,0,0] # Item 13 is stubbed out
   end
 
   def bridge
@@ -127,6 +129,21 @@ class PokemonGlobalMetadata
   def adsWatched
     @adsWatched=0 if !@adsWatched
     return @adsWatched
+  end
+  
+  def pokebox
+    @pokebox              = [0,0,0,0,0,0,0,0,0,0,0,0,0,0] if !@pokebox
+    return @pokebox
+  end
+  
+  def pokeboxNames
+    return [_INTL("Gain Experience"),_INTL("Level Up Pokemon"),
+            _INTL("Defeat Pokemon"),_INTL("Catch Pokemon"),
+            _INTL("Trigger Abilities"),_INTL("Trigger Items"),
+            _INTL("Use Physical Moves"),_INTL("Use Special Moves"),
+            _INTL("Use Status Moves"),_INTL("Use Battle Items"),
+            _INTL("Defeat Trainers"),_INTL("Lapse Turns"),
+            _INTL("Use Medicine Items"),_INTL("Win PMW3 Battles")]
   end
 end
 

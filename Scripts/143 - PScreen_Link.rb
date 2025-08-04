@@ -381,7 +381,7 @@ class Scene_LinkBattleScene
                     species+=[PBSpecies::TELEMOBILEGION]
                   end
                   if $PokemonGlobal && $PokemonGlobal.adsWatched>59
-                    species+=[PBSpecies::ZORUA]
+                    species+=[PBSpecies::ZORUA,PBSpecies::TINKATINK]
                   end
                   if (pbGetTimeNow.mon == 4 && pbGetTimeNow.day == 1)
                     species+=[PBSpecies::BLINKY,PBSpecies::INKY,PBSpecies::CLYDE,PBSpecies::PINKY,PBSpecies::SUE,PBSpecies::FUNKY,PBSpecies::SPUNKY,PBSpecies::ORSON]

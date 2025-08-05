@@ -2706,19 +2706,19 @@ class PokeBattle_Battle
     when 0x154
       if pbCheckGlobalAbility(:ANTICYCLONE)
         score-=90
-      elsif pbTerrain==PBTerrain::ELECTRIC
+      elsif pbTerrain==PBBattleTerrains::ELECTRIC
         score-=90
       end
     when 0x155
       if false
         score-=90
-      elsif pbTerrain==PBTerrain::GRASSY
+      elsif pbTerrain==PBBattleTerrains::GRASSY
         score-=90
       end
     when 0x156
       if false
         score-=90
-      elsif pbTerrain==PBTerrain::MISTY
+      elsif pbTerrain==PBBattleTerrains::MISTY
         score-=90
       end
     when 0x157
@@ -2969,6 +2969,11 @@ class PokeBattle_Battle
       score-=90 if !gust
     when 0x208
     when 0x209
+      if false
+        score-=90
+      elsif pbTerrain==PBBattleTerrains::PSYCHIC
+        score-=90
+      end
     when 0x211
     when 0x212
     when 0x213
@@ -3036,7 +3041,7 @@ class PokeBattle_Battle
     when 0x241
       if false
         score-=90
-      elsif pbTerrain==PBTerrain::CINAMENT
+      elsif pbTerrain==PBBattleTerrains::CINAMENT
         score-=90
       else
         score+=40 if attacker.hasWorkingAbility(:CINEMALINTER) ||
@@ -3095,7 +3100,7 @@ class PokeBattle_Battle
     when 0x250
       if false
         score-=90
-      elsif pbTerrain==PBTerrain::VOLCANIC
+      elsif pbTerrain==PBBattleTerrains::VOLCANIC
         score-=90
       end
     when 0x252
@@ -3197,7 +3202,7 @@ class PokeBattle_Battle
     when 0x276
       if false
         score-=90
-      elsif pbTerrain==PBTerrain::LOVELY
+      elsif pbTerrain==PBBattleTerrains::LOVELY
         score-=90
       end
     when 0x277

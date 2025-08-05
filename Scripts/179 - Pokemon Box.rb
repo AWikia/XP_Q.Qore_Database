@@ -41,8 +41,8 @@ class PokemonBoxScene
     @sprites["overlay"]=BitmapSprite.new((Graphics.width/2 - 28),Graphics.height - 40,@viewport2)
     @sprites["overlay2"]=BitmapSprite.new(Graphics.width,Graphics.height,@viewport)    
     @sprites["overlay2"].z = 2
-    @sprites["overlayStar"]=BitmapSprite.new(Graphics.width/2,Graphics.height - 40,@viewport)
-    @sprites["overlayStar"].z = 2
+    @sprites["overlayItems"]=BitmapSprite.new(Graphics.width,Graphics.height,@viewport)    
+    @sprites["overlayItems"].z = 2
 
     @sprites["task0"]=IconSprite.new(@sprites["machine"].x+12,@sprites["machine"].y+70,@viewport)
     @sprites["task0"].setBitmap(_INTL("Graphics/UI/Pokemon Box/icon_magnemite"))
@@ -61,8 +61,6 @@ class PokemonBoxScene
       $game_variables[PBOX_VARIABLES[2]]=0
       initializeBox
     end
-    @overlaystar=@sprites["overlayStar"].bitmap
-    @overlaystar.clear
     pbSetSystemFont(@sprites["overlay"].bitmap)
     pbSetSystemFont(@sprites["overlay2"].bitmap)
     pbPokemonBoxStart
@@ -179,16 +177,18 @@ class PokemonBoxScene
     taskstatus=$PokemonGlobal.pokebox[$game_variables[PBOX_VARIABLES[1]][$game_variables[PBOX_VARIABLES[0]]][0]] - $game_variables[PBOX_VARIABLES[1]][$game_variables[PBOX_VARIABLES[0]]][1]
     taskstatus2=$game_variables[PBOX_VARIABLES[1]][$game_variables[PBOX_VARIABLES[0]]][2]
     @sprites["overlay2"].bitmap.clear
+    @sprites["overlayItems"].bitmap.clear
     imagepos=[]
+    progress=[]
     value=$game_variables[PBOX_VARIABLES[3]]
     shadowfract=taskstatus*100/taskstatus2
     shadowfract2=(value[1]-(pbGetTimeNow.to_f - value[0]))*100/value[1]
     if ($PokemonSystem.threecolorbar==1 rescue false)
-      imagepos.push(["Graphics/UI/"+getAccentFolder+"/summaryEggBar_threecolorbar",@sprites["progress"].x+8,@sprites["progress"].y+4,0,0,(shadowfract*2.48).floor,-1])
-      imagepos.push(["Graphics/UI/"+getAccentFolder+"/summaryEggBar_threecolorbar",@sprites["progress"].x+8,@sprites["progresstime"].y+4,0,0,(shadowfract2*2.48).floor,-1])
+      progress.push(["Graphics/UI/"+getAccentFolder+"/summaryEggBar_threecolorbar",@sprites["progress"].x+8,@sprites["progress"].y+4,0,0,(shadowfract*2.48).floor,-1])
+      progress.push(["Graphics/UI/"+getAccentFolder+"/summaryEggBar_threecolorbar",@sprites["progress"].x+8,@sprites["progresstime"].y+4,0,0,(shadowfract2*2.48).floor,-1])
     else
-      imagepos.push(["Graphics/UI/"+getAccentFolder+"/summaryEggBar",@sprites["progress"].x+8,@sprites["progress"].y+4,0,0,(shadowfract*2.48).floor,-1])
-      imagepos.push(["Graphics/UI/"+getAccentFolder+"/summaryEggBar",@sprites["progress"].x+8,@sprites["progresstime"].y+4,0,0,(shadowfract2*2.48).floor,-1])
+      progress.push(["Graphics/UI/"+getAccentFolder+"/summaryEggBar",@sprites["progress"].x+8,@sprites["progress"].y+4,0,0,(shadowfract*2.48).floor,-1])
+      progress.push(["Graphics/UI/"+getAccentFolder+"/summaryEggBar",@sprites["progress"].x+8,@sprites["progresstime"].y+4,0,0,(shadowfract2*2.48).floor,-1])
     end
     id = [$game_variables[PBOX_VARIABLES[2]],(@items.length)-2].min
     id = @items.length-1 if isMillenial?
@@ -211,7 +211,8 @@ class PokemonBoxScene
     pbSetSystemFont(@sprites["overlay2"].bitmap)
     @sprites["overlay2"].z = 2
     pbDrawTextPositions(@sprites["overlay2"].bitmap,textpos)
-    pbDrawImagePositions(@sprites["overlay2"].bitmap,imagepos)
+    pbDrawImagePositions(@sprites["overlay2"].bitmap,progress)
+    pbDrawImagePositions(@sprites["overlayItems"].bitmap,imagepos)
     @sprites["header"].text=_INTL("Pokémon Box - Win Streak: {1}",$game_variables[PBOX_VARIABLES[2]])
     @sprites["machine"].setBitmap(_INTL("Graphics/UI/Pokemon Box/overlay_box_{1}",[$game_variables[PBOX_VARIABLES[2]],(@stages-1)].min))
     @sprites["machine"].setBitmap(_INTL("Graphics/UI/Pokemon Box/overlay_box_{1}_elite",[$game_variables[PBOX_VARIABLES[2]],(@stages-1)].min)) if isMillenial?
@@ -228,8 +229,9 @@ class PokemonBoxScene
       pbSEPlay("DTM_start")
       Kernel.pbMessage(_INTL("Task Completed"))
       if $game_variables[PBOX_VARIABLES[0]] > 3
+        close_box
         pbSEPlay("Item3",100,80)
-        if isMilleinal?
+        if isMillenial?
           Kernel.pbMessage(_INTL("Elite Box Completed. Here's your rewards"))
         else
           Kernel.pbMessage(_INTL("Box Completed. Here's your rewards"))
@@ -256,6 +258,33 @@ class PokemonBoxScene
         pbPokemonBoxUpdate
       end
     end
+  end
+  
+  # Closes out the Pokemon Box container itself
+  def close_box
+    @sprites["task0"].visible= false
+    @sprites["task1"].visible= false
+    @sprites["task2"].visible= false
+    @sprites["task3"].visible= false
+    @sprites["overlayItems"].bitmap.clear
+    imagepos=[]
+    id = [$game_variables[PBOX_VARIABLES[2]],(@items.length)-2].min
+    id = @items.length-1 if isMillenial?
+    x = 116 - ((@items[id].length - 1) * 24)
+    idx=0
+    for i in @items[id]
+      idx+=1
+      if idx == 1 || idx == @items[id].length
+        y = 70
+      else
+        y = 54
+      end
+      imagepos.push([pbItemIconFile( getID(PBItems,i)),@sprites["machine"].x+x,@sprites["machine"].y+y,0,0,-1,-1])
+      x+=48
+    end
+    pbDrawImagePositions(@sprites["overlayItems"].bitmap,imagepos)
+    @sprites["machine"].setBitmap(_INTL("Graphics/UI/Pokemon Box/overlay_box_{1}_closed",[$game_variables[PBOX_VARIABLES[2]],(@stages-1)].min))
+    @sprites["machine"].setBitmap(_INTL("Graphics/UI/Pokemon Box/overlay_box_{1}_elite_closed",[$game_variables[PBOX_VARIABLES[2]],(@stages-1)].min)) if isMillenial?
   end
   
   # Updates the icons in the Pokemon Box container itself

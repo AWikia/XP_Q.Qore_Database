@@ -1134,6 +1134,39 @@ def pbTimeEventValid(variableNumber)
   return retval
 end
 
+def pbTimeEventRemaningTime(variableNumber)
+  if variableNumber && variableNumber>=0 && $game_variables
+    value=$game_variables[variableNumber]
+    if value.is_a?(Array)
+      timenow=pbGetTimeNow
+      time= [value[1] - (timenow.to_f - value[0]),0].max
+      sec = time % 60
+      min = time / 60 % 60
+      hour = time / 60 / 60 % 24
+      day = time / 60 / 60 / 24 % 7
+      week = time / 60 / 60 / 24 / 7
+      if week.floor>0
+        units=[_INTL("w"),_INTL("d")]
+        vals=[week,day,7]
+      elsif day.floor>0
+        units=[_INTL("d"),_INTL("h")]
+        vals=[day,hour,24]
+      elsif hour.floor>0
+        units=[_INTL("h"),_INTL("m")]
+        vals=[hour,min,60]
+      else
+        units=["m","s"]
+        vals=[min,sec,60]
+      end
+      if vals[1].ceil>=vals[2]
+        vals[0]+=1
+        vals[1]=0
+      end
+      return _INTL("{1}{2} {3}{4}",vals[0].floor,units[0],vals[1].ceil,units[1])
+    end
+  end
+
+end
 
 
 ################################################################################

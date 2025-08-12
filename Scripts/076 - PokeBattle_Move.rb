@@ -1884,6 +1884,7 @@ class PokeBattle_Move
       end
       oldhp=opponent.hp
       opponent.hp-=damage
+      $PokemonGlobal.pokebox[14]+=damage if @battle.pbOwnedByPlayer?(attacker.index) && attacker
       effectiveness=0
       if opponent.damagestate.typemod<8
         effectiveness=1   # "Not very effective"
@@ -1942,6 +1943,7 @@ class PokeBattle_Move
       else
         @battle.pbDisplay(_INTL("A critical hit!"))
       end
+      $PokemonGlobal.pokebox[15]+=1 if @battle.pbOwnedByPlayer?(attacker.index)
     end
     if !pbIsMultiHit && attacker.effects[PBEffects::ParentalBond]==0
       if opponent.damagestate.typemod>8

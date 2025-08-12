@@ -2192,7 +2192,7 @@ class PokeBattle_Battle
             haveexpshare=(isConst?(@party1[j].item,PBItems,:EXPSHARE) ||
                           isConst?(@party1[j].itemInitial,PBItems,:EXPSHARE))
             next if !haveexpshare && !@battlers[i].participants.include?(j)
-            pbGainExpOne(j,@battlers[i],partic,expshare,haveexpall,true,haveexpshare)
+            pbGainExpOne(j,@battlers[i],partic,expshare,haveexpall,true,!haveexpshare)
           end
           if haveexpall
             showmessage=true

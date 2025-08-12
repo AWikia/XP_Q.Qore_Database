@@ -8,14 +8,17 @@ class PokemonBoxScene
 
   def pbStartScene(expired=false)
     @stages=4 # Classic, Bronze, Silver, Gold
+    heal=[:AWAKENING,:ANTIDOTE,:BURNHEAL,:PARALYZEHEAL,:ICEHEAL]
+    heal=heal[$Trainer.publicID($Trainer.id)%heal.length]
     @items = [
             [:POTION,:POKEBALL],
-            [:SUPERPOTION,:GREATBALL,:ANTIDOTE],
+            [:SUPERPOTION,:GREATBALL,heal],
             [:HYPERPOTION,:ULTRABALL,:FULLHEAL,:NORMALGEM],
             [:MEGAPOTION,:PARKBALL,:FULLHEAL,:NORMALGEM,:RARECANDY],
             # Elite Challenge
             [:FULLRESTORE,:PARKBALL,:SUPERBOOSTER,:NORMALBOX,:VICIOUSCANDY]
             ]
+    @durations=[12,6,4,4,2]
     @sprites={}
     @viewport=Viewport.new(0,0,Graphics.width,Graphics.height)
     @viewport.z=99999
@@ -25,7 +28,7 @@ class PokemonBoxScene
     addBackgroundPlane(@sprites,"bg",getDarkModeFolder+"/Pokemon Box/bg",@viewport)
     @sprites["machine"].setBitmap(_INTL("Graphics/UI/Pokemon Box/overlay_box_{1}",[$game_variables[PBOX_VARIABLES[2]],(@stages-1)].min))
     @sprites["machine"].setBitmap(_INTL("Graphics/UI/Pokemon Box/overlay_box_{1}_elite",[$game_variables[PBOX_VARIABLES[2]],(@stages-1)].min)) if isMillenial?
-    @sprites["progress"]=IconSprite.new((Graphics.width/4)-132,240,@viewport)
+    @sprites["progress"]=IconSprite.new((Graphics.width/4)-132+14,240,@viewport)
     @sprites["progress"].setBitmap(_INTL("Graphics/UI/"+getDarkModeFolder+"/Pokemon Box/overlay_progress"))
     @sprites["progresstime"]=IconSprite.new((Graphics.width/4)-132,338,@viewport)
     @sprites["progresstime"].setBitmap(_INTL("Graphics/UI/"+getDarkModeFolder+"/Pokemon Box/overlay_progress"))
@@ -121,39 +124,60 @@ class PokemonBoxScene
               3*multi+rand(3*multi),              # Defear Trainers
               7*multi+rand(7*multi),              # Lapse Turns
               2*multi+rand(2*multi),              # Use Medicine Items
-              3*multi+rand(6*multi)]              # UNUSED!
+              3*multi+rand(6*multi),              # UNUSED!
+              250*multi+rand(1250*multi*multi2),  # Deal Damage
+              2*multi+rand(2*multi),              # Land Critical Hits
+              2*multi+rand(2*multi),              # Use STAB Moves
+              1*multi+rand(1*multi),              # Defeat Pokemon Instantly
+              1*multi+rand(2*multi),              # Use Berries
+              1*multi+rand(1*multi)               # UNUSED!
+              ]
     taskN12=false
     taskN10=false # For Milleinal/Elite Boxes
     taskN13=false # Not applicable on Q.Qore
-    task0 = [0,1,2][rand(3)]
-    if rand(5)==0 && !taskN12
+    taskN18=false
+    taskN19=false # Not applicable on Q.Qore
+    task0 = [0,1,2,14][rand(4)]
+    if rand(6)==0 && !taskN12
       taskN12=true
       task0=12
-    elsif rand(5)==0 && !taskN10 && isMillenial?
+    elsif rand(6)==0 && !taskN10 && isMillenial?
       taskN10=true
       task0=10
+    elsif rand(6)==0 && !taskN18
+      taskN18=true
+      task0=18
     end
-    task1 = [3,4,5][rand(3)]
-    if rand(5)==0 && !taskN12
+    task1 = [3,4,5,15][rand(4)]
+    if rand(6)==0 && !taskN12
       taskN12=true
       task1=12
-    elsif rand(5)==0 && !taskN10 && isMillenial?
+    elsif rand(6)==0 && !taskN10 && isMillenial?
       taskN10=true
       task1=10
+    elsif rand(6)==0 && !taskN18
+      taskN18=true
+      task1=18
     end
-    task2 = [6,7,8][rand(3)]
-    if rand(5)==0 && !taskN12
+    task2 = [6,7,8,16][rand(4)]
+    if rand(6)==0 && !taskN12
       taskN12=true
       task2=12
-    elsif rand(5)==0 && !taskN10 && isMillenial?
+    elsif rand(6)==0 && !taskN10 && isMillenial?
       taskN10=true
       task2=10
+    elsif rand(6)==0 && !taskN18
+      taskN18=true
+      task2=18
     end
-    task3 = [9,10,11][rand(3)]
-    task3 = [9,11][rand(2)] if taskN10 # Don't assign the 11th task in order again
-    if rand(5)==0 && !taskN12
+    task3 = [9,10,11,17][rand(4)]
+    task3 = [9,11,17][rand(3)] if taskN10 # Don't assign the 11th task in order again
+    if rand(6)==0 && !taskN12
       taskN12=true
       task3=12
+    elsif rand(6)==0 && !taskN18
+      taskN18=true
+      task3=18
     end
     $game_variables[PBOX_VARIABLES[0]]=0
     $game_variables[PBOX_VARIABLES[1]] = [
@@ -162,13 +186,11 @@ class PokemonBoxScene
       [task2,$PokemonGlobal.pokebox[task2],taskVals[task2]],
       [task3,$PokemonGlobal.pokebox[task3],taskVals[task3]]
                                           ]
-      if isMillenial?
-        pbTimeEventDays(PBOX_VARIABLES[3],2)
-      else
-        pbTimeEventDays(PBOX_VARIABLES[3],4)
-      end
-      pbPokemonBoxUpdate
-      Kernel.pbMessage(_INTL("Finish this box within a 2-day interval to receive special rewards.")) if isMillenial?
+    id = [$game_variables[PBOX_VARIABLES[2]],(@durations.length)-2].min
+    id = @durations.length-1 if isMillenial?
+    pbTimeEventDays(PBOX_VARIABLES[3],@durations[id])
+    pbPokemonBoxUpdate
+    Kernel.pbMessage(_INTL("Finish this box within a 2-day interval to receive special rewards.")) if isMillenial?
   end
 
   # Updates the box itself (The progress bar, the text, the task and the icons)
@@ -185,11 +207,12 @@ class PokemonBoxScene
     shadowfract2=(value[1]-(pbGetTimeNow.to_f - value[0]))*100/value[1]
     if ($PokemonSystem.threecolorbar==1 rescue false)
       progress.push(["Graphics/UI/"+getAccentFolder+"/summaryEggBar_threecolorbar",@sprites["progress"].x+8,@sprites["progress"].y+4,0,0,(shadowfract*2.48).floor,-1])
-      progress.push(["Graphics/UI/"+getAccentFolder+"/summaryEggBar_threecolorbar",@sprites["progress"].x+8,@sprites["progresstime"].y+4,0,0,(shadowfract2*2.48).floor,-1])
+      progress.push(["Graphics/UI/"+getAccentFolder+"/summaryEggBar_threecolorbar",@sprites["progresstime"].x+8,@sprites["progresstime"].y+4,0,0,(shadowfract2*2.48).floor,-1])
     else
       progress.push(["Graphics/UI/"+getAccentFolder+"/summaryEggBar",@sprites["progress"].x+8,@sprites["progress"].y+4,0,0,(shadowfract*2.48).floor,-1])
-      progress.push(["Graphics/UI/"+getAccentFolder+"/summaryEggBar",@sprites["progress"].x+8,@sprites["progresstime"].y+4,0,0,(shadowfract2*2.48).floor,-1])
+      progress.push(["Graphics/UI/"+getAccentFolder+"/summaryEggBar",@sprites["progresstime"].x+8,@sprites["progresstime"].y+4,0,0,(shadowfract2*2.48).floor,-1])
     end
+      progress.push(["Graphics/UI/Pokemon Box/icons",@sprites["progress"].x-28,@sprites["progress"].y-6,0,34*$game_variables[PBOX_VARIABLES[1]][$game_variables[PBOX_VARIABLES[0]]][0],34,34])
     id = [$game_variables[PBOX_VARIABLES[2]],(@items.length)-2].min
     id = @items.length-1 if isMillenial?
     x = 116 - ((@items[id].length - 1) * 24)
@@ -206,7 +229,7 @@ class PokemonBoxScene
     end
     textpos=[
        [_INTL("{1}: {2}/{3}",taskname,[taskstatus,taskstatus2].min,taskstatus2),14,200,0,baseColor,shadowColor],
-       [_INTL("Time left:"),14,298,0,baseColor,shadowColor]
+       [_INTL("Time left: {1}",pbTimeEventRemaningTime(PBOX_VARIABLES[3])),14,298,0,baseColor,shadowColor]
     ]
     pbSetSystemFont(@sprites["overlay2"].bitmap)
     @sprites["overlay2"].z = 2

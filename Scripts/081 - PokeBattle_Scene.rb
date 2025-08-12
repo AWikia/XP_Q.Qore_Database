@@ -2734,6 +2734,7 @@ end
     if ret>0
       $PokemonGlobal.pokebox[9]+=1 if pocket == 7
       $PokemonGlobal.pokebox[12]+=1 if pocket == 2
+      $PokemonGlobal.pokebox[18]+=1 if pocket == 5
     end
     itemscene.pbEndScene if endscene
     pbFadeInAndShow(@sprites,oldsprites)

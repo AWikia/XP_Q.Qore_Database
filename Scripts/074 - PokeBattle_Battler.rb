@@ -958,7 +958,7 @@ def ragefist
     return false if @effects[PBEffects::NeutralTrap]>0
     return false if @effects[PBEffects::GastroAcid] && !self.pbHasType?(:GAS)
     if isConst?(@ability,PBAbilities,ability)
-      $PokemonGlobal.pokebox[3]+=1
+      $PokemonGlobal.pokebox[4]+=1
       return true
     end
     return false
@@ -1109,7 +1109,7 @@ def ragefist
     return false if @pokemon.corrosiveGas
     return false if self.hasWorkingAbility(:KLUTZ,ignorefainted)
     if isConst?(@item,PBItems,item)
-      $PokemonGlobal.pokebox[4]+=1 # if @battle.pbOwnedByPlayer?(@index)
+      $PokemonGlobal.pokebox[5]+=1 # if @battle.pbOwnedByPlayer?(@index)
     end
     return false
   end
@@ -1432,8 +1432,10 @@ def ragefist
     # reset choice
     @battle.choices[@index]=[0,0,nil,-1]
     pbOwnSide.effects[PBEffects::LastRoundFainted]=@battle.turncount
-    $PokemonGlobal.pokebox[2]+=1 if @battle.pbIsOpposing?(@index)
-    echoln(@index)
+    if @battle.pbIsOpposing?(@index)
+      $PokemonGlobal.pokebox[2]+=1
+      $PokemonGlobal.pokebox[17]+=1 if self.turncount<2
+    end
     @battle.pbDisplayPaused(_INTL("{1} fainted!",pbThis)) if showMessage
     PBDebug.log("[Pokémon fainted] #{pbThis}")
     if @fainted
@@ -6113,6 +6115,7 @@ def ragefist
       $PokemonGlobal.pokebox[6]+=1 if thismove.pbIsPhysical?(thismove.type)
       $PokemonGlobal.pokebox[7]+=1 if thismove.pbIsSpecial?(thismove.type)
       $PokemonGlobal.pokebox[8]+=1 if thismove.pbIsStatus?
+      $PokemonGlobal.pokebox[16]+=1 if thismove.pbIsDamaging? && user.pbHasType?(thismove.type)
     end
     user.lastMoveUsed=thismove.id
     user.lastMoveUsedType=thismove.pbType(thismove.type,user,nil)

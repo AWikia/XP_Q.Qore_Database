@@ -1134,7 +1134,7 @@ def pbTimeEventValid(variableNumber)
   return retval
 end
 
-def pbTimeEventRemaningTime(variableNumber)
+def pbTimeEventRemainingTime(variableNumber)
   if variableNumber && variableNumber>=0 && $game_variables
     value=$game_variables[variableNumber]
     if value.is_a?(Array)

@@ -231,7 +231,7 @@ class PokemonBoxScene
     end
     textpos=[
        [_INTL("{1}: {2}/{3}",taskname,[taskstatus,taskstatus2].min,taskstatus2),14,200,0,baseColor,shadowColor],
-       [_INTL("Time left: {1}",pbTimeEventRemaningTime(PBOX_VARIABLES[3])),14,298,0,baseColor,shadowColor]
+       [_INTL("Time left: {1}",pbTimeEventRemainingTime(PBOX_VARIABLES[3])),14,298,0,baseColor,shadowColor]
     ]
     pbSetSystemFont(@sprites["overlay2"].bitmap)
     @sprites["overlay2"].z = 2

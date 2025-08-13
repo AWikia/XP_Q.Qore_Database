@@ -1957,7 +1957,7 @@ class PokemonScreen
         loop do
           msg=[_INTL("Not an egg or remote box"),
                _INTL("Egg with eggsteps: {1}.",pkmn.eggsteps),
-               _INTL("Remote Box with {1} steps remaning.",pkmn.eggsteps)][pkmn.isRB? ? 2 : pkmn.isEgg? ? 1 : 0]
+               _INTL("Remote Box with {1} steps remaining.",pkmn.eggsteps)][pkmn.isRB? ? 2 : pkmn.isEgg? ? 1 : 0]
           cmd=@scene.pbShowCommands(msg,[
                _INTL("Make egg"),
                _INTL("Make Remote Box"),

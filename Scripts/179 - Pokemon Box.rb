@@ -84,6 +84,10 @@ class PokemonBoxScene
     return id%100 == 0 || (id%10 == 0 && id<51)
   end
   
+  def addIncr(num)
+    return ((($game_variables[PBOX_VARIABLES[2]] / 2).floor / 4) * num).floor
+  end
+  
   def pbPokemonBoxStart
     overlay=@sprites["overlay"].bitmap
     overlay.clear
@@ -113,26 +117,26 @@ class PokemonBoxScene
   def initializeBox
     multi=1+[$game_variables[PBOX_VARIABLES[2]],(@stages-1)].min
     multi2=1 + [($Trainer.numbadges / 2).floor,5].min
-    taskVals=[500*multi+rand(1500*multi*multi2),  # Gain Experience
-              2*multi+rand(2*multi),              # Level Up Pokemon
-              2*multi+rand(2*multi),              # Defeat Pokemon
-              1*multi+rand(2*multi),              # Catch Pokemon
-              10*multi+rand(20*multi),            # Trigger Abilites
-              10*multi+rand(20*multi),            # Trigger Items
-              2*multi+rand(2*multi),              # Use Physical Moves
-              2*multi+rand(2*multi),              # Use Special Moves
-              2*multi+rand(2*multi),              # Use Status Moves
-              1*multi+rand(1*multi),              # Use Battle Items
-              3*multi+rand(3*multi),              # Defear Trainers
-              7*multi+rand(7*multi),              # Lapse Turns
-              2*multi+rand(2*multi),              # Use Medicine Items
-              3*multi+rand(6*multi),              # UNUSED!
-              250*multi+rand(1250*multi*multi2),  # Deal Damage
-              2*multi+rand(2*multi),              # Land Critical Hits
-              2*multi+rand(2*multi),              # Use STAB Moves
-              1*multi+rand(1*multi),              # Defeat Pokemon Instantly
-              1*multi+rand(2*multi),              # Use Berries
-              1*multi+rand(1*multi)               # UNUSED!
+    taskVals=[(500*multi)+rand((1500*multi*multi2)+addIncr(500)), # Gain Experience
+              (2*multi)+rand((2*multi)+addIncr(2)),               # Level Up Pokemon
+              (2*multi)+rand((2*multi)+addIncr(2)),               # Defeat Pokemon
+              (1*multi)+rand((2*multi)+addIncr(1)),               # Catch Pokemon
+              (10*multi)+rand((20*multi)+addIncr(10)),            # Trigger Abilites
+              (10*multi)+rand((20*multi)+addIncr(10)),            # Trigger Items
+              (2*multi)+rand((2*multi)+addIncr(2)),               # Use Physical Moves
+              (2*multi)+rand((2*multi)+addIncr(2)),               # Use Special Moves
+              (2*multi)+rand((2*multi)+addIncr(2)),               # Use Status Moves
+              (1*multi)+rand((1*multi)+addIncr(1)),               # Use Battle Items
+              (3*multi)+rand((3*multi)+addIncr(3)),               # Defear Trainers
+              (7*multi)+rand((7*multi)+addIncr(7)),               # Lapse Turns
+              (2*multi)+rand((2*multi)+addIncr(2)),               # Use Medicine Items
+              (3*multi)+rand((6*multi)+addIncr(3)),               # UNUSED!
+              (250*multi)+rand((1250*multi*multi2)+addIncr(250)), # Deal Damage
+              (2*multi)+rand((2*multi)+addIncr(2)),               # Land Critical Hits
+              (2*multi)+rand((2*multi)+addIncr(2)),               # Use STAB Moves
+              (1*multi)+rand((1*multi)+addIncr(1)),               # Defeat Pokemon Instantly
+              (1*multi)+rand((2*multi)+addIncr(1)),               # Use Berries
+              (1*multi)+rand((1*multi)+addIncr(1))                # UNUSED!
               ]
     taskN12=false
     taskN10=false # For Milleinal/Elite Boxes

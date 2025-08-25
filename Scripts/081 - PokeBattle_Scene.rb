@@ -2291,7 +2291,7 @@ end
         pbCommonAnimation("UB",@battle.battlers[1],nil)
       end
       if @battle.party2.length==2
-        if isUltraBeast?(@battle.battlers[2]) && @battle.battlescene
+        if isUltraBeast?(@battle.battlers[3]) && @battle.battlescene
           pbCommonAnimation("UB",@battle.battlers[3],nil)
         end
       end
@@ -2301,7 +2301,7 @@ end
         pbCommonAnimation("Alolan",@battle.battlers[1],nil)
       end
       if @battle.party2.length==2
-        if isAlolan?(@battle.battlers[2]) && @battle.battlescene
+        if isAlolan?(@battle.battlers[3]) && @battle.battlescene
           pbCommonAnimation("Alolan",@battle.battlers[3],nil)
         end
       end
@@ -2310,7 +2310,7 @@ end
         pbCommonAnimation("Galarian",@battle.battlers[1],nil)
       end
       if @battle.party2.length==2
-        if isGalarian?(@battle.battlers[2]) && @battle.battlescene
+        if isGalarian?(@battle.battlers[3]) && @battle.battlescene
           pbCommonAnimation("Galarian",@battle.battlers[3],nil)
         end
       end

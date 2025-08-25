@@ -1411,6 +1411,7 @@ def ragefist
       self.effects[PBEffects::CommanderAlly]=false
       self.pbPartner.effects[PBEffects::Commander]=false
     end
+    oldturncount=self.turncount
     neutralizinggas=false
     @battle.scene.pbFainted(self)
     pbInitEffects(false)
@@ -1434,7 +1435,7 @@ def ragefist
     pbOwnSide.effects[PBEffects::LastRoundFainted]=@battle.turncount
     if @battle.pbIsOpposing?(@index)
       $PokemonGlobal.pokebox[2]+=1
-      $PokemonGlobal.pokebox[17]+=1 if self.turncount<2
+      $PokemonGlobal.pokebox[17]+=1 if oldturncount<2
     end
     @battle.pbDisplayPaused(_INTL("{1} fainted!",pbThis)) if showMessage
     PBDebug.log("[Pokémon fainted] #{pbThis}")

@@ -169,7 +169,13 @@ Events.onTrainerPartyLoad+=proc {|sender,e|
    end
 }
 
-# Used For Link Battle
+# Used For Season Mastery
+# 34 = Old Season
+# 35 = Current Points
+# 36 = Total Points
+# 37 = HP
+# 38 = Worth Points
+# 39 = Round (Affects Difficulty)
 Events.onTrainerPartyLoad+=proc {|sender,e|
    if e[0] # Trainer data should exist to be loaded, but may not exist somehow
      trainer=e[0][0] # A PokeBattle_Trainer object of the loaded trainer
@@ -177,11 +183,12 @@ Events.onTrainerPartyLoad+=proc {|sender,e|
      party=e[0][2]   # An array of the trainer's Pokémon
      if  $game_switches[206]
        leng=(party.length) - 1
+       pbSet(38,0)
        for i in 0..leng
          # Set Level
          pok=party[i]        
          sp=rand(PBSpecies.maxValue) # 1255  
-         newlevel=50 + ($game_variables[35] / 10).floor
+         newlevel=50 + ($game_variables[39] / 10).floor
          newlevel=1 if newlevel<1
          newlevel=PBExperience::MAXLEVEL if newlevel>PBExperience::MAXLEVEL
          pok.species=sp
@@ -191,14 +198,21 @@ Events.onTrainerPartyLoad+=proc {|sender,e|
            break if pok.hasType?([:GRASS,:WATER,:FIRE,:ICE][pbGetSeason]) ||
                     pok.hasType?([:CHLOROPHYLL,:SUN,:LAVA,:BLIZZARD][pbGetSeason])
          end
+        if isMythical?(pok)
+          pbSet(38,pbGet(38)+3)
+        elsif isLegendary?(pok)
+          pbSet(38,pbGet(38)+2)
+        else
+          pbSet(38,pbGet(38)+1)
+        end
          pok.name=PBSpecies.getName(sp)
          pok.calcStats
          pok.level=newlevel
          pok.calcStats
          pok.resetMoves
-         if $game_variables[35] >= 30
+         if $game_variables[39] >= 30
            pok.pbLearnMove(:PROTECT)
-           pok.setItem(:PHOTONCLAW)  if rand(100)< ($game_variables[35] - 5)
+           pok.setItem(:PHOTONCLAW)  if rand(100)< ($game_variables[39] - 5)
          end
          # End
        end

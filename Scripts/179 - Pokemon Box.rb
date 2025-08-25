@@ -16,9 +16,11 @@ class PokemonBoxScene
             [:HYPERPOTION,:ULTRABALL,:FULLHEAL,:NORMALGEM],
             [:MEGAPOTION,:PARKBALL,:FULLHEAL,:NORMALGEM,:RARECANDY],
             # Elite Challenge
-            [:FULLRESTORE,:PARKBALL,:SUPERBOOSTER,:NORMALBOX,:VICIOUSCANDY]
+            [:FULLRESTORE,:PARKBALL,:SUPERBOOSTER,:NORMALBOX,:VICIOUSCANDY],
+            # Legendary Challenge
+            [:SACREDASH,:MASTERBALL,:SUPERBOOSTER,:BOTANICSMOKE,:NORMALBOX,:VICIOUSCANDY]
             ]
-    @durations=[12,6,4,4,2]
+    @durations=[12,6,4,4,2,2]
     @sprites={}
     @viewport=Viewport.new(0,0,Graphics.width,Graphics.height)
     @viewport.z=99999
@@ -28,8 +30,10 @@ class PokemonBoxScene
     addBackgroundPlane(@sprites,"bg",getDarkModeFolder+"/Pokemon Box/bg_0",@viewport)
     @sprites["bg"].setBitmap(_INTL("Graphics/UI/"+getDarkModeFolder+"/Pokemon Box/bg_{1}",[$game_variables[PBOX_VARIABLES[2]],(@stages-1)].min))
     @sprites["bg"].setBitmap(_INTL("Graphics/UI/"+getDarkModeFolder+"/Pokemon Box/bg_{1}_elite",[$game_variables[PBOX_VARIABLES[2]],(@stages-1)].min)) if isMillenial?
+    @sprites["bg"].setBitmap(_INTL("Graphics/UI/"+getDarkModeFolder+"/Pokemon Box/bg_{1}_legendary",[$game_variables[PBOX_VARIABLES[2]],(@stages-1)].min)) if isMillenial2?
     @sprites["machine"].setBitmap(_INTL("Graphics/UI/Pokemon Box/overlay_box_{1}",[$game_variables[PBOX_VARIABLES[2]],(@stages-1)].min))
     @sprites["machine"].setBitmap(_INTL("Graphics/UI/Pokemon Box/overlay_box_{1}_elite",[$game_variables[PBOX_VARIABLES[2]],(@stages-1)].min)) if isMillenial?
+    @sprites["machine"].setBitmap(_INTL("Graphics/UI/Pokemon Box/overlay_box_{1}_legendary",[$game_variables[PBOX_VARIABLES[2]],(@stages-1)].min)) if isMillenial2?
     @sprites["progress"]=IconSprite.new((Graphics.width/4)-132+14,240,@viewport)
     @sprites["progress"].setBitmap(_INTL("Graphics/UI/"+getDarkModeFolder+"/Pokemon Box/overlay_progress"))
     @sprites["progresstime"]=IconSprite.new((Graphics.width/4)-132,338,@viewport)
@@ -84,6 +88,12 @@ class PokemonBoxScene
     return id%100 == 0 || (id%10 == 0 && id<51)
   end
   
+  def isMillenial2?
+    id = $game_variables[PBOX_VARIABLES[2]].to_i
+    return false if id < @stages # First Gold and below can never be milestone
+    return id%1000 == 0
+  end
+  
   def addIncr(num)
     return ((($game_variables[PBOX_VARIABLES[2]] / 2).floor / 4) * num).floor
   end
@@ -116,6 +126,7 @@ class PokemonBoxScene
   # Creates a new box instance
   def initializeBox
     multi=1+[$game_variables[PBOX_VARIABLES[2]],(@stages-1)].min
+    multi+=1 if isMillenial2?
     multi2=1 + [($Trainer.numbadges / 2).floor,5].min
     taskVals=[(500*multi)+rand((1500*multi*multi2)+addIncr(500)), # Gain Experience
               (2*multi)+rand((2*multi)+addIncr(2)),               # Level Up Pokemon
@@ -192,10 +203,16 @@ class PokemonBoxScene
       [task2,$PokemonGlobal.pokebox[task2],taskVals[task2]],
       [task3,$PokemonGlobal.pokebox[task3],taskVals[task3]]
                                           ]
-    id = [$game_variables[PBOX_VARIABLES[2]],(@durations.length)-2].min
-    id = @durations.length-1 if isMillenial?
+    id = [$game_variables[PBOX_VARIABLES[2]],(@durations.length)-3].min
+    id = @durations.length-2 if isMillenial?
+    id = @durations.length-1 if isMillenial2?
     pbTimeEventDays(PBOX_VARIABLES[3],@durations[id])
     pbPokemonBoxUpdate
+    if isMillenial2?
+      Kernel.pbMessage(_INTL("Legendary Challenge Ahead!"))
+    elsif isMillenial?
+      Kernel.pbMessage(_INTL("Elite Challenge Ahead!."))
+    end
     Kernel.pbMessage(_INTL("Finish this box within a 2-day interval to receive special rewards.")) if isMillenial?
   end
 
@@ -219,12 +236,17 @@ class PokemonBoxScene
       progress.push(["Graphics/UI/"+getAccentFolder+"/summaryEggBar",@sprites["progresstime"].x+8,@sprites["progresstime"].y+4,0,0,(shadowfract2*2.48).floor,-1])
     end
       progress.push(["Graphics/UI/Pokemon Box/icons",@sprites["progress"].x-28,@sprites["progress"].y-6,0,34*$game_variables[PBOX_VARIABLES[1]][$game_variables[PBOX_VARIABLES[0]]][0],34,34])
-    id = [$game_variables[PBOX_VARIABLES[2]],(@items.length)-2].min
-    id = @items.length-1 if isMillenial?
-    x = 116 - ((@items[id].length - 1) * 24)
+    id = [$game_variables[PBOX_VARIABLES[2]],(@items.length)-3].min
+    id = @items.length-2 if isMillenial?
+    id = @items.length-1 if isMillenial2?
+    x = 116 - ([(@items[id].length - 1),4].min * 24)
     for i in @items[id]
-      imagepos.push([pbItemIconFile( getID(PBItems,i)),@sprites["machine"].x+x,@sprites["machine"].y+14,0,0,-1,-1])
-      x+=48
+      @animbitmap=AnimatedBitmap.new( pbItemIconFile( getID(PBItems,i)) )
+      offsetX=(48 - @animbitmap.bitmap.width) / 2
+      offsetY=(48 - @animbitmap.bitmap.height) / 2
+      @animbitmap.dispose
+      imagepos.push([pbItemIconFile( getID(PBItems,i)),@sprites["machine"].x+x.ceil+offsetX,@sprites["machine"].y+14+offsetY,0,0,-1,-1])
+      x+=(96.0/[(@items[id].length - 1),4].max)*2
     end
     if (!isDarkMode?)
       baseColor=MessageConfig::DARKTEXTBASE
@@ -245,8 +267,10 @@ class PokemonBoxScene
     @sprites["header"].text=_INTL("Pokémon Box - Win Streak: {1}",$game_variables[PBOX_VARIABLES[2]])
     @sprites["bg"].setBitmap(_INTL("Graphics/UI/"+getDarkModeFolder+"/Pokemon Box/bg_{1}",[$game_variables[PBOX_VARIABLES[2]],(@stages-1)].min))
     @sprites["bg"].setBitmap(_INTL("Graphics/UI/"+getDarkModeFolder+"/Pokemon Box/bg_{1}_elite",[$game_variables[PBOX_VARIABLES[2]],(@stages-1)].min)) if isMillenial?
+    @sprites["bg"].setBitmap(_INTL("Graphics/UI/"+getDarkModeFolder+"/Pokemon Box/bg_{1}_legendary",[$game_variables[PBOX_VARIABLES[2]],(@stages-1)].min)) if isMillenial2?
     @sprites["machine"].setBitmap(_INTL("Graphics/UI/Pokemon Box/overlay_box_{1}",[$game_variables[PBOX_VARIABLES[2]],(@stages-1)].min))
     @sprites["machine"].setBitmap(_INTL("Graphics/UI/Pokemon Box/overlay_box_{1}_elite",[$game_variables[PBOX_VARIABLES[2]],(@stages-1)].min)) if isMillenial?
+    @sprites["machine"].setBitmap(_INTL("Graphics/UI/Pokemon Box/overlay_box_{1}_legendary",[$game_variables[PBOX_VARIABLES[2]],(@stages-1)].min)) if isMillenial2?
     update_icons
   end
   
@@ -262,13 +286,16 @@ class PokemonBoxScene
       if $game_variables[PBOX_VARIABLES[0]] > 3
         close_box
         pbSEPlay("Item3",100,80)
-        if isMillenial?
+        if isMillenial2?
+          Kernel.pbMessage(_INTL("Legendary Box Completed. Here's your rewards"))
+        elsif isMillenial?
           Kernel.pbMessage(_INTL("Elite Box Completed. Here's your rewards"))
         else
           Kernel.pbMessage(_INTL("Box Completed. Here's your rewards"))
         end
-        id = [$game_variables[PBOX_VARIABLES[2]],(@items.length)-2].min
-        id = @items.length-1 if isMillenial?
+        id = [$game_variables[PBOX_VARIABLES[2]],(@items.length)-3].min
+        id = @items.length-2 if isMillenial?
+        id = @items.length-1 if isMillenial2?
         for i in @items[id]
           Kernel.pbReceiveItem(i,1)
         end
@@ -299,9 +326,10 @@ class PokemonBoxScene
     @sprites["task3"].visible= false
     @sprites["overlayItems"].bitmap.clear
     imagepos=[]
-    id = [$game_variables[PBOX_VARIABLES[2]],(@items.length)-2].min
-    id = @items.length-1 if isMillenial?
-    x = 116 - ((@items[id].length - 1) * 24)
+    id = [$game_variables[PBOX_VARIABLES[2]],(@items.length)-3].min
+    id = @items.length-2 if isMillenial?
+    id = @items.length-1 if isMillenial2?
+    x = 116 - ([(@items[id].length - 1),4].min * 24)
     idx=0
     for i in @items[id]
       idx+=1
@@ -310,12 +338,17 @@ class PokemonBoxScene
       else
         y = 54
       end
-      imagepos.push([pbItemIconFile( getID(PBItems,i)),@sprites["machine"].x+x,@sprites["machine"].y+y,0,0,-1,-1])
-      x+=48
+      @animbitmap=AnimatedBitmap.new( pbItemIconFile( getID(PBItems,i)) )
+      offsetX=(48 - @animbitmap.bitmap.width) / 2
+      offsetY=(48 - @animbitmap.bitmap.height) / 2
+      @animbitmap.dispose
+      imagepos.push([pbItemIconFile( getID(PBItems,i)),@sprites["machine"].x+x.ceil+offsetX,@sprites["machine"].y+y+offsetY,0,0,-1,-1])
+      x+=(96.0/[(@items[id].length - 1),4].max)*2
     end
     pbDrawImagePositions(@sprites["overlayItems"].bitmap,imagepos)
     @sprites["machine"].setBitmap(_INTL("Graphics/UI/Pokemon Box/overlay_box_{1}_closed",[$game_variables[PBOX_VARIABLES[2]],(@stages-1)].min))
     @sprites["machine"].setBitmap(_INTL("Graphics/UI/Pokemon Box/overlay_box_{1}_elite_closed",[$game_variables[PBOX_VARIABLES[2]],(@stages-1)].min)) if isMillenial?
+    @sprites["machine"].setBitmap(_INTL("Graphics/UI/Pokemon Box/overlay_box_{1}_legendary_closed",[$game_variables[PBOX_VARIABLES[2]],(@stages-1)].min)) if isMillenial2?
   end
   
   # Updates the icons in the Pokemon Box container itself

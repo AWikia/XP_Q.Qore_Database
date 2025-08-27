@@ -1726,21 +1726,22 @@ def pbItemIconFile(item)
     bitmapFileName = sprintf("Graphics/Items/back")
   elsif item==827 && QQORECHANNEL>0 && QQORECHANNEL<6 # Qora Qore Master
     bitmapFileName = _INTL("Graphics/Items/827_{1}",QQORECHANNEL)
+  elsif item==1014 # Pokemon Box
+    boxscene = PokemonBoxScene.new
+    bitmapFileName = _INTL("Graphics/Items/1014_{1}",[$game_variables[PBOX_VARIABLES[2]],(boxscene.stages-1)].min)
+    bitmapFileName = _INTL("Graphics/Items/1014_{1}_elite",[$game_variables[PBOX_VARIABLES[2]],(boxscene.stages-1)].min) if boxscene.isMillenial?
+    bitmapFileName = _INTL("Graphics/Items/1014_{1}_legendary",[$game_variables[PBOX_VARIABLES[2]],(boxscene.stages-1)].min) if boxscene.isMillenial2?
   else
     bitmapFileName = sprintf("Graphics/Items/%s",getConstantName(PBItems,item)) rescue nil
-    if !pbResolveBitmap(bitmapFileName)
-      bitmapFileName = sprintf("Graphics/Items/%03d",item)
-      if !pbResolveBitmap(bitmapFileName) && pbIsMachine?(item)
-        move = pbGetMachine(item)
-        type = PBMoveData.new(move).type
-        bitmapFileName = sprintf("Graphics/Items/machine_%s",getConstantName(PBTypes,type)) rescue nil
-        if !pbResolveBitmap(bitmapFileName)
-          bitmapFileName = sprintf("Graphics/Items/machine_%03d",type)
-        end
-      end
-      bitmapFileName = "Graphics/Items/000" if !pbResolveBitmap(bitmapFileName)
+    bitmapFileName = sprintf("Graphics/Items/%03d",item) if !pbResolveBitmap(bitmapFileName)
+    if !pbResolveBitmap(bitmapFileName) && pbIsMachine?(item)
+      move = pbGetMachine(item)
+      type = PBMoveData.new(move).type
+      bitmapFileName = sprintf("Graphics/Items/machine_%s",getConstantName(PBTypes,type)) rescue nil
+      bitmapFileName = sprintf("Graphics/Items/machine_%03d",type) if !pbResolveBitmap(bitmapFileName)
     end
   end
+  bitmapFileName = "Graphics/Items/000" if !pbResolveBitmap(bitmapFileName)
   return bitmapFileName
 end
 

@@ -5,9 +5,16 @@ class PokemonBoxScene
   def update
     pbUpdateSpriteHash(@sprites)
   end
+  
+  def initialize
+    @stages=4 # Classic, Bronze, Silver, Gold
+  end
+  
+  def stages
+    return @stages rescue 4
+  end
 
   def pbStartScene(expired=false)
-    @stages=4 # Classic, Bronze, Silver, Gold
     heal=[:AWAKENING,:ANTIDOTE,:BURNHEAL,:PARALYZEHEAL,:ICEHEAL]
     heal=heal[$Trainer.publicID($Trainer.id)%heal.length]
     @items = [

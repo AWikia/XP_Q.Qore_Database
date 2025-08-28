@@ -105,6 +105,10 @@ class PokemonBoxScene
     return ((($game_variables[PBOX_VARIABLES[2]] / 2).floor / 4) * num).floor
   end
   
+  def currentStep
+    return $game_variables[PBOX_VARIABLES[0]] + (4*$game_variables[PBOX_VARIABLES[4]])
+  end
+  
   def pbPokemonBoxStart
     overlay=@sprites["overlay"].bitmap
     overlay.clear
@@ -161,73 +165,87 @@ class PokemonBoxScene
     taskN13=false # Not applicable on Q.Qore
     taskN18=false
     taskN19=false # Not applicable on Q.Qore
-    task0 = [0,1,2,14][rand(4)]
+    task0 = [0,1,2,14]
     if rand(6)==0 && !taskN12
       taskN12=true
-      task0=12
+      task0.push(12)
     elsif rand(6)==0 && !taskN10 && isMillenial?
       taskN10=true
-      task0=10
+      task0.push(10)
     elsif rand(6)==0 && !taskN18
       taskN18=true
-      task0=18
+      task0.push(18)
     end
-    task1 = [3,4,5,15][rand(4)]
+    task0.shuffle!
+    task1 = [3,4,5,15]
     if rand(6)==0 && !taskN12
       taskN12=true
-      task1=12
+      task1.push(12)
     elsif rand(6)==0 && !taskN10 && isMillenial?
       taskN10=true
-      task1=10
+      task1.push(10)
     elsif rand(6)==0 && !taskN18
       taskN18=true
-      task1=18
+      task1.push(18)
     end
-    task2 = [6,7,8,16][rand(4)]
+    task1.shuffle!
+    task2 = [6,7,8,16]
     if rand(6)==0 && !taskN12
       taskN12=true
-      task2=12
+      task2.push(12)
     elsif rand(6)==0 && !taskN10 && isMillenial?
       taskN10=true
-      task2=10
+      task2.push(10)
     elsif rand(6)==0 && !taskN18
       taskN18=true
-      task2=18
+      task2.push(18)
     end
-    task3 = [9,10,11,17][rand(4)]
-    task3 = [9,11,17][rand(3)] if taskN10 # Don't assign the 11th task in order again
+    task2.shuffle!
+    task3 = [9,10,11,17]
+    task3 = [9,9,11,17] if taskN10 # Don't assign the 11th task in order again
     if rand(6)==0 && !taskN12
       taskN12=true
-      task3=12
+      task3.push(12)
     elsif rand(6)==0 && !taskN18
       taskN18=true
-      task3=18
+      task3.push(18)
     end
+    task3.shuffle!
     $game_variables[PBOX_VARIABLES[0]]=0
     $game_variables[PBOX_VARIABLES[1]] = [
-      [task0,$PokemonGlobal.pokebox[task0],taskVals[task0]],
-      [task1,$PokemonGlobal.pokebox[task1],taskVals[task1]],
-      [task2,$PokemonGlobal.pokebox[task2],taskVals[task2]],
-      [task3,$PokemonGlobal.pokebox[task3],taskVals[task3]]
+      # Task #0
+      [task0[0],$PokemonGlobal.pokebox[task0[0]],taskVals[task0[0]]],
+      [task1[0],$PokemonGlobal.pokebox[task1[0]],taskVals[task1[0]]],
+      [task2[0],$PokemonGlobal.pokebox[task2[0]],taskVals[task2[0]]],
+      [task3[0],$PokemonGlobal.pokebox[task3[0]],taskVals[task3[0]]],
+      # Task #1
+      [task0[1],$PokemonGlobal.pokebox[task0[1]],taskVals[task0[1]]],
+      [task1[1],$PokemonGlobal.pokebox[task1[1]],taskVals[task1[1]]],
+      [task2[1],$PokemonGlobal.pokebox[task2[1]],taskVals[task2[1]]],
+      [task3[1],$PokemonGlobal.pokebox[task3[1]],taskVals[task3[1]]],      
+      # Task #2
+      [task0[2],$PokemonGlobal.pokebox[task0[2]],taskVals[task0[2]]],
+      [task1[2],$PokemonGlobal.pokebox[task1[2]],taskVals[task1[2]]],
+      [task2[2],$PokemonGlobal.pokebox[task2[2]],taskVals[task2[2]]],
+      [task3[2],$PokemonGlobal.pokebox[task3[2]],taskVals[task3[2]]],      
+      # Task #3
+      [task0[3],$PokemonGlobal.pokebox[task0[3]],taskVals[task0[3]]],
+      [task1[3],$PokemonGlobal.pokebox[task1[3]],taskVals[task1[3]]],
+      [task2[3],$PokemonGlobal.pokebox[task2[3]],taskVals[task2[3]]],
+      [task3[3],$PokemonGlobal.pokebox[task3[3]],taskVals[task3[3]]]      
                                           ]
     id = [$game_variables[PBOX_VARIABLES[2]],(@durations.length)-3].min
     id = @durations.length-2 if isMillenial?
     id = @durations.length-1 if isMillenial2?
     pbTimeEventDays(PBOX_VARIABLES[3],@durations[id])
-    pbPokemonBoxUpdate
-    if isMillenial2?
-      Kernel.pbMessage(_INTL("Legendary Challenge Ahead!"))
-    elsif isMillenial?
-      Kernel.pbMessage(_INTL("Elite Challenge Ahead!."))
-    end
-    Kernel.pbMessage(_INTL("Finish this box within a 2-day interval to receive special rewards.")) if isMillenial?
+    pbPokemonBoxUpdate(true)
   end
 
   # Updates the box itself (The progress bar, the text, the task and the icons)
-  def pbPokemonBoxUpdate
-    taskname=$PokemonGlobal.pokeboxNames[$game_variables[PBOX_VARIABLES[1]][$game_variables[PBOX_VARIABLES[0]]][0]]
-    taskstatus=$PokemonGlobal.pokebox[$game_variables[PBOX_VARIABLES[1]][$game_variables[PBOX_VARIABLES[0]]][0]] - $game_variables[PBOX_VARIABLES[1]][$game_variables[PBOX_VARIABLES[0]]][1]
-    taskstatus2=$game_variables[PBOX_VARIABLES[1]][$game_variables[PBOX_VARIABLES[0]]][2]
+  def pbPokemonBoxUpdate(showMillenialMessage=false)
+    taskname=$PokemonGlobal.pokeboxNames[$game_variables[PBOX_VARIABLES[1]][currentStep][0]]
+    taskstatus=$PokemonGlobal.pokebox[$game_variables[PBOX_VARIABLES[1]][currentStep][0]] - $game_variables[PBOX_VARIABLES[1]][currentStep][1]
+    taskstatus2=$game_variables[PBOX_VARIABLES[1]][currentStep][2]
     @sprites["overlay2"].bitmap.clear
     @sprites["overlayItems"].bitmap.clear
     imagepos=[]
@@ -242,7 +260,7 @@ class PokemonBoxScene
       progress.push(["Graphics/UI/"+getAccentFolder+"/summaryEggBar",@sprites["progress"].x+8,@sprites["progress"].y+4,0,0,(shadowfract*2.48).floor,-1])
       progress.push(["Graphics/UI/"+getAccentFolder+"/summaryEggBar",@sprites["progresstime"].x+8,@sprites["progresstime"].y+4,0,0,(shadowfract2*2.48).floor,-1])
     end
-      progress.push(["Graphics/UI/Pokemon Box/icons",@sprites["progress"].x-28,@sprites["progress"].y-6,0,34*$game_variables[PBOX_VARIABLES[1]][$game_variables[PBOX_VARIABLES[0]]][0],34,34])
+      progress.push(["Graphics/UI/Pokemon Box/icons",@sprites["progress"].x-28,@sprites["progress"].y-6,0,34*$game_variables[PBOX_VARIABLES[1]][currentStep][0],34,34])
     id = [$game_variables[PBOX_VARIABLES[2]],(@items.length)-3].min
     id = @items.length-2 if isMillenial?
     id = @items.length-1 if isMillenial2?
@@ -279,14 +297,23 @@ class PokemonBoxScene
     @sprites["machine"].setBitmap(_INTL("Graphics/UI/Pokemon Box/overlay_box_{1}_elite",[$game_variables[PBOX_VARIABLES[2]],(@stages-1)].min)) if isMillenial?
     @sprites["machine"].setBitmap(_INTL("Graphics/UI/Pokemon Box/overlay_box_{1}_legendary",[$game_variables[PBOX_VARIABLES[2]],(@stages-1)].min)) if isMillenial2?
     update_icons
+    if showMillenialMessage
+      if isMillenial2?
+        Kernel.pbMessage(_INTL("Legendary Challenge Ahead!"))
+      elsif isMillenial?
+        Kernel.pbMessage(_INTL("Elite Challenge Ahead!."))
+      end
+      Kernel.pbMessage(_INTL("Finish this box within a 2-day interval to receive special rewards.")) if isMillenial?
+    end
   end
   
   # Used to check if the box should advance itself
   def pbPokemonBoxAdvance
-    taskstatus=$PokemonGlobal.pokebox[$game_variables[PBOX_VARIABLES[1]][$game_variables[PBOX_VARIABLES[0]]][0]] - $game_variables[PBOX_VARIABLES[1]][$game_variables[PBOX_VARIABLES[0]]][1]
-    taskstatus2=$game_variables[PBOX_VARIABLES[1]][$game_variables[PBOX_VARIABLES[0]]][2]
+    taskstatus=$PokemonGlobal.pokebox[$game_variables[PBOX_VARIABLES[1]][currentStep][0]] - $game_variables[PBOX_VARIABLES[1]][currentStep][1]
+    taskstatus2=$game_variables[PBOX_VARIABLES[1]][currentStep][2]
     if taskstatus >= taskstatus2
       $game_variables[PBOX_VARIABLES[0]]+=1
+      $game_variables[PBOX_VARIABLES[4]]=0 # Reset Substep
       update_icons
       pbSEPlay("DTM_start")
       Kernel.pbMessage(_INTL("Task Completed"))
@@ -319,7 +346,7 @@ class PokemonBoxScene
         initializeBox
       else
         # Refresh Task
-        $game_variables[PBOX_VARIABLES[1]][$game_variables[PBOX_VARIABLES[0]]][1] = $PokemonGlobal.pokebox[ $game_variables[PBOX_VARIABLES[1]][$game_variables[PBOX_VARIABLES[0]]][0] ]
+        $game_variables[PBOX_VARIABLES[1]][currentStep][1] = $PokemonGlobal.pokebox[ $game_variables[PBOX_VARIABLES[1]][currentStep][0] ]
         pbPokemonBoxUpdate
       end
     end
@@ -373,6 +400,17 @@ class PokemonBoxScene
       self.update
       if Input.trigger?(Input::B)
         break
+      end
+      if Input.trigger?(Input::A)
+        maxtimes = ($game_variables[PBOX_VARIABLES[1]].length/4).floor - 1
+        availabletimes = maxtimes - $game_variables[PBOX_VARIABLES[4]]
+        if $game_variables[PBOX_VARIABLES[4]]>=maxtimes
+          Kernel.pbMessage(_INTL("You can't change this task any longer."))
+        elsif Kernel.pbConfirmMessage(_INTL("Are you sure you want to change this task? You can change it {1} times. Any progress done on this one will be lost.",availabletimes))
+          $game_variables[PBOX_VARIABLES[4]]+=1
+          $game_variables[PBOX_VARIABLES[1]][currentStep][1] = $PokemonGlobal.pokebox[ $game_variables[PBOX_VARIABLES[1]][currentStep][0] ]
+          pbPokemonBoxUpdate
+        end
       end
     end 
   end

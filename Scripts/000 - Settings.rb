@@ -500,15 +500,16 @@ SEMI_INTERNAL_BATTLE      = 205
 #            Treat Machine was used in a row
 #      - The Global Variable that is used to store the timed event that will
 #            reset the login count after two days of inactivity
-# * The Global Variables that is used for the Pokemon BOx Feature
+# * The Global Variables that is used for the Pokemon Box Feature
 #      - The Global Variable that is used to record the stage of the Box
 #      - The Global Variable that is used to record the tasks of the box
 #      - The Global Variable that is used to store the streak count
 #      - The Global Variable that is used to store the duration
+#      - The Global Variable that is used to record the sub-stage of the Box
 #===============================================================================
 WIN_STREAK_VARIABLE       = 1007
 DTM_VARIABLES             = [1008,1009,1010]
-PBOX_VARIABLES            = [1012,1013,1014,1015]
+PBOX_VARIABLES            = [1012,1013,1014,1015,1016]
 
 #===============================================================================
 # * The ID of the common event that runs when the player starts fishing (runs

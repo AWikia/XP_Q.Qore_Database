@@ -34,7 +34,8 @@ class PokemonBoxScene
     @viewport2=Viewport.new((Graphics.width/2)+14,40,(Graphics.width / 2)-28,Graphics.height-40)
     @viewport2.z=99999
     @sprites["machine"]=IconSprite.new((Graphics.width/4)-140,44,@viewport)
-    addBackgroundPlane(@sprites,"bg",getDarkModeFolder+"/Pokemon Box/bg_0",@viewport)
+    @sprites["bg"]=IconSprite.new(0,0,@viewport) # Avoid issues with animations
+#    addBackgroundPlane(@sprites,"bg",getDarkModeFolder+"/Pokemon Box/bg_0",@viewport)
     @sprites["bg"].setBitmap(_INTL("Graphics/UI/"+getDarkModeFolder+"/Pokemon Box/bg_{1}",[$game_variables[PBOX_VARIABLES[2]],(@stages-1)].min))
     @sprites["bg"].setBitmap(_INTL("Graphics/UI/"+getDarkModeFolder+"/Pokemon Box/bg_{1}_elite",[$game_variables[PBOX_VARIABLES[2]],(@stages-1)].min)) if isMillenial?
     @sprites["bg"].setBitmap(_INTL("Graphics/UI/"+getDarkModeFolder+"/Pokemon Box/bg_{1}_legendary",[$game_variables[PBOX_VARIABLES[2]],(@stages-1)].min)) if isMillenial2?
@@ -43,7 +44,7 @@ class PokemonBoxScene
     @sprites["machine"].setBitmap(_INTL("Graphics/UI/Pokemon Box/overlay_box_{1}_legendary",[$game_variables[PBOX_VARIABLES[2]],(@stages-1)].min)) if isMillenial2?
     @sprites["progress"]=IconSprite.new((Graphics.width/4)-132+14,240,@viewport)
     @sprites["progress"].setBitmap(_INTL("Graphics/UI/"+getDarkModeFolder+"/Pokemon Box/overlay_progress"))
-    @sprites["progresstime"]=IconSprite.new((Graphics.width/4)-132,338,@viewport)
+    @sprites["progresstime"]=IconSprite.new((Graphics.width/4)-132+14,338,@viewport)
     @sprites["progresstime"].setBitmap(_INTL("Graphics/UI/"+getDarkModeFolder+"/Pokemon Box/overlay_progress"))
     @sprites["bg"].z = 1
     @sprites["machine"].z = 2
@@ -55,8 +56,10 @@ class PokemonBoxScene
     @sprites["header"].shadowColor=nil #(!isDarkMode?) ? Color.new(242,242,242) : Color.new(12,12,12)
     @sprites["header"].windowskin=nil
     @sprites["overlay"]=BitmapSprite.new((Graphics.width/2 - 28),Graphics.height - 40,@viewport2)
-    @sprites["overlay2"]=BitmapSprite.new(Graphics.width,Graphics.height,@viewport)    
-    @sprites["overlay2"].z = 2
+    @sprites["overlayTask"]=BitmapSprite.new(Graphics.width,Graphics.height,@viewport)    
+    @sprites["overlayTask"].z = 2
+    @sprites["overlayTime"]=BitmapSprite.new(Graphics.width,Graphics.height,@viewport)    
+    @sprites["overlayTime"].z = 2
     @sprites["overlayItems"]=BitmapSprite.new(Graphics.width,Graphics.height,@viewport)    
     @sprites["overlayItems"].z = 2
 
@@ -78,7 +81,8 @@ class PokemonBoxScene
       initializeBox
     end
     pbSetSystemFont(@sprites["overlay"].bitmap)
-    pbSetSystemFont(@sprites["overlay2"].bitmap)
+    pbSetSystemFont(@sprites["overlayTask"].bitmap)
+    pbSetSystemFont(@sprites["overlayTime"].bitmap)
     pbPokemonBoxStart
     pbFadeInAndShow(@sprites) { update }
     if expiredbox
@@ -246,21 +250,24 @@ class PokemonBoxScene
     taskname=$PokemonGlobal.pokeboxNames[$game_variables[PBOX_VARIABLES[1]][currentStep][0]]
     taskstatus=$PokemonGlobal.pokebox[$game_variables[PBOX_VARIABLES[1]][currentStep][0]] - $game_variables[PBOX_VARIABLES[1]][currentStep][1]
     taskstatus2=$game_variables[PBOX_VARIABLES[1]][currentStep][2]
-    @sprites["overlay2"].bitmap.clear
+    @sprites["overlayTask"].bitmap.clear
+    @sprites["overlayTime"].bitmap.clear
     @sprites["overlayItems"].bitmap.clear
     imagepos=[]
     progress=[]
+    progressTime=[]
     value=$game_variables[PBOX_VARIABLES[3]]
     shadowfract=taskstatus*100/taskstatus2
     shadowfract2=(value[1]-(pbGetTimeNow.to_f - value[0]))*100/value[1]
     if ($PokemonSystem.threecolorbar==1 rescue false)
       progress.push(["Graphics/UI/"+getAccentFolder+"/summaryEggBar_threecolorbar",@sprites["progress"].x+8,@sprites["progress"].y+4,0,0,(shadowfract*2.48).floor,-1])
-      progress.push(["Graphics/UI/"+getAccentFolder+"/summaryEggBar_threecolorbar",@sprites["progresstime"].x+8,@sprites["progresstime"].y+4,0,0,(shadowfract2*2.48).floor,-1])
+      progressTime.push(["Graphics/UI/"+getAccentFolder+"/summaryEggBar_threecolorbar",@sprites["progresstime"].x+8,@sprites["progresstime"].y+4,0,0,(shadowfract2*2.48).floor,-1])
     else
       progress.push(["Graphics/UI/"+getAccentFolder+"/summaryEggBar",@sprites["progress"].x+8,@sprites["progress"].y+4,0,0,(shadowfract*2.48).floor,-1])
-      progress.push(["Graphics/UI/"+getAccentFolder+"/summaryEggBar",@sprites["progresstime"].x+8,@sprites["progresstime"].y+4,0,0,(shadowfract2*2.48).floor,-1])
+      progressTime.push(["Graphics/UI/"+getAccentFolder+"/summaryEggBar",@sprites["progresstime"].x+8,@sprites["progresstime"].y+4,0,0,(shadowfract2*2.48).floor,-1])
     end
       progress.push(["Graphics/UI/Pokemon Box/icons",@sprites["progress"].x-28,@sprites["progress"].y-6,0,34*$game_variables[PBOX_VARIABLES[1]][currentStep][0],34,34])
+      progressTime.push(["Graphics/UI/Pokemon Box/icon_clock",@sprites["progresstime"].x-28,@sprites["progresstime"].y-6,0,0,-1,-1])
     id = [$game_variables[PBOX_VARIABLES[2]],(@items.length)-3].min
     id = @items.length-2 if isMillenial?
     id = @items.length-1 if isMillenial2?
@@ -282,12 +289,17 @@ class PokemonBoxScene
     end
     textpos=[
        [_INTL("{1}: {2}/{3}",taskname,[taskstatus,taskstatus2].min,taskstatus2),14,200,0,baseColor,shadowColor],
+    ]
+    textposTime=[
        [_INTL("Time left: {1}",pbTimeEventRemainingTime(PBOX_VARIABLES[3])),14,298,0,baseColor,shadowColor]
     ]
-    pbSetSystemFont(@sprites["overlay2"].bitmap)
-    @sprites["overlay2"].z = 2
-    pbDrawTextPositions(@sprites["overlay2"].bitmap,textpos)
-    pbDrawImagePositions(@sprites["overlay2"].bitmap,progress)
+    pbSetSystemFont(@sprites["overlayTask"].bitmap)
+    pbSetSystemFont(@sprites["overlayTime"].bitmap)
+    @sprites["overlayTask"].z = 2
+    pbDrawTextPositions(@sprites["overlayTask"].bitmap,textpos)
+    pbDrawImagePositions(@sprites["overlayTask"].bitmap,progress)
+    pbDrawTextPositions(@sprites["overlayTime"].bitmap,textposTime)
+    pbDrawImagePositions(@sprites["overlayTime"].bitmap,progressTime)
     pbDrawImagePositions(@sprites["overlayItems"].bitmap,imagepos)
     @sprites["header"].text=_INTL("Pokémon Box - Win Streak: {1}",$game_variables[PBOX_VARIABLES[2]])
     @sprites["bg"].setBitmap(_INTL("Graphics/UI/"+getDarkModeFolder+"/Pokemon Box/bg_{1}",[$game_variables[PBOX_VARIABLES[2]],(@stages-1)].min))
@@ -307,6 +319,25 @@ class PokemonBoxScene
     end
   end
   
+  def animateTaskPane(from=255,into=0)
+    zoom=from.to_f
+    dec=(from.to_f - into.to_f) / 10.0
+    10.times do
+      Graphics.update
+      Input.update
+      zoom-=dec
+      @sprites["progress"].opacity=zoom
+      @sprites["overlayTask"].opacity=zoom
+    end
+  end
+  
+  def refreshTask
+    animateTaskPane(255,0)
+    $game_variables[PBOX_VARIABLES[1]][currentStep][1] = $PokemonGlobal.pokebox[ $game_variables[PBOX_VARIABLES[1]][currentStep][0] ]
+    pbPokemonBoxUpdate(false)
+    animateTaskPane(0,255)
+  end
+  
   # Used to check if the box should advance itself
   def pbPokemonBoxAdvance
     taskstatus=$PokemonGlobal.pokebox[$game_variables[PBOX_VARIABLES[1]][currentStep][0]] - $game_variables[PBOX_VARIABLES[1]][currentStep][1]
@@ -318,6 +349,7 @@ class PokemonBoxScene
       pbSEPlay("DTM_start")
       Kernel.pbMessage(_INTL("Task Completed"))
       if $game_variables[PBOX_VARIABLES[0]] > 3
+        animateTaskPane(255,0)
         close_box
         pbSEPlay("Item3",100,80)
         if isMillenial2?
@@ -344,10 +376,10 @@ class PokemonBoxScene
           Kernel.pbMessage(_INTL("You've unlocked the {1} Pokémon Box. Spectacular!",stage))
         end
         initializeBox
+        animateTaskPane(0,255)
       else
         # Refresh Task
-        $game_variables[PBOX_VARIABLES[1]][currentStep][1] = $PokemonGlobal.pokebox[ $game_variables[PBOX_VARIABLES[1]][currentStep][0] ]
-        pbPokemonBoxUpdate
+        refreshTask
       end
     end
   end
@@ -408,8 +440,7 @@ class PokemonBoxScene
           Kernel.pbMessage(_INTL("You can't change this task any longer."))
         elsif Kernel.pbConfirmMessage(_INTL("Are you sure you want to change this task? You can change it {1} times. Any progress done on this one will be lost.",availabletimes))
           $game_variables[PBOX_VARIABLES[4]]+=1
-          $game_variables[PBOX_VARIABLES[1]][currentStep][1] = $PokemonGlobal.pokebox[ $game_variables[PBOX_VARIABLES[1]][currentStep][0] ]
-          pbPokemonBoxUpdate
+          refreshTask
         end
       end
     end 

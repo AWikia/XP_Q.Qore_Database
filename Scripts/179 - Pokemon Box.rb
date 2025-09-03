@@ -332,6 +332,7 @@ class PokemonBoxScene
   end
   
   def refreshTask
+    pbPlayEquipSE()
     animateTaskPane(255,0)
     $game_variables[PBOX_VARIABLES[1]][currentStep][1] = $PokemonGlobal.pokebox[ $game_variables[PBOX_VARIABLES[1]][currentStep][0] ]
     pbPokemonBoxUpdate(false)

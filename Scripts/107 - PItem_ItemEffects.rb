@@ -2425,7 +2425,7 @@ ItemHandlers::BattleUseOnBattler.add(:BOTANICSMOKE,proc{|item,battler,scene|
       scene.pbDisplay(_INTL("But it had no effect!"))
       return false
     else
-      pbSEPlay("protection")
+      pbPlayMissSE()
       scene.pbDisplay(_INTL("{1}'s {2} took {3} down with it!",playername,
           PBItems.getName(item),user.pbThis(true)))
       user.pbReduceHP(user.hp)

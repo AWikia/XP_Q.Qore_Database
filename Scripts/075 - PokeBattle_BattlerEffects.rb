@@ -14,25 +14,25 @@ class PokeBattle_Battler
     return false if isFainted?
     selfsleep=(attacker && attacker.index==self.index)
     if (!ignorestatus && status==PBStatuses::SLEEP) || isConst?(ability,PBAbilities,:COMATOSE)
-			pbSEPlay("protection") if showMessages
+			pbPlayMissSE() if showMessages
       @battle.pbDisplay(_INTL("{1} is already asleep!",pbThis)) if showMessages
       return false
     end
     if !selfsleep
       if self.status!=0 ||
          (@effects[PBEffects::Substitute]>0 && (!move || !move.ignoresSubstitute?(attacker)))
-         pbSEPlay("protection") if showMessages
+         pbPlayMissSE() if showMessages
          @battle.pbDisplay(_INTL("But it failed!")) if showMessages
         return false
       end
     end
     if !self.isAirborne?(attacker && attacker.hasMoldBreaker(self))
       if @battle.pbTerrain==PBBattleTerrains::ELECTRIC
-        pbSEPlay("protection") if showMessages
+        pbPlayMissSE() if showMessages
         @battle.pbDisplay(_INTL("The Electric Terrain prevented {1} from falling asleep!",pbThis(true))) if showMessages
         return false
       elsif @battle.pbTerrain==PBBattleTerrains::MISTY
-        pbSEPlay("protection") if showMessages
+        pbPlayMissSE() if showMessages
         @battle.pbDisplay(_INTL("The Misty Terrain prevented {1} from falling asleep!",pbThis(true))) if showMessages
         return false
       end
@@ -40,7 +40,7 @@ class PokeBattle_Battler
     if (attacker && attacker.hasMoldBreaker(self)) || !hasWorkingAbility(:SOUNDPROOF)
       for i in 0...4
         if @battle.battlers[i].effects[PBEffects::Uproar]>0
-          pbSEPlay("protection") if showMessages
+          pbPlayMissSE() if showMessages
           @battle.pbDisplay(_INTL("But the uproar kept {1} awake!",pbThis(true))) if showMessages
           return false
         end
@@ -56,14 +56,14 @@ class PokeBattle_Battler
                                             @battle.pbWeather==PBWeather::HARSHSUN) &&
                                             !hasWorkingItem(:UTILITYUMBRELLA))
         abilityname=PBAbilities.getName(self.ability)
-        pbSEPlay("protection") if showMessages
+        pbPlayMissSE() if showMessages
         @battle.pbDisplay(_INTL("{1} stayed awake using its {2}!",pbThis,abilityname)) if showMessages
         return false
       end
       if pbPartner.hasWorkingAbility(:SWEETVEIL) ||
          (pbPartner.hasWorkingAbility(:FLOWERVEIL) && pbHasType?(:GRASS))
         abilityname=PBAbilities.getName(pbPartner.ability)
-        pbSEPlay("protection") if showMessages
+        pbPlayMissSE() if showMessages
         @battle.pbDisplay(_INTL("{1} stayed awake using its partner's {2}!",pbThis,abilityname)) if showMessages
         return false
       end
@@ -71,7 +71,7 @@ class PokeBattle_Battler
     if !selfsleep
       if pbOwnSide.effects[PBEffects::Safeguard]>0 &&
          (!attacker || !attacker.hasWorkingAbility(:INFILTRATOR))
-        pbSEPlay("protection") if showMessages
+        pbPlayMissSE() if showMessages
          @battle.pbDisplay(_INTL("{1}'s team is protected by Safeguard!",pbThis)) if showMessages
         return false
       end
@@ -135,7 +135,7 @@ class PokeBattle_Battler
   def pbCanPoison?(attacker,showMessages,move=nil)
     return false if isFainted?
     if status==PBStatuses::POISON
-			pbSEPlay("protection") if showMessages
+			pbPlayMissSE() if showMessages
       @battle.pbDisplay(_INTL("{1} is already poisoned.",pbThis)) if showMessages
       return false
     end
@@ -143,18 +143,18 @@ class PokeBattle_Battler
        (@effects[PBEffects::Substitute]>0 && (!move || !move.ignoresSubstitute?(attacker))) ||
        isConst?(ability,PBAbilities,:COMATOSE) ||
        pbShieldsUp?
-			pbSEPlay("protection") if showMessages
+			pbPlayMissSE() if showMessages
       @battle.pbDisplay(_INTL("But it failed!")) if showMessages
       return false
     end
     if (pbHasType?(:POISON) || pbHasType?(:STEEL) || pbHasType?(:GAS)) && !(hasWorkingItem(:RINGTARGET) || (attacker && attacker.hasWorkingAbility(:CORROSION)))
-			pbSEPlay("protection") if showMessages
+			pbPlayMissSE() if showMessages
       @battle.pbDisplay(_INTL("It doesn't affect {1}...",pbThis(true))) if showMessages
       return false
     end
     if @battle.pbTerrain==PBBattleTerrains::MISTY &&
        !self.isAirborne?(attacker && attacker.hasMoldBreaker(self))
-      pbSEPlay("protection") if showMessages
+      pbPlayMissSE() if showMessages
        @battle.pbDisplay(_INTL("The Misty Terrain prevented {1} from being poisoned!",pbThis(true))) if showMessages
       return false
     end
@@ -165,21 +165,21 @@ class PokeBattle_Battler
          (hasWorkingAbility(:LEAFGUARD) && (@battle.pbWeather==PBWeather::SUNNYDAY ||
                                             @battle.pbWeather==PBWeather::HARSHSUN) &&
                                             !hasWorkingItem(:UTILITYUMBRELLA))
-        pbSEPlay("protection") if showMessages
+        pbPlayMissSE() if showMessages
         @battle.pbDisplay(_INTL("{1}'s {2} prevents poisoning!",pbThis,PBAbilities.getName(self.ability))) if showMessages
         return false
       end
       if (pbPartner.hasWorkingAbility(:FLOWERVEIL) && pbHasType?(:GRASS)) ||
           pbPartner.hasWorkingAbility(:PASTELVEIL)
         abilityname=PBAbilities.getName(pbPartner.ability)
-        pbSEPlay("protection") if showMessages
+        pbPlayMissSE() if showMessages
         @battle.pbDisplay(_INTL("{1}'s partner's {2} prevents poisoning!",pbThis,abilityname)) if showMessages
         return false
       end
     end
     if pbOwnSide.effects[PBEffects::Safeguard]>0 &&
        (!attacker || !attacker.hasWorkingAbility(:INFILTRATOR))
-			pbSEPlay("protection") if showMessages
+			pbPlayMissSE() if showMessages
       @battle.pbDisplay(_INTL("{1}'s team is protected by Safeguard!",pbThis)) if showMessages
       return false
     end
@@ -189,7 +189,7 @@ class PokeBattle_Battler
   def pbCanPoisonSynchronize?(opponent)
     return false if isFainted?
     if (pbHasType?(:POISON) || pbHasType?(:STEEL) || pbHasType?(:GAS)) && !(hasWorkingItem(:RINGTARGET))
-			pbSEPlay("protection")
+			pbPlayMissSE()
       @battle.pbDisplay(_INTL("{1}'s {2} had no effect on {3}!",
          opponent.pbThis,PBAbilities.getName(opponent.ability),pbThis(true)))
       return false
@@ -201,7 +201,7 @@ class PokeBattle_Battler
        (hasWorkingAbility(:LEAFGUARD) && (@battle.pbWeather==PBWeather::SUNNYDAY ||
                                           @battle.pbWeather==PBWeather::HARSHSUN) &&
                                           !hasWorkingItem(:UTILITYUMBRELLA))
-			pbSEPlay("protection")
+			pbPlayMissSE()
       @battle.pbDisplay(_INTL("{1}'s {2} prevents {3}'s {4} from working!",
          pbThis,PBAbilities.getName(self.ability),
          opponent.pbThis(true),PBAbilities.getName(opponent.ability)))
@@ -209,7 +209,7 @@ class PokeBattle_Battler
     end
     if (pbPartner.hasWorkingAbility(:FLOWERVEIL) && pbHasType?(:GRASS)) ||
         pbPartner.hasWorkingAbility(:PASTELVEIL)
-			pbSEPlay("protection")
+			pbPlayMissSE()
       @battle.pbDisplay(_INTL("{1}'s {2} prevents {3}'s {4} from working!",
          pbPartner.pbThis,PBAbilities.getName(pbPartner.ability),
          opponent.pbThis(true),PBAbilities.getName(opponent.ability)))
@@ -283,7 +283,7 @@ class PokeBattle_Battler
   def pbCanBurn?(attacker,showMessages,move=nil)
     return false if isFainted?
     if self.status==PBStatuses::BURN
-			pbSEPlay("protection") if showMessages
+			pbPlayMissSE() if showMessages
       @battle.pbDisplay(_INTL("{1} already has a burn.",pbThis)) if showMessages
       return false
     end
@@ -291,18 +291,18 @@ class PokeBattle_Battler
        (@effects[PBEffects::Substitute]>0 && (!move || !move.ignoresSubstitute?(attacker))) ||
        isConst?(ability,PBAbilities,:COMATOSE) ||
        pbShieldsUp?
-        pbSEPlay("protection") if showMessages
+        pbPlayMissSE() if showMessages
        @battle.pbDisplay(_INTL("But it failed!")) if showMessages
       return false
     end
     if @battle.pbTerrain==PBBattleTerrains::MISTY &&
        !self.isAirborne?(attacker && attacker.hasMoldBreaker(self))
-        pbSEPlay("protection") if showMessages
+        pbPlayMissSE() if showMessages
        @battle.pbDisplay(_INTL("The Misty Terrain prevented {1} from being burned!",pbThis(true))) if showMessages
       return false
     end
     if pbHasType?(:FIRE) && !(hasWorkingItem(:RINGTARGET) || (attacker && attacker.hasWorkingAbility(:BURNOLA)))
-			pbSEPlay("protection") if showMessages
+			pbPlayMissSE() if showMessages
       @battle.pbDisplay(_INTL("It doesn't affect {1}...",pbThis(true))) if showMessages
       return false
     end
@@ -314,20 +314,20 @@ class PokeBattle_Battler
          (hasWorkingAbility(:LEAFGUARD) && (@battle.pbWeather==PBWeather::SUNNYDAY ||
                                             @battle.pbWeather==PBWeather::HARSHSUN) &&
                                             !hasWorkingItem(:UTILITYUMBRELLA))
-        pbSEPlay("protection") if showMessages
+        pbPlayMissSE() if showMessages
         @battle.pbDisplay(_INTL("{1}'s {2} prevents burns!",pbThis,PBAbilities.getName(self.ability))) if showMessages
         return false
       end
       if pbPartner.hasWorkingAbility(:FLOWERVEIL) && pbHasType?(:GRASS)
         abilityname=PBAbilities.getName(pbPartner.ability)
-        pbSEPlay("protection") if showMessages
+        pbPlayMissSE() if showMessages
         @battle.pbDisplay(_INTL("{1}'s partner's {2} prevents burns!",pbThis,abilityname)) if showMessages
         return false
       end
     end
     if pbOwnSide.effects[PBEffects::Safeguard]>0 &&
        (!attacker || !attacker.hasWorkingAbility(:INFILTRATOR))
-        pbSEPlay("protection") if showMessages
+        pbPlayMissSE() if showMessages
        @battle.pbDisplay(_INTL("{1}'s team is protected by Safeguard!",pbThis)) if showMessages
       return false
     end
@@ -338,7 +338,7 @@ class PokeBattle_Battler
     return false if isFainted?
     return false if self.status!=0 || isConst?(ability,PBAbilities,:COMATOSE) || pbShieldsUp?
     if pbHasType?(:FIRE) && !hasWorkingItem(:RINGTARGET)
-       pbSEPlay("protection")
+       pbPlayMissSE()
        @battle.pbDisplay(_INTL("{1}'s {2} had no effect on {3}!",
           opponent.pbThis,PBAbilities.getName(opponent.ability),pbThis(true)))
        return false
@@ -350,14 +350,14 @@ class PokeBattle_Battler
        (hasWorkingAbility(:LEAFGUARD) && (@battle.pbWeather==PBWeather::SUNNYDAY ||
                                           @battle.pbWeather==PBWeather::HARSHSUN) &&
                                           !hasWorkingItem(:UTILITYUMBRELLA))
-			pbSEPlay("protection")
+			pbPlayMissSE()
       @battle.pbDisplay(_INTL("{1}'s {2} prevents {3}'s {4} from working!",
          pbThis,PBAbilities.getName(self.ability),
          opponent.pbThis(true),PBAbilities.getName(opponent.ability)))
       return false
     end
     if pbPartner.hasWorkingAbility(:FLOWERVEIL) && pbHasType?(:GRASS)
-			pbSEPlay("protection")
+			pbPlayMissSE()
       @battle.pbDisplay(_INTL("{1}'s {2} prevents {3}'s {4} from working!",
          pbPartner.pbThis,PBAbilities.getName(pbPartner.ability),
          opponent.pbThis(true),PBAbilities.getName(opponent.ability)))
@@ -392,7 +392,7 @@ class PokeBattle_Battler
   def pbCanParalyze?(attacker,showMessages,move=nil)
     return false if isFainted?
     if status==PBStatuses::PARALYSIS
-			pbSEPlay("protection") if showMessages
+			pbPlayMissSE() if showMessages
       @battle.pbDisplay(_INTL("{1} is already paralyzed!",pbThis)) if showMessages
       return false
     end
@@ -400,18 +400,18 @@ class PokeBattle_Battler
        (@effects[PBEffects::Substitute]>0 && (!move || !move.ignoresSubstitute?(attacker))) ||
        isConst?(ability,PBAbilities,:COMATOSE) ||
        pbShieldsUp?
-      pbSEPlay("protection") if showMessages
+      pbPlayMissSE() if showMessages
        @battle.pbDisplay(_INTL("But it failed!")) if showMessages
       return false
     end
     if @battle.pbTerrain==PBBattleTerrains::MISTY &&
        !self.isAirborne?(attacker && attacker.hasMoldBreaker(self))
-      pbSEPlay("protection") if showMessages
+      pbPlayMissSE() if showMessages
       @battle.pbDisplay(_INTL("The Misty Terrain prevented {1} from being paralyzed!",pbThis(true))) if showMessages
       return false
     end
     if (pbHasType?(:ELECTRIC) || pbHasType?(:BOLT)) && !(hasWorkingItem(:RINGTARGET) || (attacker && attacker.hasWorkingAbility(:PARAJINDA)))
-			pbSEPlay("protection") if showMessages
+			pbPlayMissSE() if showMessages
       @battle.pbDisplay(_INTL("It doesn't affect {1}...",pbThis(true))) if showMessages
       return false
     end
@@ -422,20 +422,20 @@ class PokeBattle_Battler
          (hasWorkingAbility(:LEAFGUARD) && (@battle.pbWeather==PBWeather::SUNNYDAY ||
                                             @battle.pbWeather==PBWeather::HARSHSUN) &&
                                             !hasWorkingItem(:UTILITYUMBRELLA))
-        pbSEPlay("protection") if showMessages
+        pbPlayMissSE() if showMessages
         @battle.pbDisplay(_INTL("{1}'s {2} prevents paralysis!",pbThis,PBAbilities.getName(self.ability))) if showMessages
         return false
       end
       if pbPartner.hasWorkingAbility(:FLOWERVEIL) && pbHasType?(:GRASS)
         abilityname=PBAbilities.getName(pbPartner.ability)
-        pbSEPlay("protection") if showMessages
+        pbPlayMissSE() if showMessages
         @battle.pbDisplay(_INTL("{1}'s partner's {2} prevents paralysis!",pbThis,abilityname)) if showMessages
         return false
       end
     end
     if pbOwnSide.effects[PBEffects::Safeguard]>0 &&
        (!attacker || !attacker.hasWorkingAbility(:INFILTRATOR))
-			pbSEPlay("protection") if showMessages
+			pbPlayMissSE() if showMessages
       @battle.pbDisplay(_INTL("{1}'s team is protected by Safeguard!",pbThis)) if showMessages
       return false
     end
@@ -452,14 +452,14 @@ class PokeBattle_Battler
        (hasWorkingAbility(:LEAFGUARD) && (@battle.pbWeather==PBWeather::SUNNYDAY ||
                                           @battle.pbWeather==PBWeather::HARSHSUN) &&
                                           !hasWorkingItem(:UTILITYUMBRELLA))
-			pbSEPlay("protection")
+			pbPlayMissSE()
       @battle.pbDisplay(_INTL("{1}'s {2} prevents {3}'s {4} from working!",
          pbThis,PBAbilities.getName(self.ability),
          opponent.pbThis(true),PBAbilities.getName(opponent.ability)))
       return false
     end
     if pbPartner.hasWorkingAbility(:FLOWERVEIL) && pbHasType?(:GRASS)
-			pbSEPlay("protection")
+			pbPlayMissSE()
       @battle.pbDisplay(_INTL("{1}'s {2} prevents {3}'s {4} from working!",
          pbPartner.pbThis,PBAbilities.getName(pbPartner.ability),
          opponent.pbThis(true),PBAbilities.getName(opponent.ability)))
@@ -494,7 +494,7 @@ class PokeBattle_Battler
   def pbCanFreeze?(attacker,showMessages,move=nil)
     return false if isFainted?
     if status==PBStatuses::FROZEN
-			pbSEPlay("protection") if showMessages
+			pbPlayMissSE() if showMessages
       @battle.pbDisplay(_INTL("{1} is already frozen solid!",pbThis)) if showMessages
       return false
     end
@@ -504,18 +504,18 @@ class PokeBattle_Battler
        pbShieldsUp? ||
        @battle.pbWeather==PBWeather::SUNNYDAY ||
        @battle.pbWeather==PBWeather::HARSHSUN
-        pbSEPlay("protection") if showMessages
+        pbPlayMissSE() if showMessages
        @battle.pbDisplay(_INTL("But it failed!")) if showMessages
       return false
     end
     if (pbHasType?(:ICE) || pbHasType?(:BLIZZARD)) && !(hasWorkingItem(:RINGTARGET) ||(attacker && attacker.hasWorkingAbility(:SHEERCOLD)))
-			pbSEPlay("protection") if showMessages
+			pbPlayMissSE() if showMessages
       @battle.pbDisplay(_INTL("It doesn't affect {1}...",pbThis(true))) if showMessages
       return false
     end
     if @battle.pbTerrain==PBBattleTerrains::MISTY &&
        !self.isAirborne?(attacker && attacker.hasMoldBreaker(self))
-        pbSEPlay("protection") if showMessages
+        pbPlayMissSE() if showMessages
        @battle.pbDisplay(_INTL("The Misty Terrain prevented {1} from being frozen!",pbThis(true))) if showMessages
       return false
     end
@@ -526,20 +526,20 @@ class PokeBattle_Battler
          (hasWorkingAbility(:LEAFGUARD) && (@battle.pbWeather==PBWeather::SUNNYDAY ||
                                             @battle.pbWeather==PBWeather::HARSHSUN) &&
                                             !hasWorkingItem(:UTILITYUMBRELLA))
-        pbSEPlay("protection") if showMessages
+        pbPlayMissSE() if showMessages
         @battle.pbDisplay(_INTL("{1}'s {2} prevents freezing!",pbThis,PBAbilities.getName(self.ability))) if showMessages
         return false
       end
       if pbPartner.hasWorkingAbility(:FLOWERVEIL) && pbHasType?(:GRASS)
         abilityname=PBAbilities.getName(pbPartner.ability)
-        pbSEPlay("protection") if showMessages
+        pbPlayMissSE() if showMessages
         @battle.pbDisplay(_INTL("{1}'s partner's {2} prevents freezing!",pbThis,abilityname)) if showMessages
         return false
       end
     end
     if pbOwnSide.effects[PBEffects::Safeguard]>0 &&
        (!attacker || !attacker.hasWorkingAbility(:INFILTRATOR))
-			pbSEPlay("protection") if showMessages
+			pbPlayMissSE() if showMessages
        @battle.pbDisplay(_INTL("{1}'s team is protected by Safeguard!",pbThis)) if showMessages
       return false
     end
@@ -609,25 +609,25 @@ class PokeBattle_Battler
   def pbCanConfuse?(attacker=nil,showMessages=true,move=nil)
     return false if isFainted?
     if effects[PBEffects::Confusion]>0
-			pbSEPlay("protection") if showMessages
+			pbPlayMissSE() if showMessages
       @battle.pbDisplay(_INTL("{1} is already confused!",pbThis)) if showMessages
       return false
     end
     if @effects[PBEffects::Substitute]>0 && (!move || !move.ignoresSubstitute?(attacker))
-			pbSEPlay("protection") if showMessages
+			pbPlayMissSE() if showMessages
       @battle.pbDisplay(_INTL("But it failed!")) if showMessages
       return false
     end
     if !attacker || !attacker.hasMoldBreaker(self)
       if hasWorkingAbility(:OWNTEMPO)
-        pbSEPlay("protection") if showMessages
+        pbPlayMissSE() if showMessages
         @battle.pbDisplay(_INTL("{1}'s {2} prevents confusion!",pbThis,PBAbilities.getName(self.ability))) if showMessages
         return false
       end
     end
     if pbOwnSide.effects[PBEffects::Safeguard]>0 &&
        (!attacker || !attacker.hasWorkingAbility(:INFILTRATOR))
-			pbSEPlay("protection") if showMessages
+			pbPlayMissSE() if showMessages
        @battle.pbDisplay(_INTL("{1}'s team is protected by Safeguard!",pbThis)) if showMessages
       return false
     end
@@ -637,12 +637,12 @@ class PokeBattle_Battler
   def pbCanConfuseSelf?(showMessages)
     return false if isFainted?
     if effects[PBEffects::Confusion]>0
-			pbSEPlay("protection") if showMessages
+			pbPlayMissSE() if showMessages
       @battle.pbDisplay(_INTL("{1} is already confused!",pbThis)) if showMessages
       return false
     end
     if hasWorkingAbility(:OWNTEMPO)
-			pbSEPlay("protection") if showMessages
+			pbPlayMissSE() if showMessages
       @battle.pbDisplay(_INTL("{1}'s {2} prevents confusion!",pbThis,PBAbilities.getName(self.ability))) if showMessages
       return false
     end
@@ -682,25 +682,25 @@ class PokeBattle_Battler
     return false if isFainted?
     return false if !attacker || attacker.isFainted?
     if @effects[PBEffects::Attract]>=0
-			pbSEPlay("protection") if showMessages
+			pbPlayMissSE() if showMessages
       @battle.pbDisplay(_INTL("But it failed!")) if showMessages
       return false
     end
     agender=attacker.gender
     ogender=self.gender
     if agender==2 || ogender==2 || agender==ogender
-			pbSEPlay("protection") if showMessages
+			pbPlayMissSE() if showMessages
       @battle.pbDisplay(_INTL("But it failed!")) if showMessages
       return false
     end
     if (!attacker || !attacker.hasMoldBreaker(self)) && hasWorkingAbility(:OBLIVIOUS)
-			pbSEPlay("protection") if showMessages
+			pbPlayMissSE() if showMessages
       @battle.pbDisplay(_INTL("{1}'s {2} prevents romance!",pbThis,
          PBAbilities.getName(self.ability))) if showMessages
       return false
     end
     if pbHasType?(:SHARPENER) && !(hasWorkingItem(:RINGTARGET) || (attacker && attacker.hasWorkingAbility(:ANTISHARPNESS)))
-			pbSEPlay("protection") if showMessages
+			pbPlayMissSE() if showMessages
       @battle.pbDisplay(_INTL("It doesn't affect {1}...",pbThis(true))) if showMessages
       return false
     end
@@ -765,7 +765,7 @@ class PokeBattle_Battler
     end
     return false if isFainted?
     if pbTooHigh?(stat)
-			pbSEPlay("protection") if showMessages
+			pbPlayMissSE() if showMessages
       @battle.pbDisplay(_INTL("{1}'s {2} won't go any higher!",
          pbThis,PBStats.getName(stat))) if showMessages
       return false
@@ -940,13 +940,13 @@ class PokeBattle_Battler
     return false if isFainted?
     if !selfreduce
       if @effects[PBEffects::Substitute]>0 && (!move || !move.ignoresSubstitute?(attacker))
-       pbSEPlay("protection") if showMessages
+       pbPlayMissSE() if showMessages
         @battle.pbDisplay(_INTL("But it failed!")) if showMessages
         return false
       end
       if pbOwnSide.effects[PBEffects::Mist]>0 &&
         (!attacker || !attacker.hasWorkingAbility(:INFILTRATOR))
-       pbSEPlay("protection") if showMessages
+       pbPlayMissSE() if showMessages
         @battle.pbDisplay(_INTL("{1} is protected by Mist!",pbThis)) if showMessages
         return false
       end
@@ -955,20 +955,20 @@ class PokeBattle_Battler
         (!attacker || !attacker.hasWorkingItem(:RODOFSPARROW) ||
           attacker.hasWorkingAbility(:MORFAT))
         abilityname=PBAbilities.getName(self.ability)
-        pbSEPlay("protection") if showMessages
+        pbPlayMissSE() if showMessages
         @battle.pbDisplay(_INTL("The Cinament prevents stat loss!")) if showMessages
         return false
       end
       # Changed added
       if hasWorkingAbility(:FULLMETALBODY)
         abilityname=PBAbilities.getName(self.ability)
-        pbSEPlay("protection") if showMessages
+        pbPlayMissSE() if showMessages
         @battle.pbDisplay(_INTL("{1}'s {2} prevents stat loss!",pbThis,abilityname)) if showMessages
         return false
       end
       if hasWorkingItem(:CLEARAMULET)
         itemname=PBAbilities.getName(self.item)
-        pbSEPlay("protection") if showMessages
+        pbPlayMissSE() if showMessages
         @battle.pbDisplay(_INTL("{1}'s {2} prevents stat loss!",pbThis,itemname)) if showMessages
         return false
       end
@@ -976,32 +976,32 @@ class PokeBattle_Battler
         if hasWorkingAbility(:CLEARBODY) || hasWorkingAbility(:SUPERCLEARBODY) ||
            hasWorkingAbility(:WHITESMOKE)
           abilityname=PBAbilities.getName(self.ability)
-          pbSEPlay("protection") if showMessages
+          pbPlayMissSE() if showMessages
           @battle.pbDisplay(_INTL("{1}'s {2} prevents stat loss!",pbThis,abilityname)) if showMessages
           return false
         end
         if pbHasType?(:GRASS)
           if hasWorkingAbility(:FLOWERVEIL)
             abilityname=PBAbilities.getName(self.ability)
-            pbSEPlay("protection") if showMessages
+            pbPlayMissSE() if showMessages
             @battle.pbDisplay(_INTL("{1}'s {2} prevents stat loss!",pbThis,abilityname)) if showMessages
             return false
           elsif pbPartner.hasWorkingAbility(:FLOWERVEIL)
             abilityname=PBAbilities.getName(pbPartner.ability)
-            pbSEPlay("protection") if showMessages
+            pbPlayMissSE() if showMessages
             @battle.pbDisplay(_INTL("{1}'s {2} prevents {3}'s stat loss!",pbPartner.pbThis,abilityname,pbThis(true))) if showMessages
             return false
           end
         end
         if stat==PBStats::ATTACK && hasWorkingAbility(:HYPERCUTTER)
           abilityname=PBAbilities.getName(self.ability)
-          pbSEPlay("protection") if showMessages
+          pbPlayMissSE() if showMessages
           @battle.pbDisplay(_INTL("{1}'s {2} prevents Attack loss!",pbThis,abilityname)) if showMessages
           return false
         end
         if stat==PBStats::DEFENSE && hasWorkingAbility(:BIGPECKS)
           abilityname=PBAbilities.getName(self.ability)
-          pbSEPlay("protection") if showMessages
+          pbPlayMissSE() if showMessages
           @battle.pbDisplay(_INTL("{1}'s {2} prevents Defense loss!",pbThis,abilityname)) if showMessages
           return false
         end
@@ -1009,20 +1009,20 @@ class PokeBattle_Battler
                                        hasWorkingAbility(:MINDSEYE) ||
                                        hasWorkingAbility(:ILLUMINATE))
           abilityname=PBAbilities.getName(self.ability)
-          pbSEPlay("protection") if showMessages
+          pbPlayMissSE() if showMessages
           @battle.pbDisplay(_INTL("{1}'s {2} prevents accuracy loss!",pbThis,abilityname)) if showMessages
           return false
         end
         if stat==profstat && hasWorkingAbility(:SUPERLENS)
           abilityname=PBAbilities.getName(self.ability)
-          pbSEPlay("protection") if showMessages
+          pbPlayMissSE() if showMessages
           @battle.pbDisplay(_INTL("{1}'s {2} prevents {3} loss!",pbThis,abilityname,PBStats.getName(user.profstat))) if showMessages
           return false
         end
       end
     end
     if pbTooLow?(stat)
-			pbSEPlay("protection") if showMessages
+			pbPlayMissSE() if showMessages
       @battle.pbDisplay(_INTL("{1}'s {2} won't go any lower!",
          pbThis,PBStats.getName(stat))) if showMessages
       return false
@@ -1209,7 +1209,7 @@ class PokeBattle_Battler
   def pbReduceAttackStatIntimidate(opponent)
     return false if isFainted?
     if effects[PBEffects::Substitute]>0
-			pbSEPlay("protection")
+			pbPlayMissSE()
       @battle.pbDisplay(_INTL("{1}'s substitute protected it from {2}'s {3}!",
          pbThis,opponent.pbThis(true),PBAbilities.getName(opponent.ability)))
       return false
@@ -1220,7 +1220,7 @@ class PokeBattle_Battler
     end
     if !hasWorkingAbility(:CONTRARY)
       if pbOwnSide.effects[PBEffects::Mist]>0
-        pbSEPlay("protection")
+        pbPlayMissSE()
         @battle.pbDisplay(_INTL("{1} is protected from {2}'s {3} by Mist!",
            pbThis,opponent.pbThis(true),PBAbilities.getName(opponent.ability)))
         return false
@@ -1229,14 +1229,14 @@ class PokeBattle_Battler
       if @battle.pbTerrain==PBBattleTerrains::CINAMENT &&
         (!opponent || !opponent.hasWorkingItem(:RODOFSPARROW))
         oppabilityname=PBAbilities.getName(opponent.ability)
-        pbSEPlay("protection")
+        pbPlayMissSE()
         @battle.pbDisplay(_INTL("The Cinament prevented {1}'s {2} from working!",opponent.pbThis(true),oppabilityname))
         return false
       end
       if hasWorkingItem(:CLEARAMULET)
          itemname=PBAbilities.getName(self.item)
         oppabilityname=PBAbilities.getName(opponent.ability)
-        pbSEPlay("protection")
+        pbPlayMissSE()
         @battle.pbDisplay(_INTL("{1}'s {2} prevented {3}'s {4} from working!",
            pbThis,itemname,opponent.pbThis(true),oppabilityname))
         return false
@@ -1250,7 +1250,7 @@ class PokeBattle_Battler
          (hasWorkingAbility(:SUPERLENS) && profstat==PBStats::ATTACK)
          abilityname=PBAbilities.getName(self.ability)
         oppabilityname=PBAbilities.getName(opponent.ability)
-        pbSEPlay("protection")
+        pbPlayMissSE()
         @battle.pbDisplay(_INTL("{1}'s {2} prevented {3}'s {4} from working!",
            pbThis,abilityname,opponent.pbThis(true),oppabilityname))
         return false
@@ -1258,7 +1258,7 @@ class PokeBattle_Battler
       if pbPartner.hasWorkingAbility(:FLOWERVEIL) && pbHasType?(:GRASS)
         abilityname=PBAbilities.getName(pbPartner.ability)
         oppabilityname=PBAbilities.getName(opponent.ability)
-        pbSEPlay("protection")
+        pbPlayMissSE()
         @battle.pbDisplay(_INTL("{1}'s {2} prevented {3}'s {4} from working!",
            pbPartner.pbThis,abilityname,opponent.pbThis(true),oppabilityname))
         return false
@@ -1271,7 +1271,7 @@ class PokeBattle_Battler
   def pbReduceSpAttackStatIntimidoom(opponent)
     return false if isFainted?
     if effects[PBEffects::Substitute]>0
-			pbSEPlay("protection")
+			pbPlayMissSE()
       @battle.pbDisplay(_INTL("{1}'s substitute protected it from {2}'s {3}!",
          pbThis,opponent.pbThis(true),PBAbilities.getName(opponent.ability)))
       return false
@@ -1282,7 +1282,7 @@ class PokeBattle_Battler
     end
     if !hasWorkingAbility(:CONTRARY)
       if pbOwnSide.effects[PBEffects::Mist]>0
-        pbSEPlay("protection")
+        pbPlayMissSE()
         @battle.pbDisplay(_INTL("{1} is protected from {2}'s {3} by Mist!",
            pbThis,opponent.pbThis(true),PBAbilities.getName(opponent.ability)))
         return false
@@ -1291,14 +1291,14 @@ class PokeBattle_Battler
       if @battle.pbTerrain==PBBattleTerrains::CINAMENT &&
         (!opponent || !opponent.hasWorkingItem(:RODOFSPARROW))
         oppabilityname=PBAbilities.getName(opponent.ability)
-        pbSEPlay("protection")
+        pbPlayMissSE()
         @battle.pbDisplay(_INTL("The Cinament prevented {1}'s {2} from working!",opponent.pbThis(true),oppabilityname))
         return false
       end
       if hasWorkingItem(:CLEARAMULET)
          itemname=PBAbilities.getName(self.item)
         oppabilityname=PBAbilities.getName(opponent.ability)
-        pbSEPlay("protection")
+        pbPlayMissSE()
         @battle.pbDisplay(_INTL("{1}'s {2} prevented {3}'s {4} from working!",
            pbThis,itemname,opponent.pbThis(true),oppabilityname))
         return false
@@ -1312,7 +1312,7 @@ class PokeBattle_Battler
          (hasWorkingAbility(:SUPERLENS) && profstat==PBStats::SPATK)
          abilityname=PBAbilities.getName(self.ability)
         oppabilityname=PBAbilities.getName(opponent.ability)
-        pbSEPlay("protection")
+        pbPlayMissSE()
         @battle.pbDisplay(_INTL("{1}'s {2} prevented {3}'s {4} from working!",
            pbThis,abilityname,opponent.pbThis(true),oppabilityname))
         return false
@@ -1320,7 +1320,7 @@ class PokeBattle_Battler
       if pbPartner.hasWorkingAbility(:FLOWERVEIL) && pbHasType?(:GRASS)
         abilityname=PBAbilities.getName(pbPartner.ability)
         oppabilityname=PBAbilities.getName(opponent.ability)
-        pbSEPlay("protection")
+        pbPlayMissSE()
         @battle.pbDisplay(_INTL("{1}'s {2} prevented {3}'s {4} from working!",
            pbPartner.pbThis,abilityname,opponent.pbThis(true),oppabilityname))
         return false
@@ -1332,7 +1332,7 @@ class PokeBattle_Battler
   def pbReduceSpeedStatIntimilow(opponent)
     return false if isFainted?
     if effects[PBEffects::Substitute]>0
-      pbSEPlay("protection")
+      pbPlayMissSE()
       @battle.pbDisplay(_INTL("{1}'s substitute protected it from {2}'s {3}!",
          pbThis,opponent.pbThis(true),PBAbilities.getName(opponent.ability)))
       return false
@@ -1343,7 +1343,7 @@ class PokeBattle_Battler
     end
     if !hasWorkingAbility(:CONTRARY)
       if pbOwnSide.effects[PBEffects::Mist]>0
-        pbSEPlay("protection")
+        pbPlayMissSE()
         @battle.pbDisplay(_INTL("{1} is protected from {2}'s {3} by Mist!",
            pbThis,opponent.pbThis(true),PBAbilities.getName(opponent.ability)))
         return false
@@ -1352,14 +1352,14 @@ class PokeBattle_Battler
       if @battle.pbTerrain==PBBattleTerrains::CINAMENT &&
         (!opponent || !opponent.hasWorkingItem(:RODOFSPARROW))
         oppabilityname=PBAbilities.getName(opponent.ability)
-        pbSEPlay("protection")
+        pbPlayMissSE()
         @battle.pbDisplay(_INTL("The Cinament prevented {1}'s {2} from working!",opponent.pbThis(true),oppabilityname))
         return false
       end
       if hasWorkingItem(:CLEARAMULET)
          itemname=PBAbilities.getName(self.item)
         oppabilityname=PBAbilities.getName(opponent.ability)
-        pbSEPlay("protection")
+        pbPlayMissSE()
         @battle.pbDisplay(_INTL("{1}'s {2} prevented {3}'s {4} from working!",
            pbThis,itemname,opponent.pbThis(true),oppabilityname))
         return false
@@ -1373,7 +1373,7 @@ class PokeBattle_Battler
          (hasWorkingAbility(:SUPERLENS) && profstat==PBStats::SPEED)
          abilityname=PBAbilities.getName(self.ability)
         oppabilityname=PBAbilities.getName(opponent.ability)
-        pbSEPlay("protection")
+        pbPlayMissSE()
         @battle.pbDisplay(_INTL("{1}'s {2} prevented {3}'s {4} from working!",
            pbThis,abilityname,opponent.pbThis(true),oppabilityname))
         return false
@@ -1381,7 +1381,7 @@ class PokeBattle_Battler
       if pbPartner.hasWorkingAbility(:FLOWERVEIL) && pbHasType?(:GRASS)
         abilityname=PBAbilities.getName(pbPartner.ability)
         oppabilityname=PBAbilities.getName(opponent.ability)
-        pbSEPlay("protection")
+        pbPlayMissSE()
         @battle.pbDisplay(_INTL("{1}'s {2} prevented {3}'s {4} from working!",
            pbPartner.pbThis,abilityname,opponent.pbThis(true),oppabilityname))
         return false
@@ -1395,7 +1395,7 @@ class PokeBattle_Battler
     return false if isFainted?
     proficient=profstat
     if effects[PBEffects::Substitute]>0
-      pbSEPlay("protection")
+      pbPlayMissSE()
       @battle.pbDisplay(_INTL("{1}'s substitute protected it from {2}'s {3}!",
          pbThis,opponent.pbThis(true),PBAbilities.getName(opponent.ability)))
       return false
@@ -1406,7 +1406,7 @@ class PokeBattle_Battler
     end
     if !hasWorkingAbility(:CONTRARY)
       if pbOwnSide.effects[PBEffects::Mist]>0
-        pbSEPlay("protection")
+        pbPlayMissSE()
         @battle.pbDisplay(_INTL("{1} is protected from {2}'s {3} by Mist!",
            pbThis,opponent.pbThis(true),PBAbilities.getName(opponent.ability)))
         return false
@@ -1415,14 +1415,14 @@ class PokeBattle_Battler
       if @battle.pbTerrain==PBBattleTerrains::CINAMENT &&
         (!opponent || !opponent.hasWorkingItem(:RODOFSPARROW))
         oppabilityname=PBAbilities.getName(opponent.ability)
-        pbSEPlay("protection")
+        pbPlayMissSE()
         @battle.pbDisplay(_INTL("The Cinament prevented {1}'s {2} from working!",opponent.pbThis(true),oppabilityname))
         return false
       end
       if hasWorkingItem(:CLEARAMULET)
          itemname=PBAbilities.getName(self.item)
         oppabilityname=PBAbilities.getName(opponent.ability)
-        pbSEPlay("protection")
+        pbPlayMissSE()
         @battle.pbDisplay(_INTL("{1}'s {2} prevented {3}'s {4} from working!",
            pbThis,itemname,opponent.pbThis(true),oppabilityname))
         return false
@@ -1438,7 +1438,7 @@ class PokeBattle_Battler
          (hasWorkingAbility(:BIGPECKS) && proficient==PBStats::DEFENSE)
          abilityname=PBAbilities.getName(self.ability)
         oppabilityname=PBAbilities.getName(opponent.ability)
-        pbSEPlay("protection")
+        pbPlayMissSE()
         @battle.pbDisplay(_INTL("{1}'s {2} prevented {3}'s {4} from working!",
            pbThis,abilityname,opponent.pbThis(true),oppabilityname))
         return false
@@ -1446,7 +1446,7 @@ class PokeBattle_Battler
       if pbPartner.hasWorkingAbility(:FLOWERVEIL) && pbHasType?(:GRASS)
         abilityname=PBAbilities.getName(pbPartner.ability)
         oppabilityname=PBAbilities.getName(opponent.ability)
-        pbSEPlay("protection")
+        pbPlayMissSE()
         @battle.pbDisplay(_INTL("{1}'s {2} prevented {3}'s {4} from working!",
            pbPartner.pbThis,abilityname,opponent.pbThis(true),oppabilityname))
         return false
@@ -1458,14 +1458,14 @@ class PokeBattle_Battler
   def pbReduceEvasionStatSupersweetSyrup(opponent)
     return false if isFainted?
     if effects[PBEffects::Substitute]>0
-			pbSEPlay("protection")
+			pbPlayMissSE()
       @battle.pbDisplay(_INTL("{1}'s substitute protected it from {2}'s {3}!",
          pbThis,opponent.pbThis(true),PBAbilities.getName(opponent.ability)))
       return false
     end
     if !hasWorkingAbility(:CONTRARY)
       if pbOwnSide.effects[PBEffects::Mist]>0
-        pbSEPlay("protection")
+        pbPlayMissSE()
         @battle.pbDisplay(_INTL("{1} is protected from {2}'s {3} by Mist!",
            pbThis,opponent.pbThis(true),PBAbilities.getName(opponent.ability)))
         return false
@@ -1474,14 +1474,14 @@ class PokeBattle_Battler
       if @battle.pbTerrain==PBBattleTerrains::CINAMENT &&
         (!opponent || !opponent.hasWorkingItem(:RODOFSPARROW))
         oppabilityname=PBAbilities.getName(opponent.ability)
-        pbSEPlay("protection")
+        pbPlayMissSE()
         @battle.pbDisplay(_INTL("The Cinament prevented {1}'s {2} from working!",opponent.pbThis(true),oppabilityname))
         return false
       end
       if hasWorkingItem(:CLEARAMULET)
          itemname=PBAbilities.getName(self.item)
         oppabilityname=PBAbilities.getName(opponent.ability)
-        pbSEPlay("protection")
+        pbPlayMissSE()
         @battle.pbDisplay(_INTL("{1}'s {2} prevented {3}'s {4} from working!",
            pbThis,itemname,opponent.pbThis(true),oppabilityname))
         return false
@@ -1489,7 +1489,7 @@ class PokeBattle_Battler
       if hasWorkingAbility(:CLEARBODY) || hasWorkingAbility(:WHITESMOKE)
          abilityname=PBAbilities.getName(self.ability)
         oppabilityname=PBAbilities.getName(opponent.ability)
-        pbSEPlay("protection")
+        pbPlayMissSE()
         @battle.pbDisplay(_INTL("{1}'s {2} prevented {3}'s {4} from working!",
            pbThis,abilityname,opponent.pbThis(true),oppabilityname))
         return false
@@ -1497,7 +1497,7 @@ class PokeBattle_Battler
       if pbPartner.hasWorkingAbility(:FLOWERVEIL) && pbHasType?(:GRASS)
         abilityname=PBAbilities.getName(pbPartner.ability)
         oppabilityname=PBAbilities.getName(opponent.ability)
-        pbSEPlay("protection")
+        pbPlayMissSE()
         @battle.pbDisplay(_INTL("{1}'s {2} prevented {3}'s {4} from working!",
            pbPartner.pbThis,abilityname,opponent.pbThis(true),oppabilityname))
         return false

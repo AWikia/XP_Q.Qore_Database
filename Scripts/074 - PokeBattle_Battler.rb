@@ -3161,7 +3161,7 @@ def ragefist
             PBDebug.log("[Ability triggered] #{target.pbThis}'s Herbalility couldn't work")
           else
            PBDebug.log("[Ability triggered] #{target.pbThis}'s Herbalility")
-           pbSEPlay("protection")
+           pbPlayMissSE()
            @battle.pbDisplay(_INTL("{1}'s {2} took {3} down with it!",target.pbThis,
                PBAbilities.getName(target.ability),user.pbThis(true)))
             user.pbReduceHP(user.hp)
@@ -3181,7 +3181,7 @@ def ragefist
             PBDebug.log("[Item triggered] #{target.pbThis}'s Botanic Smoke couldn't work")
           else
            PBDebug.log("[Item triggered] #{target.pbThis}'s Botanic Smoke")
-           pbSEPlay("protection")
+           pbPlayMissSE()
            @battle.pbDisplay(_INTL("{1}'s {2} took {3} down with it!",target.pbThis,
                PBItems.getName(target.item),user.pbThis(true)))
             target.pbConsumeItem(false,false)
@@ -4518,13 +4518,13 @@ def ragefist
     if thismove.function==0xDE &&
        ((target.status!=PBStatuses::SLEEP && !target.hasWorkingAbility(:COMATOSE)) ||
        !(user.effects[PBEffects::HealBlock]==0))  # Dream Eater
-			pbSEPlay("protection")
+			pbPlayMissSE()
       @battle.pbDisplay(_INTL("{1} wasn't affected!",target.pbThis))
       PBDebug.log("[Move failed] #{user.pbThis}'s Dream Eater's target isn't asleep")
       return false
     end
     if thismove.function==0x113 && user.effects[PBEffects::Stockpile]==0 # Spit Up
-			pbSEPlay("protection")
+			pbPlayMissSE()
       @battle.pbDisplay(_INTL("But it failed to spit up a thing!"))
       PBDebug.log("[Move failed] #{user.pbThis}'s Spit Up did nothing as Stockpile's count is 0")
       return false
@@ -4535,7 +4535,7 @@ def ragefist
     end
     if target.effects[PBEffects::Protect] && thismove.canProtectAgainst? &&
 			!target.effects[PBEffects::ProtectNegation] && unseenfistOff
-			pbSEPlay("protection")
+			pbPlayMissSE()
       @battle.pbDisplay(_INTL("{1} protected itself!",target.pbThis))
       @battle.successStates[user.index].protected=true
       PBDebug.log("[Move failed] #{target.pbThis}'s Protect stopped the attack")
@@ -4559,7 +4559,7 @@ def ragefist
     p+=1 if @battle.pbTerrain==PBBattleTerrains::CINAMENT && thismove.function==0x350
     if target.hasWorkingAbility(:PROVENDO) &&  thismove.canProtectAgainst? && 
       p>0 && !target.effects[PBEffects::ProtectNegation]
-			pbSEPlay("protection")
+			pbPlayMissSE()
       @battle.pbDisplay(_INTL("{1} was protected by Provendo!",target.pbThis))
       PBDebug.log("[Move failed] Opposing's Provendo stopped the attack")
       return false
@@ -4567,14 +4567,14 @@ def ragefist
     if target.pbOwnSide.effects[PBEffects::QuickGuard] && unseenfistOff && 
         thismove.canProtectAgainst? && p>0 && 
       !target.effects[PBEffects::ProtectNegation]
-			pbSEPlay("protection")
+			pbPlayMissSE()
       @battle.pbDisplay(_INTL("{1} was protected by Quick Guard!",target.pbThis))
       PBDebug.log("[Move failed] The opposing side's Quick Guard stopped the attack")
       return false
     end
     # Changed added Psychic Terrain
     if @battle.pbTerrain==PBBattleTerrains::PSYCHIC && p>0 && !target.isAirborne?
-			pbSEPlay("protection")
+			pbPlayMissSE()
       @battle.pbDisplay(_INTL("{1} surrounds itself with psychic terrain!",target.pbThis))
       PBDebug.log("[Move failed] Psychic Terrain stopped the attack")
       return false
@@ -4582,7 +4582,7 @@ def ragefist
     # Changed added immunity to prankster boosted moves for Dark-types
     if user.hasWorkingAbility(:PRANKSTER) && thismove.pbIsStatus? && p>0 &&
        target.pbHasType?(:DARK) && @battle.pbIsOpposing?(target.index)
-			pbSEPlay("protection")
+			pbPlayMissSE()
       @battle.pbDisplay(_INTL("It doesn't affect\r\n{1}...",target.pbThis(true)))
       PBDebug.log("[Move failed] #{target.pbThis} is immune to prankster-boosted moves somehow")
       return false
@@ -4593,7 +4593,7 @@ def ragefist
        target.hasWorkingAbility(:ARMORTAIL)) &&
        !user.hasMoldBreaker(target) && p>0 &&
        target!=user && target!=user.pbPartner
-			pbSEPlay("protection")
+			pbPlayMissSE()
       @battle.pbDisplay(_INTL("{1} cannot use {2}!",user.pbThis,thismove.name))
       PBDebug.log("[Move failed] The opposing side's Dazzling/Queenly Majesty/Armor Tail stopped the attack")
       return false
@@ -4604,7 +4604,7 @@ def ragefist
        target.pbPartner.hasWorkingAbility(:ARMORTAIL)) &&
        !user.hasMoldBreaker(target.pbPartner) && p>0 &&
        target!=user && target!=user.pbPartner
-			pbSEPlay("protection")
+			pbPlayMissSE()
       @battle.pbDisplay(_INTL("{1} cannot use {2}!",user.pbThis,thismove.name))
       PBDebug.log("[Move failed] The opposing side's Dazzling/Queenly Majesty/Armor Tail stopped the attack")
       return false
@@ -4614,14 +4614,14 @@ def ragefist
     if target.pbOwnSide.effects[PBEffects::WideGuard] && unseenfistOff &&
        PBTargets.hasMultipleTargets?(thismove) && !thismove.pbIsStatus? &&
 			!target.effects[PBEffects::ProtectNegation]
-			pbSEPlay("protection")
+			pbPlayMissSE()
       @battle.pbDisplay(_INTL("{1} was protected by Wide Guard!",target.pbThis))
       PBDebug.log("[Move failed] The opposing side's Wide Guard stopped the attack")
       return false
     end
     if target.pbOwnSide.effects[PBEffects::CraftyShield] && thismove.pbIsStatus? &&
 			thismove.function!=0xE5 # Perish Song
-			pbSEPlay("protection")
+			pbPlayMissSE()
       @battle.pbDisplay(_INTL("Crafty Shield protected {1}!",target.pbThis(true)))
       PBDebug.log("[Move failed] The opposing side's Crafty Shield stopped the attack")
       return false
@@ -4629,7 +4629,7 @@ def ragefist
     if target.pbOwnSide.effects[PBEffects::MatBlock] && !thismove.pbIsStatus? &&
 			thismove.canProtectAgainst? && !target.effects[PBEffects::ProtectNegation] &&
       unseenfistOff
-			pbSEPlay("protection")
+			pbPlayMissSE()
       @battle.pbDisplay(_INTL("{1} was blocked by the kicked-up mat!",thismove.name))
       PBDebug.log("[Move failed] The opposing side's Mat Block stopped the attack")
       return false
@@ -4637,7 +4637,7 @@ def ragefist
     # TODO: Mind Reader/Lock-On
     # --Sketch/FutureSight/PsychUp work even on Fly/Bounce/Dive/Dig
     if thismove.pbMoveFailed(user,target) # TODO: Applies to Snore/Fake Out
-			pbSEPlay("protection")
+			pbPlayMissSE()
       @battle.pbDisplay(_INTL("But it failed!"))
       PBDebug.log(sprintf("[Move failed] Failed pbMoveFailed (function code %02X)",thismove.function))
       return false
@@ -4646,7 +4646,7 @@ def ragefist
     if target.effects[PBEffects::KingsShield] && unseenfistOff && 
       !thismove.pbIsStatus? && thismove.canProtectAgainst? && 
       !target.effects[PBEffects::ProtectNegation]
-			pbSEPlay("protection")
+			pbPlayMissSE()
       @battle.pbDisplay(_INTL("{1} protected itself!",target.pbThis))
       @battle.successStates[user.index].protected=true
       PBDebug.log("[Move failed] #{target.pbThis}'s King's Shield stopped the attack")
@@ -4659,7 +4659,7 @@ def ragefist
     if target.effects[PBEffects::SilkTrap] && unseenfistOff && 
       !thismove.pbIsStatus? && thismove.canProtectAgainst? && 
       !target.effects[PBEffects::ProtectNegation]
-			pbSEPlay("protection")
+			pbPlayMissSE()
       @battle.pbDisplay(_INTL("{1} protected itself!",target.pbThis))
       @battle.successStates[user.index].protected=true
       PBDebug.log("[Move failed] #{target.pbThis}'s Silk Trap stopped the attack")
@@ -4672,7 +4672,7 @@ def ragefist
     if target.effects[PBEffects::Obstruct] && unseenfistOff && 
       !thismove.pbIsStatus? && thismove.canProtectAgainst? && 
       !target.effects[PBEffects::ProtectNegation]
-			pbSEPlay("protection")
+			pbPlayMissSE()
       @battle.pbDisplay(_INTL("{1} protected itself!",target.pbThis))
       @battle.successStates[user.index].protected=true
       PBDebug.log("[Move failed] #{target.pbThis}'s Obstruct stopped the attack")
@@ -4684,7 +4684,7 @@ def ragefist
     # Spiky Shield
     if target.effects[PBEffects::SpikyShield] && unseenfistOff && 
       thismove.canProtectAgainst? && !target.effects[PBEffects::ProtectNegation]
-			pbSEPlay("protection")
+			pbPlayMissSE()
       @battle.pbDisplay(_INTL("{1} protected itself!",target.pbThis))
       @battle.successStates[user.index].protected=true
       PBDebug.log("[Move failed] #{user.pbThis}'s Spiky Shield stopped the attack")
@@ -4724,14 +4724,14 @@ def ragefist
        (target.pbHasType?(:GRASS) || target.pbHasType?(:CHLOROPHYLL) ||
        (!user.hasMoldBreaker(target) && target.hasWorkingAbility(:OVERCOAT)) ||
 				target.hasWorkingItem(:SAFETYGOGGLES) || target.pbHasType?(:GAS))
-			pbSEPlay("protection")
+			pbPlayMissSE()
       @battle.pbDisplay(_INTL("It doesn't affect\r\n{1}...",target.pbThis(true)))
       PBDebug.log("[Move failed] #{target.pbThis} is immune to powder-based moves somehow")
       return false
     end
     if thismove.pbIsStatus? # Mindy Glops
       if !user.hasMoldBreaker(target) && target.hasWorkingAbility(:GOODASGOLD)
-        pbSEPlay("protection")
+        pbPlayMissSE()
         @battle.pbDisplay(_INTL("{1} makes Status moves miss with Good as Gold",target.pbThis))
         PBDebug.log("[Ability triggered] #{target.pbThis}'s Good as Gold made the Status move miss")
         return false
@@ -4745,25 +4745,25 @@ def ragefist
       if isConst?(type,PBTypes,:GROUND) && target.isAirborne?(user.hasMoldBreaker(target)) &&
          !target.hasWorkingItem(:RINGTARGET) && thismove.function!=0x11C # Smack Down
         if !user.hasMoldBreaker(target) && target.hasWorkingAbility(:LEVITATE)
-					pbSEPlay("protection")
+					pbPlayMissSE()
           @battle.pbDisplay(_INTL("{1} makes Ground moves miss with Levitate!",target.pbThis))
           PBDebug.log("[Ability triggered] #{target.pbThis}'s Levitate made the Ground-type move miss")
           return false
         end
         if target.hasWorkingItem(:AIRBALLOON)
-					pbSEPlay("protection")
+					pbPlayMissSE()
           @battle.pbDisplay(_INTL("{1}'s Air Balloon makes Ground moves miss!",target.pbThis))
           PBDebug.log("[Item triggered] #{target.pbThis}'s Air Balloon made the Ground-type move miss")
           return false
         end
         if target.effects[PBEffects::MagicDelta]
-					pbSEPlay("protection")
+					pbPlayMissSE()
           @battle.pbDisplay(_INTL("{1} makes Ground moves miss with Magic Delta!",target.pbThis))
           PBDebug.log("[Lingering effect triggered] #{target.pbThis}'s Magic Delta made the Ground-type move miss")
           return false
         end
         if target.effects[PBEffects::MagnetRise]>0
-					pbSEPlay("protection")
+					pbPlayMissSE()
           @battle.pbDisplay(_INTL("{1} makes Ground moves miss with Magnet Rise!",target.pbThis))
           PBDebug.log("[Lingering effect triggered] #{target.pbThis}'s Magnet Rise made the Ground-type move miss")
           return false
@@ -4777,7 +4777,7 @@ def ragefist
       if isConst?(type,PBTypes,:MAGIC) && !target.hasWorkingItem(:RINGTARGET) &&
          thismove.function!=0x97 # Magic Starfruit
         if !user.hasMoldBreaker(target) && target.hasWorkingAbility(:MAGICBLOCK)
-					pbSEPlay("protection")
+					pbPlayMissSE()
           @battle.pbDisplay(_INTL("{1} makes Magic moves miss with Magic Block",target.pbThis))
           PBDebug.log("[Ability triggered] #{target.pbThis}'s Magic Block made the Mind-type move miss")
           return false
@@ -4786,7 +4786,7 @@ def ragefist
       if isConst?(type,PBTypes,:MIND) && !target.hasWorkingItem(:RINGTARGET) &&
          thismove.function!=0x300 # Mindy Glops
         if !user.hasMoldBreaker(target) && target.hasWorkingAbility(:MINDYGLOPS)
-					pbSEPlay("protection")
+					pbPlayMissSE()
           @battle.pbDisplay(_INTL("{1} makes Mind moves miss with Mindy Glops",target.pbThis))
           PBDebug.log("[Ability triggered] #{target.pbThis}'s Mindy Glops made the Mind-type move miss")
           return false
@@ -4794,7 +4794,7 @@ def ragefist
       end
       if thismove.pbIsElderSpecial? # Mindy Glops
         if target.hasWorkingAbility(:ELDERPROJECTOR)
-					pbSEPlay("protection")
+					pbPlayMissSE()
           @battle.pbDisplay(_INTL("{1} makes Elder Special moves miss with Elder Projector",target.pbThis))
           PBDebug.log("[Ability triggered] #{target.pbThis}'s Elder Projector made the Elder Special move miss")
           return false
@@ -4802,26 +4802,26 @@ def ragefist
       end
       if !user.hasMoldBreaker(target) && target.hasWorkingAbility(:WONDERGUARD) &&
 				type>=0 && typemod<=8
-				pbSEPlay("protection")
+				pbPlayMissSE()
         @battle.pbDisplay(_INTL("{1} avoided damage with Wonder Guard!",target.pbThis))
         PBDebug.log("[Ability triggered] #{target.pbThis}'s Wonder Guard")
         return false 
       end
       if !user.hasMoldBreaker(target) && target.hasWorkingAbility(:HERBLOBBY) &&
 				type>=0 && typemod>8
-				pbSEPlay("protection")
+				pbPlayMissSE()
         @battle.pbDisplay(_INTL("{1} avoided damage with Herb Lobby!",target.pbThis))
         PBDebug.log("[Ability triggered] #{target.pbThis}'s Herb Lobby")
         return false 
       end
       if typemod==0
-				pbSEPlay("protection")
+				pbPlayMissSE()
         @battle.pbDisplay(_INTL("It doesn't affect\r\n{1}...",target.pbThis(true)))
         PBDebug.log("[Move failed] Type immunity")
         return false 
       end
       if target.effects[PBEffects::Commander]
-        pbSEPlay("protection")
+        pbPlayMissSE()
         @battle.pbDisplay(_INTL("{1} avoided the attack!",target.pbThis))
         return false
       end
@@ -4884,20 +4884,20 @@ def ragefist
         PBDebug.log(sprintf("[Move failed] Failed pbAccuracyCheck (function code %02X) or target is semi-invulnerable",thismove.function))
         if thismove.target==PBTargets::AllOpposing && 
 					(!user.pbOpposing1.isFainted? ? 1 : 0) + (!user.pbOpposing2.isFainted? ? 1 : 0) > 1
-					pbSEPlay("protection")
+					pbPlayMissSE()
           @battle.pbDisplay(_INTL("{1} avoided the attack!",target.pbThis))
         elsif thismove.target==PBTargets::AllNonUsers && 
            (!user.pbOpposing1.isFainted? ? 1 : 0) + (!user.pbOpposing2.isFainted? ? 1 : 0) + (!user.pbPartner.isFainted? ? 1 : 0) > 1
-          pbSEPlay("protection")
+          pbPlayMissSE()
 					@battle.pbDisplay(_INTL("{1} avoided the attack!",target.pbThis))
         elsif target.effects[PBEffects::TwoTurnAttack]>0
-          pbSEPlay("protection")
+          pbPlayMissSE()
 					@battle.pbDisplay(_INTL("{1} avoided the attack!",target.pbThis))
         elsif thismove.function==0xDC # Leech Seed
-          pbSEPlay("protection")
+          pbPlayMissSE()
 					@battle.pbDisplay(_INTL("{1} evaded the attack!",target.pbThis))
         else
-          pbSEPlay("protection")
+          pbPlayMissSE()
 					@battle.pbDisplay(_INTL("{1}'s attack missed!",user.pbThis))
         end
         # Blunder Policy
@@ -5013,31 +5013,31 @@ def ragefist
       return false
     end
     if @battle.field.effects[PBEffects::Gravity]>0 && thismove.unusableInGravity?
-			pbSEPlay("protection")
+			pbPlayMissSE()
       @battle.pbDisplay(_INTL("{1} can't use {2} because of gravity!",pbThis,thismove.name))
       PBDebug.log("[Move failed] #{pbThis} can't use #{thismove.name} because of Gravity")
       return false
     end
     if @effects[PBEffects::Khleri]>0 && thismove.basedamage>0
-			pbSEPlay("protection")
+			pbPlayMissSE()
       @battle.pbDisplay(_INTL("{1} can't use {2} after the khleri!",pbThis,thismove.name))
       PBDebug.log("[Move failed] #{pbThis} can't use #{thismove.name} because of Khleri")
       return false
     end
     if @effects[PBEffects::Taunt]>0 && thismove.basedamage==0
-			pbSEPlay("protection")
+			pbPlayMissSE()
       @battle.pbDisplay(_INTL("{1} can't use {2} after the taunt!",pbThis,thismove.name))
       PBDebug.log("[Move failed] #{pbThis} can't use #{thismove.name} because of Taunt")
       return false
     end
     if @effects[PBEffects::HealBlock]>0 && thismove.isHealingMove?
-			pbSEPlay("protection")
+			pbPlayMissSE()
       @battle.pbDisplay(_INTL("{1} can't use {2} because of Heal Block!",pbThis,thismove.name))
       PBDebug.log("[Move failed] #{pbThis} can't use #{thismove.name} because of Heal Block")
       return false
     end
     if @effects[PBEffects::SilveryBliss]
-			pbSEPlay("protection")
+			pbPlayMissSE()
 			@battle.pbDisplay(_INTL("{1} must recharge!",pbThis))
       PBDebug.log("[Move failed] #{pbThis} must recharge")
       @effects[PBEffects::SilveryBliss]=false
@@ -5046,7 +5046,7 @@ def ragefist
     if @effects[PBEffects::Torment] && 
       thismove.id==@lastMoveUsed && thismove.id!=@battle.struggle.id &&
       @effects[PBEffects::TwoTurnAttack]==0
-			pbSEPlay("protection")
+			pbPlayMissSE()
       @battle.pbDisplayPaused(_INTL("{1} can't use the same move in a row due to the torment!",pbThis))
       PBDebug.log("[Move failed] #{pbThis} can't use #{thismove.name} because of Torment")
       return false
@@ -5055,14 +5055,14 @@ def ragefist
     if pbOpposing1.hasWorkingAbility(:TRUMMETSPIRIT) && !pbOpposing1.isFainted? &&
       thismove.id==@lastMoveUsed && thismove.id!=@battle.struggle.id &&
       @effects[PBEffects::TwoTurnAttack]==0 && !hasMoldBreaker(pbOpposing1)
-      pbSEPlay("protection")
+      pbPlayMissSE()
       @battle.pbDisplayPaused(_INTL("{1} can't use the same move in a row due to {2}'s Trummet Spirit!",pbThis(true),pbOpposing1.pbThis(true)))
       PBDebug.log("[Move failed] #{pbThis} can't use #{thismove.name} because of Torment")
       return false
     elsif pbOpposing2.hasWorkingAbility(:TRUMMETSPIRIT) && !pbOpposing2.isFainted? &&
       thismove.id==@lastMoveUsed && thismove.id!=@battle.struggle.id &&
       @effects[PBEffects::TwoTurnAttack]==0 && !hasMoldBreaker(pbOpposing2)
-      pbSEPlay("protection")
+      pbPlayMissSE()
       @battle.pbDisplayPaused(_INTL("{1} can't use the same move in a row due to {2}'s Trummet Spirit!",pbThis,pbOpposing2.pbThis(true)))
       PBDebug.log("[Move failed] #{pbThis} can't use #{thismove.name} because of Torment")
       return false
@@ -5071,7 +5071,7 @@ def ragefist
     if thismove.function==0x371 && 
       thismove.id==@lastMoveUsed && thismove.id!=@battle.struggle.id &&
       @effects[PBEffects::TwoTurnAttack]==0
-			pbSEPlay("protection")
+			pbPlayMissSE()
       @battle.pbDisplayPaused(_INTL("{1} can't use that move in a row!",pbThis))
       PBDebug.log("[Move failed] #{pbThis} can't use #{thismove.name}")
       return false
@@ -5081,7 +5081,7 @@ def ragefist
          thismove.id==pbOpposing1.moves[1].id ||
          thismove.id==pbOpposing1.moves[2].id ||
          thismove.id==pbOpposing1.moves[3].id
-				pbSEPlay("protection")
+				pbPlayMissSE()
         @battle.pbDisplay(_INTL("{1} can't use the sealed {2}!",pbThis,thismove.name))
         PBDebug.log("[Move failed] #{thismove.name} can't use #{thismove.name} because of #{pbOpposing1.pbThis(true)}'s Imprison")
         return false
@@ -5092,39 +5092,39 @@ def ragefist
          thismove.id==pbOpposing2.moves[1].id ||
          thismove.id==pbOpposing2.moves[2].id ||
 				 thismove.id==pbOpposing2.moves[3].id
-				pbSEPlay("protection")
+				pbPlayMissSE()
         @battle.pbDisplay(_INTL("{1} can't use the sealed {2}!",pbThis,thismove.name))
         PBDebug.log("[Move failed] #{thismove.name} can't use #{thismove.name} because of #{pbOpposing2.pbThis(true)}'s Imprison")
         return false
       end
     end
     if @effects[PBEffects::ThroatChop]>0 && thismove.isSoundBased? # changed added
-			pbSEPlay("protection")
+			pbPlayMissSE()
       @battle.pbDisplay(_INTL("The effects of Throat Chop prevent {1} from using certain moves!",pbThis))
       PBDebug.log("[Move failed] The effects of Throat Chop prevent #{pbThis} from using certain moves!")
       return false
     end
     if @effects[PBEffects::Disable]>0 && thismove.id==@effects[PBEffects::DisableMove] &&
 			 !@battle.switching # Pursuit ignores if it's disabled
-			pbSEPlay("protection")
+			pbPlayMissSE()
       @battle.pbDisplayPaused(_INTL("{1}'s {2} is disabled!",pbThis,thismove.name))
       PBDebug.log("[Move failed] #{pbThis}'s #{thismove.name} is disabled")
       return false
     end
     if choice[1]==-2 # Battle Palace
-      pbSEPlay("protection")
+      pbPlayMissSE()
 			@battle.pbDisplay(_INTL("{1} appears incapable of using its power!",pbThis))
       PBDebug.log("[Move failed] Battle Palace: #{pbThis} is incapable of using its power")
       return false
     end
     if @effects[PBEffects::HyperBeam]>0
-			pbSEPlay("protection")
+			pbPlayMissSE()
 			@battle.pbDisplay(_INTL("{1} must recharge!",pbThis))
       PBDebug.log("[Move failed] #{pbThis} must recharge after using #{PokeBattle_Move.pbFromPBMove(@battle,PBMove.new(@currentMove)).name}")
       return false
     end
     if self.hasWorkingAbility(:TRUANT) && @effects[PBEffects::Truant]
-      pbSEPlay("protection")
+      pbPlayMissSE()
 			@battle.pbDisplay(_INTL("{1} is loafing around!",pbThis))
       PBDebug.log("[Ability triggered] #{pbThis}'s Truant")
       return false
@@ -5276,7 +5276,7 @@ def ragefist
           if !(user.hasWorkingAbility(:MAGICGUARD) || user.hasWorkingAbility(:SUPERCLEARBODY))
             PBDebug.log("[Move effect triggered] #{user.pbThis} took crash damage")
             #TODO: Not shown if message is "It doesn't affect XXX..."
-						pbSEPlay("protection")
+						pbPlayMissSE()
             @battle.pbDisplay(_INTL("{1} kept going and crashed!",user.pbThis))
             damage=(user.totalhp/2).floor
             if damage>0
@@ -5426,7 +5426,7 @@ def ragefist
       if !user.isFainted? && target.isFainted?
         if target.effects[PBEffects::Grudge] && target.pbIsOpposing?(user.index)
           thismove.pp=0
-					pbSEPlay("protection")
+					pbPlayMissSE()
           @battle.pbDisplay(_INTL("{1}'s {2} lost all its PP due to the grudge!",
              user.pbThis,thismove.name))
           PBDebug.log("[Lingering effect triggered] #{target.pbThis}'s Grudge made #{thismove.name} lose all its PP")
@@ -5531,7 +5531,7 @@ def ragefist
     if !user.isFainted? && target.isFainted?
       if destinybond && target.pbIsOpposing?(user.index)
         PBDebug.log("[Lingering effect triggered] #{target.pbThis}'s Destiny Bond")
-				pbSEPlay("protection")
+				pbPlayMissSE()
         @battle.pbDisplay(_INTL("{1} took its attacker down with it!",target.pbThis))
         user.pbReduceHP(user.hp)
         user.pbFaint # no return
@@ -5857,7 +5857,7 @@ def ragefist
       if isConst?(thismove.pbType(thismove.type,user,nil),PBTypes,:SUN) && 
         env==PBEnvironment::Galaxy
         PBDebug.log("[Move failed] The Galaxy cancelled the Sun-type #{thismove.name}")
-        pbSEPlay("protection")
+        pbPlayMissSE()
         @battle.pbDisplay(_INTL("The Sun-type attack nullified out in the galaxy!"))
         user.lastMoveUsed=thismove.id
         user.lastMoveUsedType=thismove.pbType(thismove.type,user,nil)
@@ -5875,7 +5875,7 @@ def ragefist
         if isConst?(thismove.pbType(thismove.type,user,nil),PBTypes,:FIRE) && 
           !user.hasWorkingItem(:UTILITYUMBRELLA)
           PBDebug.log("[Move failed] Primordial Sea's rain cancelled the Fire-type #{thismove.name}")
-					pbSEPlay("protection")
+					pbPlayMissSE()
           @battle.pbDisplay(_INTL("The Fire-type attack fizzled out in the heavy rain!"))
           user.lastMoveUsed=thismove.id
           user.lastMoveUsedType=thismove.pbType(thismove.type,user,nil)
@@ -5891,7 +5891,7 @@ def ragefist
         if isConst?(thismove.pbType(thismove.type,user,nil),PBTypes,:WATER) &&
           !user.hasWorkingItem(:UTILITYUMBRELLA)
           PBDebug.log("[Move failed] Desolate Land's sun cancelled the Water-type #{thismove.name}")
-					pbSEPlay("protection")
+					pbPlayMissSE()
           @battle.pbDisplay(_INTL("The Water-type attack evaporated in the harsh sunlight!"))
           user.lastMoveUsed=thismove.id
           user.lastMoveUsedType=thismove.pbType(thismove.type,user,nil)

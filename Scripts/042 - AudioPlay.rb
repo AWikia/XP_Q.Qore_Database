@@ -366,3 +366,10 @@ def pbPlayEnemyCollapseSE()
     pbSEPlay("faint",100)
   end
 end
+
+# Plays a sound effect that plays when a Pokemon evades or misses a move.
+def pbPlayMissSE()
+  if FileTest.audio_exist?("Audio/SE/GUI battle invalid action")
+    pbSEPlay("GUI battle invalid action",100)
+  end
+end

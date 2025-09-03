@@ -8,7 +8,7 @@ class PokeBattle_UnimplementedMove < PokeBattle_Move
     if pbIsDamaging?
       return super(attacker,opponent,hitnum,alltargets,showanimation)
     else
-			pbSEPlay("protection")
+			pbPlayMissSE()
       @battle.pbDisplay("But it failed!")
       return -1
     end
@@ -23,7 +23,7 @@ end
 ################################################################################
 class PokeBattle_FailedMove < PokeBattle_Move
   def pbEffect(attacker,opponent,hitnum=0,alltargets=nil,showanimation=true)
-		pbSEPlay("protection")
+		pbPlayMissSE()
     @battle.pbDisplay("But it failed!")
     return -1
   end
@@ -189,7 +189,7 @@ class PokeBattle_Move_004 < PokeBattle_Move
   def pbEffect(attacker,opponent,hitnum=0,alltargets=nil,showanimation=true)
     return -1 if !opponent.pbCanSleep?(attacker,true,self)
     if opponent.effects[PBEffects::Yawn]>0
-			pbSEPlay("protection")
+			pbPlayMissSE()
       @battle.pbDisplay(_INTL("But it failed!"))
       return -1
     end
@@ -674,19 +674,19 @@ class PokeBattle_Move_016 < PokeBattle_Move
     end
     if !attacker.hasMoldBreaker(opponent)
       if opponent.hasWorkingAbility(:AROMAVEIL)
-			pbSEPlay("protection")
+			pbPlayMissSE()
         @battle.pbDisplay(_INTL("But it failed because of {1}'s {2}!",
            opponent.pbThis,PBAbilities.getName(opponent.ability)))
         return -1
       elsif opponent.pbPartner.hasWorkingAbility(:AROMAVEIL)
-			pbSEPlay("protection")
+			pbPlayMissSE()
         @battle.pbDisplay(_INTL("But it failed because of {1}'s {2}!",
            opponent.pbPartner.pbThis,PBAbilities.getName(opponent.pbPartner.ability)))
         return -1
       elsif (opponent.pbHasType?(:SHARPENER) && !attacker.hasWorkingAbility(:ANTISHARPNESS)) || 
         opponent.pbHasType?(:HERB) || opponent.pbHasType?(:MIND) || 
         opponent.pbHasType?(:GLIMSE)
-        pbSEPlay("protection")
+        pbPlayMissSE()
         @battle.pbDisplay(_INTL("But it failed!"))
         return -1
       end
@@ -732,7 +732,7 @@ class PokeBattle_Move_018 < PokeBattle_Move
     if attacker.status!=PBStatuses::BURN &&
        attacker.status!=PBStatuses::POISON &&
        attacker.status!=PBStatuses::PARALYSIS
-			pbSEPlay("protection")
+			pbPlayMissSE()
        @battle.pbDisplay(_INTL("But it failed!"))
       return -1
     else
@@ -815,7 +815,7 @@ end
 class PokeBattle_Move_01A < PokeBattle_Move
   def pbEffect(attacker,opponent,hitnum=0,alltargets=nil,showanimation=true)
     if attacker.pbOwnSide.effects[PBEffects::Safeguard]>0
-			pbSEPlay("protection")
+			pbPlayMissSE()
       @battle.pbDisplay(_INTL("But it failed!"))
       return -1
     end
@@ -843,7 +843,7 @@ class PokeBattle_Move_01B < PokeBattle_Move
       (attacker.status==PBStatuses::POISON && !opponent.pbCanPoison?(attacker,false,self)) ||
       (attacker.status==PBStatuses::BURN && !opponent.pbCanBurn?(attacker,false,self)) ||
       (attacker.status==PBStatuses::FROZEN && !opponent.pbCanFreeze?(attacker,false,self))
-			pbSEPlay("protection")
+			pbPlayMissSE()
       @battle.pbDisplay(_INTL("But it failed!"))
       return -1
     end
@@ -1041,7 +1041,7 @@ class PokeBattle_Move_023 < PokeBattle_Move
   def pbEffect(attacker,opponent,hitnum=0,alltargets=nil,showanimation=true)
     return super(attacker,opponent,hitnum,alltargets,showanimation) if pbIsDamaging?
     if attacker.effects[PBEffects::FocusEnergy]>=2
-			pbSEPlay("protection")
+			pbPlayMissSE()
       @battle.pbDisplay(_INTL("But it failed!"))
       return -1
     end
@@ -1595,7 +1595,7 @@ class PokeBattle_Move_037 < PokeBattle_Move
     if attacker.index!=opponent.index 
       if (opponent.effects[PBEffects::Substitute]>0 && !ignoresSubstitute?(attacker)) ||
          opponent.pbOwnSide.effects[PBEffects::CraftyShield]
-			pbSEPlay("protection")
+			pbPlayMissSE()
          @battle.pbDisplay(_INTL("But it failed!"))
         return -1
       end
@@ -1667,7 +1667,7 @@ class PokeBattle_Move_03A < PokeBattle_Move
   def pbEffect(attacker,opponent,hitnum=0,alltargets=nil,showanimation=true)
     if attacker.hp<=(attacker.totalhp/2).floor ||
        !attacker.pbCanIncreaseStatStage?(PBStats::ATTACK,attacker,false,self)
-			pbSEPlay("protection")
+			pbPlayMissSE()
        @battle.pbDisplay(_INTL("But it failed!"))
       return -1
     end
@@ -2195,7 +2195,7 @@ class PokeBattle_Move_04E < PokeBattle_Move
     return -1 if !opponent.pbCanReduceStatStage?(PBStats::SPATK,attacker,true,self)
     if attacker.gender==2 || opponent.gender==2 || attacker.gender==opponent.gender ||
     (opponent.pbHasType?(:SHARPENER) && !attacker.hasWorkingAbility(:ANTISHARPNESS))
-			pbSEPlay("protection")
+			pbPlayMissSE()
       @battle.pbDisplay(_INTL("But it failed!"))
       return -1
     end
@@ -2354,7 +2354,7 @@ end
 class PokeBattle_Move_055 < PokeBattle_Move
   def pbEffect(attacker,opponent,hitnum=0,alltargets=nil,showanimation=true)
     if opponent.pbOwnSide.effects[PBEffects::CraftyShield]
-			pbSEPlay("protection")
+			pbPlayMissSE()
       @battle.pbDisplay(_INTL("But it failed!"))
       return -1
     end
@@ -2376,7 +2376,7 @@ end
 class PokeBattle_Move_056 < PokeBattle_Move
   def pbEffect(attacker,opponent,hitnum=0,alltargets=nil,showanimation=true)
     if attacker.pbOwnSide.effects[PBEffects::Mist]>0
-			pbSEPlay("protection")
+			pbPlayMissSE()
       @battle.pbDisplay(_INTL("But it failed!"))
       return -1
     end
@@ -2415,7 +2415,7 @@ end
 class PokeBattle_Move_058 < PokeBattle_Move
   def pbEffect(attacker,opponent,hitnum=0,alltargets=nil,showanimation=true)
     if opponent.effects[PBEffects::Substitute]>0 && !ignoresSubstitute?(attacker)
-			pbSEPlay("protection")
+			pbPlayMissSE()
       @battle.pbDisplay(_INTL("But it failed!"))  
       return -1
     end
@@ -2438,7 +2438,7 @@ end
 class PokeBattle_Move_059 < PokeBattle_Move
   def pbEffect(attacker,opponent,hitnum=0,alltargets=nil,showanimation=true)
     if opponent.effects[PBEffects::Substitute]>0 && !ignoresSubstitute?(attacker)
-			pbSEPlay("protection")
+			pbPlayMissSE()
       @battle.pbDisplay(_INTL("But it failed!"))  
       return -1
     end
@@ -2460,7 +2460,7 @@ end
 class PokeBattle_Move_05A < PokeBattle_Move
   def pbEffect(attacker,opponent,hitnum=0,alltargets=nil,showanimation=true)
     if opponent.effects[PBEffects::Substitute]>0 && !ignoresSubstitute?(attacker)
-			pbSEPlay("protection")
+			pbPlayMissSE()
       @battle.pbDisplay(_INTL("But it failed!"))  
       return -1
     end
@@ -2486,7 +2486,7 @@ end
 class PokeBattle_Move_05B < PokeBattle_Move
   def pbEffect(attacker,opponent,hitnum=0,alltargets=nil,showanimation=true)
     if attacker.pbOwnSide.effects[PBEffects::Tailwind]>0
-			pbSEPlay("protection")
+			pbPlayMissSE()
       @battle.pbDisplay(_INTL("But it failed!"))
       return -1
     end
@@ -2524,13 +2524,13 @@ class PokeBattle_Move_05C < PokeBattle_Move
        isConst?(PBMoveData.new(opponent.lastMoveUsed).type,PBTypes,:SHADOW) ||
        isConst?(PBMoveData.new(opponent.lastMoveUsed).type,PBTypes,:ROBOT) ||
        blacklist.include?(PBMoveData.new(opponent.lastMoveUsed).function)
-			pbSEPlay("protection")
+			pbPlayMissSE()
        @battle.pbDisplay(_INTL("But it failed!"))
       return -1
     end
     for i in attacker.moves
       if i.id==opponent.lastMoveUsed
-			pbSEPlay("protection")
+			pbPlayMissSE()
         @battle.pbDisplay(_INTL("But it failed!"))
         return -1 
       end
@@ -2545,7 +2545,7 @@ class PokeBattle_Move_05C < PokeBattle_Move
         return 0
       end
     end
-			pbSEPlay("protection")
+			pbPlayMissSE()
     @battle.pbDisplay(_INTL("But it failed!"))
     return -1
   end
@@ -2573,19 +2573,19 @@ class PokeBattle_Move_05D < PokeBattle_Move
        isConst?(PBMoveData.new(opponent.lastMoveUsedSketch).type,PBTypes,:SHADOW) ||
        isConst?(PBMoveData.new(opponent.lastMoveUsedSketch).type,PBTypes,:ROBOT) ||
        blacklist.include?(PBMoveData.new(opponent.lastMoveUsedSketch).function)
-			pbSEPlay("protection")
+			pbPlayMissSE()
        @battle.pbDisplay(_INTL("But it failed!"))
       return -1
     end
     for i in attacker.moves
       if i.id==opponent.lastMoveUsedSketch
-			pbSEPlay("protection")
+			pbPlayMissSE()
         @battle.pbDisplay(_INTL("But it failed!"))
         return -1 
       end
     end
     if opponent.pbOwnSide.effects[PBEffects::CraftyShield]
-			pbSEPlay("protection")
+			pbPlayMissSE()
       @battle.pbDisplay(_INTL("But it failed!"))
       return -1
     end
@@ -2601,7 +2601,7 @@ class PokeBattle_Move_05D < PokeBattle_Move
         return 0
       end
     end
-			pbSEPlay("protection")
+			pbPlayMissSE()
     @battle.pbDisplay(_INTL("But it failed!"))
     return -1
   end
@@ -2617,7 +2617,7 @@ class PokeBattle_Move_05E < PokeBattle_Move
   def pbEffect(attacker,opponent,hitnum=0,alltargets=nil,showanimation=true)
     if isConst?(attacker.ability,PBAbilities,:MULTITYPE) ||
        isConst?(attacker.ability,PBAbilities,:RKSSYSTEM)
-			pbSEPlay("protection")
+			pbPlayMissSE()
       @battle.pbDisplay(_INTL("But it failed!"))
       return -1
     end
@@ -2632,7 +2632,7 @@ class PokeBattle_Move_05E < PokeBattle_Move
       end
     end
     if types.length==0
-			pbSEPlay("protection")
+			pbPlayMissSE()
       @battle.pbDisplay(_INTL("But it failed!"))
       return -1
     end
@@ -2657,25 +2657,25 @@ class PokeBattle_Move_05F < PokeBattle_Move
   def pbEffect(attacker,opponent,hitnum=0,alltargets=nil,showanimation=true)
     if isConst?(attacker.ability,PBAbilities,:MULTITYPE) ||
        isConst?(attacker.ability,PBAbilities,:RKSSYSTEM)
-			pbSEPlay("protection")
+			pbPlayMissSE()
       @battle.pbDisplay(_INTL("But it failed!"))
       return -1
     end
     if opponent.lastMoveUsed<=0 ||
        PBTypes.isPseudoType?(PBMoveData.new(opponent.lastMoveUsed).type)
-			pbSEPlay("protection")
+			pbPlayMissSE()
        @battle.pbDisplay(_INTL("But it failed!"))
       return -1
     end
     if opponent.pbOwnSide.effects[PBEffects::CraftyShield]
-			pbSEPlay("protection")
+			pbPlayMissSE()
       @battle.pbDisplay(_INTL("But it failed!"))
       return -1
     end
     types=[]
     atype=opponent.lastMoveUsedType
     if atype<0
-			pbSEPlay("protection")
+			pbPlayMissSE()
       @battle.pbDisplay(_INTL("But it failed!"))
       return -1
     end
@@ -2685,7 +2685,7 @@ class PokeBattle_Move_05F < PokeBattle_Move
       types.push(i) if PBTypes.getEffectiveness(atype,i)<2 
     end
     if types.length==0
-			pbSEPlay("protection")
+			pbPlayMissSE()
       @battle.pbDisplay(_INTL("But it failed!"))
       return -1
     end
@@ -2710,7 +2710,7 @@ class PokeBattle_Move_060 < PokeBattle_Move
   def pbEffect(attacker,opponent,hitnum=0,alltargets=nil,showanimation=true)
     if isConst?(attacker.ability,PBAbilities,:MULTITYPE) ||
        isConst?(attacker.ability,PBAbilities,:RKSSYSTEM)
-			pbSEPlay("protection")
+			pbPlayMissSE()
       @battle.pbDisplay(_INTL("But it failed!"))
       return -1
     end
@@ -2751,7 +2751,7 @@ class PokeBattle_Move_060 < PokeBattle_Move
       type=getConst(PBTypes,:HEART) if hasConst?(PBTypes,:HEART)
     end
     if attacker.pbHasType?(type)
-			pbSEPlay("protection")
+			pbPlayMissSE()
       @battle.pbDisplay(_INTL("But it failed!"))
       return -1  
     end
@@ -2774,14 +2774,14 @@ end
 class PokeBattle_Move_061 < PokeBattle_Move
   def pbEffect(attacker,opponent,hitnum=0,alltargets=nil,showanimation=true)
     if opponent.effects[PBEffects::Substitute]>0 && !ignoresSubstitute?(attacker)
-			pbSEPlay("protection")
+			pbPlayMissSE()
       @battle.pbDisplay(_INTL("But it failed!"))  
       return -1
     end
     return -1 if pbTypeImmunityByAbility(pbType(@type,attacker,opponent),attacker,opponent)
     if isConst?(opponent.ability,PBAbilities,:MULTITYPE) ||
        isConst?(opponent.ability,PBAbilities,:RKSSYSTEM)
-			pbSEPlay("protection")
+			pbPlayMissSE()
       @battle.pbDisplay(_INTL("But it failed!"))
       return -1
     end
@@ -2790,7 +2790,7 @@ class PokeBattle_Move_061 < PokeBattle_Move
        opponent.type2==getConst(PBTypes,:WATER) &&
        (opponent.effects[PBEffects::Type3]<0 ||
        opponent.effects[PBEffects::Type3]==getConst(PBTypes,:WATER))
-			pbSEPlay("protection")
+			pbPlayMissSE()
        @battle.pbDisplay(_INTL("But it failed!"))
       return -1
     end
@@ -2813,7 +2813,7 @@ class PokeBattle_Move_062 < PokeBattle_Move
   def pbEffect(attacker,opponent,hitnum=0,alltargets=nil,showanimation=true)
     if isConst?(attacker.ability,PBAbilities,:MULTITYPE) ||
        isConst?(attacker.ability,PBAbilities,:RKSSYSTEM)
-			pbSEPlay("protection")
+			pbPlayMissSE()
       @battle.pbDisplay(_INTL("But it failed!"))
       return -1
     end
@@ -2823,7 +2823,7 @@ class PokeBattle_Move_062 < PokeBattle_Move
        opponent.pbHasType?(attacker.type1) &&
        opponent.pbHasType?(attacker.type2) &&
        opponent.pbHasType?(attacker.effects[PBEffects::Type3])
- 			pbSEPlay("protection")
+ 			pbPlayMissSE()
        @battle.pbDisplay(_INTL("But it failed!"))
       return -1
     end
@@ -2844,12 +2844,12 @@ end
 class PokeBattle_Move_063 < PokeBattle_Move
   def pbEffect(attacker,opponent,hitnum=0,alltargets=nil,showanimation=true)
     if opponent.effects[PBEffects::Substitute]>0 && !ignoresSubstitute?(attacker)
-			pbSEPlay("protection")
+			pbPlayMissSE()
       @battle.pbDisplay(_INTL("But it failed!"))  
       return -1
     end
     if opponent.hasUnstoppableAbility(attacker,[:TRUANT],[:SIMPLE])
-       pbSEPlay("protection")
+       pbPlayMissSE()
        @battle.pbDisplay(_INTL("But it failed!"))
       return -1
     end
@@ -2887,13 +2887,13 @@ end
 class PokeBattle_Move_064 < PokeBattle_Move
   def pbEffect(attacker,opponent,hitnum=0,alltargets=nil,showanimation=true)
     if opponent.effects[PBEffects::Substitute]>0 && !ignoresSubstitute?(attacker)
-			pbSEPlay("protection")
+			pbPlayMissSE()
       @battle.pbDisplay(_INTL("But it failed!"))  
       return -1
     end
     return -1 if pbTypeImmunityByAbility(pbType(@type,attacker,opponent),attacker,opponent)
     if opponent.hasUnstoppableAbility(attacker,[:TRUANT],[:INSOMNIA])
-       pbSEPlay("protection")
+       pbPlayMissSE()
        @battle.pbDisplay(_INTL("But it failed!"))
       return -1
     end
@@ -2931,7 +2931,7 @@ end
 class PokeBattle_Move_065 < PokeBattle_Move
   def pbEffect(attacker,opponent,hitnum=0,alltargets=nil,showanimation=true)
     if opponent.pbOwnSide.effects[PBEffects::CraftyShield]
-			pbSEPlay("protection")
+			pbPlayMissSE()
       @battle.pbDisplay(_INTL("But it failed!"))
       return -1
     end
@@ -2939,7 +2939,7 @@ class PokeBattle_Move_065 < PokeBattle_Move
        attacker.ability==opponent.ability ||
        attacker.hasUnstoppableAbility(nil) ||
        opponent.hasUngainableAbility(attacker,[:POWEROFALCHEMY, :RECEIVER, :TRACE, :WONDERGUARD])
-       pbSEPlay("protection")
+       pbPlayMissSE()
        @battle.pbDisplay(_INTL("But it failed!"))
       return -1
     end
@@ -2977,12 +2977,12 @@ end
 class PokeBattle_Move_066 < PokeBattle_Move
   def pbEffect(attacker,opponent,hitnum=0,alltargets=nil,showanimation=true)
     if opponent.effects[PBEffects::Substitute]>0 && !ignoresSubstitute?(attacker)
-			pbSEPlay("protection")
+			pbPlayMissSE()
       @battle.pbDisplay(_INTL("But it failed!"))  
       return -1
     end
     if opponent.pbOwnSide.effects[PBEffects::CraftyShield]
-			pbSEPlay("protection")
+			pbPlayMissSE()
       @battle.pbDisplay(_INTL("But it failed!"))
       return -1
     end
@@ -2990,7 +2990,7 @@ class PokeBattle_Move_066 < PokeBattle_Move
        attacker.ability==opponent.ability ||
        opponent.hasUnstoppableAbility(attacker,[:TRUANT]) ||
        attacker.hasUngainableAbility(nil,[:POWEROFALCHEMY, :RECEIVER, :TRACE])
-       pbSEPlay("protection")
+       pbPlayMissSE()
        @battle.pbDisplay(_INTL("But it failed!"))
       return -1
     end
@@ -3032,7 +3032,7 @@ class PokeBattle_Move_067 < PokeBattle_Move
        attacker.hasUnstoppableAbility(nil,[:NEUTRALIZINGGAS, :ILLUSION, :WONDERGUARD, :ABILITOPIA, :IMPRISIN]) ||
 #       opponent.hasUngainableAbility(attacker) ||
        opponent.hasUnstoppableAbility(attacker,[:NEUTRALIZINGGAS, :ILLUSION, :WONDERGUARD, :ABILITOPIA, :IMPRISIN])
-			pbSEPlay("protection")
+			pbPlayMissSE()
        @battle.pbDisplay(_INTL("But it failed!"))
       return -1
     end
@@ -3060,12 +3060,12 @@ class PokeBattle_Move_068 < PokeBattle_Move
       opponent.pbHasType?(:GUST) || opponent.pbHasType?(:MOON) || 
       opponent.pbHasType?(:MIND) || opponent.effects[PBEffects::GastroAcid] ||
       opponent.pbHasType?(:GAS) || isEternal?(opponent)
-			pbSEPlay("protection")
+			pbPlayMissSE()
       @battle.pbDisplay(_INTL("But it failed!"))  
       return -1
     end
     if opponent.hasUnstoppableAbility(attacker)
-			pbSEPlay("protection")
+			pbPlayMissSE()
        @battle.pbDisplay(_INTL("But it failed!"))
       return -1
     end
@@ -3119,33 +3119,33 @@ class PokeBattle_Move_069 < PokeBattle_Move
        opponent.effects[PBEffects::SkyDrop] ||
        blacklist.include?(PBMoveData.new(opponent.effects[PBEffects::TwoTurnAttack]).function) ||
        isConst?(opponent.ability,PBAbilities,:KOULUNDIN)
-       pbSEPlay("protection")
+       pbPlayMissSE()
        @battle.pbDisplay(_INTL("But it failed!"))
       return -1
     end
     if (opponent.hasWorkingAbility(:ALONELY) && !attacker.hasMoldBreaker(opponent))
-			pbSEPlay("protection")
+			pbPlayMissSE()
       @battle.pbDisplay(_INTL("{1}'s {2} prevents transforming!",opponent.pbThis,PBAbilities.getName(opponent.ability))) if showMessages
       return -1
     end
     if isUltraBlue?(opponent)
-			pbSEPlay("protection")
+			pbPlayMissSE()
       @battle.pbDisplay(_INTL("{1} anchored itself with its Ultra Blue!",opponent.pbThis)) if showMessages
       return -1
     end    
     if @battle.pbTerrain==PBBattleTerrains::CINAMENT && !attacker.hasWorkingItem(:RODOFSPARROW)
-			pbSEPlay("protection")
+			pbPlayMissSE()
       @battle.pbDisplay(_INTL("The Cinament prevented {1} from transforming into {2}!",attacker.pbThis,opponent.pbThis(true)))
       return -1
     end
     if opponent.effects[PBEffects::TransformProtection] ||
        attacker.effects[PBEffects::TransformBlock]
-			pbSEPlay("protection")
+			pbPlayMissSE()
     @battle.pbDisplay(_INTL("{1} cannot transform into {2}!",attacker.pbThis,opponent.pbThis(true)))
       return -1
     end
     if opponent.pbOwnSide.effects[PBEffects::CraftyShield]
-			pbSEPlay("protection")
+			pbPlayMissSE()
       @battle.pbDisplay(_INTL("But it failed!"))
       return -1
     end
@@ -3249,7 +3249,7 @@ end
 class PokeBattle_Move_06E < PokeBattle_Move
   def pbEffect(attacker,opponent,hitnum=0,alltargets=nil,showanimation=true)
     if attacker.hp>=opponent.hp
-			pbSEPlay("protection")
+			pbPlayMissSE()
       @battle.pbDisplay(_INTL("But it failed!"))
       return -1
     end
@@ -3277,17 +3277,17 @@ end
 class PokeBattle_Move_070 < PokeBattle_Move
   def pbAccuracyCheck(attacker,opponent)
     if !attacker.hasMoldBreaker(opponent) && opponent.hasWorkingAbility(:STURDY)
-			pbSEPlay("protection")
+			pbPlayMissSE()
       @battle.pbDisplay(_INTL("{1} was protected by {2}!",opponent.pbThis,PBAbilities.getName(opponent.ability)))  
       return false
     end
     if opponent.pbHasType?(:MIND)
-      pbSEPlay("protection")
+      pbPlayMissSE()
       @battle.pbDisplay(_INTL("It doesn't affect {1}...",opponent.pbThis(true)))
       return false
     end
     if opponent.level>attacker.level
-			pbSEPlay("protection")
+			pbPlayMissSE()
       @battle.pbDisplay(_INTL("{1} is unaffected!",opponent.pbThis))
       return false
     end
@@ -3321,7 +3321,7 @@ class PokeBattle_Move_071 < PokeBattle_Move
 
   def pbEffect(attacker,opponent,hitnum=0,alltargets=nil,showanimation=true)
     if attacker.effects[PBEffects::Counter]<0 || !opponent
-			pbSEPlay("protection")
+			pbPlayMissSE()
       @battle.pbDisplay(_INTL("But it failed!"))
       return -1
     end
@@ -3347,7 +3347,7 @@ class PokeBattle_Move_072 < PokeBattle_Move
 
   def pbEffect(attacker,opponent,hitnum=0,alltargets=nil,showanimation=true)
     if attacker.effects[PBEffects::MirrorCoat]<0 || !opponent
-			pbSEPlay("protection")
+			pbPlayMissSE()
       @battle.pbDisplay(_INTL("But it failed!"))
       return -1
     end
@@ -3376,7 +3376,7 @@ class PokeBattle_Move_073 < PokeBattle_Move
 
   def pbEffect(attacker,opponent,hitnum=0,alltargets=nil,showanimation=true)
     if attacker.lastHPLost==0 || !opponent
-			pbSEPlay("protection")
+			pbPlayMissSE()
       @battle.pbDisplay(_INTL("But it failed!"))
       return -1
     end
@@ -4033,12 +4033,12 @@ class PokeBattle_Move_094 < PokeBattle_Move
       @calcbasedmg=120
     else
       if pbTypeModifier(pbType(@type,attacker,opponent),attacker,opponent)==0
-        pbSEPlay("protection")
+        pbPlayMissSE()
         @battle.pbDisplay(_INTL("It doesn't affect {1}...",opponent.pbThis(true)))
         return -1
       end
       if opponent.hp==opponent.totalhp
-        pbSEPlay("protection")
+        pbPlayMissSE()
         @battle.pbDisplay(_INTL("But it failed!"))
         return -1
       end
@@ -4106,7 +4106,7 @@ class PokeBattle_Move_096 < PokeBattle_Move
        attacker.pbOpposing2.hasWorkingAbility(:ASONE1) ||
        attacker.pbOpposing1.hasWorkingAbility(:ASONE2) ||
        attacker.pbOpposing2.hasWorkingAbility(:ASONE2)
-       pbSEPlay("protection")
+       pbPlayMissSE()
        @battle.pbDisplay(_INTL("But it failed!"))
       return false
     end
@@ -4290,7 +4290,7 @@ class PokeBattle_Move_09C < PokeBattle_Move
        @battle.choices[opponent.index][0]!=1 || # Didn't choose a move
        opponent.hasMovedThisRound? ||
        opponent.effects[PBEffects::HelpingHand]
-			pbSEPlay("protection")
+			pbPlayMissSE()
        @battle.pbDisplay(_INTL("But it failed!"))  
       return -1
     end
@@ -4309,7 +4309,7 @@ end
 class PokeBattle_Move_09D < PokeBattle_Move
   def pbEffect(attacker,opponent,hitnum=0,alltargets=nil,showanimation=true)
     if @battle.field.effects[PBEffects::MudSportField]>0
-      pbSEPlay("protection")
+      pbPlayMissSE()
       @battle.pbDisplay(_INTL("But it failed!"))
       return -1
     end
@@ -4329,7 +4329,7 @@ end
 class PokeBattle_Move_09E < PokeBattle_Move
   def pbEffect(attacker,opponent,hitnum=0,alltargets=nil,showanimation=true)
     if @battle.field.effects[PBEffects::WaterSportField]>0
-      pbSEPlay("protection")
+      pbPlayMissSE()
       @battle.pbDisplay(_INTL("But it failed!"))
       return -1
     end
@@ -4464,7 +4464,7 @@ end
 class PokeBattle_Move_0A1 < PokeBattle_Move
   def pbEffect(attacker,opponent,hitnum=0,alltargets=nil,showanimation=true)
     if attacker.pbOwnSide.effects[PBEffects::LuckyChant]>0
-			pbSEPlay("protection")
+			pbPlayMissSE()
       @battle.pbDisplay(_INTL("But it failed!"))
       return -1
     end
@@ -4487,7 +4487,7 @@ end
 class PokeBattle_Move_0A2 < PokeBattle_Move
   def pbEffect(attacker,opponent,hitnum=0,alltargets=nil,showanimation=true)
     if attacker.pbOwnSide.effects[PBEffects::Reflect]>0
-			pbSEPlay("protection")
+			pbPlayMissSE()
       @battle.pbDisplay(_INTL("But it failed!"))
       return -1
     end
@@ -4511,7 +4511,7 @@ end
 class PokeBattle_Move_0A3 < PokeBattle_Move
   def pbEffect(attacker,opponent,hitnum=0,alltargets=nil,showanimation=true)
     if attacker.pbOwnSide.effects[PBEffects::LightScreen]>0
-			pbSEPlay("protection")
+			pbPlayMissSE()
       @battle.pbDisplay(_INTL("But it failed!"))
       return -1
     end
@@ -4678,7 +4678,7 @@ end
 class PokeBattle_Move_0A6 < PokeBattle_Move
   def pbEffect(attacker,opponent,hitnum=0,alltargets=nil,showanimation=true)
     if opponent.effects[PBEffects::Substitute]>0 && !ignoresSubstitute?(attacker)
-			pbSEPlay("protection")
+			pbPlayMissSE()
       @battle.pbDisplay(_INTL("But it failed!"))  
       return -1
     end
@@ -4699,7 +4699,7 @@ end
 class PokeBattle_Move_0A7 < PokeBattle_Move
   def pbEffect(attacker,opponent,hitnum=0,alltargets=nil,showanimation=true)
     if opponent.pbOwnSide.effects[PBEffects::CraftyShield]
-			pbSEPlay("protection")
+			pbPlayMissSE()
       @battle.pbDisplay(_INTL("But it failed!"))  
       return -1
     end
@@ -4719,7 +4719,7 @@ end
 class PokeBattle_Move_0A8 < PokeBattle_Move
   def pbEffect(attacker,opponent,hitnum=0,alltargets=nil,showanimation=true)
     if opponent.pbOwnSide.effects[PBEffects::CraftyShield]
-			pbSEPlay("protection")
+			pbPlayMissSE()
       @battle.pbDisplay(_INTL("But it failed!"))  
       return -1
     end
@@ -4773,7 +4773,7 @@ class PokeBattle_Move_0AA < PokeBattle_Move
     if !unmoved ||
        @battle.pbRandom(65536)>=(65536/attacker.effects[PBEffects::ProtectRate]).floor
       attacker.effects[PBEffects::ProtectRate]=1
-			pbSEPlay("protection")
+			pbPlayMissSE()
       @battle.pbDisplay(_INTL("But it failed!"))
       return -1
     end
@@ -4794,7 +4794,7 @@ end
 class PokeBattle_Move_0AB < PokeBattle_Move
   def pbEffect(attacker,opponent,hitnum=0,alltargets=nil,showanimation=true)
     if attacker.pbOwnSide.effects[PBEffects::QuickGuard]
-			pbSEPlay("protection")
+			pbPlayMissSE()
       @battle.pbDisplay(_INTL("But it failed!"))
       return -1
     end
@@ -4823,7 +4823,7 @@ class PokeBattle_Move_0AB < PokeBattle_Move
     end
     if !unmoved
       attacker.effects[PBEffects::ProtectRate]=1
-			pbSEPlay("protection")
+			pbPlayMissSE()
       @battle.pbDisplay(_INTL("But it failed!"))
       return -1
     end
@@ -4848,7 +4848,7 @@ end
 class PokeBattle_Move_0AC < PokeBattle_Move
   def pbEffect(attacker,opponent,hitnum=0,alltargets=nil,showanimation=true)
     if attacker.pbOwnSide.effects[PBEffects::WideGuard]
-			pbSEPlay("protection")
+			pbPlayMissSE()
       @battle.pbDisplay(_INTL("But it failed!"))
       return -1
     end
@@ -4877,7 +4877,7 @@ class PokeBattle_Move_0AC < PokeBattle_Move
     end
     if !unmoved
       attacker.effects[PBEffects::ProtectRate]=1
-			pbSEPlay("protection")
+			pbPlayMissSE()
       @battle.pbDisplay(_INTL("But it failed!"))
       return -1
     end
@@ -4987,7 +4987,7 @@ class PokeBattle_Move_0AF < PokeBattle_Move
     if battle.lastMoveUsed<=0 ||
        blacklist.include?(PBMoveData.new(@battle.lastMoveUsed).function) || 
        @battle.lastMoveUser == attacker
-			pbSEPlay("protection")       
+			pbPlayMissSE()       
       @battle.pbDisplay(_INTL("But it failed!"))
       return -1
     end
@@ -5028,7 +5028,7 @@ class PokeBattle_Move_0B0 < PokeBattle_Move
        !oppmove || oppmove.id<=0 ||
        oppmove.pbIsStatus? ||
        blacklist.include?(oppmove.function)
-			pbSEPlay("protection")
+			pbPlayMissSE()
        @battle.pbDisplay(_INTL("But it failed!"))
       return -1
     end
@@ -5115,7 +5115,7 @@ class PokeBattle_Move_0B3 < PokeBattle_Move
       move=getConst(PBMoves,:HEARTSTAMP) || move
    end
     if move==0
-			pbSEPlay("protection")
+			pbPlayMissSE()
       @battle.pbDisplay(_INTL("But it failed!"))
       return -1
     end
@@ -5140,7 +5140,7 @@ class PokeBattle_Move_0B4 < PokeBattle_Move
 
   def pbEffect(attacker,opponent,hitnum=0,alltargets=nil,showanimation=true)
     if attacker.status!=PBStatuses::SLEEP
-			pbSEPlay("protection")
+			pbPlayMissSE()
       @battle.pbDisplay(_INTL("But it failed!"))
       return -1
     end 
@@ -5191,7 +5191,7 @@ class PokeBattle_Move_0B4 < PokeBattle_Move
       choices.push(i) if @battle.pbCanChooseMove?(attacker.index,i,false,true)
     end
     if choices.length==0
-			pbSEPlay("protection")
+			pbPlayMissSE()
       @battle.pbDisplay(_INTL("But it failed!"))
       return -1
     end
@@ -5290,7 +5290,7 @@ class PokeBattle_Move_0B5 < PokeBattle_Move
       end
     end
     if moves.length==0
-			pbSEPlay("protection")
+			pbPlayMissSE()
       @battle.pbDisplay(_INTL("But it failed!"))
       return -1
     end
@@ -5410,7 +5410,7 @@ class PokeBattle_Move_0B6 < PokeBattle_Move
       end
       i+=1
     end
-		pbSEPlay("protection")
+		pbPlayMissSE()
     @battle.pbDisplay(_INTL("But it failed!"))
     return -1
   end
@@ -5425,18 +5425,18 @@ class PokeBattle_Move_0B7 < PokeBattle_Move
   def pbEffect(attacker,opponent,hitnum=0,alltargets=nil,showanimation=true)
     if opponent.effects[PBEffects::Torment] || opponent.pbHasType?(:HERB) ||
       opponent.pbHasType?(:MIND) || opponent.pbHasType?(:GLIMSE)
-			pbSEPlay("protection")
+			pbPlayMissSE()
       @battle.pbDisplay(_INTL("But it failed!"))
       return -1
     end
     if !attacker.hasMoldBreaker(opponent)
       if opponent.hasWorkingAbility(:AROMAVEIL)
-        pbSEPlay("protection")
+        pbPlayMissSE()
         @battle.pbDisplay(_INTL("But it failed because of {1}'s {2}!",
            opponent.pbThis,PBAbilities.getName(opponent.ability)))
         return -1
       elsif opponent.pbPartner.hasWorkingAbility(:AROMAVEIL)
-			pbSEPlay("protection")
+			pbPlayMissSE()
         @battle.pbDisplay(_INTL("But it failed because of {1}'s {2}!",
            opponent.pbPartner.pbThis,PBAbilities.getName(opponent.pbPartner.ability)))
         return -1
@@ -5457,7 +5457,7 @@ end
 class PokeBattle_Move_0B8 < PokeBattle_Move
   def pbEffect(attacker,opponent,hitnum=0,alltargets=nil,showanimation=true)
     if attacker.effects[PBEffects::Imprison]
-			pbSEPlay("protection")
+			pbPlayMissSE()
       @battle.pbDisplay(_INTL("But it failed!"))
       return -1  
     end
@@ -5477,18 +5477,18 @@ class PokeBattle_Move_0B9 < PokeBattle_Move
   def pbEffect(attacker,opponent,hitnum=0,alltargets=nil,showanimation=true)
     if opponent.effects[PBEffects::Disable]>0 || opponent.pbHasType?(:HERB) ||
       opponent.pbHasType?(:MIND) || opponent.pbHasType?(:GLIMSE)
-			pbSEPlay("protection")
+			pbPlayMissSE()
       @battle.pbDisplay(_INTL("But it failed!"))
       return -1
     end
     if !attacker.hasMoldBreaker(opponent)
       if opponent.hasWorkingAbility(:AROMAVEIL)
-        pbSEPlay("protection")
+        pbPlayMissSE()
         @battle.pbDisplay(_INTL("But it failed because of {1}'s {2}!",
            opponent.pbThis,PBAbilities.getName(opponent.ability)))
         return -1
       elsif opponent.pbPartner.hasWorkingAbility(:AROMAVEIL)
-        pbSEPlay("protection")
+        pbPlayMissSE()
         @battle.pbDisplay(_INTL("But it failed because of {1}'s {2}!",
            opponent.pbPartner.pbThis,PBAbilities.getName(opponent.pbPartner.ability)))
         return -1
@@ -5503,7 +5503,7 @@ class PokeBattle_Move_0B9 < PokeBattle_Move
         return 0
       end
     end
-		pbSEPlay("protection")
+		pbPlayMissSE()
     @battle.pbDisplay(_INTL("But it failed!"))
     return -1
   end
@@ -5520,18 +5520,18 @@ class PokeBattle_Move_0BA < PokeBattle_Move
        (!attacker.hasMoldBreaker(opponent) && opponent.hasWorkingAbility(:OBLIVIOUS)) ||
         opponent.pbHasType?(:HERB) || opponent.pbHasType?(:MIND) || 
         opponent.pbHasType?(:GLIMSE)
-        pbSEPlay("protection")
+        pbPlayMissSE()
        @battle.pbDisplay(_INTL("But it failed!"))
       return -1
     end
     if !attacker.hasMoldBreaker(opponent)
       if opponent.hasWorkingAbility(:AROMAVEIL)
-        pbSEPlay("protection")
+        pbPlayMissSE()
         @battle.pbDisplay(_INTL("But it failed because of {1}'s {2}!",
            opponent.pbThis,PBAbilities.getName(opponent.ability)))
         return -1
       elsif opponent.pbPartner.hasWorkingAbility(:AROMAVEIL)
-			pbSEPlay("protection")
+			pbPlayMissSE()
         @battle.pbDisplay(_INTL("But it failed because of {1}'s {2}!",
            opponent.pbPartner.pbThis,PBAbilities.getName(opponent.pbPartner.ability)))
         return -1
@@ -5554,18 +5554,18 @@ class PokeBattle_Move_0BB < PokeBattle_Move
     return super(attacker,opponent,hitnum,alltargets,showanimation) if pbIsDamaging?
     if opponent.effects[PBEffects::HealBlock]>0 || opponent.pbHasType?(:HERB) ||
       opponent.pbHasType?(:MIND) || opponent.pbHasType?(:GLIMSE)
-			pbSEPlay("protection")
+			pbPlayMissSE()
       @battle.pbDisplay(_INTL("But it failed!"))
       return -1
     end
     if !attacker.hasMoldBreaker(opponent)
       if opponent.hasWorkingAbility(:AROMAVEIL)
-			pbSEPlay("protection")
+			pbPlayMissSE()
         @battle.pbDisplay(_INTL("But it failed because of {1}'s {2}!",
            opponent.pbThis,PBAbilities.getName(opponent.ability)))
         return -1
       elsif opponent.pbPartner.hasWorkingAbility(:AROMAVEIL)
-        pbSEPlay("protection")
+        pbPlayMissSE()
         @battle.pbDisplay(_INTL("But it failed because of {1}'s {2}!",
            opponent.pbPartner.pbThis,PBAbilities.getName(opponent.pbPartner.ability)))
         return -1
@@ -5630,24 +5630,24 @@ class PokeBattle_Move_0BC < PokeBattle_Move
     if opponent.effects[PBEffects::Encore]>0 || opponent.pbHasType?(:HERB) ||
       opponent.pbHasType?(:MIND) || opponent.hasWorkingAbility(:KOULUNDIN) ||
       opponent.pbHasType?(:GLIMSE)
- 			pbSEPlay("protection")
+ 			pbPlayMissSE()
       @battle.pbDisplay(_INTL("But it failed!"))
       return -1
     end
     if opponent.lastMoveUsed<=0 ||
        blacklist.include?(PBMoveData.new(opponent.lastMoveUsed).function)
-			pbSEPlay("protection")
+			pbPlayMissSE()
        @battle.pbDisplay(_INTL("But it failed!"))
       return -1
     end
     if !attacker.hasMoldBreaker(opponent)
       if opponent.hasWorkingAbility(:AROMAVEIL)
-			pbSEPlay("protection")
+			pbPlayMissSE()
         @battle.pbDisplay(_INTL("But it failed because of {1}'s {2}!",
            opponent.pbThis,PBAbilities.getName(opponent.ability)))
         return -1
       elsif opponent.pbPartner.hasWorkingAbility(:AROMAVEIL)
-			pbSEPlay("protection")
+			pbPlayMissSE()
         @battle.pbDisplay(_INTL("But it failed because of {1}'s {2}!",
            opponent.pbPartner.pbThis,PBAbilities.getName(opponent.pbPartner.ability)))
         return -1
@@ -5664,7 +5664,7 @@ class PokeBattle_Move_0BC < PokeBattle_Move
         return 0
       end
     end
-			pbSEPlay("protection")
+			pbPlayMissSE()
     @battle.pbDisplay(_INTL("But it failed!"))
     return -1
   end
@@ -5787,7 +5787,7 @@ class PokeBattle_Move_0C1 < PokeBattle_Move
       end
     end
     if @participants.length==0
-			pbSEPlay("protection")
+			pbPlayMissSE()
       @battle.pbDisplay(_INTL("But it failed!"))
       return false
     end
@@ -6474,13 +6474,13 @@ class PokeBattle_Move_0D4 < PokeBattle_Move
 
   def pbEffect(attacker,opponent,hitnum=0,alltargets=nil,showanimation=true)
     if attacker.effects[PBEffects::BideDamage]==0 || !opponent
-			pbSEPlay("protection")
+			pbPlayMissSE()
       @battle.pbDisplay(_INTL("But it failed!"))
       return -1
     end
     typemod=pbTypeModifier(pbType(@type,attacker,opponent),attacker,opponent)
     if typemod==0
-    pbSEPlay("protection")
+    pbPlayMissSE()
       @battle.pbDisplay(_INTL("It doesn't affect {1}...",opponent.pbThis(true)))
       return -1
     end
@@ -6503,7 +6503,7 @@ class PokeBattle_Move_0D5 < PokeBattle_Move
 
   def pbEffect(attacker,opponent,hitnum=0,alltargets=nil,showanimation=true)
     if attacker.hp==attacker.totalhp
-			pbSEPlay("protection")
+			pbPlayMissSE()
       @battle.pbDisplay(_INTL("{1}'s HP is full!",attacker.pbThis))
       return -1
     end
@@ -6527,7 +6527,7 @@ class PokeBattle_Move_0D6 < PokeBattle_Move
 
   def pbEffect(attacker,opponent,hitnum=0,alltargets=nil,showanimation=true)
     if attacker.hp==attacker.totalhp
-			pbSEPlay("protection")
+			pbPlayMissSE()
       @battle.pbDisplay(_INTL("{1}'s HP is full!",attacker.pbThis))
       return -1
     end
@@ -6552,7 +6552,7 @@ class PokeBattle_Move_0D7 < PokeBattle_Move
 
   def pbEffect(attacker,opponent,hitnum=0,alltargets=nil,showanimation=true)
     if attacker.effects[PBEffects::Wish]>0
-			pbSEPlay("protection")
+			pbPlayMissSE()
       @battle.pbDisplay(_INTL("But it failed!"))
       return -1
     end
@@ -6577,7 +6577,7 @@ class PokeBattle_Move_0D8 < PokeBattle_Move
 
   def pbEffect(attacker,opponent,hitnum=0,alltargets=nil,showanimation=true)
     if attacker.hp==attacker.totalhp
-			pbSEPlay("protection")
+			pbPlayMissSE()
       @battle.pbDisplay(_INTL("{1}'s HP is full!",attacker.pbThis))
       return -1
     end
@@ -6612,12 +6612,12 @@ class PokeBattle_Move_0D9 < PokeBattle_Move
       return -1
     end
     if attacker.status==PBStatuses::SLEEP
-			pbSEPlay("protection")
+			pbPlayMissSE()
       @battle.pbDisplay(_INTL("But it failed!"))
       return -1
     end
     if attacker.hp==attacker.totalhp
-			pbSEPlay("protection")
+			pbPlayMissSE()
       @battle.pbDisplay(_INTL("{1}'s HP is full!",attacker.pbThis))
       return -1
     end
@@ -6643,7 +6643,7 @@ class PokeBattle_Move_0DA < PokeBattle_Move
 
   def pbEffect(attacker,opponent,hitnum=0,alltargets=nil,showanimation=true)
     if attacker.effects[PBEffects::AquaRing]
-			pbSEPlay("protection")
+			pbPlayMissSE()
       @battle.pbDisplay(_INTL("But it failed!"))
       return -1
     end
@@ -6667,7 +6667,7 @@ class PokeBattle_Move_0DB < PokeBattle_Move
 
   def pbEffect(attacker,opponent,hitnum=0,alltargets=nil,showanimation=true)
     if attacker.effects[PBEffects::Ingrain]
-			pbSEPlay("protection")
+			pbPlayMissSE()
       @battle.pbDisplay(_INTL("But it failed!"))
       return -1
     end
@@ -6699,18 +6699,18 @@ class PokeBattle_Move_0DC < PokeBattle_Move
       return ret
     end
     if opponent.effects[PBEffects::Substitute]>0 && !ignoresSubstitute?(attacker)
-			pbSEPlay("protection")
+			pbPlayMissSE()
       @battle.pbDisplay(_INTL("But it failed!"))  
       return -1
     end
     return -1 if pbTypeImmunityByAbility(pbType(@type,attacker,opponent),attacker,opponent)
     if opponent.effects[PBEffects::LeechSeed]>=0
-			pbSEPlay("protection")
+			pbPlayMissSE()
       @battle.pbDisplay(_INTL("{1} evaded the attack!",opponent.pbThis))
       return -1
     end
     if opponent.pbHasType?(:GRASS) || opponent.pbHasType?(:CHLOROPHYLL)
-			pbSEPlay("protection")
+			pbPlayMissSE()
       @battle.pbDisplay(_INTL("It doesn't affect {1}...",opponent.pbThis(true)))
       return -1
     end
@@ -6788,12 +6788,12 @@ class PokeBattle_Move_0DF < PokeBattle_Move
 
   def pbEffect(attacker,opponent,hitnum=0,alltargets=nil,showanimation=true)
     if opponent.effects[PBEffects::Substitute]>0 && !ignoresSubstitute?(attacker)
-			pbSEPlay("protection")
+			pbPlayMissSE()
       @battle.pbDisplay(_INTL("But it failed!"))  
       return -1
     end
     if opponent.hp==opponent.totalhp
-			pbSEPlay("protection")
+			pbPlayMissSE()
       @battle.pbDisplay(_INTL("{1}'s HP is full!",opponent.pbThis))  
       return -1
     end
@@ -6919,7 +6919,7 @@ end
 class PokeBattle_Move_0E2 < PokeBattle_Move
   def pbEffect(attacker,opponent,hitnum=0,alltargets=nil,showanimation=true)
     if opponent.effects[PBEffects::Substitute]>0 && !ignoresSubstitute?(attacker)
-			pbSEPlay("protection")
+			pbPlayMissSE()
       @battle.pbDisplay(_INTL("But it failed!"))
       return -1
     end
@@ -6953,7 +6953,7 @@ class PokeBattle_Move_0E3 < PokeBattle_Move
 
   def pbEffect(attacker,opponent,hitnum=0,alltargets=nil,showanimation=true)
     if !@battle.pbCanChooseNonActive?(attacker.index) || attacker.hasWorkingAbility(:SIAXIS)
-			pbSEPlay("protection")
+			pbPlayMissSE()
       @battle.pbDisplay(_INTL("But it failed!"))
       return -1
     end
@@ -6977,7 +6977,7 @@ class PokeBattle_Move_0E4 < PokeBattle_Move
 
   def pbEffect(attacker,opponent,hitnum=0,alltargets=nil,showanimation=true)
     if !@battle.pbCanChooseNonActive?(attacker.index) || attacker.hasWorkingAbility(:SIAXIS)
-			pbSEPlay("protection")
+			pbPlayMissSE()
       @battle.pbDisplay(_INTL("But it failed!"))
       return -1
     end
@@ -7004,7 +7004,7 @@ class PokeBattle_Move_0E5 < PokeBattle_Move
       end   
     end
     if failed
-			pbSEPlay("protection")
+			pbPlayMissSE()
       @battle.pbDisplay(_INTL("But it failed!"))
       return -1
     end
@@ -7013,7 +7013,7 @@ class PokeBattle_Move_0E5 < PokeBattle_Move
     for i in 0...4
       if @battle.battlers[i].effects[PBEffects::PerishSong]==0
         if !attacker.hasMoldBreaker(opponent) && @battle.battlers[i].hasWorkingAbility(:SOUNDPROOF)
-        pbSEPlay("protection")
+        pbPlayMissSE()
           @battle.pbDisplay(_INTL("{1}'s {2} blocks {3}!",@battle.battlers[i].pbThis,
              PBAbilities.getName(@battle.battlers[i].ability),@name))
         else
@@ -7097,7 +7097,7 @@ class PokeBattle_Move_0E8 < PokeBattle_Move
     if !unmoved ||
        @battle.pbRandom(65536)>(65536/attacker.effects[PBEffects::ProtectRate]).floor
       attacker.effects[PBEffects::ProtectRate]=1
-			pbSEPlay("protection")
+			pbPlayMissSE()
       @battle.pbDisplay(_INTL("But it failed!"))
       return -1
     end
@@ -7126,7 +7126,7 @@ end
 class PokeBattle_Move_0EA < PokeBattle_Move
   def pbEffect(attacker,opponent,hitnum=0,alltargets=nil,showanimation=true)
     if !@battle.pbCanRun?(attacker.index)
-			pbSEPlay("protection")
+			pbPlayMissSE()
        @battle.pbDisplay(_INTL("But it failed!"))
       return -1
     end
@@ -7154,24 +7154,24 @@ class PokeBattle_Move_0EB < PokeBattle_Move
     if !attacker.hasMoldBreaker(opponent) && ( opponent.hasWorkingAbility(:SUCTIONCUPS) ||
                                      opponent.hasWorkingAbility(:ENIGMATACTICS) ||
                                      opponent.hasWorkingAbility(:GUARDDOG))
-			pbSEPlay("protection")
+			pbPlayMissSE()
       @battle.pbDisplay(_INTL("{1} anchored itself with {2}!",opponent.pbThis,PBAbilities.getName(opponent.ability)))  
       return -1
     end
     if opponent.hasWorkingItem(:ASPEARVEST)
-			pbSEPlay("protection")
+			pbPlayMissSE()
       @battle.pbDisplay(_INTL("{1} anchored itself with {2}!",opponent.pbThis,PBItems.getName(opponent.item)))  
       return -1
     end
     if opponent.effects[PBEffects::Ingrain]
-			pbSEPlay("protection")
+			pbPlayMissSE()
       @battle.pbDisplay(_INTL("{1} anchored itself with its roots!",opponent.pbThis))  
       return -1
     end
     if !@battle.opponent
       if opponent.level>attacker.level || 
          opponent.effects[PBEffects::CommanderAlly]
-			pbSEPlay("protection")
+			pbPlayMissSE()
         @battle.pbDisplay(_INTL("But it failed!"))
         return -1
       end
@@ -7188,7 +7188,7 @@ class PokeBattle_Move_0EB < PokeBattle_Move
         end
       end
       if !choices
-        pbSEPlay("protection")
+        pbPlayMissSE()
         @battle.pbDisplay(_INTL("But it failed!"))
         return -1
       end
@@ -7243,7 +7243,7 @@ end
 class PokeBattle_Move_0ED < PokeBattle_Move
   def pbEffect(attacker,opponent,hitnum=0,alltargets=nil,showanimation=true)
     if !@battle.pbCanChooseNonActive?(attacker.index)
-			pbSEPlay("protection")
+			pbPlayMissSE()
       @battle.pbDisplay(_INTL("But it failed!"))
       return -1
     end
@@ -7295,13 +7295,13 @@ class PokeBattle_Move_0EF < PokeBattle_Move
     end
     if opponent.effects[PBEffects::MeanLook]>=0 ||
        (opponent.effects[PBEffects::Substitute]>0 && !ignoresSubstitute?(attacker))
-        pbSEPlay("protection")
+        pbPlayMissSE()
        @battle.pbDisplay(_INTL("But it failed!"))
       return -1
     end
     if (opponent.pbHasType?(:GHOST) || opponent.pbHasType?(:DOOM) || 
         opponent.pbHasType?(:SUN) || opponent.pbHasType?(:MOON))
-			pbSEPlay("protection")
+			pbPlayMissSE()
       @battle.pbDisplay(_INTL("It doesn't affect {1}...",opponent.pbThis(true)))
       return -1
     end
@@ -7394,7 +7394,7 @@ class PokeBattle_Move_0F2 < PokeBattle_Move
     if (opponent.effects[PBEffects::Substitute]>0 && !ignoresSubstitute?(attacker)) ||
        (attacker.item==0 && opponent.item==0) ||
        (!@battle.opponent && @battle.pbIsOpposing?(attacker.index))
-        pbSEPlay("protection")
+        pbPlayMissSE()
        @battle.pbDisplay(_INTL("But it failed!"))
       return -1
     end
@@ -7402,13 +7402,13 @@ class PokeBattle_Move_0F2 < PokeBattle_Move
        @battle.pbIsUnlosableItem(attacker,opponent.item) ||
        @battle.pbIsUnlosableItem(opponent,attacker.item) ||
        @battle.pbIsUnlosableItem(attacker,attacker.item)
-        pbSEPlay("protection")
+        pbPlayMissSE()
        @battle.pbDisplay(_INTL("But it failed!"))
       return -1
     end
     if !attacker.hasMoldBreaker(opponent) && opponent.hasWorkingAbility(:STICKYHOLD)
       abilityname=PBAbilities.getName(opponent.ability)
-			pbSEPlay("protection")
+			pbPlayMissSE()
       @battle.pbDisplay(_INTL("{1}'s {2} made {3} ineffective!",opponent.pbThis,abilityname,name))
       return -1
     end
@@ -7453,13 +7453,13 @@ class PokeBattle_Move_0F3 < PokeBattle_Move
   def pbEffect(attacker,opponent,hitnum=0,alltargets=nil,showanimation=true)
     if (opponent.effects[PBEffects::Substitute]>0 && !ignoresSubstitute?(attacker)) ||
        attacker.item==0 || opponent.item!=0
-       pbSEPlay("protection")
+       pbPlayMissSE()
        @battle.pbDisplay(_INTL("But it failed!"))
       return -1
     end
     if @battle.pbIsUnlosableItem(attacker,attacker.item) ||
        @battle.pbIsUnlosableItem(opponent,attacker.item)
-       pbSEPlay("protection")
+       pbPlayMissSE()
        @battle.pbDisplay(_INTL("But it failed!"))
       return -1
     end
@@ -7551,7 +7551,7 @@ end
 class PokeBattle_Move_0F6 < PokeBattle_Move
   def pbEffect(attacker,opponent,hitnum=0,alltargets=nil,showanimation=true)
     if !attacker.pokemon || attacker.pokemon.itemRecycle==0
-			pbSEPlay("protection")
+			pbPlayMissSE()
       @battle.pbDisplay(_INTL("But it failed!"))
       return -1
     end
@@ -7709,7 +7709,7 @@ class PokeBattle_Move_0F7 < PokeBattle_Move
 
   def pbEffect(attacker,opponent,hitnum=0,alltargets=nil,showanimation=true)
     if attacker.item==0
-			pbSEPlay("protection")
+			pbPlayMissSE()
       @battle.pbDisplay(_INTL("But it failed!"))
       return 0
     end
@@ -7800,7 +7800,7 @@ end
 class PokeBattle_Move_0F8 < PokeBattle_Move
   def pbEffect(attacker,opponent,hitnum=0,alltargets=nil,showanimation=true)
     if opponent.effects[PBEffects::Embargo]>0
-			pbSEPlay("protection")
+			pbPlayMissSE()
       @battle.pbDisplay(_INTL("But it failed!"))
       return -1
     end
@@ -7967,19 +7967,19 @@ class PokeBattle_Move_0FF < PokeBattle_Move
   def pbEffect(attacker,opponent,hitnum=0,alltargets=nil,showanimation=true)
     case @battle.weather
     when PBWeather::HEAVYRAIN
-			pbSEPlay("protection")
+			pbPlayMissSE()
       @battle.pbDisplay(_INTL("There is no relief from this heavy rain!"))
       return -1
     when PBWeather::HARSHSUN
-			pbSEPlay("protection")
+			pbPlayMissSE()
       @battle.pbDisplay(_INTL("The extremely harsh sunlight was not lessened at all!"))
       return -1
     when PBWeather::STRONGWINDS
-			pbSEPlay("protection")
+			pbPlayMissSE()
       @battle.pbDisplay(_INTL("The mysterious air current blows on regardless!"))
       return -1
     when PBWeather::SUNNYDAY
-			pbSEPlay("protection")
+			pbPlayMissSE()
       @battle.pbDisplay(_INTL("But it failed!"))
       return -1
     end
@@ -8002,19 +8002,19 @@ class PokeBattle_Move_100 < PokeBattle_Move
   def pbEffect(attacker,opponent,hitnum=0,alltargets=nil,showanimation=true)
     case @battle.weather
     when PBWeather::HEAVYRAIN
-			pbSEPlay("protection")
+			pbPlayMissSE()
       @battle.pbDisplay(_INTL("There is no relief from this heavy rain!"))
       return -1
     when PBWeather::HARSHSUN
-			pbSEPlay("protection")
+			pbPlayMissSE()
       @battle.pbDisplay(_INTL("The extremely harsh sunlight was not lessened at all!"))
       return -1
     when PBWeather::STRONGWINDS
-			pbSEPlay("protection")
+			pbPlayMissSE()
       @battle.pbDisplay(_INTL("The mysterious air current blows on regardless!"))
       return -1
     when PBWeather::RAINDANCE
-			pbSEPlay("protection")
+			pbPlayMissSE()
       @battle.pbDisplay(_INTL("But it failed!"))
       return -1
     end
@@ -8037,19 +8037,19 @@ class PokeBattle_Move_101 < PokeBattle_Move
   def pbEffect(attacker,opponent,hitnum=0,alltargets=nil,showanimation=true)
     case @battle.weather
     when PBWeather::HEAVYRAIN
-			pbSEPlay("protection")
+			pbPlayMissSE()
       @battle.pbDisplay(_INTL("There is no relief from this heavy rain!"))
       return -1
     when PBWeather::HARSHSUN
-			pbSEPlay("protection")
+			pbPlayMissSE()
       @battle.pbDisplay(_INTL("The extremely harsh sunlight was not lessened at all!"))
       return -1
     when PBWeather::STRONGWINDS
-			pbSEPlay("protection")
+			pbPlayMissSE()
       @battle.pbDisplay(_INTL("The mysterious air current blows on regardless!"))
       return -1
     when PBWeather::SANDSTORM
-			pbSEPlay("protection")
+			pbPlayMissSE()
       @battle.pbDisplay(_INTL("But it failed!"))
       return -1
     end
@@ -8072,19 +8072,19 @@ class PokeBattle_Move_102 < PokeBattle_Move
   def pbEffect(attacker,opponent,hitnum=0,alltargets=nil,showanimation=true)
     case @battle.weather
     when PBWeather::HEAVYRAIN
-			pbSEPlay("protection")
+			pbPlayMissSE()
       @battle.pbDisplay(_INTL("There is no relief from this heavy rain!"))
       return -1
     when PBWeather::HARSHSUN
-			pbSEPlay("protection")
+			pbPlayMissSE()
       @battle.pbDisplay(_INTL("The extremely harsh sunlight was not lessened at all!"))
       return -1
     when PBWeather::STRONGWINDS
-			pbSEPlay("protection")
+			pbPlayMissSE()
       @battle.pbDisplay(_INTL("The mysterious air current blows on regardless!"))
       return -1
     when PBWeather::HAIL
-			pbSEPlay("protection")
+			pbPlayMissSE()
       @battle.pbDisplay(_INTL("But it failed!"))
       return -1
     end
@@ -8106,7 +8106,7 @@ end
 class PokeBattle_Move_103 < PokeBattle_Move
   def pbEffect(attacker,opponent,hitnum=0,alltargets=nil,showanimation=true)
     if attacker.pbOpposingSide.effects[PBEffects::Spikes]>=3
-			pbSEPlay("protection")
+			pbPlayMissSE()
       @battle.pbDisplay(_INTL("But it failed!"))
       return -1
     end
@@ -8130,7 +8130,7 @@ end
 class PokeBattle_Move_104 < PokeBattle_Move
   def pbEffect(attacker,opponent,hitnum=0,alltargets=nil,showanimation=true)
     if attacker.pbOpposingSide.effects[PBEffects::ToxicSpikes]>=2
-			pbSEPlay("protection")
+			pbPlayMissSE()
       @battle.pbDisplay(_INTL("But it failed!"))
       return -1
     end
@@ -8153,7 +8153,7 @@ end
 class PokeBattle_Move_105 < PokeBattle_Move
   def pbEffect(attacker,opponent,hitnum=0,alltargets=nil,showanimation=true)
     if attacker.pbOpposingSide.effects[PBEffects::StealthRock]
-			pbSEPlay("protection")
+			pbPlayMissSE()
       @battle.pbDisplay(_INTL("But it failed!"))
       return -1
     end
@@ -8560,13 +8560,13 @@ end
 class PokeBattle_Move_10C < PokeBattle_Move
   def pbEffect(attacker,opponent,hitnum=0,alltargets=nil,showanimation=true)
     if attacker.effects[PBEffects::Substitute]>0
-			pbSEPlay("protection")
+			pbPlayMissSE()
       @battle.pbDisplay(_INTL("{1} already has a substitute!",attacker.pbThis))
       return -1
     end
     sublife=[(attacker.totalhp/4).floor,1].max
     if attacker.hp<=sublife
-			pbSEPlay("protection")
+			pbPlayMissSE()
       @battle.pbDisplay(_INTL("It was too weak to make a substitute!"))
       return -1  
     end
@@ -8626,7 +8626,7 @@ class PokeBattle_Move_10D < PokeBattle_Move
       end
     end
     if failed
-			pbSEPlay("protection")
+			pbPlayMissSE()
       @battle.pbDisplay(_INTL("But it failed!"))
     end
     return failed ? -1 : 0
@@ -8649,7 +8649,7 @@ class PokeBattle_Move_10E < PokeBattle_Move
         return 0
       end
     end
-		pbSEPlay("protection")
+		pbPlayMissSE()
     @battle.pbDisplay(_INTL("But it failed!"))
     return -1
   end
@@ -8664,7 +8664,7 @@ class PokeBattle_Move_10F < PokeBattle_Move
   def pbEffect(attacker,opponent,hitnum=0,alltargets=nil,showanimation=true)
     if opponent.status!=PBStatuses::SLEEP || opponent.effects[PBEffects::Nightmare] ||
        (opponent.effects[PBEffects::Substitute]>0 && !ignoresSubstitute?(attacker))
-        pbSEPlay("protection")
+        pbPlayMissSE()
        @battle.pbDisplay(_INTL("But it failed!"))
       return -1
     end
@@ -8739,7 +8739,7 @@ class PokeBattle_Move_111 < PokeBattle_Move
 
   def pbEffect(attacker,opponent,hitnum=0,alltargets=nil,showanimation=true)
     if opponent.effects[PBEffects::FutureSight]>0
-			pbSEPlay("protection")
+			pbPlayMissSE()
       @battle.pbDisplay(_INTL("But it failed!"))
       return -1
     end
@@ -8778,7 +8778,7 @@ end
 class PokeBattle_Move_112 < PokeBattle_Move
   def pbEffect(attacker,opponent,hitnum=0,alltargets=nil,showanimation=true)
     if attacker.effects[PBEffects::Stockpile]>=3
-			pbSEPlay("protection")
+			pbPlayMissSE()
       @battle.pbDisplay(_INTL("{1} can't stockpile any more!",attacker.pbThis))
       return -1
     end
@@ -8856,7 +8856,7 @@ class PokeBattle_Move_114 < PokeBattle_Move
     hpgain=0
     case attacker.effects[PBEffects::Stockpile]
     when 0
-			pbSEPlay("protection")
+			pbPlayMissSE()
       @battle.pbDisplay(_INTL("But it failed to swallow a thing!"))
       return -1
     when 1
@@ -8907,7 +8907,7 @@ end
 class PokeBattle_Move_115 < PokeBattle_Move
   def pbDisplayUseMessage(attacker)
     if attacker.lastHPLost>0
-			pbSEPlay("protection")
+			pbPlayMissSE()
       @battle.pbDisplayBrief(_INTL("{1} lost its focus and couldn't move!",attacker.pbThis))
       return -1
     end
@@ -8940,7 +8940,7 @@ end
 class PokeBattle_Move_117 < PokeBattle_Move
   def pbEffect(attacker,opponent,hitnum=0,alltargets=nil,showanimation=true)
     if !@battle.doublebattle
-			pbSEPlay("protection")
+			pbPlayMissSE()
       @battle.pbDisplay(_INTL("But it failed!"))
       return -1
     end
@@ -8963,7 +8963,7 @@ end
 class PokeBattle_Move_118 < PokeBattle_Move
   def pbEffect(attacker,opponent,hitnum=0,alltargets=nil,showanimation=true)
     if @battle.field.effects[PBEffects::Gravity]>0
-			pbSEPlay("protection")
+			pbPlayMissSE()
       @battle.pbDisplay(_INTL("But it failed!"))
       return -1
     end
@@ -9011,7 +9011,7 @@ class PokeBattle_Move_119 < PokeBattle_Move
        attacker.effects[PBEffects::MagicDelta] ||
        attacker.effects[PBEffects::SmackDown] ||
        attacker.effects[PBEffects::MagnetRise]>0
-			pbSEPlay("protection")
+			pbPlayMissSE()
       @battle.pbDisplay(_INTL("But it failed!"))
       return -1
     end
@@ -9037,7 +9037,7 @@ class PokeBattle_Move_11A < PokeBattle_Move
        opponent.effects[PBEffects::MagicDelta] ||
        opponent.effects[PBEffects::SmackDown] ||
        opponent.effects[PBEffects::Telekinesis]>0
-       pbSEPlay("protection")
+       pbPlayMissSE()
        @battle.pbDisplay(_INTL("But it failed!"))
       return -1
     end
@@ -9180,7 +9180,7 @@ class PokeBattle_Move_120 < PokeBattle_Move
   def pbEffect(attacker,opponent,hitnum=0,alltargets=nil,showanimation=true)
     if !@battle.doublebattle ||
        !attacker.pbPartner || attacker.pbPartner.isFainted?
-        pbSEPlay("protection")
+        pbPlayMissSE()
        @battle.pbDisplay(_INTL("But it failed!"))
       return -1
     end
@@ -9237,7 +9237,7 @@ class PokeBattle_Move_123 < PokeBattle_Move
     if !opponent.pbHasType?(attacker.type1) &&
        !opponent.pbHasType?(attacker.type2) &&
        !opponent.pbHasType?(attacker.effects[PBEffects::Type3])
-        pbSEPlay("protection")
+        pbPlayMissSE()
        @battle.pbDisplay(_INTL("{1} was unaffected!",opponent.pbThis))
       return -1
     end
@@ -9304,7 +9304,7 @@ class PokeBattle_Move_133 < PokeBattle_Move
   def pbEffect(attacker,opponent,hitnum=0,alltargets=nil,showanimation=true)
     if !@battle.doublebattle ||
        !attacker.pbPartner || attacker.pbPartner.isFainted?
-			pbSEPlay("protection")
+			pbPlayMissSE()
        @battle.pbDisplay(_INTL("But it failed!"))
       return -1
     end
@@ -9377,7 +9377,7 @@ class PokeBattle_Move_137 < PokeBattle_Move
       end
     end
     if !didsomething
-			pbSEPlay("protection")
+			pbPlayMissSE()
       @battle.pbDisplay(_INTL("But it failed!"))
       return -1
     end
@@ -9394,7 +9394,7 @@ class PokeBattle_Move_138 < PokeBattle_Move
   def pbEffect(attacker,opponent,hitnum=0,alltargets=nil,showanimation=true)
     if !@battle.doublebattle || !opponent ||
        !opponent.pbCanIncreaseStatStage?(PBStats::SPDEF,attacker,false,self)
-			pbSEPlay("protection")
+			pbPlayMissSE()
        @battle.pbDisplay(_INTL("But it failed!"))
       return -1
     end
@@ -9541,7 +9541,7 @@ class PokeBattle_Move_13E < PokeBattle_Move
       end
     end
     if !didsomething
-			pbSEPlay("protection")
+			pbPlayMissSE()
       @battle.pbDisplay(_INTL("But it failed!"))
       return -1
     end
@@ -9569,7 +9569,7 @@ class PokeBattle_Move_13F < PokeBattle_Move
       end
     end
     if !didsomething
-			pbSEPlay("protection")
+			pbPlayMissSE()
       @battle.pbDisplay(_INTL("But it failed!"))
       return -1
     end
@@ -9609,7 +9609,7 @@ class PokeBattle_Move_140 < PokeBattle_Move
       end
     end
     if !didsomething
-			pbSEPlay("protection")
+			pbPlayMissSE()
       @battle.pbDisplay(_INTL("But it failed!"))
       return -1
     end
@@ -9632,7 +9632,7 @@ class PokeBattle_Move_141 < PokeBattle_Move
       end
     end
     if !nonzero
-			pbSEPlay("protection")
+			pbPlayMissSE()
       @battle.pbDisplay(_INTL("But it failed!"))
       return -1
     end
@@ -9657,7 +9657,7 @@ class PokeBattle_Move_142 < PokeBattle_Move
        !hasConst?(PBTypes,:GHOST) || opponent.pbHasType?(:GHOST) ||
        isConst?(opponent.ability,PBAbilities,:MULTITYPE) ||
        isConst?(opponent.ability,PBAbilities,:RKSSYSTEM)
-        pbSEPlay("protection")
+        pbPlayMissSE()
        @battle.pbDisplay(_INTL("But it failed!"))  
       return -1
     end
@@ -9677,20 +9677,20 @@ end
 class PokeBattle_Move_143 < PokeBattle_Move
   def pbEffect(attacker,opponent,hitnum=0,alltargets=nil,showanimation=true)
     if opponent.effects[PBEffects::Substitute]>0 && !ignoresSubstitute?(attacker)
-			pbSEPlay("protection")
+			pbPlayMissSE()
       @battle.pbDisplay(_INTL("But it failed!"))  
       return -1
     end
     return -1 if pbTypeImmunityByAbility(pbType(@type,attacker,opponent),attacker,opponent)
     if opponent.effects[PBEffects::LeechSeed]>=0
-			pbSEPlay("protection")
+			pbPlayMissSE()
       @battle.pbDisplay(_INTL("{1} evaded the attack!",opponent.pbThis))
       return -1
     end
     if !hasConst?(PBTypes,:GRASS) || opponent.pbHasType?(:GRASS) ||
        isConst?(opponent.ability,PBAbilities,:MULTITYPE) ||
        isConst?(opponent.ability,PBAbilities,:RKSSYSTEM)
-			pbSEPlay("protection")
+			pbPlayMissSE()
       @battle.pbDisplay(_INTL("But it failed!"))  
       return -1
     end
@@ -9738,7 +9738,7 @@ class PokeBattle_Move_145 < PokeBattle_Move
   def pbEffect(attacker,opponent,hitnum=0,alltargets=nil,showanimation=true)
     return -1 if pbTypeImmunityByAbility(pbType(@type,attacker,opponent),attacker,opponent)
     if opponent.effects[PBEffects::Electrify]
-			pbSEPlay("protection")
+			pbPlayMissSE()
       @battle.pbDisplay(_INTL("But it failed!"))
       return -1
     end
@@ -9746,7 +9746,7 @@ class PokeBattle_Move_145 < PokeBattle_Move
        !@battle.choices[opponent.index][2] ||
        @battle.choices[opponent.index][2].id<=0 ||
        opponent.hasMovedThisRound?
-			pbSEPlay("protection")
+			pbPlayMissSE()
        @battle.pbDisplay(_INTL("But it failed!"))
       return -1
     end
@@ -9782,7 +9782,7 @@ class PokeBattle_Move_146 < PokeBattle_Move
       end
     end
     if !unmoved || @battle.field.effects[PBEffects::IonDeluge]
-			pbSEPlay("protection")
+			pbPlayMissSE()
       @battle.pbDisplay(_INTL("But it failed!"))
       return -1
     end
@@ -9813,7 +9813,7 @@ end
 class PokeBattle_Move_148 < PokeBattle_Move
   def pbEffect(attacker,opponent,hitnum=0,alltargets=nil,showanimation=true)
     if opponent.effects[PBEffects::Powder]
-			pbSEPlay("protection")
+			pbPlayMissSE()
       @battle.pbDisplay(_INTL("But it failed!"))
       return -1
     end
@@ -9850,7 +9850,7 @@ end
 class PokeBattle_Move_14A < PokeBattle_Move
   def pbEffect(attacker,opponent,hitnum=0,alltargets=nil,showanimation=true)
     if attacker.pbOwnSide.effects[PBEffects::CraftyShield]
-			pbSEPlay("protection")
+			pbPlayMissSE()
       @battle.pbDisplay(_INTL("But it failed!"))
       return -1
     end
@@ -9863,7 +9863,7 @@ class PokeBattle_Move_14A < PokeBattle_Move
       end
     end
     if !unmoved
-			pbSEPlay("protection")
+			pbPlayMissSE()
       @battle.pbDisplay(_INTL("But it failed!"))
       return -1
     end
@@ -9887,7 +9887,7 @@ end
 class PokeBattle_Move_14B < PokeBattle_Move
   def pbEffect(attacker,opponent,hitnum=0,alltargets=nil,showanimation=true)
     if attacker.effects[PBEffects::KingsShield]
-			pbSEPlay("protection")
+			pbPlayMissSE()
       @battle.pbDisplay(_INTL("But it failed!"))
       return -1
     end
@@ -9916,7 +9916,7 @@ class PokeBattle_Move_14B < PokeBattle_Move
     end
     if !unmoved
       attacker.effects[PBEffects::ProtectRate]=1
-			pbSEPlay("protection")
+			pbPlayMissSE()
       @battle.pbDisplay(_INTL("But it failed!"))
       return -1
     end
@@ -9937,7 +9937,7 @@ end
 class PokeBattle_Move_14C < PokeBattle_Move
   def pbEffect(attacker,opponent,hitnum=0,alltargets=nil,showanimation=true)
     if attacker.effects[PBEffects::SpikyShield]
-			pbSEPlay("protection")
+			pbPlayMissSE()
       @battle.pbDisplay(_INTL("But it failed!"))
       return -1
     end
@@ -9967,7 +9967,7 @@ class PokeBattle_Move_14C < PokeBattle_Move
     if !unmoved ||
        @battle.pbRandom(65536)>=(65536/attacker.effects[PBEffects::ProtectRate]).floor
       attacker.effects[PBEffects::ProtectRate]=1
-			pbSEPlay("protection")
+			pbPlayMissSE()
       @battle.pbDisplay(_INTL("But it failed!"))
       return -1
     end
@@ -10162,7 +10162,7 @@ end
 class PokeBattle_Move_152 < PokeBattle_Move
   def pbEffect(attacker,opponent,hitnum=0,alltargets=nil,showanimation=true)
     if @battle.field.effects[PBEffects::FairyLock]>0
-			pbSEPlay("protection")
+			pbPlayMissSE()
       @battle.pbDisplay(_INTL("But it failed!"))
       return -1
     end
@@ -10181,7 +10181,7 @@ end
 class PokeBattle_Move_153 < PokeBattle_Move
   def pbEffect(attacker,opponent,hitnum=0,alltargets=nil,showanimation=true)
     if attacker.pbOpposingSide.effects[PBEffects::StickyWeb]
-			pbSEPlay("protection")
+			pbPlayMissSE()
       @battle.pbDisplay(_INTL("But it failed!"))
       return -1
     end
@@ -10206,7 +10206,7 @@ end
 class PokeBattle_Move_154 < PokeBattle_Move
   def pbEffect(attacker,opponent,hitnum=0,alltargets=nil,showanimation=true)
     if @battle.pbTerrain==PBBattleTerrains::ELECTRIC
-			pbSEPlay("protection")
+			pbPlayMissSE()
       @battle.pbDisplay(_INTL("But it failed!"))
       return -1
     end
@@ -10230,7 +10230,7 @@ end
 class PokeBattle_Move_155 < PokeBattle_Move
   def pbEffect(attacker,opponent,hitnum=0,alltargets=nil,showanimation=true)
     if @battle.pbTerrain==PBBattleTerrains::GRASSY
-			pbSEPlay("protection")
+			pbPlayMissSE()
       @battle.pbDisplay(_INTL("But it failed!"))
       return -1
     end
@@ -10254,7 +10254,7 @@ end
 class PokeBattle_Move_156 < PokeBattle_Move
   def pbEffect(attacker,opponent,hitnum=0,alltargets=nil,showanimation=true)
     if @battle.pbTerrain==PBBattleTerrains::MISTY
-			pbSEPlay("protection")
+			pbPlayMissSE()
       @battle.pbDisplay(_INTL("But it failed!"))
       return -1
     end
@@ -10276,7 +10276,7 @@ end
 class PokeBattle_Move_157 < PokeBattle_Move
   def pbEffect(attacker,opponent,hitnum=0,alltargets=nil,showanimation=true)
     if @battle.pbIsOpposing?(attacker.index) || @battle.doublemoney
-			pbSEPlay("protection")
+			pbPlayMissSE()
       @battle.pbDisplay(_INTL("But it failed!"))
       return -1
     end
@@ -10358,14 +10358,14 @@ end
 class PokeBattle_Move_160 < PokeBattle_Move
   def pbEffect(attacker,opponent,hitnum=0,alltargets=nil,showanimation=true)
     if opponent.effects[PBEffects::Substitute]>0 && !ignoresSubstitute?(attacker)
-			pbSEPlay("protection")
+			pbPlayMissSE()
       @battle.pbDisplay(_INTL("But it failed!"))  
       return -1
     end
     return -1 if pbTypeImmunityByAbility(pbType(@type,attacker,opponent),attacker,opponent)
     if isConst?(opponent.ability,PBAbilities,:MULTITYPE) ||
        isConst?(opponent.ability,PBAbilities,:RKSSYSTEM)
-			pbSEPlay("protection")
+			pbPlayMissSE()
       @battle.pbDisplay(_INTL("But it failed!"))
       return -1
     end
@@ -10374,7 +10374,7 @@ class PokeBattle_Move_160 < PokeBattle_Move
        opponent.type2==getConst(PBTypes,:NORMAL) &&
        (opponent.effects[PBEffects::Type3]<0 ||
        opponent.effects[PBEffects::Type3]==getConst(PBTypes,:NORMAL))
-			pbSEPlay("protection")
+			pbPlayMissSE()
        @battle.pbDisplay(_INTL("But it failed!"))
       return -1
     end
@@ -10394,14 +10394,14 @@ end
 class PokeBattle_Move_161 < PokeBattle_Move
   def pbEffect(attacker,opponent,hitnum=0,alltargets=nil,showanimation=true)
     if opponent.effects[PBEffects::Substitute]>0 && !ignoresSubstitute?(attacker)
-			pbSEPlay("protection")
+			pbPlayMissSE()
       @battle.pbDisplay(_INTL("But it failed!"))  
       return -1
     end
     return -1 if pbTypeImmunityByAbility(pbType(@type,attacker,opponent),attacker,opponent)
     if isConst?(opponent.ability,PBAbilities,:MULTITYPE) ||
        isConst?(opponent.ability,PBAbilities,:RKSSYSTEM)
-			pbSEPlay("protection")
+			pbPlayMissSE()
       @battle.pbDisplay(_INTL("But it failed!"))
       return -1
     end
@@ -10410,7 +10410,7 @@ class PokeBattle_Move_161 < PokeBattle_Move
        opponent.type2==getConst(PBTypes,:JELLY) &&
        (opponent.effects[PBEffects::Type3]<0 ||
        opponent.effects[PBEffects::Type3]==getConst(PBTypes,:JELLY))
-			pbSEPlay("protection")
+			pbPlayMissSE()
        @battle.pbDisplay(_INTL("But it failed!"))
       return -1
     end
@@ -10434,7 +10434,7 @@ end
 class PokeBattle_Move_163 < PokeBattle_Move
   def pbEffect(attacker,opponent,hitnum=0,alltargets=nil,showanimation=true)
     if opponent.effects[PBEffects::Substitute]>0 && !ignoresSubstitute?(attacker)
-			pbSEPlay("protection")
+			pbPlayMissSE()
       @battle.pbDisplay(_INTL("But it failed!"))
       return -1
     end
@@ -10470,7 +10470,7 @@ class PokeBattle_Move_164 < PokeBattle_Move
       end
     end
     if !unmoved || @battle.field.effects[PBEffects::MagicStorm]
-			pbSEPlay("protection")
+			pbPlayMissSE()
       @battle.pbDisplay(_INTL("But it failed!"))
       return -1
     end
@@ -10513,7 +10513,7 @@ class PokeBattle_Move_166 < PokeBattle_Move
        !hasConst?(PBTypes,:SHARPENER) || opponent.pbHasType?(:SHARPENER) ||
        isConst?(opponent.ability,PBAbilities,:MULTITYPE) ||
        isConst?(opponent.ability,PBAbilities,:RKSSYSTEM)
-			pbSEPlay("protection")
+			pbPlayMissSE()
        @battle.pbDisplay(_INTL("But it failed!"))  
       return -1
     end
@@ -10535,7 +10535,7 @@ class PokeBattle_Move_167 < PokeBattle_Move
        !hasConst?(PBTypes,:MAGIC) || opponent.pbHasType?(:MAGIC) ||
        isConst?(opponent.ability,PBAbilities,:MULTITYPE) ||
        isConst?(opponent.ability,PBAbilities,:RKSSYSTEM)
-			pbSEPlay("protection")
+			pbPlayMissSE()
        @battle.pbDisplay(_INTL("But it failed!"))  
       return -1
     end
@@ -10556,7 +10556,7 @@ class PokeBattle_Move_168 < PokeBattle_Move
        !hasConst?(PBTypes,:LAVA) || opponent.pbHasType?(:LAVA) ||
        isConst?(opponent.ability,PBAbilities,:MULTITYPE) ||
        isConst?(opponent.ability,PBAbilities,:RKSSYSTEM)
-			pbSEPlay("protection")
+			pbPlayMissSE()
        @battle.pbDisplay(_INTL("But it failed!"))  
       return -1
     end
@@ -10681,7 +10681,7 @@ class PokeBattle_Move_171 < PokeBattle_Move
   def pbEffect(attacker,opponent,hitnum=0,alltargets=nil,showanimation=true)
     if !attacker.pbCanIncreaseStatStage?(PBStats::EVASION,attacker,false,self) &&
        !attacker.pbCanReduceStatStage?(PBStats::DEFENSE,attacker,false,self)
-			pbSEPlay("protection")
+			pbPlayMissSE()
        @battle.pbDisplay(_INTL("{1}'s stats won't go any higher or lower!",attacker.pbThis))
       return -1
     end
@@ -10711,7 +10711,7 @@ class PokeBattle_Move_172 < PokeBattle_Move
     if isConst?(attacker.species,PBSpecies,:KOULUNDIN)
       return true
     else
-      pbSEPlay("protection")
+      pbPlayMissSE()
       @battle.pbDisplay(_INTL("When this Pokémon started to use this move, it failed!"))
       return false
     end
@@ -10739,7 +10739,7 @@ class PokeBattle_Move_173 < PokeBattle_Move
   def pbEffect(attacker,opponent,hitnum=0,alltargets=nil,showanimation=true)
     if !attacker.pbCanIncreaseStatStage?(PBStats::DEFENSE,attacker,false,self) &&
        !attacker.pbCanReduceStatStage?(PBStats::EVASION,attacker,false,self)
-			pbSEPlay("protection")
+			pbPlayMissSE()
        @battle.pbDisplay(_INTL("{1}'s stats won't go any higher or lower!",attacker.pbThis))
       return -1
     end
@@ -10794,18 +10794,18 @@ class PokeBattle_Move_175 < PokeBattle_Move
        (!attacker.hasMoldBreaker(opponent) && opponent.hasWorkingAbility(:OBLIVIOUS)) || 
         opponent.pbHasType?(:HERB) || opponent.pbHasType?(:MIND) || 
         opponent.pbHasType?(:GLIMSE)
-        pbSEPlay("protection")
+        pbPlayMissSE()
        @battle.pbDisplay(_INTL("But it failed!"))
       return -1
     end
     if !attacker.hasMoldBreaker(opponent)
       if opponent.hasWorkingAbility(:AROMAVEIL)
-        pbSEPlay("protection")
+        pbPlayMissSE()
         @battle.pbDisplay(_INTL("But it failed because of {1}'s {2}!",
            opponent.pbThis,PBAbilities.getName(opponent.ability)))
         return -1
       elsif opponent.pbPartner.hasWorkingAbility(:AROMAVEIL)
-			pbSEPlay("protection")
+			pbPlayMissSE()
         @battle.pbDisplay(_INTL("But it failed because of {1}'s {2}!",
            opponent.pbPartner.pbThis,PBAbilities.getName(opponent.pbPartner.ability)))
         return -1
@@ -10824,14 +10824,14 @@ end
 class PokeBattle_Move_176 < PokeBattle_Move
   def pbEffect(attacker,opponent,hitnum=0,alltargets=nil,showanimation=true)
     if opponent.effects[PBEffects::Substitute]>0 && !ignoresSubstitute?(attacker)
-			pbSEPlay("protection")
+			pbPlayMissSE()
       @battle.pbDisplay(_INTL("But it failed!"))  
       return -1
     end
     return -1 if pbTypeImmunityByAbility(pbType(@type,attacker,opponent),attacker,opponent)
     if isConst?(opponent.ability,PBAbilities,:MULTITYPE) ||
        isConst?(opponent.ability,PBAbilities,:RKSSYSTEM)
-			pbSEPlay("protection")
+			pbPlayMissSE()
       @battle.pbDisplay(_INTL("But it failed!"))
       return -1
     end
@@ -10840,7 +10840,7 @@ class PokeBattle_Move_176 < PokeBattle_Move
        opponent.type2==getConst(PBTypes,:CHLOROPHYLL) &&
        (opponent.effects[PBEffects::Type3]<0 ||
        opponent.effects[PBEffects::Type3]==getConst(PBTypes,:CHLOROPHYLL))
-			pbSEPlay("protection")
+			pbPlayMissSE()
        @battle.pbDisplay(_INTL("But it failed!"))
       return -1
     end
@@ -10863,7 +10863,7 @@ class PokeBattle_Move_177 < PokeBattle_Move
     if attacker.index!=opponent.index 
       if (opponent.effects[PBEffects::Substitute]>0 && !ignoresSubstitute?(attacker)) ||
          opponent.pbOwnSide.effects[PBEffects::CraftyShield]
-			pbSEPlay("protection")
+			pbPlayMissSE()
          @battle.pbDisplay(_INTL("But it failed!"))
         return -1
       end
@@ -10976,7 +10976,7 @@ end
 class PokeBattle_Move_181 < PokeBattle_Move
   def pbEffect(attacker,opponent,hitnum=0,alltargets=nil,showanimation=true)
     if opponent.effects[PBEffects::Substitute]>0 && !ignoresSubstitute?(attacker)
-			pbSEPlay("protection")
+			pbPlayMissSE()
       @battle.pbDisplay(_INTL("But it failed!"))
       return -1
     end
@@ -11015,7 +11015,7 @@ class PokeBattle_Move_182< PokeBattle_Move
     if attacker.index!=opponent.index 
       if (opponent.effects[PBEffects::Substitute]>0 && !ignoresSubstitute?(attacker)) ||
          opponent.pbOwnSide.effects[PBEffects::CraftyShield]
-			pbSEPlay("protection")
+			pbPlayMissSE()
          @battle.pbDisplay(_INTL("But it failed!"))
         return -1
       end
@@ -11045,7 +11045,7 @@ class PokeBattle_Move_183 < PokeBattle_Move
     if attacker.index!=opponent.index 
       if (opponent.effects[PBEffects::Substitute]>0 && !ignoresSubstitute?(attacker)) ||
          opponent.pbOwnSide.effects[PBEffects::CraftyShield]
-			pbSEPlay("protection")
+			pbPlayMissSE()
          @battle.pbDisplay(_INTL("But it failed!"))
         return -1
       end
@@ -11073,18 +11073,18 @@ end
 class PokeBattle_Move_184 < PokeBattle_Move
   def pbEffect(attacker,opponent,hitnum=0,alltargets=nil,showanimation=true)
     if opponent.effects[PBEffects::Substitute]>0 && !ignoresSubstitute?(attacker)
-			pbSEPlay("protection")
+			pbPlayMissSE()
       @battle.pbDisplay(_INTL("But it failed!"))  
       return -1
     end
     return -1 if pbTypeImmunityByAbility(pbType(@type,attacker,opponent),attacker,opponent)
     if  @battle.pbCheckGlobalAbility(:FERFATINA)
-      pbSEPlay("protection")
+      pbPlayMissSE()
       @battle.pbDisplay(_INTL("But it failed!"))
       return -1
     end
     if opponent.hasUnstoppableAbility(attacker,[:TRUANT],[:FERFATINA])
-       pbSEPlay("protection")
+       pbPlayMissSE()
        @battle.pbDisplay(_INTL("But it failed!"))
       return -1
     end
@@ -11356,7 +11356,7 @@ class PokeBattle_Move_192 < PokeBattle_Move
   def pbEffect(attacker,opponent,hitnum=0,alltargets=nil,showanimation=true)
     if !@battle.doublebattle || !opponent ||
        !opponent.pbCanIncreaseStatStage?(PBStats::SPATK,attacker,false,self)
-			pbSEPlay("protection")
+			pbPlayMissSE()
        @battle.pbDisplay(_INTL("But it failed!"))
       return -1
     end
@@ -11378,7 +11378,7 @@ class PokeBattle_Move_193 < PokeBattle_Move
     return -1 if !opponent.pbCanReduceStatStage?(PBStats::SPDEF,attacker,true,self)
     if attacker.gender==2 || opponent.gender==2 || attacker.gender==opponent.gender ||
     (opponent.pbHasType?(:SHARPENER) && !attacker.hasWorkingAbility(:ANTISHARPNESS))
-			pbSEPlay("protection")
+			pbPlayMissSE()
       @battle.pbDisplay(_INTL("But it failed!"))
       return -1
     end
@@ -11448,13 +11448,13 @@ class PokeBattle_Move_194 < PokeBattle_Move
     end
     if opponent.effects[PBEffects::MeanLook]>=0 ||
        (opponent.effects[PBEffects::Substitute]>0 && !ignoresSubstitute?(attacker))
-        pbSEPlay("protection")
+        pbPlayMissSE()
        @battle.pbDisplay(_INTL("But it failed!"))
       return -1
     end
     if (opponent.pbHasType?(:GHOST) || opponent.pbHasType?(:DOOM) || 
         opponent.pbHasType?(:SUN) || opponent.pbHasType?(:MOON))
-			pbSEPlay("protection")
+			pbPlayMissSE()
       @battle.pbDisplay(_INTL("It doesn't affect {1}...",opponent.pbThis(true)))
       return -1
     end
@@ -11479,7 +11479,7 @@ class PokeBattle_Move_195 < PokeBattle_Move
     if isConst?(attacker.species,PBSpecies,:KOULUNDIN)
       return true
     else
-      pbSEPlay("protection")
+      pbPlayMissSE()
       @battle.pbDisplay(_INTL("When this Pokémon started to use this move, it failed!"))
       return false
     end
@@ -11524,7 +11524,7 @@ class PokeBattle_Move_196 < PokeBattle_Move
       return false unless $dbattle
       return true
     else
-      pbSEPlay("protection")
+      pbPlayMissSE()
       @battle.pbDisplay(_INTL("When this Pokémon started to use this move, it failed!"))
       return false
     end
@@ -11564,7 +11564,7 @@ class PokeBattle_Move_197 < PokeBattle_Move
     if isConst?(attacker.species,PBSpecies,:KOULUNDIN)
       return true
     else
-      pbSEPlay("protection")
+      pbPlayMissSE()
       @battle.pbDisplay(_INTL("When this Pokémon started to use this move, it failed!"))
       return false
     end
@@ -11599,7 +11599,7 @@ class PokeBattle_Move_198 < PokeBattle_Move
 
   def pbEffect(attacker,opponent,hitnum=0,alltargets=nil,showanimation=true)
     if attacker.hp==attacker.totalhp
-			pbSEPlay("protection")
+			pbPlayMissSE()
       @battle.pbDisplay(_INTL("{1}'s HP is full!",attacker.pbThis))
       return -1
     end
@@ -11639,12 +11639,12 @@ class PokeBattle_Move_199 < PokeBattle_Move
   def pbEffect(attacker,opponent,hitnum=0,alltargets=nil,showanimation=true)
     type=@type
     if !(attacker.pbHasType?(:FIRE) || attacker.pbHasType?(:LAVA))
-      pbSEPlay("protection")
+      pbPlayMissSE()
       @battle.pbDisplay(_INTL("But it failed!"))
       return -1
     end
     if !(type==getConst(PBTypes,:FIRE) || type==getConst(PBTypes,:LAVA))
-        pbSEPlay("protection")
+        pbPlayMissSE()
       @battle.pbDisplay(_INTL("But it failed!"))
       return -1
     end
@@ -11710,7 +11710,7 @@ class PokeBattle_Move_200 < PokeBattle_Move
       @battle.pbCommonAnimation("Joicon",attacker,nil)
       return true
     else
-      pbSEPlay("protection")
+      pbPlayMissSE()
       @battle.pbDisplay(_INTL("When this Pokémon started to use this move, it failed!"))
       return false
     end
@@ -11804,17 +11804,17 @@ end
 class PokeBattle_Move_202 < PokeBattle_Move
   def pbAccuracyCheck(attacker,opponent)
     if !attacker.hasMoldBreaker(opponent) && opponent.hasWorkingAbility(:STURDY)
-			pbSEPlay("protection")
+			pbPlayMissSE()
       @battle.pbDisplay(_INTL("{1} was protected by {2}!",opponent.pbThis,PBAbilities.getName(opponent.ability)))  
       return false
     end
     if opponent.pbHasType?(:MIND) || opponent.pbHasType?(:ICE)
-      pbSEPlay("protection")
+      pbPlayMissSE()
       @battle.pbDisplay(_INTL("It doesn't affect {1}...",opponent.pbThis(true)))
       return false
     end
     if opponent.level>attacker.level
-			pbSEPlay("protection")
+			pbPlayMissSE()
       @battle.pbDisplay(_INTL("{1} is unaffected!",opponent.pbThis))
       return false
     end
@@ -11911,12 +11911,12 @@ class PokeBattle_Move_204 < PokeBattle_Move
   def pbEffect(attacker,opponent,hitnum=0,alltargets=nil,showanimation=true)
     type=@type
     if !(attacker.pbHasType?(:GUST) || attacker.pbHasType?(:FLYING))
-      pbSEPlay("protection")
+      pbPlayMissSE()
       @battle.pbDisplay(_INTL("But it failed!"))
       return -1
     end
     if !(type==getConst(PBTypes,:GUST) || type==getConst(PBTypes,:FLYING))
-        pbSEPlay("protection")
+        pbPlayMissSE()
       @battle.pbDisplay(_INTL("But it failed!"))
       return -1
     end
@@ -12023,7 +12023,7 @@ class PokeBattle_Move_206 < PokeBattle_Move
   def pbEffect(attacker,opponent,hitnum=0,alltargets=nil,showanimation=true)
     if opponent.pbOwnSide.effects[PBEffects::CraftyShield] || 
        opponent.pbHasType?(:BLIZZARD)
-			pbSEPlay("protection")
+			pbPlayMissSE()
       @battle.pbDisplay(_INTL("But it failed!"))
       return -1
     end
@@ -12031,7 +12031,7 @@ class PokeBattle_Move_206 < PokeBattle_Move
        attacker.ability==opponent.ability ||
        attacker.hasUnstoppableAbility(nil) ||
        opponent.hasUngainableAbility(attacker,[:POWEROFALCHEMY, :RECEIVER, :TRACE, :WONDERGUARD])
-       pbSEPlay("protection")
+       pbPlayMissSE()
        @battle.pbDisplay(_INTL("But it failed!"))
       return -1
     end
@@ -12237,7 +12237,7 @@ end
 class PokeBattle_Move_241 < PokeBattle_Move
   def pbEffect(attacker,opponent,hitnum=0,alltargets=nil,showanimation=true)
     if @battle.pbTerrain==PBBattleTerrains::CINAMENT
-			pbSEPlay("protection")
+			pbPlayMissSE()
       @battle.pbDisplay(_INTL("But it failed!"))
       return -1
     end
@@ -12471,14 +12471,14 @@ class PokeBattle_Move_247 < PokeBattle_Move
   def pbEffect(attacker,opponent,hitnum=0,alltargets=nil,showanimation=true)
     if opponent.effects[PBEffects::Substitute]>0 && !ignoresSubstitute?(attacker) ||
       opponent.pbHasType?(:DOOM)
-			pbSEPlay("protection")
+			pbPlayMissSE()
       @battle.pbDisplay(_INTL("But it failed!"))  
       return -1
     end
     return -1 if pbTypeImmunityByAbility(pbType(@type,attacker,opponent),attacker,opponent)
     if isConst?(opponent.ability,PBAbilities,:MULTITYPE) ||
        isConst?(opponent.ability,PBAbilities,:RKSSYSTEM)
-			pbSEPlay("protection")
+			pbPlayMissSE()
       @battle.pbDisplay(_INTL("But it failed!"))
       return -1
     end
@@ -12517,7 +12517,7 @@ class PokeBattle_Move_247 < PokeBattle_Move
        opponent.type2==getConst(PBTypes,:DOOM) &&
        (opponent.effects[PBEffects::Type3]<0 ||
        opponent.effects[PBEffects::Type3]==getConst(PBTypes,:DOOM))
-			pbSEPlay("protection")
+			pbPlayMissSE()
        @battle.pbDisplay(_INTL("But it failed!"))
       return -1
     end
@@ -12539,7 +12539,7 @@ class PokeBattle_Move_248 < PokeBattle_Move
   def pbEffect(attacker,opponent,hitnum=0,alltargets=nil,showanimation=true)
     if isConst?(opponent.ability,PBAbilities,:MULTITYPE) ||
        isConst?(opponent.ability,PBAbilities,:RKSSYSTEM)
-			pbSEPlay("protection")
+			pbPlayMissSE()
       @battle.pbDisplay(_INTL("But it failed!"))
       return -1
     end
@@ -12549,7 +12549,7 @@ class PokeBattle_Move_248 < PokeBattle_Move
        opponent.pbHasType?(attacker.type1) &&
        opponent.pbHasType?(attacker.type2) &&
        opponent.pbHasType?(attacker.effects[PBEffects::Type3])
- 			pbSEPlay("protection")
+ 			pbPlayMissSE()
        @battle.pbDisplay(_INTL("But it failed!"))
       return -1
     end
@@ -12570,7 +12570,7 @@ class PokeBattle_Move_249 < PokeBattle_Move
   def pbEffect(attacker,opponent,hitnum=0,alltargets=nil,showanimation=true)
     if isConst?(opponent.ability,PBAbilities,:MULTITYPE) ||
        isConst?(opponent.ability,PBAbilities,:RKSSYSTEM)
-			pbSEPlay("protection")
+			pbPlayMissSE()
       @battle.pbDisplay(_INTL("But it failed!"))
       return -1
     end
@@ -12611,7 +12611,7 @@ class PokeBattle_Move_249 < PokeBattle_Move
       type=getConst(PBTypes,:HEART) if hasConst?(PBTypes,:HEART)
     end
     if opponent.pbHasType?(type)
-			pbSEPlay("protection")
+			pbPlayMissSE()
       @battle.pbDisplay(_INTL("But it failed!"))
       return -1  
     end
@@ -12634,7 +12634,7 @@ end
 class PokeBattle_Move_250 < PokeBattle_Move
   def pbEffect(attacker,opponent,hitnum=0,alltargets=nil,showanimation=true)
     if @battle.pbTerrain==PBBattleTerrains::VOLCANIC
-			pbSEPlay("protection")
+			pbPlayMissSE()
       @battle.pbDisplay(_INTL("But it failed!"))
       return -1
     end
@@ -12693,17 +12693,17 @@ end
 class PokeBattle_Move_252 < PokeBattle_Move
   def pbAccuracyCheck(attacker,opponent)
     if !attacker.hasMoldBreaker(opponent) && opponent.hasWorkingAbility(:STURDY)
-			pbSEPlay("protection")
+			pbPlayMissSE()
       @battle.pbDisplay(_INTL("{1} was protected by {2}!",opponent.pbThis,PBAbilities.getName(opponent.ability)))  
       return false
     end
     if opponent.pbHasType?(:MIND) || opponent.pbHasType?(:MAGIC)
-      pbSEPlay("protection")
+      pbPlayMissSE()
       @battle.pbDisplay(_INTL("It doesn't affect {1}...",opponent.pbThis(true)))
       return false
     end
     if opponent.level>attacker.level
-			pbSEPlay("protection")
+			pbPlayMissSE()
       @battle.pbDisplay(_INTL("{1} is unaffected!",opponent.pbThis))
       return false
     end
@@ -12749,7 +12749,7 @@ class PokeBattle_Move_253 < PokeBattle_Move
       end
     end
     if !didsomething
-			pbSEPlay("protection")
+			pbPlayMissSE()
       @battle.pbDisplay(_INTL("But it failed!"))
       return -1
     end
@@ -12789,7 +12789,7 @@ class PokeBattle_Move_274 < PokeBattle_Move
     if opponent.effects[PBEffects::Substitute]>0 && !ignoresSubstitute?(attacker) ||
       opponent.pbHasType?(:MOON) ||        
       isConst?(opponent.ability,PBAbilities,:MULTITYPE)
-			pbSEPlay("protection")
+			pbPlayMissSE()
       @battle.pbDisplay(_INTL("But it failed!"))  
       return -1
     end
@@ -12828,14 +12828,14 @@ end
 class PokeBattle_Move_275 < PokeBattle_Move
   def pbEffect(attacker,opponent,hitnum=0,alltargets=nil,showanimation=true)
     if opponent.effects[PBEffects::Substitute]>0 && !ignoresSubstitute?(attacker)
-			pbSEPlay("protection")
+			pbPlayMissSE()
       @battle.pbDisplay(_INTL("But it failed!"))  
       return -1
     end
     return -1 if pbTypeImmunityByAbility(pbType(@type,attacker,opponent),attacker,opponent)
     if isConst?(opponent.ability,PBAbilities,:MULTITYPE) ||
        isConst?(opponent.ability,PBAbilities,:RKSSYSTEM)
-			pbSEPlay("protection")
+			pbPlayMissSE()
       @battle.pbDisplay(_INTL("But it failed!"))
       return -1
     end
@@ -12844,7 +12844,7 @@ class PokeBattle_Move_275 < PokeBattle_Move
        opponent.type2==getConst(PBTypes,:ELECTRIC) &&
        (opponent.effects[PBEffects::Type3]<0 ||
        opponent.effects[PBEffects::Type3]==getConst(PBTypes,:ELECTRIC))
-			pbSEPlay("protection")
+			pbPlayMissSE()
        @battle.pbDisplay(_INTL("But it failed!"))
       return -1
     end
@@ -12867,7 +12867,7 @@ end
 class PokeBattle_Move_276 < PokeBattle_Move
   def pbEffect(attacker,opponent,hitnum=0,alltargets=nil,showanimation=true)
     if @battle.pbTerrain==PBBattleTerrains::LOVELY
-			pbSEPlay("protection")
+			pbPlayMissSE()
       @battle.pbDisplay(_INTL("But it failed!"))
       return -1
     end
@@ -12911,23 +12911,23 @@ class PokeBattle_Move_278 < PokeBattle_Move
     if (!attacker.hasMoldBreaker(opponent) && opponent.hasWorkingAbility(:STURDY) ||
         opponent.hasWorkingAbility(:HERBALILITY) || 
         opponent.hasWorkingAbility(:MASKEDHERB))
-			pbSEPlay("protection")
+			pbPlayMissSE()
       @battle.pbDisplay(_INTL("{1} was protected by {2}!",opponent.pbThis,PBAbilities.getName(opponent.ability)))  
       return false
     end
     if opponent.hasWorkingItem(:BOTANICSMOKE)
-			pbSEPlay("protection")
+			pbPlayMissSE()
       @battle.pbDisplay(_INTL("{1} was protected by its {2}!",opponent.pbThis,PBItems.getName(opponent.item)))  
       return false
     end
     if opponent.pbHasType?(:MIND) || opponent.pbHasType?(:HERB) || 
        opponent.pbHasType?(:GLIMSE)
-      pbSEPlay("protection")
+      pbPlayMissSE()
       @battle.pbDisplay(_INTL("It doesn't affect {1}...",opponent.pbThis(true)))
       return false
     end
     if opponent.level>attacker.level
-			pbSEPlay("protection")
+			pbPlayMissSE()
       @battle.pbDisplay(_INTL("{1} is unaffected!",opponent.pbThis))
       return false
     end
@@ -12964,7 +12964,7 @@ class PokeBattle_Move_279 < PokeBattle_Move
 
   def pbEffect(attacker,opponent,hitnum=0,alltargets=nil,showanimation=true)
     if attacker.hp==attacker.totalhp
-			pbSEPlay("protection")
+			pbPlayMissSE()
       @battle.pbDisplay(_INTL("{1}'s HP is full!",attacker.pbThis))
       return -1
     end
@@ -12988,12 +12988,12 @@ class PokeBattle_Move_281 < PokeBattle_Move
   def pbEffect(attacker,opponent,hitnum=0,alltargets=nil,showanimation=true)
     type=@type
     if !(attacker.pbHasType?(:GRASS) || attacker.pbHasType?(:CHLOROPHYLL))
-      pbSEPlay("protection")
+      pbPlayMissSE()
       @battle.pbDisplay(_INTL("But it failed!"))
       return -1
     end
     if !(type==getConst(PBTypes,:GRASS) || type==getConst(PBTypes,:CHLOROPHYLL))
-        pbSEPlay("protection")
+        pbPlayMissSE()
       @battle.pbDisplay(_INTL("But it failed!"))
       return -1
     end
@@ -13068,7 +13068,7 @@ class PokeBattle_Move_283 < PokeBattle_Move
     if opponent.effects[PBEffects::SilveryBliss] ||
        @battle.choices[opponent.index][0]!=1 || # Didn't choose a move
        opponent.hasMovedThisRound? # Used a move already
-      pbSEPlay("protection")
+      pbPlayMissSE()
       @battle.pbDisplay(_INTL("But it failed!"))
       return -1
     end
@@ -13119,7 +13119,7 @@ end
 class PokeBattle_Move_285 < PokeBattle_Move
   def pbEffect(attacker,opponent,hitnum=0,alltargets=nil,showanimation=true)
     if attacker.pbOwnSide.effects[PBEffects::Electromania]>0
-			pbSEPlay("protection")
+			pbPlayMissSE()
       @battle.pbDisplay(_INTL("But it failed!"))
       return -1
     end
@@ -13142,7 +13142,7 @@ class PokeBattle_Move_286 < PokeBattle_Move
   def pbEffect(attacker,opponent,hitnum=0,alltargets=nil,showanimation=true)
     if attacker.pbOwnSide.effects[PBEffects::Brainologic]>0 ||
       !@battle.doublebattle
-			pbSEPlay("protection")
+			pbPlayMissSE()
       @battle.pbDisplay(_INTL("But it failed!"))
       return -1
     end
@@ -13170,7 +13170,7 @@ class PokeBattle_Move_287 < PokeBattle_Move
        attacker.effects[PBEffects::MagicDelta] ||
        attacker.effects[PBEffects::SmackDown] ||
        attacker.effects[PBEffects::MagnetRise]>0
-			pbSEPlay("protection")
+			pbPlayMissSE()
       @battle.pbDisplay(_INTL("But it failed!"))
       return -1
     end
@@ -13196,7 +13196,7 @@ class PokeBattle_Move_288 < PokeBattle_Move
       end
     end
     if !unmoved || @battle.field.effects[PBEffects::Torchwood]
-			pbSEPlay("protection")
+			pbPlayMissSE()
       @battle.pbDisplay(_INTL("But it failed!"))
       return -1
     end
@@ -13214,7 +13214,7 @@ end
 class PokeBattle_Move_289 < PokeBattle_Move
   def pbEffect(attacker,opponent,hitnum=0,alltargets=nil,showanimation=true)
     if attacker.pbOwnSide.effects[PBEffects::Fierymania]>0
-			pbSEPlay("protection")
+			pbPlayMissSE()
       @battle.pbDisplay(_INTL("But it failed!"))
       return -1
     end
@@ -13237,7 +13237,7 @@ end
 class PokeBattle_Move_290 < PokeBattle_Move
   def pbEffect(attacker,opponent,hitnum=0,alltargets=nil,showanimation=true)
     if attacker.pbOwnSide.effects[PBEffects::ToxicSwamp]>0
-			pbSEPlay("protection")
+			pbPlayMissSE()
       @battle.pbDisplay(_INTL("But it failed!"))
       return -1
     end
@@ -13258,7 +13258,7 @@ end
 class PokeBattle_Move_291 < PokeBattle_Move
   def pbEffect(attacker,opponent,hitnum=0,alltargets=nil,showanimation=true)
     if opponent.pbOwnSide.effects[PBEffects::CraftyShield]
-			pbSEPlay("protection")
+			pbPlayMissSE()
       @battle.pbDisplay(_INTL("But it failed!"))
       return -1
     end
@@ -13280,7 +13280,7 @@ end
 class PokeBattle_Move_292 < PokeBattle_Move
   def pbEffect(attacker,opponent,hitnum=0,alltargets=nil,showanimation=true)
     if @battle.field.effects[PBEffects::GlimmyGalaxy]>0
-			pbSEPlay("protection")
+			pbPlayMissSE()
       @battle.pbDisplay(_INTL("But it failed!"))
       return -1
     end
@@ -13445,7 +13445,7 @@ class PokeBattle_Move_297 < PokeBattle_Move
       end
     end
     if !didsomething
-			pbSEPlay("protection")
+			pbPlayMissSE()
       @battle.pbDisplay(_INTL("But it failed!"))
       return -1
     end
@@ -13512,7 +13512,7 @@ class PokeBattle_Move_301 < PokeBattle_Move
 
   def pbEffect(attacker,opponent,hitnum=0,alltargets=nil,showanimation=true)
     if !@battle.pbCanChooseNonActive?(attacker.index) || attacker.hasWorkingAbility(:SIAXIS)
-			pbSEPlay("protection")
+			pbPlayMissSE()
       @battle.pbDisplay(_INTL("But it failed!"))
       return -1
     end
@@ -13659,7 +13659,7 @@ class PokeBattle_Move_323 < PokeBattle_Move
       end
     end
     if !didsomething
-			pbSEPlay("protection")
+			pbPlayMissSE()
       @battle.pbDisplay(_INTL("But it failed!"))
       return -1
     end
@@ -13689,7 +13689,7 @@ class PokeBattle_Move_324 < PokeBattle_Move
       end
     end
     if !didsomething
-			pbSEPlay("protection")
+			pbPlayMissSE()
       @battle.pbDisplay(_INTL("But it failed!"))
       return -1
     end
@@ -13725,7 +13725,7 @@ end
 class PokeBattle_Move_326 < PokeBattle_Move
   def pbEffect(attacker,opponent,hitnum=0,alltargets=nil,showanimation=true)
     if opponent.color != attacker.color
-        pbSEPlay("protection")
+        pbPlayMissSE()
        @battle.pbDisplay(_INTL("{1} was unaffected!",opponent.pbThis))
       return -1
     end
@@ -13750,13 +13750,13 @@ end
 class PokeBattle_Move_327 < PokeBattle_Move
   def pbEffect(attacker,opponent,hitnum=0,alltargets=nil,showanimation=true)
     if opponent.effects[PBEffects::Substitute]>0 && !ignoresSubstitute?(attacker)
-			pbSEPlay("protection")
+			pbPlayMissSE()
       @battle.pbDisplay(_INTL("But it failed!"))  
       return -1
     end
     return -1 if pbTypeImmunityByAbility(pbType(@type,attacker,opponent),attacker,opponent)
     if opponent.hasUnstoppableAbility(attacker,[:TRUANT],[:KLUTZ])
-       pbSEPlay("protection")
+       pbPlayMissSE()
        @battle.pbDisplay(_INTL("But it failed!"))
       return -1
     end
@@ -13856,7 +13856,7 @@ class PokeBattle_Move_335 < PokeBattle_Move
   def pbEffect(attacker,opponent,hitnum=0,alltargets=nil,showanimation=true)
     if attacker.pbOwnSide.effects[PBEffects::RevelationPowder]>0 ||
       !@battle.doublebattle
-			pbSEPlay("protection")
+			pbPlayMissSE()
       @battle.pbDisplay(_INTL("But it failed!"))
       return -1
     end
@@ -13985,7 +13985,7 @@ class PokeBattle_Move_339 < PokeBattle_Move
       end
     end
     if !didsomething
-			pbSEPlay("protection")
+			pbPlayMissSE()
       @battle.pbDisplay(_INTL("But it failed!"))
       return -1
     end
@@ -14037,12 +14037,12 @@ class PokeBattle_Move_343 < PokeBattle_Move
   def pbEffect(attacker,opponent,hitnum=0,alltargets=nil,showanimation=true)
     if opponent.effects[PBEffects::Substitute]>0 && !ignoresSubstitute?(attacker) || 
       isEternal?(opponent) || opponent.effects[PBEffects::NeutralTrap]>0
-			pbSEPlay("protection")
+			pbPlayMissSE()
       @battle.pbDisplay(_INTL("But it failed!"))  
       return -1
     end
     if opponent.hasUnstoppableAbility(attacker)
-			pbSEPlay("protection")
+			pbPlayMissSE()
        @battle.pbDisplay(_INTL("But it failed!"))
       return -1
     end
@@ -14150,7 +14150,7 @@ class PokeBattle_Move_351 < PokeBattle_Move
       end
     end
     if !unmoved || attacker.pbOwnSide.effects[PBEffects::Trampoline]
-			pbSEPlay("protection")
+			pbPlayMissSE()
       @battle.pbDisplay(_INTL("But it failed!"))
       return -1
     end
@@ -14181,14 +14181,14 @@ end
 class PokeBattle_Move_372 < PokeBattle_Move
   def pbEffect(attacker,opponent,hitnum=0,alltargets=nil,showanimation=true)
     if opponent.effects[PBEffects::Substitute]>0 && !ignoresSubstitute?(attacker)
-			pbSEPlay("protection")
+			pbPlayMissSE()
       @battle.pbDisplay(_INTL("But it failed!"))  
       return -1
     end
     return -1 if pbTypeImmunityByAbility(pbType(@type,attacker,opponent),attacker,opponent)
     if isConst?(opponent.ability,PBAbilities,:MULTITYPE) ||
        isConst?(opponent.ability,PBAbilities,:RKSSYSTEM)
-			pbSEPlay("protection")
+			pbPlayMissSE()
       @battle.pbDisplay(_INTL("But it failed!"))
       return -1
     end
@@ -14197,7 +14197,7 @@ class PokeBattle_Move_372 < PokeBattle_Move
        opponent.type2==attacker.favtype &&
        (opponent.effects[PBEffects::Type3]<0 ||
        opponent.effects[PBEffects::Type3]==attacker.favtype)
-			pbSEPlay("protection")
+			pbPlayMissSE()
        @battle.pbDisplay(_INTL("But it failed!"))
       return -1
     end
@@ -14279,7 +14279,7 @@ class PokeBattle_Move_207 < PokeBattle_Move
 
   def pbEffect(attacker,opponent,hitnum=0,alltargets=nil,showanimation=true)
     if attacker.hp==attacker.totalhp
-			pbSEPlay("protection")
+			pbPlayMissSE()
       @battle.pbDisplay(_INTL("{1}'s HP is full!",attacker.pbThis))
       return -1
     end
@@ -14318,7 +14318,7 @@ end
 class PokeBattle_Move_209 < PokeBattle_Move
   def pbEffect(attacker,opponent,hitnum=0,alltargets=nil,showanimation=true)
     if @battle.pbTerrain==PBBattleTerrains::PSYCHIC
-			pbSEPlay("protection")
+			pbPlayMissSE()
       @battle.pbDisplay(_INTL("But it failed!"))
       return -1
     end
@@ -14355,7 +14355,7 @@ end
 class PokeBattle_Move_211 < PokeBattle_Move
   def pbDisplayUseMessage(attacker)
     if !attacker.effects[PBEffects::ShellTrap]
-			pbSEPlay("protection")
+			pbPlayMissSE()
       @battle.pbDisplay(_INTL("{1}'s shell trap didn't work!",attacker.pbThis))
       return -1
     end
@@ -14418,14 +14418,14 @@ class PokeBattle_Move_212 < PokeBattle_Move
     ]
     for i in opponent.moves # if no pp left for move
       if i.id>0 && i.id==opponent.lastMoveUsed && i.pp==0
-        pbSEPlay("protection")
+        pbPlayMissSE()
         @battle.pbDisplay(_INTL("But it failed!"))
         return -1
       end
     end
     if opponent.lastMoveUsed<=0 ||
        blacklist.include?(PBMoveData.new(@battle.lastMoveUsed).function)
-       pbSEPlay("protection")
+       pbPlayMissSE()
        @battle.pbDisplay(_INTL("But it failed!"))
       return -1
     end
@@ -14433,7 +14433,7 @@ class PokeBattle_Move_212 < PokeBattle_Move
     if @battle.choices[opponent.index][0]==1 # Chose a move
       oppmove=@battle.choices[opponent.index][2]
       if oppmove.function==0x115 || oppmove.function==0x211 || oppmove.function==0x220
-        pbSEPlay("protection")
+        pbPlayMissSE()
         @battle.pbDisplay(_INTL("But it failed!"))
         return -1
       end
@@ -14484,12 +14484,12 @@ class PokeBattle_Move_214 < PokeBattle_Move
     if attacker.pbPartner!=nil && attacker.pbPartner==opponent
       if attacker.effects[PBEffects::HealBlock]>0 || opponent.effects[PBEffects::HealBlock]>0
         thismovename=PBMoves.getName(@id)
-        pbSEPlay("protection")
+        pbPlayMissSE()
         @battle.pbDisplay(_INTL("{1} can't use {2} because of Heal Block!",attacker.pbThis,thismovename))
         PBDebug.log("[Move failed] #{attacker.pbThis} can't use #{thismovename} because of Heal Block")
         return -1
       elsif opponent.hp==opponent.totalhp
-        pbSEPlay("protection")
+        pbPlayMissSE()
         @battle.pbDisplay(_INTL("{1}'s HP is full!",opponent.pbThis))  
         return -1
       else
@@ -14528,7 +14528,7 @@ class PokeBattle_Move_215 < PokeBattle_Move
       end
     end
     if !didsomething
-			pbSEPlay("protection")
+			pbPlayMissSE()
       @battle.pbDisplay(_INTL("But it failed!"))
       return -1
     end
@@ -14559,12 +14559,12 @@ class PokeBattle_Move_217 < PokeBattle_Move
   def pbEffect(attacker,opponent,hitnum=0,alltargets=nil,showanimation=true)
     type=@type
     if !attacker.pbHasType?(type)
-			pbSEPlay("protection")
+			pbPlayMissSE()
       @battle.pbDisplay(_INTL("But it failed!"))
       return -1
     end
     if type!=getConst(PBTypes,:FIRE)
-			pbSEPlay("protection")
+			pbPlayMissSE()
       @battle.pbDisplay(_INTL("But it failed!"))
       return -1
     end
@@ -14593,7 +14593,7 @@ class PokeBattle_Move_218 < PokeBattle_Move
   def pbEffect(attacker,opponent,hitnum=0,alltargets=nil,showanimation=true)
     if !opponent.pbCanReduceStatStage?(PBStats::SPEED,attacker,false,self) &&
        !opponent.pbCanPoison?(attacker,false,self)
-       pbSEPlay("protection")
+       pbPlayMissSE()
        @battle.pbDisplay(_INTL("But it failed!"))
       return -1
     end
@@ -14630,10 +14630,10 @@ class PokeBattle_Move_219 < PokeBattle_Move
     end
     if attacker.effects[PBEffects::HealBlock]>0
       thismovename=PBMoves.getName(@id)
-			pbSEPlay("protection")
+			pbPlayMissSE()
       @battle.pbDisplay(_INTL("{1} can't use {2} because of Heal Block!",attacker.pbThis,thismovename))
     elsif attacker.hp==attacker.totalhp
-			pbSEPlay("protection")
+			pbPlayMissSE()
       @battle.pbDisplay(_INTL("{1}'s HP is full!",attacker.pbThis))
     else
       attacker.pbRecoverHP(((attacker.totalhp+1)/2).floor,true)
@@ -14657,7 +14657,7 @@ end
 class PokeBattle_Move_221 < PokeBattle_Move
   def pbEffect(attacker,opponent,hitnum=0,alltargets=nil,showanimation=true)
     if attacker.effects[PBEffects::BanefulBunker]
-			pbSEPlay("protection")
+			pbPlayMissSE()
       @battle.pbDisplay(_INTL("But it failed!"))
       return -1
     end
@@ -14686,7 +14686,7 @@ class PokeBattle_Move_221 < PokeBattle_Move
     end
     if !unmoved
       attacker.effects[PBEffects::ProtectRate]=1
-			pbSEPlay("protection")
+			pbPlayMissSE()
       @battle.pbDisplay(_INTL("But it failed!"))
       return -1
     end
@@ -14771,7 +14771,7 @@ class PokeBattle_Move_225 < PokeBattle_Move
     if !attacker.hasMoldBreaker(nil)
       bearer=@battle.pbCheckGlobalAbility(:DAMP)
       if bearer!=nil
-        pbSEPlay("protection")
+        pbPlayMissSE()
         @battle.pbDisplay(_INTL("{1}'s {2} prevents {3} from using {4}!",
            bearer.pbThis,PBAbilities.getName(bearer.ability),attacker.pbThis(true),@name))
         return false
@@ -14845,7 +14845,7 @@ class PokeBattle_Move_228 < PokeBattle_Move
 
   def pbEffect(attacker,opponent,hitnum=0,alltargets=nil,showanimation=true)
     if opponent.pbTooLow?(PBStats::ATTACK)
-			pbSEPlay("protection")
+			pbPlayMissSE()
       @battle.pbDisplay(_INTL("But it failed!"))
       return -1
     end    
@@ -14864,7 +14864,7 @@ class PokeBattle_Move_228 < PokeBattle_Move
       @battle.pbDisplay(_INTL("{1} sucked up the liquid ooze!",attacker.pbThis))
       ret=0
     elsif attacker.hp==attacker.totalhp
-			pbSEPlay("protection")
+			pbPlayMissSE()
       @battle.pbDisplay(_INTL("{1}'s HP is full!",attacker.pbThis))
     elsif attacker.effects[PBEffects::HealBlock]==0
       hpgain=(hpgain*1.3).floor if attacker.hasWorkingItem(:BIGROOT)
@@ -14883,7 +14883,7 @@ end
 class PokeBattle_Move_229 < PokeBattle_Move
   def pbEffect(attacker,opponent,hitnum=0,alltargets=nil,showanimation=true)
     if !@battle.doublebattle
-			pbSEPlay("protection")
+			pbPlayMissSE()
       @battle.pbDisplay(_INTL("But it failed!"))
       return -1
     end
@@ -14943,7 +14943,7 @@ class PokeBattle_Move_232 < PokeBattle_Move
 
   def pbEffect(attacker,opponent,hitnum=0,alltargets=nil,showanimation=true)
     if attacker.hp==attacker.totalhp
-			pbSEPlay("protection")
+			pbPlayMissSE()
       @battle.pbDisplay(_INTL("{1}'s HP is full!",attacker.pbThis))
       return -1
     end
@@ -14967,12 +14967,12 @@ end
 class PokeBattle_Move_233 < PokeBattle_Move
   def pbEffect(attacker,opponent,hitnum=0,alltargets=nil,showanimation=true)
     if attacker.pbOwnSide.effects[PBEffects::AuroraVeil]>0
-			pbSEPlay("protection")
+			pbPlayMissSE()
       @battle.pbDisplay(_INTL("But it failed!"))
       return -1
     end
     if @battle.pbWeather!=PBWeather::HAIL
-			pbSEPlay("protection")
+			pbPlayMissSE()
       @battle.pbDisplay(_INTL("But it failed!"))
       return -1
     end
@@ -15008,7 +15008,7 @@ end
 class PokeBattle_Move_235 < PokeBattle_Move
   def pbEffect(attacker,opponent,hitnum=0,alltargets=nil,showanimation=true)
     if attacker.effects[PBEffects::LaserFocus]>0
-			pbSEPlay("protection")
+			pbPlayMissSE()
       @battle.pbDisplay(_INTL("But it failed!"))
       return -1
     else
@@ -15101,7 +15101,7 @@ class PokeBattle_Move_260 < PokeBattle_Move
     pbShowAnimation(@id,attacker,opponent,hitnum,alltargets,showanimation)
     ret=-1; showanim='mix' # Was true
     if attacker.effects[PBEffects::NoRetreat] && !attacker.effects[PBEffects::MeanLook]
-			pbSEPlay("protection")
+			pbPlayMissSE()
       @battle.pbDisplay(_INTL("But it failed!"))
       return -1
     end
@@ -15132,7 +15132,7 @@ class PokeBattle_Move_260 < PokeBattle_Move
     end
     attacker.effects[PBEffects::NoRetreat]=true
     if ret==-1
-			pbSEPlay("protection")
+			pbPlayMissSE()
       @battle.pbDisplay(_INTL("But it failed!"))
       return -1
     end
@@ -15162,13 +15162,13 @@ class PokeBattle_Move_261 < PokeBattle_Move
     end
     if opponent.effects[PBEffects::Octolock] ||
        (opponent.effects[PBEffects::Substitute]>0 && !ignoresSubstitute?(attacker))
-        pbSEPlay("protection")
+        pbPlayMissSE()
        @battle.pbDisplay(_INTL("But it failed!"))
       return -1
     end
     if (opponent.pbHasType?(:GHOST) || opponent.pbHasType?(:DOOM) || 
       opponent.pbHasType?(:SUN) || opponent.pbHasType?(:MOON))
-			pbSEPlay("protection")
+			pbPlayMissSE()
       @battle.pbDisplay(_INTL("It doesn't affect {1}...",opponent.pbThis(true)))
       return -1
     end
@@ -15187,7 +15187,7 @@ end
 class PokeBattle_Move_262 < PokeBattle_Move
   def pbEffect(attacker,opponent,hitnum=0,alltargets=nil,showanimation=true)
     if attacker.effects[PBEffects::Obstruct]
-			pbSEPlay("protection")
+			pbPlayMissSE()
       @battle.pbDisplay(_INTL("But it failed!"))
       return -1
     end
@@ -15217,7 +15217,7 @@ class PokeBattle_Move_262 < PokeBattle_Move
     if !unmoved ||
        @battle.pbRandom(65536)>=(65536/attacker.effects[PBEffects::ProtectRate]).floor
       attacker.effects[PBEffects::ProtectRate]=1
-			pbSEPlay("protection")
+			pbPlayMissSE()
       @battle.pbDisplay(_INTL("But it failed!"))
       return -1
     end
@@ -15284,14 +15284,14 @@ end
 class PokeBattle_Move_265 < PokeBattle_Move
   def pbEffect(attacker,opponent,hitnum=0,alltargets=nil,showanimation=true)
     if opponent.effects[PBEffects::Substitute]>0 && !ignoresSubstitute?(attacker)
-			pbSEPlay("protection")
+			pbPlayMissSE()
       @battle.pbDisplay(_INTL("But it failed!"))  
       return -1
     end
     return -1 if pbTypeImmunityByAbility(pbType(@type,attacker,opponent),attacker,opponent)
     if isConst?(opponent.ability,PBAbilities,:MULTITYPE)  ||
        isConst?(opponent.ability,PBAbilities,:RKSSYSTEM)
-			pbSEPlay("protection")
+			pbPlayMissSE()
       @battle.pbDisplay(_INTL("But it failed!"))
       return -1
     end
@@ -15300,7 +15300,7 @@ class PokeBattle_Move_265 < PokeBattle_Move
        opponent.type2==getConst(PBTypes,:PSYCHIC) &&
        (opponent.effects[PBEffects::Type3]<0 ||
        opponent.effects[PBEffects::Type3]==getConst(PBTypes,:PSYCHIC))
-			pbSEPlay("protection")
+			pbPlayMissSE()
        @battle.pbDisplay(_INTL("But it failed!"))
       return -1
     end
@@ -15336,13 +15336,13 @@ class PokeBattle_Move_266 < PokeBattle_Move
     end
     if opponent.effects[PBEffects::JawLock] ||
        (opponent.effects[PBEffects::Substitute]>0 && !ignoresSubstitute?(attacker))
-        pbSEPlay("protection")
+        pbPlayMissSE()
        @battle.pbDisplay(_INTL("But it failed!"))
       return -1
     end
     if (opponent.pbHasType?(:GHOST) || opponent.pbHasType?(:DOOM) || 
         opponent.pbHasType?(:SUN) || opponent.pbHasType?(:MOON))
-			pbSEPlay("protection")
+			pbPlayMissSE()
       @battle.pbDisplay(_INTL("It doesn't affect {1}...",opponent.pbThis(true)))
       return -1
     end
@@ -15405,7 +15405,7 @@ class PokeBattle_Move_270 < PokeBattle_Move
   def pbEffect(attacker,opponent,hitnum=0,alltargets=nil,showanimation=true)
     if attacker.hp==attacker.totalhp && 
        attacker.pbPartner.hp==attacker.pbPartner.totalhp
-			pbSEPlay("protection")
+			pbPlayMissSE()
       @battle.pbDisplay(_INTL("HP is full!",attacker.pbThis))
       return -1
     end
@@ -15434,7 +15434,7 @@ class PokeBattle_Move_271 < PokeBattle_Move
     ret=-1; showanim='mix' # Was true
       sublife=[(attacker.totalhp/6).floor,1].max
     if attacker.hp<=sublife
-			pbSEPlay("protection")
+			pbPlayMissSE()
       @battle.pbDisplay(_INTL("It was too weak to raise its stats!"))
       return -1  
     end
@@ -15465,7 +15465,7 @@ class PokeBattle_Move_271 < PokeBattle_Move
       ret=0
     end
     if ret==-1
-			pbSEPlay("protection")
+			pbPlayMissSE()
       @battle.pbDisplay(_INTL("But it failed!"))
       return -1
     end
@@ -15856,7 +15856,7 @@ class PokeBattle_Move_316 < PokeBattle_Move
        opponent.pbHasType?(:GAS) ||
        opponent.pokemon.corrosiveGas ||
        opponent.effects[PBEffects::Embargo]>0
-      pbSEPlay("protection")
+      pbPlayMissSE()
       @battle.pbDisplay(_INTL("But it failed!"))
       return -1
     else
@@ -15874,13 +15874,13 @@ end
 class PokeBattle_Move_317 < PokeBattle_Move
   def pbEffect(attacker,opponent,hitnum=0,alltargets=nil,showanimation=true)
     if !@battle.doublebattle || !opponent
-			pbSEPlay("protection")
+			pbPlayMissSE()
        @battle.pbDisplay(_INTL("But it failed!"))
       return -1
     end
     if !opponent.pbCanIncreaseStatStage?(PBStats::ATTACK,attacker,false,self) &&
        !opponent.pbCanIncreaseStatStage?(PBStats::DEFENSE,attacker,false,self)
-			pbSEPlay("protection")
+			pbPlayMissSE()
       @battle.pbDisplay(_INTL("{1}'s stats won't go any higher!",opponent.pbThis))
       return -1
     end
@@ -15911,7 +15911,7 @@ class PokeBattle_Move_318 < PokeBattle_Move
     if attacker.hp==attacker.totalhp && 
        attacker.pbPartner.hp==attacker.pbPartner.totalhp &&
        attacker.status==0 && attacker.pbPartner.status==0
-			pbSEPlay("protection")
+			pbPlayMissSE()
       @battle.pbDisplay(_INTL("But it failed!",attacker.pbThis))
       return -1
     end
@@ -16048,7 +16048,7 @@ class PokeBattle_Move_330 < PokeBattle_Move
        attacker.status!=PBStatuses::BURN &&
        attacker.status!=PBStatuses::POISON &&
        attacker.status!=PBStatuses::PARALYSIS
-			pbSEPlay("protection")
+			pbPlayMissSE()
       @battle.pbDisplay(_INTL("{1}'s HP is full!",attacker.pbThis))
       return -1
     end
@@ -16132,7 +16132,7 @@ end
 class PokeBattle_Move_354 < PokeBattle_Move
   def pbEffect(attacker,opponent,hitnum=0,alltargets=nil,showanimation=true)
     if attacker.effects[PBEffects::KingsShield]
-			pbSEPlay("protection")
+			pbPlayMissSE()
       @battle.pbDisplay(_INTL("But it failed!"))
       return -1
     end
@@ -16161,7 +16161,7 @@ class PokeBattle_Move_354 < PokeBattle_Move
     end
     if !unmoved
       attacker.effects[PBEffects::ProtectRate]=1
-			pbSEPlay("protection")
+			pbPlayMissSE()
       @battle.pbDisplay(_INTL("But it failed!"))
       return -1
     end
@@ -16207,7 +16207,7 @@ class PokeBattle_Move_357 < PokeBattle_Move
   def pbEffect(attacker,opponent,hitnum=0,alltargets=nil,showanimation=true)
     return super(attacker,opponent,hitnum,alltargets,showanimation) if pbIsDamaging?
     if !isConst?(attacker.pbPartner.species,PBSpecies,:TATSUGIRI)
-			pbSEPlay("protection") if !pbIsDamaging?
+			pbPlayMissSE() if !pbIsDamaging?
       @battle.pbDisplay(_INTL("But it failed!")) if !pbIsDamaging?
       return -1
     else
@@ -16237,7 +16237,7 @@ class PokeBattle_Move_358 < PokeBattle_Move
   def pbEffect(attacker,opponent,hitnum=0,alltargets=nil,showanimation=true)
     if !opponent.pbCanIncreaseStatStage?(PBStats::DEFENSE,attacker,false,self) &&
        !opponent.pbCanReduceStatStage?(PBStats::ATTACK,attacker,false,self)
-			pbSEPlay("protection")
+			pbPlayMissSE()
        @battle.pbDisplay(_INTL("{1}'s stats won't go any higher or lower!",attacker.pbThis))
       return -1
     end
@@ -16323,7 +16323,7 @@ end
 class PokeBattle_Move_362 < PokeBattle_Move
   def pbEffect(attacker,opponent,hitnum=0,alltargets=nil,showanimation=true)
     if @battle.pbAmountOfFaintedAllies(attacker.index)<1
-			pbSEPlay("protection")
+			pbPlayMissSE()
       @battle.pbDisplay(_INTL("But it failed!"))
       return -1
     end
@@ -16345,7 +16345,7 @@ end
 class PokeBattle_Move_363 < PokeBattle_Move
   def pbEffect(attacker,opponent,hitnum=0,alltargets=nil,showanimation=true)
     if opponent.pbOwnSide.effects[PBEffects::CraftyShield]
-			pbSEPlay("protection")
+			pbPlayMissSE()
       @battle.pbDisplay(_INTL("But it failed!"))
       return -1
     end
@@ -16381,7 +16381,7 @@ class PokeBattle_Move_363 < PokeBattle_Move
       end
     end
     if !didsomething
-			pbSEPlay("protection")
+			pbPlayMissSE()
       @battle.pbDisplay(_INTL("But it failed!"))
       return -1
     end
@@ -16399,7 +16399,7 @@ class PokeBattle_Move_364 < PokeBattle_Move
     ret=-1; showanim='mix' # Was true
       sublife=[(attacker.totalhp/2).floor,1].max
     if attacker.hp<=sublife
-			pbSEPlay("protection")
+			pbPlayMissSE()
       @battle.pbDisplay(_INTL("It was too weak to raise its stats!"))
       return -1  
     end
@@ -16420,7 +16420,7 @@ class PokeBattle_Move_364 < PokeBattle_Move
       ret=0
     end
     if ret==-1
-			pbSEPlay("protection")
+			pbPlayMissSE()
       @battle.pbDisplay(_INTL("But it failed!"))
       return -1
     end
@@ -16461,7 +16461,7 @@ class PokeBattle_Move_366 < PokeBattle_Move
          attacker.effects[PBEffects::ShedTail]=sublife2
         return 0
     else
-			pbSEPlay("protection")
+			pbPlayMissSE()
       @battle.pbDisplay(_INTL("But it failed!"))
       return -1
     end
@@ -16490,7 +16490,7 @@ class PokeBattle_Move_367 < PokeBattle_Move
          attacker.effects[PBEffects::Uturn]=true
         return 0
      else
-			pbSEPlay("protection")
+			pbPlayMissSE()
       @battle.pbDisplay(_INTL("But it failed!"))
       return -1
     end
@@ -16564,12 +16564,12 @@ class PokeBattle_Move_370 < PokeBattle_Move
   def pbEffect(attacker,opponent,hitnum=0,alltargets=nil,showanimation=true)
     type=@type
     if !(attacker.pbHasType?(:ELECTRIC) || attacker.pbHasType?(:BOLT))
-      pbSEPlay("protection")
+      pbPlayMissSE()
       @battle.pbDisplay(_INTL("But it failed!"))
       return -1
     end
     if !(type==getConst(PBTypes,:ELECTRIC) || type==getConst(PBTypes,:BOLT))
-        pbSEPlay("protection")
+        pbPlayMissSE()
       @battle.pbDisplay(_INTL("But it failed!"))
       return -1
     end
@@ -16784,7 +16784,7 @@ end
 class PokeBattle_Move_381 < PokeBattle_Move
   def pbEffect(attacker,opponent,hitnum=0,alltargets=nil,showanimation=true)
     if attacker.effects[PBEffects::BurningBulwark]
-			pbSEPlay("protection")
+			pbPlayMissSE()
       @battle.pbDisplay(_INTL("But it failed!"))
       return -1
     end
@@ -16813,7 +16813,7 @@ class PokeBattle_Move_381 < PokeBattle_Move
     end
     if !unmoved
       attacker.effects[PBEffects::ProtectRate]=1
-			pbSEPlay("protection")
+			pbPlayMissSE()
       @battle.pbDisplay(_INTL("But it failed!"))
       return -1
     end
@@ -16833,7 +16833,7 @@ class PokeBattle_Move_382 < PokeBattle_Move
   def pbEffect(attacker,opponent,hitnum=0,alltargets=nil,showanimation=true)
     return super(attacker,opponent,hitnum,alltargets,showanimation) if pbIsDamaging?
     if opponent.effects[PBEffects::DragonCheer]
-			pbSEPlay("protection")
+			pbPlayMissSE()
       @battle.pbDisplay(_INTL("But it failed!"))
       return -1
     end
@@ -16873,18 +16873,18 @@ class PokeBattle_Move_384 < PokeBattle_Move
     return super(attacker,opponent,hitnum,alltargets,showanimation) if pbIsDamaging?
     if opponent.effects[PBEffects::HealBlock]>0 || opponent.pbHasType?(:HERB) ||
       opponent.pbHasType?(:MIND) || opponent.pbHasType?(:GLIMSE)
-			pbSEPlay("protection")
+			pbPlayMissSE()
       @battle.pbDisplay(_INTL("But it failed!"))
       return -1
     end
     if !attacker.hasMoldBreaker(opponent)
       if opponent.hasWorkingAbility(:AROMAVEIL)
-			pbSEPlay("protection")
+			pbPlayMissSE()
         @battle.pbDisplay(_INTL("But it failed because of {1}'s {2}!",
            opponent.pbThis,PBAbilities.getName(opponent.ability)))
         return -1
       elsif opponent.pbPartner.hasWorkingAbility(:AROMAVEIL)
-        pbSEPlay("protection")
+        pbPlayMissSE()
         @battle.pbDisplay(_INTL("But it failed because of {1}'s {2}!",
            opponent.pbPartner.pbThis,PBAbilities.getName(opponent.pbPartner.ability)))
         return -1

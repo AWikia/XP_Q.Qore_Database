@@ -414,7 +414,7 @@ class PokeBattle_Move
       if opponent.pbCanIncreaseStatStage?(PBStats::ATTACK,opponent)
         opponent.pbIncreaseStatWithCause(PBStats::ATTACK,1,opponent,PBAbilities.getName(opponent.ability))
       else
-        pbSEPlay("protection")
+        pbPlayMissSE()
         @battle.pbDisplay(_INTL("{1}'s {2} made {3} ineffective!",
            opponent.pbThis,PBAbilities.getName(opponent.ability),self.name))
       end
@@ -425,7 +425,7 @@ class PokeBattle_Move
       if opponent.pbCanIncreaseStatStage?(PBStats::DEFENSE,opponent)
         opponent.pbIncreaseStatWithCause(PBStats::DEFENSE,2,opponent,PBAbilities.getName(opponent.ability))
       else
-        pbSEPlay("protection")
+        pbPlayMissSE()
         @battle.pbDisplay(_INTL("{1}'s {2} made {3} ineffective!",
            opponent.pbThis,PBAbilities.getName(opponent.ability),self.name))
       end
@@ -436,7 +436,7 @@ class PokeBattle_Move
       if opponent.pbCanIncreaseStatStage?(PBStats::ATTACK,opponent)
         opponent.pbIncreaseStatWithCause(PBStats::ATTACK,1,opponent,PBAbilities.getName(opponent.ability))
       else
-        pbSEPlay("protection")
+        pbPlayMissSE()
         @battle.pbDisplay(_INTL("{1}'s {2} made {3} ineffective!",
            opponent.pbThis,PBAbilities.getName(opponent.ability),self.name))
       end
@@ -448,7 +448,7 @@ class PokeBattle_Move
       if opponent.pbCanIncreaseStatStage?(PBStats::SPATK,opponent)
         opponent.pbIncreaseStatWithCause(PBStats::SPATK,1,opponent,PBAbilities.getName(opponent.ability))
       else
-        pbSEPlay("protection")
+        pbPlayMissSE()
         @battle.pbDisplay(_INTL("{1}'s {2} made {3} ineffective!",
            opponent.pbThis,PBAbilities.getName(opponent.ability),self.name))
       end
@@ -459,7 +459,7 @@ class PokeBattle_Move
       if opponent.pbCanIncreaseStatStage?(PBStats::SPEED,opponent)
         opponent.pbIncreaseStatWithCause(PBStats::SPEED,1,opponent,PBAbilities.getName(opponent.ability))
       else
-        pbSEPlay("protection")
+        pbPlayMissSE()
         @battle.pbDisplay(_INTL("{1}'s {2} made {3} ineffective!",
            opponent.pbThis,PBAbilities.getName(opponent.ability),self.name))
       end
@@ -477,7 +477,7 @@ class PokeBattle_Move
           @battle.pbDisplay(_INTL("{1}'s {2} restored its HP!",
              opponent.pbThis,PBAbilities.getName(opponent.ability)))
         else
-          pbSEPlay("protection")
+          pbPlayMissSE()
           @battle.pbDisplay(_INTL("{1}'s {2} made {3} useless!",
              opponent.pbThis,PBAbilities.getName(opponent.ability),@name))
         end
@@ -489,11 +489,11 @@ class PokeBattle_Move
       PBDebug.log("[Ability triggered] #{opponent.pbThis}'s Flash Fire (made #{@name} ineffective)")
       if !opponent.effects[PBEffects::FlashFire]
         opponent.effects[PBEffects::FlashFire]=true
-        pbSEPlay("protection")
+        pbPlayMissSE()
         @battle.pbDisplay(_INTL("{1}'s {2} raised its Fire power!",
            opponent.pbThis,PBAbilities.getName(opponent.ability)))
       else
-        pbSEPlay("protection")
+        pbPlayMissSE()
         @battle.pbDisplay(_INTL("{1}'s {2} made {3} ineffective!",
            opponent.pbThis,PBAbilities.getName(opponent.ability),self.name))
       end
@@ -504,11 +504,11 @@ class PokeBattle_Move
       PBDebug.log("[Ability triggered] #{opponent.pbThis}'s Doom Elist (made #{@name} ineffective)")
       if !opponent.effects[PBEffects::DoomElist]
         opponent.effects[PBEffects::DoomElist]=true
-        pbSEPlay("protection")
+        pbPlayMissSE()
         @battle.pbDisplay(_INTL("{1}'s {2} raised its Doom power!",
            opponent.pbThis,PBAbilities.getName(opponent.ability)))
       else
-        pbSEPlay("protection")
+        pbPlayMissSE()
         @battle.pbDisplay(_INTL("{1}'s {2} made {3} ineffective!",
            opponent.pbThis,PBAbilities.getName(opponent.ability),self.name))
       end
@@ -519,11 +519,11 @@ class PokeBattle_Move
       PBDebug.log("[Ability triggered] #{opponent.pbThis}'s Long Grass (made #{@name} ineffective)")
       if !opponent.effects[PBEffects::LongGrass]
         opponent.effects[PBEffects::LongGrass]=true
-        pbSEPlay("protection")
+        pbPlayMissSE()
         @battle.pbDisplay(_INTL("{1}'s {2} raised its Grass power!",
            opponent.pbThis,PBAbilities.getName(opponent.ability)))
       else
-        pbSEPlay("protection")
+        pbPlayMissSE()
         @battle.pbDisplay(_INTL("{1}'s {2} made {3} ineffective!",
            opponent.pbThis,PBAbilities.getName(opponent.ability),self.name))
       end
@@ -533,13 +533,13 @@ class PokeBattle_Move
     if opponent.hasWorkingAbility(:TELEPATHY) && pbIsDamaging? &&
        !opponent.pbIsOpposing?(attacker.index)
       PBDebug.log("[Ability triggered] #{opponent.pbThis}'s Telepathy (made #{@name} ineffective)")
-      pbSEPlay("protection")
+      pbPlayMissSE()
       @battle.pbDisplay(_INTL("{1} avoids attacks by its ally Pokémon!",opponent.pbThis))
       return true
     end
     if opponent.hasWorkingAbility(:BULLETPROOF) && isBombMove?
       PBDebug.log("[Ability triggered] #{opponent.pbThis}'s Bulletproof (made #{@name} ineffective)")
-      pbSEPlay("protection")
+      pbPlayMissSE()
       @battle.pbDisplay(_INTL("{1}'s {2} made {3} ineffective!",
          opponent.pbThis,PBAbilities.getName(opponent.ability),self.name))
       return true
@@ -547,7 +547,7 @@ class PokeBattle_Move
     if opponent.hasWorkingAbility(:ROCONNINO) && isHealingMove? && 
       !attacker.hasWorkingAbility(:POWERLEECH)
       PBDebug.log("[Ability triggered] #{opponent.pbThis}'s Roconnino (made #{@name} ineffective)")
-      pbSEPlay("protection")
+      pbPlayMissSE()
       @battle.pbDisplay(_INTL("{1}'s {2} made {3} ineffective!",
          opponent.pbThis,PBAbilities.getName(opponent.ability),self.name))
       return true
@@ -1963,20 +1963,20 @@ class PokeBattle_Move
       end
     end
     if opponent.damagestate.endured
-			pbSEPlay("protection")
+			pbPlayMissSE()
       @battle.pbDisplay(_INTL("{1} endured the hit!",opponent.pbThis))
     elsif opponent.damagestate.penativa
-			pbSEPlay("protection")
+			pbPlayMissSE()
       @battle.pbDisplay(_INTL("{1}'s Penativa managed to survive most of the power",opponent.pbThis))
     elsif opponent.damagestate.sturdy
-			pbSEPlay("protection")
+			pbPlayMissSE()
       @battle.pbDisplay(_INTL("{1} hung on with Sturdy!",opponent.pbThis))
     elsif opponent.damagestate.focussash
-			pbSEPlay("protection")
+			pbPlayMissSE()
       @battle.pbDisplay(_INTL("{1} hung on using its Focus Sash!",opponent.pbThis))
       opponent.pbConsumeItem
     elsif opponent.damagestate.focusband
-			pbSEPlay("protection")
+			pbPlayMissSE()
       @battle.pbDisplay(_INTL("{1} hung on using its Focus Band!",opponent.pbThis))
     end
   end

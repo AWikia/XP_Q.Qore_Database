@@ -540,6 +540,198 @@ class SafariDataBox < SpriteWrapper
   end
 end
 
+#===============================================================================
+# Data box for Pokemon Box
+#===============================================================================
+class PokemonTaskDataBox < SpriteWrapper
+  attr_accessor :selected
+  attr_accessor :appearing
+  attr_accessor :disappearing
+  attr_reader :animatingHP
+
+  def initialize(oldamount=0,maxamount=0,taskname="Task",image="image.png",viewport=nil)
+    super(viewport)
+    @frame=0
+    @showhp=false
+    @appearing=false
+    @disappearing=false
+    @disappeared=false
+    @animatingHP=false
+    @dark=false
+    @starthp=0
+    @currenthp=0
+    @endhp=0
+    @spritebaseX=16
+    @taskname=taskname
+    @oldamount=oldamount
+    @maxamount=maxamount
+    # Considers each icon to be 34x34
+    if image.is_a?(Array)
+      @imagename=image[0]
+      @imageindex=image[1]
+    else
+      @imagename=image
+      @imageindex=0      
+    end
+    @currentStep=PokemonBoxScene.new.currentStep
+        @databox=AnimatedBitmap.new("Graphics/UI/Battle/databox_task")
+        @spriteX=PokeBattle_SceneConstants::FOEBOX_X
+        @spriteY=PokeBattle_SceneConstants::FOEBOX_Y
+				@showhp=true
+        @dark=true
+    @hpbar=AnimatedBitmap.new(_INTL("Graphics/UI/Battle/overlay_progress"))
+    @contents=BitmapWrapper.new(@databox.width,@databox.height)
+    if @dark
+      @numberbitmap=AnimatedBitmap.new(_INTL("Graphics/UI/icon_numbers_white"))
+    else
+      @numberbitmap=AnimatedBitmap.new(_INTL("Graphics/UI/icon_numbers"))
+    end
+    self.bitmap=@contents
+    self.visible=false
+    self.z=50
+    refresh
+  end
+
+  def dispose
+    @hpbar.dispose
+    @databox.dispose
+    @numberbitmap.dispose
+    @contents.dispose
+    super
+  end
+
+
+  def hp
+    return @animatingHP ? @currenthp : @oldamount  end
+  
+  def maxstatus
+    return @maxamount
+  end
+
+  def animateHP(oldhp,newhp)
+    @starthp=oldhp
+    @currenthp=oldhp
+    @endhp=newhp
+    @animatingHP=true
+  end
+
+  def pbDrawNumber(number,btmp,startX,startY,align=0)
+    n = (number==-1) ? [10] : number.to_i.digits   # -1 means draw the / character
+    charWidth  = @numberbitmap.width/11
+    charHeight = @numberbitmap.height
+    startX -= charWidth*n.length if align==1
+    n.each do |i|
+      btmp.blt(startX,startY,@numberbitmap.bitmap,Rect.new(i*charWidth,0,charWidth,charHeight))
+      startX += charWidth
+    end
+  end
+
+
+  
+  def appear
+    refresh
+    self.visible=true
+    self.opacity=255
+    self.x=@spriteX-320
+    self.y=@spriteY
+    @disappeared=false
+    @appearing=true
+  end
+
+  def disappear
+#    refresh
+    self.visible=true
+    self.opacity=255
+    self.x=@spriteX
+    self.y=@spriteY
+    @disappeared=true
+    @disappearing=true
+  end
+
+  def refresh
+    self.bitmap.clear
+    self.bitmap.blt(0,0,@databox.bitmap,Rect.new(0,0,@databox.width,@databox.height))
+    if @dark
+    base=PokeBattle_SceneConstants::BOXTEXTBASECOLOR
+    shadow=PokeBattle_SceneConstants::BOXTEXTSHADOWCOLOR
+    outline=Color.new(7,16,39)
+    else
+    base=PokeBattle_SceneConstants::BOXTEXTBASECOLOR2
+    shadow=PokeBattle_SceneConstants::BOXTEXTSHADOWCOLOR2
+    outline=Color.new(248,248,216)
+    end
+    pbSetSystemFont(self.bitmap)
+    pbSetSmallFont2(self.bitmap)
+    textpos=[
+       [@taskname,@spritebaseX+38,6,false,base]
+    ]
+    imagepos=[]
+    imagepos.push([@imagename,18,24,0,34*@imageindex,34,34])
+    pbDrawTextPositions(self.bitmap,textpos)
+    pbSetSmallFont(self.bitmap)
+    @extra = 162
+    if @showhp
+      pbDrawNumber(self.hp,self.bitmap,@spritebaseX+68,54,1)
+      pbDrawNumber(-1,self.bitmap,@spritebaseX+68,54)   # / char
+      pbDrawNumber(maxstatus,self.bitmap,@spritebaseX+84,54,0)
+    end
+    textpos=[]
+    pbDrawTextPositions(self.bitmap,textpos)
+    pbDrawImagePositions(self.bitmap,imagepos)
+
+    # Draw HP bar
+    hpgauge = (maxstatus==0) ? 0 : self.hp*@hpbar.bitmap.width/maxstatus
+    hpgauge = 2 if hpgauge<2 && self.hp>0
+    hpzone = 0
+    hpGaugeX=PokeBattle_SceneConstants::HPGAUGE_X-66
+    hpGaugeY=PokeBattle_SceneConstants::HPGAUGE_Y
+    if @animatingHP && self.hp>0   # fill with black (shows what the HP used to be)
+      self.bitmap.fill_rect(@spritebaseX+hpGaugeX,hpGaugeY,
+         @starthp*@hpbar.bitmap.width/maxstatus,@hpbar.bitmap.height,Color.new(12,12,12))
+    end
+    self.bitmap.blt(@spritebaseX+hpGaugeX,hpGaugeY,@hpbar.bitmap,
+       Rect.new(0,hpzone*@hpbar.bitmap.height,hpgauge,@hpbar.bitmap.height))
+
+  end
+
+  def update
+    super
+   # @frame+=1
+    @frame = (@frame+1)%24
+    if @animatingHP
+      if @currenthp<@endhp
+        @currenthp+=[1,(maxstatus/162).floor].max
+        @currenthp=@endhp if @currenthp>@endhp
+      elsif @currenthp>@endhp
+        @currenthp-=[1,(maxstatus/162).floor].max
+        @currenthp=@endhp if @currenthp<@endhp
+      end
+      refresh
+      @animatingHP=false if @currenthp==@endhp
+    end
+    # Move data box onto the screen
+    if @appearing
+        self.x+=12
+        self.x=@spriteX if self.x>@spriteX
+        @appearing=false if self.x>=@spriteX
+      self.y=@spriteY
+      return
+    elsif @disappearing
+        self.x-=12
+        self.x=@spriteX-320 if self.x<@spriteX-320
+        @disappearing=false if self.x<=@spriteX-320
+      self.y=@spriteY
+      return
+    end
+    if @disappeared
+      self.x=@spriteX-320
+      self.y=@spriteY-320
+    else
+      self.x=@spriteX
+      self.y=@spriteY
+    end
+  end
+end
 
 
 #===============================================================================
@@ -2317,8 +2509,53 @@ end
 =end
     end
   end
+  
+  def pbCreatePopUp(oldamount=0,newamount=0,maxamount=0,taskname="Task",image="image.png")
+    if oldamount != newamount
+      sprite=PokemonTaskDataBox.new(oldamount,maxamount,taskname,image,@viewport)
+      sprite.appear
+      while sprite.appearing
+        pbGraphicsUpdate
+        pbInputUpdate
+        pbFrameUpdate
+        sprite.update
+      end
+      sprite.animateHP(oldamount,[newamount,maxamount].min)
+      while sprite.animatingHP
+        pbGraphicsUpdate
+        pbInputUpdate
+        pbFrameUpdate
+        sprite.update
+      end
+      40.times do
+        pbGraphicsUpdate
+        pbInputUpdate
+        pbFrameUpdate
+      end
+      sprite.disappear
+      while sprite.disappearing
+        pbGraphicsUpdate
+        pbInputUpdate
+        pbFrameUpdate
+        sprite.update
+      end
+      sprite.dispose
+    end
+  end
+  
+  def pbCheckEvents
+    # Pokemon Box
+    currentStep=PokemonBoxScene.new.currentStep
+    oldtaskstatus=$game_variables[PBOX_VARIABLES[5]]
+    step = $game_variables[PBOX_VARIABLES[1]][currentStep][0]
+    taskstatus=$PokemonGlobal.pokebox[step] - $game_variables[PBOX_VARIABLES[1]][currentStep][1]
+    taskstatus2=$game_variables[PBOX_VARIABLES[1]][currentStep][2]
+    pbCreatePopUp($game_variables[PBOX_VARIABLES[5]],taskstatus,taskstatus2,_INTL("Pokémon Box"),["Graphics/UI/Pokemon Box/icons",step])
+    # End
+  end
 
   def pbEndBattle(result)
+    pbCheckEvents
     @abortable=false
     pbShowWindow(BLANK)
     # Fade out all sprites

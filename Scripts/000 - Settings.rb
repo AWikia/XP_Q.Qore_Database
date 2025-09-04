@@ -506,10 +506,11 @@ SEMI_INTERNAL_BATTLE      = 205
 #      - The Global Variable that is used to store the streak count
 #      - The Global Variable that is used to store the duration
 #      - The Global Variable that is used to record the sub-stage of the Box
+#      - The Global Variable that is used to record the last state of the Box
 #===============================================================================
 WIN_STREAK_VARIABLE       = 1007
 DTM_VARIABLES             = [1008,1009,1010]
-PBOX_VARIABLES            = [1012,1013,1014,1015,1016]
+PBOX_VARIABLES            = [1012,1013,1014,1015,1016,1017]
 
 #===============================================================================
 # * The ID of the common event that runs when the player starts fishing (runs

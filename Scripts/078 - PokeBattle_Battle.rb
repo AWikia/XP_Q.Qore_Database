@@ -2787,6 +2787,11 @@ class PokeBattle_Battle
 # Battle core.
 ################################################################################
   def pbStartBattle(canlose=false)
+    # Record Pokemon Box's last task state
+    if $game_variables[PBOX_VARIABLES[1]] != 0
+      currentStep=PokemonBoxScene.new.currentStep
+      $game_variables[PBOX_VARIABLES[5]]=$PokemonGlobal.pokebox[$game_variables[PBOX_VARIABLES[1]][currentStep][0]] - $game_variables[PBOX_VARIABLES[1]][currentStep][1]
+    end
     PBDebug.log("")
     PBDebug.log("******************************************")
     begin

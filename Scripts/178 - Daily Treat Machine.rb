@@ -111,8 +111,9 @@ class DailyTreatMachineScene
        [_INTL("How to use:"),(Graphics.width/4)-14,0,2,baseColor,shadowColor],
     ]
     text = _INTL("Press \"C\" to start the machine and get a reward")
-    text2 = _INTL("Rewards obtained differ each day so come back often")
-    text3 = _INTL("Machine becomes more powerful as you progress")
+#    text2 = _INTL("Rewards obtained differ each day so come back often")
+    text2 = _INTL("Coins are rewarded for every 7 consecutive game loads")
+    text3 = _INTL("Machine upgrades as you progress the game")
     text4 = _INTL("You can use a Heart Scale to get a second reward")
     drawTextEx(overlay,0,32,(Graphics.width/2)-28,2,text,baseColor,shadowColor)
     drawTextEx(overlay,0,112,(Graphics.width/2)-28,2,text2,baseColor,shadowColor)
@@ -155,8 +156,17 @@ class DailyTreatMachineScene
           if Kernel.pbConfirmMessage(_INTL("Would you like to use a Heart Scale to get a second reward?"))
             heartscale=true
             $PokemonBag.pbDeleteItem(:HEARTSCALE)
+            @id=$game_variables[1].to_i
             @id+=$Trainer.publicID($Trainer.id)
             pbDailuMachineStart
+          end
+        end
+        if canAcceptAds?
+          reward = heartscale ? _INTL("third") : _INTL("second")
+          if Kernel.pbConfirmMessage(_INTL("Would you like to complete an Ad Quest to get a {1} reward?",reward))
+            @id=$game_variables[1].to_i
+            @id+=$Trainer.secretID($Trainer.id)
+            pbDailuMachineStart if startAd
           end
         end
         if $game_variables[DTM_VARIABLES[1]]%7 == 0

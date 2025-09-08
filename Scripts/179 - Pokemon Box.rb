@@ -106,7 +106,7 @@ class PokemonBoxScene
   end
   
   def addIncr(num)
-    return ((($game_variables[PBOX_VARIABLES[2]] / 2).floor / 4) * num).floor
+    return ((($game_variables[PBOX_VARIABLES[2]] / 10).floor / 4) * num).floor
   end
   
   def currentStep
@@ -456,7 +456,7 @@ end
 
 
 
-class PokemonBox
+class PokemonBoxEvent # Not PokemonBox as it conflicts with another class
   def initialize(scene)
     @scene=scene
   end

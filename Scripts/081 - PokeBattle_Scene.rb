@@ -671,9 +671,9 @@ class PokemonTaskDataBox < SpriteWrapper
     pbSetSmallFont(self.bitmap)
     @extra = 162
     if @showhp
-      pbDrawNumber(self.hp,self.bitmap,@spritebaseX+68,54,1)
-      pbDrawNumber(-1,self.bitmap,@spritebaseX+68,54)   # / char
-      pbDrawNumber(maxstatus,self.bitmap,@spritebaseX+84,54,0)
+      pbDrawNumber(self.hp,self.bitmap,@spritebaseX+84,54,1)
+      pbDrawNumber(-1,self.bitmap,@spritebaseX+84,54)   # / char
+      pbDrawNumber(maxstatus,self.bitmap,@spritebaseX+100,54,0)
     end
     textpos=[]
     pbDrawTextPositions(self.bitmap,textpos)
@@ -706,6 +706,7 @@ class PokemonTaskDataBox < SpriteWrapper
         @currenthp-=[1,(maxstatus/162).floor].max
         @currenthp=@endhp if @currenthp<@endhp
       end
+      pbPlayCursorSE()
       refresh
       @animatingHP=false if @currenthp==@endhp
     end
@@ -956,9 +957,9 @@ class PokemonDataBox < SpriteWrapper
     if @showhp
  #     hpstring=_ISPRINTF("{1: 2d}/{2: 2d}",self.hp,@battler.totalhp)
  #     textpos.push([hpstring,@spritebaseX+8,48,false,base,shadow]) # Was 188
-      pbDrawNumber(self.hp,self.bitmap,@spritebaseX+68,54,1)
-      pbDrawNumber(-1,self.bitmap,@spritebaseX+68,54)   # / char
-      pbDrawNumber(@battler.totalhp,self.bitmap,@spritebaseX+84,54,0)
+      pbDrawNumber(self.hp,self.bitmap,@spritebaseX+84,54,1)
+      pbDrawNumber(-1,self.bitmap,@spritebaseX+84,54)   # / char
+      pbDrawNumber(@battler.totalhp,self.bitmap,@spritebaseX+100,54,0)
     end
     pbDrawTextPositions(self.bitmap,textpos)
     if @battler.isShiny?
@@ -2545,12 +2546,14 @@ end
   
   def pbCheckEvents
     # Pokemon Box
-    currentStep=PokemonBoxScene.new.currentStep
-    oldtaskstatus=$game_variables[PBOX_VARIABLES[5]]
-    step = $game_variables[PBOX_VARIABLES[1]][currentStep][0]
-    taskstatus=$PokemonGlobal.pokebox[step] - $game_variables[PBOX_VARIABLES[1]][currentStep][1]
-    taskstatus2=$game_variables[PBOX_VARIABLES[1]][currentStep][2]
-    pbCreatePopUp($game_variables[PBOX_VARIABLES[5]],taskstatus,taskstatus2,_INTL("Pokémon Box"),["Graphics/UI/Pokemon Box/icons",step])
+    if $PokemonBag.pbQuantity(:POKEMONBOX)>0 # Avoid crashes as the first one 
+      currentStep=PokemonBoxScene.new.currentStep
+      oldtaskstatus=$game_variables[PBOX_VARIABLES[5]]
+      step = $game_variables[PBOX_VARIABLES[1]][currentStep][0]
+      taskstatus=$PokemonGlobal.pokebox[step] - $game_variables[PBOX_VARIABLES[1]][currentStep][1]
+      taskstatus2=$game_variables[PBOX_VARIABLES[1]][currentStep][2]
+      pbCreatePopUp($game_variables[PBOX_VARIABLES[5]],taskstatus,taskstatus2,_INTL("Pokémon Box"),["Graphics/UI/Pokemon Box/icons",step])
+    end
     # End
   end
 

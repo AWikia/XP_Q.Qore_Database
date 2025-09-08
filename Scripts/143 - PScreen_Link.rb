@@ -180,13 +180,22 @@ class Scene_LinkBattleScene
           return false
         end
         # Actual Event
+        if canAcceptAds?
+        commands=[_INTL("Very Easy"),
+                  _INTL("Easy"),
+                  _INTL("Normal"),
+                  _INTL("Hard"),
+                  _INTL("Nightmare"),
+                  _INTL("Elite")]
+        else
         commands=[_INTL("Very Easy (50 Points)"),
                   _INTL("Easy (100 Points)"),
                   _INTL("Normal (150 Points)"),
                   _INTL("Hard (200 Points)"),
                   _INTL("Nightmare (300 Points)"),
-                  _INTL("Elite (500 Points)"),
-                  _INTL("Cancel")]
+                  _INTL("Elite (500 Points)")]
+        end
+        commands.push(_INTL("Cancel"))
         command=Kernel.pbMessage(
             _INTL("Choose a difficulty you want to use on your battle."),commands,-1)
         if command>=0 && command < 6
@@ -198,22 +207,75 @@ class Scene_LinkBattleScene
                     "I must get stronger next time",
                     "What else should I say",
                     "I can't stand this death"][rand(5)]
-          point=[50,100,150,200,300][command]
+          point=[50,100,150,200,300,500][command]
+          pointamount= canAcceptAds? ? (point*0.6).to_i : point
+          pointamount2= canAcceptAds? ? (point*0.2).to_i : 0
           double= Kernel.pbConfirmMessage(_INTL("The battle is normally single. However, you can do a double battle. Do you want to do it so?"))
           $PokemonGlobal.nextBattleBack="000"
           cpuname = ['Nic','Karla','Jimmy','Britney','Duncan','Kelli','Todd','Nina','Ross','Heidi','Steven','Miriam','Darrell','Teresa','Reed','Aubrey','Chris','Kelly','Brad','Naomi','Dwight','Abby','Randy','Denise','Andy','Tamara','Joey','Linda','Eric','Faith','Mark','Mari','Maggie','Ash','Dion','Jude','Terell','Kris','Talon','Lonny','Jess','Chase','Keili','Lindy','Turdy','Krissa','Dodie','Flora'][rand(48)]
           pbSet(1004,cpuname)
-          if pbTrainerBattle(:LINKER,trainer,_I(trainer2),double,0,true,0)
-            Kernel.pbMessage(_INTL("You won against {1} as you seem to be a strong player. Get your prize.",cpuname))
+          if canAcceptAds?
+            @QQSR="\\l[3]"
+            @QQSR+=_INTL("Won Battle Rewards: {1} Link Points",pointamount)
+            @QQSR+=_INTL("\\nDraw Battle Rewards: Rare Candy, Candy")
+            @QQSR+=_INTL("\\nLost Battle Rewards: Candy, Oran Berry, Sitrus Berry")
+            Kernel.pbMessage(@QQSR)
+          end
+          pbTrainerBattle(:LINKER,trainer,_I(trainer2),double,0,true,1)
+          if pbGet(1) == 1
+            if canAcceptAds?
+              Kernel.pbMessage(_INTL("You won against {1} as you seem to be a strong player.",cpuname))
+              Kernel.pbMessage(_INTL("Here's your rewards."))
+            else
+              Kernel.pbMessage(_INTL("You won against {1} as you seem to be a strong player. Get your prize.",cpuname))
+            end
             $game_variables[1001] += 1
-            $game_variables[1002] += point
+            $game_variables[1002] += pointamount
             update_stats
-            Kernel.pbMessage(_INTL("\\me[EvolutionSuccess_1]Obtained {1} Link Points!\\wtnp[30]",point)) if $PokemonSystem.vrtrophynotif==0 rescue false
+            Kernel.pbMessage(_INTL("\\me[EvolutionSuccess_1]Obtained {1} Link Points!\\wtnp[30]",pointamount)) if $PokemonSystem.vrtrophynotif==0 rescue false
+            if canAcceptAds?
+              # 1st Quest
+              if Kernel.pbConfirmMessage(_INTL("Would you like to complete an Ad Quest to get {1} additional Link Points?",pointamount2))
+                if startAd
+                  $game_variables[1002] += pointamount2
+                  update_stats
+                  Kernel.pbMessage(_INTL("\\me[EvolutionSuccess_1]Obtained {1} Link Points!\\wtnp[30]",pointamount2)) if $PokemonSystem.vrtrophynotif==0 rescue false
+                  # 2nd Quest
+                  if Kernel.pbConfirmMessage(_INTL("Would you like to complete another Ad Quest to get {1} additional Link Points?",pointamount2))
+                    if startAd
+                      $game_variables[1002] += pointamount2
+                      update_stats
+                      Kernel.pbMessage(_INTL("\\me[EvolutionSuccess_1]Obtained {1} Link Points!\\wtnp[30]",pointamount2)) if $PokemonSystem.vrtrophynotif==0 rescue false
+                    end
+                  end
+                  # 2nd Quest End
+                end
+              end
+              # 1st Quest End
+            end
             Kernel.pbReceiveTrophy(:TLINKER)
             Kernel.pbMessage(_INTL("You can use these to purchase various items."))
+          elsif pbGet(1) == 5
+            if canAcceptAds?
+              Kernel.pbMessage(_INTL("You and {1} seem to go equally well.",cpuname))
+              Kernel.pbMessage(_INTL("Here's your rewards."))
+              Kernel.pbReceiveItem(:RARECANDY)
+              Kernel.pbReceiveItem([:SWEETCANDY,:SOURCANDY,:SPICYCANDY][rand(3)])
+            else
+              Kernel.pbMessage(_INTL("You and {1} seem to go equally well. Get your candy.",cpuname))
+              Kernel.pbReceiveItem(:RARECANDY)
+            end
+            Kernel.pbMessage(_INTL("You can use these to retry again on a new battle."))
           else
             Kernel.pbMessage(_INTL("You lost against {1} as you seem to have weaker species. Better luck next time",cpuname))
+            if canAcceptAds?
+              Kernel.pbMessage(_INTL("Here's your rewards."))
+              Kernel.pbReceiveItem([:SWEETCANDY,:SOURCANDY,:SPICYCANDY][rand(3)])
+              Kernel.pbReceiveItem(:ORANBERRY)
+              Kernel.pbReceiveItem(:SITRUSBERRY)
+              Kernel.pbMessage(_INTL("You can use these to retry again on a new battle."))
             end
+          end
           # End Battle
           $game_variables[1003] = 0
         end

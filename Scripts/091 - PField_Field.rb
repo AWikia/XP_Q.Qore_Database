@@ -1248,7 +1248,7 @@ Events.onEndBattle+=proc {|sender,e|
     taskstatus2=$game_variables[PBOX_VARIABLES[1]][currentStep][2]
     if taskstatus >= taskstatus2
        scene=PokemonBoxScene.new
-       screen=PokemonBox.new(scene)
+       screen=PokemonBoxEvent.new(scene)
        pbFadeOutIn(99999) { 
           screen.pbStartScreen
        }

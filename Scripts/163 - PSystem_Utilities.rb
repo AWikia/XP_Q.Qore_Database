@@ -434,7 +434,7 @@ def pbCheckDTM
   expiredbox= pbTimeEventValid(PBOX_VARIABLES[3])
   if $game_variables[PBOX_VARIABLES[1]] == 0 || expiredbox
        scene=PokemonBoxScene.new
-       screen=PokemonBox.new(scene)
+       screen=PokemonBoxEvent.new(scene)
        pbFadeOutIn(99999) { 
           screen.pbStartScreen(expiredbox)
        }
@@ -473,6 +473,7 @@ def pbGetCardLevel
   return level
 end
 
+# Adds a Rental Season Mastery Pokemon
 def pbAddRentalSMPokemon
   pbSetLotteryNumber(1)
   species=[
@@ -522,6 +523,40 @@ def pbAddRentalSMPokemon
           :MEDIACORP
           ]
   pbAddToPartySilent(species[pbGet(1).to_i%species.length],50)
+end
+
+# Starts a Tile Puzzle with the Video Graphic. If done, increments ad count by 1
+def startAd
+  return false if !canAcceptAds?
+  if pbTilePuzzle(1,"Video")
+    if $PokemonGlobal.adsWatched==0
+      Kernel.pbMessage(_INTL("\\bDelio:You've just completed out an Ad Quest. Let's register ourselves to keep track on them."))
+      pbPhoneRegisterNPC(21,"Delio",42)
+      Kernel.pbMessage(_INTL("\\bDelio:Complete out 60 Ad Quests to get a Luxury Ball."))
+    end
+    $PokemonGlobal.adsWatched+=1
+    if $PokemonGlobal.adsWatched%60==0
+      Kernel.pbMessage(_INTL("\\bDelio:Congratulations! You've completed 60 Ad Quests. Here's your reward."))
+      Kernel.pbReceiveItem(:LUXURYBALL)
+      Kernel.pbMessage(_INTL("\\bDelio:You've also unlocked some more stuff in some places.")) if $PokemonGlobal.adsWatched==60
+      Kernel.pbMessage(_INTL("\\bDelio:Complete 60 more for your next Luxury Ball."))
+    end
+    return true
+  end
+  return false
+end
+
+# Returns true if the Video Tile Puzzle can be started
+def canAcceptAds?
+  return class_exists?(:TilePuzzle)
+end
+
+# Supplemental function
+def class_exists?(class_name)
+  klass = Module.const_get(class_name)
+  return klass.is_a?(Class)
+rescue NameError
+  return false
 end
 
 ################################################################################

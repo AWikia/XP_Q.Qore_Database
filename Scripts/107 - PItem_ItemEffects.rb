@@ -153,7 +153,7 @@ ItemHandlers::UseFromBag.add(:DAILYTREATMACHINE,proc{|item|
 
 ItemHandlers::UseFromBag.add(:POKEMONBOX,proc{|item|
      scene=PokemonBoxScene.new
-     screen=PokemonBox.new(scene)
+     screen=PokemonBoxEvent.new(scene)
      pbFadeOutIn(99999) { 
         screen.pbStartScreen
      }
@@ -257,7 +257,7 @@ ItemHandlers::UseInField.add(:PCSTORAGEBOX,proc{|item|
 
 ItemHandlers::UseInField.add(:POKEMONBOX,proc{|item|
      scene=PokemonBoxScene.new
-     screen=PokemonBox.new(scene)
+     screen=PokemonBoxEvent.new(scene)
      pbFadeOutIn(99999) { 
         screen.pbStartScreen
      }

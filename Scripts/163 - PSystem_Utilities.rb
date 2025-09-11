@@ -1169,12 +1169,12 @@ def pbTimeEventValid(variableNumber)
   return retval
 end
 
-def pbTimeEventRemainingTime(variableNumber)
+def pbTimeEventRemainingTime(variableNumber,offset=0)
   if variableNumber && variableNumber>=0 && $game_variables
     value=$game_variables[variableNumber]
     if value.is_a?(Array)
       timenow=pbGetTimeNow
-      time= [value[1] - (timenow.to_f - value[0]),0].max
+      time= [value[1] - (timenow.to_f - value[0]) - offset,0].max
       sec = time % 60
       min = time / 60 % 60
       hour = time / 60 / 60 % 24

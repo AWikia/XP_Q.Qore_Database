@@ -139,7 +139,7 @@ ItemHandlers::UseFromBag.add(:PCSTORAGEBOX,proc{|item|
 
 ItemHandlers::UseFromBag.add(:DAILYTREATMACHINE,proc{|item|
   if $game_variables[DTM_VARIABLES[0]] == [pbGetTimeNow.mon, pbGetTimeNow.day]
-     Kernel.pbMessage(_INTL("Can't use that now."))
+     Kernel.pbMessage(_INTL("Come back in {1} for your next use.", pbTimeEventRemainingTime(DTM_VARIABLES[2],86400)))
      next 0
   else
      scene=DailyTreatMachineScene.new

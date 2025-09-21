@@ -27,7 +27,7 @@ class PokemonBoxScene
             # Legendary Challenge
             [:SACREDASH,:MASTERBALL,:SUPERBOOSTER,:BOTANICSMOKE,:NORMALBOX,:VICIOUSCANDY]
             ]
-    @durations=[12,6,4,4,2,2]
+    @durations=[13,7,5,5,3,2] # Was [14,6,4,4,2,2]
     @sprites={}
     @viewport=Viewport.new(0,0,Graphics.width,Graphics.height)
     @viewport.z=99999
@@ -96,13 +96,13 @@ class PokemonBoxScene
   def isMillenial?
     id = $game_variables[PBOX_VARIABLES[2]].to_i
     return false if id < @stages # First Gold and below can never be milestone
-    return id%100 == 0 || (id%10 == 0 && id<51)
+    return id%10 == 0
   end
   
   def isMillenial2?
     id = $game_variables[PBOX_VARIABLES[2]].to_i
     return false if id < @stages # First Gold and below can never be milestone
-    return id%1000 == 0
+    return id%100 == 0
   end
   
   def addIncr(num)
@@ -111,6 +111,50 @@ class PokemonBoxScene
   
   def currentStep
     return $game_variables[PBOX_VARIABLES[0]] + (4*$game_variables[PBOX_VARIABLES[4]])
+  end
+  
+  def randIncr(num)
+    id = $game_variables[PBOX_VARIABLES[2]].to_i
+    if isMillenial? # Milenial Box, prefer Larger amounts
+      return [rand(num),rand(num)].max
+    elsif id < 2    # Classic and Bronze Boxes, prefer smaller amounts
+      return [rand(num),rand(num)].min
+    else
+      return rand(num)
+    end
+  end
+  
+  def taskVals(num=0)
+    multi=1+[$game_variables[PBOX_VARIABLES[2]],(@stages-1)].min
+    multi+=1 if isMillenial2?
+    multi2=1 + [($Trainer.numbadges / 2).floor,5].min
+    return [(500*multi)+randIncr((1500*multi*multi2)+addIncr(500)), # Gain Experience
+            (2*multi)+randIncr((2*multi)+addIncr(2)),               # Level Up Pokemon
+            (2*multi)+randIncr((2*multi)+addIncr(2)),               # Defeat Pokemon
+            (1*multi)+randIncr((2*multi)+addIncr(1)),               # Catch Pokemon
+            (10*multi)+randIncr((20*multi)+addIncr(10)),            # Trigger Abilites
+            (10*multi)+randIncr((20*multi)+addIncr(10)),            # Trigger Items
+            (3*multi)+randIncr((3*multi)+addIncr(3)),               # Use Physical Moves
+            (3*multi)+randIncr((3*multi)+addIncr(3)),               # Use Special Moves
+            (2*multi)+randIncr((2*multi)+addIncr(2)),               # Use Status Moves
+            (0.5*multi)+randIncr((1*multi)+addIncr(0.5)),           # Use Battle Items
+            (3*multi)+randIncr((3*multi)+addIncr(3)),               # Defear Trainers
+            (7*multi)+randIncr((7*multi)+addIncr(7)),               # Lapse Turns
+            (1*multi)+randIncr((2*multi)+addIncr(1)),               # Use Medicine Items
+            (3*multi)+randIncr((3*multi)+addIncr(3)),               # UNUSED!
+            (250*multi)+randIncr((1250*multi*multi2)+addIncr(250)), # Deal Damage
+            (2*multi)+randIncr((2*multi)+addIncr(2)),               # Land Critical Hits
+            (2*multi)+randIncr((3*multi)+addIncr(2)),               # Use STAB Moves
+            (1*multi)+randIncr((1*multi)+addIncr(1)),               # Defeat Pokemon Instantly
+            (1*multi)+randIncr((2*multi)+addIncr(1)),               # Use Berries
+            (1*multi)+randIncr((1*multi)+addIncr(1)),               # UNUSED!
+            (6*multi)+randIncr((6*multi)+addIncr(6)),               # Increase Stats
+            (1*multi)+randIncr((1*multi)+addIncr(1)),               # Revive Pokemon
+            (2*multi)+randIncr((2*multi)+addIncr(2)),               # Use Healing Moves
+            (0.25*multi)+randIncr((0.5*multi)+addIncr(0.25)),       # Use One-hit KO Moves 
+            (2*multi)+randIncr((3*multi)+addIncr(3)),               # Use Hi Priority Moves
+            ][num].ceil
+
   end
   
   def pbPokemonBoxStart
@@ -140,36 +184,13 @@ class PokemonBoxScene
   
   # Creates a new box instance
   def initializeBox
-    multi=1+[$game_variables[PBOX_VARIABLES[2]],(@stages-1)].min
-    multi+=1 if isMillenial2?
-    multi2=1 + [($Trainer.numbadges / 2).floor,5].min
-    taskVals=[(500*multi)+rand((1500*multi*multi2)+addIncr(500)), # Gain Experience
-              (2*multi)+rand((2*multi)+addIncr(2)),               # Level Up Pokemon
-              (2*multi)+rand((2*multi)+addIncr(2)),               # Defeat Pokemon
-              (1*multi)+rand((2*multi)+addIncr(1)),               # Catch Pokemon
-              (10*multi)+rand((20*multi)+addIncr(10)),            # Trigger Abilites
-              (10*multi)+rand((20*multi)+addIncr(10)),            # Trigger Items
-              (2*multi)+rand((2*multi)+addIncr(2)),               # Use Physical Moves
-              (2*multi)+rand((2*multi)+addIncr(2)),               # Use Special Moves
-              (2*multi)+rand((2*multi)+addIncr(2)),               # Use Status Moves
-              (1*multi)+rand((1*multi)+addIncr(1)),               # Use Battle Items
-              (3*multi)+rand((3*multi)+addIncr(3)),               # Defear Trainers
-              (7*multi)+rand((7*multi)+addIncr(7)),               # Lapse Turns
-              (2*multi)+rand((2*multi)+addIncr(2)),               # Use Medicine Items
-              (3*multi)+rand((6*multi)+addIncr(3)),               # UNUSED!
-              (250*multi)+rand((1250*multi*multi2)+addIncr(250)), # Deal Damage
-              (2*multi)+rand((2*multi)+addIncr(2)),               # Land Critical Hits
-              (2*multi)+rand((2*multi)+addIncr(2)),               # Use STAB Moves
-              (1*multi)+rand((1*multi)+addIncr(1)),               # Defeat Pokemon Instantly
-              (1*multi)+rand((2*multi)+addIncr(1)),               # Use Berries
-              (1*multi)+rand((1*multi)+addIncr(1))                # UNUSED!
-              ]
     taskN12=false
     taskN10=false # For Milleinal/Elite Boxes
     taskN13=false # Not applicable on Q.Qore
     taskN18=false
     taskN19=false # Not applicable on Q.Qore
-    task0 = [0,1,2,14]
+    taskN24=false
+    task0 = [0,1,2,14,20]
     if rand(6)==0 && !taskN12
       taskN12=true
       task0.push(12)
@@ -179,9 +200,12 @@ class PokemonBoxScene
     elsif rand(6)==0 && !taskN18
       taskN18=true
       task0.push(18)
+    elsif rand(6)==0 && !taskN24 && isMillenial?
+      taskN24=true
+      task0.push(24)
     end
     task0.shuffle!
-    task1 = [3,4,5,15]
+    task1 = [3,4,5,15,21]
     if rand(6)==0 && !taskN12
       taskN12=true
       task1.push(12)
@@ -191,9 +215,12 @@ class PokemonBoxScene
     elsif rand(6)==0 && !taskN18
       taskN18=true
       task1.push(18)
+    elsif rand(6)==0 && !taskN24 && isMillenial?
+      taskN24=true
+      task1.push(24)
     end
     task1.shuffle!
-    task2 = [6,7,8,16]
+    task2 = [6,7,8,16,22]
     if rand(6)==0 && !taskN12
       taskN12=true
       task2.push(12)
@@ -203,40 +230,46 @@ class PokemonBoxScene
     elsif rand(6)==0 && !taskN18
       taskN18=true
       task2.push(18)
+    elsif rand(6)==0 && !taskN24
+      taskN24=true
+      task2.push(24)
     end
     task2.shuffle!
-    task3 = [9,10,11,17]
-    task3 = [9,9,11,17] if taskN10 # Don't assign the 11th task in order again
+    task3 = [9,10,11,17,23]
+    task3 = [9,11,17,23] if taskN10 # Don't assign the 11th task in order again
     if rand(6)==0 && !taskN12
       taskN12=true
       task3.push(12)
     elsif rand(6)==0 && !taskN18
       taskN18=true
       task3.push(18)
+    elsif rand(6)==0 && !taskN24
+      taskN24=true
+      task3.push(24)
     end
     task3.shuffle!
     $game_variables[PBOX_VARIABLES[0]]=0
     $game_variables[PBOX_VARIABLES[1]] = [
       # Task #0
-      [task0[0],$PokemonGlobal.pokebox[task0[0]],taskVals[task0[0]]],
-      [task1[0],$PokemonGlobal.pokebox[task1[0]],taskVals[task1[0]]],
-      [task2[0],$PokemonGlobal.pokebox[task2[0]],taskVals[task2[0]]],
-      [task3[0],$PokemonGlobal.pokebox[task3[0]],taskVals[task3[0]]],
+      [task0[0],$PokemonGlobal.pokebox[task0[0]],taskVals(task0[0])],
+      [task1[0],$PokemonGlobal.pokebox[task1[0]],taskVals(task1[0])],
+      [task2[0],$PokemonGlobal.pokebox[task2[0]],taskVals(task2[0])],
+      [task3[0],$PokemonGlobal.pokebox[task3[0]],taskVals(task3[0])],
       # Task #1
-      [task0[1],$PokemonGlobal.pokebox[task0[1]],taskVals[task0[1]]],
-      [task1[1],$PokemonGlobal.pokebox[task1[1]],taskVals[task1[1]]],
-      [task2[1],$PokemonGlobal.pokebox[task2[1]],taskVals[task2[1]]],
-      [task3[1],$PokemonGlobal.pokebox[task3[1]],taskVals[task3[1]]],      
+      [task0[1],$PokemonGlobal.pokebox[task0[1]],taskVals(task0[1])],
+      [task1[1],$PokemonGlobal.pokebox[task1[1]],taskVals(task1[1])],
+      [task2[1],$PokemonGlobal.pokebox[task2[1]],taskVals(task2[1])],
+      [task3[1],$PokemonGlobal.pokebox[task3[1]],taskVals(task3[1])],      
       # Task #2
-      [task0[2],$PokemonGlobal.pokebox[task0[2]],taskVals[task0[2]]],
-      [task1[2],$PokemonGlobal.pokebox[task1[2]],taskVals[task1[2]]],
-      [task2[2],$PokemonGlobal.pokebox[task2[2]],taskVals[task2[2]]],
-      [task3[2],$PokemonGlobal.pokebox[task3[2]],taskVals[task3[2]]],      
+      [task0[2],$PokemonGlobal.pokebox[task0[2]],taskVals(task0[2])],
+      [task1[2],$PokemonGlobal.pokebox[task1[2]],taskVals(task1[2])],
+      [task2[2],$PokemonGlobal.pokebox[task2[2]],taskVals(task2[2])],
+      [task3[2],$PokemonGlobal.pokebox[task3[2]],taskVals(task3[2])],      
       # Task #3
-      [task0[3],$PokemonGlobal.pokebox[task0[3]],taskVals[task0[3]]],
-      [task1[3],$PokemonGlobal.pokebox[task1[3]],taskVals[task1[3]]],
-      [task2[3],$PokemonGlobal.pokebox[task2[3]],taskVals[task2[3]]],
-      [task3[3],$PokemonGlobal.pokebox[task3[3]],taskVals[task3[3]]]      
+      [task0[3],$PokemonGlobal.pokebox[task0[3]],taskVals(task0[3])],
+      [task1[3],$PokemonGlobal.pokebox[task1[3]],taskVals(task1[3])],
+      [task2[3],$PokemonGlobal.pokebox[task2[3]],taskVals(task2[3])],
+      [task3[3],$PokemonGlobal.pokebox[task3[3]],taskVals(task3[3])]      
                                           ]
     id = [$game_variables[PBOX_VARIABLES[2]],(@durations.length)-3].min
     id = @durations.length-2 if isMillenial?
@@ -258,7 +291,11 @@ class PokemonBoxScene
     progressTime=[]
     value=$game_variables[PBOX_VARIABLES[3]]
     shadowfract=taskstatus*100/taskstatus2
-    shadowfract2=(value[1]-(pbGetTimeNow.to_f - value[0]))*100/value[1]
+    id2 = [$game_variables[PBOX_VARIABLES[2]],(@durations.length)-3].min
+    id2 = @durations.length-2 if isMillenial?
+    id2 = @durations.length-1 if isMillenial2?
+    remtime = @durations[id2]*86400
+    shadowfract2=(value[1]-(pbGetTimeNow.to_f - value[0]))*100/remtime
     if ($PokemonSystem.threecolorbar==1 rescue false)
       progress.push(["Graphics/UI/"+getAccentFolder+"/summaryEggBar_threecolorbar",@sprites["progress"].x+8,@sprites["progress"].y+4,0,0,(shadowfract*2.48).floor,-1])
       progressTime.push(["Graphics/UI/"+getAccentFolder+"/summaryEggBar_threecolorbar",@sprites["progresstime"].x+8,@sprites["progresstime"].y+4,0,0,(shadowfract2*2.48).floor,-1])

@@ -1278,13 +1278,15 @@ end
 # pbFadeOutIn(z) { block }
 # Fades out the screen before a block is run and fades it back in after the
 # block exits.  z indicates the z-coordinate of the viewport used for this effect
-def pbFadeOutIn(z,nofadeout=false)
+def pbFadeOutIn(z,nofadeout=false,instant=false)
   col=Color.new(0,0,0,0)
   viewport=Viewport.new(0,0,Graphics.width,Graphics.height)
   viewport.z=z
-  for j in 0..17
-    col.set(0,0,0,j*15)
-    viewport.color=col
+  threads= instant ? 1 : 17
+  amount= 255 / threads
+  for j in 0..threads
+    col.set(0,0,0,j*amount)
+    viewport.color=col if !instant
     Graphics.update
     Input.update
   end
@@ -1294,9 +1296,9 @@ def pbFadeOutIn(z,nofadeout=false)
   ensure
     pbPopFade
     if !nofadeout
-      for j in 0..17
-        col.set(0,0,0,(17-j)*15)
-        viewport.color=col
+      for j in 0..threads
+        col.set(0,0,0,(threads-j)*amount)
+        viewport.color=col if !instant
         Graphics.update
         Input.update
       end
@@ -1305,11 +1307,13 @@ def pbFadeOutIn(z,nofadeout=false)
   end
 end
 
-def pbFadeOutAndHide(sprites)
+def pbFadeOutAndHide(sprites,instant=false)
   visiblesprites={}
+  threads= instant ? 1 : 17
+  amount= 255 / threads
   pbDeactivateWindows(sprites){
-     for j in 0..17
-       pbSetSpritesToColor(sprites,Color.new(0,0,0,j*15))
+     for j in 0..threads
+       pbSetSpritesToColor(sprites,Color.new(0,0,0,j*amount)) if !instant
        block_given? ? yield : pbUpdateSpriteHash(sprites)
      end
   }
@@ -1322,7 +1326,9 @@ def pbFadeOutAndHide(sprites)
   return visiblesprites
 end
 
-def pbFadeInAndShow(sprites,visiblesprites=nil)
+def pbFadeInAndShow(sprites,visiblesprites=nil,instant=false)
+  threads= instant ? 1 : 17
+  amount= 255 / threads
   if visiblesprites
     for i in visiblesprites
       if i[1] && sprites[i[0]] && !pbDisposed?(sprites[i[0]])
@@ -1331,8 +1337,8 @@ def pbFadeInAndShow(sprites,visiblesprites=nil)
     end
   end
   pbDeactivateWindows(sprites){
-     for j in 0..17
-       pbSetSpritesToColor(sprites,Color.new(0,0,0,((17-j)*15)))
+     for j in 0..threads
+       pbSetSpritesToColor(sprites,Color.new(0,0,0,((threads-j)*amount))) if !instant
        block_given? ? yield : pbUpdateSpriteHash(sprites)
      end 
   }

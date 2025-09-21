@@ -4557,6 +4557,9 @@ def ragefist
     p+=1 if @battle.pbTerrain==PBBattleTerrains::VOLCANIC && thismove.function==0x348
     p+=1 if @battle.pbTerrain==PBBattleTerrains::LOVELY && thismove.function==0x349
     p+=1 if @battle.pbTerrain==PBBattleTerrains::CINAMENT && thismove.function==0x350
+    if @battle.pbOwnedByPlayer?(user.index)
+      $PokemonGlobal.pokebox[24]+=1 if p>0
+    end
     if target.hasWorkingAbility(:PROVENDO) &&  thismove.canProtectAgainst? && 
       p>0 && !target.effects[PBEffects::ProtectNegation]
 			pbPlayMissSE()
@@ -6117,6 +6120,8 @@ def ragefist
       $PokemonGlobal.pokebox[7]+=1 if thismove.pbIsSpecial?(thismove.type)
       $PokemonGlobal.pokebox[8]+=1 if thismove.pbIsStatus?
       $PokemonGlobal.pokebox[16]+=1 if thismove.pbIsDamaging? && user.pbHasType?(thismove.type)
+      $PokemonGlobal.pokebox[22]+=1 if thismove.isHealingMove?
+      $PokemonGlobal.pokebox[23]+=1 if thismove.isOHKO?
     end
     user.lastMoveUsed=thismove.id
     user.lastMoveUsedType=thismove.pbType(thismove.type,user,nil)

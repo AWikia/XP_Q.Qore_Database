@@ -61,6 +61,12 @@ class Scene_Map
 
   def main
     createSpritesets
+# Header Start
+    @header = IconSprite.new(0,0)        
+    @header.setBitmap("Graphics/UI/"+getDarkModeFolder+"/mapheader_bg")
+    @header.z=99998
+    @header.visible=true
+# Header End
     Graphics.transition
     loop do
       Graphics.update
@@ -104,6 +110,7 @@ class Scene_Map
       $game_player.update
       $game_system.update
       $game_screen.update
+      @header.setBitmap("Graphics/UI/"+getDarkModeFolder+"/mapheader_bg") # Header
       unless $game_temp.player_transferring
         break
       end
@@ -137,6 +144,18 @@ class Scene_Map
       unless pbMapInterpreterRunning? or $game_system.menu_disabled or $game_player.moving?
         $game_temp.menu_calling = true
         $game_temp.menu_beep = true
+      end
+    end
+    if Input.trigger?(Input::R)
+      unless pbMapInterpreterRunning? or $game_player.moving?
+        pbPlayCursorSE()
+        @scene=$scene
+        scene=Scene_PokegearScene.new
+        screen=Scene_Pokegear.new(scene)
+        pbFadeOutIn(99999,false,true) {
+           screen.pbStartScreen(true)
+        #   @scene.pbRefresh
+        }
       end
     end
     if Input.trigger?(Input::F5)

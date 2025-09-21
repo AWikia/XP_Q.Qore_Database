@@ -784,6 +784,7 @@ class PokeBattle_Battler
     end
     increment=[increment,6-@stages[stat]].min
     PBDebug.log("[Stat change] #{pbThis}'s #{PBStats.getName(stat)} rose by #{increment} stage(s) (was #{@stages[stat]}, now #{@stages[stat]+increment})")
+    $PokemonGlobal.pokebox[20]+=1 if @battle.pbOwnedByPlayer?(self.index)
     @stages[stat]+=increment
     return increment
   end

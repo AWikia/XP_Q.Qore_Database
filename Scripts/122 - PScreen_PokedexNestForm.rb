@@ -166,7 +166,7 @@ class PokemonNestMapScene
   end
 
   def pbMapScene(listlimits)
-    Graphics.transition
+    Graphics.transition(0)
     ret=0
     loop do
       Graphics.update
@@ -444,7 +444,7 @@ class PokedexFormScene
   end
 
   def pbControls(listlimits)
-    Graphics.transition
+    Graphics.transition(0)
     ret=0
     loop do
       Graphics.update

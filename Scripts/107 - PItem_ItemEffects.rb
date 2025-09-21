@@ -1861,6 +1861,7 @@ ItemHandlers::BattleUseOnPokemon.add(:REVIVE,proc{|item,pokemon,battler,scene|
          break
        end
      end
+     $PokemonGlobal.pokebox[21]+=1
      scene.pbRefresh
      scene.pbDisplay(_INTL("{1}'s HP was restored.",pokemon.name))
      next true
@@ -1880,6 +1881,7 @@ ItemHandlers::BattleUseOnPokemon.add(:MAXREVIVE,proc{|item,pokemon,battler,scene
          break
        end
      end
+     $PokemonGlobal.pokebox[21]+=1
      scene.pbRefresh
      scene.pbDisplay(_INTL("{1}'s HP was restored.",pokemon.name))
      next true
@@ -1934,6 +1936,7 @@ ItemHandlers::BattleUseOnPokemon.add(:REVIVALHERB,proc{|item,pokemon,battler,sce
        end
      end
      pokemon.changeHappiness("Revival Herb")
+     $PokemonGlobal.pokebox[21]+=1
      scene.pbRefresh
      scene.pbDisplay(_INTL("{1}'s HP was restored.",pokemon.name))
      next true

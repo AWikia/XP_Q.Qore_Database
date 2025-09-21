@@ -146,7 +146,7 @@ class PokemonMenu
     commands[cmdPokedex=commands.length]=_INTL("Pokédex") if $Trainer.pokedex && $PokemonGlobal.pokedexViable.length>0
     commands[cmdPokemon=commands.length]=_INTL("Pokémon") if $Trainer.party.length>0
     commands[cmdBag=commands.length]=_INTL("Bag") if !pbInBugContest?
-    commands[cmdPokegear=commands.length]=_INTL("Pokégear") if $Trainer.pokegear
+#    commands[cmdPokegear=commands.length]=_INTL("Pokégear") if $Trainer.pokegear
     commands[cmdTrainer=commands.length]=$Trainer.name
     information=_INTL("Trophies: {1}/28 ({2}%)\nTechnical Discs: {3}/100\nWin Streak:{4}\n",Kernel.pbTrophies, Kernel.pbTrophyScore, Kernel.pbTechnicalDiscScore, $game_variables[WIN_STREAK_VARIABLE])
     if pbInSafari?

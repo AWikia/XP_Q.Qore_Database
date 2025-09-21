@@ -81,7 +81,7 @@ class Scene_PokegearScene
   #-----------------------------------------------------------------------------
   # main
   #-----------------------------------------------------------------------------
-  def pbPokegearScreen
+  def pbPokegearScreen(frommap=false)
     commands=[]
     @sprites={}
 # OPTIONS - If you change these, you should also change update_command below.
@@ -100,17 +100,26 @@ class Scene_PokegearScene
     @viewport=Viewport.new(0,0,Graphics.width,Graphics.height)
     @viewport.z=99999
     @button=AnimatedBitmap.new("Graphics/UI/"+getDarkModeFolder+"/pokegearButton")
+    @sprites["background2"]=IconSprite.new(0,0,@viewport)
+    @sprites["background2"].z = 2
     femback=pbResolveBitmap(sprintf("Graphics/UI/"+getDarkModeFolder+"/Pokegear/bg_f"))
     if $Trainer && $Trainer.isFemale? && femback
       addBackgroundPlane(@sprites,"background",getDarkModeFolder+"/Pokegear/bg_f",@viewport)
+      @sprites["background2"].setBitmap(_INTL("Graphics/UI/"+getDarkModeFolder+"/Pokegear/mapheader_bg_f"))
     else
       addBackgroundPlane(@sprites,"background",getDarkModeFolder+"/Pokegear/bg",@viewport)
+      @sprites["background2"].setBitmap(_INTL("Graphics/UI/"+getDarkModeFolder+"/Pokegear/mapheader_bg"))
     end
-    @sprites["header"]=Window_UnformattedTextPokemon.newWithSize(_INTL("Pok‚gear"),
-       2,-18,128,64,@viewport)
-    @sprites["header"].baseColor=(isDarkMode?) ? Color.new(242,242,242) : Color.new(12,12,12)
-    @sprites["header"].shadowColor=nil #(!isDarkMode?) ? Color.new(242,242,242) : Color.new(12,12,12)
-    @sprites["header"].windowskin=nil
+    if !frommap
+      @sprites["header"]=Window_UnformattedTextPokemon.newWithSize(_INTL("Pok‚gear"),
+         2,-18,128,64,@viewport)
+      @sprites["header"].baseColor=(isDarkMode?) ? Color.new(242,242,242) : Color.new(12,12,12)
+      @sprites["header"].shadowColor=nil #(!isDarkMode?) ? Color.new(242,242,242) : Color.new(12,12,12)
+      @sprites["header"].windowskin=nil
+      @sprites["background2"].visible=false
+    else
+      @sprites["background2"].visible=true
+    end
     @sprites["command_window"] = Window_CommandPokemon.new(commands,160)
     @sprites["command_window"].visible = false
     @sprites["command_window"].index = @menu_index
@@ -121,13 +130,17 @@ class Scene_PokegearScene
       @sprites["button#{i}"].selected=(i==@sprites["command_window"].index)
       @sprites["button#{i}"].update
     end
-    pbFadeInAndShow(@sprites)
+    pbFadeInAndShow(@sprites,nil,frommap)
     loop do
       Graphics.update
       Input.update
       update
       if Input.trigger?(Input::B)
         pbPlayCancelSE()
+        break
+      end
+      if Input.trigger?(Input::L) && frommap
+        pbPlayCursorSE()
         break
       end
     end
@@ -193,8 +206,8 @@ class Scene_PokegearScene
 end
 
 
-  def pbEndScene
-    pbFadeOutAndHide(@sprites) { update }
+  def pbEndScene(frommap=false)
+    pbFadeOutAndHide(@sprites,frommap) { update }
     pbDisposeSpriteHash(@sprites)
     @viewport.dispose
   end
@@ -205,9 +218,9 @@ class Scene_Pokegear
     @scene=scene
   end
 
-  def pbStartScreen
+  def pbStartScreen(frommap=false)
     @scene.pbStartScene
-    @scene.pbPokegearScreen
-    @scene.pbEndScene
+    @scene.pbPokegearScreen(frommap)
+    @scene.pbEndScene(frommap)
   end
 end

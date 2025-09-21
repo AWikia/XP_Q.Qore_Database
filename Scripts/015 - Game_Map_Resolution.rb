@@ -25,7 +25,7 @@ class Game_Map
     @display_y=value
     if pbGetMetadata(self.map_id,MetadataSnapEdges)
       max_y = (self.height - Graphics.height*1.0/Game_Map::TILEHEIGHT) * Game_Map.realResY
-      @display_y = [0, [@display_y, max_y].min].max
+      @display_y = [-32*YSUBPIXEL, [@display_y, max_y].min].max # 32px reserved for header
     end
     $MapFactory.setMapsInRange if $MapFactory
   end

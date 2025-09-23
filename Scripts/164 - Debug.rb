@@ -270,6 +270,7 @@ def pbDebugMenu(inloadscreen=false,mode=0)
     commands.add("roamerstatus",_INTL("Roaming Pokémon Status")) if !inloadscreen
     commands.add("roam",_INTL("Advance Roaming")) if !inloadscreen
     commands.add("resettrainers",_INTL("Reset Trainers")) if !inloadscreen
+    commands.add("pokeboxdata",_INTL("Pokémon Box Options...")) if !inloadscreen
     commands.add("togglelogging",_INTL("Toggle Battle Logging"))
     commands.add("godhandmode",_INTL("Use Intensive Battle Difficulty"))
   end
@@ -792,12 +793,12 @@ def pbDebugMenu(inloadscreen=false,mode=0)
         when 0 # VoltorbFlip
           pbSlotMachine
         when 1 # Slot Machine
-          commands=[_INTL("Easy"),
+          gamecmds2=[_INTL("Easy"),
                     _INTL("Medium"),
                     _INTL("Hard"),
                     _INTL("Cancel")]
           command=Kernel.pbMessage(
-              _INTL("Choose a difficulty."),commands,-1)
+              _INTL("Choose a difficulty."),gamecmds2,-1)
           if command>=0 && command < 3
             pbVoltorbFlip(command)
           end
@@ -968,6 +969,62 @@ def pbDebugMenu(inloadscreen=false,mode=0)
     elsif cmd=="godhandmode"
       $PokemonSystem.battledif=4
       Kernel.pbMessage(_INTL("Battle difficulty has been set to Intensive."))
+    elsif cmd=="pokeboxdata"
+      boxcmd=0
+      box=PokemonBoxScene.new
+      loop do 
+        boxcmds=[
+           _INTL("Change Win Streak"),
+           _INTL("Jump to task..."),
+           _INTL("Jump to substep")
+        ]
+        boxcmd=Kernel.pbShowCommands(nil,boxcmds,-1,boxcmd)
+        break if boxcmd<0
+        case boxcmd
+        when 0 # Mining
+          params=ChooseNumberParams.new
+          params.setRange(0,65535)
+          params.setInitialValue($game_variables[PBOX_VARIABLES[2]])
+          params.setCancelValue(-1)
+          qty=Kernel.pbMessageChooseNumber(
+             _INTL("Choose the your new win streak value (max. 65535)."),params
+          )
+          if qty>-1
+            $game_variables[PBOX_VARIABLES[2]]=qty
+            box.initializeBox(true)
+            Kernel.pbMessage(_INTL("Pokémon Box was regenerated with new data at Win Streak of {1}",qty))
+          end
+        when 1 # Slot Machine
+          boxcmds2=[_INTL("Magnemite"),
+                    _INTL("Shellder"),
+                    _INTL("Pikachu"),
+                    _INTL("Psyduck"),
+                    _INTL("Cancel")]
+          gamecmd2=Kernel.pbMessage(
+              _INTL("Choose a task you wish to go into."),boxcmds2,-1)
+          if gamecmd2>=0 && gamecmd2 < 4
+            $game_variables[PBOX_VARIABLES[0]]=gamecmd2 # Reset Substep
+            currentStep=box.currentStep
+            $game_variables[PBOX_VARIABLES[1]][currentStep][1] = $PokemonGlobal.pokebox[ $game_variables[PBOX_VARIABLES[1]][currentStep][0] ]
+            Kernel.pbMessage(_INTL("Pokémon Box was moved to task No. {1} within the current subtask",gamecmd2))
+          end
+        when 2 # Type Quiz
+          params=ChooseNumberParams.new
+          params.setRange(0,3)
+          params.setInitialValue($game_variables[PBOX_VARIABLES[4]])
+          params.setCancelValue(-1)
+          qty=Kernel.pbMessageChooseNumber(
+             _INTL("Choose the subtask No. you want to go (max. 3)."),params
+          )
+          if qty>-1
+            $game_variables[PBOX_VARIABLES[4]]=qty
+            currentStep=box.currentStep
+            $game_variables[PBOX_VARIABLES[1]][currentStep][1] = $PokemonGlobal.pokebox[ $game_variables[PBOX_VARIABLES[1]][currentStep][0] ]
+            Kernel.pbMessage(_INTL("Pokémon Box was moved to subtask No. {1} within the current task",qty))
+          end
+        end
+      end
+      # End Pokemon Box Debug
     end
   end
   pbFadeOutAndHide(sprites)

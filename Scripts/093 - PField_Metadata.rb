@@ -118,7 +118,7 @@ class PokemonGlobalMetadata
     @inPast               = false
     @inFuture             = false
     @adsWatched           = 0
-    @pokebox              = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0] # Items 13 abd 19 are stubbed out
+    @pokebox              = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0] # Items 13 abd 19 are stubbed out
   end
 
   def bridge
@@ -132,7 +132,7 @@ class PokemonGlobalMetadata
   end
   
   def pokebox
-    @pokebox = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0] if !@pokebox
+    @pokebox = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0] if !@pokebox
     max= pokeboxNames.length - 1
     if !@pokebox[max] # Add the final new tasks for save files without them
       for i in 14...(pokeboxNames.length)
@@ -145,7 +145,7 @@ class PokemonGlobalMetadata
   def pokeboxNames
     return [_INTL("Gain Experience"),_INTL("Level Up Pokémon"),
             _INTL("Defeat Pokémon"),_INTL("Catch Pokémon"),
-            _INTL("Trigger Abilities"),_INTL("Trigger Items"),
+            _INTL("Activate Abilities"),_INTL("Activate Held Items"),
             _INTL("Use Physical Moves"),_INTL("Use Special Moves"),
             _INTL("Use Status Moves"),_INTL("Use Battle Items"),
             _INTL("Defeat Trainers"),_INTL("Lapse Turns"),
@@ -155,7 +155,9 @@ class PokemonGlobalMetadata
             _INTL("Use Berries"),_INTL("Defeat Hordes"),
             _INTL("Increase Stats"),_INTL("Revive Pokémon"),
             _INTL("Use Healing Moves"),_INTL("Use One-hit KO Moves"),
-            _INTL("Use Hi Priority Moves")]
+            _INTL("Use Hi Priority Moves"),_INTL("Decrease Stats"),
+            _INTL("Inflict Conditions"),_INTL("Use Moves with Effects"),
+            _INTL("Use Copycat Moves"),_INTL("Take Recoil Damage")]
   end
 end
 

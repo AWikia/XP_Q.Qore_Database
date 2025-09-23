@@ -1943,7 +1943,6 @@ class PokeBattle_Move
       else
         @battle.pbDisplay(_INTL("A critical hit!"))
       end
-      $PokemonGlobal.pokebox[15]+=1 if @battle.pbOwnedByPlayer?(attacker.index)
     end
     if !pbIsMultiHit && attacker.effects[PBEffects::ParentalBond]==0
       if opponent.damagestate.typemod>8

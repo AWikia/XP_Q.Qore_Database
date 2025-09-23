@@ -137,7 +137,8 @@ def recoildamage
   def changeRecoilDamage(value)
     resetRecoilDamage if !@recoildamage
     @recoildamage+=value
-    @pokemon.recoildamage+= value if @pokemon 
+    @pokemon.recoildamage+= value if @pokemon
+    $PokemonGlobal.pokebox[29]+=value if @battle.pbOwnedByPlayer?(@index)
   end
 
 
@@ -162,6 +163,7 @@ def criticalhits
     resetCriticalHits if !@criticalhits
     @criticalhits+=value
     @pokemon.criticalhits+= value if @pokemon 
+    $PokemonGlobal.pokebox[15]+=1 if @battle.pbOwnedByPlayer?(@index)
   end
 
   
@@ -958,7 +960,7 @@ def ragefist
     return false if @effects[PBEffects::NeutralTrap]>0
     return false if @effects[PBEffects::GastroAcid] && !self.pbHasType?(:GAS)
     if isConst?(@ability,PBAbilities,ability)
-      $PokemonGlobal.pokebox[4]+=1
+      $PokemonGlobal.pokebox[4]+=1  if @battle.pbOwnedByPlayer?(@index)
       return true
     end
     return false
@@ -1109,7 +1111,7 @@ def ragefist
     return false if @pokemon.corrosiveGas
     return false if self.hasWorkingAbility(:KLUTZ,ignorefainted)
     if isConst?(@item,PBItems,item)
-      $PokemonGlobal.pokebox[5]+=1 # if @battle.pbOwnedByPlayer?(@index)
+      $PokemonGlobal.pokebox[5]+=1  if @battle.pbOwnedByPlayer?(@index)
     end
     return false
   end
@@ -5378,10 +5380,10 @@ def ragefist
       end
       @battle.pbJudgeCheckpoint(user,thismove)
       # Additional effect
-      if target.damagestate.calcdamage>0 &&
-         !user.hasWorkingAbility(:SHEERFORCE) &&
+      addleffect=thismove.addlEffect
+      if target.damagestate.calcdamage>0 && addleffect>0 &&
+         !user.hasWorkingAbility(:SHEERFORCE)
          (user.hasMoldBreaker(target) || !target.hasWorkingAbility(:SHIELDDUST))
-        addleffect=thismove.addlEffect
         addleffect=0  if user.pbOwnSide.effects[PBEffects::CrateBuster]>0
         addleffect*=2 if user.hasWorkingAbility(:SERENEGRACE)
         addleffect*=2 if user.pbOwnSide.effects[PBEffects::Rainbow]>0
@@ -5391,6 +5393,8 @@ def ragefist
         addleffect=100 if $DEBUG && Input.press?(Input::CTRL)
         addleffect=100 if isConst?(user.species,PBSpecies,:ENCHRISO) && # FLINT Species (Set here for convenience)
                           thismove.function==0x251  # Magic Gold
+        $PokemonGlobal.pokebox[27]+=1 if @battle.pbOwnedByPlayer?(user.index) &&
+                                         addleffect>0
         if @battle.pbRandom(100)<addleffect
           PBDebug.log("[Move effect triggered] #{thismove.name}'s added effect")
           thismove.pbAdditionalEffect(user,target)
@@ -5603,6 +5607,7 @@ def ragefist
         if id == j
           if i.hasWorkingAbility(:DANCER)
             @battle.pbDisplay(_INTL("{1} danced along!",i.pbThis))
+            $PokemonGlobal.pokebox[28]+=1 if @battle.pbOwnedByPlayer?(i.index)
             i.pbUseMoveSimple(id,-1,-1,true)
           end
         end

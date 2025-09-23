@@ -8,13 +8,6 @@ class PokemonBoxScene
   
   def initialize
     @stages=4 # Classic, Bronze, Silver, Gold
-  end
-  
-  def stages
-    return @stages rescue 4
-  end
-
-  def pbStartScene(expired=false)
     heal=[:AWAKENING,:ANTIDOTE,:BURNHEAL,:PARALYZEHEAL,:ICEHEAL]
     heal=heal[$Trainer.publicID($Trainer.id)%heal.length]
     @items = [
@@ -28,6 +21,13 @@ class PokemonBoxScene
             [:SACREDASH,:MASTERBALL,:SUPERBOOSTER,:BOTANICSMOKE,:NORMALBOX,:VICIOUSCANDY]
             ]
     @durations=[13,7,5,5,3,2] # Was [14,6,4,4,2,2]
+  end
+  
+  def stages
+    return @stages rescue 4
+  end
+
+  def pbStartScene(expired=false)
     @sprites={}
     @viewport=Viewport.new(0,0,Graphics.width,Graphics.height)
     @viewport.z=99999
@@ -132,8 +132,8 @@ class PokemonBoxScene
             (2*multi)+randIncr((2*multi)+addIncr(2)),               # Level Up Pokemon
             (2*multi)+randIncr((2*multi)+addIncr(2)),               # Defeat Pokemon
             (1*multi)+randIncr((2*multi)+addIncr(1)),               # Catch Pokemon
-            (10*multi)+randIncr((20*multi)+addIncr(10)),            # Trigger Abilites
-            (10*multi)+randIncr((20*multi)+addIncr(10)),            # Trigger Items
+            (8*multi)+randIncr((16*multi)+addIncr(8)),              # Trigger Abilites
+            (8*multi)+randIncr((16*multi)+addIncr(8)),              # Trigger Items
             (3*multi)+randIncr((3*multi)+addIncr(3)),               # Use Physical Moves
             (3*multi)+randIncr((3*multi)+addIncr(3)),               # Use Special Moves
             (2*multi)+randIncr((2*multi)+addIncr(2)),               # Use Status Moves
@@ -153,6 +153,11 @@ class PokemonBoxScene
             (2*multi)+randIncr((2*multi)+addIncr(2)),               # Use Healing Moves
             (0.25*multi)+randIncr((0.5*multi)+addIncr(0.25)),       # Use One-hit KO Moves 
             (2*multi)+randIncr((3*multi)+addIncr(3)),               # Use Hi Priority Moves
+            (6*multi)+randIncr((6*multi)+addIncr(6)),               # Decrease Stats
+            (4*multi)+randIncr((4*multi)+addIncr(4)),               # Inflict Conditions            
+            (2*multi)+randIncr((3*multi)+addIncr(2)),               # Use Moves with Effects
+            (1*multi)+randIncr((1*multi)+addIncr(1)),               # Use Copycat Moves
+            (125*multi)+randIncr((625*multi*multi2)+addIncr(125))   # Take Recoil Damage
             ][num].ceil
 
   end
@@ -171,9 +176,9 @@ class PokemonBoxScene
        [_INTL("How to use:"),(Graphics.width/4)-14,0,2,baseColor,shadowColor],
     ]
     text = _INTL("Win battles, including wild to complete tasks.")
-    text2 = _INTL("Each Pokémon requires a different task.")
-    text3 = _INTL("Finish all four tasks to get a new box and rewards.")
-    text4 = _INTL("If the time expires, your win streak rests.")
+    text2 = _INTL("Finish all four tasks to get rewards and a new box.")
+    text3 = _INTL("If the time exipres, your win streak resets.")
+    text4 = _INTL("Got stuck? Change task or try with different Pokémon.")
     drawTextEx(overlay,0,32,(Graphics.width/2)-28,2,text,baseColor,shadowColor)
     drawTextEx(overlay,0,112,(Graphics.width/2)-28,2,text2,baseColor,shadowColor)
     drawTextEx(overlay,0,192,(Graphics.width/2)-28,2,text3,baseColor,shadowColor)
@@ -183,14 +188,15 @@ class PokemonBoxScene
   end
   
   # Creates a new box instance
-  def initializeBox
+  def initializeBox(fromdebug=false)
     taskN12=false
     taskN10=false # For Milleinal/Elite Boxes
     taskN13=false # Not applicable on Q.Qore
     taskN18=false
     taskN19=false # Not applicable on Q.Qore
     taskN24=false
-    task0 = [0,1,2,14,20]
+    taskN29=false
+    task0 = [0,1,2,14,20,25]
     if rand(6)==0 && !taskN12
       taskN12=true
       task0.push(12)
@@ -203,9 +209,12 @@ class PokemonBoxScene
     elsif rand(6)==0 && !taskN24 && isMillenial?
       taskN24=true
       task0.push(24)
+    elsif rand(6)==0 && !taskN29
+      taskN29=true
+      task0.push(29)
     end
     task0.shuffle!
-    task1 = [3,4,5,15,21]
+    task1 = [3,4,5,15,21,26]
     if rand(6)==0 && !taskN12
       taskN12=true
       task1.push(12)
@@ -218,9 +227,12 @@ class PokemonBoxScene
     elsif rand(6)==0 && !taskN24 && isMillenial?
       taskN24=true
       task1.push(24)
+    elsif rand(6)==0 && !taskN29
+      taskN29=true
+      task1.push(29)
     end
     task1.shuffle!
-    task2 = [6,7,8,16,22]
+    task2 = [6,7,8,16,22,27]
     if rand(6)==0 && !taskN12
       taskN12=true
       task2.push(12)
@@ -235,8 +247,8 @@ class PokemonBoxScene
       task2.push(24)
     end
     task2.shuffle!
-    task3 = [9,10,11,17,23]
-    task3 = [9,11,17,23] if taskN10 # Don't assign the 11th task in order again
+    task3 = [9,10,11,17,23,28]
+    task3 = [9,11,17,23,28] if taskN10 # Don't assign the 11th task in order again
     if rand(6)==0 && !taskN12
       taskN12=true
       task3.push(12)
@@ -249,6 +261,7 @@ class PokemonBoxScene
     end
     task3.shuffle!
     $game_variables[PBOX_VARIABLES[0]]=0
+    $game_variables[PBOX_VARIABLES[4]]=0
     $game_variables[PBOX_VARIABLES[1]] = [
       # Task #0
       [task0[0],$PokemonGlobal.pokebox[task0[0]],taskVals(task0[0])],
@@ -275,7 +288,7 @@ class PokemonBoxScene
     id = @durations.length-2 if isMillenial?
     id = @durations.length-1 if isMillenial2?
     pbTimeEventDays(PBOX_VARIABLES[3],@durations[id])
-    pbPokemonBoxUpdate(true)
+    pbPokemonBoxUpdate(true) if !fromdebug
   end
 
   # Updates the box itself (The progress bar, the text, the task and the icons)

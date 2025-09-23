@@ -3543,7 +3543,8 @@ class PokeBattle_Battle
       mod3=2 if mod3==0
     end
     # Foresight
-    if (attacker.hasWorkingAbility(:SCRAPPY) rescue false) || opponent.effects[PBEffects::Foresight]
+    if (attacker.hasWorkingAbility(:SCRAPPY) rescue false) || (attacker.hasWorkingAbility(:MINDSEYE) rescue false) || 
+       opponent.effects[PBEffects::Foresight]
       mod1=2 if isConst?(otype1,PBTypes,:GHOST) && PBTypes.isIneffective?(atype,otype1)
       mod2=2 if isConst?(otype2,PBTypes,:GHOST) && PBTypes.isIneffective?(atype,otype2)
       mod3=2 if isConst?(otype3,PBTypes,:GHOST) && PBTypes.isIneffective?(atype,otype3)

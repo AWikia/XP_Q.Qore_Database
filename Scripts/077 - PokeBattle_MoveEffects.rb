@@ -4922,6 +4922,7 @@ class PokeBattle_Move_0AE < PokeBattle_Move
       @battle.pbDisplay(_INTL("The mirror move failed!"))
       return -1
     end
+    $PokemonGlobal.pokebox[28]+=1 if @battle.pbOwnedByPlayer?(attacker.index)
     attacker.pbUseMoveSimple(opponent.lastMoveUsed,-1,opponent.index)
     return 0
   end
@@ -4992,6 +4993,7 @@ class PokeBattle_Move_0AF < PokeBattle_Move
       return -1
     end
     pbShowAnimation(@id,attacker,nil,hitnum,alltargets,showanimation)
+    $PokemonGlobal.pokebox[28]+=1 if @battle.pbOwnedByPlayer?(attacker.index)
     attacker.pbUseMoveSimple(@battle.lastMoveUsed,-1,@battle.lastMoveUser)
     return 0
   end
@@ -5033,6 +5035,7 @@ class PokeBattle_Move_0B0 < PokeBattle_Move
       return -1
     end
     attacker.effects[PBEffects::MeFirst]=true
+    $PokemonGlobal.pokebox[28]+=1 if @battle.pbOwnedByPlayer?(attacker.index)
     attacker.pbUseMoveSimple(oppmove.id,-1,-1)
     attacker.effects[PBEffects::MeFirst]=false
     return 0

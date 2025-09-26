@@ -159,6 +159,40 @@ class PokemonGlobalMetadata
             _INTL("Inflict Conditions"),_INTL("Use Moves with Effects"),
             _INTL("Use Copycat Moves"),_INTL("Take Recoil Damage")]
   end
+
+  def pokeboxDescriptions
+    return [_INTL("Defeat Pokémon to gain Experience. Should 2 Trainer's Pokémon participate, experience is counted by half."),
+            _INTL("Fill the experience bar of a Pokémon to level them up."),
+            _INTL("Use your moves to defeat opposing Pokémon and progress."),
+            _INTL("Use your Poké Balls or the Safari Balls on a Safari Game to Pokémon and capture them to progress."),
+            _INTL("Use your Pokémon's abilities to progress. It counts only once per use."),
+            _INTL("Use your Pokémon's held item to progress. It conuts only once per use."),
+            _INTL("Use your Pokémon's Physical moves to progress. Status moves turned into Physical moves conut too."),
+            _INTL("Use your Pokémon's Special moves to progress. Status moves tunred into Special moves count too."),
+            _INTL("Use your Pokémon's Status moves to progress."),
+            _INTL("Use items from the Battle Items pocket in your Pokémon to progress. Held items do not count."),
+            _INTL("Complete Trainer Battles to progress. In Trainer Battles with two Trainers, it counts twice."),
+            _INTL("Spend turns on the battle to progress. The more the battle lasts, the more will be counted."),
+            _INTL("Use items from the Medicine pocket in your Pokémon progress. Held items do not count."),
+            _INTL("Complete Wild Battles in the PMW3 Maps to progress. Wild Battles outside of these ones do not count."),
+            _INTL("Use your Pokémon's Damaging moves to deal damage to opposing Pokémon and progress."),
+            _INTL("Get a critical hit by using your Pokémon's Damaging moves to progress."),
+            _INTL("Use your Pokémon's Damaging moves of the same typing as the Pokémon itself to progress."),
+            _INTL("Use up one of your moves that can defeat the opposing Pokémon in the turn that appeared to progress."),
+            _INTL("Use items from the Berries pocket in your Pokémon to progress. Held items do not count."),
+            _INTL("Defeat a group of 5 similar Pokémon to progress. In double battles, it counts twice."),
+            _INTL("Increase your Pokémon's stats using moves, abilities or items to progress. Each stat increase counts once."),
+            _INTL("Use your revival items or a Pokémon with Revival Blessing to revive out a fainted Pokémon and progress."),
+            _INTL("Use your Pokémon's Healing moves to progress. It doesn't have to recover HP in order to be counted."),
+            _INTL("Use your Pokémon's moves that will instantly faint the opponent to progress."),
+            _INTL("Use your Pokémon's moves with high priority to progress."),
+            _INTL("Decrease Pokémon's stats using your moves, abilities or items to progrss. Each stat decrease counts once."),
+            _INTL("Pass out a status condition using your moves, abilities or items to progress."),
+            _INTL("Use your Pokémon's moves that will have an additional effect chance upon its usage to progress."),
+            _INTL("Use your Pokémon's copycat moves or abilities and use other Pokémon's moves to progress."),
+            _INTL("Use your Pokémon's move that take recoil damage upon its usage to reduce its HP to progress.")]
+  end
+  
 end
 
 

@@ -112,6 +112,19 @@ class PokemonBoxScene
   def currentStep
     return $game_variables[PBOX_VARIABLES[0]] + (4*$game_variables[PBOX_VARIABLES[4]])
   end
+
+  def taskname
+    return $PokemonGlobal.pokeboxNames[$game_variables[PBOX_VARIABLES[1]][currentStep][0]]
+  end
+  
+  def taskstatus # Current Task Status
+    return $PokemonGlobal.pokebox[$game_variables[PBOX_VARIABLES[1]][currentStep][0]] - $game_variables[PBOX_VARIABLES[1]][currentStep][1]
+  end
+  
+  def taskstatus2 # Maximum Task Status
+    return $game_variables[PBOX_VARIABLES[1]][currentStep][2]
+  end
+
   
   def randIncr(num)
     id = $game_variables[PBOX_VARIABLES[2]].to_i
@@ -293,9 +306,6 @@ class PokemonBoxScene
 
   # Updates the box itself (The progress bar, the text, the task and the icons)
   def pbPokemonBoxUpdate(showMillenialMessage=false)
-    taskname=$PokemonGlobal.pokeboxNames[$game_variables[PBOX_VARIABLES[1]][currentStep][0]]
-    taskstatus=$PokemonGlobal.pokebox[$game_variables[PBOX_VARIABLES[1]][currentStep][0]] - $game_variables[PBOX_VARIABLES[1]][currentStep][1]
-    taskstatus2=$game_variables[PBOX_VARIABLES[1]][currentStep][2]
     @sprites["overlayTask"].bitmap.clear
     @sprites["overlayTime"].bitmap.clear
     @sprites["overlayItems"].bitmap.clear
@@ -391,8 +401,6 @@ class PokemonBoxScene
   
   # Used to check if the box should advance itself
   def pbPokemonBoxAdvance
-    taskstatus=$PokemonGlobal.pokebox[$game_variables[PBOX_VARIABLES[1]][currentStep][0]] - $game_variables[PBOX_VARIABLES[1]][currentStep][1]
-    taskstatus2=$game_variables[PBOX_VARIABLES[1]][currentStep][2]
     if taskstatus >= taskstatus2
       $game_variables[PBOX_VARIABLES[0]]+=1
       $game_variables[PBOX_VARIABLES[4]]=0 # Reset Substep
@@ -413,8 +421,13 @@ class PokemonBoxScene
         id = [$game_variables[PBOX_VARIABLES[2]],(@items.length)-3].min
         id = @items.length-2 if isMillenial?
         id = @items.length-1 if isMillenial2?
+        multiamt = 1
+        if pbIsMillenialDate?
+          Kernel.pbMessage(_INTL("As you're on a special date, you will be getting double rewards."))
+          multiamt = 2
+        end
         for i in @items[id]
-          Kernel.pbReceiveItem(i,1)
+          Kernel.pbReceiveItem(i,1*multiamt)
         end
         $game_variables[PBOX_VARIABLES[2]]+=1
         stage=[_INTL("Classic"), 
@@ -476,6 +489,21 @@ class PokemonBoxScene
     @sprites["task3"].visible= $game_variables[PBOX_VARIABLES[0]]>3
   end
   
+  def changeBoxTask
+    maxtimes = ($game_variables[PBOX_VARIABLES[1]].length/4).floor - 1
+    availabletimes = maxtimes - $game_variables[PBOX_VARIABLES[4]]
+    if $game_variables[PBOX_VARIABLES[4]]>=maxtimes
+      Kernel.pbMessage(_INTL("You can't change this task any longer."))
+    elsif Kernel.pbConfirmMessage(_INTL("Are you sure you want to change this task? You can change it {1} times. Any progress done on this one will be lost.",availabletimes))
+      $game_variables[PBOX_VARIABLES[4]]+=1
+      refreshTask
+    end
+  end
+  
+  def showTaskInfo
+    Kernel.pbMessage(_INTL("\\l[2]{1}",$PokemonGlobal.pokeboxDescriptions[ $game_variables[PBOX_VARIABLES[1]][currentStep][0] ]))
+  end
+  
   def pbPokemonBoxScreen
     loop do
       Graphics.update
@@ -485,15 +513,22 @@ class PokemonBoxScene
         break
       end
       if Input.trigger?(Input::A)
-        maxtimes = ($game_variables[PBOX_VARIABLES[1]].length/4).floor - 1
-        availabletimes = maxtimes - $game_variables[PBOX_VARIABLES[4]]
-        if $game_variables[PBOX_VARIABLES[4]]>=maxtimes
-          Kernel.pbMessage(_INTL("You can't change this task any longer."))
-        elsif Kernel.pbConfirmMessage(_INTL("Are you sure you want to change this task? You can change it {1} times. Any progress done on this one will be lost.",availabletimes))
-          $game_variables[PBOX_VARIABLES[4]]+=1
-          refreshTask
+        changeBoxTask
+      end
+      # Left Mouse Key
+      if Input.triggerex?(Input::LeftMouseKey)
+        mousepos=Mouse::getMousePos(true)
+        # Only if Mouse Position can be found
+        if mousepos
+          # Task Pane
+          taskrect=[4,196,(Graphics.width/2)-8,78]
+          if contains2(taskrect,mousepos[0],mousepos[1])
+            showTaskInfo
+          end
+          # Time Pane (Not yet added)
         end
       end
+     # End Left Mouse Key
     end 
   end
 
@@ -504,7 +539,14 @@ class PokemonBoxScene
   end
 end
 
-
+  def contains2(rect,x,y)
+    if $PokemonSystem && $PokemonSystem.border==1
+      x-=BORDERWIDTH
+      y-=BORDERHEIGHT
+    end
+    return x>=rect[0] && x<rect[0]+rect[2] &&
+           y>=rect[1] && y<rect[1]+rect[3]
+  end
 
 class PokemonBoxEvent # Not PokemonBox as it conflicts with another class
   def initialize(scene)

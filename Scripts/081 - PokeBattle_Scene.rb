@@ -2555,6 +2555,10 @@ end
       pbCreatePopUp($game_variables[PBOX_VARIABLES[5]],taskstatus,taskstatus2,_INTL("Pokémon Box"),["Graphics/UI/Pokemon Box/icons",step])
     end
     # End
+    # Mapped Events
+    if $game_switches[209]
+      pbCreatePopUp(pbMapTimeEventOldAmount,pbMapTimeEventAmount,pbMapTimeEventMax,pbMapTimeEventName,["Graphics/UI/Pokemon Box/icons",pbMapTimeEventID])
+    end
   end
 
   def pbEndBattle(result)

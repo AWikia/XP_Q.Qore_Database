@@ -3298,7 +3298,7 @@ class PokeBattle_Move_070 < PokeBattle_Move
   def pbEffect(attacker,opponent,hitnum=0,alltargets=nil,showanimation=true)
     damage=pbEffectFixedDamage(opponent.totalhp,attacker,opponent,hitnum,alltargets,showanimation)
     if opponent.isFainted?
-			pbSEPlay("KO!") ## Qora's Change. Play Sassy SE when fainted
+			pbSEPlay("Battle effect message") ## Qora's Change. Play Sassy SE when fainted
       @battle.pbDisplay(_INTL("It's a one-hit KO!"))
     end
     return damage
@@ -11836,7 +11836,7 @@ class PokeBattle_Move_202 < PokeBattle_Move
   def pbEffect(attacker,opponent,hitnum=0,alltargets=nil,showanimation=true)
     damage=pbEffectFixedDamage(opponent.totalhp,attacker,opponent,hitnum,alltargets,showanimation)
     if opponent.isFainted?
-			pbSEPlay("KO!") ## Qora's Change. Play Sassy SE when fainted
+			pbSEPlay("Battle effect message") ## Qora's Change. Play Sassy SE when fainted
       @battle.pbDisplay(_INTL("It's a one-hit KO!"))
     end
     return damage
@@ -12725,7 +12725,7 @@ class PokeBattle_Move_252 < PokeBattle_Move
   def pbEffect(attacker,opponent,hitnum=0,alltargets=nil,showanimation=true)
     damage=pbEffectFixedDamage(opponent.totalhp,attacker,opponent,hitnum,alltargets,showanimation)
     if opponent.isFainted?
-			pbSEPlay("KO!") ## Qora's Change. Play Sassy SE when fainted
+			pbSEPlay("Battle effect message") ## Qora's Change. Play Sassy SE when fainted
       @battle.pbDisplay(_INTL("It's a one-hit KO!"))
     end
     return damage
@@ -12950,7 +12950,7 @@ class PokeBattle_Move_278 < PokeBattle_Move
   def pbEffect(attacker,opponent,hitnum=0,alltargets=nil,showanimation=true)
     damage=pbEffectFixedDamage(opponent.totalhp,attacker,opponent,hitnum,alltargets,showanimation)
     if opponent.isFainted?
-			pbSEPlay("KO!") ## Qora's Change. Play Sassy SE when fainted
+			pbSEPlay("Battle effect message") ## Qora's Change. Play Sassy SE when fainted
       @battle.pbDisplay(_INTL("It's a one-hit KO!"))
     end
     return damage

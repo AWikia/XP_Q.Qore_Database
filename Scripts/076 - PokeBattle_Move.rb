@@ -1067,7 +1067,9 @@ class PokeBattle_Move
        (attacker.hasWorkingItem(:FAIRYFEATHER) && isConst?(type,PBTypes,:FAIRY)) ||
        (attacker.hasWorkingItem(:JAM) && isConst?(type,PBTypes,:JELLY)) ||
        (attacker.hasWorkingItem(:BASIL) && isConst?(type,PBTypes,:HERB)) ||
-       (attacker.hasWorkingItem(:WATERCRESS) && isConst?(type,PBTypes,:CHLOROPHYLL))
+       (attacker.hasWorkingItem(:WATERCRESS) && isConst?(type,PBTypes,:CHLOROPHYLL)) ||
+       (attacker.hasWorkingItem(:GOLDLEAF) && isConst?(type,PBTypes,:SUN)) ||
+       (attacker.hasWorkingItem(:SILVERLEAF) && isConst?(type,PBTypes,:MOON))
       damagemult=(damagemult*1.2).round
     end
     if (attacker.hasWorkingItem(:NORMALBOX) && isConst?(type,PBTypes,:NORMAL)) ||
@@ -1936,7 +1938,7 @@ class PokeBattle_Move
 ################################################################################
   def pbEffectMessages(attacker,opponent,ignoretype=false,alltargets=nil)
     if opponent.damagestate.critical
-			pbSEPlay("superful")
+			pbSEPlay("Battle effect critical")
       attacker.changeCriticalHits(1)
       if alltargets && alltargets.length>1
         @battle.pbDisplay(_INTL("A critical hit on {1}!",opponent.pbThis(true)))
@@ -1946,14 +1948,14 @@ class PokeBattle_Move
     end
     if !pbIsMultiHit && attacker.effects[PBEffects::ParentalBond]==0
       if opponent.damagestate.typemod>8
-				pbSEPlay("stat3")
+				pbSEPlay("Battle effect message")
         if alltargets && alltargets.length>1
           @battle.pbDisplay(_INTL("It's super effective on {1}!",opponent.pbThis(true)))
         else
           @battle.pbDisplay(_INTL("It's super effective!"))
         end
       elsif opponent.damagestate.typemod>=1 && opponent.damagestate.typemod<8
-        pbSEPlay("stat1")
+        pbSEPlay("Battle effect message")
 				if alltargets && alltargets.length>1
           @battle.pbDisplay(_INTL("It's not very effective on {1}...",opponent.pbThis(true)))
         else

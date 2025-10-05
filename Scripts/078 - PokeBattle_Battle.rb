@@ -2792,6 +2792,9 @@ class PokeBattle_Battle
       currentStep=PokemonBoxScene.new.currentStep
       $game_variables[PBOX_VARIABLES[5]]=$PokemonGlobal.pokebox[$game_variables[PBOX_VARIABLES[1]][currentStep][0]] - $game_variables[PBOX_VARIABLES[1]][currentStep][1]
     end
+    if $game_switches[209]
+      $game_variables[40][7] = pbMapTimeEventAmount
+    end
     PBDebug.log("")
     PBDebug.log("******************************************")
     begin

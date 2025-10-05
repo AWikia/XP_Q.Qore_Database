@@ -100,18 +100,19 @@ def pbGetCountry()
 end
 
 def pbIsSouthernHemisphere()
-  return [0x09, 0x0B, 0x0C, 0x13, 0x1A, 0x1E, 0x20, 0x26,
-          0x2B, 0x2C, 0x2E, 0x32, 0x33, 0x42, 0x45, 0x4E,
-          0x57, 0x6F, 0x81, 0x85, 0x92, 0x95, 0x9C, 0xA0,
-          0xA5, 0xA8, 0xAE, 0xB4, 0xB7, 0xB9, 0xBB, 0xC2,
-          0xCC, 0xD0, 0xD1, 0xD8, 0xE7, 0xE9, 0xEC, 0xEF,
-          0xF0, 0xF6, 0xFE, 0x103, 0x104, 0x107, 0x108,
-          0x12B, 0x130, 0x131, 0x132, 0x135, 0x137, 0x138,
-          0x139, 0x13A, 0x13B, 0x13E, 0x13F, 0x145, 0x147,
-          0x149, 0x14B, 0x14E, 0x14F, 0x150, 0x151, 0x153,
-          0x154, 0x155, 0x156, 0x157, 0x15A, 0x15B, 0x15C,
-          0x160, 0x51A4, 0x52D6, 0x69EA, 0x7AA4, 0xA5F4,
-          0xB9EF, 0xB9F3, 0x6F60E7, 0x9BCE09, 0x9A55D42].include?(pbGetCountry())
+  return [0x09, 0x0A, 0x0B, 0x0C, 0x13, 0x1A, 0x1E, 0x20,
+          0x26, 0x2B, 0x2C, 0x2E, 0x32, 0x33, 0x42, 0x45,
+          0x4E, 0x50, 0x57, 0x6F, 0x81, 0x85, 0x92, 0x95,
+          0x9C, 0xA0, 0xA5, 0xA8, 0xAE, 0xB4, 0xB7, 0xB9,
+          0xBB, 0xC2, 0xCC, 0xD0, 0xD1, 0xD8, 0xE7, 0xE9,
+          0xEC, 0xEF, 0xF0, 0xF6, 0xFE, 0x103, 0x104, 0x107,
+          0x108, 0x12B, 0x130, 0x131, 0x132, 0x135, 0x137,
+          0x138, 0x139, 0x13A, 0x13B, 0x13E, 0x13F, 0x145,
+          0x147, 0x149, 0x14B, 0x14E, 0x14F, 0x150, 0x151,
+          0x153, 0x154, 0x155, 0x156, 0x157, 0x15A, 0x15B,
+          0x15C, 0x160, 0x51A4, 0x52D6, 0x66AE, 0x69EA, 0x7AA4, 
+          0xA5F4, 0xB9EF, 0xB9F3, 0x6F60E7, 0x9BCE09,
+          0x9A55D42].include?(pbGetCountry())
 end
 
 # Returns a language ID
@@ -447,6 +448,7 @@ def pbIsMillenialDate?
   curdate=[time.mon,time.day]  # 0 = Month | 1 = Day
   country=pbGetCountry() rescue nil
   return true if curdate == [12,31] # Must be true on Qora Qore's anniversary
+  # Regular Countries plus "Serbia and Monternego"
   dates={
     0x2       => [[11,1]],                             # Antigua and Barduba
     0x3       => [[8,19]],                             # Afghanistan
@@ -508,6 +510,7 @@ def pbIsMillenialDate?
     0x4B      => [[10,28]],                            # Czech Republic
     0x4D      => [[12,6]],                             # Finland
     0x4E      => [[10,10]],                            # Fiji
+    0x50      => [[11,3]],                             # Micronesia
     0x51      => [[7,29]],                             # Faroe Islands
     0x54      => [[7,14]],                             # France
     0x56      => [[7,25]],                             # Gambia
@@ -567,7 +570,7 @@ def pbIsMillenialDate?
     0xA3      => [[3,31],[6,7],[9,8],[9,21],[12,13]],  # Malta
     0xA4      => [[11,20]],                            # Oman
     0xA6      => [[9,16]],                             # Mexico
-    0xA7      => [[8,31],[9,16]],                      # Malausia
+    0xA7      => [[8,31],[9,16]],                      # Malaysia
     0xA8      => [[6,25]],                             # Mozambique
     0xAD      => [[12,18]],                            # Niger
     0xAE      => [[7,30]],                             # Vanuatu
@@ -596,13 +599,13 @@ def pbIsMillenialDate?
     0xC9      => [[7,12]],                             # Philippines
     0xCA      => [[7,25],[9,23]],                      # Puerto Rico
     0xCB      => [[6,12],[11,4]],                      # Russia
-    0xCC      => [[7,1]],                              # Ruanda
+    0xCC      => [[7,1]],                              # Rwanda
     0xCD      => [[9,23]],                             # Saudi Arabia
     0xCF      => [[9,19]],                             # Saint Kitts and Nevis
     0xD0      => [[6,18],[6,29]],                      # Seychelles
     0xD1      => [[4,27]],                             # South Africa
     0xD2      => [[4,4]],                              # Senegal
-    0xD4      => [[6,25]],                             # Slovania
+    0xD4      => [[6,25]],                             # Slovenia
     0xD5      => [[4,27]],                             # Sierra Leone
     0xD6      => [[9,3]],                              # San Marino
     0xD7      => [[8,9]],                              # Singapore
@@ -643,7 +646,7 @@ def pbIsMillenialDate?
     0x105     => [[5,22]],                             # Yemen
     0x107     => [[10,24]],                            # Zambia
     0x108     => [[4,18]],                             # Zimbabwe
-    0x10D     => [[2,15],[5,21],[7,13]],               ## Serbia and Montenergo
+    0x10D     => [[2,15],[5,21],[7,13]],               # Serbia and Montenegro
     0x10E     => [[5,21],[7,13]],                      # Montenegro
     0x10F     => [[2,15]],                             # Serbia
     0x111     => [[7,2]],                              # Curaçao
@@ -667,15 +670,62 @@ def pbIsMillenialDate?
     0x15F     => [[7,1]],                              # British Virgin Islands
     0x3B16    => [[7,5]],                              # Isle of Man
     0x4CA2    => [[8,2],[9,8]],                        # North Macedonia
-    0x52d6    => [[11,3]],                             # Micronesia
     0x78F7    => [[11,11]],                            # Sint Maarten	
     0x6F60E7  => [[5,20]],                             # Timor-Leste
     0x974941  => [[2,17]],                             # Kosovo
-    0x9906F5  => [[6,9]],                              # Åland Islands
-    0x9BCE09  => [[1,26],[2,6]],                       ## Australia and New Zealand
+    0x9906F5  => [[6,9]]                               # Åland Islands
   }
+  # Special Counries like Southern Europe
+  dates2 = {
+    # Northern Africa
+    0xA5F7    => dates[0x4] | dates[0x43] | dates[0x94] | dates[0x9F] | dates[0xDB] | dates[0xEA],
+    # Eastern Africa
+    0xB9F3    => dates[0x26] | dates[0x32] | dates[0x3F] | dates[0x47] | dates[0x49] | dates[0x81] | dates[0x95] | dates[0x9C] | dates[0xA0] | dates[0xA2] | dates[0xA8] | dates[0xC6] | dates[0xCC] | dates[0xD0] | dates[0xD8] | dates[0xEF] | dates[0xF0] | dates[0x107] | dates[0x108] | dates[0x114] | dates[0x14B],
+    # Middle Africa
+    0xA5F4    => dates[0x9] | dates[0x29] | dates[0x2B] | dates[0x2C] | dates[0x31] | dates[0x37] | dates[0x45] | dates[0x57],
+    # Southern Africa
+    0x99324B  => dates[0x13] | dates[0x92] | dates[0xD1] | dates[0xFE],
+    # Western Africa
+    0xA5F3    => dates[0x1C] | dates[0x39] | dates[0x56] | dates[0x59] | dates[0x64] | dates[0x77] | dates[0x8E] | dates[0x9D] | dates[0xA2] | dates[0xAD] | dates[0xAF] | dates[0xC4] | dates[0xD2] | dates[0xD5] | dates[0xE8] | dates[0xF5],
+    # Caribbean
+    0x993248  => dates[0x2] | dates[0x12] | dates[0x16] | dates[0x38] | dates[0x3F] | dates[0x41] | dates[0x5B] | dates[0x67] | dates[0x7C] | dates[0xCA] | dates[0xCF] | dates[0xDA] | dates[0xE1] | dates[0xF8] | dates[0xFC] | dates[0x111] | dates[0x12C] | dates[0x141] | dates[0x14A] | dates[0x15D] | dates[0x15F],
+    # Central America
+    0x69CA    => dates[0x18] | dates[0x36] | dates[0x48] | dates[0x63] | dates[0x6A] | dates[0xA6] | dates[0xB6] | dates[0xC0],
+    # South America
+    0x7AA4    => dates[0xB] | dates[0x1A] | dates[0x20] | dates[0x2E] | dates[0x33] | dates[0x42] | dates[0x65] | dates[0xB5] | dates[0xB9] | dates[0xBB] | dates[0xF6] | dates[0xF9] | dates[0x13B] | dates[0x13D],
+    # Northern America
+    0x5C1D    => dates[0x27] | dates[0x5D] | dates[0xF4],
+    # Central Asia
+    0xB9E6    => dates[0x82] | dates[0x89] | dates[0xE4] | dates[0xEE] | dates[0xF7],
+    # Eastern Asia
+    0xB9F0    => dates[0x2D] | dates[0x68] | dates[0x7A] | dates[0x83] | dates[0x86] | dates[0x97] | dates[0x9A],
+    # South-Eastern Asia
+    0xb9BF    => dates[0x28] | dates[0x6F] | dates[0x8A] | dates[0xA7] | dates[0xC9] | dates[0xD7] | dates[0xE3] | dates[0xFB] | dates[0x6F60E7],
+    # Southern Asia
+    0xB9FE    => dates[0x3] | dates[0x17] | dates[0x22] | dates[0x2A] | dates[0x71] | dates[0x74] | dates[0xB2] | dates[0xBE],
+    # Middle East
+    0xB9FB    => dates[0x5] | dates[0x7] | dates[0x11] | dates[0x3B] | dates[0x58] | dates[0x79] | dates[0x7E] | dates[0x8B] | dates[0xA4] | dates[0xB8] | dates[0xC5] | dates[0xCD] | dates[0xDE] | dates[0xE0] | dates[0xEB] | dates[0x105],
+    # Eastern Europe
+    0xB9F9    => dates[0x1D] | dates[0x23] | dates[0x4B] | dates[0x6D] | dates[0x8F] | dates[0x98] | dates[0xBF] | dates[0xC8] | dates[0xCB] | dates[0xF1],
+    # Northern Europe
+    0x99324A  => dates[0x3D] | dates[0x44] | dates[0x46] | dates[0x4D] | dates[0x51] | dates[0x6E] | dates[0x8C] | dates[0x8D] | dates[0xB1] | dates[0xDD] | dates[0x144] | dates[0x148] | dates[0x9906F5],
+    # Southern Europe
+    0xB9FA    => dates[0x6] | dates[0x8] | dates[0x19] | dates[0x5A] | dates[0x62] | dates[0x6C] | dates[0x76] | dates[0xA3] | dates[0xC1] | dates[0xD4] | dates[0xD6] | dates[0xD9] | dates[0x10E] | dates[0x10F] | dates[0x4CA2],
+    # Western Europe
+    0x9BCE08  => dates[0xE] | dates[0x15] | dates[0x54] | dates[0x5E] | dates[0x91] | dates[0x93] | dates[0x9E] | dates[0xB0] | dates[0xDF],
+    # Australia and New Zealand
+    0x9BCE09  => dates[0xC] | dates[0xB7] | dates[0x150],
+    # Melanesia
+    0x51A4    => dates[0x1E] | dates[0x4E] | dates[0xAE] | dates[0xC2] | dates[0x14E],
+    # Micronesia
+    0x52D6    => dates[0x50] | dates[0x85] | dates[0xC3] | dates[0xC7] | dates[0x142] | dates[0x151],
+    # Polynesia
+    0x66AE   => dates[0xA] | dates[0xE7] | dates[0xEC] | dates[0x103] | dates[0x138] | dates[0x13E] | dates[0x14F]
+}
   if dates.key?(country)
     return dates[country].include?(curdate)
+  elsif dates2.key?(country)
+    return dates2[country].include?(curdate)
   end
   return false
 end
@@ -797,6 +847,114 @@ def class_exists?(class_name)
 rescue NameError
   return false
 end
+
+################################################################################
+# Mapped Timed Events
+################################################################################
+# (Currently assigned to Game Variable 40 and Switch 209)
+# 0 = Task ID
+# 1 = Initial Value of the chosen Task
+# 2 = Max Value
+# 3 = Max Value Rewards
+# 4 = Other Values
+# 5 = Other Value Rewards
+# 6 = Event Name
+# 7 = Last State of chosen task
+
+def pbMapTimeEvent(taskid=0,maximumvalue=10,maximumrewards=nil,othervalues=nil,otherrewards=nil,name="My Event",mins=20,gender="b")
+  gender = (['b','r','pg','pog'].include?(gender)) ? "\\" + gender : ""
+  taskname = $PokemonGlobal.pokeboxNames2[taskid]
+  if Kernel.pbConfirmMessage(_INTL("{1}{2} minutes of {3}. Would you like to begin {4}?",gender,mins,taskname,name))
+    Kernel.pbMessage(_INTL("{1}In those {2} minutes, you're forbitten from saving. Once those are over, I will call you for rewards.",gender,mins))
+    $game_variables[40] = [taskid,$PokemonGlobal.pokebox[taskid],maximumvalue,maximumrewards,othervalues,otherrewards,name,0,gender]
+    pbTimeEvent(41,mins*60)
+    $game_switches[209] = true
+    $game_variables[238] = $game_map.map_id
+    $game_variables[239] = $game_player.x
+    $game_variables[240] = $game_player.y
+    $game_system.save_disabled = true
+    return true
+  else
+    Kernel.pbMessage(_INTL("{1}Okay, come back at any time you wish to.",gender))
+    return false
+  end
+end
+
+def pbMapTimeEventRewardGain
+  gender = pbMapTimeEventGender
+  pbSEPlay("Badge Awarded")
+  Kernel.pbMessage(_INTL("{1}Event over. Let's see if you can get a reward.",gender))
+  if pbMapTimeEventDone
+    Kernel.pbMessage(_INTL("{1}You won first and you get the top prize.",gender))
+  elsif pbMapTimeEventRewards.is_a?(Array)
+    Kernel.pbMessage(_INTL("{1}You didn't won first and you get a weaker prize.",gender))
+  else
+    Kernel.pbMessage(_INTL("{1}You didn't won anything. Better luck next time.",gender))
+  end
+  if pbMapTimeEventRewards.is_a?(Array)
+    for item in pbMapTimeEventRewards
+      Kernel.pbReceiveItem(item,1)
+    end
+  end
+  pbSEPlay("Badge Awarded 2")
+  Kernel.pbMessage(_INTL("{1}Please come in again.",gender))
+end
+
+# Returns Value 0 (Task ID)
+def pbMapTimeEventID
+  return $game_variables[40][0]
+end
+
+# Returns Current Value Minus Value 1
+def pbMapTimeEventAmount
+  return $PokemonGlobal.pokebox[$game_variables[40][0]] - $game_variables[40][1]
+end
+
+# Returns Value 2 (Max Amount/1st Position Place)
+def pbMapTimeEventMax
+  return $game_variables[40][2]
+end
+
+# True if Current Value Minus Value 1 is equal or above Value 2
+def pbMapTimeEventDone
+  return pbMapTimeEventAmount >= pbMapTimeEventMax
+end
+
+# Returns Value 4
+def pbMapTimeEventOthers
+  return $game_variables[40][4]
+end
+
+# Returns either Value 3 or one of the Subvalues of Value 5
+def pbMapTimeEventRewards
+  if pbMapTimeEventDone
+    return $game_variables[40][3]
+  elsif pbMapTimeEventOthers.is_a?(Array)
+    for i in 0...pbMapTimeEventOthers.length
+      if pbMapTimeEventAmount >= pbMapTimeEventOthers[i]
+        return $game_variables[40][5][i] if $game_variables[40][5][i]
+      end
+    end
+  end
+  return nil
+end
+
+# Returns Value 6 (Event Name)
+def pbMapTimeEventName
+  return $game_variables[40][6]
+end
+
+# Returns Value 7 (The last saved value)
+def pbMapTimeEventOldAmount
+  return $game_variables[40][7]
+end
+
+# Returns Value 8
+def pbMapTimeEventGender
+  return $game_variables[40][8]
+end
+
+
 
 ################################################################################
 # Linear congruential random number generator
@@ -1391,7 +1549,7 @@ def pbTimeEventDays(variableNumber,days=0)
   end
 end
 
-def pbTimeEventValid(variableNumber)
+def pbTimeEventValid(variableNumber,reset=true)
   retval=false
   if variableNumber && variableNumber>=0 && $game_variables
     value=$game_variables[variableNumber]
@@ -1401,7 +1559,7 @@ def pbTimeEventValid(variableNumber)
       retval=false if value[1]<=0 # zero age
     end
     if retval # If event is valid, reset it
-      $game_variables[variableNumber]=0
+      $game_variables[variableNumber]=0 if reset
       $game_map.refresh if $game_map
     end
   end

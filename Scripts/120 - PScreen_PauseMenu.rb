@@ -170,6 +170,9 @@ class PokemonMenu
       commands[cmdSave=commands.length]=_INTL("Save") if (!$game_system || !$game_system.save_disabled) && ($game_map && !pbGetMetadata($game_map.map_id,MetadataForbidSaving))
 #      commands[cmdLink=commands.length]=_INTL("Link...") if $game_switches[12]
     end
+    if $game_switches[209]
+      information+=_INTL("{1}: {2}/{3} ({4} left)\n",pbMapTimeEventName,pbMapTimeEventAmount,pbMapTimeEventMax,pbTimeEventRemainingTime(41))
+    end
     @scene.pbShowInfo(information)
     commands[cmdOption=commands.length]=_INTL("Settings")
     commands[cmdDebug=commands.length]=_INTL("Debug") if $DEBUG

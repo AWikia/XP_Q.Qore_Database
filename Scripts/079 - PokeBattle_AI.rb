@@ -3931,7 +3931,13 @@ class PokeBattle_Battle
        (attacker.hasWorkingItem(:TWISTEDSPOON) && isConst?(type,PBTypes,:PSYCHIC)) ||
        (attacker.hasWorkingItem(:NEVERMELTICE) && isConst?(type,PBTypes,:ICE)) ||
        (attacker.hasWorkingItem(:DRAGONFANG) && isConst?(type,PBTypes,:DRAGON)) ||
-       (attacker.hasWorkingItem(:BLACKGLASSES) && isConst?(type,PBTypes,:DARK))
+       (attacker.hasWorkingItem(:BLACKGLASSES) && isConst?(type,PBTypes,:DARK)) ||
+       (attacker.hasWorkingItem(:FAIRYFEATHER) && isConst?(type,PBTypes,:FAIRY)) ||
+       (attacker.hasWorkingItem(:JAM) && isConst?(type,PBTypes,:JELLY)) ||
+       (attacker.hasWorkingItem(:BASIL) && isConst?(type,PBTypes,:HERB)) ||
+       (attacker.hasWorkingItem(:WATERCRESS) && isConst?(type,PBTypes,:CHLOROPHYLL)) ||
+       (attacker.hasWorkingItem(:GOLDLEAF) && isConst?(type,PBTypes,:SUN)) ||
+       (attacker.hasWorkingItem(:SILVERLEAF) && isConst?(type,PBTypes,:MOON))
       basedamage=(basedamage*1.2).round
     end
     if (attacker.hasWorkingItem(:NORMALBOX) && isConst?(type,PBTypes,:NORMAL)) ||

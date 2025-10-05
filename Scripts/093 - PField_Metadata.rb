@@ -159,6 +159,23 @@ class PokemonGlobalMetadata
             _INTL("Inflict Conditions"),_INTL("Use Moves with Effects"),
             _INTL("Use Copycat Moves"),_INTL("Take Recoil Damage")]
   end
+  def pokeboxNames2
+    return [_INTL("Experience Gaining"),_INTL("Pokémon Leveling"),
+            _INTL("Pokémon Defeating"),_INTL("Pokémon Catching"),
+            _INTL("Ability Activation"),_INTL("Held Item Activation"),
+            _INTL("Physical Move Usage"),_INTL("Special Move Usage"),
+            _INTL("Status Move Usage"),_INTL("Battle Item Usage"),
+            _INTL("Trainer Defeating"),_INTL("Turn Lapsing"),
+            _INTL("Medicine Item Usage"),_INTL("PMW3 Battle Winning"),
+            _INTL("Damage Dealing"),_INTL("Critical Hit Landing"),
+            _INTL("STAB Move Usage"),_INTL("Instant Pokémon Defeating"),
+            _INTL("Berry Usage"),_INTL("Horde Defeating"),
+            _INTL("Stat Increasing"),_INTL("Pokémon Revival"),
+            _INTL("Healing Move Usage"),_INTL("One-hit KO Move Usage"),
+            _INTL("Hi Priority Move Usage"),_INTL("Stat Decreasing"),
+            _INTL("Condition Inflicting"),_INTL("Move with Effects Usage"),
+            _INTL("Copycat Move Usage"),_INTL("Recoil Damage Taking")]
+  end
 
   def pokeboxDescriptions
     return [_INTL("Defeat Pokémon to gain Experience. Should 2 Trainer's Pokémon participate, experience is counted by half."),

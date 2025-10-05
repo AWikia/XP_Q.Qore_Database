@@ -301,6 +301,7 @@ class PokemonBoxScene
     id = @durations.length-2 if isMillenial?
     id = @durations.length-1 if isMillenial2?
     pbTimeEventDays(PBOX_VARIABLES[3],@durations[id])
+    pbSEPlay("recall") if !fromdebug
     pbPokemonBoxUpdate(true) if !fromdebug
   end
 
@@ -405,7 +406,7 @@ class PokemonBoxScene
       $game_variables[PBOX_VARIABLES[0]]+=1
       $game_variables[PBOX_VARIABLES[4]]=0 # Reset Substep
       update_icons
-      pbSEPlay("DTM_start")
+      pbSEPlay("Battle effect critical")
       Kernel.pbMessage(_INTL("Task Completed"))
       if $game_variables[PBOX_VARIABLES[0]] > 3
         animateTaskPane(255,0)
@@ -429,14 +430,22 @@ class PokemonBoxScene
         for i in @items[id]
           Kernel.pbReceiveItem(i,1*multiamt)
         end
+        oldstreak = $game_variables[PBOX_VARIABLES[2]]
         $game_variables[PBOX_VARIABLES[2]]+=1
+        $game_variables[PBOX_VARIABLES[2]]=0 if oldstreak == 65535
         stage=[_INTL("Classic"), 
                _INTL("Bronze"),
                _INTL("Silver"),
                _INTL("Gold")][[$game_variables[PBOX_VARIABLES[2]],(@stages-1)].min] rescue ""
-        if $game_variables[PBOX_VARIABLES[2]] >= stage.length
+        if oldstreak == 65535
+          pbSEPlay("Battle effect message")
+          Kernel.pbMessage(_INTL("Extraodinary! You've maxed out the Pokémon Box. You'll get a special prize alongside a new {1} Pokémon Box.",stage))
+          Kernel.pbReceiveItem(:MASTERBALL,5*multiamt)
+        elsif $game_variables[PBOX_VARIABLES[2]] >= stage.length
+          pbSEPlay("Battle effect message")
           Kernel.pbMessage(_INTL("Spectacular! Keep completing out {1} Pokémon Boxes.",stage))
         else
+          pbSEPlay("Battle effect message")
           Kernel.pbMessage(_INTL("You've unlocked the {1} Pokémon Box. Spectacular!",stage))
         end
         initializeBox
@@ -526,6 +535,10 @@ class PokemonBoxScene
             showTaskInfo
           end
           # Time Pane (Not yet added)
+          taskrect2=[4,294,(Graphics.width/2)-8,78]
+          if contains2(taskrect2,mousepos[0],mousepos[1])
+            Kernel.pbMessage(_INTL("Keep an eye on the time. If the time expires, your win streak resets and you'll start over with a classic box."))
+          end
         end
       end
      # End Left Mouse Key

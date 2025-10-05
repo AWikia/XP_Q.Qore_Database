@@ -5507,14 +5507,14 @@ def ragefist
     # Type effectiveness
     if numhits>1
       if target.damagestate.typemod>8
-				pbSEPlay("stat3")
+				pbSEPlay("Battle effect message")
         if alltargets.length>1
           @battle.pbDisplay(_INTL("It's super effective on {1}!",target.pbThis(true)))
         else
           @battle.pbDisplay(_INTL("It's super effective!"))
         end
       elsif target.damagestate.typemod>=1 && target.damagestate.typemod<8
-        pbSEPlay("stat1")
+        pbSEPlay("Battle effect message")
 				if alltargets.length>1
           @battle.pbDisplay(_INTL("It's not very effective on {1}...",target.pbThis(true)))
         else

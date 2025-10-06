@@ -814,6 +814,17 @@ def pbAddRentalSMPokemon
   pbAddToPartySilent(species[pbGet(1).to_i%species.length],50)
 end
 
+def pbRecordOldValues
+  # Record Pokemon Box's last task state
+  if $game_variables[PBOX_VARIABLES[1]] != 0
+    currentStep=PokemonBoxScene.new.currentStep
+    $game_variables[PBOX_VARIABLES[5]]=$PokemonGlobal.pokebox[$game_variables[PBOX_VARIABLES[1]][currentStep][0]] - $game_variables[PBOX_VARIABLES[1]][currentStep][1]
+  end
+  if $game_switches[209]
+    $game_variables[40][7] = pbMapTimeEventAmount
+  end
+end
+
 # Starts a Tile Puzzle with the Video Graphic. If done, increments ad count by 1
 def startAd
   return false if !canAcceptAds?

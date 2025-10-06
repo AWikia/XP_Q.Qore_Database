@@ -562,6 +562,7 @@ class PokemonTaskDataBox < SpriteWrapper
     @currenthp=0
     @endhp=0
     @spritebaseX=16
+    @expflash=0
     @taskname=taskname
     @oldamount=oldamount
     @maxamount=maxamount
@@ -708,7 +709,20 @@ class PokemonTaskDataBox < SpriteWrapper
       end
       pbPlayCursorSE()
       refresh
-      @animatingHP=false if @currenthp==@endhp
+      if @currenthp==@maxamount
+        if @expflash==0
+          pbSEPlay("expfull")
+          self.flash(Color.new(222,222,222),8) # Was 64,200,248
+          @expflash=8
+        else
+          @expflash-=1
+          if @expflash==0
+            @animatingHP=false
+          end
+        end
+      else
+        @animatingHP=false if @currenthp==@endhp
+      end
     end
     # Move data box onto the screen
     if @appearing

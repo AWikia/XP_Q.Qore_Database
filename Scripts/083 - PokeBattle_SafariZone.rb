@@ -105,6 +105,7 @@ class PokeBattle_SafariZone
 
   def pbStartBattle
     begin
+      pbRecordOldValues
       wildpoke=@party2[0]
       self.pbPlayer.seen[wildpoke.species]=true
       pbSeenForm(wildpoke)

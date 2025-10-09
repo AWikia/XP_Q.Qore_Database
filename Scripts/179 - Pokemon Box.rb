@@ -140,6 +140,8 @@ class PokemonBoxScene
   
   def taskVals(num=0)
     id = [$game_variables[PBOX_VARIABLES[2]],(@multipliers.length)-3].min
+    id = @multipliers.length-2 if isMillenial?
+    id = @multipliers.length-1 if isMillenial2?
     multi=@multipliers[id]
     multi2=1 + [($Trainer.numbadges / 2).floor,5].min
     return [(500*multi)+randIncr((1500*multi*multi2)+addIncr(500)), # Gain Experience

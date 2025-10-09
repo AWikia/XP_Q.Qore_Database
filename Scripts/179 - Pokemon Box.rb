@@ -21,6 +21,7 @@ class PokemonBoxScene
             [:SACREDASH,:MASTERBALL,:SUPERBOOSTER,:BOTANICSMOKE,:NORMALBOX,:VICIOUSCANDY]
             ]
     @durations=[13,7,5,5,3,2] # Was [14,6,4,4,2,2]
+    @multipliers=[1,2,3.5,5,6,7]
   end
   
   def stages
@@ -138,39 +139,39 @@ class PokemonBoxScene
   end
   
   def taskVals(num=0)
-    multi=1+[$game_variables[PBOX_VARIABLES[2]],(@stages-1)].min
-    multi+=1 if isMillenial2?
+    id = [$game_variables[PBOX_VARIABLES[2]],(@multipliers.length)-3].min
+    multi=@multipliers[id]
     multi2=1 + [($Trainer.numbadges / 2).floor,5].min
     return [(500*multi)+randIncr((1500*multi*multi2)+addIncr(500)), # Gain Experience
             (2*multi)+randIncr((2*multi)+addIncr(2)),               # Level Up Pokemon
             (2*multi)+randIncr((2*multi)+addIncr(2)),               # Defeat Pokemon
             (1*multi)+randIncr((2*multi)+addIncr(1)),               # Catch Pokemon
-            (8*multi)+randIncr((16*multi)+addIncr(8)),              # Trigger Abilites
-            (8*multi)+randIncr((16*multi)+addIncr(8)),              # Trigger Items
+            (8*multi)+randIncr((8*multi)+addIncr(8)),               # Trigger Abilites
+            (8*multi)+randIncr((8*multi)+addIncr(8)),               # Trigger Items
             (3*multi)+randIncr((3*multi)+addIncr(3)),               # Use Physical Moves
             (3*multi)+randIncr((3*multi)+addIncr(3)),               # Use Special Moves
             (2*multi)+randIncr((2*multi)+addIncr(2)),               # Use Status Moves
-            (0.5*multi)+randIncr((1*multi)+addIncr(0.5)),           # Use Battle Items
-            (3*multi)+randIncr((3*multi)+addIncr(3)),               # Defear Trainers
-            (7*multi)+randIncr((7*multi)+addIncr(7)),               # Lapse Turns
-            (1*multi)+randIncr((2*multi)+addIncr(1)),               # Use Medicine Items
-            (3*multi)+randIncr((3*multi)+addIncr(3)),               # UNUSED!
-            (250*multi)+randIncr((1250*multi*multi2)+addIncr(250)), # Deal Damage
+            (0.5*multi)+randIncr((0.5*multi)+addIncr(0.5)),         # Use Battle Items
+            (3*multi)+randIncr((2*multi)+addIncr(3)),               # Defear Trainers
+            (6*multi)+randIncr((6*multi)+addIncr(6)),               # Lapse Turns
+            (1*multi)+randIncr((1*multi)+addIncr(1)),               # Use Medicine Items
+            (3*multi)+randIncr((2*multi)+addIncr(3)),               # UNUSED!
+            (500*multi)+randIncr((1500*multi*multi2)+addIncr(500)), # Deal Damage
             (2*multi)+randIncr((2*multi)+addIncr(2)),               # Land Critical Hits
             (2*multi)+randIncr((3*multi)+addIncr(2)),               # Use STAB Moves
             (1*multi)+randIncr((1*multi)+addIncr(1)),               # Defeat Pokemon Instantly
-            (1*multi)+randIncr((2*multi)+addIncr(1)),               # Use Berries
+            (1*multi)+randIncr((1*multi)+addIncr(1)),               # Use Berries
             (1*multi)+randIncr((1*multi)+addIncr(1)),               # UNUSED!
             (6*multi)+randIncr((6*multi)+addIncr(6)),               # Increase Stats
             (1*multi)+randIncr((1*multi)+addIncr(1)),               # Revive Pokemon
-            (2*multi)+randIncr((2*multi)+addIncr(2)),               # Use Healing Moves
-            (0.25*multi)+randIncr((0.5*multi)+addIncr(0.25)),       # Use One-hit KO Moves 
+            (2*multi)+randIncr((3*multi)+addIncr(2)),               # Use Healing Moves
+            (0.2*multi)+randIncr((0.6*multi)+addIncr(0.2)),         # Use One-hit KO Moves 
             (2*multi)+randIncr((3*multi)+addIncr(3)),               # Use Hi Priority Moves
             (6*multi)+randIncr((6*multi)+addIncr(6)),               # Decrease Stats
-            (4*multi)+randIncr((4*multi)+addIncr(4)),               # Inflict Conditions            
+            (3*multi)+randIncr((3*multi)+addIncr(3)),               # Inflict Conditions            
             (2*multi)+randIncr((3*multi)+addIncr(2)),               # Use Moves with Effects
             (1*multi)+randIncr((1*multi)+addIncr(1)),               # Use Copycat Moves
-            (125*multi)+randIncr((625*multi*multi2)+addIncr(125))   # Take Recoil Damage
+            (250*multi)+randIncr((750*multi*multi2)+addIncr(250))   # Take Recoil Damage
             ][num].ceil
 
   end

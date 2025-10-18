@@ -4921,12 +4921,16 @@ class PokeBattle_Battle
       PBDebug.log("")
       PBDebug.log("***Player won***")
       if @opponent
-        $PokemonGlobal.pokebox[10]+=1
         @scene.pbTrainerBattleSuccess
         if @opponent.is_a?(Array)
-          $PokemonGlobal.pokebox[10]+=1 # Extra won
+          $PokemonGlobal.pokebox[10]+=@opponent.length
+          for i in 0...@opponent.length
+            $PokemonGlobal.pokebox[33]+=1 if @opponent[i].skill > 99
+          end
           pbDisplayPaused(_INTL("{1} defeated {2} and {3}!",self.pbPlayer.name,@opponent[0].fullname,@opponent[1].fullname))
         else
+          $PokemonGlobal.pokebox[10]+=1
+          $PokemonGlobal.pokebox[33]+=1 if @opponent.skill > 99
           pbDisplayPaused(_INTL("{1} defeated\r\n{2}!",self.pbPlayer.name,@opponent.fullname))
         end
         @scene.pbShowOpponent(0)
@@ -4970,6 +4974,7 @@ class PokeBattle_Battle
           moneygained=self.pbPlayer.money-oldmoney
           if moneygained>0
             pbDisplayPaused(_INTL("{1} got ${2}\r\nfor winning!",self.pbPlayer.name,tmoney.to_s_formatted))
+            $PokemonGlobal.pokebox[35]+=tmoney
           end
           # Win Streak Start
           $game_variables[WIN_STREAK_VARIABLE]+=1
@@ -5007,6 +5012,7 @@ class PokeBattle_Battle
         moneygained=self.pbPlayer.money-oldmoney
         if moneygained>0
           pbDisplayPaused(_INTL("{1} picked up ${2}!",self.pbPlayer.name,@extramoney.to_s_formatted))
+          $PokemonGlobal.pokebox[35]+=@extramoney
         end
       end
       for pkmn in @snaggedpokemon

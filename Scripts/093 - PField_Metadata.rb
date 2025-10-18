@@ -118,7 +118,7 @@ class PokemonGlobalMetadata
     @inPast               = false
     @inFuture             = false
     @adsWatched           = 0
-    @pokebox              = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0] # Items 13 abd 19 are stubbed out
+    @pokebox              = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0] # Items 13 abd 19 are stubbed out
   end
 
   def bridge
@@ -132,7 +132,7 @@ class PokemonGlobalMetadata
   end
   
   def pokebox
-    @pokebox = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0] if !@pokebox
+    @pokebox = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0] if !@pokebox
     max= pokeboxNames.length - 1
     if !@pokebox[max] # Add the final new tasks for save files without them
       for i in 14...(pokeboxNames.length)
@@ -143,21 +143,26 @@ class PokemonGlobalMetadata
   end
   
   def pokeboxNames
-    return [_INTL("Gain Experience"),_INTL("Level Up Pokémon"),
-            _INTL("Defeat Pokémon"),_INTL("Catch Pokémon"),
-            _INTL("Activate Abilities"),_INTL("Activate Held Items"),
+    return [_INTL("Gain Experience Points"),_INTL("Level Up Pokémon"),
+            _INTL("Defeat Opposing Pokémon"),_INTL("Catch Wild Pokémon"),
+            _INTL("Activate Pokémon's Abilities"),_INTL("Activate Pokémon's Held Items"),
             _INTL("Use Physical Moves"),_INTL("Use Special Moves"),
             _INTL("Use Status Moves"),_INTL("Use Battle Items"),
-            _INTL("Defeat Trainers"),_INTL("Lapse Turns"),
-            _INTL("Use Medicine Items"),_INTL("Win PMW3 Battles"),
-            _INTL("Deal Damage"),_INTL("Land Critical Hits"),
-            _INTL("Use STAB Moves"),_INTL("Defeat Pokémon Instantly"),
-            _INTL("Use Berries"),_INTL("Defeat Hordes"),
-            _INTL("Increase Stats"),_INTL("Revive Pokémon"),
+            _INTL("Defeat Trainers in Battle Wins"),_INTL("Lapse Turns in Battles"),
+            _INTL("Use Medicine Items"),_INTL("Win Battles in PMW3 Levels"),
+            _INTL("Deal Damage to other Pokémon"),_INTL("Land Critical Hits"),
+            _INTL("Use Moves that receive STAB"),_INTL("Defeat Pokémon in First Turn"),
+            _INTL("Use Berries"),_INTL("Defeat Horde Pokémon Groups"),
+            _INTL("Increase Pokémon's Stats"),_INTL("Revive Pokémon from Faint"),
             _INTL("Use Healing Moves"),_INTL("Use One-hit KO Moves"),
-            _INTL("Use Hi Priority Moves"),_INTL("Decrease Stats"),
-            _INTL("Inflict Conditions"),_INTL("Use Moves with Effects"),
-            _INTL("Use Copycat Moves"),_INTL("Take Recoil Damage")]
+            _INTL("Use Moves with High Priority"),_INTL("Decrease Pokémon's Stats"),
+            _INTL("Inflict Status Conditions"),_INTL("Use Moves with Addtl. Effects"),
+            _INTL("Use Moves from other Pokémon"),_INTL("Take Recoil Damage"),
+            _INTL("Recover HP"),_INTL("Land Super Effectiveness"),
+            _INTL("Use Multi-hit Moves"),_INTL("Defeat Trainers with Best Skill"),
+            _INTL("Use Moves while asleep"),_INTL("Gain Money in Battle"),
+            _INTL("Land Not Very Effectiveness"),_INTL("Use Multi-Target Moves"),
+            _INTL("Activate Win Streak Bags"),_INTL("Change Forms in Battle")]
   end
   def pokeboxNames2
     return [_INTL("Experience Gaining"),_INTL("Pokémon Leveling"),
@@ -172,9 +177,14 @@ class PokemonGlobalMetadata
             _INTL("Berry Usage"),_INTL("Horde Defeating"),
             _INTL("Stat Increasing"),_INTL("Pokémon Revival"),
             _INTL("Healing Move Usage"),_INTL("One-hit KO Move Usage"),
-            _INTL("Hi Priority Move Usage"),_INTL("Stat Decreasing"),
+            _INTL("High Priority Move Usage"),_INTL("Stat Decreasing"),
             _INTL("Condition Inflicting"),_INTL("Move with Effects Usage"),
-            _INTL("Copycat Move Usage"),_INTL("Recoil Damage Taking")]
+            _INTL("Copycat Move Usage"),_INTL("Recoil Damage Taking"),
+            _INTL("HP Recovering"),_INTL("Super Effective Landing"),
+            _INTL("Multi-hit Move Usage"),_INTL("Skilled Trainer Defeating"),
+            _INTL("Moves during Sleep Usage"),_INTL("Money Gaining"),
+            _INTL("Not Very Effective Landing"),_INTL("Multi-Target Moves Usage"),
+            _INTL("Win Streak Activation"),_INTL("Form Changing")]
   end
 
   def pokeboxDescriptions
@@ -188,7 +198,7 @@ class PokemonGlobalMetadata
             _INTL("Use your Pokémon's Special moves to progress. Status moves tunred into Special moves count too."),
             _INTL("Use your Pokémon's Status moves to progress."),
             _INTL("Use items from the Battle Items pocket in your Pokémon to progress. Held items do not count."),
-            _INTL("Complete Trainer Battles to progress. In Trainer Battles with two Trainers, it counts twice."),
+            _INTL("Defeat Trainers in Battles to progress. The more there're, the better will be progressed."),
             _INTL("Spend turns on the battle to progress. The more the battle lasts, the more will be counted."),
             _INTL("Use items from the Medicine pocket in your Pokémon progress. Held items do not count."),
             _INTL("Complete Wild Battles in the PMW3 Maps to progress. Wild Battles outside of these ones do not count."),
@@ -207,7 +217,17 @@ class PokemonGlobalMetadata
             _INTL("Pass out a status condition using your moves, abilities or items to progress."),
             _INTL("Use your Pokémon's moves that will have an additional effect chance upon its usage to progress."),
             _INTL("Use your Pokémon's copycat moves or abilities and use other Pokémon's moves to progress."),
-            _INTL("Use your Pokémon's move that take recoil damage upon its usage to reduce its HP to progress.")]
+            _INTL("Use your Pokémon's move that take recoil damage upon its usage to reduce its HP to progress."),
+            _INTL("Use your Pokémon's moves, held items, abilities or items from the Bag that restore HP to progress."),
+            _INTL("Trigger super effectiveness using your Pokémon's moves to progress."),
+            _INTL("Use your Pokémon's moves that hit more than once to progress."),
+            _INTL("Defeat Trainers that have the highest skill in Battles to progress. It counts once per instance."),
+            _INTL("Use your Pokémon's moves while asleep to progress."),
+            _INTL("Earn Money from Battles that award or from your Pokémon's moves that can give money out to progress."),
+            _INTL("Trigger not very effectiveness using your Pokémon's moves to progress."),
+            _INTL("Use your Pokémon's moves that hit multiple targets to progress."),
+            _INTL("Use up a Win Streak Booster Bag on your Pokémon during Battles that use Win Streak to progress."),
+            _INTL("Change your Pokémon form using uts moves, items and abiilities to progress.")]
   end
   
 end

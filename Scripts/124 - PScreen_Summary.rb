@@ -189,15 +189,15 @@ class PokemonSummaryScene
       shadow=MessageConfig::DARKTEXTSHADOW
 	  baseT= MessageConfig::DARKTEXTBASETRANS    
 	  shadowT= MessageConfig::DARKTEXTSHADOWTRANS
-      base2=Color.new(43,43,43)
-      shadow2=Color.new(43,43,43)
+      base2=Color.new(12,12,12)
+      shadow2=Color.new(242,242,242)
     else
       base=MessageConfig::LIGHTTEXTBASE
       shadow=MessageConfig::LIGHTTEXTSHADOW
 	  baseT= MessageConfig::LIGHTTEXTBASETRANS    
 	  shadowT= MessageConfig::LIGHTTEXTSHADOWTRANS
-      base2=Color.new(230,230,230)
-      shadow2=Color.new(230,230,230)
+      base2=Color.new(242,242,242)
+      shadow2=Color.new(12,12,12)
     end
     pbSetSystemFont(overlay)
     pokename=@pokemon.name
@@ -271,18 +271,20 @@ class PokemonSummaryScene
       else
         imagepos.push(["Graphics/UI/Summary/overlay_shadowbar",370,280,0,0,(shadowfract*248).floor,-1])
       end
-    elsif @pokemon.level<PBExperience::MAXLEVEL
-      shadowfract1=(finexp-@pokemon.exp)*100/(finexp)
+    else
+      shadowfract1=(@pokemon.exp)*100/(finexp)
       if ($PokemonSystem.threecolorbar==1 rescue false)
         imagepos.push(["Graphics/UI/"+getAccentFolder+"/summaryEggBar_threecolorbar",370,280,0,0,(shadowfract1*2.48).floor,-1])
       else
         imagepos.push(["Graphics/UI/"+getAccentFolder+"/summaryEggBar",370,280,0,0,(shadowfract1*2.48).floor,-1])
       end
-      shadowfract2=(endexp-@pokemon.exp)*100/(endexp - startexp)
-      if ($PokemonSystem.threecolorbar==1 rescue false)
-        imagepos.push(["Graphics/UI/"+getAccentFolder+"/summaryEggBar_threecolorbar",370,344,0,0,(shadowfract2*2.48).floor,-1])
-      else
-        imagepos.push(["Graphics/UI/"+getAccentFolder+"/summaryEggBar",370,344,0,0,(shadowfract2*2.48).floor,-1])
+      if @pokemon.level<PBExperience::MAXLEVEL
+        shadowfract2=(@pokemon.exp-startexp)*100/(endexp - startexp)
+        if ($PokemonSystem.threecolorbar==1 rescue false)
+          imagepos.push(["Graphics/UI/"+getAccentFolder+"/summaryEggBar_threecolorbar",370,344,0,0,(shadowfract2*2.48).floor,-1])
+        else
+          imagepos.push(["Graphics/UI/"+getAccentFolder+"/summaryEggBar",370,344,0,0,(shadowfract2*2.48).floor,-1])
+        end
       end
     end
     pbDrawImagePositions(overlay,imagepos)
@@ -291,19 +293,24 @@ class PokemonSummaryScene
       shadow=MessageConfig::DARKTEXTSHADOW
 	  baseT= MessageConfig::DARKTEXTBASETRANS    
 	  shadowT= MessageConfig::DARKTEXTSHADOWTRANS
-      base2=Color.new(43,43,43)
-      shadow2=Color.new(43,43,43)
+      hardBase=Color.new(248,56,32)
+      hardShadow=Color.new(224,152,144)
+      base2=Color.new(12,12,12)
+      shadow2=Color.new(242,242,242)
     else
       base=MessageConfig::LIGHTTEXTBASE
       shadow=MessageConfig::LIGHTTEXTSHADOW
 	  baseT= MessageConfig::LIGHTTEXTBASETRANS    
 	  shadowT= MessageConfig::LIGHTTEXTSHADOWTRANS
-      base2=Color.new(230,230,230)
-      shadow2=Color.new(230,230,230)
+      hardBase=Color.new(224,152,144)
+      hardShadow=Color.new(248,56,32)
+      base2=Color.new(242,242,242)
+      shadow2=Color.new(12,12,12)
     end
+    
     pbSetSystemFont(overlay)
-    numberbase=(@pokemon.isShiny?) ? Color.new(248,56,32) : base
-    numbershadow=(@pokemon.isShiny?) ? Color.new(224,152,144) : shadow
+    numberbase=(@pokemon.isShiny?) ? hardBase : base
+    numbershadow=(@pokemon.isShiny?) ? hardShadow : shadow
     publicID=@pokemon.publicID
     speciesname=PBSpecies.getName(@pokemon.species)
     fdexno = getDexNumber(@pokemon.species) # If none of the following conditions are met, it is Generation I-V Pokemon
@@ -313,16 +320,16 @@ class PokemonSummaryScene
  #      [_INTL("Pokémon Information"),26,8,0,base,shadow,1],
        [_ISPRINTF("Dex No."),366,16,0,base2,nil,0],
        [_INTL("{1}",fdexno),563,16,2,numberbase,numbershadow],
-       [_INTL("Species"),366,48,0,shadow2,nil,0],
+       [_INTL("Species"),366,48,0,base2,nil,0],
        [speciesname,563,48,2,base,shadow],
        [_INTL("Color"),366,80,0,base2,nil,0],
-       [_INTL("Egg Groups"),366,112,0,shadow2,nil,0],
+       [_INTL("Egg Groups"),366,112,0,base2,nil,0],
        [_INTL("Type"),366,144,0,base2,nil,0],
-       [_INTL("OT"),366,176,0,shadow2,nil,0],
+       [_INTL("OT"),366,176,0,base2,nil,0],
        [_INTL("ID No."),366,208,0,base2,nil,0],
     ]
     if (@pokemon.isShadow? rescue false)
-      textpos.push([_INTL("Heart Gauge"),366,240,0,shadow2,nil,0])
+      textpos.push([_INTL("Heart Gauge"),366,240,0,base2,nil,0])
       heartmessage=[_INTL("The door to its heart is open! Undo the final lock!"),
                     _INTL("The door to its heart is almost fully open."),
                     _INTL("The door to its heart is nearly open."),
@@ -333,10 +340,10 @@ class PokemonSummaryScene
       memo=sprintf("<c3=%s,%s>%s\n",colorToRgb32(base),colorToRgb32(shadow),heartmessage)
       drawFormattedTextEx(overlay,366,304,276,memo)
     else
-      textpos.push([_INTL("Exp. Points"),366,240,0,shadow2,nil,0])
-      textpos.push([_INTL("{1}",@pokemon.exp.to_s_formatted),616,240,1,base,shadow])
-      textpos.push([_INTL("To Next Lv."),366,304,0,shadow2,nil,0])
-      textpos.push([_INTL("{1}",(endexp-@pokemon.exp).to_s_formatted),616,304,1,base,shadow])
+      textpos.push([_INTL("Exp. Points"),366,240,0,base2,nil,0])
+      textpos.push([_INTL("{1}",@pokemon.exp.to_s_formatted),495,272,2,base2,shadow2,1])
+      textpos.push([_INTL("To Next Lv."),366,304,0,base2,nil,0])
+      textpos.push([_INTL("{1}",(endexp-@pokemon.exp).to_s_formatted),495,336,2,base2,shadow2,1])
     end
     idno=(@pokemon.ot=="") ? "?????" : sprintf("%05d",publicID)
     textpos.push([idno,563,208,2,base,shadow])
@@ -416,24 +423,24 @@ class PokemonSummaryScene
       shadow=MessageConfig::DARKTEXTSHADOW
 	  baseT= MessageConfig::DARKTEXTBASETRANS    
 	  shadowT= MessageConfig::DARKTEXTSHADOWTRANS
-      base2=Color.new(43,43,43)
-      shadow2=Color.new(43,43,43)
+      base2=Color.new(12,12,12)
+      shadow2=Color.new(242,242,242)
     else
       base=MessageConfig::LIGHTTEXTBASE
       shadow=MessageConfig::LIGHTTEXTSHADOW
 	  baseT= MessageConfig::LIGHTTEXTBASETRANS    
 	  shadowT= MessageConfig::LIGHTTEXTSHADOWTRANS
-      base2=Color.new(230,230,230)
-      shadow2=Color.new(230,230,230)
+      base2=Color.new(242,242,242)
+      shadow2=Color.new(12,12,12)
     end
     pbSetSystemFont(overlay)
     textpos=[
  #      [_INTL("Trainer Information"),26,8,0,base,shadow,1],
     ]
     if @pokemon.isRB?
-      textpos.push([_INTL("Remote Box Battery"),360,204,0,shadow2,nil,0])
+      textpos.push([_INTL("Remote Box Battery"),360,204,0,base2,nil,0])
     else
-      textpos.push([_INTL("The Egg Watch"),360,204,0,shadow2,nil,0])
+      textpos.push([_INTL("The Egg Watch"),360,204,0,base2,nil,0])
     end
     pbDrawTextPositions(overlay,textpos)
     memo=""
@@ -489,15 +496,15 @@ class PokemonSummaryScene
       shadow=MessageConfig::DARKTEXTSHADOW
 	  baseT= MessageConfig::DARKTEXTBASETRANS    
 	  shadowT= MessageConfig::DARKTEXTSHADOWTRANS
-      base2=Color.new(43,43,43)
-      shadow2=Color.new(43,43,43)
+      base2=Color.new(12,12,12)
+      shadow2=Color.new(242,242,242)
     else
       base=MessageConfig::LIGHTTEXTBASE
       shadow=MessageConfig::LIGHTTEXTSHADOW
 	  baseT= MessageConfig::LIGHTTEXTBASETRANS    
 	  shadowT= MessageConfig::LIGHTTEXTSHADOWTRANS
-      base2=Color.new(230,230,230)
-      shadow2=Color.new(230,230,230)
+      base2=Color.new(242,242,242)
+      shadow2=Color.new(12,12,12)
     end
     pbSetSystemFont(overlay)
     naturename=PBNatures.getName(@pokemon.nature)
@@ -630,15 +637,15 @@ class PokemonSummaryScene
       shadow=MessageConfig::DARKTEXTSHADOW
 	  baseT= MessageConfig::DARKTEXTBASETRANS    
 	  shadowT= MessageConfig::DARKTEXTSHADOWTRANS
-      base2=Color.new(43,43,43)
-      shadow2=Color.new(43,43,43)
+      base2=Color.new(12,12,12)
+      shadow2=Color.new(242,242,242)
     else
       base=MessageConfig::LIGHTTEXTBASE
       shadow=MessageConfig::LIGHTTEXTSHADOW
 	  baseT= MessageConfig::LIGHTTEXTBASETRANS    
 	  shadowT= MessageConfig::LIGHTTEXTSHADOWTRANS
-      base2=Color.new(230,230,230)
-      shadow2=Color.new(230,230,230)
+      base2=Color.new(242,242,242)
+      shadow2=Color.new(12,12,12)
     end
     nat = (@pokemon.mint!=-1) ? @pokemon.mint : @pokemon.nature
     statshadows=[]
@@ -671,17 +678,17 @@ class PokemonSummaryScene
       # [_INTL("Pokémon Statistics"),26,8,0,base,shadow,1],
        [_INTL("HP"),420,76-64,2,base2,nil,0],
        [sprintf("%3d/%3d",@pokemon.hp,@pokemon.totalhp),548,76-64,2,base,shadow],
-       [_INTL("Attack"),376,120-64,0,shadow2,statshadows[0],0],
+       [_INTL("Attack"),376,120-64,0,base2,statshadows[0],0],
        [sprintf("%d",@pokemon.attack),548,120-64,2,base,shadow],
        [_INTL("Defense"),376,152-64,0,base2,statshadows[1],0],
        [sprintf("%d",@pokemon.defense),548,152-64,2,base,shadow],
-       [_INTL("Sp. Atk"),376,184-64,0,shadow2,statshadows[3],0],
+       [_INTL("Sp. Atk"),376,184-64,0,base2,statshadows[3],0],
        [sprintf("%d",@pokemon.spatk),548,184-64,2,base,shadow],
        [_INTL("Sp. Def"),376,216-64,0,base2,statshadows[4],0],
        [sprintf("%d",@pokemon.spdef),548,216-64,2,base,shadow],
-       [_INTL("Speed"),376,248-64,0,shadow2,statshadows[2],0],
+       [_INTL("Speed"),376,248-64,0,base2,statshadows[2],0],
        [sprintf("%d",@pokemon.speed),548,248-64,2,base,shadow],
-       [_INTL("Ability"),288-64,284-64,0,shadow2,nil,0],
+       [_INTL("Ability"),288-64,284-64,0,base2,nil,0],
        [abilityname,426-64,284-64,0,base,shadow],
       ]
     pbDrawTextPositions(overlay,textpos)
@@ -709,15 +716,15 @@ def drawPageFour
       shadow=MessageConfig::DARKTEXTSHADOW
 	  baseT= MessageConfig::DARKTEXTBASETRANS    
 	  shadowT= MessageConfig::DARKTEXTSHADOWTRANS
-      base2=Color.new(43,43,43)
-      shadow2=Color.new(43,43,43)
+      base2=Color.new(12,12,12)
+      shadow2=Color.new(242,242,242)
     else
       base=MessageConfig::LIGHTTEXTBASE
       shadow=MessageConfig::LIGHTTEXTSHADOW
 	  baseT= MessageConfig::LIGHTTEXTBASETRANS    
 	  shadowT= MessageConfig::LIGHTTEXTSHADOWTRANS
-      base2=Color.new(230,230,230)
-      shadow2=Color.new(230,230,230)
+      base2=Color.new(242,242,242)
+      shadow2=Color.new(12,12,12)
     end
     nat = (@pokemon.mint!=-1) ? @pokemon.mint : @pokemon.nature
     statshadows=[]
@@ -751,22 +758,22 @@ def drawPageFour
        [_INTL("HP"),376,88-64,0,base2,nil,0],
        [sprintf("%d",@pokemon.ev[0]),516,88-64,2,base,shadow],
        [sprintf("%d",@pokemon.iv[0]),580,88-64,2,base,shadow],
-       [_INTL("Attack"),376,120-64,0,shadow2,statshadows[0],0],
+       [_INTL("Attack"),376,120-64,0,base2,statshadows[0],0],
        [sprintf("%d",@pokemon.ev[1]),516,120-64,2,base,shadow],
        [sprintf("%d",@pokemon.iv[1]),580,120-64,2,base,shadow],
        [_INTL("Defense"),376,152-64,0,base2,statshadows[1],0],
        [sprintf("%d",@pokemon.ev[2]),516,152-64,2,base,shadow],
        [sprintf("%d",@pokemon.iv[2]),580,152-64,2,base,shadow],
-       [_INTL("Sp. Atk"),376,184-64,0,shadow2,statshadows[3],0],
+       [_INTL("Sp. Atk"),376,184-64,0,base2,statshadows[3],0],
        [sprintf("%d",@pokemon.ev[4]),516,184-64,2,base,shadow],
        [sprintf("%d",@pokemon.iv[4]),580,184-64,2,base,shadow],
        [_INTL("Sp. Def"),376,216-64,0,base2,statshadows[4],0],
        [sprintf("%d",@pokemon.ev[5]),516,216-64,2,base,shadow],
        [sprintf("%d",@pokemon.iv[5]),580,216-64,2,base,shadow],
-       [_INTL("Speed"),376,248-64,0,shadow2,statshadows[2],0],
+       [_INTL("Speed"),376,248-64,0,base2,statshadows[2],0],
        [sprintf("%d",@pokemon.ev[3]),516,248-64,2,base,shadow],
        [sprintf("%d",@pokemon.iv[3]),580,248-64,2,base,shadow],
-       [_INTL("Ability"),288-64,284-64,0,shadow2,nil,0],
+       [_INTL("Ability"),288-64,284-64,0,base2,nil,0],
        [abilityname,426-64,284-64,0,base,shadow],
       ]
     pbDrawTextPositions(overlay,textpos)
@@ -784,15 +791,15 @@ def drawPageFive
       shadow=MessageConfig::DARKTEXTSHADOW
 	  baseT= MessageConfig::DARKTEXTBASETRANS    
 	  shadowT= MessageConfig::DARKTEXTSHADOWTRANS
-      base2=Color.new(43,43,43)
-      shadow2=Color.new(43,43,43)
+      base2=Color.new(12,12,12)
+      shadow2=Color.new(242,242,242)
     else
       base=MessageConfig::LIGHTTEXTBASE
       shadow=MessageConfig::LIGHTTEXTSHADOW
 	  baseT= MessageConfig::LIGHTTEXTBASETRANS    
 	  shadowT= MessageConfig::LIGHTTEXTSHADOWTRANS
-      base2=Color.new(230,230,230)
-      shadow2=Color.new(230,230,230)
+      base2=Color.new(242,242,242)
+      shadow2=Color.new(12,12,12)
     end
     hiddenpower=pbHiddenPower(@pokemon.iv)
     colourd=@pokemon.favcolor
@@ -809,14 +816,14 @@ def drawPageFive
   #     [_INTL("Battle Information"),26,8,0,base,shadow,1],
        [_INTL("H.P. Dmg"),376,88-64,0,base2,nil,0],
        [sprintf("%d",hiddenpower[1]),548,88-64,2,base,shadow],
-       [_INTL("H.P. Type"),376,120-64,0,shadow2,nil,0],
+       [_INTL("H.P. Type"),376,120-64,0,base2,nil,0],
        [_INTL("Fav. Color"),376,152-64,0,base2,nil,0],
-       [_INTL("Fav. Type"),376,184-64,0,shadow2,nil,0],
+       [_INTL("Fav. Type"),376,184-64,0,base2,nil,0],
        [_INTL("Rec. Dmg"),376,216-64,0,base2,nil,0],
        [sprintf("%d",@pokemon.recoildamage),548,216-64,2,base,shadow],
-       [_INTL("Criticals"),376,248-64,0,shadow2,nil,0],
+       [_INTL("Criticals"),376,248-64,0,base2,nil,0],
        [sprintf("%d",@pokemon.criticalhits),548,248-64,2,base,shadow],
-       [_INTL("Ability"),288-64,284-64,0,shadow2,nil,0],
+       [_INTL("Ability"),288-64,284-64,0,base2,nil,0],
        [abilityname,426-64,284-64,0,base,shadow],
       ]
     pbDrawTextPositions(overlay,textpos)
@@ -837,15 +844,15 @@ def drawPageFive
       shadow=MessageConfig::DARKTEXTSHADOW
 	  baseT= MessageConfig::DARKTEXTBASETRANS    
 	  shadowT= MessageConfig::DARKTEXTSHADOWTRANS
-      base2=Color.new(43,43,43)
-      shadow2=Color.new(43,43,43)
+      base2=Color.new(12,12,12)
+      shadow2=Color.new(242,242,242)
     else
       base=MessageConfig::LIGHTTEXTBASE
       shadow=MessageConfig::LIGHTTEXTSHADOW
 	  baseT= MessageConfig::LIGHTTEXTBASETRANS    
 	  shadowT= MessageConfig::LIGHTTEXTSHADOWTRANS
-      base2=Color.new(230,230,230)
-      shadow2=Color.new(230,230,230)
+      base2=Color.new(242,242,242)
+      shadow2=Color.new(12,12,12)
     end
       ppBase   = [base,                   # More than 1/2 of total PP
                   Color.new(248,192,0),   # 1/2 of total PP or less
@@ -912,15 +919,15 @@ def drawPageFive
       shadow=MessageConfig::DARKTEXTSHADOW
 	  baseT= MessageConfig::DARKTEXTBASETRANS    
 	  shadowT= MessageConfig::DARKTEXTSHADOWTRANS
-      base2=Color.new(43,43,43)
-      shadow2=Color.new(43,43,43)
+      base2=Color.new(12,12,12)
+      shadow2=Color.new(242,242,242)
     else
       base=MessageConfig::LIGHTTEXTBASE
       shadow=MessageConfig::LIGHTTEXTSHADOW
 	  baseT= MessageConfig::LIGHTTEXTBASETRANS    
 	  shadowT= MessageConfig::LIGHTTEXTSHADOWTRANS
-      base2=Color.new(230,230,230)
-      shadow2=Color.new(230,230,230)
+      base2=Color.new(242,242,242)
+      shadow2=Color.new(12,12,12)
     end
     textpos=[
        [basedamage<=1 ? basedamage==1 ? "???" : "---" : sprintf("%d",basedamage),
@@ -944,15 +951,15 @@ def drawPageFive
       shadow=MessageConfig::DARKTEXTSHADOW
 	  baseT= MessageConfig::DARKTEXTBASETRANS    
 	  shadowT= MessageConfig::DARKTEXTSHADOWTRANS
-      base2=Color.new(43,43,43)
-      shadow2=Color.new(43,43,43)
+      base2=Color.new(12,12,12)
+      shadow2=Color.new(242,242,242)
     else
       base=MessageConfig::LIGHTTEXTBASE
       shadow=MessageConfig::LIGHTTEXTSHADOW
 	  baseT= MessageConfig::LIGHTTEXTBASETRANS    
 	  shadowT= MessageConfig::LIGHTTEXTSHADOWTRANS
-      base2=Color.new(230,230,230)
-      shadow2=Color.new(230,230,230)
+      base2=Color.new(242,242,242)
+      shadow2=Color.new(12,12,12)
     end
       ppBase   = [base,                   # More than 1/2 of total PP
                   Color.new(248,192,0),   # 1/2 of total PP or less
@@ -1036,15 +1043,15 @@ def drawPageFive
       shadow=MessageConfig::DARKTEXTSHADOW
 	  baseT= MessageConfig::DARKTEXTBASETRANS    
 	  shadowT= MessageConfig::DARKTEXTSHADOWTRANS
-      base2=Color.new(43,43,43)
-      shadow2=Color.new(43,43,43)
+      base2=Color.new(12,12,12)
+      shadow2=Color.new(242,242,242)
     else
       base=MessageConfig::LIGHTTEXTBASE
       shadow=MessageConfig::LIGHTTEXTSHADOW
 	  baseT= MessageConfig::LIGHTTEXTBASETRANS    
 	  shadowT= MessageConfig::LIGHTTEXTSHADOWTRANS
-      base2=Color.new(230,230,230)
-      shadow2=Color.new(230,230,230)
+      base2=Color.new(242,242,242)
+      shadow2=Color.new(12,12,12)
     end
     pbSetSystemFont(overlay)
     textpos=[
@@ -1085,15 +1092,15 @@ def drawPageFive
       shadow=MessageConfig::DARKTEXTSHADOW
 	  baseT= MessageConfig::DARKTEXTBASETRANS    
 	  shadowT= MessageConfig::DARKTEXTSHADOWTRANS
-      base2=Color.new(43,43,43)
-      shadow2=Color.new(43,43,43)
+      base2=Color.new(12,12,12)
+      shadow2=Color.new(242,242,242)
     else
       base=MessageConfig::LIGHTTEXTBASE
       shadow=MessageConfig::LIGHTTEXTSHADOW
 	  baseT= MessageConfig::LIGHTTEXTBASETRANS    
 	  shadowT= MessageConfig::LIGHTTEXTSHADOWTRANS
-      base2=Color.new(230,230,230)
-      shadow2=Color.new(230,230,230)
+      base2=Color.new(242,242,242)
+      shadow2=Color.new(12,12,12)
     end
     pbSetSystemFont(overlay)
 #    itemname=@pokemon.item==0 ? _INTL("None") : PBItems.getName(@pokemon.item)
@@ -1182,15 +1189,15 @@ def drawPageFive
       shadow=MessageConfig::DARKTEXTSHADOW
 	  baseT= MessageConfig::DARKTEXTBASETRANS    
 	  shadowT= MessageConfig::DARKTEXTSHADOWTRANS
-      base2=Color.new(43,43,43)
-      shadow2=Color.new(43,43,43)
+      base2=Color.new(12,12,12)
+      shadow2=Color.new(242,242,242)
     else
       base=MessageConfig::LIGHTTEXTBASE
       shadow=MessageConfig::LIGHTTEXTSHADOW
 	  baseT= MessageConfig::LIGHTTEXTBASETRANS    
 	  shadowT= MessageConfig::LIGHTTEXTSHADOWTRANS
-      base2=Color.new(230,230,230)
-      shadow2=Color.new(230,230,230)
+      base2=Color.new(242,242,242)
+      shadow2=Color.new(12,12,12)
     end
     pbSetSystemFont(overlay)
     abilityname=PBAbilities.getName(@pokemon.ability)
@@ -1230,17 +1237,17 @@ def drawPageFive
   #     [_INTL("Advanced Information"),26,8,0,base,shadow,1],
        [_INTL("Best Stat"),376,88-64,0,base2,nil,0],
        [_INTL("{1}",beststat),548,88-64,2,base,shadow],
-       [_INTL("Happiness"),376,120-64,0,shadow2,nil,0],
+       [_INTL("Happiness"),376,120-64,0,base2,nil,0],
        [sprintf("%d",@pokemon.happiness),548,120-64,2,base,shadow],
        [_INTL("Temperature"),376,152-64,0,base2,nil,0], # Was Physical
        [_INTL("{1} {2}",physicalstat,kind),548,152-64,2,base,shadow],
-       [_INTL("Special"),376,184-64,0,shadow2,nil,0],
+       [_INTL("Special"),376,184-64,0,base2,nil,0],
        [_INTL("{1}",specialstat),548,184-64,2,base,shadow],
        [_INTL("Stamina"),376,216-64,0,base2,nil,0],
        [sprintf("%d",stamina),548,216-64,2,base,shadow],
-       [_INTL("Efforts"),376,248-64,0,shadow2,nil,0],
+       [_INTL("Efforts"),376,248-64,0,base2,nil,0],
        [sprintf("%d",efforts),548,248-64,2,base,shadow],
-       [_INTL("Item"),288-64,284-64,0,shadow2,nil,0],
+       [_INTL("Item"),288-64,284-64,0,base2,nil,0],
        [itemname,426-64,284-64,0,base,shadow],
       ]
     pbDrawTextPositions(overlay,textpos)

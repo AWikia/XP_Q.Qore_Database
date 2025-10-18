@@ -504,6 +504,10 @@ MultipleForms.register(:GARDEVOIR,{
 "getAbilityList"=>proc{|pokemon|
    next [[getID(PBAbilities,:PIXILATE),0]] if pokemon.form==1
    next
+},
+"dexEntry"=>proc{|pokemon|
+   next if pokemon.form==0
+   next _INTL("When it opens the red plate on its chest and unleashes its heart, its strongest psychic power is released.") if pokemon.form==1
 }
 })
 
@@ -558,6 +562,10 @@ MultipleForms.register(:AGGRON,{
 "weight"=>proc{|pokemon|
    next 3950 if pokemon.form==1
    next
+},
+"dexEntry"=>proc{|pokemon|
+   next if pokemon.form==0
+   next _INTL("Energy from Mega Evolution has turned the iron inside this Pokémon into steel armor that covers Mega Aggron's whole body.") if pokemon.form==1
 }
 })
 
@@ -719,6 +727,10 @@ MultipleForms.register(:ABOMASNOW,{
 "weight"=>proc{|pokemon|
    next 1850 if pokemon.form==1
    next
+},
+"dexEntry"=>proc{|pokemon|
+   next if pokemon.form==0
+   next _INTL("The buds on its back have sprouted into impressive icicles that can whip up massive blizzards of −22 degrees Fahrenheit.") if pokemon.form==1
 }
 })
 
@@ -868,6 +880,10 @@ MultipleForms.register(:STEELIX,{
 "weight"=>proc{|pokemon|
    next 7400 if pokemon.form==1
    next
+},
+"dexEntry"=>proc{|pokemon|
+   next if pokemon.form==0
+   next _INTL("To protect itself from opponents' attacks, it uses magnetism to control pieces of its hard outer shell that have flaked off.") if pokemon.form==1
 }
 })
 
@@ -991,6 +1007,10 @@ MultipleForms.register(:CAMERUPT,{
 "weight"=>proc{|pokemon|
    next 3205 if pokemon.form==1
    next
+},
+"dexEntry"=>proc{|pokemon|
+   next if pokemon.form==0
+   next _INTL("When this Pokémon's rage reaches a boiling point, the huge volcano in the hump on its back erupts violently, spewing molten lava.") if pokemon.form==1
 }
 })
 
@@ -1014,6 +1034,10 @@ MultipleForms.register(:ALTARIA,{
 "height"=>proc{|pokemon|
    next 15 if pokemon.form==1
    next
+},
+"dexEntry"=>proc{|pokemon|
+   next if pokemon.form==0
+   next _INTL("Its down is so soft, it seems as if a touch could melt it. But it's strong enough that just a few strands could be used to hoist a dump truck.") if pokemon.form==1
 }
 })
 
@@ -1209,6 +1233,10 @@ MultipleForms.register(:GALLADE,{
 "weight"=>proc{|pokemon|
    next 564 if pokemon.form==1
    next
+},
+"dexEntry"=>proc{|pokemon|
+   next if pokemon.form==0
+   next _INTL("It gets power from the bond it has with its Trainer. Mega Evolution has given it plates to slice its enemies and a cape to protect its body.") if pokemon.form==1
 }
 })
 
@@ -1236,6 +1264,10 @@ MultipleForms.register(:AUDINO,{
 "weight"=>proc{|pokemon|
    next 320 if pokemon.form==1
    next
+},
+"dexEntry"=>proc{|pokemon|
+   next if pokemon.form==0
+   next _INTL("Anyone who touches the secondary feelers that have sprouted from the base of its throat will fall into a deep sleep.") if pokemon.form==1
 }
 })
 
@@ -1259,6 +1291,754 @@ MultipleForms.register(:DIANCIE,{
 "weight"=>proc{|pokemon|
    next 278 if pokemon.form==1
    next
+},
+"dexEntry"=>proc{|pokemon|
+   next if pokemon.form==0
+   next _INTL("This Pokémon is also known as the Royal Pink Princess. The dazzling, sparkling diamond on its forehead is a whopping 2,000 carats.") if pokemon.form==1
+}
+})
+
+# ZA Mega Evolutions ###########################################################
+
+MultipleForms.register(:CLEFABLE,{
+"getMegaForm"=>proc{|pokemon|
+   next 1 if isConst?(pokemon.item,PBItems,:CLEFABLITE)
+   next
+},
+"getBaseStats"=>proc{|pokemon|
+   next [95,80,93,70,135,110] if pokemon.form==1
+   next
+},
+"type2"=>proc{|pokemon|
+   next getID(PBTypes,:FLYING) if pokemon.form==1
+   next
+},
+=begin
+"getAbilityList"=>proc{|pokemon|
+   next [[getID(PBAbilities,:THICKFAT),0]] if pokemon.form==1
+   next
+},
+=end
+"height"=>proc{|pokemon|
+   next 17 if pokemon.form==1
+   next
+},
+"weight"=>proc{|pokemon|
+   next 423 if pokemon.form==1
+   next
+},
+"dexEntry"=>proc{|pokemon|
+   next if pokemon.form==0
+   next _INTL("It flies by using the power of moonlight to control gravity within a radius of over 32 feet around it.") if pokemon.form==1
+}
+})
+
+MultipleForms.register(:VICTREEBEL,{
+"getMegaForm"=>proc{|pokemon|
+   next 1 if isConst?(pokemon.item,PBItems,:VICTREEBELITE)
+   next
+},
+"getBaseStats"=>proc{|pokemon|
+   next [80,125,85,70,135,95] if pokemon.form==1
+   next
+},
+=begin
+"getAbilityList"=>proc{|pokemon|
+   next [[getID(PBAbilities,:THICKFAT),0]] if pokemon.form==1
+   next
+},
+=end
+"height"=>proc{|pokemon|
+   next 45 if pokemon.form==1
+   next
+},
+"weight"=>proc{|pokemon|
+   next 1255 if pokemon.form==1
+   next
+},
+"dexEntry"=>proc{|pokemon|
+   next if pokemon.form==0
+   next _INTL("The volume of this Pokémon's acid has increased due to Mega Evolution, filling its mouth. If it's not careful, the acid will overflow and spill out.") if pokemon.form==1
+}
+})
+
+MultipleForms.register(:STARMIE,{
+"getMegaForm"=>proc{|pokemon|
+   next 1 if isConst?(pokemon.item,PBItems,:STARMINITE)
+   next
+},
+"getBaseStats"=>proc{|pokemon|
+   next [60,100,105,120,130,105] if pokemon.form==1
+   next
+},
+=begin
+"getAbilityList"=>proc{|pokemon|
+   next [[getID(PBAbilities,:THICKFAT),0]] if pokemon.form==1
+   next
+},
+=end
+"height"=>proc{|pokemon|
+   next 23 if pokemon.form==1
+   next
+},
+"dexEntry"=>proc{|pokemon|
+   next if pokemon.form==0
+   next _INTL("Its movements have become more humanlike. Whether it's simply trying to communicate or wants to supplant humanity is unclear.") if pokemon.form==1
+}
+})
+
+MultipleForms.register(:DRAGONITE,{
+"getMegaForm"=>proc{|pokemon|
+   next 1 if isConst?(pokemon.item,PBItems,:DRAGONINITE)
+   next
+},
+"getBaseStats"=>proc{|pokemon|
+   next [91,124,115,100,145,125] if pokemon.form==1
+   next
+},
+=begin
+"getAbilityList"=>proc{|pokemon|
+   next [[getID(PBAbilities,:THICKFAT),0]] if pokemon.form==1
+   next
+},
+=end
+"weight"=>proc{|pokemon|
+   next 290 if pokemon.form==1
+   next
+},
+"dexEntry"=>proc{|pokemon|
+   next if pokemon.form==0
+   next _INTL("Mega Evolution has excessively powered up this Pokémon's feelings of kindness. It finishes off its opponents with mercy in its heart.") if pokemon.form==1
+}
+})
+
+MultipleForms.register(:MEGANIUM,{
+"getMegaForm"=>proc{|pokemon|
+   next 1 if isConst?(pokemon.item,PBItems,:MEGANIUMITE)
+   next
+},
+"getBaseStats"=>proc{|pokemon|
+   next [80,92,115,80,143,115] if pokemon.form==1
+   next
+},
+"type2"=>proc{|pokemon|
+   next getID(PBTypes,:FAIRY) if pokemon.form==1
+   next
+},
+=begin
+"getAbilityList"=>proc{|pokemon|
+   next [[getID(PBAbilities,:THICKFAT),0]] if pokemon.form==1
+   next
+},
+=end
+"height"=>proc{|pokemon|
+   next 24 if pokemon.form==1
+   next
+},
+"weight"=>proc{|pokemon|
+   next 2010 if pokemon.form==1
+   next
+},
+"dexEntry"=>proc{|pokemon|
+   next if pokemon.form==0
+   next _INTL("This Pokémon can fire a tremendously powerful Solar Beam from its four flowers. Another name for this is Mega Sol Cannon.") if pokemon.form==1
+}
+})
+
+MultipleForms.register(:FERALIGATR,{
+"getMegaForm"=>proc{|pokemon|
+   next 1 if isConst?(pokemon.item,PBItems,:FERALIGITE)
+   next
+},
+"getBaseStats"=>proc{|pokemon|
+   next [85,160,125,78,89,93] if pokemon.form==1
+   next
+},
+"type2"=>proc{|pokemon|
+   next getID(PBTypes,:DRAGON) if pokemon.form==1
+   next
+},
+=begin
+"getAbilityList"=>proc{|pokemon|
+   next [[getID(PBAbilities,:THICKFAT),0]] if pokemon.form==1
+   next
+},
+=end
+"weight"=>proc{|pokemon|
+   next 1088 if pokemon.form==1
+   next
+},
+"dexEntry"=>proc{|pokemon|
+   next if pokemon.form==0
+   next _INTL("With its arms and hoodlike fin, this Pokémon forms a gigantic set of jaws with a bite 10 times as powerful as Mega Feraligatr's actual jaws.") if pokemon.form==1
+}
+})
+
+MultipleForms.register(:SKARMORY,{
+"getMegaForm"=>proc{|pokemon|
+   next 1 if isConst?(pokemon.item,PBItems,:SKARMORITE)
+   next
+},
+"getBaseStats"=>proc{|pokemon|
+   next [65,140,110,110,40,100] if pokemon.form==1
+   next
+},
+=begin
+"getAbilityList"=>proc{|pokemon|
+   next [[getID(PBAbilities,:THICKFAT),0]] if pokemon.form==1
+   next
+},
+=end
+"weight"=>proc{|pokemon|
+   next 404 if pokemon.form==1
+   next
+},
+"dexEntry"=>proc{|pokemon|
+   next if pokemon.form==0
+   next _INTL("It flies faster than the speed of sound. After whipping up shock waves to send enemies flying, it finishes them off with its talons.") if pokemon.form==1
+}
+})
+
+MultipleForms.register(:FROSLASS,{
+"getMegaForm"=>proc{|pokemon|
+   next 1 if isConst?(pokemon.item,PBItems,:MEGANIUMITE)
+   next
+},
+"getBaseStats"=>proc{|pokemon|
+   next [70,80,70,120,140,100] if pokemon.form==1
+   next
+},
+=begin
+"getAbilityList"=>proc{|pokemon|
+   next [[getID(PBAbilities,:THICKFAT),0]] if pokemon.form==1
+   next
+},
+=end
+"height"=>proc{|pokemon|
+   next 26 if pokemon.form==1
+   next
+},
+"weight"=>proc{|pokemon|
+   next 296 if pokemon.form==1
+   next
+},
+"dexEntry"=>proc{|pokemon|
+   next if pokemon.form==0
+   next _INTL("This Pokémon can use eerie cold air imbued with ghost energy to freeze even insubstantial things, such as flames or the wind.") if pokemon.form==1
+}
+})
+
+MultipleForms.register(:EMBOAR,{
+"getMegaForm"=>proc{|pokemon|
+   next 1 if isConst?(pokemon.item,PBItems,:EMBOARITE)
+   next
+},
+"getBaseStats"=>proc{|pokemon|
+   next [110,148,75,75,110,110] if pokemon.form==1
+   next
+},
+=begin
+"getAbilityList"=>proc{|pokemon|
+   next [[getID(PBAbilities,:THICKFAT),0]] if pokemon.form==1
+   next
+},
+=end
+"height"=>proc{|pokemon|
+   next 18 if pokemon.form==1
+   next
+},
+"weight"=>proc{|pokemon|
+   next 1803 if pokemon.form==1
+   next
+},
+"dexEntry"=>proc{|pokemon|
+   next if pokemon.form==0
+   next _INTL("Brandishing a blazing flame shaped like a serpentine spear, it rushes in to rescue its imperiled allies.") if pokemon.form==1
+}
+})
+
+MultipleForms.register(:EXCADRILL,{
+"getMegaForm"=>proc{|pokemon|
+   next 1 if isConst?(pokemon.item,PBItems,:EXCADRITE)
+   next
+},
+"getBaseStats"=>proc{|pokemon|
+   next [110,165,100,103,65,65] if pokemon.form==1
+   next
+},
+=begin
+"getAbilityList"=>proc{|pokemon|
+   next [[getID(PBAbilities,:THICKFAT),0]] if pokemon.form==1
+   next
+},
+=end
+"height"=>proc{|pokemon|
+   next 9 if pokemon.form==1
+   next
+},
+"weight"=>proc{|pokemon|
+   next 600 if pokemon.form==1
+   next
+},
+"dexEntry"=>proc{|pokemon|
+   next if pokemon.form==0
+   next _INTL("If this Pokémon brings its arms and head together to form a streamlined shape and spins at high speeds, it can destroy anything.") if pokemon.form==1
+}
+})
+
+MultipleForms.register(:SCOLIPEDE,{
+"getMegaForm"=>proc{|pokemon|
+   next 1 if isConst?(pokemon.item,PBItems,:SCOLIPITE)
+   next
+},
+"getBaseStats"=>proc{|pokemon|
+   next [60,140,149,62,75,99] if pokemon.form==1
+   next
+},
+=begin
+"getAbilityList"=>proc{|pokemon|
+   next [[getID(PBAbilities,:THICKFAT),0]] if pokemon.form==1
+   next
+},
+=end
+"height"=>proc{|pokemon|
+   next 32 if pokemon.form==1
+   next
+},
+"weight"=>proc{|pokemon|
+   next 2305 if pokemon.form==1
+   next
+},
+"dexEntry"=>proc{|pokemon|
+   next if pokemon.form==0
+   next _INTL("Its deadly venom gives off a faint glow. The venom affects Scolipede's mind, honing its viciousness.") if pokemon.form==1
+}
+})
+
+MultipleForms.register(:SCRAFTY,{
+"getMegaForm"=>proc{|pokemon|
+   next 1 if isConst?(pokemon.item,PBItems,:SCRAFTINITE)
+   next
+},
+"getBaseStats"=>proc{|pokemon|
+   next [65,130,135,68,55,135] if pokemon.form==1
+   next
+},
+=begin
+"getAbilityList"=>proc{|pokemon|
+   next [[getID(PBAbilities,:THICKFAT),0]] if pokemon.form==1
+   next
+},
+=end
+"weight"=>proc{|pokemon|
+   next 310 if pokemon.form==1
+   next
+},
+"dexEntry"=>proc{|pokemon|
+   next if pokemon.form==0
+   next _INTL("Mega Evolution has caused Scrafty's shed skin to turn white, growing tough and supple. Of course, this Pokémon is still as feisty as ever.") if pokemon.form==1
+}
+})
+
+MultipleForms.register(:EELEKTROSS,{
+"getMegaForm"=>proc{|pokemon|
+   next 1 if isConst?(pokemon.item,PBItems,:EELEKTROSSITE)
+   next
+},
+"getBaseStats"=>proc{|pokemon|
+   next [85,145,80,80,135,90] if pokemon.form==1
+   next
+},
+=begin
+"getAbilityList"=>proc{|pokemon|
+   next [[getID(PBAbilities,:THICKFAT),0]] if pokemon.form==1
+   next
+},
+=end
+"height"=>proc{|pokemon|
+   next 30 if pokemon.form==1
+   next
+},
+"weight"=>proc{|pokemon|
+   next 1800 if pokemon.form==1
+   next
+},
+"dexEntry"=>proc{|pokemon|
+   next if pokemon.form==0
+   next _INTL("It now generates 10 times the electricity it did before Mega Evolving. It discharges this electricity from its false Eelektrik, which are made of mucus.") if pokemon.form==1
+}
+})
+
+MultipleForms.register(:CHANDELURE,{
+"getMegaForm"=>proc{|pokemon|
+   next 1 if isConst?(pokemon.item,PBItems,:CHANDELURITE)
+   next
+},
+"getBaseStats"=>proc{|pokemon|
+   next [60,75,110,90,175,110] if pokemon.form==1
+   next
+},
+=begin
+"getAbilityList"=>proc{|pokemon|
+   next [[getID(PBAbilities,:THICKFAT),0]] if pokemon.form==1
+   next
+},
+=end
+"height"=>proc{|pokemon|
+   next 25 if pokemon.form==1
+   next
+},
+"weight"=>proc{|pokemon|
+   next 696 if pokemon.form==1
+   next
+},
+"dexEntry"=>proc{|pokemon|
+   next if pokemon.form==0
+   next _INTL("One of its eyes is a window linking our world with the afterlife. This Pokémon draws in hatred and converts it into power.") if pokemon.form==1
+}
+})
+
+MultipleForms.register(:CHESNAUGHT,{
+"getMegaForm"=>proc{|pokemon|
+   next 1 if isConst?(pokemon.item,PBItems,:CHESNAUGHTITE)
+   next
+},
+"getBaseStats"=>proc{|pokemon|
+   next [88,147,172,44,74,115] if pokemon.form==1
+   next
+},
+=begin
+"getAbilityList"=>proc{|pokemon|
+   next [[getID(PBAbilities,:THICKFAT),0]] if pokemon.form==1
+   next
+},
+=end
+"dexEntry"=>proc{|pokemon|
+   next if pokemon.form==0
+   next _INTL("It has fortified armor and a will to defend at all costs. Both are absurdly strong.") if pokemon.form==1
+}
+})
+
+MultipleForms.register(:DELPHOX,{
+"getMegaForm"=>proc{|pokemon|
+   next 1 if isConst?(pokemon.item,PBItems,:DELPHOXITE)
+   next
+},
+"getBaseStats"=>proc{|pokemon|
+   next [75,69,72,134,159,125] if pokemon.form==1
+   next
+},
+=begin
+"getAbilityList"=>proc{|pokemon|
+   next [[getID(PBAbilities,:THICKFAT),0]] if pokemon.form==1
+   next
+},
+=end
+"dexEntry"=>proc{|pokemon|
+   next if pokemon.form==0
+   next _INTL("It wields flaming branches to dazzle its opponents before incinerating them with a huge fireball.") if pokemon.form==1
+}
+})
+
+MultipleForms.register(:GRENINJA,{
+"getMegaForm"=>proc{|pokemon|
+   next 1 if isConst?(pokemon.item,PBItems,:GRENINJITE)
+   next
+},
+"getBaseStats"=>proc{|pokemon|
+   next [72,125,77,142,133,81] if pokemon.form==1
+   next
+},
+=begin
+"getAbilityList"=>proc{|pokemon|
+   next [[getID(PBAbilities,:THICKFAT),0]] if pokemon.form==1
+   next
+},
+=end
+"dexEntry"=>proc{|pokemon|
+   next if pokemon.form==0
+   next _INTL("This Pokémon spins a giant shuriken at high speed to make it float, then clings to it upside down to catch opponents unawares.") if pokemon.form==1
+}
+})
+
+MultipleForms.register(:PYROAR,{
+"getMegaForm"=>proc{|pokemon|
+   next 1 if isConst?(pokemon.item,PBItems,:PYROARITE)
+   next
+},
+"getBaseStats"=>proc{|pokemon|
+   next [86,88,92,126,129,86] if pokemon.form==1
+   next
+},
+=begin
+"getAbilityList"=>proc{|pokemon|
+   next [[getID(PBAbilities,:THICKFAT),0]] if pokemon.form==1
+   next
+},
+=end
+"weight"=>proc{|pokemon|
+   next 933 if pokemon.form==1
+   next
+},
+"dexEntry"=>proc{|pokemon|
+   next if pokemon.form==0
+   next _INTL("This Pokémon spews flames hotter than 18,000 degrees Fahrenheit. It swings around its grand, blazing mane as it protects its allies.") if pokemon.form==1
+}
+})
+
+MultipleForms.register(:FLOETTE,{
+"getMegaForm"=>proc{|pokemon|
+   next 7 if isConst?(pokemon.item,PBItems,:FLOETTITE) && pokemon.form==6 || pokemon.form==7
+   next
+},
+"getBaseStats"=>proc{|pokemon|
+   next [74,65,67,92,125,128]  if pokemon.form==6  # Eternal Flower
+   next [74,85,87,102,155,148] if pokemon.form==7  # Mega Floette
+   next                                            # Standard Flowers
+},
+"baseExp"=>proc{|pokemon|
+   next 243 if pokemon.form==6 || pokemon.form==7  # Eternal Flower & Mega Floette
+   next                                            # Standard Flowers
+},
+"height"=>proc{|pokemon|
+   next 1008 if pokemon.form==7
+   next
+},
+"getMoveList"=>proc{|pokemon|
+   if pokemon.form==6 || pokemon.form==7
+     movelist=[[1,:TACKLE],[1,:VINEWHIP],[1,:FAIRYWIND],
+               [6,:FAIRYWIND],[10,:LUCKYCHANT],[15,:RAZORLEAF],
+               [20,:WISH],[25,:MAGICALLEAF],[27,:GRASSYTERRAIN],
+               [33,:PETALBLIZZARD],[38,:AROMATHERAPY],[43,:MISTYTERRAIN],
+               [46,:MOONBLAST],[50,:LIGHTOFRUIN],[51,:PETALDANCE],[58,:SOLARBEAM]]
+     for i in movelist
+       i[1]=getConst(PBMoves,i[1])
+     end
+     next movelist
+   end
+   next
+},
+"getFormOnCreation"=>proc{|pokemon|
+   maps=[92,398]  # Maps for Eternal Flower
+   next ($game_map && maps.include?($game_map.map_id)) ? 6 : rand(6)
+},
+"dexEntry"=>proc{|pokemon|
+   next if pokemon.form==0 
+   next _INTL("This Pokémon can draw forth the power hidden within yellow flowers. This power then becomes the moves Floette uses to protect itself.") if pokemon.form==1
+   next _INTL("This Pokémon can draw forth the most power when in sync with orange flowers, compared to flowers of other colors.") if pokemon.form==2
+   next _INTL("Whenever this Pokémon finds flowering plants that are withering, it will bring them back to its territory and care for them until they are healthy.") if pokemon.form==3
+   next _INTL("Floette that are fond of white flowers can also easily sync with flowers of other colors.") if pokemon.form==4
+   next _INTL("This Pokémon can draw forth the most power when in sync with pink flowers, compared to flowers of other colors.") if pokemon.form==5
+   next _INTL("This rare Floette holds a plant that died out in ancient times. The Pokémon is said to harbor an incredible power.") if pokemon.form==6
+   next _INTL("The Eternal Flower has absorbed all the energy from Mega Evolution. The flower now attacks enemies on its own.") if pokemon.form==7
+}
+})
+
+MultipleForms.register(:MALAMAR,{
+"getMegaForm"=>proc{|pokemon|
+   next 1 if isConst?(pokemon.item,PBItems,:MALAMARITE)
+   next
+},
+"getBaseStats"=>proc{|pokemon|
+   next [86,102,88,88,98,120] if pokemon.form==1
+   next
+},
+=begin
+"getAbilityList"=>proc{|pokemon|
+   next [[getID(PBAbilities,:THICKFAT),0]] if pokemon.form==1
+   next
+},
+=end
+"height"=>proc{|pokemon|
+   next 29 if pokemon.form==1
+   next
+},
+"weight"=>proc{|pokemon|
+   next 698 if pokemon.form==1
+   next
+},
+"dexEntry"=>proc{|pokemon|
+   next if pokemon.form==0
+   next _INTL("It uses its colorful lights to overwrite the personalities and memories of others—and to control them.") if pokemon.form==1
+}
+})
+
+MultipleForms.register(:BARBARACLE,{
+"getMegaForm"=>proc{|pokemon|
+   next 1 if isConst?(pokemon.item,PBItems,:BARBARACITE)
+   next
+},
+"getBaseStats"=>proc{|pokemon|
+   next [72,140,130,88,64,106] if pokemon.form==1
+   next
+},
+"type2"=>proc{|pokemon|
+   next getID(PBTypes,:FIGHTING) if pokemon.form==1
+   next
+},
+=begin
+"getAbilityList"=>proc{|pokemon|
+   next [[getID(PBAbilities,:THICKFAT),0]] if pokemon.form==1
+   next
+},
+=end
+"height"=>proc{|pokemon|
+   next 22 if pokemon.form==1
+   next
+},
+"weight"=>proc{|pokemon|
+   next 1000 if pokemon.form==1
+   next
+},
+"dexEntry"=>proc{|pokemon|
+   next if pokemon.form==0
+   next _INTL("It uses its many arms to toy with its opponents. This keeps the head extremely busy.") if pokemon.form==1
+}
+})
+
+MultipleForms.register(:DRAGALGE,{
+"getMegaForm"=>proc{|pokemon|
+   next 1 if isConst?(pokemon.item,PBItems,:DRAGALGITE)
+   next
+},
+"getBaseStats"=>proc{|pokemon|
+   next [65,85,105,44,132,163] if pokemon.form==1
+   next
+},
+=begin
+"getAbilityList"=>proc{|pokemon|
+   next [[getID(PBAbilities,:THICKFAT),0]] if pokemon.form==1
+   next
+},
+=end
+"height"=>proc{|pokemon|
+   next 21 if pokemon.form==1
+   next
+},
+"weight"=>proc{|pokemon|
+   next 1003 if pokemon.form==1
+   next
+},
+"dexEntry"=>proc{|pokemon|
+   next if pokemon.form==0
+   next _INTL("It spits a liquid that causes the regenerative power of cells to run wild. The liquid is deadly poison to everything other than itself.") if pokemon.form==1
+}
+})
+
+MultipleForms.register(:HAWLUCHA,{
+"getMegaForm"=>proc{|pokemon|
+   next 1 if isConst?(pokemon.item,PBItems,:HAWLUCHANITE)
+   next
+},
+"getBaseStats"=>proc{|pokemon|
+   next [78,137,100,118,74,93] if pokemon.form==1
+   next
+},
+=begin
+"getAbilityList"=>proc{|pokemon|
+   next [[getID(PBAbilities,:THICKFAT),0]] if pokemon.form==1
+   next
+},
+=end
+"height"=>proc{|pokemon|
+   next 10 if pokemon.form==1
+   next
+},
+"weight"=>proc{|pokemon|
+   next 250 if pokemon.form==1
+   next
+},
+"dexEntry"=>proc{|pokemon|
+   next if pokemon.form==0
+   next _INTL("Mega Evolution has pumped up all its muscles. Hawlucha flexes to show off its strength.") if pokemon.form==1
+}
+})
+
+MultipleForms.register(:ZYGARDE,{
+"getMegaForm"=>proc{|pokemon|
+   next 3 if isConst?(pokemon.item,PBItems,:ZYGARDITE) && pokemon.form==2 || pokemon.form==3
+   next
+},
+"weight"=>proc{|pokemon|
+   next 335 if pokemon.form==1
+   next 6100 if pokemon.form==2 || pokemon.form==3
+   next # 50%   
+},
+"height"=>proc{|pokemon|
+   next 12 if pokemon.form==1
+   next 45 if pokemon.form==2
+   next 77 if pokemon.form==3
+   next # 50%
+},
+"dexEntry"=>proc{|pokemon|
+   next if pokemon.form==0
+   next _INTL("This is Zygarde when about 10% of its species have been assembled. It leaps at its opponents chest and sinks its sharp fangs into them.") if pokemon.form==1
+   next _INTL("This is Zygarde's perfect form From the orfice on its chect, it radiates high-powered energy that eliminates everything.") if pokemon.form==2
+   next _INTL("In response to people's emotions during an unprecedented crisis, Zygarde Mega Evolves and calms the situation with its unmatched power.") if pokemon.form==3
+},
+"getBaseStats"=>proc{|pokemon|
+   next if pokemon.form==0 # 50%
+   next [54,100,71,115,61,85] if pokemon.form==1
+   next [216,100,121,85,91,95] if pokemon.form==2
+   next [216,70,91,100,216,85] if pokemon.form==3
+},
+"color"=>proc{|pokemon|
+   next if pokemon.form==0  # 50%
+   next 5                   # The rest
+}
+})
+
+MultipleForms.register(:DRAMPA,{
+"getMegaForm"=>proc{|pokemon|
+   next 1 if isConst?(pokemon.item,PBItems,:DRAMPANITE)
+   next
+},
+"getBaseStats"=>proc{|pokemon|
+   next [78,85,110,36,160,116] if pokemon.form==1
+   next
+},
+=begin
+"getAbilityList"=>proc{|pokemon|
+   next [[getID(PBAbilities,:THICKFAT),0]] if pokemon.form==1
+   next
+},
+=end
+"weight"=>proc{|pokemon|
+   next 2405 if pokemon.form==1
+   next
+},
+"dexEntry"=>proc{|pokemon|
+   next if pokemon.form==0
+   next _INTL("Drampa's cells have been invigorated, allowing it to regain its youth. It manipulates the atmosphere to summon storms.") if pokemon.form==1
+}
+})
+
+MultipleForms.register(:FALINKS,{
+"getMegaForm"=>proc{|pokemon|
+   next 1 if isConst?(pokemon.item,PBItems,:FALINKSITE)
+   next
+},
+"getBaseStats"=>proc{|pokemon|
+   next [65,135,135,100,70,65] if pokemon.form==1
+   next
+},
+=begin
+"getAbilityList"=>proc{|pokemon|
+   next [[getID(PBAbilities,:THICKFAT),0]] if pokemon.form==1
+   next
+},
+=end
+"height"=>proc{|pokemon|
+   next 16 if pokemon.form==1
+   next
+},
+"weight"=>proc{|pokemon|
+   next 990 if pokemon.form==1
+   next
+},
+"dexEntry"=>proc{|pokemon|
+   next if pokemon.form==0
+   next _INTL("Mega Falinks has taken on the ultimate battle formation, which can be achieved only if the troopers and brass have the strongest of bonds.") if pokemon.form==1
 }
 })
 

@@ -296,6 +296,12 @@ module Mouse
     resizeFactor=($ResizeFactor) ? $ResizeFactor : 1
     x, y = screen_to_client(*getMouseGlobalPos)
     width, height = Win32API.client_size
+    if $PokemonSystem && $PokemonSystem.border==1
+      x-=BORDERWIDTH*resizeFactor
+      y-=BORDERHEIGHT*resizeFactor
+      width-=BORDERWIDTH*resizeFactor*2
+      height-=BORDERWIDTH*resizeFactor*2
+    end
     if catch_anywhere or (x >= 0 and y >= 0 and x < width and y < height)
       return (x/resizeFactor).to_i, (y/resizeFactor).to_i
     else

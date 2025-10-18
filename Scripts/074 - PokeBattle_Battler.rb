@@ -239,8 +239,10 @@ def ragefist
   attr_reader :form
 
   def form=(value)
+    oldform=@form
     @form=value
     @pokemon.form=value if @pokemon
+    $PokemonGlobal.pokebox[39]+=1 if @battle.pbOwnedByPlayer?(@index) && @form != oldform
   end
 
   def hasMega?
@@ -1112,6 +1114,7 @@ def ragefist
     return false if self.hasWorkingAbility(:KLUTZ,ignorefainted)
     if isConst?(@item,PBItems,item)
       $PokemonGlobal.pokebox[5]+=1  if @battle.pbOwnedByPlayer?(@index)
+      return true
     end
     return false
   end
@@ -1307,6 +1310,7 @@ def ragefist
     self.hp+=amt
     raise _INTL("HP less than 0") if self.hp<0
     raise _INTL("HP greater than total HP") if self.hp>@totalhp
+    $PokemonGlobal.pokebox[30]+=1 if @battle.pbOwnedByPlayer?(@index)
     @battle.scene.pbHPChanged(self,oldhp,anim) if amt>0
     @battle.pbCheckDanger
     return amt
@@ -1883,6 +1887,7 @@ def ragefist
         self.stages[PBStats::SPEED]+=[1,1,1,1,2,3][stage]
         self.stages[PBStats::ACCURACY]+=[0,1,1,1,1,1][stage]
         self.stages[PBStats::EVASION]+=[0,0,0,1,1,1][stage]
+      $PokemonGlobal.pokebox[38]+=1
       @battle.pbCommonAnimation("StatUp",self,nil)
       @battle.pbDisplay(_INTL("{1}'s current Win Streak boosted {2}'s {3}",$Trainer.name,pbThis,wsstats))
     end
@@ -5145,6 +5150,8 @@ def ragefist
           if !thismove.pbCanUseWhileAsleep? # Snore/Sleep Talk/Outrage
             PBDebug.log("[Move failed] #{pbThis} couldn't use #{thismove.name} while asleep")
             return false
+          else
+            $PokemonGlobal.pokebox[34]+=1 if @battle.pbOwnedByPlayer?(self.index)
           end
         end
       end
@@ -5507,6 +5514,7 @@ def ragefist
     # Type effectiveness
     if numhits>1
       if target.damagestate.typemod>8
+        $PokemonGlobal.pokebox[31]+=1 if @battle.pbOwnedByPlayer?(user.index)
 				pbSEPlay("Battle effect message")
         if alltargets.length>1
           @battle.pbDisplay(_INTL("It's super effective on {1}!",target.pbThis(true)))
@@ -5514,6 +5522,7 @@ def ragefist
           @battle.pbDisplay(_INTL("It's super effective!"))
         end
       elsif target.damagestate.typemod>=1 && target.damagestate.typemod<8
+        $PokemonGlobal.pokebox[36]+=1 if @battle.pbOwnedByPlayer?(user.index)
         pbSEPlay("Battle effect message")
 				if alltargets.length>1
           @battle.pbDisplay(_INTL("It's not very effective on {1}...",target.pbThis(true)))
@@ -6127,6 +6136,8 @@ def ragefist
       $PokemonGlobal.pokebox[16]+=1 if thismove.pbIsDamaging? && user.pbHasType?(thismove.type)
       $PokemonGlobal.pokebox[22]+=1 if thismove.isHealingMove?
       $PokemonGlobal.pokebox[23]+=1 if thismove.isOHKO?
+      $PokemonGlobal.pokebox[32]+=1 if thismove.pbIsMultiHit
+      $PokemonGlobal.pokebox[37]+=1 if thismove.pbTargetsMultiple?(user)
     end
     user.lastMoveUsed=thismove.id
     user.lastMoveUsedType=thismove.pbType(thismove.type,user,nil)

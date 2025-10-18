@@ -72,15 +72,15 @@
 70,ELITEFOUR_Lance,Elite Four,100,Battle - Elite Four,Victory - Elite Four.mp3,Eye_LEADER.mp3,Male,,
 71,CHAMPION,Champion,100,Battle - Champion,Victory - Champion.mp3,Eye_LEADER.mp3,Male,,
 72,POKEMONTRAINER_Lyrithya,Pokémon Trainer,60,Battle - Rival,Victory - Rival,Eye_RIVAL.mp3,Female,,
-73,SIX,6 Battler,85,Battle - Special Trainer,Victory - Special Trainer,Eye_TEAMFLARE.mp3,Male,,
+73,SIX,6 Battler,100,Battle - Special Trainer,Victory - Special Trainer,Eye_TEAMFLARE.mp3,Male,,
 74,POKEMONTRAINER_Cheryl,Pokémon Trainer,60,,Victory - Rival,Eye_RIVAL.mp3,Female,,
-75,PRECALLER,Precaller,190,Battle - Special Trainer,Victory - Special Trainer,Eye_FURISODEGIRL.mp3,Mixed,,
+75,PRECALLER,Precaller,100,Battle - Special Trainer,Victory - Special Trainer,Eye_FURISODEGIRL.mp3,Mixed,,
 76,ROCKETBOSSjenny,Rocket Boss,100,Battle - Team Rocket Boss,Victory - Team Rocket,Eye_TEAMFLARE.mp3,Male,,
-77,HIKER2,Hiker,50,Battle - Special Trainer,,Eye_HIKER.mp3,Male,, ## Must be removed when using own game
-78,SIX2,6 Battler,85,Battle - Special Trainer,Victory - Special Trainer,Eye_TEAMFLARE.mp3,Male,, ## Must be removed when using own game
-79,YOUNGSTER2,Youngster,50,Battle - Special Trainer,,Eye_YOUNGSTER.mp3,Male,, ## Must be removed when using own game
+77,HIKER2,Hiker,100,Battle - Special Trainer,,Eye_HIKER.mp3,Male,,
+78,SIX2,6 Battler,100,Battle - Special Trainer,Victory - Special Trainer,Eye_TEAMFLARE.mp3,Male,,
+79,YOUNGSTER2,Youngster,100,Battle - Special Trainer,,Eye_YOUNGSTER.mp3,Male,,
 80,POKEMONTRAINER_Raptor,Pokémon Trainer,60,Battle - Rival,,Eye_RIVAL.mp3,Male,,
 81,POKEMONTRAINER_Renko,Pokémon Trainer,60,Battle - Rival,,Eye_RIVAL.mp3,Female,,
-82,SEVEN,7 Battler,85,Battle - Special Trainer,Victory - Special Trainer,Eye_TEAMFLARE.mp3,Male,,
+82,SEVEN,7 Battler,100,Battle - Special Trainer,Victory - Special Trainer,Eye_TEAMFLARE.mp3,Male,,
 83,LINKER,Link Battle Trainer,10,Battle - Link Trainer,Victory - Link Trainer.mp3,Eye_RIVAL.mp3,Mixed,,
 84,MUSEUM,Museum Mission Trainer,100,Battle - Link Trainer,Victory - Link Trainer.mp3,Eye_LEADER.mp3,Mixed,,

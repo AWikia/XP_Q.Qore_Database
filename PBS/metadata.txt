@@ -3422,3 +3422,9 @@ TrainerBattleBGM=Battle - Season Mastery
 TrainerVictoryME=Victory - Season Mastery
 WildBattleBGM=Battle - Season Mastery
 WildVictoryME=Victory - Season Mastery
+[557]
+# Liberty Corridor Path
+BattleBack=CaveDarker
+MapPosition=8,9,3
+DarkMap=true
+ShowArea=true

@@ -8745,43 +8745,7 @@ MultipleForms.register(:FLABEBE,{
 }
 })
 
-
-MultipleForms.register(:FLOETTE,{
-"getBaseStats"=>proc{|pokemon|
-   next if pokemon.form!=6     # Standard Flowers
-   next [74,65,67,92,125,128]  # Eternal Flower
-},
-"baseExp"=>proc{|pokemon|
-   next if pokemon.form!=6     # Standard Flowers
-   next 243                    # Eternal Flower
-},
-"getMoveList"=>proc{|pokemon|
-   if pokemon.form==6
-     movelist=[[1,:TACKLE],[1,:VINEWHIP],[1,:FAIRYWIND],
-               [6,:FAIRYWIND],[10,:LUCKYCHANT],[15,:RAZORLEAF],
-               [20,:WISH],[25,:MAGICALLEAF],[27,:GRASSYTERRAIN],
-               [33,:PETALBLIZZARD],[38,:AROMATHERAPY],[43,:MISTYTERRAIN],
-               [46,:MOONBLAST],[50,:LIGHTOFRUIN],[51,:PETALDANCE],[58,:SOLARBEAM]]
-     for i in movelist
-       i[1]=getConst(PBMoves,i[1])
-     end
-     next movelist
-   end
-   next
-},
-"getFormOnCreation"=>proc{|pokemon|
-   maps=[92,398]  # Maps for Eternal Flower
-   next ($game_map && maps.include?($game_map.map_id)) ? 6 : rand(6)
-},
-"dexEntry"=>proc{|pokemon|
-   next if pokemon.form==0 
-   next _INTL("This Pokémon can draw forth the power hidden within yellow flowers. This power then becomes the moves Floette uses to protect itself.") if pokemon.form==1
-   next _INTL("This Pokémon can draw forth the most power when in sync with orange flowers, compared to flowers of other colors.") if pokemon.form==2
-   next _INTL("Whenever this Pokémon finds flowering plants that are withering, it will bring them back to its territory and care for them until they are healthy.") if pokemon.form==3
-   next _INTL("Floette that are fond of white flowers can also easily sync with flowers of other colors.") if pokemon.form==4
-   next _INTL("This Pokémon can draw forth the most power when in sync with pink flowers, compared to flowers of other colors..") if pokemon.form==5
-}
-})
+# Floette is Handled Elsehwere
 
 MultipleForms.register(:FLORGES,{
 "getFormOnCreation"=>proc{|pokemon|
@@ -8956,39 +8920,7 @@ MultipleForms.register(:XERNEAS,{
 }
 })
 
-MultipleForms.register(:ZYGARDE,{
-"weight"=>proc{|pokemon|
-   next if pokemon.form==0  # 50%
-   next 335 if pokemon.form==1
-   next 6100 if pokemon.form==2
-},
-"height"=>proc{|pokemon|
-   next if pokemon.form==0 # 50%
-   next 12 if pokemon.form==1
-   next 45 if pokemon.form==2
-},
-"dexEntry"=>proc{|pokemon|
-   next if pokemon.form==0
-   next _INTL("This is Zygarde when about 10% of its species have been assembled. It leaps at its opponents chest and sinks its sharp fangs into them.") if pokemon.form==1
-   next _INTL("This is Zygarde's perfect form From the orfice on its chect, it radiates high-powered energy that eliminates everything.") if pokemon.form==2
-},
-"getBaseStats"=>proc{|pokemon|
-   next if pokemon.form==0 # 50%
-   next [54,100,71,115,61,85] if pokemon.form==1
-   next [216,100,121,91,95,85] if pokemon.form==2
-},
-"color"=>proc{|pokemon|
-   next if pokemon.form==0  # 50%
-   next 5                   # The rest
-},
-"type2"=>proc{|pokemon|
-   next if pokemon.form!=1              # others
-   case pokemon.form
-   when 1; next getID(PBTypes,:GROUND)  # 10% forme
-   else;   next 
-   end
-}
-})
+# Zygarde is Handled Elsewhere
 
 
 MultipleForms.register(:HOOPA,{

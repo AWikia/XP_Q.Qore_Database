@@ -65,7 +65,7 @@ class Scene_Map
     @header = IconSprite.new(0,0)        
     @header.setBitmap("Graphics/UI/"+getDarkModeFolder+"/mapheader_bg")
     @header.z=99998
-    @header.visible=true
+    @header.visible=$game_switches[1050] # 1050 Switch = Game Started
 # Header End
     Graphics.transition
     loop do
@@ -111,6 +111,7 @@ class Scene_Map
       $game_system.update
       $game_screen.update
       @header.setBitmap("Graphics/UI/"+getDarkModeFolder+"/mapheader_bg") # Header
+      @header.visible=$game_switches[1050] # 1050 Switch = Game Started
       unless $game_temp.player_transferring
         break
       end

@@ -1310,7 +1310,7 @@ def ragefist
     self.hp+=amt
     raise _INTL("HP less than 0") if self.hp<0
     raise _INTL("HP greater than total HP") if self.hp>@totalhp
-    $PokemonGlobal.pokebox[30]+=1 if @battle.pbOwnedByPlayer?(@index)
+    $PokemonGlobal.pokebox[30]+=amt if @battle.pbOwnedByPlayer?(@index)
     @battle.scene.pbHPChanged(self,oldhp,anim) if amt>0
     @battle.pbCheckDanger
     return amt
@@ -6137,7 +6137,7 @@ def ragefist
       $PokemonGlobal.pokebox[22]+=1 if thismove.isHealingMove?
       $PokemonGlobal.pokebox[23]+=1 if thismove.isOHKO?
       $PokemonGlobal.pokebox[32]+=1 if thismove.pbIsMultiHit
-      $PokemonGlobal.pokebox[37]+=1 if thismove.pbTargetsMultiple?(user)
+      $PokemonGlobal.pokebox[37]+=1 if thismove.pbIsMultiTarget
     end
     user.lastMoveUsed=thismove.id
     user.lastMoveUsedType=thismove.pbType(thismove.type,user,nil)

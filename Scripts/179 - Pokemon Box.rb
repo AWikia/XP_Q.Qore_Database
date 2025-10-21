@@ -176,10 +176,10 @@ class PokemonBoxScene
     multi2=1 + [($Trainer.numbadges / 2).floor,5].min
     return [(500*multi)+randIncr((1500*multi*multi2)+addIncr(500)), # Gain Experience
             (1.5*multi)+randIncr((1.5*multi)+addIncr(1.5)),         # Level Up Pokemon
-            (2*multi)+randIncr((2*multi)+addIncr(2)),               # Defeat Pokemon
-            (1*multi)+randIncr((2*multi)+addIncr(1)),               # Catch Pokemon
-            (8*multi)+randIncr((8*multi)+addIncr(8)),               # Activate Abilites
-            (8*multi)+randIncr((8*multi)+addIncr(8)),               # Activate Held Items
+            (3*multi)+randIncr((3*multi)+addIncr(3)),               # Defeat Pokemon
+            (1*multi)+randIncr((1*multi)+addIncr(1)),               # Catch Pokemon
+            (6*multi)+randIncr((6*multi)+addIncr(6)),               # Activate Abilites
+            (6*multi)+randIncr((6*multi)+addIncr(6)),               # Activate Held Items
             (3*multi)+randIncr((3*multi)+addIncr(3)),               # Use Physical Moves
             (3*multi)+randIncr((3*multi)+addIncr(3)),               # Use Special Moves
             (2*multi)+randIncr((2*multi)+addIncr(2)),               # Use Status Moves
@@ -191,7 +191,7 @@ class PokemonBoxScene
             (500*multi)+randIncr((1500*multi*multi2)+addIncr(500)), # Deal Damage
             (2*multi)+randIncr((2*multi)+addIncr(2)),               # Land Critical Hits
             (2*multi)+randIncr((3*multi)+addIncr(2)),               # Use STAB Moves
-            (1*multi)+randIncr((1*multi)+addIncr(1)),               # Defeat Pokemon Instantly
+            (1*multi)+randIncr((2*multi)+addIncr(1)),               # Defeat Pokemon Instantly
             (1*multi)+randIncr((1*multi)+addIncr(1)),               # Use Berries
             (1*multi)+randIncr((1*multi)+addIncr(1)),               # UNUSED!
             (6*multi)+randIncr((6*multi)+addIncr(6)),               # Increase Stats
@@ -200,11 +200,11 @@ class PokemonBoxScene
             (0.2*multi)+randIncr((0.6*multi)+addIncr(0.2)),         # Use One-hit KO Moves 
             (2*multi)+randIncr((3*multi)+addIncr(3)),               # Use Hi Priority Moves
             (6*multi)+randIncr((6*multi)+addIncr(6)),               # Decrease Stats
-            (3*multi)+randIncr((3*multi)+addIncr(3)),               # Inflict Conditions            
+            (2*multi)+randIncr((2*multi)+addIncr(2)),               # Inflict Conditions            
             (2*multi)+randIncr((3*multi)+addIncr(2)),               # Use Moves with Effects
             (1*multi)+randIncr((1*multi)+addIncr(1)),               # Use Copycat Moves
-            (250*multi)+randIncr((750*multi*multi2)+addIncr(250)),  # Take Recoil Damage
-            (250*multi)+randIncr((750*multi*multi2)+addIncr(250)),  # Recover HP
+            (250*multi)+randIncr((250*multi*multi2)+addIncr(250)),  # Take Recoil Damage
+            (250*multi)+randIncr((500*multi*multi2)+addIncr(250)),  # Recover HP
             (2*multi)+randIncr((3*multi)+addIncr(2)),               # Land Super Effective
             (2*multi)+randIncr((3*multi)+addIncr(2)),               # Use Multi-hit Moves
             (2*multi)+randIncr((1*multi)+addIncr(2)),               # Defeat Best Trainers
@@ -224,10 +224,10 @@ class PokemonBoxScene
     multi2=1 + [($Trainer.numbadges / 2).floor,5].min
     vals = [(500*multi)+(750*multi*multi2), # Gain Experience
             (1.5*multi)+(0.75*multi),       # Level Up Pokemon
-            (2*multi)+(1*multi),            # Defeat Pokemon
-            (1*multi)+(1*multi),            # Catch Pokemon
-            (8*multi)+(4*multi),            # Trigger Abilites
-            (8*multi)+(4*multi),            # Trigger Items
+            (3*multi)+(1.5*multi),          # Defeat Pokemon
+            (1*multi)+(0.5*multi),          # Catch Pokemon
+            (6*multi)+(3*multi),            # Trigger Abilites
+            (6*multi)+(3*multi),            # Trigger Items
             (3*multi)+(1.5*multi),          # Use Physical Moves
             (3*multi)+(1.5*multi),          # Use Special Moves
             (2*multi)+(1*multi),            # Use Status Moves
@@ -239,7 +239,7 @@ class PokemonBoxScene
             (500*multi)+(750*multi*multi2), # Deal Damage
             (2*multi)+(1*multi),            # Land Critical Hits
             (2*multi)+(1.5*multi),          # Use STAB Moves
-            (1*multi)+(0.5*multi),          # Defeat Pokemon Instantly
+            (1*multi)+(1*multi),            # Defeat Pokemon Instantly
             (1*multi)+(0.5*multi),          # Use Berries
             (1*multi)+(0.5*multi),          # UNUSED!
             (6*multi)+(3*multi),            # Increase Stats
@@ -248,11 +248,11 @@ class PokemonBoxScene
             (0.2*multi)+(0.3*multi),        # Use One-hit KO Moves 
             (2*multi)+(1.5*multi),          # Use Hi Priority Moves
             (6*multi)+(3*multi),            # Decrease Stats
-            (3*multi)+(1.5*multi),          # Inflict Conditions            
+            (2*multi)+(1*multi),            # Inflict Conditions            
             (2*multi)+(1.5*multi),          # Use Moves with Effects
             (1*multi)+(0.5*multi),          # Use Copycat Moves
-            (250*multi)+(375*multi*multi2), # Take Recoil Damage
-            (250*multi)+(375*multi*multi2), # Recover HP
+            (250*multi)+(125*multi*multi2), # Take Recoil Damage
+            (250*multi)+(250*multi*multi2), # Recover HP
             (2*multi)+(1.5*multi),          # Land Super Effective
             (2*multi)+(1.5*multi),          # Use Multi-hit Moves
             (2*multi)+(0.5*multi),          # Defeat Best Trainers

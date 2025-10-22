@@ -1819,7 +1819,7 @@ MultipleForms.register(:FLOETTE,{
    next
 },
 "getFormOnCreation"=>proc{|pokemon|
-   maps=[92,398]  # Maps for Eternal Flower
+   maps=[92,398,557]  # Maps for Eternal Flower
    next ($game_map && maps.include?($game_map.map_id)) ? 6 : rand(6)
 },
 "dexEntry"=>proc{|pokemon|

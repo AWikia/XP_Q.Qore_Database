@@ -1,3 +1,6 @@
+#===============================================================================
+# Pokémon Box main screen
+#===============================================================================
 class PokemonBoxScene
   attr_accessor :stages
   attr_accessor :items
@@ -19,9 +22,9 @@ class PokemonBoxScene
     ["Silver",[:HYPERPOTION,:ULTRABALL,:FULLHEAL,:NORMALGEM],5,3.5],
     ["Gold",[:MEGAPOTION,:PARKBALL,:FULLHEAL,:NORMALGEM,:RARECANDY],5,5],
     # Elite Challenge
-    ["Gold",[:FULLRESTORE,:PARKBALL,:SUPERBOOSTER,:NORMALBOX,:VICIOUSCANDY],3,6],
+    ["Elite",[:FULLRESTORE,:PARKBALL,:SUPERBOOSTER,:NORMALBOX,:VICIOUSCANDY],3,6],
     # Legendary Challenge
-    ["Gold",[:SACREDASH,:MASTERBALL,:SUPERBOOSTER,:BOTANICSMOKE,:NORMALBOX,:VICIOUSCANDY],3,7]
+    ["Legendary",[:SACREDASH,:MASTERBALL,:SUPERBOOSTER,:BOTANICSMOKE,:NORMALBOX,:VICIOUSCANDY],3,7]
     ]
   end
   
@@ -671,6 +674,16 @@ class PokemonBoxScene
           if contains2(taskrect2,mousepos[0],mousepos[1])
             Kernel.pbMessage(_INTL("Keep an eye on the time. If the time expires, your win streak resets and you'll start over with a classic box."))
           end
+          # Box itself
+          boxrect=[@sprites["machine"].x,@sprites["machine"].y,280,140]
+          if contains2(boxrect,mousepos[0],mousepos[1])
+            pbPlayDecisionSE()
+            scene=PokemonBoxSummaryScene.new
+            screen=PokemonBoxSummary.new(scene)
+            pbFadeOutIn(99999) { 
+              screen.pbStartScreen
+            }
+          end
         end
       end
      # End Left Mouse Key
@@ -697,6 +710,127 @@ class PokemonBoxEvent # Not PokemonBox as it conflicts with another class
   def pbStartScreen(expired=false)
     @scene.pbStartScene(expired)
     @scene.pbPokemonBoxScreen
+    @scene.pbEndScene
+  end
+end
+
+#===============================================================================
+# Pokémon Box summary screen
+#===============================================================================
+class PokemonBoxSummaryScene
+  def update
+    pbUpdateSpriteHash(@sprites)
+  end
+
+  def pbStartScene
+    @sprites={}
+    @viewport=Viewport.new(0,0,Graphics.width,Graphics.height)
+    @viewport.z=99999
+      addBackgroundPlane(@sprites,"bg",getDarkModeFolder+"/Pokemon Box/bg_menu",@viewport)
+    @sprites["header"]=Window_UnformattedTextPokemon.newWithSize(_INTL("Pokémon Box"),
+       2,-18,256,64,@viewport)
+    if (!isDarkMode?)
+      base=Color.new(12,12,12)
+      shadow=Color.new(242,242,242)
+    else
+      base=Color.new(242,242,242)
+      shadow=Color.new(12,12,12)
+    end
+    @sprites["header"].baseColor=base
+    @sprites["header"].shadowColor=nil #shadow
+    @sprites["header"].windowskin=nil
+    @sprites["overlay"]=BitmapSprite.new(Graphics.width,Graphics.height,@viewport)
+    @box=PokemonBoxScene.new
+    pbSetSystemFont(@sprites["overlay"].bitmap)
+    pbDrawPokemonBoxSummaryContents
+    pbFadeInAndShow(@sprites) { update }
+  end
+
+  def pbDrawPokemonBoxSummaryContents
+    @overlay=@sprites["overlay"].bitmap
+    @overlay.clear
+    for item in 0...@box.stages.length
+      x=[4,324,4,324,4,324][item]
+      y=[36,36,160,160,284,284][item]
+      pbDrawBoxContents(x,y,item)
+    end
+  end
+
+  def pbDrawBoxContents(x,y,stage)
+    filename=stage.to_s
+    filename=(@box.maxStages-1).to_s + "_elite" if stage==@box.maxStages
+    filename=(@box.maxStages-1).to_s + "_legendary" if stage==@box.maxStages + 1
+    if (!isDarkMode?)
+      baseColor=MessageConfig::DARKTEXTBASE
+      shadowColor=MessageConfig::DARKTEXTSHADOW
+      hardBase=Color.new(248,56,32)
+      hardShadow=Color.new(224,152,144)
+      base2=Color.new(12,12,12)
+      shadow2=Color.new(242,242,242)
+    else
+      baseColor=MessageConfig::LIGHTTEXTBASE
+      shadowColor=MessageConfig::LIGHTTEXTSHADOW
+      hardBase=Color.new(224,152,144)
+      hardShadow=Color.new(248,56,32)
+      base2=Color.new(242,242,242)
+      shadow2=Color.new(12,12,12)
+    end
+    # Box
+    imagepos=[
+      ["Graphics/UI/Pokemon Box/overlay_menubox_"+filename,x+10,y+35,0,0,-1,-1]
+    ]
+    # Items
+    itemx = 182 - ([(@box.stages[stage][1].length - 1),3].min * 24)
+    for i in @box.stages[stage][1]
+      @animbitmap=AnimatedBitmap.new( pbItemIconFile( getID(PBItems,i)) )
+      offsetX=(48 - @animbitmap.bitmap.width) / 2
+      offsetY=(48 - @animbitmap.bitmap.height) / 2
+      @animbitmap.dispose
+      imagepos.push([pbItemIconFile( getID(PBItems,i)),x+itemx.ceil+offsetX,y+24+offsetY,0,0,-1,-1])
+      itemx+=(96.0/[(@box.stages[stage][1].length - 1),3].max)*1.5
+    end
+    # Box Name
+    if @box.currentStage == stage
+      textpos=[
+        [_INTL("{1}",@box.stages[stage][0]),x+59,y+4,2,hardBase,hardShadow]
+      ]
+    else
+      textpos=[
+        [_INTL("{1}",@box.stages[stage][0]),x+59,y+4,2,baseColor,shadowColor]
+      ]
+    end
+    pbDrawImagePositions(@overlay,imagepos)
+    pbDrawTextPositions(@overlay,textpos)
+
+  end
+
+  def pbPokemonBoxSummaryScreen
+    loop do
+      Graphics.update
+      Input.update
+      self.update
+      if Input.trigger?(Input::B)
+        pbPlayCancelSE()
+        break
+      end
+    end 
+  end
+
+  def pbEndScene
+    pbFadeOutAndHide(@sprites) { update }
+    pbDisposeSpriteHash(@sprites)
+    @viewport.dispose
+  end
+end
+
+class PokemonBoxSummary # Not PokemonBox as it conflicts with another class
+  def initialize(scene)
+    @scene=scene
+  end
+
+  def pbStartScreen()
+    @scene.pbStartScene
+    @scene.pbPokemonBoxSummaryScreen
     @scene.pbEndScene
   end
 end

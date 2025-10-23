@@ -29,7 +29,7 @@ class PokemonBoxScene
   end
   
   def maxStages
-    return @stages.length-2 rescue 4 # 2 Items are Elitr Challenge
+    return @stages.length-2 rescue 4 # 2 Items are Elite Challenge
   end
   
   def currentStage(includeElite=true) # If includeElite is set to false, then currentStage does not increase on Milestone Boxes
@@ -747,17 +747,32 @@ class PokemonBoxSummaryScene
     @sprites["header"].windowskin=nil
     @sprites["overlay"]=BitmapSprite.new(Graphics.width,Graphics.height,@viewport)
     @box=PokemonBoxScene.new
+    @maxpages=(@box.stages.length / 6.0).ceil - 1
+    @page=((@box.currentStage+1) / 6.0).ceil - 1
+    @sprites["uparrow"] = AnimatedSprite.new("Graphics/UI/"+getAccentFolder+"/uparrow",8,28,40,2,@viewport)
+    @sprites["uparrow"].x = Graphics.width/2 - 14
+    @sprites["uparrow"].y = 16
+    @sprites["uparrow"].play
+    @sprites["uparrow"].visible = @page != 0
+    @sprites["downarrow"] = AnimatedSprite.new("Graphics/UI/"+getAccentFolder+"/downarrow",8,28,40,2,@viewport)
+    @sprites["downarrow"].x = Graphics.width/2 - 14
+    @sprites["downarrow"].y = Graphics.height - 32
+    @sprites["downarrow"].play
+    @sprites["downarrow"].visible = @page != @maxpages
     pbSetSystemFont(@sprites["overlay"].bitmap)
     pbDrawPokemonBoxSummaryContents
     pbFadeInAndShow(@sprites) { update }
   end
 
   def pbDrawPokemonBoxSummaryContents
+    @sprites["uparrow"].visible = @page != 0
+    @sprites["downarrow"].visible = @page != @maxpages
     @overlay=@sprites["overlay"].bitmap
     @overlay.clear
-    for item in 0...@box.stages.length
-      x=[4,324,4,324,4,324][item]
-      y=[36,36,160,160,284,284][item]
+    offset=6*@page
+    for item in 0+offset...[@box.stages.length,6+offset].min
+      x=[4,324,4,324,4,324][item%6]
+      y=[36,36,160,160,284,284][item%6]
       pbDrawBoxContents(x,y,item)
     end
   end
@@ -783,7 +798,7 @@ class PokemonBoxSummaryScene
     end
     # Box
     imagepos=[
-      ["Graphics/UI/Pokemon Box/overlay_menubox_"+filename,x+10,y+35,0,0,-1,-1]
+      ["Graphics/UI/Pokemon Box/overlay_menubox_" + filename,x+10,y+35,0,0,-1,-1]
     ]
     # Items
     itemx = 182 - ([(@box.stages[stage][1].length - 1),3].min * 24)
@@ -815,6 +830,16 @@ class PokemonBoxSummaryScene
       Graphics.update
       Input.update
       self.update
+      if Input.trigger?(Input::DOWN) && @maxpages>0
+        pbPlayCursorSE()
+        @page=(@page+1)%(@maxpages+1)
+        pbDrawPokemonBoxSummaryContents
+      end
+      if Input.trigger?(Input::UP) && @maxpages>0
+        pbPlayCursorSE()
+        @page=(@page-1)%(@maxpages+1)
+        pbDrawPokemonBoxSummaryContents
+      end
       if Input.trigger?(Input::B)
         pbPlayCancelSE()
         break

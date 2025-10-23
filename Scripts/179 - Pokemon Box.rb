@@ -93,7 +93,8 @@ class PokemonBoxScene
     @sprites["task3"].setBitmap(_INTL("Graphics/UI/Pokemon Box/icon_psyduck"))
     @sprites["task3"].z = 3
     expiredbox = pbTimeEventValid(PBOX_VARIABLES[3]) || expired
-    if $game_variables[PBOX_VARIABLES[1]] == 0 || expiredbox
+    welcome=$game_variables[PBOX_VARIABLES[1]] == 0
+    if welcome || expiredbox
       $game_variables[PBOX_VARIABLES[2]]=0
       initializeBox
     end
@@ -104,6 +105,11 @@ class PokemonBoxScene
     pbFadeInAndShow(@sprites) { update }
     if expiredbox
         Kernel.pbMessage(_INTL("You ran out of time on the previous box. Better luck next time."))
+    end
+    if welcome
+        Kernel.pbMessage(_INTL("Welcome to Pokémon Box where you can complete out tasks by finishing battles."))
+        Kernel.pbMessage(_INTL("Finish out four tasks and you'll be getting rewards for your journey and a new Box."))
+        Kernel.pbMessage(_INTL("Good Luck!"))
     end
     pbPokemonBoxAdvance
   end

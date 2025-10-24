@@ -17,7 +17,9 @@ class PokemonBoxScene
     # 2 = Dueation (In days)
     # 3 = Amount Multiplier
     @stages = [
-    ["Classic",[:POTION,:POKEBALL],13,1],
+    ["Junior",[:ORANBERRY],13,0.5],
+    ["Basic",[:ORANBERRY,:SITRUSBERRY],13,0.75],
+    ["Classic",[:POTION,:POKEBALL],7,1],
     ["Bronze",[:SUPERPOTION,:GREATBALL,heal],7,2],
     ["Silver",[:HYPERPOTION,:ULTRABALL,:FULLHEAL,:NORMALGEM],5,3.5],
     ["Gold",[:MEGAPOTION,:PARKBALL,:FULLHEAL,:NORMALGEM,:RARECANDY],5,5],
@@ -159,31 +161,33 @@ class PokemonBoxScene
   return ""
   end
 
-  # 0 = Classic and Bronze
-  # 1 = Silver and Gold
-  # 2 = Milestone Gold
+  # 0 = Junior and Basic
+  # 1 = Classic and Bronze
+  # 2 = Silver and Gold
+  # 3 = Milestone Gold
   def boxLevel
     id = $game_variables[PBOX_VARIABLES[2]].to_i
     return 3 if isMillenial?
-    return 2 if id > 1
-    return 1
+    return 2 if id > 3
+    return 1 if id > 1
+    return 0
   end
   
   def randIncr(num)
     id = $game_variables[PBOX_VARIABLES[2]].to_i
     if boxLevel==3       # Milenial Box, prefer Larger amounts
       return [rand(num),rand(num)].max
-    elsif boxLevel==1    # Classic and Bronze Boxes, prefer smaller amounts
-      return [rand(num),rand(num)].min
-    else                   # Silver and Gold Boxes, don't prefer anything
+    elsif boxLevel==2    # Silver and Gold Boxes, don't prefer anything
       return rand(num)
+    else                 # Classic and Bronze Boxes, prefer smaller amounts
+      return [rand(num),rand(num)].min
     end
   end
   
   def taskVals(num=0)
     multi=@stages[currentStage][3]
     multi2=1 + [($Trainer.numbadges / 2).floor,5].min
-    return [(500*multi)+randIncr((1500*multi*multi2)+addIncr(500)), # Gain Experience
+    return [(500*multi)+randIncr((2500*multi*multi2)+addIncr(500)), # Gain Experience
             (1.5*multi)+randIncr((1.5*multi)+addIncr(1.5)),         # Level Up Pokemon
             (3*multi)+randIncr((3*multi)+addIncr(3)),               # Defeat Pokemon
             (1*multi)+randIncr((1*multi)+addIncr(1)),               # Catch Pokemon
@@ -228,49 +232,49 @@ class PokemonBoxScene
   end
 
   def isHardTask(idx=-1) # idx is used to identify if the current active task is hard
-    return false if currentStep%4 != idx && idx != -1
+    return false if (currentStep%4 != idx && idx != -1) || boxLevel==0
     multi=@stages[currentStage][3]
     multi2=1 + [($Trainer.numbadges / 2).floor,5].min
-    vals = [(500*multi)+(750*multi*multi2), # Gain Experience
-            (1.5*multi)+(0.75*multi),       # Level Up Pokemon
-            (3*multi)+(1.5*multi),          # Defeat Pokemon
-            (1*multi)+(0.5*multi),          # Catch Pokemon
-            (6*multi)+(3*multi),            # Trigger Abilites
-            (6*multi)+(3*multi),            # Trigger Items
-            (3*multi)+(1.5*multi),          # Use Physical Moves
-            (3*multi)+(1.5*multi),          # Use Special Moves
-            (2*multi)+(1*multi),            # Use Status Moves
-            (0.5*multi)+(0.25*multi),       # Use Battle Items
-            (3*multi)+(1*multi),            # Defear Trainers
-            (6*multi)+(3*multi),            # Lapse Turns
-            (1*multi)+(0.5*multi),          # Use Medicine Items
-            (3*multi)+(1*multi),            # UNUSED!
-            (500*multi)+(750*multi*multi2), # Deal Damage
-            (2*multi)+(1*multi),            # Land Critical Hits
-            (2*multi)+(1.5*multi),          # Use STAB Moves
-            (1*multi)+(1*multi),            # Defeat Pokemon Instantly
-            (1*multi)+(0.5*multi),          # Use Berries
-            (1*multi)+(0.5*multi),          # UNUSED!
-            (6*multi)+(3*multi),            # Increase Stats
-            (1*multi)+(0.5*multi),          # Revive Pokemon
-            (2*multi)+(1.5*multi),          # Use Healing Moves
-            (0.2*multi)+(0.3*multi),        # Use One-hit KO Moves 
-            (2*multi)+(1.5*multi),          # Use Hi Priority Moves
-            (6*multi)+(3*multi),            # Decrease Stats
-            (2*multi)+(1*multi),            # Inflict Conditions            
-            (2*multi)+(1.5*multi),          # Use Moves with Effects
-            (1*multi)+(0.5*multi),          # Use Copycat Moves
-            (250*multi)+(125*multi*multi2), # Take Recoil Damage
-            (250*multi)+(250*multi*multi2), # Recover HP
-            (2*multi)+(1.5*multi),          # Land Super Effective
-            (2*multi)+(1.5*multi),          # Use Multi-hit Moves
-            (2*multi)+(0.5*multi),          # Defeat Best Trainers
-            (0.5*multi)+(0.5*multi),        # Use Sleeping Moves
-            (500*multi)+(750*multi*multi2), # Gain Money
-            (2*multi)+(1.5*multi),          # Land Not Very Effective
-            (2*multi)+(1.5*multi),          # Use Mutli-Target Moves
-            (5*multi)+(2.5*multi),          # Activate Win Streak
-            (1*multi)+(1*multi)             # Change Forms
+    vals = [(500*multi)+(1250*multi*multi2), # Gain Experience
+            (1.5*multi)+(0.75*multi),        # Level Up Pokemon
+            (3*multi)+(1.5*multi),           # Defeat Pokemon
+            (1*multi)+(0.5*multi),           # Catch Pokemon
+            (6*multi)+(3*multi),             # Trigger Abilites
+            (6*multi)+(3*multi),             # Trigger Items
+            (3*multi)+(1.5*multi),           # Use Physical Moves
+            (3*multi)+(1.5*multi),           # Use Special Moves
+            (2*multi)+(1*multi),             # Use Status Moves
+            (0.5*multi)+(0.25*multi),        # Use Battle Items
+            (3*multi)+(1*multi),             # Defear Trainers
+            (6*multi)+(3*multi),             # Lapse Turns
+            (1*multi)+(0.5*multi),           # Use Medicine Items
+            (3*multi)+(1*multi),             # UNUSED!
+            (500*multi)+(750*multi*multi2),  # Deal Damage
+            (2*multi)+(1*multi),             # Land Critical Hits
+            (2*multi)+(1.5*multi),           # Use STAB Moves
+            (1*multi)+(1*multi),             # Defeat Pokemon Instantly
+            (1*multi)+(0.5*multi),           # Use Berries
+            (1*multi)+(0.5*multi),           # UNUSED!
+            (6*multi)+(3*multi),             # Increase Stats
+            (1*multi)+(0.5*multi),           # Revive Pokemon
+            (2*multi)+(1.5*multi),           # Use Healing Moves
+            (0.2*multi)+(0.3*multi),         # Use One-hit KO Moves 
+            (2*multi)+(1.5*multi),           # Use Hi Priority Moves
+            (6*multi)+(3*multi),             # Decrease Stats
+            (2*multi)+(1*multi),             # Inflict Conditions            
+            (2*multi)+(1.5*multi),           # Use Moves with Effects
+            (1*multi)+(0.5*multi),           # Use Copycat Moves
+            (250*multi)+(125*multi*multi2),  # Take Recoil Damage
+            (250*multi)+(250*multi*multi2),  # Recover HP
+            (2*multi)+(1.5*multi),           # Land Super Effective
+            (2*multi)+(1.5*multi),           # Use Multi-hit Moves
+            (2*multi)+(0.5*multi),           # Defeat Best Trainers
+            (0.5*multi)+(0.5*multi),         # Use Sleeping Moves
+            (500*multi)+(750*multi*multi2),  # Gain Money
+            (2*multi)+(1.5*multi),           # Land Not Very Effective
+            (2*multi)+(1.5*multi),           # Use Mutli-Target Moves
+            (5*multi)+(2.5*multi),           # Activate Win Streak
+            (1*multi)+(1*multi)              # Change Forms
             ][taskID]
     return taskstatus2 > vals
   end
@@ -312,6 +316,7 @@ class PokemonBoxScene
     taskN34=false
     taskN39=false
     task0 = [0,1,2,14,20,25,30,35]
+    task0 = [0,1,2,14] if boxLevel==0
     if rand(6)==0 && !taskN12
       taskN12=true
       task0.push(12)
@@ -324,18 +329,19 @@ class PokemonBoxScene
     elsif rand(6)==0 && !taskN24 && boxLevel==3
       taskN24=true
       task0.push(24)
-    elsif rand(6)==0 && !taskN29
+    elsif rand(6)==0 && !taskN29 && boxLevel!=0
       taskN29=true
       task0.push(29)
-    elsif rand(6)==0 && !taskN34
+    elsif rand(6)==0 && !taskN34 && boxLevel!=0
       taskN34=true
       task0.push(34)
-    elsif rand(6)==0 && !taskN39
+    elsif rand(6)==0 && !taskN39 && boxLevel!=0
       taskN29=true
       task0.push(39)
     end
     task0.shuffle!
     task1 = [3,4,5,15,21,26,31,36]
+    task1 = [4,15,31,36] if boxLevel==0
     if rand(6)==0 && !taskN12
       taskN12=true
       task1.push(12)
@@ -348,18 +354,19 @@ class PokemonBoxScene
     elsif rand(6)==0 && !taskN24 && boxLevel==3
       taskN24=true
       task1.push(24)
-    elsif rand(6)==0 && !taskN29
+    elsif rand(6)==0 && !taskN29 && boxLevel!=0
       taskN29=true
       task1.push(29)
-    elsif rand(6)==0 && !taskN34
+    elsif rand(6)==0 && !taskN34 && boxLevel!=0
       taskN34=true
       task1.push(34)
-    elsif rand(6)==0 && !taskN39
+    elsif rand(6)==0 && !taskN39 && boxLevel!=0
       taskN29=true
       task1.push(39)
     end
     task1.shuffle!
     task2 = [6,7,8,16,22,27,32,37]
+    task2 = [6,7,8,16] if boxLevel==0
     if rand(6)==0 && !taskN12
       taskN12=true
       task2.push(12)
@@ -369,32 +376,33 @@ class PokemonBoxScene
     elsif rand(6)==0 && !taskN18
       taskN18=true
       task2.push(18)
-    elsif rand(6)==0 && !taskN24
+    elsif rand(6)==0 && !taskN24  && boxLevel!=0
       taskN24=true
       task2.push(24)
-    elsif rand(6)==0 && !taskN34
+    elsif rand(6)==0 && !taskN34  && boxLevel!=0
       taskN34=true
       task2.push(34)
-    elsif rand(6)==0 && !taskN39
+    elsif rand(6)==0 && !taskN39  && boxLevel!=0
       taskN29=true
       task2.push(39)
     end
     task2.shuffle!
     task3 = [9,10,11,17,23,28,33,38]
     task3 = [9,11,17,23,28,33,38] if taskN10 # Don't assign the 11th task in order again
+    task3 = [10,11,17,38] if boxLevel==0
     if rand(6)==0 && !taskN12
       taskN12=true
       task3.push(12)
     elsif rand(6)==0 && !taskN18
       taskN18=true
       task3.push(18)
-    elsif rand(6)==0 && !taskN24
+    elsif rand(6)==0 && !taskN24 && boxLevel!=0
       taskN24=true
       task3.push(24)
-    elsif rand(6)==0 && !taskN34
+    elsif rand(6)==0 && !taskN34 && boxLevel!=0
       taskN34=true
       task3.push(34)
-    elsif rand(6)==0 && !taskN39
+    elsif rand(6)==0 && !taskN39 && boxLevel!=0
       taskN29=true
       task3.push(39)
     end
@@ -798,6 +806,7 @@ class PokemonBoxSummaryScene
     end
     # Box
     imagepos=[
+      ["Graphics/UI/"+getDarkModeFolder+"/Pokemon Box/overlay_menuwrapper",x,y,0,0,-1,-1],
       ["Graphics/UI/Pokemon Box/overlay_menubox_" + filename,x+10,y+35,0,0,-1,-1]
     ]
     # Items

@@ -28,6 +28,11 @@ class PokemonBoxScene
     # Legendary Challenge
     ["Legendary",[:SACREDASH,:MASTERBALL,:SUPERBOOSTER,:BOTANICSMOKE,:NORMALBOX,:VICIOUSCANDY],3,7,3]
     ]
+    if $Trainer && $Trainer.isFemale?
+      @icons=["voltorb","staryu","pikachu","slowpoke"]
+    else
+      @icons=["magnemite","shellder","pikachu","psyduck"]
+    end
   end
 
   def pbStartScene(expired=false)
@@ -70,16 +75,16 @@ class PokemonBoxScene
     @sprites["overlayItems"]=BitmapSprite.new(Graphics.width,Graphics.height,@viewport)    
     @sprites["overlayItems"].z = 3
     @sprites["task0"]=IconSprite.new(@sprites["machine"].x+12,@sprites["machine"].y+70,@viewport)
-    @sprites["task0"].setBitmap(_INTL("Graphics/UI/Pokemon Box/icon_magnemite"))
+    @sprites["task0"].setBitmap(_INTL("Graphics/UI/Pokemon Box/icon_{1}",@icons[0]))
     @sprites["task0"].z = 3
     @sprites["task1"]=IconSprite.new(@sprites["machine"].x+76,@sprites["machine"].y+70,@viewport)
-    @sprites["task1"].setBitmap(_INTL("Graphics/UI/Pokemon Box/icon_shellder"))
+    @sprites["task1"].setBitmap(_INTL("Graphics/UI/Pokemon Box/icon_{1}",@icons[1]))
     @sprites["task1"].z = 3
     @sprites["task2"]=IconSprite.new(@sprites["machine"].x+140,@sprites["machine"].y+70,@viewport)
-    @sprites["task2"].setBitmap(_INTL("Graphics/UI/Pokemon Box/icon_pikachu"))
+    @sprites["task2"].setBitmap(_INTL("Graphics/UI/Pokemon Box/icon_{1}",@icons[2]))
     @sprites["task2"].z = 3
     @sprites["task3"]=IconSprite.new(@sprites["machine"].x+204,@sprites["machine"].y+70,@viewport)
-    @sprites["task3"].setBitmap(_INTL("Graphics/UI/Pokemon Box/icon_psyduck"))
+    @sprites["task3"].setBitmap(_INTL("Graphics/UI/Pokemon Box/icon_{1}",@icons[3]))
     @sprites["task3"].z = 3
     expiredbox = pbTimeEventValid(PBOX_VARIABLES[3]) || expired
     welcome=$game_variables[PBOX_VARIABLES[1]] == 0
@@ -178,11 +183,13 @@ class PokemonBoxScene
     return $game_variables[PBOX_VARIABLES[1]][currentStep][2]
   end
   
-  def getHardTaskLabel(idx)
-  if isHardTask(idx)
+  def getTaskLabel(idx,nohardmarkers=false)
+  if isHardTask(idx) && !nohardmarkers
     return "_hard"
+  elsif $game_variables[PBOX_VARIABLES[0]]>idx
+    return ""
   end
-  return ""
+  return "_normal"
   end
   
   def randIncr(num)
@@ -647,14 +654,15 @@ class PokemonBoxScene
   
   # Updates the icons in the Pokemon Box container itself
   def update_icons(nohardmarkers=false)
-    @sprites["task0"].visible= $game_variables[PBOX_VARIABLES[0]]>0 || (isHardTask(0) && !nohardmarkers)
-    @sprites["task0"].setBitmap(_INTL("Graphics/UI/Pokemon Box/icon_magnemite{1}",getHardTaskLabel(0)))
-    @sprites["task1"].visible= $game_variables[PBOX_VARIABLES[0]]>1 || (isHardTask(1) && !nohardmarkers)
-    @sprites["task1"].setBitmap(_INTL("Graphics/UI/Pokemon Box/icon_shellder{1}",getHardTaskLabel(1)))
-    @sprites["task2"].visible= $game_variables[PBOX_VARIABLES[0]]>2 || (isHardTask(2) && !nohardmarkers)
-    @sprites["task2"].setBitmap(_INTL("Graphics/UI/Pokemon Box/icon_pikachu{1}",getHardTaskLabel(2)))
-    @sprites["task3"].visible= $game_variables[PBOX_VARIABLES[0]]>3 || (isHardTask(3) && !nohardmarkers)
-    @sprites["task3"].setBitmap(_INTL("Graphics/UI/Pokemon Box/icon_psyduck{1}",getHardTaskLabel(3)))
+#icon_{1}",@icons[0]
+    @sprites["task0"].visible= true
+    @sprites["task0"].setBitmap(_INTL("Graphics/UI/Pokemon Box/icon_{1}{2}",@icons[0],getTaskLabel(0,nohardmarkers)))
+    @sprites["task1"].visible= true
+    @sprites["task1"].setBitmap(_INTL("Graphics/UI/Pokemon Box/icon_{1}{2}",@icons[1],getTaskLabel(1,nohardmarkers)))
+    @sprites["task2"].visible= true
+    @sprites["task2"].setBitmap(_INTL("Graphics/UI/Pokemon Box/icon_{1}{2}",@icons[2],getTaskLabel(2,nohardmarkers)))
+    @sprites["task3"].visible= true
+    @sprites["task3"].setBitmap(_INTL("Graphics/UI/Pokemon Box/icon_{1}{2}",@icons[3],getTaskLabel(3,nohardmarkers)))
   end
   
   def changeBoxTask
@@ -840,7 +848,7 @@ class PokemonBoxSummaryScene
         [_INTL("{1}",@box.stages[stage][0]),x+59,y+4,2,baseColor,shadowColor]
       ]
       imagepos.push(["Graphics/UI/Pokemon Box/overlay_menubox_" + filename + "_closed",x+10,y+13,0,0,-1,-1])
-      lockedimagepos.push(["Graphics/UI/"+getDarkModeFolder+"/Pokemon Box/overlay_menuwrapper_locked",x,y,0,0,-1,-1]) if @box.currentStage<stage
+      lockedimagepos.push(["Graphics/UI/Pokemon Box/overlay_menuwrapper_locked",x+33,y+9,0,0,-1,-1]) if @box.currentStage<stage
     end
     pbDrawImagePositions(@overlay,imagepos)
     pbDrawTextPositions(@overlay,textpos)

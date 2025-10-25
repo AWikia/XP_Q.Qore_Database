@@ -20,9 +20,9 @@ class DailySlotMachineReel < BitmapSprite
   SLIPPING = [0,0,0,0,0,0,1,1,1,2,2,3]
 
   def initialize(x,y,difficulty=1)
-    @viewport=Viewport.new(x+64,y,64,144)
+    @viewport=Viewport.new(x,y,64,144)
     @viewport.z=99999
-    super(64+64,144,@viewport)
+    super(64,144,@viewport)
     @reel=[]
     for i in 0...ICONSPOOL[difficulty].length
       @reel.push(ICONSPOOL[difficulty][i])
@@ -218,7 +218,7 @@ class DailySlotMachineScene
     @sprites["header"].baseColor=(isDarkMode?) ? Color.new(242,242,242) : Color.new(12,12,12)
     @sprites["header"].shadowColor=nil #(!isDarkMode?) ? Color.new(242,242,242) : Color.new(12,12,12)
     @sprites["header"].windowskin=nil
-    @sprites["reel"]=DailySlotMachineReel.new(0,112+32,difficulty)
+    @sprites["reel"]=DailySlotMachineReel.new(64,112+32,difficulty)
 
       @sprites["button"]=IconSprite.new(68,260+32,@viewport)
       if difficulty>1
@@ -263,10 +263,11 @@ class DailySlotMachineScene
        [_INTL("How to use:"),(Graphics.width/4)-14,0,2,baseColor,shadowColor],
     ]
     coins=[3,3,30][difficulty]
+    jackpot=["7","7","R"][difficulty]
     text = _INTL("Spin the machine once per day to get rewards.")
     text2 = _INTL("Each usage of this machine costs {1} coins.",coins)
     text3 = _INTL("Obtained rewards can only be used within this game.")
-    text4 = _INTL("Land on a 7 to get the jackpot prize.")
+    text4 = _INTL("Land on a \"{1}\" to get the jackpot prize.",jackpot)
     drawTextEx(overlay,0,32,(Graphics.width/2)-28,2,text,baseColor,shadowColor)
     drawTextEx(overlay,0,112,(Graphics.width/2)-28,2,text2,baseColor,shadowColor)
     drawTextEx(overlay,0,192,(Graphics.width/2)-28,2,text3,baseColor,shadowColor)

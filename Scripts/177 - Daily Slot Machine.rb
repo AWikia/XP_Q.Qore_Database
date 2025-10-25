@@ -204,6 +204,8 @@ class DailySlotMachineScene
     @sprites={}
     @viewport=Viewport.new(0,0,Graphics.width,Graphics.height)
     @viewport.z=99999
+    @viewport2=Viewport.new((Graphics.width/2)+14,40,(Graphics.width / 2)-28,Graphics.height-40)
+    @viewport2.z=99999
     if difficulty>1
       addBackgroundPlane(@sprites,"bg",getDarkModeFolder+"/Daily Slot Machine/bgElite",@viewport)
 	  @sprites["header"]=Window_UnformattedTextPokemon.newWithSize(_INTL("Daily Slot Machine - Elite Challenge"),
@@ -216,32 +218,60 @@ class DailySlotMachineScene
     @sprites["header"].baseColor=(isDarkMode?) ? Color.new(242,242,242) : Color.new(12,12,12)
     @sprites["header"].shadowColor=nil #(!isDarkMode?) ? Color.new(242,242,242) : Color.new(12,12,12)
     @sprites["header"].windowskin=nil
-    @sprites["reel"]=DailySlotMachineReel.new(144,112,difficulty)
+    @sprites["reel"]=DailySlotMachineReel.new(0,112+32,difficulty)
 
-      @sprites["button"]=IconSprite.new(68+80+64,260,@viewport)
+      @sprites["button"]=IconSprite.new(68,260+32,@viewport)
       if difficulty>1
-        @sprites["button"].setBitmap(sprintf("Graphics/UI/"+getDarkModeFolder+"/Daily Slot Machine/buttonf"))
+        @sprites["button"].setBitmap(sprintf("Graphics/UI/"+getDarkModeFolder+"/Daily Slot Machine/buttonElite"))
       else
         @sprites["button"].setBitmap(sprintf("Graphics/UI/"+getDarkModeFolder+"/Daily Slot Machine/button"))        
       end
       @sprites["button"].visible=false
 
   
-      @sprites["row"]=IconSprite.new(82+64,170,@viewport)
+      @sprites["row"]=IconSprite.new(2,170+32,@viewport)
       @sprites["row"].setBitmap(sprintf("Graphics/UI/"+getDarkModeFolder+"/Daily Slot Machine/line1"))
       @sprites["row"].visible=false
 
-    @sprites["light1"]=IconSprite.new(128+64,32,@viewport)
+    @sprites["light1"]=IconSprite.new(48,32,@viewport)
     @sprites["light1"].setBitmap(sprintf("Graphics/UI/"+getDarkModeFolder+"/Daily Slot Machine/lights"))
     @sprites["light1"].visible=false
-    @sprites["window1"]=IconSprite.new(278+64,96,@viewport)
+    @sprites["window1"]=IconSprite.new(166,96+32,@viewport)
     @sprites["window1"].setBitmap(sprintf("Graphics/UI/Daily Slot Machine/insert"))
     @sprites["window1"].src_rect.set(0,0,152,208)
-    @sprites["window2"]=IconSprite.new(278+64,96,@viewport)
-    @sprites["credit"]=DailySlotMachineScore.new(318+64,66,$PokemonGlobal.coins)
+    @sprites["window2"]=IconSprite.new(166,96+32,@viewport)
+    @sprites["credit"]=DailySlotMachineScore.new(206,66+32,$PokemonGlobal.coins)
+    @sprites["overlay"]=BitmapSprite.new((Graphics.width/2 - 28),Graphics.height - 40,@viewport2)
     @wager=0
     update
+    writeHelp(difficulty)
     pbFadeInAndShow(@sprites)
+  end
+  
+  def writeHelp(difficulty)
+    overlay=@sprites["overlay"].bitmap
+    overlay.clear
+    if (!isDarkMode?)
+      baseColor=MessageConfig::DARKTEXTBASE
+      shadowColor=MessageConfig::DARKTEXTSHADOW
+    else
+      baseColor=MessageConfig::LIGHTTEXTBASE
+      shadowColor=MessageConfig::LIGHTTEXTSHADOW
+    end
+    pbSetSystemFont(@sprites["overlay"].bitmap)
+    textPositions=[
+       [_INTL("How to use:"),(Graphics.width/4)-14,0,2,baseColor,shadowColor],
+    ]
+    coins=[3,3,30][difficulty]
+    text = _INTL("Spin the machine once per day to get rewards.")
+    text2 = _INTL("Each usage of this machine costs {1} coins.",coins)
+    text3 = _INTL("Obtained rewards can only be used within this game.")
+    text4 = _INTL("Land on a 7 to get the jackpot prize.")
+    drawTextEx(overlay,0,32,(Graphics.width/2)-28,2,text,baseColor,shadowColor)
+    drawTextEx(overlay,0,112,(Graphics.width/2)-28,2,text2,baseColor,shadowColor)
+    drawTextEx(overlay,0,192,(Graphics.width/2)-28,2,text3,baseColor,shadowColor)
+    drawTextEx(overlay,0,272,(Graphics.width/2)-28,2,text4,baseColor,shadowColor)
+    pbDrawTextPositions(overlay,textPositions)
   end
 
   def pbMain(difficulty)

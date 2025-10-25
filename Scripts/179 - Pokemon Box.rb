@@ -765,8 +765,8 @@ class PokemonBoxSummaryScene
     @sprites["header"].windowskin=nil
     @sprites["overlay"]=BitmapSprite.new(Graphics.width,Graphics.height,@viewport)
     @box=PokemonBoxScene.new
-    @maxpages=(@box.stages.length / 6.0).ceil - 1
-    @page=((@box.currentStage+1) / 6.0).ceil - 1
+    @maxpages=(@box.stages.length / 8.0).ceil - 1
+    @page=((@box.currentStage+1) / 8.0).ceil - 1
     @sprites["uparrow"] = AnimatedSprite.new("Graphics/UI/"+getAccentFolder+"/uparrow",8,28,40,2,@viewport)
     @sprites["uparrow"].x = Graphics.width/2 - 14
     @sprites["uparrow"].y = 16
@@ -787,10 +787,10 @@ class PokemonBoxSummaryScene
     @sprites["downarrow"].visible = @page != @maxpages
     @overlay=@sprites["overlay"].bitmap
     @overlay.clear
-    offset=6*@page
-    for item in 0+offset...[@box.stages.length,6+offset].min
-      x=[4,324,4,324,4,324][item%6]
-      y=[36,36,160,160,284,284][item%6]
+    offset=8*@page
+    for item in 0+offset...[@box.stages.length,8+offset].min
+      x=[4,324,4,324,4,324,4,324][item%8]
+      y=[36,36,126,126,216,216,306,306][item%8]
       pbDrawBoxContents(x,y,item)
     end
   end
@@ -817,8 +817,8 @@ class PokemonBoxSummaryScene
     # Box
     imagepos=[
       ["Graphics/UI/"+getDarkModeFolder+"/Pokemon Box/overlay_menuwrapper",x,y,0,0,-1,-1],
-      ["Graphics/UI/Pokemon Box/overlay_menubox_" + filename,x+10,y+35,0,0,-1,-1]
     ]
+    lockedimagepos=[]
     # Items
     itemx = 182 - ([(@box.stages[stage][1].length - 1),3].min * 24)
     for i in @box.stages[stage][1]
@@ -826,21 +826,25 @@ class PokemonBoxSummaryScene
       offsetX=(48 - @animbitmap.bitmap.width) / 2
       offsetY=(48 - @animbitmap.bitmap.height) / 2
       @animbitmap.dispose
-      imagepos.push([pbItemIconFile( getID(PBItems,i)),x+itemx.ceil+offsetX,y+24+offsetY,0,0,-1,-1])
+      imagepos.push([pbItemIconFile( getID(PBItems,i)),x+itemx.ceil+offsetX,y+13+offsetY,0,0,-1,-1])
       itemx+=(96.0/[(@box.stages[stage][1].length - 1),3].max)*1.5
     end
     # Box Name
     if @box.currentStage == stage
       textpos=[
-        [_INTL("{1}",@box.stages[stage][0]),x+59,y+4,2,hardBase,hardShadow]
+    #    [_INTL("{1}",@box.stages[stage][0]),x+59,y+4,2,hardBase,hardShadow]
       ]
+      imagepos.push(["Graphics/UI/Pokemon Box/overlay_menubox_" + filename,x+10,y+13,0,0,-1,-1])
     else
       textpos=[
         [_INTL("{1}",@box.stages[stage][0]),x+59,y+4,2,baseColor,shadowColor]
       ]
+      imagepos.push(["Graphics/UI/Pokemon Box/overlay_menubox_" + filename + "_closed",x+10,y+13,0,0,-1,-1])
+      lockedimagepos.push(["Graphics/UI/"+getDarkModeFolder+"/Pokemon Box/overlay_menuwrapper_locked",x,y,0,0,-1,-1]) if @box.currentStage<stage
     end
     pbDrawImagePositions(@overlay,imagepos)
     pbDrawTextPositions(@overlay,textpos)
+    pbDrawImagePositions(@overlay,lockedimagepos)
 
   end
 

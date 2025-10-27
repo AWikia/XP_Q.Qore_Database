@@ -1874,19 +1874,20 @@ def ragefist
        @battle.pbOwnedByPlayer?(@index) && $game_variables[WIN_STREAK_VARIABLE]>0 &&
        !($game_switches[1047] || $game_switches[SEMI_INTERNAL_BATTLE] || $game_variables[1003] > 0) && 
        onactive
-        stage=([$game_variables[WIN_STREAK_VARIABLE].to_i,6].min - 1).to_i
-        wsanim=["WinStreak1","WinStreak2","WinStreak3","WinStreak4","WinStreak5","WinStreak6"][stage]
-        wsstats=["Speed and Defense","Speed, Defense and Accuracy",
-                 "base stats and Accuracy","all stats","all stats greately",
-                 "all stats even more"][stage]
+        stage=([$game_variables[WIN_STREAK_VARIABLE].to_i,9].min - 1).to_i
+        wsanim="WinStreak" + (stage+1).to_s
+        wsstats=["Speed","Speed and Defense","Speed, Defense and Accuracy",
+                 "base stats and Accuracy","all stats",
+                 "Speed more and other stats","all stats more",
+                 "Speed even more and other stats more","all stats even more"][stage]
         @battle.pbCommonAnimation(wsanim,self,nil)
-        self.stages[PBStats::ATTACK]+=[0,0,1,1,2,3][stage]
-        self.stages[PBStats::DEFENSE]+=[1,1,1,1,2,3][stage]
-        self.stages[PBStats::SPATK]+=[0,0,1,1,2,3][stage]
-        self.stages[PBStats::SPDEF]+=[1,1,1,1,2,3][stage]
-        self.stages[PBStats::SPEED]+=[1,1,1,1,2,3][stage]
-        self.stages[PBStats::ACCURACY]+=[0,1,1,1,1,1][stage]
-        self.stages[PBStats::EVASION]+=[0,0,0,1,1,1][stage]
+        self.stages[PBStats::ATTACK]+=[0,0,0,1,1,1,2,2,3][stage]
+        self.stages[PBStats::DEFENSE]+=[0,1,1,1,1,1,2,2,3][stage]
+        self.stages[PBStats::SPATK]+=[0,0,0,1,1,1,2,2,3][stage]
+        self.stages[PBStats::SPDEF]+=[0,1,1,1,1,1,2,2,3][stage]
+        self.stages[PBStats::SPEED]+=[1,1,1,1,1,2,2,3,3][stage]
+        self.stages[PBStats::ACCURACY]+=[0,0,1,1,1,1,1,1,1][stage]
+        self.stages[PBStats::EVASION]+=[0,0,0,0,1,1,1,1,1][stage]
       $PokemonGlobal.pokebox[38]+=1
       @battle.pbCommonAnimation("StatUp",self,nil)
       @battle.pbDisplay(_INTL("{1}'s current Win Streak boosted {2}'s {3}",$Trainer.name,pbThis,wsstats))

@@ -212,8 +212,8 @@ class PokemonBoxScene
             (1*multi)+randIncr((1*multi)+addIncr(1)),               # Catch Pokemon
             (6*multi)+randIncr((6*multi)+addIncr(6)),               # Activate Abilites
             (6*multi)+randIncr((6*multi)+addIncr(6)),               # Activate Held Items
-            (3*multi)+randIncr((3*multi)+addIncr(3)),               # Use Physical Moves
-            (3*multi)+randIncr((3*multi)+addIncr(3)),               # Use Special Moves
+            (4*multi)+randIncr((4*multi)+addIncr(3)),               # Use Physical Moves
+            (4*multi)+randIncr((4*multi)+addIncr(3)),               # Use Special Moves
             (2*multi)+randIncr((2*multi)+addIncr(2)),               # Use Status Moves
             (0.5*multi)+randIncr((0.5*multi)+addIncr(0.5)),         # Use Battle Items
             (3*multi)+randIncr((2*multi)+addIncr(3)),               # Defear Trainers
@@ -222,7 +222,7 @@ class PokemonBoxScene
             (3*multi)+randIncr((2*multi)+addIncr(3)),               # UNUSED!
             (500*multi)+randIncr((1500*multi*multi2)+addIncr(500)), # Deal Damage
             (2*multi)+randIncr((2*multi)+addIncr(2)),               # Land Critical Hits
-            (2*multi)+randIncr((3*multi)+addIncr(2)),               # Use STAB Moves
+            (3*multi)+randIncr((3*multi)+addIncr(2)),               # Use STAB Moves
             (1*multi)+randIncr((2*multi)+addIncr(1)),               # Defeat Pokemon Instantly
             (1*multi)+randIncr((1*multi)+addIncr(1)),               # Use Berries
             (1*multi)+randIncr((1*multi)+addIncr(1)),               # UNUSED!
@@ -233,18 +233,18 @@ class PokemonBoxScene
             (2*multi)+randIncr((3*multi)+addIncr(3)),               # Use Hi Priority Moves
             (6*multi)+randIncr((6*multi)+addIncr(6)),               # Decrease Stats
             (2*multi)+randIncr((2*multi)+addIncr(2)),               # Inflict Conditions            
-            (2*multi)+randIncr((3*multi)+addIncr(2)),               # Use Moves with Effects
+            (2*multi)+randIncr((2*multi)+addIncr(2)),               # Use Moves with Effects
             (1*multi)+randIncr((1*multi)+addIncr(1)),               # Use Copycat Moves
             (250*multi)+randIncr((250*multi*multi2)+addIncr(250)),  # Take Recoil Damage
             (250*multi)+randIncr((500*multi*multi2)+addIncr(250)),  # Recover HP
             (2*multi)+randIncr((3*multi)+addIncr(2)),               # Land Super Effective
-            (2*multi)+randIncr((3*multi)+addIncr(2)),               # Use Multi-hit Moves
+            (2*multi)+randIncr((2*multi)+addIncr(2)),               # Use Multi-hit Moves
             (2*multi)+randIncr((1*multi)+addIncr(2)),               # Defeat Best Trainers
             (0.5*multi)+randIncr((1*multi)+addIncr(1)),             # Use Sleeping Moves
             (500*multi)+randIncr((1500*multi*multi2)+addIncr(500)), # Gain Money
             (2*multi)+randIncr((3*multi)+addIncr(2)),               # Land Not Very Effective
-            (2*multi)+randIncr((3*multi)+addIncr(2)),               # Use Mutli-Target Moves
-            (5*multi)+randIncr((5*multi)+addIncr(5)),               # Activate Win Streak
+            (2*multi)+randIncr((2*multi)+addIncr(2)),               # Use Mutli-Target Moves
+            (4*multi)+randIncr((4*multi)+addIncr(5)),               # Activate Win Streak
             (1*multi)+randIncr((2*multi)+addIncr(1))                # Change Forms
             ][num].ceil
 
@@ -260,8 +260,8 @@ class PokemonBoxScene
             (1*multi)+(0.5*multi),           # Catch Pokemon
             (6*multi)+(3*multi),             # Trigger Abilites
             (6*multi)+(3*multi),             # Trigger Items
-            (3*multi)+(1.5*multi),           # Use Physical Moves
-            (3*multi)+(1.5*multi),           # Use Special Moves
+            (4*multi)+(2*multi),             # Use Physical Moves
+            (4*multi)+(2*multi),             # Use Special Moves
             (2*multi)+(1*multi),             # Use Status Moves
             (0.5*multi)+(0.25*multi),        # Use Battle Items
             (3*multi)+(1*multi),             # Defear Trainers
@@ -270,29 +270,29 @@ class PokemonBoxScene
             (3*multi)+(1*multi),             # UNUSED!
             (500*multi)+(750*multi*multi2),  # Deal Damage
             (2*multi)+(1*multi),             # Land Critical Hits
-            (2*multi)+(1.5*multi),           # Use STAB Moves
+            (3*multi)+(1.5*multi),           # Use STAB Moves
             (1*multi)+(1*multi),             # Defeat Pokemon Instantly
             (1*multi)+(0.5*multi),           # Use Berries
             (1*multi)+(0.5*multi),           # UNUSED!
             (6*multi)+(3*multi),             # Increase Stats
             (1*multi)+(0.5*multi),           # Revive Pokemon
-            (2*multi)+(1.5*multi),           # Use Healing Moves
+            (2*multi)+(1*multi),             # Use Healing Moves
             (0.2*multi)+(0.3*multi),         # Use One-hit KO Moves 
-            (2*multi)+(1.5*multi),           # Use Hi Priority Moves
+            (2*multi)+(1*multi),             # Use Hi Priority Moves
             (6*multi)+(3*multi),             # Decrease Stats
             (2*multi)+(1*multi),             # Inflict Conditions            
-            (2*multi)+(1.5*multi),           # Use Moves with Effects
+            (2*multi)+(1*multi),             # Use Moves with Effects
             (1*multi)+(0.5*multi),           # Use Copycat Moves
             (250*multi)+(125*multi*multi2),  # Take Recoil Damage
             (250*multi)+(250*multi*multi2),  # Recover HP
             (2*multi)+(1.5*multi),           # Land Super Effective
-            (2*multi)+(1.5*multi),           # Use Multi-hit Moves
+            (2*multi)+(1*multi),             # Use Multi-hit Moves
             (2*multi)+(0.5*multi),           # Defeat Best Trainers
             (0.5*multi)+(0.5*multi),         # Use Sleeping Moves
             (500*multi)+(750*multi*multi2),  # Gain Money
             (2*multi)+(1.5*multi),           # Land Not Very Effective
-            (2*multi)+(1.5*multi),           # Use Mutli-Target Moves
-            (5*multi)+(2.5*multi),           # Activate Win Streak
+            (2*multi)+(1*multi),             # Use Mutli-Target Moves
+            (4*multi)+(2*multi),             # Activate Win Streak
             (1*multi)+(1*multi)              # Change Forms
             ][taskID]
     return taskstatus2 > vals

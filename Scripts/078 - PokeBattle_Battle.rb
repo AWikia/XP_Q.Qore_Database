@@ -4979,8 +4979,8 @@ class PokeBattle_Battle
           # Win Streak Start
           $game_variables[WIN_STREAK_VARIABLE]+=1
           $game_variables[WIN_STREAK_VARIABLE]=[$game_variables[WIN_STREAK_VARIABLE],65535].min
-          if $game_variables[WIN_STREAK_VARIABLE]==6
-            pbDisplayPaused(_INTL("Congratulations! You've got a Win Streak of 6!"))
+          if $game_variables[WIN_STREAK_VARIABLE]==9
+            pbDisplayPaused(_INTL("Congratulations! You've got a Win Streak of 9!"))
           end
           # First Bag obtained at Win Streak of 11, second at 22 and so on.
           if $game_variables[WIN_STREAK_VARIABLE]>0 &&

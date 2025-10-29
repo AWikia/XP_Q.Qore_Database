@@ -14,15 +14,15 @@ class DailyTreatMachineScene
     @viewport2.z=99999
     @sprites["machine"]=IconSprite.new((Graphics.width/4)-138,76,@viewport)
     level = pbGetCardLevel
-    if pbTimeEventValid(DTM_VARIABLES[2])
-      $game_variables[DTM_VARIABLES[1]]=0
+    if pbTimeEventValid(DTM_VARIABLES[1])
+      $game_variables[DTM_VARIABLES[0]]=0
     end
-    $game_variables[DTM_VARIABLES[1]]+=1
+    $game_variables[DTM_VARIABLES[0]]+=1
     addBackgroundPlane(@sprites,"bg",getDarkModeFolder+"/Daily Treat Machine/bg_"+level.to_s,@viewport)
     @sprites["machine"].setBitmap(_INTL("Graphics/UI/"+getDarkModeFolder+"/Daily Treat Machine/overlay_machine"))
     @sprites["bg"].z = 1
     @sprites["machine"].z = 2
-    @sprites["header"]=Window_UnformattedTextPokemon.newWithSize(_INTL("Daily Treat Machine - Load Streak: {1}",$game_variables[DTM_VARIABLES[1]]),
+    @sprites["header"]=Window_UnformattedTextPokemon.newWithSize(_INTL("Daily Treat Machine - Load Streak: {1}",$game_variables[DTM_VARIABLES[0]]),
        2,-18,400,64,@viewport)
     @sprites["header"].baseColor=(isDarkMode?) ? Color.new(242,242,242) : Color.new(12,12,12)
     @sprites["header"].shadowColor=nil #(!isDarkMode?) ? Color.new(242,242,242) : Color.new(12,12,12)
@@ -169,14 +169,14 @@ class DailyTreatMachineScene
             pbDailuMachineStart if startAd
           end
         end
-        if $game_variables[DTM_VARIABLES[1]]%7 == 0
-          coins = [($game_variables[DTM_VARIABLES[1]] / 0.7).floor,50].min
+        if $game_variables[DTM_VARIABLES[0]]%7 == 0
+          coins = [($game_variables[DTM_VARIABLES[0]] / 0.7).floor,50].min
           Kernel.pbMessage(_INTL("As you've made a 7-day load streak, you'll be getting {1} additional coins.",coins))
           $PokemonGlobal.coins+=coins
         end
         Kernel.pbMessage(_INTL("Load the game tomorrow for your next reward."))
-        $game_variables[DTM_VARIABLES[0]]=[pbGetTimeNow.mon, pbGetTimeNow.day]
-        pbTimeEventDays(DTM_VARIABLES[2],2)
+        $game_variables[DTM_VARIABLES[2]]=[pbGetTimeNow.mon, pbGetTimeNow.day] # @FIXME: Remove when 26H1 gets its final Beta
+        pbTimeEventDays(DTM_VARIABLES[1],2) # 2 days, event reactivates when 1 day or less is left
         break
       end
     end 

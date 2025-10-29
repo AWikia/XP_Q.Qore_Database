@@ -494,12 +494,12 @@ SEMI_INTERNAL_BATTLE      = 205
 #===============================================================================
 # * The Global Variable that is used for the Win Streak Feature
 # * The Global Variables that is used for the Daily Treat Machine Feature
-#      - The Global Variable that is used to record the last date Daily Treat
-#            Machine was used
 #      - The Global Variable that is used to record the amount of days Daily
 #            Treat Machine was used in a row
 #      - The Global Variable that is used to store the timed event that will
 #            reset the login count after two days of inactivity
+#      - The Global Variable that is used to record the last date Daily Treat
+#            Machine was used (Kept for compatibility purposs)
 # * The Global Variables that is used for the Pokemon Box Feature
 #      - The Global Variable that is used to record the stage of the Box
 #      - The Global Variable that is used to record the tasks of the box
@@ -509,7 +509,7 @@ SEMI_INTERNAL_BATTLE      = 205
 #      - The Global Variable that is used to record the last state of the Box
 #===============================================================================
 WIN_STREAK_VARIABLE       = 1007
-DTM_VARIABLES             = [1008,1009,1010]
+DTM_VARIABLES             = [1009,1010,1008]
 PBOX_VARIABLES            = [1012,1013,1014,1015,1016,1017]
 
 #===============================================================================

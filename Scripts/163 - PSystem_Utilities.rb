@@ -425,7 +425,7 @@ def pbCheckDTM
     $PokemonBag.pbStoreItem(:POKEMONBOX,1)
   end
   if $PokemonBag.pbQuantity(:DAILYTREATMACHINE)>0 && 
-     $game_variables[DTM_VARIABLES[0]]!=[pbGetTimeNow.mon, pbGetTimeNow.day]
+     pbTimeEventValid(DTM_VARIABLES[1],false,86400)
         scene=DailyTreatMachineScene.new
         screen=DailyTreatMachine.new(scene)
         pbFadeOutIn(99999) { 
@@ -1560,17 +1560,18 @@ def pbTimeEventDays(variableNumber,days=0)
   end
 end
 
-def pbTimeEventValid(variableNumber,reset=true)
+def pbTimeEventValid(variableNumber,reset=true,offset=0)
   retval=false
   if variableNumber && variableNumber>=0 && $game_variables
     value=$game_variables[variableNumber]
     if value.is_a?(Array)
       timenow=pbGetTimeNow
-      retval=(timenow.to_f - value[0] > value[1]) # value[1] is age in seconds
+      retval=(timenow.to_f - value[0] > value[1] - offset) # value[1] is age in seconds
+      retval2=(timenow.to_f - value[0] > value[1]) # value[1] is age in seconds
       retval=false if value[1]<=0 # zero age
     end
     if retval # If event is valid, reset it
-      $game_variables[variableNumber]=0 if reset
+      $game_variables[variableNumber]=0 if reset && retval2 # only reset if enabled AND the actual event ended
       $game_map.refresh if $game_map
     end
   end

@@ -2172,9 +2172,7 @@ def pbItemIconFile(item)
     bitmapFileName = _INTL("Graphics/Items/827_{1}",QQORECHANNEL)
   elsif item==1014 # Pokemon Box
     boxscene = PokemonBoxScene.new
-    bitmapFileName = _INTL("Graphics/Items/1014_{1}",[boxscene.currentStage(false)])
-    bitmapFileName = _INTL("Graphics/Items/1014_{1}_elite",[boxscene.currentStage(false)]) if boxscene.isMillenial?
-    bitmapFileName = _INTL("Graphics/Items/1014_{1}_legendary",[boxscene.currentStage(false)]) if boxscene.isMillenial2?
+    bitmapFileName = _INTL("Graphics/Items/1014_{1}{2}",boxscene.currentStage(false),boxscene.stageSuffix)
   else
     bitmapFileName = sprintf("Graphics/Items/%s",getConstantName(PBItems,item)) rescue nil
     bitmapFileName = sprintf("Graphics/Items/%03d",item) if !pbResolveBitmap(bitmapFileName)

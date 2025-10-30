@@ -22,11 +22,14 @@ class PokemonBoxScene
     ["Classic",[:POTION,:POKEBALL],10,1,1],
     ["Bronze",[:SUPERPOTION,:GREATBALL,heal],7,2,1],
     ["Silver",[:HYPERPOTION,:ULTRABALL,:FULLHEAL,:NORMALGEM],5,3.5,2],
-    ["Gold",[:MEGAPOTION,:PARKBALL,:FULLHEAL,:NORMALGEM,:RARECANDY],5,5,2],
+    ["Gold",[:MEGAPOTION,:PARKBALL,[:FULLHEAL,2],:NORMALGEM,:RARECANDY],5,5,2],
     # Elite Challenge
-    ["Elite",[:FULLRESTORE,:PARKBALL,:SUPERBOOSTER,:NORMALBOX,:VICIOUSCANDY],3,6,3],
+    ["Elite",[:FULLRESTORE,[:PARKBALL,2],:SUPERBOOSTER,:NORMALBOX,:VICIOUSCANDY],3,6,3],
     # Legendary Challenge
-    ["Legendary",[:SACREDASH,:MASTERBALL,:SUPERBOOSTER,:BOTANICSMOKE,:NORMALBOX,:VICIOUSCANDY],3,7,3]
+    ["Legendary",[:SACREDASH,:MASTERBALL,:SUPERBOOSTER,:BOTANICSMOKE,:NORMALBOX,:VICIOUSCANDY],3,7,3],
+    # Legendary Challenge
+    ["Mythical",[[:SACREDASH,2],:MASTERBALL,[:SUPERBOOSTER,2],:BOTANICSMOKE,:NORMALBOX,:DRAGONBOX,[:VICIOUSCANDY,2]],3,9,3]
+
     ]
     if $Trainer && $Trainer.isFemale?
       @icons=["voltorb","staryu","pikachu","slowpoke"]
@@ -47,12 +50,8 @@ class PokemonBoxScene
     @sprites["machine"]=IconSprite.new((Graphics.width/4)-140,44,@viewport)
     @sprites["bg"]=IconSprite.new(0,0,@viewport) # Avoid issues with animations
 #    addBackgroundPlane(@sprites,"bg",getDarkModeFolder+"/Pokemon Box/bg_0",@viewport)
-    @sprites["bg"].setBitmap(_INTL("Graphics/UI/"+getDarkModeFolder+"/Pokemon Box/bg_{1}",currentStage(false)))
-    @sprites["bg"].setBitmap(_INTL("Graphics/UI/"+getDarkModeFolder+"/Pokemon Box/bg_{1}_elite",currentStage(false))) if isMillenial?
-    @sprites["bg"].setBitmap(_INTL("Graphics/UI/"+getDarkModeFolder+"/Pokemon Box/bg_{1}_legendary",currentStage(false))) if isMillenial2?
-    @sprites["machine"].setBitmap(_INTL("Graphics/UI/Pokemon Box/overlay_box_{1}",currentStage(false)))
-    @sprites["machine"].setBitmap(_INTL("Graphics/UI/Pokemon Box/overlay_box_{1}_elite",currentStage(false))) if isMillenial?
-    @sprites["machine"].setBitmap(_INTL("Graphics/UI/Pokemon Box/overlay_box_{1}_legendary",currentStage(false))) if isMillenial2?
+    @sprites["bg"].setBitmap(_INTL("Graphics/UI/"+getDarkModeFolder+"/Pokemon Box/bg_{1}{2}",currentStage(false),stageSuffix))
+    @sprites["machine"].setBitmap(_INTL("Graphics/UI/Pokemon Box/overlay_box_{1}{2}",currentStage(false),stageSuffix))
     @sprites["progress"]=IconSprite.new((Graphics.width/4)-132,44,@viewportTask)
     @sprites["progress"].setBitmap(_INTL("Graphics/UI/"+getDarkModeFolder+"/Pokemon Box/overlay_progress"))
     @sprites["progress"].visible=false
@@ -95,6 +94,7 @@ class PokemonBoxScene
     pbSetSystemFont(@sprites["overlay"].bitmap)
     pbSetSystemFont(@sprites["overlayTask"].bitmap)
     pbSetSystemFont(@sprites["overlayTime"].bitmap)
+    pbSetSmallFont(@sprites["overlayItems"].bitmap)
     pbPokemonBoxStart
     pbFadeInAndShow(@sprites) { update }
     if expiredbox
@@ -109,7 +109,7 @@ class PokemonBoxScene
   end
   
   def maxStages
-    return @stages.length-2 rescue 4 # 2 Items are Elite Challenge
+    return @stages.length-3 rescue 4 # 3 Items are Elite Challenge
   end
   
   def currentStage(includeElite=true) # If includeElite is set to false, then currentStage does not increase on Milestone Boxes
@@ -117,8 +117,16 @@ class PokemonBoxScene
     if includeElite
       result+=1 if isMillenial?
       result+=1 if isMillenial2?
+      result+=1 if isMillenial3?
     end
     return result
+  end
+  
+  def stageSuffix
+    return "_mythical" if isMillenial3?
+    return "_legendary" if isMillenial2?
+    return "_elite" if isMillenial?
+    return ""
   end
   
   def boxName(includeElite=false)
@@ -158,9 +166,15 @@ class PokemonBoxScene
     return false if id < maxStages # First Gold and below can never be milestone
     return id%100 == 0
   end
+
+  def isMillenial3?
+    id = $game_variables[PBOX_VARIABLES[2]].to_i
+    return false if id < maxStages # First Gold and below can never be milestone
+    return id%1000 == 0
+  end
   
   def addIncr(num)
-    return ((($game_variables[PBOX_VARIABLES[2]] / 10).floor / 4) * num).floor
+    return rand( ((($game_variables[PBOX_VARIABLES[2]] / 10).floor / 40) * num).floor )
   end
   
   def currentStep
@@ -461,6 +475,7 @@ class PokemonBoxScene
     @sprites["overlayTime"].bitmap.clear
     @sprites["overlayItems"].bitmap.clear
     imagepos=[]
+    imageposAMT=[]
     progress=[]
     progressTime=[]
     value=$game_variables[PBOX_VARIABLES[3]]
@@ -479,11 +494,22 @@ class PokemonBoxScene
       progressTime.push(["Graphics/UI/Pokemon Box/icon_clock",@sprites["progresstime"].x-28,@sprites["progresstime"].y-6,0,0,-1,-1])
     x = 116 - ([(boxItems.length - 1),4].min * 24)
     for i in boxItems
-      @animbitmap=AnimatedBitmap.new( pbItemIconFile( getID(PBItems,i)) )
+      if i.is_a?(Array)
+        item=i[0]
+        amt=i[1]
+      else
+        item=i
+        amt=1
+      end
+      @animbitmap=AnimatedBitmap.new( pbItemIconFile( getID(PBItems,item)) )
       offsetX=(48 - @animbitmap.bitmap.width) / 2
       offsetY=(48 - @animbitmap.bitmap.height) / 2
       @animbitmap.dispose
-      imagepos.push([pbItemIconFile( getID(PBItems,i)),@sprites["machine"].x+x.ceil+offsetX,@sprites["machine"].y+14+offsetY,0,0,-1,-1])
+      imagepos.push([pbItemIconFile( getID(PBItems,item)),@sprites["machine"].x+x.ceil+offsetX,@sprites["machine"].y+14+offsetY,0,0,-1,-1])
+      if amt>1
+        imageposAMT.push([amt.to_s,@sprites["machine"].x+32+x.ceil,@sprites["machine"].y+34,2,Color.new(12,12,12),nil])
+        imagepos.push(["Graphics/UI/Pokemon Box/icon_amount",@sprites["machine"].x+x.ceil,@sprites["machine"].y+14,0,0,-1,-1])
+      end
       x+=(96.0/[(boxItems.length - 1),4].max)*2
     end
     if (!isDarkMode?)
@@ -515,6 +541,7 @@ class PokemonBoxScene
     ]
     pbSetSystemFont(@sprites["overlayTask"].bitmap)
     pbSetSystemFont(@sprites["overlayTime"].bitmap)
+    pbSetSmallFont(@sprites["overlayItems"].bitmap)
     @sprites["overlayTask"].z = 3
     # Task
     pbDrawImagePositions(@sprites["overlayTask"].bitmap,progress)
@@ -524,13 +551,10 @@ class PokemonBoxScene
     pbDrawTextPositions(@sprites["overlayTime"].bitmap,textposTime)
     # Other
     pbDrawImagePositions(@sprites["overlayItems"].bitmap,imagepos)
+    pbDrawTextPositions(@sprites["overlayItems"].bitmap,imageposAMT)
     @sprites["header"].text=_INTL("{1} Pokémon Box - Win Streak: {2}",boxName,$game_variables[PBOX_VARIABLES[2]])
-    @sprites["bg"].setBitmap(_INTL("Graphics/UI/"+getDarkModeFolder+"/Pokemon Box/bg_{1}",currentStage(false)))
-    @sprites["bg"].setBitmap(_INTL("Graphics/UI/"+getDarkModeFolder+"/Pokemon Box/bg_{1}_elite",currentStage(false))) if isMillenial?
-    @sprites["bg"].setBitmap(_INTL("Graphics/UI/"+getDarkModeFolder+"/Pokemon Box/bg_{1}_legendary",currentStage(false))) if isMillenial2?
-    @sprites["machine"].setBitmap(_INTL("Graphics/UI/Pokemon Box/overlay_box_{1}",currentStage(false)))
-    @sprites["machine"].setBitmap(_INTL("Graphics/UI/Pokemon Box/overlay_box_{1}_elite",currentStage(false))) if isMillenial?
-    @sprites["machine"].setBitmap(_INTL("Graphics/UI/Pokemon Box/overlay_box_{1}_legendary",currentStage(false))) if isMillenial2?
+    @sprites["bg"].setBitmap(_INTL("Graphics/UI/"+getDarkModeFolder+"/Pokemon Box/bg_{1}{2}",currentStage(false),stageSuffix))
+    @sprites["machine"].setBitmap(_INTL("Graphics/UI/Pokemon Box/overlay_box_{1}{2}",currentStage(false),stageSuffix))
     update_icons
     if showMillenialMessage
       if isMillenial?
@@ -583,10 +607,8 @@ class PokemonBoxScene
         animateTaskPane(255,0)
         close_box
         pbSEPlay("Item3",100,80)
-        if isMillenial2?
-          Kernel.pbMessage(_INTL("Legendary Box Completed. Here's your rewards"))
-        elsif isMillenial?
-          Kernel.pbMessage(_INTL("Elite Box Completed. Here's your rewards"))
+        if isMillenial?
+          Kernel.pbMessage(_INTL("{1} Box Completed. Here's your rewards",boxName(true)))
         else
           Kernel.pbMessage(_INTL("Box Completed. Here's your rewards"))
         end
@@ -596,7 +618,14 @@ class PokemonBoxScene
           multiamt = 2
         end
         for i in boxItems
-          Kernel.pbReceiveItem(i,1*multiamt)
+          if i.is_a?(Array)
+            item=i[0]
+            amt=i[1]
+          else
+            item=i
+            amt=1
+          end
+          Kernel.pbReceiveItem(item,amt*multiamt)
         end
         oldstreak = $game_variables[PBOX_VARIABLES[2]]
         $game_variables[PBOX_VARIABLES[2]]+=1
@@ -630,6 +659,7 @@ class PokemonBoxScene
     @sprites["task3"].visible= false
     @sprites["overlayItems"].bitmap.clear
     imagepos=[]
+    imageposAMT=[]
     x = 116 - ([(boxItems.length - 1),4].min * 24)
     idx=0
     for i in boxItems
@@ -639,17 +669,28 @@ class PokemonBoxScene
       else
         y = 54
       end
-      @animbitmap=AnimatedBitmap.new( pbItemIconFile( getID(PBItems,i)) )
+      if i.is_a?(Array)
+        item=i[0]
+        amt=i[1]
+      else
+        item=i
+        amt=1
+      end
+      @animbitmap=AnimatedBitmap.new( pbItemIconFile( getID(PBItems,item)) )
       offsetX=(48 - @animbitmap.bitmap.width) / 2
       offsetY=(48 - @animbitmap.bitmap.height) / 2
       @animbitmap.dispose
-      imagepos.push([pbItemIconFile( getID(PBItems,i)),@sprites["machine"].x+x.ceil+offsetX,@sprites["machine"].y+y+offsetY,0,0,-1,-1])
+      imagepos.push([pbItemIconFile( getID(PBItems,item)),@sprites["machine"].x+x.ceil+offsetX,@sprites["machine"].y+y+offsetY,0,0,-1,-1])
+      if amt>1
+        imageposAMT.push([amt.to_s,@sprites["machine"].x+32+x.ceil,@sprites["machine"].y+y+20,2,Color.new(12,12,12),nil])
+        imagepos.push(["Graphics/UI/Pokemon Box/icon_amount",@sprites["machine"].x+x.ceil,@sprites["machine"].y+y,0,0,-1,-1])
+      end
       x+=(96.0/[(boxItems.length - 1),4].max)*2
     end
+    pbSetSmallFont(@sprites["overlayItems"].bitmap)
     pbDrawImagePositions(@sprites["overlayItems"].bitmap,imagepos)
-    @sprites["machine"].setBitmap(_INTL("Graphics/UI/Pokemon Box/overlay_box_{1}_closed",currentStage(false)))
-    @sprites["machine"].setBitmap(_INTL("Graphics/UI/Pokemon Box/overlay_box_{1}_elite_closed",currentStage(false))) if isMillenial?
-    @sprites["machine"].setBitmap(_INTL("Graphics/UI/Pokemon Box/overlay_box_{1}_legendary_closed",currentStage(false))) if isMillenial2?
+    pbDrawTextPositions(@sprites["overlayItems"].bitmap,imageposAMT)
+    @sprites["machine"].setBitmap(_INTL("Graphics/UI/Pokemon Box/overlay_box_{1}{2}_closed",currentStage(false),stageSuffix))
   end
   
   # Updates the icons in the Pokemon Box container itself
@@ -807,6 +848,7 @@ class PokemonBoxSummaryScene
     filename=stage.to_s
     filename=(@box.maxStages-1).to_s + "_elite" if stage==@box.maxStages
     filename=(@box.maxStages-1).to_s + "_legendary" if stage==@box.maxStages + 1
+    filename=(@box.maxStages-1).to_s + "_mythical" if stage==@box.maxStages + 2
     if (!isDarkMode?)
       baseColor=MessageConfig::DARKTEXTBASE
       shadowColor=MessageConfig::DARKTEXTSHADOW
@@ -826,15 +868,27 @@ class PokemonBoxSummaryScene
     imagepos=[
       ["Graphics/UI/"+getDarkModeFolder+"/Pokemon Box/overlay_menuwrapper",x,y,0,0,-1,-1],
     ]
+    imageposAMT=[]
     lockedimagepos=[]
     # Items
     itemx = 182 - ([(@box.stages[stage][1].length - 1),3].min * 24)
     for i in @box.stages[stage][1]
-      @animbitmap=AnimatedBitmap.new( pbItemIconFile( getID(PBItems,i)) )
+      if i.is_a?(Array)
+        item=i[0]
+        amt=i[1]
+      else
+        item=i
+        amt=1
+      end
+      @animbitmap=AnimatedBitmap.new( pbItemIconFile( getID(PBItems,item)) )
       offsetX=(48 - @animbitmap.bitmap.width) / 2
       offsetY=(48 - @animbitmap.bitmap.height) / 2
       @animbitmap.dispose
-      imagepos.push([pbItemIconFile( getID(PBItems,i)),x+itemx.ceil+offsetX,y+13+offsetY,0,0,-1,-1])
+      imagepos.push([pbItemIconFile( getID(PBItems,item)),x+itemx.ceil+offsetX,y+13+offsetY,0,0,-1,-1])
+      if amt>1
+        imageposAMT.push([amt.to_s,x+32+itemx.ceil,y+33,2,Color.new(12,12,12),nil])
+        imagepos.push(["Graphics/UI/Pokemon Box/icon_amount",x+itemx.ceil,y+13,0,0,-1,-1])
+      end
       itemx+=(96.0/[(@box.stages[stage][1].length - 1),3].max)*1.5
     end
     # Box Name
@@ -851,6 +905,9 @@ class PokemonBoxSummaryScene
       lockedimagepos.push(["Graphics/UI/Pokemon Box/overlay_menuwrapper_locked",x+33,y+9,0,0,-1,-1]) if @box.currentStage<stage
     end
     pbDrawImagePositions(@overlay,imagepos)
+    pbSetSmallFont(@sprites["overlay"].bitmap)
+    pbDrawTextPositions(@overlay,imageposAMT)
+    pbSetSystemFont(@sprites["overlay"].bitmap)
     pbDrawTextPositions(@overlay,textpos)
     pbDrawImagePositions(@overlay,lockedimagepos)
 

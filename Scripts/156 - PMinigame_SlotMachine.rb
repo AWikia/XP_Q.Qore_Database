@@ -19,9 +19,9 @@ class SlotMachineReel < BitmapSprite
   SLIPPING = [0,0,0,0,0,0,1,1,1,2,2,3]
 
   def initialize(x,y,difficulty=1)
-    @viewport=Viewport.new(x+64,y,64,144)
+    @viewport=Viewport.new(x,y,64,144)
     @viewport.z=99999
-    super(64+64,144,@viewport)
+    super(64,144,@viewport)
     @reel=[]
     for i in 0...ICONSPOOL[difficulty].length
       @reel.push(ICONSPOOL[difficulty][i])
@@ -263,6 +263,8 @@ class SlotMachineScene
     @sprites={}
     @viewport=Viewport.new(0,0,Graphics.width,Graphics.height)
     @viewport.z=99999
+    @viewport2=Viewport.new(512+14,40,(Graphics.width - 512)-28,Graphics.height-40)
+    @viewport2.z=99999
     if $Trainer && $Trainer.isFemale?
       addBackgroundPlane(@sprites,"bg",getDarkModeFolder+"/Slot Machine/bgf",@viewport)
     else
@@ -273,11 +275,11 @@ class SlotMachineScene
     @sprites["header"].baseColor=(isDarkMode?) ? Color.new(242,242,242) : Color.new(12,12,12)
     @sprites["header"].shadowColor=nil #(!isDarkMode?) ? Color.new(242,242,242) : Color.new(12,12,12)
     @sprites["header"].windowskin=nil
-    @sprites["reel1"]=SlotMachineReel.new(64,112,difficulty)
-    @sprites["reel2"]=SlotMachineReel.new(144,112,difficulty)
-    @sprites["reel3"]=SlotMachineReel.new(224,112,difficulty)
+    @sprites["reel1"]=SlotMachineReel.new(64,112+32,difficulty)
+    @sprites["reel2"]=SlotMachineReel.new(144,112+32,difficulty)
+    @sprites["reel3"]=SlotMachineReel.new(224,112+32,difficulty)
     for i in 1..3
-      @sprites["button#{i}"]=IconSprite.new(68+80*(i-1)+64,260,@viewport)
+      @sprites["button#{i}"]=IconSprite.new(68+80*(i-1),260+32,@viewport)
       if $Trainer && $Trainer.isFemale?
         @sprites["button#{i}"].setBitmap(sprintf("Graphics/UI/"+getDarkModeFolder+"/Slot Machine/buttonf"))
       else
@@ -287,28 +289,52 @@ class SlotMachineScene
     end
     for i in 1..5
       y=[170,122,218,82,82][i-1]
-      @sprites["row#{i}"]=IconSprite.new(2+64,y,@viewport)
+      @sprites["row#{i}"]=IconSprite.new(2,y+32,@viewport)
       @sprites["row#{i}"].setBitmap(sprintf("Graphics/UI/"+getDarkModeFolder+"/Slot Machine/line%1d%s",
          1+i/2,(i>=4) ? ((i==4) ? "a" : "b") : ""))
       @sprites["row#{i}"].visible=false
     end
-    @sprites["light1"]=IconSprite.new(16+64,32,@viewport)
+    @sprites["light1"]=IconSprite.new(16,32,@viewport)
     @sprites["light1"].setBitmap(sprintf("Graphics/UI/"+getDarkModeFolder+"/Slot Machine/lights"))
     @sprites["light1"].visible=false
-    @sprites["light2"]=IconSprite.new(240+64,32,@viewport)
+    @sprites["light2"]=IconSprite.new(240,32,@viewport)
     @sprites["light2"].setBitmap(sprintf("Graphics/UI/"+getDarkModeFolder+"/Slot Machine/lights"))
     @sprites["light2"].mirror=true
     @sprites["light2"].visible=false
-    @sprites["window1"]=IconSprite.new(358+64,96,@viewport)
+    @sprites["window1"]=IconSprite.new(358,96+32,@viewport)
     @sprites["window1"].setBitmap(sprintf("Graphics/UI/Slot Machine/insert"))
     @sprites["window1"].src_rect.set(0,0,152,208)
-    @sprites["window2"]=IconSprite.new(358+64,96,@viewport)
-    @sprites["credit"]=SlotMachineScore.new(360+64,66,$PokemonGlobal.coins)
-    @sprites["payout"]=SlotMachineScore.new(438+64,66,0)
+    @sprites["window2"]=IconSprite.new(358,96+32,@viewport)
+    @sprites["credit"]=SlotMachineScore.new(360,66+32,$PokemonGlobal.coins)
+    @sprites["payout"]=SlotMachineScore.new(438,66+32,0)
+    @sprites["overlay"]=BitmapSprite.new((Graphics.width - 512 - 28),Graphics.height - 40,@viewport2)
     @wager=0
     update
+    writeHelp(difficulty)
     pbFadeInAndShow(@sprites)
   end
+
+  def writeHelp(difficulty)
+    overlay=@sprites["overlay"].bitmap
+    overlay.clear
+    if (!isDarkMode?)
+      baseColor=MessageConfig::DARKTEXTBASE
+      shadowColor=MessageConfig::DARKTEXTSHADOW
+    else
+      baseColor=MessageConfig::LIGHTTEXTBASE
+      shadowColor=MessageConfig::LIGHTTEXTSHADOW
+    end
+    pbSetSystemFont(@sprites["overlay"].bitmap)
+    textPositions=[
+       [_INTL("Rewards:"),(Graphics.width - 512 - 28)/2,0,2,baseColor,shadowColor],
+    ]
+
+    text = _INTL("Spin the machine once per day to get rewards.")
+    text3 = _INTL("Obtained rewards can only be used within this game.")
+
+    
+    pbDrawTextPositions(overlay,textPositions)
+  end  
 
   def pbMain
     frame=0

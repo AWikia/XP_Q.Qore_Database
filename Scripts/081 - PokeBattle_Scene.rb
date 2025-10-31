@@ -630,6 +630,7 @@ class PokemonTaskDataBox < SpriteWrapper
 
   
   def appear
+    pbSEPlay("Battle popup open")
     refresh
     self.visible=true
     self.opacity=255
@@ -707,11 +708,11 @@ class PokemonTaskDataBox < SpriteWrapper
         @currenthp-=[1,(maxstatus/162).floor].max
         @currenthp=@endhp if @currenthp<@endhp
       end
-      pbPlayCursorSE()
+      pbSEPlay("Battle popup progress") if @frame%5==0 # pbPlayCursorSE()
       refresh
       if @currenthp==@maxamount
         if @expflash==0
-          pbSEPlay("expfull")
+          pbSEPlay("Battle effect message")
           self.flash(Color.new(222,222,222),8) # Was 64,200,248
           @expflash=8
         else
@@ -1057,10 +1058,12 @@ class PokemonDataBox < SpriteWrapper
         end
         @currentexp=@endexp if @currentexp<@endexp
       end
+      pbSEPlay("Battle exp gain")  if @frame%5==0
       refresh
       if @currentexp==@endexp
         if @currentexp==PokeBattle_SceneConstants::EXPGAUGESIZE
           if @expflash==0
+            pbSEPlay("Battle effect message")
             pbMEPlay("Levelup")
             self.flash(Color.new(222,222,222),8) # Was 64,200,248
             @expflash=8

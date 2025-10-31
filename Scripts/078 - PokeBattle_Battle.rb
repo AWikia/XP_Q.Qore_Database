@@ -4979,25 +4979,25 @@ class PokeBattle_Battle
           # Win Streak Start
           $game_variables[WIN_STREAK_VARIABLE]+=1
           $game_variables[WIN_STREAK_VARIABLE]=[$game_variables[WIN_STREAK_VARIABLE],65535].min
-          if $game_variables[WIN_STREAK_VARIABLE]==6
-            pbDisplayPaused(_INTL("Congratulations! You've got a Win Streak of 6!"))
+          if $game_variables[WIN_STREAK_VARIABLE]==9
+            pbDisplayPaused(_INTL("Congratulations! You've got a Win Streak of 9!"))
           end
-          # First Bag obtained at Win Streak of 9, second at 20 and so on.
+          # First Bag obtained at Win Streak of 11, second at 22 and so on.
           if $game_variables[WIN_STREAK_VARIABLE]>0 &&
-             ($game_variables[WIN_STREAK_VARIABLE]+2)%11==0 &&
+             ($game_variables[WIN_STREAK_VARIABLE])%11==0 &&
              $game_variables[WIN_STREAK_VARIABLE]<=11*255
             item1=getID(PBItems,[:CHERRYBOX,:STRAWBERRYBOX,:ORANGEBOX,:APPLEBOX,:MELONBOX,
-                   :BANANABOX][($game_variables[WIN_STREAK_VARIABLE]-9)%6])
+                   :BANANABOX][($game_variables[WIN_STREAK_VARIABLE]-11)%6])
             item2=getID(PBItems,[:CHOCOLATEBOX,:VANILLABOX,:GALAXIANBOX,:BELLBOX,
-                   :KEYBOX][($game_variables[WIN_STREAK_VARIABLE]-9)%5])
+                   :KEYBOX][($game_variables[WIN_STREAK_VARIABLE]-11)%5])
             item3=getID(PBItems,[:SWEETCANDY,:SOURCANDY,:SPICYCANDY,
-                   :RARECANDY][($game_variables[WIN_STREAK_VARIABLE]-9)%4])
+                   :RARECANDY][($game_variables[WIN_STREAK_VARIABLE]-11)%4])
             $PokemonBag.pbStoreItem(item1,1)
             $PokemonBag.pbStoreItem(item2,1)
             $PokemonBag.pbStoreItem(item3,1)
             pbSEPlay("Item3")
             pbDisplayPaused(_INTL("You've got a lucky bag! It contains a {1}, a {2} and a {3}!",PBItems.getName(item1), PBItems.getName(item2), PBItems.getName(item3)))
-            if $game_variables[WIN_STREAK_VARIABLE]==(11*255)-2 # Win streak of 2803
+            if $game_variables[WIN_STREAK_VARIABLE]==(11*255) # Win streak of 2805
               pbDisplayPaused(_INTL("Congratulations! You've got all available lucky bags! Keep playing!"))
             end
           end

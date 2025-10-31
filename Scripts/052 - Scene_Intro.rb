@@ -9,8 +9,7 @@ class IntroEventScene < EventScene
     @pic2.moveOpacity(0,0,0)
     @index=0
     @timer=0 # reset the timer
-    data_system = pbLoadRxData("Data/System")
-#    pbBGMPlay(data_system.title_bgm)
+#    pbBGMPlay($data_system.title_bgm)
     openPic(self,nil) rescue openSplash(self,nil)
   end
 
@@ -47,8 +46,7 @@ class IntroEventScene < EventScene
 
   def openSplash(scene,args)
     # Play BGM
-    data_system = pbLoadRxData("Data/System")
-    pbBGMPlay(data_system.title_bgm)
+    pbBGMPlay($data_system.title_bgm)
     # Play BGM End
     onCTrigger.clear
     onUpdate.clear

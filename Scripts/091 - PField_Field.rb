@@ -51,7 +51,7 @@ class LocationWindow
     @window=Window_AdvancedTextPokemon.new(name)
     @window.resizeToFit(name,Graphics.width)
     @window.x=0
-    @window.y=-@window.height
+    @window.y=-@window.height + 32
     @window.z=99997
     @window.viewport=Viewport.new(0,0,Graphics.width,Graphics.height)
     @window.viewport.z=99997
@@ -77,9 +77,9 @@ class LocationWindow
     end
     if @frames>80
       @window.y-=4
-      @window.dispose if @window.y+@window.height<0
+      @window.dispose if @window.y+@window.height<32
     else
-      @window.y+=4 if @window.y<0
+      @window.y+=4 if @window.y<32
       @frames+=1
     end
   end
@@ -1897,6 +1897,7 @@ def Kernel.pbStartOver(gameover=false)
     Kernel.pbBugContestStartOver
     return
   end
+  pbMEPlay($data_system.gameover_me)
   pbHealAll()
   if $PokemonGlobal.pokecenterMapId && $PokemonGlobal.pokecenterMapId>=0
     if gameover

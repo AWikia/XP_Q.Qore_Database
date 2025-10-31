@@ -425,7 +425,7 @@ def pbCheckDTM
     $PokemonBag.pbStoreItem(:POKEMONBOX,1)
   end
   if $PokemonBag.pbQuantity(:DAILYTREATMACHINE)>0 && 
-     $game_variables[DTM_VARIABLES[0]]!=[pbGetTimeNow.mon, pbGetTimeNow.day]
+     pbTimeEventValid(DTM_VARIABLES[1],false,86400)
         scene=DailyTreatMachineScene.new
         screen=DailyTreatMachine.new(scene)
         pbFadeOutIn(99999) { 
@@ -1560,17 +1560,18 @@ def pbTimeEventDays(variableNumber,days=0)
   end
 end
 
-def pbTimeEventValid(variableNumber,reset=true)
+def pbTimeEventValid(variableNumber,reset=true,offset=0)
   retval=false
   if variableNumber && variableNumber>=0 && $game_variables
     value=$game_variables[variableNumber]
     if value.is_a?(Array)
       timenow=pbGetTimeNow
-      retval=(timenow.to_f - value[0] > value[1]) # value[1] is age in seconds
+      retval=(timenow.to_f - value[0] > value[1] - offset) # value[1] is age in seconds
+      retval2=(timenow.to_f - value[0] > value[1]) # value[1] is age in seconds
       retval=false if value[1]<=0 # zero age
     end
     if retval # If event is valid, reset it
-      $game_variables[variableNumber]=0 if reset
+      $game_variables[variableNumber]=0 if reset && retval2 # only reset if enabled AND the actual event ended
       $game_map.refresh if $game_map
     end
   end
@@ -2171,9 +2172,7 @@ def pbItemIconFile(item)
     bitmapFileName = _INTL("Graphics/Items/827_{1}",QQORECHANNEL)
   elsif item==1014 # Pokemon Box
     boxscene = PokemonBoxScene.new
-    bitmapFileName = _INTL("Graphics/Items/1014_{1}",[$game_variables[PBOX_VARIABLES[2]],(boxscene.stages-1)].min)
-    bitmapFileName = _INTL("Graphics/Items/1014_{1}_elite",[$game_variables[PBOX_VARIABLES[2]],(boxscene.stages-1)].min) if boxscene.isMillenial?
-    bitmapFileName = _INTL("Graphics/Items/1014_{1}_legendary",[$game_variables[PBOX_VARIABLES[2]],(boxscene.stages-1)].min) if boxscene.isMillenial2?
+    bitmapFileName = _INTL("Graphics/Items/1014_{1}{2}",boxscene.currentStage(false),boxscene.stageSuffix)
   else
     bitmapFileName = sprintf("Graphics/Items/%s",getConstantName(PBItems,item)) rescue nil
     bitmapFileName = sprintf("Graphics/Items/%03d",item) if !pbResolveBitmap(bitmapFileName)

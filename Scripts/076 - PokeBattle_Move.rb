@@ -197,6 +197,10 @@ class PokeBattle_Move
     end
     return false
   end
+  
+  def pbIsMultiTarget # not the same as pbTargetsMultiple?(attacker)
+    return @target==PBTargets::AllOpposing || @target==PBTargets::AllNonUsers
+  end
 
   def pbPriority(attacker)
     ret=@priority

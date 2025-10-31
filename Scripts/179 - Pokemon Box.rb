@@ -1,3 +1,6 @@
+#===============================================================================
+# Pokémon Box main screen
+#===============================================================================
 class PokemonBoxScene
   attr_accessor :stages
   attr_accessor :items
@@ -13,29 +16,26 @@ class PokemonBoxScene
     # 1 = Rewards
     # 2 = Dueation (In days)
     # 3 = Amount Multiplier
+    # 4 = Difficulty (0 = Beginner, 1 = Intermediate, 2 = Advanced, 3 = Expert)
     @stages = [
-    ["Classic",[:POTION,:POKEBALL],13,1],
-    ["Bronze",[:SUPERPOTION,:GREATBALL,heal],7,2],
-    ["Silver",[:HYPERPOTION,:ULTRABALL,:FULLHEAL,:NORMALGEM],5,3.5],
-    ["Gold",[:MEGAPOTION,:PARKBALL,:FULLHEAL,:NORMALGEM,:RARECANDY],5,5],
+    ["Tutorial",[:ORANBERRY,:SITRUSBERRY],13,0.5,0],
+    ["Classic",[:POTION,:POKEBALL],10,1,1],
+    ["Bronze",[:SUPERPOTION,:GREATBALL,heal],7,2,1],
+    ["Silver",[:HYPERPOTION,:ULTRABALL,:FULLHEAL,:NORMALGEM],5,3.5,2],
+    ["Gold",[:MEGAPOTION,:PARKBALL,[:FULLHEAL,2],:NORMALGEM,:RARECANDY],5,5,2],
     # Elite Challenge
-    ["Gold",[:FULLRESTORE,:PARKBALL,:SUPERBOOSTER,:NORMALBOX,:VICIOUSCANDY],3,6],
+    ["Elite",[:FULLRESTORE,[:PARKBALL,2],:SUPERBOOSTER,:NORMALBOX,:VICIOUSCANDY],3,6,3],
     # Legendary Challenge
-    ["Gold",[:SACREDASH,:MASTERBALL,:SUPERBOOSTER,:BOTANICSMOKE,:NORMALBOX,:VICIOUSCANDY],3,7]
+    ["Legendary",[:SACREDASH,:MASTERBALL,[:SUPERBOOSTER,2],:BOTANICSMOKE,:NORMALBOX,:VICIOUSCANDY],3,7,3],
+    # Legendary Challenge
+    ["Mythical",[[:SACREDASH,2],:MASTERBALL,[:SUPERBOOSTER,2],:BOTANICSMOKE,:LOADEDDICE,:NORMALBOX,[:VICIOUSCANDY,2]],3,9,3]
+
     ]
-  end
-  
-  def maxStages
-    return @stages.length-2 rescue 4 # 2 Items are Elitr Challenge
-  end
-  
-  def currentStage(includeElite=true) # If includeElite is set to false, then currentStage does not increase on Milestone Boxes
-    result = [$game_variables[PBOX_VARIABLES[2]],(maxStages-1)].min
-    if includeElite
-      result+=1 if isMillenial?
-      result+=1 if isMillenial2?
+    if $Trainer && $Trainer.isFemale?
+      @icons=["voltorb","staryu","pikachu","slowpoke"]
+    else
+      @icons=["magnemite","shellder","pikachu","psyduck"]
     end
-    return result
   end
 
   def pbStartScene(expired=false)
@@ -50,12 +50,8 @@ class PokemonBoxScene
     @sprites["machine"]=IconSprite.new((Graphics.width/4)-140,44,@viewport)
     @sprites["bg"]=IconSprite.new(0,0,@viewport) # Avoid issues with animations
 #    addBackgroundPlane(@sprites,"bg",getDarkModeFolder+"/Pokemon Box/bg_0",@viewport)
-    @sprites["bg"].setBitmap(_INTL("Graphics/UI/"+getDarkModeFolder+"/Pokemon Box/bg_{1}",currentStage(false)))
-    @sprites["bg"].setBitmap(_INTL("Graphics/UI/"+getDarkModeFolder+"/Pokemon Box/bg_{1}_elite",currentStage(false))) if isMillenial?
-    @sprites["bg"].setBitmap(_INTL("Graphics/UI/"+getDarkModeFolder+"/Pokemon Box/bg_{1}_legendary",currentStage(false))) if isMillenial2?
-    @sprites["machine"].setBitmap(_INTL("Graphics/UI/Pokemon Box/overlay_box_{1}",currentStage(false)))
-    @sprites["machine"].setBitmap(_INTL("Graphics/UI/Pokemon Box/overlay_box_{1}_elite",currentStage(false))) if isMillenial?
-    @sprites["machine"].setBitmap(_INTL("Graphics/UI/Pokemon Box/overlay_box_{1}_legendary",currentStage(false))) if isMillenial2?
+    @sprites["bg"].setBitmap(_INTL("Graphics/UI/"+getDarkModeFolder+"/Pokemon Box/bg_{1}{2}",currentStage(false),stageSuffix))
+    @sprites["machine"].setBitmap(_INTL("Graphics/UI/Pokemon Box/overlay_box_{1}{2}",currentStage(false),stageSuffix))
     @sprites["progress"]=IconSprite.new((Graphics.width/4)-132,44,@viewportTask)
     @sprites["progress"].setBitmap(_INTL("Graphics/UI/"+getDarkModeFolder+"/Pokemon Box/overlay_progress"))
     @sprites["progress"].visible=false
@@ -65,7 +61,7 @@ class PokemonBoxScene
     @sprites["machine"].z = 2
     @sprites["progress"].z = 2
     @sprites["progresstime"].z = 2
-    @sprites["header"]=Window_UnformattedTextPokemon.newWithSize(_INTL("Pokémon Box - Win Streak: {1}",$game_variables[PBOX_VARIABLES[2]]),
+    @sprites["header"]=Window_UnformattedTextPokemon.newWithSize(_INTL("{1} Pokémon Box - Win Streak: {2}",boxName,$game_variables[PBOX_VARIABLES[2]]),
        2,-18,400,64,@viewport)
     @sprites["header"].baseColor=(isDarkMode?) ? Color.new(242,242,242) : Color.new(12,12,12)
     @sprites["header"].shadowColor=nil #(!isDarkMode?) ? Color.new(242,242,242) : Color.new(12,12,12)
@@ -78,33 +74,85 @@ class PokemonBoxScene
     @sprites["overlayItems"]=BitmapSprite.new(Graphics.width,Graphics.height,@viewport)    
     @sprites["overlayItems"].z = 3
     @sprites["task0"]=IconSprite.new(@sprites["machine"].x+12,@sprites["machine"].y+70,@viewport)
-    @sprites["task0"].setBitmap(_INTL("Graphics/UI/Pokemon Box/icon_magnemite"))
+    @sprites["task0"].setBitmap(_INTL("Graphics/UI/Pokemon Box/icon_{1}",@icons[0]))
     @sprites["task0"].z = 3
     @sprites["task1"]=IconSprite.new(@sprites["machine"].x+76,@sprites["machine"].y+70,@viewport)
-    @sprites["task1"].setBitmap(_INTL("Graphics/UI/Pokemon Box/icon_shellder"))
+    @sprites["task1"].setBitmap(_INTL("Graphics/UI/Pokemon Box/icon_{1}",@icons[1]))
     @sprites["task1"].z = 3
     @sprites["task2"]=IconSprite.new(@sprites["machine"].x+140,@sprites["machine"].y+70,@viewport)
-    @sprites["task2"].setBitmap(_INTL("Graphics/UI/Pokemon Box/icon_pikachu"))
+    @sprites["task2"].setBitmap(_INTL("Graphics/UI/Pokemon Box/icon_{1}",@icons[2]))
     @sprites["task2"].z = 3
     @sprites["task3"]=IconSprite.new(@sprites["machine"].x+204,@sprites["machine"].y+70,@viewport)
-    @sprites["task3"].setBitmap(_INTL("Graphics/UI/Pokemon Box/icon_psyduck"))
+    @sprites["task3"].setBitmap(_INTL("Graphics/UI/Pokemon Box/icon_{1}",@icons[3]))
     @sprites["task3"].z = 3
     expiredbox = pbTimeEventValid(PBOX_VARIABLES[3]) || expired
-    if $game_variables[PBOX_VARIABLES[1]] == 0 || expiredbox
+    welcome=$game_variables[PBOX_VARIABLES[1]] == 0
+    if welcome || expiredbox
       $game_variables[PBOX_VARIABLES[2]]=0
       initializeBox
     end
     pbSetSystemFont(@sprites["overlay"].bitmap)
     pbSetSystemFont(@sprites["overlayTask"].bitmap)
     pbSetSystemFont(@sprites["overlayTime"].bitmap)
+    pbSetSmallFont(@sprites["overlayItems"].bitmap)
     pbPokemonBoxStart
     pbFadeInAndShow(@sprites) { update }
     if expiredbox
         Kernel.pbMessage(_INTL("You ran out of time on the previous box. Better luck next time."))
     end
+    if welcome
+        Kernel.pbMessage(_INTL("Welcome to Pokémon Box where you can complete out tasks by finishing battles."))
+        Kernel.pbMessage(_INTL("Finish out four tasks and you'll be getting rewards for your journey and a new Box."))
+        Kernel.pbMessage(_INTL("Good Luck!"))
+    end
     pbPokemonBoxAdvance
   end
   
+  def maxStages
+    return @stages.length-3 rescue 4 # 3 Items are Elite Challenge
+  end
+  
+  def currentStage(includeElite=true) # If includeElite is set to false, then currentStage does not increase on Milestone Boxes
+    result = [$game_variables[PBOX_VARIABLES[2]],(maxStages-1)].min
+    if includeElite
+      result+=1 if isMillenial?
+      result+=1 if isMillenial2?
+      result+=1 if isMillenial3?
+    end
+    return result
+  end
+  
+  def stageSuffix
+    return "_mythical" if isMillenial3?
+    return "_legendary" if isMillenial2?
+    return "_elite" if isMillenial?
+    return ""
+  end
+  
+  def boxName(includeElite=false)
+    return @stages[currentStage(includeElite)][0] rescue "Tutorial"
+  end
+  
+  def boxItems
+    return @stages[currentStage][1] rescue [:ORANBERRY,:SITRUSBERRY]
+  end
+  
+  def boxDuration
+    return @stages[currentStage][2] rescue 13
+  end
+  
+  def boxMulti
+    @stages[currentStage][3] rescue 0.5
+  end
+  
+  # 0 = Junior and Basic
+  # 1 = Classic and Bronze
+  # 2 = Silver and Gold
+  # 3 = Milestone Gold
+  def boxLevel
+    return @stages[currentStage][4] rescue 0
+  end
+
   # Mlienial Streak Counts:
   # * 10, 20, 30, 40, 50 and anything divisible by 100 starting from 100
   def isMillenial?
@@ -118,9 +166,15 @@ class PokemonBoxScene
     return false if id < maxStages # First Gold and below can never be milestone
     return id%100 == 0
   end
+
+  def isMillenial3?
+    id = $game_variables[PBOX_VARIABLES[2]].to_i
+    return false if id < maxStages # First Gold and below can never be milestone
+    return id%1000 == 0
+  end
   
   def addIncr(num)
-    return ((($game_variables[PBOX_VARIABLES[2]] / 10).floor / 4) * num).floor
+    return rand( ((($game_variables[PBOX_VARIABLES[2]] / 10).floor / 40) * num).floor )
   end
   
   def currentStep
@@ -143,45 +197,37 @@ class PokemonBoxScene
     return $game_variables[PBOX_VARIABLES[1]][currentStep][2]
   end
   
-  def getHardTaskLabel(idx)
-  if isHardTask(idx)
+  def getTaskLabel(idx,nohardmarkers=false)
+  if isHardTask(idx) && !nohardmarkers
     return "_hard"
+  elsif $game_variables[PBOX_VARIABLES[0]]>idx
+    return ""
   end
-  return ""
-  end
-
-  # 0 = Classic and Bronze
-  # 1 = Silver and Gold
-  # 2 = Milestone Gold
-  def boxLevel
-    id = $game_variables[PBOX_VARIABLES[2]].to_i
-    return 3 if isMillenial?
-    return 2 if id > 1
-    return 1
+  return "_normal"
   end
   
   def randIncr(num)
     id = $game_variables[PBOX_VARIABLES[2]].to_i
     if boxLevel==3       # Milenial Box, prefer Larger amounts
       return [rand(num),rand(num)].max
-    elsif boxLevel==1    # Classic and Bronze Boxes, prefer smaller amounts
-      return [rand(num),rand(num)].min
-    else                   # Silver and Gold Boxes, don't prefer anything
+    elsif boxLevel==2    # Silver and Gold Boxes, don't prefer anything
       return rand(num)
+    else                 # Classic and Bronze Boxes, prefer smaller amounts
+      return [rand(num),rand(num)].min
     end
   end
   
   def taskVals(num=0)
-    multi=@stages[currentStage][3]
+    multi=boxMulti
     multi2=1 + [($Trainer.numbadges / 2).floor,5].min
-    return [(500*multi)+randIncr((1500*multi*multi2)+addIncr(500)), # Gain Experience
+    return [(500*multi)+randIncr((2500*multi*multi2)+addIncr(500)), # Gain Experience
             (1.5*multi)+randIncr((1.5*multi)+addIncr(1.5)),         # Level Up Pokemon
-            (2*multi)+randIncr((2*multi)+addIncr(2)),               # Defeat Pokemon
-            (1*multi)+randIncr((2*multi)+addIncr(1)),               # Catch Pokemon
-            (8*multi)+randIncr((8*multi)+addIncr(8)),               # Activate Abilites
-            (8*multi)+randIncr((8*multi)+addIncr(8)),               # Activate Held Items
-            (3*multi)+randIncr((3*multi)+addIncr(3)),               # Use Physical Moves
-            (3*multi)+randIncr((3*multi)+addIncr(3)),               # Use Special Moves
+            (3*multi)+randIncr((3*multi)+addIncr(3)),               # Defeat Pokemon
+            (1*multi)+randIncr((1*multi)+addIncr(1)),               # Catch Pokemon
+            (6*multi)+randIncr((6*multi)+addIncr(6)),               # Activate Abilites
+            (6*multi)+randIncr((6*multi)+addIncr(6)),               # Activate Held Items
+            (4*multi)+randIncr((4*multi)+addIncr(3)),               # Use Physical Moves
+            (4*multi)+randIncr((4*multi)+addIncr(3)),               # Use Special Moves
             (2*multi)+randIncr((2*multi)+addIncr(2)),               # Use Status Moves
             (0.5*multi)+randIncr((0.5*multi)+addIncr(0.5)),         # Use Battle Items
             (3*multi)+randIncr((2*multi)+addIncr(3)),               # Defear Trainers
@@ -190,8 +236,8 @@ class PokemonBoxScene
             (3*multi)+randIncr((2*multi)+addIncr(3)),               # UNUSED!
             (500*multi)+randIncr((1500*multi*multi2)+addIncr(500)), # Deal Damage
             (2*multi)+randIncr((2*multi)+addIncr(2)),               # Land Critical Hits
-            (2*multi)+randIncr((3*multi)+addIncr(2)),               # Use STAB Moves
-            (1*multi)+randIncr((1*multi)+addIncr(1)),               # Defeat Pokemon Instantly
+            (3*multi)+randIncr((3*multi)+addIncr(2)),               # Use STAB Moves
+            (1*multi)+randIncr((2*multi)+addIncr(1)),               # Defeat Pokemon Instantly
             (1*multi)+randIncr((1*multi)+addIncr(1)),               # Use Berries
             (1*multi)+randIncr((1*multi)+addIncr(1)),               # UNUSED!
             (6*multi)+randIncr((6*multi)+addIncr(6)),               # Increase Stats
@@ -200,68 +246,68 @@ class PokemonBoxScene
             (0.2*multi)+randIncr((0.6*multi)+addIncr(0.2)),         # Use One-hit KO Moves 
             (2*multi)+randIncr((3*multi)+addIncr(3)),               # Use Hi Priority Moves
             (6*multi)+randIncr((6*multi)+addIncr(6)),               # Decrease Stats
-            (3*multi)+randIncr((3*multi)+addIncr(3)),               # Inflict Conditions            
-            (2*multi)+randIncr((3*multi)+addIncr(2)),               # Use Moves with Effects
+            (2*multi)+randIncr((2*multi)+addIncr(2)),               # Inflict Conditions            
+            (2*multi)+randIncr((2*multi)+addIncr(2)),               # Use Moves with Effects
             (1*multi)+randIncr((1*multi)+addIncr(1)),               # Use Copycat Moves
-            (250*multi)+randIncr((750*multi*multi2)+addIncr(250)),  # Take Recoil Damage
-            (250*multi)+randIncr((750*multi*multi2)+addIncr(250)),  # Recover HP
+            (250*multi)+randIncr((250*multi*multi2)+addIncr(250)),  # Take Recoil Damage
+            (250*multi)+randIncr((500*multi*multi2)+addIncr(250)),  # Recover HP
             (2*multi)+randIncr((3*multi)+addIncr(2)),               # Land Super Effective
-            (2*multi)+randIncr((3*multi)+addIncr(2)),               # Use Multi-hit Moves
+            (2*multi)+randIncr((2*multi)+addIncr(2)),               # Use Multi-hit Moves
             (2*multi)+randIncr((1*multi)+addIncr(2)),               # Defeat Best Trainers
             (0.5*multi)+randIncr((1*multi)+addIncr(1)),             # Use Sleeping Moves
             (500*multi)+randIncr((1500*multi*multi2)+addIncr(500)), # Gain Money
             (2*multi)+randIncr((3*multi)+addIncr(2)),               # Land Not Very Effective
-            (2*multi)+randIncr((3*multi)+addIncr(2)),               # Use Mutli-Target Moves
-            (5*multi)+randIncr((5*multi)+addIncr(5)),               # Activate Win Streak
+            (2*multi)+randIncr((2*multi)+addIncr(2)),               # Use Mutli-Target Moves
+            (4*multi)+randIncr((4*multi)+addIncr(5)),               # Activate Win Streak
             (1*multi)+randIncr((2*multi)+addIncr(1))                # Change Forms
             ][num].ceil
 
   end
 
   def isHardTask(idx=-1) # idx is used to identify if the current active task is hard
-    return false if currentStep%4 != idx && idx != -1
-    multi=@stages[currentStage][3]
+    return false if (currentStep%4 != idx && idx != -1) || boxLevel==0
+    multi=boxMulti
     multi2=1 + [($Trainer.numbadges / 2).floor,5].min
-    vals = [(500*multi)+(750*multi*multi2), # Gain Experience
-            (1.5*multi)+(0.75*multi),       # Level Up Pokemon
-            (2*multi)+(1*multi),            # Defeat Pokemon
-            (1*multi)+(1*multi),            # Catch Pokemon
-            (8*multi)+(4*multi),            # Trigger Abilites
-            (8*multi)+(4*multi),            # Trigger Items
-            (3*multi)+(1.5*multi),          # Use Physical Moves
-            (3*multi)+(1.5*multi),          # Use Special Moves
-            (2*multi)+(1*multi),            # Use Status Moves
-            (0.5*multi)+(0.25*multi),       # Use Battle Items
-            (3*multi)+(1*multi),            # Defear Trainers
-            (6*multi)+(3*multi),            # Lapse Turns
-            (1*multi)+(0.5*multi),          # Use Medicine Items
-            (3*multi)+(1*multi),            # UNUSED!
-            (500*multi)+(750*multi*multi2), # Deal Damage
-            (2*multi)+(1*multi),            # Land Critical Hits
-            (2*multi)+(1.5*multi),          # Use STAB Moves
-            (1*multi)+(0.5*multi),          # Defeat Pokemon Instantly
-            (1*multi)+(0.5*multi),          # Use Berries
-            (1*multi)+(0.5*multi),          # UNUSED!
-            (6*multi)+(3*multi),            # Increase Stats
-            (1*multi)+(0.5*multi),          # Revive Pokemon
-            (2*multi)+(1.5*multi),          # Use Healing Moves
-            (0.2*multi)+(0.3*multi),        # Use One-hit KO Moves 
-            (2*multi)+(1.5*multi),          # Use Hi Priority Moves
-            (6*multi)+(3*multi),            # Decrease Stats
-            (3*multi)+(1.5*multi),          # Inflict Conditions            
-            (2*multi)+(1.5*multi),          # Use Moves with Effects
-            (1*multi)+(0.5*multi),          # Use Copycat Moves
-            (250*multi)+(375*multi*multi2), # Take Recoil Damage
-            (250*multi)+(375*multi*multi2), # Recover HP
-            (2*multi)+(1.5*multi),          # Land Super Effective
-            (2*multi)+(1.5*multi),          # Use Multi-hit Moves
-            (2*multi)+(0.5*multi),          # Defeat Best Trainers
-            (0.5*multi)+(0.5*multi),        # Use Sleeping Moves
-            (500*multi)+(750*multi*multi2), # Gain Money
-            (2*multi)+(1.5*multi),          # Land Not Very Effective
-            (2*multi)+(1.5*multi),          # Use Mutli-Target Moves
-            (5*multi)+(2.5*multi),          # Activate Win Streak
-            (1*multi)+(1*multi)             # Change Forms
+    vals = [(500*multi)+(1250*multi*multi2), # Gain Experience
+            (1.5*multi)+(0.75*multi),        # Level Up Pokemon
+            (3*multi)+(1.5*multi),           # Defeat Pokemon
+            (1*multi)+(0.5*multi),           # Catch Pokemon
+            (6*multi)+(3*multi),             # Trigger Abilites
+            (6*multi)+(3*multi),             # Trigger Items
+            (4*multi)+(2*multi),             # Use Physical Moves
+            (4*multi)+(2*multi),             # Use Special Moves
+            (2*multi)+(1*multi),             # Use Status Moves
+            (0.5*multi)+(0.25*multi),        # Use Battle Items
+            (3*multi)+(1*multi),             # Defear Trainers
+            (6*multi)+(3*multi),             # Lapse Turns
+            (1*multi)+(0.5*multi),           # Use Medicine Items
+            (3*multi)+(1*multi),             # UNUSED!
+            (500*multi)+(750*multi*multi2),  # Deal Damage
+            (2*multi)+(1*multi),             # Land Critical Hits
+            (3*multi)+(1.5*multi),           # Use STAB Moves
+            (1*multi)+(1*multi),             # Defeat Pokemon Instantly
+            (1*multi)+(0.5*multi),           # Use Berries
+            (1*multi)+(0.5*multi),           # UNUSED!
+            (6*multi)+(3*multi),             # Increase Stats
+            (1*multi)+(0.5*multi),           # Revive Pokemon
+            (2*multi)+(1*multi),             # Use Healing Moves
+            (0.2*multi)+(0.3*multi),         # Use One-hit KO Moves 
+            (2*multi)+(1*multi),             # Use Hi Priority Moves
+            (6*multi)+(3*multi),             # Decrease Stats
+            (2*multi)+(1*multi),             # Inflict Conditions            
+            (2*multi)+(1*multi),             # Use Moves with Effects
+            (1*multi)+(0.5*multi),           # Use Copycat Moves
+            (250*multi)+(125*multi*multi2),  # Take Recoil Damage
+            (250*multi)+(250*multi*multi2),  # Recover HP
+            (2*multi)+(1.5*multi),           # Land Super Effective
+            (2*multi)+(1*multi),             # Use Multi-hit Moves
+            (2*multi)+(0.5*multi),           # Defeat Best Trainers
+            (0.5*multi)+(0.5*multi),         # Use Sleeping Moves
+            (500*multi)+(750*multi*multi2),  # Gain Money
+            (2*multi)+(1.5*multi),           # Land Not Very Effective
+            (2*multi)+(1*multi),             # Use Mutli-Target Moves
+            (4*multi)+(2*multi),             # Activate Win Streak
+            (1*multi)+(1*multi)              # Change Forms
             ][taskID]
     return taskstatus2 > vals
   end
@@ -303,6 +349,7 @@ class PokemonBoxScene
     taskN34=false
     taskN39=false
     task0 = [0,1,2,14,20,25,30,35]
+    task0 = [0,1,2,14] if boxLevel==0
     if rand(6)==0 && !taskN12
       taskN12=true
       task0.push(12)
@@ -315,18 +362,19 @@ class PokemonBoxScene
     elsif rand(6)==0 && !taskN24 && boxLevel==3
       taskN24=true
       task0.push(24)
-    elsif rand(6)==0 && !taskN29
+    elsif rand(6)==0 && !taskN29 && boxLevel!=0
       taskN29=true
       task0.push(29)
-    elsif rand(6)==0 && !taskN34
+    elsif rand(6)==0 && !taskN34 && boxLevel!=0
       taskN34=true
       task0.push(34)
-    elsif rand(6)==0 && !taskN39
+    elsif rand(6)==0 && !taskN39 && boxLevel!=0
       taskN29=true
       task0.push(39)
     end
     task0.shuffle!
     task1 = [3,4,5,15,21,26,31,36]
+    task1 = [4,15,31,36] if boxLevel==0
     if rand(6)==0 && !taskN12
       taskN12=true
       task1.push(12)
@@ -339,18 +387,19 @@ class PokemonBoxScene
     elsif rand(6)==0 && !taskN24 && boxLevel==3
       taskN24=true
       task1.push(24)
-    elsif rand(6)==0 && !taskN29
+    elsif rand(6)==0 && !taskN29 && boxLevel!=0
       taskN29=true
       task1.push(29)
-    elsif rand(6)==0 && !taskN34
+    elsif rand(6)==0 && !taskN34 && boxLevel!=0
       taskN34=true
       task1.push(34)
-    elsif rand(6)==0 && !taskN39
+    elsif rand(6)==0 && !taskN39 && boxLevel!=0
       taskN29=true
       task1.push(39)
     end
     task1.shuffle!
     task2 = [6,7,8,16,22,27,32,37]
+    task2 = [6,7,8,16] if boxLevel==0
     if rand(6)==0 && !taskN12
       taskN12=true
       task2.push(12)
@@ -360,32 +409,33 @@ class PokemonBoxScene
     elsif rand(6)==0 && !taskN18
       taskN18=true
       task2.push(18)
-    elsif rand(6)==0 && !taskN24
+    elsif rand(6)==0 && !taskN24  && boxLevel!=0
       taskN24=true
       task2.push(24)
-    elsif rand(6)==0 && !taskN34
+    elsif rand(6)==0 && !taskN34  && boxLevel!=0
       taskN34=true
       task2.push(34)
-    elsif rand(6)==0 && !taskN39
+    elsif rand(6)==0 && !taskN39  && boxLevel!=0
       taskN29=true
       task2.push(39)
     end
     task2.shuffle!
     task3 = [9,10,11,17,23,28,33,38]
     task3 = [9,11,17,23,28,33,38] if taskN10 # Don't assign the 11th task in order again
+    task3 = [10,11,17,38] if boxLevel==0
     if rand(6)==0 && !taskN12
       taskN12=true
       task3.push(12)
     elsif rand(6)==0 && !taskN18
       taskN18=true
       task3.push(18)
-    elsif rand(6)==0 && !taskN24
+    elsif rand(6)==0 && !taskN24 && boxLevel!=0
       taskN24=true
       task3.push(24)
-    elsif rand(6)==0 && !taskN34
+    elsif rand(6)==0 && !taskN34 && boxLevel!=0
       taskN34=true
       task3.push(34)
-    elsif rand(6)==0 && !taskN39
+    elsif rand(6)==0 && !taskN39 && boxLevel!=0
       taskN29=true
       task3.push(39)
     end
@@ -414,7 +464,7 @@ class PokemonBoxScene
       [task2[3],$PokemonGlobal.pokebox[task2[3]],taskVals(task2[3])],
       [task3[3],$PokemonGlobal.pokebox[task3[3]],taskVals(task3[3])]      
                                           ]
-    pbTimeEventDays(PBOX_VARIABLES[3],@stages[currentStage][2])
+    pbTimeEventDays(PBOX_VARIABLES[3],boxDuration)
     pbSEPlay("recall") if !fromdebug
     pbPokemonBoxUpdate(true) if !fromdebug
   end
@@ -425,11 +475,12 @@ class PokemonBoxScene
     @sprites["overlayTime"].bitmap.clear
     @sprites["overlayItems"].bitmap.clear
     imagepos=[]
+    imageposAMT=[]
     progress=[]
     progressTime=[]
     value=$game_variables[PBOX_VARIABLES[3]]
     shadowfract=taskstatus*100/taskstatus2
-    remtime = @stages[currentStage][2]*86400
+    remtime = boxDuration*86400
     shadowfract2=(value[1]-(pbGetTimeNow.to_f - value[0]))*100/remtime
     progress.push(["Graphics/UI/"+getDarkModeFolder+"/Pokemon Box/overlay_progress",@sprites["progress"].x,@sprites["progress"].y,0,0,-1,-1])
     if ($PokemonSystem.threecolorbar==1 rescue false)
@@ -441,14 +492,25 @@ class PokemonBoxScene
     end
       progress.push(["Graphics/UI/Pokemon Box/icons",@sprites["progress"].x-28,@sprites["progress"].y-6,0,34*$game_variables[PBOX_VARIABLES[1]][currentStep][0],34,34])
       progressTime.push(["Graphics/UI/Pokemon Box/icon_clock",@sprites["progresstime"].x-28,@sprites["progresstime"].y-6,0,0,-1,-1])
-    x = 116 - ([(@stages[currentStage][1].length - 1),4].min * 24)
-    for i in @stages[currentStage][1]
-      @animbitmap=AnimatedBitmap.new( pbItemIconFile( getID(PBItems,i)) )
+    x = 116 - ([(boxItems.length - 1),4].min * 24)
+    for i in boxItems
+      if i.is_a?(Array)
+        item=i[0]
+        amt=i[1]
+      else
+        item=i
+        amt=1
+      end
+      @animbitmap=AnimatedBitmap.new( pbItemIconFile( getID(PBItems,item)) )
       offsetX=(48 - @animbitmap.bitmap.width) / 2
       offsetY=(48 - @animbitmap.bitmap.height) / 2
       @animbitmap.dispose
-      imagepos.push([pbItemIconFile( getID(PBItems,i)),@sprites["machine"].x+x.ceil+offsetX,@sprites["machine"].y+14+offsetY,0,0,-1,-1])
-      x+=(96.0/[(@stages[currentStage][1].length - 1),4].max)*2
+      imagepos.push([pbItemIconFile( getID(PBItems,item)),@sprites["machine"].x+x.ceil+offsetX,@sprites["machine"].y+14+offsetY,0,0,-1,-1])
+      if amt>1
+        imageposAMT.push([amt.to_s,@sprites["machine"].x+32+x.ceil,@sprites["machine"].y+34,2,Color.new(12,12,12),nil])
+        imagepos.push(["Graphics/UI/Pokemon Box/icon_amount",@sprites["machine"].x+x.ceil,@sprites["machine"].y+14,0,0,-1,-1])
+      end
+      x+=(96.0/[(boxItems.length - 1),4].max)*2
     end
     if (!isDarkMode?)
       baseColor=MessageConfig::DARKTEXTBASE
@@ -479,6 +541,7 @@ class PokemonBoxScene
     ]
     pbSetSystemFont(@sprites["overlayTask"].bitmap)
     pbSetSystemFont(@sprites["overlayTime"].bitmap)
+    pbSetSmallFont(@sprites["overlayItems"].bitmap)
     @sprites["overlayTask"].z = 3
     # Task
     pbDrawImagePositions(@sprites["overlayTask"].bitmap,progress)
@@ -488,19 +551,14 @@ class PokemonBoxScene
     pbDrawTextPositions(@sprites["overlayTime"].bitmap,textposTime)
     # Other
     pbDrawImagePositions(@sprites["overlayItems"].bitmap,imagepos)
-    @sprites["header"].text=_INTL("Pokémon Box - Win Streak: {1}",$game_variables[PBOX_VARIABLES[2]])
-    @sprites["bg"].setBitmap(_INTL("Graphics/UI/"+getDarkModeFolder+"/Pokemon Box/bg_{1}",currentStage(false)))
-    @sprites["bg"].setBitmap(_INTL("Graphics/UI/"+getDarkModeFolder+"/Pokemon Box/bg_{1}_elite",currentStage(false))) if isMillenial?
-    @sprites["bg"].setBitmap(_INTL("Graphics/UI/"+getDarkModeFolder+"/Pokemon Box/bg_{1}_legendary",currentStage(false))) if isMillenial2?
-    @sprites["machine"].setBitmap(_INTL("Graphics/UI/Pokemon Box/overlay_box_{1}",currentStage(false)))
-    @sprites["machine"].setBitmap(_INTL("Graphics/UI/Pokemon Box/overlay_box_{1}_elite",currentStage(false))) if isMillenial?
-    @sprites["machine"].setBitmap(_INTL("Graphics/UI/Pokemon Box/overlay_box_{1}_legendary",currentStage(false))) if isMillenial2?
+    pbDrawTextPositions(@sprites["overlayItems"].bitmap,imageposAMT)
+    @sprites["header"].text=_INTL("{1} Pokémon Box - Win Streak: {2}",boxName,$game_variables[PBOX_VARIABLES[2]])
+    @sprites["bg"].setBitmap(_INTL("Graphics/UI/"+getDarkModeFolder+"/Pokemon Box/bg_{1}{2}",currentStage(false),stageSuffix))
+    @sprites["machine"].setBitmap(_INTL("Graphics/UI/Pokemon Box/overlay_box_{1}{2}",currentStage(false),stageSuffix))
     update_icons
     if showMillenialMessage
-      if isMillenial2?
-        Kernel.pbMessage(_INTL("Legendary Challenge Ahead!"))
-      elsif isMillenial?
-        Kernel.pbMessage(_INTL("Elite Challenge Ahead!."))
+      if isMillenial?
+        Kernel.pbMessage(_INTL("{1} Challenge Ahead!.",boxName(true)))
       end
       Kernel.pbMessage(_INTL("Finish this box within a 3-day interval to receive special rewards.")) if isMillenial?
     end
@@ -549,10 +607,8 @@ class PokemonBoxScene
         animateTaskPane(255,0)
         close_box
         pbSEPlay("Item3",100,80)
-        if isMillenial2?
-          Kernel.pbMessage(_INTL("Legendary Box Completed. Here's your rewards"))
-        elsif isMillenial?
-          Kernel.pbMessage(_INTL("Elite Box Completed. Here's your rewards"))
+        if isMillenial?
+          Kernel.pbMessage(_INTL("{1} Box Completed. Here's your rewards",boxName(true)))
         else
           Kernel.pbMessage(_INTL("Box Completed. Here's your rewards"))
         end
@@ -561,13 +617,20 @@ class PokemonBoxScene
           Kernel.pbMessage(_INTL("As you're on a special date, you will be getting double rewards."))
           multiamt = 2
         end
-        for i in @stages[currentStage][1]
-          Kernel.pbReceiveItem(i,1*multiamt)
+        for i in boxItems
+          if i.is_a?(Array)
+            item=i[0]
+            amt=i[1]
+          else
+            item=i
+            amt=1
+          end
+          Kernel.pbReceiveItem(item,amt*multiamt)
         end
         oldstreak = $game_variables[PBOX_VARIABLES[2]]
         $game_variables[PBOX_VARIABLES[2]]+=1
         $game_variables[PBOX_VARIABLES[2]]=0 if oldstreak == 65535
-        stage=@stages[currentStage(false)][0] rescue ""
+        stage=boxName() rescue ""
         if oldstreak == 65535
           pbSEPlay("Battle effect message")
           Kernel.pbMessage(_INTL("Extraodinary! You've maxed out the Pokémon Box. You'll get a special prize alongside a new {1} Pokémon Box.",stage))
@@ -596,38 +659,51 @@ class PokemonBoxScene
     @sprites["task3"].visible= false
     @sprites["overlayItems"].bitmap.clear
     imagepos=[]
-    x = 116 - ([(@stages[currentStage][1].length - 1),4].min * 24)
+    imageposAMT=[]
+    x = 116 - ([(boxItems.length - 1),4].min * 24)
     idx=0
-    for i in @stages[currentStage][1]
+    for i in boxItems
       idx+=1
-      if idx == 1 || idx == @stages[currentStage][1].length
+      if idx == 1 || idx == boxItems.length
         y = 70
       else
         y = 54
       end
-      @animbitmap=AnimatedBitmap.new( pbItemIconFile( getID(PBItems,i)) )
+      if i.is_a?(Array)
+        item=i[0]
+        amt=i[1]
+      else
+        item=i
+        amt=1
+      end
+      @animbitmap=AnimatedBitmap.new( pbItemIconFile( getID(PBItems,item)) )
       offsetX=(48 - @animbitmap.bitmap.width) / 2
       offsetY=(48 - @animbitmap.bitmap.height) / 2
       @animbitmap.dispose
-      imagepos.push([pbItemIconFile( getID(PBItems,i)),@sprites["machine"].x+x.ceil+offsetX,@sprites["machine"].y+y+offsetY,0,0,-1,-1])
-      x+=(96.0/[(@stages[currentStage][1].length - 1),4].max)*2
+      imagepos.push([pbItemIconFile( getID(PBItems,item)),@sprites["machine"].x+x.ceil+offsetX,@sprites["machine"].y+y+offsetY,0,0,-1,-1])
+      if amt>1
+        imageposAMT.push([amt.to_s,@sprites["machine"].x+32+x.ceil,@sprites["machine"].y+y+20,2,Color.new(12,12,12),nil])
+        imagepos.push(["Graphics/UI/Pokemon Box/icon_amount",@sprites["machine"].x+x.ceil,@sprites["machine"].y+y,0,0,-1,-1])
+      end
+      x+=(96.0/[(boxItems.length - 1),4].max)*2
     end
+    pbSetSmallFont(@sprites["overlayItems"].bitmap)
     pbDrawImagePositions(@sprites["overlayItems"].bitmap,imagepos)
-    @sprites["machine"].setBitmap(_INTL("Graphics/UI/Pokemon Box/overlay_box_{1}_closed",currentStage(false)))
-    @sprites["machine"].setBitmap(_INTL("Graphics/UI/Pokemon Box/overlay_box_{1}_elite_closed",currentStage(false))) if isMillenial?
-    @sprites["machine"].setBitmap(_INTL("Graphics/UI/Pokemon Box/overlay_box_{1}_legendary_closed",currentStage(false))) if isMillenial2?
+    pbDrawTextPositions(@sprites["overlayItems"].bitmap,imageposAMT)
+    @sprites["machine"].setBitmap(_INTL("Graphics/UI/Pokemon Box/overlay_box_{1}{2}_closed",currentStage(false),stageSuffix))
   end
   
   # Updates the icons in the Pokemon Box container itself
   def update_icons(nohardmarkers=false)
-    @sprites["task0"].visible= $game_variables[PBOX_VARIABLES[0]]>0 || (isHardTask(0) && !nohardmarkers)
-    @sprites["task0"].setBitmap(_INTL("Graphics/UI/Pokemon Box/icon_magnemite{1}",getHardTaskLabel(0)))
-    @sprites["task1"].visible= $game_variables[PBOX_VARIABLES[0]]>1 || (isHardTask(1) && !nohardmarkers)
-    @sprites["task1"].setBitmap(_INTL("Graphics/UI/Pokemon Box/icon_shellder{1}",getHardTaskLabel(1)))
-    @sprites["task2"].visible= $game_variables[PBOX_VARIABLES[0]]>2 || (isHardTask(2) && !nohardmarkers)
-    @sprites["task2"].setBitmap(_INTL("Graphics/UI/Pokemon Box/icon_pikachu{1}",getHardTaskLabel(2)))
-    @sprites["task3"].visible= $game_variables[PBOX_VARIABLES[0]]>3 || (isHardTask(3) && !nohardmarkers)
-    @sprites["task3"].setBitmap(_INTL("Graphics/UI/Pokemon Box/icon_psyduck{1}",getHardTaskLabel(3)))
+#icon_{1}",@icons[0]
+    @sprites["task0"].visible= true
+    @sprites["task0"].setBitmap(_INTL("Graphics/UI/Pokemon Box/icon_{1}{2}",@icons[0],getTaskLabel(0,nohardmarkers)))
+    @sprites["task1"].visible= true
+    @sprites["task1"].setBitmap(_INTL("Graphics/UI/Pokemon Box/icon_{1}{2}",@icons[1],getTaskLabel(1,nohardmarkers)))
+    @sprites["task2"].visible= true
+    @sprites["task2"].setBitmap(_INTL("Graphics/UI/Pokemon Box/icon_{1}{2}",@icons[2],getTaskLabel(2,nohardmarkers)))
+    @sprites["task3"].visible= true
+    @sprites["task3"].setBitmap(_INTL("Graphics/UI/Pokemon Box/icon_{1}{2}",@icons[3],getTaskLabel(3,nohardmarkers)))
   end
   
   def changeBoxTask
@@ -671,6 +747,16 @@ class PokemonBoxScene
           if contains2(taskrect2,mousepos[0],mousepos[1])
             Kernel.pbMessage(_INTL("Keep an eye on the time. If the time expires, your win streak resets and you'll start over with a classic box."))
           end
+          # Box itself
+          boxrect=[@sprites["machine"].x,@sprites["machine"].y,280,140]
+          if contains2(boxrect,mousepos[0],mousepos[1])
+            pbPlayDecisionSE()
+            scene=PokemonBoxSummaryScene.new
+            screen=PokemonBoxSummary.new(scene)
+            pbFadeOutIn(99999) { 
+              screen.pbStartScreen
+            }
+          end
         end
       end
      # End Left Mouse Key
@@ -697,6 +783,173 @@ class PokemonBoxEvent # Not PokemonBox as it conflicts with another class
   def pbStartScreen(expired=false)
     @scene.pbStartScene(expired)
     @scene.pbPokemonBoxScreen
+    @scene.pbEndScene
+  end
+end
+
+#===============================================================================
+# Pokémon Box summary screen
+#===============================================================================
+class PokemonBoxSummaryScene
+  def update
+    pbUpdateSpriteHash(@sprites)
+  end
+
+  def pbStartScene
+    @sprites={}
+    @viewport=Viewport.new(0,0,Graphics.width,Graphics.height)
+    @viewport.z=99999
+      addBackgroundPlane(@sprites,"bg",getDarkModeFolder+"/Pokemon Box/bg_menu",@viewport)
+    @sprites["header"]=Window_UnformattedTextPokemon.newWithSize(_INTL("Pokémon Box"),
+       2,-18,256,64,@viewport)
+    if (!isDarkMode?)
+      base=Color.new(12,12,12)
+      shadow=Color.new(242,242,242)
+    else
+      base=Color.new(242,242,242)
+      shadow=Color.new(12,12,12)
+    end
+    @sprites["header"].baseColor=base
+    @sprites["header"].shadowColor=nil #shadow
+    @sprites["header"].windowskin=nil
+    @sprites["overlay"]=BitmapSprite.new(Graphics.width,Graphics.height,@viewport)
+    @box=PokemonBoxScene.new
+    @maxpages=(@box.stages.length / 8.0).ceil - 1
+    @page=((@box.currentStage+1) / 8.0).ceil - 1
+    @sprites["uparrow"] = AnimatedSprite.new("Graphics/UI/"+getAccentFolder+"/uparrow",8,28,40,2,@viewport)
+    @sprites["uparrow"].x = Graphics.width/2 - 14
+    @sprites["uparrow"].y = 16
+    @sprites["uparrow"].play
+    @sprites["uparrow"].visible = @page != 0
+    @sprites["downarrow"] = AnimatedSprite.new("Graphics/UI/"+getAccentFolder+"/downarrow",8,28,40,2,@viewport)
+    @sprites["downarrow"].x = Graphics.width/2 - 14
+    @sprites["downarrow"].y = Graphics.height - 32
+    @sprites["downarrow"].play
+    @sprites["downarrow"].visible = @page != @maxpages
+    pbSetSystemFont(@sprites["overlay"].bitmap)
+    pbDrawPokemonBoxSummaryContents
+    pbFadeInAndShow(@sprites) { update }
+  end
+
+  def pbDrawPokemonBoxSummaryContents
+    @sprites["uparrow"].visible = @page != 0
+    @sprites["downarrow"].visible = @page != @maxpages
+    @overlay=@sprites["overlay"].bitmap
+    @overlay.clear
+    offset=8*@page
+    for item in 0+offset...[@box.stages.length,8+offset].min
+      x=[4,324,4,324,4,324,4,324][item%8]
+      y=[36,36,126,126,216,216,306,306][item%8]
+      pbDrawBoxContents(x,y,item)
+    end
+  end
+
+  def pbDrawBoxContents(x,y,stage)
+    filename=stage.to_s
+    filename=(@box.maxStages-1).to_s + "_elite" if stage==@box.maxStages
+    filename=(@box.maxStages-1).to_s + "_legendary" if stage==@box.maxStages + 1
+    filename=(@box.maxStages-1).to_s + "_mythical" if stage==@box.maxStages + 2
+    if (!isDarkMode?)
+      baseColor=MessageConfig::DARKTEXTBASE
+      shadowColor=MessageConfig::DARKTEXTSHADOW
+      hardBase=Color.new(248,56,32)
+      hardShadow=Color.new(224,152,144)
+      base2=Color.new(12,12,12)
+      shadow2=Color.new(242,242,242)
+    else
+      baseColor=MessageConfig::LIGHTTEXTBASE
+      shadowColor=MessageConfig::LIGHTTEXTSHADOW
+      hardBase=Color.new(224,152,144)
+      hardShadow=Color.new(248,56,32)
+      base2=Color.new(242,242,242)
+      shadow2=Color.new(12,12,12)
+    end
+    # Box
+    imagepos=[
+      ["Graphics/UI/"+getDarkModeFolder+"/Pokemon Box/overlay_menuwrapper",x,y,0,0,-1,-1],
+    ]
+    imageposAMT=[]
+    lockedimagepos=[]
+    # Items
+    itemx = 182 - ([(@box.stages[stage][1].length - 1),3].min * 24)
+    for i in @box.stages[stage][1]
+      if i.is_a?(Array)
+        item=i[0]
+        amt=i[1]
+      else
+        item=i
+        amt=1
+      end
+      @animbitmap=AnimatedBitmap.new( pbItemIconFile( getID(PBItems,item)) )
+      offsetX=(48 - @animbitmap.bitmap.width) / 2
+      offsetY=(48 - @animbitmap.bitmap.height) / 2
+      @animbitmap.dispose
+      imagepos.push([pbItemIconFile( getID(PBItems,item)),x+itemx.ceil+offsetX,y+13+offsetY,0,0,-1,-1])
+      if amt>1
+        imageposAMT.push([amt.to_s,x+32+itemx.ceil,y+33,2,Color.new(12,12,12),nil])
+        imagepos.push(["Graphics/UI/Pokemon Box/icon_amount",x+itemx.ceil,y+13,0,0,-1,-1])
+      end
+      itemx+=(96.0/[(@box.stages[stage][1].length - 1),3].max)*1.5
+    end
+    # Box Name
+    if @box.currentStage == stage
+      textpos=[
+    #    [_INTL("{1}",@box.stages[stage][0]),x+59,y+4,2,hardBase,hardShadow]
+      ]
+      imagepos.push(["Graphics/UI/Pokemon Box/overlay_menubox_" + filename,x+10,y+13,0,0,-1,-1])
+    else
+      textpos=[
+        [_INTL("{1}",@box.stages[stage][0]),x+59,y+4,2,baseColor,shadowColor]
+      ]
+      imagepos.push(["Graphics/UI/Pokemon Box/overlay_menubox_" + filename + "_closed",x+10,y+13,0,0,-1,-1])
+      lockedimagepos.push(["Graphics/UI/Pokemon Box/overlay_menuwrapper_locked",x+33,y+9,0,0,-1,-1]) if @box.currentStage<stage
+    end
+    pbDrawImagePositions(@overlay,imagepos)
+    pbSetSmallFont(@sprites["overlay"].bitmap)
+    pbDrawTextPositions(@overlay,imageposAMT)
+    pbSetSystemFont(@sprites["overlay"].bitmap)
+    pbDrawTextPositions(@overlay,textpos)
+    pbDrawImagePositions(@overlay,lockedimagepos)
+
+  end
+
+  def pbPokemonBoxSummaryScreen
+    loop do
+      Graphics.update
+      Input.update
+      self.update
+      if Input.trigger?(Input::DOWN) && @maxpages>0
+        pbPlayCursorSE()
+        @page=(@page+1)%(@maxpages+1)
+        pbDrawPokemonBoxSummaryContents
+      end
+      if Input.trigger?(Input::UP) && @maxpages>0
+        pbPlayCursorSE()
+        @page=(@page-1)%(@maxpages+1)
+        pbDrawPokemonBoxSummaryContents
+      end
+      if Input.trigger?(Input::B)
+        pbPlayCancelSE()
+        break
+      end
+    end 
+  end
+
+  def pbEndScene
+    pbFadeOutAndHide(@sprites) { update }
+    pbDisposeSpriteHash(@sprites)
+    @viewport.dispose
+  end
+end
+
+class PokemonBoxSummary # Not PokemonBox as it conflicts with another class
+  def initialize(scene)
+    @scene=scene
+  end
+
+  def pbStartScreen()
+    @scene.pbStartScene
+    @scene.pbPokemonBoxSummaryScreen
     @scene.pbEndScene
   end
 end

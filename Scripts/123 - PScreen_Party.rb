@@ -2087,6 +2087,7 @@ class PokemonScreen
       pkmn=@party[pkmnid]
       commands   = []
       cmdSummary = -1
+      cmdEdit    = -1
       cmdDebug   = -1
       cmdMoves   = [-1,-1,-1,-1]
       cmdSwitch  = -1
@@ -2094,6 +2095,7 @@ class PokemonScreen
       cmdItem    = -1
       # Build the commands
       commands[cmdSummary=commands.length]      = _INTL("Summary")
+      commands[cmdEdit=commands.length]         = _INTL("Edit") if !pkmn.isEgg? && !(pkmn.isShadow? rescue false)
       commands[cmdDebug=commands.length]        = _INTL("Debug") if $DEBUG
       for i in 0...pkmn.moves.length
         move=pkmn.moves[i]
@@ -2240,6 +2242,34 @@ class PokemonScreen
       next if havecommand
       if cmdSummary>=0 && command==cmdSummary
         @scene.pbSummary(pkmnid)
+      elsif cmdEdit>=0 && command==cmdEdit
+        command=@scene.pbShowCommands(_INTL("Do what with {1}?",pkmn.name),
+           [_INTL("Rename"),_INTL("Teach move"),_INTL("Forget move")])
+        case command
+        when 0 # Read
+          speciesname=PBSpecies.getName(pkmn.species)
+          newname=pbEnterPokemonName(_INTL("{1}'s nickname?",speciesname),0,12,"",pkmn)
+          pkmn.name=(newname=="") ? speciesname : newname
+          pbRefreshSingle(pkmnid)
+        when 1 # Teach move
+          if !pbHasRelearnableMove?(pkmn)
+            pbDisplay(_INTL("{1} has no moves that can be teach.",pkmn.name))
+          else
+            pbRelearnMoveScreen(pkmn)
+          end
+          pbRefreshSingle(pkmnid)
+        when 2
+          if pkmn.numMoves==1
+            pbDisplay(_INTL("{1} knows only one move.",pkmn.name))
+          else
+            pbChooseMoveAdv(pkmn,2,4)
+            if $game_variables[2] > -1
+              pkmn.pbDeleteMoveAtIndex(pbGet(2))
+              pbDisplay(_INTL("{1} forgot {2}.",pkmn.name,pbGet(4)))
+            end
+          end
+          pbRefreshSingle(pkmnid)
+        end
       elsif cmdDebug>=0 && command==cmdDebug
         pbPokemonDebug(pkmn,pkmnid)
       elsif cmdSwitch>=0 && command==cmdSwitch

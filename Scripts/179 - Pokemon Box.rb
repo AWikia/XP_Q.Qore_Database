@@ -745,7 +745,7 @@ class PokemonBoxScene
           # Time Pane (Not yet added)
           taskrect2=[4,294,(Graphics.width/2)-8,78]
           if contains2(taskrect2,mousepos[0],mousepos[1])
-            Kernel.pbMessage(_INTL("Keep an eye on the time. If the time expires, your win streak resets and you'll start over with a classic box."))
+            Kernel.pbMessage(_INTL("Keep an eye on the time. If the time expires, your win streak resets and you'll start over with a {1} box.",@stages[0][0]))
           end
           # Box itself
           boxrect=[@sprites["machine"].x,@sprites["machine"].y,280,140]

@@ -3444,6 +3444,8 @@ def pbChooseMove(pokemon,variableNumber,nameVarNumber)
   $game_map.need_refresh = true if $game_map
 end
 
+alias pbChooseMoveAdv pbChooseMove # Avoid conflicts with the pbChooseMove from party screen
+
 # Opens the Pokémon screen
 def pbPokemonScreen
   return if !$Trainer

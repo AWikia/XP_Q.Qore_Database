@@ -20,15 +20,15 @@ class PokemonBoxScene
     @stages = [
     ["Tutorial",[:ORANBERRY,:SITRUSBERRY],13,0.5,0],
     ["Classic",[:POTION,:POKEBALL],10,1,1],
-    ["Bronze",[:SUPERPOTION,:GREATBALL,heal],7,2,1],
-    ["Silver",[:HYPERPOTION,:ULTRABALL,:FULLHEAL,:NORMALGEM],5,3.5,2],
-    ["Gold",[:MEGAPOTION,:PARKBALL,[:FULLHEAL,2],:NORMALGEM,:RARECANDY],5,5,2],
+    ["Bronze",[:SUPERPOTION,:GREATBALL,heal],7,2.5,1],
+    ["Silver",[:HYPERPOTION,:ULTRABALL,:FULLHEAL,:NORMALGEM],5,7,2],
+    ["Gold",[:MEGAPOTION,:PARKBALL,[:FULLHEAL,2],:NORMALGEM,:RARECANDY],5,16,2],
     # Elite Challenge
-    ["Elite",[:FULLRESTORE,[:PARKBALL,2],:SUPERBOOSTER,:NORMALBOX,:VICIOUSCANDY],3,6,3],
+    ["Elite",[:FULLRESTORE,[:PARKBALL,2],:SUPERBOOSTER,:NORMALBOX,:VICIOUSCANDY],3,20,3],
     # Legendary Challenge
-    ["Legendary",[:SACREDASH,:MASTERBALL,[:SUPERBOOSTER,2],:BOTANICSMOKE,:NORMALBOX,:VICIOUSCANDY],3,7,3],
+    ["Legendary",[:SACREDASH,:MASTERBALL,[:SUPERBOOSTER,2],:BOTANICSMOKE,:NORMALBOX,:VICIOUSCANDY],3,25,3],
     # Legendary Challenge
-    ["Mythical",[[:SACREDASH,2],:MASTERBALL,[:SUPERBOOSTER,2],:BOTANICSMOKE,:LOADEDDICE,:NORMALBOX,[:VICIOUSCANDY,2]],3,9,3]
+    ["Mythical",[[:SACREDASH,2],:MASTERBALL,[:SUPERBOOSTER,2],:BOTANICSMOKE,:LOADEDDICE,:NORMALBOX,[:VICIOUSCANDY,2]],3,30,3]
 
     ]
     if $Trainer && $Trainer.isFemale?
@@ -217,97 +217,109 @@ class PokemonBoxScene
     end
   end
   
-  def taskVals(num=0)
+  def valueFromTo(min=1,max=2,scaleup=0)
     multi=boxMulti
-    multi2=1 + [($Trainer.numbadges / 2).floor,5].min
-    return [(500*multi)+randIncr((2500*multi*multi2)+addIncr(500)), # Gain Experience
-            (1.5*multi)+randIncr((1.5*multi)+addIncr(1.5)),         # Level Up Pokemon
-            (3*multi)+randIncr((3*multi)+addIncr(3)),               # Defeat Pokemon
-            (1*multi)+randIncr((1*multi)+addIncr(1)),               # Catch Pokemon
-            (6*multi)+randIncr((6*multi)+addIncr(6)),               # Activate Abilites
-            (6*multi)+randIncr((6*multi)+addIncr(6)),               # Activate Held Items
-            (4*multi)+randIncr((4*multi)+addIncr(3)),               # Use Physical Moves
-            (4*multi)+randIncr((4*multi)+addIncr(3)),               # Use Special Moves
-            (2*multi)+randIncr((2*multi)+addIncr(2)),               # Use Status Moves
-            (0.5*multi)+randIncr((0.5*multi)+addIncr(0.5)),         # Use Battle Items
-            (3*multi)+randIncr((2*multi)+addIncr(3)),               # Defear Trainers
-            (6*multi)+randIncr((6*multi)+addIncr(6)),               # Lapse Turns
-            (1*multi)+randIncr((1*multi)+addIncr(1)),               # Use Medicine Items
-            (3*multi)+randIncr((2*multi)+addIncr(3)),               # UNUSED!
-            (500*multi)+randIncr((1500*multi*multi2)+addIncr(500)), # Deal Damage
-            (2*multi)+randIncr((2*multi)+addIncr(2)),               # Land Critical Hits
-            (3*multi)+randIncr((3*multi)+addIncr(2)),               # Use STAB Moves
-            (1*multi)+randIncr((2*multi)+addIncr(1)),               # Defeat Pokemon Instantly
-            (1*multi)+randIncr((1*multi)+addIncr(1)),               # Use Berries
-            (1*multi)+randIncr((1*multi)+addIncr(1)),               # UNUSED!
-            (6*multi)+randIncr((6*multi)+addIncr(6)),               # Increase Stats
-            (1*multi)+randIncr((1*multi)+addIncr(1)),               # Revive Pokemon
-            (2*multi)+randIncr((3*multi)+addIncr(2)),               # Use Healing Moves
-            (0.2*multi)+randIncr((0.6*multi)+addIncr(0.2)),         # Use One-hit KO Moves 
-            (2*multi)+randIncr((3*multi)+addIncr(3)),               # Use Hi Priority Moves
-            (6*multi)+randIncr((6*multi)+addIncr(6)),               # Decrease Stats
-            (2*multi)+randIncr((2*multi)+addIncr(2)),               # Inflict Conditions            
-            (2*multi)+randIncr((2*multi)+addIncr(2)),               # Use Moves with Effects
-            (1*multi)+randIncr((1*multi)+addIncr(1)),               # Use Copycat Moves
-            (250*multi)+randIncr((250*multi*multi2)+addIncr(250)),  # Take Recoil Damage
-            (250*multi)+randIncr((500*multi*multi2)+addIncr(250)),  # Recover HP
-            (2*multi)+randIncr((3*multi)+addIncr(2)),               # Land Super Effective
-            (2*multi)+randIncr((2*multi)+addIncr(2)),               # Use Multi-hit Moves
-            (2*multi)+randIncr((1*multi)+addIncr(2)),               # Defeat Best Trainers
-            (0.5*multi)+randIncr((1*multi)+addIncr(1)),             # Use Sleeping Moves
-            (500*multi)+randIncr((1500*multi*multi2)+addIncr(500)), # Gain Money
-            (2*multi)+randIncr((3*multi)+addIncr(2)),               # Land Not Very Effective
-            (2*multi)+randIncr((2*multi)+addIncr(2)),               # Use Mutli-Target Moves
-            (4*multi)+randIncr((4*multi)+addIncr(5)),               # Activate Win Streak
-            (1*multi)+randIncr((2*multi)+addIncr(1))                # Change Forms
-            ][num].ceil
+    multi2=1 + ([($Trainer.numbadges / 2).floor,6].min * scaleup)
+    min=min.to_f
+    max=max.to_f
+    return [(min*multi) + randIncr((max-min)*(multi*multi2)) + addIncr(min),1].max.round
+  end
+
+  def valueFromToMiddle(min=1,max=2,scaleup=0)
+    multi=boxMulti
+    multi2=1 + ([($Trainer.numbadges / 2).floor,6].min * scaleup)
+    min=min.to_f
+    max=max.to_f
+    return (min*multi) + ((max-min)*(multi*multi2) / 2)
+  end
+  
+  def taskVals(num=0)
+    return [valueFromTo(20,60,6)*10,     # Gain Experience
+            valueFromTo(1,1.5),          # Level Up Pokemon
+            valueFromTo(2.5,5),          # Defeat Pokemon
+            valueFromTo(0.5,1),          # Catch Pokemon
+            valueFromTo(2,4),            # Activate Abilites
+            valueFromTo(2,4),            # Activate Held Items
+            valueFromTo(3,6),            # Use Physical Moves
+            valueFromTo(3,6),            # Use Special Moves
+            valueFromTo(1,2),            # Use Status Moves
+            valueFromTo(0.2,0.35),       # Use Battle Items
+            valueFromTo(1,2),            # Defear Trainers
+            valueFromTo(3,7),            # Lapse Turns
+            valueFromTo(0.4,0.65),       # Use Medicine Items
+            valueFromTo(1,2),            # UNUSED!
+            valueFromTo(8,24,1.5)*10,    # Deal Damage
+            valueFromTo(0.5,1),          # Land Critical Hits
+            valueFromTo(2,4),            # Use STAB Moves
+            valueFromTo(1,2),            # Defeat Pokemon Instantly
+            valueFromTo(0.4,0.65),       # Use Berries
+            valueFromTo(0.5,1),          # UNUSED!
+            valueFromTo(3,7),            # Increase Stats
+            valueFromTo(0.4,0.65),       # Revive Pokemon
+            valueFromTo(1,2),            # Use Healing Moves
+            valueFromTo(0.09,0.27),      # Use One-hit KO Moves 
+            valueFromTo(1,2),            # Use Hi Priority Moves
+            valueFromTo(3,7),            # Decrease Stats
+            valueFromTo(1,1.5),          # Inflict Conditions            
+            valueFromTo(1,2),            # Use Moves with Effects
+            valueFromTo(0.4,0.65),       # Use Copycat Moves
+            valueFromTo(2,6,1.5)*10,     # Take Recoil Damage
+            valueFromTo(4,12,1.5)*10,    # Recover HP
+            valueFromTo(1.5,3),          # Land Super Effective
+            valueFromTo(1,2),            # Use Multi-hit Moves
+            valueFromTo(0.5,1),          # Defeat Best Trainers
+            valueFromTo(0.2,0.4),        # Use Sleeping Moves
+            valueFromTo(60,200,1)*10,    # Gain Money
+            valueFromTo(1.5,3),          # Land Not Very Effective
+            valueFromTo(1,2),            # Use Mutli-Target Moves
+            valueFromTo(3,6),            # Activate Win Streak
+            valueFromTo(0.5,1),          # Change Forms
+            ][num]
 
   end
 
   def isHardTask(idx=-1) # idx is used to identify if the current active task is hard
     return false if (currentStep%4 != idx && idx != -1) || boxLevel==0
-    multi=boxMulti
-    multi2=1 + [($Trainer.numbadges / 2).floor,5].min
-    vals = [(500*multi)+(1250*multi*multi2), # Gain Experience
-            (1.5*multi)+(0.75*multi),        # Level Up Pokemon
-            (3*multi)+(1.5*multi),           # Defeat Pokemon
-            (1*multi)+(0.5*multi),           # Catch Pokemon
-            (6*multi)+(3*multi),             # Trigger Abilites
-            (6*multi)+(3*multi),             # Trigger Items
-            (4*multi)+(2*multi),             # Use Physical Moves
-            (4*multi)+(2*multi),             # Use Special Moves
-            (2*multi)+(1*multi),             # Use Status Moves
-            (0.5*multi)+(0.25*multi),        # Use Battle Items
-            (3*multi)+(1*multi),             # Defear Trainers
-            (6*multi)+(3*multi),             # Lapse Turns
-            (1*multi)+(0.5*multi),           # Use Medicine Items
-            (3*multi)+(1*multi),             # UNUSED!
-            (500*multi)+(750*multi*multi2),  # Deal Damage
-            (2*multi)+(1*multi),             # Land Critical Hits
-            (3*multi)+(1.5*multi),           # Use STAB Moves
-            (1*multi)+(1*multi),             # Defeat Pokemon Instantly
-            (1*multi)+(0.5*multi),           # Use Berries
-            (1*multi)+(0.5*multi),           # UNUSED!
-            (6*multi)+(3*multi),             # Increase Stats
-            (1*multi)+(0.5*multi),           # Revive Pokemon
-            (2*multi)+(1*multi),             # Use Healing Moves
-            (0.2*multi)+(0.3*multi),         # Use One-hit KO Moves 
-            (2*multi)+(1*multi),             # Use Hi Priority Moves
-            (6*multi)+(3*multi),             # Decrease Stats
-            (2*multi)+(1*multi),             # Inflict Conditions            
-            (2*multi)+(1*multi),             # Use Moves with Effects
-            (1*multi)+(0.5*multi),           # Use Copycat Moves
-            (250*multi)+(125*multi*multi2),  # Take Recoil Damage
-            (250*multi)+(250*multi*multi2),  # Recover HP
-            (2*multi)+(1.5*multi),           # Land Super Effective
-            (2*multi)+(1*multi),             # Use Multi-hit Moves
-            (2*multi)+(0.5*multi),           # Defeat Best Trainers
-            (0.5*multi)+(0.5*multi),         # Use Sleeping Moves
-            (500*multi)+(750*multi*multi2),  # Gain Money
-            (2*multi)+(1.5*multi),           # Land Not Very Effective
-            (2*multi)+(1*multi),             # Use Mutli-Target Moves
-            (4*multi)+(2*multi),             # Activate Win Streak
-            (1*multi)+(1*multi)              # Change Forms
+    vals = [valueFromToMiddle(20,60,6)*10,     # Gain Experience
+            valueFromToMiddle(1,1.5),          # Level Up Pokemon
+            valueFromToMiddle(2.5,5),          # Defeat Pokemon
+            valueFromToMiddle(0.5,1),          # Catch Pokemon
+            valueFromToMiddle(2,4),            # Activate Abilites
+            valueFromToMiddle(2,4),            # Activate Held Items
+            valueFromToMiddle(3,6),            # Use Physical Moves
+            valueFromToMiddle(3,6),            # Use Special Moves
+            valueFromToMiddle(1,2),            # Use Status Moves
+            valueFromToMiddle(0.2,0.35),       # Use Battle Items
+            valueFromToMiddle(1,2),            # Defear Trainers
+            valueFromToMiddle(3,7),            # Lapse Turns
+            valueFromToMiddle(0.4,0.65),       # Use Medicine Items
+            valueFromToMiddle(1,2),            # UNUSED!
+            valueFromToMiddle(8,24,1.5)*10,    # Deal Damage
+            valueFromToMiddle(0.5,1),          # Land Critical Hits
+            valueFromToMiddle(2,4),            # Use STAB Moves
+            valueFromToMiddle(1,2),            # Defeat Pokemon Instantly
+            valueFromToMiddle(0.4,0.65),       # Use Berries
+            valueFromToMiddle(0.5,1),          # UNUSED!
+            valueFromToMiddle(3,7),            # Increase Stats
+            valueFromToMiddle(0.4,0.65),       # Revive Pokemon
+            valueFromToMiddle(1,2),            # Use Healing Moves
+            valueFromToMiddle(0.09,0.27),      # Use One-hit KO Moves 
+            valueFromToMiddle(1,2),            # Use Hi Priority Moves
+            valueFromToMiddle(3,7),            # Decrease Stats
+            valueFromToMiddle(1,1.5),          # Inflict Conditions            
+            valueFromToMiddle(1,2),            # Use Moves with Effects
+            valueFromToMiddle(0.4,0.65),       # Use Copycat Moves
+            valueFromToMiddle(2,6,1.5)*10,     # Take Recoil Damage
+            valueFromToMiddle(4,12,1.5)*10,    # Recover HP
+            valueFromToMiddle(1.5,3),          # Land Super Effective
+            valueFromToMiddle(1,2),            # Use Multi-hit Moves
+            valueFromToMiddle(0.5,1),          # Defeat Best Trainers
+            valueFromToMiddle(0.2,0.4),        # Use Sleeping Moves
+            valueFromToMiddle(60,200,1)*10,    # Gain Money
+            valueFromToMiddle(1.5,3),          # Land Not Very Effective
+            valueFromToMiddle(1,2),            # Use Mutli-Target Moves
+            valueFromToMiddle(3,6),            # Activate Win Streak
+            valueFromToMiddle(0.5,1),          # Change Forms
             ][taskID]
     return taskstatus2 > vals
   end

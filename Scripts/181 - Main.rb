@@ -151,7 +151,7 @@ def mainFunctionDebug #:nodoc:
     $BORDERS=getBorders
     setScreenBorderName($BORDERS[$PokemonSystem.bordergraphic]) # Sets image file for the border
 # Don't load Q.Qore in Windows 8.1 and below
-    if pbGetVersion() < 10240
+    if pbGetVersion() < 10586
         data_system = pbLoadRxData("Data/System")
         pbBGMPlay(data_system.title_bgm)
         scene=PokemonOutdatedSystemScreenScene.new

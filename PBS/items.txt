@@ -1053,3 +1053,5 @@
 1014,POKEMONBOX,Pokémon Box,Pokéon Boxes,8,0,"This device contains four battle tasks for the player to finish, and gives rewards upon completion of them. It can only be used outside of battle.",2,0,6,
 1015,GOLDLEAF,Gold Leaf,Gold Leaves,1,500,"An item to be held by a Pokémon. This mysterious gold leaf, boosts the power of the holder's Sun-type moves.",0,0,0,
 1016,SILVERLEAF,Silver Leaf,Silver Leaves,1,500,"An item to be held by a Pokémon. This mysterious gold leaf, boosts the power of the holder's Moon-type moves.",0,0,0,
+1017,EVENTSRACE,Events Race,Events Races,1,2000,"A race flag. Some events are happy to be restarted in exchange of this flag.",0,0,0,
+1018,CHAMPIONSRACE,Champions Race,Champions Races,1,20000,"A rare champions race flag. Some more-valuable events are happy to be restarted in exchange of this flag.",0,0,0,

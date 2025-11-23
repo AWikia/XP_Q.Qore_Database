@@ -16432,12 +16432,18 @@ class PokeBattle_Move_364 < PokeBattle_Move
 end
 
 ################################################################################
-# Decreases the user's Special Attack by 1 stage. (Make it Rain)
+# Decreases the user's Special Attack by 1 stage. 
+# Scatters coins that the player picks up after winning the battle. (Make it Rain)
 ################################################################################
 class PokeBattle_Move_365 < PokeBattle_Move
   def pbEffect(attacker,opponent,hitnum=0,alltargets=nil,showanimation=true)
     ret=super(attacker,opponent,hitnum,alltargets,showanimation)
     if opponent.damagestate.calcdamage>0
+      if @battle.pbOwnedByPlayer?(attacker.index)
+        @battle.extramoney+=5*attacker.level
+        @battle.extramoney=MAXMONEY if @battle.extramoney>MAXMONEY
+      end
+      @battle.pbDisplay(_INTL("Coins were scattered everywhere!"))
       if attacker.pbCanReduceStatStage?(PBStats::SPATK,attacker,false,self)
         attacker.pbReduceStat(PBStats::SPATK,1,attacker,false,self)
       end

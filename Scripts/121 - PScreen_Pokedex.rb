@@ -1016,7 +1016,7 @@ class PokemonPokedexScene
            i=curindex-1; loop do break unless i>=0
              if $Trainer.seen[@dexlist[i][0]]
               pbSEStop;
-              pbPlayCursorSE()
+              pbPlayCursorSE() if page>1
 #             pbFadeOutAndHide(@sprites)
               nextindex=i
              break
@@ -1033,7 +1033,7 @@ class PokemonPokedexScene
            for i in curindex+1...@dexlist.length
              if $Trainer.seen[@dexlist[i][0]]
                pbSEStop;
-               pbPlayCursorSE()
+               pbPlayCursorSE() if page>1
 #              pbFadeOutAndHide(@sprites)
                nextindex=i
               break

@@ -46,7 +46,8 @@ class DailyTreatMachineScene
             [:GREATBALL,1],[:POKEBALL,1],
             [:ANTIDOTE,1],[:AWAKENING,1],
             [:BURNHEAL,1],[:ICEHEAL,1],
-            [:PARALYZEHEAL,1],[:NORMALGEM,1]
+            [:PARALYZEHEAL,1],[:NORMALGEM,1],
+            [:EVENTSRACE,1]
             ]
     if level>=1
       @items.push(
@@ -54,7 +55,8 @@ class DailyTreatMachineScene
               [:REVIVE,1],[:FULLHEAL,1],
               [:RARECANDY,1],[:ABILITYCAPSULE,1],
               [:ELECTRICGEM,1],[:GRASSGEM,1],
-              [:FIREGEM,1],[:WATERGEM,1]
+              [:FIREGEM,1],[:WATERGEM,1],
+              [:QUICKCLAW,1]
               )
     end
     if level>=2
@@ -63,7 +65,8 @@ class DailyTreatMachineScene
               [:REPEL,1],[:SUPERREPEL,1],
               [:BELLBOX,1],[:KEYBOX,1],
               [:ETHER,1],[:ELIXIR,1],
-              [:QUICKBALL,1],[:REPEATBALL,1]
+              [:QUICKBALL,1],[:REPEATBALL,1],
+              [:LOADEDDICE,1]
               )
     end
     if level>=3
@@ -72,7 +75,8 @@ class DailyTreatMachineScene
               [:MAXREPEL,1],[:MAXETHER,1],
               [:MAXELIXIR,1],[:NORMALBOX,1],
               [:GRASSBOX,1],[:FIREBOX,1],
-              [:WATERBOX,1],[:ELECTRICBOX,1]
+              [:WATERBOX,1],[:ELECTRICBOX,1],
+              [:CHAMPIONSRACE,1]
               )
     end
     if level>=4
@@ -81,7 +85,8 @@ class DailyTreatMachineScene
               [:MEGAPOTION,2],[:MAXPOTION,2],
               [:FULLHEAL,2],[:MAXREVIVE,2],
               [:ULTRABALL,2],[:PARKBALL,2],
-              [:BELLBOX,2],[:KEYBOX,2]
+              [:BELLBOX,2],[:KEYBOX,2],
+              [:EVENTSRACE,2]
               )
     end
     if level>=5
@@ -90,7 +95,8 @@ class DailyTreatMachineScene
               [:MEGAPOTION,3],[:MAXPOTION,3],
               [:FULLHEAL,3],[:MAXREVIVE,3],
               [:ULTRABALL,3],[:PARKBALL,3],
-              [:MAXPOTION,4],[:FULLHEAL,4]
+              [:MAXPOTION,4],[:FULLHEAL,4],
+              [:CHAMPIONSRACE,2]
               )
     end
     pbTreatMachine

@@ -45,7 +45,7 @@ class PokemonOutdatedSystemScreenScene
        [_INTL("Qora Qore is no longer supported in this machine!"),258,0,2,baseColor,shadowColor],
        [_INTL("In order to continue exploring the latest development"),0,64,0,baseColor,shadowColor],
        [_INTL("done to Qore Qore, you must upgrade your Operating"),0,96,0,baseColor,shadowColor],
-       [_INTL("System to at least Windows 10 Build 10240 or higher "),0,128,0,baseColor,shadowColor],
+       [_INTL("System to at least Windows 10 Build 10856 or higher "),0,128,0,baseColor,shadowColor],
        [_INTL("as Microsoft no longer supports your currently running"),0,160,0,baseColor,shadowColor],
        [_INTL("Operating System with security updates."),0,192,0,baseColor,shadowColor],
     ]

@@ -75,7 +75,7 @@ def renderLineBrokenChunksWithShadow(bitmap,xDst,yDst,normtext,maxheight,baseCol
     if maxheight==0 || normtext[i][2]<maxheight
       height=normtext[i][4]
       text=normtext[i][0]
-      if shadowColor && (shadowColor != Color.new(300,300,300))
+      if shadowColor
         bitmap.font.color=shadowColor
      #   bitmap.draw_text(textx+2,texty,width+2,height,text)
      #   bitmap.draw_text(textx,texty+2,width+2,height,text)
@@ -95,7 +95,7 @@ def renderLineBrokenChunksWithOutline(bitmap,xDst,yDst,normtext,maxheight,baseCo
     if maxheight==0 || normtext[i][2]<maxheight
       height=normtext[i][4]
       text=normtext[i][0]
-      if shadowColor && (shadowColor != Color.new(300,300,300))
+      if shadowColor
         bitmap.font.color=shadowColor
         bitmap.draw_text(textx-2,texty-2,width+2,height,text)
         bitmap.draw_text(textx,texty-2,width+2,height,text)
@@ -1106,11 +1106,11 @@ def fmtescape(text)
   return text
 end
 
-def drawFormattedTextEx(bitmap,x,y,width,text,baseColor=nil,shadowColor=nil)
+def drawFormattedTextEx(bitmap,x,y,width,text,baseColor=nil,shadowColor=nil,lineheight=32)
   base=!baseColor ? Color.new(12*8,12*8,12*8) : baseColor.clone
   shadow=!shadowColor ? Color.new(26*8,26*8,25*8) : shadowColor.clone
   text="<c2="+colorToRgb16(base)+colorToRgb16(shadow)+">"+text
-  chars=getFormattedText(bitmap,x,y,width,-1,text,32)
+  chars=getFormattedText(bitmap,x,y,width,-1,text,lineheight)
   drawFormattedChars(bitmap,chars)
 end
 

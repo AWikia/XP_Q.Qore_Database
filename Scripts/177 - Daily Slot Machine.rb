@@ -13,10 +13,8 @@ class DailySlotMachineReel < BitmapSprite
   attr_accessor :stopping
   attr_accessor :slipping
   SCROLLSPEED = 16 # Must be a divisor of 48
-  ICONSPOOL = [[0,0,0,0,1,1,2,2,3,3,3,4,4,4,5,5,6,6,7], # 0 - Easy
-               [0,0,0,0,1,1,1,2,2,2,3,3,4,4,5,6,7],     # 1 - Medium (default)
-               [0,0,1,1,1,2,2,2,3,3,4,4,5,6,7]          # 2 - Hard
-              ]
+  ICONSPOOL = [0,1,2,3,4,5,6,7,8]
+  ICONSPOOL
   SLIPPING = [0,0,0,0,0,0,1,1,1,2,2,3]
 
   def initialize(x,y,difficulty=1)
@@ -24,8 +22,8 @@ class DailySlotMachineReel < BitmapSprite
     @viewport.z=99999
     super(64,144,@viewport)
     @reel=[]
-    for i in 0...ICONSPOOL[difficulty].length
-      @reel.push(ICONSPOOL[difficulty][i])
+    for i in 0...ICONSPOOL.length
+      @reel.push(ICONSPOOL[i])
     end
     @reel.shuffle!
     @toppos=0
@@ -149,6 +147,8 @@ class DailySlotMachineScene
         bonus=1 if bonus<1
       when 7
         item=[getID(PBItems,:NORMALGEM),getID(PBItems,:NORMALGEM),getID(PBItems,:NORMALBOX)][difficulty]
+      when 8
+        item=[getID(PBItems,:EVENTSRACE),getID(PBItems,:EVENTSRACE),getID(PBItems,:CHAMPIONSRACE)][difficulty]
       else
         item=getID(PBItems,:ORANBERRY)
       end
@@ -181,9 +181,9 @@ class DailySlotMachineScene
     # Pay out
     if bonus>0
       items= [
-      [getID(PBItems,:SUPERPOTION),getID(PBItems,:GREATBALL),getID(PBItems,:ANTIDOTE),getID(PBItems,:REVIVE),getID(PBItems,:RARECANDY),getID(PBItems,:NORMALGEM)],
-      [getID(PBItems,:SUPERPOTION),getID(PBItems,:GREATBALL),getID(PBItems,:ANTIDOTE),getID(PBItems,:REVIVE),getID(PBItems,:RARECANDY),getID(PBItems,:NORMALGEM)],
-      [getID(PBItems,:MEGAPOTION),getID(PBItems,:PARKBALL),getID(PBItems,:FULLHEAL),getID(PBItems,:MAXREVIVE),getID(PBItems,:VICIOUSCANDY),getID(PBItems,:NORMALBOX)]
+      [getID(PBItems,:SUPERPOTION),getID(PBItems,:GREATBALL),getID(PBItems,:ANTIDOTE),getID(PBItems,:REVIVE),getID(PBItems,:RARECANDY),getID(PBItems,:NORMALGEM),getID(PBItems,:EVENTSRACE)],
+      [getID(PBItems,:SUPERPOTION),getID(PBItems,:GREATBALL),getID(PBItems,:ANTIDOTE),getID(PBItems,:REVIVE),getID(PBItems,:RARECANDY),getID(PBItems,:NORMALGEM),getID(PBItems,:EVENTSRACE)],
+      [getID(PBItems,:MEGAPOTION),getID(PBItems,:PARKBALL),getID(PBItems,:FULLHEAL),getID(PBItems,:MAXREVIVE),getID(PBItems,:VICIOUSCANDY),getID(PBItems,:NORMALBOX),getID(PBItems,:CHAMPIONSRACE)]
         ][difficulty]
       for item in items
         Kernel.pbReceiveItem(item,bonus)

@@ -40,7 +40,7 @@ class PokemonSysReqScreenScene
     textPositions=[
        [_INTL("Recommended requirements for Q.Qore:"),258,0,2,baseColor,shadowColor],
        [_INTL("OS: "),0,32,0,baseColor,shadowColor],
-       [_INTL("Windows 10 Build 10240 or higher "),519,32,1,baseColor,shadowColor],
+       [_INTL("Windows 10 Build 10586 or higher "),519,32,1,baseColor,shadowColor],
        [_INTL("RAM: "),0,64,0,baseColor,shadowColor],
        [_INTL("2GB or higher "),519,64,1,baseColor,shadowColor],
        [_INTL("CPU: "),0,96,0,baseColor,shadowColor],
@@ -66,7 +66,7 @@ class PokemonSysReqScreenScene
       end
       if Input.press?(Input::CTRL) && Input.press?(Input::C)
         clip = _INTL("Recommended requirements for Q.Qore:")
-        clip+= _INTL("\nOS: Windows 10 Build 10240 or higher")
+        clip+= _INTL("\nOS: Windows 10 Build 10586 or higher")
         clip+= _INTL("\nRAM: 2GB or higher")
         clip+= _INTL("\nCPU: Modern 2.7GHz or higher")
         clip+= _INTL("\nColor Depth: 32 bits per channel")

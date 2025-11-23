@@ -416,6 +416,10 @@ def pbCheckPokedexes
   end
 end
 
+def pbHasItem?(item)
+  return $PokemonBag.pbQuantity(item)>0
+end
+
 # Daily Treat Machine
 def pbCheckDTM
   if $PokemonBag.pbQuantity(:COINCASE)>0 && $PokemonBag.pbQuantity(:DAILYTREATMACHINE)==0
@@ -903,8 +907,15 @@ def pbMapTimeEventRewardGain
     Kernel.pbMessage(_INTL("{1}You didn't won anything. Better luck next time.",gender))
   end
   if pbMapTimeEventRewards.is_a?(Array)
-    for item in pbMapTimeEventRewards
-      Kernel.pbReceiveItem(item,1)
+    for i in pbMapTimeEventRewards
+      if i.is_a?(Array)
+        item=i[0]
+        amt=i[1]
+      else
+        item=i
+        amt=1
+      end
+      Kernel.pbReceiveItem(item,amt)
     end
   end
   pbSEPlay("Badge Awarded 2")

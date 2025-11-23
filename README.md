@@ -9,6 +9,6 @@ This work is done separately from Pokémon Essentials and is not tied to a speci
 
 This Reposistory cannot, however give any download links for XP Q.Qore for obvious reasons (The current Stable Release is the 25H2 ones based on Ι3Ρ)
 
-Currently based upon build 12286.5000
+Currently based upon build 12302.1000
 
 Contents from this repo are free to use with credits

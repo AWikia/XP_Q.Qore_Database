@@ -4,6 +4,7 @@
 class PokemonBoxScene
   attr_accessor :stages
   attr_accessor :items
+  attr_accessor :icons
 
   def update
     pbUpdateSpriteHash(@sprites)
@@ -45,21 +46,26 @@ class PokemonBoxScene
     @viewport2=Viewport.new((Graphics.width/2)+14,40,(Graphics.width / 2)-28,Graphics.height-40)
     @viewport2.z=99999
     # Viewport for the Task Pane
-    @viewportTask=Viewport.new(14,196,(Graphics.width / 2)-28,78)
+    @viewportTask=Viewport.new(14,196,(Graphics.width / 2)-28,82)
     @viewportTask.z=99999
     @sprites["machine"]=IconSprite.new((Graphics.width/4)-140,44,@viewport)
     @sprites["bg"]=IconSprite.new(0,0,@viewport) # Avoid issues with animations
 #    addBackgroundPlane(@sprites,"bg",getDarkModeFolder+"/Pokemon Box/bg_0",@viewport)
     @sprites["bg"].setBitmap(_INTL("Graphics/UI/"+getDarkModeFolder+"/Pokemon Box/bg_{1}{2}",currentStage(false),stageSuffix))
     @sprites["machine"].setBitmap(_INTL("Graphics/UI/Pokemon Box/overlay_box_{1}{2}",currentStage(false),stageSuffix))
+    # Task Progress
     @sprites["progress"]=IconSprite.new((Graphics.width/4)-132,44,@viewportTask)
-    @sprites["progress"].setBitmap(_INTL("Graphics/UI/"+getDarkModeFolder+"/Pokemon Box/overlay_progress"))
+    @sprites["progress"].setBitmap(_INTL("Graphics/UI/"+getDarkModeFolder+"/Pokemon Box/overlay_progress_small"))
     @sprites["progress"].visible=false
-    @sprites["progresstime"]=IconSprite.new((Graphics.width/4)-132+14,338,@viewport)
+    @sprites["progress_icon"]=IconSprite.new((Graphics.width/4)+70,30,@viewportTask)
+    @sprites["progress_icon"].setBitmap(_INTL("Graphics/UI/"+getDarkModeFolder+"/Pokemon Box/icon_magnemite"))
+    @sprites["progress_icon"].visible=false
+    @sprites["progresstime"]=IconSprite.new((Graphics.width/4)-132+14,334,@viewport)
     @sprites["progresstime"].setBitmap(_INTL("Graphics/UI/"+getDarkModeFolder+"/Pokemon Box/overlay_progress"))
     @sprites["bg"].z = 1
     @sprites["machine"].z = 2
     @sprites["progress"].z = 2
+    @sprites["progress_icon"].z = 3
     @sprites["progresstime"].z = 2
     @sprites["header"]=Window_UnformattedTextPokemon.newWithSize(_INTL("{1} Pokémon Box - Win Streak: {2}",boxName,$game_variables[PBOX_VARIABLES[2]]),
        2,-18,400,64,@viewport)
@@ -67,7 +73,7 @@ class PokemonBoxScene
     @sprites["header"].shadowColor=nil #(!isDarkMode?) ? Color.new(242,242,242) : Color.new(12,12,12)
     @sprites["header"].windowskin=nil
     @sprites["overlay"]=BitmapSprite.new((Graphics.width/2 - 28),Graphics.height - 40,@viewport2)
-    @sprites["overlayTask"]=BitmapSprite.new((Graphics.width / 2)-28,78,@viewportTask)
+    @sprites["overlayTask"]=BitmapSprite.new((Graphics.width / 2)-28,82,@viewportTask)
     @sprites["overlayTask"].z = 3
     @sprites["overlayTime"]=BitmapSprite.new(Graphics.width,Graphics.height,@viewport)
     @sprites["overlayTime"].z = 3
@@ -176,9 +182,13 @@ class PokemonBoxScene
   def addIncr(num)
     return rand( ((($game_variables[PBOX_VARIABLES[2]] / 10).floor / 40) * num).floor )
   end
+
+  def stepID
+    return $game_variables[PBOX_VARIABLES[0]]
+  end
   
   def currentStep
-    return $game_variables[PBOX_VARIABLES[0]] + (4*$game_variables[PBOX_VARIABLES[4]])
+    return stepID + (4*$game_variables[PBOX_VARIABLES[4]])
   end
 
   def taskID # Task ID
@@ -351,132 +361,85 @@ class PokemonBoxScene
   
   # Creates a new box instance
   def initializeBox(fromdebug=false)
-    taskN12=false
-    taskN10=false # For Milleinal/Elite/Level 3 Boxes
-    taskN13=false # Not applicable on Q.Qore
-    taskN18=false
-    taskN19=false # Not applicable on Q.Qore
-    taskN24=false
-    taskN29=false
-    taskN34=false
-    taskN39=false
+    # Task 9 is Universal on Millenial/Elite/Level 3 Boxes
+    # Tasks 13 and 18 aren't applicable on Q.Qore
+    # Group 0
     task0 = [0,1,2,14,20,25,30,35]
+    task0 = [0,1,2,14,30,35] if boxLevel==1
     task0 = [0,1,2,14] if boxLevel==0
-    if rand(6)==0 && !taskN12
-      taskN12=true
-      task0.push(12)
-    elsif rand(6)==0 && !taskN10 && boxLevel==3
-      taskN10=true
-      task0.push(10)
-    elsif rand(6)==0 && !taskN18
-      taskN18=true
-      task0.push(18)
-    elsif rand(6)==0 && !taskN24 && boxLevel==3
-      taskN24=true
-      task0.push(24)
-    elsif rand(6)==0 && !taskN29 && boxLevel!=0
-      taskN29=true
-      task0.push(29)
-    elsif rand(6)==0 && !taskN34 && boxLevel!=0
-      taskN34=true
-      task0.push(34)
-    elsif rand(6)==0 && !taskN39 && boxLevel!=0
-      taskN29=true
-      task0.push(39)
-    end
-    task0.shuffle!
+    # Group 1
     task1 = [3,4,5,15,21,26,31,36]
+    task1 = [3,4,5,15,31,36] if boxLevel==1
     task1 = [4,15,31,36] if boxLevel==0
-    if rand(6)==0 && !taskN12
-      taskN12=true
-      task1.push(12)
-    elsif rand(6)==0 && !taskN10 && boxLevel==3
-      taskN10=true
-      task1.push(10)
-    elsif rand(6)==0 && !taskN18
-      taskN18=true
-      task1.push(18)
-    elsif rand(6)==0 && !taskN24 && boxLevel==3
-      taskN24=true
-      task1.push(24)
-    elsif rand(6)==0 && !taskN29 && boxLevel!=0
-      taskN29=true
-      task1.push(29)
-    elsif rand(6)==0 && !taskN34 && boxLevel!=0
-      taskN34=true
-      task1.push(34)
-    elsif rand(6)==0 && !taskN39 && boxLevel!=0
-      taskN29=true
-      task1.push(39)
-    end
-    task1.shuffle!
+    # Group 2
     task2 = [6,7,8,16,22,27,32,37]
+    task2 = [6,7,8,16,27,37] if boxLevel==1
     task2 = [6,7,8,16] if boxLevel==0
-    if rand(6)==0 && !taskN12
-      taskN12=true
-      task2.push(12)
-    elsif rand(6)==0 && !taskN10 && boxLevel==3
-      taskN10=true
-      task2.push(10)
-    elsif rand(6)==0 && !taskN18
-      taskN18=true
-      task2.push(18)
-    elsif rand(6)==0 && !taskN24  && boxLevel!=0
-      taskN24=true
-      task2.push(24)
-    elsif rand(6)==0 && !taskN34  && boxLevel!=0
-      taskN34=true
-      task2.push(34)
-    elsif rand(6)==0 && !taskN39  && boxLevel!=0
-      taskN29=true
-      task2.push(39)
-    end
-    task2.shuffle!
+    # Group 3
     task3 = [9,10,11,17,23,28,33,38]
-    task3 = [9,11,17,23,28,33,38] if taskN10 # Don't assign the 11th task in order again
+    task3 = [9,11,17,23,28,33,38] if boxLevel==3 # Don't assign the 11th task in order again
+    task3 = [10,11,17,28,33,38] if boxLevel==1
     task3 = [10,11,17,38] if boxLevel==0
-    if rand(6)==0 && !taskN12
-      taskN12=true
-      task3.push(12)
-    elsif rand(6)==0 && !taskN18
-      taskN18=true
-      task3.push(18)
-    elsif rand(6)==0 && !taskN24 && boxLevel!=0
-      taskN24=true
-      task3.push(24)
-    elsif rand(6)==0 && !taskN34 && boxLevel!=0
-      taskN34=true
-      task3.push(34)
-    elsif rand(6)==0 && !taskN39 && boxLevel!=0
-      taskN29=true
-      task3.push(39)
+    # Universal Tasks 0
+    taskU0=[12,18,29,34,39] # 19 is not applicable in Q.Qore
+    taskU0=[] if boxLevel==3 # Handled elsewhere
+    taskU0=[12,18,29] if boxLevel==1 # 19 is not applicable in Q.Qore
+    taskU0=[12,18] if boxLevel==0
+    # Universal Tasks 1
+    taskU1=[]
+    taskU1=[24] # 13 is not applicable in Q.Qore
+    taskU1=[] if boxLevel==3 # Handled Elsewhere
+    taskU1=[24] if boxLevel==1
+    taskU1=[] if boxLevel==0
+    # Universal Tasks for Millenial/Elite/Level 3 Boxes
+    if boxLevel==3
+      for i in [10,12,18,24,29,34,39] # 13 and 19 are not applicable in Q.Qore
+        if rand(2)==0
+          taskU0.push(i)
+        else
+          taskU1.push(i)
+        end
+      end
     end
-    task3.shuffle!
+    # Set Up Tasks
+    if boxLevel<2
+      choices0= task0 | task1 | task2 | task3 | taskU0 | taskU1
+      choices1=choices0
+      choices0.shuffle!
+      choices1.shuffle!
+      choices1Offset=12
+    else
+      choices0= task0 | task1 | task2 | taskU0
+      choices1=task3 | taskU1
+      choices0.shuffle!
+      choices1.shuffle!
+      choices1Offset=0
+    end
     $game_variables[PBOX_VARIABLES[0]]=0
     $game_variables[PBOX_VARIABLES[4]]=0
     $game_variables[PBOX_VARIABLES[1]] = [
       # Task #0
-      [task0[0],$PokemonGlobal.pokebox[task0[0]],taskVals(task0[0])],
-      [task1[0],$PokemonGlobal.pokebox[task1[0]],taskVals(task1[0])],
-      [task2[0],$PokemonGlobal.pokebox[task2[0]],taskVals(task2[0])],
-      [task3[0],$PokemonGlobal.pokebox[task3[0]],taskVals(task3[0])],
+      [choices0[0],$PokemonGlobal.pokebox[choices0[0]],taskVals(choices0[0])],
+      [choices0[4],$PokemonGlobal.pokebox[choices0[4]],taskVals(choices0[4])],
+      [choices0[8],$PokemonGlobal.pokebox[choices0[8]],taskVals(choices0[8])],
+      [choices1[choices1Offset+0],$PokemonGlobal.pokebox[choices1[choices1Offset+0]],taskVals(choices1[choices1Offset+0])],
       # Task #1
-      [task0[1],$PokemonGlobal.pokebox[task0[1]],taskVals(task0[1])],
-      [task1[1],$PokemonGlobal.pokebox[task1[1]],taskVals(task1[1])],
-      [task2[1],$PokemonGlobal.pokebox[task2[1]],taskVals(task2[1])],
-      [task3[1],$PokemonGlobal.pokebox[task3[1]],taskVals(task3[1])],      
+      [choices0[1],$PokemonGlobal.pokebox[choices0[1]],taskVals(choices0[1])],
+      [choices0[5],$PokemonGlobal.pokebox[choices0[5]],taskVals(choices0[5])],
+      [choices0[9],$PokemonGlobal.pokebox[choices0[9]],taskVals(choices0[9])],
+      [choices1[choices1Offset+1],$PokemonGlobal.pokebox[choices1[choices1Offset+1]],taskVals(choices1[choices1Offset+1])],      
       # Task #2
-      [task0[2],$PokemonGlobal.pokebox[task0[2]],taskVals(task0[2])],
-      [task1[2],$PokemonGlobal.pokebox[task1[2]],taskVals(task1[2])],
-      [task2[2],$PokemonGlobal.pokebox[task2[2]],taskVals(task2[2])],
-      [task3[2],$PokemonGlobal.pokebox[task3[2]],taskVals(task3[2])],      
+      [choices0[2],$PokemonGlobal.pokebox[choices0[2]],taskVals(choices0[2])],
+      [choices0[6],$PokemonGlobal.pokebox[choices0[6]],taskVals(choices0[6])],
+      [choices0[10],$PokemonGlobal.pokebox[choices0[10]],taskVals(choices0[10])],
+      [choices1[choices1Offset+2],$PokemonGlobal.pokebox[choices1[choices1Offset+2]],taskVals(choices1[choices1Offset+2])],      
       # Task #3
-      [task0[3],$PokemonGlobal.pokebox[task0[3]],taskVals(task0[3])],
-      [task1[3],$PokemonGlobal.pokebox[task1[3]],taskVals(task1[3])],
-      [task2[3],$PokemonGlobal.pokebox[task2[3]],taskVals(task2[3])],
-      [task3[3],$PokemonGlobal.pokebox[task3[3]],taskVals(task3[3])]      
+      [choices0[3],$PokemonGlobal.pokebox[choices0[3]],taskVals(choices0[3])],
+      [choices0[7],$PokemonGlobal.pokebox[choices0[7]],taskVals(choices0[7])],
+      [choices0[11],$PokemonGlobal.pokebox[choices0[11]],taskVals(choices0[11])],
+      [choices1[choices1Offset+3],$PokemonGlobal.pokebox[choices1[choices1Offset+3]],taskVals(choices1[choices1Offset+3])]      
                                           ]
-    pbTimeEventDays(PBOX_VARIABLES[3],boxDuration)
+    pbTimeEvent(PBOX_VARIABLES[3],boxDuration*86400)
     pbSEPlay("recall") if !fromdebug
     pbPokemonBoxUpdate(true) if !fromdebug
   end
@@ -494,15 +457,13 @@ class PokemonBoxScene
     shadowfract=taskstatus*100/taskstatus2
     remtime = boxDuration*86400
     shadowfract2=(value[1]-(pbGetTimeNow.to_f - value[0]))*100/remtime
-    progress.push(["Graphics/UI/"+getDarkModeFolder+"/Pokemon Box/overlay_progress",@sprites["progress"].x,@sprites["progress"].y,0,0,-1,-1])
-    if ($PokemonSystem.threecolorbar==1 rescue false)
-      progress.push(["Graphics/UI/"+getAccentFolder+"/summaryEggBar_threecolorbar",@sprites["progress"].x+8,@sprites["progress"].y+4,0,0,(shadowfract*2.48).floor,-1])
-      progressTime.push(["Graphics/UI/"+getAccentFolder+"/summaryEggBar_threecolorbar",@sprites["progresstime"].x+8,@sprites["progresstime"].y+4,0,0,(shadowfract2*2.48).floor,-1])
-    else
-      progress.push(["Graphics/UI/"+getAccentFolder+"/summaryEggBar",@sprites["progress"].x+8,@sprites["progress"].y+4,0,0,(shadowfract*2.48).floor,-1])
-      progressTime.push(["Graphics/UI/"+getAccentFolder+"/summaryEggBar",@sprites["progresstime"].x+8,@sprites["progresstime"].y+4,0,0,(shadowfract2*2.48).floor,-1])
-    end
-      progress.push(["Graphics/UI/Pokemon Box/icons",@sprites["progress"].x-28,@sprites["progress"].y-6,0,34*$game_variables[PBOX_VARIABLES[1]][currentStep][0],34,34])
+    # Draw Task Icons
+    progress.push(["Graphics/UI/"+getDarkModeFolder+"/Pokemon Box/overlay_progress_small",@sprites["progress"].x,@sprites["progress"].y,0,0,-1,-1])
+    progress.push(["Graphics/UI/"+getAccentFolder+"/summaryEggBar_small",@sprites["progress"].x+8,@sprites["progress"].y+4,0,0,(shadowfract*1.98).floor,-1])
+    progress.push(["Graphics/UI/Pokemon Box/icons",@sprites["progress"].x-28,@sprites["progress"].y-6,0,34*$game_variables[PBOX_VARIABLES[1]][currentStep][0],34,34])
+    progress.push(["Graphics/UI/Pokemon Box/icon_"+@icons[stepID],@sprites["progress_icon"].x,@sprites["progress_icon"].y,0,0,-1,-1])
+    # Draw Time Left graphics
+    progressTime.push(["Graphics/UI/"+getAccentFolder+"/summaryEggBar",@sprites["progresstime"].x+8,@sprites["progresstime"].y+4,0,0,(shadowfract2*2.48).floor,-1])
       progressTime.push(["Graphics/UI/Pokemon Box/icon_clock",@sprites["progresstime"].x-28,@sprites["progresstime"].y-6,0,0,-1,-1])
     x = 116 - ([(boxItems.length - 1),4].min * 24)
     for i in boxItems
@@ -545,11 +506,11 @@ class PokemonBoxScene
 
     textpos=[
        [_INTL("{1}",taskname),(Graphics.width/4)-14,4,2,numberbase,numbershadow],
-       [_INTL("{1}/{2}",[taskstatus,taskstatus2].min,taskstatus2),(Graphics.width/4)-14+15,40,2,base2,shadow2,true],
+       [_INTL("{1}/{2}",[taskstatus,taskstatus2].min,taskstatus2),(Graphics.width/4)-39+15,40,2,base2,shadow2,true],
     ]
     textposTime=[
-       [_INTL("Time Remaning"),(Graphics.width/4),298,2,baseColor,shadowColor],
-       [_INTL("{1}",pbTimeEventRemainingTime(PBOX_VARIABLES[3])),(Graphics.width/4)+15,334,2,base2,shadow2,true],
+       [_INTL("Time Remaning"),(Graphics.width/4),294,2,baseColor,shadowColor],
+       [_INTL("{1}",pbTimeEventRemainingTime(PBOX_VARIABLES[3])),(Graphics.width/4)+15,330,2,base2,shadow2,true],
     ]
     pbSetSystemFont(@sprites["overlayTask"].bitmap)
     pbSetSystemFont(@sprites["overlayTime"].bitmap)
@@ -721,9 +682,10 @@ class PokemonBoxScene
   def changeBoxTask
     maxtimes = ($game_variables[PBOX_VARIABLES[1]].length/4).floor - 1
     availabletimes = maxtimes - $game_variables[PBOX_VARIABLES[4]]
+    extratext = (taskstatus==0) ? "" : _INTL(" Any progress done on this one will be lost.")
     if $game_variables[PBOX_VARIABLES[4]]>=maxtimes
       Kernel.pbMessage(_INTL("You can't change this task any longer."))
-    elsif Kernel.pbConfirmMessage(_INTL("Are you sure you want to change this task? You can change it {1} times. Any progress done on this one will be lost.",availabletimes))
+    elsif Kernel.pbConfirmMessage(_INTL("Are you sure you want to change this task? You can change it {1} times.{2}",availabletimes,extratext))
       $game_variables[PBOX_VARIABLES[4]]+=1
       refreshTask
     end

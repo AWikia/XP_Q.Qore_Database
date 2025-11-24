@@ -46,7 +46,8 @@ class CommandMenuDisplay
     @display=nil
     if PokeBattle_SceneConstants::USECOMMANDBOX
       @display=IconSprite.new(0,Graphics.height-96,viewport)
-      @display.setBitmap("Graphics/UI/Battle/overlay_command")
+      darksuffix= dark ? "_dark" : ""
+      @display.setBitmap("Graphics/UI/Battle/overlay_command"+darksuffix)
     end
     @window=Window_CommandPokemon.newWithSize([],
        Graphics.width-240,Graphics.height-96,240,96,viewport)
@@ -230,7 +231,8 @@ class FightMenuDisplay
     @display=nil
     if PokeBattle_SceneConstants::USEFIGHTBOX
       @display=IconSprite.new(0,Graphics.height-96,viewport)
-      @display.setBitmap("Graphics/UI/Battle/overlay_fight")
+      darksuffix= dark ? "_dark" : ""
+      @display.setBitmap("Graphics/UI/Battle/overlay_fight"+darksuffix)
     end
     @window=Window_CommandPokemon.newWithSize([],0,Graphics.height-96,320,96,viewport)
     @window.columns=2
@@ -549,7 +551,7 @@ class PokemonTaskDataBox < SpriteWrapper
   attr_accessor :disappearing
   attr_reader :animatingHP
 
-  def initialize(oldamount=0,maxamount=0,taskname="Task",image="image.png",viewport=nil)
+  def initialize(oldamount=0,maxamount=0,taskname="Task",image="image.png",rewardimage=nil,viewport=nil)
     super(viewport)
     @frame=0
     @showhp=false
@@ -566,6 +568,7 @@ class PokemonTaskDataBox < SpriteWrapper
     @taskname=taskname
     @oldamount=oldamount
     @maxamount=maxamount
+    @rewardimage=rewardimage
     # Considers each icon to be 34x34
     if image.is_a?(Array)
       @imagename=image[0]
@@ -574,13 +577,28 @@ class PokemonTaskDataBox < SpriteWrapper
       @imagename=image
       @imageindex=0      
     end
+    if rewardimage
+      suffix="_2"
+      @barwidth=122
+    else
+      suffix=""
+      @barwidth=162
+    end
+    # Considers each icon to be 64x48
+    if rewardimage.is_a?(Array)
+      @rewardimagename=rewardimage[0]
+      @rewardimageindex=rewardimage[1]
+    else
+      @rewardimagename=rewardimage
+      @rewardimageindex=0      
+    end
     @currentStep=PokemonBoxScene.new.currentStep
-        @databox=AnimatedBitmap.new("Graphics/UI/Battle/databox_task")
+        @databox=AnimatedBitmap.new("Graphics/UI/Battle/databox_task"+suffix)
         @spriteX=PokeBattle_SceneConstants::FOEBOX_X
         @spriteY=PokeBattle_SceneConstants::FOEBOX_Y
 				@showhp=true
         @dark=true
-    @hpbar=AnimatedBitmap.new(_INTL("Graphics/UI/Battle/overlay_progress"))
+    @hpbar=AnimatedBitmap.new(_INTL("Graphics/UI/Battle/overlay_progress"+suffix))
     @contents=BitmapWrapper.new(@databox.width,@databox.height)
     if @dark
       @numberbitmap=AnimatedBitmap.new(_INTL("Graphics/UI/icon_numbers_white"))
@@ -669,17 +687,17 @@ class PokemonTaskDataBox < SpriteWrapper
     ]
     imagepos=[]
     imagepos.push([@imagename,18,24,0,34*@imageindex,34,34])
+    imagepos.push([@rewardimagename,170,16,0,48*@rewardimageindex,64,48]) if @rewardimage
     pbDrawTextPositions(self.bitmap,textpos)
     pbSetSmallFont(self.bitmap)
-    @extra = 162
+    pbDrawImagePositions(self.bitmap,imagepos)
     if @showhp
-      pbDrawNumber(self.hp,self.bitmap,@spritebaseX+84,54,1)
-      pbDrawNumber(-1,self.bitmap,@spritebaseX+84,54)   # / char
-      pbDrawNumber(maxstatus,self.bitmap,@spritebaseX+100,54,0)
+      pbDrawNumber(self.hp,self.bitmap,@spritebaseX+100,54,1)
+      pbDrawNumber(-1,self.bitmap,@spritebaseX+100,54)   # / char
+      pbDrawNumber(maxstatus,self.bitmap,@spritebaseX+116,54,0)
     end
     textpos=[]
     pbDrawTextPositions(self.bitmap,textpos)
-    pbDrawImagePositions(self.bitmap,imagepos)
 
     # Draw HP bar
     hpgauge = (maxstatus==0) ? 0 : self.hp*@hpbar.bitmap.width/maxstatus
@@ -699,16 +717,17 @@ class PokemonTaskDataBox < SpriteWrapper
   def update
     super
    # @frame+=1
+    @oldframe = @frame
     @frame = (@frame+1)%24
     if @animatingHP
       if @currenthp<@endhp
-        @currenthp+=[1,(maxstatus/162).floor].max
+        @currenthp+=[1,(maxstatus/@barwidth).floor].max
         @currenthp=@endhp if @currenthp>@endhp
       elsif @currenthp>@endhp
-        @currenthp-=[1,(maxstatus/162).floor].max
+        @currenthp-=[1,(maxstatus/@barwidth).floor].max
         @currenthp=@endhp if @currenthp<@endhp
       end
-      pbSEPlay("Battle popup progress") if @frame%5==0 # pbPlayCursorSE()
+      pbSEPlay("Battle popup progress") if @oldframe%5==3 # pbPlayCursorSE()
       refresh
       if @currenthp==@maxamount
         if @expflash==0
@@ -2318,7 +2337,8 @@ end
     @sprites["backgroundbox"].z=89
     @sprites["backgroundbox"].bitmap.fill_rect(0,0,@sprites["backgroundbox"].bitmap.width,@sprites["backgroundbox"].bitmap.height,clr)
     $isDarkMessage=isDarkColor(clr)
-    pbAddSprite("messagebox",0,Graphics.height-96,"Graphics/UI/Battle/overlay_message",@viewport)
+    darksuffix= $isDarkMessage ? "_dark" : ""
+    pbAddSprite("messagebox",0,Graphics.height-96,"Graphics/UI/Battle/overlay_message"+darksuffix,@viewport)
     @sprites["messagebox"].z=90
     @sprites["helpwindow"]=Window_UnformattedTextPokemon.newWithSize("",0,0,32,32,@viewport)
     @sprites["helpwindow"].visible=false
@@ -2528,9 +2548,9 @@ end
     end
   end
   
-  def pbCreatePopUp(oldamount=0,newamount=0,maxamount=0,taskname="Task",image="image.png")
+  def pbCreatePopUp(oldamount=0,newamount=0,maxamount=0,taskname="Task",image="image.png",rewardimage=nil)
     if oldamount != newamount
-      sprite=PokemonTaskDataBox.new(oldamount,maxamount,taskname,image,@viewport)
+      sprite=PokemonTaskDataBox.new(oldamount,maxamount,taskname,image,rewardimage,@viewport)
       sprite.appear
       while sprite.appearing
         pbGraphicsUpdate
@@ -2564,12 +2584,11 @@ end
   def pbCheckEvents
     # Pokemon Box
     if $PokemonBag.pbQuantity(:POKEMONBOX)>0 # Avoid crashes as the first one 
-      currentStep=PokemonBoxScene.new.currentStep
+      box = PokemonBoxScene.new
+      currentStep=box.currentStep
       oldtaskstatus=$game_variables[PBOX_VARIABLES[5]]
       step = $game_variables[PBOX_VARIABLES[1]][currentStep][0]
-      taskstatus=$PokemonGlobal.pokebox[step] - $game_variables[PBOX_VARIABLES[1]][currentStep][1]
-      taskstatus2=$game_variables[PBOX_VARIABLES[1]][currentStep][2]
-      pbCreatePopUp($game_variables[PBOX_VARIABLES[5]],taskstatus,taskstatus2,_INTL("Pokémon Box"),["Graphics/UI/Pokemon Box/icons",step])
+      pbCreatePopUp($game_variables[PBOX_VARIABLES[5]],box.taskstatus,box.taskstatus2,_INTL("Pokémon Box"),["Graphics/UI/Pokemon Box/icons",step],"Graphics/UI/Pokemon Box/icon_"+box.icons[box.stepID])
     end
     # End
     # Mapped Events

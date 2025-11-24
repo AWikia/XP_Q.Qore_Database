@@ -1402,12 +1402,7 @@ Events.onStepTaken+=proc{
 
 Events.onStepTaken+=proc{
   # Dark Mode
-  if ($BORDERS!=getBorders)
-    MessageConfig.pbSetSpeechFrame("Graphics/Windowskins/"+getDarkModeFolder+"/"+$SpeechFrames[$PokemonSystem.textskin])
-    MessageConfig.pbSetSystemFrame("Graphics/Windowskins/"+getDarkModeFolder+"/"+$TextFrames[$PokemonSystem.textskin])
-    $BORDERS=getBorders
-    setScreenBorderName($BORDERS[$PokemonSystem.bordergraphic])
-  end
+  updateWindowSkin
   # Dark Mode End
 }
 

@@ -996,12 +996,7 @@ end
 
 def Kernel.pbMessage(message,commands=nil,cmdIfCancel=0,skin=nil,defaultCmd=0,&block)
   # Dark Mode
-  if ($BORDERS!=getBorders)
-    MessageConfig.pbSetSpeechFrame("Graphics/Windowskins/"+getDarkModeFolder+"/"+$SpeechFrames[$PokemonSystem.textskin])
-    MessageConfig.pbSetSystemFrame("Graphics/Windowskins/"+getDarkModeFolder+"/"+$TextFrames[$PokemonSystem.textskin])
-    $BORDERS=getBorders
-    setScreenBorderName($BORDERS[$PokemonSystem.bordergraphic])
-  end
+  updateWindowSkin
   # Dark Mode End
   ret=0
   msgwindow=Kernel.pbCreateMessageWindow(nil,skin)

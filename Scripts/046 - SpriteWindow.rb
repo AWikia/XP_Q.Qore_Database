@@ -1,10 +1,10 @@
 ﻿module MessageConfig
 # in Graphics/Windowskins/ (specify empty string to use the default windowskin)
   WindowOpacity        = 255
-  TextSkinName         = "Skin0"
-  ChoiceSkinName       = "Choice0"
+  TextSkinName         = "000"
+  ChoiceSkinName       = "000"
   # Display name of the first Windowskin
-  TextSkinDisplayName  = "Purple"
+  TextSkinDisplayName  = "Standard"
 # FontName             = "Mpisto U2019 Condensed Medium"
   FontName             = "Power Light"
   FontNameBold         = "Power"

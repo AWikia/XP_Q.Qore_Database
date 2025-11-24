@@ -1088,7 +1088,7 @@ class Interpreter
     # Change windowskin file name
     for i in 0...$SpeechFrames.length
       if $SpeechFrames[i]==@parameters[0]
-        $PokemonSystem.textskin=i
+        $PokemonSystem.newtextskin=i
         MessageConfig.pbSetSpeechFrame("Graphics/Windowskins/"+getDarkModeFolder+"/"+$SpeechFrames[i])
         return true
       end

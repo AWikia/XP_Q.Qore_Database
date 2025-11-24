@@ -246,241 +246,94 @@ end
 
 ####################
 #
-# 2 more colors
-=begin
-  "color25",
-  "color26"
-=end
-
-# Old Skin Frames
-=begin
-  "choice 2",
-  "choice 3",
-  "choice 4",
-  "choice 5",
-  "choice 6",
-  "choice 7",
-  "choice 8",
-  "choice 9",
-  "choice 10",
-  "choice 11",
-  "choice 12",
-  "choice 13",
-  "choice 14",
-  "choice 15",
-  "choice 16",
-  "choice 17",
-  "choice 18",
-  "choice 19",
-  "/choice 20",
-  "choice 21",
-  "choice 22",
-  "choice 23",
-  "choice 24",
-  "choice 25",
-  "choice 26",
-  "choice 27",
-  "choice 28"
-
-  
-  MessageConfig::ChoiceSkinName, # Default: choice 1
-  "chat2",
-  "chat3",
-  "chat4",
-  "chat5",
-  "chat6",
-  "chat7",
-  "chat8",
-  "chat9",
-  "chat10",
-  "chat11",
-  "chat12",
-  "chat13"  
-  "color2",
-  "color3",
-  "color4",
-  "color5",
-  "color6",
-  "color7",
-  "color8",
-  "color9",
-  "color10",
-  "color11",
-  "color12",
-  "color13",
-  "color14",
-  "color15",
-  "color16",
-  "color17",
-  "color18",
-  "color19",
-  "color20",
-  "color21",
-  "color22",
-  "color23",
-  "color24"
-
-=end
-
-#####################
-#
 # Stores game options
 # Default options are at the top of script section SpriteWindow.
 
   $SpeechFrames=[
   # Q.Qore
   MessageConfig::TextSkinName, # Default: speech hgss 1
-  "Skin1",
-  "Skin2",
-  "Skin3",
-  "Skin4",
-  "Skin5",
-  "Skin6",
-  "Skin7",
-  # Blandy Blush Sada
-  "Skin8",
-  # GSC Style
-  "Skin9",
-  # HGSS Style
-  "Skin10",
-  "Skin11",
-  "Skin12",
-  "Skin13",
-  "Skin14",
-  "Skin15",
-  "Skin16",
-  "Skin17",
-  "Skin18",
-  # DP Style
-  "Skin19",
-  "Skin20",
-  # Other
-  "Skin21",
-  "Skin22",
-  "Skin23",
-  "Skin24",
-  "Skin25",
-  ['Skin26','Skin26_1','Skin26_2','Skin26_3','Skin26_4','!Skin26_5'][QQORECHANNEL],
-  "Skin27",
-  "Skin28",
-  "Skin29",
-  ['Skin30','Skin30_1','Skin30_2','Skin30_3'][pbGetSeason],
-  "!Skin31",
-  "!Skin32",
-  (pbGetCountry() == 0x7A rescue nil) ? "!Skin33" : "!Skin33_1",
-  "!Skin34",
-  "!Skin35",
-  ['Skin36','Skin36_1','Skin36_2','Skin36_3','Skin36_4','!Skin36_5'][QQORECHANNEL],
-  ['Skin37','Skin37_1','Skin37_2','Skin37_3','Skin37_4','!Skin37_5'][QQORECHANNEL],
-  "Skin38",
-  "Skin39",
-  "Skin40",
-  "Skin41",
-  "Skin42",
+  "001",
+  "002",
+  "003",
+  "004",
+  "005",
+  "006",
+  "007",
+  "008",
+  "009",
+  "010",
+  "011",
+  "012",
+  ['013','013_1','013_2','013_3','013_4','!013_5'][QQORECHANNEL],
+  ['014','014_1','014_2','014_3'][pbGetSeason],
+  "!015",
+  "!016",
+  "!017",
+  "!018",
+  "!019",
+  "020",
+  "021",
+  "022",
+  "023",
+  "024",
 ]
 
 $TextFrames=[
   # Q.Qore
   MessageConfig::ChoiceSkinName, # Default: choice 1
-  "Choice1",
-  "Choice2",
-  "Choice3",
-  "Choice4",
-  "Choice5",
-  "Choice6",
-  "Choice7",
-  # Blandy Blush Sada
-  "Choice8",
-  # GSC Style
-  "Choice9",
-  # HGSS Style
-  "Choice10",
-  "Choice11",
-  "Choice12",
-  "Choice13",
-  "Choice14",
-  "Choice15",
-  "Choice16",
-  "Choice17",
-  "Choice18",
-  # DP Style
-  "Choice19",
-  "Choice20",
-  # Other
-  "Skin21",
-  "Skin22",
-  "Skin23",
-  "Skin24",
-  "Skin25",
-  ['Choice26','Choice26_1','Choice26_2','Choice26_3','Choice26_4','!Choice26_5'][QQORECHANNEL],
-  "Choice27",
-  "Choice28",
-  "Choice29",
-  ['Choice30','Choice30_1','Choice30_2','Choice30_3'][pbGetSeason],
-  "!Choice31",
-  "!Choice32",
-  (pbGetCountry() == 0x7A rescue nil) ? "!Choice33" : "!Choice33_1",
-  "!Choice34",
-  "!Choice35",
-  ['Choice36','Choice36_1','Choice36_2','Choice36_3','Choice36_4','!Choice36_5'][QQORECHANNEL],
-  ['Choice37','Choice37_1','Choice37_2','Choice37_3','Choice37_4','!Choice37_5'][QQORECHANNEL],
-  "Choice38",
-  "Choice39",
-  "Choice40",
-  "Choice41",
-  "Choice42",
+  "001",
+  "002",
+  "003",
+  "004",
+  "005",
+  "006",
+  "007",
+  "008",
+  "009",
+  "010",
+  "011",
+  "012",
+  ['013','013_1','013_2','013_3','013_4','!013_5'][QQORECHANNEL],
+  ['014','014_1','014_2','014_3'][pbGetSeason],
+  "!015",
+  "!016",
+  "!017",
+  "!018",
+  "!019",
+  "020",
+  "021",
+  "022",
+  "023",
+  "024",
 ]
 
   $SpeechFramesNames=[
   # Q.Qore
   MessageConfig::TextSkinDisplayName, # Default: speech hgss 1
-  _INTL("Red"),
   _INTL("Blue"),
-  _INTL("Orange"),
   _INTL("Green"),
-  _INTL("Gray"),
-  _INTL("Blue-Gray"),
-  _INTL("Underground"),
-  # Blandy Blush Sada
-  _INTL("Candy"),
-  # GSC Style
-  _INTL("Retro"),
-  # HGSS Style
-  _INTL("HeartGold"),
-  _INTL("SoulSilver"),
-  _INTL("Light Red"),
-  _INTL("Light Blue"),
-  _INTL("Light Green"),
-  _INTL("Light Orange"),
-  _INTL("Light Purple"),
-  _INTL("Dark Forest"),
-  _INTL("Air Mail"),
-  # DP Style
-  _INTL("Dark Blue"),
-  _INTL("Poké Ball"),
-  # Other
-  _INTL("RPG Maker XP"),
-  _INTL("RPG Maker VX"),
-  _INTL("RPG Maker VX Ace"),
-  _INTL("RPG Maker MV"),
-  _INTL("RPG Maker MZ"),
-  _INTL("Channel-Aware"),
-  _INTL("Green-Gray"),
-  _INTL("Pink"),
+  _INTL("Orange"),
+  _INTL("Purple"),
+  _INTL("Red"),
+  _INTL("Yellow"),
   _INTL("Turquoise"),
+  _INTL("Pink"),
+  _INTL("Blue-Gray"),
+  _INTL("Green-Gray"),
+  _INTL("Underground"),
+  _INTL("Poké Ball"),
+  _INTL("Channel-Aware"),
   _INTL("Season-Aware"),
   _INTL("Pikachu and Eevee"),
   _INTL("Blue-mix"),
-  (pbGetCountry() == 0x7A rescue nil) ? _INTL("Light Red and Green") : _INTL("Light Red and Blue"),
+  _INTL("Red-mix"),
   _INTL("Four Seasons"),
   _INTL("Pokémon Quadruplet"),
-  _INTL("Retro Channel-Aware"),
-  _INTL("Light Channel-Aware"),
-  _INTL("Translucent Red"),
-  _INTL("Translucent Green"),
-  _INTL("Translucent Blue"),
-  _INTL("Translucent Yellow"),
   _INTL("Translucent Clear"),
+  _INTL("Translucent Blue"),
+  _INTL("Translucent Green"),
+  _INTL("Translucent Red"),
+  _INTL("Translucent Yellow"),
 ]
 
 
@@ -527,7 +380,7 @@ module MessageConfig
     if !$PokemonSystem
       return pbResolveBitmap("Graphics/Windowskins/"+getDarkModeFolder+"/"+MessageConfig::ChoiceSkinName)||""
     else
-      return pbResolveBitmap("Graphics/Windowskins/"+getDarkModeFolder+"/"+$TextFrames[$PokemonSystem.textskin])||""
+      return pbResolveBitmap("Graphics/Windowskins/"+getDarkModeFolder+"/"+$TextFrames[$PokemonSystem.newtextskin])||""
     end
   end
 
@@ -535,7 +388,7 @@ module MessageConfig
     if !$PokemonSystem
       return pbResolveBitmap("Graphics/Windowskins/"+getDarkModeFolder+"/"+MessageConfig::TextSkinName)||""
     else
-      return pbResolveBitmap("Graphics/Windowskins/"+getDarkModeFolder+"/"+$SpeechFrames[$PokemonSystem.textskin])||""
+      return pbResolveBitmap("Graphics/Windowskins/"+getDarkModeFolder+"/"+$SpeechFrames[$PokemonSystem.newtextskin])||""
     end
   end
 
@@ -565,7 +418,8 @@ class PokemonSystem
   attr_accessor :battlestyle
   attr_accessor :battlemode
   attr_accessor :frame
-  attr_accessor :textskin
+  attr_accessor :textskin   # FIXME: Remove this one, used for the 25H2 compatibility mode
+  attr_accessor :newtextskin
   attr_accessor :font
   attr_accessor :screensize
   attr_accessor :language
@@ -587,7 +441,6 @@ class PokemonSystem
   attr_accessor :darkmode
   attr_accessor :darkmodestart
   attr_accessor :darkmodeend
-  attr_accessor :threecolorbar
   attr_accessor :enableshading
   attr_accessor :textskincolors
   attr_accessor :battledif
@@ -603,6 +456,7 @@ class PokemonSystem
     @battlemode       = 1   # Battle style (0=switch, 1=set)
     @frame            = 0   # Default window frame (see also $TextFrames)
     @textskin         = 0   # Speech frame
+    @newtextskin      = 0   # Speech frame
     @font             = 0   # Font (see also $VersionStyles)
     @screensize       = 0   # 0=half size, 1=full size, 2=double size and was ((DEFAULTSCREENZOOM.floor).to_i)
     @border           = 0   # Screen border (0=off, 1=on)
@@ -624,7 +478,6 @@ class PokemonSystem
     @darkmode         = 0   # Theme Mode (0 = Light, 1 = Dark)
     @darkmodestart    = 19  # Scheduled Dark Mode Start
     @darkmodeend      = 7   # Scheduled Dark Mode End
-    @threecolorbar    = 0   # Three Color Progress Bar
     @enableshading    = 1   # Outdoor Map Shading
     @textskincolors   = 0   # Text Skin Color Scheme (0=Standard, 1=Colors, 2=CMYK, 3=Vintage)
     @battledif        = 0   # Battle Difficulty
@@ -651,6 +504,10 @@ end
   
   def textskin
     return (!@textskin) ? 0 : @textskin
+  end
+
+  def newtextskin
+    return (!@newtextskin) ? 0 : @newtextskin
   end
 
   def border
@@ -719,12 +576,7 @@ end
 
   def darkmodeend
     return (!@darkmodeend) ? 7 : @darkmodeend
-  end    
-
-  
-  def threecolorbar
-    return (!@threecolorbar) ? 0 : @threecolorbar
-  end    
+  end     
 
   def enableshading
     return (!@enableshading) ? 1 : @enableshading
@@ -773,6 +625,11 @@ There are different modes:
 
 =begin
 # Old Settings
+      EnumOption.new(_INTL("Progress Bar Display"),[_INTL("2-colored"),_INTL("3-colored")],
+        proc { $PokemonSystem.threecolorbar },
+        proc {|value| $PokemonSystem.threecolorbar = value },
+        _INTL("Sets the amount of colors to be shown in Progress bars found in Summary Screens. Choice between 2 and 3 -colored")
+      ),
        NumberOption.new(_INTL("Selects Color"),1,$TextFrames.length,
           proc { $PokemonSystem.frame },
           proc {|value|
@@ -845,11 +702,6 @@ There are different modes:
           proc { $PokemonSystem.temps },
           proc {|value| $PokemonSystem.temps = value },
           _INTL("Sets the way Temperature is shown on the Advanced Information section of the Summary Screen. Choice between Celsius and Fahrenheit.")
-        ),
-        EnumOption.new(_INTL("Progress Bar Display"),[_INTL("2-colored"),_INTL("3-colored")],
-          proc { $PokemonSystem.threecolorbar },
-          proc {|value| $PokemonSystem.threecolorbar = value },
-          _INTL("Sets the amount of colors to be shown in Progress bars found in Summary Screens. Choice between 2 and 3 -colored")
         ),
         EnumOption.new(_INTL("Trophy Notifications"),[_INTL("On"),_INTL("Off")],
            proc { $PokemonSystem.vrtrophynotif },
@@ -1032,9 +884,9 @@ There are different modes:
           _INTL("Sets the hour that will disable the Dark Mode when System Theme is set to Custom.")
        ),
          NumberOption.new(_INTL("Text Skin"),1,$SpeechFrames.length,
-           proc { $PokemonSystem.textskin },
+           proc { $PokemonSystem.newtextskin },
            proc {|value| 
-              $PokemonSystem.textskin=value
+              $PokemonSystem.newtextskin=value
               MessageConfig.pbSetSpeechFrame("Graphics/Windowskins/"+getDarkModeFolder+"/"+$SpeechFrames[value])
               MessageConfig.pbSetSystemFrame("Graphics/Windowskins/"+getDarkModeFolder+"/"+$TextFrames[value])
               @sprites["header"].windowskin=nil
@@ -1107,7 +959,7 @@ There are different modes:
 
   def pbOptions
     oldSystemSkin = $PokemonSystem.frame      # Menu
-    oldTextSkin   = $PokemonSystem.textskin   # Speech
+    oldTextSkin   = $PokemonSystem.newtextskin   # Speech
     oldAccent   = $PokemonSystem.accentcolor   # Speech
     oldmode = isDarkMode?
     #    oldFont       = $PokemonSystem.font
@@ -1124,10 +976,10 @@ There are different modes:
            for i in 0...@PokemonOptions.length
              @PokemonOptions[i].set(@sprites["option"][i])
            end
-           if $PokemonSystem.textskin!=oldTextSkin
+           if $PokemonSystem.newtextskin!=oldTextSkin
              @sprites["textbox"].setSkin(MessageConfig.pbGetSpeechFrame())
              @sprites["textbox"].width = @sprites["textbox"].width  # Necessary evil
-             oldTextSkin = $PokemonSystem.textskin
+             oldTextSkin = $PokemonSystem.newtextskin
            end
            if $PokemonSystem.frame!=oldSystemSkin
              @sprites["option"].setSkin(MessageConfig.pbGetSystemFrame())
@@ -1137,8 +989,8 @@ There are different modes:
             oldAccent   = $PokemonSystem.accentcolor   # Speech
           end
           if isDarkMode? != oldmode
-              MessageConfig.pbSetSpeechFrame("Graphics/Windowskins/"+getDarkModeFolder+"/"+$SpeechFrames[$PokemonSystem.textskin])
-              MessageConfig.pbSetSystemFrame("Graphics/Windowskins/"+getDarkModeFolder+"/"+$TextFrames[$PokemonSystem.textskin])
+              MessageConfig.pbSetSpeechFrame("Graphics/Windowskins/"+getDarkModeFolder+"/"+$SpeechFrames[$PokemonSystem.newtextskin])
+              MessageConfig.pbSetSystemFrame("Graphics/Windowskins/"+getDarkModeFolder+"/"+$TextFrames[$PokemonSystem.newtextskin])
              @sprites["textbox"].setSkin(MessageConfig.pbGetSpeechFrame())
              @sprites["textbox"].width = @sprites["textbox"].width  # Necessary evil
              oldmode = isDarkMode?

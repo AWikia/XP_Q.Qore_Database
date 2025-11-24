@@ -3010,6 +3010,7 @@ class PokeBattle_Battle
       $PokemonGlobal.pokebox[11]+=1
       @turncount+=1
     end
+    $PokemonGlobal.pokebox[11]+=1 if @decision != 3
     return pbEndOfBattle(canlose)
   end
 

@@ -3666,6 +3666,7 @@ end
        pokemon.spatk-oldspatk,
        pokemon.spdef-oldspdef,
        pokemon.speed-oldspeed))
+    $PokemonGlobal.pokebox[40]+=[(pokemon.totalhp-oldtotalhp) + (pokemon.attack-oldattack) + (pokemon.defense-olddefense) + (pokemon.spatk-oldspatk) + (pokemon.spdef-oldspdef) + (pokemon.speed-oldspeed),0].max
     pbTopRightWindow(_INTL("Max. HP<r>{1}\r\nAttack<r>{2}\r\nDefense<r>{3}\r\nSp. Atk<r>{4}\r\nSp. Def<r>{5}\r\nSpeed<r>{6}",
        pokemon.totalhp,pokemon.attack,pokemon.defense,pokemon.spatk,pokemon.spdef,pokemon.speed))
   end

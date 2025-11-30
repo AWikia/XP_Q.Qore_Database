@@ -1,5 +1,5 @@
 #===============================================================================
-# * Ultra Beasts, Legendary and Mythical Pokémons
+# * Ultra Beasts, Legendary, Mythical, Paradox and Best Skill Pokémons
 #===============================================================================
 
 # Returns true if the Pokémon is an Ultra Beast
@@ -165,10 +165,113 @@ def isSpecial?(species)
 
 end
 
+# Returns true if the Pokémon is Paradox
+def isParadox?(species)
+  return isConst?(species.species,PBSpecies,:GREATTUSK) ||
+         isConst?(species.species,PBSpecies,:SCREAMTAIL) ||
+         isConst?(species.species,PBSpecies,:BRUTEBONNET) ||
+         isConst?(species.species,PBSpecies,:FLUTTERMANE) ||
+         isConst?(species.species,PBSpecies,:SLITHERWING) ||
+         isConst?(species.species,PBSpecies,:SANDYSHOCKS) ||
+         isConst?(species.species,PBSpecies,:IRONTREADS) ||
+         isConst?(species.species,PBSpecies,:IRONBUNDLE) ||
+         isConst?(species.species,PBSpecies,:IRONHANDS) ||
+         isConst?(species.species,PBSpecies,:IRONJUGULIS) ||
+         isConst?(species.species,PBSpecies,:IRONMOTH) ||
+         isConst?(species.species,PBSpecies,:IRONTHORNS) ||
+         isConst?(species.species,PBSpecies,:ROARINGMOON) ||
+         isConst?(species.species,PBSpecies,:IRONVALIANT) ||
+         isConst?(species.species,PBSpecies,:KORAIDON) ||
+         isConst?(species.species,PBSpecies,:MIRAIDON) ||
+         isConst?(species.species,PBSpecies,:WALKINGWAKE) ||
+         isConst?(species.species,PBSpecies,:IRONLEAVES) ||
+         isConst?(species.species,PBSpecies,:GOUGINGFIRE) ||
+         isConst?(species.species,PBSpecies,:RAGINGBOLT) ||
+         isConst?(species.species,PBSpecies,:IRONBOULDER) ||
+         isConst?(species.species,PBSpecies,:IRONCROWN)
+end
+
+
+# Returns true if the Pokémon is a Special Black Plus Species
+def isPlus?(species)
+  return isConst?(species.species,PBSpecies,:DIGIPLUS) ||
+         isConst?(species.species,PBSpecies,:VODAPLUS) ||
+         isConst?(species.species,PBSpecies,:JUMPLUS) ||
+         isConst?(species.species,PBSpecies,:FRIKIPLUS) ||
+         isConst?(species.species,PBSpecies,:JELLYPLUS) ||
+         isConst?(species.species,PBSpecies,:CANDYCRUSHPLUS) ||
+         isConst?(species.species,PBSpecies,:NICKPLUS) ||
+         isConst?(species.species,PBSpecies,:PATROPLUS) ||
+         isConst?(species.species,PBSpecies,:NORTONPLUS) ||
+         isConst?(species.species,PBSpecies,:MAXPLUS) ||
+         isConst?(species.species,PBSpecies,:ALTERPLUS) ||
+         isConst?(species.species,PBSpecies,:SMIPLUS) ||
+         isConst?(species.species,PBSpecies,:FENPLUS) ||
+         isConst?(species.species,PBSpecies,:SODAPLUS) ||
+         isConst?(species.species,PBSpecies,:FRIENDSPLUS) ||
+         isConst?(species.species,PBSpecies,:MEGAPLUS) ||
+         isConst?(species.species,PBSpecies,:ZAMANPLUS) ||
+         isConst?(species.species,PBSpecies,:SEMANTICPLUS) ||
+         isConst?(species.species,PBSpecies,:PRINGPLUS) ||
+         isConst?(species.species,PBSpecies,:SNAPLUS) ||
+         isConst?(species.species,PBSpecies,:BULBAPLUS) ||
+         isConst?(species.species,PBSpecies,:PYRAMIDPLUS) ||
+         isConst?(species.species,PBSpecies,:SAMPLUS) ||
+         isConst?(species.species,PBSpecies,:DELIABANDAIPLUS) ||
+         isConst?(species.species,PBSpecies,:NINTENPLUS) ||
+         isConst?(species.species,PBSpecies,:TV5PLUS) ||
+         isConst?(species.species,PBSpecies,:ANDROPLUS) ||
+         isConst?(species.species,PBSpecies,:THUNDERPLUS) ||
+         isConst?(species.species,PBSpecies,:ATARPLUS) ||
+         isConst?(species.species,PBSpecies,:DDUOPLUS) ||
+         isConst?(species.species,PBSpecies,:DOFFPLUS) ||
+         isConst?(species.species,PBSpecies,:DFADPLUS) ||
+         isConst?(species.species,PBSpecies,:HEARTPLUS) ||
+         isConst?(species.species,PBSpecies,:MIRAPLUS) ||
+         isConst?(species.species,PBSpecies,:ANDROMANPLUS) ||
+         isConst?(species.species,PBSpecies,:DCROSSPLUS) ||
+         isConst?(species.species,PBSpecies,:SIAXPLUS) ||
+         isConst?(species.species,PBSpecies,:DMTPLUS) ||
+         isConst?(species.species,PBSpecies,:DWTPLUS) ||
+         isConst?(species.species,PBSpecies,:TIVI5PLUS) ||
+         isConst?(species.species,PBSpecies,:DDISCPLUS) ||
+         isConst?(species.species,PBSpecies,:DINTPLUS) ||
+         isConst?(species.species,PBSpecies,:CLIPPLUS) ||
+         isConst?(species.species,PBSpecies,:MSSTARPLUS) ||
+         isConst?(species.species,PBSpecies,:DGITPLUS) ||
+         isConst?(species.species,PBSpecies,:AMPLUS) ||
+         isConst?(species.species,PBSpecies,:MOBILEPLUS) ||
+         isConst?(species.species,PBSpecies,:QQAZANPLUS)
+end
+
+def isPseudoLegendary?(species)
+  return isConst?(species.species,PBSpecies,:DRAGONITE) ||
+         isConst?(species.species,PBSpecies,:TYRANITAR) ||
+         isConst?(species.species,PBSpecies,:SALAMENCE) ||
+         isConst?(species.species,PBSpecies,:METAGROSS) ||
+         isConst?(species.species,PBSpecies,:GARCHOMP) ||
+         isConst?(species.species,PBSpecies,:HYDREIGON) ||
+         isConst?(species.species,PBSpecies,:GOODRA) ||
+         isConst?(species.species,PBSpecies,:KOMMOO) ||
+         isConst?(species.species,PBSpecies,:DRAGAPULT) ||
+         isConst?(species.species,PBSpecies,:BAXCALIBUR) ||
+         isConst?(species.species,PBSpecies,:HYDRA)
+end
+
+
 def isLegendaryMythicalOrUltra?(species)
   return isLegendary?(species) || 
          isMythical?(species)  ||
          isUltraBeast?(species)
+end
+
+
+def isBestSkill?(species)
+  return isLegendaryMythicalOrUltra?(species) ||
+         isParadox?(species) ||
+         isPlus?(species) ||
+         isPseudoLegendary?(species) ||
+         species.isMega? || species.isPrimal?
 end
 
 #===============================================================================

@@ -336,6 +336,80 @@ $TextFrames=[
   _INTL("Translucent Yellow"),
 ]
 
+  $SpeechFrameAliasValues=[ # Maps a modern Skin Setting into Legacy
+  5,  # Standard
+  2,  # Blue
+  4,  # Green
+  3,  # Orange
+  0,  # Purple
+  1,  # Red
+  3,  # Yellow
+  29, # Turqoise
+  28, # Pink
+  6,  # Blue-Gray
+  27, # Green-Gray
+  7,  # Underground
+  20, # Poke Ball
+  26, # Channal-Aware
+  30, # Season-Aware
+  31, # Pikachu and Eevee
+  32, # Blue-Mix
+  1,  # Red-Mix
+  34, # Four Swasons,
+  35, # Pokemon Quadruplet
+  42, # Translucent Clear
+  40, # Translucent Blue
+  39, # Translucent Green
+  38, # Translucent Red
+  41, # Translucent Yellow
+  ]
+  
+  $SpeechFrameAliasValuesLegacy=[ # Maps a legacy Skin Setting into Modern
+  4,  # Purple
+  5,  # Red
+  1,  # Blue,
+  3,  # Orange,
+  2,  # Green,
+  0,  # Gray,
+  9,  # Blue-Gray,
+  11, # Underground
+  8,  # Candy
+  0,  # Retro
+  0,  # HeartGold,
+  0,  # SoulSilver
+  5,  # Light Red,
+  1,  # Light Blue,
+  2,  # Light Green,
+  3,  # Light Orange
+  4,  # Light Purple
+  1,  # Dark Forest
+  0,  # Air Mail
+  9,  # Dark Blue
+  12, # Poké Ball
+  9,  # RPG Maker XP
+  1,  # RPG Maker VX,
+  0,  # RPG Maker VX Ace
+  0,  # RPG Maker MV
+  0,  # RPG Maker MZ
+  13, # Channel-Aware
+  10, # Green-Gray
+  8,  # Pink,
+  7,  # Turquoise
+  14, # Season-Aware
+  15, # Pikachu and Eevee
+  16, # Blue-mix
+  5,  # Light Red and Green (Light Red and Blue outside of Japan)
+  18, # Four Seasons
+  19, # Pokémon Quadruplet
+  13, # Retro Channel-Aware
+  13, # Light Channel-Aware
+  23, # Translucent Red
+  22, # Translucent Green
+  21, # Translucent Blue
+  24, # Translucent Yellow
+  20, # Translucent Clear
+  ]
+
 
 =begin
 $VersionStyles=[
@@ -418,8 +492,8 @@ class PokemonSystem
   attr_accessor :battlestyle
   attr_accessor :battlemode
   attr_accessor :frame
-  attr_accessor :textskin   # FIXME: Remove this one, used for the 25H2 compatibility mode
-  attr_accessor :newtextskin
+  attr_accessor :textskin   # FIXME: Remove this one, used for the 24H2-25H2 compatibility mode
+  attr_accessor :newtextskin  # The definite 26H1 version
   attr_accessor :font
   attr_accessor :screensize
   attr_accessor :language
@@ -455,8 +529,8 @@ class PokemonSystem
     @battlestyle      = 0   # Battle style (0=switch, 1=set)
     @battlemode       = 1   # Battle style (0=switch, 1=set)
     @frame            = 0   # Default window frame (see also $TextFrames)
-    @textskin         = 0   # Speech frame
-    @newtextskin      = 0   # Speech frame
+    @textskin         = 5   # Speech frame
+    @newtextskin      = $SpeechFrameAliasValuesLegacy[@textskin] rescue 0 # Speech frame
     @font             = 0   # Font (see also $VersionStyles)
     @screensize       = 0   # 0=half size, 1=full size, 2=double size and was ((DEFAULTSCREENZOOM.floor).to_i)
     @border           = 0   # Screen border (0=off, 1=on)
@@ -502,12 +576,12 @@ end
     return (!@debugmode) ? 0 : @debugmode
   end
   
-  def textskin
-    return (!@textskin) ? 0 : @textskin
+  def textskin  # Deprecated, exists only for 24H2-25H2 compatibility
+    return (!@textskin) ? 5 : @textskin
   end
 
-  def newtextskin
-    return (!@newtextskin) ? 0 : @newtextskin
+  def newtextskin # Currently assumes to be relative to the old ones, not the expected 0 
+    return (!@newtextskin) ? ($SpeechFrameAliasValuesLegacy[@textskin] rescue 0) : @newtextskin
   end
 
   def border
@@ -887,6 +961,7 @@ There are different modes:
            proc { $PokemonSystem.newtextskin },
            proc {|value| 
               $PokemonSystem.newtextskin=value
+              $PokemonSystem.textskin=$SpeechFrameAliasValues[value] rescue 0
               MessageConfig.pbSetSpeechFrame("Graphics/Windowskins/"+getDarkModeFolder+"/"+$SpeechFrames[value])
               MessageConfig.pbSetSystemFrame("Graphics/Windowskins/"+getDarkModeFolder+"/"+$TextFrames[value])
               @sprites["header"].windowskin=nil

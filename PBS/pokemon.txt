@@ -40565,7 +40565,7 @@ Pokedex=Was found as a microprocessor manfanctuer
 BattlerPlayerY=24
 BattlerEnemyY=28
 BattlerAltitude=0
-Evolutions=
+Evolutions=DINTEL,Item,PRISMSTONE
 [1454]
 Name=G Font
 InternalName=GFONT

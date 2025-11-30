@@ -2085,6 +2085,7 @@ class PokeBattle_Battle
     if !meganame || meganame==""
       meganame=_INTL("Mega {1}",PBSpecies.getName(@battlers[index].pokemon.species))
     end
+    $PokemonGlobal.pokebox[48]+=1 if pbOwnedByPlayer?(@battlers[index].index)
     pbDisplay(_INTL("{1} has Mega Evolved into {2}!",@battlers[index].pbThis,meganame))
     PBDebug.log("[Mega Evolution] #{@battlers[index].pbThis} Mega Evolved")
     side=(pbIsOpposing?(index)) ? 1 : 0
@@ -2123,6 +2124,7 @@ class PokeBattle_Battle
     else
       pbCommonAnimation("MegaEvolution2",@battlers[index],nil)
     end
+    $PokemonGlobal.pokebox[48]+=1 if pbOwnedByPlayer?(@battlers[index].index)
     pbDisplay(_INTL("{1}'s Primal Reversion!\nIt reverted to its primal form!",@battlers[index].pbThis))
     PBDebug.log("[Primal Reversion] #{@battlers[index].pbThis} Primal Reverted")
   end
@@ -2186,13 +2188,15 @@ class PokeBattle_Battle
             @scene.pbWildBattleSuccess
             successbegin=false
           end
+          countboxtask=true
           for j in 0...@party1.length
             next if !@party1[j] || !pbIsOwner?(0,j)
             next if @party1[j].hp<=0 || @party1[j].isEgg?
             haveexpshare=(isConst?(@party1[j].item,PBItems,:EXPSHARE) ||
                           isConst?(@party1[j].itemInitial,PBItems,:EXPSHARE))
             next if !haveexpshare && !@battlers[i].participants.include?(j)
-            pbGainExpOne(j,@battlers[i],partic,expshare,haveexpall,true,!haveexpshare)
+            pbGainExpOne(j,@battlers[i],partic,expshare,haveexpall,true,(countboxtask && !haveexpshare))
+            countboxtask=false if !haveexpshare
           end
           if haveexpall
             showmessage=true
@@ -2251,6 +2255,7 @@ class PokeBattle_Battle
                      isConst?(thispoke.itemInitial,PBItems,:POWERANKLET)
       end
       evgain*=2 if thispoke.pokerusStage>=1 # Infected or cured
+      $PokemonGlobal.pokebox[41]+=evgain if countboxtask
       if evgain>0
         # Can't exceed overall limit
         evgain-=totalev+evgain-PokeBattle_Pokemon::EVLIMIT if totalev+evgain>PokeBattle_Pokemon::EVLIMIT
@@ -2324,7 +2329,7 @@ class PokeBattle_Battle
     newexp=PBExperience.pbAddExperience(thispoke.exp,exp,growthrate)
     exp=newexp-thispoke.exp
     pokeboxexp= ($dbattle && !$PokemonGlobal.partner) ? (exp/2).floor : exp
-    $PokemonGlobal.pokebox[0]+=pokeboxexp if countboxtask
+    $PokemonGlobal.pokebox[0]+=exp if countboxtask
     if exp>0
       if showmessages
         if isOutsider
@@ -2407,6 +2412,7 @@ class PokeBattle_Battle
       if pokemon.moves[i].id==0
         pokemon.moves[i]=PBMove.new(move)
         battler.moves[i]=PokeBattle_Move.pbFromPBMove(self,pokemon.moves[i]) if battler
+        $PokemonGlobal.pokebox[42]+=1
         pbDisplayPaused(_INTL("{1} learned {2}!",pkmnname,movename))
         PBDebug.log("[Learn move] #{pkmnname} learned #{movename}")
         return
@@ -2422,6 +2428,7 @@ class PokeBattle_Battle
           oldmovename=PBMoves.getName(pokemon.moves[forgetmove].id)
           pokemon.moves[forgetmove]=PBMove.new(move) # Replaces current/total PP
           battler.moves[forgetmove]=PokeBattle_Move.pbFromPBMove(self,pokemon.moves[forgetmove]) if battler
+          $PokemonGlobal.pokebox[42]+=1
           pbDisplayPaused(_INTL("1,  2, and... ... ..."))
           pbDisplayPaused(_INTL("Poof!"))
           pbDisplayPaused(_INTL("{1} forgot {2}.",pkmnname,oldmovename))

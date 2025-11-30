@@ -162,7 +162,12 @@ class PokemonGlobalMetadata
             _INTL("Use Multi-hit Moves"),_INTL("Defeat Trainers with Best Skill"),
             _INTL("Use Moves while asleep"),_INTL("Gain Money in Battle"),
             _INTL("Land Not Very Effectiveness"),_INTL("Use Multi-Target Moves"),
-            _INTL("Activate Win Streak Bags"),_INTL("Change Forms in Battle")]
+            _INTL("Activate Win Streak Bags"),_INTL("Change Forms in Battle"),
+            _INTL("Gain Levelup Stat Changes"),_INTL("Gain Effort Values"),
+            _INTL("Learn moves in Battle"),_INTL("Break the Mold"),
+            _INTL("Use Moves with Low Priority"),_INTL("Defeat Pokémon with Best Skill"),
+            _INTL("Restore PP"),_INTL("Use Sound-based Moves"),
+            _INTL("Supercharge Pokémon in Battle"),_INTL("Transform into other Pokémon")]
   end
   def pokeboxNames2
     return [_INTL("Experience Gaining"),_INTL("Pokémon Leveling"),
@@ -184,11 +189,16 @@ class PokemonGlobalMetadata
             _INTL("Multi-hit Move Usage"),_INTL("Skilled Trainer Defeating"),
             _INTL("Moves during Sleep Usage"),_INTL("Money Gaining"),
             _INTL("Not Very Effective Landing"),_INTL("Multi-Target Moves Usage"),
-            _INTL("Win Streak Activation"),_INTL("Form Changing")]
+            _INTL("Win Streak Activation"),_INTL("Form Changing"),
+            _INTL("Levelup stat Gaining"),_INTL("Effort Values Gaining"),
+            _INTL("Move Learning"),_INTL("Mold Breaking"),
+            _INTL("Low Priority Move Usgae"),_INTL("Skilled Pokémon Defeating"),
+            _INTL("PP Restoration"),_INTL("Sund Move Usage"),
+            _INTL("Pokémon Supercharging"),_INTL("Transform Usage")]
   end
 
   def pokeboxDescriptions
-    return [_INTL("Defeat Pokémon to gain Experience. Should 2 Trainer's Pokémon participate, experience is counted by half."),
+    return [_INTL("Defeat Pokémon to gain Experience. Only experience from the first participant will count."),
             _INTL("Fill the experience bar of a Pokémon to level them up."),
             _INTL("Use your moves to defeat opposing Pokémon and progress."),
             _INTL("Use your Poké Balls or the Safari Balls on a Safari Game to Pokémon and capture them to progress."),
@@ -227,7 +237,17 @@ class PokemonGlobalMetadata
             _INTL("Trigger not very effectiveness using your Pokémon's moves to progress."),
             _INTL("Use your Pokémon's moves that hit multiple targets to progress."),
             _INTL("Use up a Win Streak Booster Bag on your Pokémon during Battles that use Win Streak to progress."),
-            _INTL("Change your Pokémon form using uts moves, items and abiilities to progress.")]
+            _INTL("Change your Pokémon form using its moves, items and abiilities to progress."),
+            _INTL("Get stat increases of Base Stata while levelling up a Pokémon to progress."),
+            _INTL("Defeat Pokémon to gain Effort Values. Only efforts from the first participant will count."),
+            _INTL("Learn moves while levelling up or using Sketch or Mimic to progress."),
+            _INTL("Activate an Ability that ignores other Pokémon's abilities to progress."),
+            _INTL("Use your Pokémon's moves with low priority to progress."),
+            _INTL("Defeat Legendary, Mythical Ultra Beast or Supercharged Pokémon to progress."),
+            _INTL("Use your Pokémon's held items or items from the Bag that restore PP to Moves to progress."),
+            _INTL("Use your Pokémon's moves that produce sound to progress."),
+            _INTL("Trigger Mega Evolution, Primal Reversion, Dynamax, Gigantamax or Terastralization to progress."),
+            _INTL("Use your Pokémon's moves, held items or abilities that can transform inro other Pokémon to progress.")]
   end
   
 end

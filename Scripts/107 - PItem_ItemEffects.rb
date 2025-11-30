@@ -475,6 +475,9 @@ ItemHandlers::UseOnPokemon.add(:ORANGEBOX,proc{|item,pokemon,scene|
    next pbHPItem(pokemon,(hp/2).floor,scene)
 })
 
+ItemHandlers::UseOnPokemon.copy(:ORANGEBOX,:RETURNBONUSPOTION)
+
+
 ItemHandlers::UseOnPokemon.add(:BERRYJUICE,proc{|item,pokemon,scene|
    next pbHPItem(pokemon,20,scene)
 })

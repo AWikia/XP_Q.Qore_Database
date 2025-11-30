@@ -914,14 +914,17 @@ def ragefist
       return false if target.hasWorkingItem(:ABILITYSHIELD) || target.pbPartner.hasWorkingAbility(:ASSAULTSPIRIT)
     end
     return false if @battle.pbTerrain==PBBattleTerrains::CINAMENT && !hasWorkingItem(:RODOFSPARROW)
-    return true if hasWorkingAbility(:MOLDBREAKER) ||
-                   hasWorkingAbility(:TERAVOLT) ||
-                   hasWorkingAbility(:TURBOBLAZE) |
-                   pbPartner.hasWorkingAbility(:PHANTOMSPIRIT) ||
-                   pbHasType?(:HEART) ||
-                   pbHasType?(:GLIMSE) ||
-                   @effects[PBEffects::TemporaryMoldBreaker] ||
-                   hasWorkingItem(:LECTROBALL)
+    if hasWorkingAbility(:MOLDBREAKER) ||
+       hasWorkingAbility(:TERAVOLT) ||
+       hasWorkingAbility(:TURBOBLAZE) |
+       pbPartner.hasWorkingAbility(:PHANTOMSPIRIT) ||
+       pbHasType?(:HEART) ||
+       pbHasType?(:GLIMSE) ||
+       @effects[PBEffects::TemporaryMoldBreaker] ||
+       hasWorkingItem(:LECTROBALL)
+      $PokemonGlobal.pokebox[43]+=1  if @battle.pbOwnedByPlayer?(@index)
+      return true
+    end
     return false
   end
 
@@ -1406,6 +1409,7 @@ def ragefist
         end
         self.pbPartner.effects[PBEffects::Disable]=0
         self.pbPartner.effects[PBEffects::DisableMove]=0
+        $PokemonGlobal.pokebox[49]+=1 if @battle.pbOwnedByPlayer?(self.pbPartner.index)
         @battle.pbDisplay(_INTL("{1} transformed into {2}!",self.pbPartner.pbThis,choice.pbThis(true)))
         PBDebug.log("[Pokémon transformed] #{self.pbPartner.pbThis} transformed into #{choice.pbThis(true)}")
       end
@@ -1418,6 +1422,7 @@ def ragefist
       self.pbPartner.effects[PBEffects::Commander]=false
     end
     oldturncount=self.turncount
+    oldbestskill=isBestSkill?(@pokemon)
     neutralizinggas=false
     @battle.scene.pbFainted(self)
     pbInitEffects(false)
@@ -1441,6 +1446,7 @@ def ragefist
     pbOwnSide.effects[PBEffects::LastRoundFainted]=@battle.turncount
     if @battle.pbIsOpposing?(@index)
       $PokemonGlobal.pokebox[2]+=1
+      $PokemonGlobal.pokebox[45]+=1 if oldbestskill
       $PokemonGlobal.pokebox[17]+=1 if oldturncount<2
     end
     @battle.pbDisplayPaused(_INTL("{1} fainted!",pbThis)) if showMessage
@@ -2638,6 +2644,7 @@ def ragefist
         end
         @effects[PBEffects::Disable]=0
         @effects[PBEffects::DisableMove]=0
+        $PokemonGlobal.pokebox[49]+=1 if @battle.pbOwnedByPlayer?(@index)
         @battle.pbDisplay(_INTL("{1} transformed into {2}!",pbThis,choice.pbThis(true)))
         PBDebug.log("[Pokémon transformed] #{pbThis} transformed into #{choice.pbThis(true)}")
       end
@@ -2867,6 +2874,7 @@ def ragefist
           end
           target.effects[PBEffects::Disable]=0
           target.effects[PBEffects::DisableMove]=0
+          $PokemonGlobal.pokebox[49]+=1 if @battle.pbOwnedByPlayer?(target.index)
           @battle.pbDisplay(_INTL("{1} transformed into {2}!",target.pbThis,choice.pbThis(true)))
           PBDebug.log("[Pokémon transformed] #{pbThis} transformed into #{choice.pbThis(true)}")
         end
@@ -2936,6 +2944,7 @@ def ragefist
           end
           user.effects[PBEffects::Disable]=0
           user.effects[PBEffects::DisableMove]=0
+          $PokemonGlobal.pokebox[49]+=1 if @battle.pbOwnedByPlayer?(user.index)
           @battle.pbDisplay(_INTL("{1} transformed into {2}!",user.pbThis,choice.pbThis(true)))
           PBDebug.log("[Pokémon transformed] #{user.pbThis} transformed into #{choice.pbThis(true)}")
         end
@@ -3803,6 +3812,7 @@ def ragefist
       if found.length>0
         choice=(consume) ? found[0] : found[@battle.pbRandom(found.length)]
         pokemove=@pokemon.moves[choice]
+        oldpp=pokemove.pp
         if hasWorkingAbility(:RIPEN)
           pokemove.pp+=20
         else
@@ -3811,6 +3821,7 @@ def ragefist
         pokemove.pp=pokemove.totalpp if pokemove.pp>pokemove.totalpp 
         self.moves[choice].pp=pokemove.pp
         movename=PBMoves.getName(pokemove.id)
+        $PokemonGlobal.pokebox[46]+=(pokemove.pp - oldpp) if @battle.pbOwnedByPlayer?(@index)
         @battle.pbDisplay(_INTL("{1}'s {2} restored {3}'s PP!",pbThis,berryname,movename)) 
         consumed=true
       end
@@ -4567,6 +4578,7 @@ def ragefist
     p+=1 if @battle.pbTerrain==PBBattleTerrains::CINAMENT && thismove.function==0x350
     if @battle.pbOwnedByPlayer?(user.index)
       $PokemonGlobal.pokebox[24]+=1 if p>0
+      $PokemonGlobal.pokebox[44]+=1 if p<0
     end
     if target.hasWorkingAbility(:PROVENDO) &&  thismove.canProtectAgainst? && 
       p>0 && !target.effects[PBEffects::ProtectNegation]
@@ -4991,6 +5003,7 @@ def ragefist
             user.effects[PBEffects::Disable]=0
             user.effects[PBEffects::DisableMove]=0
             user.pbConsumeItem
+            $PokemonGlobal.pokebox[49]+=1 if @battle.pbOwnedByPlayer?(user.index)
             @battle.pbDisplay(_INTL("{1} transformed into {2}!",user.pbThis,choice.pbThis(true)))
             PBDebug.log("[Pokémon transformed] #{user.pbThis} transformed into #{choice.pbThis(true)}")
           end
@@ -6139,6 +6152,7 @@ def ragefist
       $PokemonGlobal.pokebox[23]+=1 if thismove.isOHKO?
       $PokemonGlobal.pokebox[32]+=1 if thismove.pbIsMultiHit
       $PokemonGlobal.pokebox[37]+=1 if thismove.pbIsMultiTarget
+      $PokemonGlobal.pokebox[47]+=1 if thismove.isSoundBased?
     end
     user.lastMoveUsed=thismove.id
     user.lastMoveUsedType=thismove.pbType(thismove.type,user,nil)

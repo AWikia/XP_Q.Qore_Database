@@ -1055,3 +1055,7 @@
 1016,SILVERLEAF,Silver Leaf,Silver Leaves,1,500,"An item to be held by a Pokémon. This mysterious gold leaf, boosts the power of the holder's Moon-type moves.",0,0,0,
 1017,EVENTSRACE,Events Race,Events Races,1,2000,"A race flag. Some events are happy to be restarted in exchange of this flag.",0,0,0,
 1018,CHAMPIONSRACE,Champions Race,Champions Races,1,20000,"A rare champions race flag. Some more-valuable events are happy to be restarted in exchange of this flag.",0,0,0,
+1019,RETURNBONUSGEM,Return Bonus Gem,Return Bonus Gems,1,0,"One of the items found during your break. When held by a Pokémon, this gem will boost the power of a move—but only once.",0,0,10,
+1020,RETURNBONUSPOTION,Return Bonus Potion,Return Bonus Potions,2,0,"One of the items found during your break. When used to a Pokémon, this potion will restore its HP by half of its HP.",1,1,0,
+1021,RETURNBONUSBALL,Return Bonus Ball,Return Bonus Balls,3,0,"One of the items found during your break. When used to catch a Pokémon, this Poké Ball will be more effective to a Pokémon of a species that you didn't caught before.",0,2,4,
+

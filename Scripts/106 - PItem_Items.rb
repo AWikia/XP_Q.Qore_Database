@@ -114,7 +114,7 @@ def pbIsUsableOnRB?(item)
   potions=[:POTION,:SUPERPOTION,:HYPERPOTION,:MEGAPOTION,
            :MAXPOTION,:FULLRESTORE,:CHERRYBOX,:ORANGEBOX,
            :MELONBOX,:CHOCOLATEBOX,:BELLBOX,:ENERGYPOWDER,
-           :ENERGYROOT]
+           :ENERGYROOT,:RETURNBONUSPOTION]
   for i in potions
     return true if isConst?(item,PBItems,i)
   end
@@ -495,6 +495,7 @@ end
 def pbBattleRestorePP(pokemon,battler,move,pp)
   ret=pbRestorePP(pokemon,move,pp)
   if ret>0
+    $PokemonGlobal.pokebox[46]+=ret
     battler.pbSetPP(battler.moves[move],pokemon.moves[move].pp) if battler
   end
   return ret

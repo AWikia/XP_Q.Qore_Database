@@ -1043,7 +1043,8 @@ class PokeBattle_Move
          (attacker.hasWorkingItem(:HEARTGEM) && isConst?(type,PBTypes,:HEART)) ||
          (attacker.hasWorkingItem(:BLIZZARDGEM) && isConst?(type,PBTypes,:BLIZZARD)) ||
          (attacker.hasWorkingItem(:GASGEM) && isConst?(type,PBTypes,:GAS)) ||
-         (attacker.hasWorkingItem(:GLIMSEGEM) && isConst?(type,PBTypes,:GLIMSE))
+         (attacker.hasWorkingItem(:GLIMSEGEM) && isConst?(type,PBTypes,:GLIMSE)) ||
+         attacker.hasWorkingItem(:RETURNBONUSGEM)
          damagemult=(damagemult*1.3).round
         @battle.pbCommonAnimation("UseItem",attacker,nil)
         @battle.pbDisplayBrief(_INTL("The {1} strengthened {2}'s power!",

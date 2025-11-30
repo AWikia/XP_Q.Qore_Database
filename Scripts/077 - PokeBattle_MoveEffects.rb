@@ -2541,6 +2541,7 @@ class PokeBattle_Move_05C < PokeBattle_Move
         newmove=PBMove.new(opponent.lastMoveUsed)
         attacker.moves[i]=PokeBattle_Move.pbFromPBMove(@battle,newmove)
         movename=PBMoves.getName(opponent.lastMoveUsed)
+        $PokemonGlobal.pokebox[42]+=1 if @battle.pbOwnedByPlayer?(attacker.index)
         @battle.pbDisplay(_INTL("{1} learned {2}!",attacker.pbThis,movename))
         return 0
       end
@@ -2597,6 +2598,7 @@ class PokeBattle_Move_05D < PokeBattle_Move
         party=@battle.pbParty(attacker.index)
         party[attacker.pokemonIndex].moves[i]=newmove
         movename=PBMoves.getName(opponent.lastMoveUsedSketch)
+        $PokemonGlobal.pokebox[42]+=1 if @battle.pbOwnedByPlayer?(attacker.index)
         @battle.pbDisplay(_INTL("{1} learned {2}!",attacker.pbThis,movename))
         return 0
       end
@@ -3192,6 +3194,7 @@ class PokeBattle_Move_069 < PokeBattle_Move
     end
     attacker.effects[PBEffects::Disable]=0
     attacker.effects[PBEffects::DisableMove]=0
+    $PokemonGlobal.pokebox[49]+=1 if @battle.pbOwnedByPlayer?(attacker.index)
     @battle.pbDisplay(_INTL("{1} transformed into {2}!",attacker.pbThis,opponent.pbThis(true)))
     return 0
   end

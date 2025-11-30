@@ -86,7 +86,8 @@ $BallTypes={
    33=>:GREATNESTBALL,
    34=>:FLIPNOTEBALL,
    35=>:GREATFLIPNOTEBALL,
-   36=>:ULTRAFLIPNOTEBALL
+   36=>:ULTRAFLIPNOTEBALL,
+   37=>:RETURNBONUSBALL
 }
 
 BallHandlers::ModifyCatchRate.add(:GREATBALL,proc{|ball,catchRate,battle,battler|
@@ -466,3 +467,8 @@ BallHandlers::ModifyCatchRate.add(:ULTRAFLIPNOTEBALL,proc{|ball,catchRate,battle
    next catchRate
 })
 
+BallHandlers::ModifyCatchRate.add(:RETURNBONUSBALL,proc{|ball,catchRate,battle,battler|
+   catchRate=(catchRate*3/2).floor
+   catchRate*=2 if !battle.pbPlayer.owned[battler.species]
+   next catchRate
+})

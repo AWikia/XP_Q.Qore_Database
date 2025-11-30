@@ -208,13 +208,23 @@ class PokemonBoxScene
   end
   
   def getTaskLabel(idx,nohardmarkers=false)
-  if isHardTask(idx) && !nohardmarkers
-    return "_hard"
-  elsif $game_variables[PBOX_VARIABLES[0]]>idx
-    return ""
+    if isHardTask(idx) && !nohardmarkers
+      return "_hard"
+    elsif $game_variables[PBOX_VARIABLES[0]]>idx
+      return ""
+    end
+    return "_normal"
   end
-  return "_normal"
+
+  def getTaskHue(idx,nohardmarkers=false)
+    if isHardTask(idx) && !nohardmarkers
+      return [0,295,210,0][taskLevel(idx)]
+    elsif $game_variables[PBOX_VARIABLES[0]]>idx
+      return 0
+    end
+    return 0
   end
+
   
   def randIncr(num)
     id = $game_variables[PBOX_VARIABLES[2]].to_i
@@ -240,7 +250,9 @@ class PokemonBoxScene
     multi2=1 + ([($Trainer.numbadges / 2).floor,6].min * scaleup)
     min=min.to_f
     max=max.to_f
-    return (min*multi) + ((max-min)*(multi*multi2) / 2)
+    return [(min*multi) + ( ((max-min)*(multi*multi2)) * 0.5),
+            (min*multi) + ( ((max-min)*(multi*multi2)) * 0.7),
+            (min*multi) + ( ((max-min)*(multi*multi2)) * 0.9)]
   end
   
   def taskVals(num=0)
@@ -284,12 +296,22 @@ class PokemonBoxScene
             valueFromTo(1,2),            # Use Mutli-Target Moves
             valueFromTo(3,6),            # Activate Win Streak
             valueFromTo(0.5,1),          # Change Forms
+            valueFromTo(4,6)*5,          # Gain Levelup Stats
+            valueFromTo(3,6),            # Gain Effort Values
+            valueFromTo(0.5,1),          # Learn Moves in Battle
+            valueFromTo(1,2),            # Break the Mold
+            valueFromTo(1,2),            # Use Lo Priority Moves
+            valueFromTo(1,2),            # Defeat Skilled Pokemon
+            valueFromTo(1,2)*5,          # Restore PP
+            valueFromTo(1,2),            # Use Sound-based Moves
+            valueFromTo(0.4,0.65),       # Supercharge Pokemon
+            valueFromTo(0.4,0.65),       # Use Transform
             ][num]
 
   end
 
-  def isHardTask(idx=-1) # idx is used to identify if the current active task is hard
-    return false if (currentStep%4 != idx && idx != -1) || boxLevel==0
+  def taskLevel(idx=-1) # idx is used to identify if the current active task is hard
+    return 0 if (currentStep%4 != idx && idx != -1) || boxLevel==0
     vals = [valueFromToMiddle(20,60,6)*10,     # Gain Experience
             valueFromToMiddle(1,1.5),          # Level Up Pokemon
             valueFromToMiddle(2.5,5),          # Defeat Pokemon
@@ -330,8 +352,33 @@ class PokemonBoxScene
             valueFromToMiddle(1,2),            # Use Mutli-Target Moves
             valueFromToMiddle(3,6),            # Activate Win Streak
             valueFromToMiddle(0.5,1),          # Change Forms
+            valueFromToMiddle(4,6)*5,          # Gain Levelup Stats
+            valueFromToMiddle(3,6),            # Gain Effort Values
+            valueFromToMiddle(0.5,1),          # Learn Moves in Battle
+            valueFromToMiddle(1,2),            # Break the Mold
+            valueFromToMiddle(1,2),            # Use Lo Priority Moves
+            valueFromToMiddle(1,2),            # Defeat Skilled Pokemon
+            valueFromToMiddle(1,2)*5,          # Restore PP
+            valueFromToMiddle(1,2),            # Use Sound-based Moves
+            valueFromToMiddle(0.4,0.65),       # Supercharge Pokemon
+            valueFromToMiddle(0.4,0.65),       # Use Transform
             ][taskID]
-    return taskstatus2 > vals
+    if taskstatus2 > vals[2] && boxLevel>1     # Ultra Hard Task
+      return 3
+    elsif taskstatus2 > vals[1] && boxLevel>1  # Super Hard Task
+      return 2
+    elsif taskstatus2 > vals[0]                # Hard Task
+      return 1
+    else                                       # Normal Task
+      return 0
+    end
+  end
+
+
+  
+
+  def isHardTask(idx=-1) # idx is used to identify if the current active task is hard
+    return taskLevel(idx) > 0
   end
   
   def pbPokemonBoxStart
@@ -364,36 +411,46 @@ class PokemonBoxScene
     # Task 9 is Universal on Millenial/Elite/Level 3 Boxes
     # Tasks 13 and 18 aren't applicable on Q.Qore
     # Group 0
-    task0 = [0,1,2,14,20,25,30,35]
-    task0 = [0,1,2,14,30,35] if boxLevel==1
+    task0 = [0,1,2,14,20,25,30,35,40,45]
+    task0 = [0,1,2,14,30,35,40] if boxLevel==1
     task0 = [0,1,2,14] if boxLevel==0
     # Group 1
-    task1 = [3,4,5,15,21,26,31,36]
-    task1 = [3,4,5,15,31,36] if boxLevel==1
+    task1 = [3,4,5,15,21,26,31,36,41,46]
+    task1 = [3,4,5,15,31,36,41] if boxLevel==1
     task1 = [4,15,31,36] if boxLevel==0
     # Group 2
-    task2 = [6,7,8,16,22,27,32,37]
-    task2 = [6,7,8,16,27,37] if boxLevel==1
+    task2 = [6,7,8,16,22,27,32,37,42,47]
+    task2 = [6,7,8,16,27,37,42] if boxLevel==1
     task2 = [6,7,8,16] if boxLevel==0
     # Group 3
-    task3 = [9,10,11,17,23,28,33,38]
-    task3 = [9,11,17,23,28,33,38] if boxLevel==3 # Don't assign the 11th task in order again
-    task3 = [10,11,17,28,33,38] if boxLevel==1
+    mRINGS = [:MEGARING,:MEGABRACELET,:MEGACUFF,:MEGACHARM,:DYNAMAXBAND] 
+    # List of items that will enable the supercharge task
+    task3 = [9,10,11,17,23,28,33,38,43]
+    task3 = [9,11,17,23,28,33,38,43] if boxLevel==3 # Don't assign the 11th task in order again
+    task3 = [10,11,17,28,33,38,43] if boxLevel==1
     task3 = [10,11,17,38] if boxLevel==0
+    if boxLevel>1 # For Level 2 and 3 Boxes, assign the Supercharge task if needed
+      for i in mRINGS
+        next if !hasConst?(PBItems,i)
+        if $PokemonBag.pbQuantity(i)>0
+          task3.push(48)
+          break
+        end
+      end
+    end
     # Universal Tasks 0
-    taskU0=[12,18,29,34,39] # 19 is not applicable in Q.Qore
+    taskU0=[12,18,29,34,39,49] # 19 is not applicable in Q.Qore
     taskU0=[] if boxLevel==3 # Handled elsewhere
     taskU0=[12,18,29] if boxLevel==1 # 19 is not applicable in Q.Qore
     taskU0=[12,18] if boxLevel==0
     # Universal Tasks 1
-    taskU1=[]
-    taskU1=[24] # 13 is not applicable in Q.Qore
+    taskU1=[24,44] # 13 is not applicable in Q.Qore
     taskU1=[] if boxLevel==3 # Handled Elsewhere
-    taskU1=[24] if boxLevel==1
+    taskU1=[24,44] if boxLevel==1
     taskU1=[] if boxLevel==0
     # Universal Tasks for Millenial/Elite/Level 3 Boxes
     if boxLevel==3
-      for i in [10,12,18,24,29,34,39] # 13 and 19 are not applicable in Q.Qore
+      for i in [10,12,18,24,29,34,39,44,49] # 13 and 19 are not applicable in Q.Qore
         if rand(2)==0
           taskU0.push(i)
         else
@@ -462,6 +519,7 @@ class PokemonBoxScene
     progress.push(["Graphics/UI/"+getAccentFolder+"/summaryEggBar_small",@sprites["progress"].x+8,@sprites["progress"].y+4,0,0,(shadowfract*1.98).floor,-1])
     progress.push(["Graphics/UI/Pokemon Box/icons",@sprites["progress"].x-28,@sprites["progress"].y-6,0,34*$game_variables[PBOX_VARIABLES[1]][currentStep][0],34,34])
     progress.push(["Graphics/UI/Pokemon Box/icon_"+@icons[stepID],@sprites["progress_icon"].x,@sprites["progress_icon"].y,0,0,-1,-1])
+    progress.push(["Graphics/UI/Pokemon Box/icon_markings",@sprites["progress_icon"].x+10,@sprites["progress_icon"].y+28,0,18*taskLevel(-1),56,18])
     # Draw Time Left graphics
     progressTime.push(["Graphics/UI/"+getAccentFolder+"/summaryEggBar",@sprites["progresstime"].x+8,@sprites["progresstime"].y+4,0,0,(shadowfract2*2.48).floor,-1])
       progressTime.push(["Graphics/UI/Pokemon Box/icon_clock",@sprites["progresstime"].x-28,@sprites["progresstime"].y-6,0,0,-1,-1])
@@ -488,21 +546,29 @@ class PokemonBoxScene
     if (!isDarkMode?)
       baseColor=MessageConfig::DARKTEXTBASE
       shadowColor=MessageConfig::DARKTEXTSHADOW
-      hardBase=Color.new(248,56,32)
-      hardShadow=Color.new(224,152,144)
+      hardBase=[Color.new(248,32,244),
+                Color.new(32,118,248),
+                Color.new(248,56,32)]
+      hardShadow=[Color.new(224,144,222),
+                  Color.new(144,176,224),
+                  Color.new(224,152,144)]
       base2=Color.new(12,12,12)
       shadow2=Color.new(242,242,242)
     else
       baseColor=MessageConfig::LIGHTTEXTBASE
       shadowColor=MessageConfig::LIGHTTEXTSHADOW
-      hardBase=Color.new(224,152,144)
-      hardShadow=Color.new(248,56,32)
+      hardBase=[Color.new(224,144,222),
+                Color.new(144,176,224),
+                Color.new(224,152,144)]
+      hardShadow=[Color.new(248,32,244),
+                  Color.new(32,118,248),
+                  Color.new(248,56,32)]
       base2=Color.new(242,242,242)
       shadow2=Color.new(12,12,12)
     end
 
-    numberbase=(isHardTask()) ? hardBase : baseColor
-    numbershadow=(isHardTask()) ? hardShadow : shadowColor
+    numberbase=(isHardTask()) ? hardBase[taskLevel() - 1] : baseColor
+    numbershadow=(isHardTask()) ? hardShadow[taskLevel() - 1] : shadowColor
 
     textpos=[
        [_INTL("{1}",taskname),(Graphics.width/4)-14,4,2,numberbase,numbershadow],
@@ -565,10 +631,21 @@ class PokemonBoxScene
     if taskstatus >= taskstatus2
       oldstep =currentStep%4
       hardtask = isHardTask(oldstep)
+      oldtasklevel = taskLevel(oldstep)
       $game_variables[PBOX_VARIABLES[0]]+=1
       $game_variables[PBOX_VARIABLES[4]]=0 # Reset Substep
       update_icons(true)
-      if hardtask
+      if oldtasklevel == 3
+        pbSEPlay("Battle effect critical",80)
+        Kernel.pbMessage(_INTL("Ultra Task Completed and you've got rewards."))
+        Kernel.pbReceiveItem([:REDSHARD,:YELLOWSHARD,:BLUESHARD,:GREENSHARD][oldstep],boxLevel*2)
+        Kernel.pbReceiveItem(:EXPCANDYS,boxLevel-1)
+      elsif oldtasklevel == 2
+        pbSEPlay("Battle effect critical",80)
+        Kernel.pbMessage(_INTL("Super Task Completed and you've got rewards."))
+        Kernel.pbReceiveItem([:REDSHARD,:YELLOWSHARD,:BLUESHARD,:GREENSHARD][oldstep],boxLevel*2)
+        Kernel.pbReceiveItem(:EXPCANDYXS,boxLevel-1)
+      elsif oldtasklevel == 1
         pbSEPlay("Battle effect critical",80)
         Kernel.pbMessage(_INTL("Hard Task Completed and you've got a reward."))
         Kernel.pbReceiveItem([:REDSHARD,:YELLOWSHARD,:BLUESHARD,:GREENSHARD][oldstep],boxLevel)
@@ -671,12 +748,16 @@ class PokemonBoxScene
 #icon_{1}",@icons[0]
     @sprites["task0"].visible= true
     @sprites["task0"].setBitmap(_INTL("Graphics/UI/Pokemon Box/icon_{1}{2}",@icons[0],getTaskLabel(0,nohardmarkers)))
+    @sprites["task0"].bitmap.hue_change(getTaskHue(0,nohardmarkers))
     @sprites["task1"].visible= true
     @sprites["task1"].setBitmap(_INTL("Graphics/UI/Pokemon Box/icon_{1}{2}",@icons[1],getTaskLabel(1,nohardmarkers)))
+    @sprites["task1"].bitmap.hue_change(getTaskHue(1,nohardmarkers))
     @sprites["task2"].visible= true
     @sprites["task2"].setBitmap(_INTL("Graphics/UI/Pokemon Box/icon_{1}{2}",@icons[2],getTaskLabel(2,nohardmarkers)))
+    @sprites["task2"].bitmap.hue_change(getTaskHue(2,nohardmarkers))
     @sprites["task3"].visible= true
     @sprites["task3"].setBitmap(_INTL("Graphics/UI/Pokemon Box/icon_{1}{2}",@icons[3],getTaskLabel(3,nohardmarkers)))
+    @sprites["task3"].bitmap.hue_change(getTaskHue(3,nohardmarkers))
   end
   
   def changeBoxTask
@@ -693,6 +774,26 @@ class PokemonBoxScene
   
   def showTaskInfo
     Kernel.pbMessage(_INTL("\\l[2]{1}",$PokemonGlobal.pokeboxDescriptions[ $game_variables[PBOX_VARIABLES[1]][currentStep][0] ]))
+    if taskLevel() == 3
+      quantity = boxLevel*2
+      item     = [PBItems::REDSHARD,PBItems::YELLOWSHARD,PBItems::BLUESHARD,PBItems::GREENSHARD][currentStep%4]
+      itemname = (quantity>1) ? PBItems.getNamePlural(item) : PBItems.getName(item)
+      quantity2 = boxLevel - 1
+      itemname2 = (quantity2>1) ? PBItems.getNamePlural(PBItems::EXPCANDYS) : PBItems.getName(PBItems::EXPCANDYS)
+      Kernel.pbMessage(_INTL("Completing this task gives you {1} {2} and {3} {4}.", quantity, itemname, quantity2, itemname2))
+    elsif taskLevel() == 2
+      quantity = boxLevel*2
+      item     = [PBItems::REDSHARD,PBItems::YELLOWSHARD,PBItems::BLUESHARD,PBItems::GREENSHARD][currentStep%4]
+      itemname = (quantity>1) ? PBItems.getNamePlural(item) : PBItems.getName(item)
+      quantity2 = boxLevel - 1
+      itemname2 = (quantity2>1) ? PBItems.getNamePlural(PBItems::EXPCANDYXS) : PBItems.getName(PBItems::EXPCANDYXS)
+      Kernel.pbMessage(_INTL("Completing this task gives you {1} {2} and {3} {4}.", quantity, itemname, quantity2, itemname2))
+    elsif taskLevel() == 1
+      quantity = boxLevel
+      item     = [PBItems::REDSHARD,PBItems::YELLOWSHARD,PBItems::BLUESHARD,PBItems::GREENSHARD][currentStep%4]
+      itemname = (quantity>1) ? PBItems.getNamePlural(item) : PBItems.getName(item)
+      Kernel.pbMessage(_INTL("Completing this task gives you {1} {2}.", quantity, itemname))
+    end
   end
   
   def pbPokemonBoxScreen

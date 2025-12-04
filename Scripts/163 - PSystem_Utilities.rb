@@ -422,11 +422,9 @@ end
 
 # Daily Treat Machine
 def pbCheckDTM
+  # Daily Treat Machine
   if $PokemonBag.pbQuantity(:COINCASE)>0 && $PokemonBag.pbQuantity(:DAILYTREATMACHINE)==0
     $PokemonBag.pbStoreItem(:DAILYTREATMACHINE,1)
-  end
-  if $PokemonBag.pbQuantity(:PCSTORAGEBOX)>0 && $PokemonBag.pbQuantity(:POKEMONBOX)==0
-    $PokemonBag.pbStoreItem(:POKEMONBOX,1)
   end
   if $PokemonBag.pbQuantity(:DAILYTREATMACHINE)>0 && 
      pbTimeEventValid(DTM_VARIABLES[1],false,86400)
@@ -436,6 +434,10 @@ def pbCheckDTM
            screen.pbStartScreen
         }
   end
+  # Pokemon Box
+  if $PokemonBag.pbQuantity(:PCSTORAGEBOX)>0 && $PokemonBag.pbQuantity(:POKEMONBOX)==0
+    $PokemonBag.pbStoreItem(:POKEMONBOX,1)
+  end
   expiredbox= pbTimeEventValid(PBOX_VARIABLES[3])
   if $game_variables[PBOX_VARIABLES[1]] == 0 || expiredbox
        scene=PokemonBoxScene.new
@@ -443,6 +445,26 @@ def pbCheckDTM
        pbFadeOutIn(99999) { 
           screen.pbStartScreen(expiredbox)
        }
+  end
+end
+
+def pbReturnBonusEvent
+  $PokemonGlobal.lastSavedTime  = Time.now if !$PokemonGlobal.lastSavedTime
+  oldtime = ((Time.now - $PokemonGlobal.lastSavedTime) / 86400).floor
+  if oldtime > 9
+    multi = [(oldtime/10).floor,3].min # x1 on 10-19 days, x2 on 20-29 days, x3 on 30+ days
+    money = 5000*multi
+    $Trainer.money+=money
+    Kernel.pbMessage(_INTL("\\f[introOak]\\rSannse:Welcome back \\PN! Here's ${1} that were found during your vactaion.",money))
+    amtGem=3*multi
+    amtPotion=2*multi
+    amtBall=1*multi
+    amtBallName=amtBall == 1 ? "Ball" : "Balls"
+    $PokemonBag.pbStoreItem(PBItems::RETURNBONUSGEM,amtGem)
+    $PokemonBag.pbStoreItem(PBItems::RETURNBONUSPOTION,amtPotion)
+    $PokemonBag.pbStoreItem(PBItems::RETURNBONUSBALL,amtBall)
+    Kernel.pbMessage(_INTL("\\f[introElm]\\bRappy:And so I did found {1} Gems, {2} Potions and {3} {4} during your vacation too.",amtGem,amtPotion,amtBall,amtBallName))
+    Kernel.pbMessage(_INTL("\\f[introOak]\\rSannse:Good Luck with these rewards!"))
   end
 end
 
@@ -853,6 +875,15 @@ end
 # Returns true if the Video Tile Puzzle can be started
 def canAcceptAds?
   return class_exists?(:TilePuzzle)
+end
+
+def updateWindowSkin
+  if ($BORDERS!=getBorders)
+    MessageConfig.pbSetSpeechFrame("Graphics/Windowskins/"+getDarkModeFolder+"/"+$SpeechFrames[$PokemonSystem.newtextskin])
+    MessageConfig.pbSetSystemFrame("Graphics/Windowskins/"+getDarkModeFolder+"/"+$TextFrames[$PokemonSystem.newtextskin])
+    $BORDERS=getBorders
+    setScreenBorderName($BORDERS[$PokemonSystem.bordergraphic])
+  end
 end
 
 # Supplemental function

@@ -57,6 +57,7 @@ class PokemonGlobalMetadata
   attr_accessor :inFuture
   attr_accessor :adsWatched
   attr_accessor :pokebox
+  attr_accessor :lastSavedTime
 
   def initialize
     @bicycle              = false
@@ -119,6 +120,7 @@ class PokemonGlobalMetadata
     @inFuture             = false
     @adsWatched           = 0
     @pokebox              = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0] # Items 13 abd 19 are stubbed out
+    @lastSavedTime        = Time.now
   end
 
   def bridge

@@ -13,24 +13,26 @@ class PokemonBoxScene
   def initialize
     heal=[:AWAKENING,:ANTIDOTE,:BURNHEAL,:PARALYZEHEAL,:ICEHEAL]
     heal=heal[$Trainer.publicID($Trainer.id)%heal.length]
+    heal2=[:CHESTOBERRY,:PECHABERRY,:RAWSTBERRY,:CHERIBERRY,:ASPEARBERRY]
+    heal2=heal2[$Trainer.secretID($Trainer.id)%heal2.length]
     # 0 = Name
     # 1 = Rewards
     # 2 = Dueation (In days)
     # 3 = Amount Multiplier
     # 4 = Difficulty (0 = Beginner, 1 = Intermediate, 2 = Advanced, 3 = Expert)
+    # 5 = Item to be appended when Berry Planting is absent (nil to not add, can be array of two items too)
     @stages = [
-    ["Tutorial",[:ORANBERRY,:SITRUSBERRY],13,0.5,0],
-    ["Classic",[:POTION,:POKEBALL],10,1,1],
-    ["Bronze",[:SUPERPOTION,:GREATBALL,heal],7,2.5,1],
-    ["Silver",[:HYPERPOTION,:ULTRABALL,:FULLHEAL,:NORMALGEM],5,7,2],
-    ["Gold",[:MEGAPOTION,:PARKBALL,[:FULLHEAL,2],:NORMALGEM,:RARECANDY],5,16,2],
+    ["Tutorial",[:ORANBERRY,:SITRUSBERRY],13,0.5,0,nil],
+    ["Classic",[:POTION,:POKEBALL],10,1,1,:SITRUSBERRY],
+    ["Bronze",[:SUPERPOTION,:GREATBALL,heal],7,2.5,1,heal2],
+    ["Silver",[:HYPERPOTION,:ULTRABALL,:FULLHEAL,:NORMALGEM],5,7,2,:PERSIMBERRY],
+    ["Gold",[:MEGAPOTION,:PARKBALL,[:FULLHEAL,2],:NORMALGEM,:RARECANDY],5,16,2,:PERSIMBERRY],
     # Elite Challenge
-    ["Elite",[:FULLRESTORE,[:PARKBALL,2],:SUPERBOOSTER,:NORMALBOX,:VICIOUSCANDY],3,20,3],
+    ["Elite",[:FULLRESTORE,:PARKBALL,:SUPERBOOSTER,[:NORMALGEM,2],:VICIOUSCANDY],3,20,3,:ENIGMABERRY],
     # Legendary Challenge
-    ["Legendary",[:SACREDASH,:MASTERBALL,[:SUPERBOOSTER,2],:BOTANICSMOKE,:NORMALBOX,:VICIOUSCANDY],3,25,3],
+    ["Legendary",[:SACREDASH,:MASTERBALL,[:SUPERBOOSTER,2],:BOTANICSMOKE,:VICIOUSCANDY],3,25,3,:ENIGMABERRY],
     # Legendary Challenge
-    ["Mythical",[[:SACREDASH,2],:MASTERBALL,[:SUPERBOOSTER,2],:BOTANICSMOKE,:LOADEDDICE,:NORMALBOX,[:VICIOUSCANDY,2]],3,30,3]
-
+    ["Mythical",[[:SACREDASH,2],:MASTERBALL,[:SUPERBOOSTER,2],:BOTANICSMOKE,:LOADEDDICE,[:VICIOUSCANDY,2]],3,30,3,:ENIGMABERRY]
     ]
     if $Trainer && $Trainer.isFemale?
       @icons=["voltorb","staryu","pikachu","slowpoke"]
@@ -128,6 +130,10 @@ class PokemonBoxScene
     return result
   end
   
+  def getStageNumber(idx=-1)
+    return (idx == -1) ? currentStage : idx
+  end
+  
   def stageSuffix
     return "_mythical" if isMillenial3?
     return "_legendary" if isMillenial2?
@@ -139,8 +145,12 @@ class PokemonBoxScene
     return @stages[currentStage(includeElite)][0] rescue "Tutorial"
   end
   
-  def boxItems
-    return @stages[currentStage][1] rescue [:ORANBERRY,:SITRUSBERRY]
+  def boxItems(idx=-1)
+    if !class_exists?(:BerryPlantSprite) && @stages[getStageNumber(idx)][5]
+      return @stages[getStageNumber(idx)][1] | [@stages[getStageNumber(idx)][5]] rescue [:ORANBERRY,:SITRUSBERRY]
+    else
+      return @stages[getStageNumber(idx)][1] rescue [:ORANBERRY,:SITRUSBERRY]
+    end
   end
   
   def boxDuration
@@ -426,14 +436,16 @@ class PokemonBoxScene
     mRINGS = [:MEGARING,:MEGABRACELET,:MEGACUFF,:MEGACHARM,:DYNAMAXBAND] 
     # List of items that will enable the supercharge task
     task3 = [9,10,11,17,23,28,33,38,43]
-    task3 = [9,11,17,23,28,33,38,43] if boxLevel==3 # Don't assign the 11th task in order again
+    task3 = [9,23] if boxLevel==3 # The majority are handled elsewhere
     task3 = [10,11,17,28,33,38,43] if boxLevel==1
     task3 = [10,11,17,38] if boxLevel==0
+    supercharger=false
     if boxLevel>1 # For Level 2 and 3 Boxes, assign the Supercharge task if needed
       for i in mRINGS
         next if !hasConst?(PBItems,i)
         if $PokemonBag.pbQuantity(i)>0
-          task3.push(48)
+          task3.push(48) if boxLevel != 3 # Handled elsewhere
+          supercharger=true
           break
         end
       end
@@ -450,7 +462,9 @@ class PokemonBoxScene
     taskU1=[] if boxLevel==0
     # Universal Tasks for Millenial/Elite/Level 3 Boxes
     if boxLevel==3
-      for i in [10,12,18,24,29,34,39,44,49] # 13 and 19 are not applicable in Q.Qore
+      taskU0_1 = [10,11,12,17,18,24,28,29,33,34,38,39,43,44,49]
+      taskU0_1.push(48) if supercharger
+      for i in taskU0_1 # 13 and 19 are not applicable in Q.Qore
         if rand(2)==0
           taskU0.push(i)
         else
@@ -472,29 +486,31 @@ class PokemonBoxScene
       choices1.shuffle!
       choices1Offset=0
     end
+    length0=choices0.length
+    length1=choices1.length
     $game_variables[PBOX_VARIABLES[0]]=0
     $game_variables[PBOX_VARIABLES[4]]=0
     $game_variables[PBOX_VARIABLES[1]] = [
       # Task #0
-      [choices0[0],$PokemonGlobal.pokebox[choices0[0]],taskVals(choices0[0])],
-      [choices0[4],$PokemonGlobal.pokebox[choices0[4]],taskVals(choices0[4])],
-      [choices0[8],$PokemonGlobal.pokebox[choices0[8]],taskVals(choices0[8])],
-      [choices1[choices1Offset+0],$PokemonGlobal.pokebox[choices1[choices1Offset+0]],taskVals(choices1[choices1Offset+0])],
+      [choices0[0%length0],$PokemonGlobal.pokebox[choices0[0%length0]],taskVals(choices0[0%length0])],
+      [choices0[4%length0],$PokemonGlobal.pokebox[choices0[4%length0]],taskVals(choices0[4%length0])],
+      [choices0[8%length0],$PokemonGlobal.pokebox[choices0[8%length0]],taskVals(choices0[8%length0])],
+      [choices1[(choices1Offset+0)%length1],$PokemonGlobal.pokebox[choices1[(choices1Offset+0)%length1]],taskVals(choices1[(choices1Offset+0)%length1])],
       # Task #1
-      [choices0[1],$PokemonGlobal.pokebox[choices0[1]],taskVals(choices0[1])],
-      [choices0[5],$PokemonGlobal.pokebox[choices0[5]],taskVals(choices0[5])],
-      [choices0[9],$PokemonGlobal.pokebox[choices0[9]],taskVals(choices0[9])],
-      [choices1[choices1Offset+1],$PokemonGlobal.pokebox[choices1[choices1Offset+1]],taskVals(choices1[choices1Offset+1])],      
+      [choices0[1%length0],$PokemonGlobal.pokebox[choices0[1%length0]],taskVals(choices0[1%length0])],
+      [choices0[5%length0],$PokemonGlobal.pokebox[choices0[5%length0]],taskVals(choices0[5%length0])],
+      [choices0[9%length0],$PokemonGlobal.pokebox[choices0[9%length0]],taskVals(choices0[9%length0])],
+      [choices1[(choices1Offset+1)%length1],$PokemonGlobal.pokebox[choices1[(choices1Offset+1)%length1]],taskVals(choices1[(choices1Offset+1)%length1])],      
       # Task #2
-      [choices0[2],$PokemonGlobal.pokebox[choices0[2]],taskVals(choices0[2])],
-      [choices0[6],$PokemonGlobal.pokebox[choices0[6]],taskVals(choices0[6])],
-      [choices0[10],$PokemonGlobal.pokebox[choices0[10]],taskVals(choices0[10])],
-      [choices1[choices1Offset+2],$PokemonGlobal.pokebox[choices1[choices1Offset+2]],taskVals(choices1[choices1Offset+2])],      
+      [choices0[2%length0],$PokemonGlobal.pokebox[choices0[2%length0]],taskVals(choices0[2%length0])],
+      [choices0[6%length0],$PokemonGlobal.pokebox[choices0[6%length0]],taskVals(choices0[6%length0])],
+      [choices0[10%length0],$PokemonGlobal.pokebox[choices0[10%length0]],taskVals(choices0[10%length0])],
+      [choices1[(choices1Offset+2)%length1],$PokemonGlobal.pokebox[choices1[(choices1Offset+2)%length1]],taskVals(choices1[(choices1Offset+2)%length1])],      
       # Task #3
-      [choices0[3],$PokemonGlobal.pokebox[choices0[3]],taskVals(choices0[3])],
-      [choices0[7],$PokemonGlobal.pokebox[choices0[7]],taskVals(choices0[7])],
-      [choices0[11],$PokemonGlobal.pokebox[choices0[11]],taskVals(choices0[11])],
-      [choices1[choices1Offset+3],$PokemonGlobal.pokebox[choices1[choices1Offset+3]],taskVals(choices1[choices1Offset+3])]      
+      [choices0[3%length0],$PokemonGlobal.pokebox[choices0[3%length0]],taskVals(choices0[3%length0])],
+      [choices0[7%length0],$PokemonGlobal.pokebox[choices0[7%length0]],taskVals(choices0[7%length0])],
+      [choices0[11%length0],$PokemonGlobal.pokebox[choices0[11%length0]],taskVals(choices0[11%length0])],
+      [choices1[(choices1Offset+3)%length1],$PokemonGlobal.pokebox[choices1[(choices1Offset+3)%length1]],taskVals(choices1[(choices1Offset+3)%length1])]      
                                           ]
     pbTimeEvent(PBOX_VARIABLES[3],boxDuration*86400)
     pbSEPlay("recall") if !fromdebug
@@ -945,9 +961,10 @@ class PokemonBoxSummaryScene
     ]
     imageposAMT=[]
     lockedimagepos=[]
+    boxitems=@box.boxItems(stage)
     # Items
-    itemx = 182 - ([(@box.stages[stage][1].length - 1),3].min * 24)
-    for i in @box.stages[stage][1]
+    itemx = 182 - ([(boxitems.length - 1),3].min * 24)
+    for i in boxitems
       if i.is_a?(Array)
         item=i[0]
         amt=i[1]
@@ -964,7 +981,7 @@ class PokemonBoxSummaryScene
         imageposAMT.push([amt.to_s,x+32+itemx.ceil,y+33,2,Color.new(12,12,12),nil])
         imagepos.push(["Graphics/UI/Pokemon Box/icon_amount",x+itemx.ceil,y+13,0,0,-1,-1])
       end
-      itemx+=(96.0/[(@box.stages[stage][1].length - 1),3].max)*1.5
+      itemx+=(96.0/[(boxitems.length - 1),3].max)*1.5
     end
     # Box Name
     if @box.currentStage == stage

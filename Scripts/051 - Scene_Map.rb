@@ -1,5 +1,5 @@
 #===============================================================================
-# ** Modified Scene_Map class for Pokémon.
+# ** Modified Scene_Map class for PokÃ©mon.
 #-------------------------------------------------------------------------------
 #  
 #===============================================================================
@@ -68,6 +68,7 @@ class Scene_Map
     @header.visible=$game_switches[1050] # 1050 Switch = Game Started
 # Header End
     Graphics.transition
+    pbReturnBonusEvent if $game_switches[1050]
     loop do
       Graphics.update
       Input.update

@@ -58,6 +58,7 @@ class PokemonGlobalMetadata
   attr_accessor :adsWatched
   attr_accessor :pokebox
   attr_accessor :lastSavedTime
+  attr_accessor :upperKingdom    # true when one battle in a such map is done
 
   def initialize
     @bicycle              = false
@@ -121,6 +122,7 @@ class PokemonGlobalMetadata
     @adsWatched           = 0
     @pokebox              = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0] # Items 13 abd 19 are stubbed out
     @lastSavedTime        = Time.now
+    @upperKingdom         = false
   end
 
   def bridge
@@ -151,7 +153,7 @@ class PokemonGlobalMetadata
             _INTL("Use Physical Moves"),_INTL("Use Special Moves"),
             _INTL("Use Status Moves"),_INTL("Use Battle Items"),
             _INTL("Defeat Trainers in Battle Wins"),_INTL("Lapse Turns in Battles"),
-            _INTL("Use Medicine Items"),_INTL("Win Battles in PMW3 Levels"),
+            _INTL("Use Medicine Items"),_INTL("Win Battles in Upper Kingdom"),
             _INTL("Deal Damage to other Pokémon"),_INTL("Land Critical Hits"),
             _INTL("Use Moves that receive STAB"),_INTL("Defeat Pokémon in First Turn"),
             _INTL("Use Berries"),_INTL("Defeat Horde Pokémon Groups"),
@@ -178,7 +180,7 @@ class PokemonGlobalMetadata
             _INTL("Physical Move Usage"),_INTL("Special Move Usage"),
             _INTL("Status Move Usage"),_INTL("Battle Item Usage"),
             _INTL("Trainer Defeating"),_INTL("Turn Lapsing"),
-            _INTL("Medicine Item Usage"),_INTL("PMW3 Battle Winning"),
+            _INTL("Medicine Item Usage"),_INTL("Upper Kingdom Battle Winning"),
             _INTL("Damage Dealing"),_INTL("Critical Hit Landing"),
             _INTL("STAB Move Usage"),_INTL("Instant Pokémon Defeating"),
             _INTL("Berry Usage"),_INTL("Horde Defeating"),
@@ -213,7 +215,7 @@ class PokemonGlobalMetadata
             _INTL("Defeat Trainers in Battles to progress. The more there're, the better will be progressed."),
             _INTL("Spend turns on the battle to progress. The more the battle lasts, the more will be counted."),
             _INTL("Use items from the Medicine pocket in your Pokémon progress. Held items do not count."),
-            _INTL("Complete Wild Battles in the PMW3 Maps to progress. Wild Battles outside of these ones do not count."),
+            _INTL("Complete Battles in Upper Kingdom Maps to progress. Wild Battles outside of these ones do not count."),
             _INTL("Use your Pokémon's Damaging moves to deal damage to opposing Pokémon and progress."),
             _INTL("Get a critical hit by using your Pokémon's Damaging moves to progress."),
             _INTL("Use your Pokémon's Damaging moves of the same typing as the Pokémon itself to progress."),
@@ -250,6 +252,11 @@ class PokemonGlobalMetadata
             _INTL("Use your Pokémon's moves that produce sound to progress."),
             _INTL("Trigger Mega Evolution, Primal Reversion, Dynamax, Gigantamax or Terastralization to progress."),
             _INTL("Use your Pokémon's moves, held items or abilities that can transform inro other Pokémon to progress.")]
+  end
+
+  def upperKingdom
+    @upperKingdom=false if !@upperKingdom
+    return @upperKingdom    
   end
   
 end

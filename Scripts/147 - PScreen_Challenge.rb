@@ -344,6 +344,9 @@ Quests:
             update_stats
             Kernel.pbMessage(_INTL("As you've already tried a Challenge Mission for today, you'll get a weaker price."))
             Kernel.pbReceiveItem([:SWEETCANDY,:SOURCANDY,:SPICYCANDY][rand(3)])
+            if $game_switches[218]
+              Kernel.pbReceiveItem(:GOLDBAR)
+            end
             Kernel.pbMessage(_INTL("And continue working hard."))
           else
             $game_variables[1005] += 1
@@ -351,6 +354,9 @@ Quests:
             Kernel.pbMessage(_INTL("\\me[EvolutionSuccess_1]Congratulations, you've won a challenge mission. Incredible work \\PN!!"))
             Kernel.pbMessage(_INTL("As you've finished a Challenge Mission for today, you'll get a premium price."))
             Kernel.pbReceiveItem(PBItems::VICIOUSCANDY)
+            if $game_switches[218]
+              Kernel.pbReceiveItem(:GOLDBAR,10)
+            end
             Kernel.pbMessage(_INTL("And continue working hard."))
           end
         else

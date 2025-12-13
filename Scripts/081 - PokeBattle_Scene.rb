@@ -2067,6 +2067,7 @@ class PokeBattle_Scene
 
   # Shows the party line-ups appearing on-screen
   def partyAnimationRestart(doublePreviewTop)
+  pbPlayBattleStartSE()
   @doublePreviewTop=doublePreviewTop
   yvalue=114
   yvalue-=72 if doublePreviewTop

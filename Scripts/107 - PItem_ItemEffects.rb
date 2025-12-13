@@ -845,6 +845,8 @@ ItemHandlers::UseOnPokemon.add(:PPMAX,proc{|item,pokemon,scene|
    end
 })
 
+ItemHandlers::UseOnPokemon.copy(:PPMAX,:PEARBOX)
+
 ItemHandlers::UseOnPokemon.add(:HPUP,proc{|item,pokemon,scene|
    if pbRaiseEffortValues(pokemon,PBStats::HP)==0
      scene.pbDisplay(_INTL("It won't have any effect."))

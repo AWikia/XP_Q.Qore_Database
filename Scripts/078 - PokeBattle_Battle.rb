@@ -165,6 +165,7 @@ module PokeBattle_BattleCommon
           battler.participants=[]
         else
           Kernel.pbReceiveTrophy(:TCATCHER)
+          $PokemonGlobal.pokebox[13]+=1  if $game_map && pbGetMetadata($game_map.map_id,MetadataUpperKingdom)
           @decision=4
         end
         if pbIsSnagBall?(ball)
@@ -4928,6 +4929,7 @@ class PokeBattle_Battle
     when 1
       PBDebug.log("")
       PBDebug.log("***Player won***")
+      $PokemonGlobal.pokebox[13]+=1  if $game_map && pbGetMetadata($game_map.map_id,MetadataUpperKingdom)
       if @opponent
         @scene.pbTrainerBattleSuccess
         if @opponent.is_a?(Array)

@@ -81,6 +81,7 @@ MetadataWeatherSpring       = 25
 MetadataWeatherSummer       = 26
 MetadataWeatherAutumn       = 27
 MetadataWeatherWinter       = 28
+MetadataUpperKingdom        = 29
 
 
 module PokemonMetadata
@@ -130,6 +131,7 @@ module PokemonMetadata
      "PseudoDarkMap"=>[MetadataPseudoDarkMap,"b"],
      "DisableAutosaving"=>[MetadataDisableAutosaving,"b"],
      "ForbidSaving"=>[MetadataForbidSaving,"b"],
+     "UpperKingdom"=>[MetadataUpperKingdom,"b"],
   }
 end
 

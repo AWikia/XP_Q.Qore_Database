@@ -173,6 +173,9 @@ class PokemonMenu
     if $game_switches[209]
       information+=_INTL("{1}: {2}/{3} ({4} left)\n",pbMapTimeEventName,pbMapTimeEventAmount,pbMapTimeEventMax,pbTimeEventRemainingTime(41))
     end
+    if $game_switches[219]
+      information+=_INTL("Gold Bar Collection: {1}/999 ({2} left)\n",$PokemonBag.pbQuantity(:GOLDBAR),pbTimeEventRemainingTime(43))
+    end
     @scene.pbShowInfo(information)
     commands[cmdOption=commands.length]=_INTL("Settings")
     commands[cmdDebug=commands.length]=_INTL("Debug") if $DEBUG

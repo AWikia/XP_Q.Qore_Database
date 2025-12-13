@@ -324,6 +324,19 @@ def pbPlayLoadSE()
   end
 end
 
+# Plays a sound effect that plays when starting a battle.
+def pbPlayBattleStartSE()
+  if $data_system && $data_system.respond_to?("battle_start_se") &&
+     $data_system.battle_start_se && $data_system.battle_start_se.name!=""
+    pbSEPlay($data_system.battle_start_se)
+  elsif $data_system && $data_system.respond_to?("sounds") &&
+     $data_system.sounds && $data_system.sounds[8] && $data_system.sounds[8].name!=""
+    pbSEPlay($data_system.sounds[8])
+  elsif FileTest.audio_exist?("Audio/SE/Battle start")
+    pbSEPlay("Battle start",100)
+  end
+end
+
 # Plays a sound effect that plays when escaping from a battle.
 def pbPlayEscapeSE()
   if $data_system && $data_system.respond_to?("escape_se") &&
@@ -369,7 +382,7 @@ end
 
 # Plays a sound effect that plays when a Pokemon evades or misses a move.
 def pbPlayMissSE()
-  if FileTest.audio_exist?("Audio/SE/GUI battle invalid action")
-    pbSEPlay("GUI battle invalid action",100)
+  if FileTest.audio_exist?("Audio/SE/protection") # @FIXME: Use "GUI battle invalid action" sound
+    pbSEPlay("protection",100)
   end
 end

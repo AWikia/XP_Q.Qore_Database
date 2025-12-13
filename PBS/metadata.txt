@@ -624,6 +624,7 @@ ShowArea=true
 # MYSTERY ZONE
 BattleBack=MYSTERY
 Environment=Galaxy
+UpperKingdom=true
 [113]
 # Keniora Eins
 MapSize=2,11
@@ -2368,6 +2369,9 @@ BattleBack=IndoorC
 Weather=Snow,100
 MapPosition=3,21,5
 ShowArea=true
+[391]
+# PHONETIC ZONE
+UpperKingdom=true
 [394]
 # Birthday Mystery Minigame
 MapSize=1,111
@@ -3428,3 +3432,115 @@ BattleBack=CaveDarker
 MapPosition=8,9,3
 DarkMap=true
 ShowArea=true
+[558]
+# Star Tournament
+Outdoor=true
+BattleBack=SeasonMastery
+Bicycle=true
+MapPosition=11,4,2
+ShowArea=true
+UpperKingdom=true
+[559]
+# Rest Area
+MapPosition=11,4,2
+HealingSpot=558,13,5
+UpperKingdom=true
+[560]
+# Rest Area
+MapPosition=11,4,2
+HealingSpot=558,49,31
+UpperKingdom=true
+[561]
+# Telemarketing Area
+MapPosition=11,4,2
+UpperKingdom=true
+[562]
+# Trainer House 1
+BattleBack=SeasonMastery
+MapPosition=11,4,2
+UpperKingdom=true
+[563]
+# Trainer House 2
+BattleBack=SeasonMastery
+MapPosition=11,4,2
+UpperKingdom=true
+[564]
+# Trainer House 3
+BattleBack=SeasonMastery
+MapPosition=11,4,2
+UpperKingdom=true
+[565]
+# Trainer House 4
+BattleBack=SeasonMastery
+MapPosition=11,4,2
+UpperKingdom=true
+[566]
+# Trainer House 5
+BattleBack=SeasonMastery
+MapPosition=11,4,2
+UpperKingdom=true
+[567]
+# Trainer House 6
+BattleBack=SeasonMastery
+MapPosition=11,4,2
+UpperKingdom=true
+[568]
+# Trainer House 7
+BattleBack=SeasonMastery
+MapPosition=11,4,2
+UpperKingdom=true
+[569]
+# Item House 1
+BattleBack=SeasonMastery
+MapPosition=11,4,2
+UpperKingdom=true
+[570]
+# Item House 2
+BattleBack=SeasonMastery
+MapPosition=11,4,2
+UpperKingdom=true
+[571]
+# Item House 3
+BattleBack=SeasonMastery
+MapPosition=11,4,2
+UpperKingdom=true
+[572]
+# Item House 4
+BattleBack=SeasonMastery
+MapPosition=11,4,2
+UpperKingdom=true
+[573]
+# Item House 5
+BattleBack=SeasonMastery
+MapPosition=11,4,2
+UpperKingdom=true
+[574]
+# Item House 6
+BattleBack=SeasonMastery
+MapPosition=11,4,2
+UpperKingdom=true
+[575]
+# Item House 7
+BattleBack=SeasonMastery
+MapPosition=11,4,2
+UpperKingdom=true
+[576]
+# Item House 8
+BattleBack=SeasonMastery
+MapPosition=11,4,2
+UpperKingdom=true
+[577]
+# Item House 9
+BattleBack=SeasonMastery
+MapPosition=11,4,2
+UpperKingdom=true
+[578]
+# Item House 10
+BattleBack=SeasonMastery
+MapPosition=11,4,2
+UpperKingdom=true
+[579]
+# Item House 11
+BattleBack=SeasonMastery
+MapPosition=11,4,2
+UpperKingdom=true

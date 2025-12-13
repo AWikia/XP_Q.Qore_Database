@@ -908,7 +908,7 @@ end
 # 7 = Last State of chosen task
 
 def pbMapTimeEvent(taskid=0,maximumvalue=10,maximumrewards=nil,othervalues=nil,otherrewards=nil,name="My Event",mins=20,gender="b")
-  gender = (['b','r','pg','pog'].include?(gender)) ? "\\" + gender : ""
+  gender = "\\" + gender
   taskname = $PokemonGlobal.pokeboxNames2[taskid]
   if Kernel.pbConfirmMessage(_INTL("{1}{2} minutes of {3}. Would you like to begin {4}?",gender,mins,taskname,name))
     Kernel.pbMessage(_INTL("{1}In those {2} minutes, you're forbitten from saving. Once those are over, I will call you for rewards.",gender,mins))
@@ -981,7 +981,11 @@ end
 # Returns either Value 3 or one of the Subvalues of Value 5
 def pbMapTimeEventRewards
   if pbMapTimeEventDone
-    return $game_variables[40][3]
+    if $game_switches[218]
+      return $game_variables[40][3] | [[:GOLDBAR,5]]
+    else
+      return $game_variables[40][3]
+    end
   elsif pbMapTimeEventOthers.is_a?(Array)
     for i in 0...pbMapTimeEventOthers.length
       if pbMapTimeEventAmount >= pbMapTimeEventOthers[i]

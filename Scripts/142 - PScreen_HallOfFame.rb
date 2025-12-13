@@ -73,6 +73,9 @@ class HallOfFameScene
               pbUpdate
             end
             setPokemonSpritesOpacity(-1,OPACITY) if !SINGLEROW
+            if $game_switches[218]
+              Kernel.pbReceiveItem(:GOLDBAR,5)
+            end
             createTrainerBattler
           end
         end

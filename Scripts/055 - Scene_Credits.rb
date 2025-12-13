@@ -47,9 +47,10 @@ YouTube<s>Atari
 VideoGameMusic<s>Enterbrain
 Junichi Masuda<s>Nintendo
 Dewspa<s>Amethyst of Pokémon Reborn
+King
 
 "Overworld Sprite Credits:"
-SageDeoxys
+SageDeoxys<s>Zeeker
 
 "Generation 6 Sprite Credits:"
 GeoisEvil<s>TeraVolt

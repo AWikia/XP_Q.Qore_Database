@@ -790,6 +790,7 @@ def pbBattleAnimationOverride(viewport,trainerid=-1,trainername="")
 end
 
 def pbPrepareBattle(battle)
+  pbPlayBattleStartSE()
   case $game_screen.weather_type
   when PBFieldWeather::Rain, PBFieldWeather::HeavyRain
     battle.weather=PBWeather::RAINDANCE
@@ -812,6 +813,9 @@ def pbPrepareBattle(battle)
   battle.shiftStyle=($PokemonSystem.battlestyle==0)
   battle.battlescene=($PokemonSystem.battlescene==0)
   battle.environment=pbGetEnvironment
+  if pbGetMetadata($game_map.map_id,MetadataUpperKingdom)
+    $PokemonGlobal.upperKingdom=true if $PokemonGlobal
+  end
 end
 
 def pbGetEnvironment

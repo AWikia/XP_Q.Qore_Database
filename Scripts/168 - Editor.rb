@@ -3771,6 +3771,8 @@ LOCALMAPS=[
        _INTL("If true, the game will not autosave if autosaving is enabled upon entry on this map.")],
    ["ForbidSaving",BooleanProperty,
        _INTL("If true, no saving can be done on this map, including autosaving upon entry on this map (If enabled).")],
+   ["UpperKingdom",BooleanProperty,
+       _INTL("If true, this map is part of an alternative continuity and not related to the game's canon story.")],
 ]
 GLOBALMETADATA=[
    ["Home",MapCoordsFacingProperty,

@@ -199,14 +199,20 @@ class Scene_LinkBattleScene
                     "What else should I say",
                     "I can't stand this death"][rand(5)]
           point=[40,80,120,160,200,400][command]
-          pointamount= canAcceptAds? ? (point*0.75).to_i : point.to_i
+          pointamount= canAcceptAds? ? (point*1).to_i : point.to_i
           pointamount2= canAcceptAds? ? (point*0.25).to_i : 0
+          goldamount=[(point*0.125).to_i,25].min
+          if $game_switches[218]
+            goldbars=_INTL(", {1} Gold Bars",goldamount)
+          else
+            goldbars=""
+          end
           double= Kernel.pbConfirmMessage(_INTL("The battle is normally single. However, you can do a double battle. Do you want to do it so?"))
           $PokemonGlobal.nextBattleBack="000"
           cpuname = ['Nic','Karla','Jimmy','Britney','Duncan','Kelli','Todd','Nina','Ross','Heidi','Steven','Miriam','Darrell','Teresa','Reed','Aubrey','Chris','Kelly','Brad','Naomi','Dwight','Abby','Randy','Denise','Andy','Tamara','Joey','Linda','Eric','Faith','Mark','Mari','Maggie','Ash','Dion','Jude','Terell','Kris','Talon','Lonny','Jess','Chase','Keili','Lindy','Turdy','Krissa','Dodie','Flora'][rand(48)]
           pbSet(1004,cpuname)
           @QQSR="\\l[3]"
-          @QQSR+=_INTL("Won Battle Rewards: {1} Link Points",pointamount)
+          @QQSR+=_INTL("Won Battle Rewards: {1} Link Points{2}",pointamount,goldbars)
           @QQSR+=_INTL("\\nDraw Battle Rewards: Rare Candy, Candy")
           @QQSR+=_INTL("\\nLost Battle Rewards: Candy, Oran Berry, Sitrus Berry")
           Kernel.pbMessage(@QQSR)
@@ -216,8 +222,12 @@ class Scene_LinkBattleScene
             Kernel.pbMessage(_INTL("Here's your rewards."))
             $game_variables[1001] += 1
             $game_variables[1002] += pointamount
+
             update_stats
             Kernel.pbMessage(_INTL("\\me[EvolutionSuccess_1]Obtained {1} Link Points!\\wtnp[30]",pointamount)) if $PokemonSystem.vrtrophynotif==0 rescue false
+            if $game_switches[218]
+              Kernel.pbReceiveItem(:GOLDBAR,goldamount)
+            end
             if canAcceptAds?
               # 1st Quest
               if Kernel.pbConfirmMessage(_INTL("Would you like to complete an Ad Quest to get {1} additional Link Points?",pointamount2))

@@ -910,7 +910,10 @@ end
 def pbMapTimeEvent(taskid=0,maximumvalue=10,maximumrewards=nil,othervalues=nil,otherrewards=nil,name="My Event",mins=20,gender="b")
   gender = "\\" + gender
   taskname = $PokemonGlobal.pokeboxNames2[taskid]
-  if Kernel.pbConfirmMessage(_INTL("{1}{2} minutes of {3}. Would you like to begin {4}?",gender,mins,taskname,name))
+  if $game_switches[209]
+    Kernel.pbMessage(_INTL("{1}You're currently running another competition event. Please finish it and come back again.",gender,mins))
+    return false
+  elsif Kernel.pbConfirmMessage(_INTL("{1}{2} minutes of {3}. Would you like to begin {4}?",gender,mins,taskname,name))
     Kernel.pbMessage(_INTL("{1}In those {2} minutes, you're forbitten from saving. Once those are over, I will call you for rewards.",gender,mins))
     $game_variables[40] = [taskid,$PokemonGlobal.pokebox[taskid],maximumvalue,maximumrewards,othervalues,otherrewards,name,0,gender]
     pbTimeEvent(41,mins*60)

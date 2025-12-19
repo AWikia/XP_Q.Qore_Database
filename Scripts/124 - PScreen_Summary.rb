@@ -952,7 +952,7 @@ def drawPageFive
   end
 
   def drawMoveSelection(moveToLearn)
-    @sprites["header"].text="Pokémon Statistics"
+    @sprites["header"].text="Pokémon Moveset"
     overlay=@sprites["overlay"].bitmap
     overlay.clear
     if (!isDarkMode?)

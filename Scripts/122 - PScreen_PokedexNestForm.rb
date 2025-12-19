@@ -294,19 +294,24 @@ class PokedexFormScene
 =end
 
     if (!isDarkMode?)
-      color=Color.new(12,12,12)
+      basecolor=MessageConfig::DARKTEXTBASE
+      shadowcolor=MessageConfig::DARKTEXTSHADOW
+      basecolor2=Color.new(20,20,20)
     else
-      color=Color.new(242,242,242)
+      basecolor=MessageConfig::LIGHTTEXTBASE
+      shadowcolor=MessageConfig::LIGHTTEXTSHADOW
+      basecolor2=Color.new(242,242,242)
     end
+
 
 
     text=[
        [sprintf("%s",PBSpecies.getName(@species)),
           (Graphics.width+0)/2,Graphics.height-86,2,
-          color],
+          basecolor,shadowcolor],
        [sprintf("%s",name),
           (Graphics.width+0)/2,Graphics.height-54,2,
-          color],
+          basecolor,shadowcolor],
     ]
 
     pbDrawTextPositions(@sprites["info"].bitmap,text)

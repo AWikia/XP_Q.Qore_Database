@@ -63,21 +63,26 @@ class MapBottomSprite < SpriteWrapper
 
 
     if (!isDarkMode?)
-      color=Color.new(12,12,12)
+      basecolor=MessageConfig::DARKTEXTBASE
+      shadowcolor=MessageConfig::DARKTEXTSHADOW
+      basecolor2=Color.new(20,20,20)
     else
-      color=Color.new(242,242,242)
+      basecolor=MessageConfig::LIGHTTEXTBASE
+      shadowcolor=MessageConfig::LIGHTTEXTSHADOW
+      basecolor2=Color.new(242,242,242)
     end
+
 
     
     textpos=[
-       [@mapname,18,-2,0,color],
-       [@maplocation,18,354,0,color],
-       [@mapdetails,Graphics.width-16,354,1,color]
+       [@mapname,18,-2,0,basecolor2],
+       [@maplocation,18,354,0,basecolor2],
+       [@mapdetails,Graphics.width-16,354,1,basecolor2]
     ]
 
     if @nonests
       textpos.push([_INTL("Area Unknown"),Graphics.width/2,Graphics.height/2-16,2,
-         color]) # 204,132,0
+         basecolor,shadowcolor]) # 204,132,0
     end
     pbDrawTextPositions(self.bitmap,textpos)
   end

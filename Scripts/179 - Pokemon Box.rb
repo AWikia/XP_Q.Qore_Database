@@ -95,7 +95,7 @@ class PokemonBoxScene
     @sprites["task3"].z = 3
     expiredbox = pbTimeEventValid(PBOX_VARIABLES[3]) || expired
     welcome=$game_variables[PBOX_VARIABLES[1]] == 0
-    if welcome || expiredbox
+    if welcome
       $game_variables[PBOX_VARIABLES[2]]=0
       initializeBox
     end
@@ -106,7 +106,10 @@ class PokemonBoxScene
     pbPokemonBoxStart
     pbFadeInAndShow(@sprites) { update }
     if expiredbox
-        Kernel.pbMessage(_INTL("You ran out of time on the previous box. Better luck next time."))
+        stage=@box.stages[0][0]
+        Kernel.pbMessage(_INTL("You ran out of time on this box. Start a new {1} box and try again.",stage))
+        $game_variables[PBOX_VARIABLES[2]]=0
+        initializeBox
     end
     if welcome
         Kernel.pbMessage(_INTL("Welcome to Pokémon Box where you can complete out tasks by finishing battles."))
@@ -420,21 +423,11 @@ class PokemonBoxScene
   
   # Creates a new box instance
   def initializeBox(fromdebug=false)
-    # Task 9 is Universal on Millenial/Elite/Level 3 Boxes
-    # Task 18 isn't applicable on Q.Qore
-    # Group 0
-    task0 = [0,1,2,14,20,25,30,35,40,45]
-    task0 = [0,1,2,14,30,35,40] if boxLevel==1
-    task0 = [0,1,2,14] if boxLevel==0
-    # Group 1
-    task1 = [3,4,5,15,21,26,31,36,41,46]
-    task1 = [3,4,5,15,31,36,41] if boxLevel==1
-    task1 = [4,15,31,36] if boxLevel==0
-    # Group 2
-    task2 = [6,7,8,16,22,27,32,37,42,47]
-    task2 = [6,7,8,16,27,37,42] if boxLevel==1
-    task2 = [6,7,8,16] if boxLevel==0
-    # Group 3
+    # Tasks that will be excluded from the boxes
+    tasksToExclude=[]
+    tasksToExclude.push(19) # Not applicable
+    tasksToExclude.push(9,13,20,21,22,23,25,26,32,34,39,45,46,47,48,49) if boxLevel<2 # Level 1 and below boxes cannot contain these
+    tasksToExclude.push(3,5,19,24,27,28,29,30,33,35,37,40,41,42,43,44) if boxLevel<1 # Level 0 and below boxes cannot contain these
     # List of items that will enable the supercharge task
     supercharger=false
     mRINGS = [:MEGARING,:MEGABRACELET,:MEGACUFF,:MEGACHARM,:DYNAMAXBAND] 
@@ -445,27 +438,36 @@ class PokemonBoxScene
         break
       end
     end
-    task3 = [9,10,11,17,23,28,33,38,43]
-    task3.push(48) if supercharger
+    tasksToExclude.push(48) if !supercharger # Never when not having it
+    tasksToExclude.push(13) if !$PokemonGlobal.upperKingdom
+    tasksToExclude.push(3,10,19,23,29,33,34,35,38,42,48) if $flint_brockopolis_active
+    # Task 9 is Universal on Millenial/Elite/Level 3 Boxes
+    # Task 18 isn't applicable on Q.Qore
+    # Group 0
+    task0 = [0,1,2,14,20,25,30,35,40,45]
+    task0.delete_if {|element| tasksToExclude.include?(element) }
+    # Group 1
+    task1 = [3,4,5,15,21,26,31,36,41,46]
+    task1.delete_if {|element| tasksToExclude.include?(element) }
+    # Group 2
+    task2 = [6,7,8,16,22,27,32,37,42,47]
+    task2.delete_if {|element| tasksToExclude.include?(element) }
+    # Group 3
+    task3 = [9,10,11,17,23,28,33,38,43,48]
     task3 = [9,23] if boxLevel==3 # The majority are handled elsewhere
-    task3 = [10,11,17,28,33,38,43] if boxLevel==1
-    task3 = [10,11,17,38] if boxLevel==0
+    task3.delete_if {|element| tasksToExclude.include?(element) }
     # Universal Tasks 0
     taskU0=[12,18,29,34,39,49] # 19 is not applicable in Q.Qore
     taskU0=[] if boxLevel==3 # Handled elsewhere
-    taskU0=[12,18,29] if boxLevel==1 # 19 is not applicable in Q.Qore
-    taskU0=[12,18] if boxLevel==0
+    taskU0.delete_if {|element| tasksToExclude.include?(element) }
     # Universal Tasks 1
     taskU1=[24,44]
-    taskU1.push(13) if $PokemonGlobal.upperKingdom
     taskU1=[] if boxLevel==3 # Handled Elsewhere
-    taskU1=[24,44] if boxLevel==1
-    taskU1=[] if boxLevel==0
+    taskU1.delete_if {|element| tasksToExclude.include?(element) }
     # Universal Tasks for Millenial/Elite/Level 3 Boxes
     if boxLevel==3
-      taskU0_1 = [10,11,12,17,18,24,28,29,33,34,38,39,43,44,49]
-      taskU0_1.push(48) if supercharger
-      taskU0_1.push(13) if $PokemonGlobal.upperKingdom
+      taskU0_1 = [10,11,12,13,17,18,24,28,29,33,34,38,39,43,44,48,49]
+      taskU0_1.delete_if {|element| tasksToExclude.include?(element) }
       for i in taskU0_1 # 13 and 19 are not applicable in Q.Qore
         if rand(2)==0
           taskU0.push(i)

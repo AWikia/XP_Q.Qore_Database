@@ -252,26 +252,28 @@ class PokemonBoxScene
     end
   end
   
-  def valueFromTo(min=1,max=2,scaleup=0)
+  def valueFromTo(min=1,max=2,scaleup=0,padding=1)
     multi=boxMulti
     multi2=1 + ([($Trainer.numbadges / 2).floor,6].min * scaleup)
     min=min.to_f
     max=max.to_f
-    return [(min*multi) + randIncr((max-min)*(multi*multi2)) + addIncr(min),1].max.round
+    result=(min*multi) + randIncr((max-min)*(multi*multi2)) + addIncr(min)
+    return [(result/padding).round*padding,padding].max.round
   end
 
-  def valueFromToMiddle(min=1,max=2,scaleup=0)
+  def valueFromToMiddle(min=1,max=2,scaleup=0,padding=1)
     multi=boxMulti
     multi2=1 + ([($Trainer.numbadges / 2).floor,6].min * scaleup)
     min=min.to_f
     max=max.to_f
-    return [(min*multi) + ( ((max-min)*(multi*multi2)) * 0.5),
-            (min*multi) + ( ((max-min)*(multi*multi2)) * 0.7),
-            (min*multi) + ( ((max-min)*(multi*multi2)) * 0.9)]
+    result=(min*multi) + ((max-min)*(multi*multi2))
+    return [result * 0.5,
+            result * 0.7,
+            result * 0.9]
   end
   
   def taskVals(num=0)
-    return [valueFromTo(20,60,6)*10,     # Gain Experience
+    return [valueFromTo(200,600,6,10),   # Gain Experience
             valueFromTo(1,1.5),          # Level Up Pokemon
             valueFromTo(2.5,5),          # Defeat Pokemon
             valueFromTo(0.5,1),          # Catch Pokemon
@@ -285,7 +287,7 @@ class PokemonBoxScene
             valueFromTo(3,7),            # Lapse Turns
             valueFromTo(0.4,0.65),       # Use Medicine Items
             valueFromTo(1,2),            # UNUSED!
-            valueFromTo(8,24,1.5)*10,    # Deal Damage
+            valueFromTo(80,240,1.5,10),  # Deal Damage
             valueFromTo(0.5,1),          # Land Critical Hits
             valueFromTo(2,4),            # Use STAB Moves
             valueFromTo(1,2),            # Defeat Pokemon Instantly
@@ -300,34 +302,62 @@ class PokemonBoxScene
             valueFromTo(1,1.5),          # Inflict Conditions            
             valueFromTo(1,2),            # Use Moves with Effects
             valueFromTo(0.4,0.65),       # Use Copycat Moves
-            valueFromTo(2,6,1.5)*10,     # Take Recoil Damage
-            valueFromTo(4,12,1.5)*10,    # Recover HP
+            valueFromTo(20,60,1.5,10),   # Take Recoil Damage
+            valueFromTo(40,120,1.5,10),  # Recover HP
             valueFromTo(1.5,3),          # Land Super Effective
             valueFromTo(1,2),            # Use Multi-hit Moves
             valueFromTo(0.5,1),          # Defeat Best Trainers
             valueFromTo(0.2,0.4),        # Use Sleeping Moves
-            valueFromTo(60,140,1)*10,    # Gain Money
+            valueFromTo(600,1400,1,10),  # Gain Money
             valueFromTo(1.5,3),          # Land Not Very Effective
             valueFromTo(1,2),            # Use Mutli-Target Moves
             valueFromTo(3,6),            # Activate Win Streak
             valueFromTo(0.5,1),          # Change Forms
-            valueFromTo(4,6)*5,          # Gain Levelup Stats
+            valueFromTo(20,30,0,5),      # Gain Levelup Stats
             valueFromTo(3,6),            # Gain Effort Values
             valueFromTo(0.5,1),          # Learn Moves in Battle
             valueFromTo(1,2),            # Break the Mold
             valueFromTo(1,2),            # Use Lo Priority Moves
             valueFromTo(1,2),            # Defeat Skilled Pokemon
-            valueFromTo(1,2)*5,          # Restore PP
+            valueFromTo(5,10,0,5),       # Restore PP
             valueFromTo(1,2),            # Use Sound-based Moves
             valueFromTo(0.4,0.65),       # Supercharge Pokemon
             valueFromTo(0.4,0.65),       # Use Transform
+            valueFromTo(0.5,0.8),        # Use any Item
+            valueFromTo(2,4),            # Use Perfect Moves
+            valueFromTo(1,2),            # Use Variable Moves
+            valueFromTo(0.3,0.5),        # Create Substitutes
+            valueFromTo(1,2),            # Use Shadow Moves
+            valueFromTo(0.5,1),          # Defeat Full Trainers
+            valueFromTo(1,2),            # Defeat same-color Pokemon
+            valueFromTo(0.4,0.65),       # Confuse or Infatuate
+            valueFromTo(0.06,0.15),      # Collect Lucky Bags
+            valueFromTo(0.06,0.15),      # Use Elder Special Moves
+            valueFromTo(200,600,6,10),   # Gain Experience/TB
+            valueFromTo(1,1.5),          # Level Up Pokemon/TB
+            valueFromTo(2.5,5),          # Defeat Pokemon/TB
+            valueFromTo(80,240,1.5,10),  # Deal Damage/TB
+            valueFromTo(1.5,3),          # Land Super Effective/TB
+            valueFromTo(1.5,3),          # Land Not Very Effective/TB
+            valueFromTo(3,6),            # Use Physical Moves/TB
+            valueFromTo(3,6),            # Use Special Moves/TB
+            valueFromTo(1,2),            # Use Status Moves/TB
+            valueFromTo(20,30,0,5),      # Gain Levelup Stats/TB
+            valueFromTo(3,6),            # Gain Effort Values/TB
+            valueFromTo(3,6),            # Use Normal Moves
+            valueFromTo(3,6),            # Use Normal Moves/TB
+            valueFromTo(3,6),            # Use G-F-W Moves
+            valueFromTo(3,6),            # Use G-F-W/TB
+            valueFromTo(0.2,0.4),        # Catch Skilled Pokemon
+            valueFromTo(0.5,1),          # Defeat Skilled Pokemon Inst.
+            valueFromTo(0.2,0.4),        # Defeat Full Skilled Trainers
             ][num]
 
   end
 
   def taskLevel(idx=-1) # idx is used to identify if the current active task is hard
     return 0 if (currentStep%4 != idx && idx != -1) || boxLevel==0
-    vals = [valueFromToMiddle(20,60,6)*10,     # Gain Experience
+    vals = [valueFromToMiddle(200,600,6,10),   # Gain Experience
             valueFromToMiddle(1,1.5),          # Level Up Pokemon
             valueFromToMiddle(2.5,5),          # Defeat Pokemon
             valueFromToMiddle(0.5,1),          # Catch Pokemon
@@ -341,7 +371,7 @@ class PokemonBoxScene
             valueFromToMiddle(3,7),            # Lapse Turns
             valueFromToMiddle(0.4,0.65),       # Use Medicine Items
             valueFromToMiddle(1,2),            # UNUSED!
-            valueFromToMiddle(8,24,1.5)*10,    # Deal Damage
+            valueFromToMiddle(80,240,1.5,10),  # Deal Damage
             valueFromToMiddle(0.5,1),          # Land Critical Hits
             valueFromToMiddle(2,4),            # Use STAB Moves
             valueFromToMiddle(1,2),            # Defeat Pokemon Instantly
@@ -356,27 +386,56 @@ class PokemonBoxScene
             valueFromToMiddle(1,1.5),          # Inflict Conditions            
             valueFromToMiddle(1,2),            # Use Moves with Effects
             valueFromToMiddle(0.4,0.65),       # Use Copycat Moves
-            valueFromToMiddle(2,6,1.5)*10,     # Take Recoil Damage
-            valueFromToMiddle(4,12,1.5)*10,    # Recover HP
+            valueFromToMiddle(20,60,1.5,10),   # Take Recoil Damage
+            valueFromToMiddle(40,120,1.5,10),  # Recover HP
             valueFromToMiddle(1.5,3),          # Land Super Effective
             valueFromToMiddle(1,2),            # Use Multi-hit Moves
             valueFromToMiddle(0.5,1),          # Defeat Best Trainers
             valueFromToMiddle(0.2,0.4),        # Use Sleeping Moves
-            valueFromToMiddle(60,140,1)*10,    # Gain Money
+            valueFromToMiddle(600,1400,1,10),  # Gain Money
             valueFromToMiddle(1.5,3),          # Land Not Very Effective
             valueFromToMiddle(1,2),            # Use Mutli-Target Moves
             valueFromToMiddle(3,6),            # Activate Win Streak
             valueFromToMiddle(0.5,1),          # Change Forms
-            valueFromToMiddle(4,6)*5,          # Gain Levelup Stats
+            valueFromToMiddle(20,30,0,5),      # Gain Levelup Stats
             valueFromToMiddle(3,6),            # Gain Effort Values
             valueFromToMiddle(0.5,1),          # Learn Moves in Battle
             valueFromToMiddle(1,2),            # Break the Mold
             valueFromToMiddle(1,2),            # Use Lo Priority Moves
             valueFromToMiddle(1,2),            # Defeat Skilled Pokemon
-            valueFromToMiddle(1,2)*5,          # Restore PP
+            valueFromToMiddle(5,10,0,5),       # Restore PP
             valueFromToMiddle(1,2),            # Use Sound-based Moves
             valueFromToMiddle(0.4,0.65),       # Supercharge Pokemon
             valueFromToMiddle(0.4,0.65),       # Use Transform
+            valueFromToMiddle(0.5,0.8),        # Use any Item
+            valueFromToMiddle(2,4),            # Use Perfect Moves
+            valueFromToMiddle(1,2),            # Use Variable Moves
+            valueFromToMiddle(0.3,0.5),        # Create Substitutes
+            valueFromToMiddle(1,2),            # Use Shadow Moves
+            valueFromToMiddle(0.5,1),          # Defeat Full Trainers
+            valueFromToMiddle(1,2),            # Defeat same-color Pokemon
+            valueFromToMiddle(0.4,0.65),       # Confuse or Infatuate
+            valueFromToMiddle(0.06,0.15),      # Collect Lucky Bags
+            valueFromToMiddle(0.06,0.15),      # Use Elder Special Moves
+            valueFromToMiddle(200,600,6,10),   # Gain Experience/TB
+            valueFromToMiddle(1,1.5),          # Level Up Pokemon/TB
+            valueFromToMiddle(2.5,5),          # Defeat Pokemon/TB
+            valueFromToMiddle(80,240,1.5,10),  # Deal Damage/TB
+            valueFromToMiddle(1.5,3),          # Land Super Effective/TB
+            valueFromToMiddle(1.5,3),          # Land Not Very Effective/TB
+            valueFromToMiddle(3,6),            # Use Physical Moves/TB
+            valueFromToMiddle(3,6),            # Use Special Moves/TB
+            valueFromToMiddle(1,2),            # Use Status Moves/TB
+            valueFromToMiddle(20,30,0,5),      # Gain Levelup Stats/TB
+            valueFromToMiddle(3,6),            # Gain Effort Values/TB
+            valueFromToMiddle(3,6),            # Use Normal Moves
+            valueFromToMiddle(3,6),            # Use Normal Moves/TB
+            valueFromToMiddle(3,6),            # Use G-F-W Moves
+            valueFromToMiddle(3,6),            # Use G-F-W/TB
+            valueFromToMiddle(0.2,0.4),        # Catch Skilled Pokemon
+            valueFromToMiddle(0.5,1),          # Defeat Skilled Pokemon Inst.
+            valueFromToMiddle(0.2,0.4),        # Defeat Full Skilled Trainers
+
             ][taskID]
     if taskstatus2 > vals[2] && boxLevel>1     # Ultra Hard Task
       return 3
@@ -426,8 +485,25 @@ class PokemonBoxScene
     # Tasks that will be excluded from the boxes
     tasksToExclude=[]
     tasksToExclude.push(19) # Not applicable
-    tasksToExclude.push(9,13,20,21,22,23,25,26,32,34,39,45,46,47,48,49) if boxLevel<2 # Level 1 and below boxes cannot contain these
-    tasksToExclude.push(3,5,19,24,27,28,29,30,33,35,37,40,41,42,43,44) if boxLevel<1 # Level 0 and below boxes cannot contain these
+    $game_variables[PBOX_VARIABLES[6]] = [] if  !$game_variables[PBOX_VARIABLES[6]].is_a?(Array)
+    data = $game_variables[PBOX_VARIABLES[6]]
+    if data==[] || ((data.inject { |sum, n| sum + n }) / data.length)< 50
+      # Level 2 and above boxes cannot contain these
+      tasksToExclude.push(0,1,2,6,7,8,14,31,36,40,41,71,73) if boxLevel>2
+      # Only Level 2 boxes can contain these
+      tasksToExclude.push(60,61,62,63,64,65,66,67,68,69,70,72,74)
+    else
+      # Level 2 and above boxes cannot contain these
+      tasksToExclude.push(0,1,2,6,7,8,14,31,36,40,41,71,73) if boxLevel>1
+      # Only Level 2 boxes can contain these
+      tasksToExclude.push(60,61,62,63,64,65,66,67,68,69,70,72,74) if boxLevel!=2
+    end
+    # Level 2 and below boxes cannot contain these
+    tasksToExclude.push(76,77) if boxLevel<3
+    # Level 1 and below boxes cannot contain these
+    tasksToExclude.push(9,13,20,21,22,23,25,26,32,34,39,45,46,47,48,49,56,57,58,59,75) if boxLevel<2
+    # Level 0 and below boxes cannot contain these
+    tasksToExclude.push(3,5,19,24,27,28,29,30,33,35,37,40,41,42,43,44,52,53,54,55,73) if boxLevel<1
     # List of items that will enable the supercharge task
     supercharger=false
     mRINGS = [:MEGARING,:MEGABRACELET,:MEGACUFF,:MEGACHARM,:DYNAMAXBAND] 
@@ -440,33 +516,35 @@ class PokemonBoxScene
     end
     tasksToExclude.push(48) if !supercharger # Never when not having it
     tasksToExclude.push(13) if !$PokemonGlobal.upperKingdom
-    tasksToExclude.push(3,10,19,23,29,33,34,35,38,42,48) if $flint_brockopolis_active
-    # Task 9 is Universal on Millenial/Elite/Level 3 Boxes
-    # Task 18 isn't applicable on Q.Qore
+    # Disable "Use Elder Special Moves" when Elder Special Move tutorial isn't done
+    tasksToExclude.push(59) if !$game_switches[174]
+    # Disable "Use Shadow Moves" when shadow type isn't defined
+    tasksToExclude.push(54) if !hasConst?(PBTypes,:SHADOW)
+    tasksToExclude.push(3,10,19,23,29,33,34,35,38,42,48,54,55,58,59,60,61,62,63,64,65,66,67,68,69,70,72,74,75,76,77) if $flint_brockopolis_active
     # Group 0
-    task0 = [0,1,2,14,20,25,30,35,40,45]
+    task0 = [0,1,2,14,20,25,30,35,40,45,60,61,62,63,69]
     task0.delete_if {|element| tasksToExclude.include?(element) }
     # Group 1
-    task1 = [3,4,5,15,21,26,31,36,41,46]
+    task1 = [3,4,5,15,21,26,31,36,41,46,64,65,70,75]
     task1.delete_if {|element| tasksToExclude.include?(element) }
     # Group 2
-    task2 = [6,7,8,16,22,27,32,37,42,47]
+    task2 = [6,7,8,16,22,27,32,37,42,47,66,67,68,71,72,73,74]
     task2.delete_if {|element| tasksToExclude.include?(element) }
     # Group 3
-    task3 = [9,10,11,17,23,28,33,38,43,48]
+    task3 = [9,10,11,17,23,28,33,38,43,48,76]
     task3 = [9,23] if boxLevel==3 # The majority are handled elsewhere
     task3.delete_if {|element| tasksToExclude.include?(element) }
     # Universal Tasks 0
-    taskU0=[12,18,29,34,39,49] # 19 is not applicable in Q.Qore
+    taskU0=[12,18,29,34,50,51,52,56,57] # 19 is not applicable in Q.Qore
     taskU0=[] if boxLevel==3 # Handled elsewhere
     taskU0.delete_if {|element| tasksToExclude.include?(element) }
     # Universal Tasks 1
-    taskU1=[24,44]
+    taskU1=[13,24,39,44,49,53,54,55,58,59,77]
     taskU1=[] if boxLevel==3 # Handled Elsewhere
     taskU1.delete_if {|element| tasksToExclude.include?(element) }
     # Universal Tasks for Millenial/Elite/Level 3 Boxes
     if boxLevel==3
-      taskU0_1 = [10,11,12,13,17,18,24,28,29,33,34,38,39,43,44,48,49]
+      taskU0_1 = [10,11,12,13,17,18,24,28,29,33,34,38,39,43,44,48,49,50,51,52,53,54,55,56,57,58,59,76,77]
       taskU0_1.delete_if {|element| tasksToExclude.include?(element) }
       for i in taskU0_1 # 13 and 19 are not applicable in Q.Qore
         if rand(2)==0
@@ -591,9 +669,9 @@ class PokemonBoxScene
     numbershadow=(isHardTask()) ? hardShadow[taskLevel() - 1] : shadowColor
 
     textpos=[
-       [_INTL("{1}",taskname),(Graphics.width/4)-14,4,2,numberbase,numbershadow],
        [_INTL("{1}/{2}",[taskstatus,taskstatus2].min,taskstatus2),(Graphics.width/4)-39+15,40,2,base2,shadow2,true],
     ]
+    pbDrawShadowText(@sprites["overlayTask"].bitmap,0,0,(Graphics.width / 2)-28,38,taskname,numberbase,numbershadow,1)
     textposTime=[
        [_INTL("Time Remaning"),(Graphics.width/4),294,2,baseColor,shadowColor],
        [_INTL("{1}",pbTimeEventRemainingTime(PBOX_VARIABLES[3])),(Graphics.width/4)+15,330,2,base2,shadow2,true],

@@ -68,6 +68,7 @@ class Scene_Map
     @header.visible=$game_switches[1050] # 1050 Switch = Game Started
 # Header End
     Graphics.transition
+    $game_switches[221]=pbIsQQoreDay # Set Switch accordingly
     pbReturnBonusEvent if $game_switches[1050]
     loop do
       Graphics.update

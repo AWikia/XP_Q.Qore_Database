@@ -1892,6 +1892,7 @@ class PokeBattle_Move
       oldhp=opponent.hp
       opponent.hp-=damage
       $PokemonGlobal.pokebox[14]+=damage if @battle.pbOwnedByPlayer?(attacker.index) && attacker
+      $PokemonGlobal.pokebox[63]+=damage if @battle.pbOwnedByPlayer?(attacker.index) && attacker && @battle.opponent
       effectiveness=0
       if opponent.damagestate.typemod<8
         effectiveness=1   # "Not very effective"
@@ -1954,6 +1955,7 @@ class PokeBattle_Move
     if !pbIsMultiHit && attacker.effects[PBEffects::ParentalBond]==0
       if opponent.damagestate.typemod>8
         $PokemonGlobal.pokebox[31]+=1 if @battle.pbOwnedByPlayer?(attacker.index)
+        $PokemonGlobal.pokebox[64]+=1 if @battle.pbOwnedByPlayer?(attacker.index) && @battle.opponent
 				pbSEPlay("Battle effect message")
         if alltargets && alltargets.length>1
           @battle.pbDisplay(_INTL("It's super effective on {1}!",opponent.pbThis(true)))
@@ -1962,6 +1964,7 @@ class PokeBattle_Move
         end
       elsif opponent.damagestate.typemod>=1 && opponent.damagestate.typemod<8
         $PokemonGlobal.pokebox[36]+=1 if @battle.pbOwnedByPlayer?(attacker.index)
+        $PokemonGlobal.pokebox[65]+=1 if @battle.pbOwnedByPlayer?(attacker.index) && @battle.opponent
         pbSEPlay("Battle effect message")
 				if alltargets && alltargets.length>1
           @battle.pbDisplay(_INTL("It's not very effective on {1}...",opponent.pbThis(true)))

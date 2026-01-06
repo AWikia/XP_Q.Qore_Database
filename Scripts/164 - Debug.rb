@@ -976,7 +976,10 @@ def pbDebugMenu(inloadscreen=false,mode=0)
         boxcmds=[
            _INTL("Change Win Streak"),
            _INTL("Jump to task..."),
-           _INTL("Jump to substep")
+           _INTL("Jump to substep"),
+           _INTL("Add Balance Points"),
+           _INTL("View Balance Points"),
+           _INTL("Clear Balance Points")
         ]
         boxcmd=Kernel.pbShowCommands(nil,boxcmds,-1,boxcmd)
         break if boxcmd<0
@@ -1022,6 +1025,33 @@ def pbDebugMenu(inloadscreen=false,mode=0)
             $game_variables[PBOX_VARIABLES[1]][currentStep][1] = $PokemonGlobal.pokebox[ $game_variables[PBOX_VARIABLES[1]][currentStep][0] ]
             Kernel.pbMessage(_INTL("Pokémon Box was moved to subtask No. {1} within the current task",qty))
           end
+        when 3 # Slot Machine
+          boxcmds2=[_INTL("100"),
+                    _INTL("60"),
+                    _INTL("20"),
+                    _INTL("0"),
+                    _INTL("-100"),
+                    _INTL("Cancel")]
+          gamecmd2=Kernel.pbMessage(
+              _INTL("How much points would you like to push?"),boxcmds2,-1)
+          if gamecmd2>=0 && gamecmd2 < 5
+            $game_variables[PBOX_VARIABLES[6]] = [] if  !$game_variables[PBOX_VARIABLES[6]].is_a?(Array)
+            pt = [100,60,20,0,-100][gamecmd2]
+            $game_variables[PBOX_VARIABLES[6]].push(pt)
+            Kernel.pbMessage(_INTL("Succesfully added {1} balance points",pt))
+          end
+        when 4 # Slot Machine
+          $game_variables[PBOX_VARIABLES[6]] = [] if  !$game_variables[PBOX_VARIABLES[6]].is_a?(Array)
+          data = $game_variables[PBOX_VARIABLES[6]]
+          if data==[]
+            value=0
+          else
+            value=((data.inject { |sum, n| sum + n }) / data.length)
+          end
+          Kernel.pbMessage(_INTL("You have {1} balance points",value))
+        when 5 # Slot Machine
+          $game_variables[PBOX_VARIABLES[6]] = []
+          Kernel.pbMessage(_INTL("Successfully cleared balance points"))
         end
       end
       # End Pokemon Box Debug

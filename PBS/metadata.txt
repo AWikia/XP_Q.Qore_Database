@@ -3544,3 +3544,12 @@ UpperKingdom=true
 BattleBack=SeasonMastery
 MapPosition=11,4,2
 UpperKingdom=true
+[580]
+# Anniversary Plaza
+MapSize=3,111111111
+ShowArea=true
+BattleBack=MYSTERY
+Environment=Galaxy
+UpperKingdom=true
+MapPosition=17,8,5
+ForbidSaving=true

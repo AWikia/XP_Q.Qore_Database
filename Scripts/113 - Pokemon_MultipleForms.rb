@@ -855,98 +855,7 @@ MultipleForms.register(:PIKACHU,{
 }
 })
 
-MultipleForms.register(:RAICHU,{
-"type1"=>proc{|pokemon|
-   next if pokemon.form==0            # Kanto
-   case pokemon.form
-   when 1; next getID(PBTypes,:ELECTRIC)  # Alola
-   end
-},
-"type2"=>proc{|pokemon|
-   next if pokemon.form==0              # Kanto
-   case pokemon.form
-   when 1; next getID(PBTypes,:PSYCHIC)  # Alola
-   end
-},
-"height"=>proc{|pokemon|
-   next if pokemon.form==0              # Kanto
-   case pokemon.form
-   when 1; 70                          # Alola
-   end
-},
-"weight"=>proc{|pokemon|
-   next if pokemon.form==0              # Kanto
-   case pokemon.form
-   when 1; 210                          # Alola
-   end
-},
-"color"=>proc{|pokemon|
-   next if pokemon.form==0
-   next 5 if pokemon.form==1
-},
-"getAbilityList"=>proc{|pokemon|
-   next if pokemon.form==0                   
-   next [[getID(PBAbilities,:SURGESURFER),0],
-         [getID(PBAbilities,:LIGHTNINGROD),2]] # Was SURGESURFER
-},
-"getBaseStats"=>proc{|pokemon|
-   next if pokemon.form==0            # Plant Cloak
-   case pokemon.form
-   when 1; next [60,85,50,110,95,85] # Sandy Cloak
-   end
-},
-"getMoveList"=>proc{|pokemon|
-   next if pokemon.form!=1
-   movelist=[]
-   case pokemon.form
-   when 1; movelist=[[0,:PSYCHIC],[1,:PSYCHIC],[1,:SPEEDSWAP],
-                     [1,:THUNDERSHOCK],[1,:TAILWHIP],[1,:QUICKATTACK],
-                     [1,:THUNDERBOLT]]
-   end
-   for i in movelist
-     i[1]=getConst(PBMoves,i[1])
-   end
-   next movelist
-},
-"dexEntry"=>proc{|pokemon|
-   next if pokemon.form==0
-   next _INTL("It focuses psychic energy into its tail and rides it like it's surfing. Another name for this Pokémon is \“hodad.\"") if pokemon.form==1 # Eternal
-},
-"getMoveCompatibility"=>proc{|pokemon|
-   next if pokemon.form==0
-   movelist=[:AGILITY,:ALLYSWITCH,:ATTRACT,:BESTOW,:BIDE,:BODYSLAM,:BRICKBREAK,
-             :CALMMIND,:CAPTIVATE,:CELEBRATE,:CHARGE,:CHARGEBEAM,:CHARM,
-             :CONFIDE,:COUNTER,:COVET,:DEFENSECURL,:DIG,:DISARMINGVOICE,
-             :DISCHARGE,:DOUBLEEDGE,:DOUBLESLAP,:DOUBLETEAM,:DYNAMICPUNCH,
-             :ECHOEDVOICE,:ELECTRICTERRAIN,:ELECTROBALL,:ELECTROWEB,:ENCORE,
-             :ENDEAVOR,:ENDURE,:EXTREMESPEED,:FACADE,:FAKEOUT,:FEINT,:FLAIL,
-             :FLASH,:FLING,:FLY,:FOCUSBLAST,:FOCUSPUNCH,:FOLLOWME,:FRUSTRATION,
-             :GIGAIMPACT,:GRASSKNOT,:GROWL,:HAPPYHOUR,:HEADBUTT,:HEARTSTAMP,
-             :HELPINGHAND,:HIDDENPOWER,:HOLDHANDS,:HYPERBEAM,:IRONTAIL,
-             :KNOCKOFF,:LASERFOCUS,:LASTRESORT,:LIGHTSCREEN,:LUCKYCHANT,
-             :MAGICCOAT,:MAGICROOM,:MAGNETRISE,:MEGAKICK,:MEGAPUNCH,:MIMIC,
-             :MUDSLAP,:NASTYPLOT,:NATURALGIFT,:NUZZLE,:PAYDAY,:PLAYNICE,
-             :PRESENT,:PROTECT,:PSYCHIC,:PSYCHICNOISE,:PSYSHOCK,:QUICKATTACK,
-             :RAGE,:RAINDANCE,:RECYCLE,:REFLECT,:REST,:RETURN,:REVERSAL,
-             :ROCKSMASH,:ROLLOUT,:ROUND,:SAFEGUARD,:SECRETPOWER,:SEISMICTOSS,
-             :SHOCKWAVE,:SIGNALBEAM,:SING,:SKULLBASH,:SLAM,:SLEEPTALK,:SNORE,
-             :SPARK,:SPEEDSWAP,:STRENGTH,:SUBMISSION,:SUBSTITUTE,:SURF,:SWAGGER,
-             :SWEETKISS,:SWIFT,:TAILWHIP,:TAKEDOWN,:TEETERDANCE,:TELEKINESIS,
-             :THIEF,:THUNDER,:THUNDERBOLT,:THUNDERPUNCH,:THUNDERSHOCK,
-             :THUNDERWAVE,:TICKLE,:TOXIC,:UPROAR,:VOLTSWITCH,:VOLTTACKLE,
-             :WILDCHARGE,:WISH,:YAWN,:EXPANDINGFORCE]
-   for i in 0...movelist.length
-     movelist[i]=getConst(PBMoves,movelist[i])
-   end
-   next movelist
-},
-"getFormOnCreation"=>proc{|pokemon|
-   env=pbGetEnvironment()
-   next 1 if rand(65536)<$REGIONALCOMBO
-   next 0 unless env==PBEnvironment::Alola
-   next 1
-}
-})
+# Raichu is Handled Elsewhere
 
 MultipleForms.register(:SANDSHREW,{
 "type1"=>proc{|pokemon|
@@ -8777,37 +8686,7 @@ MultipleForms.register(:FURFROU,{
 =end
 
 
-MultipleForms.register(:MEOWSTIC,{
-"getAbilityList"=>proc{|pokemon|
-   next if pokemon.isMale?
-   next [[getID(PBAbilities,:KEENEYE),0],
-         [getID(PBAbilities,:INFILTRATOR),1],
-         [getID(PBAbilities,:COMPETITIVE),2]]
-},
-"getMoveList"=>proc{|pokemon|
-   if pokemon.isFemale?
-     movelist=[[1,:STOREDPOWER],[1,:MEFIRST],[1,:MAGICALLEAF],[1,:SCRATCH],
-               [1,:LEER],[5,:COVET],[9,:CONFUSION],[13,:LIGHTSCREEN],
-               [17,:PSYBEAM],[19,:FAKEOUT],[22,:DISARMINGVOICE],[25,:PSYSHOCK],
-               [28,:CHARGEBEAM],[31,:SHADOWBALL],[35,:EXTRASENSORY],
-               [40,:PSYCHIC],[43,:ROLEPLAY],[45,:SIGNALBEAM],[48,:SUCKERPUNCH],
-               [50,:FUTURESIGHT],[53,:STOREDPOWER]]
-     for i in movelist
-       i[1]=getConst(PBMoves,i[1])
-     end
-     next movelist
-   end
-   next
-},
-"color"=>proc{|pokemon|
-   next if pokemon.isMale?
-   next 8
-},
-"dexEntry"=>proc{|pokemon|
-   next if pokemon.isMale?
-   next _INTL("Females are a bit more selfish and aggressive than males. If they don't get what they want, they will torment you with their psychic abilities.")
-}
-})
+# Meowstic is Handled Elsewhere
 
 MultipleForms.register(:AEGISLASH,{
 "getFormOnLeavingBattle"=>proc{|pokemon|
@@ -9379,30 +9258,7 @@ MultipleForms.register(:NECROZMA,{
 })
 
 
-# Magearna starts at form 0. When it enters on battle, it can change its forms
-
-MultipleForms.register(:MAGEARNA,{
-"getFormOnCreation"=>proc{|pokemon|
-   next 0
-},
-"getFormOnEnteringBattle"=>proc{|pokemon|
-   next rand(2)
-},
-"getFormOnCroteline"=>proc{|pokemon|
-   next rand(2)
-},
-"getFormOnPES"=>proc{|pokemon|
-   next rand(2)
-},
-"color"=>proc{|pokemon|
-   next if pokemon.form==0
-   next 0 if pokemon.form==1
-},
-"dexEntry"=>proc{|pokemon|
-   next if pokemon.form==0
-   next _INTL("This is its form from almost 500 years ago. Its body is nothing more than a container—its artificial heart is the actual life-form.") if pokemon.form==1 # Dusk Mane
-}
-})
+# Magearna is Handled Elsewhere
 
 ########################################
 # Generation VIII
@@ -9841,20 +9697,20 @@ MultipleForms.register(:CALYREX,{
    movelist=[[1,:GLACIALLANCE],[1,:TACKLE],[1,:TAILWHIP],[1,:DOUBLEKICK],
              [1,:AVALANCHE],[1,:STOMP],[1,:TORMENT],[1,:MIST],
              [1,:ICICLECRASH],[1,:TAKEDOWN],[1,:IRONDEFENSE],[1,:TRASH],
-             [1,TAUNT],[1,:DOUBLEEDGE],[1,:SWORDSDANCE],
+             [1,:TAUNT],[1,:DOUBLEEDGE],[1,:SWORDSDANCE],
              # Regular Learnest
              [1,:POUND],[1,:MEGADRAIN],[1,:CONFUSION],[1,:GROWTH],[8,:LIFEDEW],
              [16,:GIGADRAIN],[24,:PSYSHOCK],[32,:HELPINGHAND],[40,:AROMATHERAPY],
-             [48,:ENERGYBALL],[56,:PSYCHIC],[64,:LEECHSEED],[72,HEALPULSE],
+             [48,:ENERGYBALL],[56,:PSYCHIC],[64,:LEECHSEED],[72,:HEALPULSE],
              [80,:SOLARBEAM],[88,:FUTURESIGHT]] if pokemon.form==1 # Eternal
    movelist=[[1,:ASTRALBARRAGE],[1,:TACKLE],[1,:TAILWHIP],[1,:DOUBLEKICK],
              [1,:HEX],[1,:STOMP],[1,:CONFUSERAY],[1,:MIST],
              [1,:SHADOWBALL],[1,:TAKEDOWN],[1,:AGILITY],[1,:TRASH],
-             [1,DISABLE],[1,:DOUBLEEDGE],[1,:NASTYPLOT],
+             [1,:DISABLE],[1,:DOUBLEEDGE],[1,:NASTYPLOT],
              # Regular Learnest
              [1,:POUND],[1,:MEGADRAIN],[1,:CONFUSION],[1,:GROWTH],[8,:LIFEDEW],
              [16,:GIGADRAIN],[24,:PSYSHOCK],[32,:HELPINGHAND],[40,:AROMATHERAPY],
-             [48,:ENERGYBALL],[56,:PSYCHIC],[64,:LEECHSEED],[72,HEALPULSE],
+             [48,:ENERGYBALL],[56,:PSYCHIC],[64,:LEECHSEED],[72,:HEALPULSE],
              [80,:SOLARBEAM],[88,:FUTURESIGHT]] if pokemon.form==2 # Eternal
    for i in movelist
      i[1]=getConst(PBMoves,i[1])
@@ -10117,21 +9973,7 @@ MultipleForms.register(:PALAFIN,{
 }
 })
 
-MultipleForms.register(:TATSUGIRI,{
-"getFormOnCreation"=>proc{|pokemon|
-	next rand(3)
-},
-"color"=>proc{|pokemon|
-   next if pokemon.form==0
-   next 0 if pokemon.form==1
-   next 2 if pokemon.form==2
-},
-"dexEntry"=>proc{|pokemon|
-   next if pokemon.form==0
-   next _INTL("This species’ differing colors and patterns are apparently the result of Tatsugiri changing itself to suit the preferences of the prey it lures in.") if pokemon.form==1
-   next _INTL("This species’ differing colors and patterns are apparently the result of Tatsugiri changing itself to suit the preferences of the prey it lures in.") if pokemon.form==2
-}
-})
+# Tatsugiri is Handled Elsewhere
 
 
 MultipleForms.register(:CLODSIRE,{

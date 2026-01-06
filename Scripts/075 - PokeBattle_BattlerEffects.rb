@@ -106,7 +106,7 @@ class PokeBattle_Battler
     self.status=PBStatuses::SLEEP
     self.statusCount=2+@battle.pbRandom(3)
     self.statusCount=(self.statusCount/2).floor if self.hasWorkingAbility(:EARLYBIRD)
-    $PokemonGlobal.pokebox[26]+=1  if @battle.pbOwnedByPlayer?(@index)
+    $PokemonGlobal.pokebox[26]+=1  if @battle.pbOwnedByPlayer?(@index) # @FIXME
     pbCancelMoves
     @battle.pbCommonAnimation("Sleep",self,nil)
     if msg && msg!=""
@@ -242,7 +242,7 @@ class PokeBattle_Battler
     self.status=PBStatuses::POISON
     self.statusCount=(toxic) ? 1 : 0
     self.effects[PBEffects::Toxic]=0
-    $PokemonGlobal.pokebox[26]+=1  if @battle.pbOwnedByPlayer?(@index)
+    $PokemonGlobal.pokebox[26]+=1  if @battle.pbOwnedByPlayer?(attacker.index) && attacker
     if toxic
     @battle.pbCommonAnimation("BadPoison",self,nil)
     else
@@ -265,7 +265,7 @@ class PokeBattle_Battler
     if attacker && self.index!=attacker.index && 
        attacker.hasWorkingAbility(:POISONPUPPETEER)
       if self.pbCanConfuse?(attacker,true)
-        self.pbConfuse
+        self.pbConfuse(attacker)
         @battle.pbDisplay(_INTL("{1} became confused!",self.pbThis))
         return 0
       end
@@ -372,7 +372,7 @@ class PokeBattle_Battler
   def pbBurn(attacker,msg=nil)
     self.status=PBStatuses::BURN
     self.statusCount=0
-    $PokemonGlobal.pokebox[26]+=1  if @battle.pbOwnedByPlayer?(@index)
+    $PokemonGlobal.pokebox[26]+=1  if @battle.pbOwnedByPlayer?(attacker.index) && attacker
     @battle.pbCommonAnimation("Burn",self,nil)
     if msg && msg!=""
       @battle.pbDisplay(msg)
@@ -476,7 +476,7 @@ class PokeBattle_Battler
   def pbParalyze(attacker,msg=nil)
     self.status=PBStatuses::PARALYSIS
     self.statusCount=0
-    $PokemonGlobal.pokebox[26]+=1  if @battle.pbOwnedByPlayer?(@index)
+    $PokemonGlobal.pokebox[26]+=1  if @battle.pbOwnedByPlayer?(attacker.index) && attacker
     @battle.pbCommonAnimation("Paralysis",self,nil)
     if msg && msg!=""
       @battle.pbDisplay(msg)
@@ -555,7 +555,7 @@ class PokeBattle_Battler
   def pbFreeze(msg=nil)
     self.status=PBStatuses::FROZEN
     self.statusCount=0
-    $PokemonGlobal.pokebox[26]+=1  if @battle.pbOwnedByPlayer?(@index)
+    $PokemonGlobal.pokebox[26]+=1  if @battle.pbOwnedByPlayer?(@index) # @FIXME
     pbCancelMoves
     @battle.pbCommonAnimation("Frozen",self,nil)
     if msg && msg!=""
@@ -656,8 +656,9 @@ class PokeBattle_Battler
     return true
   end
 
-  def pbConfuse
+  def pbConfuse(attacker)
     @effects[PBEffects::Confusion]=2+@battle.pbRandom(4)
+    $PokemonGlobal.pokebox[57]+=1  if @battle.pbOwnedByPlayer?(attacker.index) && attacker
     @battle.pbCommonAnimation("Confusion",self,nil)
     PBDebug.log("[Lingering effect triggered] #{pbThis} became confused (#{@effects[PBEffects::Confusion]} turns)")
   end
@@ -665,6 +666,7 @@ class PokeBattle_Battler
   def pbConfuseSelf
     if pbCanConfuseSelf?(false)
       @effects[PBEffects::Confusion]=2+@battle.pbRandom(4)
+      $PokemonGlobal.pokebox[57]+=1  if @battle.pbOwnedByPlayer?(@index)
       @battle.pbCommonAnimation("Confusion",self,nil)
       @battle.pbDisplay(_INTL("{1} became confused!",pbThis))
       PBDebug.log("[Lingering effect triggered] #{pbThis} became confused (#{@effects[PBEffects::Confusion]} turns)")
@@ -716,6 +718,7 @@ class PokeBattle_Battler
 
   def pbAttract(attacker,msg=nil)
     @effects[PBEffects::Attract]=attacker.index
+    $PokemonGlobal.pokebox[57]+=1  if @battle.pbOwnedByPlayer?(attacker.index) && attacker
     @battle.pbCommonAnimation("Attract",self,nil)
     if msg && msg!=""
       @battle.pbDisplay(msg)

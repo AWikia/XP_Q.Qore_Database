@@ -157,6 +157,7 @@ module PokeBattle_BattleCommon
         BallHandlers.onFailCatch(ball,self,battler)
       when 4
         $PokemonGlobal.pokebox[3]+=1
+        $PokemonGlobal.pokebox[75]+=1 if isBestSkill?(pokemon)
         pbDisplayBrief(_INTL("Gotcha! {1} was caught!",pokemon.name))
         @scene.pbThrowSuccess
         if pbIsSnagBall?(ball) && @opponent
@@ -2257,6 +2258,7 @@ class PokeBattle_Battle
       end
       evgain*=2 if thispoke.pokerusStage>=1 # Infected or cured
       $PokemonGlobal.pokebox[41]+=evgain if countboxtask
+      $PokemonGlobal.pokebox[70]+=evgain if countboxtask && @opponent
       if evgain>0
         # Can't exceed overall limit
         evgain-=totalev+evgain-PokeBattle_Pokemon::EVLIMIT if totalev+evgain>PokeBattle_Pokemon::EVLIMIT
@@ -2331,6 +2333,7 @@ class PokeBattle_Battle
     exp=newexp-thispoke.exp
     pokeboxexp= ($dbattle && !$PokemonGlobal.partner) ? (exp/2).floor : exp
     $PokemonGlobal.pokebox[0]+=exp if countboxtask
+    $PokemonGlobal.pokebox[60]+=exp if countboxtask && @opponent
     if exp>0
       if showmessages
         if isOutsider
@@ -2384,6 +2387,7 @@ class PokeBattle_Battle
           battler.pbUpdate(false) if battler
           @scene.pbRefresh
           $PokemonGlobal.pokebox[1]+=1
+          $PokemonGlobal.pokebox[61]+=1 if @opponent
           pbDisplayPaused(_INTL("{1} grew to Level {2}!",thispoke.name,curlevel))
           @scene.pbLevelUp(thispoke,battler,oldtotalhp,oldattack,
                            olddefense,oldspeed,oldspatk,oldspdef)
@@ -4924,6 +4928,7 @@ class PokeBattle_Battle
 # End of battle.
 ################################################################################
   def pbEndOfBattle(canlose=false)
+    $game_variables[PBOX_VARIABLES[6]] = [] if $game_variables[PBOX_VARIABLES[6]] == 0
     case @decision
     ##### WIN #####
     when 1
@@ -4931,16 +4936,27 @@ class PokeBattle_Battle
       PBDebug.log("***Player won***")
       $PokemonGlobal.pokebox[13]+=1  if $game_map && pbGetMetadata($game_map.map_id,MetadataUpperKingdom)
       if @opponent
+        if $game_map && pbGetMetadata($game_map.map_id,MetadataUpperKingdom)
+          $game_variables[PBOX_VARIABLES[6]].push(60)
+        else
+          $game_variables[PBOX_VARIABLES[6]].push(100)
+        end
         @scene.pbTrainerBattleSuccess
         if @opponent.is_a?(Array)
           $PokemonGlobal.pokebox[10]+=@opponent.length
           for i in 0...@opponent.length
             $PokemonGlobal.pokebox[33]+=1 if @opponent[i].skill > 99
+            $PokemonGlobal.pokebox[55]+=1 if @opponent[i].partyCount > 5
+            $PokemonGlobal.pokebox[77]+=1 if @opponent[i].partyCount > 5 &&
+                                             @opponent[i].skill > 99
           end
           pbDisplayPaused(_INTL("{1} defeated {2} and {3}!",self.pbPlayer.name,@opponent[0].fullname,@opponent[1].fullname))
         else
           $PokemonGlobal.pokebox[10]+=1
           $PokemonGlobal.pokebox[33]+=1 if @opponent.skill > 99
+          $PokemonGlobal.pokebox[55]+=1 if @opponent.partyCount > 5
+          $PokemonGlobal.pokebox[77]+=1 if @opponent.partyCount > 5 &&
+                                           @opponent.skill > 99
           pbDisplayPaused(_INTL("{1} defeated\r\n{2}!",self.pbPlayer.name,@opponent.fullname))
         end
         @scene.pbShowOpponent(0)
@@ -4995,7 +5011,7 @@ class PokeBattle_Battle
           # First Bag obtained at Win Streak of 11, second at 22 and so on.
           if $game_variables[WIN_STREAK_VARIABLE]>0 &&
              ($game_variables[WIN_STREAK_VARIABLE])%11==0 &&
-             $game_variables[WIN_STREAK_VARIABLE]<=11*255
+             $game_variables[WIN_STREAK_VARIABLE]<=11*5957
             item1=getID(PBItems,[:CHERRYBOX,:STRAWBERRYBOX,:ORANGEBOX,:APPLEBOX,:MELONBOX,
                    :BANANABOX][($game_variables[WIN_STREAK_VARIABLE]-11)%6])
             item2=getID(PBItems,[:CHOCOLATEBOX,:VANILLABOX,:GALAXIANBOX,:BELLBOX,
@@ -5006,12 +5022,19 @@ class PokeBattle_Battle
             $PokemonBag.pbStoreItem(item2,1)
             $PokemonBag.pbStoreItem(item3,1)
             pbSEPlay("Item3")
+            $PokemonGlobal.pokebox[58]+=1
             pbDisplayPaused(_INTL("You've got a lucky bag! It contains a {1}, a {2} and a {3}!",PBItems.getName(item1), PBItems.getName(item2), PBItems.getName(item3)))
-            if $game_variables[WIN_STREAK_VARIABLE]==(11*255) # Win streak of 2805
+            if $game_variables[WIN_STREAK_VARIABLE]==(11*5957) # Win streak of 65527
               pbDisplayPaused(_INTL("Congratulations! You've got all available lucky bags! Keep playing!"))
             end
           end
           # Win Streak End
+        end
+      else
+        if $game_map && pbGetMetadata($game_map.map_id,MetadataUpperKingdom)
+          $game_variables[PBOX_VARIABLES[6]].push(20)
+        else
+          $game_variables[PBOX_VARIABLES[6]].push(60)
         end
       end
       if @internalbattle && @extramoney>0
@@ -5036,6 +5059,13 @@ class PokeBattle_Battle
       PBDebug.log("")
       PBDebug.log("***Player lost***") if @decision==2
       PBDebug.log("***Player drew with opponent***") if @decision==5
+      if $game_map && pbGetMetadata($game_map.map_id,MetadataUpperKingdom)
+        $game_variables[PBOX_VARIABLES[6]].push(-100) if @decision==2
+        $game_variables[PBOX_VARIABLES[6]].push(0) if @decision==5
+      else
+        $game_variables[PBOX_VARIABLES[6]].push(0) if @decision==2
+        $game_variables[PBOX_VARIABLES[6]].push(20) if @decision==5
+      end
       if @internalbattle
         pbDisplayPaused(_INTL("{1} is out of usable Pokémon!",self.pbPlayer.name))
         moneylost=pbMaxLevelFromIndex(0)   # Player's Pokémon only, not partner's

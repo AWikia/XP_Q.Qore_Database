@@ -136,6 +136,15 @@ Events.onWildPokemonCreate+=proc {|sender,e|
      pokemon.resetMoves
      # $game_variables[1003] > 0
    end
+   if $game_map.map_id==580 # Variant
+     newlevel=pbBalancedLevel($Trainer.party) - 4 + rand(5)   # For variety
+     newlevel=1 if newlevel<1
+     newlevel=PBExperience::MAXLEVEL if newlevel>PBExperience::MAXLEVEL
+     pokemon.level=[rand(newlevel),365].min
+     pokemon.calcStats
+     pokemon.resetMoves
+     # $game_variables[1003] > 0
+   end
 }
 
 # Used For Link Battle

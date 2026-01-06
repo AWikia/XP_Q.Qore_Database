@@ -171,7 +171,21 @@ class PokemonGlobalMetadata
             _INTL("Learn moves in Battle"),_INTL("Break the Mold"),
             _INTL("Use Moves with Low Priority"),_INTL("Defeat Pokémon with Best Skill"),
             _INTL("Restore PP"),_INTL("Use Sound-based Moves"),
-            _INTL("Supercharge Pokémon in Battle"),_INTL("Transform into other Pokémon")]
+            _INTL("Supercharge Pokémon in Battle"),_INTL("Transform into other Pokémon"),
+            _INTL("Use items from your Bag"),_INTL("Use Moves without Accuracy"),
+            _INTL("Use Moves with Variable Power"),_INTL("Create Substitutes"),
+            _INTL("Use Shadow Moves"),_INTL("Defeat Trainers with 6 Pokémon"),
+            _INTL("Defeat Pokémon of your Color"),_INTL("Inflict Confusion or Infatuation"),
+            _INTL("Collect Lucky Bags"),_INTL("Use Elder Special Moves"),
+            _INTL("Gain Experience Points in Trainer Battles"),_INTL("Level Up Pokémon in Trainer Battles"),
+            _INTL("Defeat Opposing Pokémon in Trainer Battles"),_INTL("Deal Damage to other Pokémon in Trainer Battles"),
+            _INTL("Land Super Effectiveness in Trainer Battles"),_INTL("Land Not Very Effectiveness in Trainer Battles"),
+            _INTL("Use Physical Moves in Trainer Battles"),_INTL("Use Special Moves in Trainer Battles"),
+            _INTL("Use Status Moves in Trainer Battles"),_INTL("Gain Levelup Stat Changes in Trainer Battles"),
+            _INTL("Gain Effort Values in Trainer Battles"),_INTL("Use Normal Moves"),
+            _INTL("Use Normal Moves in Trainer Battles"),_INTL("Use Grass, Fire or Water Moves"),
+            _INTL("Use Grass, Fire or Water Moves in Trainer Battles"),_INTL("Catch Pokémon with Best Skill"),
+            _INTL("Defeat Pokémon with Best Skill in First Turn"),_INTL("Defeat Trainers with Best Skill and 6 Pokémon")]
   end
   def pokeboxNames2
     return [_INTL("Experience Gaining"),_INTL("Pokémon Leveling"),
@@ -198,7 +212,21 @@ class PokemonGlobalMetadata
             _INTL("Move Learning"),_INTL("Mold Breaking"),
             _INTL("Low Priority Move Usgae"),_INTL("Skilled Pokémon Defeating"),
             _INTL("PP Restoration"),_INTL("Sund Move Usage"),
-            _INTL("Pokémon Supercharging"),_INTL("Transform Usage")]
+            _INTL("Pokémon Supercharging"),_INTL("Transform Usage"),
+            _INTL("Item Usage"),_INTL("Perfect Move Usage"),
+            _INTL("Variable Move Usage"),_INTL("Substitute Creation"),
+            _INTL("Shadow Move Usage"),_INTL("Full-Team Trainer Defeating"),
+            _INTL("Same-Color Pokémon Defeating"),_INTL("Confusion or Love Inflicting"),
+            _INTL("Lucky Bag Collection"),_INTL("Elder Special Move Usage"),
+            _INTL("Experience Gaining in TB"),_INTL("Pokémon Leveling in TB"),
+            _INTL("Pokémon Defeatin in TB"),_INTL("Damage Dealing in TB"),
+            _INTL("Super Effective in TB Landing"),_INTL("Not Very Effective in TB Landing"),
+            _INTL("Physical Move in TB Usage"),_INTL("Special Move in TB Usage"),
+            _INTL("Status Move in TB Usage"),_INTL("Levelup stat in TB Gaining"),
+            _INTL("Effort Values in TB Gaining"),_INTL("Normal Move Usage"),
+            _INTL("Normal Move Usage/TB"),_INTL("G-F-W Move Usage"),
+            _INTL("G-f-W Move Usage/TB"),_INTL("Skilled Pokémon Catching"),
+            _INTL("Instant Skilled Pokémon Defeting"),_INTL("Full-Team Skilled Trainer Defeating")]
   end
 
   def pokeboxDescriptions
@@ -215,7 +243,7 @@ class PokemonGlobalMetadata
             _INTL("Defeat Trainers in Battles to progress. The more there're, the better will be progressed."),
             _INTL("Spend turns on the battle to progress. The more the battle lasts, the more will be counted."),
             _INTL("Use items from the Medicine pocket in your Pokémon progress. Held items do not count."),
-            _INTL("Complete Battles in Upper Kingdom Maps to progress. Wild Battles outside of these ones do not count."),
+            _INTL("Complete Battles in Upper Kingdom Maps to progress. Battles outside of these ones do not count."),
             _INTL("Use your Pokémon's Damaging moves to deal damage to opposing Pokémon and progress."),
             _INTL("Get a critical hit by using your Pokémon's Damaging moves to progress."),
             _INTL("Use your Pokémon's Damaging moves of the same typing as the Pokémon itself to progress."),
@@ -251,7 +279,35 @@ class PokemonGlobalMetadata
             _INTL("Use your Pokémon's held items or items from the Bag that restore PP to Moves to progress."),
             _INTL("Use your Pokémon's moves that produce sound to progress."),
             _INTL("Trigger Mega Evolution, Primal Reversion, Dynamax, Gigantamax or Terastralization to progress."),
-            _INTL("Use your Pokémon's moves, held items or abilities that can transform inro other Pokémon to progress.")]
+            _INTL("Use your Pokémon's moves, held items or abilities that can transform inro other Pokémon to progress."),
+            _INTL("Use items from the bag in your Pokémon to progress. Held items do not count."),
+            _INTL("Use your Pokémon's moves that have no accuracy check to progress."),
+            _INTL("Use your Pokémon's Damaging moves that have a variable base power to progress."),
+            _INTL("Create Substitute using your Pokémon's moves to progress."),
+            _INTL("Use your Pokémon's Shadow moves to progress."),
+            _INTL("Defeat Trainers that have 6 Pokémon in Battles to progress. It counts once per instance."),
+            _INTL("Use your moves to defeat opposing Pokémon that are of your color and progress."),
+            _INTL("Confuse or infatuate opposing Pokémon to progress."),
+            _INTL("Collect Lucky Bags at every 11th Win Streak count to progress."),
+            _INTL("Use your Pokémon's Elder Special Moves to progress."),
+            _INTL("Defeat Pokémon to gain Experience. Only experience from the first participant in Trainer Battles will count."),
+            _INTL("Fill the experience bar of a Pokémon in Trainer Battles to level them up."),
+            _INTL("Use your moves to defeat opposing Pokémon in Trainer Battles and progress."),
+            _INTL("Use your Pokémon's Damaging moves to deal damage to opposing Pokémon in Trainer Battles and progress."),
+            _INTL("Trigger super effectiveness using your Pokémon's moves in Trainer Battles to progress."),
+            _INTL("Trigger not very effectiveness using your Pokémon's moves in Trainer Battles to progress."),
+            _INTL("Use your Pokémon's Physical moves in Trainer Battles to progress. Status moves turned into Physical moves conut too."),
+            _INTL("Use your Pokémon's Special moves in Trainer Battles to progress. Status moves tunred into Special moves count too."),
+            _INTL("Use your Pokémon's Status moves in Trainer Battles to progress."),
+            _INTL("Get stat increases of Base Stata while levelling up a Pokémon in Trainer Battles to progress."),
+            _INTL("Defeat Pokémon to gain Effort Values. Only efforts from the first participant in Trainer Battles will count."),
+            _INTL("Use your Pokémon's Nomral moves to progress. Status moves turned into Normal moves conut too."),
+            _INTL("Use your Pokémon's Nomral moves in Trainer Battles to progress. Status moves turned into Normal moves conut too."),
+            _INTL("Use your Pokémon's Grass, Fire or Water moves to progress."),
+            _INTL("Use your Pokémon's Grass, Fire or Water moves in Trainer Battles to progress."),
+            _INTL("Use your Poké Balls or the Safari Balls on a Safari Game to high-skill Pokémon and capture them to progress."),
+            _INTL("Defeat Legendary, Mythical Ultra Beast or Supercharged Pokémon in the turn that appeared to progress."),
+            _INTL("Defeat Trainers that have 6 Pokémon and best skill in Battles to progress. It counts once per instance")]
   end
 
   def upperKingdom

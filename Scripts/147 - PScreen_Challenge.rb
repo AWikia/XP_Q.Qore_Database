@@ -285,6 +285,10 @@ Quests:
           Kernel.pbMessage(_INTL("It can't be used during a Museum Mission!"))
           return false
         end
+        if $game_map && pbGetMetadata($game_map.map_id,MetadataUpperKingdom)
+          Kernel.pbMessage(_INTL("It can't be used in the Upper Kingdom!"))
+          return false
+        end
         update_stats
         # Actual Event
         if $game_switches[1048]

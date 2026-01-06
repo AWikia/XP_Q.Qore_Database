@@ -579,7 +579,7 @@ class PokeBattle_Move_013 < PokeBattle_Move
     return super(attacker,opponent,hitnum,alltargets,showanimation) if pbIsDamaging?
     if opponent.pbCanConfuse?(attacker,true,self)
       pbShowAnimation(@id,attacker,opponent,hitnum,alltargets,showanimation)
-      opponent.pbConfuse
+      opponent.pbConfuse(attacker)
       @battle.pbDisplay(_INTL("{1} became confused!",opponent.pbThis))
       return 0
     end
@@ -589,7 +589,7 @@ class PokeBattle_Move_013 < PokeBattle_Move
   def pbAdditionalEffect(attacker,opponent)
     return if opponent.damagestate.substitute
     if opponent.pbCanConfuse?(attacker,false,self)
-      opponent.pbConfuse
+      opponent.pbConfuse(attacker)
       @battle.pbDisplay(_INTL("{1} became confused!",opponent.pbThis))
     end
   end
@@ -615,7 +615,7 @@ class PokeBattle_Move_014 < PokeBattle_Move
   def pbAdditionalEffect(attacker,opponent)
     return if opponent.damagestate.substitute
     if opponent.pbCanConfuse?(attacker,false,self)
-      opponent.pbConfuse
+      opponent.pbConfuse(attacker)
       @battle.pbDisplay(_INTL("{1} became confused!",opponent.pbThis))
     end
   end
@@ -632,7 +632,7 @@ class PokeBattle_Move_015 < PokeBattle_Move
     return super(attacker,opponent,hitnum,alltargets,showanimation) if pbIsDamaging?
     if opponent.pbCanConfuse?(attacker,true,self)
       pbShowAnimation(@id,attacker,opponent,hitnum,alltargets,showanimation)
-      opponent.pbConfuse
+      opponent.pbConfuse(attacker)
       @battle.pbDisplay(_INTL("{1} became confused!",opponent.pbThis))
       return 0
     end
@@ -642,7 +642,7 @@ class PokeBattle_Move_015 < PokeBattle_Move
   def pbAdditionalEffect(attacker,opponent)
     return if opponent.damagestate.substitute
     if opponent.pbCanConfuse?(attacker,false,self)
-      opponent.pbConfuse
+      opponent.pbConfuse(attacker)
       @battle.pbDisplay(_INTL("{1} became confused!",opponent.pbThis))
     end
   end
@@ -1815,7 +1815,7 @@ class PokeBattle_Move_040 < PokeBattle_Move
       ret=0
     end
     if opponent.pbCanConfuse?(attacker,true,self)
-      opponent.pbConfuse
+      opponent.pbConfuse(attacker)
       @battle.pbDisplay(_INTL("{1} became confused!",opponent.pbThis))
       ret=0
     end
@@ -1841,7 +1841,7 @@ class PokeBattle_Move_041 < PokeBattle_Move
       ret=0
     end
     if opponent.pbCanConfuse?(attacker,true,self)
-      opponent.pbConfuse
+      opponent.pbConfuse(attacker)
       @battle.pbDisplay(_INTL("{1} became confused!",opponent.pbThis))
       ret=0
     end
@@ -6402,7 +6402,7 @@ class PokeBattle_Move_0D2 < PokeBattle_Move
     if attacker.effects[PBEffects::Outrage]>0
       attacker.effects[PBEffects::Outrage]-=1
       if attacker.effects[PBEffects::Outrage]==0 && attacker.pbCanConfuseSelf?(false)
-        attacker.pbConfuse
+        attacker.pbConfuse(attacker)
         @battle.pbDisplay(_INTL("{1} became confused due to fatigue!",attacker.pbThis))
       end
     end
@@ -8581,6 +8581,7 @@ class PokeBattle_Move_10C < PokeBattle_Move
     attacker.effects[PBEffects::MultiTurn]=0
     attacker.effects[PBEffects::MultiTurnAttack]=0
     attacker.effects[PBEffects::Substitute]=sublife
+    $PokemonGlobal.pokebox[53]+=1 if @battle.pbOwnedByPlayer?(attacker.index)
     @battle.pbDisplay(_INTL("{1} put in a substitute!",attacker.pbThis))
     return 0
   end
@@ -13603,7 +13604,7 @@ class PokeBattle_Move_304 < PokeBattle_Move
   def pbAdditionalEffect(attacker,opponent)
     return if opponent.damagestate.substitute
     if opponent.pbCanConfuse?(attacker,false,self)
-      opponent.pbConfuse
+      opponent.pbConfuse(attacker)
       @battle.pbDisplay(_INTL("{1} became confused!",opponent.pbThis))
     end
   end
@@ -13802,7 +13803,7 @@ class PokeBattle_Move_332 < PokeBattle_Move
       attacker.effects[PBEffects::HyperBeam]=2
       attacker.currentMove=@id
       if attacker.pbCanConfuseSelf?(false)
-        attacker.pbConfuse
+        attacker.pbConfuse(attacker)
         @battle.pbDisplay(_INTL("{1} became confused",attacker.pbThis))
       end
     end
@@ -16471,6 +16472,7 @@ class PokeBattle_Move_366 < PokeBattle_Move
          attacker.pbReduceHP(sublife,false,false)
          attacker.effects[PBEffects::Uturn]=true
          attacker.effects[PBEffects::ShedTail]=sublife2
+         $PokemonGlobal.pokebox[53]+=1 if @battle.pbOwnedByPlayer?(attacker.index)
         return 0
     else
 			pbPlayMissSE()

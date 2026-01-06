@@ -1446,8 +1446,10 @@ def ragefist
     pbOwnSide.effects[PBEffects::LastRoundFainted]=@battle.turncount
     if @battle.pbIsOpposing?(@index)
       $PokemonGlobal.pokebox[2]+=1
+      $PokemonGlobal.pokebox[62]+=1 if @battle.opponent
       $PokemonGlobal.pokebox[45]+=1 if oldbestskill
       $PokemonGlobal.pokebox[17]+=1 if oldturncount<2
+      $PokemonGlobal.pokebox[76]+=1 if oldturncount<2 && oldbestskill
     end
     @battle.pbDisplayPaused(_INTL("{1} fainted!",pbThis)) if showMessage
     PBDebug.log("[Pokémon fainted] #{pbThis}")
@@ -5529,6 +5531,7 @@ def ragefist
     if numhits>1
       if target.damagestate.typemod>8
         $PokemonGlobal.pokebox[31]+=1 if @battle.pbOwnedByPlayer?(user.index)
+        $PokemonGlobal.pokebox[64]+=1 if @battle.pbOwnedByPlayer?(user.index) && @battle.opponent
 				pbSEPlay("Battle effect message")
         if alltargets.length>1
           @battle.pbDisplay(_INTL("It's super effective on {1}!",target.pbThis(true)))
@@ -5537,6 +5540,7 @@ def ragefist
         end
       elsif target.damagestate.typemod>=1 && target.damagestate.typemod<8
         $PokemonGlobal.pokebox[36]+=1 if @battle.pbOwnedByPlayer?(user.index)
+        $PokemonGlobal.pokebox[65]+=1 if @battle.pbOwnedByPlayer?(user.index) && @battle.opponent
         pbSEPlay("Battle effect message")
 				if alltargets.length>1
           @battle.pbDisplay(_INTL("It's not very effective on {1}...",target.pbThis(true)))
@@ -5557,6 +5561,9 @@ def ragefist
     thismove.pbEffectAfterHit(user,target,turneffects)
     target.pbFaint if target.isFainted? # no return
     user.pbFaint if user.isFainted? # no return
+    if target.isFainted? && @battle.pbOwnedByPlayer?(user.index)
+      $PokemonGlobal.pokebox[56]+=1 if user.color == target.color
+    end
     # Destiny Bond
     if !user.isFainted? && target.isFainted?
       if destinybond && target.pbIsOpposing?(user.index)
@@ -6153,6 +6160,24 @@ def ragefist
       $PokemonGlobal.pokebox[32]+=1 if thismove.pbIsMultiHit
       $PokemonGlobal.pokebox[37]+=1 if thismove.pbIsMultiTarget
       $PokemonGlobal.pokebox[47]+=1 if thismove.isSoundBased?
+      $PokemonGlobal.pokebox[51]+=1 if thismove.accuracy==0
+      $PokemonGlobal.pokebox[52]+=1 if thismove.basedamage==1
+      $PokemonGlobal.pokebox[54]+=1 if isConst?(thismove.type,PBTypes,:SHADOW)
+      $PokemonGlobal.pokebox[59]+=1 if thismove.pbIsElderSpecial?
+      $PokemonGlobal.pokebox[71]+=1 if isConst?(thismove.type,PBTypes,:NORMAL)
+      $PokemonGlobal.pokebox[73]+=1 if isConst?(thismove.type,PBTypes,:GRASS) ||
+                                       isConst?(thismove.type,PBTypes,:FIRE) ||
+                                       isConst?(thismove.type,PBTypes,:WATER)
+      if @battle.opponent
+        $PokemonGlobal.pokebox[66]+=1 if thismove.pbIsPhysical?(thismove.type)
+        $PokemonGlobal.pokebox[67]+=1 if thismove.pbIsSpecial?(thismove.type)
+        $PokemonGlobal.pokebox[68]+=1 if thismove.pbIsStatus?
+        $PokemonGlobal.pokebox[72]+=1 if isConst?(thismove.type,PBTypes,:NORMAL)
+        $PokemonGlobal.pokebox[74]+=1 if isConst?(thismove.type,PBTypes,:GRASS) ||
+                                         isConst?(thismove.type,PBTypes,:FIRE) ||
+                                         isConst?(thismove.type,PBTypes,:WATER)
+
+      end
     end
     user.lastMoveUsed=thismove.id
     user.lastMoveUsedType=thismove.pbType(thismove.type,user,nil)

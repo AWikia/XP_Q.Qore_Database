@@ -83,14 +83,9 @@ class PokemonTrainerCardScene
     end
     pbDrawImagePositions(overlay,imagePositions)
     # Challenge Mode Info
-    if pbGetCountry()==0xF4 # If the user is in the United States
-      iconvariant=1
-    else
-      iconvariant=0
-    end
     challengerank=[$game_variables[1005].to_i,10].min
     challengerankicons=AnimatedBitmap.new("Graphics/UI/Trainer Card/icon_challengeranks")
-    challengerankiconrect=Rect.new(32*iconvariant,challengerank*32,32,32)
+    challengerankiconrect=Rect.new(0,challengerank*32,32,32)
     overlay.blt(440+64,104,challengerankicons.bitmap,challengerankiconrect)
   end
 

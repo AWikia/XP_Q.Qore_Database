@@ -296,9 +296,9 @@ module Mouse
     resizeFactor=($ResizeFactor) ? $ResizeFactor : 1
     x, y = screen_to_client(*getMouseGlobalPos)
     width, height = Win32API.client_size
+    x-=$ResizeOffsetX*resizeFactor
+    y-=$ResizeOffsetY*resizeFactor
     if $PokemonSystem && $PokemonSystem.border==1
-      x-=BORDERWIDTH*resizeFactor
-      y-=BORDERHEIGHT*resizeFactor
       width-=BORDERWIDTH*resizeFactor*2
       height-=BORDERWIDTH*resizeFactor*2
     end

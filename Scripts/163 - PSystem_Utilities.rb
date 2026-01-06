@@ -468,12 +468,18 @@ def pbReturnBonusEvent
   end
 end
 
+def pbIsQQoreDay
+  time=pbGetTimeNow if !time
+  curdate=[time.mon,time.day]  # 0 = Month | 1 = Day
+  return curdate == [12,31] # Must be true on Qora Qore's anniversary
+end
+
 # Returns true if the current Date is special
 def pbIsMillenialDate?
   time=pbGetTimeNow if !time
   curdate=[time.mon,time.day]  # 0 = Month | 1 = Day
   country=pbGetCountry() rescue nil
-  return true if curdate == [12,31] # Must be true on Qora Qore's anniversary
+  return true if pbIsQQoreDay # Must be true on Qora Qore's anniversary
   # Regular Countries plus "Serbia and Monternego"
   dates={
     0x2       => [[11,1]],                             # Antigua and Barduba
@@ -906,6 +912,8 @@ end
 # 5 = Other Value Rewards
 # 6 = Event Name
 # 7 = Last State of chosen task
+# 8 = Gender
+# 9 = Gold Bars to won with Gold Bar Collection Event
 
 def pbMapTimeEvent(taskid=0,maximumvalue=10,maximumrewards=nil,othervalues=nil,otherrewards=nil,name="My Event",mins=20,gender="b")
   gender = "\\" + gender
@@ -915,7 +923,8 @@ def pbMapTimeEvent(taskid=0,maximumvalue=10,maximumrewards=nil,othervalues=nil,o
     return false
   elsif Kernel.pbConfirmMessage(_INTL("{1}{2} minutes of {3}. Would you like to begin {4}?",gender,mins,taskname,name))
     Kernel.pbMessage(_INTL("{1}In those {2} minutes, you're forbitten from saving. Once those are over, I will call you for rewards.",gender,mins))
-    $game_variables[40] = [taskid,$PokemonGlobal.pokebox[taskid],maximumvalue,maximumrewards,othervalues,otherrewards,name,0,gender]
+    gold=[(mins/6).floor,1].min
+    $game_variables[40] = [taskid,$PokemonGlobal.pokebox[taskid],maximumvalue,maximumrewards,othervalues,otherrewards,name,0,gender,gold]
     pbTimeEvent(41,mins*60)
     $game_switches[209] = true
     $game_variables[238] = $game_map.map_id
@@ -985,7 +994,7 @@ end
 def pbMapTimeEventRewards
   if pbMapTimeEventDone
     if $game_switches[218]
-      return $game_variables[40][3] | [[:GOLDBAR,5]]
+      return $game_variables[40][3] | [[:GOLDBAR,pbMapTimeEventGold]]
     else
       return $game_variables[40][3]
     end
@@ -1012,6 +1021,11 @@ end
 # Returns Value 8
 def pbMapTimeEventGender
   return $game_variables[40][8]
+end
+
+# Returns Value 8
+def pbMapTimeEventGold
+  return $game_variables[40][9]
 end
 
 

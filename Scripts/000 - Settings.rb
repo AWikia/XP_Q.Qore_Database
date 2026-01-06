@@ -458,7 +458,8 @@ FUSIONFINDEREXCLUSIVES=[
 #===============================================================================
 REGIONMAPEXTRAS = [
    [0,51,16,15,"mapHiddenBerth",false],
-   [0,52,20,14,"mapHiddenFaraday",false]
+   [0,52,20,14,"mapHiddenFaraday",false],
+   [17,221,7,4,"Anniversary",false]
 ]
 
 #===============================================================================
@@ -507,10 +508,13 @@ SEMI_INTERNAL_BATTLE      = 205
 #      - The Global Variable that is used to store the duration
 #      - The Global Variable that is used to record the sub-stage of the Box
 #      - The Global Variable that is used to record the last state of the Box
+#      - The Global Variable that is used to record the balance of Battles
+#           (Used to to check which version of the Common tasks will show on
+#           level 2 boxes)
 #===============================================================================
 WIN_STREAK_VARIABLE       = 1007
 DTM_VARIABLES             = [1009,1010,1008]
-PBOX_VARIABLES            = [1012,1013,1014,1015,1016,1017]
+PBOX_VARIABLES            = [1012,1013,1014,1015,1016,1017,1018]
 
 #===============================================================================
 # * The ID of the common event that runs when the player starts fishing (runs

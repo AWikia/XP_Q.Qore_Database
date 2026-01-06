@@ -113,6 +113,7 @@ def pbLoadTrainer(trainerid,trainername,partyid=0)
       pokemon.ballused=poke[TPBALL]
       pokemon.calcStats
       party.push(pokemon)
+      opponent.party.push(pokemon) # QQC Edit: Required for the Pokemon Box
     end
     success=true
     break

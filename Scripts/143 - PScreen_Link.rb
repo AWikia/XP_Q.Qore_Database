@@ -179,6 +179,10 @@ class Scene_LinkBattleScene
           Kernel.pbMessage(_INTL("It can't be used during a Museum Mission!"))
           return false
         end
+        if $game_map && pbGetMetadata($game_map.map_id,MetadataUpperKingdom)
+          Kernel.pbMessage(_INTL("It can't be used in the Upper Kingdom!"))
+          return false
+        end
         # Actual Event
         commands=[_INTL("Very Easy"),
                   _INTL("Easy"),
@@ -261,7 +265,19 @@ class Scene_LinkBattleScene
     
       end
       if @cmdLinkG>=0 && @sprites["command_window"].index==@cmdLinkG
-      worksOnCorendo(['VR Corendo','Bsisbina Clients','Jinnybell HSPA','Emerald Emulator','Yorkbook Digital Professional','Yorkbook Xe'])
+        if $game_player.pbHasDependentEvents?
+          Kernel.pbMessage(_INTL("It can't be used when you have someone with you."))
+          return false
+        end
+        if $game_switches[172]
+          Kernel.pbMessage(_INTL("It can't be used during a Museum Mission!"))
+          return false
+        end
+        if $game_map && pbGetMetadata($game_map.map_id,MetadataUpperKingdom)
+          Kernel.pbMessage(_INTL("It can't be used in the Upper Kingdom!"))
+          return false
+        end
+        worksOnCorendo(['VR Corendo','Bsisbina Clients','Jinnybell HSPA','Emerald Emulator','Yorkbook Digital Professional','Yorkbook Xe'])
       end
       if @cmdLinkS>=0 && @sprites["command_window"].index==@cmdLinkS
           items=[PBItems::POKEBALL,

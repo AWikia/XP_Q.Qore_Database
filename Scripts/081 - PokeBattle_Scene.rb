@@ -592,7 +592,7 @@ class PokemonTaskDataBox < SpriteWrapper
       @rewardimagename=rewardimage
       @rewardimageindex=0      
     end
-    @currentStep=PokemonBoxScene.new.currentStep
+    @currentStep=$PokemonBox.currentStep
         @databox=AnimatedBitmap.new("Graphics/UI/Battle/databox_task"+suffix)
         @spriteX=PokeBattle_SceneConstants::FOEBOX_X
         @spriteY=PokeBattle_SceneConstants::FOEBOX_Y
@@ -2585,11 +2585,10 @@ end
   def pbCheckEvents
     # Pokemon Box
     if $PokemonBag.pbQuantity(:POKEMONBOX)>0 # Avoid crashes as the first one 
-      box = PokemonBoxScene.new
-      currentStep=box.currentStep
+      currentStep=$PokemonBox.currentStep
       oldtaskstatus=$game_variables[PBOX_VARIABLES[5]]
       step = $game_variables[PBOX_VARIABLES[1]][currentStep][0]
-      pbCreatePopUp($game_variables[PBOX_VARIABLES[5]],box.taskstatus,box.taskstatus2,_INTL("Pokémon Box"),["Graphics/UI/Pokemon Box/icons",step],"Graphics/UI/Pokemon Box/icon_"+box.icons[box.stepID])
+      pbCreatePopUp($game_variables[PBOX_VARIABLES[5]],$PokemonBox.taskstatus,$PokemonBox.taskstatus2,_INTL("Pokémon Box"),["Graphics/UI/Pokemon Box/icons",step],"Graphics/UI/Pokemon Box/icon_"+$PokemonBox.icons[$PokemonBox.stepID])
     end
     # End
     # Mapped Events

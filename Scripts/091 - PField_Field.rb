@@ -1247,7 +1247,7 @@ Events.onEndBattle+=proc {|sender,e|
   end
   # Pokemon Box
   if $PokemonBag.pbQuantity(:POKEMONBOX)>0
-    currentStep=PokemonBoxScene.new.currentStep
+    currentStep=$PokemonBox.currentStep
     taskstatus=$PokemonGlobal.pokebox[$game_variables[PBOX_VARIABLES[1]][currentStep][0]] - $game_variables[PBOX_VARIABLES[1]][currentStep][1]
     taskstatus2=$game_variables[PBOX_VARIABLES[1]][currentStep][2]
     if taskstatus >= taskstatus2

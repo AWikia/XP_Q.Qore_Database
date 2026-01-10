@@ -971,7 +971,6 @@ def pbDebugMenu(inloadscreen=false,mode=0)
       Kernel.pbMessage(_INTL("Battle difficulty has been set to Intensive."))
     elsif cmd=="pokeboxdata"
       boxcmd=0
-      box=PokemonBoxScene.new
       loop do 
         boxcmds=[
            _INTL("Change Win Streak"),
@@ -994,7 +993,7 @@ def pbDebugMenu(inloadscreen=false,mode=0)
           )
           if qty>-1
             $game_variables[PBOX_VARIABLES[2]]=qty
-            box.initializeBox(true)
+            $PokemonBox.initializeBox(true)
             Kernel.pbMessage(_INTL("Pokémon Box was regenerated with new data at Win Streak of {1}",qty))
           end
         when 1 # Slot Machine
@@ -1007,7 +1006,7 @@ def pbDebugMenu(inloadscreen=false,mode=0)
               _INTL("Choose a task you wish to go into."),boxcmds2,-1)
           if gamecmd2>=0 && gamecmd2 < 4
             $game_variables[PBOX_VARIABLES[0]]=gamecmd2 # Reset Substep
-            currentStep=box.currentStep
+            currentStep=$PokemonBox.currentStep
             $game_variables[PBOX_VARIABLES[1]][currentStep][1] = $PokemonGlobal.pokebox[ $game_variables[PBOX_VARIABLES[1]][currentStep][0] ]
             Kernel.pbMessage(_INTL("Pokémon Box was moved to task No. {1} within the current subtask",gamecmd2))
           end
@@ -1021,7 +1020,7 @@ def pbDebugMenu(inloadscreen=false,mode=0)
           )
           if qty>-1
             $game_variables[PBOX_VARIABLES[4]]=qty
-            currentStep=box.currentStep
+            currentStep=$PokemonBox.currentStep
             $game_variables[PBOX_VARIABLES[1]][currentStep][1] = $PokemonGlobal.pokebox[ $game_variables[PBOX_VARIABLES[1]][currentStep][0] ]
             Kernel.pbMessage(_INTL("Pokémon Box was moved to subtask No. {1} within the current task",qty))
           end

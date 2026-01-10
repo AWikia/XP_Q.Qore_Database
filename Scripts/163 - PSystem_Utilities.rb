@@ -422,6 +422,7 @@ end
 
 # Daily Treat Machine
 def pbCheckDTM
+  $PokemonBox = PokemonBoxScene.new if !$PokemonBox
   # Daily Treat Machine
   if $PokemonBag.pbQuantity(:COINCASE)>0 && $PokemonBag.pbQuantity(:DAILYTREATMACHINE)==0
     $PokemonBag.pbStoreItem(:DAILYTREATMACHINE,1)
@@ -707,7 +708,8 @@ def pbIsMillenialDate?
     0x974941  => [[2,17]],                             # Kosovo
     0x9906F5  => [[6,9]]                               # Åland Islands
   }
-  # Special Counries like Southern Europe
+=begin
+  # Special Counries like Southern Europe (Unused)
   dates2 = {
     # Northern Africa
     0xA5F7    => dates[0x4] | dates[0x43] | dates[0x94] | dates[0x9F] | dates[0xDB] | dates[0xEA],
@@ -754,10 +756,11 @@ def pbIsMillenialDate?
     # Polynesia
     0x66AE   => dates[0xA] | dates[0xE7] | dates[0xEC] | dates[0x103] | dates[0x138] | dates[0x13E] | dates[0x14F]
 }
+=end
   if dates.key?(country)
     return dates[country].include?(curdate)
-  elsif dates2.key?(country)
-    return dates2[country].include?(curdate)
+ # elsif dates2.key?(country)
+ #   return dates2[country].include?(curdate)
   end
   return false
 end
@@ -849,7 +852,7 @@ end
 def pbRecordOldValues
   # Record Pokemon Box's last task state
   if $game_variables[PBOX_VARIABLES[1]] != 0
-    currentStep=PokemonBoxScene.new.currentStep
+    currentStep=$PokemonBox.currentStep
     $game_variables[PBOX_VARIABLES[5]]=$PokemonGlobal.pokebox[$game_variables[PBOX_VARIABLES[1]][currentStep][0]] - $game_variables[PBOX_VARIABLES[1]][currentStep][1]
   end
   if $game_switches[209]
@@ -1465,6 +1468,7 @@ def pbTrainerName(name=nil,outfit=0)
   end
   $Trainer.name=trname
   $PokemonBag=PokemonBag.new
+  $PokemonBox = PokemonBoxScene.new if !$PokemonBox
   $PokemonTemp.begunNewGame=true
 end
 
@@ -2234,8 +2238,8 @@ def pbItemIconFile(item)
   elsif item==827 && QQORECHANNEL>0 && QQORECHANNEL<6 # Qora Qore Master
     bitmapFileName = _INTL("Graphics/Items/827_{1}",QQORECHANNEL)
   elsif item==1014 # Pokemon Box
-    boxscene = PokemonBoxScene.new
-    bitmapFileName = _INTL("Graphics/Items/1014_{1}{2}",boxscene.currentStage(false),boxscene.stageSuffix)
+    $PokemonBox = PokemonBoxScene.new if !$PokemonBox
+    bitmapFileName = _INTL("Graphics/Items/1014_{1}{2}",$PokemonBox.currentStage(false),$PokemonBox.stageSuffix)
   else
     bitmapFileName = sprintf("Graphics/Items/%s",getConstantName(PBItems,item)) rescue nil
     bitmapFileName = sprintf("Graphics/Items/%03d",item) if !pbResolveBitmap(bitmapFileName)

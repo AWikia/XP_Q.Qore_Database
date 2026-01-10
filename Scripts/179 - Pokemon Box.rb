@@ -1115,7 +1115,7 @@ class PokemonBoxSummaryScene
       40.times do
         Graphics.update
       end
-    elsif (oldlevel != -1) && (newlevel != -1) && (newlevel >= $PokemonBox.stages.length-4)
+    elsif (oldlevel != -1) && (newlevel != -1) && (newlevel >= $PokemonBox.stages.length-5)
       pbSEPlay("Battle effect message")
       Kernel.pbMessage(_INTL("Spectacular! Keep completing out {1} Pokémon Boxes.",$PokemonBox.boxName()))
     elsif (oldlevel != -1) && (oldlevel>newlevel) && !elite

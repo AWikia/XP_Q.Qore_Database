@@ -16342,6 +16342,8 @@ class PokeBattle_Move_362 < PokeBattle_Move
     newpokename=pkmn.name
 		pkmn.hp=(pkmn.totalhp/2).floor
 		pkmn.healStatus
+    $PokemonGlobal.pokebox[21]+=1 if @battle.pbOwnedByPlayer?(attacker.index)
+    $PokemonGlobal.pokebox[30]+=pokemon.totalhp if @battle.pbOwnedByPlayer?(attacker.index)
 		@battle.pbDisplay(_INTL("{1}'s HP was restored.",newpokename))
     return 0
   end

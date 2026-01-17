@@ -3238,7 +3238,6 @@ end
         canswitch=@battle.pbCanRevive?(index,pkmnindex,true)
         if canswitch
           ret=pkmnindex
-          $PokemonGlobal.pokebox[21]+=1 # Intentionally as this is used for reviving
           break
         end
       end

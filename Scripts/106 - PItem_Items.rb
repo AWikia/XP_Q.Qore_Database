@@ -410,6 +410,7 @@ def pbBattleHPItem(pokemon,battler,restorehp,scene)
       hpgain = battler.pbRecoverHP(restorehp)
     else
       hpgain = pbItemRestoreHP(pokemon,restorehp)
+      $PokemonGlobal.pokebox[30]+=hpgain
     end
     scene.pbDisplay(_INTL("{1}'s HP was restored.",pokemon.name,hpgain))
     return true

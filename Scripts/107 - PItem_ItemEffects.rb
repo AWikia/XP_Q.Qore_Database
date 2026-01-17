@@ -1839,6 +1839,7 @@ ItemHandlers::BattleUseOnPokemon.add(:FULLRESTORE,proc{|item,pokemon,battler,sce
         hpgain = battler.pbRecoverHP(pokemon.totalhp-pokemon.hp)
       else
         hpgain = pbItemRestoreHP(pokemon,pokemon.totalhp-pokemon.hp)
+        $PokemonGlobal.pokebox[30]+=hpgain
       end
      pokemon.healStatus
      battler.status=0 if battler
@@ -1867,6 +1868,7 @@ ItemHandlers::BattleUseOnPokemon.add(:REVIVE,proc{|item,pokemon,battler,scene|
        end
      end
      $PokemonGlobal.pokebox[21]+=1
+     $PokemonGlobal.pokebox[30]+=(pokemon.totalhp/2).floor
      scene.pbRefresh
      scene.pbDisplay(_INTL("{1}'s HP was restored.",pokemon.name))
      next true
@@ -1887,6 +1889,7 @@ ItemHandlers::BattleUseOnPokemon.add(:MAXREVIVE,proc{|item,pokemon,battler,scene
        end
      end
      $PokemonGlobal.pokebox[21]+=1
+     $PokemonGlobal.pokebox[30]+=pokemon.totalhp
      scene.pbRefresh
      scene.pbDisplay(_INTL("{1}'s HP was restored.",pokemon.name))
      next true
@@ -1942,6 +1945,7 @@ ItemHandlers::BattleUseOnPokemon.add(:REVIVALHERB,proc{|item,pokemon,battler,sce
      end
      pokemon.changeHappiness("Revival Herb")
      $PokemonGlobal.pokebox[21]+=1
+     $PokemonGlobal.pokebox[30]+=pokemon.totalhp
      scene.pbRefresh
      scene.pbDisplay(_INTL("{1}'s HP was restored.",pokemon.name))
      next true

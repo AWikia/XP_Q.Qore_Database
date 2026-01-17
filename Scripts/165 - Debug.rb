@@ -539,6 +539,7 @@ def pbDebugMenu(inloadscreen=false,mode=0)
       $Trainer.id|=rand(256)<<16
       $Trainer.id|=rand(256)<<24
       Kernel.pbMessage(_INTL("The player's ID was changed to {1} ({2}).",$Trainer.publicID,$Trainer.id))
+      $PokemonBox = PokemonBoxScene.new
     elsif cmd=="changeoutfit"
       oldoutfit=$Trainer.outfit
       params=ChooseNumberParams.new
@@ -1251,4 +1252,10 @@ class Scene_Debug
     $game_map.refresh
     Graphics.freeze
   end
+end
+end
+end
+end
+end
+end
 end

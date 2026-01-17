@@ -1001,6 +1001,7 @@ def pbOrganizedBattleEx(opponent,challengedata,endspeech,endspeechwin)
          decision=battle.pbStartBattle
       }
   }
+  pbReturnToField # Required for Pokemon Box
   challengedata.unadjustLevels($Trainer.party,opponent.party,oldlevels)
   for i in 0...$Trainer.party.length
     $Trainer.party[i].heal

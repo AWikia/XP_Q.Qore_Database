@@ -4,6 +4,11 @@
 #  
 #===============================================================================
 class Scene_Map
+  def initialize
+    @m_page=0 # 0 = Map | 1 = Pokegear | 2 = Battle Stats
+    @action=0 # -1 = Page decrease | 0 = Nothing | 1 = Page increase
+  end
+  
   def spriteset
     for i in @spritesets.values
       return i if i.map==$game_map
@@ -104,6 +109,28 @@ class Scene_Map
     updateSpritesets
     $PokemonTemp.miniupdate=false if $PokemonTemp
   end
+  
+  def checkpage(page)
+      case page
+        when 1 # Pokegear
+          @scene=$scene
+          scene=Scene_PokegearScene.new
+          screen=Scene_Pokegear.new(scene)
+             @action=screen.pbStartScreen(true)
+        when 2 # Battle Stats
+          @scene=$scene
+          scene=PokemonBattleStatsScene.new
+          screen=PokemonBattleStats.new(scene)
+             @action=screen.pbStartScreen(true)
+        else
+          Graphics.transition(0)
+      end
+  end
+
+  def resetPage
+    @m_page=0
+    Graphics.transition(0)
+  end
 
   def update
     loop do
@@ -149,16 +176,22 @@ class Scene_Map
         $game_temp.menu_beep = true
       end
     end
-    if Input.trigger?(Input::R)
+    if Input.trigger?(Input::R) || @action==1
       unless pbMapInterpreterRunning? or $game_player.moving?
-        pbPlayCursorSE()
-        @scene=$scene
-        scene=Scene_PokegearScene.new
-        screen=Scene_Pokegear.new(scene)
-        pbFadeOutIn(99999,false,true) {
-           screen.pbStartScreen(true)
-        #   @scene.pbRefresh
-        }
+        @action==0
+        pbPlayCursorSE() if @m_page==0 && @action==0
+        @m_page+=1 if @m_page<2
+        checkpage(@m_page)
+        resetPage if @action==0
+      end
+    end
+    if Input.trigger?(Input::L) || @action==-1
+      unless pbMapInterpreterRunning? or $game_player.moving?
+        @action=0
+        pbPlayCursorSE() if @m_page==0 && @action==0
+        @m_page-=1 if @m_page>0
+        checkpage(@m_page)
+        resetPage if @action==0
       end
     end
     if Input.trigger?(Input::F5)

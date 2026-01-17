@@ -14212,7 +14212,8 @@ class PokeBattle_Move_372 < PokeBattle_Move
     opponent.type1=attacker.favtype
     opponent.type2=attacker.favtype
     opponent.effects[PBEffects::Type3]=-1
-    typename=PBTypes.getName(attacker.favtype)
+    favtype=getConst(PBTypes,attacker.favtype)
+    typename=PBTypes.getName(favtype)
     @battle.pbDisplay(_INTL("{1} transformed into the {2} type!",opponent.pbThis,typename))
     return 0
   end

@@ -889,7 +889,7 @@
 544,NORTONOPIA,Nortonopia,Nortonopians,1,2000,An item to be held by a Pokémon. This gray crystal creates Nortoni eggs at the Day Csre when used in conjuction with Norton.,0,0,0,
 545,SEMANTICITE,Semanticite,Semanticites,1,5000,An item to be held by Semantic MediaWiki. It enables mega evolution of Semantic MediaWiki.,0,0,12,
 546,KOULUNDINITE,ΚΟΥΛΟΥΝΔΙΝite,ΚΟΥΛΟΥΝΔΙΝites,1,5000,An item to be held by ΚΟΥΛΟΥΝΔΙΝ. It enables mega evolution of ΚΟΥΛΟΥΝΔΙΝ.,0,0,12,
-547,SMILENITE,Smilenite,Smilenites,1,5000,An item to be held by Smile. It enables mega evolution of Smile.,0,0,12,
+547,SMILENITE,Smilenite,Smilenites,1,10000,"One of a variety of mysterious Mega Stones. A Smile holding this stone will be able to Mega Evolve during battle.",0,0,12,
 548,SUNNYORB,Sunny Orb,Sunny Orbs,1,100,An item to be held by Sunny Channel. It is a blazing orb that forces Sunny Channel to be always in its Sun form.,0,0,0,
 552,PARKBALL,Park Ball,Park Balls,3,3600,A heavy-duty-high-performance Poké Ball that provides a higher success rate for catching Pokémon than an Ultra Ball.,0,2,3,
 553,JRSPLOVER,Jr's Plover,Jr's Plovers,1,2000,"An item to be held by a Pokémon. When it is used by a Pokémon in DayCare, it will redirect 0-6 eggs to Junior's TV ones.",0,0,0,

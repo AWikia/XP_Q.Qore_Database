@@ -449,6 +449,24 @@ def pbCheckDTM
   end
 end
 
+def pbReturnToField
+  $dbattle=false
+  $inbattle=false
+  # Pokemon Box
+  if $PokemonBag.pbQuantity(:POKEMONBOX)>0
+    currentStep=$PokemonBox.currentStep
+    taskstatus=$PokemonGlobal.pokebox[$game_variables[PBOX_VARIABLES[1]][currentStep][0]] - $game_variables[PBOX_VARIABLES[1]][currentStep][1]
+    taskstatus2=$game_variables[PBOX_VARIABLES[1]][currentStep][2]
+    if taskstatus >= taskstatus2
+       scene=PokemonBoxScene.new
+       screen=PokemonBoxEvent.new(scene)
+       pbFadeOutIn(99999) { 
+          screen.pbStartScreen
+       }
+    end
+  end
+end
+
 def pbReturnBonusEvent
   $PokemonGlobal.lastSavedTime  = Time.now if !$PokemonGlobal.lastSavedTime
   oldtime = ((Time.now - $PokemonGlobal.lastSavedTime) / 86400).floor
@@ -481,6 +499,7 @@ def pbIsMillenialDate?
   curdate=[time.mon,time.day]  # 0 = Month | 1 = Day
   country=pbGetCountry() rescue nil
   return true if pbIsQQoreDay # Must be true on Qora Qore's anniversary
+  return true if pbIsWeekday(-1,6,0) # Must be true on Weekends
   # Regular Countries plus "Serbia and Monternego"
   dates={
     0x2       => [[11,1]],                             # Antigua and Barduba
@@ -1468,7 +1487,7 @@ def pbTrainerName(name=nil,outfit=0)
   end
   $Trainer.name=trname
   $PokemonBag=PokemonBag.new
-  $PokemonBox = PokemonBoxScene.new if !$PokemonBox
+  $PokemonBox = PokemonBoxScene.new
   $PokemonTemp.begunNewGame=true
 end
 

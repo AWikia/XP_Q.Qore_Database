@@ -5416,8 +5416,6 @@ def ragefist
         addleffect=100 if $DEBUG && Input.press?(Input::CTRL)
         addleffect=100 if isConst?(user.species,PBSpecies,:ENCHRISO) && # FLINT Species (Set here for convenience)
                           thismove.function==0x251  # Magic Gold
-        $PokemonGlobal.pokebox[27]+=1 if @battle.pbOwnedByPlayer?(user.index) &&
-                                         addleffect>0
         if @battle.pbRandom(100)<addleffect
           PBDebug.log("[Move effect triggered] #{thismove.name}'s added effect")
           thismove.pbAdditionalEffect(user,target)
@@ -6157,6 +6155,7 @@ def ragefist
       $PokemonGlobal.pokebox[16]+=1 if thismove.pbIsDamaging? && user.pbHasType?(thismove.type)
       $PokemonGlobal.pokebox[22]+=1 if thismove.isHealingMove?
       $PokemonGlobal.pokebox[23]+=1 if thismove.isOHKO?
+      $PokemonGlobal.pokebox[27]+=1 if thismove.addlEffect>0
       $PokemonGlobal.pokebox[32]+=1 if thismove.pbIsMultiHit
       $PokemonGlobal.pokebox[37]+=1 if thismove.pbIsMultiTarget
       $PokemonGlobal.pokebox[47]+=1 if thismove.isSoundBased?

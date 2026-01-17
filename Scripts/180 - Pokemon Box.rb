@@ -28,13 +28,13 @@ class PokemonBoxScene
     ["Bronze",[:SUPERPOTION,:GREATBALL,heal],7,2.5,1,heal2],
     ["Silver",[:HYPERPOTION,:ULTRABALL,:FULLHEAL,:NORMALGEM],5,7,2,:PERSIMBERRY],
     ["Gold",[:MEGAPOTION,:PARKBALL,[:FULLHEAL,2],:NORMALGEM,:RARECANDY],5,16,2,:PERSIMBERRY],
-    # Elite Challenge
-    ["Elite",[:FULLRESTORE,:PARKBALL,:SUPERBOOSTER,[:NORMALGEM,2],:VICIOUSCANDY],3,20,3,:ENIGMABERRY],
-    # Legendary Challenge
+    # Platinum Mileston
+    ["Platinum",[:FULLRESTORE,:PARKBALL,:SUPERBOOSTER,[:NORMALGEM,2],:VICIOUSCANDY],3,20,3,:ENIGMABERRY],
+    # Legendary Milestone
     ["Legendary",[:SACREDASH,:MASTERBALL,[:SUPERBOOSTER,2],:BOTANICSMOKE,:VICIOUSCANDY],3,25,3,:ENIGMABERRY],
-    # Legendary Challenge
+    # Legendary Milestone
     ["Mythical",[[:SACREDASH,2],:MASTERBALL,[:SUPERBOOSTER,2],:BOTANICSMOKE,:LOADEDDICE,[:VICIOUSCANDY,2]],3,30,3,:ENIGMABERRY],
-    # Demon Challenge
+    # Demon Milestone
     ["Demon",[[:SACREDASH,3],:MASTERBALL,[:SUPERBOOSTER,3],[:BOTANICSMOKE,2],:LOADEDDICE,[:VICIOUSCANDY,3]],3,40,4,[:ENIGMABERRY,2]]
     ]
     if $Trainer && $Trainer.isFemale?
@@ -549,7 +549,6 @@ class PokemonBoxScene
     tasksToExclude.push(76,77) if boxLevel<3 && currentBoxDif==0
     # Level 1 and below boxes cannot contain these
     tasksToExclude.push(9,13,20,21,22,23,25,26,32,34,39,45,46,47,48,49,56,57,58,59,75) if boxLevel<2  && currentBoxDif==0
-    tasksToExclude.push(9,23) if boxLevel<2  && currentBoxDif>0
     # Level 0 and below boxes cannot contain these
     tasksToExclude.push(3,5,19,24,27,28,29,30,33,35,37,40,41,42,43,44,52,53,54,55,73) if boxLevel<1  && currentBoxDif==0
     # List of items that will enable the supercharge task
@@ -580,7 +579,7 @@ class PokemonBoxScene
     task2.delete_if {|element| tasksToExclude.include?(element) }
     # Group 3
     task3 = [9,10,11,17,23,28,33,38,43,48,76]
-    task3 = [9,23] if boxLevel>2 # The majority are handled elsewhere
+    task3 = [] if boxLevel>2 # Handled elsewhere
     task3.delete_if {|element| tasksToExclude.include?(element) }
     # Universal Tasks 0
     taskU0=[12,18,29,34,50,51,52,56,57] # 19 is not applicable in Q.Qore
@@ -592,7 +591,7 @@ class PokemonBoxScene
     taskU1.delete_if {|element| tasksToExclude.include?(element) }
     # Universal Tasks for Millenial/Elite/Level 3 Boxes
     if boxLevel>2
-      taskU0_1 = [10,11,12,13,17,18,24,28,29,33,34,38,39,43,44,48,49,50,51,52,53,54,55,56,57,58,59,76,77]
+      taskU0_1 = [9,10,11,12,13,17,18,23,24,28,29,33,34,38,39,43,44,48,49,50,51,52,53,54,55,56,57,58,59,76,77]
       taskU0_1.delete_if {|element| tasksToExclude.include?(element) }
       taskU0_1.shuffle! # Required for the 
       j=0
@@ -749,7 +748,7 @@ class PokemonBoxScene
     update_icons
     if showMillenialMessage
       if isMillenial?
-        Kernel.pbMessage(_INTL("{1} Challenge Ahead!.",boxName(true)))
+        Kernel.pbMessage(_INTL("{1} Milestone Ahead!",boxName(true)))
       end
       Kernel.pbMessage(_INTL("Finish this box within a 3-day interval to receive special rewards.")) if isMillenial?
     end
@@ -789,7 +788,7 @@ class PokemonBoxScene
       update_icons(true)
       if oldtasklevel == 3
         pbSEPlay("Battle effect critical")
-        Kernel.pbMessage(_INTL("Ultra Task Completed and you've got rewards."))
+        Kernel.pbMessage(_INTL("Ultra Hard Task Completed and you've got rewards."))
         quantity = (boxLevel+(4*currentBoxDif))*2
         item     = [PBItems::REDSHARD,PBItems::YELLOWSHARD,PBItems::BLUESHARD,PBItems::GREENSHARD][oldstep]
         Kernel.pbReceiveItem(item,quantity)
@@ -797,7 +796,7 @@ class PokemonBoxScene
         Kernel.pbReceiveItem(:EXPCANDYS,quantity2)
       elsif oldtasklevel == 2
         pbSEPlay("Battle effect critical")
-        Kernel.pbMessage(_INTL("Super Task Completed and you've got rewards."))
+        Kernel.pbMessage(_INTL("Super Hard Task Completed and you've got rewards."))
         quantity = (boxLevel+(4*currentBoxDif))*2
         item     = [PBItems::REDSHARD,PBItems::YELLOWSHARD,PBItems::BLUESHARD,PBItems::GREENSHARD][oldstep]
         Kernel.pbReceiveItem(item,quantity)
@@ -972,12 +971,12 @@ class PokemonBoxScene
         # Only if Mouse Position can be found
         if mousepos
           # Task Pane
-          taskrect=[4,196,(Graphics.width/2)-8,78]
+          taskrect=[4,196,(Graphics.width/2)-8,82]
           if contains2(taskrect,mousepos[0],mousepos[1])
             showTaskInfo
           end
-          # Time Pane (Not yet added)
-          taskrect2=[4,294,(Graphics.width/2)-8,78]
+          # Time Pane
+          taskrect2=[4,290,(Graphics.width/2)-8,82]
           if contains2(taskrect2,mousepos[0],mousepos[1])
             Kernel.pbMessage(_INTL("Keep an eye on the time. If the time expires, your win streak resets and you'll start over with a {1} box.",@stages[0][0]))
           end

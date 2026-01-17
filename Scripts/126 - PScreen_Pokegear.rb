@@ -111,7 +111,7 @@ class Scene_PokegearScene
       @sprites["background2"].setBitmap(_INTL("Graphics/UI/"+getDarkModeFolder+"/Pokegear/mapheader_bg"))
     end
     if !frommap
-      @sprites["header"]=Window_UnformattedTextPokemon.newWithSize(_INTL("Pok‚gear"),
+      @sprites["header"]=Window_UnformattedTextPokemon.newWithSize(_INTL("PokÃ©gear"),
          2,-18,128,64,@viewport)
       @sprites["header"].baseColor=(isDarkMode?) ? Color.new(242,242,242) : Color.new(12,12,12)
       @sprites["header"].shadowColor=nil #(!isDarkMode?) ? Color.new(242,242,242) : Color.new(12,12,12)
@@ -130,20 +130,30 @@ class Scene_PokegearScene
       @sprites["button#{i}"].selected=(i==@sprites["command_window"].index)
       @sprites["button#{i}"].update
     end
-    pbFadeInAndShow(@sprites,nil,frommap)
+    pbFadeInAndShow(@sprites,nil,frommap) if !!frommap
+    Graphics.transition(0) if frommap
+    action=0 # -1 = Previous page | 0 = Map | 1 = Next page
     loop do
       Graphics.update
       Input.update
       update
       if Input.trigger?(Input::B)
         pbPlayCancelSE()
+        action = 0
         break
       end
       if Input.trigger?(Input::L) && frommap
         pbPlayCursorSE()
+        action = -1
+        break
+      end
+      if Input.trigger?(Input::R) && frommap
+        pbPlayCursorSE()
+        action = 1
         break
       end
     end
+    return action
   end
   #-----------------------------------------------------------------------------
   # update the scene
@@ -207,7 +217,8 @@ end
 
 
   def pbEndScene(frommap=false)
-    pbFadeOutAndHide(@sprites,frommap) { update }
+    pbFadeOutAndHide(@sprites,frommap) { update } if !frommap
+    Graphics.freeze if frommap
     pbDisposeSpriteHash(@sprites)
     @viewport.dispose
   end
@@ -220,7 +231,8 @@ class Scene_Pokegear
 
   def pbStartScreen(frommap=false)
     @scene.pbStartScene
-    @scene.pbPokegearScreen(frommap)
+    ret=@scene.pbPokegearScreen(frommap)
     @scene.pbEndScene(frommap)
+    return ret
   end
 end

@@ -519,6 +519,11 @@ class BattleChallenge
     @rules=rules
     @id=id
     @numRounds=numrounds
+    if id[/^factory/]
+      @bc.setExtraData(BattleFactoryData.new(@bc))
+#      numPokemon = 3
+#      battletype = BattleTowerID
+    end
     pbWriteCup(id,rules)
   end
 
@@ -788,14 +793,14 @@ class BattleFactoryData
   end
 
   def pbPrepareRentals
-    @rentals=pbBattleFactoryPokemon(1,@bcdata.wins,@bcdata.swaps,[])
+    @rentals=pbBattleFactoryPokemon(pbBattleChallenge.rules,@bcdata.wins,@bcdata.swaps,[])
     @trainerid=@bcdata.nextTrainer
-    bttrainers=pbGetBTTrainers(@bcdata.currentChallenge)
+    bttrainers=pbGetBTTrainers(pbBattleChallenge.currentChallenge)
     trainerdata=bttrainers[@trainerid]
     @opponent=PokeBattle_Trainer.new(
        pbGetMessageFromHash(MessageTypes::TrainerNames,trainerdata[1]),
        trainerdata[0])
-    opponentPkmn=pbBattleFactoryPokemon(1,@bcdata.wins,@bcdata.swaps,@rentals)
+    opponentPkmn=pbBattleFactoryPokemon(pbBattleChallenge.rules,@bcdata.wins,@bcdata.swaps,@rentals)
     @opponent.party=opponentPkmn.shuffle[0,3]
   end
 
@@ -810,7 +815,7 @@ class BattleFactoryData
   end
 
   def pbBattle(challenge)
-    bttrainers=pbGetBTTrainers(@bcdata.currentChallenge)
+    bttrainers=pbGetBTTrainers(pbBattleChallenge.currentChallenge)
     trainerdata=bttrainers[@trainerid]
     return pbOrganizedBattleEx(@opponent,challenge.rules,
        pbGetMessageFromHash(MessageTypes::EndSpeechLose,trainerdata[4]),
@@ -820,7 +825,7 @@ class BattleFactoryData
   def pbPrepareSwaps
     @oldopponent=@opponent.party
     trainerid=@bcdata.nextTrainer
-    bttrainers=pbGetBTTrainers(@bcdata.currentChallenge)
+    bttrainers=pbGetBTTrainers(pbBattleChallenge.currentChallenge)
     trainerdata=bttrainers[trainerid]
     @opponent=PokeBattle_Trainer.new(
        pbGetMessageFromHash(MessageTypes::TrainerNames,trainerdata[1]),
@@ -851,6 +856,7 @@ end
 def pbBattleFactoryPokemon(rule,numwins,numswaps,rentals)
   table=nil
   btpokemon=pbGetBTPokemon(pbBattleChallenge.currentChallenge)
+  rule.ruleset.setNumber(6)   # Rentals
   ivtable=[
      0,6,3,6,
      7,13,6,9,

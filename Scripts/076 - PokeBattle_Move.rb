@@ -1891,8 +1891,11 @@ class PokeBattle_Move
       end
       oldhp=opponent.hp
       opponent.hp-=damage
-      $PokemonGlobal.pokebox[14]+=damage if @battle.pbOwnedByPlayer?(attacker.index) && attacker
-      $PokemonGlobal.pokebox[63]+=damage if @battle.pbOwnedByPlayer?(attacker.index) && attacker && @battle.opponent
+      if @battle.pbOwnedByPlayer?(attacker.index) && attacker
+        $PokemonGlobal.pokebox[14]+=damage.floor
+        $PokemonGlobal.pokebox[63]+=damage.floor if @battle.opponent
+        $PokemonGlobal.pokebox[82]+=damage.floor if opponent.effects[PBEffects::TwoTurnAttack]>0
+      end
       effectiveness=0
       if opponent.damagestate.typemod<8
         effectiveness=1   # "Not very effective"

@@ -2556,6 +2556,8 @@ end
 
 ################################################################################
 # This move permanently turns into the last move used by the target. (Sketch)
+# Silver Lyrette: User Switches out if it succeeds (Not yet added)
+# Gold Lyrette: Skips second turn if it succeeds (Not yet added)
 ################################################################################
 class PokeBattle_Move_05D < PokeBattle_Move
   def pbEffect(attacker,opponent,hitnum=0,alltargets=nil,showanimation=true)
@@ -3101,8 +3103,13 @@ end
 
 ################################################################################
 # User transforms into the target. (Transform)
+# Parity Clone: Fails if this isn't the user's first turn.
 ################################################################################
 class PokeBattle_Move_069 < PokeBattle_Move
+  def pbMoveFailed(attacker,opponent)
+    return (attacker.turncount>1) && isConst?(@id,PBMoves,:PARITYCLONE)
+  end
+  
   def pbEffect(attacker,opponent,hitnum=0,alltargets=nil,showanimation=true)
     blacklist=[
        0xC9,   # Fly
@@ -14270,6 +14277,22 @@ class PokeBattle_Move_387 < PokeBattle_Move
   end  
 end
 
+################################################################################
+# Damage is multiplied by Sharpener's effectiveness against the target. (Fleur Punch)
+################################################################################
+class PokeBattle_Move_388 < PokeBattle_Move
+  def pbModifyDamage(damagemult,attacker,opponent)
+    type=getConst(PBTypes,:SHARPENER) || -1
+    if type>=0
+      mult=PBTypes.getCombinedEffectiveness(type,
+         opponent.type1,opponent.type2,opponent.effects[PBEffects::Type3])
+      return ((damagemult*mult)/8).round
+    end
+    return damagemult
+  end
+end
+
+
 
 ################################################################################
 ################################################################################
@@ -16343,7 +16366,7 @@ class PokeBattle_Move_362 < PokeBattle_Move
 		pkmn.hp=(pkmn.totalhp/2).floor
 		pkmn.healStatus
     $PokemonGlobal.pokebox[21]+=1 if @battle.pbOwnedByPlayer?(attacker.index)
-    $PokemonGlobal.pokebox[30]+=pokemon.totalhp if @battle.pbOwnedByPlayer?(attacker.index)
+    $PokemonGlobal.pokebox[30]+=pkmn.totalhp if @battle.pbOwnedByPlayer?(attacker.index)
 		@battle.pbDisplay(_INTL("{1}'s HP was restored.",newpokename))
     return 0
   end

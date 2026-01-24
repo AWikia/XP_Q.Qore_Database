@@ -157,6 +157,9 @@ begin
     BurningBulwark     = 153
     DragonCheer        = 154
     SuperBooster       = 155
+    BoxAbilityTask     = 156 # For Pokemon Box
+    BoxItemTask        = 157 # For Pokemon Box
+    BoxMoldTask        = 158 # For Pokemon Box
     
     ############################################################################
     # These effects apply to a side

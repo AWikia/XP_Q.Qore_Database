@@ -511,10 +511,15 @@ SEMI_INTERNAL_BATTLE      = 205
 #      - The Global Variable that is used to record the balance of Battles
 #           (Used to to check which version of the Common tasks will show on
 #           level 2 boxes)
+# * The Global Variables that is used for the Daily Win Feature
+#      - The Global Variable that is used to record the amont of Stamps collected
+#      - The Global Variable that is used to record the cooldown of the feature
+#      - The Global Variable that is used to record the last state of the feature
 #===============================================================================
 WIN_STREAK_VARIABLE       = 1007
 DTM_VARIABLES             = [1009,1010,1008]
 PBOX_VARIABLES            = [1012,1013,1014,1015,1016,1017,1018]
+DWIN_VARIABLES            = [1019,1020,1021]
 
 #===============================================================================
 # * The ID of the common event that runs when the player starts fishing (runs

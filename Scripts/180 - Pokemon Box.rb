@@ -118,6 +118,7 @@ class PokemonBoxScene
         stage=@stages[0][0]
         Kernel.pbMessage(_INTL("You ran out of time on this box. Start a new {1} box and try again.",stage))
         $game_variables[PBOX_VARIABLES[2]]=0
+        $game_variables[PBOX_VARIABLES[6]] = [] # Clear Balance Points after an expire
         initializeBox
     end
     if welcome
@@ -201,7 +202,9 @@ class PokemonBoxScene
   # 2 = Silver and Gold
   # 3 = Milestone Gold
   # 4 = Mega Milestone Gold
+  # 5 = Final Box
   def boxLevel
+    return @stages[currentStage][4]+1 rescue 1 if currentStreak.to_i == 65535
     return @stages[currentStage][4] rescue 0
   end
 
@@ -211,28 +214,28 @@ class PokemonBoxScene
     id = currentStreak2.to_i
     id2 = currentStreak.to_i
     return false if id < maxStages # First Gold and below can never be milestone
-    return id2%10 == 0
+    return id2%10 == 0 || id2 == 65535
   end
   
   def isMillenial2?
     id = currentStreak2.to_i
     id2 = currentStreak.to_i
     return false if id < maxStages # First Gold and below can never be milestone
-    return id2%100 == 0
+    return id2%100 == 0 || id2 == 65535
   end
 
   def isMillenial3?
     id = currentStreak2.to_i
     id2 = currentStreak.to_i
     return false if id < maxStages # First Gold and below can never be milestone
-    return id2%1000 == 0
+    return id2%1000 == 0 || id2 == 65535
   end
 
   def isMillenial4?
     id = currentStreak2.to_i
     id2 = currentStreak.to_i
     return false if id < maxStages # First Gold and below can never be milestone
-    return id2%10000 == 0
+    return id2%10000 == 0 || id2 == 65535
   end
 
   def addIncr(num)
@@ -311,10 +314,10 @@ class PokemonBoxScene
     multi2=1 + ([($Trainer.numbadges / 2).floor,6].min * scaleup)
     min=min.to_f
     max=max.to_f
-    result=(min*multi) + ((max-min)*(multi*multi2))
-    return [result * 0.5,
-            result * 0.7,
-            result * 0.9]
+    result=((max-min)*(multi*multi2))
+    return [(min*multi) + (result * 0.4),
+            (min*multi) + (result * 0.6),
+            (min*multi) + (result * 0.8)]
   end
   
   def taskVals(num=0)
@@ -326,12 +329,12 @@ class PokemonBoxScene
             valueFromTo(2,4),            # Activate Held Items
             valueFromTo(3,6),            # Use Physical Moves
             valueFromTo(3,6),            # Use Special Moves
-            valueFromTo(1,2),            # Use Status Moves
-            valueFromTo(0.2,0.35),       # Use Battle Items
+            valueFromTo(1.5,3),          # Use Status Moves
+            valueFromTo(0.2,0.4),        # Use Battle Items
             valueFromTo(1,2),            # Defear Trainers
             valueFromTo(3,7),            # Lapse Turns
             valueFromTo(0.4,0.65),       # Use Medicine Items
-            valueFromTo(1,2),            # UNUSED!
+            valueFromTo(1,2),            # Win battles in UK
             valueFromTo(80,240,1.5,10),  # Deal Damage
             valueFromTo(0.5,1),          # Land Critical Hits
             valueFromTo(2,4),            # Use STAB Moves
@@ -376,7 +379,7 @@ class PokemonBoxScene
             valueFromTo(0.5,1),          # Defeat Full Trainers
             valueFromTo(1,2),            # Defeat same-color Pokemon
             valueFromTo(0.4,0.65),       # Confuse or Infatuate
-            valueFromTo(0.06,0.15),      # Collect Lucky Bags
+            valueFromTo(0.06,0.12),      # Collect Lucky Bags
             valueFromTo(0.06,0.15),      # Use Elder Special Moves
             valueFromTo(200,600,6,10),   # Gain Experience/TB
             valueFromTo(1,1.5),          # Level Up Pokemon/TB
@@ -386,16 +389,22 @@ class PokemonBoxScene
             valueFromTo(1.5,3),          # Land Not Very Effective/TB
             valueFromTo(3,6),            # Use Physical Moves/TB
             valueFromTo(3,6),            # Use Special Moves/TB
-            valueFromTo(1,2),            # Use Status Moves/TB
+            valueFromTo(1.5,3),          # Use Status Moves/TB
             valueFromTo(20,30,0,5),      # Gain Levelup Stats/TB
             valueFromTo(3,6),            # Gain Effort Values/TB
             valueFromTo(3,6),            # Use Normal Moves
             valueFromTo(3,6),            # Use Normal Moves/TB
             valueFromTo(3,6),            # Use G-F-W Moves
-            valueFromTo(3,6),            # Use G-F-W/TB
+            valueFromTo(3,6),            # Use G-F-W Moves/TB
             valueFromTo(0.2,0.4),        # Catch Skilled Pokemon
             valueFromTo(0.5,1),          # Defeat Skilled Pokemon Inst.
             valueFromTo(0.2,0.4),        # Defeat Full Skilled Trainers
+            valueFromTo(0.5,1),          # Defeat same-color Pokemon Inst.
+            valueFromTo(3,6),            # Use Fi-Ps-Da Moves
+            valueFromTo(3,6),            # Use Fi-Ps-Da Moves/TB
+            valueFromTo(0.06,0.15),      # Use Robot Moves
+            valueFromTo(20,60,1.5,10),   # Deal Damage to SI PKMN
+            valueFromTo(0.06,0.15),      # Use Moves with 1 PP
             ][num]
 
   end
@@ -410,8 +419,8 @@ class PokemonBoxScene
             valueFromToMiddle(2,4),            # Activate Held Items
             valueFromToMiddle(3,6),            # Use Physical Moves
             valueFromToMiddle(3,6),            # Use Special Moves
-            valueFromToMiddle(1,2),            # Use Status Moves
-            valueFromToMiddle(0.2,0.35),       # Use Battle Items
+            valueFromToMiddle(1.5,3),          # Use Status Moves
+            valueFromToMiddle(0.2,0.4),        # Use Battle Items
             valueFromToMiddle(1,2),            # Defear Trainers
             valueFromToMiddle(3,7),            # Lapse Turns
             valueFromToMiddle(0.4,0.65),       # Use Medicine Items
@@ -460,7 +469,7 @@ class PokemonBoxScene
             valueFromToMiddle(0.5,1),          # Defeat Full Trainers
             valueFromToMiddle(1,2),            # Defeat same-color Pokemon
             valueFromToMiddle(0.4,0.65),       # Confuse or Infatuate
-            valueFromToMiddle(0.06,0.15),      # Collect Lucky Bags
+            valueFromToMiddle(0.06,0.12),      # Collect Lucky Bags
             valueFromToMiddle(0.06,0.15),      # Use Elder Special Moves
             valueFromToMiddle(200,600,6,10),   # Gain Experience/TB
             valueFromToMiddle(1,1.5),          # Level Up Pokemon/TB
@@ -470,7 +479,7 @@ class PokemonBoxScene
             valueFromToMiddle(1.5,3),          # Land Not Very Effective/TB
             valueFromToMiddle(3,6),            # Use Physical Moves/TB
             valueFromToMiddle(3,6),            # Use Special Moves/TB
-            valueFromToMiddle(1,2),            # Use Status Moves/TB
+            valueFromToMiddle(1.5,3),          # Use Status Moves/TB
             valueFromToMiddle(20,30,0,5),      # Gain Levelup Stats/TB
             valueFromToMiddle(3,6),            # Gain Effort Values/TB
             valueFromToMiddle(3,6),            # Use Normal Moves
@@ -480,6 +489,12 @@ class PokemonBoxScene
             valueFromToMiddle(0.2,0.4),        # Catch Skilled Pokemon
             valueFromToMiddle(0.5,1),          # Defeat Skilled Pokemon Inst.
             valueFromToMiddle(0.2,0.4),        # Defeat Full Skilled Trainers
+            valueFromToMiddle(0.5,1),          # Defeat same-color Pokemon Inst.
+            valueFromToMiddle(3,6),            # Use Fi-Ps-Da Moves
+            valueFromToMiddle(3,6),            # Use Fi-Ps-Da Moves/TB
+            valueFromToMiddle(0.06,0.15),      # Use Robot Moves
+            valueFromToMiddle(20,60,1.5,10),   # Deal Damage to SI PKMN
+            valueFromToMiddle(0.06,0.15),      # Use Moves with 1 PP
 
             ][taskID]
     if taskstatus2 > vals[2] && (boxLevel>1 || currentBoxDif>0)     # Ultra Hard Task
@@ -532,25 +547,27 @@ class PokemonBoxScene
     tasksToExclude.push(19) # Not applicable
     $game_variables[PBOX_VARIABLES[6]] = [] if  !$game_variables[PBOX_VARIABLES[6]].is_a?(Array)
     data = $game_variables[PBOX_VARIABLES[6]]
+    # Level 5 and above boxes cannot contain these
+    tasksToExclude.push(19,21,29,42,57,75) if boxLevel>4
     # Level 4 and above boxes cannot contain these
-    tasksToExclude.push(3,4,5,12,15,16,18,20,22,25,26,27,30,32,35,37,45,46,47,50,51,52,56) if boxLevel>3
+    tasksToExclude.push(3,4,5,12,15,16,18,20,22,25,26,27,30,32,35,37,45,46,47,50,51,52,56,82) if boxLevel>3
     if data==[] || ((data.inject { |sum, n| sum + n }) / data.length)< 50
       # Level 3 and above boxes cannot contain these
-      tasksToExclude.push(0,1,2,6,7,8,14,31,36,40,41,71,73) if boxLevel>2
+      tasksToExclude.push(0,1,2,6,7,8,14,31,36,40,41,71,73,79) if boxLevel>2
       # No box can contain these
-      tasksToExclude.push(60,61,62,63,64,65,66,67,68,69,70,72,74)
+      tasksToExclude.push(60,61,62,63,64,65,66,67,68,69,70,72,74,80)
     else
       # Level 2 and above boxes cannot contain these
-      tasksToExclude.push(0,1,2,6,7,8,14,31,36,40,41,71,73) if boxLevel>1
+      tasksToExclude.push(0,1,2,6,7,8,14,31,36,40,41,71,73,79) if boxLevel>1
       # Only Level 2 boxes can contain these
-      tasksToExclude.push(60,61,62,63,64,65,66,67,68,69,70,72,74) if boxLevel!=2
+      tasksToExclude.push(60,61,62,63,64,65,66,67,68,69,70,72,74,80) if boxLevel!=2
     end
     # Level 2 and below boxes cannot contain these
-    tasksToExclude.push(76,77) if boxLevel<3 && currentBoxDif==0
+    tasksToExclude.push(76,77,78) if boxLevel<3 && currentBoxDif==0
     # Level 1 and below boxes cannot contain these
-    tasksToExclude.push(9,13,20,21,22,23,25,26,32,34,39,45,46,47,48,49,56,57,58,59,75) if boxLevel<2  && currentBoxDif==0
+    tasksToExclude.push(9,13,20,21,22,23,25,26,32,34,39,45,46,47,48,49,56,57,58,59,75,81,83) if boxLevel<2  && currentBoxDif==0
     # Level 0 and below boxes cannot contain these
-    tasksToExclude.push(3,5,19,24,27,28,29,30,33,35,37,40,41,42,43,44,52,53,54,55,73) if boxLevel<1  && currentBoxDif==0
+    tasksToExclude.push(3,5,19,24,27,28,29,30,33,35,37,40,41,42,43,44,52,53,54,55,73,79,82) if boxLevel<1  && currentBoxDif==0
     # List of items that will enable the supercharge task
     supercharger=false
     mRINGS = [:MEGARING,:MEGABRACELET,:MEGACUFF,:MEGACHARM,:DYNAMAXBAND] 
@@ -562,36 +579,48 @@ class PokemonBoxScene
       end
     end
     tasksToExclude.push(48) if !supercharger # Never when not having it
+    # List of Pokemon that will enable the robot task
+    robot=false
+    species = [:CALODIN,:COULUNDIN] # These know Robot-type moves
+    for i in species
+      next if !hasConst?(PBSpecies,i)
+      if $Trainer.hasOwned?(i)
+        robot=true
+        break
+      end
+    end
+    tasksToExclude.push(81) if !robot # Never when not having it
+
     tasksToExclude.push(13) if !$PokemonGlobal.upperKingdom
     # Disable "Use Elder Special Moves" when Elder Special Move tutorial isn't done
     tasksToExclude.push(59) if !$game_switches[174]
     # Disable "Use Shadow Moves" when shadow type isn't defined
     tasksToExclude.push(54) if !hasConst?(PBTypes,:SHADOW)
-    tasksToExclude.push(3,10,19,23,29,33,34,35,38,42,48,54,55,58,59,60,61,62,63,64,65,66,67,68,69,70,72,74,75,76,77) if $flint_brockopolis_active
+    tasksToExclude.push(3,10,19,23,29,33,34,35,38,42,48,54,55,58,59,60,61,62,63,64,65,66,67,68,69,70,72,74,75,76,77,81,83) if $flint_brockopolis_active
     # Group 0
     task0 = [0,1,2,14,20,25,30,35,40,45,60,61,62,63,69]
     task0.delete_if {|element| tasksToExclude.include?(element) }
     # Group 1
-    task1 = [3,4,5,15,21,26,31,36,41,46,64,65,70,75]
+    task1 = [3,4,5,15,21,26,31,36,41,46,64,65,70,75,82]
     task1.delete_if {|element| tasksToExclude.include?(element) }
     # Group 2
-    task2 = [6,7,8,16,22,27,32,37,42,47,66,67,68,71,72,73,74]
+    task2 = [6,7,8,16,22,27,32,37,42,47,66,67,68,71,72,73,74,79,80]
     task2.delete_if {|element| tasksToExclude.include?(element) }
     # Group 3
-    task3 = [9,10,11,17,23,28,33,38,43,48,76]
+    task3 = [9,10,11,17,23,28,33,38,43,48,76,81]
     task3 = [] if boxLevel>2 # Handled elsewhere
     task3.delete_if {|element| tasksToExclude.include?(element) }
     # Universal Tasks 0
-    taskU0=[12,18,29,34,50,51,52,56,57] # 19 is not applicable in Q.Qore
+    taskU0=[12,18,29,34,50,51,52,56,57,83] # 19 is not applicable in Q.Qore
     taskU0=[] if boxLevel>2 # Handled elsewhere
     taskU0.delete_if {|element| tasksToExclude.include?(element) }
     # Universal Tasks 1
-    taskU1=[13,24,39,44,49,53,54,55,58,59,77]
+    taskU1=[13,24,39,44,49,53,54,55,58,59,77,78]
     taskU1=[] if boxLevel>2 # Handled Elsewhere
     taskU1.delete_if {|element| tasksToExclude.include?(element) }
     # Universal Tasks for Millenial/Elite/Level 3 Boxes
     if boxLevel>2
-      taskU0_1 = [9,10,11,12,13,17,18,23,24,28,29,33,34,38,39,43,44,48,49,50,51,52,53,54,55,56,57,58,59,76,77]
+      taskU0_1 = [9,10,11,12,13,17,18,23,24,28,29,33,34,38,39,43,44,48,49,50,51,52,53,54,55,56,57,58,59,76,77,78,81,83]
       taskU0_1.delete_if {|element| tasksToExclude.include?(element) }
       taskU0_1.shuffle! # Required for the 
       j=0
@@ -688,7 +717,7 @@ class PokemonBoxScene
       @animbitmap.dispose
       imagepos.push([pbItemIconFile( getID(PBItems,item)),@sprites["machine"].x+x.ceil+offsetX,@sprites["machine"].y+14+offsetY,0,0,-1,-1])
       if amt>1
-        imageposAMT.push([amt.to_s,@sprites["machine"].x+32+x.ceil,@sprites["machine"].y+34,2,Color.new(12,12,12),nil])
+        imageposAMT.push([amt.to_s,@sprites["machine"].x+32+x.ceil,@sprites["machine"].y+34,2,Color.new(242,242,242),Color.new(12,12,12),true])
         imagepos.push(["Graphics/UI/Pokemon Box/icon_amount",@sprites["machine"].x+x.ceil,@sprites["machine"].y+14,0,0,-1,-1])
       end
       x+=(96.0/[(boxItems.length - 1),4].max)*2
@@ -890,7 +919,7 @@ class PokemonBoxScene
       @animbitmap.dispose
       imagepos.push([pbItemIconFile( getID(PBItems,item)),@sprites["machine"].x+x.ceil+offsetX,@sprites["machine"].y+y+offsetY,0,0,-1,-1])
       if amt>1
-        imageposAMT.push([amt.to_s,@sprites["machine"].x+32+x.ceil,@sprites["machine"].y+y+20,2,Color.new(12,12,12),nil])
+        imageposAMT.push([amt.to_s,@sprites["machine"].x+32+x.ceil,@sprites["machine"].y+y+20,2,Color.new(242,242,242),Color.new(12,12,12),true])
         imagepos.push(["Graphics/UI/Pokemon Box/icon_amount",@sprites["machine"].x+x.ceil,@sprites["machine"].y+y,0,0,-1,-1])
       end
       x+=(96.0/[(boxItems.length - 1),4].max)*2
@@ -1190,7 +1219,7 @@ class PokemonBoxSummaryScene
       @animbitmap.dispose
       imagepos.push([pbItemIconFile( getID(PBItems,item)),x+itemx.ceil+offsetX,y+13+offsetY,0,0,-1,-1])
       if amt>1
-        imageposAMT.push([amt.to_s,x+32+itemx.ceil,y+33,2,Color.new(12,12,12),nil])
+        imageposAMT.push([amt.to_s,x+32+itemx.ceil,y+33,2,Color.new(242,242,242),Color.new(12,12,12),true])
         imagepos.push(["Graphics/UI/Pokemon Box/icon_amount",x+itemx.ceil,y+13,0,0,-1,-1])
       end
       itemx+=(96.0/[(boxitems.length - 1),3].max)*1.5

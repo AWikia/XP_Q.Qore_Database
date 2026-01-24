@@ -2583,6 +2583,14 @@ end
   end
   
   def pbCheckEvents
+    # Daily Win
+    if $PokemonBag.pbQuantity(:DAILYWIN)>0 # Avoid crashes as the first one 
+      oldamount=$game_variables[DWIN_VARIABLES[2]]
+      newamount=$game_variables[DWIN_VARIABLES[0]]
+      variant=($Trainer && $Trainer.isFemale?) ? 1 : 0
+      suffix=($Trainer && $Trainer.isFemale?) ? "_f" : ""
+      pbCreatePopUp(oldamount,newamount,7,_INTL("Daily Win"),["Graphics/UI/Daily Win/icon_stamps",variant],"Graphics/UI/Daily Win/icon_chest"+suffix)
+    end
     # Pokemon Box
     if $PokemonBag.pbQuantity(:POKEMONBOX)>0 # Avoid crashes as the first one 
       currentStep=$PokemonBox.currentStep

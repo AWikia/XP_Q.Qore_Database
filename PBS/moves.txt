@@ -888,6 +888,8 @@
 1103,SUPERSING,Super Sing,003,0,NORMAL,Status,55,10,0,04,0,bcek,A soothing lullaby is sung in a calming voice that puts each target into a deep slumber.
 1104,STYLUS,Stylus,332,150,NORMAL,Special,90,5,0,00,0,befn,"The user damages the user using a big swirly Stylus. The user then becomes confused and can't move on the next turn."
 1228,LUREPOUND,Lure Pound,0C0,18,NORMAL,Special,80,15,0,00,0,abef,"The target is raked with lure pound for two to five times in quick succession."
+1229,PARITYCLONE,Parity Clone,069,0,NORMAL,Status,0,5,0,100,3,,"The user transforms into a copy of its partner, right down to having the same move set. However, it only works the first turn the user is in battle."
+1230,TRUESWIPE,True Swipe,0E9,80,NORMAL,Special,100,20,0,00,0,aef,A restrained attack that prevents the target from fainting. The target is left with at least 1 HP.
 ## FLINT Moves = Fighting
 846,LEGSWIDTH,Leg's Width,020,120,FIGHTING,Special,100,5,100,00,0,bfm,"Being widthful, it shoots a leg. This raises the user's Sp. Atk stat."
 887,LEGSHEIGHT,Leg's Height,01C,120,FIGHTING,Physical,100,5,100,00,0,bfm,"Being heightful, it shoots a leg. This raises the user's Attack stat."
@@ -961,6 +963,8 @@
 955,HEAVYMETAL,Heavy Metal,09B,1,STEEL,Physical,100,10,0,00,0,abef,"A powerful heavy metal. The heavier the user, the greater the damage."
 1031,SILVERRYCRACK,Silvery Crack,121,95,STEEL,Special,100,15,0,00,0,abef,The user turns the foe's power against it. It does more damage the higher the target's Sp.Atk stat.
 1116,STEELFLY,Steel Fly,0C9,90,STEEL,Physical,95,15,0,00,0,abef,"The user soars, then strikes on the second turn. This move also works as a Flying Type move in addition to Steel ones."
+1231,SMARTBOMB,Snart Bomb,070,1,STEEL,Physical,30,5,0,04,1,abe,"The user stabs a smart bomb into the battle. The targets that were affected by it faint instantly."
+1232,FLEURPUNCH,Fleur Punch,388,90,STEEL,Physical,0,10,0,00,0,ab,The user damages the target as sharp as the blade. This move is Steel and Sharpener type simultaneously.
 ## FLINT Moves = Fire
 631,MAGMABOMB,Magma Bomb,0E0,200,FIRE,Physical,100,5,0,08,0,bn,A Lava Bomb that affects fire damage. User faints after using this move
 747,MAGMATRIIVERSE,Magma Triiverse,203,5,FIRE,Physical,60,10,100,00,-1,ab,"The user hurls a large magma to the target. For the first turn the user is in battle, it will cause a lot of harm to the target"
@@ -1205,6 +1209,7 @@
 1015,SUNNYCRACK,Sunny Crack,05A,0,SUN,Status,0,20,0,00,0,be,"The user adds its HP to the target's HP, then equally shares the combined HP with the target."
 1016,LORDOFSUN,Lord of Sun,165,150,SUN,Special,86,15,40,00,0,abef,"When the user knocks out a target with this move, the user's Evasion and Defense stats are risen by 3 stages and 1 stage respectively"
 1138,SUNNYCRAYON,Sunny Crayon,254,80,SUN,Physical,90,20,0,00,0,ab,"By using its crayon power of sun, if your and the opposing last move has failed, this move deals massive damage."
+1233,GOLDLYRETE,Gold Lyrette,05D,0,SUN,Status,0,1,0,00,-1,,"It enables the user to permanently learn the move last used by the foe. Once used, Gold Lyrette disappears and user must recharge on the next turn."
 ## FLINT Moves = Moon
 713,MOONABSORB,Moon Absorb,178,70,MOON,Special,0,10,0,00,0,abef,The user forecasts the moon. The user's HP is restored by over half of the damage taken by the target. Move never fails.
 716,MOONCROCKET,Moon Crocket,242,100,MOON,Physical,100,10,10,00,0,abefj,The target is rolled with dark crockets made by moon with no additional effect
@@ -1216,6 +1221,7 @@
 893,DREAMYRECOVERCY,Dreamy Recovercy,279,0,MOON,Status,0,20,0,00,0,d,"When using this move into an opponent, it scatters its dream that restores user's HP."
 1017,MOONPUNCH,Moon Punch,006,70,MOON,Physical,100,15,10,00,0,abefj,The target is punched with a moony fist. This may also poison the target.
 1139,MOONTACKLE,Sunny Tackle,242,70,MOON,Physical,100,15,10,00,0,abefj,The target is rolled with some tackles made by moon with no additional effect.
+1234,SILVERLYRETTE,Silver Lyrette,05D,0,SUN,Status,0,1,0,00,-1,,"It enables the user to permanently learn the move last used by the foe. Once used, Silver Lyrette disappears and user must switch out afterwards."
 ## FLINT Moves = Mind
 724,MINDBLOW,Mind Blow,013,50,MIND,Physical,100,25,10,00,0,abef,The target is hit by a weak telekinetic force. It may also leave the target confused.
 725,MINDCONTROL,Mind Control,184,0,MIND,Status,100,10,0,00,0,bce,The user begins ferrying out controlling capacibilites to the target by making its Ability Ferfatina.

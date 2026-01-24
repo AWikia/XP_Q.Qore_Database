@@ -1531,7 +1531,7 @@ class PokeBattle_Battle
     party=pbParty(index)
     num = 0
     for i in 0...party.length
-      num+=1 if !pbCanSwitchLax?(index,i,false)
+      num+=1 if party[i].hp<=0
     end
     return num
   end
@@ -3020,9 +3020,41 @@ class PokeBattle_Battle
       }
       break if @decision>0
       $PokemonGlobal.pokebox[11]+=1
+      for i in 0...4
+        # Pokemon Box
+        if @battlers[i].effects[PBEffects::BoxAbilityTask]
+          @battlers[i].effects[PBEffects::BoxAbilityTask]=false
+          $PokemonGlobal.pokebox[4]+=1
+        end
+        if @battlers[i].effects[PBEffects::BoxItemTask]
+          @battlers[i].effects[PBEffects::BoxItemTask]=false
+          $PokemonGlobal.pokebox[5]+=1
+        end
+        if @battlers[i].effects[PBEffects::BoxMoldTask]
+          @battlers[i].effects[PBEffects::BoxMoldTask]=false
+          $PokemonGlobal.pokebox[43]+=1
+        end
+        # Pokemon Box End
+      end
       @turncount+=1
     end
     $PokemonGlobal.pokebox[11]+=1 if @decision != 3
+    for i in 0...4
+      # Pokemon Box
+      if @battlers[i].effects[PBEffects::BoxAbilityTask]
+        @battlers[i].effects[PBEffects::BoxAbilityTask]=false
+        $PokemonGlobal.pokebox[4]+=1
+      end
+      if @battlers[i].effects[PBEffects::BoxItemTask]
+        @battlers[i].effects[PBEffects::BoxItemTask]=false
+        $PokemonGlobal.pokebox[5]+=1
+      end
+      if @battlers[i].effects[PBEffects::BoxMoldTask]
+        @battlers[i].effects[PBEffects::BoxMoldTask]=false
+        $PokemonGlobal.pokebox[43]+=1
+      end
+      # Pokemon Box End
+    end
     return pbEndOfBattle(canlose)
   end
 
@@ -5029,6 +5061,7 @@ class PokeBattle_Battle
             end
           end
           # Win Streak End
+          pbSaveDailyWin # Daily Win
         end
       else
         if $game_map && pbGetMetadata($game_map.map_id,MetadataUpperKingdom)
@@ -5122,13 +5155,13 @@ class PokeBattle_Battle
         end
       end
     end
-    @scene.pbEndBattle(@decision)
     for i in @battlers
       i.pbResetForm
       if i.hasWorkingAbility(:NATURALCURE)
         i.status=0
       end
     end
+    @scene.pbEndBattle(@decision)
     for i in $Trainer.party
       i.setItem(i.itemInitial)
       i.itemInitial=i.itemRecycle=0

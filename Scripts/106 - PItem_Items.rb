@@ -79,7 +79,8 @@ def pbIsBerry?(item)
 end
 
 def pbIsKeyItem?(item)
-  return $ItemData[item] && ($ItemData[item][ITEMTYPE]==6)
+  return $ItemData[item] && ($ItemData[item][ITEMTYPE]==6 ||
+                             $ItemData[item][ITEMTYPE]==18)
 end
 
 def pbIsEvolutionStone?(item) # Does NOT include Prism Stone/Linking Cord 

@@ -447,11 +447,26 @@ def pbCheckDTM
           screen.pbStartScreen(expiredbox)
        }
   end
+  # Daily Win
+  if $game_switches[5] && $PokemonBag.pbQuantity(:DAILYWIN)==0
+    $PokemonBag.pbStoreItem(:DAILYWIN,1)
+    pbTimeEvent(DWIN_VARIABLES[1],1) if $game_variables[DWIN_VARIABLES[1]]==0
+  end
 end
 
 def pbReturnToField
   $dbattle=false
   $inbattle=false
+  # Daily Win
+  if $PokemonBag.pbQuantity(:DAILYWIN)>0
+    if $game_variables[DWIN_VARIABLES[0]]>6
+       scene=DailyWinScene.new
+       screen=DailyWin.new(scene)
+       pbFadeOutIn(99999) { 
+          screen.pbStartScreen
+       }
+    end
+  end
   # Pokemon Box
   if $PokemonBag.pbQuantity(:POKEMONBOX)>0
     currentStep=$PokemonBox.currentStep
@@ -471,6 +486,7 @@ def pbReturnBonusEvent
   $PokemonGlobal.lastSavedTime  = Time.now if !$PokemonGlobal.lastSavedTime
   oldtime = ((Time.now - $PokemonGlobal.lastSavedTime) / 86400).floor
   if oldtime > 9
+    $game_variables[DWIN_VARIABLES[0]]=0
     multi = [(oldtime/10).floor,3].min # x1 on 10-19 days, x2 on 20-29 days, x3 on 30+ days
     money = 5000*multi
     $Trainer.money+=money
@@ -500,6 +516,7 @@ def pbIsMillenialDate?
   country=pbGetCountry() rescue nil
   return true if pbIsQQoreDay # Must be true on Qora Qore's anniversary
   return true if pbIsWeekday(-1,6,0) # Must be true on Weekends
+  return true if curdate == [2,29] # Must be true on leap day (29th February)
   # Regular Countries plus "Serbia and Monternego"
   dates={
     0x2       => [[11,1]],                             # Antigua and Barduba
@@ -869,6 +886,7 @@ def pbAddRentalSMPokemon
 end
 
 def pbRecordOldValues
+  $game_variables[DWIN_VARIABLES[2]]=$game_variables[DWIN_VARIABLES[0]]
   # Record Pokemon Box's last task state
   if $game_variables[PBOX_VARIABLES[1]] != 0
     currentStep=$PokemonBox.currentStep
@@ -876,6 +894,16 @@ def pbRecordOldValues
   end
   if $game_switches[209]
     $game_variables[40][7] = pbMapTimeEventAmount
+  end
+end
+
+def pbSaveDailyWin
+  if $PokemonBag.pbQuantity(:DAILYWIN)>0
+    pbTimeEvent(DWIN_VARIABLES[1],1) if $game_variables[DWIN_VARIABLES[1]]==0 
+    if pbTimeEventValid(DWIN_VARIABLES[1])
+      $game_variables[DWIN_VARIABLES[0]]+=1
+      pbTimeEventDays(DWIN_VARIABLES[1],1)
+    end
   end
 end
 

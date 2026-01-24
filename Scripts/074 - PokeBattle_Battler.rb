@@ -761,6 +761,9 @@ def ragefist
     end
     @effects[PBEffects::LastMoveFailed]   = false
     @effects[PBEffects::ThroatChop]       = 0
+    @effects[PBEffects::BoxAbilityTask]   = false
+    @effects[PBEffects::BoxItemTask]   = false
+    @effects[PBEffects::BoxMoldTask]   = false
     # changed end
   end
 
@@ -922,7 +925,7 @@ def ragefist
        pbHasType?(:GLIMSE) ||
        @effects[PBEffects::TemporaryMoldBreaker] ||
        hasWorkingItem(:LECTROBALL)
-      $PokemonGlobal.pokebox[43]+=1  if @battle.pbOwnedByPlayer?(@index)
+      @effects[PBEffects::BoxMoldTask]=true  if @battle.pbOwnedByPlayer?(@index) # Task 43 of box
       return true
     end
     return false
@@ -965,7 +968,7 @@ def ragefist
     return false if @effects[PBEffects::NeutralTrap]>0
     return false if @effects[PBEffects::GastroAcid] && !self.pbHasType?(:GAS)
     if isConst?(@ability,PBAbilities,ability)
-      $PokemonGlobal.pokebox[4]+=1  if @battle.pbOwnedByPlayer?(@index)
+      @effects[PBEffects::BoxAbilityTask]=true  if @battle.pbOwnedByPlayer?(@index) # Task 4 of box
       return true
     end
     return false
@@ -1116,7 +1119,7 @@ def ragefist
     return false if @pokemon.corrosiveGas
     return false if self.hasWorkingAbility(:KLUTZ,ignorefainted)
     if isConst?(@item,PBItems,item)
-      $PokemonGlobal.pokebox[5]+=1  if @battle.pbOwnedByPlayer?(@index)
+      @effects[PBEffects::BoxItemTask]=true  if @battle.pbOwnedByPlayer?(@index) # Task 5 of box
       return true
     end
     return false
@@ -5554,14 +5557,12 @@ def ragefist
     end
     PBDebug.log("Move did #{numhits} hit(s), total damage=#{turneffects[PBEffects::TotalDamage]}")
     # Faint if 0 HP
+    oldturncount=target.turncount
     target.pbFaint if target.isFainted? # no return
     user.pbFaint if user.isFainted? # no return
     thismove.pbEffectAfterHit(user,target,turneffects)
     target.pbFaint if target.isFainted? # no return
     user.pbFaint if user.isFainted? # no return
-    if target.isFainted? && @battle.pbOwnedByPlayer?(user.index)
-      $PokemonGlobal.pokebox[56]+=1 if user.color == target.color
-    end
     # Destiny Bond
     if !user.isFainted? && target.isFainted?
       if destinybond && target.pbIsOpposing?(user.index)
@@ -5592,6 +5593,10 @@ def ragefist
           @battle.pbDisplay(_INTL("{1} lowered its attacker stats!",target.pbThis))
         end
       end
+    end
+    if target.isFainted? && @battle.pbOwnedByPlayer?(user.index)
+      $PokemonGlobal.pokebox[56]+=1 if user.color == target.color
+      $PokemonGlobal.pokebox[78]+=1 if user.color == target.color && oldturncount<2
     end
     pbEffectsAfterHit(user,target,thismove,turneffects)
     # Berry check
@@ -6167,6 +6172,11 @@ def ragefist
       $PokemonGlobal.pokebox[73]+=1 if isConst?(thismove.type,PBTypes,:GRASS) ||
                                        isConst?(thismove.type,PBTypes,:FIRE) ||
                                        isConst?(thismove.type,PBTypes,:WATER)
+      $PokemonGlobal.pokebox[79]+=1 if isConst?(thismove.type,PBTypes,:FIGHTING) ||
+                                       isConst?(thismove.type,PBTypes,:PSYCHIC) ||
+                                       isConst?(thismove.type,PBTypes,:DARK)
+      $PokemonGlobal.pokebox[81]+=1 if isConst?(thismove.type,PBTypes,:ROBOT)
+      $PokemonGlobal.pokebox[83]+=1 if thismove.totalpp==1
       if @battle.opponent
         $PokemonGlobal.pokebox[66]+=1 if thismove.pbIsPhysical?(thismove.type)
         $PokemonGlobal.pokebox[67]+=1 if thismove.pbIsSpecial?(thismove.type)
@@ -6175,6 +6185,10 @@ def ragefist
         $PokemonGlobal.pokebox[74]+=1 if isConst?(thismove.type,PBTypes,:GRASS) ||
                                          isConst?(thismove.type,PBTypes,:FIRE) ||
                                          isConst?(thismove.type,PBTypes,:WATER)
+        $PokemonGlobal.pokebox[80]+=1 if isConst?(thismove.type,PBTypes,:FIGHTING) ||
+                                         isConst?(thismove.type,PBTypes,:PSYCHIC) ||
+                                         isConst?(thismove.type,PBTypes,:DARK)
+
 
       end
     end

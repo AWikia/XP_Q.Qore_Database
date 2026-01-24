@@ -160,6 +160,15 @@ ItemHandlers::UseFromBag.add(:POKEMONBOX,proc{|item|
      next 1
 })
 
+ItemHandlers::UseFromBag.add(:DAILYWIN,proc{|item|
+     scene=DailyWinScene.new
+     screen=DailyWin.new(scene)
+     pbFadeOutIn(99999) { 
+        screen.pbStartScreen
+     }
+     next 1
+})
+
 
 ItemHandlers::UseFromBag.add(:BICYCLE,proc{|item|
    next pbBikeCheck ? 2 : 0
@@ -258,6 +267,14 @@ ItemHandlers::UseInField.add(:PCSTORAGEBOX,proc{|item|
 ItemHandlers::UseInField.add(:POKEMONBOX,proc{|item|
      scene=PokemonBoxScene.new
      screen=PokemonBoxEvent.new(scene)
+     pbFadeOutIn(99999) { 
+        screen.pbStartScreen
+     }
+})
+
+ItemHandlers::UseInField.add(:DAILYWIN,proc{|item|
+     scene=DailyWinScene.new
+     screen=DailyWin.new(scene)
      pbFadeOutIn(99999) { 
         screen.pbStartScreen
      }

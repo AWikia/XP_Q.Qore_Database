@@ -316,8 +316,16 @@ def ragefist
   attr_reader :item
 
   def item=(value)
+    olditem=@item
     @item=value
     @pokemon.setItem(value) if @pokemon
+    $PokemonGlobal.pokebox[85]+=1 if @battle.pbOwnedByPlayer?(@index) && @item != olditem
+  end
+  
+  def ability=(value)
+    oldability=@ability
+    @ability=value
+    $PokemonGlobal.pokebox[84]+=1 if @battle.pbOwnedByPlayer?(@index) && @ability != oldability
   end
 
   def weight(attacker=nil)

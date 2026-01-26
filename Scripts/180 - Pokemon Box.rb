@@ -287,6 +287,7 @@ class PokemonBoxScene
   
   def randIncr(num)
     id = currentStreak2.to_i
+    num+=1 # Required
     if boxLevel==3       # Milenial Box, prefer Larger amounts
       return [rand(num),rand(num)].max
     elsif boxLevel==2    # Silver and Gold Boxes, don't prefer anything
@@ -303,21 +304,21 @@ class PokemonBoxScene
   def valueFromTo(min=1,max=2,scaleup=0,padding=1)
     multi=boxMulti
     multi2=1 + ([($Trainer.numbadges / 2).floor,6].min * scaleup)
-    min=min.to_f
-    max=max.to_f
-    result=(min*multi) + randIncr((max-min)*(multi*multi2)) + addIncr(min)
+    min=(min.to_f*multi).round
+    max=(max.to_f*multi).round
+    result=min + randIncr((max-min)*multi2) + addIncr(min)
     return [(result/padding).round*padding,padding].max.round
   end
 
   def valueFromToMiddle(min=1,max=2,scaleup=0,padding=1)
     multi=boxMulti
     multi2=1 + ([($Trainer.numbadges / 2).floor,6].min * scaleup)
-    min=min.to_f
-    max=max.to_f
-    result=((max-min)*(multi*multi2))
-    return [(min*multi) + (result * 0.4),
-            (min*multi) + (result * 0.6),
-            (min*multi) + (result * 0.8)]
+    min=min.to_f*multi # No rounding here, tasks that only yield 1 must have marks
+    max=max.to_f*multi # No rounding here, tasks that only yield 1 must have marks
+    result=((max-min)*multi2)
+    return [min + (result * 0.4),
+            min + (result * 0.6),
+            min + (result * 0.8)]
   end
   
   def taskVals(num=0)
@@ -405,6 +406,8 @@ class PokemonBoxScene
             valueFromTo(0.06,0.15),      # Use Robot Moves
             valueFromTo(20,60,1.5,10),   # Deal Damage to SI PKMN
             valueFromTo(0.06,0.15),      # Use Moves with 1 PP
+            valueFromTo(0.5,1),          # Change Abilities
+            valueFromTo(0.5,1),          # Change Held Items
             ][num]
 
   end
@@ -495,6 +498,8 @@ class PokemonBoxScene
             valueFromToMiddle(0.06,0.15),      # Use Robot Moves
             valueFromToMiddle(20,60,1.5,10),   # Deal Damage to SI PKMN
             valueFromToMiddle(0.06,0.15),      # Use Moves with 1 PP
+            valueFromToMiddle(0.5,1),          # Change Abilities
+            valueFromToMiddle(0.5,1),          # Change Held Items
 
             ][taskID]
     if taskstatus2 > vals[2] && (boxLevel>1 || currentBoxDif>0)     # Ultra Hard Task
@@ -548,7 +553,7 @@ class PokemonBoxScene
     $game_variables[PBOX_VARIABLES[6]] = [] if  !$game_variables[PBOX_VARIABLES[6]].is_a?(Array)
     data = $game_variables[PBOX_VARIABLES[6]]
     # Level 5 and above boxes cannot contain these
-    tasksToExclude.push(19,21,29,42,57,75) if boxLevel>4
+    tasksToExclude.push(19,21,29,42,57,75,84,85) if boxLevel>4
     # Level 4 and above boxes cannot contain these
     tasksToExclude.push(3,4,5,12,15,16,18,20,22,25,26,27,30,32,35,37,45,46,47,50,51,52,56,82) if boxLevel>3
     if data==[] || ((data.inject { |sum, n| sum + n }) / data.length)< 50
@@ -565,7 +570,7 @@ class PokemonBoxScene
     # Level 2 and below boxes cannot contain these
     tasksToExclude.push(76,77,78) if boxLevel<3 && currentBoxDif==0
     # Level 1 and below boxes cannot contain these
-    tasksToExclude.push(9,13,20,21,22,23,25,26,32,34,39,45,46,47,48,49,56,57,58,59,75,81,83) if boxLevel<2  && currentBoxDif==0
+    tasksToExclude.push(9,13,20,21,22,23,25,26,32,34,39,45,46,47,48,49,56,57,58,59,75,81,83,84,85) if boxLevel<2  && currentBoxDif==0
     # Level 0 and below boxes cannot contain these
     tasksToExclude.push(3,5,19,24,27,28,29,30,33,35,37,40,41,42,43,44,52,53,54,55,73,79,82) if boxLevel<1  && currentBoxDif==0
     # List of items that will enable the supercharge task
@@ -611,7 +616,7 @@ class PokemonBoxScene
     task3 = [] if boxLevel>2 # Handled elsewhere
     task3.delete_if {|element| tasksToExclude.include?(element) }
     # Universal Tasks 0
-    taskU0=[12,18,29,34,50,51,52,56,57,83] # 19 is not applicable in Q.Qore
+    taskU0=[12,18,19,29,34,50,51,52,56,57,83,84,85] # 19 is not applicable in Q.Qore
     taskU0=[] if boxLevel>2 # Handled elsewhere
     taskU0.delete_if {|element| tasksToExclude.include?(element) }
     # Universal Tasks 1
@@ -620,7 +625,7 @@ class PokemonBoxScene
     taskU1.delete_if {|element| tasksToExclude.include?(element) }
     # Universal Tasks for Millenial/Elite/Level 3 Boxes
     if boxLevel>2
-      taskU0_1 = [9,10,11,12,13,17,18,23,24,28,29,33,34,38,39,43,44,48,49,50,51,52,53,54,55,56,57,58,59,76,77,78,81,83]
+      taskU0_1 = [9,10,11,12,13,17,18,19,23,24,28,29,33,34,38,39,43,44,48,49,50,51,52,53,54,55,56,57,58,59,76,77,78,81,83,84,85]
       taskU0_1.delete_if {|element| tasksToExclude.include?(element) }
       taskU0_1.shuffle! # Required for the 
       j=0

@@ -188,7 +188,8 @@ class PokemonGlobalMetadata
             _INTL("Defeat Pokémon with Best Skill in First Turn"),_INTL("Defeat Trainers with Best Skill and 6 Pokémon"),
             _INTL("Defeat Pokémon of your Color in First Turn"),_INTL("Use Fighting, Psychic or Dark Moves"),
             _INTL("Use Fighting, Psychic or Dark Moves in Trainer Battles"),_INTL("Use Robot Moves"),
-            _INTL("Deal Damage to semi-invulnerable Pokémon"),_INTL("Use Moves with 1 PP")]
+            _INTL("Deal Damage to semi-invulnerable Pokémon"),_INTL("Use Moves with 1 PP"),
+            _INTL("Change Abilities in Batle"),_INTL("Change Held Items in Batle")]
   end
   def pokeboxNames2
     return [_INTL("Experience Gaining"),_INTL("Pokémon Leveling"),
@@ -232,7 +233,8 @@ class PokemonGlobalMetadata
             _INTL("Instant Skilled Pokémon Defeting"),_INTL("Full-Team Skilled Trainer Defeating"),
             _INTL("Instant Same-Color Pokémon Defeating"),_INTL("Fi-Ps-Da Move Usage"),
             _INTL("Fi-Ps-Da Move Usage/TB"),_INTL("Robot Move Usage"),
-            _INTL("Damage Dealing to SI Pokémon"),_INTL("Move with 1 PP Usage")]
+            _INTL("Damage Dealing to SI Pokémon"),_INTL("Move with 1 PP Usage"),
+            _INTL("Ability Changing"),_INTL("Held Item Changing")]
   end
   def pokeboxNames3
     return [_INTL("Experience Points Gained"),_INTL("Pokémon Levelled Up"),
@@ -276,7 +278,8 @@ class PokemonGlobalMetadata
             _INTL("Pokémon with Best Skill in First Turn Defeated"),_INTL("Trainers with Best Skill and 6 Pokémon Defeated"),
             _INTL("Pokémon of your Color in First Turn Defeated"),_INTL("Fighting, Psychic or Dark Moves Used"),
             _INTL("Fighting, Psychic or Dark Moves in Trainer Battles Used"),_INTL("Robot Moves Used"),
-            _INTL("Damage to semi-invulnerable Pokémon Dealt"),_INTL("Moves with 1 PP Used")]
+            _INTL("Damage to semi-invulnerable Pokémon Dealt"),_INTL("Moves with 1 PP Used"),
+            _INTL("Abilities in Batle Changed"),_INTL("Held Items in Batle Changed")]
   end
 
   def pokeboxDescriptions
@@ -363,7 +366,9 @@ class PokemonGlobalMetadata
             _INTL("Use your Pokémon's Fighting, Psychic or Dark moves in Trainer Battles to progress."),
             _INTL("Use your Pokémon's Robot moves to progress."),
             _INTL("Use your Pokémon's Damaging moves to deal damage to Pokémon that are semi-invulrenable and progress."),
-            _INTL("Use your Pokémon's moves that have only 1 PP to progress.")]
+            _INTL("Use your Pokémon's moves that have only 1 PP to progress."),
+            _INTL("Change your Pokémon ability using its moves, items and forms to progress."),
+            _INTL("Change your Pokémon held items using its moves and items to progress.")]
   end
 
   def upperKingdom

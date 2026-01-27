@@ -10333,6 +10333,42 @@ class PokeBattle_Move_159 < PokeBattle_Move
     end
     return damagemult
   end
+  
+  def pbEffect(attacker,opponent,hitnum=0,alltargets=nil,showanimation=true)
+    return super(attacker,opponent,hitnum,alltargets,showanimation) if pbIsDamaging?
+    if !opponent.pbCanReduceStatStage?(PBStats::ATTACK,attacker,false,self) &&
+       !opponent.pbCanReduceStatStage?(PBStats::DEFENSE,attacker,false,self) &&
+       !opponent.pbCanReduceStatStage?(PBStats::SPATK,attacker,false,self) &&
+       !opponent.pbCanReduceStatStage?(PBStats::SPDEF,attacker,false,self) &&
+       !opponent.pbCanReduceStatStage?(PBStats::SPEED,attacker,false,self)
+      @battle.pbDisplay(_INTL("{1}'s stats won't go any higher!",attacker.pbThis))
+      return -1
+    end
+    pbShowAnimation(@id,attacker,opponent,hitnum,alltargets,showanimation)
+    showanim='mix' # Was true
+    if opponent.pbCanReduceStatStage?(PBStats::ATTACK,attacker,false,self)
+      opponent.pbReduceStat(PBStats::ATTACK,1,attacker,false,self,showanim)
+      showanim=false
+    end
+    if opponent.pbCanReduceStatStage?(PBStats::DEFENSE,attacker,false,self)
+      opponent.pbReduceStat(PBStats::DEFENSE,1,attacker,false,self,showanim)
+      showanim=false
+    end
+    if opponent.pbCanReduceStatStage?(PBStats::SPATK,attacker,false,self)
+      opponent.pbReduceStat(PBStats::SPATK,1,attacker,false,self,showanim)
+      showanim=false
+    end
+    if attacker.pbCanReduceStatStage?(PBStats::SPDEF,attacker,false,self)
+      opponent.pbReduceStat(PBStats::SPDEF,1,attacker,false,self,showanim)
+      showanim=false
+    end
+    if opponent.pbCanReduceStatStage?(PBStats::SPEED,attacker,false,self)
+      opponent.pbReduceStat(PBStats::SPEED,1,attacker,false,self,showanim)
+      showanim=false
+    end
+    return 0
+  end
+  
   def pbAdditionalEffect(attacker,opponent)
     showanim='mix' # Was true
     if opponent.pbCanReduceStatStage?(PBStats::ATTACK,attacker,false)

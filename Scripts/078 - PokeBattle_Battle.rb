@@ -4969,9 +4969,9 @@ class PokeBattle_Battle
       $PokemonGlobal.pokebox[13]+=1  if $game_map && pbGetMetadata($game_map.map_id,MetadataUpperKingdom)
       if @opponent
         if $game_map && pbGetMetadata($game_map.map_id,MetadataUpperKingdom)
-          $game_variables[PBOX_VARIABLES[6]].push(60)
+          $PokemonBox.addBalancePoints(60)
         else
-          $game_variables[PBOX_VARIABLES[6]].push(100)
+          $PokemonBox.addBalancePoints(100)
         end
         @scene.pbTrainerBattleSuccess
         if @opponent.is_a?(Array)
@@ -5065,9 +5065,9 @@ class PokeBattle_Battle
         end
       else
         if $game_map && pbGetMetadata($game_map.map_id,MetadataUpperKingdom)
-          $game_variables[PBOX_VARIABLES[6]].push(20)
+          $PokemonBox.addBalancePoints(20)
         else
-          $game_variables[PBOX_VARIABLES[6]].push(60)
+          $PokemonBox.addBalancePoints(60)
         end
       end
       if @internalbattle && @extramoney>0
@@ -5093,11 +5093,11 @@ class PokeBattle_Battle
       PBDebug.log("***Player lost***") if @decision==2
       PBDebug.log("***Player drew with opponent***") if @decision==5
       if $game_map && pbGetMetadata($game_map.map_id,MetadataUpperKingdom)
-        $game_variables[PBOX_VARIABLES[6]].push(-100) if @decision==2
-        $game_variables[PBOX_VARIABLES[6]].push(0) if @decision==5
+        $PokemonBox.addBalancePoints(-100) if @decision==2
+        $PokemonBox.addBalancePoints(0) if @decision==5
       else
-        $game_variables[PBOX_VARIABLES[6]].push(0) if @decision==2
-        $game_variables[PBOX_VARIABLES[6]].push(20) if @decision==5
+        $PokemonBox.addBalancePoints(0) if @decision==2
+        $PokemonBox.addBalancePoints(20) if @decision==5
       end
       if @internalbattle
         pbDisplayPaused(_INTL("{1} is out of usable Pokémon!",self.pbPlayer.name))

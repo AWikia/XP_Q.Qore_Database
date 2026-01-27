@@ -1037,18 +1037,13 @@ def pbDebugMenu(inloadscreen=false,mode=0)
           if gamecmd2>=0 && gamecmd2 < 5
             $game_variables[PBOX_VARIABLES[6]] = [] if  !$game_variables[PBOX_VARIABLES[6]].is_a?(Array)
             pt = [100,60,20,0,-100][gamecmd2]
-            $game_variables[PBOX_VARIABLES[6]].push(pt)
+            $PokemonBox.addBalancePoints(pt)
             Kernel.pbMessage(_INTL("Succesfully added {1} balance points",pt))
           end
         when 4 # Slot Machine
-          $game_variables[PBOX_VARIABLES[6]] = [] if  !$game_variables[PBOX_VARIABLES[6]].is_a?(Array)
-          data = $game_variables[PBOX_VARIABLES[6]]
-          if data==[]
-            value=0
-          else
-            value=((data.inject { |sum, n| sum + n }) / data.length)
-          end
-          Kernel.pbMessage(_INTL("You have {1} balance points",value))
+          value  = $PokemonBox.currentBoxBalanceMeter(true)
+          value2 = $PokemonBox.currentBoxBalanceMeter
+          Kernel.pbMessage(_INTL("You have {1} balance points (Current box made with {2} balance points)",value,value2))
         when 5 # Slot Machine
           $game_variables[PBOX_VARIABLES[6]] = []
           Kernel.pbMessage(_INTL("Successfully cleared balance points"))
@@ -1252,10 +1247,4 @@ class Scene_Debug
     $game_map.refresh
     Graphics.freeze
   end
-end
-end
-end
-end
-end
-end
 end

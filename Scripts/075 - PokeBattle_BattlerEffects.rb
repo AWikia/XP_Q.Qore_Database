@@ -978,7 +978,7 @@ class PokeBattle_Battler
         return false
       end
       if hasWorkingItem(:CLEARAMULET)
-        itemname=PBAbilities.getName(self.item)
+        itemname=PBItems.getName(self.item)
         pbPlayMissSE() if showMessages
         @battle.pbDisplay(_INTL("{1}'s {2} prevents stat loss!",pbThis,itemname)) if showMessages
         return false
@@ -1247,7 +1247,7 @@ class PokeBattle_Battler
         return false
       end
       if hasWorkingItem(:CLEARAMULET)
-         itemname=PBAbilities.getName(self.item)
+         itemname=PBItems.getName(self.item)
         oppabilityname=PBAbilities.getName(opponent.ability)
         pbPlayMissSE()
         @battle.pbDisplay(_INTL("{1}'s {2} prevented {3}'s {4} from working!",
@@ -1309,7 +1309,7 @@ class PokeBattle_Battler
         return false
       end
       if hasWorkingItem(:CLEARAMULET)
-         itemname=PBAbilities.getName(self.item)
+         itemname=PBItems.getName(self.item)
         oppabilityname=PBAbilities.getName(opponent.ability)
         pbPlayMissSE()
         @battle.pbDisplay(_INTL("{1}'s {2} prevented {3}'s {4} from working!",
@@ -1370,7 +1370,7 @@ class PokeBattle_Battler
         return false
       end
       if hasWorkingItem(:CLEARAMULET)
-         itemname=PBAbilities.getName(self.item)
+         itemname=PBItems.getName(self.item)
         oppabilityname=PBAbilities.getName(opponent.ability)
         pbPlayMissSE()
         @battle.pbDisplay(_INTL("{1}'s {2} prevented {3}'s {4} from working!",
@@ -1433,7 +1433,7 @@ class PokeBattle_Battler
         return false
       end
       if hasWorkingItem(:CLEARAMULET)
-         itemname=PBAbilities.getName(self.item)
+         itemname=PBItems.getName(self.item)
         oppabilityname=PBAbilities.getName(opponent.ability)
         pbPlayMissSE()
         @battle.pbDisplay(_INTL("{1}'s {2} prevented {3}'s {4} from working!",
@@ -1492,7 +1492,7 @@ class PokeBattle_Battler
         return false
       end
       if hasWorkingItem(:CLEARAMULET)
-         itemname=PBAbilities.getName(self.item)
+         itemname=PBItems.getName(self.item)
         oppabilityname=PBAbilities.getName(opponent.ability)
         pbPlayMissSE()
         @battle.pbDisplay(_INTL("{1}'s {2} prevented {3}'s {4} from working!",

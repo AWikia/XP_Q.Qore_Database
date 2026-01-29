@@ -4911,7 +4911,8 @@ def ragefist
       end
       miss=false if user.hasWorkingAbility(:NOGUARD) ||
                     target.hasWorkingAbility(:NOGUARD) ||
-                    @battle.futuresight
+                    @battle.futuresight ||
+                    isConst?(thismove.id,PBMoves,:SMARTBOMB)
       override=true if thismove.function==0x06 && # Toxic
                        thismove.basedamage==0 && 
                       (user.pbHasType?(:POISON) || user.pbHasType?(:GAS))

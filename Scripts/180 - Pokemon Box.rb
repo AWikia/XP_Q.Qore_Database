@@ -307,9 +307,8 @@ class PokemonBoxScene
     multi=boxMulti
     multi2=1 + ([($Trainer.numbadges / 2).floor,6].min * scaleup)
     if trainertask && currentBoxBalanceMeter<50
-      div = (max.to_f/min.to_f).to_f
-      values=[min.to_f/div,
-              min.to_f] # or max.to_f/div
+      values=[min.to_f*0.5,
+              max.to_f*0.5]
     else
       values=[min.to_f,
               max.to_f]
@@ -324,9 +323,8 @@ class PokemonBoxScene
     multi=boxMulti
     multi2=1 + ([($Trainer.numbadges / 2).floor,6].min * scaleup)
     if trainertask && currentBoxBalanceMeter<50
-      div = (max.to_f/min.to_f).to_f
-      values=[min.to_f/div,
-              min.to_f] # or max.to_f/div
+      values=[min.to_f*0.5,
+              max.to_f*0.5]
     else
       values=[min.to_f,
               max.to_f]
@@ -378,7 +376,7 @@ class PokemonBoxScene
             valueFromTo(600,1400,1,10),      # Gain Money
             valueFromTo(1.5,3),              # Land Not Very Effective
             valueFromTo(1,2),                # Use Mutli-Target Moves
-            valueFromTo(3,6,0,1,true),       # Activate Win Streak
+            valueFromTo(3,4.5,0,1,true),     # Activate Win Streak
             valueFromTo(0.5,1),              # Change Forms
             valueFromTo(20,30,0,5),          # Gain Levelup Stats
             valueFromTo(3,6),                # Gain Effort Values
@@ -470,7 +468,7 @@ class PokemonBoxScene
             valueFromToMiddle(600,1400,1,10),      # Gain Money
             valueFromToMiddle(1.5,3),              # Land Not Very Effective
             valueFromToMiddle(1,2),                # Use Mutli-Target Moves
-            valueFromToMiddle(3,6,0,1,true),       # Activate Win Streak
+            valueFromToMiddle(3,4.5,0,1,true),     # Activate Win Streak
             valueFromToMiddle(0.5,1),              # Change Forms
             valueFromToMiddle(20,30,0,5),          # Gain Levelup Stats
             valueFromToMiddle(3,6),                # Gain Effort Values

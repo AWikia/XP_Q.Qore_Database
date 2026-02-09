@@ -13,7 +13,7 @@
   LIGHTTEXTBASE        = Color.new(242,242,242) # Was 248,248,240
   LIGHTTEXTSHADOW      = Color.new(72,72,72)    # Was 72,88,88
   DARKTEXTBASE         = Color.new(12,12,12)    # Was 88,88,80    
-  DARKTEXTSHADOW       = Color.new(144,144,144) # Was 168,184,184 
+  DARKTEXTSHADOW       = Color.new(182,182,182) # Was 168,184,184 
 
   LIGHTTEXTBASETRANS   = LIGHTTEXTBASE.clone
   LIGHTTEXTBASETRANS.alpha=128

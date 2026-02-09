@@ -2258,6 +2258,10 @@ end
 # Gaining items
 #===============================================================================
 def Kernel.pbItemBall(item,quantity=1)
+  if item.is_a?(Array) # Experimental, use with caution
+    quantity=item[1]
+    item=item[0]
+  end
   if item.is_a?(String) || item.is_a?(Symbol)
     item=getID(PBItems,item)
   end
@@ -2296,6 +2300,10 @@ def Kernel.pbItemBall(item,quantity=1)
 end
 
 def Kernel.pbReceiveItem(item,quantity=1)
+  if item.is_a?(Array) # Experimental, use with caution
+    quantity=item[1]
+    item=item[0]
+  end
   if item.is_a?(String) || item.is_a?(Symbol)
     item=getID(PBItems,item)
   end

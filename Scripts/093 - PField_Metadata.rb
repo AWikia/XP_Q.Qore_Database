@@ -189,7 +189,7 @@ class PokemonGlobalMetadata
             _INTL("Defeat Pokémon of your Color in First Turn"),_INTL("Use Fighting, Psychic or Dark Moves"),
             _INTL("Use Fighting, Psychic or Dark Moves in Trainer Battles"),_INTL("Use Robot Moves"),
             _INTL("Deal Damage to semi-invulnerable Pokémon"),_INTL("Use Moves with 1 PP"),
-            _INTL("Change Abilities in Batle"),_INTL("Change Held Items in Batle")]
+            _INTL("Change Abilities in Battle"),_INTL("Change Held Items in Battle")]
   end
   def pokeboxNames2
     return [_INTL("Experience Gaining"),_INTL("Pokémon Leveling"),

@@ -76,7 +76,7 @@ class PokemonTradeScene
     # Recall
     delay=picturePoke.totalDuration
     picturePoke.moveSE(delay,"Audio/SE/recall")
-    pictureBall.moveName(delay,sprintf("Graphics/Battle animations/ball%_02d_open",@pokemon.ballused))
+    pictureBall.moveName(delay,sprintf("Graphics/Battle animations/ball_%02d_open",@pokemon.ballused))
     # Move sprite to ball
     picturePoke.moveZoom(15,delay,0)
     picturePoke.moveXY(15,delay,Graphics.width/2,48)

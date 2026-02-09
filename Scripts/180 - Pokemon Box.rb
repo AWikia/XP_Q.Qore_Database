@@ -72,9 +72,13 @@ class PokemonBoxScene
     @sprites["progress_icon"].visible=false
     @sprites["progresstime"]=IconSprite.new((Graphics.width/4)-132+14,334,@viewport)
     @sprites["progresstime"].setBitmap(_INTL("Graphics/UI/"+getDarkModeFolder+"/Pokemon Box/overlay_progress"))
+    @sprites["progress_w"]=IconSprite.new((Graphics.width/4)-156,196,@viewport)
+    @sprites["progress_w"].setBitmap(_INTL("Graphics/UI/"+getDarkModeFolder+"/Pokemon Box/overlay_hardtask_wrapper"))
+    @sprites["progress_w"].visible=false
     @sprites["bg"].z = 1
     @sprites["bgM"].z = 2
     @sprites["machine"].z = 3
+    @sprites["progress_w"].z = 3
     @sprites["progress"].z = 3
     @sprites["progress_icon"].z = 4
     @sprites["progresstime"].z = 4
@@ -145,8 +149,8 @@ class PokemonBoxScene
   
   def currentBoxDif # Like currentChapter but is 0 on Level 0 boxes and increases by 1 on milestone days
     return 0 if boxLevel==0
-    return 1 + currentChapter if @milestoneDay
-    return currentChapter
+    return [currentChapter,1].max if @milestoneDay
+    return [currentChapter,0].max
   end
 
   def currentStreak2
@@ -196,7 +200,7 @@ class PokemonBoxScene
   end
   
   def boxMulti
-    @stages[currentStage][3] + (4*currentBoxDif) rescue 0.5
+    return @stages[currentStage][3] + (4*currentBoxDif) rescue 0.5
   end
   
   # 0 = Junior and Basic
@@ -277,9 +281,9 @@ class PokemonBoxScene
     return "_normal"
   end
 
-  def getTaskHue(idx,nohardmarkers=false)
+  def getTaskHue(idx=-1,nohardmarkers=false)
     if isHardTask(idx) && !nohardmarkers
-      return [0,295,210,0][taskLevel(idx)]
+      return [0,295,180,210,0][taskLevel(idx)]
     elsif $game_variables[PBOX_VARIABLES[0]]>idx
       return 0
     end
@@ -333,8 +337,9 @@ class PokemonBoxScene
     max=values[1]*multi # No rounding here, tasks that only yield 1 must have marks
     result=((max-min)*multi2)
     return [min + (result * 0.4),
-            min + (result * 0.6),
-            min + (result * 0.8)]
+            min + (result * 0.55),
+            min + (result * 0.7),
+            min + (result * 0.85)]
   end
   
   def taskVals(num=0)
@@ -398,27 +403,27 @@ class PokemonBoxScene
             valueFromTo(0.4,0.65),           # Confuse or Infatuate
             valueFromTo(0.06,0.12,0,1,true), # Collect Lucky Bags
             valueFromTo(0.06,0.15),          # Use Elder Special Moves
-            valueFromTo(200,600,6,10),       # Gain Experience/TB
-            valueFromTo(1,1.5),              # Level Up Pokemon/TB
-            valueFromTo(2.5,5),              # Defeat Pokemon/TB
-            valueFromTo(80,240,1.5,10),      # Deal Damage/TB
-            valueFromTo(1.5,3),              # Land Super Effective/TB
-            valueFromTo(1.5,3),              # Land Not Very Effective/TB
-            valueFromTo(3,6),                # Use Physical Moves/TB
-            valueFromTo(3,6),                # Use Special Moves/TB
-            valueFromTo(1.5,3),              # Use Status Moves/TB
-            valueFromTo(20,30,0,5),          # Gain Levelup Stats/TB
-            valueFromTo(3,6),                # Gain Effort Values/TB
+            valueFromTo(200,600,6,10,true),  # Gain Experience/TB
+            valueFromTo(1,1.5,0,1,true),     # Level Up Pokemon/TB
+            valueFromTo(2.5,5,0,1,true),     # Defeat Pokemon/TB
+            valueFromTo(80,240,1.5,10,true), # Deal Damage/TB
+            valueFromTo(1.5,3,0,1,true),     # Land Super Effective/TB
+            valueFromTo(1.5,3,0,1,true),     # Land Not Very Effective/TB
+            valueFromTo(3,6,0,1,true),       # Use Physical Moves/TB
+            valueFromTo(3,6,0,1,true),       # Use Special Moves/TB
+            valueFromTo(1.5,3,0,1,true),     # Use Status Moves/TB
+            valueFromTo(20,30,0,5,true),     # Gain Levelup Stats/TB
+            valueFromTo(3,6,0,1,true),       # Gain Effort Values/TB
             valueFromTo(3,6),                # Use Normal Moves
-            valueFromTo(3,6),                # Use Normal Moves/TB
+            valueFromTo(3,6,0,1,true),       # Use Normal Moves/TB
             valueFromTo(3,6),                # Use G-F-W Moves
-            valueFromTo(3,6),                # Use G-F-W Moves/TB
+            valueFromTo(3,6,0,1,true),       # Use G-F-W Moves/TB
             valueFromTo(0.2,0.4),            # Catch Skilled Pokemon
             valueFromTo(0.5,1),              # Defeat Skilled Pokemon Inst.
             valueFromTo(0.2,0.4,0,1,true),   # Defeat Full Skilled Trainers
             valueFromTo(0.5,1),              # Defeat same-color Pokemon Inst.
             valueFromTo(3,6),                # Use Fi-Ps-Da Moves
-            valueFromTo(3,6),                # Use Fi-Ps-Da Moves/TB
+            valueFromTo(3,6,0,1,true),       # Use Fi-Ps-Da Moves/TB
             valueFromTo(0.06,0.15),          # Use Robot Moves
             valueFromTo(20,60,1.5,10),       # Deal Damage to SI PKMN
             valueFromTo(0.06,0.15),          # Use Moves with 1 PP
@@ -490,27 +495,27 @@ class PokemonBoxScene
             valueFromToMiddle(0.4,0.65),           # Confuse or Infatuate
             valueFromToMiddle(0.06,0.12,0,1,true), # Collect Lucky Bags
             valueFromToMiddle(0.06,0.15),          # Use Elder Special Moves
-            valueFromToMiddle(200,600,6,10),       # Gain Experience/TB
-            valueFromToMiddle(1,1.5),              # Level Up Pokemon/TB
-            valueFromToMiddle(2.5,5),              # Defeat Pokemon/TB
-            valueFromToMiddle(80,240,1.5,10),      # Deal Damage/TB
-            valueFromToMiddle(1.5,3),              # Land Super Effective/TB
-            valueFromToMiddle(1.5,3),              # Land Not Very Effective/TB
-            valueFromToMiddle(3,6),                # Use Physical Moves/TB
-            valueFromToMiddle(3,6),                # Use Special Moves/TB
-            valueFromToMiddle(1.5,3),              # Use Status Moves/TB
-            valueFromToMiddle(20,30,0,5),          # Gain Levelup Stats/TB
-            valueFromToMiddle(3,6),                # Gain Effort Values/TB
+            valueFromToMiddle(200,600,6,10,true),  # Gain Experience/TB
+            valueFromToMiddle(1,1.5,0,1,true),     # Level Up Pokemon/TB
+            valueFromToMiddle(2.5,5,0,1,true),     # Defeat Pokemon/TB
+            valueFromToMiddle(80,240,1.5,10,true), # Deal Damage/TB
+            valueFromToMiddle(1.5,3,0,1,true),     # Land Super Effective/TB
+            valueFromToMiddle(1.5,3,0,1,true),     # Land Not Very Effective/TB
+            valueFromToMiddle(3,6,0,1,true),       # Use Physical Moves/TB
+            valueFromToMiddle(3,6,0,1,true),       # Use Special Moves/TB
+            valueFromToMiddle(1.5,3,0,1,true),     # Use Status Moves/TB
+            valueFromToMiddle(20,30,0,5,true),     # Gain Levelup Stats/TB
+            valueFromToMiddle(3,6,0,1,true),       # Gain Effort Values/TB
             valueFromToMiddle(3,6),                # Use Normal Moves
-            valueFromToMiddle(3,6),                # Use Normal Moves/TB
+            valueFromToMiddle(3,6,0,1,true),       # Use Normal Moves/TB
             valueFromToMiddle(3,6),                # Use G-F-W Moves
-            valueFromToMiddle(3,6),                # Use G-F-W Moves/TB
+            valueFromToMiddle(3,6,0,1,true),       # Use G-F-W Moves/TB
             valueFromToMiddle(0.2,0.4),            # Catch Skilled Pokemon
             valueFromToMiddle(0.5,1),              # Defeat Skilled Pokemon Inst.
             valueFromToMiddle(0.2,0.4,0,1,true),   # Defeat Full Skilled Trainers
             valueFromToMiddle(0.5,1),              # Defeat same-color Pokemon Inst.
             valueFromToMiddle(3,6),                # Use Fi-Ps-Da Moves
-            valueFromToMiddle(3,6),                # Use Fi-Ps-Da Moves/TB
+            valueFromToMiddle(3,6,0,1,true),       # Use Fi-Ps-Da Moves/TB
             valueFromToMiddle(0.06,0.15),          # Use Robot Moves
             valueFromToMiddle(20,60,1.5,10),       # Deal Damage to SI PKMN
             valueFromToMiddle(0.06,0.15),          # Use Moves with 1 PP
@@ -518,13 +523,16 @@ class PokemonBoxScene
             valueFromToMiddle(0.5,1),              # Change Held Items
 
             ][taskID]
-    if taskstatus2 > vals[2] && (boxLevel>1 || currentBoxDif>0)     # Ultra Hard Task
+    shardv = (boxLevel>1 || currentBoxDif>0) ? 1 : 3
+    if taskstatus2 > vals[3] && (boxLevel>1 || currentBoxDif>0)         # Master Task
+      return 4
+    elsif taskstatus2 > vals[2] && (boxLevel>1 || currentBoxDif>0)      # Expert Task
       return 3
-    elsif taskstatus2 > vals[1] && (boxLevel>1 || currentBoxDif>0)  # Super Hard Task
+    elsif taskstatus2 > vals[shardv] && (boxLevel>0 || currentBoxDif>0) # Super Hard Task
       return 2
-    elsif taskstatus2 > vals[0] && (boxLevel>0 || currentBoxDif>0)  # Hard Task
+    elsif taskstatus2 > vals[0] && (boxLevel>0 || currentBoxDif>0)      # Hard Task
       return 1
-    else                                                            # Normal Task
+    else                                                                # Normal Task
       return 0
     end
   end
@@ -601,16 +609,16 @@ class PokemonBoxScene
     tasksToExclude.push(19,21,29,42,57,75,84,85) if boxLevel>4
     # Level 4 and above boxes cannot contain these
     tasksToExclude.push(3,4,5,12,15,16,18,20,22,25,26,27,30,32,35,37,45,46,47,50,51,52,56,82) if boxLevel>3
-    if data==[] || currentBoxBalanceMeter< 50
+    if data==[] || currentBoxBalanceMeter< 35
       # Level 3 and above boxes cannot contain these
-      tasksToExclude.push(0,1,2,6,7,8,14,31,36,40,41,71,73,79) if boxLevel>2
+      tasksToExclude.push(0,1,2,6,7,8,14,31,36,40,41,71,73,79) if boxLevel>2 || currentBoxDif>2
       # No box can contain these
       tasksToExclude.push(60,61,62,63,64,65,66,67,68,69,70,72,74,80)
     else
       # Level 2 and above boxes cannot contain these
-      tasksToExclude.push(0,1,2,6,7,8,14,31,36,40,41,71,73,79) if boxLevel>1
+      tasksToExclude.push(0,1,2,6,7,8,14,31,36,40,41,71,73,79) if boxLevel>1 || currentBoxDif>2
       # Only Level 2 boxes can contain these
-      tasksToExclude.push(60,61,62,63,64,65,66,67,68,69,70,72,74,80) if boxLevel!=2
+      tasksToExclude.push(60,61,62,63,64,65,66,67,68,69,70,72,74,80) if boxLevel!=2 || currentBoxDif>2
     end
     # Level 2 and below boxes cannot contain these
     tasksToExclude.push(76,77,78) if boxLevel<3 && currentBoxDif==0
@@ -746,7 +754,7 @@ class PokemonBoxScene
     progress.push(["Graphics/UI/"+getAccentFolder+"/summaryEggBar_small",@sprites["progress"].x+8,@sprites["progress"].y+4,0,0,(shadowfract*1.98).floor,-1])
     progress.push(["Graphics/UI/Pokemon Box/icons",@sprites["progress"].x-28,@sprites["progress"].y-6,0,34*$game_variables[PBOX_VARIABLES[1]][currentStep][0],34,34])
     progress.push(["Graphics/UI/Pokemon Box/icon_"+@icons[stepID],@sprites["progress_icon"].x,@sprites["progress_icon"].y,0,0,-1,-1])
-    progress.push(["Graphics/UI/Pokemon Box/icon_markings",@sprites["progress_icon"].x+26,@sprites["progress_icon"].y+10,0,36*taskLevel(-1),36,36])
+    progress.push(["Graphics/UI/Pokemon Box/icon_markings",@sprites["progress_icon"].x+26,@sprites["progress_icon"].y+16,0,30*taskLevel(-1),36,30])
     # Draw Time Left graphics
     progressTime.push(["Graphics/UI/"+getAccentFolder+"/summaryEggBar",@sprites["progresstime"].x+8,@sprites["progresstime"].y+4,0,0,(shadowfract2*2.48).floor,-1])
       progressTime.push(["Graphics/UI/Pokemon Box/icon_clock",@sprites["progresstime"].x-28,@sprites["progresstime"].y-6,0,0,-1,-1])
@@ -775,30 +783,37 @@ class PokemonBoxScene
     if (!isDarkMode?)
       baseColor=MessageConfig::DARKTEXTBASE
       shadowColor=MessageConfig::DARKTEXTSHADOW
-      hardBase=[Color.new(248,32,244),
-                Color.new(32,118,248),
-                Color.new(248,56,32)]
-      hardShadow=[Color.new(224,144,222),
-                  Color.new(144,176,224),
-                  Color.new(224,152,144)]
+      hardBase=[Color.new(42,0,46),
+                Color.new(0,46,46),
+                Color.new(0,20,46),
+                Color.new(46,0,0)]
+      hardShadow=[Color.new(213,136,220),
+                  Color.new(136,220,220),
+                  Color.new(136,178,220),
+                  Color.new(220,136,136)]
       base2=Color.new(12,12,12)
       shadow2=Color.new(242,242,242)
     else
       baseColor=MessageConfig::LIGHTTEXTBASE
       shadowColor=MessageConfig::LIGHTTEXTSHADOW
-      hardBase=[Color.new(224,144,222),
-                Color.new(144,176,224),
-                Color.new(224,152,144)]
-      hardShadow=[Color.new(248,32,244),
-                  Color.new(32,118,248),
-                  Color.new(248,56,32)]
+      hardBase=[Color.new(235,199,239),
+                Color.new(199,239,239),
+                Color.new(199,219,239),
+                Color.new(239,199,199)]
+
+      hardShadow=[Color.new(86,0,94),
+                  Color.new(0,94,94),
+                  Color.new(0,47,94),
+                  Color.new(94,0,0)]
       base2=Color.new(242,242,242)
       shadow2=Color.new(12,12,12)
     end
-
     numberbase=(isHardTask()) ? hardBase[taskLevel() - 1] : baseColor
     numbershadow=(isHardTask()) ? hardShadow[taskLevel() - 1] : shadowColor
-
+    @sprites["progress_w"].setBitmap(_INTL("Graphics/UI/"+getDarkModeFolder+"/Pokemon Box/overlay_hardtask_wrapper"))
+    @sprites["progress_w"].bitmap.hue_change(getTaskHue())
+    @sprites["progress_w"].visible=isHardTask()
+    
     textpos=[
        [_INTL("{1}/{2}",[taskstatus,taskstatus2].min,taskstatus2),(Graphics.width/4)-39+15,40,2,base2,shadow2,true],
     ]
@@ -865,22 +880,28 @@ class PokemonBoxScene
       $game_variables[PBOX_VARIABLES[0]]+=1
       $game_variables[PBOX_VARIABLES[4]]=0 # Reset Substep
       update_icons(true)
-      if oldtasklevel == 3
+      if oldtasklevel == 4
         pbSEPlay("Battle effect critical")
-        Kernel.pbMessage(_INTL("Ultra Hard Task Completed and you've got rewards."))
+        Kernel.pbMessage(_INTL("Master Task Completed and you've got rewards."))
         quantity = (boxLevel+(4*currentBoxDif))*2
         item     = [PBItems::REDSHARD,PBItems::YELLOWSHARD,PBItems::BLUESHARD,PBItems::GREENSHARD][oldstep]
         Kernel.pbReceiveItem(item,quantity)
         quantity2 = (boxLevel+(4*currentBoxDif)) - 1
         Kernel.pbReceiveItem(:EXPCANDYS,quantity2)
-      elsif oldtasklevel == 2
+      elsif oldtasklevel == 3
         pbSEPlay("Battle effect critical")
-        Kernel.pbMessage(_INTL("Super Hard Task Completed and you've got rewards."))
+        Kernel.pbMessage(_INTL("Expert Task Completed and you've got rewards."))
         quantity = (boxLevel+(4*currentBoxDif))*2
         item     = [PBItems::REDSHARD,PBItems::YELLOWSHARD,PBItems::BLUESHARD,PBItems::GREENSHARD][oldstep]
         Kernel.pbReceiveItem(item,quantity)
         quantity2 = (boxLevel+(4*currentBoxDif)) - 1
         Kernel.pbReceiveItem(:EXPCANDYXS,quantity2)
+      elsif oldtasklevel == 2
+        pbSEPlay("Battle effect critical")
+        Kernel.pbMessage(_INTL("Super Hard Task Completed and you've got a reward."))
+        quantity = (boxLevel+(4*currentBoxDif))*2
+        item     = [PBItems::REDSHARD,PBItems::YELLOWSHARD,PBItems::BLUESHARD,PBItems::GREENSHARD][oldstep]
+        Kernel.pbReceiveItem(item,quantity)
       elsif oldtasklevel == 1
         pbSEPlay("Battle effect critical")
         Kernel.pbMessage(_INTL("Hard Task Completed and you've got a reward."))
@@ -938,6 +959,7 @@ class PokemonBoxScene
   
   # Closes out the Pokemon Box container itself
   def close_box
+    @sprites["progress_w"].visible=false
     @sprites["task0"].visible= false
     @sprites["task1"].visible= false
     @sprites["task2"].visible= false
@@ -1011,20 +1033,25 @@ class PokemonBoxScene
   
   def showTaskInfo
     Kernel.pbMessage(_INTL("\\l[2]{1}",$PokemonGlobal.pokeboxDescriptions[ $game_variables[PBOX_VARIABLES[1]][currentStep][0] ]))
-    if taskLevel() == 3
+    if taskLevel() == 4
       quantity = (boxLevel+(4*currentBoxDif))*2
       item     = [PBItems::REDSHARD,PBItems::YELLOWSHARD,PBItems::BLUESHARD,PBItems::GREENSHARD][currentStep%4]
       itemname = (quantity>1) ? PBItems.getNamePlural(item) : PBItems.getName(item)
       quantity2 = (boxLevel+(4*currentBoxDif)) - 1
       itemname2 = (quantity2>1) ? PBItems.getNamePlural(PBItems::EXPCANDYS) : PBItems.getName(PBItems::EXPCANDYS)
-      Kernel.pbMessage(_INTL("Completing this Ultra Hard task gives you {1} {2} and {3} {4}.", quantity, itemname, quantity2, itemname2))
-    elsif taskLevel() == 2
+      Kernel.pbMessage(_INTL("Completing this Master task gives you {1} {2} and {3} {4}.", quantity, itemname, quantity2, itemname2))
+    elsif taskLevel() == 3
       quantity = (boxLevel+(4*currentBoxDif))*2
       item     = [PBItems::REDSHARD,PBItems::YELLOWSHARD,PBItems::BLUESHARD,PBItems::GREENSHARD][currentStep%4]
       itemname = (quantity>1) ? PBItems.getNamePlural(item) : PBItems.getName(item)
       quantity2 = (boxLevel+(4*currentBoxDif)) - 1
       itemname2 = (quantity2>1) ? PBItems.getNamePlural(PBItems::EXPCANDYXS) : PBItems.getName(PBItems::EXPCANDYXS)
-      Kernel.pbMessage(_INTL("Completing this Super Hard task gives you {1} {2} and {3} {4}.", quantity, itemname, quantity2, itemname2))
+      Kernel.pbMessage(_INTL("Completing this Expert task gives you {1} {2} and {3} {4}.", quantity, itemname, quantity2, itemname2))
+    elsif taskLevel() == 2
+      quantity = (boxLevel+(4*currentBoxDif))*2
+      item     = [PBItems::REDSHARD,PBItems::YELLOWSHARD,PBItems::BLUESHARD,PBItems::GREENSHARD][currentStep%4]
+      itemname = (quantity>1) ? PBItems.getNamePlural(item) : PBItems.getName(item)
+      Kernel.pbMessage(_INTL("Completing this Super Hard task gives you {1} {2}.", quantity, itemname))
     elsif taskLevel() == 1
       quantity = (boxLevel+(4*currentBoxDif))
       item     = [PBItems::REDSHARD,PBItems::YELLOWSHARD,PBItems::BLUESHARD,PBItems::GREENSHARD][currentStep%4]

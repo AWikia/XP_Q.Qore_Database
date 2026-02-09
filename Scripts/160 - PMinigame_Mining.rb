@@ -191,6 +191,11 @@ class MiningGameScene
      [:IRONPLATE,10, 8,32, 4,3,[1,1,1,1,1,1,1,1,1,1,1,1]],
      [:SPLASHPLATE,10, 12,32, 4,3,[1,1,1,1,1,1,1,1,1,1,1,1]]
   ]
+  if $game_switches && $game_switches[218] # Push Gold Bars when the event is active
+    ITEMS.push([[:GOLDBAR,5],50, 0,35, 3,3,[1,1,1,1,1,1,1,1,1]],
+               [:GOLDBAR,200, 3,35, 2,2,[1,1,1,1,1,1]])
+  end
+
   IRON = [   # Graphic x, graphic y, width, height, pattern
      [0,0, 1,4,[1,1,1,1]],
      [1,0, 2,4,[1,1,1,1,1,1,1,1]],
@@ -221,6 +226,7 @@ class MiningGameScene
     @ironbitmap=AnimatedBitmap.new(_INTL("Graphics/UI/Mining/irons"))
     @items=[]
     @itemswon=[]
+    @itemswonAMT=[]
     @iron=[]
     pbDistributeItems
     pbDistributeIron
@@ -309,11 +315,13 @@ class MiningGameScene
     plates=[:INSECTPLATE,:DREADPLATE,:DRACOPLATE,:ZAPPLATE,:FISTPLATE,
             :FLAMEPLATE,:MEADOWPLATE,:EARTHPLATE,:ICICLEPLATE,:TOXICPLATE,
             :MINDPLATE,:STONEPLATE,:SKYPLATE,:SPOOKYPLATE,:IRONPLATE,:SPLASHPLATE]
+    goldbars=[:GOLDBAR,[:GOLDBAR,5]]
     for i in @items
       preitem=ITEMS[i[0]][0]
       return false if preitem==newitem   # No duplicate items
       return false if fossils.include?(preitem) && fossils.include?(newitem)
       return false if plates.include?(preitem) && plates.include?(newitem)
+      return false if goldbars.include?(preitem) && goldbars.include?(newitem)
     end
     return true
   end
@@ -484,8 +492,15 @@ class MiningGameScene
     revealeditems.dispose
     for index in revealed
       @items[index][3]=true
-      item=getConst(PBItems,ITEMS[@items[index][0]][0])
+      itemID=ITEMS[@items[index][0]][0]
+      itemAMT=1
+      if itemID.is_a?(Array) # Experimental, use with caution
+        itemAMT=itemID[1]
+        itemID=itemID[0]
+      end
+      item=getConst(PBItems,itemID)
       @itemswon.push(item)
+      @itemswonAMT.push(itemAMT)
     end
   end
 
@@ -566,16 +581,20 @@ class MiningGameScene
 
   def pbGiveItems
     if @itemswon.length>0
+      j=-1
       for i in @itemswon
+        j+=1
+        partname=_INTL("One {1} was",PBItems.getName(i))
+        partname=_INTL("{1} {2} were",@itemswonAMT[j],PBItems.getName(i)) if @itemswonAMT[j]>1
         if $game_switches[1047]
-          Kernel.pbMessage(_INTL("One {1} was found, but you can't obtain it right now.\\wtnp[30]",
-             PBItems.getName(i)))
-        elsif $PokemonBag.pbStoreItem(i)
-          Kernel.pbMessage(_INTL("One {1} was obtained.\\se[MiningItemGet]\\wtnp[30]",
-             PBItems.getName(i)))
+          Kernel.pbMessage(_INTL("{1} found, but you can't obtain it right now.\\wtnp[30]",
+             partname))
+        elsif $PokemonBag.pbStoreItem(i,@itemswonAMT[j])
+          Kernel.pbMessage(_INTL("{1} obtained.\\se[MiningItemGet]\\wtnp[30]",
+             partname))
         else
-          Kernel.pbMessage(_INTL("One {1} was found, but you have no room for it.",
-             PBItems.getName(i)))
+          Kernel.pbMessage(_INTL("{1} found, but you have no room for it.",
+             partname))
         end
       end
     end

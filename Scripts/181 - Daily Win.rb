@@ -51,19 +51,31 @@ class DailyWinScene
     if $game_variables[DWIN_VARIABLES[1]] == 0
       pbTimeEvent(DWIN_VARIABLES[1],1)
     end
-    @rewards=[
-      :POKEDOLL,
-      :BOTANICSMOKE,
-      [:SITRUSBERRY,4],
-      [:LEPPABERRY,4],
-      [:LUMBERRY,4],
-      [:HYPERPOTION,3],
-      [:ULTRABALL,3],
-      [:NORMALGEM,3],
-      [:FULLHEAL,2],
-      [[:GRASSGEM,:FIREGEM,:WATERGEM][$game_variables[14]],2],
-      [[:FIGHTINGGEM,:PSYCHICGEM,:DARKGEM][$game_variables[14]],2],
-    ]
+    if $Trainer.numbadges>3
+      @rewards=[
+        :POKEDOLL,
+        :BOTANICSMOKE,
+        [:SITRUSBERRY,4],
+        [:LEPPABERRY,4],
+        [:LUMBERRY,4],
+        [:HYPERPOTION,3],
+        [:ULTRABALL,3],
+        [:NORMALGEM,3],
+        [:FULLHEAL,2],
+        [[:GRASSGEM,:FIREGEM,:WATERGEM][$game_variables[14]],2],
+        [[:FIGHTINGGEM,:PSYCHICGEM,:DARKGEM][$game_variables[14]],2],
+      ]
+    else
+      @rewards=[
+        :POKEDOLL,
+        [:SITRUSBERRY,3],
+        [:LUMBERRY,3],
+        [:SUPERPOTION,3],
+        [:GREATBALL,3],
+        [:NORMALGEM,2],
+        [:FULLHEAL,2],
+      ]
+    end
     @rewards.push([:GOLDBAR,25]) if $game_switches[218]
     @rewardclaim=false
     pbDisplayDailyWin

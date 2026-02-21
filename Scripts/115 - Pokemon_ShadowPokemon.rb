@@ -767,7 +767,7 @@ class PokeBattle_Move_131 < PokeBattle_Move
       return -1
     end
     pbShowAnimation(@id,attacker,nil,hitnum,alltargets,showanimation)
-    @battle.weather=PBWeather::SHADOWSKY
+    attacker.setWeather(PBWeather::SHADOWSKY)
     @battle.weatherduration=5
     @battle.pbCommonAnimation("ShadowSky",nil,nil)
     @battle.pbDisplay(_INTL("A shadow sky appeared!"))

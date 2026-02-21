@@ -1431,14 +1431,14 @@ Events.onStepTaken+=proc{
 Events.onStepTaken+=proc{
   for pkmn in $Trainer.party
     if pkmn.hp>0 && !pkmn.isEgg?
-      pkmn.addTemp = 0
-      pkmn.addTemp = -20 if ($game_screen.weather_type==PBFieldWeather::Snow ||
+      mode = 0
+      mode = 1 if ($game_screen.weather_type==PBFieldWeather::Snow ||
            $game_screen.weather_type==PBFieldWeather::Blizzard)
-      pkmn.addTemp = 25 if $game_screen.weather_type==PBFieldWeather::Sun
+      mode = 2 if $game_screen.weather_type==PBFieldWeather::Sun
       if rand(20)==0
-        pkmn.temperature2= [1,-1,-2][rand(3)] if pkmn.addTemp==-20 # Snowy
-        pkmn.temperature2= [1,[1,-1][rand(2)],-1][rand(3)] if pkmn.addTemp==0 # Otherwise
-        pkmn.temperature2= [2,-1][rand(2)] if pkmn.addTemp==25 # Sunny
+        pkmn.temperature2= [1,-1,-2][rand(3)] if mode==1 # Snowy
+        pkmn.temperature2= [1,[1,-1][rand(2)],-1][rand(3)] if mode==0 # Otherwise
+        pkmn.temperature2= [2,-1][rand(2)] if mode==2 # Sunny
         pkmn.temperature2= [2,1,-1][rand(3)] if rand(10) == 0
       end
     end

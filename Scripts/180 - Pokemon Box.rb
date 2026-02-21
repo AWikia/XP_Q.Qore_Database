@@ -1,4 +1,412 @@
 #===============================================================================
+# Pokémon Box Global Metadata
+#===============================================================================
+class PokemonGlobalMetadata
+  attr_accessor :pokebox
+  
+  def pokebox
+    @pokebox = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0] if !@pokebox
+    max= pokeboxNames.length - 1
+    if !@pokebox[max] # Add the final new tasks for save files without them
+      for i in 14...(pokeboxNames.length)
+        @pokebox[i]=0 if !@pokebox[i]
+      end
+    end
+    return @pokebox
+  end
+  
+  def pokeboxNames
+    return [_INTL("Gain Experience Points"),_INTL("Level Up Pokémon"),
+            _INTL("Defeat Opposing Pokémon"),_INTL("Catch Wild Pokémon"),
+            _INTL("Activate Pokémon's Abilities"),_INTL("Activate Pokémon's Held Items"),
+            _INTL("Use Physical Moves"),_INTL("Use Special Moves"),
+            _INTL("Use Status Moves"),_INTL("Use Battle Items"),
+            _INTL("Defeat Trainers in Battle Wins"),_INTL("Lapse Turns in Battles"),
+            _INTL("Use Medicine Items"),_INTL("Win Battles in Upper Kingdom"),
+            _INTL("Deal Damage to other Pokémon"),_INTL("Land Critical Hits"),
+            _INTL("Use Moves that receive STAB"),_INTL("Defeat Pokémon in First Turn"),
+            _INTL("Use Berries"),_INTL("Defeat Horde Pokémon Groups"),
+            _INTL("Increase Pokémon's Stats"),_INTL("Revive Pokémon from Faint"),
+            _INTL("Use Healing Moves"),_INTL("Use One-hit KO Moves"),
+            _INTL("Use Moves with High Priority"),_INTL("Decrease Pokémon's Stats"),
+            _INTL("Inflict Status Conditions"),_INTL("Use Moves with Addtl. Effects"),
+            _INTL("Use Moves from other Pokémon"),_INTL("Take Recoil Damage"),
+            _INTL("Recover HP"),_INTL("Land Super Effectiveness"),
+            _INTL("Use Multi-hit Moves"),_INTL("Defeat Trainers with Best Skill"),
+            _INTL("Use Moves while asleep"),_INTL("Gain Money in Battle"),
+            _INTL("Land Not Very Effectiveness"),_INTL("Use Multi-Target Moves"),
+            _INTL("Activate Win Streak Bags"),_INTL("Change Forms in Battle"),
+            _INTL("Gain Levelup Stat Changes"),_INTL("Gain Effort Values"),
+            _INTL("Learn moves in Battle"),_INTL("Break the Mold"),
+            _INTL("Use Moves with Low Priority"),_INTL("Defeat Pokémon with Best Skill"),
+            _INTL("Restore PP"),_INTL("Use Sound-based Moves"),
+            _INTL("Supercharge Pokémon in Battle"),_INTL("Transform into other Pokémon"),
+            _INTL("Use items from your Bag"),_INTL("Use Moves without Accuracy"),
+            _INTL("Use Moves with Variable Power"),_INTL("Create Substitutes"),
+            _INTL("Use Shadow Moves"),_INTL("Defeat Trainers with 6 Pokémon"),
+            _INTL("Defeat Pokémon of your Color"),_INTL("Inflict Confusion or Infatuation"),
+            _INTL("Collect Lucky Bags"),_INTL("Use Elder Special Moves"),
+            _INTL("Gain Experience Points in Trainer Battle Wins"),_INTL("Level Up Pokémon in Trainer Battle Wins"),
+            _INTL("Defeat Opposing Pokémon in Trainer Battle Wins"),_INTL("Deal Damage to other Pokémon in Trainer Battle Wins"),
+            _INTL("Land Super Effectiveness in Trainer Battle Wins"),_INTL("Land Not Very Effectiveness in Trainer Battle Wins"),
+            _INTL("Use Physical Moves in Trainer Battle Wins"),_INTL("Use Special Moves in Trainer Battle Wins"),
+            _INTL("Use Status Moves in Trainer Battle Wins"),_INTL("Gain Levelup Stat Changes in Trainer Battle Wins"),
+            _INTL("Gain Effort Values in Trainer Battle Wins"),_INTL("Use Normal Moves"),
+            _INTL("Use Normal Moves in Trainer Battle Wins"),_INTL("Use Grass, Fire or Water Moves"),
+            _INTL("Use Grass, Fire or Water Moves in Trainer Battle Wins"),_INTL("Catch Pokémon with Best Skill"),
+            _INTL("Defeat Pokémon with Best Skill in First Turn"),_INTL("Defeat Trainers with Best Skill and 6 Pokémon"),
+            _INTL("Defeat Pokémon of your Color in First Turn"),_INTL("Use Fighting, Psychic or Dark Moves"),
+            _INTL("Use Fighting, Psychic or Dark Moves in Trainer Battle Wins"),_INTL("Use Robot Moves"),
+            _INTL("Deal Damage to semi-invulnerable Pokémon"),_INTL("Use Moves with 1 PP"),
+            _INTL("Change Abilities in Battle"),_INTL("Change Held Items in Battle"),
+            _INTL("Defeat Pokémon of your Gender"),_INTL("Defeat Pokémon of your Gender in First Turn"),
+            _INTL("Use Bomb-based Moves"),_INTL("Create Weather or Terrain"),
+            _INTL("Gain Experience Points in Battle Wins"),_INTL("Level Up Pokémon in Battle Wins"),
+            _INTL("Defeat Opposing Pokémon in Battle Wins"),_INTL("Deal Damage to other Pokémon in Battle Wins"),
+            _INTL("Land Super Effectiveness in Battle Wins"),_INTL("Land Not Very Effectiveness in Battle Wins"),
+            _INTL("Use Physical Moves in Battle Wins"),_INTL("Use Special Moves in Battle Wins"),
+            _INTL("Use Status Moves in Battle Wins"),_INTL("Gain Levelup Stat Changes in Trainer Wins"),
+            _INTL("Gain Effort Values in Battle Wins"),_INTL("Use Normal Moves in Battle Wins"),
+            _INTL("Use Grass, Fire or Water Moves in Battle Wins"),_INTL("Use Fighting, Psychic or Dark Moves in Battle Wins")]
+
+  end
+  def pokeboxNames2
+    return [_INTL("Experience Gaining"),_INTL("Pokémon Leveling"),
+            _INTL("Pokémon Defeating"),_INTL("Pokémon Catching"),
+            _INTL("Ability Activation"),_INTL("Held Item Activation"),
+            _INTL("Physical Move Usage"),_INTL("Special Move Usage"),
+            _INTL("Status Move Usage"),_INTL("Battle Item Usage"),
+            _INTL("Trainer Defeating"),_INTL("Turn Lapsing"),
+            _INTL("Medicine Item Usage"),_INTL("Upper Kingdom Battle Winning"),
+            _INTL("Damage Dealing"),_INTL("Critical Hit Landing"),
+            _INTL("STAB Move Usage"),_INTL("Instant Pokémon Defeating"),
+            _INTL("Berry Usage"),_INTL("Horde Defeating"),
+            _INTL("Stat Increasing"),_INTL("Pokémon Revival"),
+            _INTL("Healing Move Usage"),_INTL("One-hit KO Move Usage"),
+            _INTL("High Priority Move Usage"),_INTL("Stat Decreasing"),
+            _INTL("Condition Inflicting"),_INTL("Move with Effects Usage"),
+            _INTL("Copycat Move Usage"),_INTL("Recoil Damage Taking"),
+            _INTL("HP Recovering"),_INTL("Super Effective Landing"),
+            _INTL("Multi-hit Move Usage"),_INTL("Skilled Trainer Defeating"),
+            _INTL("Moves during Sleep Usage"),_INTL("Money Gaining"),
+            _INTL("Not Very Effective Landing"),_INTL("Multi-Target Moves Usage"),
+            _INTL("Win Streak Activation"),_INTL("Form Changing"),
+            _INTL("Levelup stat Gaining"),_INTL("Effort Values Gaining"),
+            _INTL("Move Learning"),_INTL("Mold Breaking"),
+            _INTL("Low Priority Move Usgae"),_INTL("Skilled Pokémon Defeating"),
+            _INTL("PP Restoration"),_INTL("Sound Move Usage"),
+            _INTL("Pokémon Supercharging"),_INTL("Transform Usage"),
+            _INTL("Item Usage"),_INTL("Perfect Move Usage"),
+            _INTL("Variable Move Usage"),_INTL("Substitute Creation"),
+            _INTL("Shadow Move Usage"),_INTL("Full-Team Trainer Defeating"),
+            _INTL("Same-Color Pokémon Defeating"),_INTL("Confusion or Love Inflicting"),
+            _INTL("Lucky Bag Collection"),_INTL("Elder Special Move Usage"),
+            _INTL("Experience Gaining in TB"),_INTL("Pokémon Leveling in TB"),
+            _INTL("Pokémon Defeatin in TB"),_INTL("Damage Dealing in TB"),
+            _INTL("Super Effective in TB Landing"),_INTL("Not Very Effective in TB Landing"),
+            _INTL("Physical Move in TB Usage"),_INTL("Special Move in TB Usage"),
+            _INTL("Status Move in TB Usage"),_INTL("Levelup stat in TB Gaining"),
+            _INTL("Effort Values in TB Gaining"),_INTL("Normal Move Usage"),
+            _INTL("Normal Move Usage/TB"),_INTL("G-F-W Move Usage"),
+            _INTL("G-F-W Move Usage/TB"),_INTL("Skilled Pokémon Catching"),
+            _INTL("Instant Skilled Pokémon Defeting"),_INTL("Full-Team Skilled Trainer Defeating"),
+            _INTL("Instant Same-Color Pokémon Defeating"),_INTL("Fi-Ps-Da Move Usage"),
+            _INTL("Fi-Ps-Da Move Usage/TB"),_INTL("Robot Move Usage"),
+            _INTL("Damage Dealing to SI Pokémon"),_INTL("Move with 1 PP Usage"),
+            _INTL("Ability Changing"),_INTL("Held Item Changing"),
+            _INTL("Same Gender Pokémon Defeats"),_INTL("Instant Same Gender Pokémon Defeats"),
+            _INTL("Bomb Move Usage"),_INTL("Weather or Terrain Creation"),
+            _INTL("Experience Gaining/Win"),_INTL("Pokémon Leveling/Win"),
+            _INTL("Pokémon Defeating/Win"),_INTL("Damage Dealing/Win"),
+            _INTL("Super Effective Landing/Wom"),_INTL("Not Very Effective Landing/Win"),
+            _INTL("Physical Move Usage/Win"),_INTL("Special Move Usage/Win"),
+            _INTL("Status Move Usage/Win"),_INTL("Levelup stat Gaining/Win"),
+            _INTL("Effort Values Gaining/Win"),_INTL("Normal Move Usage/Win"),
+            _INTL("G-F-W Move Usage/Win"),_INTL("Fi-Ps-Da Move Usage/Win")]
+
+  end
+  def pokeboxNames3
+    return [_INTL("Experience Points Gained"),_INTL("Pokémon Levelled Up"),
+            _INTL("Opposing Pokémon Defeated"),_INTL("Wild Pokémon Caught"),
+            _INTL("Pokémon's Abilities Activated"),_INTL("Pokémon's Held Items Activated"),
+            _INTL("Physical Moves Used"),_INTL("Special Moves Used"),
+            _INTL("Status Moves Used"),_INTL("Battle Items Used"),
+            _INTL("Trainers in Battle Wins Defeated"),_INTL("Turns in Battles Lapsed"),
+            _INTL("Medicine Items Used"),_INTL("Battles in Upper Kingdom Won"),
+            _INTL("Damage to other Pokémon Dealt"),_INTL("Critical Hits Landed"),
+            _INTL("Moves that receive STAB Used"),_INTL("Pokémon in First Turn Defeated"),
+            _INTL("Berries Used"),_INTL("Horde Pokémon Groups Defeated"),
+            _INTL("Pokémon's Stats Increased"),_INTL("Pokémon from Faint Revived"),
+            _INTL("Healing Moves Used"),_INTL("One-hit KO Moves Used"),
+            _INTL("Moves with High Priority Used"),_INTL("Pokémon's Stats Decreased"),
+            _INTL("Status Conditions Inflicted"),_INTL("Moves with Addtl. Effects Used"),
+            _INTL("Moves from other Pokémon Used"),_INTL("Recoil Damage Taken"),
+            _INTL("HP Recovered"),_INTL("Super Effectiveness Landed"),
+            _INTL("Multi-hit Moves Used"),_INTL("Trainers with Best Skill Defeated"),
+            _INTL("Moves while asleep Used"),_INTL("Money in Battle Gained"),
+            _INTL("Not Very Effectiveness Landed"),_INTL("Multi-Target Moves Used"),
+            _INTL("Win Streak Bags Activated"),_INTL("Forms in Battle Changed"),
+            _INTL("Levelup Stat Changes Gained"),_INTL("Effort Values Gained"),
+            _INTL("Moves in Battle Learnt"),_INTL("The Mold Broken"),
+            _INTL("Moves with Low Priority Used"),_INTL("Pokémon with Best Skill Defeated"),
+            _INTL("PP Restored"),_INTL("Sound-based Moves Used"),
+            _INTL("Pokémon in Battle Supercharged"),_INTL("Into other Pokémon Transformed"),
+            _INTL("Items from your Bag Used"),_INTL("Moves without Accuracy Used"),
+            _INTL("Moves with Variable Power Used"),_INTL("Substitutes Created"),
+            _INTL("Shadow Moves Used"),_INTL("Trainers with 6 Pokémon Defeated"),
+            _INTL("Pokémon of your Color Defeated"),_INTL("Confusion or Infatuation Inflicted"),
+            _INTL("Lucky Bags Collected"),_INTL("Elder Special Moves Used"),
+            _INTL("Experience Points in Trainer Battle Wins Gained"),_INTL("Pokémon in Trainer Battle Wins Levelled Up"),
+            _INTL("Opposing Pokémon in Trainer Battle Wins Defeated"),_INTL("Damage to other Pokémon in Trainer Battle Wins Dealt"),
+            _INTL("Super Effectiveness in Trainer Battle Wins Landed"),_INTL("Not Very Effectiveness in Trainer Battle Wins Landed"),
+            _INTL("Physical Moves in Trainer Battle Wins Used"),_INTL("Special Moves in Trainer Battle Wins Used"),
+            _INTL("Status Moves in Trainer Battle Wins Used"),_INTL("Levelup Stat Changes in Trainer Battle Wins Gained"),
+            _INTL("Effort Values in Trainer Battle Wins Gained"),_INTL("Normal Moves Used"),
+            _INTL("Normal Moves in Trainer Battle Wins Used"),_INTL("Grass, Fire or Water Moves Used"),
+            _INTL("Grass, Fire or Water Moves in Trainer Battle Wins Used"),_INTL("Pokémon with Best Skill Caught"),
+            _INTL("Pokémon with Best Skill in First Turn Defeated"),_INTL("Trainers with Best Skill and 6 Pokémon Defeated"),
+            _INTL("Pokémon of your Color in First Turn Defeated"),_INTL("Fighting, Psychic or Dark Moves Used"),
+            _INTL("Fighting, Psychic or Dark Moves in Trainer Battle Wins Used"),_INTL("Robot Moves Used"),
+            _INTL("Damage to semi-invulnerable Pokémon Dealt"),_INTL("Moves with 1 PP Used"),
+            _INTL("Abilities in Batle Changed"),_INTL("Held Items in Batle Changed"),
+            _INTL("Pokémon of your Gender Defeated"),_INTL("Pokémon of your Gender in First Turn Defeated"),
+            _INTL("Bomb-based Moves Used"),_INTL("Weather or Terrain Created"),
+            _INTL("Experience Points in Battle Wins Gained"),_INTL("Pokémon in Battle Wins Levelled Up"),
+            _INTL("Opposing Pokémon in Battle Wins Defeated"),_INTL("Damage to other Pokémon in Battle Wins Dealt"),
+            _INTL("Super Effectiveness in Battle Wins Landed"),_INTL("Not Very Effectiveness in Battle Wins Landed"),
+            _INTL("Physical Moves in Battle Wins Used"),_INTL("Special Moves in Battle Wins Used"),
+            _INTL("Status Moves in Battle Wins Used"),_INTL("Levelup Stat Changes in Trainer Wins Gained"),
+            _INTL("Effort Values in Battle Wins Gained"),_INTL("Normal Moves in Battle Wins Used"),
+            _INTL("Grass, Fire or Water Moves in Battle Wins Used"),_INTL("Fighting, Psychic or Dark Moves in Battle Wins Used")]
+  end
+
+  def pokeboxDescriptions
+    return [_INTL("Defeat Pokémon to gain Experience. Only experience from the first participant counts."),
+            _INTL("Fill the experience bar of a Pokémon to level them up."),
+            _INTL("Use your moves to defeat opposing Pokémon and progress."),
+            _INTL("Use your Poké Balls or the Safari Balls on a Safari Game to Pokémon and capture them to progress."),
+            _INTL("Use your Pokémon's abilities to progress. It counts only once per use."),
+            _INTL("Use your Pokémon's held item to progress. It conuts only once per use."),
+            _INTL("Use your Pokémon's Physical moves to progress. Status moves turned into Physical moves conut too."),
+            _INTL("Use your Pokémon's Special moves to progress. Status moves tunred into Special moves count too."),
+            _INTL("Use your Pokémon's Status moves to progress."),
+            _INTL("Use items from the Battle Items pocket in your Pokémon to progress. Held items do not count."),
+            _INTL("Defeat Trainers in Battles to progress. The more there're, the better will be progressed."),
+            _INTL("Spend turns on the battle to progress. The more the battle lasts, the more will be counted."),
+            _INTL("Use items from the Medicine pocket in your Pokémon progress. Held items do not count."),
+            _INTL("Complete Battles in Upper Kingdom Maps to progress. Battles outside of these ones do not count."),
+            _INTL("Use your Pokémon's Damaging moves to deal damage to opposing Pokémon and progress."),
+            _INTL("Get a critical hit by using your Pokémon's Damaging moves to progress."),
+            _INTL("Use your Pokémon's Damaging moves of the same typing as the Pokémon itself to progress."),
+            _INTL("Use up one of your moves that can defeat the opposing Pokémon in the turn that appeared to progress."),
+            _INTL("Use items from the Berries pocket in your Pokémon to progress. Held items do not count."),
+            _INTL("Defeat a group of 5 similar Pokémon to progress. In double battles, it counts twice."),
+            _INTL("Increase your Pokémon's stats using moves, abilities or items to progress. Each stat increase counts once."),
+            _INTL("Use your revival items or a Pokémon with Revival Blessing to revive out a fainted Pokémon and progress."),
+            _INTL("Use your Pokémon's Healing moves to progress. It doesn't have to recover HP in order to be counted."),
+            _INTL("Use your Pokémon's moves that will instantly faint the opponent to progress."),
+            _INTL("Use your Pokémon's moves with high priority to progress."),
+            _INTL("Decrease Pokémon's stats using your moves, abilities or items to progrss. Each stat decrease counts once."),
+            _INTL("Pass out a status condition using your moves, abilities or items to progress."),
+            _INTL("Use your Pokémon's moves that will have an additional effect chance upon its usage to progress."),
+            _INTL("Use your Pokémon's copycat moves or abilities and use other Pokémon's moves to progress."),
+            _INTL("Use your Pokémon's move that take recoil damage upon its usage to reduce its HP and progress."),
+            _INTL("Use your Pokémon's moves, held items, abilities or items from the Bag that restore HP to progress."),
+            _INTL("Trigger super effectiveness using your Pokémon's moves to progress."),
+            _INTL("Use your Pokémon's moves that hit more than once to progress."),
+            _INTL("Defeat Trainers that have the highest skill in Battles to progress. It counts once per instance."),
+            _INTL("Use your Pokémon's moves while asleep to progress."),
+            _INTL("Earn Money from Battles that award or from your Pokémon's moves that can give money out to progress."),
+            _INTL("Trigger not very effectiveness using your Pokémon's moves to progress."),
+            _INTL("Use your Pokémon's moves that hit multiple targets to progress."),
+            _INTL("Use up a Win Streak Booster Bag on your Pokémon during Battles that use Win Streak to progress."),
+            _INTL("Change your Pokémon form using its moves, items and abiilities to progress."),
+            _INTL("Get stat increases of Base Stata while levelling up a Pokémon to progress."),
+            _INTL("Defeat Pokémon to gain Effort Values. Only efforts from the first participant counts."),
+            _INTL("Learn moves while levelling up or using Sketch or Mimic to progress."),
+            _INTL("Activate an Ability that ignores other Pokémon's abilities to progress."),
+            _INTL("Use your Pokémon's moves with low priority to progress."),
+            _INTL("Defeat Legendary, Mythical Ultra Beast or Supercharged Pokémon to progress."),
+            _INTL("Use your Pokémon's held items or items from the Bag that restore PP to Moves to progress."),
+            _INTL("Use your Pokémon's moves that produce sound to progress."),
+            _INTL("Trigger Mega Evolution, Primal Reversion, Dynamax, Gigantamax or Terastralization to progress."),
+            _INTL("Use your Pokémon's moves, held items or abilities that can transform inro other Pokémon to progress."),
+            _INTL("Use items from the bag in your Pokémon to progress. Held items do not count."),
+            _INTL("Use your Pokémon's moves that have no accuracy check to progress."),
+            _INTL("Use your Pokémon's Damaging moves that have a variable base power to progress."),
+            _INTL("Create Substitute using your Pokémon's moves to progress."),
+            _INTL("Use your Pokémon's Shadow moves to progress."),
+            _INTL("Defeat Trainers that have 6 Pokémon in Battles to progress. It counts once per instance."),
+            _INTL("Use your moves to defeat opposing Pokémon that are of your color and progress."),
+            _INTL("Confuse or infatuate opposing Pokémon to progress."),
+            _INTL("Collect Lucky Bags at every 11th Win Streak count to progress."),
+            _INTL("Use your Pokémon's Elder Special Moves to progress."),
+            _INTL("Defeat Pokémon to gain Experience. Only experience from the first participant in Trainer Battle Wins counts."),
+            _INTL("Fill the experience bar of a Pokémon in Trainer Battle Wins to level them up."),
+            _INTL("Use your moves to defeat opposing Pokémon in Trainer Battle Wins and progress."),
+            _INTL("Use your Pokémon's Damaging moves to deal damage to opposing Pokémon in Trainer Battle Wins and progress."),
+            _INTL("Trigger super effectiveness using your Pokémon's moves in Trainer Battle Wins to progress."),
+            _INTL("Trigger not very effectiveness using your Pokémon's moves in Trainer Battle Wins to progress."),
+            _INTL("Use your Pokémon's Physical moves in Trainer Battle Wins to progress. Status moves turned into Physical moves conut too."),
+            _INTL("Use your Pokémon's Special moves in Trainer Battle Wins to progress. Status moves tunred into Special moves count too."),
+            _INTL("Use your Pokémon's Status moves in Trainer Battle Wins to progress."),
+            _INTL("Get stat increases of Base Stata while levelling up a Pokémon in Trainer Battle Wins to progress."),
+            _INTL("Defeat Pokémon to gain Effort Values. Only efforts from the first participant in Trainer Battle Wins counts."),
+            _INTL("Use your Pokémon's Nomral moves to progress. Status moves turned into Normal moves conut too."),
+            _INTL("Use your Pokémon's Nomral moves in Trainer Battle Wins to progress. Status moves turned into Normal moves conut too."),
+            _INTL("Use your Pokémon's Grass, Fire or Water moves to progress."),
+            _INTL("Use your Pokémon's Grass, Fire or Water moves in Trainer Battle Wins to progress."),
+            _INTL("Use your Poké Balls or the Safari Balls on a Safari Game to high-skill Pokémon and capture them to progress."),
+            _INTL("Defeat Legendary, Mythical Ultra Beast or Supercharged Pokémon in the turn that appeared to progress."),
+            _INTL("Defeat Trainers that have 6 Pokémon and best skill in Battles to progress. It counts once per instance"),
+            _INTL("Defeat Pokémon that are of your color in the turn that appeared to progress."),
+            _INTL("Use your Pokémon's Fighting, Psychic or Dark moves to progress."),
+            _INTL("Use your Pokémon's Fighting, Psychic or Dark moves in Trainer Battle Wins to progress."),
+            _INTL("Use your Pokémon's Robot moves to progress."),
+            _INTL("Use your Pokémon's Damaging moves to deal damage to Pokémon that are semi-invulrenable and progress."),
+            _INTL("Use your Pokémon's moves that have only 1 PP to progress."),
+            _INTL("Change your Pokémon ability using its moves, items and forms to progress."),
+            _INTL("Change your Pokémon held items using its moves and items to progress."),
+            _INTL("Use your moves to defeat opposing Pokémon that are of your gender and progress."),
+            _INTL("Defeat Pokémon that are of your gender in the turn that appeared to progress."),
+            _INTL("Use your Pokémon's ball or bomb moves to progress."),
+            _INTL("Create Weather or Terrains using your Pokémon's moves or Abilities to progress."),
+            _INTL("Defeat Pokémon to gain Experience. Only experience from the first participant in Battle Wins counts."),
+            _INTL("Fill the experience bar of a Pokémon in Battle Wins to level them up."),
+            _INTL("Use your moves to defeat opposing Pokémon in Battle Wins and progress."),
+            _INTL("Use your Pokémon's Damaging moves to deal damage to opposing Pokémon in Battle Wins and progress."),
+            _INTL("Trigger super effectiveness using your Pokémon's moves in Battle Wins to progress."),
+            _INTL("Trigger not very effectiveness using your Pokémon's moves in Battle Wins to progress."),
+            _INTL("Use your Pokémon's Physical moves in Battle Wins to progress. Status moves turned into Physical moves conut too."),
+            _INTL("Use your Pokémon's Special moves in Battle Wins to progress. Status moves tunred into Special moves count too."),
+            _INTL("Use your Pokémon's Status moves in Battle Wins to progress."),
+            _INTL("Get stat increases of Base Stata while levelling up a Pokémon in Battle Wins to progress."),
+            _INTL("Defeat Pokémon to gain Effort Values. Only efforts from the first participant in Trainer Battle Wins counts."),
+            _INTL("Use your Pokémon's Nomral moves in Battle Wins to progress. Status moves turned into Normal moves conut too."),
+            _INTL("Use your Pokémon's Grass, Fire or Water moves in Battle Wins to progress."),
+            _INTL("Use your Pokémon's Fighting, Psychic or Dark moves in Battle Wins to progress.")]
+
+  end
+
+  def pokeboxData 
+    # 0 = Min Value, 
+    # 1 = Max Value, 
+    # 2 = Scaleup Multiplier (0 is default), 
+    # 3 = Padding (1 is default), 
+    # 4 = Trainer Task, 
+    # 5 = Group (4 to 8 are Universal), 
+    # 6 = Min Box Level
+    # 7 = Rarity (Groups 3 and 5 never relies on it, Group 4 relies a bit on it)
+    return [[200,600,6,10,false,0,0,1],  # Gain Experience
+            [1,1.5,0,1,false,0,0,1],     # Level Up Pokemon
+            [2.5,5,0,1,false,0,0,1],     # Defeat Pokemon
+            [0.5,1,0,1,false,1,1,2],     # Catch Pokemon
+            [2,4,0,1,false,1,0,2],       # Activate Abilites
+            [2,4,0,1,false,1,0,2],       # Activate Held Items
+            [3,6,0,1,false,2,0,1],       # Use Physical Moves
+            [3,6,0,1,false,2,0,1],       # Use Special Moves
+            [1.5,3,0,1,false,2,0,1],     # Use Status Moves
+            [0.2,0.4,0,1,false,3,2,3],   # Use Battle Items
+            [1,2,0,1,true,3,0,2],        # Defeat Trainers
+            [3,7,0,1,false,3,0,1],       # Lapse Turns
+            [0.4,0.65,0,1,false,6,0,2],  # Use Medicine Items
+            [1,2,0,1,false,5,2,2],       # Win battles in UK
+            [80,240,1.5,10,false,0,0,1], # Deal Damage
+            [0.5,1,0,1,false,1,0,2],     # Land Critical Hits
+            [2,4,0,1,false,2,0,2],       # Use STAB Moves
+            [1,2,0,1,false,3,0,2],       # Defeat Pokemon Instantly
+            [0.4,0.65,0,1,false,6,0,2],  # Use Berries
+            [0.5,1,0,1,false,4,1,3],     # UNUSED!
+            [3,7,0,1,false,0,2,2],       # Increase Stats
+            [0.3,0.5,0,1,false,1,2,3],   # Revive Pokemon
+            [1,2,0,1,false,2,2,2],       # Use Healing Moves
+            [0.09,0.27,0,1,false,3,2,4], # Use One-hit KO Moves 
+            [1,2,0,1,false,7,1,1],       # Use Hi Priority Moves
+            [3,7,0,1,false,0,2,2],       # Decrease Stats
+            [1,1.5,0,1,false,1,2,2],     # Inflict Conditions            
+            [1,2,0,1,false,2,1,2],       # Use Moves with Effects
+            [0.4,0.65,0,1,false,3,1,3],  # Use Copycat Moves
+            [20,60,1.5,10,false,4,1,3],  # Take Recoil Damage
+            [40,120,1.5,10,false,0,1,2], # Recover HP
+            [1.5,3,0,1,false,1,0,1],     # Land Super Effective
+            [1,2,0,1,false,2,1,2],       # Use Multi-hit Moves
+            [0.5,1,0,1,true,3,0,3],      # Defeat Best Trainers
+            [0.2,0.4,0,1,false,6,2,4],   # Use Sleeping Moves
+            [600,1400,1,10,false,0,1,2], # Gain Money
+            [1.5,3,0,1,false,1,0,1],     # Land Not Very Effective
+            [1,2,0,1,false,2,1,2],       # Use Mutli-Target Moves
+            [3,4.5,0,1,true,3,0,2],      # Activate Win Streak
+            [0.5,1,0,1,false,7,2,3],     # Change Forms
+            [20,30,0,5,false,0,1,1],     # Gain Levelup Stats
+            [3,6,0,1,false,2,1,1],       # Gain Effort Values
+            [0.5,1,0,1,false,2,1,3],     # Learn Moves in Battle
+            [1,2,0,1,false,3,1,2],       # Break the Mold
+            [1,2,0,1,false,7,1,3],       # Use Lo Priority Moves
+            [1,2,0,1,false,0,2,2],       # Defeat Skilled Pokemon
+            [5,10,0,5,false,1,2,2],      # Restore PP
+            [1,2,0,1,false,2,2,2],       # Use Sound-based Moves
+            [0.4,0.65,0,1,false,3,2,3],  # Supercharge Pokemon
+            [0.4,0.65,0,1,false,7,2,3],  # Use Transform
+            [0.5,0.8,0,1,false,6,0,2],   # Use any Item
+            [2,4,0,1,false,4,0,2],       # Use Perfect Moves
+            [1,2,0,1,false,4,1,2],       # Use Variable Moves
+            [0.3,0.5,0,1,false,7,1,3],   # Create Substitutes
+            [1,2,0,1,false,5,1,2],       # Use Shadow Moves
+            [0.5,1,0,1,true,5,1,3],      # Defeat Full Trainers
+            [1,2,0,1,false,4,2,2],       # Defeat same-color Pokemon
+            [0.4,0.65,0,1,false,4,2,3],  # Confuse or Infatuate
+            [0.06,0.12,0,1,true,5,2,4],  # Collect Lucky Bags
+            [0.06,0.15,0,1,false,5,2,4], # Use Elder Special Moves
+            [200,600,6,10,true,0,2,1],   # Gain Experience/TB
+            [1,1.5,0,1,true,0,2,1],      # Level Up Pokemon/TB
+            [2.5,5,0,1,true,0,2,1],      # Defeat Pokemon/TB
+            [80,240,1.5,10,true,0,2,1],  # Deal Damage/TB
+            [1.5,3,0,1,true,1,2,1],      # Land Super Effective/TB
+            [1.5,3,0,1,true,1,2,1],      # Land Not Very Effective/TB
+            [3,6,0,1,true,2,2,1],        # Use Physical Moves/TB
+            [3,6,0,1,true,2,2,1],        # Use Special Moves/TB
+            [1.5,3,0,1,true,2,2,1],      # Use Status Moves/TB
+            [20,30,0,5,true,0,2,1],      # Gain Levelup Stats/TB
+            [3,6,0,1,true,1,2,1],        # Gain Effort Values/TB
+            [3,6,0,1,false,2,0,1],       # Use Normal Moves
+            [3,6,0,1,true,2,2,1],        # Use Normal Moves/TB
+            [3,6,0,1,false,2,1,1],       # Use G-F-W Moves
+            [3,6,0,1,true,2,2,1],        # Use G-F-W Moves/TB
+            [0.2,0.4,0,1,false,1,2,3],   # Catch Skilled Pokemon
+            [0.5,1,0,1,false,3,3,3],     # Defeat Skilled Pokemon Inst.
+            [0.2,0.4,0,1,true,3,3,4],    # Defeat Full Skilled Trainers
+            [0.5,1,0,1,false,3,3,3],     # Defeat same-color Pokemon Inst.
+            [3,6,0,1,false,2,1,1],       # Use Fi-Ps-Da Moves
+            [3,6,0,1,true,2,2,1],        # Use Fi-Ps-Da Moves/TB
+            [0.06,0.15,0,1,false,3,3,4], # Use Robot Moves
+            [20,60,1.5,10,false,1,1,2],  # Deal Damage to SI PKMN
+            [0.06,0.15,0,1,false,6,2,4], # Use Moves with 1 PP
+            [0.5,1,0,1,false,6,2,3],     # Change Abilities
+            [0.5,1,0,1,false,6,2,3],     # Change Held Items
+            [1,2,0,1,false,4,2,2],       # Defeat same-gender Pokemon
+            [0.5,1,0,1,false,5,3,3],     # Defear same-gender Pokemon Inst.
+            [1,2,0,1,false,2,2,2],       # Use Bomb-based Moves
+            [0.4,0.65,0,1,false,6,1,3],  # Create Weater or Terrain
+            [200,600,6,10,false,0,2,1],  # Gain Experience/Win
+            [1,1.5,0,1,false,0,2,1],     # Level Up Pokemon/Win
+            [2.5,5,0,1,false,0,2,1],     # Defeat Pokemon/Win
+            [80,240,1.5,10,false,0,2,1], # Deal Damage/Win
+            [1.5,3,0,1,false,1,2,1],     # Land Super Effective/Win
+            [1.5,3,0,1,false,1,2,1],     # Land Not Very Effective/Win
+            [3,6,0,1,false,2,2,1],       # Use Physical Moves/Win
+            [3,6,0,1,false,2,2,1],       # Use Special Moves/Win
+            [1.5,3,0,1,false,2,2,1],     # Use Status Moves/Win
+            [20,30,0,5,false,0,2,1],     # Gain Levelup Stats/Win
+            [3,6,0,1,false,1,2,1],       # Gain Effort Values/Win
+            [3,6,0,1,false,2,2,1],       # Use Normal Moves/win
+            [3,6,0,1,false,2,2,1],       # Use G-F-W Moves/Win
+            [3,6,0,1,false,2,2,1],       # Use Fi-Ps-Da Moves/Win
+            ]
+  end
+  
+end
+
+#===============================================================================
 # Pokémon Box main screen
 #===============================================================================
 class PokemonBoxScene
@@ -27,7 +435,7 @@ class PokemonBoxScene
     ["Classic",[:POTION,:POKEBALL],10,1,1,:SITRUSBERRY],
     ["Bronze",[:SUPERPOTION,:GREATBALL,heal],7,2.5,1,heal2],
     ["Silver",[:HYPERPOTION,:ULTRABALL,:FULLHEAL,:NORMALGEM],5,7,2,:PERSIMBERRY],
-    ["Gold",[:MEGAPOTION,:PARKBALL,[:FULLHEAL,2],:NORMALGEM,:RARECANDY],5,16,2,:PERSIMBERRY],
+    ["Gold",[:MEGAPOTION,:PARKBALL,:FULLHEAL,:NORMALGEM,:RARECANDY],5,16,2,:PERSIMBERRY],
     # Platinum Mileston
     ["Platinum",[:FULLRESTORE,:PARKBALL,:SUPERBOOSTER,[:NORMALGEM,2],:VICIOUSCANDY],3,20,3,:ENIGMABERRY],
     # Legendary Milestone
@@ -307,8 +715,8 @@ class PokemonBoxScene
     end
   end
   
-  def valueFromTo(min=1,max=2,scaleup=0,padding=1,trainertask=false)
-    multi=boxMulti
+  def valueFromTo(min=1,max=2,scaleup=0,padding=1,trainertask=false,multi=-1)
+    multi=boxMulti if multi<0
     multi2=1 + ([($Trainer.numbadges / 2).floor,6].min * scaleup)
     if trainertask && currentBoxBalanceMeter<50
       values=[min.to_f*0.5,
@@ -323,8 +731,8 @@ class PokemonBoxScene
     return [(result/padding).round*padding,padding].max.round
   end
 
-  def valueFromToMiddle(min=1,max=2,scaleup=0,padding=1,trainertask=false)
-    multi=boxMulti
+  def valueFromToMiddle(min=1,max=2,scaleup=0,padding=1,trainertask=false,multi=-1)
+    multi=boxMulti if multi<0
     multi2=1 + ([($Trainer.numbadges / 2).floor,6].min * scaleup)
     if trainertask && currentBoxBalanceMeter<50
       values=[min.to_f*0.5,
@@ -343,186 +751,23 @@ class PokemonBoxScene
   end
   
   def taskVals(num=0)
-    return [valueFromTo(200,600,6,10),       # Gain Experience
-            valueFromTo(1,1.5),              # Level Up Pokemon
-            valueFromTo(2.5,5),              # Defeat Pokemon
-            valueFromTo(0.5,1),              # Catch Pokemon
-            valueFromTo(2,4),                # Activate Abilites
-            valueFromTo(2,4),                # Activate Held Items
-            valueFromTo(3,6),                # Use Physical Moves
-            valueFromTo(3,6),                # Use Special Moves
-            valueFromTo(1.5,3),              # Use Status Moves
-            valueFromTo(0.2,0.4),            # Use Battle Items
-            valueFromTo(1,2,0,1,true),       # Defeat Trainers
-            valueFromTo(3,7),                # Lapse Turns
-            valueFromTo(0.4,0.65),           # Use Medicine Items
-            valueFromTo(1,2),                # Win battles in UK
-            valueFromTo(80,240,1.5,10),      # Deal Damage
-            valueFromTo(0.5,1),              # Land Critical Hits
-            valueFromTo(2,4),                # Use STAB Moves
-            valueFromTo(1,2),                # Defeat Pokemon Instantly
-            valueFromTo(0.4,0.65),           # Use Berries
-            valueFromTo(0.5,1),              # UNUSED!
-            valueFromTo(3,7),                # Increase Stats
-            valueFromTo(0.3,0.5),            # Revive Pokemon
-            valueFromTo(1,2),                # Use Healing Moves
-            valueFromTo(0.09,0.27),          # Use One-hit KO Moves 
-            valueFromTo(1,2),                # Use Hi Priority Moves
-            valueFromTo(3,7),                # Decrease Stats
-            valueFromTo(1,1.5),              # Inflict Conditions            
-            valueFromTo(1,2),                # Use Moves with Effects
-            valueFromTo(0.4,0.65),           # Use Copycat Moves
-            valueFromTo(20,60,1.5,10),       # Take Recoil Damage
-            valueFromTo(40,120,1.5,10),      # Recover HP
-            valueFromTo(1.5,3),              # Land Super Effective
-            valueFromTo(1,2),                # Use Multi-hit Moves
-            valueFromTo(0.5,1,0,1,true),     # Defeat Best Trainers
-            valueFromTo(0.2,0.4),            # Use Sleeping Moves
-            valueFromTo(600,1400,1,10),      # Gain Money
-            valueFromTo(1.5,3),              # Land Not Very Effective
-            valueFromTo(1,2),                # Use Mutli-Target Moves
-            valueFromTo(3,4.5,0,1,true),     # Activate Win Streak
-            valueFromTo(0.5,1),              # Change Forms
-            valueFromTo(20,30,0,5),          # Gain Levelup Stats
-            valueFromTo(3,6),                # Gain Effort Values
-            valueFromTo(0.5,1),              # Learn Moves in Battle
-            valueFromTo(1,2),                # Break the Mold
-            valueFromTo(1,2),                # Use Lo Priority Moves
-            valueFromTo(1,2),                # Defeat Skilled Pokemon
-            valueFromTo(5,10,0,5),           # Restore PP
-            valueFromTo(1,2),                # Use Sound-based Moves
-            valueFromTo(0.4,0.65),           # Supercharge Pokemon
-            valueFromTo(0.4,0.65),           # Use Transform
-            valueFromTo(0.5,0.8),            # Use any Item
-            valueFromTo(2,4),                # Use Perfect Moves
-            valueFromTo(1,2),                # Use Variable Moves
-            valueFromTo(0.3,0.5),            # Create Substitutes
-            valueFromTo(1,2),                # Use Shadow Moves
-            valueFromTo(0.5,1,0,1,true),     # Defeat Full Trainers
-            valueFromTo(1,2),                # Defeat same-color Pokemon
-            valueFromTo(0.4,0.65),           # Confuse or Infatuate
-            valueFromTo(0.06,0.12,0,1,true), # Collect Lucky Bags
-            valueFromTo(0.06,0.15),          # Use Elder Special Moves
-            valueFromTo(200,600,6,10,true),  # Gain Experience/TB
-            valueFromTo(1,1.5,0,1,true),     # Level Up Pokemon/TB
-            valueFromTo(2.5,5,0,1,true),     # Defeat Pokemon/TB
-            valueFromTo(80,240,1.5,10,true), # Deal Damage/TB
-            valueFromTo(1.5,3,0,1,true),     # Land Super Effective/TB
-            valueFromTo(1.5,3,0,1,true),     # Land Not Very Effective/TB
-            valueFromTo(3,6,0,1,true),       # Use Physical Moves/TB
-            valueFromTo(3,6,0,1,true),       # Use Special Moves/TB
-            valueFromTo(1.5,3,0,1,true),     # Use Status Moves/TB
-            valueFromTo(20,30,0,5,true),     # Gain Levelup Stats/TB
-            valueFromTo(3,6,0,1,true),       # Gain Effort Values/TB
-            valueFromTo(3,6),                # Use Normal Moves
-            valueFromTo(3,6,0,1,true),       # Use Normal Moves/TB
-            valueFromTo(3,6),                # Use G-F-W Moves
-            valueFromTo(3,6,0,1,true),       # Use G-F-W Moves/TB
-            valueFromTo(0.2,0.4),            # Catch Skilled Pokemon
-            valueFromTo(0.5,1),              # Defeat Skilled Pokemon Inst.
-            valueFromTo(0.2,0.4,0,1,true),   # Defeat Full Skilled Trainers
-            valueFromTo(0.5,1),              # Defeat same-color Pokemon Inst.
-            valueFromTo(3,6),                # Use Fi-Ps-Da Moves
-            valueFromTo(3,6,0,1,true),       # Use Fi-Ps-Da Moves/TB
-            valueFromTo(0.06,0.15),          # Use Robot Moves
-            valueFromTo(20,60,1.5,10),       # Deal Damage to SI PKMN
-            valueFromTo(0.06,0.15),          # Use Moves with 1 PP
-            valueFromTo(0.5,1),              # Change Abilities
-            valueFromTo(0.5,1),              # Change Held Items
-            ][num]
+    min=$PokemonGlobal.pokeboxData[num][0]
+    max=$PokemonGlobal.pokeboxData[num][1]
+    scaleup=$PokemonGlobal.pokeboxData[num][2]
+    padding=$PokemonGlobal.pokeboxData[num][3]
+    trainertask=$PokemonGlobal.pokeboxData[num][4]
+    return valueFromTo(min,max,scaleup,padding,trainertask,-1)
 
   end
 
   def taskLevel(idx=-1) # idx is used to identify if the current active task is hard
     return 0 if (currentStep%4 != idx && idx != -1)
-    vals = [valueFromToMiddle(200,600,6,10),       # Gain Experience
-            valueFromToMiddle(1,1.5),              # Level Up Pokemon
-            valueFromToMiddle(2.5,5),              # Defeat Pokemon
-            valueFromToMiddle(0.5,1),              # Catch Pokemon
-            valueFromToMiddle(2,4),                # Activate Abilites
-            valueFromToMiddle(2,4),                # Activate Held Items
-            valueFromToMiddle(3,6),                # Use Physical Moves
-            valueFromToMiddle(3,6),                # Use Special Moves
-            valueFromToMiddle(1.5,3),              # Use Status Moves
-            valueFromToMiddle(0.2,0.4),            # Use Battle Items
-            valueFromToMiddle(1,2,0,1,true),       # Defeat Trainers
-            valueFromToMiddle(3,7),                # Lapse Turns
-            valueFromToMiddle(0.4,0.65),           # Use Medicine Items
-            valueFromToMiddle(1,2),                # Win battles in UK
-            valueFromToMiddle(80,240,1.5,10),      # Deal Damage
-            valueFromToMiddle(0.5,1),              # Land Critical Hits
-            valueFromToMiddle(2,4),                # Use STAB Moves
-            valueFromToMiddle(1,2),                # Defeat Pokemon Instantly
-            valueFromToMiddle(0.4,0.65),           # Use Berries
-            valueFromToMiddle(0.5,1),              # UNUSED!
-            valueFromToMiddle(3,7),                # Increase Stats
-            valueFromToMiddle(0.3,0.5),            # Revive Pokemon
-            valueFromToMiddle(1,2),                # Use Healing Moves
-            valueFromToMiddle(0.09,0.27),          # Use One-hit KO Moves 
-            valueFromToMiddle(1,2),                # Use Hi Priority Moves
-            valueFromToMiddle(3,7),                # Decrease Stats
-            valueFromToMiddle(1,1.5),              # Inflict Conditions            
-            valueFromToMiddle(1,2),                # Use Moves with Effects
-            valueFromToMiddle(0.4,0.65),           # Use Copycat Moves
-            valueFromToMiddle(20,60,1.5,10),       # Take Recoil Damage
-            valueFromToMiddle(40,120,1.5,10),      # Recover HP
-            valueFromToMiddle(1.5,3),              # Land Super Effective
-            valueFromToMiddle(1,2),                # Use Multi-hit Moves
-            valueFromToMiddle(0.5,1,0,1,true),     # Defeat Best Trainers
-            valueFromToMiddle(0.2,0.4),            # Use Sleeping Moves
-            valueFromToMiddle(600,1400,1,10),      # Gain Money
-            valueFromToMiddle(1.5,3),              # Land Not Very Effective
-            valueFromToMiddle(1,2),                # Use Mutli-Target Moves
-            valueFromToMiddle(3,4.5,0,1,true),     # Activate Win Streak
-            valueFromToMiddle(0.5,1),              # Change Forms
-            valueFromToMiddle(20,30,0,5),          # Gain Levelup Stats
-            valueFromToMiddle(3,6),                # Gain Effort Values
-            valueFromToMiddle(0.5,1),              # Learn Moves in Battle
-            valueFromToMiddle(1,2),                # Break the Mold
-            valueFromToMiddle(1,2),                # Use Lo Priority Moves
-            valueFromToMiddle(1,2),                # Defeat Skilled Pokemon
-            valueFromToMiddle(5,10,0,5),           # Restore PP
-            valueFromToMiddle(1,2),                # Use Sound-based Moves
-            valueFromToMiddle(0.4,0.65),           # Supercharge Pokemon
-            valueFromToMiddle(0.4,0.65),           # Use Transform
-            valueFromToMiddle(0.5,0.8),            # Use any Item
-            valueFromToMiddle(2,4),                # Use Perfect Moves
-            valueFromToMiddle(1,2),                # Use Variable Moves
-            valueFromToMiddle(0.3,0.5),            # Create Substitutes
-            valueFromToMiddle(1,2),                # Use Shadow Moves
-            valueFromToMiddle(0.5,1,0,1,true),     # Defeat Full Trainers
-            valueFromToMiddle(1,2),                # Defeat same-color Pokemon
-            valueFromToMiddle(0.4,0.65),           # Confuse or Infatuate
-            valueFromToMiddle(0.06,0.12,0,1,true), # Collect Lucky Bags
-            valueFromToMiddle(0.06,0.15),          # Use Elder Special Moves
-            valueFromToMiddle(200,600,6,10,true),  # Gain Experience/TB
-            valueFromToMiddle(1,1.5,0,1,true),     # Level Up Pokemon/TB
-            valueFromToMiddle(2.5,5,0,1,true),     # Defeat Pokemon/TB
-            valueFromToMiddle(80,240,1.5,10,true), # Deal Damage/TB
-            valueFromToMiddle(1.5,3,0,1,true),     # Land Super Effective/TB
-            valueFromToMiddle(1.5,3,0,1,true),     # Land Not Very Effective/TB
-            valueFromToMiddle(3,6,0,1,true),       # Use Physical Moves/TB
-            valueFromToMiddle(3,6,0,1,true),       # Use Special Moves/TB
-            valueFromToMiddle(1.5,3,0,1,true),     # Use Status Moves/TB
-            valueFromToMiddle(20,30,0,5,true),     # Gain Levelup Stats/TB
-            valueFromToMiddle(3,6,0,1,true),       # Gain Effort Values/TB
-            valueFromToMiddle(3,6),                # Use Normal Moves
-            valueFromToMiddle(3,6,0,1,true),       # Use Normal Moves/TB
-            valueFromToMiddle(3,6),                # Use G-F-W Moves
-            valueFromToMiddle(3,6,0,1,true),       # Use G-F-W Moves/TB
-            valueFromToMiddle(0.2,0.4),            # Catch Skilled Pokemon
-            valueFromToMiddle(0.5,1),              # Defeat Skilled Pokemon Inst.
-            valueFromToMiddle(0.2,0.4,0,1,true),   # Defeat Full Skilled Trainers
-            valueFromToMiddle(0.5,1),              # Defeat same-color Pokemon Inst.
-            valueFromToMiddle(3,6),                # Use Fi-Ps-Da Moves
-            valueFromToMiddle(3,6,0,1,true),       # Use Fi-Ps-Da Moves/TB
-            valueFromToMiddle(0.06,0.15),          # Use Robot Moves
-            valueFromToMiddle(20,60,1.5,10),       # Deal Damage to SI PKMN
-            valueFromToMiddle(0.06,0.15),          # Use Moves with 1 PP
-            valueFromToMiddle(0.5,1),              # Change Abilities
-            valueFromToMiddle(0.5,1),              # Change Held Items
-
-            ][taskID]
+    min=$PokemonGlobal.pokeboxData[taskID][0]
+    max=$PokemonGlobal.pokeboxData[taskID][1]
+    scaleup=$PokemonGlobal.pokeboxData[taskID][2]
+    padding=$PokemonGlobal.pokeboxData[taskID][3]
+    trainertask=$PokemonGlobal.pokeboxData[taskID][4]
+    vals = valueFromToMiddle(min,max,scaleup,padding,trainertask,-1)
     shardv = (boxLevel>1 || currentBoxDif>0) ? 1 : 3
     if taskstatus2 > vals[3] && (boxLevel>1 || currentBoxDif>0)         # Master Task
       return 4
@@ -599,33 +844,44 @@ class PokemonBoxScene
   # Creates a new box instance
   def initializeBox(fromdebug=false)
     updateBalanceMeter
+    taskNumbers=(0...$PokemonGlobal.pokeboxNames.length).to_a
     # Tasks that will be excluded from the boxes
     tasksToExclude=[]
-    tasksToExclude.push(19) # Not applicable
     $game_variables[PBOX_VARIABLES[6]] = [] if  !$game_variables[PBOX_VARIABLES[6]].is_a?(Array)
     data = $game_variables[PBOX_VARIABLES[6]]
-    #((data.inject { |sum, n| sum + n }) / data.length)
-    # Level 5 and above boxes cannot contain these
-    tasksToExclude.push(19,21,29,42,57,75,84,85) if boxLevel>4
-    # Level 4 and above boxes cannot contain these
-    tasksToExclude.push(3,4,5,12,15,16,18,20,22,25,26,27,30,32,35,37,45,46,47,50,51,52,56,82) if boxLevel>3
-    if data==[] || currentBoxBalanceMeter< 35
-      # Level 3 and above boxes cannot contain these
-      tasksToExclude.push(0,1,2,6,7,8,14,31,36,40,41,71,73,79) if boxLevel>2 || currentBoxDif>2
-      # No box can contain these
-      tasksToExclude.push(60,61,62,63,64,65,66,67,68,69,70,72,74,80)
-    else
-      # Level 2 and above boxes cannot contain these
-      tasksToExclude.push(0,1,2,6,7,8,14,31,36,40,41,71,73,79) if boxLevel>1 || currentBoxDif>2
-      # Only Level 2 boxes can contain these
-      tasksToExclude.push(60,61,62,63,64,65,66,67,68,69,70,72,74,80) if boxLevel!=2 || currentBoxDif>2
+    boxdata=$PokemonGlobal.pokeboxData
+    if boxLevel>4 # Level 5
+      tasksToExclude=taskNumbers.find_all {|num| 
+                                          ( boxdata[num][7]<4 && [0,1,2,4,6].include?(boxdata[num][5]) ) ||
+                                          ( boxdata[num][6]>boxLevel && currentBoxDif==0 )
+                                          }
+    elsif boxLevel>3 # Level 4
+      tasksToExclude=taskNumbers.find_all {|num| 
+                                          ( boxdata[num][7]<3 && [0,1,2,4,6].include?(boxdata[num][5]) ) ||
+                                          ( boxdata[num][6]>boxLevel && currentBoxDif==0 )
+                                          }
+    elsif boxLevel>2 #|| currentBoxDif>2 # Level 3 or Rank 4/Tier 3
+      tasksToExclude=taskNumbers.find_all {|num| 
+                                          ( boxdata[num][7]<2 && [0,1,2,4,6].include?(boxdata[num][5]) ) ||
+                                          ( boxdata[num][6]>boxLevel && currentBoxDif==0 )
+                                          }
+    elsif boxLevel>1
+      excludeTrainerBattles = data==[] || currentBoxBalanceMeter< 35 || currentBoxDif>2
+      tasksToExclude=taskNumbers.find_all {|num| 
+                                          ( boxdata[num][7]<1 && [0,1,2,4,6].include?(boxdata[num][5]) ) ||
+                                          ( boxdata[num][7]<2 && ([0,1,2].include?(boxdata[num][5]) && !boxdata[num][4]) && !excludeTrainerBattles ) ||
+                                          ( boxdata[num][7]<2 && ([0,1,2].include?(boxdata[num][5]) && (boxdata[num][4] || boxdata[num][6]<2) ) && excludeTrainerBattles ) ||
+                                          ( boxdata[num][6]>boxLevel && currentBoxDif==0 )
+                                          }
+    else # Level 1 and below
+      tasksToExclude=taskNumbers.find_all {|num| 
+                                          ( boxdata[num][7]<2 && ([0,1,2].include?(boxdata[num][5]) && boxdata[num][4]) ) ||
+                                          ( boxdata[num][6]>boxLevel && currentBoxDif==0 )
+                                          }
+
     end
-    # Level 2 and below boxes cannot contain these
-    tasksToExclude.push(76,77,78) if boxLevel<3 && currentBoxDif==0
-    # Level 1 and below boxes cannot contain these
-    tasksToExclude.push(9,13,20,21,22,23,25,26,32,34,39,45,46,47,48,49,56,57,58,59,75,81,83,84,85) if boxLevel<2  && currentBoxDif==0
-    # Level 0 and below boxes cannot contain these
-    tasksToExclude.push(3,5,19,24,27,28,29,30,33,35,37,40,41,42,43,44,52,53,54,55,73,79,82) if boxLevel<1  && currentBoxDif==0
+    # Disable the Horde Task as it is unachievable
+    tasksToExclude.push(19) # Not applicable
     # List of items that will enable the supercharge task
     supercharger=false
     mRINGS = [:MEGARING,:MEGABRACELET,:MEGACUFF,:MEGACHARM,:DYNAMAXBAND] 
@@ -648,39 +904,64 @@ class PokemonBoxScene
       end
     end
     tasksToExclude.push(81) if !robot # Never when not having it
-
     tasksToExclude.push(13) if !$PokemonGlobal.upperKingdom
     # Disable "Use Elder Special Moves" when Elder Special Move tutorial isn't done
     tasksToExclude.push(59) if !$game_switches[174]
     # Disable "Use Shadow Moves" when shadow type isn't defined
     tasksToExclude.push(54) if !hasConst?(PBTypes,:SHADOW)
-    tasksToExclude.push(3,10,19,23,29,33,34,35,38,42,48,54,55,58,59,60,61,62,63,64,65,66,67,68,69,70,72,74,75,76,77,81,83) if $flint_brockopolis_active
-    # Group 0
-    task0 = [0,1,2,14,20,25,30,35,40,45,60,61,62,63,69]
+    tasksToExclude.push(3,10,19,23,29,33,34,35,38,42,48,54,55,58,59,60,61,62,63,64,65,66,67,68,69,70,72,74,75,76,77,80,81,83) if $flint_brockopolis_active
+    if ($PokemonSystem.battledif>2 rescue false)
+      mode=2  # Strict Mode = Tasks can be only on their intended positions
+    elsif ($PokemonSystem.battledif>0 rescue false)
+      mode=1  # Strict Mode = Tasks can be only on their intended positions
+    else
+      mode=0  # Normal Mode = Tasks can be anywhere but Special tasks in harder non-milestone boxes can only be on the fourth task
+    end
+    # Group 0 (Primary Tasks)
+    task0 = taskNumbers.find_all {|num| boxdata[num][5]==0 }
     task0.delete_if {|element| tasksToExclude.include?(element) }
-    # Group 1
-    task1 = [3,4,5,15,21,26,31,36,41,46,64,65,70,75,82]
+    # Group 1 (Secondary Tasks)
+    task1 = taskNumbers.find_all {|num| boxdata[num][5]==1 }
     task1.delete_if {|element| tasksToExclude.include?(element) }
-    # Group 2
-    task2 = [6,7,8,16,22,27,32,37,42,47,66,67,68,71,72,73,74,79,80]
+    # Group 2 (Move Tasks)
+    task2 = taskNumbers.find_all {|num| boxdata[num][5]==2 }
     task2.delete_if {|element| tasksToExclude.include?(element) }
-    # Group 3
-    task3 = [9,10,11,17,23,28,33,38,43,48,76,81]
-    task3 = [] if boxLevel>2 # Handled elsewhere
+    # Group 3 (Special Tasks)
+    task3 = taskNumbers.find_all {|num| boxdata[num][5]==3 }
     task3.delete_if {|element| tasksToExclude.include?(element) }
-    # Universal Tasks 0
-    taskU0=[12,18,19,29,34,50,51,52,56,57,83,84,85] # 19 is not applicable in Q.Qore
-    taskU0=[] if boxLevel>2 # Handled elsewhere
+    # Universal Tasks 0 (Regular Tasks)
+    taskU0= taskNumbers.find_all {|num| boxdata[num][5]==4 } # 19 is not applicable in Q.Qore
     taskU0.delete_if {|element| tasksToExclude.include?(element) }
-    # Universal Tasks 1
-    taskU1=[13,24,39,44,49,53,54,55,58,59,77,78]
-    taskU1=[] if boxLevel>2 # Handled Elsewhere
+    taskU0.shuffle! # Required 
+    taskU2= taskNumbers.find_all {|num| boxdata[num][5]==6 } # 19 is not applicable in Q.Qore
+    taskU2.delete_if {|element| tasksToExclude.include?(element) }
+    taskU2.shuffle! # Required 
+    # Universal Tasks 1 (Special Tasks)
+    taskU1= taskNumbers.find_all {|num| boxdata[num][5]==5 }
     taskU1.delete_if {|element| tasksToExclude.include?(element) }
+    taskU1.shuffle! # Required 
+    taskU3= taskNumbers.find_all {|num| boxdata[num][5]==7 }
+    taskU3.delete_if {|element| tasksToExclude.include?(element) }
+    taskU3.shuffle! # Required 
+    # Common Tasks from Groups 0 to 2
+    taskCMN= taskNumbers.find_all {|num| boxdata[num][7]<2 && [0,1,2].include?(boxdata[num][5]) }
+    taskCMN.delete_if {|element| tasksToExclude.include?(element) }
+    # Uncommon Tasks from Groups 0 to 2
+    taskUCM= taskNumbers.find_all {|num| boxdata[num][7]==2 && [0,1,2].include?(boxdata[num][5]) }
+    taskUCM.delete_if {|element| tasksToExclude.include?(element) }
+    # Rare+ Tasks from Groups 0 to 2
+    taskRAR= taskNumbers.find_all {|num| boxdata[num][7]>2 && [0,1,2].include?(boxdata[num][5]) }
+    taskRAR.delete_if {|element| tasksToExclude.include?(element) }
     # Universal Tasks for Millenial/Elite/Level 3 Boxes
     if boxLevel>2
-      taskU0_1 = [9,10,11,12,13,17,18,19,23,24,28,29,33,34,38,39,43,44,48,49,50,51,52,53,54,55,56,57,58,59,76,77,78,81,83,84,85]
+      taskU0_1 = task3 | taskU0 | taskU1 | taskU2 | taskU3
       taskU0_1.delete_if {|element| tasksToExclude.include?(element) }
-      taskU0_1.shuffle! # Required for the 
+      taskU0_1.shuffle! # Required 
+      task3 = [] # Handled elsewhere
+      taskU0 = [] # Handled elsewhere
+      taskU1 = [] # Handled elsewhere
+      taskU2 = [] # Handled elsewhere
+      taskU3 = [] # Handled elsewhere
       j=0
       for i in taskU0_1 # 13 and 19 are not applicable in Q.Qore
         if j%2==0
@@ -692,44 +973,156 @@ class PokemonBoxScene
       end
     end
     # Set Up Tasks
-    if boxLevel<2
-      choices0= task0 | task1 | task2 | task3 | taskU0 | taskU1
-      choices1=choices0
+    if mode==2  # Hard Mode (Also similar to the original Box handling)
+      # Task 0
+      choices0= task0 | taskU0 | taskU2 | taskU3
       choices0.shuffle!
-      choices1.shuffle!
-      choices1Offset=12
-    else
-      choices0= task0 | task1 | task2 | taskU0
-      choices1=task3 | taskU1
-      choices0.shuffle!
+      choices0Offset=0
+      # Task 1
+      choices1= task1 | taskU0 | taskU2 | taskU3
+      choices1.delete_if {|element| choices0[0...4].include?(element) }
       choices1.shuffle!
       choices1Offset=0
+      # Task 2
+      choices2= task2 | taskU1 | taskU2 | taskU3
+      choices2.delete_if {|element| choices0[0...4].include?(element) ||
+                                    choices1[0...4].include?(element)}
+      choices2.shuffle!      
+      choices2Offset=0
+      # Task 3
+      choices3=task3 | taskU1 | taskU2 | taskU3
+      choices3.delete_if {|element| choices0[0...4].include?(element) ||
+                                    choices1[0...4].include?(element) ||
+                                    choices2[0...4].include?(element)}
+      choices3.shuffle!
+      choices3Offset=0
+    elsif mode==1  # Normal Mode
+      if boxLevel==0 # Tutorial Boxes
+        # Task 0
+        choices0= task0 | task1 | task2 | task3 | taskU0 | taskU1 | taskU2 | taskU3
+        choices0.shuffle!
+        choices0Offset=0
+        # Task 1
+        choices1=choices0
+        choices1Offset=4
+        # Task 2
+        choices2=choices0
+        choices2Offset=8
+        # Task 3
+        choices3=choices0
+        choices3Offset=12
+      elsif boxLevel==1 # Classic and Bronze Boxes
+        # Task 0
+        choices0= taskCMN | taskUCM | taskU0
+        choices0.shuffle!
+        choices0Offset=0
+        # Task 1
+        choices1=choices0
+        choices1Offset=4
+        # Task 2
+        choices2=taskRAR | task3 | taskU1 | taskU2 | taskU3
+        choices2.delete_if {|element| choices0[0...8].include?(element) }
+        choices2.shuffle!
+        choices2Offset=0
+        # Task 3
+        choices3=choices2
+        choices3Offset=4
+      elsif boxLevel==2  # Silver and Gold Boxes
+        # Task 0
+        choices0= taskUCM | taskRAR | taskU0
+        choices0.shuffle!
+        choices0Offset=0
+        # Task 1
+        choices1= taskCMN  | taskU0
+        choices1.delete_if {|element| choices0[0...4].include?(element) }
+        choices1.shuffle!
+        choices1Offset=0
+        # Task 2
+        choices2=task3 | taskU1 | taskU2 | taskU3
+        choices2.delete_if {|element| choices0[0...4].include?(element) ||
+                                      choices1[0...4].include?(element)}
+        choices2.shuffle!
+        choices2Offset=0
+        # Task 3
+        choices3=choices2
+        choices3Offset=4
+      else  # Milestone Boxes
+        # Task 0
+        choices0= task0 | task1 | task2 | taskU0
+        choices0.shuffle!
+        choices0Offset=0
+        # Task 1
+        choices1=choices0
+        choices1Offset=4
+        # Task 2
+        choices2=task3 | taskU1
+        choices2.delete_if {|element| choices0[0...8].include?(element) }
+        choices2.shuffle!
+        choices2Offset=0
+        # Task 3
+        choices3=choices2
+        choices3Offset=4
+      end
+    else # Easy Mode
+      if boxLevel<2 # Easy Boxes
+        # Task 0
+        choices0= task0 | task1 | task2 | task3 | taskU0 | taskU1 | taskU2 | taskU3
+        choices0.shuffle!
+        choices0Offset=0
+        # Task 1
+        choices1=choices0
+        choices1Offset=4
+        # Task 2
+        choices2=choices0
+        choices2Offset=8
+        # Task 3
+        choices3=choices0
+        choices3Offset=12
+      else # Hard Boxes
+        # Task 0
+        choices0= task0 | task1 | task2 | taskU0 | taskU2
+        choices0.shuffle!
+        choices0Offset=0
+        # Task 1
+        choices1=choices0
+        choices1Offset=4
+        # Task 2
+        choices2=choices0
+        choices2Offset=8
+        # Task 3
+        choices3=task3 | taskU1 | taskU3
+        choices3.delete_if {|element| choices0[0...12].include?(element) }
+        choices3.shuffle!
+        choices3Offset=0
+      end
     end
     length0=choices0.length
     length1=choices1.length
+    length2=choices2.length
+    length3=choices3.length
     $game_variables[PBOX_VARIABLES[0]]=0
     $game_variables[PBOX_VARIABLES[4]]=0
     $game_variables[PBOX_VARIABLES[1]] = [
       # Task #0
-      [choices0[0%length0],$PokemonGlobal.pokebox[choices0[0%length0]],taskVals(choices0[0%length0])],
-      [choices0[4%length0],$PokemonGlobal.pokebox[choices0[4%length0]],taskVals(choices0[4%length0])],
-      [choices0[8%length0],$PokemonGlobal.pokebox[choices0[8%length0]],taskVals(choices0[8%length0])],
+      [choices0[(choices0Offset+0)%length0],$PokemonGlobal.pokebox[choices0[(choices0Offset+0)%length0]],taskVals(choices0[(choices0Offset+0)%length0])],
       [choices1[(choices1Offset+0)%length1],$PokemonGlobal.pokebox[choices1[(choices1Offset+0)%length1]],taskVals(choices1[(choices1Offset+0)%length1])],
+      [choices2[(choices2Offset+0)%length2],$PokemonGlobal.pokebox[choices2[(choices2Offset+0)%length2]],taskVals(choices2[(choices2Offset+0)%length2])],
+      [choices3[(choices3Offset+0)%length3],$PokemonGlobal.pokebox[choices3[(choices3Offset+0)%length3]],taskVals(choices3[(choices3Offset+0)%length3])],
       # Task #1
-      [choices0[1%length0],$PokemonGlobal.pokebox[choices0[1%length0]],taskVals(choices0[1%length0])],
-      [choices0[5%length0],$PokemonGlobal.pokebox[choices0[5%length0]],taskVals(choices0[5%length0])],
-      [choices0[9%length0],$PokemonGlobal.pokebox[choices0[9%length0]],taskVals(choices0[9%length0])],
-      [choices1[(choices1Offset+1)%length1],$PokemonGlobal.pokebox[choices1[(choices1Offset+1)%length1]],taskVals(choices1[(choices1Offset+1)%length1])],      
+      [choices0[(choices0Offset+1)%length0],$PokemonGlobal.pokebox[choices0[(choices0Offset+1)%length0]],taskVals(choices0[(choices0Offset+1)%length0])],
+      [choices1[(choices1Offset+1)%length1],$PokemonGlobal.pokebox[choices1[(choices1Offset+1)%length1]],taskVals(choices1[(choices1Offset+1)%length1])],
+      [choices2[(choices2Offset+1)%length2],$PokemonGlobal.pokebox[choices2[(choices2Offset+1)%length2]],taskVals(choices2[(choices2Offset+1)%length2])],
+      [choices3[(choices3Offset+1)%length3],$PokemonGlobal.pokebox[choices3[(choices3Offset+1)%length3]],taskVals(choices3[(choices3Offset+1)%length3])],
       # Task #2
-      [choices0[2%length0],$PokemonGlobal.pokebox[choices0[2%length0]],taskVals(choices0[2%length0])],
-      [choices0[6%length0],$PokemonGlobal.pokebox[choices0[6%length0]],taskVals(choices0[6%length0])],
-      [choices0[10%length0],$PokemonGlobal.pokebox[choices0[10%length0]],taskVals(choices0[10%length0])],
-      [choices1[(choices1Offset+2)%length1],$PokemonGlobal.pokebox[choices1[(choices1Offset+2)%length1]],taskVals(choices1[(choices1Offset+2)%length1])],      
+      [choices0[(choices0Offset+2)%length0],$PokemonGlobal.pokebox[choices0[(choices0Offset+2)%length0]],taskVals(choices0[(choices0Offset+2)%length0])],
+      [choices1[(choices1Offset+2)%length1],$PokemonGlobal.pokebox[choices1[(choices1Offset+2)%length1]],taskVals(choices1[(choices1Offset+2)%length1])],
+      [choices2[(choices2Offset+2)%length2],$PokemonGlobal.pokebox[choices2[(choices2Offset+2)%length2]],taskVals(choices2[(choices2Offset+2)%length2])],
+      [choices3[(choices3Offset+2)%length3],$PokemonGlobal.pokebox[choices3[(choices3Offset+2)%length3]],taskVals(choices3[(choices3Offset+2)%length3])],
       # Task #3
-      [choices0[3%length0],$PokemonGlobal.pokebox[choices0[3%length0]],taskVals(choices0[3%length0])],
-      [choices0[7%length0],$PokemonGlobal.pokebox[choices0[7%length0]],taskVals(choices0[7%length0])],
-      [choices0[11%length0],$PokemonGlobal.pokebox[choices0[11%length0]],taskVals(choices0[11%length0])],
-      [choices1[(choices1Offset+3)%length1],$PokemonGlobal.pokebox[choices1[(choices1Offset+3)%length1]],taskVals(choices1[(choices1Offset+3)%length1])]      
+      [choices0[(choices0Offset+3)%length0],$PokemonGlobal.pokebox[choices0[(choices0Offset+3)%length0]],taskVals(choices0[(choices0Offset+3)%length0])],
+      [choices1[(choices1Offset+3)%length1],$PokemonGlobal.pokebox[choices1[(choices1Offset+3)%length1]],taskVals(choices1[(choices1Offset+3)%length1])],
+      [choices2[(choices2Offset+3)%length2],$PokemonGlobal.pokebox[choices2[(choices2Offset+3)%length2]],taskVals(choices2[(choices2Offset+3)%length2])],
+      [choices3[(choices3Offset+3)%length3],$PokemonGlobal.pokebox[choices3[(choices3Offset+3)%length3]],taskVals(choices3[(choices3Offset+3)%length3])],
                                           ]
     pbTimeEvent(PBOX_VARIABLES[3],boxDuration*86400)
     pbSEPlay("recall") if !fromdebug

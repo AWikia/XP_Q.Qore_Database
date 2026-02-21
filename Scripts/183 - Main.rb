@@ -101,9 +101,20 @@ end
 def pbCallTitle(minimal=false) #:nodoc:
   qoreInitials(minimal)
   channelvar= QQORECHANNELVARIANT.to_s
-  title=['QoreTitle_0_'+channelvar,'QoreTitle_1_'+channelvar,'QoreTitle_2_'+channelvar,'QoreTitle_3_'+channelvar,'QoreTitle_4_'+channelvar,'QoreTitle_5_'+channelvar][QQORECHANNEL]
-  title=['QoreTitle','QoreTitle_1','QoreTitle_2','QoreTitle_3','QoreTitle_4','QoreTitle_5'][QQORECHANNEL]  if !pbResolveBitmap(_INTL("Graphics/Titles/{1}", title)) || (QQORECHANNELVARIANT < 1)
+  title=['QoreTitle_0_'+channelvar,
+         'QoreTitle_1_'+channelvar,
+         'QoreTitle_2_'+channelvar,
+         'QoreTitle_3_'+channelvar,
+         'QoreTitle_4_'+channelvar,
+         'QoreTitle_5_'+channelvar][QQORECHANNEL]
+  title=['QoreTitle',
+         'QoreTitle_1',
+         'QoreTitle_2',
+         'QoreTitle_3',
+         'QoreTitle_4',
+         'QoreTitle_5'][QQORECHANNEL]  if !pbResolveBitmap(_INTL("Graphics/Titles/{1}", title)) || (QQORECHANNELVARIANT < 1)
   title='QoreTitle' if !pbResolveBitmap(_INTL("Graphics/Titles/{1}", title))
+  title='QoreTitle_empty' if !pbResolveBitmap(_INTL("Graphics/Titles/{1}", title))
 #  Win32API.SyncTitle
   if minimal
     return Scene_Intro.new([],title)

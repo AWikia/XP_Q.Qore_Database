@@ -191,9 +191,20 @@ class MiningGameScene
      [:IRONPLATE,10, 8,32, 4,3,[1,1,1,1,1,1,1,1,1,1,1,1]],
      [:SPLASHPLATE,10, 12,32, 4,3,[1,1,1,1,1,1,1,1,1,1,1,1]]
   ]
+  MAXITEMS=[0,ITEMS.length] # Only the final item can be Gold Bar
+  EXTRAITEMS=[]
   if $game_switches && $game_switches[218] # Push Gold Bars when the event is active
-    ITEMS.push([[:GOLDBAR,5],50, 0,35, 3,3,[1,1,1,1,1,1,1,1,1]],
-               [:GOLDBAR,200, 3,35, 2,2,[1,1,1,1,1,1]])
+    MAXITEMSGB=[ITEMS.length]
+    ITEMS.push([:GOLDBAR,200, 0,35, 2,2,[1,1,1,1]],
+               [[:GOLDBAR,2],100, 2,35, 3,2,[1,1,1,1,1,1]],
+               [[:GOLDBAR,3],65, 5,35, 3,2,[1,1,1,1,1,1]],
+               [[:GOLDBAR,5],40, 8,35, 3,3,[1,1,1,1,1,1,1,1,1]],
+               [[:GOLDBAR,6],35, 11,35, 3,3,[1,1,1,1,1,1,1,1,1]],
+               [[:GOLDBAR,7],30, 14,35, 4,3,[1,1,1,1,1,1,1,1,0,1,1,1]],
+               [[:GOLDBAR,10],25, 18,35, 4,4,[1,1,1,1,1,1,1,1,1,1,1,1,0,1,1,1]],
+               [[:GOLDBAR,15],20, 22,35, 5,4,[1,1,1,1,0,1,1,1,1,1,1,1,1,1,1,0,0,1,1,1]])
+    MAXITEMSGB.push(ITEMS.length)
+    EXTRAITEMS.push(MAXITEMSGB) # Gold Bars to be added
   end
 
   IRON = [   # Graphic x, graphic y, width, height, pattern
@@ -247,14 +258,14 @@ class MiningGameScene
   def pbDistributeItems
     # Set items to be buried (index in ITEMS, x coord, y coord)
     ptotal=0
-    for i in ITEMS
-      ptotal+=i[1]
+    for i in MAXITEMS[0]...MAXITEMS[1]
+      ptotal+=ITEMS[i][1]
     end
     numitems=2+rand(3)
     while numitems>0
       rnd=rand(ptotal)
       added=false
-      for i in 0...ITEMS.length
+      for i in MAXITEMS[0]...MAXITEMS[1]
         rnd-=ITEMS[i][1]
         if rnd<0
           if pbNoDuplicateItems(ITEMS[i][0])
@@ -272,6 +283,33 @@ class MiningGameScene
           end
         end
         break if added
+      end
+    end
+    # Add Extra Items, if present
+    if EXTRAITEMS.length>0
+      for j in EXTRAITEMS
+        ptotal=0
+        for i in j[0]...j[1]
+          ptotal+=ITEMS[i][1]
+        end
+        rnd=rand(ptotal) # Not all times the extra item will be added
+        added=false
+        for i in j[0]...j[1]
+          rnd-=ITEMS[i][1]
+          if rnd<0
+            if pbNoDuplicateItems(ITEMS[i][0])
+              while !added
+                provx=rand(BOARDWIDTH-ITEMS[i][4]+1)
+                provy=rand(BOARDHEIGHT-ITEMS[i][5]+1)
+                if pbCheckOverlaps(false,provx,provy,ITEMS[i][4],ITEMS[i][5],ITEMS[i][6])
+                  @items.push([i,provx,provy])
+                  added=true
+                end
+              end
+            end
+          end
+          break if added
+        end
       end
     end
     # Draw items on item layer
@@ -321,7 +359,7 @@ class MiningGameScene
       return false if preitem==newitem   # No duplicate items
       return false if fossils.include?(preitem) && fossils.include?(newitem)
       return false if plates.include?(preitem) && plates.include?(newitem)
-      return false if goldbars.include?(preitem) && goldbars.include?(newitem)
+#      return false if goldbars.include?(preitem) && goldbars.include?(newitem)
     end
     return true
   end
@@ -585,7 +623,7 @@ class MiningGameScene
       for i in @itemswon
         j+=1
         partname=_INTL("One {1} was",PBItems.getName(i))
-        partname=_INTL("{1} {2} were",@itemswonAMT[j],PBItems.getName(i)) if @itemswonAMT[j]>1
+        partname=_INTL("{1} {2} were",@itemswonAMT[j],PBItems.getNamePlural(i)) if @itemswonAMT[j]>1
         if $game_switches[1047]
           Kernel.pbMessage(_INTL("{1} found, but you can't obtain it right now.\\wtnp[30]",
              partname))

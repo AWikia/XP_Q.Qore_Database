@@ -54,8 +54,7 @@ class PokeBattle_Pokemon
   attr_accessor(:migrated)    # Migrated or not
   attr_accessor :cool,:beauty,:cute,:smart,:tough,:sheen # Contest stats
   attr_accessor(:mint)        # Mint
-  attr_accessor(:temperature) # Base Temperature
-  attr_accessor(:addTemp)     # Additional Temperature
+  attr_accessor(:temperature) # Temperature
   attr_accessor(:remoteBox)   # Whether egg is also a Remote Box
   attr_accessor(:recoildamage)# Recoil Damage the user took, resets when fainted
   attr_accessor(:criticalhits)# Critical Hits the user did, resets when fainted
@@ -711,35 +710,27 @@ class PokeBattle_Pokemon
   
 # Temperature
   def temperature
-    return addTemp+@temperature ||= self.basetemp # modification done by ATechno in order to avoid crashes
-  end
-
-  def temperatureN # Temperature without addTemp
     return @temperature ||= self.basetemp # modification done by ATechno in order to avoid crashes
   end
 
-  
   def basetemp
     if self.hasType?(:FIRE)
-      return 40 if self.hasType?(:ICE) || self.hasType?(:BLIZZARD)
+      return 35 if self.hasType?(:ICE) || self.hasType?(:BLIZZARD)
+      return 65 if self.hasType?(:SUN)
+      return 40 if self.hasType?(:MOON) || self.hasType?(:SHARPENER)
       return 50
     elsif self.hasType?(:ICE) || self.hasType?(:BLIZZARD)
+      return 40 if self.hasType?(:SUN)
+      return 25 if self.hasType?(:MOON) || self.hasType?(:SHARPENER)
       return 20
     elsif self.hasType?(:SUN)
+      return 50 if self.hasType?(:MOON) || self.hasType?(:SHARPENER)
       return 60
     elsif self.hasType?(:MOON) || self.hasType?(:SHARPENER)
       return 30
     else
       return 35
     end
-  end
-  
-  def addTemp
-    return @addTemp ||= 0
-  end
-
-  def addTemp=(value)
-    @addTemp=value
   end
   
   def temperature=(value)
@@ -1165,7 +1156,6 @@ TooLowTemp = 5- for Cold Species or 10-
     @recoildamage = 0
     @criticalhits = 0
     @ragefist = 0
-    @addTemp = 0
     @species=species
     # Individual Values
     @personalID=rand(256)

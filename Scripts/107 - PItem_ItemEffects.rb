@@ -138,7 +138,8 @@ ItemHandlers::UseFromBag.add(:PCSTORAGEBOX,proc{|item|
 })
 
 ItemHandlers::UseFromBag.add(:DAILYTREATMACHINE,proc{|item|
-  if !pbTimeEventValid(DTM_VARIABLES[1],false,86400)
+  if !(pbTimeEventValid(DTM_VARIABLES[1],false,86400) || 
+       $game_variables[DTM_VARIABLES[1]]==0)
      Kernel.pbMessage(_INTL("Come back in {1} for your next use.", pbTimeEventRemainingTime(DTM_VARIABLES[1],86400)))
      next 0
   else

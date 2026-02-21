@@ -7997,7 +7997,7 @@ class PokeBattle_Move_0FF < PokeBattle_Move
       return -1
     end
     pbShowAnimation(@id,attacker,nil,hitnum,alltargets,showanimation)
-    @battle.weather=PBWeather::SUNNYDAY
+    attacker.setWeather(PBWeather::SUNNYDAY)
     @battle.weatherduration=5
     @battle.weatherduration=8 if attacker.hasWorkingItem(:HEATROCK)
     @battle.pbCommonAnimation("Sunny",nil,nil)
@@ -8032,7 +8032,7 @@ class PokeBattle_Move_100 < PokeBattle_Move
       return -1
     end
     pbShowAnimation(@id,attacker,nil,hitnum,alltargets,showanimation)
-    @battle.weather=PBWeather::RAINDANCE
+    attacker.setWeather(PBWeather::RAINDANCE)
     @battle.weatherduration=5
     @battle.weatherduration=8 if attacker.hasWorkingItem(:DAMPROCK)
     @battle.pbCommonAnimation("Rain",nil,nil)
@@ -8067,7 +8067,7 @@ class PokeBattle_Move_101 < PokeBattle_Move
       return -1
     end
     pbShowAnimation(@id,attacker,nil,hitnum,alltargets,showanimation)
-    @battle.weather=PBWeather::SANDSTORM
+    attacker.setWeather(PBWeather::SANDSTORM)
     @battle.weatherduration=5
     @battle.weatherduration=8 if attacker.hasWorkingItem(:SMOOTHROCK)
     @battle.pbCommonAnimation("Sandstorm",nil,nil)
@@ -8102,7 +8102,7 @@ class PokeBattle_Move_102 < PokeBattle_Move
       return -1
     end
     pbShowAnimation(@id,attacker,nil,hitnum,alltargets,showanimation)
-    @battle.weather=PBWeather::HAIL
+    attacker.setWeather(PBWeather::HAIL)
     @battle.weatherduration=5
     @battle.weatherduration=8 if attacker.hasWorkingItem(:ICYROCK)
     @battle.pbCommonAnimation("Hail",nil,nil)
@@ -10225,7 +10225,7 @@ class PokeBattle_Move_154 < PokeBattle_Move
       return -1
     end
     pbShowAnimation(@id,attacker,nil,hitnum,alltargets,showanimation)
-    @battle.terrain=PBBattleTerrains::ELECTRIC
+    attacker.setTerrain(PBBattleTerrains::ELECTRIC)
     @battle.terrainduration=5
     @battle.terrainduration=8 if attacker.hasWorkingItem(:TERRAINEXTENDER)
     @battle.pbDisplay(_INTL("An electric current runs across the battlefield!"))
@@ -10249,7 +10249,7 @@ class PokeBattle_Move_155 < PokeBattle_Move
       return -1
     end
     pbShowAnimation(@id,attacker,nil,hitnum,alltargets,showanimation)
-    @battle.terrain=PBBattleTerrains::GRASSY
+    attacker.setTerrain(PBBattleTerrains::GRASSY)
     @battle.terrainduration=5
     @battle.terrainduration=8 if attacker.hasWorkingItem(:TERRAINEXTENDER)
     @battle.pbDisplay(_INTL("Grass grew to cover the battlefield!"))
@@ -10273,7 +10273,7 @@ class PokeBattle_Move_156 < PokeBattle_Move
       return -1
     end
     pbShowAnimation(@id,attacker,nil,hitnum,alltargets,showanimation)
-    @battle.terrain=PBBattleTerrains::MISTY
+    attacker.setTerrain(PBBattleTerrains::MISTY)
     @battle.terrainduration=5
     @battle.terrainduration=8 if attacker.hasWorkingItem(:TERRAINEXTENDER)
     @battle.pbDisplay(_INTL("Mist swirled about the battlefield!"))
@@ -12292,7 +12292,7 @@ class PokeBattle_Move_241 < PokeBattle_Move
       return -1
     end
     pbShowAnimation(@id,attacker,nil,hitnum,alltargets,showanimation)
-    @battle.terrain=PBBattleTerrains::CINAMENT
+    attacker.setTerrain(PBBattleTerrains::CINAMENT)
     @battle.terrainduration=5
     @battle.terrainduration=8 if attacker.hasWorkingItem(:TERRAINEXTENDER)
     @battle.pbCommonAnimation("Cinament",nil,nil)
@@ -12689,7 +12689,7 @@ class PokeBattle_Move_250 < PokeBattle_Move
       return -1
     end
     pbShowAnimation(@id,attacker,nil,hitnum,alltargets,showanimation)
-    @battle.terrain=PBBattleTerrains::VOLCANIC
+    attacker.setTerrain(PBBattleTerrains::VOLCANIC)
     @battle.terrainduration=5
     @battle.terrainduration=8 if attacker.hasWorkingItem(:TERRAINEXTENDER)
     @battle.pbDisplay(_INTL("A heatness has been set up on the battlefield!"))
@@ -12922,7 +12922,7 @@ class PokeBattle_Move_276 < PokeBattle_Move
       return -1
     end
     pbShowAnimation(@id,attacker,nil,hitnum,alltargets,showanimation)
-    @battle.terrain=PBBattleTerrains::LOVELY
+    attacker.setTerrain(PBBattleTerrains::LOVELY)
     @battle.terrainduration=5
     @battle.terrainduration=8 if attacker.hasWorkingItem(:TERRAINEXTENDER)
     @battle.pbDisplay(_INTL("A loveness has been set up on the battlefield!"))
@@ -14390,7 +14390,7 @@ class PokeBattle_Move_209 < PokeBattle_Move
       return -1
     end
     pbShowAnimation(@id,attacker,nil,hitnum,alltargets,showanimation)
-    @battle.terrain=PBBattleTerrains::PSYCHIC
+    attacker.setTerrain(PBBattleTerrains::PSYCHIC)
     @battle.terrainduration=5
     @battle.terrainduration=8 if attacker.hasWorkingItem(:TERRAINEXTENDER)
     @battle.pbDisplay(_INTL("The battlefield got weird!"))
@@ -16557,7 +16557,7 @@ class PokeBattle_Move_367 < PokeBattle_Move
              @battle.weather != PBWeather::HARSHSUN ||
              @battle.weather != PBWeather::STRONGWINDS ||
              @battle.weather != PBWeather::HAIL
-            @battle.weather=PBWeather::HAIL
+            attacker.setWeather(PBWeather::HAIL)
             @battle.weatherduration=5
             @battle.weatherduration=8 if attacker.hasWorkingItem(:ICYROCK)
             @battle.pbCommonAnimation("Hail",nil,nil)

@@ -676,7 +676,19 @@ class PokemonScreen_Scene
     @viewport=Viewport.new(0,0,Graphics.width,Graphics.height)
     @viewport.z=99999
     @multiselect=multiselect
-    title=['bg','bg_beta','bg_dev','bg_canary','bg_internal','bg_upgradewizard'][QQORECHANNEL]
+    channelvar= QQORECHANNELVARIANT.to_s
+    title=['bg_0_'+channelvar,
+           'bg_beta_'+channelvar,
+           'bg_dev_'+channelvar,
+           'bg_canary_'+channelvar,
+           'bg_internal_'+channelvar,
+           'bg_upgradewizard_'+channelvar][QQORECHANNEL]
+    title=['bg',
+           'bg_beta',
+           'bg_dev',
+           'bg_canary',
+           'bg_internal',
+           'bg_upgradewizard'][QQORECHANNEL] if !pbResolveBitmap(_INTL("Graphics/UI/"+getDarkModeFolder+"/Party/{1}",title))
     if pbResolveBitmap(_INTL("Graphics/UI/"+getDarkModeFolder+"/Party/{1}",title))
       addBackgroundOrColoredPlane(@sprites,"partybg",getDarkModeFolder+"/Party/"+title,
          Color.new(12,12,12),@viewport)

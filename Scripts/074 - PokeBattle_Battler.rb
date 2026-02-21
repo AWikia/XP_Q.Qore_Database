@@ -37,7 +37,6 @@ class PokeBattle_Battler
   attr_accessor :damagestate
   attr_accessor :captured
   attr_accessor :temperature
-  attr_accessor :addTemp
   attr_accessor :recoildamage
   attr_accessor :favcolor
   attr_accessor :criticalhits
@@ -54,25 +53,15 @@ class PokeBattle_Battler
     return (@pokemon) ? @pokemon.temperature : 35
   end
 
-  def temperatureD
-    return (@pokemon) ? (@temperature + @addTemp) : 35
-  end
-
-  def addTemp=(value)
-    @addTemp=value
-    @pokemon.addTemp=value if @pokemon
-  end
-
   def temperature2=(value)
     @temperature=self.basetemp if !@temperature
     @temperature+=value
-    @pokemon.temperature+=(value - @pokemon.addTemp) if @pokemon
+    @pokemon.temperature+=(value) if @pokemon
   end
 
   
   def resetTemperature
     @temperature=self.basetemp if !@temperature
-    self.addTemp=0
     @pokemon.temperature=self.basetemp if @pokemon
   end
 
@@ -92,29 +81,25 @@ class PokeBattle_Battler
     end
   end
   
-  def addTemp
-    return (@pokemon) ? @pokemon.addTemp : 0
-  end
-  
   def highTemp?
-    return self.temperatureD > 90 if self.pbHasType?(:FIRE) || self.pbHasType?(:SUN)
-    return self.temperatureD > 70
+    return self.temperature > 90 if self.pbHasType?(:FIRE) || self.pbHasType?(:SUN)
+    return self.temperature > 70
   end
 
   def tooHighTemp?
-    return self.temperatureD > 95 if self.pbHasType?(:FIRE) || self.pbHasType?(:SUN)
-    return self.temperatureD > 90
+    return self.temperature > 95 if self.pbHasType?(:FIRE) || self.pbHasType?(:SUN)
+    return self.temperature > 90
   end
 
   def tempHH?
     return false if self.pbHasType?(:FIRE) || self.pbHasType?(:SUN) # Not for Fire and Sunny Species
-    return self.temperatureD > 100
+    return self.temperature > 100
   end
 
   def tempLL?
     return false if self.pbHasType?(:ICE) || self.pbHasType?(:BLIZZARD) # Not for Ice and Blizzardi Species
-    return self.temperatureD < -5 if self.pbHasType?(:WATER) # Aquatic Species can last longer
-    return self.temperatureD < 0
+    return self.temperature < -5 if self.pbHasType?(:WATER) # Aquatic Species can last longer
+    return self.temperature < 0
   end
 
 ################################################################################
@@ -141,7 +126,6 @@ def recoildamage
     $PokemonGlobal.pokebox[29]+=value if @battle.pbOwnedByPlayer?(@index)
   end
 
-
 ################################################################################
 # Critical Hits
 ################################################################################
@@ -166,7 +150,6 @@ def criticalhits
     $PokemonGlobal.pokebox[15]+=1 if @battle.pbOwnedByPlayer?(@index)
   end
 
-  
 ################################################################################
 # Rage Fist
 ################################################################################
@@ -190,7 +173,21 @@ def ragefist
     @pokemon.ragefist+= 1 if @pokemon 
   end
 
+################################################################################
+# Weather and Terrain (Does not set the duration)
+################################################################################
+  def setWeather(value)
+    oldweather=@battle.weather
+    @battle.weather=value
+    $PokemonGlobal.pokebox[89]+=1 if @battle.pbOwnedByPlayer?(@index) && @battle.weather != oldweather && @battle.weather!=0
+  end
   
+  def setTerrain(value)
+    oldterrain=@battle.terrain
+    @battle.terrain=value
+    $PokemonGlobal.pokebox[89]+=1 if @battle.pbOwnedByPlayer?(@index) && @battle.terrain != oldterrain && @battle.terrain!=0
+  end
+
 ################################################################################
 # Complex accessors
 ################################################################################
@@ -410,8 +407,7 @@ def ragefist
     @spdef        = pkmn.spdef
     @status       = pkmn.status
     @statusCount  = pkmn.statusCount
-    @temperature  = pkmn.temperature - pkmn.addTemp
-    @addTemp      = pkmn.addTemp
+    @temperature  = pkmn.temperature
     @ragefist     = pkmn.ragefist
     @criticalhits = pkmn.criticalhits
     @recoildamage = pkmn.recoildamage
@@ -464,8 +460,7 @@ def ragefist
     @spdef        = pkmn.spdef
     @status       = pkmn.status
     @statusCount  = pkmn.statusCount
-    @temperature  = pkmn.temperature - pkmn.addTemp
-    @addTemp      = pkmn.addTemp
+    @temperature  = pkmn.temperature
     @ragefist     = pkmn.ragefist
     @criticalhits = pkmn.criticalhits
     @recoildamage = pkmn.recoildamage
@@ -507,7 +502,6 @@ def ragefist
     @status       = 0
     @statusCount  = 0
     @temperature  = 30
-    @addTemp      = 0
     @ragefist     = 0
     @criticalhits = 0
     @recoildamage = 0
@@ -1457,7 +1451,7 @@ def ragefist
     pbOwnSide.effects[PBEffects::LastRoundFainted]=@battle.turncount
     if @battle.pbIsOpposing?(@index)
       $PokemonGlobal.pokebox[2]+=1
-      $PokemonGlobal.pokebox[62]+=1 if @battle.opponent
+      @battle.field.effects[PBEffects::BattleWinsTasks][2]+=1
       $PokemonGlobal.pokebox[45]+=1 if oldbestskill
       $PokemonGlobal.pokebox[17]+=1 if oldturncount<2
       $PokemonGlobal.pokebox[76]+=1 if oldturncount<2 && oldbestskill
@@ -1920,30 +1914,21 @@ def ragefist
     # Weather
     if onactive
       if self.hasWorkingAbility(:PRIMORDIALSEA) && @battle.weather!=PBWeather::HEAVYRAIN
-        for i in 0...4
-          @battle.battlers[i].addTemp = 0
-        end
-        @battle.weather=PBWeather::HEAVYRAIN
+        self.setWeather(PBWeather::HEAVYRAIN)
         @battle.weatherduration=-1
         @battle.pbCommonAnimation("HeavyRain",nil,nil)
         @battle.pbDisplay(_INTL("{1}'s {2} made a heavy rain begin to fall!",pbThis,PBAbilities.getName(self.ability)))
         PBDebug.log("[Ability triggered] #{pbThis}'s Primordial Sea made it rain heavily")
       end
       if self.hasWorkingAbility(:DESOLATELAND) && @battle.weather!=PBWeather::HARSHSUN
-        for i in 0...4
-          @battle.battlers[i].addTemp = 25
-        end
-        @battle.weather=PBWeather::HARSHSUN
+        self.setWeather(PBWeather::HARSHSUN)
         @battle.weatherduration=-1
         @battle.pbCommonAnimation("HarshSun",nil,nil)
         @battle.pbDisplay(_INTL("{1}'s {2} turned the sunlight extremely harsh!",pbThis,PBAbilities.getName(self.ability)))
         PBDebug.log("[Ability triggered] #{pbThis}'s Desolate Land made the sun shine harshly")
       end
       if self.hasWorkingAbility(:DELTASTREAM) && @battle.weather!=PBWeather::STRONGWINDS
-        for i in 0...4
-          @battle.battlers[i].addTemp = 0
-        end
-        @battle.weather=PBWeather::STRONGWINDS
+        self.setWeather(PBWeather::STRONGWINDS)
         @battle.weatherduration=-1
 
         @battle.pbCommonAnimation("StrongWinds",nil,nil)
@@ -1960,7 +1945,7 @@ def ragefist
       # Surges
       # https://www.pokecommunity.com/showthread.php?t=383035&page=2
       if self.hasWorkingAbility(:ELECTRICSURGE) && (@battle.terrain!=PBBattleTerrains::ELECTRIC && @battle.terrainduration!=-1)
-        @battle.terrain=PBBattleTerrains::ELECTRIC
+        self.setTerrain(PBBattleTerrains::ELECTRIC)
         @battle.terrainduration=5
         @battle.terrainduration=8 if self.hasWorkingItem(:TERRAINEXTENDER)
         @battle.pbDisplay(_INTL("An electric current runs across the battlefield!"))
@@ -1969,7 +1954,7 @@ def ragefist
         # The Electric Seed raised Hawlucha's Defense!
       end
       if self.hasWorkingAbility(:HADRONENGINE) && (@battle.terrain!=PBBattleTerrains::ELECTRIC && @battle.terrainduration!=-1)
-        @battle.terrain=PBBattleTerrains::ELECTRIC
+        self.setTerrain(PBBattleTerrains::ELECTRIC)
         @battle.terrainduration=5
         @battle.terrainduration=8 if self.hasWorkingItem(:TERRAINEXTENDER)
         @battle.pbDisplay(_INTL("An electric current runs across the battlefield!"))
@@ -1978,7 +1963,7 @@ def ragefist
         # The Electric Seed raised Hawlucha's Defense!
       end
       if self.hasWorkingAbility(:PSYCHICSURGE) && (@battle.terrain!=PBBattleTerrains::PSYCHIC && @battle.terrainduration!=-1)
-        @battle.terrain=PBBattleTerrains::PSYCHIC
+        self.setTerrain(PBBattleTerrains::PSYCHIC)
         @battle.terrainduration=5
         @battle.terrainduration=8 if self.hasWorkingItem(:TERRAINEXTENDER)
         @battle.pbDisplay(_INTL("The battlefield got weird!"))
@@ -1986,7 +1971,7 @@ def ragefist
         self.checkMimicryAll
       end
       if self.hasWorkingAbility(:GRASSYSURGE) && (@battle.terrain!=PBBattleTerrains::GRASSY && @battle.terrainduration!=-1)
-        @battle.terrain=PBBattleTerrains::GRASSY
+        self.setTerrain(PBBattleTerrains::GRASSY)
         @battle.terrainduration=5
         @battle.terrainduration=8 if self.hasWorkingItem(:TERRAINEXTENDER)
         @battle.pbDisplay(_INTL("Grass grew to cover the battlefield!"))
@@ -1994,7 +1979,7 @@ def ragefist
         self.checkMimicryAll
       end
       if self.hasWorkingAbility(:MISTYSURGE) && (@battle.terrain!=PBBattleTerrains::MISTY && @battle.terrainduration!=-1)
-        @battle.terrain=PBBattleTerrains::MISTY
+        self.setTerrain(PBBattleTerrains::MISTY)
         @battle.terrainduration=5
         @battle.terrainduration=8 if self.hasWorkingItem(:TERRAINEXTENDER)
         @battle.pbDisplay(_INTL("Mist swirls around the battlefield!"))
@@ -2002,7 +1987,7 @@ def ragefist
         self.checkMimicryAll
       end
       if self.hasWorkingAbility(:VOLCANICSURGE) && (@battle.terrain!=PBBattleTerrains::VOLCANIC && @battle.terrainduration!=-1)
-        @battle.terrain=PBBattleTerrains::VOLCANIC
+        self.setTerrain(PBBattleTerrains::VOLCANIC)
         @battle.terrainduration=5
         @battle.terrainduration=8 if self.hasWorkingItem(:TERRAINEXTENDER)
         @battle.pbDisplay(_INTL("A heatness has been set up on the battlefield!"))
@@ -2010,7 +1995,7 @@ def ragefist
         self.checkMimicryAll
       end
       if self.hasWorkingAbility(:LOVELYSURGE) && (@battle.terrain!=PBBattleTerrains::LOVELY && @battle.terrainduration!=-1)
-        @battle.terrain=PBBattleTerrains::LOVELY
+        self.setTerrain(PBBattleTerrains::LOVELY)
         @battle.terrainduration=5
         @battle.terrainduration=8 if self.hasWorkingItem(:TERRAINEXTENDER)
         @battle.pbDisplay(_INTL("A loveness has been set up on the battlefield!"))
@@ -2018,7 +2003,7 @@ def ragefist
         self.checkMimicryAll
       end
       if self.hasWorkingAbility(:CINEMAMAKER) && (@battle.terrain!=PBBattleTerrains::CINAMENT && @battle.terrainduration!=-1)
-        @battle.terrain=PBBattleTerrains::CINAMENT
+        self.setTerrain(PBBattleTerrains::CINAMENT)
         @battle.terrainduration=5
         @battle.terrainduration=8 if self.hasWorkingItem(:TERRAINEXTENDER)
         @battle.pbCommonAnimation("Cinament",nil,nil)
@@ -2066,10 +2051,7 @@ def ragefist
          @battle.weather!=PBWeather::HARSHSUN &&
          @battle.weather!=PBWeather::STRONGWINDS
         if self.hasWorkingAbility(:DRIZZLE) && (@battle.weather!=PBWeather::RAINDANCE && @battle.weatherduration!=-1)
-          for i in 0...4
-            @battle.battlers[i].addTemp = 0
-          end
-          @battle.weather=PBWeather::RAINDANCE
+          self.setWeather(PBWeather::RAINDANCE)
           @battle.weatherduration=5
           @battle.weatherduration=8 if hasWorkingItem(:DAMPROCK)
           @battle.pbCommonAnimation("Rain",nil,nil)
@@ -2077,10 +2059,7 @@ def ragefist
           PBDebug.log("[Ability triggered] #{pbThis}'s Drizzle made it rain")
         end
         if self.hasWorkingAbility(:DROUGHT) && (@battle.weather!=PBWeather::SUNNYDAY && @battle.weatherduration!=-1)
-          for i in 0...4
-            @battle.battlers[i].addTemp = 25
-          end
-          @battle.weather=PBWeather::SUNNYDAY
+          self.setWeather(PBWeather::SUNNYDAY)
           @battle.weatherduration=5
           @battle.weatherduration=8 if hasWorkingItem(:HEATROCK)
           @battle.pbCommonAnimation("Sunny",nil,nil)
@@ -2088,10 +2067,7 @@ def ragefist
           PBDebug.log("[Ability triggered] #{pbThis}'s Drought made it sunny")
         end
         if self.hasWorkingAbility(:ORICHALCUMPULSE) && (@battle.weather!=PBWeather::SUNNYDAY && @battle.weatherduration!=-1)
-          for i in 0...4
-            @battle.battlers[i].addTemp = 25
-          end
-          @battle.weather=PBWeather::SUNNYDAY
+          self.setWeather(PBWeather::SUNNYDAY)
           @battle.weatherduration=5
           @battle.weatherduration=8 if hasWorkingItem(:HEATROCK)
           @battle.pbCommonAnimation("Sunny",nil,nil)
@@ -2099,10 +2075,7 @@ def ragefist
           PBDebug.log("[Ability triggered] #{pbThis}'s Orichalcum Pulse made it sunny")
         end
         if self.hasWorkingAbility(:SANDSTREAM) && (@battle.weather!=PBWeather::SANDSTORM && @battle.weatherduration!=-1)
-          for i in 0...4
-            @battle.battlers[i].addTemp = 0
-          end
-          @battle.weather=PBWeather::SANDSTORM
+          self.setWeather(PBWeather::SANDSTORM)
           @battle.weatherduration=5
           @battle.weatherduration=8 if hasWorkingItem(:SMOOTHROCK)
           @battle.pbCommonAnimation("Sandstorm",nil,nil)
@@ -2110,10 +2083,7 @@ def ragefist
           PBDebug.log("[Ability triggered] #{pbThis}'s Sand Stream made it sandstorm")
         end
         if self.hasWorkingAbility(:SNOWWARNING) && (@battle.weather!=PBWeather::HAIL && @battle.weatherduration!=-1)
-          for i in 0...4
-            @battle.battlers[i].addTemp = -20
-          end
-          @battle.weather=PBWeather::HAIL
+          self.setWeather(PBWeather::HAIL)
           @battle.weatherduration=5
           @battle.weatherduration=8 if hasWorkingItem(:ICYROCK)
           @battle.pbCommonAnimation("Hail",nil,nil)
@@ -3248,7 +3218,7 @@ def ragefist
         end
         # Sand Spit
         if target.hasWorkingAbility(:SANDSPIT) && (@battle.weather!=PBWeather::SANDSTORM && @battle.weatherduration!=-1)
-          @battle.weather=PBWeather::SANDSTORM
+          target.setWeather(PBWeather::SANDSTORM)
           @battle.weatherduration=5
           @battle.weatherduration=8 if hasWorkingItem(:SMOOTHROCK)
           @battle.pbCommonAnimation("Sandstorm",nil,nil)
@@ -3276,10 +3246,10 @@ def ragefist
           PBDebug.log("[Ability triggered] #{target.pbThis}'s #{PBAbilities.getName(target.ability)}")
         end
         # Seed Sower
-        if self.hasWorkingAbility(:SEEDSOWER) && (@battle.terrain!=PBBattleTerrains::GRASSY && @battle.terrainduration!=-1)
-          @battle.terrain=PBBattleTerrains::GRASSY
+        if target.hasWorkingAbility(:SEEDSOWER) && (@battle.terrain!=PBBattleTerrains::GRASSY && @battle.terrainduration!=-1)
+          target.setTerrain(PBBattleTerrains::GRASSY)
           @battle.terrainduration=5
-          @battle.terrainduration=8 if self.hasWorkingItem(:TERRAINEXTENDER)
+          @battle.terrainduration=8 if target.hasWorkingItem(:TERRAINEXTENDER)
           @battle.pbDisplay(_INTL("Grass grew to cover the battlefield!"))
           PBDebug.log("[#{pbThis}: Sand Sower made Grassy Terrain]")
           self.checkMimicryAll
@@ -5541,7 +5511,7 @@ def ragefist
     if numhits>1
       if target.damagestate.typemod>8
         $PokemonGlobal.pokebox[31]+=1 if @battle.pbOwnedByPlayer?(user.index)
-        $PokemonGlobal.pokebox[64]+=1 if @battle.pbOwnedByPlayer?(user.index) && @battle.opponent
+        @battle.field.effects[PBEffects::BattleWinsTasks][4]+=1 if @battle.pbOwnedByPlayer?(user.index)
 				pbSEPlay("Battle effect message")
         if alltargets.length>1
           @battle.pbDisplay(_INTL("It's super effective on {1}!",target.pbThis(true)))
@@ -5550,7 +5520,7 @@ def ragefist
         end
       elsif target.damagestate.typemod>=1 && target.damagestate.typemod<8
         $PokemonGlobal.pokebox[36]+=1 if @battle.pbOwnedByPlayer?(user.index)
-        $PokemonGlobal.pokebox[65]+=1 if @battle.pbOwnedByPlayer?(user.index) && @battle.opponent
+        @battle.field.effects[PBEffects::BattleWinsTasks][5]+=1 if @battle.pbOwnedByPlayer?(user.index)
         pbSEPlay("Battle effect message")
 				if alltargets.length>1
           @battle.pbDisplay(_INTL("It's not very effective on {1}...",target.pbThis(true)))
@@ -5606,6 +5576,8 @@ def ragefist
     if target.isFainted? && @battle.pbOwnedByPlayer?(user.index)
       $PokemonGlobal.pokebox[56]+=1 if user.color == target.color
       $PokemonGlobal.pokebox[78]+=1 if user.color == target.color && oldturncount<2
+      $PokemonGlobal.pokebox[86]+=1 if user.gender == target.gender
+      $PokemonGlobal.pokebox[87]+=1 if user.gender == target.gender && oldturncount<2
     end
     pbEffectsAfterHit(user,target,thismove,turneffects)
     # Berry check
@@ -6186,20 +6158,18 @@ def ragefist
                                        isConst?(thismove.type,PBTypes,:DARK)
       $PokemonGlobal.pokebox[81]+=1 if isConst?(thismove.type,PBTypes,:ROBOT)
       $PokemonGlobal.pokebox[83]+=1 if thismove.totalpp==1
-      if @battle.opponent
-        $PokemonGlobal.pokebox[66]+=1 if thismove.pbIsPhysical?(thismove.type)
-        $PokemonGlobal.pokebox[67]+=1 if thismove.pbIsSpecial?(thismove.type)
-        $PokemonGlobal.pokebox[68]+=1 if thismove.pbIsStatus?
-        $PokemonGlobal.pokebox[72]+=1 if isConst?(thismove.type,PBTypes,:NORMAL)
-        $PokemonGlobal.pokebox[74]+=1 if isConst?(thismove.type,PBTypes,:GRASS) ||
-                                         isConst?(thismove.type,PBTypes,:FIRE) ||
-                                         isConst?(thismove.type,PBTypes,:WATER)
-        $PokemonGlobal.pokebox[80]+=1 if isConst?(thismove.type,PBTypes,:FIGHTING) ||
-                                         isConst?(thismove.type,PBTypes,:PSYCHIC) ||
-                                         isConst?(thismove.type,PBTypes,:DARK)
+      $PokemonGlobal.pokebox[88]+=1 if thismove.isBombMove?
+      @battle.field.effects[PBEffects::BattleWinsTasks][6]+=1 if thismove.pbIsPhysical?(thismove.type)
+      @battle.field.effects[PBEffects::BattleWinsTasks][7]+=1 if thismove.pbIsSpecial?(thismove.type)
+      @battle.field.effects[PBEffects::BattleWinsTasks][8]+=1 if thismove.pbIsStatus?
+      @battle.field.effects[PBEffects::BattleWinsTasks][11]+=1 if isConst?(thismove.type,PBTypes,:NORMAL)
+      @battle.field.effects[PBEffects::BattleWinsTasks][12]+=1 if isConst?(thismove.type,PBTypes,:GRASS) ||
+                                       isConst?(thismove.type,PBTypes,:FIRE) ||
+                                       isConst?(thismove.type,PBTypes,:WATER)
+      @battle.field.effects[PBEffects::BattleWinsTasks][13]+=1 if isConst?(thismove.type,PBTypes,:FIGHTING) ||
+                                       isConst?(thismove.type,PBTypes,:PSYCHIC) ||
+                                       isConst?(thismove.type,PBTypes,:DARK)
 
-
-      end
     end
     user.lastMoveUsed=thismove.id
     user.lastMoveUsedType=thismove.pbType(thismove.type,user,nil)

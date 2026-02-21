@@ -242,7 +242,7 @@ class PokeBattle_Battler
     self.status=PBStatuses::POISON
     self.statusCount=(toxic) ? 1 : 0
     self.effects[PBEffects::Toxic]=0
-    $PokemonGlobal.pokebox[26]+=1  if @battle.pbOwnedByPlayer?(attacker.index) && attacker
+    $PokemonGlobal.pokebox[26]+=1  if attacker && @battle.pbOwnedByPlayer?(attacker.index)
     if toxic
     @battle.pbCommonAnimation("BadPoison",self,nil)
     else
@@ -372,7 +372,7 @@ class PokeBattle_Battler
   def pbBurn(attacker,msg=nil)
     self.status=PBStatuses::BURN
     self.statusCount=0
-    $PokemonGlobal.pokebox[26]+=1  if @battle.pbOwnedByPlayer?(attacker.index) && attacker
+    $PokemonGlobal.pokebox[26]+=1  if attacker && @battle.pbOwnedByPlayer?(attacker.index)
     @battle.pbCommonAnimation("Burn",self,nil)
     if msg && msg!=""
       @battle.pbDisplay(msg)
@@ -476,7 +476,7 @@ class PokeBattle_Battler
   def pbParalyze(attacker,msg=nil)
     self.status=PBStatuses::PARALYSIS
     self.statusCount=0
-    $PokemonGlobal.pokebox[26]+=1  if @battle.pbOwnedByPlayer?(attacker.index) && attacker
+    $PokemonGlobal.pokebox[26]+=1  if attacker && @battle.pbOwnedByPlayer?(attacker.index)
     @battle.pbCommonAnimation("Paralysis",self,nil)
     if msg && msg!=""
       @battle.pbDisplay(msg)
@@ -658,7 +658,7 @@ class PokeBattle_Battler
 
   def pbConfuse(attacker)
     @effects[PBEffects::Confusion]=2+@battle.pbRandom(4)
-    $PokemonGlobal.pokebox[57]+=1  if @battle.pbOwnedByPlayer?(attacker.index) && attacker
+    $PokemonGlobal.pokebox[57]+=1  if attacker && @battle.pbOwnedByPlayer?(attacker.index)
     @battle.pbCommonAnimation("Confusion",self,nil)
     PBDebug.log("[Lingering effect triggered] #{pbThis} became confused (#{@effects[PBEffects::Confusion]} turns)")
   end
@@ -718,7 +718,7 @@ class PokeBattle_Battler
 
   def pbAttract(attacker,msg=nil)
     @effects[PBEffects::Attract]=attacker.index
-    $PokemonGlobal.pokebox[57]+=1  if @battle.pbOwnedByPlayer?(attacker.index) && attacker
+    $PokemonGlobal.pokebox[57]+=1  if attacker && @battle.pbOwnedByPlayer?(attacker.index)
     @battle.pbCommonAnimation("Attract",self,nil)
     if msg && msg!=""
       @battle.pbDisplay(msg)

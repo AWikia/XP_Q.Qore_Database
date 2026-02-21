@@ -2258,7 +2258,7 @@ class PokeBattle_Battle
       end
       evgain*=2 if thispoke.pokerusStage>=1 # Infected or cured
       $PokemonGlobal.pokebox[41]+=evgain if countboxtask
-      $PokemonGlobal.pokebox[70]+=evgain if countboxtask && @opponent
+      @field.effects[PBEffects::BattleWinsTasks][10]+=evgain if countboxtask
       if evgain>0
         # Can't exceed overall limit
         evgain-=totalev+evgain-PokeBattle_Pokemon::EVLIMIT if totalev+evgain>PokeBattle_Pokemon::EVLIMIT
@@ -2333,7 +2333,7 @@ class PokeBattle_Battle
     exp=newexp-thispoke.exp
     pokeboxexp= ($dbattle && !$PokemonGlobal.partner) ? (exp/2).floor : exp
     $PokemonGlobal.pokebox[0]+=exp if countboxtask
-    $PokemonGlobal.pokebox[60]+=exp if countboxtask && @opponent
+    @field.effects[PBEffects::BattleWinsTasks][0]+=exp if countboxtask
     if exp>0
       if showmessages
         if isOutsider
@@ -2387,7 +2387,7 @@ class PokeBattle_Battle
           battler.pbUpdate(false) if battler
           @scene.pbRefresh
           $PokemonGlobal.pokebox[1]+=1
-          $PokemonGlobal.pokebox[61]+=1 if @opponent
+          @field.effects[PBEffects::BattleWinsTasks][1]+=1
           pbDisplayPaused(_INTL("{1} grew to Level {2}!",thispoke.name,curlevel))
           @scene.pbLevelUp(thispoke,battler,oldtotalhp,oldattack,
                            olddefense,oldspeed,oldspatk,oldspdef)
@@ -2644,9 +2644,6 @@ class PokeBattle_Battle
         end
       end
       if !hasabil
-        for i in 0...4
-          @battlers[i].addTemp = 0
-        end
         @weather=0
         pbDisplayBrief("The heavy rain has lifted!")
       end
@@ -2658,9 +2655,6 @@ class PokeBattle_Battle
         end
       end
       if !hasabil
-        for i in 0...4
-          @battlers[i].addTemp = 0
-        end
         @weather=0
         pbDisplayBrief("The harsh sunlight faded!")
       end
@@ -2672,9 +2666,6 @@ class PokeBattle_Battle
         end
       end
       if !hasabil
-        for i in 0...4
-          @battlers[i].addTemp = 0
-        end
         @weather=0
         pbDisplayBrief("The mysterious air current has dissipated!")
       end
@@ -3409,9 +3400,6 @@ class PokeBattle_Battle
     when PBWeather::SUNNYDAY
       @weatherduration=@weatherduration-1 if @weatherduration>0
       if @weatherduration==0
-        for i in 0...4
-          @battlers[i].addTemp = 0
-        end
         pbDisplay(_INTL("The sunlight faded."))
         @weather=0
         PBDebug.log("[End of effect] Sunlight weather ended")
@@ -3420,7 +3408,6 @@ class PokeBattle_Battle
 #        pbDisplay(_INTL("The sunlight is strong."))
         if pbWeather==PBWeather::SUNNYDAY
           for i in 0...4
-            @battlers[i].addTemp = 25
             @battlers[i].temperature2= [[5,10][rand(2)],5,2,2,-2,-5][rand(6)] if rand(10) < 5
           end
           for i in priority
@@ -3490,9 +3477,6 @@ class PokeBattle_Battle
     when PBWeather::HAIL
       @weatherduration=@weatherduration-1 if @weatherduration>0
       if @weatherduration==0
-        for i in 0...4
-          @battlers[i].addTemp = 0
-        end
         pbDisplay(_INTL("The hail stopped."))
         @weather=0
         PBDebug.log("[End of effect] Hail weather ended")
@@ -3501,7 +3485,6 @@ class PokeBattle_Battle
 #        pbDisplay(_INTL("Hail continues to fall."))
         if pbWeather==PBWeather::HAIL
           for i in 0...4
-            @battlers[i].addTemp = -20
             @battlers[i].temperature2= [[-5,-10][rand(2)],-5,-2,-2,2,5][rand(6)] if rand(10) < 5
           end
           PBDebug.log("[Lingering effect triggered] Hail weather damage")
@@ -3561,8 +3544,6 @@ class PokeBattle_Battle
         if isConst?(@battlers[i].ability,PBAbilities,:DESOLATELAND) && !@battlers[i].isFainted?
           hasabil=true; break
         end
-        @battlers[i].addTemp = 25 if hasabil
-        @battlers[i].addTemp = 0 if !hasabil
         @battlers[i].temperature2= [[5,10][rand(2)],5,2,2,-2,-5][rand(6)] if rand(10) < 5 && hasabil
       end
       @weatherduration=0 if !hasabil
@@ -4967,6 +4948,19 @@ class PokeBattle_Battle
       PBDebug.log("")
       PBDebug.log("***Player won***")
       $PokemonGlobal.pokebox[13]+=1  if $game_map && pbGetMetadata($game_map.map_id,MetadataUpperKingdom)
+      # Common Tasks that need battle wins
+      tasks= [60,61,62,63,64,65,66,67,68,69,70,72,74,80]
+      tasks2= [90,91,92,93,94,95,96,97,98,99,100,101,102,103]
+      idx = 0
+      for item in @field.effects[PBEffects::BattleWinsTasks]
+        if tasks[idx]
+          $PokemonGlobal.pokebox[tasks[idx]]+=item if @opponent
+        end
+        if tasks2[idx]
+          $PokemonGlobal.pokebox[tasks2[idx]]+=item
+        end
+        idx+=1
+      end
       if @opponent
         if $game_map && pbGetMetadata($game_map.map_id,MetadataUpperKingdom)
           $PokemonBox.addBalancePoints(60)

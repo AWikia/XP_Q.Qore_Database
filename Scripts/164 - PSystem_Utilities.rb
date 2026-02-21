@@ -428,7 +428,8 @@ def pbCheckDTM
     $PokemonBag.pbStoreItem(:DAILYTREATMACHINE,1)
   end
   if $PokemonBag.pbQuantity(:DAILYTREATMACHINE)>0 && 
-     pbTimeEventValid(DTM_VARIABLES[1],false,86400)
+     (pbTimeEventValid(DTM_VARIABLES[1],false,86400) || 
+      $game_variables[DTM_VARIABLES[1]]==0)
         scene=DailyTreatMachineScene.new
         screen=DailyTreatMachine.new(scene)
         pbFadeOutIn(99999) { 

@@ -209,6 +209,7 @@ begin
     NeutralizingGas = 11  # Used for Gen8 Neutralizing Gas ability
     Torchwood       = 12
     GlimmyGalaxy    = 13
+    BattleWinsTasks = 14 # For Pokemon Box
     ############################################################################
     # These effects apply to the usage of a move
     SkipAccuracyCheck = 0

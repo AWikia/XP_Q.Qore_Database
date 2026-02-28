@@ -521,6 +521,7 @@ class PokemonSystem
   attr_accessor :customshiny
   attr_accessor :battlecolor
   attr_accessor :autosave
+  attr_accessor :pokeboxitemstyle
   
   def initialize
     @textspeed2       = 1   # Text speed (0=slow, 1=normal, 2=fast)
@@ -558,6 +559,7 @@ class PokemonSystem
     @customshiny      = 0   # Customized Shinies
     @battlecolor      = 0   # Battle Message Box Color (0-4  = Color 1-5)
     @autosave         = 0   # Autosave (0 = Off, 1 = On)
+    @pokeboxitemstyle = 0   # Autosave (0 = Pokemon, 1 = Colored Shapes)
 end
 
   def textspeed2 # FIXME: Rename me back to textspeed once Qortex Essentials Ennea gets replaced
@@ -677,6 +679,9 @@ end
     return (!@autosave) ? 0 : @autosave
   end    
 
+  def pokeboxitemstyle
+    return (!@pokeboxitemstyle) ? 0 : @pokeboxitemstyle
+  end  
   
   def tilemap; return MAPVIEWMODE; end
 
@@ -1010,6 +1015,14 @@ There are different modes:
             },
             getBorderNames,
            _INTL("Sets the decorative border graphic when Screen Border is on.")
+         ),
+         NumberOption.new(_INTL("Pokémon Box Item Graphic Set"),1,$PokemonBox.iconNames.length,
+            proc { $PokemonSystem.pokeboxitemstyle },
+            proc {|value|
+               $PokemonSystem.pokeboxitemstyle=value
+            },
+            $PokemonBox.iconNames,
+           _INTL("Sets the graphics used for the Pokémon Box's Task Items.")
          )
       ]
     end

@@ -6135,6 +6135,7 @@ def ragefist
     end
     # Record move as having been used
     if @battle.pbOwnedByPlayer?(@index)
+      $PokemonGlobal.pokebox[105]+=1
       $PokemonGlobal.pokebox[6]+=1 if thismove.pbIsPhysical?(thismove.type)
       $PokemonGlobal.pokebox[7]+=1 if thismove.pbIsSpecial?(thismove.type)
       $PokemonGlobal.pokebox[8]+=1 if thismove.pbIsStatus?

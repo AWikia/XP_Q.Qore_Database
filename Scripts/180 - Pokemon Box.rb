@@ -65,9 +65,10 @@ class PokemonGlobalMetadata
             _INTL("Defeat Opposing Pokémon in Battle Wins"),_INTL("Deal Damage to other Pokémon in Battle Wins"),
             _INTL("Land Super Effectiveness in Battle Wins"),_INTL("Land Not Very Effectiveness in Battle Wins"),
             _INTL("Use Physical Moves in Battle Wins"),_INTL("Use Special Moves in Battle Wins"),
-            _INTL("Use Status Moves in Battle Wins"),_INTL("Gain Levelup Stat Changes in Trainer Wins"),
+            _INTL("Use Status Moves in Battle Wins"),_INTL("Gain Levelup Stat Changes in Battle Wins"),
             _INTL("Gain Effort Values in Battle Wins"),_INTL("Use Normal Moves in Battle Wins"),
-            _INTL("Use Grass, Fire or Water Moves in Battle Wins"),_INTL("Use Fighting, Psychic or Dark Moves in Battle Wins")]
+            _INTL("Use Grass, Fire or Water Moves in Battle Wins"),_INTL("Use Fighting, Psychic or Dark Moves in Battle Wins"),
+            _INTL("Win Battles"),_INTL("Use Moves")]
 
   end
   def pokeboxNames2
@@ -122,7 +123,8 @@ class PokemonGlobalMetadata
             _INTL("Physical Move Usage/Win"),_INTL("Special Move Usage/Win"),
             _INTL("Status Move Usage/Win"),_INTL("Levelup stat Gaining/Win"),
             _INTL("Effort Values Gaining/Win"),_INTL("Normal Move Usage/Win"),
-            _INTL("G-F-W Move Usage/Win"),_INTL("Fi-Ps-Da Move Usage/Win")]
+            _INTL("G-F-W Move Usage/Win"),_INTL("Fi-Ps-Da Move Usage/Win"),
+            _INTL("Battle Winning"),_INTL("Move Usage")]
 
   end
   def pokeboxNames3
@@ -175,9 +177,10 @@ class PokemonGlobalMetadata
             _INTL("Opposing Pokémon in Battle Wins Defeated"),_INTL("Damage to other Pokémon in Battle Wins Dealt"),
             _INTL("Super Effectiveness in Battle Wins Landed"),_INTL("Not Very Effectiveness in Battle Wins Landed"),
             _INTL("Physical Moves in Battle Wins Used"),_INTL("Special Moves in Battle Wins Used"),
-            _INTL("Status Moves in Battle Wins Used"),_INTL("Levelup Stat Changes in Trainer Wins Gained"),
+            _INTL("Status Moves in Battle Wins Used"),_INTL("Levelup Stat Changes in Battle Wins Gained"),
             _INTL("Effort Values in Battle Wins Gained"),_INTL("Normal Moves in Battle Wins Used"),
-            _INTL("Grass, Fire or Water Moves in Battle Wins Used"),_INTL("Fighting, Psychic or Dark Moves in Battle Wins Used")]
+            _INTL("Grass, Fire or Water Moves in Battle Wins Used"),_INTL("Fighting, Psychic or Dark Moves in Battle Wins Used"),
+            _INTL("Battles Won"),_INTL("Moves Used")]
   end
 
   def pokeboxDescriptions
@@ -200,7 +203,7 @@ class PokemonGlobalMetadata
             _INTL("Use your Pokémon's Damaging moves of the same typing as the Pokémon itself to progress."),
             _INTL("Use up one of your moves that can defeat the opposing Pokémon in the turn that appeared to progress."),
             _INTL("Use items from the Berries pocket in your Pokémon to progress. Held items do not count."),
-            _INTL("Defeat a group of 5 similar Pokémon to progress. In double battles, it counts twice."),
+            _INTL("Defeat groups of 5 similar Pokémon or win irregular battles to progress. It counts once per instance."),
             _INTL("Increase your Pokémon's stats using moves, abilities or items to progress. Each stat increase counts once."),
             _INTL("Use your revival items or a Pokémon with Revival Blessing to revive out a fainted Pokémon and progress."),
             _INTL("Use your Pokémon's Healing moves to progress. It doesn't have to recover HP in order to be counted."),
@@ -284,8 +287,9 @@ class PokemonGlobalMetadata
             _INTL("Defeat Pokémon to gain Effort Values. Only efforts from the first participant in Trainer Battle Wins counts."),
             _INTL("Use your Pokémon's Nomral moves in Battle Wins to progress. Status moves turned into Normal moves conut too."),
             _INTL("Use your Pokémon's Grass, Fire or Water moves in Battle Wins to progress."),
-            _INTL("Use your Pokémon's Fighting, Psychic or Dark moves in Battle Wins to progress.")]
-
+            _INTL("Use your Pokémon's Fighting, Psychic or Dark moves in Battle Wins to progress."),
+            _INTL("Complete Battles to progress."),
+            _INTL("Use your Pokémon's moves to progress. Status moves turned into moves conut too.")]
   end
 
   def pokeboxData 
@@ -310,7 +314,7 @@ class PokemonGlobalMetadata
             [1,2,0,1,true,3,0,2],        # Defeat Trainers
             [3,7,0,1,false,3,0,1],       # Lapse Turns
             [0.4,0.65,0,1,false,6,0,2],  # Use Medicine Items
-            [1,2,0,1,false,5,2,2],       # Win battles in UK
+            [1,1.5,0,1,false,5,2,2],     # Win battles in UK
             [80,240,1.5,10,false,0,0,1], # Deal Damage
             [0.5,1,0,1,false,1,0,2],     # Land Critical Hits
             [2,4,0,1,false,2,0,2],       # Use STAB Moves
@@ -401,6 +405,8 @@ class PokemonGlobalMetadata
             [3,6,0,1,false,2,2,1],       # Use Normal Moves/win
             [3,6,0,1,false,2,2,1],       # Use G-F-W Moves/Win
             [3,6,0,1,false,2,2,1],       # Use Fi-Ps-Da Moves/Win
+            [1,2,0,1,false,0,0,1],       # Win Battles
+            [4,8,0,1,false,2,0,1],       # Use Moves
             ]
   end
   
@@ -413,6 +419,7 @@ class PokemonBoxScene
   attr_accessor :stages
   attr_accessor :items
   attr_accessor :icons
+  attr_accessor :iconNames
   attr_accessor :milestoneDay
 
   def update
@@ -445,11 +452,12 @@ class PokemonBoxScene
     # Demon Milestone
     ["Demon",[[:SACREDASH,3],:MASTERBALL,[:SUPERBOOSTER,3],[:BOTANICSMOKE,2],:LOADEDDICE,[:VICIOUSCANDY,3]],3,40,4,[:ENIGMABERRY,2]]
     ]
-    if $Trainer && $Trainer.isFemale?
-      @icons=["voltorb","staryu","pikachu","slowpoke"]
-    else
-      @icons=["magnemite","shellder","pikachu","psyduck"]
-    end
+    @icons=[
+            [["magnemite","shellder","pikachu","psyduck"],
+             ["voltorb","staryu","pikachu","slowpoke"]],
+            ["redcircle","yellowsquare","bluetriangle","greenpentagon"]
+    ]
+    @iconNames=[_INTL("Pokémon"),_INTL("Colors")]
     @milestoneDay=pbIsMillenialDate?
   end
 
@@ -503,16 +511,16 @@ class PokemonBoxScene
     @sprites["overlayItems"]=BitmapSprite.new(Graphics.width,Graphics.height,@viewport)    
     @sprites["overlayItems"].z = 4
     @sprites["task0"]=IconSprite.new(@sprites["machine"].x+12,@sprites["machine"].y+70,@viewport)
-    @sprites["task0"].setBitmap(_INTL("Graphics/UI/Pokemon Box/icon_{1}",@icons[0]))
+    @sprites["task0"].setBitmap(_INTL("Graphics/UI/Pokemon Box/icon_{1}",getIconName(0)))
     @sprites["task0"].z = 4
     @sprites["task1"]=IconSprite.new(@sprites["machine"].x+76,@sprites["machine"].y+70,@viewport)
-    @sprites["task1"].setBitmap(_INTL("Graphics/UI/Pokemon Box/icon_{1}",@icons[1]))
+    @sprites["task1"].setBitmap(_INTL("Graphics/UI/Pokemon Box/icon_{1}",getIconName(1)))
     @sprites["task1"].z = 4
     @sprites["task2"]=IconSprite.new(@sprites["machine"].x+140,@sprites["machine"].y+70,@viewport)
-    @sprites["task2"].setBitmap(_INTL("Graphics/UI/Pokemon Box/icon_{1}",@icons[2]))
+    @sprites["task2"].setBitmap(_INTL("Graphics/UI/Pokemon Box/icon_{1}",getIconName(2)))
     @sprites["task2"].z = 4
     @sprites["task3"]=IconSprite.new(@sprites["machine"].x+204,@sprites["machine"].y+70,@viewport)
-    @sprites["task3"].setBitmap(_INTL("Graphics/UI/Pokemon Box/icon_{1}",@icons[3]))
+    @sprites["task3"].setBitmap(_INTL("Graphics/UI/Pokemon Box/icon_{1}",getIconName(3)))
     @sprites["task3"].z = 4
     expiredbox = pbTimeEventValid(PBOX_VARIABLES[3]) || expired
     welcome=$game_variables[PBOX_VARIABLES[1]] == 0
@@ -678,6 +686,15 @@ class PokemonBoxScene
   
   def taskstatus2 # Maximum Task Status
     return $game_variables[PBOX_VARIABLES[1]][currentStep][2]
+  end
+  
+  def getIconName(idx)
+    icons=@icons[($PokemonSystem.pokeboxitemstyle rescue 0)]
+    if icons[0].is_a?(Array) # Item 0 = Male | Item 1 = Female
+      return icons[($Trainer && $Trainer.isFemale?) ? 1 : 0][idx]
+    else  # One for both genders
+      return icons[idx]
+    end
   end
   
   def getTaskLabel(idx,nohardmarkers=false)
@@ -875,7 +892,7 @@ class PokemonBoxScene
                                           }
     else # Level 1 and below
       tasksToExclude=taskNumbers.find_all {|num| 
-                                          ( boxdata[num][7]<2 && ([0,1,2].include?(boxdata[num][5]) && boxdata[num][4]) ) ||
+                                          ( boxdata[num][7]<2 && ([0,1,2].include?(boxdata[num][5]) && (boxdata[num][4] || boxdata[num][6]>1)) ) ||
                                           ( boxdata[num][6]>boxLevel && currentBoxDif==0 )
                                           }
 
@@ -1146,7 +1163,7 @@ class PokemonBoxScene
     progress.push(["Graphics/UI/"+getDarkModeFolder+"/Pokemon Box/overlay_progress_small",@sprites["progress"].x,@sprites["progress"].y,0,0,-1,-1])
     progress.push(["Graphics/UI/"+getAccentFolder+"/summaryEggBar_small",@sprites["progress"].x+8,@sprites["progress"].y+4,0,0,(shadowfract*1.98).floor,-1])
     progress.push(["Graphics/UI/Pokemon Box/icons",@sprites["progress"].x-28,@sprites["progress"].y-6,0,34*$game_variables[PBOX_VARIABLES[1]][currentStep][0],34,34])
-    progress.push(["Graphics/UI/Pokemon Box/icon_"+@icons[stepID],@sprites["progress_icon"].x,@sprites["progress_icon"].y,0,0,-1,-1])
+    progress.push(["Graphics/UI/Pokemon Box/icon_"+getIconName(stepID),@sprites["progress_icon"].x,@sprites["progress_icon"].y,0,0,-1,-1])
     progress.push(["Graphics/UI/Pokemon Box/icon_markings",@sprites["progress_icon"].x+26,@sprites["progress_icon"].y+16,0,30*taskLevel(-1),36,30])
     # Draw Time Left graphics
     progressTime.push(["Graphics/UI/"+getAccentFolder+"/summaryEggBar",@sprites["progresstime"].x+8,@sprites["progresstime"].y+4,0,0,(shadowfract2*2.48).floor,-1])
@@ -1341,6 +1358,8 @@ class PokemonBoxScene
             pbFadeOutIn(99999) { 
               screen.pbStartScreen(oldstage,currentStage)
             }
+        oldl = currentBoxBalanceMeter(true)
+        $game_variables[PBOX_VARIABLES[6]] = [oldbl] # Clear Balance Points after an expire
         initializeBox
         animateTaskPane(0,255)
       else
@@ -1397,18 +1416,18 @@ class PokemonBoxScene
   
   # Updates the icons in the Pokemon Box container itself
   def update_icons(nohardmarkers=false)
-#icon_{1}",@icons[0]
+#icon_{1}",getIconName(0)
     @sprites["task0"].visible= true
-    @sprites["task0"].setBitmap(_INTL("Graphics/UI/Pokemon Box/icon_{1}{2}",@icons[0],getTaskLabel(0,nohardmarkers)))
+    @sprites["task0"].setBitmap(_INTL("Graphics/UI/Pokemon Box/icon_{1}{2}",getIconName(0),getTaskLabel(0,nohardmarkers)))
     @sprites["task0"].bitmap.hue_change(getTaskHue(0,nohardmarkers))
     @sprites["task1"].visible= true
-    @sprites["task1"].setBitmap(_INTL("Graphics/UI/Pokemon Box/icon_{1}{2}",@icons[1],getTaskLabel(1,nohardmarkers)))
+    @sprites["task1"].setBitmap(_INTL("Graphics/UI/Pokemon Box/icon_{1}{2}",getIconName(1),getTaskLabel(1,nohardmarkers)))
     @sprites["task1"].bitmap.hue_change(getTaskHue(1,nohardmarkers))
     @sprites["task2"].visible= true
-    @sprites["task2"].setBitmap(_INTL("Graphics/UI/Pokemon Box/icon_{1}{2}",@icons[2],getTaskLabel(2,nohardmarkers)))
+    @sprites["task2"].setBitmap(_INTL("Graphics/UI/Pokemon Box/icon_{1}{2}",getIconName(2),getTaskLabel(2,nohardmarkers)))
     @sprites["task2"].bitmap.hue_change(getTaskHue(2,nohardmarkers))
     @sprites["task3"].visible= true
-    @sprites["task3"].setBitmap(_INTL("Graphics/UI/Pokemon Box/icon_{1}{2}",@icons[3],getTaskLabel(3,nohardmarkers)))
+    @sprites["task3"].setBitmap(_INTL("Graphics/UI/Pokemon Box/icon_{1}{2}",getIconName(3),getTaskLabel(3,nohardmarkers)))
     @sprites["task3"].bitmap.hue_change(getTaskHue(3,nohardmarkers))
   end
   

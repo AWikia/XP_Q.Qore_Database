@@ -2599,7 +2599,7 @@ end
       currentStep=$PokemonBox.currentStep
       oldtaskstatus=$game_variables[PBOX_VARIABLES[5]]
       step = $game_variables[PBOX_VARIABLES[1]][currentStep][0]
-      pbCreatePopUp($game_variables[PBOX_VARIABLES[5]],$PokemonBox.taskstatus,$PokemonBox.taskstatus2,_INTL("Pokémon Box"),["Graphics/UI/Pokemon Box/icons",step],"Graphics/UI/Pokemon Box/icon_"+$PokemonBox.icons[$PokemonBox.stepID])
+      pbCreatePopUp($game_variables[PBOX_VARIABLES[5]],$PokemonBox.taskstatus,$PokemonBox.taskstatus2,_INTL("Pokémon Box"),["Graphics/UI/Pokemon Box/icons",step],"Graphics/UI/Pokemon Box/icon_"+$PokemonBox.getIconName($PokemonBox.stepID))
     end
     # End
     # Mapped Events

@@ -1755,12 +1755,10 @@ MultipleForms.register(:CHESNAUGHT,{
    next [88,147,172,44,74,115] if pokemon.form==1
    next
 },
-=begin
 "getAbilityList"=>proc{|pokemon|
-   next [[getID(PBAbilities,:THICKFAT),0]] if pokemon.form==1
+   next [[getID(PBAbilities,:BULLETPROOF),0]] if pokemon.form==1
    next
 },
-=end
 "dexEntry"=>proc{|pokemon|
    next if pokemon.form==0
    next _INTL("It has fortified armor and a will to defend at all costs. Both are absurdly strong.") if pokemon.form==1
@@ -1776,12 +1774,10 @@ MultipleForms.register(:DELPHOX,{
    next [75,69,72,134,159,125] if pokemon.form==1
    next
 },
-=begin
 "getAbilityList"=>proc{|pokemon|
-   next [[getID(PBAbilities,:THICKFAT),0]] if pokemon.form==1
+   next [[getID(PBAbilities,:LEVITATE),0]] if pokemon.form==1
    next
 },
-=end
 "dexEntry"=>proc{|pokemon|
    next if pokemon.form==0
    next _INTL("It wields flaming branches to dazzle its opponents before incinerating them with a huge fireball.") if pokemon.form==1
@@ -1797,12 +1793,10 @@ MultipleForms.register(:GRENINJA,{
    next [72,125,77,142,133,81] if pokemon.form==1
    next
 },
-=begin
 "getAbilityList"=>proc{|pokemon|
-   next [[getID(PBAbilities,:THICKFAT),0]] if pokemon.form==1
+   next [[getID(PBAbilities,:PROTEAN),0]] if pokemon.form==1
    next
 },
-=end
 "dexEntry"=>proc{|pokemon|
    next if pokemon.form==0
    next _INTL("This Pokémon spins a giant shuriken at high speed to make it float, then clings to it upside down to catch opponents unawares.") if pokemon.form==1

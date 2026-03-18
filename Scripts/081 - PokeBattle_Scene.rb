@@ -2586,13 +2586,21 @@ end
   end
   
   def pbCheckEvents
-    # Daily Win
+    # Daily Win (Stamps)
     if $PokemonBag.pbQuantity(:DAILYWIN)>0 # Avoid crashes as the first one 
-      oldamount=$game_variables[DWIN_VARIABLES[2]]
-      newamount=$game_variables[DWIN_VARIABLES[0]]
-      variant=($Trainer && $Trainer.isFemale?) ? 1 : 0
-      suffix=($Trainer && $Trainer.isFemale?) ? "_f" : ""
-      pbCreatePopUp(oldamount,newamount,7,_INTL("Daily Win"),["Graphics/UI/Daily Win/icon_stamps",variant],"Graphics/UI/Daily Win/icon_chest"+suffix)
+      dwin=DailyWinScene.new
+      suffix=dwin.suffix
+      variant=dwin.mode
+      oldamount=$game_variables[DWIN_VARIABLES[4]]
+      newamount=$game_variables[DWIN_VARIABLES[3]]
+      oldamount2=$game_variables[DWIN_VARIABLES[2]]
+      newamount2=$game_variables[DWIN_VARIABLES[0]]
+      # Daily Win (Task)
+      pbCreatePopUp(oldamount,newamount,dwin.battles[oldamount2],_INTL("Daily Win"),["Graphics/UI/Daily Win/icon_win",0],"Graphics/UI/Daily Win/icon_stamp"+suffix)
+      # Daily Win (Stamps)
+      pbCreatePopUp(oldamount2,newamount2,7,_INTL("Daily Win"),["Graphics/UI/Daily Win/icon_stamps",variant],"Graphics/UI/Daily Win/icon_chest"+suffix)
+      $game_variables[DWIN_VARIABLES[3]]=0 if oldamount2 != newamount2
+      $game_variables[DWIN_VARIABLES[4]]=0 if oldamount2 != newamount2
     end
     # Pokemon Box
     if $PokemonBag.pbQuantity(:POKEMONBOX)>0 # Avoid crashes as the first one 

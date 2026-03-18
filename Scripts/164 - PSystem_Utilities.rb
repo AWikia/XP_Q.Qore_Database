@@ -488,6 +488,10 @@ def pbReturnBonusEvent
   oldtime = ((Time.now - $PokemonGlobal.lastSavedTime) / 86400).floor
   if oldtime > 9
     $game_variables[DWIN_VARIABLES[0]]=0
+    $game_variables[DWIN_VARIABLES[2]]=0
+    $game_variables[DWIN_VARIABLES[3]]=0
+    $game_variables[DWIN_VARIABLES[4]]=0
+    $game_variables[DWIN_VARIABLES[5]]=(pbIsMillenialDate?) ? 2 : (pbIsWeekday(-1,4,5)) ? 1 : 0
     multi = [(oldtime/10).floor,3].min # x1 on 10-19 days, x2 on 20-29 days, x3 on 30+ days
     money = 5000*multi
     $Trainer.money+=money
@@ -888,6 +892,7 @@ end
 
 def pbRecordOldValues
   $game_variables[DWIN_VARIABLES[2]]=$game_variables[DWIN_VARIABLES[0]]
+  $game_variables[DWIN_VARIABLES[4]]=$game_variables[DWIN_VARIABLES[3]]
   # Record Pokemon Box's last task state
   if $game_variables[PBOX_VARIABLES[1]] != 0
     currentStep=$PokemonBox.currentStep
@@ -901,9 +906,13 @@ end
 def pbSaveDailyWin
   if $PokemonBag.pbQuantity(:DAILYWIN)>0
     pbTimeEvent(DWIN_VARIABLES[1],1) if $game_variables[DWIN_VARIABLES[1]]==0 
-    if pbTimeEventValid(DWIN_VARIABLES[1])
-      $game_variables[DWIN_VARIABLES[0]]+=1
-      pbTimeEventDays(DWIN_VARIABLES[1],1)
+    if pbTimeEventValid(DWIN_VARIABLES[1],false)
+      dwin=DailyWinScene.new
+      $game_variables[DWIN_VARIABLES[3]]+=1
+      if $game_variables[DWIN_VARIABLES[3]] >= dwin.battles[ $game_variables[DWIN_VARIABLES[0]] ]
+        $game_variables[DWIN_VARIABLES[0]]+=1
+        pbTimeEventDays(DWIN_VARIABLES[1],1)
+      end
     end
   end
 end

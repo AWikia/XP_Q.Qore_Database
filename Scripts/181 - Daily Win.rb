@@ -1,6 +1,22 @@
 class DailyWinScene
+  attr_accessor :battles
+  attr_accessor :mode
+  attr_accessor :suffix
+  
   def update
     pbUpdateSpriteHash(@sprites)
+  end
+  
+  def initialize
+    if $game_variables[DWIN_VARIABLES[1]] == 0
+      pbTimeEvent(DWIN_VARIABLES[1],1)
+      $game_variables[DWIN_VARIABLES[5]]=(pbIsMillenialDate?) ? 2 : (pbIsWeekday(-1,4,5)) ? 1 : 0
+    end
+    @battles=[[1,1,1,1,1,1,1],
+             [1,1,1,2,2,2,3],
+             [1,2,3,4,5,6,7]][ $game_variables[DWIN_VARIABLES[5]] ]
+    @mode=$game_variables[DWIN_VARIABLES[5]]
+    @suffix=(@mode>0) ? "_"+@mode.to_s : ""
   end
 
   def pbStartScene
@@ -12,9 +28,11 @@ class DailyWinScene
     # Viewport for the Task Pane
     @viewportTask=Viewport.new(14,196,(Graphics.width / 2)-28,82)
     @viewportTask.z=99999
-    femback=pbResolveBitmap(sprintf("Graphics/UI/"+getDarkModeFolder+"/Daily Win/bg_f"))
-    if $Trainer && $Trainer.isFemale? && femback
-      addBackgroundPlane(@sprites,"bg",getDarkModeFolder+"/Daily Win/bg_f",@viewport)
+    @viewportTask2=Viewport.new(14,102,(Graphics.width / 2)-28,82)
+    @viewportTask2.z=99999
+    femback=pbResolveBitmap(sprintf("Graphics/UI/"+getDarkModeFolder+"/Daily Win/bg"+@suffix))
+    if femback
+      addBackgroundPlane(@sprites,"bg",getDarkModeFolder+"/Daily Win/bg"+@suffix,@viewport)
     else
       addBackgroundPlane(@sprites,"bg",getDarkModeFolder+"/Daily Win/bg",@viewport)
     end
@@ -27,9 +45,15 @@ class DailyWinScene
     @sprites["progress"]=IconSprite.new((Graphics.width/4)-132,44,@viewportTask)
     @sprites["progress"].setBitmap(_INTL("Graphics/UI/"+getDarkModeFolder+"/Daily Win/overlay_progress_small"))
     @sprites["progress"].visible=false
+    @sprites["progress2"]=IconSprite.new((Graphics.width/4)-132,44,@viewportTask2)
+    @sprites["progress2"].setBitmap(_INTL("Graphics/UI/"+getDarkModeFolder+"/Daily Win/overlay_progress_small"))
+    @sprites["progress2"].visible=false
     @sprites["progress_icon"]=IconSprite.new((Graphics.width/4)+70,30,@viewportTask)
     @sprites["progress_icon"].setBitmap(_INTL("Graphics/UI/"+getDarkModeFolder+"/Daily Win/icon_magnemite"))
     @sprites["progress_icon"].visible=false
+    @sprites["progress2_icon"]=IconSprite.new((Graphics.width/4)+70,30,@viewportTask2)
+    @sprites["progress2_icon"].setBitmap(_INTL("Graphics/UI/"+getDarkModeFolder+"/Daily Win/icon_magnemite"))
+    @sprites["progress2_icon"].visible=false
     @sprites["progresstime"]=IconSprite.new((Graphics.width/4)-132+14,334,@viewport)
     @sprites["progresstime"].setBitmap(_INTL("Graphics/UI/"+getDarkModeFolder+"/Daily Win/overlay_progress"))
     @sprites["bg"].z = 1
@@ -40,18 +64,26 @@ class DailyWinScene
     @sprites["overlay"]=BitmapSprite.new((Graphics.width/2 - 28),Graphics.height - 40,@viewport2)
     @sprites["overlayTask"]=BitmapSprite.new((Graphics.width / 2)-28,82,@viewportTask)
     @sprites["overlayTask"].z = 4
+    @sprites["overlayTask2"]=BitmapSprite.new((Graphics.width / 2)-28,82,@viewportTask2)
+    @sprites["overlayTask2"].z = 4
     @sprites["overlayTime"]=BitmapSprite.new(Graphics.width,Graphics.height,@viewport)
     @sprites["overlayTime"].z = 4
     @sprites["overlayItems"]=BitmapSprite.new(Graphics.width,Graphics.height,@viewport)    
     @sprites["overlayItems"].z = 4
     pbSetSystemFont(@sprites["overlay"].bitmap)
     pbSetSystemFont(@sprites["overlayTask"].bitmap)
+    pbSetSystemFont(@sprites["overlayTask2"].bitmap)
     pbSetSystemFont(@sprites["overlayTime"].bitmap)
     pbSetSmallFont(@sprites["overlayItems"].bitmap)
-    if $game_variables[DWIN_VARIABLES[1]] == 0
-      pbTimeEvent(DWIN_VARIABLES[1],1)
-    end
-    if $Trainer.numbadges>3
+      @rewards=[
+        :POKEDOLL,
+        [:SITRUSBERRY,3],
+        [:LUMBERRY,3],
+        [:HYPERPOTION,3],
+        [:ULTRABALL,3],
+        [:NORMALGEM,2],
+        [:FULLHEAL,2],
+      ]
       @rewards=[
         :POKEDOLL,
         :BOTANICSMOKE,
@@ -64,18 +96,23 @@ class DailyWinScene
         [:FULLHEAL,2],
         [[:GRASSGEM,:FIREGEM,:WATERGEM][$game_variables[14]],2],
         [[:FIGHTINGGEM,:PSYCHICGEM,:DARKGEM][$game_variables[14]],2],
-      ]
-    else
+      ] if @mode==1
       @rewards=[
-        :POKEDOLL,
-        [:SITRUSBERRY,3],
-        [:LUMBERRY,3],
-        [:SUPERPOTION,3],
-        [:GREATBALL,3],
-        [:NORMALGEM,2],
-        [:FULLHEAL,2],
-      ]
-    end
+        [:POKEDOLL,2],
+        [:BOTANICSMOKE,2],
+        [:SITRUSBERRY,6],
+        [:LEPPABERRY,6],
+        [:LUMBERRY,6],
+        [:MEGAPOTION,4],
+        [:PARKBALL,4],
+        [:NORMALGEM,4],
+        [:FULLHEAL,3],
+        [[:GRASSGEM,:FIREGEM,:WATERGEM][$game_variables[14]],3],
+        [[:FIGHTINGGEM,:PSYCHICGEM,:DARKGEM][$game_variables[14]],3],
+        [[:OCCABERRY,:PASSHOBERRY,:RINDOBERRY][$game_variables[14]],2],
+        [[:PAYAPABERRY,:COLBURBERRY,:CHOPLEBERRY][$game_variables[14]],2],
+      ] if @mode==2
+      
     @rewards.push([:GOLDBAR,25]) if $game_switches[218]
     @rewardclaim=false
     pbDisplayDailyWin
@@ -87,6 +124,7 @@ class DailyWinScene
     overlay=@sprites["overlay"].bitmap
     overlay.clear
     @sprites["overlayTask"].bitmap.clear
+    @sprites["overlayTask2"].bitmap.clear
     @sprites["overlayTime"].bitmap.clear
     @sprites["overlayItems"].bitmap.clear
     if (!isDarkMode?)
@@ -101,16 +139,13 @@ class DailyWinScene
       shadow2=Color.new(12,12,12)
     end
     textPositions=[
-       [_INTL("How to use:"),(Graphics.width/4)-14,0,2,baseColor,shadowColor],
+       [_INTL("Daily Win Chest Rewards:"),(Graphics.width/4)-14,0,2,baseColor,shadowColor],
+       [_INTL("How to use:"),(Graphics.width/4)-14,152,2,baseColor,shadowColor],
     ]
-    text = _INTL("Win Standard Trainer Battles daily to get a stamp.")
-    text2 = _INTL("Only one stamp can be awarded each day.")
-    text3 = _INTL("Collect all 7 stamps to get a chest of rewards.")
-    text4 = _INTL("Event resets if you have a long inactivity in the game.")
-    drawTextEx(overlay,0,32,(Graphics.width/2)-28,2,text,baseColor,shadowColor)
-    drawTextEx(overlay,0,112,(Graphics.width/2)-28,2,text2,baseColor,shadowColor)
-    drawTextEx(overlay,0,192,(Graphics.width/2)-28,2,text3,baseColor,shadowColor)
-    drawTextEx(overlay,0,272,(Graphics.width/2)-28,2,text4,baseColor,shadowColor)
+    text = _INTL("Win Standard Trainer Battles to get a stamp.")
+    text2 = _INTL("Collect all 7 stamps to get a chest of rewards.")
+    drawTextEx(overlay,0,184,(Graphics.width/2)-28,2,text,baseColor,shadowColor)
+    drawTextEx(overlay,0,264,(Graphics.width/2)-28,2,text2,baseColor,shadowColor)
     pbDrawTextPositions(overlay,textPositions)
     # Show the Item Pane
     imagepos=[]
@@ -118,7 +153,7 @@ class DailyWinScene
     itemlength=@rewards.length
     itemlength2=(itemlength.to_f / 2.0).round
     multiamt = 1
-    basex=(Graphics.width/4)-140
+    basex=(Graphics.width/4)-140 + ((Graphics.width/2))
     basey=58
     id=0
     for i in 0...2
@@ -149,21 +184,18 @@ class DailyWinScene
     end
     pbDrawImagePositions(@sprites["overlayItems"].bitmap,imagepos)
     pbDrawTextPositions(@sprites["overlayItems"].bitmap,imageposAMT)
-    # Show the Task Pane
-    progress=[]
-    shadowfract=$game_variables[DWIN_VARIABLES[0]]*100/7
-    variant=($Trainer && $Trainer.isFemale?) ? 1 : 0
-    suffix=($Trainer && $Trainer.isFemale?) ? "_f" : ""
-    progress.push(["Graphics/UI/"+getDarkModeFolder+"/Daily Win/overlay_progress_small",@sprites["progress"].x,@sprites["progress"].y,0,0,-1,-1])
-    progress.push(["Graphics/UI/"+getAccentFolder+"/summaryEggBar_small",@sprites["progress"].x+8,@sprites["progress"].y+4,0,0,(shadowfract*1.98).floor,-1])
-    progress.push(["Graphics/UI/Daily WIn/icon_stamps",@sprites["progress"].x-28,@sprites["progress"].y-6,0,34*variant,34,34])
-    progress.push(["Graphics/UI/Daily Win/icon_chest"+suffix,@sprites["progress_icon"].x,@sprites["progress_icon"].y,0,0,-1,-1])
-    textpos=[
+    # Show the Task Pane (Part 1)
+    progress2=[]
+    shadowfract3=$game_variables[DWIN_VARIABLES[0]]*100/7
+    progress2.push(["Graphics/UI/"+getDarkModeFolder+"/Daily Win/overlay_progress_small",@sprites["progress2"].x,@sprites["progress2"].y,0,0,-1,-1])
+    progress2.push(["Graphics/UI/"+getAccentFolder+"/summaryEggBar_small",@sprites["progress"].x+8,@sprites["progress2"].y+4,0,0,(shadowfract3*1.98).floor,-1])
+    progress2.push(["Graphics/UI/Daily Win/icon_stamps",@sprites["progress2"].x-28,@sprites["progress2"].y-6,0,34*@mode,34,34])
+    progress2.push(["Graphics/UI/Daily Win/icon_chest"+@suffix,@sprites["progress2_icon"].x,@sprites["progress2_icon"].y,0,0,-1,-1])
+    textpos2=[
        [_INTL("{1}/7",[$game_variables[DWIN_VARIABLES[0]],7].min),(Graphics.width/4)-39+15,40,2,base2,shadow2,true],
     ]
-    pbDrawShadowText(@sprites["overlayTask"].bitmap,0,0,(Graphics.width / 2)-28,38,"Collect Daily Stamps",baseColor,shadowColor,1)
-    pbDrawImagePositions(@sprites["overlayTask"].bitmap,progress)
-    pbDrawTextPositions(@sprites["overlayTask"].bitmap,textpos)
+    pbDrawImagePositions(@sprites["overlayTask2"].bitmap,progress2)
+    pbDrawTextPositions(@sprites["overlayTask2"].bitmap,textpos2)
     # Show the Time Pane
     progressTime=[]
     value=$game_variables[DWIN_VARIABLES[1]]
@@ -177,13 +209,42 @@ class DailyWinScene
       timelabel=pbTimeEventRemainingTime(DWIN_VARIABLES[1])
     end
     textposTime=[
-       [_INTL("Daily Win Chest Rewards"),(Graphics.width/4),40,2,baseColor,shadowColor],
+       [_INTL("Daily Stamp Collection"),(Graphics.width/4),40,2,baseColor,shadowColor],
        [_INTL("Next Daily Stamp"),(Graphics.width/4),294,2,baseColor,shadowColor],
        [_INTL("{1}",timelabel),(Graphics.width/4)+15,330,2,base2,shadow2,true],
     ]
+    # Show the Daily Stamp Card
+    maxstamps=$game_variables[DWIN_VARIABLES[0]]
+    progressTime.push(["Graphics/UI/"+getDarkModeFolder+"/Daily Win/overlay_stampcard",@sprites["progresstime"].x-28,70,0,0,-1,-1])
+    xpos=[0,42,86,128,172,214,258]
+    ypos=[70,104,70,104,70,104,70]
+    for i in 0...maxstamps
+      progressTime.push(["Graphics/UI/Daily Win/icon_stamps",@sprites["progresstime"].x-28+xpos[i],ypos[i],0,34*@mode,34,34])
+    end
     pbSetSystemFont(@sprites["overlayTime"].bitmap)
     pbDrawImagePositions(@sprites["overlayTime"].bitmap,progressTime)
     pbDrawTextPositions(@sprites["overlayTime"].bitmap,textposTime)
+    # Show the Task Pane
+    progress=[]
+    if shadowfract2==0 && $game_variables[DWIN_VARIABLES[0]]<7
+      maxv=@battles[ $game_variables[DWIN_VARIABLES[0]] ]
+      minv=[ $game_variables[DWIN_VARIABLES[3]] ,maxv].min
+    else  # Not Ready
+      maxv=@battles[ $game_variables[DWIN_VARIABLES[2]] ]
+      minv=maxv
+    end
+    shadowfract=minv*100/maxv
+    progress.push(["Graphics/UI/"+getDarkModeFolder+"/Daily Win/overlay_progress_small",@sprites["progress"].x,@sprites["progress"].y,0,0,-1,-1])
+    progress.push(["Graphics/UI/"+getAccentFolder+"/summaryEggBar_small",@sprites["progress"].x+8,@sprites["progress"].y+4,0,0,(shadowfract*1.98).floor,-1])
+    progress.push(["Graphics/UI/Daily Win/icon_win",@sprites["progress"].x-28,@sprites["progress"].y-6,0,0,34,34])
+    progress.push(["Graphics/UI/Daily Win/icon_stamp"+@suffix,@sprites["progress_icon"].x,@sprites["progress_icon"].y,0,0,-1,-1])
+    textpos=[
+       [_INTL("{1}/{2}",[minv,maxv].min,maxv),(Graphics.width/4)-39+15,40,2,base2,shadow2,true],
+    ]
+    pbDrawShadowText(@sprites["overlayTask"].bitmap,0,0,(Graphics.width / 2)-28,38,"Win Standard Trainer Battles",baseColor,shadowColor,1)
+    pbDrawImagePositions(@sprites["overlayTask"].bitmap,progress)
+    pbDrawTextPositions(@sprites["overlayTask"].bitmap,textpos)
+
   end
   
   def pbDailyWinRewards
@@ -200,7 +261,14 @@ class DailyWinScene
         end
         Kernel.pbReceiveItem(item,amt)
       end
-      Kernel.pbMessage(_INTL("Earn 7 more daily stamps to earn them again."))
+      oldmode=$game_variables[DWIN_VARIABLES[5]]
+      $game_variables[DWIN_VARIABLES[5]]=(pbIsMillenialDate?) ? 2 : (pbIsWeekday(-1,4,5)) ? 1 : 0
+      if oldmode == $game_variables[DWIN_VARIABLES[5]]
+        Kernel.pbMessage(_INTL("Earn 7 more daily stamps to earn them again."))
+      else
+        modename=["Basic", "Advanced", "Elite"][$game_variables[DWIN_VARIABLES[5]]]
+        Kernel.pbMessage(_INTL("Earn 7 more daily stamps to earn the {1} chest rewards.",modename))
+      end
       $game_variables[DWIN_VARIABLES[0]]=0
       $game_variables[DWIN_VARIABLES[2]]=0
       @rewardclaim=true

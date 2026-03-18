@@ -298,7 +298,7 @@ class PokemonGlobalMetadata
     # 2 = Scaleup Multiplier (0 is default), 
     # 3 = Padding (1 is default), 
     # 4 = Trainer Task, 
-    # 5 = Group (4 to 8 are Universal), 
+    # 5 = Group (4 to 7 are Universal), 
     # 6 = Min Box Level
     # 7 = Rarity (Groups 3 and 5 never relies on it, Group 4 relies a bit on it)
     return [[200,600,6,10,false,0,0,1],  # Gain Experience
@@ -325,7 +325,7 @@ class PokemonGlobalMetadata
             [0.3,0.5,0,1,false,1,2,3],   # Revive Pokemon
             [1,2,0,1,false,2,2,2],       # Use Healing Moves
             [0.09,0.27,0,1,false,3,2,4], # Use One-hit KO Moves 
-            [1,2,0,1,false,7,1,1],       # Use Hi Priority Moves
+            [1,2,0,1,false,7,1,2],       # Use Hi Priority Moves
             [3,7,0,1,false,0,2,2],       # Decrease Stats
             [1,1.5,0,1,false,1,2,2],     # Inflict Conditions            
             [1,2,0,1,false,2,1,2],       # Use Moves with Effects
@@ -345,7 +345,7 @@ class PokemonGlobalMetadata
             [3,6,0,1,false,2,1,1],       # Gain Effort Values
             [0.5,1,0,1,false,2,1,3],     # Learn Moves in Battle
             [1,2,0,1,false,3,1,2],       # Break the Mold
-            [1,2,0,1,false,7,1,3],       # Use Lo Priority Moves
+            [1,2,0,1,false,7,1,2],       # Use Lo Priority Moves
             [1,2,0,1,false,0,2,2],       # Defeat Skilled Pokemon
             [5,10,0,5,false,1,2,2],      # Restore PP
             [1,2,0,1,false,2,2,2],       # Use Sound-based Moves
@@ -539,7 +539,7 @@ class PokemonBoxScene
         stage=@stages[0][0]
         Kernel.pbMessage(_INTL("You ran out of time on this box. Start a new {1} box and try again.",stage))
         $game_variables[PBOX_VARIABLES[2]]=0
-        oldl = currentBoxBalanceMeter(true)
+        oldbl = currentBoxBalanceMeter(true)
         $game_variables[PBOX_VARIABLES[6]] = [oldbl] # Clear Balance Points after an expire
         initializeBox
     end
@@ -969,6 +969,12 @@ class PokemonBoxScene
     # Rare+ Tasks from Groups 0 to 2
     taskRAR= taskNumbers.find_all {|num| boxdata[num][7]>2 && [0,1,2].include?(boxdata[num][5]) }
     taskRAR.delete_if {|element| tasksToExclude.include?(element) }
+    # Common-Uncommon tasks from Group 3 and Universal Groups 1 and 3
+    taskCMN2= taskNumbers.find_all {|num| boxdata[num][7]<=2 && [3,5,7].include?(boxdata[num][5]) }
+    taskCMN2.delete_if {|element| tasksToExclude.include?(element) }
+    # Rare+ tasks from Group 3 and Universal Groups 1 and 3
+    taskRAR2= taskNumbers.find_all {|num| boxdata[num][7]>2 && [3,5,7].include?(boxdata[num][5]) }
+    taskRAR2.delete_if {|element| tasksToExclude.include?(element) }    
     # Universal Tasks for Millenial/Elite/Level 3 Boxes
     if boxLevel>2
       taskU0_1 = task3 | taskU0 | taskU1 | taskU2 | taskU3
@@ -1055,14 +1061,18 @@ class PokemonBoxScene
         choices1.shuffle!
         choices1Offset=0
         # Task 2
-        choices2=task3 | taskU1 | taskU2 | taskU3
+        choices2=taskCMN2
         choices2.delete_if {|element| choices0[0...4].include?(element) ||
                                       choices1[0...4].include?(element)}
         choices2.shuffle!
         choices2Offset=0
         # Task 3
-        choices3=choices2
-        choices3Offset=4
+        choices3=taskRAR2 | taskU2
+        choices3.delete_if {|element| choices0[0...4].include?(element) ||
+                                      choices1[0...4].include?(element) ||
+                                      choices2[0...4].include?(element)}
+        choices3.shuffle!
+        choices3Offset=0
       else  # Milestone Boxes
         # Task 0
         choices0= task0 | task1 | task2 | taskU0
@@ -1358,8 +1368,6 @@ class PokemonBoxScene
             pbFadeOutIn(99999) { 
               screen.pbStartScreen(oldstage,currentStage)
             }
-        oldl = currentBoxBalanceMeter(true)
-        $game_variables[PBOX_VARIABLES[6]] = [oldbl] # Clear Balance Points after an expire
         initializeBox
         animateTaskPane(0,255)
       else

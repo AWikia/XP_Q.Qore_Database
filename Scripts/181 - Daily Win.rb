@@ -28,7 +28,7 @@ class DailyWinScene
     # Viewport for the Task Pane
     @viewportTask=Viewport.new(14,196,(Graphics.width / 2)-28,82)
     @viewportTask.z=99999
-    @viewportTask2=Viewport.new(14,102,(Graphics.width / 2)-28,82)
+    @viewportTask2=Viewport.new(14,110,(Graphics.width / 2)-28,82)
     @viewportTask2.z=99999
     femback=pbResolveBitmap(sprintf("Graphics/UI/"+getDarkModeFolder+"/Daily Win/bg"+@suffix))
     if femback
@@ -130,11 +130,17 @@ class DailyWinScene
     if (!isDarkMode?)
       baseColor=MessageConfig::DARKTEXTBASE
       shadowColor=MessageConfig::DARKTEXTSHADOW
+      baseColorS=[Color.new(46,0,23), 
+                  Color.new(46,18,0), 
+                  Color.new(14,0,46)][$game_variables[DWIN_VARIABLES[5]]]
       base2=Color.new(12,12,12)
       shadow2=Color.new(242,242,242)
     else
       baseColor=MessageConfig::LIGHTTEXTBASE
       shadowColor=MessageConfig::LIGHTTEXTSHADOW
+      baseColorS=[Color.new(239,199,219), 
+                  Color.new(239,215,199), 
+                  Color.new(211,199,239)][$game_variables[DWIN_VARIABLES[5]]]
       base2=Color.new(242,242,242)
       shadow2=Color.new(12,12,12)
     end
@@ -184,7 +190,7 @@ class DailyWinScene
     end
     pbDrawImagePositions(@sprites["overlayItems"].bitmap,imagepos)
     pbDrawTextPositions(@sprites["overlayItems"].bitmap,imageposAMT)
-    # Show the Task Pane (Part 1)
+    # Show the Stamp Task Pane (Part 1)
     progress2=[]
     shadowfract3=$game_variables[DWIN_VARIABLES[0]]*100/7
     progress2.push(["Graphics/UI/"+getDarkModeFolder+"/Daily Win/overlay_progress_small",@sprites["progress2"].x,@sprites["progress2"].y,0,0,-1,-1])
@@ -208,16 +214,17 @@ class DailyWinScene
     else
       timelabel=pbTimeEventRemainingTime(DWIN_VARIABLES[1])
     end
+    modename=["Basic", "Advanced", "Elite"][$game_variables[DWIN_VARIABLES[5]]]
     textposTime=[
-       [_INTL("Daily Stamp Collection"),(Graphics.width/4),40,2,baseColor,shadowColor],
+       [_INTL("{1} Stamp Collection",modename),(Graphics.width/4),40,2,baseColorS],
        [_INTL("Next Daily Stamp"),(Graphics.width/4),294,2,baseColor,shadowColor],
        [_INTL("{1}",timelabel),(Graphics.width/4)+15,330,2,base2,shadow2,true],
     ]
     # Show the Daily Stamp Card
     maxstamps=$game_variables[DWIN_VARIABLES[0]]
-    progressTime.push(["Graphics/UI/"+getDarkModeFolder+"/Daily Win/overlay_stampcard",@sprites["progresstime"].x-28,70,0,0,-1,-1])
+    progressTime.push(["Graphics/UI/"+getDarkModeFolder+"/Daily Win/overlay_stampcard"+@suffix,@sprites["progresstime"].x-28,76,0,0,-1,-1])
     xpos=[0,42,86,128,172,214,258]
-    ypos=[70,104,70,104,70,104,70]
+    ypos=[76,110,76,110,76,110,76]
     for i in 0...maxstamps
       progressTime.push(["Graphics/UI/Daily Win/icon_stamps",@sprites["progresstime"].x-28+xpos[i],ypos[i],0,34*@mode,34,34])
     end

@@ -68,7 +68,8 @@ class PokemonGlobalMetadata
             _INTL("Use Status Moves in Battle Wins"),_INTL("Gain Levelup Stat Changes in Battle Wins"),
             _INTL("Gain Effort Values in Battle Wins"),_INTL("Use Normal Moves in Battle Wins"),
             _INTL("Use Grass, Fire or Water Moves in Battle Wins"),_INTL("Use Fighting, Psychic or Dark Moves in Battle Wins"),
-            _INTL("Win Battles"),_INTL("Use Moves")]
+            _INTL("Win Battles"),_INTL("Use Moves"),
+            _INTL("Win Battles Perfectly in Upper Kingdom"),_INTL("Win Battles Perfectly")]
 
   end
   def pokeboxNames2
@@ -124,7 +125,8 @@ class PokemonGlobalMetadata
             _INTL("Status Move Usage/Win"),_INTL("Levelup stat Gaining/Win"),
             _INTL("Effort Values Gaining/Win"),_INTL("Normal Move Usage/Win"),
             _INTL("G-F-W Move Usage/Win"),_INTL("Fi-Ps-Da Move Usage/Win"),
-            _INTL("Battle Winning"),_INTL("Move Usage")]
+            _INTL("Battle Winning"),_INTL("Move Usage"),
+            _INTL("Perfect Battle Winning in UK"),_INTL("Perfect Battle Winning")]
 
   end
   def pokeboxNames3
@@ -180,7 +182,8 @@ class PokemonGlobalMetadata
             _INTL("Status Moves in Battle Wins Used"),_INTL("Levelup Stat Changes in Battle Wins Gained"),
             _INTL("Effort Values in Battle Wins Gained"),_INTL("Normal Moves in Battle Wins Used"),
             _INTL("Grass, Fire or Water Moves in Battle Wins Used"),_INTL("Fighting, Psychic or Dark Moves in Battle Wins Used"),
-            _INTL("Battles Won"),_INTL("Moves Used")]
+            _INTL("Battles Won"),_INTL("Moves Used"),
+            _INTL("Battles Perfectly in Upper Kingdom Won"),_INTL("Battles Perfectly Won")]
   end
 
   def pokeboxDescriptions
@@ -289,7 +292,9 @@ class PokemonGlobalMetadata
             _INTL("Use your Pokémon's Grass, Fire or Water moves in Battle Wins to progress."),
             _INTL("Use your Pokémon's Fighting, Psychic or Dark moves in Battle Wins to progress."),
             _INTL("Complete Battles to progress."),
-            _INTL("Use your Pokémon's moves to progress. Status moves turned into moves conut too.")]
+            _INTL("Use your Pokémon's moves to progress. Status moves turned into moves conut too."),
+            _INTL("Complete Battles in Upper Kingdom Maps without losing HP to progress. Battles outside of these ones do not count."),
+            _INTL("Complete Battles without losing HP to progress.")]
   end
 
   def pokeboxData 
@@ -407,6 +412,8 @@ class PokemonGlobalMetadata
             [3,6,0,1,false,2,2,1],       # Use Fi-Ps-Da Moves/Win
             [1,2,0,1,false,0,0,1],       # Win Battles
             [4,8,0,1,false,2,0,1],       # Use Moves
+            [0.5,0.75,0,1,false,5,3,3],  # Win battles in UK/100%
+            [0.5,1,0,1,false,3,1,2],     # Win Battles/100%
             ]
   end
   
@@ -921,7 +928,7 @@ class PokemonBoxScene
       end
     end
     tasksToExclude.push(81) if !robot # Never when not having it
-    tasksToExclude.push(13) if !$PokemonGlobal.upperKingdom
+    tasksToExclude.push(13,106) if !$PokemonGlobal.upperKingdom
     # Disable "Use Elder Special Moves" when Elder Special Move tutorial isn't done
     tasksToExclude.push(59) if !$game_switches[174]
     # Disable "Use Shadow Moves" when shadow type isn't defined
@@ -960,21 +967,28 @@ class PokemonBoxScene
     taskU3= taskNumbers.find_all {|num| boxdata[num][5]==7 }
     taskU3.delete_if {|element| tasksToExclude.include?(element) }
     taskU3.shuffle! # Required 
-    # Common Tasks from Groups 0 to 2
+    # Common Tasks from Groups 0 to 2 (Silver and Gold Levels, task 2)
     taskCMN= taskNumbers.find_all {|num| boxdata[num][7]<2 && [0,1,2].include?(boxdata[num][5]) }
     taskCMN.delete_if {|element| tasksToExclude.include?(element) }
-    # Uncommon Tasks from Groups 0 to 2
+    # Uncommon Tasks from Groups 0 to 2 (Silver and Gold Levels, task 1)
     taskUCM= taskNumbers.find_all {|num| boxdata[num][7]==2 && [0,1,2].include?(boxdata[num][5]) }
     taskUCM.delete_if {|element| tasksToExclude.include?(element) }
-    # Rare+ Tasks from Groups 0 to 2
+    # Rare+ Tasks from Groups 0 to 2 (Silver and Gold Levels, task 1)
     taskRAR= taskNumbers.find_all {|num| boxdata[num][7]>2 && [0,1,2].include?(boxdata[num][5]) }
     taskRAR.delete_if {|element| tasksToExclude.include?(element) }
-    # Common-Uncommon tasks from Group 3 and Universal Groups 1 and 3
+    # Common-Uncommon tasks from Group 3 and Universal Groups 1 and 3 (Silver and Gold Levels, task 3)
     taskCMN2= taskNumbers.find_all {|num| boxdata[num][7]<=2 && [3,5,7].include?(boxdata[num][5]) }
     taskCMN2.delete_if {|element| tasksToExclude.include?(element) }
-    # Rare+ tasks from Group 3 and Universal Groups 1 and 3
+    # Rare+ tasks from Group 3 and Universal Groups 1 and 3 (Silver and Gold Levels, task 4)
     taskRAR2= taskNumbers.find_all {|num| boxdata[num][7]>2 && [3,5,7].include?(boxdata[num][5]) }
     taskRAR2.delete_if {|element| tasksToExclude.include?(element) }    
+    # Common-Uncommon tasks from Groups 0 to 2 and Universal Group 0 (Classic and Bronze Levels, tasks 1-2)
+    taskCMN3= taskNumbers.find_all {|num| boxdata[num][7]<=2 && [0,1,2,4].include?(boxdata[num][5]) }
+    taskCMN3.delete_if {|element| tasksToExclude.include?(element) }
+    # Rare+ tasks from Groups 0 to 2 and Universal Group 0  (Classic and Bronze Levels, tasks 3-4)
+    taskRAR3= taskNumbers.find_all {|num| boxdata[num][7]>2 && [0,1,2,4].include?(boxdata[num][5]) }
+    taskRAR3.delete_if {|element| tasksToExclude.include?(element) }    
+
     # Universal Tasks for Millenial/Elite/Level 3 Boxes
     if boxLevel>2
       taskU0_1 = task3 | taskU0 | taskU1 | taskU2 | taskU3
@@ -1036,14 +1050,14 @@ class PokemonBoxScene
         choices3Offset=12
       elsif boxLevel==1 # Classic and Bronze Boxes
         # Task 0
-        choices0= taskCMN | taskUCM | taskU0
+        choices0= taskCMN3
         choices0.shuffle!
         choices0Offset=0
         # Task 1
         choices1=choices0
         choices1Offset=4
         # Task 2
-        choices2=taskRAR | task3 | taskU1 | taskU2 | taskU3
+        choices2=taskRAR3 | task3 | taskU1 | taskU2 | taskU3
         choices2.delete_if {|element| choices0[0...8].include?(element) }
         choices2.shuffle!
         choices2Offset=0

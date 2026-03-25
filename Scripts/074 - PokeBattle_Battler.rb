@@ -1304,6 +1304,8 @@ def ragefist
     raise _INTL("HP greater than total HP") if self.hp>@totalhp
     @battle.scene.pbHPChanged(self,oldhp,anim) if amt>0
     @tookDamage=true if amt>0 && registerDamage
+    @battle.field.effects[PBEffects::BoxDamageTask]+=amt if @battle.pbOwnedByPlayer?(@index) && 
+                                                            amt>0
     @battle.pbCheckDanger
     return amt
   end

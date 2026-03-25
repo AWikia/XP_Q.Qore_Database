@@ -210,6 +210,7 @@ begin
     Torchwood       = 12
     GlimmyGalaxy    = 13
     BattleWinsTasks = 14 # For Pokemon Box
+    BoxDamageTask   = 15 # For Pokemonh Box
     ############################################################################
     # These effects apply to the usage of a move
     SkipAccuracyCheck = 0

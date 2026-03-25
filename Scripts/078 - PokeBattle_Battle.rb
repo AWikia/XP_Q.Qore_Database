@@ -168,6 +168,10 @@ module PokeBattle_BattleCommon
           Kernel.pbReceiveTrophy(:TCATCHER)
           $PokemonGlobal.pokebox[13]+=1  if $game_map && pbGetMetadata($game_map.map_id,MetadataUpperKingdom)
           $PokemonGlobal.pokebox[104]+=1
+          if @field.effects[PBEffects::BoxDamageTask]==0
+            $PokemonGlobal.pokebox[106]+=1  if $game_map && pbGetMetadata($game_map.map_id,MetadataUpperKingdom)
+            $PokemonGlobal.pokebox[107]+=1
+          end
           @decision=4
         end
         if pbIsSnagBall?(ball)
@@ -4950,6 +4954,10 @@ class PokeBattle_Battle
       PBDebug.log("***Player won***")
       $PokemonGlobal.pokebox[13]+=1  if $game_map && pbGetMetadata($game_map.map_id,MetadataUpperKingdom)
       $PokemonGlobal.pokebox[104]+=1
+      if @field.effects[PBEffects::BoxDamageTask]==0
+        $PokemonGlobal.pokebox[106]+=1  if $game_map && pbGetMetadata($game_map.map_id,MetadataUpperKingdom)
+        $PokemonGlobal.pokebox[107]+=1
+      end
       # Common Tasks that need battle wins
       tasks= [60,61,62,63,64,65,66,67,68,69,70,72,74,80]
       tasks2= [90,91,92,93,94,95,96,97,98,99,100,101,102,103]

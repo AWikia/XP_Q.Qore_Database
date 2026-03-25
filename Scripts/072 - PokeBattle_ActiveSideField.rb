@@ -58,6 +58,7 @@ begin
       @effects[PBEffects::GlimmyGalaxy]      = 0
       @effects[PBEffects::Torchwood] = false
       @effects[PBEffects::BattleWinsTasks] = [0,0,0,0,0,0,0,0,0,0,0,0,0,0]
+      @effects[PBEffects::BoxDamageTask] = 0
     end
   end
 

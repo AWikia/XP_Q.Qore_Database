@@ -3035,6 +3035,19 @@ class PokeBattle_Battle
       @turncount+=1
     end
     $PokemonGlobal.pokebox[11]+=1 if @decision != 3
+    # Collect Battle Stars Task
+    hp1=0.0 # Total HP
+    hp2=0.0 # Total HP - Current HP
+    for i in @party2
+      next if !i
+      hp1+=i.totalhp.to_f
+      hp2+=(i.totalhp - i.hp).to_f
+    end
+    if hp2 > 0 # At least some damage done
+      $PokemonGlobal.pokebox[108]+=(((hp2 / hp1).to_f)*3).floor
+    end
+    # Battle Plays Task
+    $PokemonGlobal.pokebox[109]+=1 if @turncount>0 || @decision != 3
     for i in 0...4
       # Pokemon Box
       if @battlers[i].effects[PBEffects::BoxAbilityTask]

@@ -1896,7 +1896,7 @@ class PokeBattle_Move
         @battle.field.effects[PBEffects::BattleWinsTasks][3]+=damage.floor
         $PokemonGlobal.pokebox[82]+=damage.floor if opponent.effects[PBEffects::TwoTurnAttack]>0
       end
-      @battle.field.effects[PBEffects::BoxDamageTask]+=damage.floor if @battle.pbOwnedByPlayer?(opponent.index) && 
+      @battle.field.effects[PBEffects::BoxDamageTask]+=damage.floor if @battle.pbOwnedByPlayer?(opponent.index)
       effectiveness=0
       if opponent.damagestate.typemod<8
         effectiveness=1   # "Not very effective"

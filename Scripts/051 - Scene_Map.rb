@@ -7,6 +7,7 @@ class Scene_Map
   def initialize
     @m_page=0 # 0 = Map | 1 = Pokegear | 2 = Battle Stats
     @action=0 # -1 = Page decrease | 0 = Nothing | 1 = Page increase
+    $PokemonBoxUpdate = false # If true, then Events that rely on it will update
   end
   
   def spriteset
@@ -141,6 +142,7 @@ class Scene_Map
       $game_screen.update
       @header.setBitmap("Graphics/UI/"+getDarkModeFolder+"/mapheader_bg") # Header
       @header.visible=$game_switches[1050] # 1050 Switch = Game Started
+      pbCheckEvents if $PokemonBoxUpdate
       unless $game_temp.player_transferring
         break
       end
@@ -179,7 +181,7 @@ class Scene_Map
     if Input.trigger?(Input::R) || @action==1
       unless pbMapInterpreterRunning? or $game_player.moving?
         @action==0
-        pbPlayCursorSE() if @m_page==0 && @action==0
+        pbPlayCursorSE() if @m_page!=0 && @action==0
         @m_page+=1 if @m_page<2
         checkpage(@m_page)
         resetPage if @action==0

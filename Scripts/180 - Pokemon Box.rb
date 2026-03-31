@@ -15,6 +15,14 @@ class PokemonGlobalMetadata
     return @pokebox
   end
   
+  def mapPokebox(num,val)
+    if !$PokemonBoxUpdate && !$inbattle
+      $PokemonBoxUpdate=true
+      pbRecordOldValues
+    end
+    @pokebox[num]+=val
+  end
+  
   def pokeboxNames
     return [_INTL("Gain Experience Points"),_INTL("Level Up Pokémon"),
             _INTL("Defeat Opposing Pokémon"),_INTL("Catch Wild Pokémon"),
@@ -37,7 +45,7 @@ class PokemonGlobalMetadata
             _INTL("Land Not Very Effectiveness"),_INTL("Use Multi-Target Moves"),
             _INTL("Activate Win Streak Bags"),_INTL("Change Forms in Battle"),
             _INTL("Gain Levelup Stat Changes"),_INTL("Gain Effort Values"),
-            _INTL("Learn moves in Battle"),_INTL("Break the Mold"),
+            _INTL("Learn moves to Pokémon"),_INTL("Break the Mold"),
             _INTL("Use Moves with Low Priority"),_INTL("Defeat Pokémon with Best Skill"),
             _INTL("Restore PP"),_INTL("Use Sound-based Moves"),
             _INTL("Supercharge Pokémon in Battle"),_INTL("Transform into other Pokémon"),
@@ -153,7 +161,7 @@ class PokemonGlobalMetadata
             _INTL("Not Very Effectiveness Landed"),_INTL("Multi-Target Moves Used"),
             _INTL("Win Streak Bags Activated"),_INTL("Forms in Battle Changed"),
             _INTL("Levelup Stat Changes Gained"),_INTL("Effort Values Gained"),
-            _INTL("Moves in Battle Learnt"),_INTL("The Mold Broken"),
+            _INTL("Moves to Pokémon Learnt"),_INTL("The Mold Broken"),
             _INTL("Moves with Low Priority Used"),_INTL("Pokémon with Best Skill Defeated"),
             _INTL("PP Restored"),_INTL("Sound-based Moves Used"),
             _INTL("Pokémon in Battle Supercharged"),_INTL("Into other Pokémon Transformed"),
@@ -361,7 +369,7 @@ class PokemonGlobalMetadata
             [1,2,0,1,false,2,2,2],       # Use Sound-based Moves
             [0.4,0.65,0,1,false,3,2,3],  # Supercharge Pokemon
             [0.4,0.65,0,1,false,7,2,3],  # Use Transform
-            [0.5,0.8,0,1,false,6,0,2],   # Use any Item
+            [0.5,1,0,1,false,6,0,2],     # Use any Item
             [2,4,0,1,false,4,0,2],       # Use Perfect Moves
             [1,2,0,1,false,4,1,2],       # Use Variable Moves
             [0.3,0.5,0,1,false,7,1,3],   # Create Substitutes
@@ -860,7 +868,7 @@ class PokemonBoxScene
     textPositions=[
        [_INTL("How to use:"),(Graphics.width/4)-14,0,2,baseColor,shadowColor],
     ]
-    text = _INTL("Win battles, including wild to complete tasks.")
+    text = _INTL("Perform actions in Battles or the Map to complete tasks.")
     text2 = _INTL("Finish all four tasks to get rewards and a new box.")
     text3 = _INTL("If the time exipres, your win streak resets.")
     text4 = _INTL("Got stuck? Change task or try with different Pokémon.")

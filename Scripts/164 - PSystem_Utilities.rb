@@ -917,6 +917,105 @@ def pbSaveDailyWin
   end
 end
 
+# Battle Popups
+  def pbCreatePopUp(oldamount=0,newamount=0,maxamount=0,taskname="Task",image="image.png",rewardimage=nil)
+    if oldamount != newamount
+      if $inbattle
+        viewportEvent=@viewport
+      else
+        viewportEvent=Viewport.new(0, 0, Graphics.width,Graphics.height)
+        viewportEvent.z=99998
+      end
+      sprite=PokemonTaskDataBox.new(oldamount,maxamount,taskname,image,rewardimage,viewportEvent)
+      sprite.appear
+      while sprite.appearing
+        if $inbattle
+          pbGraphicsUpdate
+          pbInputUpdate
+          pbFrameUpdate
+        else
+          Graphics.update
+          Input.update
+          pbUpdateSceneMap
+        end
+        sprite.update
+      end
+      sprite.animateHP(oldamount,[newamount,maxamount].min)
+      while sprite.animatingHP
+        if $inbattle
+          pbGraphicsUpdate
+          pbInputUpdate
+          pbFrameUpdate
+        else
+          Graphics.update
+          Input.update
+          pbUpdateSceneMap
+        end
+        sprite.update
+      end
+      40.times do
+        if $inbattle
+          pbGraphicsUpdate
+          pbInputUpdate
+          pbFrameUpdate
+        else
+          Graphics.update
+          Input.update
+          pbUpdateSceneMap
+        end
+      end
+      sprite.disappear
+      while sprite.disappearing
+        if $inbattle
+          pbGraphicsUpdate
+          pbInputUpdate
+          pbFrameUpdate
+        else
+          Graphics.update
+          Input.update
+          pbUpdateSceneMap
+        end
+        sprite.update
+      end
+      sprite.dispose
+      viewportEvent.dispose if !$inbattle
+    end
+  end
+  
+  def pbCheckEvents
+    # Daily Win (Stamps)
+    if $PokemonBag.pbQuantity(:DAILYWIN)>0 # Avoid crashes as the first one 
+      dwin=DailyWinScene.new
+      suffix=dwin.suffix
+      variant=dwin.mode
+      oldamount=$game_variables[DWIN_VARIABLES[4]]
+      newamount=$game_variables[DWIN_VARIABLES[3]]
+      oldamount2=$game_variables[DWIN_VARIABLES[2]]
+      newamount2=$game_variables[DWIN_VARIABLES[0]]
+      # Daily Win (Task)
+      pbCreatePopUp(oldamount,newamount,dwin.battles[oldamount2],_INTL("Daily Win"),["Graphics/UI/Daily Win/icon_win",0],"Graphics/UI/Daily Win/icon_stamp"+suffix)
+      # Daily Win (Stamps)
+      pbCreatePopUp(oldamount2,newamount2,7,_INTL("Daily Win"),["Graphics/UI/Daily Win/icon_stamps",variant],"Graphics/UI/Daily Win/icon_chest"+suffix)
+      $game_variables[DWIN_VARIABLES[3]]=0 if oldamount2 != newamount2
+      $game_variables[DWIN_VARIABLES[4]]=0 if oldamount2 != newamount2
+    end
+    # Pokemon Box
+    if $PokemonBag.pbQuantity(:POKEMONBOX)>0 # Avoid crashes as the first one 
+      currentStep=$PokemonBox.currentStep
+      oldtaskstatus=$game_variables[PBOX_VARIABLES[5]]
+      step = $game_variables[PBOX_VARIABLES[1]][currentStep][0]
+      pbCreatePopUp($game_variables[PBOX_VARIABLES[5]],$PokemonBox.taskstatus,$PokemonBox.taskstatus2,_INTL("Pokémon Box"),["Graphics/UI/Pokemon Box/icons",step],"Graphics/UI/Pokemon Box/icon_"+$PokemonBox.getIconName($PokemonBox.stepID))
+    end
+    # End
+    # Mapped Events
+    if $game_switches[209]
+      pbCreatePopUp(pbMapTimeEventOldAmount,pbMapTimeEventAmount,pbMapTimeEventMax,pbMapTimeEventName,["Graphics/UI/Pokemon Box/icons",pbMapTimeEventID])
+    end
+    pbRecordOldValues
+    pbReturnToField if $PokemonBoxUpdate
+    $PokemonBoxUpdate=false
+  end
+
 # Starts a Tile Puzzle with the Video Graphic. If done, increments ad count by 1
 def startAd
   return false if !canAcceptAds?

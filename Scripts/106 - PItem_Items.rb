@@ -325,11 +325,14 @@ def pbChangeLevel(pokemon,newlevel,scene)
     spatkdiff=pokemon.spatk-spatkdiff
     spdefdiff=pokemon.spdef-spdefdiff
     totalhpdiff=pokemon.totalhp-totalhpdiff
+    statdiff=totalhpdiff+attackdiff+defensediff+spatkdiff+spdefdiff+speeddiff
     pbTopRightWindow(_INTL("Max. HP<r>+{1}\r\nAttack<r>+{2}\r\nDefense<r>+{3}\r\nSp. Atk<r>+{4}\r\nSp. Def<r>+{5}\r\nSpeed<r>+{6}",
        totalhpdiff,attackdiff,defensediff,spatkdiff,spdefdiff,speeddiff))
     pbTopRightWindow(_INTL("Max. HP<r>{1}\r\nAttack<r>{2}\r\nDefense<r>{3}\r\nSp. Atk<r>{4}\r\nSp. Def<r>{5}\r\nSpeed<r>{6}",
        pokemon.totalhp,pokemon.attack,pokemon.defense,pokemon.spatk,pokemon.spdef,pokemon.speed))
     movelist=pokemon.getMoveList
+    $PokemonGlobal.mapPokebox(1,1)
+    $PokemonGlobal.mapPokebox(40,statdiff) if statdiff>0
     for i in movelist
       if i[0]==pokemon.level          # Learned a new move
         pbLearnMove(pokemon,i[1],true)
@@ -367,6 +370,7 @@ def pbItemRestoreHP(pokemon,restorehp)
   newhp=pokemon.totalhp if newhp>pokemon.totalhp
   hpgain=newhp-pokemon.hp
   pokemon.hp=newhp
+  $PokemonGlobal.mapPokebox(30,hpgain)
   return hpgain
 end
 
@@ -411,11 +415,30 @@ def pbBattleHPItem(pokemon,battler,restorehp,scene)
       hpgain = battler.pbRecoverHP(restorehp)
     else
       hpgain = pbItemRestoreHP(pokemon,restorehp)
-      $PokemonGlobal.pokebox[30]+=hpgain
     end
     scene.pbDisplay(_INTL("{1}'s HP was restored.",pokemon.name,hpgain))
     return true
   end
+end
+
+def pbEXPItem(pokemon,exp,scene)
+   maxexp=PBExperience.pbGetMaxExperience(pokemon.growthrate)
+   if pokemon.exp<maxexp
+     if pokemon.hp>0
+       pokemon.exp+=exp
+       $PokemonGlobal.mapPokebox(0,exp)
+       pokemon.exp=maxexp if pokemon.exp>maxexp
+       pokemon.calcStats
+       scene.pbRefresh
+       scene.pbDisplay(_INTL("{1}'s Exp was boosted!",pokemon.name))
+       return true
+     else
+       scene.pbDisplay(_INTL("This can't be used on the fainted Pokémon."))
+     end
+   else
+     scene.pbDisplay(_INTL("It had no effect."))
+     return false
+   end
 end
 
 def pbJustRaiseEffortValues(pokemon,ev,evgain)
@@ -433,6 +456,7 @@ def pbJustRaiseEffortValues(pokemon,ev,evgain)
   end
   if evgain>0
     pokemon.ev[ev]+=evgain
+    $PokemonGlobal.mapPokebox(41,evgain)
     pokemon.calcStats
   end
   return evgain
@@ -457,6 +481,7 @@ def pbRaiseEffortValues(pokemon,ev,evgain=10,evlimit=true)
   end
   if evgain>0
     pokemon.ev[ev]+=evgain
+    $PokemonGlobal.mapPokebox(41,evgain)
     pokemon.calcStats
   end
   return evgain
@@ -491,13 +516,14 @@ def pbRestorePP(pokemon,move,pp)
   end
   oldpp=pokemon.moves[move].pp
   pokemon.moves[move].pp=newpp
-  return newpp-oldpp
+  ppgain=newpp-oldpp
+  $PokemonGlobal.mapPokebox(46,ppgain) if ppgain>0
+  return ppgain
 end
 
 def pbBattleRestorePP(pokemon,battler,move,pp)
   ret=pbRestorePP(pokemon,move,pp)
   if ret>0
-    $PokemonGlobal.pokebox[46]+=ret
     battler.pbSetPP(battler.moves[move],pokemon.moves[move].pp) if battler
   end
   return ret
@@ -602,6 +628,7 @@ def pbLearnMove(pokemon,move,ignoreifknown=false,bymachine=false,&block)
     if pokemon.moves[i].id==0
       pokemon.moves[i]=PBMove.new(move)
       Kernel.pbMessage(_INTL("\\se[]{1} learned {2}!\\se[MoveLearnt]",pkmnname,movename),&block)
+      $PokemonGlobal.mapPokebox(42,1)
       return true
     end
   end
@@ -618,6 +645,7 @@ def pbLearnMove(pokemon,move,ignoreifknown=false,bymachine=false,&block)
         pokemon.moves[forgetmove].pp=[oldmovepp,pokemon.moves[forgetmove].totalpp].min if bymachine
         Kernel.pbMessage(_INTL("\\se[]1,\\wt[16] 2, and\\wt[16]...\\wt[16] ...\\wt[16] ... Ta-da!\\se[balldrop]"),&block)
         Kernel.pbMessage(_INTL("\\se[]{1} forgot how to use {2}. And... {1} learned {3}!\\se[MoveLearnt]",pkmnname,oldmovename,movename),&block)
+        $PokemonGlobal.mapPokebox(42,1)
         return true
       elsif Kernel.pbConfirmMessage(_INTL("Give up on learning the move {1}?",movename),&block)
         Kernel.pbMessage(_INTL("{1} did not learn {2}.",pkmnname,movename),&block)
@@ -643,6 +671,16 @@ def pbConsumeItemInBattle(bag,item)
                 $ItemData[item][ITEMBATTLEUSE]!=0
     # Delete the item just used from stock
     $PokemonBag.pbDeleteItem(item)
+  end
+end
+
+def increaseItemCount(item)
+  if item
+    pocket = pbGetPocket(item)
+    $PokemonGlobal.mapPokebox(9,1) if pocket == 7
+    $PokemonGlobal.mapPokebox(12,1) if pocket == 2
+    $PokemonGlobal.mapPokebox(18,1) if pocket == 5
+    $PokemonGlobal.mapPokebox(50,1) if !pbIsKeyItem?(item)
   end
 end
 
@@ -672,6 +710,7 @@ def pbUseItemOnPokemon(item,pokemon,scene)
       end
       if Kernel.pbConfirmMessage(_INTL("Teach {1} to {2}?",movename,pokemon.name))
         if pbLearnMove(pokemon,machine,false,true)
+          increaseItemCount(item)
           $PokemonBag.pbDeleteItem(item) if pbIsTechnicalMachine?(item) && !INFINITETMS
           return true
         end
@@ -683,7 +722,11 @@ def pbUseItemOnPokemon(item,pokemon,scene)
     scene.pbClearAnnotations
     scene.pbHardRefresh
     if ret && $ItemData[item][ITEMUSE]==1 # Usable on Pokémon, consumed
+      increaseItemCount(item)
       $PokemonBag.pbDeleteItem(item)
+    end
+    if ret && $ItemData[item][ITEMUSE]==5 # Usable on Pokemon
+      increaseItemCount(item)
     end
     if $PokemonBag.pbQuantity(item)<=0
       Kernel.pbMessage(_INTL("You used your last {1}.",PBItems.getName(item)))
@@ -718,6 +761,7 @@ def pbUseItem(bag,item,bagscene=nil)
     if !Kernel.pbConfirmMessage(_INTL("Teach {1} to a Pokémon?",movename))
       return 0
     elsif pbMoveTutorChoose(machine,nil,true)
+      increaseItemCount(item)
       bag.pbDeleteItem(item) if pbIsTechnicalMachine?(item) && !INFINITETMS
       return 1
     else
@@ -751,7 +795,11 @@ def pbUseItem(bag,item,bagscene=nil)
            else
              ret=ItemHandlers.triggerUseOnPokemon(item,pokemon,screen)
              if ret && $ItemData[item][ITEMUSE]==1 # Usable on Pokémon, consumed
+               increaseItemCount(item)
                bag.pbDeleteItem(item)
+             end
+             if ret && $ItemData[item][ITEMUSE]==5 # Usable on Pokemon
+               increaseItemCount(item)
              end
              if bag.pbQuantity(item)<=0
                Kernel.pbMessage(_INTL("You used your last {1}.",PBItems.getName(item)))
@@ -773,13 +821,17 @@ def pbUseItem(bag,item,bagscene=nil)
     when 0
       return 0
     when 1 # Item used
+      increaseItemCount(item)
       return 1
     when 2 # Item used, end screen
+      increaseItemCount(item)
       return 2
     when 3 # Item used, consume item
+      increaseItemCount(item)
       bag.pbDeleteItem(item)
       return 1
     when 4 # Item used, end screen and consume item
+      increaseItemCount(item)
       bag.pbDeleteItem(item)
       return 2
     else

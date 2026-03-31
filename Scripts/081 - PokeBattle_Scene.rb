@@ -610,7 +610,7 @@ class PokemonTaskDataBox < SpriteWrapper
     end
     self.bitmap=@contents
     self.visible=false
-    self.z=50
+    self.z=99999 # 50
     refresh
   end
 
@@ -2552,70 +2552,6 @@ end
     end
   end
   
-  def pbCreatePopUp(oldamount=0,newamount=0,maxamount=0,taskname="Task",image="image.png",rewardimage=nil)
-    if oldamount != newamount
-      sprite=PokemonTaskDataBox.new(oldamount,maxamount,taskname,image,rewardimage,@viewport)
-      sprite.appear
-      while sprite.appearing
-        pbGraphicsUpdate
-        pbInputUpdate
-        pbFrameUpdate
-        sprite.update
-      end
-      sprite.animateHP(oldamount,[newamount,maxamount].min)
-      while sprite.animatingHP
-        pbGraphicsUpdate
-        pbInputUpdate
-        pbFrameUpdate
-        sprite.update
-      end
-      40.times do
-        pbGraphicsUpdate
-        pbInputUpdate
-        pbFrameUpdate
-      end
-      sprite.disappear
-      while sprite.disappearing
-        pbGraphicsUpdate
-        pbInputUpdate
-        pbFrameUpdate
-        sprite.update
-      end
-      sprite.dispose
-    end
-  end
-  
-  def pbCheckEvents
-    # Daily Win (Stamps)
-    if $PokemonBag.pbQuantity(:DAILYWIN)>0 # Avoid crashes as the first one 
-      dwin=DailyWinScene.new
-      suffix=dwin.suffix
-      variant=dwin.mode
-      oldamount=$game_variables[DWIN_VARIABLES[4]]
-      newamount=$game_variables[DWIN_VARIABLES[3]]
-      oldamount2=$game_variables[DWIN_VARIABLES[2]]
-      newamount2=$game_variables[DWIN_VARIABLES[0]]
-      # Daily Win (Task)
-      pbCreatePopUp(oldamount,newamount,dwin.battles[oldamount2],_INTL("Daily Win"),["Graphics/UI/Daily Win/icon_win",0],"Graphics/UI/Daily Win/icon_stamp"+suffix)
-      # Daily Win (Stamps)
-      pbCreatePopUp(oldamount2,newamount2,7,_INTL("Daily Win"),["Graphics/UI/Daily Win/icon_stamps",variant],"Graphics/UI/Daily Win/icon_chest"+suffix)
-      $game_variables[DWIN_VARIABLES[3]]=0 if oldamount2 != newamount2
-      $game_variables[DWIN_VARIABLES[4]]=0 if oldamount2 != newamount2
-    end
-    # Pokemon Box
-    if $PokemonBag.pbQuantity(:POKEMONBOX)>0 # Avoid crashes as the first one 
-      currentStep=$PokemonBox.currentStep
-      oldtaskstatus=$game_variables[PBOX_VARIABLES[5]]
-      step = $game_variables[PBOX_VARIABLES[1]][currentStep][0]
-      pbCreatePopUp($game_variables[PBOX_VARIABLES[5]],$PokemonBox.taskstatus,$PokemonBox.taskstatus2,_INTL("Pokémon Box"),["Graphics/UI/Pokemon Box/icons",step],"Graphics/UI/Pokemon Box/icon_"+$PokemonBox.getIconName($PokemonBox.stepID))
-    end
-    # End
-    # Mapped Events
-    if $game_switches[209]
-      pbCreatePopUp(pbMapTimeEventOldAmount,pbMapTimeEventAmount,pbMapTimeEventMax,pbMapTimeEventName,["Graphics/UI/Pokemon Box/icons",pbMapTimeEventID])
-    end
-  end
-
   def pbEndBattle(result)
     pbCheckEvents
     @abortable=false

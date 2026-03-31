@@ -693,6 +693,8 @@ ItemHandlers::UseOnPokemon.add(:REVIVE,proc{|item,pokemon,scene|
    else
      pokemon.hp=(pokemon.totalhp/2).floor
      pokemon.healStatus
+     $PokemonGlobal.mapPokebox(21,1)
+     $PokemonGlobal.mapPokebox(30,pokemon.totalhp)
      scene.pbRefresh
      scene.pbDisplay(_INTL("{1}'s HP was restored.",pokemon.name))
      next true
@@ -706,6 +708,8 @@ ItemHandlers::UseOnPokemon.add(:MAXREVIVE,proc{|item,pokemon,scene|
    else
      pokemon.healHP
      pokemon.healStatus
+     $PokemonGlobal.mapPokebox(21,1)
+     $PokemonGlobal.mapPokebox(30,(pokemon.totalhp/2).floor)
      scene.pbRefresh
      scene.pbDisplay(_INTL("{1}'s HP was restored.",pokemon.name))
      next true
@@ -752,6 +756,8 @@ ItemHandlers::UseOnPokemon.add(:REVIVALHERB,proc{|item,pokemon,scene|
      pokemon.healHP
      pokemon.healStatus
      pokemon.changeHappiness("Revival Herb")
+     $PokemonGlobal.mapPokebox(21,1)
+     $PokemonGlobal.mapPokebox(30,pokemon.totalhp)
      scene.pbRefresh
      scene.pbDisplay(_INTL("{1}'s HP was restored.",pokemon.name))
      next true
@@ -1466,98 +1472,24 @@ ItemHandlers::UseOnPokemon.add(:SERIOUSMINT,proc{|item,pokemon,scene|
 # Candies (Begin)
 
 ItemHandlers::UseOnPokemon.add(:EXPCANDYL,proc{|item,pokemon,scene|
-   maxexp=PBExperience.pbGetMaxExperience(pokemon.growthrate)
-   if pokemon.exp<maxexp
-     if pokemon.hp>0
-       pokemon.exp+=10000
-       pokemon.exp=maxexp if pokemon.exp>maxexp
-       pokemon.calcStats
-       scene.pbRefresh
-       scene.pbDisplay(_INTL("{1}'s Exp was boosted!",pokemon.name))
-       next true
-     else
-       scene.pbDisplay(_INTL("This can't be used on the fainted Pokémon."))
-     end
-   else
-     scene.pbDisplay(_INTL("It had no effect."))
-     next false
-   end
+   next pbEXPItem(pokemon,10000,scene)
 })
 
 ItemHandlers::UseOnPokemon.add(:EXPCANDYM,proc{|item,pokemon,scene|
-   maxexp=PBExperience.pbGetMaxExperience(pokemon.growthrate)
-   if pokemon.exp<maxexp
-     if pokemon.hp>0
-       pokemon.exp+=3000
-       pokemon.exp=maxexp if pokemon.exp>maxexp
-       pokemon.calcStats
-       scene.pbRefresh
-       scene.pbDisplay(_INTL("{1}'s Exp was boosted!",pokemon.name))
-       next true
-     else
-       scene.pbDisplay(_INTL("This can't be used on the fainted Pokémon."))
-     end
-   else
-     scene.pbDisplay(_INTL("It had no effect."))
-     next false
-   end
+   next pbEXPItem(pokemon,3000,scene)
 })
 
 ItemHandlers::UseOnPokemon.add(:EXPCANDYS,proc{|item,pokemon,scene|
-   maxexp=PBExperience.pbGetMaxExperience(pokemon.growthrate)
-   if pokemon.exp<maxexp
-     if pokemon.hp>0
-       pokemon.exp+=800
-       pokemon.exp=maxexp if pokemon.exp>maxexp
-       pokemon.calcStats
-       scene.pbRefresh
-       scene.pbDisplay(_INTL("{1}'s Exp was boosted!",pokemon.name))
-       next true
-     else
-       scene.pbDisplay(_INTL("This can't be used on the fainted Pokémon."))
-     end
-   else
-     scene.pbDisplay(_INTL("It had no effect."))
-     next false
-   end
+   next pbEXPItem(pokemon,800,scene)
+
 })
 
 ItemHandlers::UseOnPokemon.add(:EXPCANDYXL,proc{|item,pokemon,scene|
-   maxexp=PBExperience.pbGetMaxExperience(pokemon.growthrate)
-   if pokemon.exp<maxexp
-     if pokemon.hp>0
-       pokemon.exp+=30000
-       pokemon.exp=maxexp if pokemon.exp>maxexp
-       pokemon.calcStats
-       scene.pbRefresh
-       scene.pbDisplay(_INTL("{1}'s Exp was boosted!",pokemon.name))
-       next true
-     else
-       scene.pbDisplay(_INTL("This can't be used on the fainted Pokémon."))
-     end
-   else
-     scene.pbDisplay(_INTL("It had no effect."))
-     next false
-   end
+   next pbEXPItem(pokemon,30000,scene)
 })
 
 ItemHandlers::UseOnPokemon.add(:EXPCANDYXS,proc{|item,pokemon,scene|
-   maxexp=PBExperience.pbGetMaxExperience(pokemon.growthrate)
-   if pokemon.exp<maxexp
-     if pokemon.hp>0
-       pokemon.exp+=100
-       pokemon.exp=maxexp if pokemon.exp>maxexp
-       pokemon.calcStats
-       scene.pbRefresh
-       scene.pbDisplay(_INTL("{1}'s Exp was boosted!",pokemon.name))
-       next true
-     else
-       scene.pbDisplay(_INTL("This can't be used on the fainted Pokémon."))
-     end
-   else
-     scene.pbDisplay(_INTL("It had no effect."))
-     next false
-   end
+   next pbEXPItem(pokemon,100,scene)
 })
 
 # Candies (End)
@@ -1857,7 +1789,6 @@ ItemHandlers::BattleUseOnPokemon.add(:FULLRESTORE,proc{|item,pokemon,battler,sce
         hpgain = battler.pbRecoverHP(pokemon.totalhp-pokemon.hp)
       else
         hpgain = pbItemRestoreHP(pokemon,pokemon.totalhp-pokemon.hp)
-        $PokemonGlobal.pokebox[30]+=hpgain
       end
      pokemon.healStatus
      battler.status=0 if battler

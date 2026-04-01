@@ -275,6 +275,39 @@ def isBestSkill?(species)
 end
 
 #===============================================================================
+# * Pokemon Box Checks
+#===============================================================================
+def hasRobot?
+  species = [:CALODIN,:COULUNDIN] # These know Robot-type moves
+  for i in species
+    next if !hasConst?(PBSpecies,i)
+    if $Trainer.hasOwned?(i)
+      return true
+    end
+  end
+  return false
+end
+
+def hasSupercharger?
+  mRINGS = [:MEGARING,:MEGABRACELET,:MEGACUFF,:MEGACHARM,:DYNAMAXBAND] 
+  for i in mRINGS
+    next if !hasConst?(PBItems,i)
+    if $PokemonBag.pbQuantity(i)>0
+      return hasConst?(PBTypes,:ROBOT)
+    end
+  end
+  return false
+end
+
+def hasUpperKingdom?
+  return ($PokemonGlobal.upperKingdom rescue false)
+end
+
+def hasShadowMoves?
+  return hasConst?(PBTypes,:SHADOW) && ($PokemonGlobal.seenPurifyChamber rescue false)
+end
+
+#===============================================================================
 # * Eternal Pokémons, Ultra Blue and Regional Forms
 #===============================================================================
 

@@ -58,6 +58,12 @@ class PokemonDuel
     @sprites["opponentwindow"].viewport=@viewport
     @sprites["player"].setBitmap(pbTrainerSpriteFile($Trainer.trainertype))
     @sprites["opponent"].setBitmap(pbTrainerSpriteFile(opponent.trainertype))
+    @boxvalues=[0, # Use Physical Moves (0)
+                0, # Use Special Moves (1)
+                0, # Use Status Moves (2)
+                0, # Lapse Turns in Battles (3)
+                0, # Use Moves (4)
+                0] # Collect Battle Stars (5)
     pbWait(20)
     while @sprites["player"].x<0
       @sprites["player"].x+=4
@@ -140,6 +146,31 @@ class PokemonDuel
     pbDisposeSpriteHash(@sprites)
     @viewport.dispose
   end
+  
+  def pbWritePokemonBoxData(decision)
+    $PokemonGlobal.mapPokebox(6,@boxvalues[0]) if @boxvalues[0]>0
+    $PokemonGlobal.mapPokebox(7,@boxvalues[1]) if @boxvalues[1]>0
+    $PokemonGlobal.mapPokebox(8,@boxvalues[2]) if @boxvalues[2]>0
+    $PokemonGlobal.mapPokebox(10,1) if decision
+    $PokemonGlobal.mapPokebox(11,@boxvalues[2]) if @boxvalues[3]>0
+    $PokemonGlobal.mapPokebox(13,1) if decision && $game_map && 
+                                       pbGetMetadata($game_map.map_id,MetadataUpperKingdom)
+    # $PokemonGlobal.mapPokebox(33,1) if decision
+    $PokemonGlobal.mapPokebox(66,@boxvalues[0]) if @boxvalues[0]>0 && decision
+    $PokemonGlobal.mapPokebox(67,@boxvalues[1]) if @boxvalues[1]>0 && decision
+    $PokemonGlobal.mapPokebox(68,@boxvalues[2]) if @boxvalues[2]>0 && decision
+    $PokemonGlobal.mapPokebox(96,@boxvalues[0]) if @boxvalues[0]>0 && decision
+    $PokemonGlobal.mapPokebox(97,@boxvalues[1]) if @boxvalues[1]>0 && decision
+    $PokemonGlobal.mapPokebox(98,@boxvalues[2]) if @boxvalues[2]>0 && decision
+    $PokemonGlobal.mapPokebox(104,1) if decision
+    $PokemonGlobal.mapPokebox(105,@boxvalues[4]) if @boxvalues[4]>0
+    $PokemonGlobal.mapPokebox(106,1) if decision && $game_map && @hp[0]>9 && 
+                                       pbGetMetadata($game_map.map_id,MetadataUpperKingdom)
+
+    $PokemonGlobal.mapPokebox(107,1) if decision && @hp[0]>9 
+    $PokemonGlobal.mapPokebox(108,@boxvalues[4]) if @boxvalues[5]>0
+    $PokemonGlobal.mapPokebox(109,1)
+  end
 
   def pbDuel(opponent,event,speeches)
     pbStartDuel(opponent,event)
@@ -147,14 +178,18 @@ class PokemonDuel
     @special=[false,false]
     decision=nil
     loop do
+      @boxvalues[3]+=1
       @hp[0]=[@hp[0],0].max
       @hp[1]=[@hp[1],0].max
       pbRefresh
       if @hp[0]<=0
+        hp2 = (10 - @hp[1]).to_f
+        @boxvalues[5]=(((hp2 / 10.0).to_f)*3).floor
         decision=false
         break
       end
       if @hp[1]<=0
+        @boxvalues[5]=3
         decision=true
         break
       end
@@ -191,6 +226,12 @@ class PokemonDuel
       if command==3
         @special[0]=true
       end
+      # Pokebox
+      @boxvalues[4]+=1
+      @boxvalues[0]+=1 if command==1 || command==2
+      @boxvalues[1]+=1 if command==3
+      @boxvalues[2]+=1 if command==0
+      # Pokebox End
       if action==0 && command==0
         pbMoveRoute($game_player,[
            PBMoveRoute::ScriptAsync,"moveRight90",
@@ -371,6 +412,9 @@ class PokemonDuel
       end
     end
     pbEndDuel
+    # Pokebox
+    pbWritePokemonBoxData(decision)
+    # Pokebox End
     return decision
   end
 end

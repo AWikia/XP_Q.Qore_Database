@@ -319,116 +319,117 @@ class PokemonGlobalMetadata
     # 5 = Group (4 to 7 are Universal), 
     # 6 = Min Box Level
     # 7 = Rarity (Groups 3 and 5 never relies on it, Group 4 relies a bit on it)
-    return [[200,600,6,10,false,0,0,1],  # Gain Experience
-            [1,1.5,0,1,false,0,0,1],     # Level Up Pokemon
-            [2.5,5,0,1,false,0,0,1],     # Defeat Pokemon
-            [0.5,1,0,1,false,1,1,2],     # Catch Pokemon
-            [2,4,0,1,false,1,0,2],       # Activate Abilites
-            [2,4,0,1,false,1,0,2],       # Activate Held Items
-            [3,6,0,1,false,2,0,1],       # Use Physical Moves
-            [3,6,0,1,false,2,0,1],       # Use Special Moves
-            [1.5,3,0,1,false,2,0,1],     # Use Status Moves
-            [0.2,0.4,0,1,false,3,2,3],   # Use Battle Items
-            [1,2,0,1,true,3,0,2],        # Defeat Trainers
-            [3,7,0,1,false,3,0,1],       # Lapse Turns
-            [0.4,0.65,0,1,false,6,0,2],  # Use Medicine Items
-            [1,1.5,0,1,false,5,2,2],     # Win battles in UK
-            [80,240,1.5,10,false,0,0,1], # Deal Damage
-            [0.5,1,0,1,false,1,0,2],     # Land Critical Hits
-            [2,4,0,1,false,2,0,2],       # Use STAB Moves
-            [1,2,0,1,false,3,0,2],       # Defeat Pokemon Instantly
-            [0.4,0.65,0,1,false,6,0,2],  # Use Berries
-            [0.5,1,0,1,false,4,1,3],     # UNUSED!
-            [3,7,0,1,false,0,2,2],       # Increase Stats
-            [0.3,0.5,0,1,false,1,2,3],   # Revive Pokemon
-            [1,2,0,1,false,2,2,2],       # Use Healing Moves
-            [0.09,0.27,0,1,false,3,2,4], # Use One-hit KO Moves 
-            [1,2,0,1,false,7,1,2],       # Use Hi Priority Moves
-            [3,7,0,1,false,0,2,2],       # Decrease Stats
-            [1,1.5,0,1,false,1,2,2],     # Inflict Conditions            
-            [1,2,0,1,false,2,1,2],       # Use Moves with Effects
-            [0.4,0.65,0,1,false,3,1,3],  # Use Copycat Moves
-            [20,60,1.5,10,false,4,1,3],  # Take Recoil Damage
-            [40,120,1.5,10,false,0,1,2], # Recover HP
-            [1.5,3,0,1,false,1,0,1],     # Land Super Effective
-            [1,2,0,1,false,2,2,2],       # Use Multi-hit Moves
-            [0.5,1,0,1,true,3,0,3],      # Defeat Best Trainers
-            [0.2,0.4,0,1,false,6,2,4],   # Use Sleeping Moves
-            [600,1400,1,10,false,0,1,2], # Gain Money
-            [1.5,3,0,1,false,1,0,1],     # Land Not Very Effective
-            [1,2,0,1,false,2,1,2],       # Use Mutli-Target Moves
-            [3,4.5,0,1,true,3,0,2],      # Activate Win Streak
-            [0.5,1,0,1,false,7,2,3],     # Change Forms
-            [20,30,0,5,false,0,1,1],     # Gain Levelup Stats
-            [3,6,0,1,false,1,1,1],       # Gain Effort Values
-            [0.5,1,0,1,false,2,1,3],     # Learn Moves in Battle
-            [1,2,0,1,false,3,1,2],       # Break the Mold
-            [1,2,0,1,false,7,1,2],       # Use Lo Priority Moves
-            [1,2,0,1,false,0,2,2],       # Defeat Skilled Pokemon
-            [5,10,0,5,false,1,2,2],      # Restore PP
-            [1,2,0,1,false,2,2,2],       # Use Sound-based Moves
-            [0.4,0.65,0,1,false,3,2,3],  # Supercharge Pokemon
-            [0.4,0.65,0,1,false,7,2,3],  # Use Transform
-            [0.5,1,0,1,false,6,0,2],     # Use any Item
-            [2,4,0,1,false,4,0,2],       # Use Perfect Moves
-            [1,2,0,1,false,4,1,2],       # Use Variable Moves
-            [0.3,0.5,0,1,false,7,1,3],   # Create Substitutes
-            [1,2,0,1,false,5,1,2],       # Use Shadow Moves
-            [0.5,1,0,1,true,5,1,3],      # Defeat Full Trainers
-            [1,2,0,1,false,4,2,2],       # Defeat same-color Pokemon
-            [0.4,0.65,0,1,false,4,2,3],  # Confuse or Infatuate
-            [0.06,0.12,0,1,true,5,2,4],  # Collect Lucky Bags
-            [0.06,0.15,0,1,false,5,2,4], # Use Elder Special Moves
-            [200,600,6,10,true,0,2,1],   # Gain Experience/TB
-            [1,1.5,0,1,true,0,2,1],      # Level Up Pokemon/TB
-            [2.5,5,0,1,true,0,2,1],      # Defeat Pokemon/TB
-            [80,240,1.5,10,true,0,2,1],  # Deal Damage/TB
-            [1.5,3,0,1,true,1,2,1],      # Land Super Effective/TB
-            [1.5,3,0,1,true,1,2,1],      # Land Not Very Effective/TB
-            [3,6,0,1,true,2,2,1],        # Use Physical Moves/TB
-            [3,6,0,1,true,2,2,1],        # Use Special Moves/TB
-            [1.5,3,0,1,true,2,2,1],      # Use Status Moves/TB
-            [20,30,0,5,true,0,2,1],      # Gain Levelup Stats/TB
-            [3,6,0,1,true,1,2,1],        # Gain Effort Values/TB
-            [3,6,0,1,false,2,0,1],       # Use Normal Moves
-            [3,6,0,1,true,2,2,1],        # Use Normal Moves/TB
-            [3,6,0,1,false,2,1,1],       # Use G-F-W Moves
-            [3,6,0,1,true,2,2,1],        # Use G-F-W Moves/TB
-            [0.2,0.4,0,1,false,1,2,3],   # Catch Skilled Pokemon
-            [0.5,1,0,1,false,3,3,3],     # Defeat Skilled Pokemon Inst.
-            [0.2,0.4,0,1,true,3,3,4],    # Defeat Full Skilled Trainers
-            [0.5,1,0,1,false,3,3,3],     # Defeat same-color Pokemon Inst.
-            [3,6,0,1,false,2,1,1],       # Use Fi-Ps-Da Moves
-            [3,6,0,1,true,2,2,1],        # Use Fi-Ps-Da Moves/TB
-            [0.06,0.15,0,1,false,3,3,4], # Use Robot Moves
-            [20,60,1.5,10,false,1,1,2],  # Deal Damage to SI PKMN
-            [0.06,0.15,0,1,false,6,2,4], # Use Moves with 1 PP
-            [0.5,1,0,1,false,6,2,3],     # Change Abilities
-            [0.5,1,0,1,false,6,2,3],     # Change Held Items
-            [1,2,0,1,false,4,2,2],       # Defeat same-gender Pokemon
-            [0.5,1,0,1,false,5,3,3],     # Defear same-gender Pokemon Inst.
-            [1,2,0,1,false,2,2,2],       # Use Bomb-based Moves
-            [0.4,0.65,0,1,false,6,1,3],  # Create Weater or Terrain
-            [200,600,6,10,false,0,2,1],  # Gain Experience/Win
-            [1,1.5,0,1,false,0,2,1],     # Level Up Pokemon/Win
-            [2.5,5,0,1,false,0,2,1],     # Defeat Pokemon/Win
-            [80,240,1.5,10,false,0,2,1], # Deal Damage/Win
-            [1.5,3,0,1,false,1,2,1],     # Land Super Effective/Win
-            [1.5,3,0,1,false,1,2,1],     # Land Not Very Effective/Win
-            [3,6,0,1,false,2,2,1],       # Use Physical Moves/Win
-            [3,6,0,1,false,2,2,1],       # Use Special Moves/Win
-            [1.5,3,0,1,false,2,2,1],     # Use Status Moves/Win
-            [20,30,0,5,false,0,2,1],     # Gain Levelup Stats/Win
-            [3,6,0,1,false,1,2,1],       # Gain Effort Values/Win
-            [3,6,0,1,false,2,2,1],       # Use Normal Moves/win
-            [3,6,0,1,false,2,2,1],       # Use G-F-W Moves/Win
-            [3,6,0,1,false,2,2,1],       # Use Fi-Ps-Da Moves/Win
-            [1,2,0,1,false,4,0,1],       # Win Battles
-            [4,8,0,1,false,2,0,1],       # Use Moves
-            [0.5,0.75,0,1,false,5,3,3],  # Win battles in UK/100%
-            [0.5,1,0,1,false,3,1,2],     # Win Battles/100%
-            [3,6,0,1,false,4,0,1],       # Collect Battle Stars
-            [1.5,3,0,1,false,4,0,1],     # Play Battles
+    # 8 = Condition to be included (false excludes it, true includes it)
+    return [[200,600,6,10,false,0,0,1,true],                 # Gain Experience
+            [1,1.5,0,1,false,0,0,1,true],                    # Level Up Pokemon
+            [2.5,5,0,1,false,0,0,1,true],                    # Defeat Pokemon
+            [0.5,1,0,1,false,1,1,2,true],                    # Catch Pokemon
+            [2,4,0,1,false,1,0,2,true],                      # Activate Abilites
+            [2,4,0,1,false,1,0,2,true],                      # Activate Held Items
+            [3,6,0,1,false,2,0,1,true],                      # Use Physical Moves
+            [3,6,0,1,false,2,0,1,true],                      # Use Special Moves
+            [1.5,3,0,1,false,2,0,1,true],                    # Use Status Moves
+            [0.2,0.4,0,1,false,3,2,3,true],                  # Use Battle Items
+            [1,2,0,1,true,3,0,2,true],                       # Defeat Trainers
+            [3,7,0,1,false,3,0,1,true],                      # Lapse Turns
+            [0.4,0.65,0,1,false,6,0,2,true],                 # Use Medicine Items
+            [1,1.5,0,1,false,5,2,2,hasUpperKingdom?],        # Win battles in UK
+            [80,240,1.5,10,false,0,0,1,true],                # Deal Damage
+            [0.5,1,0,1,false,1,0,2,true],                    # Land Critical Hits
+            [2,4,0,1,false,2,0,2,true],                      # Use STAB Moves
+            [1,2,0,1,false,3,0,2,true],                      # Defeat Pokemon Instantly
+            [0.4,0.65,0,1,false,6,0,2,true],                 # Use Berries
+            [0.5,1,0,1,false,4,1,3,false],                   # UNUSED!
+            [3,7,0,1,false,0,2,2,true],                      # Increase Stats
+            [0.3,0.5,0,1,false,1,2,3,true],                  # Revive Pokemon
+            [1,2,0,1,false,2,2,2,true],                      # Use Healing Moves
+            [0.09,0.27,0,1,false,3,2,4,true],                # Use One-hit KO Moves 
+            [1,2,0,1,false,7,1,2,true],                      # Use Hi Priority Moves
+            [3,7,0,1,false,0,2,2,true],                      # Decrease Stats
+            [1,1.5,0,1,false,1,2,2,true],                    # Inflict Conditions            
+            [1,2,0,1,false,2,1,2,true],                      # Use Moves with Effects
+            [0.4,0.65,0,1,false,3,1,3,true],                 # Use Copycat Moves
+            [20,60,1.5,10,false,4,1,3,true],                 # Take Recoil Damage
+            [40,120,1.5,10,false,0,1,2,true],                # Recover HP
+            [1.5,3,0,1,false,1,0,1,true],                    # Land Super Effective
+            [1,2,0,1,false,2,2,2,true],                      # Use Multi-hit Moves
+            [0.5,1,0,1,true,3,0,3,true],                     # Defeat Best Trainers
+            [0.2,0.4,0,1,false,6,2,4,true],                  # Use Sleeping Moves
+            [600,1400,1,10,false,0,1,2,true],                # Gain Money
+            [1.5,3,0,1,false,1,0,1,true],                    # Land Not Very Effective
+            [1,2,0,1,false,2,1,2,true],                      # Use Mutli-Target Moves
+            [3,4.5,0,1,true,3,0,2,true],                     # Activate Win Streak
+            [0.5,1,0,1,false,7,2,3,true],                    # Change Forms
+            [20,30,0,5,false,0,1,1,true],                    # Gain Levelup Stats
+            [3,6,0,1,false,1,1,1,true],                      # Gain Effort Values
+            [0.5,1,0,1,false,2,1,3,true],                    # Learn Moves in Battle
+            [1,2,0,1,false,3,1,2,true],                      # Break the Mold
+            [1,2,0,1,false,7,1,2,true],                      # Use Lo Priority Moves
+            [1,2,0,1,false,0,2,2,true],                      # Defeat Skilled Pokemon
+            [5,10,0,5,false,1,2,2,true],                     # Restore PP
+            [1,2,0,1,false,2,2,2,true],                      # Use Sound-based Moves
+            [0.4,0.65,0,1,false,3,2,3,hasSupercharger?],     # Supercharge Pokemon
+            [0.4,0.65,0,1,false,7,2,3,true],                 # Use Transform
+            [0.5,1,0,1,false,6,0,2,true],                    # Use any Item
+            [2,4,0,1,false,4,0,2,true],                      # Use Perfect Moves
+            [1,2,0,1,false,4,1,2,true],                      # Use Variable Moves
+            [0.3,0.5,0,1,false,7,1,3,true],                  # Create Substitutes
+            [1,2,0,1,false,5,1,2,hasShadowMoves?],           # Use Shadow Moves
+            [0.5,1,0,1,true,5,1,3,true],                     # Defeat Full Trainers
+            [1,2,0,1,false,4,2,2,true],                      # Defeat same-color Pokemon
+            [0.4,0.65,0,1,false,4,2,3,true],                 # Confuse or Infatuate
+            [0.06,0.12,0,1,true,5,2,4,true],                 # Collect Lucky Bags
+            [0.06,0.15,0,1,false,5,2,4,$game_switches[174]], # Use Elder Special Moves
+            [200,600,6,10,true,0,2,1,true],                  # Gain Experience/TB
+            [1,1.5,0,1,true,0,2,1,true],                     # Level Up Pokemon/TB
+            [2.5,5,0,1,true,0,2,1,true],                     # Defeat Pokemon/TB
+            [80,240,1.5,10,true,0,2,1,true],                 # Deal Damage/TB
+            [1.5,3,0,1,true,1,2,1,true],                     # Land Super Effective/TB
+            [1.5,3,0,1,true,1,2,1,true],                     # Land Not Very Effective/TB
+            [3,6,0,1,true,2,2,1,true],                       # Use Physical Moves/TB
+            [3,6,0,1,true,2,2,1,true],                       # Use Special Moves/TB
+            [1.5,3,0,1,true,2,2,1,true],                     # Use Status Moves/TB
+            [20,30,0,5,true,0,2,1,true],                     # Gain Levelup Stats/TB
+            [3,6,0,1,true,1,2,1,true],                       # Gain Effort Values/TB
+            [3,6,0,1,false,2,0,1,true],                      # Use Normal Moves
+            [3,6,0,1,true,2,2,1,true],                       # Use Normal Moves/TB
+            [3,6,0,1,false,2,1,1,true],                      # Use G-F-W Moves
+            [3,6,0,1,true,2,2,1,true],                       # Use G-F-W Moves/TB
+            [0.2,0.4,0,1,false,1,2,3,true],                  # Catch Skilled Pokemon
+            [0.5,1,0,1,false,3,3,3,true],                    # Defeat Skilled Pokemon Inst.
+            [0.2,0.4,0,1,true,3,3,4,true],                   # Defeat Full Skilled Trainers
+            [0.5,1,0,1,false,3,3,3,true],                    # Defeat same-color Pokemon Inst.
+            [3,6,0,1,false,2,1,1,true],                      # Use Fi-Ps-Da Moves
+            [3,6,0,1,true,2,2,1,true],                       # Use Fi-Ps-Da Moves/TB
+            [0.06,0.15,0,1,false,3,3,4,hasRobot?],           # Use Robot Moves
+            [20,60,1.5,10,false,1,1,2,true],                 # Deal Damage to SI PKMN
+            [0.06,0.15,0,1,false,6,2,4,true],                # Use Moves with 1 PP
+            [0.5,1,0,1,false,6,2,3,true],                    # Change Abilities
+            [0.5,1,0,1,false,6,2,3,true],                    # Change Held Items
+            [1,2,0,1,false,4,2,2,true],                      # Defeat same-gender Pokemon
+            [0.5,1,0,1,false,5,3,3,true],                    # Defear same-gender Pokemon Inst.
+            [1,2,0,1,false,2,2,2,true],                      # Use Bomb-based Moves
+            [0.4,0.65,0,1,false,6,1,3,true],                 # Create Weater or Terrain
+            [200,600,6,10,false,0,2,1,true],                 # Gain Experience/Win
+            [1,1.5,0,1,false,0,2,1,true],                    # Level Up Pokemon/Win
+            [2.5,5,0,1,false,0,2,1,true],                    # Defeat Pokemon/Win
+            [80,240,1.5,10,false,0,2,1,true],                # Deal Damage/Win
+            [1.5,3,0,1,false,1,2,1,true],                    # Land Super Effective/Win
+            [1.5,3,0,1,false,1,2,1,true],                    # Land Not Very Effective/Win
+            [3,6,0,1,false,2,2,1,true],                      # Use Physical Moves/Win
+            [3,6,0,1,false,2,2,1,true],                      # Use Special Moves/Win
+            [1.5,3,0,1,false,2,2,1,true],                    # Use Status Moves/Win
+            [20,30,0,5,false,0,2,1,true],                    # Gain Levelup Stats/Win
+            [3,6,0,1,false,1,2,1,true],                      # Gain Effort Values/Win
+            [3,6,0,1,false,2,2,1,true],                      # Use Normal Moves/win
+            [3,6,0,1,false,2,2,1,true],                      # Use G-F-W Moves/Win
+            [3,6,0,1,false,2,2,1,true],                      # Use Fi-Ps-Da Moves/Win
+            [1,2,0,1,false,4,0,1,true],                      # Win Battles
+            [4,8,0,1,false,2,0,1,true],                      # Use Moves
+            [0.5,0.75,0,1,false,5,3,3,hasUpperKingdom?],  	 # Win battles in UK/100%
+            [0.5,1,0,1,false,3,1,2,true],                    # Win Battles/100%
+            [3,6,0,1,false,4,0,1,true],                      # Collect Battle Stars
+            [1.5,3,0,1,false,4,0,1,true],                    # Play Battles
             ]
   end
   
@@ -892,17 +893,20 @@ class PokemonBoxScene
     if boxLevel>4 # Level 5
       tasksToExclude=taskNumbers.find_all {|num| 
                                           ( boxdata[num][7]<4 && [0,1,2,4,6].include?(boxdata[num][5]) ) ||
-                                          ( boxdata[num][6]>boxLevel && currentBoxDif==0 )
+                                          ( boxdata[num][6]>boxLevel && currentBoxDif==0 ) ||
+                                          !boxdata[num][8]
                                           }
     elsif boxLevel>3 # Level 4
       tasksToExclude=taskNumbers.find_all {|num| 
                                           ( boxdata[num][7]<3 && [0,1,2,4,6].include?(boxdata[num][5]) ) ||
-                                          ( boxdata[num][6]>boxLevel && currentBoxDif==0 )
+                                          ( boxdata[num][6]>boxLevel && currentBoxDif==0 ) ||
+                                          !boxdata[num][8]
                                           }
     elsif boxLevel>2 #|| currentBoxDif>2 # Level 3 or Rank 4/Tier 3
       tasksToExclude=taskNumbers.find_all {|num| 
                                           ( boxdata[num][7]<2 && [0,1,2,4,6].include?(boxdata[num][5]) ) ||
-                                          ( boxdata[num][6]>boxLevel && currentBoxDif==0 )
+                                          ( boxdata[num][6]>boxLevel && currentBoxDif==0 ) ||
+                                          !boxdata[num][8]
                                           }
     elsif boxLevel>1
       excludeTrainerBattles = data==[] || currentBoxBalanceMeter< 35 || currentBoxDif>2
@@ -910,44 +914,19 @@ class PokemonBoxScene
                                           ( boxdata[num][7]<1 && [0,1,2,4,6].include?(boxdata[num][5]) ) ||
                                           ( boxdata[num][7]<2 && ([0,1,2].include?(boxdata[num][5]) && !boxdata[num][4]) && !excludeTrainerBattles ) ||
                                           ( boxdata[num][7]<2 && ([0,1,2].include?(boxdata[num][5]) && (boxdata[num][4] || boxdata[num][6]<2) ) && excludeTrainerBattles ) ||
-                                          ( boxdata[num][6]>boxLevel && currentBoxDif==0 )
+                                          ( boxdata[num][6]>boxLevel && currentBoxDif==0 ) ||
+                                          !boxdata[num][8]
                                           }
     else # Level 1 and below
       tasksToExclude=taskNumbers.find_all {|num| 
                                           ( boxdata[num][7]<2 && ([0,1,2].include?(boxdata[num][5]) && (boxdata[num][4] || boxdata[num][6]>1)) ) ||
-                                          ( boxdata[num][6]>boxLevel && currentBoxDif==0 )
+                                          ( boxdata[num][6]>boxLevel && currentBoxDif==0 ) ||
+                                          !boxdata[num][8]
                                           }
 
     end
     # Disable the Horde Task as it is unachievable
     tasksToExclude.push(19) # Not applicable
-    # List of items that will enable the supercharge task
-    supercharger=false
-    mRINGS = [:MEGARING,:MEGABRACELET,:MEGACUFF,:MEGACHARM,:DYNAMAXBAND] 
-    for i in mRINGS
-      next if !hasConst?(PBItems,i)
-      if $PokemonBag.pbQuantity(i)>0
-        supercharger=true
-        break
-      end
-    end
-    tasksToExclude.push(48) if !supercharger # Never when not having it
-    # List of Pokemon that will enable the robot task
-    robot=false
-    species = [:CALODIN,:COULUNDIN] # These know Robot-type moves
-    for i in species
-      next if !hasConst?(PBSpecies,i)
-      if $Trainer.hasOwned?(i)
-        robot=true
-        break
-      end
-    end
-    tasksToExclude.push(81) if !robot # Never when not having it
-    tasksToExclude.push(13,106) if !$PokemonGlobal.upperKingdom
-    # Disable "Use Elder Special Moves" when Elder Special Move tutorial isn't done
-    tasksToExclude.push(59) if !$game_switches[174]
-    # Disable "Use Shadow Moves" when shadow type isn't defined
-    tasksToExclude.push(54) if !hasConst?(PBTypes,:SHADOW)
     tasksToExclude.push(3,10,19,23,29,33,34,35,38,42,48,54,55,58,59,60,61,62,63,64,65,66,67,68,69,70,72,74,75,76,77,80,81,83) if $flint_brockopolis_active
     if ($PokemonSystem.battledif>2 rescue false)
       mode=2  # Strict Mode = Tasks can be only on their intended positions

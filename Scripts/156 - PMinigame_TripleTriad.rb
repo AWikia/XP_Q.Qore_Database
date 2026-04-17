@@ -1145,8 +1145,9 @@ def pbBuyTriads
           if !$PokemonGlobal.triads.pbCanStore?(item,quantity)
             Kernel.pbMessage(_INTL("You have no room for more cards."))
           else
+            $PokemonGlobal.mapPokebox(111,quantity) # Not on the next funtion
             $PokemonGlobal.triads.pbStoreItem(item,quantity)
-            $Trainer.money-=price
+            $Trainer.changeMoney(price*-1)
             moneyString=_INTL("${1}",$Trainer.money.to_s_formatted)
             goldwindow.text=_INTL("Money:\n{1}",moneyString)
             Kernel.pbMessage(_INTL("Here you are!\r\nThank you!"))
@@ -1225,7 +1226,7 @@ def pbSellTriads
           price/=4
           price*=quantity
           if Kernel.pbConfirmMessage(_INTL("I can pay ${1}. Would that be OK?",price.to_s_formatted))
-            $Trainer.money+=price
+            $Trainer.changeMoney(price)
             moneyString=_INTL("${1}",$Trainer.money.to_s_formatted)
             goldwindow.text=_INTL("Money:\n{1}",moneyString)
             $PokemonGlobal.triads.pbDeleteItem(item,quantity)

@@ -67,6 +67,17 @@ class PokeBattle_Trainer
   def money=(value)
     @money=[[value,MAXMONEY].min,0].max
   end
+  
+  def changeMoney(value)
+    oldmoney=@money
+    @money+=value
+    diff=@money-oldmoney
+    if diff>0
+      $PokemonGlobal.mapPokebox(35,diff)
+    elsif diff<0
+      $PokemonGlobal.mapPokebox(110,diff*-1)
+    end
+  end
 
   def moneyEarned   # Money won when trainer is defeated
     ret=0

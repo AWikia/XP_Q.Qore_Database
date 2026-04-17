@@ -41,7 +41,7 @@ class PokemonGlobalMetadata
             _INTL("Use Moves from other Pokémon"),_INTL("Take Recoil Damage"),
             _INTL("Recover HP"),_INTL("Land Super Effectiveness"),
             _INTL("Use Multi-hit Moves"),_INTL("Defeat Trainers with Best Skill"),
-            _INTL("Use Moves while asleep"),_INTL("Gain Money in Battle"),
+            _INTL("Use Moves while asleep"),_INTL("Gain Money"),
             _INTL("Land Not Very Effectiveness"),_INTL("Use Multi-Target Moves"),
             _INTL("Activate Win Streak Bags"),_INTL("Change Forms in Battle"),
             _INTL("Gain Levelup Stat Changes"),_INTL("Gain Effort Values"),
@@ -78,7 +78,9 @@ class PokemonGlobalMetadata
             _INTL("Use Grass, Fire or Water Moves in Battle Wins"),_INTL("Use Fighting, Psychic or Dark Moves in Battle Wins"),
             _INTL("Win Battles"),_INTL("Use Moves"),
             _INTL("Win Battles Perfectly in Upper Kingdom"),_INTL("Win Battles Perfectly"),
-            _INTL("Collect Battle Stars"),_INTL("Play Battles")]
+            _INTL("Collect Battle Stars"),_INTL("Play Battles"),
+            _INTL("Use Money"),_INTL("Buy Items from a Market"),
+            _INTL("Win Mining Minigame Rounds"),_INTL("Win Jackpots")]
 
   end
   def pokeboxNames2
@@ -136,7 +138,9 @@ class PokemonGlobalMetadata
             _INTL("G-F-W Move Usage/Win"),_INTL("Fi-Ps-Da Move Usage/Win"),
             _INTL("Battle Winning"),_INTL("Move Usage"),
             _INTL("Perfect Battle Winning in UK"),_INTL("Perfect Battle Winning"),
-            _INTL("Battle Star Collection"),_INTL("Battle Playing")]
+            _INTL("Battle Star Collection"),_INTL("Battle Playing"),
+            _INTL("Money Usage"),_INTL("Item Buying"),
+            _INTL("Mining Round Winning"),_INTL("Jackpot Winning")]
 
   end
   def pokeboxNames3
@@ -157,7 +161,7 @@ class PokemonGlobalMetadata
             _INTL("Moves from other Pokémon Used"),_INTL("Recoil Damage Taken"),
             _INTL("HP Recovered"),_INTL("Super Effectiveness Landed"),
             _INTL("Multi-hit Moves Used"),_INTL("Trainers with Best Skill Defeated"),
-            _INTL("Moves while asleep Used"),_INTL("Money in Battle Gained"),
+            _INTL("Moves while asleep Used"),_INTL("Money Gained"),
             _INTL("Not Very Effectiveness Landed"),_INTL("Multi-Target Moves Used"),
             _INTL("Win Streak Bags Activated"),_INTL("Forms in Battle Changed"),
             _INTL("Levelup Stat Changes Gained"),_INTL("Effort Values Gained"),
@@ -194,7 +198,10 @@ class PokemonGlobalMetadata
             _INTL("Grass, Fire or Water Moves in Battle Wins Used"),_INTL("Fighting, Psychic or Dark Moves in Battle Wins Used"),
             _INTL("Battles Won"),_INTL("Moves Used"),
             _INTL("Battles Perfectly in Upper Kingdom Won"),_INTL("Battles Perfectly Won"),
-            _INTL("Battle Stars Collected"),_INTL("Battles Played")]
+            _INTL("Battle Stars Collected"),_INTL("Battles Played"),
+            _INTL("Money Used"),_INTL("Items from a Market Bought"),
+            _INTL("Mining Minigame Rounds Won"),
+            _INTL("Jackpots Won")]
   end
 
   def pokeboxDescriptions
@@ -233,7 +240,7 @@ class PokemonGlobalMetadata
             _INTL("Use your Pokémon's moves that hit more than once to progress."),
             _INTL("Defeat Trainers that have the highest skill in Battles to progress. It counts once per instance."),
             _INTL("Use your Pokémon's moves while asleep to progress."),
-            _INTL("Earn Money from Battles that award or from your Pokémon's moves that can give money out to progress."),
+            _INTL("Earn Money from Traomer Battles, your Pokémon's moves that can give money or from the map to progress."),
             _INTL("Trigger not very effectiveness using your Pokémon's moves to progress."),
             _INTL("Use your Pokémon's moves that hit multiple targets to progress."),
             _INTL("Use up a Win Streak Booster Bag on your Pokémon during Battles that use Win Streak to progress."),
@@ -307,7 +314,11 @@ class PokemonGlobalMetadata
             _INTL("Complete Battles in Upper Kingdom Maps without losing HP to progress. Battles outside of these ones do not count."),
             _INTL("Complete Battles without losing HP to progress."),
             _INTL("Deal Damage to opposing Pokémon to collect stars. Each 1/3 of total HP of opposing team lost equals to one star."),
-            _INTL("Lapse at least one turn in Battles to progress.")]
+            _INTL("Lapse at least one turn in Battles to progress."),
+            _INTL("Spend Money on shops, events or battle blackouts to progress."),
+            _INTL("Buy items from a market like Pokémon Marts to progress. Link Battle Marketplace and Triple Triad Shops also count."),
+            _INTL("Uncover all items in a Mining Minigmae round to progress."),
+            _INTL("Earn Bonus Prizes in events to progress. Only Game Corner events work currently.")]
   end
 
   def pokeboxData 
@@ -430,6 +441,10 @@ class PokemonGlobalMetadata
             [0.5,1,0,1,false,3,1,2,true],                    # Win Battles/100%
             [3,6,0,1,false,4,0,1,true],                      # Collect Battle Stars
             [1.5,3,0,1,false,4,0,1,true],                    # Play Battles
+            [450,1200,1,10,false,0,1,2,true],                # Use Money
+            [1.5,3,0,1,false,4,0,1,true],                    # Buy Items
+            [0.12,0.24,0,1,false,3,2,3,true],                # Win Mining Rounds
+            [0.1,0.2,0,1,false,3,2,3,hasCoinCase?]           # Win Jackpots
             ]
   end
   

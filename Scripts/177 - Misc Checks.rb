@@ -307,6 +307,10 @@ def hasShadowMoves?
   return hasConst?(PBTypes,:SHADOW) && ($PokemonGlobal.seenPurifyChamber rescue false)
 end
 
+def hasCoinCase?
+  return $PokemonBag.pbQuantity(:COINCASE)>0
+end
+
 #===============================================================================
 # * Eternal Pokémons, Ultra Blue and Regional Forms
 #===============================================================================

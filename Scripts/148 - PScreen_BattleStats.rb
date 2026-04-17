@@ -61,7 +61,7 @@ class PokemonBattleStatsScene
     end
     imagepos=[]
     textPositions=[
-       [_INTL("Battle Statistics for {1}:",$Trainer.name),240,0,2,baseColor,shadowColor],
+       [_INTL("Game Statistics for {1}:",$Trainer.name),240,0,2,baseColor,shadowColor],
     ]
     y=32
     offset=10*@page

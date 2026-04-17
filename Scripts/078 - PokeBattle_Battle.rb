@@ -5045,11 +5045,10 @@ class PokeBattle_Battle
           # If Happy Hour's effect applies, double money earned
           tmoney*=2 if @doublemoney
           oldmoney=self.pbPlayer.money
-          self.pbPlayer.money+=tmoney
+          self.pbPlayer.changeMoney(tmoney)
           moneygained=self.pbPlayer.money-oldmoney
           if moneygained>0
             pbDisplayPaused(_INTL("{1} got ${2}\r\nfor winning!",self.pbPlayer.name,tmoney.to_s_formatted))
-            $PokemonGlobal.pokebox[35]+=tmoney
           end
           # Win Streak Start
           $game_variables[WIN_STREAK_VARIABLE]+=1
@@ -5091,11 +5090,10 @@ class PokeBattle_Battle
         @extramoney*=2 if @amuletcoin
         @extramoney*=2 if @doublemoney
         oldmoney=self.pbPlayer.money
-        self.pbPlayer.money+=@extramoney
+        self.pbPlayer.changeMoney(@extramoney)
         moneygained=self.pbPlayer.money-oldmoney
         if moneygained>0
           pbDisplayPaused(_INTL("{1} picked up ${2}!",self.pbPlayer.name,@extramoney.to_s_formatted))
-          $PokemonGlobal.pokebox[35]+=@extramoney
         end
       end
       for pkmn in @snaggedpokemon
@@ -5124,7 +5122,7 @@ class PokeBattle_Battle
         moneylost=self.pbPlayer.money if moneylost>self.pbPlayer.money
         moneylost=0 if $game_switches[NO_MONEY_LOSS]
         oldmoney=self.pbPlayer.money
-        self.pbPlayer.money-=moneylost
+        self.pbPlayer.changeMoney(moneylost*-1)
         lostmoney=oldmoney-self.pbPlayer.money
         if @opponent
           $game_variables[WIN_STREAK_VARIABLE]=0 if !($game_switches[1047] || $game_switches[SEMI_INTERNAL_BATTLE] || $game_variables[1003] > 0)

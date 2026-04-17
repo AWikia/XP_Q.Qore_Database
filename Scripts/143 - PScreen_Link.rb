@@ -459,6 +459,7 @@ class Scene_LinkBattleScene
                   update_stats
                   $PokemonBag.pbStoreItem(itemname)
                 end
+                $PokemonGlobal.mapPokebox(111,1)
                 Kernel.pbMessage(_INTL("\\g[1]\\me[EvolutionSuccess_1]Spent {1} Link Points and earned one {2}",itemprice,itemname2))
                 break
               end

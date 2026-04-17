@@ -127,6 +127,7 @@ class SlotMachineScene
     @replay=false
     payout=0
     bonus=0
+    jackpots=0
     wonRow=[]
     # Get reel pictures
     reel1=@sprites["reel1"].showing
@@ -153,27 +154,35 @@ class SlotMachineScene
         payout+=15
       when [5,5,5] # Red 777
         payout+=100
+        jackpots+=1
         bonus=2 if bonus<2
       when [6,6,6] # Blue 777
         payout+=100
+        jackpots+=1
         bonus=2 if bonus<2
       when [5,5,6] # 777, red red blue
         payout+=50
+        jackpots+=1
         bonus=1 if bonus<1
       when [5,6,5] # 777, red blue red
         payout+=50
+        jackpots+=1
         bonus=1 if bonus<1
       when [6,5,5] # 777, blue red red
         payout+=50
+        jackpots+=1
         bonus=1 if bonus<1
       when [6,6,5] # 777, blue blue red
         payout+=50
+        jackpots+=1
         bonus=1 if bonus<1
       when [6,5,6] # 777, blue red blue
         payout+=50
+        jackpots+=1
         bonus=1 if bonus<1
       when [5,6,6] # 777, red blue blue
         payout+=50
+        jackpots+=1
         bonus=1 if bonus<1
       when [7,7,7] # Three replays
         @replay=true
@@ -196,6 +205,10 @@ class SlotMachineScene
         pbMEPlay("SlotsBigWin")
       else
         pbMEPlay("SlotsWin")
+      end
+      if jackpots>0
+        Kernel.pbReceiveTrophy(:TLOTTER)
+        $PokemonGlobal.mapPokebox(113,jackpots)
       end
       # Show winning animation
       until frame==180 # 60 frames per seconds

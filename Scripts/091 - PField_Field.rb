@@ -2973,7 +2973,7 @@ module InterpreterFieldMixin
 
   def command_125
     value = operate_value(pbParams[0], pbParams[1], pbParams[2])
-    $Trainer.money+=value
+    $Trainer.changeMoney(value)
     return true
   end
 

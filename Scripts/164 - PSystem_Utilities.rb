@@ -494,7 +494,7 @@ def pbReturnBonusEvent
     $game_variables[DWIN_VARIABLES[5]]=(pbIsMillenialDate?) ? 2 : (pbIsWeekday(-1,4,5)) ? 1 : 0
     multi = [(oldtime/10).floor,3].min # x1 on 10-19 days, x2 on 20-29 days, x3 on 30+ days
     money = 5000*multi
-    $Trainer.money+=money
+    $Trainer.changeMoney(money)
     Kernel.pbMessage(_INTL("\\f[introOak]\\rSannse:Welcome back \\PN! Here's ${1} that were found during your vactaion.",money))
     amtGem=3*multi
     amtPotion=2*multi

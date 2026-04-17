@@ -10,6 +10,10 @@ class PokemonMartAdapter
     $Trainer.money=value
   end
 
+  def changeMoney(value)
+    $Trainer.changeMoney(value)
+  end
+
   def getInventory()
     return $PokemonBag
   end
@@ -57,6 +61,7 @@ class PokemonMartAdapter
   end
 
   def addItem(item)
+    $PokemonGlobal.mapPokebox(111,1)
     return $PokemonBag.pbStoreItem(item)
   end
 
@@ -755,7 +760,7 @@ class PokemonMartScreen
         end
         pbDisplayPaused(_INTL("You have no more room in the Bag."))  
       else
-        @adapter.setMoney(@adapter.getMoney()-price)
+        @adapter.changeMoney(price*-1)
         for i in 0...@stock.length
           if pbIsImportantItem?(@stock[i]) && $PokemonBag.pbQuantity(@stock[i])>0
             @stock[i]=nil
@@ -801,7 +806,7 @@ class PokemonMartScreen
       price/=2
       price*=qty
       if pbConfirm(_INTL("I can pay ${1}.\r\nWould that be OK?",price.to_s_formatted))
-        @adapter.setMoney(@adapter.getMoney()+price)
+        @adapter.changeMoney(price)
         for i in 0...qty
           @adapter.removeItem(item)
         end

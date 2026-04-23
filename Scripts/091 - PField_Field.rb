@@ -2269,17 +2269,20 @@ def Kernel.pbItemBall(item,quantity=1)
   itemname=(quantity>1) ? PBItems.getNamePlural(item) : PBItems.getName(item)
   pocket=pbGetPocket(item)
   if $PokemonBag.pbStoreItem(item,quantity)   # If item can be picked up
+    musicEffect="ItemGet"
+    musicEffect="Jingle - HMTM" if pbIsMachine?(item)
+    musicEffect="BerryGet" if pbIsBerry?(item)
+    musicEffect="KeyItemGet" if pbIsKeyItem?(item)
+    musicEffect="MegaStoneGet" if pbIsMegaStone?(item)
     if $ItemData[item][ITEMUSE]==3 || $ItemData[item][ITEMUSE]==4 || $ItemData[item][ITEMUSE]==6
-      Kernel.pbMessage(_INTL("\\me[]\\me[Jingle - HMTM]{1} found \\c[1]{2}\\c[0]!\\nIt contained \\c[1]{3}\\c[0].\\wtnp[30]",
-         $Trainer.name,itemname,PBMoves.getName($ItemData[item][ITEMMACHINE])))
-    elsif $ItemData[item][ITEMTYPE]==6
-      Kernel.pbMessage(_INTL("\\me[]\\me[KeyItemGet]{1} found one \\c[1]{2}\\c[0]!\\wtnp[30]",$Trainer.name,itemname))
+      Kernel.pbMessage(_INTL("\\me[]\\me[{1}]{2} found \\c[1]{3}\\c[0]!\\nIt contained \\c[1]{4}\\c[0].\\wtnp[30]",
+         musicEffect,$Trainer.name,itemname,PBMoves.getName($ItemData[item][ITEMMACHINE])))
     elsif isConst?(item,PBItems,:LEFTOVERS)
-      Kernel.pbMessage(_INTL("\\me[]\\me[ItemGet]{1} found some \\c[1]{2}\\c[0]!\\wtnp[30]",$Trainer.name,itemname))
+      Kernel.pbMessage(_INTL("\\me[]\\me[{1}]{2} found some \\c[1]{3}\\c[0]!\\wtnp[30]",musicEffect,$Trainer.name,itemname))
     elsif quantity>1
-      Kernel.pbMessage(_INTL("\\me[]\\me[ItemGet]{1} found {2} \\c[1]{3}\\c[0]!\\wtnp[30]",$Trainer.name,quantity,itemname))
+      Kernel.pbMessage(_INTL("\\me[]\\me[{1}]{2} found {3} \\c[1]{4}\\c[0]!\\wtnp[30]",musicEffect,$Trainer.name,quantity,itemname))
     else
-      Kernel.pbMessage(_INTL("\\me[]\\me[ItemGet]{1} found one \\c[1]{2}\\c[0]!\\wtnp[30]",$Trainer.name,itemname))
+      Kernel.pbMessage(_INTL("\\me[]\\me[{1}]{2} found one \\c[1]{3}\\c[0]!\\wtnp[30]",musicEffect,$Trainer.name,itemname))
     end
     Kernel.pbMessage(_INTL("{1} put the \\c[1]{2}\\c[0]\r\nin the <icon=bagPocket#{pocket}>\\c[1]{3}\\c[0] Pocket.",
        $Trainer.name,itemname,PokemonBag.pocketNames()[pocket]))
@@ -2311,17 +2314,20 @@ def Kernel.pbReceiveItem(item,quantity=1)
   return Kernel.pbReceiveTrophy(item) if pocket==6 # A Trophy
   return false if !item || item<=0 || quantity<1
   itemname=(quantity>1) ? PBItems.getNamePlural(item) : PBItems.getName(item)
+  musicEffect="ItemGet"
+  musicEffect="Jingle - HMTM" if pbIsMachine?(item)
+  musicEffect="BerryGet" if pbIsBerry?(item)
+  musicEffect="KeyItemGet" if pbIsKeyItem?(item)
+  musicEffect="MegaStoneGet" if pbIsMegaStone?(item)
   if $ItemData[item][ITEMUSE]==3 || $ItemData[item][ITEMUSE]==4 || $ItemData[item][ITEMUSE]==6
-    Kernel.pbMessage(_INTL("\\me[Jingle - HMTM]Obtained \\c[1]{1}\\c[0]!\\nIt contained \\c[1]{2}\\c[0].\\wtnp[30]",
-       itemname,PBMoves.getName($ItemData[item][ITEMMACHINE])))
-  elsif $ItemData[item][ITEMTYPE]==6
-    Kernel.pbMessage(_INTL("\\me[]\\me[KeyItemGet]Obtained \\c[1]{1}\\c[0]!\\wtnp[30]",itemname))
+    Kernel.pbMessage(_INTL("\\me[{1}]Obtained \\c[1]{2}\\c[0]!\\nIt contained \\c[1]{3}\\c[0].\\wtnp[30]",
+       musicEffect,itemname,PBMoves.getName($ItemData[item][ITEMMACHINE])))
   elsif isConst?(item,PBItems,:LEFTOVERS)
-    Kernel.pbMessage(_INTL("\\me[]\\me[ItemGet]Obtained some \\c[1]{1}\\c[0]!\\wtnp[30]",itemname))
+    Kernel.pbMessage(_INTL("\\me[]\\me[{1}]Obtained some \\c[1]{2}\\c[0]!\\wtnp[30]",musicEffect,itemname))
   elsif quantity>1
-    Kernel.pbMessage(_INTL("\\me[]\\me[ItemGet]Obtained {1} \\c[1]{2}\\c[0]!\\wtnp[30]",quantity,itemname))
+    Kernel.pbMessage(_INTL("\\me[]\\me[{1}]Obtained {2} \\c[1]{3}\\c[0]!\\wtnp[30]",musicEffect,quantity,itemname))
   else
-    Kernel.pbMessage(_INTL("\\me[]\\me[ItemGet]Obtained \\c[1]{1}\\c[0]!\\wtnp[30]",itemname))
+    Kernel.pbMessage(_INTL("\\me[]\\me[{1}]Obtained \\c[1]{2}\\c[0]!\\wtnp[30]",musicEffect,itemname))
   end
   if $PokemonBag.pbStoreItem(item,quantity)   # If item can be added
     Kernel.pbMessage(_INTL("{1} put the \\c[1]{2}\\c[0]\r\nin the <icon=bagPocket#{pocket}>\\c[1]{3}\\c[0] Pocket.",

@@ -46,7 +46,9 @@ def pbIsTrophy?(item)
 end
 
 def pbIsMachine?(item)
-  return $ItemData[item] && (pbIsTechnicalMachine?(item) || pbIsHiddenMachine?(item) || pbIsTechnicalDisc?(item))
+  return $ItemData[item] && (pbIsTechnicalMachine?(item) || 
+                             pbIsHiddenMachine?(item) || 
+                             pbIsTechnicalDisc?(item))
 end
 
 def pbIsTechnicalMachine?(item)

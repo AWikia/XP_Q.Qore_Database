@@ -2909,7 +2909,7 @@ def pbStorePokemon(pokemon)
     end
     # changed added - https://reliccastle.com/resources/176/
     if swap
-      Kernel.pbMessage(_INTL("{2} was added to {1}'s party!\\se[PokemonGet]",$Trainer.name,pokemon2.name))
+      Kernel.pbMessage(_INTL("\\me[PokemonGet]{2} was added to {1}'s party!",$Trainer.name,pokemon2.name))
     end
     # changed end
   end
@@ -2941,7 +2941,7 @@ def pbAddPokemon(pokemon,level=nil,seeform=true)
     pokemon=PokeBattle_Pokemon.new(pokemon,level,$Trainer)
   end
   speciesname=PBSpecies.getName(pokemon.species)
-  Kernel.pbMessage(_INTL("{1} obtained {2}!\\se[PokemonGet]\1",$Trainer.name,speciesname))
+  Kernel.pbMessage(_INTL("\\me[PokemonGet]{1} obtained {2}!\1",$Trainer.name,speciesname))
   pbNicknameAndStore(pokemon)
   pbSeenForm(pokemon) if seeform
   return true
@@ -2976,7 +2976,7 @@ def pbAddToParty(pokemon,level=nil,seeform=true)
     pokemon=PokeBattle_Pokemon.new(pokemon,level,$Trainer)
   end
   speciesname=PBSpecies.getName(pokemon.species)
-  Kernel.pbMessage(_INTL("{1} obtained {2}!\\se[PokemonGet]\1",$Trainer.name,speciesname))
+  Kernel.pbMessage(_INTL("\\me[PokemonGet]{1} obtained {2}!\1",$Trainer.name,speciesname))
   pbNicknameAndStore(pokemon)
   pbSeenForm(pokemon) if seeform
   return true
@@ -3017,9 +3017,9 @@ def pbAddForeignPokemon(pokemon,level=nil,ownerName=nil,nickname=nil,ownerGender
   # Recalculate stats
   pokemon.calcStats
   if ownerName
-    Kernel.pbMessage(_INTL("{1} received a Pokémon from {2}.\\se[PokemonGet]\1",$Trainer.name,ownerName))
+    Kernel.pbMessage(_INTL("\\me[PokemonGetOthers]{1} received a Pokémon from {2}.\1",$Trainer.name,ownerName))
   else
-    Kernel.pbMessage(_INTL("{1} received a Pokémon.\\se[PokemonGet]\1",$Trainer.name))
+    Kernel.pbMessage(_INTL("\\me[PokemonGetOthers]{1} received a Pokémon.\1",$Trainer.name))
   end
   pbStorePokemon(pokemon)
   $Trainer.seen[pokemon.species]=true

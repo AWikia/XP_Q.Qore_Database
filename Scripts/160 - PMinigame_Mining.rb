@@ -576,7 +576,7 @@ class MiningGameScene
         @sprites["cursor"].visible=false
         pbWait(30)
         pbSEPlay("MiningAllFound")
-        $PokemonGlobal.mapPokebox(112,1)
+        $PokemonGlobal.changePokebox(112,1)
         Kernel.pbMessage(_INTL("Everything was dug up!"))
         ret=true
         break

@@ -1145,7 +1145,7 @@ def pbBuyTriads
           if !$PokemonGlobal.triads.pbCanStore?(item,quantity)
             Kernel.pbMessage(_INTL("You have no room for more cards."))
           else
-            $PokemonGlobal.mapPokebox(111,quantity) # Not on the next funtion
+            $PokemonGlobal.changePokebox(111,quantity) # Not on the next funtion
             $PokemonGlobal.triads.pbStoreItem(item,quantity)
             $Trainer.changeMoney(price*-1)
             moneyString=_INTL("${1}",$Trainer.money.to_s_formatted)

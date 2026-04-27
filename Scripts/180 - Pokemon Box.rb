@@ -15,7 +15,7 @@ class PokemonGlobalMetadata
     return @pokebox
   end
   
-  def mapPokebox(num,val)
+  def changePokebox(num,val)
     if !$PokemonBoxUpdate && !$inbattle
       $PokemonBoxUpdate=true
       pbRecordOldValues
@@ -80,7 +80,8 @@ class PokemonGlobalMetadata
             _INTL("Win Battles Perfectly in Upper Kingdom"),_INTL("Win Battles Perfectly"),
             _INTL("Collect Battle Stars"),_INTL("Play Battles"),
             _INTL("Use Money"),_INTL("Buy Items from a Market"),
-            _INTL("Win Mining Minigame Rounds"),_INTL("Win Jackpots")]
+            _INTL("Win Mining Minigame Rounds"),_INTL("Win Jackpots"),
+            _INTL("Evolve Pokémon"),_INTL("Hatch Eggs or Remote Boxes")]
 
   end
   def pokeboxNames2
@@ -140,7 +141,8 @@ class PokemonGlobalMetadata
             _INTL("Perfect Battle Winning in UK"),_INTL("Perfect Battle Winning"),
             _INTL("Battle Star Collection"),_INTL("Battle Playing"),
             _INTL("Money Usage"),_INTL("Item Buying"),
-            _INTL("Mining Round Winning"),_INTL("Jackpot Winning")]
+            _INTL("Mining Round Winning"),_INTL("Jackpot Winning"),
+            _INTL("Pokémon Evolving"),_INTL("Egg/Box Hatching")]
 
   end
   def pokeboxNames3
@@ -200,8 +202,8 @@ class PokemonGlobalMetadata
             _INTL("Battles Perfectly in Upper Kingdom Won"),_INTL("Battles Perfectly Won"),
             _INTL("Battle Stars Collected"),_INTL("Battles Played"),
             _INTL("Money Used"),_INTL("Items from a Market Bought"),
-            _INTL("Mining Minigame Rounds Won"),
-            _INTL("Jackpots Won")]
+            _INTL("Mining Minigame Rounds Won"),_INTL("Jackpots Won"),
+            _INTL("Pokémon Evolved"),_INTL("Eggs or Remote Boxes Hatched")]
   end
 
   def pokeboxDescriptions
@@ -318,7 +320,8 @@ class PokemonGlobalMetadata
             _INTL("Spend Money on shops, events or battle blackouts to progress."),
             _INTL("Buy items from a market like Pokémon Marts to progress. Link Battle Marketplace and Triple Triad Shops also count."),
             _INTL("Uncover all items in a Mining Minigmae round to progress."),
-            _INTL("Earn Bonus Prizes in events to progress. Only Game Corner events work currently.")]
+            _INTL("Earn Bonus Prizes in events to progress. Only Game Corner events work currently."),
+            _INTL("Evolve Pokémon with any evolution method to progress. Prism Stone evolutions do not count"),_INTL("Hatch Eggs or open Remote Boxes to progress.")]
   end
 
   def pokeboxData 
@@ -334,117 +337,119 @@ class PokemonGlobalMetadata
     return [[200,600,6,10,false,0,0,1,true],                 # Gain Experience
             [1,1.5,0,1,false,0,0,1,true],                    # Level Up Pokemon
             [2.5,5,0,1,false,0,0,1,true],                    # Defeat Pokemon
-            [0.5,1,0,1,false,1,1,2,true],                    # Catch Pokemon
-            [2,4,0,1,false,1,0,2,true],                      # Activate Abilites
-            [2,4,0,1,false,1,0,2,true],                      # Activate Held Items
-            [3,6,0,1,false,2,0,1,true],                      # Use Physical Moves
-            [3,6,0,1,false,2,0,1,true],                      # Use Special Moves
-            [1.5,3,0,1,false,2,0,1,true],                    # Use Status Moves
-            [0.2,0.4,0,1,false,3,2,3,true],                  # Use Battle Items
-            [1,2,0,1,true,3,0,2,true],                       # Defeat Trainers
-            [3,7,0,1,false,3,0,1,true],                      # Lapse Turns
-            [0.4,0.65,0,1,false,6,0,2,true],                 # Use Medicine Items
-            [1,1.5,0,1,false,5,2,2,hasUpperKingdom?],        # Win battles in UK
+            [0.5,1,0,1,false,0,1,2,true],                    # Catch Pokemon
+            [2,4,0,1,false,0,0,2,true],                      # Activate Abilites
+            [2,4,0,1,false,0,0,2,true],                      # Activate Held Items
+            [3,6,0,1,false,0,0,1,true],                      # Use Physical Moves
+            [3,6,0,1,false,0,0,1,true],                      # Use Special Moves
+            [1.5,3,0,1,false,0,0,1,true],                    # Use Status Moves
+            [0.2,0.4,0,1,false,2,2,3,true],                  # Use Battle Items
+            [1,2,0,1,true,2,0,2,true],                       # Defeat Trainers
+            [3,7,0,1,false,2,0,1,true],                      # Lapse Turns
+            [0.4,0.65,0,1,false,1,0,2,true],                 # Use Medicine Items
+            [1,1.5,0,1,false,2,2,2,hasUpperKingdom?],        # Win battles in UK
             [80,240,1.5,10,false,0,0,1,true],                # Deal Damage
-            [0.5,1,0,1,false,1,0,2,true],                    # Land Critical Hits
-            [2,4,0,1,false,2,0,2,true],                      # Use STAB Moves
-            [1,2,0,1,false,3,0,2,true],                      # Defeat Pokemon Instantly
-            [0.4,0.65,0,1,false,6,0,2,true],                 # Use Berries
-            [0.5,1,0,1,false,4,1,3,false],                   # UNUSED!
+            [0.5,1,0,1,false,0,0,2,true],                    # Land Critical Hits
+            [2,4,0,1,false,0,0,2,true],                      # Use STAB Moves
+            [1,2,0,1,false,2,0,2,true],                      # Defeat Pokemon Instantly
+            [0.4,0.65,0,1,false,1,0,2,true],                 # Use Berries
+            [0.5,1,0,1,false,0,1,4,false],                   # UNUSED!
             [3,7,0,1,false,0,2,2,true],                      # Increase Stats
-            [0.3,0.5,0,1,false,1,2,3,true],                  # Revive Pokemon
-            [1,2,0,1,false,2,2,2,true],                      # Use Healing Moves
-            [0.09,0.27,0,1,false,3,2,4,true],                # Use One-hit KO Moves 
-            [1,2,0,1,false,7,1,2,true],                      # Use Hi Priority Moves
+            [0.3,0.5,0,1,false,0,2,3,true],                  # Revive Pokemon
+            [1,2,0,1,false,0,2,2,true],                      # Use Healing Moves
+            [0.09,0.27,0,1,false,2,2,4,true],                # Use One-hit KO Moves 
+            [1,2,0,1,false,2,1,2,true],                      # Use Hi Priority Moves
             [3,7,0,1,false,0,2,2,true],                      # Decrease Stats
-            [1,1.5,0,1,false,1,2,2,true],                    # Inflict Conditions            
-            [1,2,0,1,false,2,1,2,true],                      # Use Moves with Effects
-            [0.4,0.65,0,1,false,3,1,3,true],                 # Use Copycat Moves
-            [20,60,1.5,10,false,4,1,3,true],                 # Take Recoil Damage
+            [1,1.5,0,1,false,0,2,2,true],                    # Inflict Conditions            
+            [1,2,0,1,false,0,1,2,true],                      # Use Moves with Effects
+            [0.4,0.65,0,1,false,2,1,3,true],                 # Use Copycat Moves
+            [20,60,1.5,10,false,0,1,4,true],                 # Take Recoil Damage
             [40,120,1.5,10,false,0,1,2,true],                # Recover HP
-            [1.5,3,0,1,false,1,0,1,true],                    # Land Super Effective
-            [1,2,0,1,false,2,2,2,true],                      # Use Multi-hit Moves
-            [0.5,1,0,1,true,3,0,3,true],                     # Defeat Best Trainers
-            [0.2,0.4,0,1,false,6,2,4,true],                  # Use Sleeping Moves
+            [1.5,3,0,1,false,0,0,1,true],                    # Land Super Effective
+            [1,2,0,1,false,0,2,2,true],                      # Use Multi-hit Moves
+            [0.5,1,0,1,true,2,0,3,true],                     # Defeat Best Trainers
+            [0.2,0.4,0,1,false,1,2,5,true],                  # Use Sleeping Moves
             [600,1400,1,10,false,0,1,2,true],                # Gain Money
-            [1.5,3,0,1,false,1,0,1,true],                    # Land Not Very Effective
-            [1,2,0,1,false,2,1,2,true],                      # Use Mutli-Target Moves
-            [3,4.5,0,1,true,3,0,2,true],                     # Activate Win Streak
-            [0.5,1,0,1,false,7,2,3,true],                    # Change Forms
+            [1.5,3,0,1,false,0,0,1,true],                    # Land Not Very Effective
+            [1,2,0,1,false,0,1,2,true],                      # Use Mutli-Target Moves
+            [3,4.5,0,1,true,2,0,2,true],                     # Activate Win Streak
+            [0.5,1,0,1,false,2,2,3,true],                    # Change Forms
             [20,30,0,5,false,0,1,1,true],                    # Gain Levelup Stats
-            [3,6,0,1,false,1,1,1,true],                      # Gain Effort Values
-            [0.5,1,0,1,false,2,1,3,true],                    # Learn Moves in Battle
-            [1,2,0,1,false,3,1,2,true],                      # Break the Mold
-            [1,2,0,1,false,7,1,2,true],                      # Use Lo Priority Moves
+            [3,6,0,1,false,0,1,1,true],                      # Gain Effort Values
+            [0.5,1,0,1,false,0,1,3,true],                    # Learn Moves in Battle
+            [1,2,0,1,false,2,1,2,true],                      # Break the Mold
+            [1,2,0,1,false,2,1,2,true],                      # Use Lo Priority Moves
             [1,2,0,1,false,0,2,2,true],                      # Defeat Skilled Pokemon
-            [5,10,0,5,false,1,2,2,true],                     # Restore PP
-            [1,2,0,1,false,2,2,2,true],                      # Use Sound-based Moves
-            [0.4,0.65,0,1,false,3,2,3,hasSupercharger?],     # Supercharge Pokemon
-            [0.4,0.65,0,1,false,7,2,3,true],                 # Use Transform
-            [0.5,1,0,1,false,6,0,2,true],                    # Use any Item
-            [2,4,0,1,false,4,0,2,true],                      # Use Perfect Moves
-            [1,2,0,1,false,4,1,2,true],                      # Use Variable Moves
-            [0.3,0.5,0,1,false,7,1,3,true],                  # Create Substitutes
-            [1,2,0,1,false,5,1,2,hasShadowMoves?],           # Use Shadow Moves
-            [0.5,1,0,1,true,5,1,3,true],                     # Defeat Full Trainers
-            [1,2,0,1,false,4,2,2,true],                      # Defeat same-color Pokemon
-            [0.4,0.65,0,1,false,4,2,3,true],                 # Confuse or Infatuate
-            [0.06,0.12,0,1,true,5,2,4,true],                 # Collect Lucky Bags
-            [0.06,0.15,0,1,false,5,2,4,$game_switches[174]], # Use Elder Special Moves
+            [5,10,0,5,false,0,2,2,true],                     # Restore PP
+            [1,2,0,1,false,0,2,2,true],                      # Use Sound-based Moves
+            [0.4,0.65,0,1,false,2,2,3,hasSupercharger?],     # Supercharge Pokemon
+            [0.4,0.65,0,1,false,2,2,4,true],                 # Use Transform
+            [0.5,1,0,1,false,1,0,2,true],                    # Use any Item
+            [2,4,0,1,false,0,0,2,true],                      # Use Perfect Moves
+            [1,2,0,1,false,0,1,2,true],                      # Use Variable Moves
+            [0.3,0.5,0,1,false,2,1,3,true],                  # Create Substitutes
+            [1,2,0,1,false,2,1,2,hasShadowMoves?],           # Use Shadow Moves
+            [0.5,1,0,1,true,2,1,3,true],                     # Defeat Full Trainers
+            [1,2,0,1,false,0,2,2,true],                      # Defeat same-color Pokemon
+            [0.4,0.65,0,1,false,0,2,3,true],                 # Confuse or Infatuate
+            [0.06,0.12,0,1,true,2,2,5,true],                 # Collect Lucky Bags
+            [0.06,0.15,0,1,false,2,2,5,$game_switches[174]], # Use Elder Special Moves
             [200,600,6,10,true,0,2,1,true],                  # Gain Experience/TB
             [1,1.5,0,1,true,0,2,1,true],                     # Level Up Pokemon/TB
             [2.5,5,0,1,true,0,2,1,true],                     # Defeat Pokemon/TB
             [80,240,1.5,10,true,0,2,1,true],                 # Deal Damage/TB
-            [1.5,3,0,1,true,1,2,1,true],                     # Land Super Effective/TB
-            [1.5,3,0,1,true,1,2,1,true],                     # Land Not Very Effective/TB
-            [3,6,0,1,true,2,2,1,true],                       # Use Physical Moves/TB
-            [3,6,0,1,true,2,2,1,true],                       # Use Special Moves/TB
-            [1.5,3,0,1,true,2,2,1,true],                     # Use Status Moves/TB
+            [1.5,3,0,1,true,0,2,1,true],                     # Land Super Effective/TB
+            [1.5,3,0,1,true,0,2,1,true],                     # Land Not Very Effective/TB
+            [3,6,0,1,true,0,2,1,true],                       # Use Physical Moves/TB
+            [3,6,0,1,true,0,2,1,true],                       # Use Special Moves/TB
+            [1.5,3,0,1,true,0,2,1,true],                     # Use Status Moves/TB
             [20,30,0,5,true,0,2,1,true],                     # Gain Levelup Stats/TB
-            [3,6,0,1,true,1,2,1,true],                       # Gain Effort Values/TB
-            [3,6,0,1,false,2,0,1,true],                      # Use Normal Moves
-            [3,6,0,1,true,2,2,1,true],                       # Use Normal Moves/TB
-            [3,6,0,1,false,2,1,1,true],                      # Use G-F-W Moves
-            [3,6,0,1,true,2,2,1,true],                       # Use G-F-W Moves/TB
-            [0.2,0.4,0,1,false,1,2,3,true],                  # Catch Skilled Pokemon
-            [0.5,1,0,1,false,3,3,3,true],                    # Defeat Skilled Pokemon Inst.
-            [0.2,0.4,0,1,true,3,3,4,true],                   # Defeat Full Skilled Trainers
-            [0.5,1,0,1,false,3,3,3,true],                    # Defeat same-color Pokemon Inst.
-            [3,6,0,1,false,2,1,1,true],                      # Use Fi-Ps-Da Moves
-            [3,6,0,1,true,2,2,1,true],                       # Use Fi-Ps-Da Moves/TB
-            [0.06,0.15,0,1,false,3,3,4,hasRobot?],           # Use Robot Moves
-            [20,60,1.5,10,false,1,1,2,true],                 # Deal Damage to SI PKMN
-            [0.06,0.15,0,1,false,6,2,4,true],                # Use Moves with 1 PP
-            [0.5,1,0,1,false,6,2,3,true],                    # Change Abilities
-            [0.5,1,0,1,false,6,2,3,true],                    # Change Held Items
-            [1,2,0,1,false,4,2,2,true],                      # Defeat same-gender Pokemon
-            [0.5,1,0,1,false,5,3,3,true],                    # Defear same-gender Pokemon Inst.
-            [1,2,0,1,false,2,2,2,true],                      # Use Bomb-based Moves
-            [0.4,0.65,0,1,false,6,1,3,true],                 # Create Weater or Terrain
+            [3,6,0,1,true,0,2,1,true],                       # Gain Effort Values/TB
+            [3,6,0,1,false,0,0,1,true],                      # Use Normal Moves
+            [3,6,0,1,true,0,2,1,true],                       # Use Normal Moves/TB
+            [3,6,0,1,false,0,1,1,true],                      # Use G-F-W Moves
+            [3,6,0,1,true,0,2,1,true],                       # Use G-F-W Moves/TB
+            [0.2,0.4,0,1,false,0,2,3,true],                  # Catch Skilled Pokemon
+            [0.5,1,0,1,false,2,3,3,true],                    # Defeat Skilled Pokemon Inst.
+            [0.2,0.4,0,1,true,2,3,4,true],                   # Defeat Full Skilled Trainers
+            [0.5,1,0,1,false,2,3,3,true],                    # Defeat same-color Pokemon Inst.
+            [3,6,0,1,false,0,1,1,true],                      # Use Fi-Ps-Da Moves
+            [3,6,0,1,true,0,2,1,true],                       # Use Fi-Ps-Da Moves/TB
+            [0.06,0.15,0,1,false,2,3,5,hasRobot?],           # Use Robot Moves
+            [20,60,1.5,10,false,0,1,2,true],                 # Deal Damage to SI PKMN
+            [0.06,0.15,0,1,false,1,2,5,true],                # Use Moves with 1 PP
+            [0.5,1,0,1,false,1,2,3,true],                    # Change Abilities
+            [0.5,1,0,1,false,1,2,3,true],                    # Change Held Items
+            [1,2,0,1,false,0,2,2,true],                      # Defeat same-gender Pokemon
+            [0.5,1,0,1,false,2,3,3,true],                    # Defear same-gender Pokemon Inst.
+            [1,2,0,1,false,0,2,2,true],                      # Use Bomb-based Moves
+            [0.4,0.65,0,1,false,1,1,3,true],                 # Create Weater or Terrain
             [200,600,6,10,false,0,2,1,true],                 # Gain Experience/Win
             [1,1.5,0,1,false,0,2,1,true],                    # Level Up Pokemon/Win
             [2.5,5,0,1,false,0,2,1,true],                    # Defeat Pokemon/Win
             [80,240,1.5,10,false,0,2,1,true],                # Deal Damage/Win
-            [1.5,3,0,1,false,1,2,1,true],                    # Land Super Effective/Win
-            [1.5,3,0,1,false,1,2,1,true],                    # Land Not Very Effective/Win
-            [3,6,0,1,false,2,2,1,true],                      # Use Physical Moves/Win
-            [3,6,0,1,false,2,2,1,true],                      # Use Special Moves/Win
-            [1.5,3,0,1,false,2,2,1,true],                    # Use Status Moves/Win
+            [1.5,3,0,1,false,0,2,1,true],                    # Land Super Effective/Win
+            [1.5,3,0,1,false,0,2,1,true],                    # Land Not Very Effective/Win
+            [3,6,0,1,false,0,2,1,true],                      # Use Physical Moves/Win
+            [3,6,0,1,false,0,2,1,true],                      # Use Special Moves/Win
+            [1.5,3,0,1,false,0,2,1,true],                    # Use Status Moves/Win
             [20,30,0,5,false,0,2,1,true],                    # Gain Levelup Stats/Win
-            [3,6,0,1,false,1,2,1,true],                      # Gain Effort Values/Win
-            [3,6,0,1,false,2,2,1,true],                      # Use Normal Moves/win
-            [3,6,0,1,false,2,2,1,true],                      # Use G-F-W Moves/Win
-            [3,6,0,1,false,2,2,1,true],                      # Use Fi-Ps-Da Moves/Win
-            [1,2,0,1,false,4,0,1,true],                      # Win Battles
-            [4,8,0,1,false,2,0,1,true],                      # Use Moves
-            [0.5,0.75,0,1,false,5,3,3,hasUpperKingdom?],  	 # Win battles in UK/100%
-            [0.5,1,0,1,false,3,1,2,true],                    # Win Battles/100%
-            [3,6,0,1,false,4,0,1,true],                      # Collect Battle Stars
-            [1.5,3,0,1,false,4,0,1,true],                    # Play Battles
+            [3,6,0,1,false,0,2,1,true],                      # Gain Effort Values/Win
+            [3,6,0,1,false,0,2,1,true],                      # Use Normal Moves/win
+            [3,6,0,1,false,0,2,1,true],                      # Use G-F-W Moves/Win
+            [3,6,0,1,false,0,2,1,true],                      # Use Fi-Ps-Da Moves/Win
+            [1,2,0,1,false,1,0,1,true],                      # Win Battles
+            [4,8,0,1,false,0,0,1,true],                      # Use Moves
+            [0.5,0.75,0,1,false,2,3,3,hasUpperKingdom?],     # Win battles in UK/100%
+            [0.5,1,0,1,false,2,1,2,true],                    # Win Battles/100%
+            [3,6,0,1,false,1,0,1,true],                      # Collect Battle Stars
+            [1.5,3,0,1,false,1,0,1,true],                    # Play Battles
             [450,1200,1,10,false,0,1,2,true],                # Use Money
-            [1.5,3,0,1,false,4,0,1,true],                    # Buy Items
-            [0.12,0.24,0,1,false,3,2,3,true],                # Win Mining Rounds
-            [0.1,0.2,0,1,false,3,2,3,hasCoinCase?]           # Win Jackpots
+            [1.5,3,0,1,false,1,0,1,true],                    # Buy Items
+            [0.12,0.24,0,1,false,2,2,3,true],                # Win Mining Rounds
+            [0.1,0.2,0,1,false,2,2,5,hasCoinCase?],          # Win Jackpots
+            [0.4,0.65,0,1,false,2,1,2,true],                 # Evolve Pokémon
+            [0.2,0.3,0,1,false,2,2,3,true],                  # Hatch Eggs/Boxes
             ]
   end
   
@@ -907,34 +912,34 @@ class PokemonBoxScene
     boxdata=$PokemonGlobal.pokeboxData
     if boxLevel>4 # Level 5
       tasksToExclude=taskNumbers.find_all {|num| 
-                                          ( boxdata[num][7]<4 && [0,1,2,4,6].include?(boxdata[num][5]) ) ||
+                                          ( boxdata[num][7]<5 && [0,1].include?(boxdata[num][5]) ) ||
                                           ( boxdata[num][6]>boxLevel && currentBoxDif==0 ) ||
                                           !boxdata[num][8]
                                           }
     elsif boxLevel>3 # Level 4
       tasksToExclude=taskNumbers.find_all {|num| 
-                                          ( boxdata[num][7]<3 && [0,1,2,4,6].include?(boxdata[num][5]) ) ||
+                                          ( boxdata[num][7]<3 && [0,1,2].include?(boxdata[num][5]) ) ||
                                           ( boxdata[num][6]>boxLevel && currentBoxDif==0 ) ||
                                           !boxdata[num][8]
                                           }
     elsif boxLevel>2 #|| currentBoxDif>2 # Level 3 or Rank 4/Tier 3
       tasksToExclude=taskNumbers.find_all {|num| 
-                                          ( boxdata[num][7]<2 && [0,1,2,4,6].include?(boxdata[num][5]) ) ||
+                                          ( boxdata[num][7]<2 && [0,1].include?(boxdata[num][5]) ) ||
                                           ( boxdata[num][6]>boxLevel && currentBoxDif==0 ) ||
                                           !boxdata[num][8]
                                           }
     elsif boxLevel>1
       excludeTrainerBattles = data==[] || currentBoxBalanceMeter< 35 || currentBoxDif>2
       tasksToExclude=taskNumbers.find_all {|num| 
-                                          ( boxdata[num][7]<1 && [0,1,2,4,6].include?(boxdata[num][5]) ) ||
-                                          ( boxdata[num][7]<2 && ([0,1,2].include?(boxdata[num][5]) && !boxdata[num][4]) && !excludeTrainerBattles ) ||
-                                          ( boxdata[num][7]<2 && ([0,1,2].include?(boxdata[num][5]) && (boxdata[num][4] || boxdata[num][6]<2) ) && excludeTrainerBattles ) ||
+                                          ( boxdata[num][7]<1 && [0,1].include?(boxdata[num][5]) ) ||
+                                          ( boxdata[num][7]<2 && ([0].include?(boxdata[num][5]) && !boxdata[num][4]) && !excludeTrainerBattles ) ||
+                                          ( boxdata[num][7]<2 && ([0].include?(boxdata[num][5]) && (boxdata[num][4] || boxdata[num][6]<2) ) && excludeTrainerBattles ) ||
                                           ( boxdata[num][6]>boxLevel && currentBoxDif==0 ) ||
                                           !boxdata[num][8]
                                           }
     else # Level 1 and below
       tasksToExclude=taskNumbers.find_all {|num| 
-                                          ( boxdata[num][7]<2 && ([0,1,2].include?(boxdata[num][5]) && (boxdata[num][4] || boxdata[num][6]>1)) ) ||
+                                          ( boxdata[num][7]<2 && ([0].include?(boxdata[num][5]) && (boxdata[num][4] || boxdata[num][6]>1)) ) ||
                                           ( boxdata[num][6]>boxLevel && currentBoxDif==0 ) ||
                                           !boxdata[num][8]
                                           }
@@ -942,210 +947,65 @@ class PokemonBoxScene
     end
     # Disable the Horde Task as it is unachievable
     tasksToExclude.push(19) # Not applicable
-    tasksToExclude.push(3,10,19,23,29,33,34,35,38,42,48,54,55,58,59,60,61,62,63,64,65,66,67,68,69,70,72,74,75,76,77,80,81,83) if $flint_brockopolis_active
-    if ($PokemonSystem.battledif>2 rescue false)
-      mode=2  # Strict Mode = Tasks can be only on their intended positions
-    elsif ($PokemonSystem.battledif>0 rescue false)
-      mode=1  # Strict Mode = Tasks can be only on their intended positions
-    else
-      mode=0  # Normal Mode = Tasks can be anywhere but Special tasks in harder non-milestone boxes can only be on the fourth task
-    end
-    # Group 0 (Primary Tasks)
-    task0 = taskNumbers.find_all {|num| boxdata[num][5]==0 }
-    task0.delete_if {|element| tasksToExclude.include?(element) }
-    # Group 1 (Secondary Tasks)
-    task1 = taskNumbers.find_all {|num| boxdata[num][5]==1 }
-    task1.delete_if {|element| tasksToExclude.include?(element) }
-    # Group 2 (Move Tasks)
-    task2 = taskNumbers.find_all {|num| boxdata[num][5]==2 }
-    task2.delete_if {|element| tasksToExclude.include?(element) }
-    # Group 3 (Special Tasks)
-    task3 = taskNumbers.find_all {|num| boxdata[num][5]==3 }
-    task3.delete_if {|element| tasksToExclude.include?(element) }
-    # Universal Tasks 0 (Regular Tasks)
-    taskU0= taskNumbers.find_all {|num| boxdata[num][5]==4 } # 19 is not applicable in Q.Qore
-    taskU0.delete_if {|element| tasksToExclude.include?(element) }
-    taskU0.shuffle! # Required 
-    taskU2= taskNumbers.find_all {|num| boxdata[num][5]==6 } # 19 is not applicable in Q.Qore
-    taskU2.delete_if {|element| tasksToExclude.include?(element) }
-    taskU2.shuffle! # Required 
-    # Universal Tasks 1 (Special Tasks)
-    taskU1= taskNumbers.find_all {|num| boxdata[num][5]==5 }
-    taskU1.delete_if {|element| tasksToExclude.include?(element) }
-    taskU1.shuffle! # Required 
-    taskU3= taskNumbers.find_all {|num| boxdata[num][5]==7 }
-    taskU3.delete_if {|element| tasksToExclude.include?(element) }
-    taskU3.shuffle! # Required 
-    # Common Tasks from Groups 0 to 2 and Universal Group 0 (Silver and Gold Levels, task 2)
-    taskCMN= taskNumbers.find_all {|num| boxdata[num][7]<2 && [0,1,2,4].include?(boxdata[num][5]) }
-    taskCMN.delete_if {|element| tasksToExclude.include?(element) }
-    # Uncommon Tasks from Groups 0 to 2 and Universal Group 0 (Silver and Gold Levels, task 1)
-    taskUCM= taskNumbers.find_all {|num| boxdata[num][7]==2 && [0,1,2,4].include?(boxdata[num][5]) }
-    taskUCM.delete_if {|element| tasksToExclude.include?(element) }
-    # Rare+ Tasks from Groups 0 to 2 (Silver and Gold Levels, task 1)
-    taskRAR= taskNumbers.find_all {|num| boxdata[num][7]>2 && [0,1,2,4].include?(boxdata[num][5]) }
-    taskRAR.delete_if {|element| tasksToExclude.include?(element) }
-    # Common-Uncommon tasks from Group 3 and Universal Groups 1 and 3 (Silver and Gold Levels, task 3)
-    taskCMN2= taskNumbers.find_all {|num| boxdata[num][7]<=2 && [3,5,7].include?(boxdata[num][5]) }
-    taskCMN2.delete_if {|element| tasksToExclude.include?(element) }
-    # Rare+ tasks from Group 3 and Universal Groups 1 and 3 (Silver and Gold Levels, task 4)
-    taskRAR2= taskNumbers.find_all {|num| boxdata[num][7]>2 && [3,5,7].include?(boxdata[num][5]) }
-    taskRAR2.delete_if {|element| tasksToExclude.include?(element) }    
-    # Common-Uncommon tasks from Groups 0 to 2 and Universal Group 0 (Classic and Bronze Levels, tasks 1-2)
-    taskCMN3= taskNumbers.find_all {|num| boxdata[num][7]<=2 && [0,1,2,4].include?(boxdata[num][5]) }
-    taskCMN3.delete_if {|element| tasksToExclude.include?(element) }
-    # Rare+ tasks from Groups 0 to 2 and Universal Group 0  (Classic and Bronze Levels, tasks 3-4)
-    taskRAR3= taskNumbers.find_all {|num| boxdata[num][7]>2 && [0,1,2,4].include?(boxdata[num][5]) }
-    taskRAR3.delete_if {|element| tasksToExclude.include?(element) }    
+    tasksToExclude.push(3,10,19,23,29,33,34,35,38,42,48,54,55,58,59,60,61,62,63,64,65,66,67,68,69,70,72,74,75,76,77,80,81,83,112,113) if $flint_brockopolis_active
+    # Group 0 (Standard Tasks)
+    task0 = [taskNumbers.find_all {|num| boxdata[num][5]==0 && boxdata[num][7]<2 },
+             taskNumbers.find_all {|num| boxdata[num][5]==0 && boxdata[num][7]==2 },
+             taskNumbers.find_all {|num| boxdata[num][5]==0 && boxdata[num][7]==3 },
+             taskNumbers.find_all {|num| boxdata[num][5]==0 && boxdata[num][7]==4 },
+             taskNumbers.find_all {|num| boxdata[num][5]==0 && boxdata[num][7]==5 }]
+    # Group 1 (Supplemental Tasks)
+    task1 = [taskNumbers.find_all {|num| boxdata[num][5]==1 && boxdata[num][7]<2 },
+             taskNumbers.find_all {|num| boxdata[num][5]==1 && boxdata[num][7]==2 },
+             taskNumbers.find_all {|num| boxdata[num][5]==1 && boxdata[num][7]==3 },
+             taskNumbers.find_all {|num| boxdata[num][5]==1 && boxdata[num][7]==4 },
+             taskNumbers.find_all {|num| boxdata[num][5]==1 && boxdata[num][7]==5 }]
+    # Group 2 (Special Tasks)
+    task2 = [taskNumbers.find_all {|num| boxdata[num][5]==2 && boxdata[num][7]<2 },
+             taskNumbers.find_all {|num| boxdata[num][5]==2 && boxdata[num][7]==2 },
+             taskNumbers.find_all {|num| boxdata[num][5]==2 && boxdata[num][7]==3 },
+             taskNumbers.find_all {|num| boxdata[num][5]==2 && boxdata[num][7]==4 },
+             taskNumbers.find_all {|num| boxdata[num][5]==2 && boxdata[num][7]==5 }]
 
-    # Universal Tasks for Millenial/Elite/Level 3 Boxes
-    if boxLevel>2
-      taskU0_1 = task3 | taskU0 | taskU1 | taskU2 | taskU3
-      taskU0_1.delete_if {|element| tasksToExclude.include?(element) }
-      taskU0_1.shuffle! # Required 
-      task3 = [] # Handled elsewhere
-      taskU0 = [] # Handled elsewhere
-      taskU1 = [] # Handled elsewhere
-      taskU2 = [] # Handled elsewhere
-      taskU3 = [] # Handled elsewhere
-      j=0
-      for i in taskU0_1 # 13 and 19 are not applicable in Q.Qore
-        if j%2==0
-          taskU0.push(i)
-        else
-          taskU1.push(i)
-        end
-        j+=1
-      end
-    end
     # Set Up Tasks
-    if mode==2  # Hard Mode (Also similar to the original Box handling)
+    if boxLevel==0 # Tutorial Boxes
       # Task 0
-      choices0= task0 | taskU0 | taskU2 | taskU3
-      choices0.shuffle!
-      choices0Offset=0
-      # Task 1
-      choices1= task1 | taskU0 | taskU2 | taskU3
-      choices1.delete_if {|element| choices0[0...4].include?(element) }
-      choices1.shuffle!
-      choices1Offset=0
-      # Task 2
-      choices2= task2 | taskU1 | taskU2 | taskU3
-      choices2.delete_if {|element| choices0[0...4].include?(element) ||
-                                    choices1[0...4].include?(element)}
-      choices2.shuffle!      
-      choices2Offset=0
-      # Task 3
-      choices3=task3 | taskU1 | taskU2 | taskU3
-      choices3.delete_if {|element| choices0[0...4].include?(element) ||
-                                    choices1[0...4].include?(element) ||
-                                    choices2[0...4].include?(element)}
-      choices3.shuffle!
-      choices3Offset=0
-    elsif mode==1  # Normal Mode
-      if boxLevel==0 # Tutorial Boxes
-        # Task 0
-        choices0= task0 | task1 | task2 | task3 | taskU0 | taskU1 | taskU2 | taskU3
-        choices0.shuffle!
-        choices0Offset=0
-        # Task 1
-        choices1=choices0
-        choices1Offset=4
-        # Task 2
-        choices2=choices0
-        choices2Offset=8
-        # Task 3
-        choices3=choices0
-        choices3Offset=12
-      elsif boxLevel==1 # Classic and Bronze Boxes
-        # Task 0
-        choices0= taskCMN3
-        choices0.shuffle!
-        choices0Offset=0
-        # Task 1
-        choices1=choices0
-        choices1Offset=4
-        # Task 2
-        choices2=taskRAR3 | task3 | taskU1 | taskU2 | taskU3
-        choices2.delete_if {|element| choices0[0...8].include?(element) }
-        choices2.shuffle!
-        choices2Offset=0
-        # Task 3
-        choices3=choices2
-        choices3Offset=4
-      elsif boxLevel==2  # Silver and Gold Boxes
-        # Task 0
-        choices0= taskUCM | taskRAR
-        choices0.shuffle!
-        choices0Offset=0
-        # Task 1
-        choices1= taskCMN
-        choices1.delete_if {|element| choices0[0...4].include?(element) }
-        choices1.shuffle!
-        choices1Offset=0
-        # Task 2
-        choices2=taskCMN2
-        choices2.delete_if {|element| choices0[0...4].include?(element) ||
-                                      choices1[0...4].include?(element)}
-        choices2.shuffle!
-        choices2Offset=0
-        # Task 3
-        choices3=taskRAR2 | taskU2
-        choices3.delete_if {|element| choices0[0...4].include?(element) ||
-                                      choices1[0...4].include?(element) ||
-                                      choices2[0...4].include?(element)}
-        choices3.shuffle!
-        choices3Offset=0
-      else  # Milestone Boxes
-        # Task 0
-        choices0= task0 | task1 | task2 | taskU0
-        choices0.shuffle!
-        choices0Offset=0
-        # Task 1
-        choices1=choices0
-        choices1Offset=4
-        # Task 2
-        choices2=task3 | taskU1
-        choices2.delete_if {|element| choices0[0...8].include?(element) }
-        choices2.shuffle!
-        choices2Offset=0
-        # Task 3
-        choices3=choices2
-        choices3Offset=4
-      end
-    else # Easy Mode
-      if boxLevel<2 # Easy Boxes
-        # Task 0
-        choices0= task0 | task1 | task2 | task3 | taskU0 | taskU1 | taskU2 | taskU3
-        choices0.shuffle!
-        choices0Offset=0
-        # Task 1
-        choices1=choices0
-        choices1Offset=4
-        # Task 2
-        choices2=choices0
-        choices2Offset=8
-        # Task 3
-        choices3=choices0
-        choices3Offset=12
-      else # Hard Boxes
-        # Task 0
-        choices0= task0 | task1 | task2 | taskU0 | taskU2
-        choices0.shuffle!
-        choices0Offset=0
-        # Task 1
-        choices1=choices0
-        choices1Offset=4
-        # Task 2
-        choices2=choices0
-        choices2Offset=8
-        # Task 3
-        choices3=task3 | taskU1 | taskU3
-        choices3.delete_if {|element| choices0[0...12].include?(element) }
-        choices3.shuffle!
-        choices3Offset=0
-      end
+      choices0= task0[0..4] | task1[0..4] | task2[0..4]
+      choices1=choices0.clone
+      choices2=choices0.clone
+      choices3=choices0.clone
+    elsif boxLevel==1 # Classic and Bronze Boxes
+      choices0= task0[0..1] | task1[0..0]
+      choices1=choices0.clone
+      choices2=task0[2..4] | task1[1..4] | task2[0..4]
+      choices3=choices2.clone
+    elsif boxLevel==2  # Silver and Gold Boxes
+      choices0= task0[1..2]
+      choices1= task0[0..0] | task1[0..0]
+      choices2=task0[3..4] | task2[0..1]
+      choices3=task1[1..4] | task2[2..4]
+    else  # Milestone Boxes
+      choices0=task0[0..4] | task1[0..4] | task2[0..4]
+      choices1=choices0.clone
+      choices2=task0[3..4] | task1[0..4] | task2[0..4]
+      choices3=choices2.clone
     end
+    # Shuffle Task Values
+    choices0.flatten!.shuffle!
+    choices1.flatten!.shuffle!
+    choices2.flatten!.shuffle!
+    choices3.flatten!.shuffle!
+    # Remove Excluded and Duplicated Task Values
+    choices0.delete_if {|element| tasksToExclude.include?(element)  }
+    choices1.delete_if {|element| tasksToExclude.include?(element)  ||
+                                  choices0[0...4].include?(element) }
+    choices2.delete_if {|element| tasksToExclude.include?(element)  ||
+                                  choices0[0...4].include?(element) ||
+                                  choices1[0...4].include?(element) }
+    choices3.delete_if {|element| tasksToExclude.include?(element)  ||
+                                  choices0[0...4].include?(element) ||
+                                  choices1[0...4].include?(element) ||
+                                  choices2[0...4].include?(element) }
     length0=choices0.length
     length1=choices1.length
     length2=choices2.length
@@ -1154,25 +1014,25 @@ class PokemonBoxScene
     $game_variables[PBOX_VARIABLES[4]]=0
     $game_variables[PBOX_VARIABLES[1]] = [
       # Task #0
-      [choices0[(choices0Offset+0)%length0],$PokemonGlobal.pokebox[choices0[(choices0Offset+0)%length0]],taskVals(choices0[(choices0Offset+0)%length0])],
-      [choices1[(choices1Offset+0)%length1],$PokemonGlobal.pokebox[choices1[(choices1Offset+0)%length1]],taskVals(choices1[(choices1Offset+0)%length1])],
-      [choices2[(choices2Offset+0)%length2],$PokemonGlobal.pokebox[choices2[(choices2Offset+0)%length2]],taskVals(choices2[(choices2Offset+0)%length2])],
-      [choices3[(choices3Offset+0)%length3],$PokemonGlobal.pokebox[choices3[(choices3Offset+0)%length3]],taskVals(choices3[(choices3Offset+0)%length3])],
+      [choices0[0%length0],$PokemonGlobal.pokebox[choices0[0%length0]],taskVals(choices0[0%length0])],
+      [choices1[0%length1],$PokemonGlobal.pokebox[choices1[0%length1]],taskVals(choices1[0%length1])],
+      [choices2[0%length2],$PokemonGlobal.pokebox[choices2[0%length2]],taskVals(choices2[0%length2])],
+      [choices3[0%length3],$PokemonGlobal.pokebox[choices3[0%length3]],taskVals(choices3[0%length3])],
       # Task #1
-      [choices0[(choices0Offset+1)%length0],$PokemonGlobal.pokebox[choices0[(choices0Offset+1)%length0]],taskVals(choices0[(choices0Offset+1)%length0])],
-      [choices1[(choices1Offset+1)%length1],$PokemonGlobal.pokebox[choices1[(choices1Offset+1)%length1]],taskVals(choices1[(choices1Offset+1)%length1])],
-      [choices2[(choices2Offset+1)%length2],$PokemonGlobal.pokebox[choices2[(choices2Offset+1)%length2]],taskVals(choices2[(choices2Offset+1)%length2])],
-      [choices3[(choices3Offset+1)%length3],$PokemonGlobal.pokebox[choices3[(choices3Offset+1)%length3]],taskVals(choices3[(choices3Offset+1)%length3])],
+      [choices0[1%length0],$PokemonGlobal.pokebox[choices0[1%length0]],taskVals(choices0[1%length0])],
+      [choices1[1%length1],$PokemonGlobal.pokebox[choices1[1%length1]],taskVals(choices1[1%length1])],
+      [choices2[1%length2],$PokemonGlobal.pokebox[choices2[1%length2]],taskVals(choices2[1%length2])],
+      [choices3[1%length3],$PokemonGlobal.pokebox[choices3[1%length3]],taskVals(choices3[1%length3])],
       # Task #2
-      [choices0[(choices0Offset+2)%length0],$PokemonGlobal.pokebox[choices0[(choices0Offset+2)%length0]],taskVals(choices0[(choices0Offset+2)%length0])],
-      [choices1[(choices1Offset+2)%length1],$PokemonGlobal.pokebox[choices1[(choices1Offset+2)%length1]],taskVals(choices1[(choices1Offset+2)%length1])],
-      [choices2[(choices2Offset+2)%length2],$PokemonGlobal.pokebox[choices2[(choices2Offset+2)%length2]],taskVals(choices2[(choices2Offset+2)%length2])],
-      [choices3[(choices3Offset+2)%length3],$PokemonGlobal.pokebox[choices3[(choices3Offset+2)%length3]],taskVals(choices3[(choices3Offset+2)%length3])],
+      [choices0[2%length0],$PokemonGlobal.pokebox[choices0[2%length0]],taskVals(choices0[2%length0])],
+      [choices1[2%length1],$PokemonGlobal.pokebox[choices1[2%length1]],taskVals(choices1[2%length1])],
+      [choices2[2%length2],$PokemonGlobal.pokebox[choices2[2%length2]],taskVals(choices2[2%length2])],
+      [choices3[2%length3],$PokemonGlobal.pokebox[choices3[2%length3]],taskVals(choices3[2%length3])],
       # Task #3
-      [choices0[(choices0Offset+3)%length0],$PokemonGlobal.pokebox[choices0[(choices0Offset+3)%length0]],taskVals(choices0[(choices0Offset+3)%length0])],
-      [choices1[(choices1Offset+3)%length1],$PokemonGlobal.pokebox[choices1[(choices1Offset+3)%length1]],taskVals(choices1[(choices1Offset+3)%length1])],
-      [choices2[(choices2Offset+3)%length2],$PokemonGlobal.pokebox[choices2[(choices2Offset+3)%length2]],taskVals(choices2[(choices2Offset+3)%length2])],
-      [choices3[(choices3Offset+3)%length3],$PokemonGlobal.pokebox[choices3[(choices3Offset+3)%length3]],taskVals(choices3[(choices3Offset+3)%length3])],
+      [choices0[3%length0],$PokemonGlobal.pokebox[choices0[3%length0]],taskVals(choices0[3%length0])],
+      [choices1[3%length1],$PokemonGlobal.pokebox[choices1[3%length1]],taskVals(choices1[3%length1])],
+      [choices2[3%length2],$PokemonGlobal.pokebox[choices2[3%length2]],taskVals(choices2[3%length2])],
+      [choices3[3%length3],$PokemonGlobal.pokebox[choices3[3%length3]],taskVals(choices3[3%length3])],
                                           ]
     pbTimeEvent(PBOX_VARIABLES[3],boxDuration*86400)
     pbSEPlay("recall") if !fromdebug

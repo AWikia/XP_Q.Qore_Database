@@ -2541,7 +2541,7 @@ class PokeBattle_Move_05C < PokeBattle_Move
         newmove=PBMove.new(opponent.lastMoveUsed)
         attacker.moves[i]=PokeBattle_Move.pbFromPBMove(@battle,newmove)
         movename=PBMoves.getName(opponent.lastMoveUsed)
-        $PokemonGlobal.pokebox[42]+=1 if @battle.pbOwnedByPlayer?(attacker.index)
+        $PokemonGlobal.changePokebox(42,1) if @battle.pbOwnedByPlayer?(attacker.index)
         @battle.pbDisplay(_INTL("{1} learned {2}!",attacker.pbThis,movename))
         return 0
       end
@@ -2600,7 +2600,7 @@ class PokeBattle_Move_05D < PokeBattle_Move
         party=@battle.pbParty(attacker.index)
         party[attacker.pokemonIndex].moves[i]=newmove
         movename=PBMoves.getName(opponent.lastMoveUsedSketch)
-        $PokemonGlobal.pokebox[42]+=1 if @battle.pbOwnedByPlayer?(attacker.index)
+        $PokemonGlobal.changePokebox(42,1) if @battle.pbOwnedByPlayer?(attacker.index)
         @battle.pbDisplay(_INTL("{1} learned {2}!",attacker.pbThis,movename))
         return 0
       end
@@ -3201,7 +3201,7 @@ class PokeBattle_Move_069 < PokeBattle_Move
     end
     attacker.effects[PBEffects::Disable]=0
     attacker.effects[PBEffects::DisableMove]=0
-    $PokemonGlobal.pokebox[49]+=1 if @battle.pbOwnedByPlayer?(attacker.index)
+    $PokemonGlobal.changePokebox(49,1) if @battle.pbOwnedByPlayer?(attacker.index)
     @battle.pbDisplay(_INTL("{1} transformed into {2}!",attacker.pbThis,opponent.pbThis(true)))
     return 0
   end
@@ -4932,7 +4932,7 @@ class PokeBattle_Move_0AE < PokeBattle_Move
       @battle.pbDisplay(_INTL("The mirror move failed!"))
       return -1
     end
-    $PokemonGlobal.pokebox[28]+=1 if @battle.pbOwnedByPlayer?(attacker.index)
+    $PokemonGlobal.changePokebox(28,1) if @battle.pbOwnedByPlayer?(attacker.index)
     attacker.pbUseMoveSimple(opponent.lastMoveUsed,-1,opponent.index)
     return 0
   end
@@ -5003,7 +5003,7 @@ class PokeBattle_Move_0AF < PokeBattle_Move
       return -1
     end
     pbShowAnimation(@id,attacker,nil,hitnum,alltargets,showanimation)
-    $PokemonGlobal.pokebox[28]+=1 if @battle.pbOwnedByPlayer?(attacker.index)
+    $PokemonGlobal.changePokebox(28,1) if @battle.pbOwnedByPlayer?(attacker.index)
     attacker.pbUseMoveSimple(@battle.lastMoveUsed,-1,@battle.lastMoveUser)
     return 0
   end
@@ -5045,7 +5045,7 @@ class PokeBattle_Move_0B0 < PokeBattle_Move
       return -1
     end
     attacker.effects[PBEffects::MeFirst]=true
-    $PokemonGlobal.pokebox[28]+=1 if @battle.pbOwnedByPlayer?(attacker.index)
+    $PokemonGlobal.changePokebox(28,1) if @battle.pbOwnedByPlayer?(attacker.index)
     attacker.pbUseMoveSimple(oppmove.id,-1,-1)
     attacker.effects[PBEffects::MeFirst]=false
     return 0
@@ -8588,7 +8588,7 @@ class PokeBattle_Move_10C < PokeBattle_Move
     attacker.effects[PBEffects::MultiTurn]=0
     attacker.effects[PBEffects::MultiTurnAttack]=0
     attacker.effects[PBEffects::Substitute]=sublife
-    $PokemonGlobal.pokebox[53]+=1 if @battle.pbOwnedByPlayer?(attacker.index)
+    $PokemonGlobal.changePokebox(53,1) if @battle.pbOwnedByPlayer?(attacker.index)
     @battle.pbDisplay(_INTL("{1} put in a substitute!",attacker.pbThis))
     return 0
   end
@@ -16401,8 +16401,8 @@ class PokeBattle_Move_362 < PokeBattle_Move
     newpokename=pkmn.name
 		pkmn.hp=(pkmn.totalhp/2).floor
 		pkmn.healStatus
-    $PokemonGlobal.pokebox[21]+=1 if @battle.pbOwnedByPlayer?(attacker.index)
-    $PokemonGlobal.pokebox[30]+=(pkmn.totalhp/2).floor if @battle.pbOwnedByPlayer?(attacker.index)
+    $PokemonGlobal.changePokebox(21,1) if @battle.pbOwnedByPlayer?(attacker.index)
+    $PokemonGlobal.changePokebox(30,(pkmn.totalhp/2).floor) if @battle.pbOwnedByPlayer?(attacker.index)
 		@battle.pbDisplay(_INTL("{1}'s HP was restored.",newpokename))
     return 0
   end
@@ -16534,7 +16534,7 @@ class PokeBattle_Move_366 < PokeBattle_Move
          attacker.pbReduceHP(sublife,false,false)
          attacker.effects[PBEffects::Uturn]=true
          attacker.effects[PBEffects::ShedTail]=sublife2
-         $PokemonGlobal.pokebox[53]+=1 if @battle.pbOwnedByPlayer?(attacker.index)
+         $PokemonGlobal.changePokebox(53,1) if @battle.pbOwnedByPlayer?(attacker.index)
         return 0
     else
 			pbPlayMissSE()

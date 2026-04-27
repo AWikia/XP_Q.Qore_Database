@@ -333,8 +333,8 @@ def pbChangeLevel(pokemon,newlevel,scene)
     pbTopRightWindow(_INTL("Max. HP<r>{1}\r\nAttack<r>{2}\r\nDefense<r>{3}\r\nSp. Atk<r>{4}\r\nSp. Def<r>{5}\r\nSpeed<r>{6}",
        pokemon.totalhp,pokemon.attack,pokemon.defense,pokemon.spatk,pokemon.spdef,pokemon.speed))
     movelist=pokemon.getMoveList
-    $PokemonGlobal.mapPokebox(1,1)
-    $PokemonGlobal.mapPokebox(40,statdiff) if statdiff>0
+    $PokemonGlobal.changePokebox(1,1)
+    $PokemonGlobal.changePokebox(40,statdiff) if statdiff>0
     for i in movelist
       if i[0]==pokemon.level          # Learned a new move
         pbLearnMove(pokemon,i[1],true)
@@ -372,7 +372,7 @@ def pbItemRestoreHP(pokemon,restorehp)
   newhp=pokemon.totalhp if newhp>pokemon.totalhp
   hpgain=newhp-pokemon.hp
   pokemon.hp=newhp
-  $PokemonGlobal.mapPokebox(30,hpgain)
+  $PokemonGlobal.changePokebox(30,hpgain)
   return hpgain
 end
 
@@ -428,7 +428,7 @@ def pbEXPItem(pokemon,exp,scene)
    if pokemon.exp<maxexp
      if pokemon.hp>0
        pokemon.exp+=exp
-       $PokemonGlobal.mapPokebox(0,exp)
+       $PokemonGlobal.changePokebox(0,exp)
        pokemon.exp=maxexp if pokemon.exp>maxexp
        pokemon.calcStats
        scene.pbRefresh
@@ -458,7 +458,7 @@ def pbJustRaiseEffortValues(pokemon,ev,evgain)
   end
   if evgain>0
     pokemon.ev[ev]+=evgain
-    $PokemonGlobal.mapPokebox(41,evgain)
+    $PokemonGlobal.changePokebox(41,evgain)
     pokemon.calcStats
   end
   return evgain
@@ -483,7 +483,7 @@ def pbRaiseEffortValues(pokemon,ev,evgain=10,evlimit=true)
   end
   if evgain>0
     pokemon.ev[ev]+=evgain
-    $PokemonGlobal.mapPokebox(41,evgain)
+    $PokemonGlobal.changePokebox(41,evgain)
     pokemon.calcStats
   end
   return evgain
@@ -519,7 +519,7 @@ def pbRestorePP(pokemon,move,pp)
   oldpp=pokemon.moves[move].pp
   pokemon.moves[move].pp=newpp
   ppgain=newpp-oldpp
-  $PokemonGlobal.mapPokebox(46,ppgain) if ppgain>0
+  $PokemonGlobal.changePokebox(46,ppgain) if ppgain>0
   return ppgain
 end
 
@@ -630,7 +630,7 @@ def pbLearnMove(pokemon,move,ignoreifknown=false,bymachine=false,&block)
     if pokemon.moves[i].id==0
       pokemon.moves[i]=PBMove.new(move)
       Kernel.pbMessage(_INTL("\\se[]{1} learned {2}!\\se[MoveLearnt]",pkmnname,movename),&block)
-      $PokemonGlobal.mapPokebox(42,1)
+      $PokemonGlobal.changePokebox(42,1)
       return true
     end
   end
@@ -647,7 +647,7 @@ def pbLearnMove(pokemon,move,ignoreifknown=false,bymachine=false,&block)
         pokemon.moves[forgetmove].pp=[oldmovepp,pokemon.moves[forgetmove].totalpp].min if bymachine
         Kernel.pbMessage(_INTL("\\se[]1,\\wt[16] 2, and\\wt[16]...\\wt[16] ...\\wt[16] ... Ta-da!\\se[balldrop]"),&block)
         Kernel.pbMessage(_INTL("\\se[]{1} forgot how to use {2}. And... {1} learned {3}!\\se[MoveLearnt]",pkmnname,oldmovename,movename),&block)
-        $PokemonGlobal.mapPokebox(42,1)
+        $PokemonGlobal.changePokebox(42,1)
         return true
       elsif Kernel.pbConfirmMessage(_INTL("Give up on learning the move {1}?",movename),&block)
         Kernel.pbMessage(_INTL("{1} did not learn {2}.",pkmnname,movename),&block)
@@ -679,10 +679,10 @@ end
 def increaseItemCount(item)
   if item
     pocket = pbGetPocket(item)
-    $PokemonGlobal.mapPokebox(9,1) if pocket == 7
-    $PokemonGlobal.mapPokebox(12,1) if pocket == 2
-    $PokemonGlobal.mapPokebox(18,1) if pocket == 5
-    $PokemonGlobal.mapPokebox(50,1) if !pbIsKeyItem?(item)
+    $PokemonGlobal.changePokebox(9,1) if pocket == 7
+    $PokemonGlobal.changePokebox(12,1) if pocket == 2
+    $PokemonGlobal.changePokebox(18,1) if pocket == 5
+    $PokemonGlobal.changePokebox(50,1) if !pbIsKeyItem?(item)
   end
 end
 

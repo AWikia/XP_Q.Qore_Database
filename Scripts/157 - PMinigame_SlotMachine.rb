@@ -208,7 +208,7 @@ class SlotMachineScene
       end
       if jackpots>0
         Kernel.pbReceiveTrophy(:TLOTTER)
-        $PokemonGlobal.mapPokebox(113,jackpots)
+        $PokemonGlobal.changePokebox(113,jackpots)
       end
       # Show winning animation
       until frame==180 # 60 frames per seconds

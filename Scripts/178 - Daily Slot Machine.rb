@@ -189,7 +189,7 @@ class DailySlotMachineScene
         Kernel.pbReceiveItem(item,bonus)
       end
       Kernel.pbReceiveTrophy(:TLOTTER)
-      $PokemonGlobal.mapPokebox(113,1)
+      $PokemonGlobal.changePokebox(113,1)
     else
       Kernel.pbReceiveItem(item)
     end

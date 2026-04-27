@@ -2967,10 +2967,10 @@ end
     end
     pbConsumeItemInBattle($PokemonBag,ret) if ret>0
     if ret>0
-      $PokemonGlobal.pokebox[9]+=1 if pocket == 7
-      $PokemonGlobal.pokebox[12]+=1 if pocket == 2
-      $PokemonGlobal.pokebox[18]+=1 if pocket == 5
-      $PokemonGlobal.pokebox[50]+=1
+      $PokemonGlobal.changePokebox(9,1) if pocket == 7
+      $PokemonGlobal.changePokebox(12,1) if pocket == 2
+      $PokemonGlobal.changePokebox(18,1) if pocket == 5
+      $PokemonGlobal.changePokebox(50,1)
     end
     itemscene.pbEndScene if endscene
     pbFadeInAndShow(@sprites,oldsprites)
@@ -3621,7 +3621,7 @@ end
        pokemon.spatk-oldspatk,
        pokemon.spdef-oldspdef,
        pokemon.speed-oldspeed))
-    $PokemonGlobal.pokebox[40]+=[(pokemon.totalhp-oldtotalhp) + (pokemon.attack-oldattack) + (pokemon.defense-olddefense) + (pokemon.spatk-oldspatk) + (pokemon.spdef-oldspdef) + (pokemon.speed-oldspeed),0].max
+    $PokemonGlobal.changePokebox(40,[(pokemon.totalhp-oldtotalhp) + (pokemon.attack-oldattack) + (pokemon.defense-olddefense) + (pokemon.spatk-oldspatk) + (pokemon.spdef-oldspdef) + (pokemon.speed-oldspeed),0].max)
     @battle.field.effects[PBEffects::BattleWinsTasks][9]+=[(pokemon.totalhp-oldtotalhp) + (pokemon.attack-oldattack) + (pokemon.defense-olddefense) + (pokemon.spatk-oldspatk) + (pokemon.spdef-oldspdef) + (pokemon.speed-oldspeed),0].max
     pbTopRightWindow(_INTL("Max. HP<r>{1}\r\nAttack<r>{2}\r\nDefense<r>{3}\r\nSp. Atk<r>{4}\r\nSp. Def<r>{5}\r\nSpeed<r>{6}",
        pokemon.totalhp,pokemon.attack,pokemon.defense,pokemon.spatk,pokemon.spdef,pokemon.speed))

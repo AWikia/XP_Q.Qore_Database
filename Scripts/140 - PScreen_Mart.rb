@@ -61,7 +61,7 @@ class PokemonMartAdapter
   end
 
   def addItem(item)
-    $PokemonGlobal.mapPokebox(111,1)
+    $PokemonGlobal.changePokebox(111,1)
     return $PokemonBag.pbStoreItem(item)
   end
 

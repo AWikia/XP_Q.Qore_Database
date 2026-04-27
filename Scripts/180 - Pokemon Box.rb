@@ -15,7 +15,7 @@ class PokemonGlobalMetadata
     return @pokebox
   end
   
-  def mapPokebox(num,val)
+  def changePokebox(num,val)
     if !$PokemonBoxUpdate && !$inbattle
       $PokemonBoxUpdate=true
       pbRecordOldValues
@@ -80,7 +80,8 @@ class PokemonGlobalMetadata
             _INTL("Win Battles Perfectly in Upper Kingdom"),_INTL("Win Battles Perfectly"),
             _INTL("Collect Battle Stars"),_INTL("Play Battles"),
             _INTL("Use Money"),_INTL("Buy Items from a Market"),
-            _INTL("Win Mining Minigame Rounds"),_INTL("Win Jackpots")]
+            _INTL("Win Mining Minigame Rounds"),_INTL("Win Jackpots"),
+            _INTL("Evolve Pokémon"),_INTL("Hatch Eggs or Remote Boxes")]
 
   end
   def pokeboxNames2
@@ -140,7 +141,8 @@ class PokemonGlobalMetadata
             _INTL("Perfect Battle Winning in UK"),_INTL("Perfect Battle Winning"),
             _INTL("Battle Star Collection"),_INTL("Battle Playing"),
             _INTL("Money Usage"),_INTL("Item Buying"),
-            _INTL("Mining Round Winning"),_INTL("Jackpot Winning")]
+            _INTL("Mining Round Winning"),_INTL("Jackpot Winning"),
+            _INTL("Pokémon Evolving"),_INTL("Egg/Box Hatching")]
 
   end
   def pokeboxNames3
@@ -200,7 +202,8 @@ class PokemonGlobalMetadata
             _INTL("Battles Perfectly in Upper Kingdom Won"),_INTL("Battles Perfectly Won"),
             _INTL("Battle Stars Collected"),_INTL("Battles Played"),
             _INTL("Money Used"),_INTL("Items from a Market Bought"),
-            _INTL("Mining Minigame Rounds Won"),_INTL("Jackpots Won")]
+            _INTL("Mining Minigame Rounds Won"),_INTL("Jackpots Won"),
+            _INTL("Pokémon Evolved"),_INTL("Eggs or Remote Boxes Hatched")]
   end
 
   def pokeboxDescriptions
@@ -317,7 +320,8 @@ class PokemonGlobalMetadata
             _INTL("Spend Money on shops, events or battle blackouts to progress."),
             _INTL("Buy items from a market like Pokémon Marts to progress. Link Battle Marketplace and Triple Triad Shops also count."),
             _INTL("Uncover all items in a Mining Minigmae round to progress."),
-            _INTL("Earn Bonus Prizes in events to progress. Only Game Corner events work currently.")]
+            _INTL("Earn Bonus Prizes in events to progress. Only Game Corner events work currently."),
+            _INTL("Evolve Pokémon with any evolution method to progress. Prism Stone evolutions do not count"),_INTL("Hatch Eggs or open Remote Boxes to progress.")]
   end
 
   def pokeboxData 
@@ -443,7 +447,9 @@ class PokemonGlobalMetadata
             [450,1200,1,10,false,0,1,2,true],                # Use Money
             [1.5,3,0,1,false,1,0,1,true],                    # Buy Items
             [0.12,0.24,0,1,false,2,2,3,true],                # Win Mining Rounds
-            [0.1,0.2,0,1,false,2,2,5,hasCoinCase?]           # Win Jackpots
+            [0.1,0.2,0,1,false,2,2,5,hasCoinCase?],          # Win Jackpots
+            [0.4,0.65,0,1,false,2,1,2,true],                 # Evolve Pokémon
+            [0.2,0.3,0,1,false,2,2,3,true],                  # Hatch Eggs/Boxes
             ]
   end
   

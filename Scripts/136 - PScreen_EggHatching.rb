@@ -106,6 +106,7 @@ class PokemonEggHatchScene
     pbPlayCry(@pokemon)
     updateScene(frames)
     pbMEPlay("EvolutionSuccess")
+    $PokemonGlobal.changePokebox(115,1)
     if @pokemon.remoteBox==1
       Kernel.pbMessage(_INTL("\\se[]{1} released from its Remote Box!\\wt[80]",@pokemon.name)) { update }
       @pokemon.removeRB

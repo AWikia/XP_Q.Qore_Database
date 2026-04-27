@@ -148,28 +148,28 @@ class PokemonDuel
   end
   
   def pbWritePokemonBoxData(decision)
-    $PokemonGlobal.mapPokebox(6,@boxvalues[0]) if @boxvalues[0]>0
-    $PokemonGlobal.mapPokebox(7,@boxvalues[1]) if @boxvalues[1]>0
-    $PokemonGlobal.mapPokebox(8,@boxvalues[2]) if @boxvalues[2]>0
-    $PokemonGlobal.mapPokebox(10,1) if decision
-    $PokemonGlobal.mapPokebox(11,@boxvalues[2]) if @boxvalues[3]>0
-    $PokemonGlobal.mapPokebox(13,1) if decision && $game_map && 
+    $PokemonGlobal.changePokebox(6,@boxvalues[0]) if @boxvalues[0]>0
+    $PokemonGlobal.changePokebox(7,@boxvalues[1]) if @boxvalues[1]>0
+    $PokemonGlobal.changePokebox(8,@boxvalues[2]) if @boxvalues[2]>0
+    $PokemonGlobal.changePokebox(10,1) if decision
+    $PokemonGlobal.changePokebox(11,@boxvalues[2]) if @boxvalues[3]>0
+    $PokemonGlobal.changePokebox(13,1) if decision && $game_map && 
                                        pbGetMetadata($game_map.map_id,MetadataUpperKingdom)
-    # $PokemonGlobal.mapPokebox(33,1) if decision
-    $PokemonGlobal.mapPokebox(66,@boxvalues[0]) if @boxvalues[0]>0 && decision
-    $PokemonGlobal.mapPokebox(67,@boxvalues[1]) if @boxvalues[1]>0 && decision
-    $PokemonGlobal.mapPokebox(68,@boxvalues[2]) if @boxvalues[2]>0 && decision
-    $PokemonGlobal.mapPokebox(96,@boxvalues[0]) if @boxvalues[0]>0 && decision
-    $PokemonGlobal.mapPokebox(97,@boxvalues[1]) if @boxvalues[1]>0 && decision
-    $PokemonGlobal.mapPokebox(98,@boxvalues[2]) if @boxvalues[2]>0 && decision
-    $PokemonGlobal.mapPokebox(104,1) if decision
-    $PokemonGlobal.mapPokebox(105,@boxvalues[4]) if @boxvalues[4]>0
-    $PokemonGlobal.mapPokebox(106,1) if decision && $game_map && @hp[0]>9 && 
+    # $PokemonGlobal.changePokebox(33,1) if decision
+    $PokemonGlobal.changePokebox(66,@boxvalues[0]) if @boxvalues[0]>0 && decision
+    $PokemonGlobal.changePokebox(67,@boxvalues[1]) if @boxvalues[1]>0 && decision
+    $PokemonGlobal.changePokebox(68,@boxvalues[2]) if @boxvalues[2]>0 && decision
+    $PokemonGlobal.changePokebox(96,@boxvalues[0]) if @boxvalues[0]>0 && decision
+    $PokemonGlobal.changePokebox(97,@boxvalues[1]) if @boxvalues[1]>0 && decision
+    $PokemonGlobal.changePokebox(98,@boxvalues[2]) if @boxvalues[2]>0 && decision
+    $PokemonGlobal.changePokebox(104,1) if decision
+    $PokemonGlobal.changePokebox(105,@boxvalues[4]) if @boxvalues[4]>0
+    $PokemonGlobal.changePokebox(106,1) if decision && $game_map && @hp[0]>9 && 
                                        pbGetMetadata($game_map.map_id,MetadataUpperKingdom)
 
-    $PokemonGlobal.mapPokebox(107,1) if decision && @hp[0]>9 
-    $PokemonGlobal.mapPokebox(108,@boxvalues[4]) if @boxvalues[5]>0
-    $PokemonGlobal.mapPokebox(109,1)
+    $PokemonGlobal.changePokebox(107,1) if decision && @hp[0]>9 
+    $PokemonGlobal.changePokebox(108,@boxvalues[4]) if @boxvalues[5]>0
+    $PokemonGlobal.changePokebox(109,1)
   end
 
   def pbDuel(opponent,event,speeches)

@@ -1361,12 +1361,10 @@ MultipleForms.register(:CLEFABLE,{
    next getID(PBTypes,:FLYING) if pokemon.form==1
    next
 },
-=begin
 "getAbilityList"=>proc{|pokemon|
-   next [[getID(PBAbilities,:THICKFAT),0]] if pokemon.form==1
+   next [[getID(PBAbilities,:MAGICBOUNCE),0]] if pokemon.form==1
    next
 },
-=end
 "height"=>proc{|pokemon|
    next 17 if pokemon.form==1
    next
@@ -1390,12 +1388,10 @@ MultipleForms.register(:VICTREEBEL,{
    next [80,125,85,70,135,95] if pokemon.form==1
    next
 },
-=begin
 "getAbilityList"=>proc{|pokemon|
-   next [[getID(PBAbilities,:THICKFAT),0]] if pokemon.form==1
+   next [[getID(PBAbilities,:INNARDSOUT),0]] if pokemon.form==1
    next
 },
-=end
 "height"=>proc{|pokemon|
    next 45 if pokemon.form==1
    next
@@ -1419,12 +1415,10 @@ MultipleForms.register(:STARMIE,{
    next [60,100,105,120,130,105] if pokemon.form==1
    next
 },
-=begin
 "getAbilityList"=>proc{|pokemon|
-   next [[getID(PBAbilities,:THICKFAT),0]] if pokemon.form==1
+   next [[getID(PBAbilities,:HUGEPOWER),0]] if pokemon.form==1
    next
 },
-=end
 "height"=>proc{|pokemon|
    next 23 if pokemon.form==1
    next
@@ -1444,12 +1438,10 @@ MultipleForms.register(:DRAGONITE,{
    next [91,124,115,100,145,125] if pokemon.form==1
    next
 },
-=begin
 "getAbilityList"=>proc{|pokemon|
-   next [[getID(PBAbilities,:THICKFAT),0]] if pokemon.form==1
+   next [[getID(PBAbilities,:MULTISCALE),0]] if pokemon.form==1
    next
 },
-=end
 "weight"=>proc{|pokemon|
    next 290 if pokemon.form==1
    next
@@ -1475,7 +1467,7 @@ MultipleForms.register(:MEGANIUM,{
 },
 =begin
 "getAbilityList"=>proc{|pokemon|
-   next [[getID(PBAbilities,:THICKFAT),0]] if pokemon.form==1
+   next [[getID(PBAbilities,:MEGASOL),0]] if pokemon.form==1
    next
 },
 =end
@@ -1508,7 +1500,7 @@ MultipleForms.register(:FERALIGATR,{
 },
 =begin
 "getAbilityList"=>proc{|pokemon|
-   next [[getID(PBAbilities,:THICKFAT),0]] if pokemon.form==1
+   next [[getID(PBAbilities,:DRAGONIZE),0]] if pokemon.form==1
    next
 },
 =end
@@ -1531,12 +1523,10 @@ MultipleForms.register(:SKARMORY,{
    next [65,140,110,110,40,100] if pokemon.form==1
    next
 },
-=begin
 "getAbilityList"=>proc{|pokemon|
-   next [[getID(PBAbilities,:THICKFAT),0]] if pokemon.form==1
+   next [[getID(PBAbilities,:STALWART),0]] if pokemon.form==1
    next
 },
-=end
 "weight"=>proc{|pokemon|
    next 404 if pokemon.form==1
    next
@@ -1556,12 +1546,10 @@ MultipleForms.register(:FROSLASS,{
    next [70,80,70,120,140,100] if pokemon.form==1
    next
 },
-=begin
 "getAbilityList"=>proc{|pokemon|
-   next [[getID(PBAbilities,:THICKFAT),0]] if pokemon.form==1
+   next [[getID(PBAbilities,:SNOWWARNING),0]] if pokemon.form==1
    next
 },
-=end
 "height"=>proc{|pokemon|
    next 26 if pokemon.form==1
    next
@@ -1585,12 +1573,10 @@ MultipleForms.register(:EMBOAR,{
    next [110,148,75,75,110,110] if pokemon.form==1
    next
 },
-=begin
 "getAbilityList"=>proc{|pokemon|
-   next [[getID(PBAbilities,:THICKFAT),0]] if pokemon.form==1
+   next [[getID(PBAbilities,:MOLDBREAKER),0]] if pokemon.form==1
    next
 },
-=end
 "height"=>proc{|pokemon|
    next 18 if pokemon.form==1
    next
@@ -1616,7 +1602,7 @@ MultipleForms.register(:EXCADRILL,{
 },
 =begin
 "getAbilityList"=>proc{|pokemon|
-   next [[getID(PBAbilities,:THICKFAT),0]] if pokemon.form==1
+   next [[getID(PBAbilities,:PIERCINGDRILL),0]] if pokemon.form==1
    next
 },
 =end
@@ -1726,12 +1712,10 @@ MultipleForms.register(:CHANDELURE,{
    next [60,75,110,90,175,110] if pokemon.form==1
    next
 },
-=begin
 "getAbilityList"=>proc{|pokemon|
-   next [[getID(PBAbilities,:THICKFAT),0]] if pokemon.form==1
+   next [[getID(PBAbilities,:INFILTRATOR),0]] if pokemon.form==1
    next
 },
-=end
 "height"=>proc{|pokemon|
    next 25 if pokemon.form==1
    next
@@ -1841,6 +1825,10 @@ MultipleForms.register(:FLOETTE,{
    next [74,65,67,92,125,128]  if pokemon.form==6  # Eternal Flower
    next [74,85,87,102,155,148] if pokemon.form==7  # Mega Floette
    next                                            # Standard Flowers
+},
+"getAbilityList"=>proc{|pokemon|
+   next [[getID(PBAbilities,:FAIRYAURA),0]] if pokemon.form==7
+   next
 },
 "baseExp"=>proc{|pokemon|
    next 243 if pokemon.form==6 || pokemon.form==7  # Eternal Flower & Mega Floette
@@ -1980,12 +1968,10 @@ MultipleForms.register(:HAWLUCHA,{
    next [78,137,100,118,74,93] if pokemon.form==1
    next
 },
-=begin
 "getAbilityList"=>proc{|pokemon|
-   next [[getID(PBAbilities,:THICKFAT),0]] if pokemon.form==1
+   next [[getID(PBAbilities,:NOGUARD),0]] if pokemon.form==1
    next
 },
-=end
 "height"=>proc{|pokemon|
    next 10 if pokemon.form==1
    next
@@ -2047,12 +2033,10 @@ MultipleForms.register(:DRAMPA,{
    next [78,85,110,36,160,116] if pokemon.form==1
    next
 },
-=begin
 "getAbilityList"=>proc{|pokemon|
-   next [[getID(PBAbilities,:THICKFAT),0]] if pokemon.form==1
+   next [[getID(PBAbilities,:BERSERK),0]] if pokemon.form==1
    next
 },
-=end
 "weight"=>proc{|pokemon|
    next 2405 if pokemon.form==1
    next
@@ -2213,12 +2197,10 @@ MultipleForms.register(:CHIMECHO,{
    next [75,50,110,65,135,120] if pokemon.form==1
    next
 },
-=begin
 "getAbilityList"=>proc{|pokemon|
-   next [[getID(PBAbilities,:THICKFAT),0]] if pokemon.form==1
+   next [[getID(PBAbilities,:LEVITATE),0]] if pokemon.form==1
    next
 },
-=end
 "height"=>proc{|pokemon|
    next 12 if pokemon.form==1
    next
@@ -2333,12 +2315,10 @@ MultipleForms.register(:GOLURK,{
    next [89,159,105,55,70,105] if pokemon.form==1
    next
 },
-=begin
 "getAbilityList"=>proc{|pokemon|
-   next [[getID(PBAbilities,:THICKFAT),0]] if pokemon.form==1
+   next [[getID(PBAbilities,:UNSEENFIST),0]] if pokemon.form==1
    next
 },
-=end
 "height"=>proc{|pokemon|
    next 40 if pokemon.form==1
    next
@@ -2359,6 +2339,7 @@ MultipleForms.register(:MEOWSTIC,{
    next
 },
 "getAbilityList"=>proc{|pokemon|
+   next [[getID(PBAbilities,:TRACE),0]] if pokemon.form==1
    next if pokemon.isMale?
    next [[getID(PBAbilities,:KEENEYE),0],
          [getID(PBAbilities,:INFILTRATOR),1],
@@ -2407,12 +2388,10 @@ MultipleForms.register(:CRABOMINABLE,{
    next [97,157,122,33,62,107] if pokemon.form==1
    next
 },
-=begin
 "getAbilityList"=>proc{|pokemon|
-   next [[getID(PBAbilities,:THICKFAT),0]] if pokemon.form==1
+   next [[getID(PBAbilities,:IRONFIST),0]] if pokemon.form==1
    next
 },
-=end
 "height"=>proc{|pokemon|
    next 26 if pokemon.form==1
    next
@@ -2520,7 +2499,7 @@ MultipleForms.register(:ZERAORA,{
 }
 })
 
-MultipleForms.register(:SOVILLAIN,{
+MultipleForms.register(:SCOVILLAIN,{
 "getMegaForm"=>proc{|pokemon|
    next 1 if isConst?(pokemon.item,PBItems,:SCOVILLAINITE)
    next
@@ -2531,7 +2510,7 @@ MultipleForms.register(:SOVILLAIN,{
 },
 =begin
 "getAbilityList"=>proc{|pokemon|
-   next [[getID(PBAbilities,:THICKFAT),0]] if pokemon.form==1
+   next [[getID(PBAbilities,:SPICYSPRAY),0]] if pokemon.form==1
    next
 },
 =end
@@ -2558,12 +2537,10 @@ MultipleForms.register(:GLIMMORA,{
    next [83,90,105,101,150,96] if pokemon.form==1
    next
 },
-=begin
 "getAbilityList"=>proc{|pokemon|
-   next [[getID(PBAbilities,:THICKFAT),0]] if pokemon.form==1
+   next [[getID(PBAbilities,:ADAPTABILITY),0]] if pokemon.form==1
    next
 },
-=end
 "height"=>proc{|pokemon|
    next 28 if pokemon.form==1
    next

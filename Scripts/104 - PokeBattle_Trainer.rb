@@ -73,9 +73,9 @@ class PokeBattle_Trainer
     @money+=value
     diff=@money-oldmoney
     if diff>0
-      $PokemonGlobal.mapPokebox(35,diff)
+      $PokemonGlobal.changePokebox(35,diff)
     elsif diff<0
-      $PokemonGlobal.mapPokebox(110,diff*-1)
+      $PokemonGlobal.changePokebox(110,diff*-1)
     end
   end
 

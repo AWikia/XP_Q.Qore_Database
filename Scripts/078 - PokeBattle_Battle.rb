@@ -156,8 +156,8 @@ module PokeBattle_BattleCommon
         pbDisplay(_INTL("Gah! It was so close, too!"))
         BallHandlers.onFailCatch(ball,self,battler)
       when 4
-        $PokemonGlobal.pokebox[3]+=1
-        $PokemonGlobal.pokebox[75]+=1 if isBestSkill?(pokemon)
+        $PokemonGlobal.changePokebox(3,1)
+        $PokemonGlobal.changePokebox(75,1) if isBestSkill?(pokemon)
         pbDisplayBrief(_INTL("Gotcha! {1} was caught!",pokemon.name))
         @scene.pbThrowSuccess
         if pbIsSnagBall?(ball) && @opponent
@@ -166,11 +166,11 @@ module PokeBattle_BattleCommon
           battler.participants=[]
         else
           Kernel.pbReceiveTrophy(:TCATCHER)
-          $PokemonGlobal.pokebox[13]+=1  if $game_map && pbGetMetadata($game_map.map_id,MetadataUpperKingdom)
-          $PokemonGlobal.pokebox[104]+=1
+          $PokemonGlobal.changePokebox(13,1) if $game_map && pbGetMetadata($game_map.map_id,MetadataUpperKingdom)
+          $PokemonGlobal.changePokebox(104,1)
           if @field.effects[PBEffects::BoxDamageTask]==0
-            $PokemonGlobal.pokebox[106]+=1  if $game_map && pbGetMetadata($game_map.map_id,MetadataUpperKingdom)
-            $PokemonGlobal.pokebox[107]+=1
+            $PokemonGlobal.changePokebox(106,1) if $game_map && pbGetMetadata($game_map.map_id,MetadataUpperKingdom)
+            $PokemonGlobal.changePokebox(107,1)
           end
           @decision=4
         end
@@ -2092,7 +2092,7 @@ class PokeBattle_Battle
     if !meganame || meganame==""
       meganame=_INTL("Mega {1}",PBSpecies.getName(@battlers[index].pokemon.species))
     end
-    $PokemonGlobal.pokebox[48]+=1 if pbOwnedByPlayer?(@battlers[index].index)
+    $PokemonGlobal.changePokebox(48,1) if pbOwnedByPlayer?(@battlers[index].index)
     pbDisplay(_INTL("{1} has Mega Evolved into {2}!",@battlers[index].pbThis,meganame))
     PBDebug.log("[Mega Evolution] #{@battlers[index].pbThis} Mega Evolved")
     side=(pbIsOpposing?(index)) ? 1 : 0
@@ -2131,7 +2131,7 @@ class PokeBattle_Battle
     else
       pbCommonAnimation("MegaEvolution2",@battlers[index],nil)
     end
-    $PokemonGlobal.pokebox[48]+=1 if pbOwnedByPlayer?(@battlers[index].index)
+    $PokemonGlobal.changePokebox(48,1) if pbOwnedByPlayer?(@battlers[index].index)
     pbDisplay(_INTL("{1}'s Primal Reversion!\nIt reverted to its primal form!",@battlers[index].pbThis))
     PBDebug.log("[Primal Reversion] #{@battlers[index].pbThis} Primal Reverted")
   end
@@ -2262,7 +2262,7 @@ class PokeBattle_Battle
                      isConst?(thispoke.itemInitial,PBItems,:POWERANKLET)
       end
       evgain*=2 if thispoke.pokerusStage>=1 # Infected or cured
-      $PokemonGlobal.pokebox[41]+=evgain if countboxtask
+      $PokemonGlobal.changePokebox(41,evgain) if countboxtask
       @field.effects[PBEffects::BattleWinsTasks][10]+=evgain if countboxtask
       if evgain>0
         # Can't exceed overall limit
@@ -2337,7 +2337,7 @@ class PokeBattle_Battle
     newexp=PBExperience.pbAddExperience(thispoke.exp,exp,growthrate)
     exp=newexp-thispoke.exp
     pokeboxexp= ($dbattle && !$PokemonGlobal.partner) ? (exp/2).floor : exp
-    $PokemonGlobal.pokebox[0]+=exp if countboxtask
+    $PokemonGlobal.changePokebox(0,exp) if countboxtask
     @field.effects[PBEffects::BattleWinsTasks][0]+=exp if countboxtask
     if exp>0
       if showmessages
@@ -2391,7 +2391,7 @@ class PokeBattle_Battle
           pbCheckDanger
           battler.pbUpdate(false) if battler
           @scene.pbRefresh
-          $PokemonGlobal.pokebox[1]+=1
+          $PokemonGlobal.changePokebox(1,1)
           @field.effects[PBEffects::BattleWinsTasks][1]+=1
           pbDisplayPaused(_INTL("{1} grew to Level {2}!",thispoke.name,curlevel))
           @scene.pbLevelUp(thispoke,battler,oldtotalhp,oldattack,
@@ -2422,7 +2422,7 @@ class PokeBattle_Battle
       if pokemon.moves[i].id==0
         pokemon.moves[i]=PBMove.new(move)
         battler.moves[i]=PokeBattle_Move.pbFromPBMove(self,pokemon.moves[i]) if battler
-        $PokemonGlobal.pokebox[42]+=1
+        $PokemonGlobal.changePokebox(42,1)
         pbDisplayPaused(_INTL("{1} learned {2}!",pkmnname,movename))
         PBDebug.log("[Learn move] #{pkmnname} learned #{movename}")
         return
@@ -2438,7 +2438,7 @@ class PokeBattle_Battle
           oldmovename=PBMoves.getName(pokemon.moves[forgetmove].id)
           pokemon.moves[forgetmove]=PBMove.new(move) # Replaces current/total PP
           battler.moves[forgetmove]=PokeBattle_Move.pbFromPBMove(self,pokemon.moves[forgetmove]) if battler
-          $PokemonGlobal.pokebox[42]+=1
+          $PokemonGlobal.changePokebox(42,1)
           pbDisplayPaused(_INTL("1,  2, and... ... ..."))
           pbDisplayPaused(_INTL("Poof!"))
           pbDisplayPaused(_INTL("{1} forgot {2}.",pkmnname,oldmovename))
@@ -3015,26 +3015,26 @@ class PokeBattle_Battle
          pbEndOfRoundPhase
       }
       break if @decision>0
-      $PokemonGlobal.pokebox[11]+=1
+      $PokemonGlobal.changePokebox(11,1)
       for i in 0...4
         # Pokemon Box
         if @battlers[i].effects[PBEffects::BoxAbilityTask]
           @battlers[i].effects[PBEffects::BoxAbilityTask]=false
-          $PokemonGlobal.pokebox[4]+=1
+          $PokemonGlobal.changePokebox(4,1)
         end
         if @battlers[i].effects[PBEffects::BoxItemTask]
           @battlers[i].effects[PBEffects::BoxItemTask]=false
-          $PokemonGlobal.pokebox[5]+=1
+          $PokemonGlobal.changePokebox(5,1)
         end
         if @battlers[i].effects[PBEffects::BoxMoldTask]
           @battlers[i].effects[PBEffects::BoxMoldTask]=false
-          $PokemonGlobal.pokebox[43]+=1
+          $PokemonGlobal.changePokebox(43,1)
         end
         # Pokemon Box End
       end
       @turncount+=1
     end
-    $PokemonGlobal.pokebox[11]+=1 if @decision != 3
+    $PokemonGlobal.changePokebox(11,1) if @decision != 3
     # Collect Battle Stars Task
     hp1=0.0 # Total HP
     hp2=0.0 # Total HP - Current HP
@@ -3044,23 +3044,23 @@ class PokeBattle_Battle
       hp2+=(i.totalhp - i.hp).to_f
     end
     if hp2 > 0 # At least some damage done
-      $PokemonGlobal.pokebox[108]+=(((hp2 / hp1).to_f)*3).floor
+      $PokemonGlobal.changePokebox(108,(((hp2 / hp1).to_f)*3).floor)
     end
     # Battle Plays Task
-    $PokemonGlobal.pokebox[109]+=1 if @turncount>0 || @decision != 3
+    $PokemonGlobal.changePokebox(109,1) if @turncount>0 || @decision != 3
     for i in 0...4
       # Pokemon Box
       if @battlers[i].effects[PBEffects::BoxAbilityTask]
         @battlers[i].effects[PBEffects::BoxAbilityTask]=false
-        $PokemonGlobal.pokebox[4]+=1
+        $PokemonGlobal.changePokebox(4,1)
       end
       if @battlers[i].effects[PBEffects::BoxItemTask]
         @battlers[i].effects[PBEffects::BoxItemTask]=false
-        $PokemonGlobal.pokebox[5]+=1
+        $PokemonGlobal.changePokebox(5,1)
       end
       if @battlers[i].effects[PBEffects::BoxMoldTask]
         @battlers[i].effects[PBEffects::BoxMoldTask]=false
-        $PokemonGlobal.pokebox[43]+=1
+        $PokemonGlobal.changePokebox(43,1)
       end
       # Pokemon Box End
     end
@@ -4965,11 +4965,11 @@ class PokeBattle_Battle
     when 1
       PBDebug.log("")
       PBDebug.log("***Player won***")
-      $PokemonGlobal.pokebox[13]+=1  if $game_map && pbGetMetadata($game_map.map_id,MetadataUpperKingdom)
-      $PokemonGlobal.pokebox[104]+=1
+      $PokemonGlobal.changePokebox(13,1)  if $game_map && pbGetMetadata($game_map.map_id,MetadataUpperKingdom)
+      $PokemonGlobal.changePokebox(104,1)
       if @field.effects[PBEffects::BoxDamageTask]==0
-        $PokemonGlobal.pokebox[106]+=1  if $game_map && pbGetMetadata($game_map.map_id,MetadataUpperKingdom)
-        $PokemonGlobal.pokebox[107]+=1
+        $PokemonGlobal.changePokebox(106,1)  if $game_map && pbGetMetadata($game_map.map_id,MetadataUpperKingdom)
+        $PokemonGlobal.changePokebox(107,1)
       end
       # Common Tasks that need battle wins
       tasks= [60,61,62,63,64,65,66,67,68,69,70,72,74,80]
@@ -4977,10 +4977,10 @@ class PokeBattle_Battle
       idx = 0
       for item in @field.effects[PBEffects::BattleWinsTasks]
         if tasks[idx]
-          $PokemonGlobal.pokebox[tasks[idx]]+=item if @opponent
+          $PokemonGlobal.changePokebox(tasks[idx],item) if @opponent
         end
         if tasks2[idx]
-          $PokemonGlobal.pokebox[tasks2[idx]]+=item
+          $PokemonGlobal.changePokebox(tasks2[idx],item)
         end
         idx+=1
       end
@@ -4992,19 +4992,19 @@ class PokeBattle_Battle
         end
         @scene.pbTrainerBattleSuccess
         if @opponent.is_a?(Array)
-          $PokemonGlobal.pokebox[10]+=@opponent.length
+          $PokemonGlobal.changePokebox(10,@opponent.length)
           for i in 0...@opponent.length
-            $PokemonGlobal.pokebox[33]+=1 if @opponent[i].skill > 99
-            $PokemonGlobal.pokebox[55]+=1 if @opponent[i].partyCount > 5
-            $PokemonGlobal.pokebox[77]+=1 if @opponent[i].partyCount > 5 &&
+            $PokemonGlobal.changePokebox(33,1) if @opponent[i].skill > 99
+            $PokemonGlobal.changePokebox(55,1) if @opponent[i].partyCount > 5
+            $PokemonGlobal.changePokebox(77,1) if @opponent[i].partyCount > 5 &&
                                              @opponent[i].skill > 99
           end
           pbDisplayPaused(_INTL("{1} defeated {2} and {3}!",self.pbPlayer.name,@opponent[0].fullname,@opponent[1].fullname))
         else
-          $PokemonGlobal.pokebox[10]+=1
-          $PokemonGlobal.pokebox[33]+=1 if @opponent.skill > 99
-          $PokemonGlobal.pokebox[55]+=1 if @opponent.partyCount > 5
-          $PokemonGlobal.pokebox[77]+=1 if @opponent.partyCount > 5 &&
+          $PokemonGlobal.changePokebox(10,1)
+          $PokemonGlobal.changePokebox(33,1) if @opponent.skill > 99
+          $PokemonGlobal.changePokebox(55,1) if @opponent.partyCount > 5
+          $PokemonGlobal.changePokebox(77,1) if @opponent.partyCount > 5 &&
                                            @opponent.skill > 99
           pbDisplayPaused(_INTL("{1} defeated\r\n{2}!",self.pbPlayer.name,@opponent.fullname))
         end
@@ -5070,7 +5070,7 @@ class PokeBattle_Battle
             $PokemonBag.pbStoreItem(item2,1)
             $PokemonBag.pbStoreItem(item3,1)
             pbSEPlay("Item3")
-            $PokemonGlobal.pokebox[58]+=1
+            $PokemonGlobal.changePokebox(58,1)
             pbDisplayPaused(_INTL("You've got a lucky bag! It contains a {1}, a {2} and a {3}!",PBItems.getName(item1), PBItems.getName(item2), PBItems.getName(item3)))
             if $game_variables[WIN_STREAK_VARIABLE]==(11*5957) # Win streak of 65527
               pbDisplayPaused(_INTL("Congratulations! You've got all available lucky bags! Keep playing!"))

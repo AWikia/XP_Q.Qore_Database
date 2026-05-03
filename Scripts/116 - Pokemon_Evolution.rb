@@ -877,6 +877,7 @@ class PokemonEvolutionScene
          _INTL("\\se[]Congratulations! Your {1} reverted back into {2}!\\wt[80]",
          @pokemon.name,newspeciesname)) { pbUpdate }
       else
+        $PokemonGlobal.changePokebox(114,1)
         Kernel.pbMessageDisplay(@sprites["msgwindow"],
          _INTL("\\se[]Congratulations! Your {1} evolved into {2}!\\wt[80]",
          @pokemon.name,newspeciesname)) { pbUpdate }

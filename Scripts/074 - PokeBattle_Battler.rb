@@ -123,7 +123,7 @@ def recoildamage
     resetRecoilDamage if !@recoildamage
     @recoildamage+=value
     @pokemon.recoildamage+= value if @pokemon
-    $PokemonGlobal.pokebox[29]+=value if @battle.pbOwnedByPlayer?(@index)
+    $PokemonGlobal.changePokebox(29,value) if @battle.pbOwnedByPlayer?(@index)
   end
 
 ################################################################################
@@ -147,7 +147,7 @@ def criticalhits
     resetCriticalHits if !@criticalhits
     @criticalhits+=value
     @pokemon.criticalhits+= value if @pokemon 
-    $PokemonGlobal.pokebox[15]+=1 if @battle.pbOwnedByPlayer?(@index)
+    $PokemonGlobal.changePokebox(15,1) if @battle.pbOwnedByPlayer?(@index)
   end
 
 ################################################################################
@@ -179,13 +179,13 @@ def ragefist
   def setWeather(value)
     oldweather=@battle.weather
     @battle.weather=value
-    $PokemonGlobal.pokebox[89]+=1 if @battle.pbOwnedByPlayer?(@index) && @battle.weather != oldweather && @battle.weather!=0
+    $PokemonGlobal.changePokebox(89,1) if @battle.pbOwnedByPlayer?(@index) && @battle.weather != oldweather && @battle.weather!=0
   end
   
   def setTerrain(value)
     oldterrain=@battle.terrain
     @battle.terrain=value
-    $PokemonGlobal.pokebox[89]+=1 if @battle.pbOwnedByPlayer?(@index) && @battle.terrain != oldterrain && @battle.terrain!=0
+    $PokemonGlobal.changePokebox(89,1) if @battle.pbOwnedByPlayer?(@index) && @battle.terrain != oldterrain && @battle.terrain!=0
   end
 
 ################################################################################
@@ -239,7 +239,7 @@ def ragefist
     oldform=@form
     @form=value
     @pokemon.form=value if @pokemon
-    $PokemonGlobal.pokebox[39]+=1 if @battle.pbOwnedByPlayer?(@index) && @form != oldform
+    $PokemonGlobal.changePokebox(39,1) if @battle.pbOwnedByPlayer?(@index) && @form != oldform
   end
 
   def hasMega?
@@ -316,13 +316,13 @@ def ragefist
     olditem=@item
     @item=value
     @pokemon.setItem(value) if @pokemon
-    $PokemonGlobal.pokebox[85]+=1 if @battle.pbOwnedByPlayer?(@index) && @item != olditem
+    $PokemonGlobal.changePokebox(85,1) if @battle.pbOwnedByPlayer?(@index) && @item != olditem
   end
   
   def ability=(value)
     oldability=@ability
     @ability=value
-    $PokemonGlobal.pokebox[84]+=1 if @battle.pbOwnedByPlayer?(@index) && @ability != oldability
+    $PokemonGlobal.changePokebox(84,1) if @battle.pbOwnedByPlayer?(@index) && @ability != oldability
   end
 
   def weight(attacker=nil)
@@ -1320,7 +1320,7 @@ def ragefist
     self.hp+=amt
     raise _INTL("HP less than 0") if self.hp<0
     raise _INTL("HP greater than total HP") if self.hp>@totalhp
-    $PokemonGlobal.pokebox[30]+=amt if @battle.pbOwnedByPlayer?(@index)
+    $PokemonGlobal.changePokebox(30,amt) if @battle.pbOwnedByPlayer?(@index)
     @battle.scene.pbHPChanged(self,oldhp,anim) if amt>0
     @battle.pbCheckDanger
     return amt
@@ -1416,7 +1416,7 @@ def ragefist
         end
         self.pbPartner.effects[PBEffects::Disable]=0
         self.pbPartner.effects[PBEffects::DisableMove]=0
-        $PokemonGlobal.pokebox[49]+=1 if @battle.pbOwnedByPlayer?(self.pbPartner.index)
+        $PokemonGlobal.changePokebox(49,1) if @battle.pbOwnedByPlayer?(self.pbPartner.index)
         @battle.pbDisplay(_INTL("{1} transformed into {2}!",self.pbPartner.pbThis,choice.pbThis(true)))
         PBDebug.log("[Pokémon transformed] #{self.pbPartner.pbThis} transformed into #{choice.pbThis(true)}")
       end
@@ -1452,11 +1452,11 @@ def ragefist
     @battle.choices[@index]=[0,0,nil,-1]
     pbOwnSide.effects[PBEffects::LastRoundFainted]=@battle.turncount
     if @battle.pbIsOpposing?(@index)
-      $PokemonGlobal.pokebox[2]+=1
+      $PokemonGlobal.changePokebox(2,1)
       @battle.field.effects[PBEffects::BattleWinsTasks][2]+=1
-      $PokemonGlobal.pokebox[45]+=1 if oldbestskill
-      $PokemonGlobal.pokebox[17]+=1 if oldturncount<2
-      $PokemonGlobal.pokebox[76]+=1 if oldturncount<2 && oldbestskill
+      $PokemonGlobal.changePokebox(45,1) if oldbestskill
+      $PokemonGlobal.changePokebox(17,1) if oldturncount<2
+      $PokemonGlobal.changePokebox(76,1) if oldturncount<2 && oldbestskill
     end
     @battle.pbDisplayPaused(_INTL("{1} fainted!",pbThis)) if showMessage
     PBDebug.log("[Pokémon fainted] #{pbThis}")
@@ -1903,7 +1903,7 @@ def ragefist
         self.stages[PBStats::SPEED]+=[1,1,1,1,1,2,2,3,3][stage]
         self.stages[PBStats::ACCURACY]+=[0,0,1,1,1,1,1,1,1][stage]
         self.stages[PBStats::EVASION]+=[0,0,0,0,1,1,1,1,1][stage]
-      $PokemonGlobal.pokebox[38]+=1
+      $PokemonGlobal.changePokebox(38,1)
       @battle.pbCommonAnimation("StatUp",self,nil)
       @battle.pbDisplay(_INTL("{1}'s current Win Streak boosted {2}'s {3}",$Trainer.name,pbThis,wsstats))
     end
@@ -2629,7 +2629,7 @@ def ragefist
         end
         @effects[PBEffects::Disable]=0
         @effects[PBEffects::DisableMove]=0
-        $PokemonGlobal.pokebox[49]+=1 if @battle.pbOwnedByPlayer?(@index)
+        $PokemonGlobal.changePokebox(49,1) if @battle.pbOwnedByPlayer?(@index)
         @battle.pbDisplay(_INTL("{1} transformed into {2}!",pbThis,choice.pbThis(true)))
         PBDebug.log("[Pokémon transformed] #{pbThis} transformed into #{choice.pbThis(true)}")
       end
@@ -2859,7 +2859,7 @@ def ragefist
           end
           target.effects[PBEffects::Disable]=0
           target.effects[PBEffects::DisableMove]=0
-          $PokemonGlobal.pokebox[49]+=1 if @battle.pbOwnedByPlayer?(target.index)
+          $PokemonGlobal.changePokebox(49,1) if @battle.pbOwnedByPlayer?(target.index)
           @battle.pbDisplay(_INTL("{1} transformed into {2}!",target.pbThis,choice.pbThis(true)))
           PBDebug.log("[Pokémon transformed] #{pbThis} transformed into #{choice.pbThis(true)}")
         end
@@ -2929,7 +2929,7 @@ def ragefist
           end
           user.effects[PBEffects::Disable]=0
           user.effects[PBEffects::DisableMove]=0
-          $PokemonGlobal.pokebox[49]+=1 if @battle.pbOwnedByPlayer?(user.index)
+          $PokemonGlobal.changePokebox(49,1) if @battle.pbOwnedByPlayer?(user.index)
           @battle.pbDisplay(_INTL("{1} transformed into {2}!",user.pbThis,choice.pbThis(true)))
           PBDebug.log("[Pokémon transformed] #{user.pbThis} transformed into #{choice.pbThis(true)}")
         end
@@ -3806,7 +3806,7 @@ def ragefist
         pokemove.pp=pokemove.totalpp if pokemove.pp>pokemove.totalpp 
         self.moves[choice].pp=pokemove.pp
         movename=PBMoves.getName(pokemove.id)
-        $PokemonGlobal.pokebox[46]+=(pokemove.pp - oldpp) if @battle.pbOwnedByPlayer?(@index)
+        $PokemonGlobal.changePokebox(46,(pokemove.pp - oldpp)) if @battle.pbOwnedByPlayer?(@index)
         @battle.pbDisplay(_INTL("{1}'s {2} restored {3}'s PP!",pbThis,berryname,movename)) 
         consumed=true
       end
@@ -4562,8 +4562,8 @@ def ragefist
     p+=1 if @battle.pbTerrain==PBBattleTerrains::LOVELY && thismove.function==0x349
     p+=1 if @battle.pbTerrain==PBBattleTerrains::CINAMENT && thismove.function==0x350
     if @battle.pbOwnedByPlayer?(user.index)
-      $PokemonGlobal.pokebox[24]+=1 if p>0
-      $PokemonGlobal.pokebox[44]+=1 if p<0
+      $PokemonGlobal.changePokebox(24,1) if p>0
+      $PokemonGlobal.changePokebox(44,1) if p<0
     end
     if target.hasWorkingAbility(:PROVENDO) &&  thismove.canProtectAgainst? && 
       p>0 && !target.effects[PBEffects::ProtectNegation]
@@ -4989,7 +4989,7 @@ def ragefist
             user.effects[PBEffects::Disable]=0
             user.effects[PBEffects::DisableMove]=0
             user.pbConsumeItem
-            $PokemonGlobal.pokebox[49]+=1 if @battle.pbOwnedByPlayer?(user.index)
+            $PokemonGlobal.changePokebox(49,1) if @battle.pbOwnedByPlayer?(user.index)
             @battle.pbDisplay(_INTL("{1} transformed into {2}!",user.pbThis,choice.pbThis(true)))
             PBDebug.log("[Pokémon transformed] #{user.pbThis} transformed into #{choice.pbThis(true)}")
           end
@@ -5151,7 +5151,7 @@ def ragefist
             PBDebug.log("[Move failed] #{pbThis} couldn't use #{thismove.name} while asleep")
             return false
           else
-            $PokemonGlobal.pokebox[34]+=1 if @battle.pbOwnedByPlayer?(self.index)
+            $PokemonGlobal.changePokebox(34,1) if @battle.pbOwnedByPlayer?(self.index)
           end
         end
       end
@@ -5512,7 +5512,7 @@ def ragefist
     # Type effectiveness
     if numhits>1
       if target.damagestate.typemod>8
-        $PokemonGlobal.pokebox[31]+=1 if @battle.pbOwnedByPlayer?(user.index)
+        $PokemonGlobal.changePokebox(31,1) if @battle.pbOwnedByPlayer?(user.index)
         @battle.field.effects[PBEffects::BattleWinsTasks][4]+=1 if @battle.pbOwnedByPlayer?(user.index)
 				pbSEPlay("Battle effect message")
         if alltargets.length>1
@@ -5521,7 +5521,7 @@ def ragefist
           @battle.pbDisplay(_INTL("It's super effective!"))
         end
       elsif target.damagestate.typemod>=1 && target.damagestate.typemod<8
-        $PokemonGlobal.pokebox[36]+=1 if @battle.pbOwnedByPlayer?(user.index)
+        $PokemonGlobal.changePokebox(36,1) if @battle.pbOwnedByPlayer?(user.index)
         @battle.field.effects[PBEffects::BattleWinsTasks][5]+=1 if @battle.pbOwnedByPlayer?(user.index)
         pbSEPlay("Battle effect message")
 				if alltargets.length>1
@@ -5576,10 +5576,10 @@ def ragefist
       end
     end
     if target.isFainted? && @battle.pbOwnedByPlayer?(user.index)
-      $PokemonGlobal.pokebox[56]+=1 if user.color == target.color
-      $PokemonGlobal.pokebox[78]+=1 if user.color == target.color && oldturncount<2
-      $PokemonGlobal.pokebox[86]+=1 if user.gender == target.gender
-      $PokemonGlobal.pokebox[87]+=1 if user.gender == target.gender && oldturncount<2
+      $PokemonGlobal.changePokebox(56,1) if user.color == target.color
+      $PokemonGlobal.changePokebox(78,1) if user.color == target.color && oldturncount<2
+      $PokemonGlobal.changePokebox(86,1) if user.gender == target.gender
+      $PokemonGlobal.changePokebox(87,1) if user.gender == target.gender && oldturncount<2
     end
     pbEffectsAfterHit(user,target,thismove,turneffects)
     # Berry check
@@ -5623,7 +5623,7 @@ def ragefist
         if id == j
           if i.hasWorkingAbility(:DANCER)
             @battle.pbDisplay(_INTL("{1} danced along!",i.pbThis))
-            $PokemonGlobal.pokebox[28]+=1 if @battle.pbOwnedByPlayer?(i.index)
+            $PokemonGlobal.changePokebox(28,1) if @battle.pbOwnedByPlayer?(i.index)
             i.pbUseMoveSimple(id,-1,-1,true)
           end
         end
@@ -6137,31 +6137,31 @@ def ragefist
     end
     # Record move as having been used
     if @battle.pbOwnedByPlayer?(@index)
-      $PokemonGlobal.pokebox[105]+=1
-      $PokemonGlobal.pokebox[6]+=1 if thismove.pbIsPhysical?(thismove.type)
-      $PokemonGlobal.pokebox[7]+=1 if thismove.pbIsSpecial?(thismove.type)
-      $PokemonGlobal.pokebox[8]+=1 if thismove.pbIsStatus?
-      $PokemonGlobal.pokebox[16]+=1 if thismove.pbIsDamaging? && user.pbHasType?(thismove.type)
-      $PokemonGlobal.pokebox[22]+=1 if thismove.isHealingMove?
-      $PokemonGlobal.pokebox[23]+=1 if thismove.isOHKO?
-      $PokemonGlobal.pokebox[27]+=1 if thismove.addlEffect>0
-      $PokemonGlobal.pokebox[32]+=1 if thismove.pbIsMultiHit
-      $PokemonGlobal.pokebox[37]+=1 if thismove.pbIsMultiTarget
-      $PokemonGlobal.pokebox[47]+=1 if thismove.isSoundBased?
-      $PokemonGlobal.pokebox[51]+=1 if thismove.accuracy==0
-      $PokemonGlobal.pokebox[52]+=1 if thismove.basedamage==1
-      $PokemonGlobal.pokebox[54]+=1 if isConst?(thismove.type,PBTypes,:SHADOW)
-      $PokemonGlobal.pokebox[59]+=1 if thismove.pbIsElderSpecial?
-      $PokemonGlobal.pokebox[71]+=1 if isConst?(thismove.type,PBTypes,:NORMAL)
-      $PokemonGlobal.pokebox[73]+=1 if isConst?(thismove.type,PBTypes,:GRASS) ||
+      $PokemonGlobal.changePokebox(105,1)
+      $PokemonGlobal.changePokebox(6,1) if thismove.pbIsPhysical?(thismove.type)
+      $PokemonGlobal.changePokebox(7,1) if thismove.pbIsSpecial?(thismove.type)
+      $PokemonGlobal.changePokebox(8,1) if thismove.pbIsStatus?
+      $PokemonGlobal.changePokebox(16,1) if thismove.pbIsDamaging? && user.pbHasType?(thismove.type)
+      $PokemonGlobal.changePokebox(22,1) if thismove.isHealingMove?
+      $PokemonGlobal.changePokebox(23,1) if thismove.isOHKO?
+      $PokemonGlobal.changePokebox(27,1) if thismove.addlEffect>0
+      $PokemonGlobal.changePokebox(32,1) if thismove.pbIsMultiHit
+      $PokemonGlobal.changePokebox(37,1) if thismove.pbIsMultiTarget
+      $PokemonGlobal.changePokebox(47,1) if thismove.isSoundBased?
+      $PokemonGlobal.changePokebox(51,1) if thismove.accuracy==0
+      $PokemonGlobal.changePokebox(52,1) if thismove.basedamage==1
+      $PokemonGlobal.changePokebox(54,1) if isConst?(thismove.type,PBTypes,:SHADOW)
+      $PokemonGlobal.changePokebox(59,1) if thismove.pbIsElderSpecial?
+      $PokemonGlobal.changePokebox(71,1) if isConst?(thismove.type,PBTypes,:NORMAL)
+      $PokemonGlobal.changePokebox(73,1) if isConst?(thismove.type,PBTypes,:GRASS) ||
                                        isConst?(thismove.type,PBTypes,:FIRE) ||
                                        isConst?(thismove.type,PBTypes,:WATER)
-      $PokemonGlobal.pokebox[79]+=1 if isConst?(thismove.type,PBTypes,:FIGHTING) ||
+      $PokemonGlobal.changePokebox(79,1) if isConst?(thismove.type,PBTypes,:FIGHTING) ||
                                        isConst?(thismove.type,PBTypes,:PSYCHIC) ||
                                        isConst?(thismove.type,PBTypes,:DARK)
-      $PokemonGlobal.pokebox[81]+=1 if isConst?(thismove.type,PBTypes,:ROBOT)
-      $PokemonGlobal.pokebox[83]+=1 if thismove.totalpp==1
-      $PokemonGlobal.pokebox[88]+=1 if thismove.isBombMove?
+      $PokemonGlobal.changePokebox(81,1) if isConst?(thismove.type,PBTypes,:ROBOT)
+      $PokemonGlobal.changePokebox(83,1) if thismove.totalpp==1
+      $PokemonGlobal.changePokebox(88,1) if thismove.isBombMove?
       @battle.field.effects[PBEffects::BattleWinsTasks][6]+=1 if thismove.pbIsPhysical?(thismove.type)
       @battle.field.effects[PBEffects::BattleWinsTasks][7]+=1 if thismove.pbIsSpecial?(thismove.type)
       @battle.field.effects[PBEffects::BattleWinsTasks][8]+=1 if thismove.pbIsStatus?

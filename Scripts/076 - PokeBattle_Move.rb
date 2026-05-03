@@ -1892,9 +1892,9 @@ class PokeBattle_Move
       oldhp=opponent.hp
       opponent.hp-=damage
       if @battle.pbOwnedByPlayer?(attacker.index) && attacker
-        $PokemonGlobal.pokebox[14]+=damage.floor
+        $PokemonGlobal.changePokebox(14,damage.floor)
         @battle.field.effects[PBEffects::BattleWinsTasks][3]+=damage.floor
-        $PokemonGlobal.pokebox[82]+=damage.floor if opponent.effects[PBEffects::TwoTurnAttack]>0
+        $PokemonGlobal.changePokebox(82,damage.floor) if opponent.effects[PBEffects::TwoTurnAttack]>0
       end
       @battle.field.effects[PBEffects::BoxDamageTask]+=damage.floor if @battle.pbOwnedByPlayer?(opponent.index)
       effectiveness=0
@@ -1958,7 +1958,7 @@ class PokeBattle_Move
     end
     if !pbIsMultiHit && attacker.effects[PBEffects::ParentalBond]==0
       if opponent.damagestate.typemod>8
-        $PokemonGlobal.pokebox[31]+=1 if @battle.pbOwnedByPlayer?(attacker.index)
+        $PokemonGlobal.changePokebox(31,1) if @battle.pbOwnedByPlayer?(attacker.index)
         @battle.field.effects[PBEffects::BattleWinsTasks][4]+=1 if @battle.pbOwnedByPlayer?(attacker.index)
 				pbSEPlay("Battle effect message")
         if alltargets && alltargets.length>1
@@ -1967,7 +1967,7 @@ class PokeBattle_Move
           @battle.pbDisplay(_INTL("It's super effective!"))
         end
       elsif opponent.damagestate.typemod>=1 && opponent.damagestate.typemod<8
-        $PokemonGlobal.pokebox[36]+=1 if @battle.pbOwnedByPlayer?(attacker.index)
+        $PokemonGlobal.changePokebox(36,1) if @battle.pbOwnedByPlayer?(attacker.index)
         @battle.field.effects[PBEffects::BattleWinsTasks][5]+=1 if @battle.pbOwnedByPlayer?(attacker.index)
         pbSEPlay("Battle effect message")
 				if alltargets && alltargets.length>1

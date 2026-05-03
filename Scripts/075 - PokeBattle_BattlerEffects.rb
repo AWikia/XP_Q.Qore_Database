@@ -106,7 +106,7 @@ class PokeBattle_Battler
     self.status=PBStatuses::SLEEP
     self.statusCount=2+@battle.pbRandom(3)
     self.statusCount=(self.statusCount/2).floor if self.hasWorkingAbility(:EARLYBIRD)
-    $PokemonGlobal.pokebox[26]+=1  if @battle.pbOwnedByPlayer?(@index) # @FIXME
+    $PokemonGlobal.changePokebox(26,1)  if @battle.pbOwnedByPlayer?(@index) # @FIXME
     pbCancelMoves
     @battle.pbCommonAnimation("Sleep",self,nil)
     if msg && msg!=""
@@ -125,7 +125,7 @@ class PokeBattle_Battler
       self.statusCount=2+@battle.pbRandom(3)
     end
     self.statusCount=(self.statusCount/2).floor if self.hasWorkingAbility(:EARLYBIRD)
-    $PokemonGlobal.pokebox[26]+=1  if @battle.pbOwnedByPlayer?(@index)
+    $PokemonGlobal.changePokebox(26,1)  if @battle.pbOwnedByPlayer?(@index)
     pbCancelMoves
     @battle.pbCommonAnimation("Sleep",self,nil)
     PBDebug.log("[Status change] #{pbThis} made itself fall asleep (#{self.statusCount} turns)")
@@ -242,7 +242,7 @@ class PokeBattle_Battler
     self.status=PBStatuses::POISON
     self.statusCount=(toxic) ? 1 : 0
     self.effects[PBEffects::Toxic]=0
-    $PokemonGlobal.pokebox[26]+=1  if attacker && @battle.pbOwnedByPlayer?(attacker.index)
+    $PokemonGlobal.changePokebox(26,1)  if attacker && @battle.pbOwnedByPlayer?(attacker.index)
     if toxic
     @battle.pbCommonAnimation("BadPoison",self,nil)
     else
@@ -372,7 +372,7 @@ class PokeBattle_Battler
   def pbBurn(attacker,msg=nil)
     self.status=PBStatuses::BURN
     self.statusCount=0
-    $PokemonGlobal.pokebox[26]+=1  if attacker && @battle.pbOwnedByPlayer?(attacker.index)
+    $PokemonGlobal.changePokebox(26,1)  if attacker && @battle.pbOwnedByPlayer?(attacker.index)
     @battle.pbCommonAnimation("Burn",self,nil)
     if msg && msg!=""
       @battle.pbDisplay(msg)
@@ -476,7 +476,7 @@ class PokeBattle_Battler
   def pbParalyze(attacker,msg=nil)
     self.status=PBStatuses::PARALYSIS
     self.statusCount=0
-    $PokemonGlobal.pokebox[26]+=1  if attacker && @battle.pbOwnedByPlayer?(attacker.index)
+    $PokemonGlobal.changePokebox(26,1)  if attacker && @battle.pbOwnedByPlayer?(attacker.index)
     @battle.pbCommonAnimation("Paralysis",self,nil)
     if msg && msg!=""
       @battle.pbDisplay(msg)
@@ -555,7 +555,7 @@ class PokeBattle_Battler
   def pbFreeze(msg=nil)
     self.status=PBStatuses::FROZEN
     self.statusCount=0
-    $PokemonGlobal.pokebox[26]+=1  if @battle.pbOwnedByPlayer?(@index) # @FIXME
+    $PokemonGlobal.changePokebox(26,1)  if @battle.pbOwnedByPlayer?(@index) # @FIXME
     pbCancelMoves
     @battle.pbCommonAnimation("Frozen",self,nil)
     if msg && msg!=""
@@ -658,7 +658,7 @@ class PokeBattle_Battler
 
   def pbConfuse(attacker)
     @effects[PBEffects::Confusion]=2+@battle.pbRandom(4)
-    $PokemonGlobal.pokebox[57]+=1  if attacker && @battle.pbOwnedByPlayer?(attacker.index)
+    $PokemonGlobal.changePokebox(57,1)  if attacker && @battle.pbOwnedByPlayer?(attacker.index)
     @battle.pbCommonAnimation("Confusion",self,nil)
     PBDebug.log("[Lingering effect triggered] #{pbThis} became confused (#{@effects[PBEffects::Confusion]} turns)")
   end
@@ -666,7 +666,7 @@ class PokeBattle_Battler
   def pbConfuseSelf
     if pbCanConfuseSelf?(false)
       @effects[PBEffects::Confusion]=2+@battle.pbRandom(4)
-      $PokemonGlobal.pokebox[57]+=1  if @battle.pbOwnedByPlayer?(@index)
+      $PokemonGlobal.changePokebox(57,1)  if @battle.pbOwnedByPlayer?(@index)
       @battle.pbCommonAnimation("Confusion",self,nil)
       @battle.pbDisplay(_INTL("{1} became confused!",pbThis))
       PBDebug.log("[Lingering effect triggered] #{pbThis} became confused (#{@effects[PBEffects::Confusion]} turns)")
@@ -718,7 +718,7 @@ class PokeBattle_Battler
 
   def pbAttract(attacker,msg=nil)
     @effects[PBEffects::Attract]=attacker.index
-    $PokemonGlobal.pokebox[57]+=1  if attacker && @battle.pbOwnedByPlayer?(attacker.index)
+    $PokemonGlobal.changePokebox(57,1)  if attacker && @battle.pbOwnedByPlayer?(attacker.index)
     @battle.pbCommonAnimation("Attract",self,nil)
     if msg && msg!=""
       @battle.pbDisplay(msg)
@@ -794,7 +794,7 @@ class PokeBattle_Battler
     end
     increment=[increment,6-@stages[stat]].min
     PBDebug.log("[Stat change] #{pbThis}'s #{PBStats.getName(stat)} rose by #{increment} stage(s) (was #{@stages[stat]}, now #{@stages[stat]+increment})")
-    $PokemonGlobal.pokebox[20]+=1 if @battle.pbOwnedByPlayer?(self.index)
+    $PokemonGlobal.changePokebox(20,1) if @battle.pbOwnedByPlayer?(self.index)
     @stages[stat]+=increment
     return increment
   end
@@ -1055,7 +1055,7 @@ class PokeBattle_Battler
     end
     increment=[increment,6+@stages[stat]].min
     PBDebug.log("[Stat change] #{pbThis}'s #{PBStats.getName(stat)} fell by #{increment} stage(s) (was #{@stages[stat]}, now #{@stages[stat]-increment})")
-    $PokemonGlobal.pokebox[25]+=1 if @battle.pbOwnedByPlayer?(self.index) ||
+    $PokemonGlobal.changePokebox(25,1) if @battle.pbOwnedByPlayer?(self.index) ||
                                      (attacker && @battle.pbOwnedByPlayer?(attacker.index))
     @stages[stat]-=increment
     return increment

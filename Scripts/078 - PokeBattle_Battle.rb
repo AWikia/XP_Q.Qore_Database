@@ -451,7 +451,10 @@ class PokeBattle_Battle
     return true
   end
 
-  def pbWeather
+  def pbWeather(attacker)
+    if attacker # attacker object should only be used in move definitions as this controls Mega Sol
+      return PBWeather::SUNNYDAY if attacker.hasWorkingAbility(:MEGASOL)
+    end
     for i in 0...4
       if @battlers[i].hasWorkingAbility(:CLOUDNINE) ||
          @battlers[i].hasWorkingAbility(:AIRLOCK) ||

@@ -328,7 +328,7 @@ class PokeBattle_Move_008 < PokeBattle_Move
 
   def pbModifyBaseAccuracy(baseaccuracy,attacker,opponent)
     if !attacker.hasWorkingItem(:UTILITYUMBRELLA)
-      case @battle.pbWeather
+      case @battle.pbWeather(attacker)
       when PBWeather::RAINDANCE, PBWeather::HEAVYRAIN
         return 0
       when PBWeather::SUNNYDAY, PBWeather::HARSHSUN
@@ -649,7 +649,7 @@ class PokeBattle_Move_015 < PokeBattle_Move
 
   def pbModifyBaseAccuracy(baseaccuracy,attacker,opponent)
     if !attacker.hasWorkingItem(:UTILITYUMBRELLA)
-      case @battle.pbWeather
+      case @battle.pbWeather(attacker)
       when PBWeather::RAINDANCE, PBWeather::HEAVYRAIN
         return 0
       when PBWeather::SUNNYDAY, PBWeather::HARSHSUN
@@ -1191,6 +1191,12 @@ end
 ################################################################################
 class PokeBattle_Move_028 < PokeBattle_Move
   def pbEffect(attacker,opponent,hitnum=0,alltargets=nil,showanimation=true)
+    if attacker.hasWorkingAbility(:MEGASOL) &&
+       @battle.pbWeather!=@battle.pbWeather(attacker)
+			pbPlayMissSE()
+      @battle.pbDisplay(_INTL("But it failed!"))
+      return -1
+    end
     if !attacker.pbCanIncreaseStatStage?(PBStats::ATTACK,attacker,false,self) &&
        !attacker.pbCanIncreaseStatStage?(PBStats::SPATK,attacker,false,self)
       @battle.pbDisplay(_INTL("{1}'s stats won't go any higher!",attacker.pbThis))
@@ -3783,7 +3789,7 @@ class PokeBattle_Move_087 < PokeBattle_Move
 
   def pbModifyType(type,attacker,opponent)
     type=getConst(PBTypes,:NORMAL) || 0
-    case @battle.pbWeather
+    case @battle.pbWeather(attacker)
     when PBWeather::SUNNYDAY, PBWeather::HARSHSUN
       type=(getConst(PBTypes,:FIRE) || type)
     when PBWeather::RAINDANCE, PBWeather::HEAVYRAIN
@@ -3794,14 +3800,15 @@ class PokeBattle_Move_087 < PokeBattle_Move
       type=(getConst(PBTypes,:ICE) || type)
     end
     type=(getConst(PBTypes,:BOLT) || type) if @battle.pbTerrain==PBBattleTerrains::CINAMENT && 
-                                              @battle.field.effects[PBEffects::GlimmyGalaxy]==0
+                                              @battle.field.effects[PBEffects::GlimmyGalaxy]==0 &&
+                                              !attacker.hasWorkingAbility(:MEGASOL)
     return getConst(PBTypes,:NORMAL) if attacker.hasWorkingItem(:UTILITYUMBRELLA)
     return type
   end
 
   def pbShowAnimation(id,attacker,opponent,hitnum=0,alltargets=nil,showanimation=true)
     anim=0
-    case @battle.pbWeather
+    case @battle.pbWeather(attacker)
     when PBWeather::SUNNYDAY, PBWeather::HARSHSUN
       anim=1
     when PBWeather::RAINDANCE, PBWeather::HEAVYRAIN
@@ -3812,7 +3819,8 @@ class PokeBattle_Move_087 < PokeBattle_Move
       anim=3
     end
     anim=5 if @battle.pbTerrain==PBBattleTerrains::CINAMENT &&
-              @battle.field.effects[PBEffects::GlimmyGalaxy]==0
+              @battle.field.effects[PBEffects::GlimmyGalaxy]==0 &&
+              !attacker.hasWorkingAbility(:MEGASOL)
     anim=0 if attacker.hasWorkingItem(:UTILITYUMBRELLA)
     return super(id,attacker,opponent,anim,alltargets,showanimation) # Weather-specific anim
   end
@@ -5871,8 +5879,8 @@ class PokeBattle_Move_0C4 < PokeBattle_Move
   def pbTwoTurnAttack(attacker)
     @immediate=false; @sunny=false
     if attacker.effects[PBEffects::TwoTurnAttack]==0
-      if (@battle.pbWeather==PBWeather::SUNNYDAY ||
-         @battle.pbWeather==PBWeather::HARSHSUN) && !attacker.hasWorkingItem(:UTILITYUMBRELLA)
+      if (@battle.pbWeather(attacker)==PBWeather::SUNNYDAY ||
+         @battle.pbWeather(attacker)==PBWeather::HARSHSUN) && !attacker.hasWorkingItem(:UTILITYUMBRELLA)
         @immediate=true; @sunny=true
       end
     end
@@ -5884,9 +5892,9 @@ class PokeBattle_Move_0C4 < PokeBattle_Move
   end
 
   def pbBaseDamageMultiplier(damagemult,attacker,opponent)
-    if @battle.pbWeather!=0 &&
-       @battle.pbWeather!=PBWeather::SUNNYDAY &&
-       @battle.pbWeather!=PBWeather::HARSHSUN
+    if @battle.pbWeather(attacker)!=0 &&
+       @battle.pbWeather(attacker)!=PBWeather::SUNNYDAY &&
+       @battle.pbWeather(attacker)!=PBWeather::HARSHSUN
       return (damagemult*0.5).round
     end
     return damagemult
@@ -6595,10 +6603,10 @@ class PokeBattle_Move_0D8 < PokeBattle_Move
       return -1
     end
     hpgain=0
-    if (@battle.pbWeather==PBWeather::SUNNYDAY ||
-       @battle.pbWeather==PBWeather::HARSHSUN) && !attacker.hasWorkingItem(:UTILITYUMBRELLA)
+    if (@battle.pbWeather(attacker)==PBWeather::SUNNYDAY ||
+       @battle.pbWeather(attacker)==PBWeather::HARSHSUN) && !attacker.hasWorkingItem(:UTILITYUMBRELLA)
       hpgain=(attacker.totalhp*2/3).floor
-    elsif @battle.pbWeather!=0
+    elsif @battle.pbWeather(attacker)!=0
       hpgain=(attacker.totalhp/4).floor
     else
       hpgain=(attacker.totalhp/2).floor
@@ -13450,6 +13458,12 @@ end
 ################################################################################
 class PokeBattle_Move_296 < PokeBattle_Move
   def pbEffect(attacker,opponent,hitnum=0,alltargets=nil,showanimation=true)
+    if attacker.hasWorkingAbility(:MEGASOL) &&
+       @battle.pbWeather!=@battle.pbWeather(attacker)
+			pbPlayMissSE()
+      @battle.pbDisplay(_INTL("But it failed!"))
+      return -1
+    end
     if !attacker.pbCanIncreaseStatStage?(PBStats::DEFENSE,attacker,false,self) &&
        !attacker.pbCanIncreaseStatStage?(PBStats::SPDEF,attacker,false,self)
       @battle.pbDisplay(_INTL("{1}'s stats won't go any higher!",attacker.pbThis))
@@ -16709,7 +16723,7 @@ end
 class PokeBattle_Move_373 < PokeBattle_Move
   def pbModifyDamage(damagemult,attacker,opponent)
     if !attacker.hasWorkingItem(:UTILITYUMBRELLA)
-      case @battle.pbWeather
+      case @battle.pbWeather(attacker)
       when PBWeather::SUNNYDAY, PBWeather::HARSHSUN
         return (damagemult*3).round # 50% actually but power is reduced as well
       end

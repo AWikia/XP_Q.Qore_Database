@@ -316,6 +316,11 @@
 402,TERASHELL,"Tera Shell","The Pokémon's shell contains the powers of each type. All damage-dealing moves that hit the Pokémon when its HP is full will not be very effective."
 403,TERAFORMZERO,"Teraform Zero","When Terapagos changes into its Stellar Form, it uses its hidden powers to eliminate all effects of weather and terrain, reducing them to zero."
 404,POISONPUPPETEER,"Poison Puppeteer","Pokémon poisoned by Pecharunt's moves will also become confused."
+# Generation IX Champions Abilities
+409,MEGASOL,"Mega Sol","Even when the sunlight has not turned harsh, the Pokémon can use its moves as if the weather were harsh sunlight."
+410,DRAGONIZE,"Dragonize",Normal-type moves become Dragon-type moves. The power of those moves is boosted a little.
+411,PIERCINGDRILL,"Piercing Drill","If the Pokémon uses moves that make direct contact, it can attack the target even if the target protects itself."
+412,SPICYSPRAY,"Spicy Spray","When the Pokémon takes damage from a move, it burns the attacker."
 # FLINT Abilities
 192,DOOMER,Doomer,Increases power of Doom Attcaks when the Pokémon's HP is low.
 193,MARIAMARA,Mariamara,"Doubles the power of Dark Attacks when the Pokémon's HP drops to half or less."

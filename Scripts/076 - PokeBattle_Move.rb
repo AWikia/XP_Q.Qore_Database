@@ -96,6 +96,9 @@ class PokeBattle_Move
         elsif attacker.hasWorkingAbility(:GALVANIZE) && hasConst?(PBTypes,:ELECTRIC)
           type=getConst(PBTypes,:ELECTRIC)
           @powerboost=true
+        elsif attacker.hasWorkingAbility(:DRAGONIZE) && hasConst?(PBTypes,:DRAGON)
+          type=getConst(PBTypes,:DRAGON)
+          @powerboost=true
         end
       end
     end
@@ -947,7 +950,8 @@ class PokeBattle_Move
     if (attacker.hasWorkingAbility(:AERILATE) ||
        attacker.hasWorkingAbility(:REFRIGERATE) ||
        attacker.hasWorkingAbility(:GALVANIZE) ||
-       attacker.hasWorkingAbility(:PIXILATE)) && @powerboost
+       attacker.hasWorkingAbility(:PIXILATE) ||
+       attacker.hasWorkingAbility(:DRAGONIZE)) && @powerboost
       damagemult=(damagemult*1.2).round
     end
     if (@battle.pbCheckGlobalAbility(:DARKAURA) && isConst?(type,PBTypes,:DARK)) ||
@@ -1647,9 +1651,9 @@ class PokeBattle_Move
       damage=(damage*0.75).round
     end
     # Weather
-    omprela=attacker.hasWorkingItem(:UTILITYUMBRELLA) || opponent.hasWorkingItem(:UTILITYUMBRELLA)
-    if !omprela
-      case @battle.pbWeather
+    omprela=opponent.hasWorkingItem(:UTILITYUMBRELLA)
+    -if !omprela
+      case @battle.pbWeather(attacker)
       when PBWeather::SUNNYDAY, PBWeather::HARSHSUN
         if isConst?(type,PBTypes,:FIRE)
           damage=(damage*1.5).round

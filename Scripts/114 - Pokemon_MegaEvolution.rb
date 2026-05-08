@@ -1465,12 +1465,10 @@ MultipleForms.register(:MEGANIUM,{
    next getID(PBTypes,:FAIRY) if pokemon.form==1
    next
 },
-=begin
 "getAbilityList"=>proc{|pokemon|
    next [[getID(PBAbilities,:MEGASOL),0]] if pokemon.form==1
    next
 },
-=end
 "height"=>proc{|pokemon|
    next 24 if pokemon.form==1
    next
@@ -1498,12 +1496,10 @@ MultipleForms.register(:FERALIGATR,{
    next getID(PBTypes,:DRAGON) if pokemon.form==1
    next
 },
-=begin
 "getAbilityList"=>proc{|pokemon|
    next [[getID(PBAbilities,:DRAGONIZE),0]] if pokemon.form==1
    next
 },
-=end
 "weight"=>proc{|pokemon|
    next 1088 if pokemon.form==1
    next
@@ -1600,12 +1596,10 @@ MultipleForms.register(:EXCADRILL,{
    next [110,165,100,103,65,65] if pokemon.form==1
    next
 },
-=begin
 "getAbilityList"=>proc{|pokemon|
    next [[getID(PBAbilities,:PIERCINGDRILL),0]] if pokemon.form==1
    next
 },
-=end
 "height"=>proc{|pokemon|
    next 9 if pokemon.form==1
    next
@@ -2508,12 +2502,10 @@ MultipleForms.register(:SCOVILLAIN,{
    next [65,138,85,75,138,85] if pokemon.form==1
    next
 },
-=begin
 "getAbilityList"=>proc{|pokemon|
    next [[getID(PBAbilities,:SPICYSPRAY),0]] if pokemon.form==1
    next
 },
-=end
 "height"=>proc{|pokemon|
    next 12 if pokemon.form==1
    next

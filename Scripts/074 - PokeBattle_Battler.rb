@@ -3256,6 +3256,14 @@ def ragefist
           PBDebug.log("[#{pbThis}: Sand Sower made Grassy Terrain]")
           self.checkMimicryAll
         end
+        # Spicy Spray
+        if target.hasWorkingAbility(:SPICYSPRAY,true) && @battle.pbRandom(10)<3 &&
+           user.pbCanBurn?(nil,false)
+          PBDebug.log("[Ability triggered] #{target.pbThis}'s Spicy Spray")
+          user.pbBurn(target,_INTL("{1}'s {2} burned {3}!",target.pbThis,
+             PBAbilities.getName(target.ability),user.pbThis(true)))
+        end
+        # Cotton Down
         if target.hasWorkingAbility(:COTTONDOWN)
           PBDebug.log("[Ability triggered] #{target.pbThis}'s Cotton Down")
           for i in [target.pbPartner,target.pbOpposing1,target.pbOpposing2]
@@ -4534,7 +4542,8 @@ def ragefist
       return false
     end
     unseenfistOff=true
-    if user.hasWorkingAbility(:UNSEENFIST)
+    if user.hasWorkingAbility(:UNSEENFIST) ||
+       user.hasWorkingAbility(:PIERCINGDRILL)
       unseenfistOff=false if thismove.isContactMove?
     end
     if target.effects[PBEffects::Protect] && thismove.canProtectAgainst? &&

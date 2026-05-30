@@ -3046,8 +3046,10 @@ class PokeBattle_Battle
       hp1+=i.totalhp.to_f
       hp2+=(i.totalhp - i.hp).to_f
     end
+    mult=1
+    mult=2 if @field.effects[PBEffects::BoxDamageTask]==0 && @decision==1
     if hp2 > 0 # At least some damage done
-      $PokemonGlobal.changePokebox(108,(((hp2 / hp1).to_f)*3).floor)
+      $PokemonGlobal.changePokebox(108,(((hp2 / hp1).to_f)*3).floor*mult)
     end
     # Battle Plays Task
     $PokemonGlobal.changePokebox(109,1) if @turncount>0 || @decision != 3

@@ -334,122 +334,122 @@ class PokemonGlobalMetadata
     # 6 = Min Box Level
     # 7 = Rarity (Groups 3 and 5 never relies on it, Group 4 relies a bit on it)
     # 8 = Condition to be included (false excludes it, true includes it)
-    return [[200,600,6,10,false,0,0,1,true],                 # Gain Experience
-            [1,1.5,0,1,false,0,0,1,true],                    # Level Up Pokemon
-            [2.5,5,0,1,false,0,0,1,true],                    # Defeat Pokemon
-            [0.5,1,0,1,false,0,1,2,true],                    # Catch Pokemon
-            [2,4,0,1,false,0,0,2,true],                      # Activate Abilites
-            [2,4,0,1,false,0,0,2,true],                      # Activate Held Items
-            [3,6,0,1,false,0,0,1,true],                      # Use Physical Moves
-            [3,6,0,1,false,0,0,1,true],                      # Use Special Moves
-            [1.5,3,0,1,false,0,0,1,true],                    # Use Status Moves
-            [0.2,0.4,0,1,false,2,2,3,true],                  # Use Battle Items
-            [1,2,0,1,true,2,0,2,true],                       # Defeat Trainers
-            [3,7,0,1,false,2,0,1,true],                      # Lapse Turns
-            [0.4,0.65,0,1,false,1,0,2,true],                 # Use Medicine Items
-            [1,1.5,0,1,false,2,2,2,hasUpperKingdom?],        # Win battles in UK
-            [80,240,1.5,10,false,0,0,1,true],                # Deal Damage
-            [0.5,1,0,1,false,0,0,2,true],                    # Land Critical Hits
-            [2,4,0,1,false,0,0,2,true],                      # Use STAB Moves
-            [1,2,0,1,false,2,0,2,true],                      # Defeat Pokemon Instantly
-            [0.4,0.65,0,1,false,1,0,2,true],                 # Use Berries
-            [0.5,1,0,1,false,0,1,4,false],                   # UNUSED!
-            [3,7,0,1,false,0,2,2,true],                      # Increase Stats
-            [0.3,0.5,0,1,false,0,2,3,true],                  # Revive Pokemon
-            [1,2,0,1,false,0,2,2,true],                      # Use Healing Moves
-            [0.09,0.27,0,1,false,2,2,4,true],                # Use One-hit KO Moves 
-            [1,2,0,1,false,2,1,2,true],                      # Use Hi Priority Moves
-            [3,7,0,1,false,0,2,2,true],                      # Decrease Stats
-            [1,1.5,0,1,false,0,2,2,true],                    # Inflict Conditions            
-            [1,2,0,1,false,0,1,2,true],                      # Use Moves with Effects
-            [0.4,0.65,0,1,false,2,1,3,true],                 # Use Copycat Moves
-            [20,60,1.5,10,false,0,1,4,true],                 # Take Recoil Damage
-            [40,120,1.5,10,false,0,1,2,true],                # Recover HP
-            [1.5,3,0,1,false,0,0,1,true],                    # Land Super Effective
-            [1,2,0,1,false,0,2,2,true],                      # Use Multi-hit Moves
-            [0.5,1,0,1,true,2,0,3,true],                     # Defeat Best Trainers
-            [0.2,0.4,0,1,false,1,2,5,true],                  # Use Sleeping Moves
-            [600,1400,1,10,false,0,1,2,true],                # Gain Money
-            [1.5,3,0,1,false,0,0,1,true],                    # Land Not Very Effective
-            [1,2,0,1,false,0,1,2,true],                      # Use Mutli-Target Moves
-            [3,4.5,0,1,true,2,0,2,true],                     # Activate Win Streak
-            [0.5,1,0,1,false,2,2,3,true],                    # Change Forms
-            [20,30,0,5,false,0,1,1,true],                    # Gain Levelup Stats
-            [3,6,0,1,false,0,1,1,true],                      # Gain Effort Values
-            [0.5,1,0,1,false,0,1,3,true],                    # Learn Moves in Battle
-            [1,2,0,1,false,2,1,2,true],                      # Break the Mold
-            [1,2,0,1,false,2,1,2,true],                      # Use Lo Priority Moves
-            [1,2,0,1,false,0,2,2,true],                      # Defeat Skilled Pokemon
-            [5,10,0,5,false,0,2,2,true],                     # Restore PP
-            [1,2,0,1,false,0,2,2,true],                      # Use Sound-based Moves
-            [0.4,0.65,0,1,false,2,2,3,hasSupercharger?],     # Supercharge Pokemon
-            [0.4,0.65,0,1,false,2,2,4,true],                 # Use Transform
-            [0.5,1,0,1,false,1,0,2,true],                    # Use any Item
-            [2,4,0,1,false,0,0,2,true],                      # Use Perfect Moves
-            [1,2,0,1,false,0,1,2,true],                      # Use Variable Moves
-            [0.3,0.5,0,1,false,2,1,3,true],                  # Create Substitutes
-            [1,2,0,1,false,2,1,2,hasShadowMoves?],           # Use Shadow Moves
-            [0.5,1,0,1,true,2,1,3,true],                     # Defeat Full Trainers
-            [1,2,0,1,false,0,2,2,true],                      # Defeat same-color Pokemon
-            [0.4,0.65,0,1,false,0,2,3,true],                 # Confuse or Infatuate
-            [0.06,0.12,0,1,true,2,2,5,true],                 # Collect Lucky Bags
-            [0.06,0.15,0,1,false,2,2,5,$game_switches[174]], # Use Elder Special Moves
-            [200,600,6,10,true,0,2,1,true],                  # Gain Experience/TB
-            [1,1.5,0,1,true,0,2,1,true],                     # Level Up Pokemon/TB
-            [2.5,5,0,1,true,0,2,1,true],                     # Defeat Pokemon/TB
-            [80,240,1.5,10,true,0,2,1,true],                 # Deal Damage/TB
-            [1.5,3,0,1,true,0,2,1,true],                     # Land Super Effective/TB
-            [1.5,3,0,1,true,0,2,1,true],                     # Land Not Very Effective/TB
-            [3,6,0,1,true,0,2,1,true],                       # Use Physical Moves/TB
-            [3,6,0,1,true,0,2,1,true],                       # Use Special Moves/TB
-            [1.5,3,0,1,true,0,2,1,true],                     # Use Status Moves/TB
-            [20,30,0,5,true,0,2,1,true],                     # Gain Levelup Stats/TB
-            [3,6,0,1,true,0,2,1,true],                       # Gain Effort Values/TB
-            [3,6,0,1,false,0,0,1,true],                      # Use Normal Moves
-            [3,6,0,1,true,0,2,1,true],                       # Use Normal Moves/TB
-            [3,6,0,1,false,0,1,1,true],                      # Use G-F-W Moves
-            [3,6,0,1,true,0,2,1,true],                       # Use G-F-W Moves/TB
-            [0.2,0.4,0,1,false,0,2,3,true],                  # Catch Skilled Pokemon
-            [0.5,1,0,1,false,2,3,3,true],                    # Defeat Skilled Pokemon Inst.
-            [0.2,0.4,0,1,true,2,3,4,true],                   # Defeat Full Skilled Trainers
-            [0.5,1,0,1,false,2,3,3,true],                    # Defeat same-color Pokemon Inst.
-            [3,6,0,1,false,0,1,1,true],                      # Use Fi-Ps-Da Moves
-            [3,6,0,1,true,0,2,1,true],                       # Use Fi-Ps-Da Moves/TB
-            [0.06,0.15,0,1,false,2,3,5,hasRobot?],           # Use Robot Moves
-            [20,60,1.5,10,false,0,1,2,true],                 # Deal Damage to SI PKMN
-            [0.06,0.15,0,1,false,1,2,5,true],                # Use Moves with 1 PP
-            [0.5,1,0,1,false,1,2,3,true],                    # Change Abilities
-            [0.5,1,0,1,false,1,2,3,true],                    # Change Held Items
-            [1,2,0,1,false,0,2,2,true],                      # Defeat same-gender Pokemon
-            [0.5,1,0,1,false,2,3,3,true],                    # Defear same-gender Pokemon Inst.
-            [1,2,0,1,false,0,2,2,true],                      # Use Bomb-based Moves
-            [0.4,0.65,0,1,false,1,1,3,true],                 # Create Weater or Terrain
-            [200,600,6,10,false,0,2,1,true],                 # Gain Experience/Win
-            [1,1.5,0,1,false,0,2,1,true],                    # Level Up Pokemon/Win
-            [2.5,5,0,1,false,0,2,1,true],                    # Defeat Pokemon/Win
-            [80,240,1.5,10,false,0,2,1,true],                # Deal Damage/Win
-            [1.5,3,0,1,false,0,2,1,true],                    # Land Super Effective/Win
-            [1.5,3,0,1,false,0,2,1,true],                    # Land Not Very Effective/Win
-            [3,6,0,1,false,0,2,1,true],                      # Use Physical Moves/Win
-            [3,6,0,1,false,0,2,1,true],                      # Use Special Moves/Win
-            [1.5,3,0,1,false,0,2,1,true],                    # Use Status Moves/Win
-            [20,30,0,5,false,0,2,1,true],                    # Gain Levelup Stats/Win
-            [3,6,0,1,false,0,2,1,true],                      # Gain Effort Values/Win
-            [3,6,0,1,false,0,2,1,true],                      # Use Normal Moves/win
-            [3,6,0,1,false,0,2,1,true],                      # Use G-F-W Moves/Win
-            [3,6,0,1,false,0,2,1,true],                      # Use Fi-Ps-Da Moves/Win
-            [1,2,0,1,false,1,0,1,true],                      # Win Battles
-            [4,8,0,1,false,0,0,1,true],                      # Use Moves
-            [0.5,0.75,0,1,false,2,3,3,hasUpperKingdom?],     # Win battles in UK/100%
-            [0.5,1,0,1,false,2,1,2,true],                    # Win Battles/100%
-            [3,6,0,1,false,1,0,1,true],                      # Collect Battle Stars
-            [1.5,3,0,1,false,1,0,1,true],                    # Play Battles
-            [450,1200,1,10,false,0,1,2,true],                # Use Money
-            [1.5,3,0,1,false,1,0,1,true],                    # Buy Items
-            [0.12,0.24,0,1,false,2,2,3,true],                # Win Mining Rounds
-            [0.1,0.2,0,1,false,2,2,5,hasCoinCase?],          # Win Jackpots
-            [0.4,0.65,0,1,false,2,1,2,true],                 # Evolve Pokémon
-            [0.2,0.3,0,1,false,2,2,3,true],                  # Hatch Eggs/Boxes
+    return [[200,600,6,10,false,0,0,1,true],                 # Gain Experience (0)
+            [1,1.5,0,1,false,0,0,1,true],                    # Level Up Pokemon (1)
+            [2.5,5,0,1,false,0,0,1,true],                    # Defeat Pokemon (2)
+            [0.5,1,0,1,false,0,1,2,true],                    # Catch Pokemon (3)
+            [2,4,0,1,false,0,1,2,true],                      # Activate Abilites (4)
+            [2,4,0,1,false,0,1,2,true],                      # Activate Held Items (5)
+            [3,6,0,1,false,0,0,1,true],                      # Use Physical Moves (6)
+            [3,6,0,1,false,0,9,1,true],                      # Use Special Moves (7)
+            [1.5,3,0,1,false,0,0,1,true],                    # Use Status Moves (8)
+            [0.2,0.4,0,1,false,2,2,3,true],                  # Use Battle Items (9)
+            [1,2,0,1,true,2,0,2,true],                       # Defeat Trainers (10)
+            [3,7,0,1,false,2,0,1,true],                      # Lapse Turns (11)
+            [0.4,0.65,0,1,false,1,0,2,true],                 # Use Medicine Items (12)
+            [1,1.5,0,1,false,2,1,2,hasUpperKingdom?],        # Win battles in UK (13)
+            [80,240,1.5,10,false,0,0,1,true],                # Deal Damage (14)
+            [0.5,1,0,1,false,0,1,2,true],                    # Land Critical Hits (15)
+            [2,4,0,1,false,0,0,2,true],                      # Use STAB Moves (16)
+            [1,2,0,1,false,2,0,2,true],                      # Defeat Pokemon Instantly (17)
+            [0.4,0.65,0,1,false,1,0,2,true],                 # Use Berries (18)
+            [0.5,1,0,1,false,0,1,4,false],                   # UNUSED! (19)
+            [3,7,0,1,false,0,1,2,true],                      # Increase Stats (20)
+            [0.3,0.5,0,1,false,0,1,3,true],                  # Revive Pokemon (21)
+            [1,2,0,1,false,0,2,2,true],                      # Use Healing Moves (22)
+            [0.09,0.27,0,1,false,2,2,4,true],                # Use One-hit KO Moves  (23)
+            [1,2,0,1,false,2,1,2,true],                      # Use Hi Priority Moves (24)
+            [3,7,0,1,false,0,1,2,true],                      # Decrease Stats (25)
+            [1,1.5,0,1,false,0,2,2,true],                    # Inflict Conditions             (26)
+            [1,2,0,1,false,0,1,2,true],                      # Use Moves with Effects (27)
+            [0.4,0.65,0,1,false,2,2,3,true],                 # Use Copycat Moves (28)
+            [20,60,1.5,10,false,0,1,4,true],                 # Take Recoil Damage (29)
+            [40,120,1.5,10,false,0,1,2,true],                # Recover HP (30)
+            [1.5,3,0,1,false,0,0,1,true],                    # Land Super Effective (31)
+            [1,2,0,1,false,0,2,2,true],                      # Use Multi-hit Moves (32)
+            [0.5,1,0,1,true,2,0,3,true],                     # Defeat Best Trainers (33)
+            [0.2,0.4,0,1,false,1,2,5,true],                  # Use Sleeping Moves (34)
+            [600,1400,1,10,false,0,1,2,true],                # Gain Money (35)
+            [1.5,3,0,1,false,0,0,1,true],                    # Land Not Very Effective (36)
+            [1,2,0,1,false,0,1,2,true],                      # Use Mutli-Target Moves (37)
+            [3,4.5,0,1,true,2,0,2,true],                     # Activate Win Streak (38)
+            [0.5,1,0,1,false,2,2,3,true],                    # Change Forms (39)
+            [20,30,0,5,false,0,0,1,true],                    # Gain Levelup Stats (40)
+            [3,6,0,1,false,0,0,1,true],                      # Gain Effort Values (41)
+            [0.5,1,0,1,false,0,1,3,true],                    # Learn Moves in Battle (42)
+            [1,2,0,1,false,2,1,2,true],                      # Break the Mold (43)
+            [1,2,0,1,false,2,1,2,true],                      # Use Lo Priority Moves (44)
+            [1,2,0,1,false,0,2,2,true],                      # Defeat Skilled Pokemon (45)
+            [5,10,0,5,false,0,2,3,true],                     # Restore PP (46)
+            [1,2,0,1,false,0,2,2,true],                      # Use Sound-based Moves (47)
+            [0.4,0.65,0,1,false,2,2,3,hasSupercharger?],     # Supercharge Pokemon (48)
+            [0.4,0.65,0,1,false,2,2,4,true],                 # Use Transform (49)
+            [0.5,1,0,1,false,1,0,2,true],                    # Use any Item (50)
+            [2,4,0,1,false,0,0,2,true],                      # Use Perfect Moves (51)
+            [1,2,0,1,false,0,1,2,true],                      # Use Variable Moves (52)
+            [0.3,0.5,0,1,false,2,1,3,true],                  # Create Substitutes (53)
+            [1,2,0,1,false,2,1,2,hasShadowMoves?],           # Use Shadow Moves (54)
+            [0.5,1,0,1,true,2,0,3,true],                     # Defeat Full Trainers (55)
+            [1,2,0,1,false,0,2,2,true],                      # Defeat same-color Pokemon (56)
+            [0.4,0.65,0,1,false,0,2,3,true],                 # Confuse or Infatuate (57)
+            [0.06,0.12,0,1,true,2,2,5,true],                 # Collect Lucky Bags (58)
+            [0.06,0.15,0,1,false,2,2,5,$game_switches[174]], # Use Elder Special Moves (59)
+            [200,600,6,10,true,0,2,1,true],                  # Gain Experience/TB (60)
+            [1,1.5,0,1,true,0,2,1,true],                     # Level Up Pokemon/TB (61)
+            [2.5,5,0,1,true,0,2,1,true],                     # Defeat Pokemon/TB (62)
+            [80,240,1.5,10,true,0,2,1,true],                 # Deal Damage/TB (63)
+            [1.5,3,0,1,true,0,2,1,true],                     # Land Super Effective/TB (64)
+            [1.5,3,0,1,true,0,2,1,true],                     # Land Not Very Effective/TB (65)
+            [3,6,0,1,true,0,2,1,true],                       # Use Physical Moves/TB (66)
+            [3,6,0,1,true,0,2,1,true],                       # Use Special Moves/TB (67)
+            [1.5,3,0,1,true,0,2,1,true],                     # Use Status Moves/TB (68)
+            [20,30,0,5,true,0,2,1,true],                     # Gain Levelup Stats/TB (69)
+            [3,6,0,1,true,0,2,1,true],                       # Gain Effort Values/TB (70)
+            [3,6,0,1,false,0,0,1,true],                      # Use Normal Moves (71)
+            [3,6,0,1,true,0,2,1,true],                       # Use Normal Moves/TB (72)
+            [3,6,0,1,false,0,0,1,true],                      # Use G-F-W Moves (73)
+            [3,6,0,1,true,0,2,1,true],                       # Use G-F-W Moves/TB (74)
+            [0.2,0.4,0,1,false,0,2,3,true],                  # Catch Skilled Pokemon (75)
+            [0.5,1,0,1,false,2,3,3,true],                    # Defeat Skilled Pokemon Inst. (76)
+            [0.2,0.4,0,1,true,2,3,4,true],                   # Defeat Full Skilled Trainers (77)
+            [0.5,1,0,1,false,2,3,3,true],                    # Defeat same-color Pokemon Inst. (78)
+            [3,6,0,1,false,0,0,1,true],                      # Use Fi-Ps-Da Moves (79)
+            [3,6,0,1,true,0,2,1,true],                       # Use Fi-Ps-Da Moves/TB (80)
+            [0.06,0.15,0,1,false,2,3,5,hasRobot?],           # Use Robot Moves (81)
+            [20,60,1.5,10,false,0,2,2,true],                 # Deal Damage to SI PKMN (82)
+            [0.06,0.15,0,1,false,1,2,5,true],                # Use Moves with 1 PP (83)
+            [0.5,1,0,1,false,1,2,3,true],                    # Change Abilities (84)
+            [0.5,1,0,1,false,1,2,3,true],                    # Change Held Items (85)
+            [1,2,0,1,false,0,2,2,true],                      # Defeat same-gender Pokemon (86)
+            [0.5,1,0,1,false,2,3,3,true],                    # Defear same-gender Pokemon Inst. (87)
+            [1,2,0,1,false,0,2,2,true],                      # Use Bomb-based Moves (88)
+            [0.4,0.65,0,1,false,1,1,3,true],                 # Create Weater or Terrain (89)
+            [200,600,6,10,false,0,1,1,true],                 # Gain Experience/Win (90)
+            [1,1.5,0,1,false,0,1,1,true],                    # Level Up Pokemon/Win (91)
+            [2.5,5,0,1,false,0,1,1,true],                    # Defeat Pokemon/Win (92)
+            [80,240,1.5,10,false,0,1,1,true],                # Deal Damage/Win (93)
+            [1.5,3,0,1,false,0,1,1,true],                    # Land Super Effective/Win (94)
+            [1.5,3,0,1,false,0,1,1,true],                    # Land Not Very Effective/Win (95)
+            [3,6,0,1,false,0,1,1,true],                      # Use Physical Moves/Win (96)
+            [3,6,0,1,false,0,1,1,true],                      # Use Special Moves/Win (97)
+            [1.5,3,0,1,false,0,1,1,true],                    # Use Status Moves/Win (98)
+            [20,30,0,5,false,0,1,1,true],                    # Gain Levelup Stats/Win (99)
+            [3,6,0,1,false,0,1,1,true],                      # Gain Effort Values/Win (100)
+            [3,6,0,1,false,0,1,1,true],                      # Use Normal Moves/win (101)
+            [3,6,0,1,false,0,1,1,true],                      # Use G-F-W Moves/Win (102)
+            [3,6,0,1,false,0,1,1,true],                      # Use Fi-Ps-Da Moves/Win (103)
+            [1,2,0,1,false,1,0,1,true],                      # Win Battles (104)
+            [4,8,0,1,false,0,0,1,true],                      # Use Moves (105)
+            [0.5,0.75,0,1,false,2,3,3,hasUpperKingdom?],     # Win battles in UK/100% (106)
+            [0.5,1,0,1,false,2,2,2,true],                    # Win Battles/100% (107)
+            [4.5,9,0,1,false,1,0,1,true],                    # Collect Battle Stars (108)
+            [1.5,3,0,1,false,1,0,1,true],                    # Play Battles (109)
+            [450,1200,1,10,false,0,1,2,true],                # Use Money (110)
+            [1.5,3,0,1,false,1,0,1,true],                    # Buy Items (111)
+            [0.12,0.24,0,1,false,2,2,3,true],                # Win Mining Rounds (112)
+            [0.1,0.2,0,1,false,2,2,5,hasCoinCase?],          # Win Jackpots (113)
+            [0.4,0.65,0,1,false,2,1,2,true],                 # Evolve Pokémon (114)
+            [0.2,0.3,0,1,false,2,2,3,true],                  # Hatch Eggs/Boxes (115)
             ]
   end
   
@@ -481,19 +481,18 @@ class PokemonBoxScene
     # 4 = Difficulty (0 = Beginner, 1 = Intermediate, 2 = Advanced, 3 = Expert, 4 = Master)
     # 5 = Item to be appended when Berry Planting is absent (nil to not add, can be array of two items too)
     @stages = [
-    ["Tutorial",[:ORANBERRY,:SITRUSBERRY],13,0.5,0,nil],
-    ["Classic",[:POTION,:POKEBALL],10,1,1,:SITRUSBERRY],
-    ["Bronze",[:SUPERPOTION,:GREATBALL,heal],7,2.5,1,heal2],
-    ["Silver",[:HYPERPOTION,:ULTRABALL,:FULLHEAL,:NORMALGEM],5,7,2,:PERSIMBERRY],
-    ["Gold",[:MEGAPOTION,:PARKBALL,:FULLHEAL,:NORMALGEM,:RARECANDY],5,16,2,:PERSIMBERRY],
-    # Platinum Mileston
-    ["Platinum",[:FULLRESTORE,:PARKBALL,:SUPERBOOSTER,[:NORMALGEM,2],:VICIOUSCANDY],3,20,3,:ENIGMABERRY],
-    # Legendary Milestone
-    ["Legendary",[:SACREDASH,:MASTERBALL,[:SUPERBOOSTER,2],:BOTANICSMOKE,:VICIOUSCANDY],3,25,3,:ENIGMABERRY],
-    # Legendary Milestone
-    ["Mythical",[[:SACREDASH,2],:MASTERBALL,[:SUPERBOOSTER,2],:BOTANICSMOKE,:LOADEDDICE,[:VICIOUSCANDY,2]],3,30,3,:ENIGMABERRY],
-    # Demon Milestone
-    ["Demon",[[:SACREDASH,3],:MASTERBALL,[:SUPERBOOSTER,3],[:BOTANICSMOKE,2],:LOADEDDICE,[:VICIOUSCANDY,3]],3,40,4,[:ENIGMABERRY,2]]
+    ["Classic",[:ORANBERRY,:SITRUSBERRY,:POTION,:POKEBALL],14,1,0,nil],
+    ["Bronze",[heal2,:SUPERPOTION,:GREATBALL,heal],3,3,1,nil],
+    ["Silver",[:HYPERPOTION,:ULTRABALL,:FULLHEAL,:NORMALGEM,:STARDUST],4,8,2,:PERSIMBERRY],
+    ["Gold",[:MEGAPOTION,:PARKBALL,:FULLHEAL,:NORMALGEM,:BIGMUSHROOM],5,20,2,:PERSIMBERRY],
+    # Bonus Milestone 1
+    ["Bonus",[:FULLRESTORE,[:PARKBALL,2],:SUPERBOOSTER,[:RARECANDY,2],:BIGPEARL],3,25,3,:ENIGMABERRY],
+    # Bonus Milestone 2
+    ["S Bonus",[:SACREDASH,:MASTERBALL,:SUPERBOOSTER,:BOTANICSMOKE,:VICIOUSCANDY,:NUGGET],3,30,3,:ENIGMABERRY],
+    # Bonus Milestone 3
+    ["H Bonus",[[:SACREDASH,2],:MASTERBALL,[:SUPERBOOSTER,2],[:BOTANICSMOKE,2],[:VICIOUSCANDY,2],[:NUGGET,2]],3,35,3,:ENIGMABERRY],
+    # Bonus Milestone 4
+    ["M Bonus",[[:SACREDASH,3],:MASTERBALL,[:SUPERBOOSTER,3],[:BOTANICSMOKE,3],[:VICIOUSCANDY,3],:PEARLSTRING],3,40,4,[:ENIGMABERRY,2]]
     ]
     @icons=[
             [["magnemite","shellder","pikachu","psyduck"],
@@ -513,14 +512,14 @@ class PokemonBoxScene
     # Viewport for the Task Pane
     @viewportTask=Viewport.new(14,196,(Graphics.width / 2)-28,82)
     @viewportTask.z=99999
+    # Viewport for Box
+    @viewportBox=Viewport.new(14,196,(Graphics.width / 2)-28,82)
+    @viewportBox.z=99999
+
     @sprites["machine"]=IconSprite.new((Graphics.width/4)-140,44,@viewport)
     @sprites["bg"]=IconSprite.new(0,0,@viewport) # Avoid issues with animations
 #    addBackgroundPlane(@sprites,"bg",getDarkModeFolder+"/Pokemon Box/bg_0",@viewport)
-    @sprites["bg"].setBitmap(_INTL("Graphics/UI/"+getDarkModeFolder+"/Pokemon Box/bg_{1}{2}",currentStage(false),stageSuffix))
-    @sprites["bgM"]=IconSprite.new(0,0,@viewport) # Avoid issues with animations
-    @sprites["bgM"].setBitmap(_INTL("Graphics/UI/"+getDarkModeFolder+"/Pokemon Box/overlay_milestone"))
-    @sprites["bgM"].opacity= 96
-    @sprites["bgM"].visible=@milestoneDay
+    @sprites["bg"].setBitmap(_INTL("Graphics/UI/"+getDarkModeFolder+"/Pokemon Box/bg{1}",modeSuffix))
     @sprites["machine"].setBitmap(_INTL("Graphics/UI/Pokemon Box/overlay_box_{1}{2}",currentStage(false),stageSuffix))
     # Task Progress
     @sprites["progress"]=IconSprite.new((Graphics.width/4)-132,44,@viewportTask)
@@ -535,14 +534,13 @@ class PokemonBoxScene
     @sprites["progress_w"].setBitmap(_INTL("Graphics/UI/"+getDarkModeFolder+"/Pokemon Box/overlay_hardtask_wrapper"))
     @sprites["progress_w"].visible=false
     @sprites["bg"].z = 1
-    @sprites["bgM"].z = 2
     @sprites["machine"].z = 3
     @sprites["progress_w"].z = 3
     @sprites["progress"].z = 3
     @sprites["progress_icon"].z = 4
     @sprites["progresstime"].z = 4
     @sprites["header"]=Window_UnformattedTextPokemon.newWithSize(_INTL("{1} Pokémon Box - Win Streak: {2}",boxName, currentStreak),
-       2,-18,400,64,@viewport)
+       2,-18,440,64,@viewport)
     @sprites["header"].baseColor=(isDarkMode?) ? Color.new(242,242,242) : Color.new(12,12,12)
     @sprites["header"].shadowColor=nil #(!isDarkMode?) ? Color.new(242,242,242) : Color.new(12,12,12)
     @sprites["header"].windowskin=nil
@@ -602,23 +600,16 @@ class PokemonBoxScene
     return $game_variables[PBOX_VARIABLES[2]]
   end
   
-  def currentChapter
-    return [((currentStreak-1)/10000).floor,0].max
+  def supportsEliteMode?
+    return @stages[currentStage][4]>1 # Level 0 and 1 boxes are ineligible for Elite Mode
   end
   
-  def currentBoxDif # Like currentChapter but is 0 on Level 0 boxes and increases by 1 on milestone days
-    return 0 if boxLevel==0
-    return [currentChapter,1].max if @milestoneDay
-    return [currentChapter,0].max
-  end
-
-  def currentStreak2
-    return currentStreak - (10000*currentChapter) + 2 if currentChapter>1
-    return currentStreak - (10000*currentChapter)
+  def eliteMode?
+    return @milestoneDay && supportsEliteMode?
   end
 
   def currentStage(includeElite=true) # If includeElite is set to false, then currentStage does not increase on Milestone Boxes
-    result = [currentStreak2,(maxStages-1)].min
+    result = [currentStreak,(maxStages-1)].min
     if includeElite
       result+=1 if isMillenial?
       result+=1 if isMillenial2?
@@ -633,15 +624,17 @@ class PokemonBoxScene
   end
   
   def stageSuffix
-    return "_demon" if isMillenial4?
-    return "_mythical" if isMillenial3?
-    return "_legendary" if isMillenial2?
-    return "_elite" if isMillenial?
+    return "_milestone" if isMillenial?
+    return ""
+  end
+
+  def modeSuffix(ignoreLevel=false)
+    return "_elite" if eliteMode? || (@milestoneDay && ignoreLevel)
     return ""
   end
   
   def boxName(includeElite=false)
-    return @stages[currentStage(includeElite)][0] rescue "Tutorial"
+    return @stages[currentStage(includeElite)][0] rescue "Classic"
   end
   
   def boxItems(idx=-1)
@@ -655,52 +648,51 @@ class PokemonBoxScene
   end
   
   def boxDuration
-    return [@stages[currentStage][2]/(1 + (0.5*currentBoxDif) ),3].max rescue 13
+    return 3 if eliteMode? # Duration fixed to 3 days for Elite Boxes
+    return [@stages[currentStage][2],3].max rescue 14
   end
   
   def boxMulti
-    return @stages[currentStage][3] + (4*currentBoxDif) rescue 0.5
+    return @stages[currentStage][3]+5 rescue 6 if eliteMode?
+    return @stages[currentStage][3] rescue 1
   end
   
-  # 0 = Junior and Basic
-  # 1 = Classic and Bronze
+  # 0 = Classic
+  # 1 = Bronze
   # 2 = Silver and Gold
-  # 3 = Milestone Gold
-  # 4 = Mega Milestone Gold
-  # 5 = Final Box
+  # 3 = Milestone Levels + Elite Silver and Gold
+  # 4 = Max Milestone Level + Elite Milestone Levels
+  # 5 = Final Box + Elite Mega Milestone Level
   def boxLevel
-    return @stages[currentStage][4]+1 rescue 1 if currentStreak.to_i == 65535
+    return @stages[currentStage][4]+1 rescue 1 if currentStreak.to_i == 65535 || 
+                                                  eliteMode?
     return @stages[currentStage][4] rescue 0
   end
 
   # Mlienial Streak Counts:
   # * 10, 20, 30, 40, 50 and anything divisible by 100 starting from 100
   def isMillenial?
-    id = currentStreak2.to_i
-    id2 = currentStreak.to_i
+    id = currentStreak.to_i
     return false if id < maxStages # First Gold and below can never be milestone
-    return id2%10 == 0 || id2 == 65535
+    return id%10 == 0 || id == 65535
   end
   
   def isMillenial2?
-    id = currentStreak2.to_i
-    id2 = currentStreak.to_i
+    id = currentStreak.to_i
     return false if id < maxStages # First Gold and below can never be milestone
-    return id2%100 == 0 || id2 == 65535
+    return id%50 == 0 || id == 65535
   end
 
   def isMillenial3?
-    id = currentStreak2.to_i
-    id2 = currentStreak.to_i
+    id = currentStreak.to_i
     return false if id < maxStages # First Gold and below can never be milestone
-    return id2%1000 == 0 || id2 == 65535
+    return id%250 == 0 || id == 65535
   end
 
   def isMillenial4?
-    id = currentStreak2.to_i
-    id2 = currentStreak.to_i
+    id = currentStreak.to_i
     return false if id < maxStages # First Gold and below can never be milestone
-    return id2%10000 == 0 || id2 == 65535
+    return id%1000 == 0 || id == 65535
   end
 
   def addIncr(num)
@@ -760,7 +752,7 @@ class PokemonBoxScene
 
   
   def randIncr(num)
-    id = currentStreak2.to_i
+    id = currentStreak.to_i
     num+=1 # Required
     if boxLevel==3       # Milenial Box, prefer Larger amounts
       return [rand(num),rand(num)].max
@@ -828,16 +820,16 @@ class PokemonBoxScene
     padding=$PokemonGlobal.pokeboxData[taskID][3]
     trainertask=$PokemonGlobal.pokeboxData[taskID][4]
     vals = valueFromToMiddle(min,max,scaleup,padding,trainertask,-1)
-    shardv = (boxLevel>1 || currentBoxDif>0) ? 1 : 3
-    if taskstatus2 > vals[3] && (boxLevel>1 || currentBoxDif>0)         # Master Task
+    shardv = (boxLevel>1) ? 1 : 3
+    if taskstatus2 > vals[3] && (boxLevel>1)         # Master Task
       return 4
-    elsif taskstatus2 > vals[2] && (boxLevel>1 || currentBoxDif>0)      # Expert Task
+    elsif taskstatus2 > vals[2] && (boxLevel>1)      # Expert Task
       return 3
-    elsif taskstatus2 > vals[shardv] && (boxLevel>0 || currentBoxDif>0) # Super Hard Task
+    elsif taskstatus2 > vals[shardv] && (boxLevel>0) # Super Hard Task
       return 2
-    elsif taskstatus2 > vals[0] && (boxLevel>0 || currentBoxDif>0)      # Hard Task
+    elsif taskstatus2 > vals[0] && (boxLevel>0)      # Hard Task
       return 1
-    else                                                                # Normal Task
+    else                                             # Normal Task
       return 0
     end
   end
@@ -910,44 +902,37 @@ class PokemonBoxScene
     $game_variables[PBOX_VARIABLES[6]] = [] if  !$game_variables[PBOX_VARIABLES[6]].is_a?(Array)
     data = $game_variables[PBOX_VARIABLES[6]]
     boxdata=$PokemonGlobal.pokeboxData
+    commonlevel=0 # Level to be used for Standard Common tasks 
+    minrarity=0   # Minimum Rarity reqiored for Standard and Supplemental Tasks
     if boxLevel>4 # Level 5
-      tasksToExclude=taskNumbers.find_all {|num| 
-                                          ( boxdata[num][7]<5 && [0,1].include?(boxdata[num][5]) ) ||
-                                          ( boxdata[num][6]>boxLevel && currentBoxDif==0 ) ||
-                                          !boxdata[num][8]
-                                          }
+      commonlevel=0
+      minrarity=5
     elsif boxLevel>3 # Level 4
-      tasksToExclude=taskNumbers.find_all {|num| 
-                                          ( boxdata[num][7]<3 && [0,1,2].include?(boxdata[num][5]) ) ||
-                                          ( boxdata[num][6]>boxLevel && currentBoxDif==0 ) ||
-                                          !boxdata[num][8]
-                                          }
-    elsif boxLevel>2 #|| currentBoxDif>2 # Level 3 or Rank 4/Tier 3
-      tasksToExclude=taskNumbers.find_all {|num| 
-                                          ( boxdata[num][7]<2 && [0,1].include?(boxdata[num][5]) ) ||
-                                          ( boxdata[num][6]>boxLevel && currentBoxDif==0 ) ||
-                                          !boxdata[num][8]
-                                          }
+      commonlevel=0
+      minrarity=3
+    elsif boxLevel>2  # Level 3 or Rank 4/Tier 3
+      commonlevel=0
+      minrarity=2
     elsif boxLevel>1
-      excludeTrainerBattles = data==[] || currentBoxBalanceMeter< 35 || currentBoxDif>2
-      tasksToExclude=taskNumbers.find_all {|num| 
-                                          ( boxdata[num][7]<1 && [0,1].include?(boxdata[num][5]) ) ||
-                                          ( boxdata[num][7]<2 && ([0].include?(boxdata[num][5]) && !boxdata[num][4]) && !excludeTrainerBattles ) ||
-                                          ( boxdata[num][7]<2 && ([0].include?(boxdata[num][5]) && (boxdata[num][4] || boxdata[num][6]<2) ) && excludeTrainerBattles ) ||
-                                          ( boxdata[num][6]>boxLevel && currentBoxDif==0 ) ||
-                                          !boxdata[num][8]
-                                          }
-    else # Level 1 and below
-      tasksToExclude=taskNumbers.find_all {|num| 
-                                          ( boxdata[num][7]<2 && ([0].include?(boxdata[num][5]) && (boxdata[num][4] || boxdata[num][6]>1)) ) ||
-                                          ( boxdata[num][6]>boxLevel && currentBoxDif==0 ) ||
-                                          !boxdata[num][8]
-                                          }
-
+      commonlevel=(data==[] || currentBoxBalanceMeter< 15) ? 0 : (currentBoxBalanceMeter< 35) ? 1 : 2
+      minrarity=0
+    elsif boxLevel>0
+      commonlevel=(data==[] || currentBoxBalanceMeter< 15) ? 0 : 1
+      minrarity=0
+    else
+      commonlevel=0
+      minrarity=0
     end
+    tasksToExclude=taskNumbers.find_all {|num|
+                                        ( boxdata[num][7]<minrarity && [0,1].include?(boxdata[num][5]) ) ||             # Don't load standard and supplemental tasks that are of a lower raity than the rarity specified in the box's level
+                                        ( boxdata[num][7]<2 && boxdata[num][5]==0 && boxdata[num][6] !=commonlevel ) || # Don't load standard common tasks that are not tied to the level being used
+                                        ( boxdata[num][6]>boxLevel && currentStreak<10000 ) ||                          # Don't load tasks that are of a higher level than the level of the box (Minus on 10001+ streatk count)
+                                        !boxdata[num][8]                                                                # Don't load tasks that are currently impossible to be progressed with the current game progression
+                                        }
+
     # Disable the Horde Task as it is unachievable
     tasksToExclude.push(19) # Not applicable
-    tasksToExclude.push(3,10,19,23,29,33,34,35,38,42,48,54,55,58,59,60,61,62,63,64,65,66,67,68,69,70,72,74,75,76,77,80,81,83,112,113) if $flint_brockopolis_active
+    tasksToExclude.push(3,10,19,23,29,33,34,35,38,42,48,54,55,58,59,60,61,62,63,64,65,66,67,68,69,70,72,74,75,76,77,80,81,83,112,113,114,115) if $flint_brockopolis_active
     # Group 0 (Standard Tasks)
     task0 = [taskNumbers.find_all {|num| boxdata[num][5]==0 && boxdata[num][7]<2 },
              taskNumbers.find_all {|num| boxdata[num][5]==0 && boxdata[num][7]==2 },
@@ -975,10 +960,10 @@ class PokemonBoxScene
       choices2=choices0.clone
       choices3=choices0.clone
     elsif boxLevel==1 # Classic and Bronze Boxes
-      choices0= task0[0..1] | task1[0..0]
+      choices0= task0[0..1]
       choices1=choices0.clone
-      choices2=task0[2..4] | task1[1..4] | task2[0..4]
-      choices3=choices2.clone
+      choices2=task0[2..2] | task1[0..0]
+      choices3=task0[3..4] | task1[1..4] | task2[0..4]
     elsif boxLevel==2  # Silver and Gold Boxes
       choices0= task0[1..2]
       choices1= task0[0..0] | task1[0..0]
@@ -1063,7 +1048,7 @@ class PokemonBoxScene
       progressTime.push(["Graphics/UI/Pokemon Box/icon_clock",@sprites["progresstime"].x-28,@sprites["progresstime"].y-6,0,0,-1,-1])
     x = 116 - ([(boxItems.length - 1),4].min * 24)
     multiamt = 1
-    multiamt = 2 if @milestoneDay && boxLevel>0
+    multiamt = 2 if eliteMode?
     for i in boxItems
       if i.is_a?(Array)
         item=i[0]
@@ -1139,8 +1124,7 @@ class PokemonBoxScene
     pbDrawImagePositions(@sprites["overlayItems"].bitmap,imagepos)
     pbDrawTextPositions(@sprites["overlayItems"].bitmap,imageposAMT)
     @sprites["header"].text=_INTL("{1} Pokémon Box - Win Streak: {2}",boxName, currentStreak)
-    @sprites["bg"].setBitmap(_INTL("Graphics/UI/"+getDarkModeFolder+"/Pokemon Box/bg_{1}{2}",currentStage(false),stageSuffix))
-    #@sprites["bgM"].visible=@milestoneDay
+    @sprites["bg"].setBitmap(_INTL("Graphics/UI/"+getDarkModeFolder+"/Pokemon Box/bg{1}",modeSuffix))
     @sprites["machine"].setBitmap(_INTL("Graphics/UI/Pokemon Box/overlay_box_{1}{2}",currentStage(false),stageSuffix))
     update_icons
     if showMillenialMessage
@@ -1183,32 +1167,33 @@ class PokemonBoxScene
       $game_variables[PBOX_VARIABLES[0]]+=1
       $game_variables[PBOX_VARIABLES[4]]=0 # Reset Substep
       update_icons(true)
+      multiq=(eliteMode?) ? 2 : 1
       if oldtasklevel == 4
         pbSEPlay("Battle effect critical")
         Kernel.pbMessage(_INTL("Master Task Completed and you've got rewards."))
-        quantity = (boxLevel+(4*currentBoxDif))*2
+        quantity = (boxLevel*multiq)*2
         item     = [PBItems::REDSHARD,PBItems::YELLOWSHARD,PBItems::BLUESHARD,PBItems::GREENSHARD][oldstep]
         Kernel.pbReceiveItem(item,quantity)
-        quantity2 = (boxLevel+(4*currentBoxDif)) - 1
+        quantity2 = (boxLevel*multiq) - 1
         Kernel.pbReceiveItem(:EXPCANDYS,quantity2)
       elsif oldtasklevel == 3
         pbSEPlay("Battle effect critical")
         Kernel.pbMessage(_INTL("Expert Task Completed and you've got rewards."))
-        quantity = (boxLevel+(4*currentBoxDif))*2
+        quantity = (boxLevel*multiq)*2
         item     = [PBItems::REDSHARD,PBItems::YELLOWSHARD,PBItems::BLUESHARD,PBItems::GREENSHARD][oldstep]
         Kernel.pbReceiveItem(item,quantity)
-        quantity2 = (boxLevel+(4*currentBoxDif)) - 1
+        quantity2 = (boxLevel*multiq) - 1
         Kernel.pbReceiveItem(:EXPCANDYXS,quantity2)
       elsif oldtasklevel == 2
         pbSEPlay("Battle effect critical")
         Kernel.pbMessage(_INTL("Super Hard Task Completed and you've got a reward."))
-        quantity = (boxLevel+(4*currentBoxDif))*2
+        quantity = (boxLevel*multiq)*2
         item     = [PBItems::REDSHARD,PBItems::YELLOWSHARD,PBItems::BLUESHARD,PBItems::GREENSHARD][oldstep]
         Kernel.pbReceiveItem(item,quantity)
       elsif oldtasklevel == 1
         pbSEPlay("Battle effect critical")
         Kernel.pbMessage(_INTL("Hard Task Completed and you've got a reward."))
-        quantity = (boxLevel+(4*currentBoxDif))
+        quantity = (boxLevel*multiq)
         item     = [PBItems::REDSHARD,PBItems::YELLOWSHARD,PBItems::BLUESHARD,PBItems::GREENSHARD][oldstep]
         Kernel.pbReceiveItem(item,quantity)
       else
@@ -1225,7 +1210,7 @@ class PokemonBoxScene
           Kernel.pbMessage(_INTL("Box Completed. Here's your rewards"))
         end
         multiamt = 1
-        multiamt = 2 if @milestoneDay && boxLevel>0
+        multiamt = 2 if eliteMode?
         for i in boxItems
           if i.is_a?(Array)
             item=i[0]
@@ -1273,7 +1258,7 @@ class PokemonBoxScene
     x = 116 - ([(boxItems.length - 1),4].min * 24)
     idx=0
     multiamt = 1
-    multiamt = 2 if @milestoneDay && boxLevel>0
+    multiamt = 2 if eliteMode?
     for i in boxItems
       idx+=1
       if idx == 1 || idx == boxItems.length
@@ -1336,27 +1321,28 @@ class PokemonBoxScene
   
   def showTaskInfo
     Kernel.pbMessage(_INTL("\\l[2]{1}",$PokemonGlobal.pokeboxDescriptions[ $game_variables[PBOX_VARIABLES[1]][currentStep][0] ]))
+    multiq=(eliteMode?) ? 2 : 1
     if taskLevel() == 4
-      quantity = (boxLevel+(4*currentBoxDif))*2
+      quantity = (boxLevel*multiq)*2
       item     = [PBItems::REDSHARD,PBItems::YELLOWSHARD,PBItems::BLUESHARD,PBItems::GREENSHARD][currentStep%4]
       itemname = (quantity>1) ? PBItems.getNamePlural(item) : PBItems.getName(item)
-      quantity2 = (boxLevel+(4*currentBoxDif)) - 1
+      quantity2 = (boxLevel*multiq) - 1
       itemname2 = (quantity2>1) ? PBItems.getNamePlural(PBItems::EXPCANDYS) : PBItems.getName(PBItems::EXPCANDYS)
       Kernel.pbMessage(_INTL("Completing this Master task gives you {1} {2} and {3} {4}.", quantity, itemname, quantity2, itemname2))
     elsif taskLevel() == 3
-      quantity = (boxLevel+(4*currentBoxDif))*2
+      quantity = (boxLevel*multiq)*2
       item     = [PBItems::REDSHARD,PBItems::YELLOWSHARD,PBItems::BLUESHARD,PBItems::GREENSHARD][currentStep%4]
       itemname = (quantity>1) ? PBItems.getNamePlural(item) : PBItems.getName(item)
-      quantity2 = (boxLevel+(4*currentBoxDif)) - 1
+      quantity2 = (boxLevel*multiq) - 1
       itemname2 = (quantity2>1) ? PBItems.getNamePlural(PBItems::EXPCANDYXS) : PBItems.getName(PBItems::EXPCANDYXS)
       Kernel.pbMessage(_INTL("Completing this Expert task gives you {1} {2} and {3} {4}.", quantity, itemname, quantity2, itemname2))
     elsif taskLevel() == 2
-      quantity = (boxLevel+(4*currentBoxDif))*2
+      quantity = (boxLevel*multiq)*2
       item     = [PBItems::REDSHARD,PBItems::YELLOWSHARD,PBItems::BLUESHARD,PBItems::GREENSHARD][currentStep%4]
       itemname = (quantity>1) ? PBItems.getNamePlural(item) : PBItems.getName(item)
       Kernel.pbMessage(_INTL("Completing this Super Hard task gives you {1} {2}.", quantity, itemname))
     elsif taskLevel() == 1
-      quantity = (boxLevel+(4*currentBoxDif))
+      quantity = (boxLevel*multiq)
       item     = [PBItems::REDSHARD,PBItems::YELLOWSHARD,PBItems::BLUESHARD,PBItems::GREENSHARD][currentStep%4]
       itemname = (quantity>1) ? PBItems.getNamePlural(item) : PBItems.getName(item)
       Kernel.pbMessage(_INTL("Completing this Hard task gives you {1} {2}.", quantity, itemname))
@@ -1441,13 +1427,14 @@ class PokemonBoxSummaryScene
     @sprites={}
     @viewport=Viewport.new(0,0,Graphics.width,Graphics.height)
     @viewport.z=99999
-      addBackgroundPlane(@sprites,"bg",getDarkModeFolder+"/Pokemon Box/bg_menu",@viewport)
-    @sprites["bgM"]=IconSprite.new(0,0,@viewport) # Avoid issues with animations
-    @sprites["bgM"].setBitmap(_INTL("Graphics/UI/"+getDarkModeFolder+"/Pokemon Box/overlay_milestone_full"))
-    @sprites["bgM"].opacity= 96
-    @sprites["bgM"].visible=$PokemonBox.milestoneDay
-    @sprites["header"]=Window_UnformattedTextPokemon.newWithSize(_INTL("Pokémon Box"),
-       2,-18,256,64,@viewport)
+      addBackgroundPlane(@sprites,"bg",getDarkModeFolder+"/Pokemon Box/bg_menu"+$PokemonBox.modeSuffix(true),@viewport)
+    if $PokemonBox.milestoneDay
+      @sprites["header"]=Window_UnformattedTextPokemon.newWithSize(_INTL("Pokémon Box - Elite Challenge"),
+         2,-18,480,64,@viewport)
+    else
+      @sprites["header"]=Window_UnformattedTextPokemon.newWithSize(_INTL("Pokémon Box"),
+         2,-18,480,64,@viewport)
+    end
     if (!isDarkMode?)
       base=Color.new(12,12,12)
       shadow=Color.new(242,242,242)
@@ -1494,6 +1481,7 @@ class PokemonBoxSummaryScene
     if (oldlevel != -1) && (newlevel>oldlevel) && !elite
       # Close previous level
       pbSEPlay("King's Shield")
+      pbSEPlay("Close1")
       @sprites["boxname#{oldlevel%8}"].text="<ac>"+$PokemonBox.stages[oldlevel][0]+"</ac>"
       @sprites["box#{oldlevel%8}"].setBitmap("Graphics/UI/Pokemon Box/overlay_menubox_" + oldlevel.to_s + "_closed")
       @sprites["padlock#{oldlevel%8}"].visible=false
@@ -1517,6 +1505,7 @@ class PokemonBoxSummaryScene
         opa-=255/20
         @sprites["padlock#{newlevel%8}"].opacity=opa
       end
+      pbSEPlay("Open1")
       @sprites["boxname#{newlevel%8}"].text=""
       @sprites["box#{newlevel%8}"].setBitmap("Graphics/UI/Pokemon Box/overlay_menubox_" + newlevel.to_s)
       @sprites["padlock#{newlevel%8}"].visible=false
@@ -1556,10 +1545,7 @@ class PokemonBoxSummaryScene
       return
     end
     filename=stage.to_s
-    filename=($PokemonBox.maxStages-1).to_s + "_elite" if stage==$PokemonBox.maxStages
-    filename=($PokemonBox.maxStages-1).to_s + "_legendary" if stage==$PokemonBox.maxStages + 1
-    filename=($PokemonBox.maxStages-1).to_s + "_mythical" if stage==$PokemonBox.maxStages + 2
-    filename=($PokemonBox.maxStages-1).to_s + "_demon" if stage==$PokemonBox.maxStages + 3
+    filename=($PokemonBox.maxStages-1).to_s + "_milestone" if stage>=$PokemonBox.maxStages
     if (!isDarkMode?)
       baseColor=MessageConfig::DARKTEXTBASE
       shadowColor=MessageConfig::DARKTEXTSHADOW
@@ -1584,7 +1570,7 @@ class PokemonBoxSummaryScene
     # Items
     itemx = 182 - ([(boxitems.length - 1),3].min * 24)
     multiamt = 1
-    multiamt = 2 if $PokemonBox.milestoneDay && $PokemonBox.stages[stage][4]>0
+    multiamt = 2 if $PokemonBox.milestoneDay && $PokemonBox.stages[stage][4]>1
     for i in boxitems
       if i.is_a?(Array)
         item=i[0]

@@ -58,6 +58,7 @@ class PokemonGlobalMetadata
   attr_accessor :adsWatched
   attr_accessor :lastSavedTime
   attr_accessor :upperKingdom    # true when one battle in a such map is done
+  attr_accessor :undergroundKitPos
 
   def initialize
     @bicycle              = false
@@ -121,6 +122,7 @@ class PokemonGlobalMetadata
     @adsWatched           = 0
     @lastSavedTime        = Time.now
     @upperKingdom         = false
+    @undergroundKitPos   = [nil,81,86,2] # Map ID, X, Y, Direction
   end
 
   def bridge
@@ -136,6 +138,11 @@ class PokemonGlobalMetadata
   def upperKingdom
     @upperKingdom=false if !@upperKingdom
     return @upperKingdom    
+  end
+  
+  def undergroundKitPos
+    @undergroundKitPos    = [nil,81,86,2] if !@undergroundKitPos
+    return @undergroundKitPos
   end
   
 end

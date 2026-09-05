@@ -453,6 +453,11 @@ def pbCheckDTM
     $PokemonBag.pbStoreItem(:DAILYWIN,1)
     pbTimeEvent(DWIN_VARIABLES[1],1) if $game_variables[DWIN_VARIABLES[1]]==0
   end
+  # Underground Kit
+  if $game_switches[5] && $PokemonBag.pbQuantity(:UNDERGROUNDKIT)==0
+    $PokemonGlobal.undergroundKitPos    = [nil,81,86,2]
+    $PokemonBag.pbStoreItem(:UNDERGROUNDKIT,1)
+  end
 end
 
 def pbReturnToField
@@ -2393,7 +2398,7 @@ def pbItemIconFile(item)
     bitmapFileName = sprintf("Graphics/Items/back")
   elsif item==827 && QQORECHANNEL>0 && QQORECHANNEL<6 # Qora Qore Master
     bitmapFileName = _INTL("Graphics/Items/827_{1}",QQORECHANNEL)
-  elsif item==1014 # Pokemon Box
+  elsif item==10140# # Pokemon Box
     $PokemonBox = PokemonBoxScene.new if !$PokemonBox
     bitmapFileName = _INTL("Graphics/Items/1014_{1}{2}",$PokemonBox.currentStage(false),$PokemonBox.stageSuffix)
   else

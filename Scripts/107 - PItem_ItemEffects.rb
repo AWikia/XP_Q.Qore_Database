@@ -61,7 +61,7 @@ ItemHandlers::UseFromBag.add(:ESCAPEROPE,proc{|item|
      Kernel.pbMessage(_INTL("It can't be used when you have someone with you."))
      next 0
    end
-   if ($PokemonGlobal.inPast || $PokemonGlobal.inFuture) && $PokemonGlobal
+   if $PokemonGlobal && ($PokemonGlobal.inPast || $PokemonGlobal.inFuture)
      Kernel.pbMessage(_INTL("It can only be used while you're in the present."))
      next 0
    end
@@ -170,6 +170,297 @@ ItemHandlers::UseFromBag.add(:DAILYWIN,proc{|item|
      next 1
 })
 
+ItemHandlers::UseFromBag.add(:UNDERGROUNDKIT,proc{|item|
+   if $game_player.pbHasDependentEvents?
+     Kernel.pbMessage(_INTL("It can't be used when you have someone with you."))
+     next 0
+   end
+   if $PokemonGlobal && ($PokemonGlobal.inPast || $PokemonGlobal.inFuture)
+     Kernel.pbMessage(_INTL("It can only be used while you're in the present."))
+     next 0
+   end
+   if $game_switches[209]
+     Kernel.pbMessage(_INTL("It can't be used when a competition event is running."))
+     next 0
+   end
+   if $PokemonGlobal.surfing || $PokemonGlobal.diving  || $PokemonGlobal.bicycle
+     Kernel.pbMessage(_INTL("It can only be used while being on foot."))
+     next 0
+   end
+   if $game_switches[172]
+     Kernel.pbMessage(_INTL("It can't be used during a Museum Mission!"))
+     next 0
+   end
+   if $game_map && pbGetMetadata($game_map.map_id,MetadataUpperKingdom)
+     Kernel.pbMessage(_INTL("It can't be used in the Upper Kingdom!"))
+     next 0
+   end
+   if !pbGetMetadata(0,MetadataUndergroundMap)
+     Kernel.pbMessage(_INTL("There's no Underground Map defined!"))
+     next 0
+   end
+   if ($game_map && pbGetMetadata($game_map.map_id,MetadataOutdoor)) ||
+       $PokemonGlobal.undergroundKitPos[0]
+     next 2 # End screen
+   else
+     Kernel.pbMessage(_INTL("Can't use that here."))
+     next 0
+   end
+})
+
+ItemHandlers::UseFromBag.add(:ANGELIASTREASURE,proc{|item|
+  itemlist=[:ROCKGEM,:ROCKGEM,:ROCKGEM,:ROCKGEM,
+            :HEARTSCALE,:HEARTSCALE,:HEARTSCALE,
+            :CHARTIBERRY,:CHARTIBERRY,
+            :PEARLSTRING]
+  next pbChestItem(item,itemlist,0)
+})
+
+# Daily Chests
+
+ItemHandlers::UseFromBag.add(:COMMONDAILYCHEST,proc{|item|
+  itemlist=[:SUPERPOTION,:GREATBALL,:NORMALGEM,:EXPCANDYXS]
+  next pbChestItem(item,itemlist,0)
+})
+
+ItemHandlers::UseFromBag.add(:UNCOMMONDAILYCHEST,proc{|item|
+  itemlist=[:HYPERPOTION,:ULTRABALL,:STATUSHEALINGSELECTIONCHESTA,
+            :GEMSELECTIONCHESTA,:REVIVE,[:EXPCANDYXS,2],:EVENTSRACE]
+  next pbChestItem(item,itemlist,0)
+})
+
+ItemHandlers::UseFromBag.add(:RAREDAILYCHEST,proc{|item|
+  itemlist=[:MEGAPOTION,:PARKBALL,:FULLHEAL,:REPEL,:SUPERREPEL,:EXPCANDYS,:ETHER,
+            :ELIXIR,:POKEBALLSELECTIONCHESTA]
+  next pbChestItem(item,itemlist,0)
+})
+
+ItemHandlers::UseFromBag.add(:ELITEDAILYCHEST,proc{|item|
+  itemlist=[[:MEGAPOTION,2],:MAXREVIVE,:MAXREPEL,:MAXETHER,:MAXELIXIR,:RARECANDY,
+            [:EXPCANDYS,2],:POKEBALLSELECTIONCHESTB,:CHAMPIONSRACE]
+  next pbChestItem(item,itemlist,0)
+})
+
+ItemHandlers::UseFromBag.add(:EPICDAILYCHEST,proc{|item|
+  itemlist=[:MAXPOTION,:GENIEBALL,:HEARTSCALE,:PHOTONCLAW,:EXPCANDYM,
+            :SUPERBOOSTER,:BATTLEITEMSELECTIONCHESTA,:TERRAINSEEDSELECTIONCHEST,
+            :CINEMAHAZELNUTS]
+  next pbChestItem(item,itemlist,0)
+})
+
+ItemHandlers::UseFromBag.add(:LEGENDARYDAILYCHEST,proc{|item|
+  itemlist=[:FULLRESTORE,:WHITEPLUS,:BLACKPLUS,:PYROCLAW,:SENSUCLAW,
+            [:EXPCANDYM,2],:BOTANICSMOKE,:BATTLEITEMSELECTIONCHESTB,
+            :GEMSELECTIONCHESTB,:FLAGSELECTIONCHEST]
+  next pbChestItem(item,itemlist,0)
+})
+
+ItemHandlers::UseFromBag.add(:HEARTSCALEDAILYCHEST,proc{|item|
+  # Items to be used, avoiding duplications
+  cb  = :CHERRYBOX
+  sb  = :STRAWBERRYBOX
+  chb = :CHOCOLATEBOX
+  rs  = :REDSHARD
+  ys  = :YELLOWSHARD
+  bs  = :BLUESHARD
+  gs  = :GREENSHARD
+  gb  = :GALAXIANBOX
+  vb  = :VANILLABOX
+  ob  = :ORANGEBOX
+  grb = :GRAPEBOX
+  # Items end
+  itemlist=[cb,cb,cb,cb,cb,cb,cb,cb,cb,cb,cb,cb,cb,cb,cb,cb,cb,cb,cb,cb, # Cherry Box
+            sb,sb,sb,sb,sb,sb,sb,sb,sb,sb,sb,sb,sb,sb,sb,                # Strawberry Box
+            chb,chb,chb,chb,chb,chb,chb,chb,chb,chb,chb,chb,chb,chb,chb, # Chocolate Box
+            rs,rs,rs,rs,rs,rs,rs,rs,rs,rs,ys,ys,ys,ys,ys,ys,ys,ys,ys,ys, # Red/Yellow Shard
+            bs,bs,bs,bs,bs,bs,bs,bs,bs,bs,gs,gs,gs,gs,gs,gs,gs,gs,gs,gs, # Blue/Green Shard
+            gb,gb,gb,gb,gb,vb,vb,ob,ob,grb                               # Other boxes
+            ]
+  next pbChestItem(item,itemlist,0)
+})
+
+ItemHandlers::UseFromBag.add(:ADQUESTDAILYCHEST,proc{|item|
+  itemlist=[:POTION,:POKEBALL,:SUPERPOTION,:GREATBALL,:EXPCANDYXS,:NORMALGEM,
+            :EVENTSRACE]
+  next pbChestItem(item,itemlist,0)
+})
+
+# Selection Chests
+
+ItemHandlers::UseFromBag.add(:STATUSHEALINGSELECTIONCHESTA,proc{|item|
+  itemlist=[:AWAKENING,:ANTIDOTE,:BURNHEAL,:PARALYZEHEAL,:ICEHEAL]
+  next pbChestItem(item,itemlist,2)
+})
+
+ItemHandlers::UseFromBag.add(:STATUSHEALINGSELECTIONCHESTB,proc{|item|
+  itemlist=[:CHSTOBERRY,:PECHABERRY,:RAWSTBERRY,:CHERIBERRY,:ASPEARBERRY]
+  next pbChestItem(item,itemlist,2)
+})
+
+ItemHandlers::UseFromBag.add(:GEMSELECTIONCHESTA,proc{|item|
+  itemlist=[:NORMALGEM,:FIREGEM,:WATERGEM,:GRASSGEM,:ELECTRICGEM]
+  next pbChestItem(item,itemlist,2)
+})
+
+ItemHandlers::UseFromBag.add(:GEMSELECTIONCHESTB,proc{|item|
+  itemlist=[:NORMALGEM,:FIGHTINGGEM,:FLYINGGEM,:POISONGEM,:GROUNDGEM,
+            :ROCKGEM,:BUGGEM,:GHOSTGEM,:STEELGEM,
+            :FIREGEM,:WATERGEM,:GRASSGEM,:ELECTRICGEM,:PSYCHICGEM,
+            :ICEGEM,:DRAGONGEM,:DARKGEM,:FAIRYGEM]
+  next pbChestItem(item,itemlist,2)
+})
+
+ItemHandlers::UseFromBag.add(:GEMSELECTIONCHESTC,proc{|item|
+  itemlist=[:MAGICGEM,:DOOMGEM,:JELLYGEM,:SHARPENERGEM,:LAVAGEM,
+            :WINDGEM,:LICKGEM,:BOLTGEM,:HERBGEM,:CHLOROPHYLLGEM,
+            :GUSTGEM,:SUNGEM,:MOONGEM,:MINDGEM,:HEARTGEM,
+            :BLIZZARDGEM,:GASGEM,:GLIMSEGEM]
+  next pbChestItem(item,itemlist,2)
+})
+
+ItemHandlers::UseFromBag.add(:POKEBALLSELECTIONCHESTA,proc{|item|
+  itemlist=[:NETBALL,:DIVEBALL,:NESTBALL,:REPEATBALL,:TIMERBALL,:LUXURYBALL]
+  next pbChestItem(item,itemlist,2)
+})
+
+ItemHandlers::UseFromBag.add(:POKEBALLSELECTIONCHESTB,proc{|item|
+  itemlist=[:DUSKBALL,:HEALBALL,:QUICKBALL,:DREAMBALL,:NOBELBALL]
+  next pbChestItem(item,itemlist,2)
+})
+
+ItemHandlers::UseFromBag.add(:POKEBALLSELECTIONCHESTC,proc{|item|
+  itemlist=[:FASTBALL,:LEVELBALL,:LUREBALL,:HEAVYBALL,:LOVEBALL,:FRIENDBALL,
+            :MOONBALL]
+  next pbChestItem(item,itemlist,2)
+})
+
+ItemHandlers::UseFromBag.add(:BATTLEITEMSELECTIONCHESTA,proc{|item|
+  itemlist=[:XATTACK,:XDEFENSE,:XSPATK,:XSPDEF,:XSPEED]
+  next pbChestItem(item,itemlist,2)
+})
+
+ItemHandlers::UseFromBag.add(:BATTLEITEMSELECTIONCHESTB,proc{|item|
+  itemlist=[:XACCURACY,:DIREHIT,:GUARDSPEC]
+  next pbChestItem(item,itemlist,2)
+})
+
+ItemHandlers::UseFromBag.add(:TERRAINSEEDSELECTIONCHEST,proc{|item|
+  itemlist=[:GRASSYSEED,:ELECTRICSEED,:MISTYSEED,:PSYCHICSEED,:VOLCANICSEED,
+            :LOVELYSEED]
+  next pbChestItem(item,itemlist,2)
+})
+
+ItemHandlers::UseFromBag.add(:FLAGSELECTIONCHEST,proc{|item|
+  itemlist=[:BLACKFLAG,:WHITELFAG,:EVENTSRACE,:CHAMPIONSRACE]
+  next pbChestItem(item,itemlist,2)
+})
+
+ItemHandlers::UseFromBag.add(:RANDOMREMOTEBOXFRAGMENT,proc{|item|
+  if $PokemonBag.pbQuantity(item)<80
+    Kernel.pbMessage(_INTL("You need at least 80 fragments in order to obtain a Remote Box."))
+    next 0
+  end
+  species = [PBSpecies::DITTO,PBSpecies::BASCULIN,PBSpecies::DISCORD,PBSpecies::LUVDISC,PBSpecies::SQUAWKABILLY,PBSpecies::PLUNUM,PBSpecies::MILCERY,PBSpecies::SATTICATV,PBSpecies::SBING,PBSpecies::SAZURE,PBSpecies::SVISUALSTUDIOCODE,PBSpecies::BIDOOF]
+# Unlockables
+  if $game_switches && $game_switches[67]
+    species+=[PBSpecies::UNOWN]
+  end
+  if completedTrophies
+    species+=[PBSpecies::MICROSOFT,PBSpecies::FABRIC,PBSpecies::COPILOT,PBSpecies::DEVHOME,PBSpecies::FABPILHOME]
+  end
+  if completedTechnicalDiscs
+    species+=[PBSpecies::ROTOM]
+  end
+  if Kernel.pbTechnicalDiscScore > 24
+    species+=[PBSpecies::WATTREL]
+  end
+  if Kernel.pbTechnicalDiscScore > 49
+    species+=[PBSpecies::FRIKIPAIDEIA,PBSpecies::SINISTEA,PBSpecies::POLTEAGEIST]
+  end
+  # @FIXME: Should this become a single condition
+  if $game_switches && $game_variables &&
+     $game_switches[12] && $game_switches[70] && 
+     $game_switches[76] && completedTrophies &&
+     completedTechnicalDiscs && $game_variables[13]>99
+    species+=[PBSpecies::ALCREMIE,PBSpecies::TELEMOBIL,PBSpecies::SVISUALSTUDIO,PBSpecies::MEDIAFIRE]
+  end
+  if $game_variables && $game_variables[1001] > 0
+    species+=[PBSpecies::FLABEBE,PBSpecies::VOLTORB]
+  end
+  if $game_variables && $game_variables[1001] > 49
+    species+=[PBSpecies::DURALUDON]
+  end
+  if $game_variables && $game_variables[1001] > 99
+    species+=[PBSpecies::BASCULEGION]
+  end
+  if $game_variables && $game_variables[1001] > 149
+    species+=[PBSpecies::INDEEDEE]
+  end
+  if $game_variables && $game_variables[1001] > 199
+    species+=[PBSpecies::MEOWSTIC]
+  end
+  if $game_variables && $game_variables[1001] > 249
+    species+=[PBSpecies::CHARJABUG]
+  end
+  if $game_variables && $game_variables[1001] > 299
+    species+=[PBSpecies::TATSUGIRI]
+  end
+  if $game_variables && $game_variables[1001] > 399
+    species+=[PBSpecies::HUNTAIL,PBSpecies::GOREBYSS]
+  end
+  if $game_variables && $game_variables[1001] > 499
+    species+=[PBSpecies::DFADOM]
+  end
+  if $game_variables && $game_variables[1001] > 599
+    species+=[PBSpecies::WISHIWASHI]
+  end
+  if $game_variables && $game_variables[1001] > 699
+    species+=[PBSpecies::MORPEKO]
+  end
+  if $game_variables && $game_variables[1001] > 799
+    species+=[PBSpecies::MAGEARNA]
+  end
+  if $game_variables && $game_variables[1001] > 899
+    species+=[PBSpecies::BOOMERAN]
+  end
+  if $game_variables && $game_variables[1001] > 999
+    species+=[PBSpecies::TELEMOBILEGION]
+  end
+  if $PokemonGlobal && $PokemonGlobal.adsWatched>59
+    species+=[PBSpecies::ZORUA,PBSpecies::TINKATINK]
+  end
+  if (pbGetTimeNow.mon == 4 && pbGetTimeNow.day == 1)
+    species+=[PBSpecies::BLINKY,PBSpecies::INKY,PBSpecies::CLYDE,PBSpecies::PINKY,PBSpecies::SUE,PBSpecies::FUNKY,PBSpecies::SPUNKY,PBSpecies::ORSON]
+  else
+    species+=[PBSpecies::BLUEGHOST]
+  end
+# End Unlockables
+  pokemon = species[rand(species.length)]
+  if pbGenerateRemoteBox(pokemon,_I("Random Remote Box Fragments"))
+    name=  PBSpecies.getName(pokemon)
+    Kernel.pbMessage(_INTL("Obtained a {1} remote box.",name))
+    $PokemonBag.pbDeleteItem(item,80)
+    return 0
+  else
+    Kernel.pbMessage(_INTL("You don't have enough space to store the box. Make room and come again."))
+    return 0
+  end  
+})
+
+ItemHandlers::UseFromBag.add(:RANDOMPOKEMONFRAGMENT,proc{|item|
+  if $PokemonBag.pbQuantity(item)<40
+    Kernel.pbMessage(_INTL("You need at least 40 fragments in order to obtain a Pokémon."))
+    next 0
+  end
+  if pbAddPokemon(randomSpecies,5)
+    $PokemonBag.pbDeleteItem(item,40)
+    return 0
+  else
+    Kernel.pbMessage(_INTL("You don't have enough space to store the Pokémon. Make room and come again."))
+    return 0
+  end  
+})
+
 
 ItemHandlers::UseFromBag.add(:BICYCLE,proc{|item|
    next pbBikeCheck ? 2 : 0
@@ -218,6 +509,50 @@ ItemHandlers::UseFromBag.add(:EXPALLOFF,proc{|item|
 })
 
 #===============================================================================
+# ComposeFromBag handlers
+#===============================================================================
+
+ItemHandlers::ComposeFromBag.add(:REDSHARD,proc{|item|
+   return [3,:REDCIRCLEFRAGMENT,1]
+})
+
+ItemHandlers::ComposeFromBag.add(:YELLOWSHARD,proc{|item|
+   return [3,:YELLOWSQUAREEFRAGMENT,1]
+})
+
+ItemHandlers::ComposeFromBag.add(:BLUESHARD,proc{|item|
+   return [3,:BLUETRIANGLEFRAGMENT,1]
+})
+
+ItemHandlers::ComposeFromBag.add(:GREENSHARD,proc{|item|
+   return [3,:GREENPENTAGONFRAGMENT,1]
+})
+
+ItemHandlers::ComposeFromBag.add(:COMMONDAILYCHEST,proc{|item|
+   return [2,:UNCOMMONDAILYCHEST,1]
+})
+
+ItemHandlers::ComposeFromBag.add(:UNCOMMONDAILYCHEST,proc{|item|
+   return 0 if pbGetCardLevel<1
+   return [2,:RAREDAILYCHEST,1]
+})
+
+ItemHandlers::ComposeFromBag.add(:RAREDAILYCHEST,proc{|item|
+   return 0 if pbGetCardLevel<2
+   return [2,:ELITEDAILYCHEST,1]
+})
+
+ItemHandlers::ComposeFromBag.add(:ELITEDAILYCHEST,proc{|item|
+   return 0 if pbGetCardLevel<3
+   return [2,:EPICDAILYCHEST,1]
+})
+
+ItemHandlers::ComposeFromBag.add(:EPICDAILYCHEST,proc{|item|
+   return 0 if pbGetCardLevel<4
+   return [2,:LEGENDARYDAILYCHEST,1]
+})
+
+#===============================================================================
 # UseInField handlers
 #===============================================================================
 
@@ -236,7 +571,7 @@ ItemHandlers::UseInField.add(:ESCAPEROPE,proc{|item|
      Kernel.pbMessage(_INTL("It can't be used when you have someone with you."))
      next
    end
-   if ($PokemonGlobal.inPast || $PokemonGlobal.inFuture) && $PokemonGlobal
+   if $PokemonGlobal && ($PokemonGlobal.inPast || $PokemonGlobal.inFuture)
      Kernel.pbMessage(_INTL("It can only be used while you're in the present."))
      next
    end
@@ -280,6 +615,63 @@ ItemHandlers::UseInField.add(:DAILYWIN,proc{|item|
         screen.pbStartScreen
      }
 })
+
+ItemHandlers::UseInField.add(:UNDERGROUNDKIT,proc{|item|
+   if $game_player.pbHasDependentEvents?
+     Kernel.pbMessage(_INTL("It can't be used when you have someone with you."))
+     next
+   end
+   if $PokemonGlobal && ($PokemonGlobal.inPast || $PokemonGlobal.inFuture)
+     Kernel.pbMessage(_INTL("It can only be used while you're in the present."))
+     next
+   end
+   if $game_switches[209]
+     Kernel.pbMessage(_INTL("It can't be used when a competition event is running."))
+     next
+   end
+   if $PokemonGlobal.surfing || $PokemonGlobal.diving  || $PokemonGlobal.bicycle
+     Kernel.pbMessage(_INTL("It can only be used while being on foot."))
+     next
+   end
+   if $game_switches[172]
+     Kernel.pbMessage(_INTL("It can't be used during a Museum Mission!"))
+     next
+   end
+   if $game_map && pbGetMetadata($game_map.map_id,MetadataUpperKingdom)
+     Kernel.pbMessage(_INTL("It can't be used in the Upper Kingdom!"))
+     next
+   end
+   if !pbGetMetadata(0,MetadataUndergroundMap)
+     Kernel.pbMessage(_INTL("There's no Underground Map defined!"))
+     next
+   end
+   if ($game_map && pbGetMetadata($game_map.map_id,MetadataOutdoor)) ||
+       $PokemonGlobal.undergroundKitPos[0]
+     pbFadeOutIn(99999){
+        # Old Position to be used for teleporting
+        oldcoords=$PokemonGlobal.undergroundKitPos
+        # Paste Current Position into old ones
+        $PokemonGlobal.undergroundKitPos = [$game_map.map_id,$game_player.x,$game_player.y,$game_player.direction]
+        # First item of this array must be undefined if first item of the old coordinates is defined
+        $PokemonGlobal.undergroundKitPos[0] = nil if oldcoords[0]
+        if oldcoords[0]
+          $game_temp.player_new_map_id=oldcoords[0]
+        else  # Underground Map
+          $game_temp.player_new_map_id=pbGetMetadata(0,MetadataUndergroundMap)
+        end
+        $game_temp.player_new_x=oldcoords[1]
+        $game_temp.player_new_y=oldcoords[2]
+        $game_temp.player_new_direction=oldcoords[3]
+        $scene.transfer_player(false)
+        $game_map.autoplay
+        $game_map.refresh
+     }
+   else
+     Kernel.pbMessage(_INTL("Can't use that here."))
+     next
+   end
+})
+
 
 
 ItemHandlers::UseInField.add(:BICYCLE,proc{|item|

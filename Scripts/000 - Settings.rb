@@ -483,6 +483,8 @@ BUGCONTESTTIME = 9999
 #      Evolving even if they otherwise could.
 # * The Global Switch which, while ON prevents Win Streak feature from working
 #      as well as preventing any money gain from battles
+# * The Global Switch which, while ON, will mark the current box as Elite/
+#      This is set automatically at the the box is created
 #===============================================================================
 STARTING_OVER_SWITCH      = 1
 SEEN_POKERUS_SWITCH       = 2
@@ -491,6 +493,7 @@ FATEFUL_ENCOUNTER_SWITCH  = 32
 NO_MONEY_LOSS             = 33
 NO_MEGA_EVOLUTION         = 34
 SEMI_INTERNAL_BATTLE      = 205
+PBOX_ELITE_SWITCH         = 1046
 
 #===============================================================================
 # * The Global Variable that is used for the Win Streak Feature
@@ -519,11 +522,12 @@ SEMI_INTERNAL_BATTLE      = 205
 #      - The Global Variable that is used to record the last state of the feature
 #      - The Global Variable that is used to record the amount of Battles Done
 #      - The Global Variable that is used to record the last state of the battles
+#      - The Global Variable that is used to record the mode of the feature
 #===============================================================================
 WIN_STREAK_VARIABLE       = 1007
 DTM_VARIABLES             = [1009,1010,1008]
 PBOX_VARIABLES            = [1012,1013,1014,1015,1016,1017,1018,1022]
-DWIN_VARIABLES            = [1019,1020,1021,1023,1024]
+DWIN_VARIABLES            = [1019,1020,1021,1023,1024,1025]
 
 #===============================================================================
 # * The ID of the common event that runs when the player starts fishing (runs

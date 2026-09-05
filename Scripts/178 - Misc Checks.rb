@@ -311,6 +311,25 @@ def hasCoinCase?
   return $PokemonBag.pbQuantity(:COINCASE)>0
 end
 
+def isRS1?
+  rslevel = $RSLEVEL #ENV["PokeEmuResLevel"]
+  return false if !rslevel
+  return rslevel<2
+end
+
+def isRS0?
+  rslevel = $RSLEVEL #ENV["PokeEmuResLevel"]
+  return false if !rslevel
+  return rslevel<1
+end
+
+def isRS4?
+  rslevel = $RSLEVEL #ENV["PokeEmuResLevel"]
+  return false if !rslevel
+  return rslevel>3
+end
+
+
 #===============================================================================
 # * Eternal Pokémons, Ultra Blue and Regional Forms
 #===============================================================================

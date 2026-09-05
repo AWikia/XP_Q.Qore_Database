@@ -582,6 +582,7 @@ class PokemonBagScreen
       item=@scene.pbChooseItem
       break if item==0
       cmdUse         = -1
+      cmdCompose     = -1 # Compose Item
       cmdRegister    = -1
       cmdGive        = -1
       cmdToss        = -1
@@ -591,6 +592,7 @@ class PokemonBagScreen
       # Generate command list
       commands[cmdRead=commands.length]=_INTL("Read") if pbIsMail?(item)
       commands[cmdUse=commands.length]=_INTL("Use") if ItemHandlers.hasOutHandler(item) || (pbIsMachine?(item) && $Trainer.party.length>0)
+      commands[cmdCompose=commands.length]=_INTL("Compose") if pbCanComposeItem?(item)
       commands[cmdGive=commands.length]=_INTL("Give") if $Trainer.pokemonParty.length>0 && !pbIsImportantItem?(item)
       commands[cmdToss=commands.length]=_INTL("Toss") if !pbIsImportantItem?(item) || $DEBUG
       if @bag.registeredItem==item
@@ -613,6 +615,9 @@ class PokemonBagScreen
         pbFadeOutIn(99999){
            pbDisplayMail(PokemonMail.new(item,"",""))
         }
+      elsif cmdCompose>=0 && command==cmdCompose # Compose
+        pbComposeItem(@bag,item)
+        @scene.pbRefresh
       elsif cmdRegister>=0 && command==cmdRegister # Register key item
         @bag.pbRegisterKeyItem(item)
         @scene.pbRefresh

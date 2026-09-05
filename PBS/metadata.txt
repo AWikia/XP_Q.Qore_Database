@@ -8,6 +8,7 @@ SurfBGM=Ship
 BicycleBGM=Airship
 Home=3,7,5,8
 WildBattleBGM=Battle - Wild Pokemon
+UndergroundMap=581
 [001]
 # Intro
 BattleBack=Intro
@@ -3552,4 +3553,8 @@ BattleBack=MYSTERY
 Environment=Galaxy
 UpperKingdom=true
 MapPosition=17,8,5
+ForbidSaving=true
+[581]
+# Angelia Undergrounds
+ShowArea=true
 ForbidSaving=true

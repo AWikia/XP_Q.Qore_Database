@@ -194,6 +194,10 @@ class Scene_LinkBattleScene
         command=Kernel.pbMessage(
             _INTL("Choose a difficulty you want to use on your battle."),commands,-1)
         if command>=0 && command < 6
+          if [0,1].include?(command) && isRS4?
+            Kernel.pbMessage(_INTL("This difficulty is too low for this emulator."))
+            return false
+          end
           # Begin Battle
           $game_variables[1003] = command+1
           trainer=["Very Easy","Easy","Medium","Hard","Nightmare","Nightmare"][command]
@@ -302,7 +306,7 @@ class Scene_LinkBattleScene
                  PBItems::KEYBOX,
                  PBItems::RELICFLOWER,
                  PBItems::SACREDASH,
-                 'RB']
+                 [PBItems::RANDOMREMOTEBOXFRAGMENT,80]]
           prices=[50,
                   100,
                   150,
@@ -350,7 +354,7 @@ class Scene_LinkBattleScene
                   _INTL("Key Box (5000 Points)"),
                   _INTL("Relic Flower (6000 Points)"),
                   _INTL("Sacred Ash (7000 Points)"),
-                  _INTL("Remote Box (8000 Points)"),
+                  _INTL("80 Random Remote Box Fragments (8000 Points)"),
                   _INTL("Cancel")]
           command=Kernel.pbMessage(
               _INTL("\\g[1]Which item would you like to buy?"),commands,-1)
@@ -359,108 +363,24 @@ class Scene_LinkBattleScene
             break
           else
             itemname=  items[command]
-            if itemname == 'RB'
-              itemname2='Remote Box'
+            if itemname.is_a?(Array)
+              itemname2= itemname[1].to_s + _INTL(" ") +  PBItems.getNamePlural(itemname[0])
+              finalitem=[itemname[0],itemname[1]]
             else
-              itemname2= PBItems.getName(itemname)
+              itemname2= _INTL("one ") + PBItems.getName(itemname)
+              finalitem=[itemname,1]
             end
             itemprice= prices[command]
-            if Kernel.pbConfirmMessage(_INTL("\\g[1]Would you like to buy {1} {2}? It will cost {3} Link Points", (command==4) ? "an" : "a" ,itemname2,itemprice))
+            if Kernel.pbConfirmMessage(_INTL("\\g[1]Would you like to buy {1}? It will cost {2} Link Points", itemname2,itemprice))
               if $game_variables[1002] < itemprice
                 Kernel.pbMessage(_INTL("\\g[1]You don't have enough points to buy that."))
                 break
               else
-                if itemname == 'RB'
-                  species = [PBSpecies::DITTO,PBSpecies::BASCULIN,PBSpecies::DISCORD,PBSpecies::LUVDISC,PBSpecies::SQUAWKABILLY,PBSpecies::PLUNUM,PBSpecies::MILCERY,PBSpecies::SATTICATV,PBSpecies::SBING,PBSpecies::SAZURE,PBSpecies::SVISUALSTUDIOCODE,PBSpecies::BIDOOF]
-# Unlockables
-                  if $game_switches && $game_switches[67]
-                    species+=[PBSpecies::UNOWN]
-                  end
-                  if completedTrophies
-                    species+=[PBSpecies::MICROSOFT,PBSpecies::FABRIC,PBSpecies::COPILOT,PBSpecies::DEVHOME,PBSpecies::FABPILHOME]
-                  end
-                  if completedTechnicalDiscs
-                    species+=[PBSpecies::ROTOM]
-                  end
-                  if Kernel.pbTechnicalDiscScore > 24
-                    species+=[PBSpecies::WATTREL]
-                  end
-                  if Kernel.pbTechnicalDiscScore > 49
-                    species+=[PBSpecies::FRIKIPAIDEIA,PBSpecies::SINISTEA,PBSpecies::POLTEAGEIST]
-                  end
-                  # @FIXME: Should this become a single condition
-                  if $game_switches && $game_variables &&
-                     $game_switches[12] && $game_switches[70] && 
-                     $game_switches[76] && completedTrophies &&
-                     completedTechnicalDiscs && $game_variables[13]>99
-                    species+=[PBSpecies::ALCREMIE,PBSpecies::TELEMOBIL,PBSpecies::SVISUALSTUDIO,PBSpecies::MEDIAFIRE]
-                  end
-                  if $game_variables && $game_variables[1001] > 0
-                    species+=[PBSpecies::FLABEBE,PBSpecies::VOLTORB]
-                  end
-                  if $game_variables && $game_variables[1001] > 49
-                    species+=[PBSpecies::DURALUDON]
-                  end
-                  if $game_variables && $game_variables[1001] > 99
-                    species+=[PBSpecies::BASCULEGION]
-                  end
-                  if $game_variables && $game_variables[1001] > 149
-                    species+=[PBSpecies::INDEEDEE]
-                  end
-                  if $game_variables && $game_variables[1001] > 199
-                    species+=[PBSpecies::MEOWSTIC]
-                  end
-                  if $game_variables && $game_variables[1001] > 249
-                    species+=[PBSpecies::CHARJABUG]
-                  end
-                  if $game_variables && $game_variables[1001] > 299
-                    species+=[PBSpecies::TATSUGIRI]
-                  end
-                  if $game_variables && $game_variables[1001] > 399
-                    species+=[PBSpecies::HUNTAIL,PBSpecies::GOREBYSS]
-                  end
-                  if $game_variables && $game_variables[1001] > 499
-                    species+=[PBSpecies::DFADOM]
-                  end
-                  if $game_variables && $game_variables[1001] > 599
-                    species+=[PBSpecies::WISHIWASHI]
-                  end
-                  if $game_variables && $game_variables[1001] > 699
-                    species+=[PBSpecies::MORPEKO]
-                  end
-                  if $game_variables && $game_variables[1001] > 799
-                    species+=[PBSpecies::MAGEARNA]
-                  end
-                  if $game_variables && $game_variables[1001] > 899
-                    species+=[PBSpecies::BOOMERAN]
-                  end
-                  if $game_variables && $game_variables[1001] > 999
-                    species+=[PBSpecies::TELEMOBILEGION]
-                  end
-                  if $PokemonGlobal && $PokemonGlobal.adsWatched>59
-                    species+=[PBSpecies::ZORUA,PBSpecies::TINKATINK]
-                  end
-                  if (pbGetTimeNow.mon == 4 && pbGetTimeNow.day == 1)
-                    species+=[PBSpecies::BLINKY,PBSpecies::INKY,PBSpecies::CLYDE,PBSpecies::PINKY,PBSpecies::SUE,PBSpecies::FUNKY,PBSpecies::SPUNKY,PBSpecies::ORSON]
-                  else
-                    species+=[PBSpecies::BLUEGHOST]
-                  end
-# End Unlockables
-                  pokemon = species[rand(species.length)]
-                  if pbGenerateRemoteBox(pokemon,_I("Link Battle Marketplace"))
-                    $game_variables[1002] -= itemprice
-                    update_stats
-                  else
-                    Kernel.pbMessage(_INTL("\\g[1]You don't have enough space to store the box. Make room and come again."))
-                    break
-                  end
-                else
-                  $game_variables[1002] -= itemprice
-                  update_stats
-                  $PokemonBag.pbStoreItem(itemname)
-                end
+                $game_variables[1002] -= itemprice
+                update_stats
+                $PokemonBag.pbStoreItem(finalitem[0],finalitem[1])
                 $PokemonGlobal.changePokebox(111,1)
-                Kernel.pbMessage(_INTL("\\g[1]\\me[EvolutionSuccess_1]Spent {1} Link Points and earned one {2}",itemprice,itemname2))
+                Kernel.pbMessage(_INTL("\\g[1]\\me[EvolutionSuccess_1]Spent {1} Link Points and earned {2}",itemprice,itemname2))
                 break
               end
             else

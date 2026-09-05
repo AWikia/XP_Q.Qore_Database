@@ -113,6 +113,11 @@ def pbIsBox?(item)          # Also includes Boxes that don't boost power when he
   return $ItemData[item] && $ItemData[item][ITEMTYPE]==13
 end
 
+def pbIsChest?(item)
+  return $ItemData[item] && ($ItemData[item][ITEMTYPE]==19)
+end
+
+
 def pbIsUsableOnRB?(item)
   potions=[:POTION,:SUPERPOTION,:HYPERPOTION,:MEGAPOTION,
            :MAXPOTION,:FULLRESTORE,:CHERRYBOX,:ORANGEBOX,
@@ -164,6 +169,7 @@ end
 
 module ItemHandlers
   UseFromBag=ItemHandlerHash.new
+  ComposeFromBag=ItemHandlerHash.new
   UseInField=ItemHandlerHash.new
   UseOnPokemon=ItemHandlerHash.new
   BattleUseOnBattler=ItemHandlerHash.new
@@ -190,10 +196,14 @@ module ItemHandlers
     BattleUseOnPokemon.add(item,proc)
   end
 
-  def self.hasOutHandler(item)                       # Shows "Use" option in Bag
+  def self.hasOutHandler(item)                  # Shows "Use" option in Bag
     return UseFromBag[item]!=nil || UseOnPokemon[item]!=nil
   end
 
+  def self.hasComposeHandler(item)              # Shows "Compose" option in Bag
+    return ComposeFromBag[item]!=nil
+  end
+  
   def self.hasKeyItemHandler(item)              # Shows "Register" option in Bag
     return UseInField[item]!=nil
   end
@@ -230,6 +240,17 @@ module ItemHandlers
       return 0 # item was not used
     else
       UseFromBag.trigger(item)
+    end
+  end
+  
+  def self.triggerComposeFromBag(item)
+    # Return value:
+    # nil   - Item not compossable
+    # array - Item compossable (Ratio1, NewItem, Ratio2)
+    if !ComposeFromBag[item]
+      return nil # item was not used
+    else
+      return ComposeFromBag.trigger(item)
     end
   end
 
@@ -280,7 +301,106 @@ module ItemHandlers
   end
 end
 
-
+def pbChestItem(item,itemlist,mode=0)
+  if $PokemonBag.pbQuantity(item)<2 
+    qty=1
+  else
+    params=ChooseNumberParams.new
+    amount=[$PokemonBag.pbQuantity(item),99].min
+    params.setRange(0,amount)
+    params.setInitialValue($game_variables[PBOX_VARIABLES[4]])
+    params.setCancelValue(-1)
+    itemname=PBItems.getNamePlural(item)
+    qty=Kernel.pbMessageChooseNumber(
+       _INTL("Use out how many {1}? (max. {2}).",itemname,amount),params
+    )
+  end
+  if qty>0
+    if mode==0  # Random
+      items={}
+      # Generate random items into the list
+      qty.times do
+        i=itemlist[rand(itemlist.length)]
+        if i.is_a?(Array) # Experimental, use with caution
+          quantity=i[1]
+          itemN=i[0]
+        else
+          quantity=1
+          itemN=i
+        end
+        # Add item to the list (If existent, then amount increases otherwise adds it)
+        if items.key?(itemN)
+          items[itemN]+=quantity
+        else
+          items[itemN]=quantity
+        end
+      end
+    elsif mode==1  # All at once (1)
+      items=[]
+      # Add all the items into the list
+      itemlist.each do |i|
+        if i.is_a?(Array) # Experimental, use with caution
+          quantity=i[1]*qty
+          itemN=i[0]
+        else
+          quantity=qty
+          itemN=i
+        end
+        # The more you use, the higher the amount
+        items.push([itemN,quantity])
+      end
+    else  # Selection Chest (2)
+      commands=[]
+      itemid=[]
+      for i in itemlist
+        if i.is_a?(Array) # Experimental, use with caution
+          quantity=i[1]
+          itemN=i[0]
+        else
+          quantity=1
+          itemN=i
+        end
+        if hasConst?(PBItems,itemN)
+          id=[getConst(PBItems,itemN),quantity] # 0 = Item ID | 1 = Quantity
+          if id[1]>1
+            commands.push(id[1].to_s + PBItems.getNamePlural(id[0]))
+          else
+            commands.push(PBItems.getName(id[0]))
+          end
+          itemid.push(id)
+        end
+      end
+      if commands.length==0
+        return 0
+      end
+      commands.push(_INTL("Cancel"))
+      itemid.push(-1)
+      itemnameN=PBItems.getName(item)
+      ret=Kernel.pbMessage(_INTL("Which item from {1} would you like to get?",itemnameN),commands,-1)
+      if ret<0 || ret>=commands.length-1
+        return 0
+      else
+        i=itemlist[ret]
+        if i.is_a?(Array) # Experimental, use with caution
+          quantity=i[1]
+          itemN=i[0]
+        else
+          quantity=1
+          itemN=i
+        end
+        items=[[itemN,quantity*qty]]
+      end
+    end
+    # Obtain items
+    for i in items
+      Kernel.pbReceiveItem(i)
+    end
+    $PokemonBag.pbDeleteItem(item,qty)
+    return 1  # Not 3 as item deletion will hapeen before
+  else
+    return 0
+  end
+end
 
 def pbChangeLevel(pokemon,newlevel,scene)
   newlevel=1 if newlevel<1
@@ -844,6 +964,47 @@ def pbUseItem(bag,item,bagscene=nil)
     Kernel.pbMessage(_INTL("Can't use that here."))
     return 0
   end
+end
+
+def pbCanComposeItem?(item)
+    ret=ItemHandlers.triggerComposeFromBag(item)
+    return ret && ret.is_a?(Array)
+end
+
+def pbComposeItem(bag,item)
+    ret=ItemHandlers.triggerComposeFromBag(item)
+    if !ret
+      Kernel.pbMessage(_INTL("Can't be compossed into something."))
+      return 0
+    end
+    item2=ret[1]
+    if item2.is_a?(String) || item2.is_a?(Symbol)
+      item2=getID(PBItems,item2)
+    end
+    maximum=(bag.pbQuantity(item).to_f / ret[0].to_f).floor
+    itemname=PBItems.getName(item)
+    itemnamePl=PBItems.getNamePlural(item)
+    itemname2=PBItems.getName(item2)
+    ratio2=ret[2] rescue 1
+    ratio1=ret[0]
+    if maximum<1
+      Kernel.pbMessage(_INTL("You need at least {1} {2} in order to compose it for {3}.",ratio1,itemnamePl,itemname2))
+      return 0
+    end
+    params=ChooseNumberParams.new
+    params.setRange(0,maximum)
+    params.setInitialValue($game_variables[PBOX_VARIABLES[4]])
+    params.setCancelValue(-1)
+    qty=Kernel.pbMessageChooseNumber(
+       _INTL("How many times would you like to compose {1} for {2}? ({3}:{4} ratio) (max. {5}).",itemname,itemname2,ratio1,ratio2,maximum),params
+    )
+    if qty>0
+      amount=ret[0]*qty
+      Kernel.pbReceiveItem(item2,ret[2]*qty,item,amount)
+      bag.pbDeleteItem(item,amount)
+      return 1
+    end
+    return 0
 end
 
 def Kernel.pbChooseItem(var=0,*args)

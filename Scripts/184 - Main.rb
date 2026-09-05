@@ -161,6 +161,17 @@ def mainFunctionDebug #:nodoc:
     $oldAccent   = $PokemonSystem.accentcolor
     $BORDERS=getBorders
     setScreenBorderName($BORDERS[$PokemonSystem.bordergraphic]) # Sets image file for the border
+# Don't load Q.Qore in Level 0 Resource Site Emulators (Crashes upon switching to title screen)
+    if isRS0?
+        data_system = pbLoadRxData("Data/System")
+        pbBGMPlay(data_system.title_bgm)
+        scene=PokemonOutdatedResourceSiteScreenScene.new
+        screen=PokemonOutdatedResourceSiteScreen.new(scene)
+        pbFadeOutIn(99999) { 
+           screen.pbStartScreen
+        }
+      return
+    end
 # Don't load Q.Qore in Windows 8.1 and below
     if pbGetVersion() < 10586
         data_system = pbLoadRxData("Data/System")

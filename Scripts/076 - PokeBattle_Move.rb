@@ -1652,7 +1652,7 @@ class PokeBattle_Move
     end
     # Weather
     omprela=opponent.hasWorkingItem(:UTILITYUMBRELLA)
-    -if !omprela
+    if !omprela
       case @battle.pbWeather(attacker)
       when PBWeather::SUNNYDAY, PBWeather::HARSHSUN
         if isConst?(type,PBTypes,:FIRE)

@@ -2274,6 +2274,7 @@ def Kernel.pbItemBall(item,quantity=1)
     musicEffect="BerryGet" if pbIsBerry?(item)
     musicEffect="KeyItemGet" if pbIsKeyItem?(item)
     musicEffect="MegaStoneGet" if pbIsMegaStone?(item)
+    musicEffect="ChestItemGet" if pbIsChest?(item)
     if $ItemData[item][ITEMUSE]==3 || $ItemData[item][ITEMUSE]==4 || $ItemData[item][ITEMUSE]==6
       Kernel.pbMessage(_INTL("\\me[]\\me[{1}]{2} found \\c[1]{3}\\c[0]!\\nIt contained \\c[1]{4}\\c[0].\\wtnp[30]",
          musicEffect,$Trainer.name,itemname,PBMoves.getName($ItemData[item][ITEMMACHINE])))
@@ -2302,7 +2303,7 @@ def Kernel.pbItemBall(item,quantity=1)
   end
 end
 
-def Kernel.pbReceiveItem(item,quantity=1)
+def Kernel.pbReceiveItem(item,quantity=1,fromitem=nil,fromquantity=nil)
   if item.is_a?(Array) # Experimental, use with caution
     quantity=item[1]
     item=item[0]
@@ -2310,24 +2311,42 @@ def Kernel.pbReceiveItem(item,quantity=1)
   if item.is_a?(String) || item.is_a?(Symbol)
     item=getID(PBItems,item)
   end
+  # fromitem is experimental, used for composition purposes
+  if fromitem
+    if fromitem.is_a?(Array) # Experimental, use with caution
+      fromquantity=fromitem[1]
+      fromitem=fromitem[0]
+    end
+    if fromitem.is_a?(String) || fromitem.is_a?(Symbol)
+      fromitem=getID(PBItems,fromitem)
+    end
+  end
   pocket=pbGetPocket(item)
   return Kernel.pbReceiveTrophy(item) if pocket==6 # A Trophy
   return false if !item || item<=0 || quantity<1
   itemname=(quantity>1) ? PBItems.getNamePlural(item) : PBItems.getName(item)
+  # extra string added from items earned from other ones (Like via composition)
+  if fromitem
+    fromitemname=(fromquantity>1) ? PBItems.getNamePlural(fromitem) : PBItems.getName(fromitem)
+    extra=(fromquantity>1) ? _INTL(" from {1} \\c[1]{2}\\c[0]",fromquantity,fromitemname) : _INTL(" from \\c[1]{1}\\c[0]",fromitemname)
+  else
+    extra=""
+  end
   musicEffect="ItemGet"
   musicEffect="Jingle - HMTM" if pbIsMachine?(item)
   musicEffect="BerryGet" if pbIsBerry?(item)
   musicEffect="KeyItemGet" if pbIsKeyItem?(item)
   musicEffect="MegaStoneGet" if pbIsMegaStone?(item)
+  musicEffect="ChestItemGet" if pbIsChest?(item)
   if $ItemData[item][ITEMUSE]==3 || $ItemData[item][ITEMUSE]==4 || $ItemData[item][ITEMUSE]==6
-    Kernel.pbMessage(_INTL("\\me[{1}]Obtained \\c[1]{2}\\c[0]!\\nIt contained \\c[1]{3}\\c[0].\\wtnp[30]",
-       musicEffect,itemname,PBMoves.getName($ItemData[item][ITEMMACHINE])))
+    Kernel.pbMessage(_INTL("\\me[{1}]Obtained \\c[1]{2}\\c[0]{3}!\\nIt contained \\c[1]{4}\\c[0].\\wtnp[30]",
+       musicEffect,itemname,extra,PBMoves.getName($ItemData[item][ITEMMACHINE])))
   elsif isConst?(item,PBItems,:LEFTOVERS)
-    Kernel.pbMessage(_INTL("\\me[]\\me[{1}]Obtained some \\c[1]{2}\\c[0]!\\wtnp[30]",musicEffect,itemname))
+    Kernel.pbMessage(_INTL("\\me[]\\me[{1}]Obtained some \\c[1]{2}\\c[0]{3}!\\wtnp[30]",musicEffect,itemname,extra))
   elsif quantity>1
-    Kernel.pbMessage(_INTL("\\me[]\\me[{1}]Obtained {2} \\c[1]{3}\\c[0]!\\wtnp[30]",musicEffect,quantity,itemname))
+    Kernel.pbMessage(_INTL("\\me[]\\me[{1}]Obtained {2} \\c[1]{3}\\c[0]{4}!\\wtnp[30]",musicEffect,quantity,itemname,extra))
   else
-    Kernel.pbMessage(_INTL("\\me[]\\me[{1}]Obtained \\c[1]{2}\\c[0]!\\wtnp[30]",musicEffect,itemname))
+    Kernel.pbMessage(_INTL("\\me[]\\me[{1}]Obtained \\c[1]{2}\\c[0]{3}!\\wtnp[30]",musicEffect,itemname,extra))
   end
   if $PokemonBag.pbStoreItem(item,quantity)   # If item can be added
     Kernel.pbMessage(_INTL("{1} put the \\c[1]{2}\\c[0]\r\nin the <icon=bagPocket#{pocket}>\\c[1]{3}\\c[0] Pocket.",

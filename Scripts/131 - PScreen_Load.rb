@@ -126,17 +126,23 @@ class PokemonLoadScene
     @sprites={}
     @viewport=Viewport.new(0,0,Graphics.width,Graphics.height)
     @viewport.z=99998
-    title=['bg','bg_beta','bg_dev','bg_canary','bg_internal','bg_upgradewizard'][QQORECHANNEL]
-    if pbResolveBitmap(_INTL("Graphics/UI/"+getDarkModeFolder+"/Load/{1}",title))
+    channelvar= QQORECHANNELVARIANT.to_s
+    title=['bg_0_'+channelvar,
+           'bg_1_'+channelvar,
+           'bg_2_'+channelvar,
+           'bg_3_'+channelvar,
+           'bg_4_'+channelvar,
+           'bg_5_'+channelvar][QQORECHANNEL]
+    title=['bg',
+           'bg_1',
+           'bg_2',
+           'bg_3',
+           'bg_4',
+           'bg_5'][QQORECHANNEL]  if !pbResolveBitmap(_INTL("Graphics/UI/"+getDarkModeFolder+"/Load/{1}",title)) || (QQORECHANNELVARIANT < 1)
+    title='bg' if !pbResolveBitmap(_INTL("Graphics/UI/"+getDarkModeFolder+"/Load/{1}",title))
+    title='bg_empty' if !pbResolveBitmap(_INTL("Graphics/UI/"+getDarkModeFolder+"/Load/{1}",title))
       addBackgroundOrColoredPlane(@sprites,"background",getDarkModeFolder+"/Load/"+title,
          Color.new(242,242,242),@viewport)
-    elsif pbResolveBitmap(sprintf("Graphics/UI/"+getDarkModeFolder+"/Load/bg"))
-      addBackgroundOrColoredPlane(@sprites,"background",getDarkModeFolder+"/Load/bg",
-         Color.new(242,242,242),@viewport)
-    else  # Hotfixing Prograda
-      addBackgroundOrColoredPlane(@sprites,"background",getDarkModeFolder+"/Load/bg_empty",
-         Color.new(242,242,242),@viewport)
-    end
       addBackgroundOrColoredPlane(@sprites,"partybg_title",getDarkModeFolder+"/party_bg",
          Color.new(12,12,12),@viewport)
     title=RTP.getGameIniValue("Game", "Game") # QQC Edit 

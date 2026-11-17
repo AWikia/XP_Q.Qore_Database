@@ -571,6 +571,7 @@ def ragefist
       @effects[PBEffects::Telekinesis]    = 0
       @effects[PBEffects::LaserFocus]     = 0 # changed
       @effects[PBEffects::SuperBooster]    = 0
+      @effects[PBEffects::MasteryShieldStat] = -1 # -1 equals deactivated
     else
       if @effects[PBEffects::LockOn]>0
         @effects[PBEffects::LockOn]=2
@@ -913,7 +914,13 @@ def ragefist
   def isFainted?
     return @hp<=0
   end
-
+  
+  def hasMasteryShield(stat)
+    return false if self.isFainted?
+    return @effects[PBEffects::MasteryShieldStat]>0 && 
+           @effects[PBEffects::MasteryShieldStat]==stat
+  end
+  
   def hasMoldBreaker(target=nil)
     if target
       return false if target.hasWorkingItem(:ABILITYSHIELD) || target.pbPartner.hasWorkingAbility(:ASSAULTSPIRIT)
@@ -2351,11 +2358,43 @@ def ragefist
         end
       end
     end
+    # Super Booster
     if self.hasWorkingItem(:SUPERBOOSTER) && onactive
       self.effects[PBEffects::SuperBooster]=3
       pbConsumeItem(false,false)
       @battle.pbCommonAnimation("StatUp",self,nil)
       @battle.pbDisplay(_INTL("{1}'s Super Booster made interim double stat changes!",pbThis))
+    end
+    echoln(self.effects[PBEffects::MasteryShieldStat])
+    # Mastery Shields
+    if (self.hasWorkingItem(:ATTACKMASTERYSHIELD) || 
+       self.hasWorkingItem(:DEFENSEMASTERYSHIELD) ||
+       self.hasWorkingItem(:SPATKMASTERYSHIELD) ||
+       self.hasWorkingItem(:SPDEFMASTERYSHIELD) ||
+       self.hasWorkingItem(:SPEEDMASTERYSHIELD) ||
+       self.hasWorkingItem(:ACCURACYMASTERYSHIELD) ||
+       self.hasWorkingItem(:EVASIVENESSMASTERYSHIELD)) &&
+       self.effects[PBEffects::MasteryShieldStat] < 1
+      active_stat = PBStats::ATTACK if self.hasWorkingItem(:ATTACKMASTERYSHIELD)
+      active_stat = PBStats::DEFENSE if self.hasWorkingItem(:DEFENSEMASTERYSHIELD)
+      active_stat = PBStats::SPATK if self.hasWorkingItem(:SPATKMASTERYSHIELD)
+      active_stat = PBStats::SPDEF if self.hasWorkingItem(:SPDEFMASTERYSHIELD)
+      active_stat = PBStats::SPEED if self.hasWorkingItem(:SPEEDMASTERYSHIELD)
+      active_stat = PBStats::ACCURACY if self.hasWorkingItem(:ACCURACYEMASTERYSHIELD)
+      active_stat = PBStats::EVASION if self.hasWorkingItem(:EVASIVENESSMASTERYSHIELD)
+      PBDebug.log("[Item triggered] #{pbThis}'s Mastery Shield")
+      self.stages[active_stat] = 6
+      anim=["StatUp","StatUpAttack","StatUpDefense","StatUpSpAtk","StatUpSpDef",
+            "StatUpSpeed","StatUpAccuracy","StatUpEvasion"][active_stat]
+      self.effects[PBEffects::MasteryShieldStat]=active_stat
+      @battle.pbCommonAnimation(anim,self,nil)
+      @battle.pbDisplay(_INTL("{1}'s {2} mastered and locked its {3}!",pbThis,PBItems.getName(self.item),PBStats.getName(active_stat)))
+      pbConsumeItem(false,false)
+    end
+    # Force the mastered stat at 6 stages
+    if self.effects[PBEffects::MasteryShieldStat] &&
+       self.effects[PBEffects::MasteryShieldStat] > 0 # Not for HP
+      self.stages[self.effects[PBEffects::MasteryShieldStat]]=6
     end
     # Intrepid Sword
     if self.hasWorkingAbility(:INTREPIDSWORD) && onactive
@@ -3193,6 +3232,11 @@ def ragefist
         end
         if target.hasWorkingAbility(:BAIKARI) && isConst?(movetype,PBTypes,:SUN)
           if target.pbIncreaseStatWithCause(PBStats::DEFENSE,2,target,PBAbilities.getName(target.ability))
+            PBDebug.log("[Ability triggered] #{target.pbThis}'s Baikari")
+          end
+        end
+        if target.hasWorkingAbility(:DAIRAKI) && isConst?(movetype,PBTypes,:MOON)
+          if target.pbIncreaseStatWithCause(PBStats::SPDEF,2,target,PBAbilities.getName(target.ability))
             PBDebug.log("[Ability triggered] #{target.pbThis}'s Baikari")
           end
         end

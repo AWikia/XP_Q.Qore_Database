@@ -264,7 +264,7 @@ end
   "010",
   "011",
   "012",
-  ['013','013_1','013_2','013_3','013_4','!013_5'][QQORECHANNEL],
+  ['013','013_1','013_2','013_3'][QQORECHANNEL],
   ['014','014_1','014_2','014_3'][pbGetSeason],
   "!015",
   "!016",
@@ -293,7 +293,7 @@ $TextFrames=[
   "010",
   "011",
   "012",
-  ['013','013_1','013_2','013_3','013_4','!013_5'][QQORECHANNEL],
+  ['013','013_1','013_2','013_3'][QQORECHANNEL],
   ['014','014_1','014_2','014_3'][pbGetSeason],
   "!015",
   "!016",
@@ -1016,12 +1016,12 @@ There are different modes:
             getBorderNames,
            _INTL("Sets the decorative border graphic when Screen Border is on.")
          ),
-         NumberOption.new(_INTL("Pokémon Box Item Graphic Set"),1,$PokemonBox.iconNames.length,
+         NumberOption.new(_INTL("Pokémon Box Item Graphic Set"),1,$PokemonSystem.pokebox_iconNames.length,
             proc { $PokemonSystem.pokeboxitemstyle },
             proc {|value|
                $PokemonSystem.pokeboxitemstyle=value
             },
-            $PokemonBox.iconNames,
+            $PokemonSystem.pokebox_iconNames,
            _INTL("Sets the graphics used for the Pokémon Box's Task Items.")
          )
       ]

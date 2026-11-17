@@ -815,7 +815,11 @@ class PokeBattle_Battler
       increment=pbIncreaseStatBasic(stat,increment,attacker,moldbreaker,ignoreContrary,ignoremirror)
       if increment>0
         if ignoremirror
-          @battle.pbDisplay(_INTL("{1}'s {2} activated!",attacker.pbThis,PBAbilities.getName(attacker.ability))) if upanim
+          if attacker.hasMasteryShield(stat)
+            @battle.pbDisplay(_INTL("{1}'s {2} Mastery Shield activated!",attacker.pbThis,PBStats.getName(stat))) if upanim
+          else
+            @battle.pbDisplay(_INTL("{1}'s {2} activated!",attacker.pbThis,PBAbilities.getName(attacker.ability))) if upanim
+          end
         end
         if ignoreContrary
           @battle.pbDisplay(_INTL("{1}'s {2} activated!",pbThis,PBAbilities.getName(self.ability))) if upanim
@@ -875,7 +879,11 @@ class PokeBattle_Battler
       increment=pbIncreaseStatBasic(stat,increment,attacker,moldbreaker,ignoreContrary,ignoremirror)
       if increment>0
         if ignoremirror
-          @battle.pbDisplay(_INTL("{1}'s {2} activated!",attacker.pbThis,PBAbilities.getName(attacker.ability))) if showanim
+          if attacker.hasMasteryShield(stat)
+            @battle.pbDisplay(_INTL("{1}'s {2} Mastery Shield activated!",attacker.pbThis,PBStats.getName(stat))) if upanim
+          else
+            @battle.pbDisplay(_INTL("{1}'s {2} activated!",attacker.pbThis,PBAbilities.getName(attacker.ability))) if upanim
+          end
         end
         if ignoreContrary
           @battle.pbDisplay(_INTL("{1}'s {2} activated!",pbThis,PBAbilities.getName(self.ability))) if showanim
@@ -943,7 +951,7 @@ class PokeBattle_Battler
         if hasWorkingAbility(:CONTRARY) && !ignoreContrary
           return pbCanIncreaseStatStage?(stat,attacker,showMessages,move,moldbreaker,true,ignoremirror)
         end
-        if hasWorkingAbility(:MIRRORARMOR) && !(ignoremirror || selfreduce)
+        if (hasWorkingAbility(:MIRRORARMOR) || hasMasteryShield(stat)) && !(ignoremirror || selfreduce)
           return attacker.pbCanReduceStatStage?(stat,self,showMessages,move,moldbreaker,ignoreContrary,true)
         end
       end
@@ -1047,7 +1055,7 @@ class PokeBattle_Battler
         if hasWorkingAbility(:CONTRARY) && !ignoreContrary
           return pbIncreaseStatBasic(stat,increment,attacker,moldbreaker,true)
         end
-        if hasWorkingAbility(:MIRRORARMOR) && !ignoremirror
+        if (hasWorkingAbility(:MIRRORARMOR) || hasMasteryShield(stat)) && !ignoremirror
           return attacker.pbReduceStatBasic(stat,increment,self,moldbreaker,ignoreContrary,true)
         end
         increment*=2 if hasWorkingAbility(:SIMPLE) || @battle.pbTerrain==PBBattleTerrains::LOVELY 
@@ -1067,7 +1075,7 @@ class PokeBattle_Battler
         if hasWorkingAbility(:CONTRARY) && !ignoreContrary
           return pbIncreaseStat(stat,increment,attacker,showMessages,move,downanim,moldbreaker,true,ignoremirror)
         end
-        if hasWorkingAbility(:MIRRORARMOR) && !ignoremirror
+        if (hasWorkingAbility(:MIRRORARMOR)|| hasMasteryShield(stat)) && !ignoremirror
           return attacker.pbReduceStat(stat,increment,self,showMessages,move,downanim,moldbreaker,ignoreContrary,true)
         end
       end
@@ -1083,7 +1091,11 @@ class PokeBattle_Battler
           @battle.pbDisplay(_INTL("{1}'s {2} activated!",pbThis,PBAbilities.getName(self.ability))) if downanim
         end
         if ignoremirror
-          @battle.pbDisplay(_INTL("{1}'s {2} activated!",attacker.pbThis,PBAbilities.getName(attacker.ability))) if downanim
+          if attacker.hasMasteryShield(stat)
+            @battle.pbDisplay(_INTL("{1}'s {2} Mastery Shield activated!",attacker.pbThis,PBStats.getName(stat))) if downanim
+          else
+            @battle.pbDisplay(_INTL("{1}'s {2} activated!",attacker.pbThis,PBAbilities.getName(attacker.ability))) if downanim
+          end
         end
         if downanim
           if downanim == 'mix'
@@ -1140,7 +1152,7 @@ class PokeBattle_Battler
         if hasWorkingAbility(:CONTRARY) && !ignoreContrary
           return pbIncreaseStatWithCause(stat,increment,attacker,cause,showanim,showmessage,moldbreaker,true,ignoremirror)
         end
-        if hasWorkingAbility(:MIRRORARMOR) && !ignoreContrary
+        if (hasWorkingAbility(:MIRRORARMOR)|| hasMasteryShield(stat)) && !ignoreContrary
           return attacker.pbReduceStatWithCause(stat,increment,self,cause,showanim,showmessage,moldbreaker,ignoreContrary,true)
         end
       end
@@ -1156,7 +1168,11 @@ class PokeBattle_Battler
           @battle.pbDisplay(_INTL("{1}'s {2} activated!",pbThis,PBAbilities.getName(self.ability))) if showanim
         end
         if ignoremirror
-          @battle.pbDisplay(_INTL("{1}'s {2} activated!",attacker.pbThis,PBAbilities.getName(attacker.ability))) if showanim
+          if attacker.hasMasteryShield(stat)
+            @battle.pbDisplay(_INTL("{1}'s {2} Mastery Shield activated!",attacker.pbThis,PBStats.getName(stat))) if downanim
+          else
+            @battle.pbDisplay(_INTL("{1}'s {2} activated!",attacker.pbThis,PBAbilities.getName(attacker.ability))) if downanim
+          end
         end
         if showanim
           if showanim == 'mix'

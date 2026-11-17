@@ -351,7 +351,7 @@ ItemHandlers::UseFromBag.add(:TERRAINSEEDSELECTIONCHEST,proc{|item|
 })
 
 ItemHandlers::UseFromBag.add(:FLAGSELECTIONCHEST,proc{|item|
-  itemlist=[:BLACKFLAG,:WHITELFAG,:EVENTSRACE,:CHAMPIONSRACE]
+  itemlist=[:BLACKFLAG,:WHITEFLAG,:EVENTSRACE,:CHAMPIONSRACE]
   next pbChestItem(item,itemlist,2)
 })
 
@@ -452,7 +452,9 @@ ItemHandlers::UseFromBag.add(:RANDOMPOKEMONFRAGMENT,proc{|item|
     Kernel.pbMessage(_INTL("You need at least 40 fragments in order to obtain a Pokémon."))
     next 0
   end
-  if pbAddPokemon(randomSpecies,5)
+  p=PokeBattle_Pokemon.new(randomSpecies,5,$Trainer)
+  p.obtainText="Random Pokémon Fragments"
+  if Kernel.pbAddPokemon(p)
     $PokemonBag.pbDeleteItem(item,40)
     return 0
   else
@@ -460,6 +462,57 @@ ItemHandlers::UseFromBag.add(:RANDOMPOKEMONFRAGMENT,proc{|item|
     return 0
   end  
 })
+
+ItemHandlers::UseFromBag.add(:RANDOMMEGASTONEFRAGMENT,proc{|item|
+  if $PokemonBag.pbQuantity(item)<40
+    Kernel.pbMessage(_INTL("You need at least 40 fragments in order to obtain a Mega Stone."))
+    next 0
+  end
+  stones=[
+  # XY
+  :ALAKAZITE,:GENGARITE,:KANGASKHANITE,
+  :PINSIRITE,:GYARADOSITE,:AERODACTYLITE,
+  :AMPHAROSITE,:SCIZORITE,:HERACRONITE,
+  :HOUNDOOMINITE,:TYRANITARITE,:GARDEVOIRITE,
+  :MAWILITE,:AGGRONITE,:MEDICHAMITE,
+  :MANECTRITE,:BANETTITE,:ABSOLITE,
+  :LATIASITE,:LATIOSITE,:GARCHOMPITE,
+  :LUCARIONITE,
+  # ORAS
+  :BEEDRILLITE,:PIDGEOTITE,:SLOWBRONITE,
+  :STEELIXITE,:SABLENITE,:SHARPEDONITE,
+  :CAMERUPTITE,:ALTARIANITE,:GLALITITE,
+  :SALAMENCITE,:METAGROSSITE,:LOPUNNITE,
+  :GALLADITE,:AUDINITE,
+  # Z-A
+  :CLEFABLITE,:VICTREEBELITE,:STARMINITE,
+  :DRAGONINITE,:SKARMORITE,:FROSLASSITE,
+  :EXCADRITE,:SCOLIPITE,:SCRAFTINITE,
+  :EELEKTROSSITE,:CHANDELURITE,:PYROARITE,
+  :FLOETTITE,:RARBARACITE,:DRAGALGITE,
+  :HAWLUCHANITE,:DRAMPANITE,:FALINKSITE,
+  # Z-A MD
+  :RAICHUNITEX,:RAICHUNITEY,:CHIMECHITE,
+  :ABSOLITEZ,:STARAPTITE,:GARCHOMPITEZ,
+  :LUCARIONITEZ,:GOLURKITE,:MEOWSTICITE,
+  :CRABOMINITE,:GOLISOPITE,:MAGEARNITE,
+  :ZERAORITE,:SCOVILLAINITE,:GLIMMORANITE,
+  :TATSUGIRINITE,:BAXCALIBRITE,
+  # Q.Qore
+  :GIRAFARIGITE,:ANT1ITE,:MAKITE,
+  :BARNEYITE,:ANDROIDITE,:COPILOTITE,
+  :NICKITE,:HEARTBRANDITE,:HEARTBRANDITE2,
+  :HEARTBRANDITE3
+  ]
+  if Kernel.pbReceiveItem(stones[rand(stones.length)])
+    $PokemonBag.pbDeleteItem(item,40)
+    return 0
+  else
+    Kernel.pbMessage(_INTL("You don't have enough space to store the item. Make room and come again."))
+    return 0
+  end  
+})
+
 
 
 ItemHandlers::UseFromBag.add(:BICYCLE,proc{|item|
@@ -512,6 +565,7 @@ ItemHandlers::UseFromBag.add(:EXPALLOFF,proc{|item|
 # ComposeFromBag handlers
 #===============================================================================
 
+# Shards => Material Ftagments
 ItemHandlers::ComposeFromBag.add(:REDSHARD,proc{|item|
    return [3,:REDCIRCLEFRAGMENT,1]
 })
@@ -551,6 +605,41 @@ ItemHandlers::ComposeFromBag.add(:EPICDAILYCHEST,proc{|item|
    return 0 if pbGetCardLevel<4
    return [2,:LEGENDARYDAILYCHEST,1]
 })
+
+# Material Fragments => Materials
+ItemHandlers::ComposeFromBag.add(:REDCIRCLEFRAGMENT,proc{|item|
+   return [60,:REDCIRCLE,1]
+})
+
+ItemHandlers::ComposeFromBag.add(:YELLOWSQUAREEFRAGMENT,proc{|item|
+   return [60,:YELLOWSQUARE,1]
+})
+
+ItemHandlers::ComposeFromBag.add(:BLUETRIANGLEFRAGMENT,proc{|item|
+   return [60,:BLUETRIANGLE,1]
+})
+
+ItemHandlers::ComposeFromBag.add(:GREENPENTAGONFRAGMENT,proc{|item|
+   return [60,:GREENPENTAGON,1]
+})
+
+# Materials => Empowered Materials
+ItemHandlers::ComposeFromBag.add(:REDCIRCLE,proc{|item|
+   return [3,:EMPOWEREDREDCIRCLE,1]
+})
+
+ItemHandlers::ComposeFromBag.add(:YELLOWSQUARE,proc{|item|
+   return [3,:EMPOWEREDYELLOWSQUARE,1]
+})
+
+ItemHandlers::ComposeFromBag.add(:BLUETRIANGLE,proc{|item|
+   return [3,:EMPOWEREDBLUETRIANGLE,1]
+})
+
+ItemHandlers::ComposeFromBag.add(:GREENPENTAGON,proc{|item|
+   return [3,:EMPOWEREDGREENPENTAGON,1]
+})
+
 
 #===============================================================================
 # UseInField handlers

@@ -33,14 +33,12 @@ BORDERWIDTH          = 80
 BORDERHEIGHT         = 48 # Was 80
 MAPVIEWMODE          = 1
 QQORECHANNEL         = 0
-QQORECHANNEL         = 1 if  RTP2.getGameIniValue("Qortex", "Channel") == "Beta" # IE Mode throttles channel to beta
-QQORECHANNEL         = 2 if (RTP2.getGameIniValue("Qortex", "Channel") == "Dev" ||
-                             RTP2.getGameIniValue("Qortex", "Channel") == "Alpha")
-QQORECHANNEL         = 3 if  RTP2.getGameIniValue("Qortex", "Channel") == "Canary"
-QQORECHANNEL         = 4 if (RTP2.getGameIniValue("Qortex", "Channel") == "Internal" ||
+QQORECHANNEL         = 1 if (RTP2.getGameIniValue("Qortex", "Channel") == "Beta" ||
+                             RTP2.getGameIniValue("Qortex", "Channel") == "Insiders")
+QQORECHANNEL         = 2 if (RTP2.getGameIniValue("Qortex", "Channel") == "Internal" ||
                              RTP2.getGameIniValue("Qortex", "Channel") == "LTSC" ||
                              RTP2.getGameIniValue("Qortex", "Channel") == "Internal Canary")
-QQORECHANNEL         = 5 if (RTP2.getGameIniValue("Qortex", "Channel") == "Upgrade Wizard" ||
+QQORECHANNEL         = 3 if (RTP2.getGameIniValue("Qortex", "Channel") == "Upgrade Wizard" ||
                              RTP2.getGameIniValue("Qortex", "Channel") == "Release Preview")
 QQORECHANNELVARIANT  = 0
 QQORECHANNELVARIANT  = 1 if (RTP2.getGameIniValue("Qortex", "Channel") == "Internal" ||
@@ -525,7 +523,7 @@ PBOX_ELITE_SWITCH         = 1046
 #      - The Global Variable that is used to record the mode of the feature
 #===============================================================================
 WIN_STREAK_VARIABLE       = 1007
-DTM_VARIABLES             = [1009,1010,1008]
+DTM_VARIABLES             = [1009,1010,1026]
 PBOX_VARIABLES            = [1012,1013,1014,1015,1016,1017,1018,1022]
 DWIN_VARIABLES            = [1019,1020,1021,1023,1024,1025]
 

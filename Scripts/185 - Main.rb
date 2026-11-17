@@ -50,7 +50,7 @@ def getBorders # Edit this along with getBorderNames to add more borders
         "Borders/border",
         getDarkModeFolder+"/Borders/border_1",
         "Borders/border_2",
-        getDarkModeFolder+"/Borders/border_3"+['','_beta','_dev','_canary','_internal','_upgradewizard'][QQORECHANNEL],
+        getDarkModeFolder+"/Borders/border_3"+['','_beta','_internal','_upgradewizard'][QQORECHANNEL],
         getAccentFolder+"/border_4",
         getDarkModeFolder+"/Borders/border_5",
         getDarkModeFolder+"/Borders/border_6",

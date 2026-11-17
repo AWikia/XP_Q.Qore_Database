@@ -160,6 +160,7 @@ begin
     BoxAbilityTask     = 156 # For Pokemon Box
     BoxItemTask        = 157 # For Pokemon Box
     BoxMoldTask        = 158 # For Pokemon Box
+    MasteryShieldStat  = 159
     
     ############################################################################
     # These effects apply to a side

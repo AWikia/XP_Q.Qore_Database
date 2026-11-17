@@ -215,7 +215,7 @@ end
 # Returns the Adjusted National Pokedex Ordering done in Q.Qore (With Q.Qore
 # Pokemon to the top and the Regular Species after them
 def getQoreDexList(dexlist)
-  return dexlist[649..848] | dexlist[921..940] | dexlist[1029..1048] | dexlist[1130..1139] | dexlist[1148..1247] | dexlist[1358..1367] | dexlist[1385..1564] | dexlist[0..648] | dexlist[849..920] | dexlist[941..1028] | dexlist[1049..1129] | dexlist[1140..1147] | dexlist[1248..1357] | dexlist[1368..1384] | dexlist[1565..3999]
+  return dexlist[649..848] | dexlist[921..940] | dexlist[1029..1048] | dexlist[1130..1139] | dexlist[1148..1247] | dexlist[1358..1367] | dexlist[1385..1644] | dexlist[0..648] | dexlist[849..920] | dexlist[941..1028] | dexlist[1049..1129] | dexlist[1140..1147] | dexlist[1248..1357] | dexlist[1368..1384] | dexlist[1645..9999]
 end
   
 def getDexNumber(indexNumber=0)
@@ -257,7 +257,7 @@ def getDexNumber(indexNumber=0)
         fnum = "0" + fnum
       end
       fdexno = "Q" + fnum
-    elsif indexNumber > 1385 and indexNumber < 1566 # Κορα Κορε Generation II
+    elsif indexNumber > 1385 and indexNumber < 1646 # Κορα Κορε Generations II & III
       fnum = (indexNumber - 1025).to_s
       while (fnum.length < 3)
         fnum = "0" + fnum
@@ -305,8 +305,8 @@ def getDexNumber(indexNumber=0)
         fdexno = "0" + fdexno
       end
       fdexno = fdexno + ""
-    elsif indexNumber > 1565 # Generation IX C
-      fdexno = (indexNumber - 540).to_s
+    elsif indexNumber > 1645 # Generation IX C
+      fdexno = (indexNumber - 620).to_s
       while (fdexno.length < 4)
         fdexno = "0" + fdexno
       end
@@ -353,7 +353,7 @@ def getAccentFolder
     if (($PokemonSystem.accentcolor!=24 rescue false)) # Accent Color 19 is hardcoded to be the channel-aware ones
       return "Accents/Accent Color " + $PokemonSystem.accentcolor.to_s
     elsif ($PokemonSystem.accentcolor<getAccentNames.length rescue false)
-      return "Accents/Accent Color " + $PokemonSystem.accentcolor.to_s + ["/Stable","/Beta","/Dev","/Canary","/Internal","/Upgrade Wizard"][QQORECHANNEL]
+      return "Accents/Accent Color " + $PokemonSystem.accentcolor.to_s + ["/Stable","/Beta","/Internal","/Upgrade Wizard"][QQORECHANNEL]
     else
       return "Accents/Accent Color " + "16"
     end
@@ -440,13 +440,15 @@ def pbCheckDTM
   if $PokemonBag.pbQuantity(:PCSTORAGEBOX)>0 && $PokemonBag.pbQuantity(:POKEMONBOX)==0
     $PokemonBag.pbStoreItem(:POKEMONBOX,1)
   end
-  expiredbox= pbTimeEventValid(PBOX_VARIABLES[3])
-  if $game_variables[PBOX_VARIABLES[1]] == 0 || expiredbox
-       scene=PokemonBoxScene.new
-       screen=PokemonBoxEvent.new(scene)
-       pbFadeOutIn(99999) { 
-          screen.pbStartScreen(expiredbox)
-       }
+  if $PokemonBag.pbQuantity(:POKEMONBOX)>0
+    expiredbox= pbTimeEventValid(PBOX_VARIABLES[3])
+    if $game_variables[PBOX_VARIABLES[1]] == 0 || expiredbox
+         scene=PokemonBoxScene.new
+         screen=PokemonBoxEvent.new(scene)
+         pbFadeOutIn(99999) { 
+            screen.pbStartScreen(expiredbox)
+         }
+    end
   end
   # Daily Win
   if $game_switches[5] && $PokemonBag.pbQuantity(:DAILYWIN)==0
@@ -841,6 +843,64 @@ def pbGetCardLevel
     end
   end
   return level
+end
+
+# Returns a random Pokemon Species ID that can be legitimately earned by using
+# 60 Random Pokemon Fragments
+def randomSpecies
+  pok=PokeBattle_Pokemon.new(PBSpecies::DITTO,1)
+  pok2=PokeBattle_Pokemon.new(PBSpecies::DITTO,1)
+  pok3=PokeBattle_Pokemon.new(PBSpecies::DITTO,1)
+  # These Pokemon can never appear as Random Species
+  blacklist=[
+    # First Partner Pokemon
+    PBSpecies::BULBASAUR,PBSpecies::CHARMANDER,PBSpecies::SQUIRTLE,
+    PBSpecies::CHIKORITA,PBSpecies::CYNDAQUIL,PBSpecies::TOTODILE,
+    PBSpecies::TREECKO,PBSpecies::TORCHIC,PBSpecies::MUDKIP,
+    PBSpecies::TURTWIG,PBSpecies::CHIMCHAR,PBSpecies::PIPLUP,
+    PBSpecies::SNIVY,PBSpecies::TEPIG,PBSpecies::OSHAWOTT,
+    PBSpecies::CHESPIN,PBSpecies::FENNEKIN,PBSpecies::FROAKIE,
+    PBSpecies::ROWLET,PBSpecies::LITTEN,PBSpecies::POPPLIO,
+    PBSpecies::GROOKEY,PBSpecies::SCORBUNNY,PBSpecies::SOBBLE,
+    PBSpecies::SPRIGATITO,PBSpecies::FUECOCO,PBSpecies::QUAXLY,
+    # Certain species (Like MYSTERY ZONE ones)
+    PBSpecies::ROTOM,PBSpecies::PHIONE,PBSpecies::MANAPHY,PBSpecies::Q2PO,
+    PBSpecies::Q3PO,PBSpecies::SALEM,PBSpecies::SYLVIA,PBSpecies::GRAYTEA,
+    # Unreleased Pokemon not in blacklist group
+    PBSpecies::AZANGRASS,PBSpecies::AZANLEAF
+  ]
+  groupblacklist=[PBEggGroups::Ditto,PBEggGroups::Undiscovered]
+  # Regardless of blacklist, these Pokemon can always appear as Random Pokemon
+  whitelist=[PBSpecies::DITTO,PBSpecies::PACMAN,PBSpecies::UNOWN,
+             PBSpecies::CRUSBYSYMANTEC,PBSpecies::CHARMADIA,PBSpecies::YATASAUR,
+             PBSpecies::OPERABM,PBSpecies::VARTA,PBSpecies::GLOCK,
+             PBSpecies::GIMMIGHOUL,PBSpecies::SCORMEDIA,PBSpecies::VERGINA]
+  sp=0
+  loop do
+    sp=rand(PBSpecies.maxValue) # 1255  
+    pok.species=sp
+    # Prev form
+    prevspec=pbGetPreviousForm(pok.species)
+    pok2.species=prevspec
+    # Next Form
+    evospecies=pbGetEvolvedFormData(sp)
+    pok3.species=(evospecies && evospecies[0]) ? evospecies[0][2] : sp
+    # Blacklists
+    gblack1=groupblacklist.include?(pok.egroup1) || groupblacklist.include?(pok.egroup2)
+    gblack2=groupblacklist.include?(pok2.egroup1) || groupblacklist.include?(pok2.egroup2)
+    gblack3=groupblacklist.include?(pok3.egroup1) || groupblacklist.include?(pok3.egroup2)
+    # Further allowed species
+    break if whitelist.include?(sp) ||      # Whitelisted Species
+            (gblack2 && !gblack1) ||        # Baby's Evolved Form
+            (gblack1 && !gblack3)           # Baby Species
+            
+    # Disallowed Species
+    break unless blacklist.include?(sp) ||  # Blacklisted Species
+                 sp != prevspec ||          # Evolved Species
+                 gblack1                    # Is in blacklisted groups
+  end
+#  echoln(PBSpecies.getName(pok.species))
+  return sp
 end
 
 # Adds a Rental Season Mastery Pokemon
@@ -2396,13 +2456,25 @@ def pbItemIconFile(item)
   bitmapFileName = nil
   if item==0
     bitmapFileName = sprintf("Graphics/Items/back")
-  elsif item==827 && QQORECHANNEL>0 && QQORECHANNEL<6 # Qora Qore Master
-    bitmapFileName = _INTL("Graphics/Items/827_{1}",QQORECHANNEL)
-  elsif item==10140# # Pokemon Box
-    $PokemonBox = PokemonBoxScene.new if !$PokemonBox
-    bitmapFileName = _INTL("Graphics/Items/1014_{1}{2}",$PokemonBox.currentStage(false),$PokemonBox.stageSuffix)
   else
-    bitmapFileName = sprintf("Graphics/Items/%s",getConstantName(PBItems,item)) rescue nil
+    # Begin Suffixes
+    suffix=""
+    if item==getID(PBItems,:TQOREMASTER) && QQORECHANNEL>0 && QQORECHANNEL<6 # Qora Qore Master
+      suffix=QQORECHANNEL
+    elsif item==getID(PBItems,:POKEMONBOX) #1014 # # Pokemon Box
+      $PokemonBox = PokemonBoxScene.new if !$PokemonBox
+      suffix=$PokemonBox.currentStage(false).to_s+$PokemonBox.stageSuffix
+    elsif item==getID(PBItems,:DAILYTREATMACHINE) #1014 # # Pokemon Box
+      suffix=pbGetCardLevel
+    end
+    bitmapFileName = nil
+    suffix=suffix.to_s
+    # End Suffixes
+    if suffix !=""
+      bitmapFileName = sprintf("Graphics/Items/%s_%s",getConstantName(PBItems,item),suffix) rescue nil if !pbResolveBitmap(bitmapFileName)
+      bitmapFileName = sprintf("Graphics/Items/%03d_%s",item,suffix) if !pbResolveBitmap(bitmapFileName)
+    end
+    bitmapFileName = sprintf("Graphics/Items/%s",getConstantName(PBItems,item)) rescue nil if !pbResolveBitmap(bitmapFileName)
     bitmapFileName = sprintf("Graphics/Items/%03d",item) if !pbResolveBitmap(bitmapFileName)
     if !pbResolveBitmap(bitmapFileName) && pbIsMachine?(item)
       move = pbGetMachine(item)

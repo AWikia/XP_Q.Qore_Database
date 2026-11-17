@@ -14,15 +14,28 @@ class DailyTreatMachineScene
     @viewport2.z=99999
     @sprites["machine"]=IconSprite.new((Graphics.width/4)-138,76,@viewport)
     level = pbGetCardLevel
+    @machinestarted=false
+    # Streak Lost
+    losestreak=false
+    oldstreak=$game_variables[DTM_VARIABLES[0]]
     if pbTimeEventValid(DTM_VARIABLES[1])
       $game_variables[DTM_VARIABLES[0]]=0
+      losestreak=true
     end
+    # Last Used Level
+    upgraded=false
+    if $game_variables[DTM_VARIABLES[2]]>0 && 
+       $game_variables[DTM_VARIABLES[2]] <= level
+      upgraded=true
+    end
+    $game_variables[DTM_VARIABLES[2]] = 1 + level
+    # Increase Streak
     $game_variables[DTM_VARIABLES[0]]+=1
     addBackgroundPlane(@sprites,"bg",getDarkModeFolder+"/Daily Treat Machine/bg_"+level.to_s,@viewport)
-    @sprites["machine"].setBitmap(_INTL("Graphics/UI/"+getDarkModeFolder+"/Daily Treat Machine/overlay_machine"))
+    @sprites["machine"].setBitmap(_INTL("Graphics/UI/"+getDarkModeFolder+"/Daily Treat Machine/overlay_machine_"+level.to_s))
     @sprites["bg"].z = 1
     @sprites["machine"].z = 2
-    @sprites["header"]=Window_UnformattedTextPokemon.newWithSize(_INTL("Daily Rewards - Load Streak: {1}",$game_variables[DTM_VARIABLES[0]]),
+    @sprites["header"]=Window_UnformattedTextPokemon.newWithSize(_INTL("Daily Treat Machine - Load Streak: {1}",$game_variables[DTM_VARIABLES[0]]),
        2,-18,400,64,@viewport)
     @sprites["header"].baseColor=(isDarkMode?) ? Color.new(242,242,242) : Color.new(12,12,12)
     @sprites["header"].shadowColor=nil #(!isDarkMode?) ? Color.new(242,242,242) : Color.new(12,12,12)
@@ -41,91 +54,58 @@ class DailyTreatMachineScene
     end
     pbDrawImagePositions(@overlaystar,imagepos)
     pbSetSystemFont(@sprites["overlay"].bitmap)
-    @items=[
-            :COMMONDAILYCHEST,
-            :COMMONDAILYCHEST,:COMMONDAILYCHEST,
-            :COMMONDAILYCHEST,:COMMONDAILYCHEST,:COMMONDAILYCHEST,
-            :COMMONDAILYCHEST,:COMMONDAILYCHEST,:COMMONDAILYCHEST,:COMMONDAILYCHEST,
-            :COMMONDAILYCHEST,:COMMONDAILYCHEST,:COMMONDAILYCHEST,:COMMONDAILYCHEST,
-            :COMMONDAILYCHEST,:COMMONDAILYCHEST,:COMMONDAILYCHEST,
-            :COMMONDAILYCHEST,:COMMONDAILYCHEST,
-            :UNCOMMONDAILYCHEST
-            ]
-    @rfrag   = [0,0,0,0,0,0,0,0,0,1]  # Random Pokemon Fragment
-    @rfragRB = [0,0,0,0,0,0,0,0,0,0]  # Random Remote Box Fragment
+    @items     = [0,0,0,0,0,0,0,1]  # Daily Chest
+    @rfrag     = [0,1]              # Random Pokemon Fragment
+    @rfragMS   = [0]                # Random Mega Stone Fragment
+    @rfragRB   = [0]                # Random Remote Box Fragment
     if level>=1
-      @items=[
-              :COMMONDAILYCHEST,
-              :COMMONDAILYCHEST,:COMMONDAILYCHEST,
-              :COMMONDAILYCHEST,:COMMONDAILYCHEST,:COMMONDAILYCHEST,
-              :COMMONDAILYCHEST,:COMMONDAILYCHEST,:COMMONDAILYCHEST,:COMMONDAILYCHEST,
-              :COMMONDAILYCHEST,:COMMONDAILYCHEST,:COMMONDAILYCHEST,:COMMONDAILYCHEST,
-              :UNCOMMONDAILYCHEST,:UNCOMMONDAILYCHEST,:UNCOMMONDAILYCHEST,
-              :UNCOMMONDAILYCHEST,:UNCOMMONDAILYCHEST,
-              :RAREDAILYCHEST
-              ]
-      @rfrag   = [0,0,0,0,0,0,0,1,1,2]  # Random Pokemon Fragment
-      @rfragRB = [0,0,0,0,0,0,0,0,0,0]  # Random Remote Box Fragment
+      @items   = [0,0,0,0,0,1,1,2]  # Daily Chest
+      @rfrag   = [0,1,1,2]          # Random Pokemon Fragment
+      @rfragMS = [0]                # Random Mega Stone Fragment
+      @rfragRB = [0]                # Random Remote Box Fragment
     end
     if level>=2
-      @items=[
-              :COMMONDAILYCHEST,
-              :COMMONDAILYCHEST,:COMMONDAILYCHEST,
-              :UNCOMMONDAILYCHEST,:UNCOMMONDAILYCHEST,:UNCOMMONDAILYCHEST,
-              :UNCOMMONDAILYCHEST,:UNCOMMONDAILYCHEST,:UNCOMMONDAILYCHEST,:UNCOMMONDAILYCHEST,
-              :UNCOMMONDAILYCHEST,:UNCOMMONDAILYCHEST,:UNCOMMONDAILYCHEST,:UNCOMMONDAILYCHEST,
-              :RAREDAILYCHEST,:RAREDAILYCHEST,:RAREDAILYCHEST,
-              :RAREDAILYCHEST,:RAREDAILYCHEST,
-              :ELITEDAILYCHEST
-              ]
-      @rfrag   = [0,0,0,0,1,1,1,2,2,3]  # Random Pokemon Fragment
-      @rfragRB = [0,0,0,0,0,0,0,0,0,0]  # Random Remote Box Fragment
+      @items   = [0,0,1,1,1,2,2,3]  # Daily Chest
+      @rfrag   = [0,0,1,1,1,2,2,3]  # Random Pokemon Fragment
+      @rfragMS = [0,1]              # Random Mega Stone Fragment
+      @rfragRB = [0]                # Random Remote Box Fragment
     end
     if level>=3
-      @items=[
-              :UNCOMMONDAILYCHEST,
-              :UNCOMMONDAILYCHEST,:UNCOMMONDAILYCHEST,
-              :UNCOMMONDAILYCHEST,:UNCOMMONDAILYCHEST,:UNCOMMONDAILYCHEST,
-              :RAREDAILYCHEST,:RAREDAILYCHEST,:RAREDAILYCHEST,:RAREDAILYCHEST,
-              :RAREDAILYCHEST,:RAREDAILYCHEST,:RAREDAILYCHEST,:RAREDAILYCHEST,
-              :ELITEDAILYCHEST,:ELITEDAILYCHEST,:ELITEDAILYCHEST,
-              :ELITEDAILYCHEST,:ELITEDAILYCHEST,
-              :EPICDAILYCHEST
-              ]
-      @rfrag   = [1,1,1,1,2,2,2,3,3,4]  # Random Pokemon Fragment
-      @rfragRB = [0,0,0,0,0,0,0,0,0,1]  # Random Remote Box Fragment
+      @items   = [1,1,1,2,2,3,3,4]  # Daily Chest
+      @rfrag   = [1,1,1,2,2,3,3,4]  # Random Pokemon Fragment
+      @rfragMS = [0,1,2,2]          # Random Mega Stone Fragment
+      @rfragRB = [0,1]              # Random Remote Box Fragment
     end
     if level>=4
-      @items=[
-              :UNCOMMONDAILYCHEST,
-              :RAREDAILYCHEST,:RAREDAILYCHEST,
-              :RAREDAILYCHEST,:RAREDAILYCHEST,:RAREDAILYCHEST,
-              :ELITEDAILYCHEST,:ELITEDAILYCHEST,:ELITEDAILYCHEST,:ELITEDAILYCHEST,
-              :ELITEDAILYCHEST,:ELITEDAILYCHEST,:ELITEDAILYCHEST,:ELITEDAILYCHEST,
-              :EPICDAILYCHEST,:EPICDAILYCHEST,:EPICDAILYCHEST,
-              :EPICDAILYCHEST,:EPICDAILYCHEST,
-              :LEGENDARYDAILYCHEST
-              ]
-      @rfrag   = [1,1,1,2,2,2,2,3,3,4]  # Random Pokemon Fragment
-      @rfragRB = [0,0,0,0,0,0,0,1,1,2]  # Random Remote Box Fragment
+      @items   = [1,2,2,3,3,4,4,5]  # Daily Chest
+      @rfrag   = [1,1,2,2,2,3,3,4]  # Random Pokemon Fragment
+      @rfragMS = [0,0,1,1,1,2,3,3]  # Random Mega Stone Fragment
+      @rfragRB = [0,1,1,2]          # Random Remote Box Fragment
     end
     if level>=5
-      @items=[
-              :RAREDAILYCHEST,
-              :ELITEDAILYCHEST,:ELITEDAILYCHEST,
-              :ELITEDAILYCHEST,:ELITEDAILYCHEST,:ELITEDAILYCHEST,
-              :EPICDAILYCHEST,:EPICDAILYCHEST,:EPICDAILYCHEST,:EPICDAILYCHEST,
-              :EPICDAILYCHEST,:EPICDAILYCHEST,:EPICDAILYCHEST,:EPICDAILYCHEST,
-              :LEGENDARYDAILYCHEST,:LEGENDARYDAILYCHEST,:LEGENDARYDAILYCHEST,
-              :LEGENDARYDAILYCHEST,:LEGENDARYEDAILYCHEST,
-              [:LEGENDARYDAILYCHEST,2]
-              ]
-      @rfrag   = [1,1,1,2,2,2,3,3,3,4]  # Random Pokemon Fragment
-      @rfragRB = [0,0,0,0,0,0,1,2,2,3]  # Random Remote Box Fragment
-
+      @items   = [1,2,2,3,3,4,4,5]  # Daily Chest
+      @rfrag   = [1,2,2,2,3,3,3,4]  # Random Pokemon Fragment
+      @rfragMS = [1,1,1,2,2,3,3,4]  # Random Mega Stone Fragment
+      @rfragRB = [0,0,1,1,1,2,2,3]  # Random Remote Box Fragment
     end
+    @rfragMS = [0] if !hasSupercharger? # Don't throw Random Mega Stone Fragments when player has no Mega Ring
     pbTreatMachine
     pbFadeInAndShow(@sprites) { update }
+    if upgraded
+      if level>4
+        Kernel.pbMessage(_INTL("\\me[EvolutionSuccess_1]Machine fully upgraded! Maximum reward chances unlocked."))
+      else
+        Kernel.pbMessage(_INTL("\\me[EvolutionSuccess_1]Machine upgraded! Improved reward chances unlocked."))
+      end
+    end
+    if losestreak
+        Kernel.pbMessage(_INTL("\\me[EvolutionCancelled]Oh no! You've broke your {1} load streak while you were taking your break.",oldstreak))
+    end
+    4.times do
+      Graphics.update
+      Input.update
+    end
+    @machinestarted=true
   end
 
   def pbTreatMachine
@@ -141,7 +121,7 @@ class DailyTreatMachineScene
     textPositions=[
        [_INTL("How to use:"),(Graphics.width/4)-14,0,2,baseColor,shadowColor],
     ]
-    text = _INTL("Press \"C\" to start the machine and get a reward chest")
+    text = _INTL("Get rewards from the machine each day.")
     text2 = _INTL("Extra reward is awarded every 7 consecutive game loads")
     text3 = _INTL("Machine upgrades as you progress the game")
     text4 = _INTL("Use a Heart Scale or Ad Quests for additional rewards")
@@ -168,12 +148,27 @@ class DailyTreatMachineScene
       frame-=1
     end
     @sprites["machine"].flash(Color.new(0,0,0,0),40)
+    # Main Daily Chest Items:
+    # 0 = Common 
+    # 1 = Uncommon
+    # 2 = Rare
+    # 3 = Elite
+    # 4 = Epic
+    # 5 = Legendary
+    # 6 = x2 Legendary
     item=@items[rand(@items.length)]
+    item=[:COMMONDAILYCHEST,:UNCOMMONDAILYCHEST,:RAREDAILYCHEST,:ELITEDAILYCHEST,
+          :EPICDAILYCHEST,:LEGENDARYDAILYCHEST,[:LEGENDARYDAILYCHEST,2] ][item]
     Kernel.pbReceiveItem(item)
     # Random Pokemon Fragment
     item=@rfrag[rand(@rfrag.length)]
     if item>0
       Kernel.pbReceiveItem(:RANDOMPOKEMONFRAGMENT,item)
+    end
+    # Random Mega Stone Fragment
+    item=@rfragMS[rand(@rfragMS.length)]
+    if item>0
+      Kernel.pbReceiveItem(:RANDOMMEGASTONEFRAGMENT,item)
     end
     # Random Remote Box Fragment
     item=@rfragRB[rand(@rfragRB.length)]
@@ -187,7 +182,7 @@ class DailyTreatMachineScene
       Graphics.update
       Input.update
       self.update
-      if Input.trigger?(Input::C)
+      if @machinestarted
         heartscale=false
         pbSetLotteryNumber(1)
         @id=$game_variables[1].to_i
@@ -213,8 +208,8 @@ class DailyTreatMachineScene
           $PokemonGlobal.coins+=coins
         end
         Kernel.pbMessage(_INTL("Load the game tomorrow for your next reward."))
-        $game_variables[DTM_VARIABLES[2]]=[pbGetTimeNow.mon, pbGetTimeNow.day] # @FIXME: Remove when 26H1 gets its final Beta
         pbTimeEventDays(DTM_VARIABLES[1],2) # 2 days, event reactivates when 1 day or less is left
+        @machinestarted=false
         break
       end
     end 

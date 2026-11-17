@@ -676,29 +676,23 @@ class PokemonScreen_Scene
     @viewport=Viewport.new(0,0,Graphics.width,Graphics.height)
     @viewport.z=99999
     @multiselect=multiselect
-    channelvar= QQORECHANNELVARIANT.to_s
-    title=['bg_0_'+channelvar,
-           'bg_beta_'+channelvar,
-           'bg_dev_'+channelvar,
-           'bg_canary_'+channelvar,
-           'bg_internal_'+channelvar,
-           'bg_upgradewizard_'+channelvar][QQORECHANNEL]
-    title=['bg',
-           'bg_beta',
-           'bg_dev',
-           'bg_canary',
-           'bg_internal',
-           'bg_upgradewizard'][QQORECHANNEL] if !pbResolveBitmap(_INTL("Graphics/UI/"+getDarkModeFolder+"/Party/{1}",title))
-    if pbResolveBitmap(_INTL("Graphics/UI/"+getDarkModeFolder+"/Party/{1}",title))
+  channelvar= QQORECHANNELVARIANT.to_s
+  title=['bg_0_'+channelvar,
+         'bg_1_'+channelvar,
+         'bg_2_'+channelvar,
+         'bg_3_'+channelvar,
+         'bg_4_'+channelvar,
+         'bg_5_'+channelvar][QQORECHANNEL]
+  title=['bg',
+         'bg_1',
+         'bg_2',
+         'bg_3',
+         'bg_4',
+         'bg_5'][QQORECHANNEL]  if !pbResolveBitmap(_INTL("Graphics/UI/"+getDarkModeFolder+"/Party/{1}",title)) || (QQORECHANNELVARIANT < 1)
+  title='bg' if !pbResolveBitmap(_INTL("Graphics/UI/"+getDarkModeFolder+"/Party/{1}",title))
+  title='bg_empty' if !pbResolveBitmap(_INTL("Graphics/UI/"+getDarkModeFolder+"/Party/{1}",title))
       addBackgroundOrColoredPlane(@sprites,"partybg",getDarkModeFolder+"/Party/"+title,
          Color.new(12,12,12),@viewport)
-    elsif pbResolveBitmap(sprintf("Graphics/UI/"+getDarkModeFolder+"/Party/bg"))
-      addBackgroundOrColoredPlane(@sprites,"partybg",getDarkModeFolder+"/Party/bg",
-         Color.new(12,12,12),@viewport)
-    else  # Hotfixing Prograda
-      addBackgroundOrColoredPlane(@sprites,"partybg",getDarkModeFolder+"/Party/bg_empty",
-         Color.new(12,12,12),@viewport)
-    end
       addBackgroundOrColoredPlane(@sprites,"partybg_title",getDarkModeFolder+"/party_bg",
          Color.new(12,12,12),@viewport)
     @sprites["header"]=Window_UnformattedTextPokemon.newWithSize(_INTL("Party Pokémon"),

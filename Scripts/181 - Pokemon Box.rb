@@ -1,6 +1,12 @@
 #===============================================================================
 # Pokémon Box Global Metadata
 #===============================================================================
+class PokemonSystem
+  def pokebox_iconNames
+    return [_INTL("Pokémon"),_INTL("Colors")]
+  end
+end
+
 class PokemonGlobalMetadata
   attr_accessor :pokebox
   
@@ -20,7 +26,15 @@ class PokemonGlobalMetadata
     initPokeBox
     return @pokebox
   end
-  
+
+  def pokebox_icons
+    return [
+            [["magnemite","shellder","pikachu","psyduck"],
+             ["voltorb","staryu","pikachu","slowpoke"]],
+            ["redcircle","yellowsquare","bluetriangle","greenpentagon"]
+    ]
+  end
+    
   def changePokebox(num,val)
     initPokeBox
     if !$PokemonBoxUpdate && !$inbattle
@@ -503,12 +517,8 @@ class PokemonBoxScene
     # Bonus Milestone 4
     ["M Bonus",[[:SACREDASH,3],:MASTERBALL,[:SUPERBOOSTER,3],[:BOTANICSMOKE,3],[:VICIOUSCANDY,3],:PEARLSTRING],3,40,4,[:ENIGMABERRY,2]]
     ]
-    @icons=[
-            [["magnemite","shellder","pikachu","psyduck"],
-             ["voltorb","staryu","pikachu","slowpoke"]],
-            ["redcircle","yellowsquare","bluetriangle","greenpentagon"]
-    ]
-    @iconNames=[_INTL("Pokémon"),_INTL("Colors")]
+    @icons=$PokemonGlobal.pokebox_icons
+    @iconNames=$PokemonSystem.pokebox_iconNames
     @milestoneDay=pbIsMillenialDate?
   end
 

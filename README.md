@@ -7,8 +7,8 @@ When XP Q.Qore is being under development, this repo must be open so as to port 
 
 This work is done separately from Pokémon Essentials and is not tied to a specific Qora Qore Channel
 
-This Reposistory cannot, however give any download links for XP Q.Qore for obvious reasons (The current Stable Release is the 26H1 ones based on Ι3Ψ)
+This Reposistory cannot, however give any download links for XP Q.Qore for obvious reasons (The current Stable Release is the 26H2 ones based on Ι4Ε)
 
-Currently based upon build 13259.1
+Currently based upon build 13624.64
 
 Contents from this repo are free to use with credits
